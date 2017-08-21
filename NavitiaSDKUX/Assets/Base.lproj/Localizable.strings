@@ -1,0 +1,11 @@
+/* Navigation bar title for journey solutions screen */
+"controller.JourneySolutionsController.title" = "Solutions list";
+
+/* With 16 min walking (712m) */
+"component.JourneyWalkingAbstractComponent.With" = "With";
+
+/* With 16 min walking (712m) */
+"component.JourneyWalkingAbstractComponent.walking" = "walking";
+
+/* Datetime represent label */
+"component.DateTimeButtonComponent.representation.departure" = "Departure: ";

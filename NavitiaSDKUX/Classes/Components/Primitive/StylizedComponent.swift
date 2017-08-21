@@ -12,6 +12,16 @@ import Render
 class StylizedComponent<S: StateType>: ComponentView<S> {
     var styles: Dictionary<String, Any> = [:]
     var uniqueKey: String = "<empty!>"
+    var bundle: Bundle = Bundle.main
+    
+    public required init() {
+        super.init()
+        bundle = Bundle.init(for: self.classForCoder)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     func applyStyles(view: UIView, layout: YGLayout) {
         for (prop, value) in styles {
