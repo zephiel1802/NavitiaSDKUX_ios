@@ -18,7 +18,8 @@ public struct JourneySolutionsScreenState: StateType {
     var destinationId: String = ""
     var journeys: Journeys? = nil
     var datetime: Date = Date()
-    var loading: Bool = false
+    var loaded: Bool = false
+    var error: Bool = false
 }
 
 open class JourneySolutionsScreen: ComponentView<JourneySolutionsScreenState> {
@@ -36,7 +37,7 @@ open class JourneySolutionsScreen: ComponentView<JourneySolutionsScreenState> {
     }
     
     override open func render() -> NodeType {
-        if !state.originId.isEmpty && !state.destinationId.isEmpty && !state.loading && state.journeys == nil {
+        if !state.loaded {
             self.retrieveJourneys(originId: self.state.originId, destinationId: self.state.destinationId)
         }
         
@@ -47,6 +48,15 @@ open class JourneySolutionsScreen: ComponentView<JourneySolutionsScreenState> {
             journeyComponents = Array(0..<4).map { _ in
                 ComponentNode(JourneySolutionLoadingComponent(), in: self)
             }
+        }
+        
+        var resultComponents: [NodeType] = []
+        if state.error {
+            resultComponents = [ComponentNode(AlertComponent(), in: self, props: {(component, hasKey: Bool) in
+                component.text = "Aucun itinéraire trouvé"
+            })]
+        } else {
+            resultComponents = journeyComponents
         }
         
         return ComponentNode(ScreenComponent(), in: self).add(children: [
@@ -63,16 +73,12 @@ open class JourneySolutionsScreen: ComponentView<JourneySolutionsScreenState> {
  
                 ComponentNode(ListViewComponent(), in: self, props: {(component, hasKey: Bool) in
                     component.styles = self.listStyles
-                }).add(children: journeyComponents)
+                }).add(children: resultComponents)
             ])
         ])
     }
     
     func retrieveJourneys(originId: String, destinationId: String) {
-        self.setState{ state in
-            state.loading = true
-        }
-        
         navitiaSDK?.journeysApi.newJourneysRequestBuilder()
             .withFrom(originId)
             .withTo(destinationId)
@@ -80,11 +86,15 @@ open class JourneySolutionsScreen: ComponentView<JourneySolutionsScreenState> {
             .get(completion: { journeys, error in
                 if error != nil {
                     NSLog(error.debugDescription)
+                    self.setState { state in
+                        state.error = true
+                    }
                 } else {
                     // Journeys successfuly fetched, we store them in the screen state
                     // This will re-render the screen component (render method called)
                     self.setState { state in
                         state.journeys = journeys
+                        state.error = false
                     }
                     
                     if (journeys?.journeys?.isEmpty == false) {
@@ -93,7 +103,7 @@ open class JourneySolutionsScreen: ComponentView<JourneySolutionsScreenState> {
                 }
                 
                 self.setState { state in
-                    state.loading = false
+                    state.loaded = true
                 }
             })
     }
@@ -129,10 +139,8 @@ open class JourneySolutionsScreen: ComponentView<JourneySolutionsScreenState> {
         }
     }
     
-    let containerStyles = [
+    let containerStyles: [String: Any] = [
         "backgroundColor": config.colors.tertiary
     ]
-    let listStyles = [
-        "backgroundColor": config.colors.lighterGray
-    ]
+    let listStyles: [String: Any] = [:]
 }

@@ -20,7 +20,7 @@ open class ViewController: UIViewController {
         super.viewDidLoad()
         bundle = Bundle.init(for: self.classForCoder)
         UIFont.registerFontWithFilenameString(filenameString: "SDKIcons.ttf", bundle: bundle)
-        view.backgroundColor = config.colors.tertiary
+        view.backgroundColor = config.colors.lighterGray
         title = String(describing: type(of: self)).replacingOccurrences(of: "ViewController", with: "")
     }
 }
