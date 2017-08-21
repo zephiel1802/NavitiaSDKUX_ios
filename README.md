@@ -20,10 +20,6 @@ it, simply add the following line to your Podfile:
 pod "NavitiaSDKUX"
 ```
 
-## Author
-
-ooga, johan.rouve@gmail.com
-
 ## License
 
 NavitiaSDKUX is available under the MIT license. See the LICENSE file for more info.

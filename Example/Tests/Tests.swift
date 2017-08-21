@@ -1,6 +1,5 @@
 import UIKit
 import XCTest
-import NavitiaSDKUX
 
 class Tests: XCTestCase {
     

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import NavitiaSDKUX
 
 class ViewController: UIViewController {
 
@@ -19,6 +20,11 @@ class ViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if  let destination = segue.destination as? JourneySolutionsController {
+            destination.setProps(originId: "2.3665844;48.8465337", destinationId: "2.2979169;48.8848719")
+        }
+    }
 }
 
