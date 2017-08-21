@@ -8,7 +8,7 @@
 
 import UIKit
 
-func getUIColorFromHexadecimal(hex: String) -> UIColor {
+public func getUIColorFromHexadecimal(hex: String) -> UIColor {
     var cString:String = hex.trimmingCharacters(in: .whitespacesAndNewlines).uppercased()
     
     if (cString.hasPrefix("#")) {
@@ -28,4 +28,18 @@ func getUIColorFromHexadecimal(hex: String) -> UIColor {
         blue: CGFloat(rgbValue & 0x0000FF) / 255.0,
         alpha: CGFloat(1.0)
     )
+}
+
+public func contrastColor(color: UIColor, brightColor: UIColor = UIColor.white, darkColor: UIColor = UIColor.black) -> UIColor {
+    var r = CGFloat(0)
+    var g = CGFloat(0)
+    var b = CGFloat(0)
+    var a = CGFloat(0)
+    
+    color.getRed(&r, green: &g, blue: &b, alpha: &a)
+    
+    // Counting the perceptive luminance - human eye favors green color...
+    let luminance = 1 - ((0.299 * r) + (0.587 * g) + (0.114 * b))
+    
+    return luminance < 0.5 ? darkColor : brightColor
 }
