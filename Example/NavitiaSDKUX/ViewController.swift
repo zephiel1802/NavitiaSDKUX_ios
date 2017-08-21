@@ -13,7 +13,19 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        
+        // Override Navitia SDK UX Config
+        NavitiaSDKUXConfig.colors.tertiary = getUIColorFromHexadecimal(hex: "5f8ee0")
+        NavitiaSDKUXConfig.metrics.radius = 0
+        
+        // Set navbar text color
+        let textColor = contrastColor(color: NavitiaSDKUXConfig.colors.tertiary)
+        navigationController?.navigationBar.tintColor = textColor
+        navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: textColor]
+        
+        // Totally transparent navbar
+        navigationController?.navigationBar.shadowImage = UIImage()
+        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
     }
 
     override func didReceiveMemoryWarning() {

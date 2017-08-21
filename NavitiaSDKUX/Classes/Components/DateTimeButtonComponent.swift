@@ -41,7 +41,7 @@ class DateTimeButtonComponent: ButtonComponent {
         "flexDirection": YGFlexDirection.row,
     ]
     let textStyles: [String: Any] = [
-        "color": config.colors.white,
+        "color": config.colors.tertiaryText,
         "fontWeight": "bold",
     ]
     let viewStyles: [String: Any] = [
@@ -49,7 +49,7 @@ class DateTimeButtonComponent: ButtonComponent {
         "flexGrow": 1,
     ]
     let iconStyles: [String: Any] = [
-        "color": config.colors.white,
+        "color": config.colors.tertiaryText,
         "fontSize": 16,
     ]
 }
