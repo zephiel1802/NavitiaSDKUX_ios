@@ -15,7 +15,6 @@ class ViewComponent: StylizedComponent<NilState> {
             self.applyStyles(view: view, layout: layout)
             for (prop, value) in self.styles {
                 switch prop {
-                case "borderColor": view.layer.borderColor = (value as! CGColor); break
                 default: break
                 }
             }
