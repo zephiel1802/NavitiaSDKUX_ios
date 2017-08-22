@@ -28,7 +28,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		0424FD4E1F4B140F007CFE23 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Main.strings; sourceTree = "<group>"; };
 		05297159EE7327B237994614 /* Pods-NavitiaSDKUX_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NavitiaSDKUX_Tests.release.xcconfig"; path = "Pods/Target Support Files/Pods-NavitiaSDKUX_Tests/Pods-NavitiaSDKUX_Tests.release.xcconfig"; sourceTree = "<group>"; };
 		30D5E0BA5C6E9B805D0D9FB0 /* Pods_NavitiaSDKUX_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_NavitiaSDKUX_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		42984875166A2DC688140A75 /* Pods_NavitiaSDKUX_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_NavitiaSDKUX_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -44,6 +43,7 @@
 		607FACEB1AFB9204008FA782 /* Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests.swift; sourceTree = "<group>"; };
 		7F13B993E182F4C7419708AF /* Pods-NavitiaSDKUX_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NavitiaSDKUX_Example.debug.xcconfig"; path = "Pods/Target Support Files/Pods-NavitiaSDKUX_Example/Pods-NavitiaSDKUX_Example.debug.xcconfig"; sourceTree = "<group>"; };
 		7F89B3D0D90DBB421CBC137E /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
+		A118EB271F4C171500C09600 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Main.strings; sourceTree = "<group>"; };
 		A5DCE6BD9CB2DCB2407F066D /* Pods-NavitiaSDKUX_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NavitiaSDKUX_Tests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-NavitiaSDKUX_Tests/Pods-NavitiaSDKUX_Tests.debug.xcconfig"; sourceTree = "<group>"; };
 		E289BE7BB717B67FEA526EB0 /* Pods-NavitiaSDKUX_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NavitiaSDKUX_Example.release.xcconfig"; path = "Pods/Target Support Files/Pods-NavitiaSDKUX_Example/Pods-NavitiaSDKUX_Example.release.xcconfig"; sourceTree = "<group>"; };
 		E64C85D36096454B526230AC /* NavitiaSDKUX.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = NavitiaSDKUX.podspec; path = ../NavitiaSDKUX.podspec; sourceTree = "<group>"; };
@@ -232,6 +232,7 @@
 			knownRegions = (
 				en,
 				Base,
+				fr,
 			);
 			mainGroup = 607FACC71AFB9204008FA782;
 			productRefGroup = 607FACD11AFB9204008FA782 /* Products */;
@@ -409,7 +410,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				607FACDA1AFB9204008FA782 /* Base */,
-				0424FD4E1F4B140F007CFE23 /* fr */,
+				A118EB271F4C171500C09600 /* fr */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
