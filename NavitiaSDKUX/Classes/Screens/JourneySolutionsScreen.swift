@@ -71,9 +71,7 @@ open class JourneySolutionsScreen: ComponentView<JourneySolutionsScreenState> {
                     ComponentNode(DateTimeButtonComponent(), in: self)
                 ]),
  
-                ComponentNode(ListViewComponent(), in: self, props: {(component, hasKey: Bool) in
-                    component.styles = self.listStyles
-                }).add(children: resultComponents)
+                ComponentNode(ListViewComponent(), in: self).add(children: resultComponents)
             ])
         ])
     }
@@ -142,5 +140,4 @@ open class JourneySolutionsScreen: ComponentView<JourneySolutionsScreenState> {
     let containerStyles: [String: Any] = [
         "backgroundColor": config.colors.tertiary
     ]
-    let listStyles: [String: Any] = [:]
 }
