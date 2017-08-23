@@ -12,3 +12,6 @@
 
 /* Datetime represent label */
 "component.DateTimeButtonComponent.representation.departure" = "Départ : ";
+
+/* No journeys */
+"screen.JourneySolutionsScreen.error" = "Aucun itinéraire trouvé";

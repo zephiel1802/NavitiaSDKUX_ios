@@ -11,7 +11,7 @@ import Render
 
 class ScreenComponent: StylizedComponent<NilState> {
     override func render() -> NodeType {
-        return Node<UIScrollView>() { view, layout, size in
+        return Node<UIView>() { view, layout, size in
             layout.width = size.width
             layout.height = size.height
             self.applyStyles(view: view, layout: layout)

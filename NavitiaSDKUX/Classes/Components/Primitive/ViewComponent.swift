@@ -13,11 +13,6 @@ class ViewComponent: StylizedComponent<NilState> {
     override func render() -> NodeType {
         return Node<UIView>() { view, layout, size in
             self.applyStyles(view: view, layout: layout)
-            for (prop, value) in self.styles {
-                switch prop {
-                default: break
-                }
-            }
         }
     }
 }
