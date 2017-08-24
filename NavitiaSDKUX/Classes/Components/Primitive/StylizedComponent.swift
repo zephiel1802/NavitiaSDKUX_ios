@@ -9,7 +9,7 @@
 import Foundation
 import Render
 
-class StylizedComponent<S: StateType>: ComponentView<S> {
+open class StylizedComponent<S: StateType>: ComponentView<S> {
     var styles: Dictionary<String, Any> = [:]
     var uniqueKey: String = "<empty!>"
     var bundle: Bundle = Bundle.main
@@ -19,7 +19,7 @@ class StylizedComponent<S: StateType>: ComponentView<S> {
         bundle = Bundle.init(for: self.classForCoder)
     }
     
-    required init?(coder aDecoder: NSCoder) {
+    public required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     

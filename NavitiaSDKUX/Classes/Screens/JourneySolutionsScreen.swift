@@ -22,8 +22,9 @@ public struct JourneySolutionsScreenState: StateType {
     var error: Bool = false
 }
 
-open class JourneySolutionsScreen: ComponentView<JourneySolutionsScreenState> {
+open class JourneySolutionsScreen: StylizedComponent<JourneySolutionsScreenState> {
     var navitiaSDK: NavitiaSDK? = nil
+    var navigationController: UINavigationController?
     
     required public init() {
         super.init()
@@ -53,24 +54,26 @@ open class JourneySolutionsScreen: ComponentView<JourneySolutionsScreenState> {
         var resultComponents: [NodeType] = []
         if state.error {
             resultComponents = [ComponentNode(AlertComponent(), in: self, props: {(component, hasKey: Bool) in
-                component.text = "Aucun itinéraire trouvé"
+                component.text = NSLocalizedString("screen.JourneySolutionsScreen.error", bundle: self.bundle, comment: "No journeys")
             })]
         } else {
             resultComponents = journeyComponents
         }
         
         return ComponentNode(ScreenComponent(), in: self).add(children: [
-            ComponentNode(ViewComponent(), in: self).add(children: [
-                ComponentNode(ContainerComponent(), in: self, props: {(component, hasKey: Bool) in
-                    component.styles = self.containerStyles
-                }).add(children: [
+            ComponentNode(ScreenHeaderComponent(), in: self, props: { (component, hasKey: Bool) in
+                component.navigationController = self.navigationController
+                component.styles = self.headerStyles
+            }).add(children: [
+                ComponentNode(ContainerComponent(), in: self).add(children: [
                     ComponentNode(JourneyFormComponent(), in: self, props: {(component, hasKey: Bool) in
                         component.origin = self.state.origin.isEmpty ? self.state.originId : self.state.origin
                         component.destination = self.state.destination.isEmpty ? self.state.destinationId : self.state.destination
                     }),
                     ComponentNode(DateTimeButtonComponent(), in: self)
-                ]),
- 
+                ])
+            ]),
+            ComponentNode(ScrollViewComponent(), in: self).add(children: [
                 ComponentNode(ListViewComponent(), in: self).add(children: resultComponents)
             ])
         ])
@@ -137,7 +140,7 @@ open class JourneySolutionsScreen: ComponentView<JourneySolutionsScreenState> {
         }
     }
     
-    let containerStyles: [String: Any] = [
+    let headerStyles: [String: Any] = [
         "backgroundColor": config.colors.tertiary
     ]
 }

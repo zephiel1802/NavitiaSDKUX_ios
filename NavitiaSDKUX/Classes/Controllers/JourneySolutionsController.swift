@@ -27,7 +27,9 @@ open class JourneySolutionsController: ViewController, ComponentController {
         renderComponent()
     }
     
-    public func configureComponentProps() {}
+    public func configureComponentProps() {
+        component.navigationController = navigationController
+    }
     
     open func setProps(originId: String, destinationId: String, origin: String? = nil, destination: String? = nil) {
         component.state.originId = originId
