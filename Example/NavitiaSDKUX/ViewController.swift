@@ -15,7 +15,7 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         
         // Override Navitia SDK UX Config
-        NavitiaSDKUXConfig.colors.tertiary = getUIColorFromHexadecimal(hex: "5f8ee0")
+        NavitiaSDKUXConfig.colors.tertiary = getUIColorFromHexadecimal(hex: "37ab2e")
         NavitiaSDKUXConfig.metrics.radius = 0
         
         // Set navbar text color

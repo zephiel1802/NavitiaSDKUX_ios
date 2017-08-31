@@ -14,7 +14,7 @@ open class JourneySolutionsController: ViewController, ComponentController {
     var origin: String?
     var destinationId: String?
     var destination: String?
-    
+
     public var component = JourneySolutionsScreen()
     
     override open func viewDidLoad() {
@@ -29,6 +29,7 @@ open class JourneySolutionsController: ViewController, ComponentController {
     
     public func configureComponentProps() {
         component.navigationController = navigationController
+        component.masterViewController = self
     }
     
     open func setProps(originId: String, destinationId: String, origin: String? = nil, destination: String? = nil) {

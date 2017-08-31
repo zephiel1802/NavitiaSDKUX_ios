@@ -11,15 +11,19 @@ import Render
 import NavitiaSDK
 
 class JourneySolutionComponent: ViewComponent {
+    var masterViewController: ViewController?
+    var navigationController: UINavigationController?
     var journey: Journey = Journey()
     
     override func render() -> NodeType {
         let computedStyles = mergeDictionaries(dict1: listStyles, dict2: self.styles)
         let walkingDistance = getWalkingDistance(sections: journey.sections!)
         
-        return ComponentNode(ListRowComponent(), in: self, props: {(component, hasKey: Bool) in
+        var container = ComponentNode(ListRowComponent(), in: self, props: { (component, hasKey: Bool) in
             component.styles = computedStyles
-        }).add(children: [
+        })
+
+        container.add(children: [
             ComponentNode(JourneySolutionRowComponent(), in: self, props: {(component, hasKey: Bool) in
                 component.departureTime = self.journey.departureDateTime!
                 component.arrivalTime = self.journey.arrivalDateTime!
@@ -29,6 +33,20 @@ class JourneySolutionComponent: ViewComponent {
                 component.sections = self.journey.sections!
             })
         ])
+        
+        var actionContainer = Node<UIView> { [weak self] view, layout, size in
+            view.onTap { [weak self] _ in
+                var journeySolutionRoadBookController = JourneySolutionRoadBookController()
+                journeySolutionRoadBookController.journey = self?.journey
+                if (self?.navigationController != nil) {
+                    self?.navigationController?.pushViewController(journeySolutionRoadBookController, animated: true)
+                } else if (self?.masterViewController != nil) {
+                    self?.masterViewController?.present(journeySolutionRoadBookController, animated: true)
+                }
+            }
+        }
+        
+        return actionContainer.add(child: container)
     }
     
     func getWalkingDistance(sections: [Section]) -> Int32 {

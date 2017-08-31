@@ -23,6 +23,7 @@ public struct JourneySolutionsScreenState: StateType {
 }
 
 open class JourneySolutionsScreen: StylizedComponent<JourneySolutionsScreenState> {
+    var masterViewController: ViewController?
     var navitiaSDK: NavitiaSDK? = nil
     var navigationController: UINavigationController?
     
@@ -115,6 +116,8 @@ open class JourneySolutionsScreen: StylizedComponent<JourneySolutionsScreenState
         for journey in journeys.journeys! {
             results.append(ComponentNode(JourneySolutionComponent(), in: self, props: {(component, hasKey: Bool) in
                 component.journey = journey
+                component.masterViewController = self.masterViewController
+                component.navigationController = self.navigationController
             }))
             index += 1
         }
