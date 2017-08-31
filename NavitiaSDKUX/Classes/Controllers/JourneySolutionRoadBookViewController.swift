@@ -9,7 +9,7 @@ open class JourneySolutionRoadmapController: ViewController, ComponentController
 
     override open func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        self.title = NSLocalizedString("controller.JourneySolutionRoadBookViewController.title", bundle: bundle, comment: "Navigation bar title for journey solutions screen")
         addComponentToViewControllerHierarchy()
     }
 
