@@ -20,14 +20,14 @@ class JourneyFormComponent: ViewComponent {
             component.styles = computedStyles
         }).add(children: [
             ComponentNode(AutocompleteInputComponent(), in: self, props: {(component, hasKey: Bool) in
-                component.icon = "origin"
+                component.icon = "location-pin"
                 component.iconColor = config.colors.origin
                 component.placeName = self.origin
                 
             }),
             ComponentNode(SeparatorComponent(), in: self),
             ComponentNode(AutocompleteInputComponent(), in: self, props: {(component, hasKey: Bool) in
-                component.icon = "destination"
+                component.icon = "location-pin"
                 component.iconColor = config.colors.destination
                 component.placeName = self.destination
             })
