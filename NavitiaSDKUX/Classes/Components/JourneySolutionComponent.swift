@@ -11,7 +11,6 @@ import Render
 import NavitiaSDK
 
 class JourneySolutionComponent: ViewComponent {
-    var masterViewController: ViewController?
     var navigationController: UINavigationController?
     var journey: Journey = Journey()
     
@@ -40,8 +39,6 @@ class JourneySolutionComponent: ViewComponent {
                 journeySolutionRoadmapController.journey = self?.journey
                 if (self?.navigationController != nil) {
                     self?.navigationController?.pushViewController(journeySolutionRoadmapController, animated: true)
-                } else if (self?.masterViewController != nil) {
-                    self?.masterViewController?.present(journeySolutionRoadmapController, animated: true)
                 }
             }
         }

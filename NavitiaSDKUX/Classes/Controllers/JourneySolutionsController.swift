@@ -29,7 +29,6 @@ open class JourneySolutionsController: ViewController, ComponentController {
     
     public func configureComponentProps() {
         component.navigationController = navigationController
-        component.masterViewController = self
     }
     
     open func setProps(originId: String, destinationId: String, origin: String? = nil, destination: String? = nil) {
