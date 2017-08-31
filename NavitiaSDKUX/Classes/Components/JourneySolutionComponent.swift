@@ -36,12 +36,12 @@ class JourneySolutionComponent: ViewComponent {
         
         var actionContainer = Node<UIView> { [weak self] view, layout, size in
             view.onTap { [weak self] _ in
-                var journeySolutionRoadBookController = JourneySolutionRoadBookController()
-                journeySolutionRoadBookController.journey = self?.journey
+                var journeySolutionRoadmapController = JourneySolutionRoadmapController()
+                journeySolutionRoadmapController.journey = self?.journey
                 if (self?.navigationController != nil) {
-                    self?.navigationController?.pushViewController(journeySolutionRoadBookController, animated: true)
+                    self?.navigationController?.pushViewController(journeySolutionRoadmapController, animated: true)
                 } else if (self?.masterViewController != nil) {
-                    self?.masterViewController?.present(journeySolutionRoadBookController, animated: true)
+                    self?.masterViewController?.present(journeySolutionRoadmapController, animated: true)
                 }
             }
         }

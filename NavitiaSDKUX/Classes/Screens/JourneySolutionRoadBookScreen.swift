@@ -2,12 +2,12 @@ import Foundation
 import Render
 import NavitiaSDK
 
-public struct JourneySolutionRoadBookState: StateType {
+public struct JourneySolutionRoadmapState: StateType {
     public init() { }
     var journey: Journey?
 }
 
-open class JourneySolutionRoadBookScreen: ComponentView<JourneySolutionRoadBookState> {
+open class JourneySolutionRoadmapScreen: ComponentView<JourneySolutionRoadmapState> {
     override open func render() -> NodeType {
         let screenContainer = ComponentNode(ScreenComponent(), in: self)
 
@@ -22,11 +22,8 @@ open class JourneySolutionRoadBookScreen: ComponentView<JourneySolutionRoadBookS
         screenContainer.add(children: [scrollViewComponentContainer])
 
         for section:Section in self.state.journey!.sections! {
-            scrollViewComponentContainer.add(children: [ComponentNode(LabelComponent(), in: self, props: {(component: LabelComponent, hasKey: Bool) in
-                component.text = section.from!.name!
-            })])
-            scrollViewComponentContainer.add(children: [ComponentNode(LabelComponent(), in: self, props: {(component: LabelComponent, hasKey: Bool) in
-                component.text = section.to!.name!
+            scrollViewComponentContainer.add(children: [ComponentNode(JourneyRoadmapSectionComponent(), in: self, props: {(component: JourneyRoadmapSectionComponent, hasKey: Bool) in
+                component.section = section
             })])
         }
 

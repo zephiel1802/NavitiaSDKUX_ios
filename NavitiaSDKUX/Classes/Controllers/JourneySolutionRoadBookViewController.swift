@@ -2,10 +2,10 @@ import Render
 import UIKit
 import NavitiaSDK
 
-open class JourneySolutionRoadBookController: ViewController, ComponentController {
+open class JourneySolutionRoadmapController: ViewController, ComponentController {
     var journey: Journey?
 
-    public var component: JourneySolutionRoadBookScreen = JourneySolutionRoadBookScreen()
+    public var component: JourneySolutionRoadmapScreen = JourneySolutionRoadmapScreen()
 
     override open func viewDidLoad() {
         super.viewDidLoad()
