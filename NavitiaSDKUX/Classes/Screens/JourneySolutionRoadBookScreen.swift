@@ -18,11 +18,13 @@ open class JourneySolutionRoadmapScreen: ComponentView<JourneySolutionRoadmapSta
             component.journey = self.state.journey!
         })])
 
-        let scrollViewComponentContainer = ComponentNode(ScrollViewComponent(), in: self)
-        screenContainer.add(children: [scrollViewComponentContainer])
+        let sectionsContainer = ComponentNode(ScrollViewComponent(), in: self).add(children: [
+            ComponentNode(ListViewComponent(), in: self)
+        ])
+        screenContainer.add(children: [sectionsContainer])
 
         for section:Section in self.state.journey!.sections! {
-            scrollViewComponentContainer.add(children: [ComponentNode(JourneyRoadmapSectionComponent(), in: self, props: {(component: JourneyRoadmapSectionComponent, hasKey: Bool) in
+            sectionsContainer.add(children: [ComponentNode(JourneyRoadmapSectionComponent(), in: self, props: {(component: JourneyRoadmapSectionComponent, hasKey: Bool) in
                 component.section = section
             })])
         }
