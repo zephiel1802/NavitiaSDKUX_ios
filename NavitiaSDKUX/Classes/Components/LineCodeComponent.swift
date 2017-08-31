@@ -10,16 +10,17 @@ import Render
 
 class LineCodeComponent: ViewComponent {
     var code: String = ""
-    var color: UIColor = UIColor()
+    var lineBackgroundColor: UIColor = UIColor()
+    var lineTextColor: UIColor = UIColor()
     
     override func render() -> NodeType {
         let codeStyles:[String: Any] = [
-            "backgroundColor": self.color,
+            "backgroundColor": self.lineBackgroundColor,
             "borderRadius": 3,
             "padding": 6,
         ]
         let textStyles: [String: Any] = [
-            "color": config.colors.white,
+            "color": self.lineTextColor,
             "fontSize": 12,
             "fontWeight": "bold",
         ]
