@@ -24,6 +24,7 @@ open class JourneySolutionRoadmapController: ViewController, ComponentController
 
     public func configureComponentProps() {
         component.state.journey = self.journey
+        component.navigationController = navigationController
     }
 }
     
