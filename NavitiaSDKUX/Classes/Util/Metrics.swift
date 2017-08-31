@@ -39,7 +39,11 @@ func durationText(seconds: Int32) -> String {
     } else {
         let hours: Int32 = seconds / 3600
         let remainingMinutes: Int32 = (seconds / 60) - (hours * 60)
-        return String(hours) + "h" + String(remainingMinutes)
+        var minutes: String = String(remainingMinutes)
+        if remainingMinutes < 10 {
+            minutes = "0" + String(remainingMinutes)
+        }
+        return String(hours) + "h" + minutes
     }
 }
 
