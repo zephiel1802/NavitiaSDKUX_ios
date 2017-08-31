@@ -24,3 +24,25 @@ open class ViewController: UIViewController {
         title = String(describing: type(of: self)).replacingOccurrences(of: "ViewController", with: "")
     }
 }
+
+/// Copy of ComponentController
+/// Just override onLayout method but addComponentToViewControllerHierarchy seems to be redeclared
+public extension ComponentController where Self: UIViewController {
+    
+    /// Adds the component to the view hierarchy.
+    public func addComponentToViewControllerHierarchy() {
+        component.onLayoutCallback = { [weak self] duration, component, size in
+            self?.onLayout(duration: duration, component: component, size: size)
+        }
+        if let componentView = component as? UIView {
+            view.addSubview(componentView)
+        }
+        configureComponentProps()
+    }
+    
+    /// By default the component is centered in the view controller main view.
+    /// Overrid this method for a custom layout.
+    public func onLayout(duration: TimeInterval, component: AnyComponentView, size: CGSize) {
+        // component.center = view.center
+    }
+}
