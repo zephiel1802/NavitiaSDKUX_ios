@@ -17,33 +17,28 @@ class JourneySolutionComponent: ViewComponent {
     override func render() -> NodeType {
         let computedStyles = mergeDictionaries(dict1: listStyles, dict2: self.styles)
         let walkingDistance = getWalkingDistance(sections: journey.sections!)
-        
-        var container = ComponentNode(ListRowComponent(), in: self, props: { (component, hasKey: Bool) in
-            component.styles = computedStyles
-        })
 
-        container.add(children: [
-            ComponentNode(JourneySolutionRowComponent(), in: self, props: {(component, hasKey: Bool) in
-                component.departureTime = self.journey.departureDateTime!
-                component.arrivalTime = self.journey.arrivalDateTime!
-                component.totalDuration = self.journey.duration
-                component.walkingDuration = self.journey.durations?.walking
-                component.walkingDistance = walkingDistance
-                component.sections = self.journey.sections!
-            })
-        ])
-        
-        var actionContainer = Node<UIView> { [weak self] view, layout, size in
-            view.onTap { [weak self] _ in
+        return ComponentNode(ActionComponent(), in: self, props: {(component, hasKey: Bool) in
+            component.onTap = { [weak self] _ in
                 var journeySolutionRoadmapController = JourneySolutionRoadmapController()
                 journeySolutionRoadmapController.journey = self?.journey
                 if (self?.navigationController != nil) {
                     self?.navigationController?.pushViewController(journeySolutionRoadmapController, animated: true)
                 }
-            }
-        }
-        
-        return actionContainer.add(child: container)
+            }}).add(children: [
+                ComponentNode(ListRowComponent(), in: self, props: { (component, hasKey: Bool) in
+                    component.styles = computedStyles
+                }).add(children: [
+                    ComponentNode(JourneySolutionRowComponent(), in: self, props: {(component, hasKey: Bool) in
+                        component.departureTime = self.journey.departureDateTime!
+                        component.arrivalTime = self.journey.arrivalDateTime!
+                        component.totalDuration = self.journey.duration
+                        component.walkingDuration = self.journey.durations?.walking
+                        component.walkingDistance = walkingDistance
+                        component.sections = self.journey.sections!
+                    })
+                ])
+            ])
     }
     
     func getWalkingDistance(sections: [Section]) -> Int32 {
