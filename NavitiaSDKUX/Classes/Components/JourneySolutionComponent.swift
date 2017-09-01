@@ -20,7 +20,7 @@ class JourneySolutionComponent: ViewComponent {
 
         return ComponentNode(ActionComponent(), in: self, props: {(component, hasKey: Bool) in
             component.onTap = { [weak self] _ in
-                var journeySolutionRoadmapController = JourneySolutionRoadmapController()
+                let journeySolutionRoadmapController = JourneySolutionRoadmapController()
                 journeySolutionRoadmapController.journey = self?.journey
                 if (self?.navigationController != nil) {
                     self?.navigationController?.pushViewController(journeySolutionRoadmapController, animated: true)
