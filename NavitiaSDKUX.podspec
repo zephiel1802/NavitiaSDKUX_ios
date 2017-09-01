@@ -25,6 +25,6 @@ An awesome framework to offer cool transport stuff to your users
   s.source_files = 'NavitiaSDKUX/Classes/**/*'
   s.resources = 'NavitiaSDKUX/Assets/**/*'
 
-  s.dependency 'Render', '4.9'
+  s.dependency 'Render', '~> 4.9'
   s.dependency 'NavitiaSDK', '0.2.0'
 end
