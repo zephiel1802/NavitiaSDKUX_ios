@@ -13,25 +13,36 @@ open class JourneySolutionRoadmapScreen: ComponentView<JourneySolutionRoadmapSta
     var navigationController: UINavigationController?
 
     override open func render() -> NodeType {
-        return ComponentNode(ScreenComponent(), in: self)
-            .add(children: [ComponentNode(ScreenHeaderComponent(), in: self, props: { (component, hasKey: Bool) in
+        return ComponentNode(ScreenComponent(), in: self).add(children: [
+            ComponentNode(ScreenHeaderComponent(), in: self, props: { (component, hasKey: Bool) in
+                component.navigationController = self.navigationController
                 component.styles = self.headerStyles
-            })])
-            .add(children: [ComponentNode(JourneySolutionComponent(), in: self, props: { (component: JourneySolutionComponent, hasKey: Bool) in
-                component.journey = self.state.journey!
-            })])
-            .add(children: [ComponentNode(ScrollViewComponent(), in: self)
-                .add(children: [ComponentNode(ListViewComponent(), in: self)
-                    .add(children: self.state.journey!.sections!.map({ (section: Section) -> NodeType in
-                        return ComponentNode(JourneyRoadmapSectionComponent(), in: self, props: { (component: JourneyRoadmapSectionComponent, hasKey: Bool) in
+            }),
+            ComponentNode(ContainerComponent(), in: self, props: { (component, hasKey: Bool) in
+                component.styles = self.summaryStyles
+            }).add(children: [
+                ComponentNode(JourneySolutionComponent(), in: self, props: { (component, hasKey: Bool) in
+                    component.journey = self.state.journey!
+                })
+                ]),
+            ComponentNode(ScrollViewComponent(), in: self).add(children: [
+                ComponentNode(ListViewComponent(), in: self).add(children:
+                    self.state.journey!.sections!.map({ (section: Section) -> NodeType in
+                        return ComponentNode(JourneyRoadmapSectionComponent(), in: self, props: { (component, hasKey: Bool) in
                             component.section = section
                         })
-                    }))
-                ])
+                    })
+                )
             ])
+        ])
     }
-
+    
     let headerStyles: [String: Any] = [
-        "paddingTop": 50
+        "backgroundColor": config.colors.tertiary,
+        "height": 40
+    ]
+    
+    let summaryStyles: [String: Any] = [
+        "marginTop": -40
     ]
 }
