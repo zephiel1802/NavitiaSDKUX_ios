@@ -24,7 +24,7 @@ class ViewController: UIViewController {
         navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: textColor]
         
         // Totally transparent navbar
-        navigationController?.navigationBar.isTranslucent = true	
+        navigationController?.navigationBar.isTranslucent = true
         navigationController?.navigationBar.barTintColor = NavitiaSDKUXConfig.colors.tertiary
         navigationController?.navigationBar.shadowImage = UIImage()
         navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
