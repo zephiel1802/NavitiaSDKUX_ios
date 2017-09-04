@@ -39,20 +39,34 @@ class DurationComponent: ViewComponent {
         
         return ComponentNode(ViewComponent(), in: self, props: {(component, hasKey: Bool) in
             component.styles = computedStyles
-        }).add(children: durationComponents)
+        }).add(children: [
+            ComponentNode(TextComponent(), in: self, props: {(component, hasKey: Bool) in
+                component.text = String(Int(ceil(Double(self.seconds) / 60)))
+                component.styles = self.digitsStyles
+            }),
+            ComponentNode(TextComponent(), in: self, props: {(component, hasKey: Bool) in
+                component.text = "min"
+                component.styles = self.abbrStyles
+            }),
+            ComponentNode(IconComponent(), in: self, props: {(component, hasKey: Bool) in
+                component.name = "arrow-right"
+                component.styles = self.arrowStyles
+            })
+        ])
     }
     
     let digitsStyles: [String: Any] = [
         "color": config.colors.tertiary,
         "fontWeight": "bold",
+        "paddingRight": 4,
     ]
     let abbrStyles: [String: Any] = [
         "color": config.colors.tertiary,
-<<<<<<< HEAD
-        "fontSize": 12,
-        "marginBottom": 4,
-        "marginTop": -4,
-=======
->>>>>>> First step of new style of duration in journeys
+        "paddingRight": 8,
+    ]
+    let arrowStyles: [String: Any] = [
+        "color": config.colors.tertiary,
+        "fontSize": 16,
+        "marginRight": -4,
     ]
 }

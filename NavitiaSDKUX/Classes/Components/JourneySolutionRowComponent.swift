@@ -51,12 +51,15 @@ class JourneySolutionRowComponent: ViewComponent {
     
     let journeyHeaderStyles: [String: Any] = [
         "flexDirection": YGFlexDirection.row,
+        "paddingTop": 16,
+        "paddingBottom": 16,
     ]
     let timesStyles: [String: Any] = [
         "color": config.colors.darkerGray,
         "fontWeight": "bold",
     ]
     let durationStyles: [String: Any] = [
+        "flexDirection": YGFlexDirection.row,
         "alignItems": YGAlign.flexEnd,
         "justifyContent": YGJustify.flexEnd,
         "flexGrow": 1,

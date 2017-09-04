@@ -36,8 +36,7 @@ class JourneySolutionLoadingComponent: ViewComponent {
                         ComponentNode(ViewComponent(), in: self, props: {(component, hasKey: Bool) in
                             component.styles = self.journeyDurationStyles
                         }).add(children: [
-                            ShimComponent(width: 34, height: 26),
-                            ShimComponent(width: 21, height: 12),
+                            ShimComponent(width: 64, height: 17),
                         ])
                     ]),
                     ComponentNode(SeparatorComponent(), in: self),
@@ -91,7 +90,7 @@ class JourneySolutionLoadingComponent: ViewComponent {
         "flexDirection": YGFlexDirection.row,
         "alignItems": YGAlign.center,
         "justifyContent" : YGJustify.spaceBetween,
-        "height": 46,
+        "height": 48,
     ]
     let journeyDurationStyles: [String: Any] = [
         "alignSelf": YGAlign.stretch,
