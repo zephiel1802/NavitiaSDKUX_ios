@@ -15,3 +15,6 @@
 
 /* No journeys */
 "screen.JourneySolutionsScreen.error" = "No journey found";
+
+/* Navigation bar title for journey roadmap screen */
+"controller.JourneySolutionRoadmapViewController.title" = "Journey Roadmap";
