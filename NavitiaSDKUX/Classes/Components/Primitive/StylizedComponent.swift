@@ -81,7 +81,7 @@ open class StylizedComponent<S: StateType>: ComponentView<S> {
             case "minHeight": layout.minHeight = CGFloat(value as! Int); break
             case "maxWidth": layout.maxWidth = CGFloat(value as! Int); break
             case "maxHeight": layout.maxHeight = CGFloat(value as! Int); break
-            case "shadowRadius": view.layer.shadowRadius = value as! CGFloat; break
+            case "shadowRadius": view.layer.shadowRadius = CGFloat(value as! Double); break
             case "shadowOpacity": view.layer.shadowOpacity = Float(value as! Double); break
             case "shadowColor": view.layer.shadowColor = (value as AnyObject).cgColor; break
             case "shadowOffset":

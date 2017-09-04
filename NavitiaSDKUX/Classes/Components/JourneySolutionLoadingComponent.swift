@@ -82,7 +82,7 @@ class JourneySolutionLoadingComponent: ViewComponent {
         "paddingTop": 4,
         "borderRadius": config.metrics.radius,
         "marginBottom": config.metrics.margin,
-        "shadowRadius": CGFloat(2),
+        "shadowRadius": 2.0,
         "shadowOpacity": 0.12,
         "shadowOffset": [0, 0],
         "shadowColor": UIColor.black,
