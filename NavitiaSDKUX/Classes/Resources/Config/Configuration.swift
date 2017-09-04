@@ -33,7 +33,7 @@ public struct Configuration {
             }
         }
         var secondaryText = UIColor.white
-        public var tertiary = UIColor(red:0, green:0.62, blue:0.88, alpha:1.0) {
+        public var tertiary = UIColor(red:0.25, green:0.58, blue:0.56, alpha:1.0) {
             didSet {
                 self.tertiaryText = contrastColor(color: self.tertiary, brightColor: self.brightText, darkColor: self.darkText)
             }

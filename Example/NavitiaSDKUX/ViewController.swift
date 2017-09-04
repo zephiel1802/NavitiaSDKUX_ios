@@ -15,7 +15,11 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         
         // Override Navitia SDK UX Config
+<<<<<<< HEAD
         NavitiaSDKUXConfig.colors.tertiary = getUIColorFromHexadecimal(hex: "37ab2e")
+=======
+        NavitiaSDKUXConfig.colors.tertiary = getUIColorFromHexadecimal(hex: "40958e")
+>>>>>>> First step of new style of duration in journeys
         NavitiaSDKUXConfig.metrics.radius = 0
         
         // Set navbar text color

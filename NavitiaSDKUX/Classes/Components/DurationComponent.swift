@@ -44,13 +44,15 @@ class DurationComponent: ViewComponent {
     
     let digitsStyles: [String: Any] = [
         "color": config.colors.tertiary,
-        "fontSize": 26,
         "fontWeight": "bold",
     ]
     let abbrStyles: [String: Any] = [
         "color": config.colors.tertiary,
+<<<<<<< HEAD
         "fontSize": 12,
         "marginBottom": 4,
         "marginTop": -4,
+=======
+>>>>>>> First step of new style of duration in journeys
     ]
 }
