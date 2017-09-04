@@ -33,26 +33,17 @@ class DurationComponent: ViewComponent {
                 ComponentNode(TextComponent(), in: self, props: {(component, hasKey: Bool) in
                     component.text = "min"
                     component.styles = self.abbrStyles
+                }),
+                ComponentNode(IconComponent(), in: self, props: {(component, hasKey: Bool) in
+                    component.name = "arrow-right"
+                    component.styles = self.arrowStyles
                 })
             ]
         }
         
         return ComponentNode(ViewComponent(), in: self, props: {(component, hasKey: Bool) in
             component.styles = computedStyles
-        }).add(children: [
-            ComponentNode(TextComponent(), in: self, props: {(component, hasKey: Bool) in
-                component.text = String(Int(ceil(Double(self.seconds) / 60)))
-                component.styles = self.digitsStyles
-            }),
-            ComponentNode(TextComponent(), in: self, props: {(component, hasKey: Bool) in
-                component.text = "min"
-                component.styles = self.abbrStyles
-            }),
-            ComponentNode(IconComponent(), in: self, props: {(component, hasKey: Bool) in
-                component.name = "arrow-right"
-                component.styles = self.arrowStyles
-            })
-        ])
+        }).add(children: durationComponents)
     }
     
     let digitsStyles: [String: Any] = [
