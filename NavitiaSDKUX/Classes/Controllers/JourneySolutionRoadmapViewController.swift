@@ -1,5 +1,4 @@
 import Render
-import UIKit
 import NavitiaSDK
 
 open class JourneySolutionRoadmapController: ViewController, ComponentController {
