@@ -38,7 +38,7 @@ class JourneyRoadmapSectionComponent: ViewComponent {
         "paddingBottom": 10,
         "borderRadius": config.metrics.radius,
         "marginBottom": config.metrics.margin,
-        "shadowRadius": 0.2,
+        "shadowRadius": 2.0,
         "shadowOpacity": 0.12,
         "shadowOffset": [0, 0],
         "shadowColor": UIColor.black,
