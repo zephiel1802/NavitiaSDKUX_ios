@@ -29,7 +29,7 @@ open class JourneySolutionsScreen: StylizedComponent<JourneySolutionsScreenState
     required public init() {
         super.init()
                 
-        let navitiaConfig = NavitiaConfiguration(token: "0de19ce5-e0eb-4524-a074-bda3c6894c19")
+        let navitiaConfig = NavitiaConfiguration(token: "")
         self.navitiaSDK = NavitiaSDK(configuration: navitiaConfig)
     }
     
@@ -115,6 +115,7 @@ open class JourneySolutionsScreen: StylizedComponent<JourneySolutionsScreenState
         for journey in journeys.journeys! {
             results.append(ComponentNode(JourneySolutionComponent(), in: self, props: {(component, hasKey: Bool) in
                 component.journey = journey
+                component.navigationController = self.navigationController
             }))
             index += 1
         }

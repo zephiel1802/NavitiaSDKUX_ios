@@ -13,10 +13,9 @@ class ScreenHeaderComponent: StylizedComponent<NilState> {
     var navigationController: UINavigationController?
     
     override func render() -> NodeType {
-        let headerStyles = [
-            "marginTop": self.getMargin(),
-        ]
-        let computedStyles = mergeDictionaries(dict1: headerStyles, dict2: self.styles)
+        var computedStyles = self.styles
+        let initialPaddingTop = (self.styles["paddingTop"] != nil) ? self.styles["paddingTop"] as! Int : 0
+        computedStyles["paddingTop"] = initialPaddingTop + getMargin()
         return ComponentNode(ViewComponent(), in: self, props: {(component, hasKey: Bool) in
             component.styles = computedStyles
         })

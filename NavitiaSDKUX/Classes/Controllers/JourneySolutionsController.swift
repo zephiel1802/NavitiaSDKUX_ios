@@ -14,7 +14,7 @@ open class JourneySolutionsController: ViewController, ComponentController {
     var origin: String?
     var destinationId: String?
     var destination: String?
-    
+
     public var component = JourneySolutionsScreen()
     
     override open func viewDidLoad() {
