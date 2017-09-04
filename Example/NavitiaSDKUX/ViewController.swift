@@ -23,9 +23,11 @@ class ViewController: UIViewController {
         navigationController?.navigationBar.tintColor = textColor
         navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: textColor]
         
-        // Totally opaque navbar
-        navigationController?.navigationBar.isTranslucent = false
+        // Totally transparent navbar
+        navigationController?.navigationBar.isTranslucent = true
         navigationController?.navigationBar.barTintColor = NavitiaSDKUXConfig.colors.tertiary
+        navigationController?.navigationBar.shadowImage = UIImage()
+        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
     }
 
     override func didReceiveMemoryWarning() {
