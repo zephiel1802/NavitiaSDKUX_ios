@@ -23,6 +23,10 @@ class DurationComponent: ViewComponent {
                     component.text = text
                     component.styles = self.digitsStyles
                 }),
+                ComponentNode(IconComponent(), in: self, props: {(component, hasKey: Bool) in
+                    component.name = "arrow-right"
+                    component.styles = self.arrowStyles
+                })
             ]
         } else {
             durationComponents = [
