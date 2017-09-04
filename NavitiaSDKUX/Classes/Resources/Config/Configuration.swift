@@ -33,7 +33,7 @@ public struct Configuration {
             }
         }
         var secondaryText = UIColor.white
-        public var tertiary = UIColor(red:0, green:0.62, blue:0.88, alpha:1.0) {
+        public var tertiary = UIColor(red:0.25, green:0.58, blue:0.56, alpha:1.0) {
             didSet {
                 self.tertiaryText = contrastColor(color: self.tertiary, brightColor: self.brightText, darkColor: self.darkText)
             }
@@ -47,8 +47,8 @@ public struct Configuration {
         let gray = UIColor(red: 0.5, green: 0.5, blue: 0.5, alpha: 1.0)
         let darkGray = UIColor(red:0.25, green:0.25, blue:0.25, alpha:1.0)
         let darkerGray = UIColor(red:0.12, green:0.12, blue:0.12, alpha:1.0)
-        public var origin = UIColor(red:0.59, green:0.75, blue:0.05, alpha:1.0)
-        public var destination = UIColor(red:0.89, green:0.00, blue:0.48, alpha:1.0)
+        public var origin = UIColor(red:0.22, green:0.74, blue:0.43, alpha:1.0)
+        public var destination = UIColor(red:0.95, green:0.63, blue:0.08, alpha:1.0)
     }
     
     let iconFontCodes:[String: String] = [
@@ -77,6 +77,7 @@ public struct Configuration {
         "funicular": "\u{ea18}",
         "geolocation": "\u{ea19}",
         "home": "\u{ea1a}",
+        "location-pin": "\u{ea15}",
         "metro": "\u{ea1b}",
         "notice": "\u{ea1c}",
         "origin": "\u{ea1d}",

@@ -12,7 +12,8 @@ class JourneySectionAbstractComponent: ViewComponent {
     var modeIcon: String = "<unknown>"
     var duration: Int32 = 0
     var lineCode: String? = nil
-    var color: UIColor? = nil
+    var lineBackgroundColor: UIColor? = nil
+    var lineTextColor: UIColor? = nil
     
     override func render() -> NodeType {
         let containerStyles: [String: Any] = [
@@ -33,9 +34,10 @@ class JourneySectionAbstractComponent: ViewComponent {
         if self.lineCode != nil {
             symbolComponents.append(ComponentNode(LineCodeComponent(), in: self, props: {(component, hasKey: Bool) in
                 component.code = self.lineCode!
-                component.color = self.color!
+                component.lineBackgroundColor = self.lineBackgroundColor!
+                component.lineTextColor = self.lineTextColor!
             }))
-            segmentColor = self.color!
+            segmentColor = self.lineBackgroundColor!
         }
         
         return ComponentNode(ViewComponent(), in: self, props: {(component, hasKey: Bool) in
