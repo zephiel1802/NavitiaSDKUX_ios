@@ -36,7 +36,7 @@ open class JourneySolutionRoadmapScreen: ComponentView<JourneySolutionRoadmapSta
             ])
         ])
     }
-    
+
     let headerStyles: [String: Any] = [
         "backgroundColor": config.colors.tertiary,
         "paddingTop": 40
