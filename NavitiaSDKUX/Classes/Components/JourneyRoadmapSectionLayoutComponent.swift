@@ -40,14 +40,12 @@ class JourneyRoadmapSectionLayoutComponent: ViewComponent {
     }
 
     let firstComponentStyles: [String: Any] = [
-        "backgroundColor": config.colors.tertiary,
         "width": 50,
     ]
     let secondComponentStyles: [String: Any] = [
         "width": 20,
     ]
     let thirdComponentStyles: [String: Any] = [
-        "backgroundColor": config.colors.darkGray,
         "flexGrow": 1,
     ]
 

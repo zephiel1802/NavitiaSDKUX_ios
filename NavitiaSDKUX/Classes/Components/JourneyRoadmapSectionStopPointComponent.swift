@@ -12,7 +12,6 @@ class JourneyRoadmapSectionStopPointComponent: ViewComponent {
     var sectionWay: SectionWay?
 
     override func render() -> NodeType {
-        let computedStyles = self.styles
 
         var dateTime: String?
         var stopPointLabel: String?
@@ -26,21 +25,29 @@ class JourneyRoadmapSectionStopPointComponent: ViewComponent {
         }
 
         return ComponentNode(JourneyRoadmapSectionLayoutComponent(), in: self, props: { (component: JourneyRoadmapSectionLayoutComponent, hasKey: Bool) in
-            component.styles = computedStyles
-
             component.firstComponent = ComponentNode(LabelComponent(), in: self, props: { (component, hasKey: Bool) in
+                component.styles = [
+                    "backgroundColor": UIColor.white,
+                    "color": config.colors.darkText,
+                ]
+
                 component.text = timeText(isoString: dateTime!)
             })
             component.secondComponent = ComponentNode(LabelComponent(), in: self, props: { (component, hasKey: Bool) in
                 component.styles = [
                     "backgroundColor": getUIColorFromHexadecimal(hex: (self.section!.displayInformations?.color)!),
                     "fontWeight": "bold",
-                    "color": config.colors.white,
+                    "color": UIColor.white,
                 ]
 
                 component.text = "-"
             })
             component.thirdComponent = ComponentNode(LabelComponent(), in: self, props: { (component, hasKey: Bool) in
+                component.styles = [
+                    "backgroundColor": config.colors.lighterGray,
+                    "color": config.colors.darkText,
+                ]
+
                 component.text = stopPointLabel!
             })
         })
