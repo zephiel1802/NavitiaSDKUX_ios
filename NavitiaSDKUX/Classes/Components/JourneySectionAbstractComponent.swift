@@ -11,15 +11,23 @@ import NavitiaSDK
 
 class JourneySectionAbstractComponent: ViewComponent {
     var section: Section?
-    var duration: Int32 = 0
-    var lineCode: String? = nil
-    var lineBackgroundColor: UIColor? = nil
-    var lineTextColor: UIColor? = nil
-    
+
     override func render() -> NodeType {
+        var duration: Int32 = 0
+        var lineCode: String? = nil
+        var lineBackgroundColor: UIColor? = nil
+        var lineTextColor: UIColor? = nil
+
+        if (self.section!.displayInformations != nil) {
+            lineBackgroundColor = getUIColorFromHexadecimal(hex: (self.section!.displayInformations?.color)!)
+            lineTextColor = getUIColorFromHexadecimal(hex: (self.section!.displayInformations?.textColor)!)
+            lineCode = self.section!.displayInformations?.code
+        }
+        duration = self.section!.duration!
+
         let containerStyles: [String: Any] = [
             "fontSize": 16,
-            "flexGrow": Int(self.duration),
+            "flexGrow": Int(duration),
             "marginEnd": config.metrics.margin,
         ]
         let computedStyles = mergeDictionaries(dict1: containerStyles, dict2: self.styles)
@@ -32,13 +40,13 @@ class JourneySectionAbstractComponent: ViewComponent {
         ]
         var segmentColor: UIColor = config.colors.darkerGray
         
-        if self.lineCode != nil {
+        if (lineCode != nil) {
             symbolComponents.append(ComponentNode(LineCodeComponent(), in: self, props: {(component, hasKey: Bool) in
-                component.code = self.lineCode!
-                component.lineBackgroundColor = self.lineBackgroundColor!
-                component.lineTextColor = self.lineTextColor!
+                component.code = lineCode!
+                component.lineBackgroundColor = lineBackgroundColor!
+                component.lineTextColor = lineTextColor!
             }))
-            segmentColor = self.lineBackgroundColor!
+            segmentColor = lineBackgroundColor!
         }
         
         return ComponentNode(ViewComponent(), in: self, props: {(component, hasKey: Bool) in

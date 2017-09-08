@@ -32,13 +32,6 @@ class JourneyRoadmapFriezeComponent: ViewComponent {
         }.map { section -> NodeType in
             return ComponentNode(JourneySectionAbstractComponent(), in: self, props: { (component, hasKey: Bool) in
                 component.section = section
-
-                if section.displayInformations != nil {
-                    component.lineBackgroundColor = getUIColorFromHexadecimal(hex: (section.displayInformations?.color)!)
-                    component.lineTextColor = getUIColorFromHexadecimal(hex: (section.displayInformations?.textColor)!)
-                    component.lineCode = section.displayInformations?.code
-                }
-                component.duration = section.duration!
             })
         }
     }
@@ -46,6 +39,7 @@ class JourneyRoadmapFriezeComponent: ViewComponent {
     let containerStyles: [String: Any] = [
         "flexDirection": YGFlexDirection.row,
     ]
+
     let modeListStyles: [String: Any] = [
         "paddingTop": config.metrics.marginL,
         "paddingBottom": config.metrics.marginL,
