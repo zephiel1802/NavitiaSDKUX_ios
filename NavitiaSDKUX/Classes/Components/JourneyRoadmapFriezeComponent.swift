@@ -12,24 +12,25 @@ import NavitiaSDK
 
 class JourneyRoadmapFriezeComponent: ViewComponent {
     var sections: [Section] = []
-    
+
     override func render() -> NodeType {
         let computedStyles = mergeDictionaries(dict1: containerStyles, dict2: self.styles)
         let sectionComponents = getSectionComponents(sections: self.sections)
-        return ComponentNode(ViewComponent(), in: self, props: {(component, hasKey: Bool) in
+        return ComponentNode(ViewComponent(), in: self, props: { (component, hasKey: Bool) in
             component.styles = computedStyles
         }).add(children: [
             ComponentNode(SeparatorComponent(), in: self),
-            ComponentNode(ViewComponent(), in: self, props: {(component, hasKey: Bool) in
+            ComponentNode(ViewComponent(), in: self, props: { (component, hasKey: Bool) in
                 component.styles = self.modeListStyles
             }).add(children: sectionComponents)
         ])
     }
-    
+
     func getSectionComponents(sections: [Section]) -> [NodeType] {
-        var results: [NodeType] = []
-        for section in sections {
-            if section.type! == "public_transport" || section.type! == "street_network" {
+        return sections.filter { section in
+            return (section.type! == "public_transport" || section.type! == "street_network")
+        }.map { section -> NodeType in
+            return ComponentNode(JourneySectionAbstractComponent(), in: self, props: { (component, hasKey: Bool) in
                 var lineBackgroundColor: UIColor? = nil
                 var lineTextColor: UIColor? = nil
                 var lineCode: String? = nil
@@ -38,18 +39,16 @@ class JourneyRoadmapFriezeComponent: ViewComponent {
                     lineTextColor = getUIColorFromHexadecimal(hex: (section.displayInformations?.textColor)!)
                     lineCode = section.displayInformations?.code
                 }
-                results.append(ComponentNode(JourneySectionAbstractComponent(), in: self, props: {(component, hasKey: Bool) in
-                    component.section = section
-                    component.duration = section.duration!
-                    component.lineCode = lineCode
-                    component.lineBackgroundColor = lineBackgroundColor
-                    component.lineTextColor = lineTextColor
-                }))
-            }
+
+                component.section = section
+                component.duration = section.duration!
+                component.lineCode = lineCode
+                component.lineBackgroundColor = lineBackgroundColor
+                component.lineTextColor = lineTextColor
+            })
         }
-        return results
     }
-    
+
     let containerStyles: [String: Any] = [
         "flexDirection": YGFlexDirection.row,
     ]
