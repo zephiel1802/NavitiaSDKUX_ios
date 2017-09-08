@@ -30,7 +30,6 @@ class JourneyRoadmapFriezeComponent: ViewComponent {
         var results: [NodeType] = []
         for section in sections {
             if section.type! == "public_transport" || section.type! == "street_network" {
-                let modeIcon: String = getModeIcon(section: section)
                 var lineBackgroundColor: UIColor? = nil
                 var lineTextColor: UIColor? = nil
                 var lineCode: String? = nil
@@ -40,7 +39,7 @@ class JourneyRoadmapFriezeComponent: ViewComponent {
                     lineCode = section.displayInformations?.code
                 }
                 results.append(ComponentNode(JourneySectionAbstractComponent(), in: self, props: {(component, hasKey: Bool) in
-                    component.modeIcon = modeIcon
+                    component.section = section
                     component.duration = section.duration!
                     component.lineCode = lineCode
                     component.lineBackgroundColor = lineBackgroundColor
@@ -49,30 +48,6 @@ class JourneyRoadmapFriezeComponent: ViewComponent {
             }
         }
         return results
-    }
-    
-    func getModeIcon(section: Section) -> String {
-        switch section.type! {
-            case "public_transport": return getPhysicalMode(links: section.links!)
-            case "transfer": return section.transferType!
-            case "waiting": return section.type!
-            default: return section.mode!
-        }
-    }
-    
-    func getPhysicalMode(links: [LinkSchema]) -> String {
-        let id = getPhysicalModeId(links: links)
-        var modeData = id.characters.split(separator: ":").map(String.init)
-        return modeData[1].lowercased()
-    }
-    
-    func getPhysicalModeId(links: [LinkSchema]) -> String {
-        for link in links {
-            if link.type == "physical_mode" {
-                return link.id!
-            }
-        }
-        return "<not_found>"
     }
     
     let containerStyles: [String: Any] = [

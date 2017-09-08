@@ -7,9 +7,10 @@
 //
 
 import Render
+import NavitiaSDK
 
 class JourneySectionAbstractComponent: ViewComponent {
-    var modeIcon: String = "<unknown>"
+    var section: Section?
     var duration: Int32 = 0
     var lineCode: String? = nil
     var lineBackgroundColor: UIColor? = nil
@@ -24,8 +25,8 @@ class JourneySectionAbstractComponent: ViewComponent {
         let computedStyles = mergeDictionaries(dict1: containerStyles, dict2: self.styles)
         
         var symbolComponents: [NodeType] = [
-            ComponentNode(ModeComponent(), in: self, props: {(component, hasKey: Bool) in
-                component.name = self.modeIcon
+            ComponentNode(ModeComponent(), in: self, props: {(component: ModeComponent, hasKey: Bool) in
+                component.section = self.section
                 component.styles = self.modeStyles
             })
         ]

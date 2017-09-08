@@ -18,10 +18,11 @@ class JourneyRoadmapSectionDescriptionComponent: ViewComponent {
                 ]
             }).add(children: [
                 ComponentNode(ModeComponent(), in: self, props: {(component: ModeComponent, hasKey: Bool) in
-                    component.name = self.getModeIcon(section: self.section!)
                     component.styles = [
                         "height": 28,
                     ]
+
+                    component.section = self.section
                 })
             ])
 
@@ -38,29 +39,5 @@ class JourneyRoadmapSectionDescriptionComponent: ViewComponent {
                 })
             ])
         })
-    }
-
-    func getModeIcon(section: Section) -> String {
-        switch section.type! {
-        case "public_transport": return getPhysicalMode(links: section.links!)
-        case "transfer": return section.transferType!
-        case "waiting": return section.type!
-        default: return section.mode!
-        }
-    }
-
-    func getPhysicalMode(links: [LinkSchema]) -> String {
-        let id = getPhysicalModeId(links: links)
-        var modeData = id.characters.split(separator: ":").map(String.init)
-        return modeData[1].lowercased()
-    }
-
-    func getPhysicalModeId(links: [LinkSchema]) -> String {
-        for link in links {
-            if link.type == "physical_mode" {
-                return link.id!
-            }
-        }
-        return "<not_found>"
     }
 }
