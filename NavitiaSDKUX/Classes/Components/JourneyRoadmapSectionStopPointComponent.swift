@@ -46,6 +46,11 @@ class JourneyRoadmapSectionStopPointComponent: ViewComponent {
                 component.styles = [
                     "backgroundColor": config.colors.lighterGray,
                     "color": config.colors.darkText,
+                    "fontWeight": "bold",
+                    "fontSize": 16,
+                    "paddingHorizontal": 5,
+                    "paddingTop": 10,
+                    "paddingBottom": 15,
                 ]
 
                 component.text = stopPointLabel!
