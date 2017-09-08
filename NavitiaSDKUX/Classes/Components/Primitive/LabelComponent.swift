@@ -26,6 +26,8 @@ class LabelComponent: StylizedComponent<NilState> {
         for (prop, value) in styles {
             switch prop {
             case "color": view.textColor = value as! UIColor; break
+            case "numberOfLines": view.numberOfLines = value as! Int; break
+            case "lineBreakMode": view.lineBreakMode = value as! NSLineBreakMode; break
             case "fontSize": setFontSize(size: value as! Int); view.font = self.sharedFont; break
             case "fontWeight": setFontWeight(weight: value as! String); view.font = self.sharedFont; break
             case "fontFamily": setFontFamily(name: value as! String); view.font = self.sharedFont; break

@@ -25,36 +25,54 @@ class JourneyRoadmapSectionStopPointComponent: ViewComponent {
         }
 
         return ComponentNode(JourneyRoadmapSectionLayoutComponent(), in: self, props: { (component: JourneyRoadmapSectionLayoutComponent, hasKey: Bool) in
-            component.firstComponent = ComponentNode(LabelComponent(), in: self, props: { (component, hasKey: Bool) in
+            component.firstComponent = ComponentNode(ViewComponent(), in: self, props: { (component: ViewComponent, hasKey: Bool) in
                 component.styles = [
                     "backgroundColor": UIColor.white,
-                    "color": config.colors.darkText,
+                    "paddingHorizontal": 8,
+                    "paddingTop": 14,
+                    "alignContent": YGAlign.center,
                 ]
 
-                component.text = timeText(isoString: dateTime!)
-            })
-            component.secondComponent = ComponentNode(LabelComponent(), in: self, props: { (component, hasKey: Bool) in
+            }).add(children: [
+                ComponentNode(LabelComponent(), in: self, props: { (component: LabelComponent, hasKey: Bool) in
+                    component.styles = [
+                        "color": config.colors.darkText,
+                        "fontSize": 12,
+                        "numberOfLines": 1,
+                        "lineBreakMode": NSLineBreakMode.byClipping,
+                    ]
+
+                    component.text = timeText(isoString: dateTime!)
+                })
+            ])
+
+            component.secondComponent = ComponentNode(ViewComponent(), in: self, props: { (component: ViewComponent, hasKey: Bool) in
                 component.styles = [
                     "backgroundColor": getUIColorFromHexadecimal(hex: (self.section!.displayInformations?.color)!),
-                    "fontWeight": "bold",
-                    "color": UIColor.white,
+                    "flexGrow": 1,
                 ]
-
-                component.text = "-"
             })
-            component.thirdComponent = ComponentNode(LabelComponent(), in: self, props: { (component, hasKey: Bool) in
+
+            component.thirdComponent = ComponentNode(ViewComponent(), in: self, props: { (component: ViewComponent, hasKey: Bool) in
                 component.styles = [
                     "backgroundColor": config.colors.lighterGray,
-                    "color": config.colors.darkText,
-                    "fontWeight": "bold",
-                    "fontSize": 16,
                     "paddingHorizontal": 5,
-                    "paddingTop": 10,
-                    "paddingBottom": 15,
+                    "paddingTop": 14,
+                    "paddingBottom": 18,
                 ]
+            }).add(children: [
+                ComponentNode(LabelComponent(), in: self, props: { (component: LabelComponent, hasKey: Bool) in
+                    component.styles = [
+                        "color": config.colors.darkText,
+                        "fontWeight": "bold",
+                        "fontSize": 15,
+                        "numberOfLines": 0,
+                        "lineBreakMode": NSLineBreakMode.byWordWrapping,
+                    ]
 
-                component.text = stopPointLabel!
-            })
+                    component.text = stopPointLabel!
+                })
+            ])
         })
     }
 }

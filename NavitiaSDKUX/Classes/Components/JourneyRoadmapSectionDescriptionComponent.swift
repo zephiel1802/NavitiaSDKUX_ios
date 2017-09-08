@@ -15,15 +15,14 @@ class JourneyRoadmapSectionDescriptionComponent: ViewComponent {
                     component.text = "Mode Icon"
                 })
             ])
-            component.secondComponent = ComponentNode(LabelComponent(), in: self, props: { (component, hasKey: Bool) in
+
+            component.secondComponent = ComponentNode(ViewComponent(), in: self, props: { (component: ViewComponent, hasKey: Bool) in
                 component.styles = [
                     "backgroundColor": getUIColorFromHexadecimal(hex: (self.section!.displayInformations?.color)!),
-                    "fontWeight": "bold",
-                    "color": config.colors.white,
+                    "flexGrow": 1,
                 ]
-
-                component.text = "|"
             })
+
             component.thirdComponent = ComponentNode(LabelComponent(), in: self).add(children: [
                 ComponentNode(LabelComponent(), in: self, props: { (component, hasKey: Bool) in
                     component.text = "DESCRIPTION"

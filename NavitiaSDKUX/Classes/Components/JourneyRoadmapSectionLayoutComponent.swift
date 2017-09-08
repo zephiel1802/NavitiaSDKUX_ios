@@ -47,6 +47,7 @@ class JourneyRoadmapSectionLayoutComponent: ViewComponent {
     ]
     let thirdComponentStyles: [String: Any] = [
         "flexGrow": 1,
+        "flexShrink": 1,
     ]
 
     let containerStyles: [String: Any] = [
