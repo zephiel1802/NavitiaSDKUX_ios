@@ -31,20 +31,14 @@ class JourneyRoadmapFriezeComponent: ViewComponent {
             return (section.type! == "public_transport" || section.type! == "street_network")
         }.map { section -> NodeType in
             return ComponentNode(JourneySectionAbstractComponent(), in: self, props: { (component, hasKey: Bool) in
-                var lineBackgroundColor: UIColor? = nil
-                var lineTextColor: UIColor? = nil
-                var lineCode: String? = nil
-                if section.displayInformations != nil {
-                    lineBackgroundColor = getUIColorFromHexadecimal(hex: (section.displayInformations?.color)!)
-                    lineTextColor = getUIColorFromHexadecimal(hex: (section.displayInformations?.textColor)!)
-                    lineCode = section.displayInformations?.code
-                }
-
                 component.section = section
+
+                if section.displayInformations != nil {
+                    component.lineBackgroundColor = getUIColorFromHexadecimal(hex: (section.displayInformations?.color)!)
+                    component.lineTextColor = getUIColorFromHexadecimal(hex: (section.displayInformations?.textColor)!)
+                    component.lineCode = section.displayInformations?.code
+                }
                 component.duration = section.duration!
-                component.lineCode = lineCode
-                component.lineBackgroundColor = lineBackgroundColor
-                component.lineTextColor = lineTextColor
             })
         }
     }
