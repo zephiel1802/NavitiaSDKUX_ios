@@ -28,9 +28,8 @@ class JourneyRoadmapSectionStopPointComponent: ViewComponent {
             component.firstComponent = ComponentNode(ViewComponent(), in: self, props: { (component: ViewComponent, hasKey: Bool) in
                 component.styles = [
                     "backgroundColor": UIColor.white,
-                    "paddingHorizontal": 8,
                     "paddingTop": 14,
-                    "alignContent": YGAlign.center,
+                    "alignItems": YGAlign.center,
                 ]
 
             }).add(children: [
