@@ -8,7 +8,8 @@ class JourneyRoadmapSectionDescriptionComponent: ViewComponent {
 
     override func render() -> NodeType {
         return ComponentNode(ViewComponent(), in: self).add(children: [
-            getDescription()
+            getDescription(),
+            getDetails()
         ])
     }
 
@@ -88,5 +89,60 @@ class JourneyRoadmapSectionDescriptionComponent: ViewComponent {
                 ])
             ])
         })
+    }
+
+    private func getDetails() -> NodeType {
+        return ComponentNode(ViewComponent(), in: self).add(children: [
+            ComponentNode(JourneyRoadmapSectionLayoutComponent(), in: self, props: { (component: JourneyRoadmapSectionLayoutComponent, hasKey: Bool) in
+                component.styles = self.styles
+
+                component.firstComponent = ComponentNode(ViewComponent(), in: self)
+
+                component.secondComponent = ComponentNode(ViewComponent(), in: self, props: { (component: ViewComponent, hasKey: Bool) in
+                    component.styles = [
+                        "backgroundColor": getUIColorFromHexadecimal(hex: (self.section!.displayInformations?.color)!),
+                        "flexGrow": 1,
+                    ]
+                })
+
+                let detailsHeader = [
+                    ComponentNode(IconComponent(), in: self, props: { (component, hasKey: Bool) in
+                        component.name = "arrow-details-up"
+                        component.styles = [
+                            "color": UIColor.lightGray,
+                            "fontSize": 12,
+                            "marginRight": 5,
+                        ]
+                    }),
+                    ComponentNode(LabelComponent(), in: self, props: { (component: LabelComponent, hasKey: Bool) in
+                        component.styles = [
+                            "color": UIColor.lightGray,
+                            "fontSize": 13,
+                            "marginRight": 5,
+                        ]
+
+                        component.text = NSLocalizedString("component.JourneyRoadmapSectionDescriptionComponent.detailsHeaderTitle",
+                                bundle: self.bundle,
+                                comment: "Details header title for journey roadmap section"
+                        )
+                    })
+                ]
+
+                component.thirdComponent = ComponentNode(ViewComponent(), in: self, props: { (component: ViewComponent, hasKey: Bool) in
+                    component.styles = [
+                        "backgroundColor": UIColor.white,
+                        "paddingHorizontal": 5,
+                        "paddingTop": 14,
+                        "paddingBottom": 18,
+                    ]
+                }).add(children: [
+                    ComponentNode(ViewComponent(), in: self, props: { (component: ViewComponent, hasKey: Bool) in
+                        component.styles = [
+                            "flexDirection": YGFlexDirection.row,
+                        ]
+                    }).add(children: detailsHeader)
+                ])
+            })
+        ])
     }
 }
