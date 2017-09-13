@@ -92,20 +92,33 @@ class JourneyRoadmapSectionDescriptionComponent: ViewComponent {
     }
 
     private func getDetails() -> NodeType {
-        return ComponentNode(ViewComponent(), in: self).add(children: [
-            ComponentNode(JourneyRoadmapSectionLayoutComponent(), in: self, props: { (component: JourneyRoadmapSectionLayoutComponent, hasKey: Bool) in
-                component.styles = self.styles
+        var allDetailsRows: [NodeType] = []
 
-                component.firstComponent = ComponentNode(ViewComponent(), in: self)
+        allDetailsRows.append(ComponentNode(JourneyRoadmapSectionLayoutComponent(), in: self, props: { (component: JourneyRoadmapSectionLayoutComponent, hasKey: Bool) in
+            component.styles = self.styles
 
-                component.secondComponent = ComponentNode(ViewComponent(), in: self, props: { (component: ViewComponent, hasKey: Bool) in
+            component.firstComponent = ComponentNode(ViewComponent(), in: self)
+
+            component.secondComponent = ComponentNode(ViewComponent(), in: self, props: { (component: ViewComponent, hasKey: Bool) in
+                component.styles = [
+                    "backgroundColor": getUIColorFromHexadecimal(hex: (self.section!.displayInformations?.color)!),
+                    "flexGrow": 1,
+                ]
+            })
+
+            component.thirdComponent = ComponentNode(ViewComponent(), in: self, props: { (component: ViewComponent, hasKey: Bool) in
+                component.styles = [
+                    "backgroundColor": UIColor.white,
+                    "paddingHorizontal": 5,
+                    "paddingTop": 14,
+                    "paddingBottom": 18,
+                ]
+            }).add(children: [
+                ComponentNode(ViewComponent(), in: self, props: { (component: ViewComponent, hasKey: Bool) in
                     component.styles = [
-                        "backgroundColor": getUIColorFromHexadecimal(hex: (self.section!.displayInformations?.color)!),
-                        "flexGrow": 1,
+                        "flexDirection": YGFlexDirection.row,
                     ]
-                })
-
-                let detailsHeader = [
+                }).add(children: [
                     ComponentNode(IconComponent(), in: self, props: { (component, hasKey: Bool) in
                         component.name = "arrow-details-up"
                         component.styles = [
@@ -126,7 +139,24 @@ class JourneyRoadmapSectionDescriptionComponent: ViewComponent {
                                 comment: "Details header title for journey roadmap section"
                         )
                     })
-                ]
+                ])
+            ])
+        }))
+
+        self.section!.stopDateTimes!.filter { stopDateTime in
+            return stopDateTime != nil
+        }.forEach { stopDateTime in
+            allDetailsRows.append(ComponentNode(JourneyRoadmapSectionLayoutComponent(), in: self, props: { (component: JourneyRoadmapSectionLayoutComponent, hasKey: Bool) in
+                component.styles = self.styles
+
+                component.firstComponent = ComponentNode(ViewComponent(), in: self)
+
+                component.secondComponent = ComponentNode(ViewComponent(), in: self, props: { (component: ViewComponent, hasKey: Bool) in
+                    component.styles = [
+                        "backgroundColor": getUIColorFromHexadecimal(hex: (self.section!.displayInformations?.color)!),
+                        "flexGrow": 1,
+                    ]
+                })
 
                 component.thirdComponent = ComponentNode(ViewComponent(), in: self, props: { (component: ViewComponent, hasKey: Bool) in
                     component.styles = [
@@ -140,9 +170,29 @@ class JourneyRoadmapSectionDescriptionComponent: ViewComponent {
                         component.styles = [
                             "flexDirection": YGFlexDirection.row,
                         ]
-                    }).add(children: detailsHeader)
+                    }).add(children: [
+                        ComponentNode(IconComponent(), in: self, props: { (component, hasKey: Bool) in
+                            component.name = "origin"
+                            component.styles = [
+                                "color": getUIColorFromHexadecimal(hex: (self.section!.displayInformations?.color)!),
+                                "fontSize": 10,
+                                "marginRight": 5,
+                            ]
+                        }),
+                        ComponentNode(LabelComponent(), in: self, props: { (component: LabelComponent, hasKey: Bool) in
+                            component.styles = [
+                                "color": UIColor.darkText,
+                                "fontSize": 12,
+                                "marginRight": 5,
+                            ]
+
+                            component.text = stopDateTime.stopPoint!.label!
+                        })
+                    ])
                 ])
-            })
-        ])
+            }))
+        }
+
+        return ComponentNode(ViewComponent(), in: self).add(children: allDetailsRows)
     }
 }
