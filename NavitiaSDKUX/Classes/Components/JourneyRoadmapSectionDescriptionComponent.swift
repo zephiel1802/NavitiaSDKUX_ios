@@ -3,6 +3,7 @@ import Render
 import NavitiaSDK
 
 class JourneyRoadmapSectionDescriptionComponent: ViewComponent {
+    let modes = Modes()
     var section: Section?
 
     override func render() -> NodeType {
@@ -33,9 +34,21 @@ class JourneyRoadmapSectionDescriptionComponent: ViewComponent {
                 ]
             })
 
-            component.thirdComponent = ComponentNode(LabelComponent(), in: self).add(children: [
-                ComponentNode(LabelComponent(), in: self, props: { (component: LabelComponent, hasKey: Bool) in
-                    component.text = "DESCRIPTION"
+            // TODO : Adding ModeLabel
+            component.thirdComponent = ComponentNode(ViewComponent(), in: self, props: { (component: ViewComponent, hasKey: Bool) in
+                component.styles = [
+                    "backgroundColor": UIColor.white,
+                    "paddingHorizontal": 5,
+                    "paddingTop": 14,
+                    "paddingBottom": 18,
+                ]
+            }).add(children: [
+                ComponentNode(LabelComponent(), in: self, props: {(component: LabelComponent, hasKey: Bool) in
+                    component.styles = [
+                        "fontSize": 15,
+                    ]
+
+                    component.text = self.modes.getPhysicalMode(section: self.section)
                 })
             ])
         })
