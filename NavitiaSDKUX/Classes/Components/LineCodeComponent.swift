@@ -7,20 +7,28 @@
 //
 
 import Render
+import NavitiaSDK
 
 class LineCodeComponent: ViewComponent {
-    var code: String = ""
-    var lineBackgroundColor: UIColor = UIColor()
-    var lineTextColor: UIColor = UIColor()
-    
+    var section: Section?
+
+
     override func render() -> NodeType {
+        var code: String = ""
+        var lineBackgroundColor: UIColor = UIColor()
+        var lineTextColor: UIColor = UIColor()
+
+        code = self.section!.displayInformations!.code!
+        lineBackgroundColor = getUIColorFromHexadecimal(hex: (self.section!.displayInformations!.color)!)
+        lineTextColor = getUIColorFromHexadecimal(hex: (self.section!.displayInformations!.textColor)!)
+
         let codeStyles:[String: Any] = [
-            "backgroundColor": self.lineBackgroundColor,
+            "backgroundColor": lineBackgroundColor,
             "borderRadius": 3,
             "padding": 6,
         ]
         let textStyles: [String: Any] = [
-            "color": self.lineTextColor,
+            "color": lineTextColor,
             "fontSize": 12,
             "fontWeight": "bold",
         ]
@@ -29,11 +37,9 @@ class LineCodeComponent: ViewComponent {
             component.styles = computedStyles
         }).add(children: [
             ComponentNode(TextComponent(), in: self, props: {(component, hasKey: Bool) in
-                component.text = self.code
+                component.text = code
                 component.styles = textStyles
             })
         ])
     }
-    
-    
 }

@@ -34,7 +34,7 @@ class JourneyRoadmapSectionDescriptionComponent: ViewComponent {
                 ]
             })
 
-            // TODO : Adding ModeLabel
+            // TODO : Adding LineComponent
             component.thirdComponent = ComponentNode(ViewComponent(), in: self, props: { (component: ViewComponent, hasKey: Bool) in
                 component.styles = [
                     "backgroundColor": UIColor.white,

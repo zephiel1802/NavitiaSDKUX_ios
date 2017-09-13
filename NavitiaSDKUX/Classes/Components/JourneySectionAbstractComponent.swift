@@ -14,17 +14,7 @@ class JourneySectionAbstractComponent: ViewComponent {
 
     override func render() -> NodeType {
         var duration: Int32 = 0
-        var lineCode: String? = nil
-        var lineBackgroundColor: UIColor? = nil
-        var lineTextColor: UIColor? = nil
-
-        if (self.section!.displayInformations != nil) {
-            lineBackgroundColor = getUIColorFromHexadecimal(hex: (self.section!.displayInformations?.color)!)
-            lineTextColor = getUIColorFromHexadecimal(hex: (self.section!.displayInformations?.textColor)!)
-            lineCode = self.section!.displayInformations?.code
-        }
         duration = self.section!.duration!
-
         let containerStyles: [String: Any] = [
             "fontSize": 16,
             "flexGrow": Int(duration),
@@ -38,17 +28,18 @@ class JourneySectionAbstractComponent: ViewComponent {
                 component.styles = self.modeStyles
             })
         ]
-        var segmentColor: UIColor = config.colors.darkerGray
-        
-        if (lineCode != nil) {
-            symbolComponents.append(ComponentNode(LineCodeComponent(), in: self, props: {(component, hasKey: Bool) in
-                component.code = lineCode!
-                component.lineBackgroundColor = lineBackgroundColor!
-                component.lineTextColor = lineTextColor!
+
+        if (self.section!.displayInformations != nil && self.section!.displayInformations?.code != nil) {
+            symbolComponents.append(ComponentNode(LineCodeComponent(), in: self, props: {(component: LineCodeComponent, hasKey: Bool) in
+                component.section = self.section
             }))
-            segmentColor = lineBackgroundColor!
         }
-        
+
+        var segmentColor: UIColor = config.colors.darkerGray
+        if (self.section!.displayInformations != nil) {
+            segmentColor = getUIColorFromHexadecimal(hex: (self.section!.displayInformations?.color)!)
+        }
+
         return ComponentNode(ViewComponent(), in: self, props: {(component, hasKey: Bool) in
             component.styles = computedStyles
         }).add(children: [
