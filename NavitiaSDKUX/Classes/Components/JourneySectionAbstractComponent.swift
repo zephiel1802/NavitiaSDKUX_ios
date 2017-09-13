@@ -35,22 +35,18 @@ class JourneySectionAbstractComponent: ViewComponent {
             }))
         }
 
-        var segmentColor: UIColor = config.colors.darkerGray
-        if (self.section!.displayInformations != nil) {
-            segmentColor = getUIColorFromHexadecimal(hex: (self.section!.displayInformations?.color)!)
-        }
-
         return ComponentNode(ViewComponent(), in: self, props: {(component, hasKey: Bool) in
             component.styles = computedStyles
         }).add(children: [
-            ComponentNode(ViewComponent(), in: self, props: {(component, hasKey: Bool) in
+            ComponentNode(ViewComponent(), in: self, props: {(component: ViewComponent, hasKey: Bool) in
                 component.styles = self.viewStyles
             }).add(children: symbolComponents),
-            ComponentNode(JourneySectionSegmentComponent(), in: self, props: {(component, hasKey: Bool) in
-                component.color = segmentColor
+            ComponentNode(JourneySectionSegmentComponent(), in: self, props: {(component: JourneySectionSegmentComponent, hasKey: Bool) in
+                component.section = self.section
             }),
         ])
     }
+
     let viewStyles: [String: Any] = [
         "flexDirection": YGFlexDirection.row,
         "marginBottom": 12,
