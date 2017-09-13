@@ -43,13 +43,24 @@ class JourneyRoadmapSectionDescriptionComponent: ViewComponent {
                     "paddingBottom": 18,
                 ]
             }).add(children: [
-                ComponentNode(LabelComponent(), in: self, props: {(component: LabelComponent, hasKey: Bool) in
+                ComponentNode(ViewComponent(), in: self, props: {(component: ViewComponent, hasKey: Bool) in
                     component.styles = [
-                        "fontSize": 15,
+                        "flexDirection": YGFlexDirection.row,
                     ]
+                }).add(children: [
+                    ComponentNode(LabelComponent(), in: self, props: {(component: LabelComponent, hasKey: Bool) in
+                        component.styles = [
+                            "fontSize": 15,
+                            "marginRight": 5,
+                        ]
 
-                    component.text = self.modes.getPhysicalMode(section: self.section)
-                })
+                        component.text = self.modes.getPhysicalMode(section: self.section)
+                    }),
+                    ComponentNode(LineCodeComponent(), in: self, props: {(component: LineCodeComponent, hasKey: Bool) in
+                        component.section = self.section
+                    })
+                ])
+
             ])
         })
     }

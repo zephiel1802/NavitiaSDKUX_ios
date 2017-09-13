@@ -20,27 +20,21 @@ class JourneySectionAbstractComponent: ViewComponent {
             "flexGrow": Int(duration),
             "marginEnd": config.metrics.margin,
         ]
-        let computedStyles = mergeDictionaries(dict1: containerStyles, dict2: self.styles)
-        
-        var symbolComponents: [NodeType] = [
-            ComponentNode(ModeComponent(), in: self, props: {(component: ModeComponent, hasKey: Bool) in
-                component.section = self.section
-                component.styles = self.modeStyles
-            })
-        ]
-
-        if (self.section!.displayInformations != nil && self.section!.displayInformations?.code != nil) {
-            symbolComponents.append(ComponentNode(LineCodeComponent(), in: self, props: {(component: LineCodeComponent, hasKey: Bool) in
-                component.section = self.section
-            }))
-        }
 
         return ComponentNode(ViewComponent(), in: self, props: {(component, hasKey: Bool) in
-            component.styles = computedStyles
+            component.styles = mergeDictionaries(dict1: containerStyles, dict2: self.styles)
         }).add(children: [
             ComponentNode(ViewComponent(), in: self, props: {(component: ViewComponent, hasKey: Bool) in
                 component.styles = self.viewStyles
-            }).add(children: symbolComponents),
+            }).add(children: [
+                ComponentNode(ModeComponent(), in: self, props: {(component: ModeComponent, hasKey: Bool) in
+                    component.section = self.section
+                    component.styles = self.modeStyles
+                }),
+                ComponentNode(LineCodeComponent(), in: self, props: {(component: LineCodeComponent, hasKey: Bool) in
+                    component.section = self.section
+                })
+            ]),
             ComponentNode(JourneySectionSegmentComponent(), in: self, props: {(component: JourneySectionSegmentComponent, hasKey: Bool) in
                 component.section = self.section
             }),
