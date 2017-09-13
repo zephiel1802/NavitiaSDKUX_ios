@@ -7,9 +7,14 @@ class JourneyRoadmapSectionDescriptionComponent: ViewComponent {
     var section: Section?
 
     override func render() -> NodeType {
-        let computedStyles = self.styles
-        return ComponentNode(JourneyRoadmapSectionLayoutComponent(), in: self, props: { (component, hasKey: Bool) in
-            component.styles = computedStyles
+        return ComponentNode(ViewComponent(), in: self).add(children: [
+            getDescription()
+        ])
+    }
+
+    private func getDescription() -> NodeType {
+        return ComponentNode(JourneyRoadmapSectionLayoutComponent(), in: self, props: { (component: JourneyRoadmapSectionLayoutComponent, hasKey: Bool) in
+            component.styles = self.styles
 
             component.firstComponent = ComponentNode(ViewComponent(), in: self, props: { (component: ViewComponent, hasKey: Bool) in
                 component.styles = [
@@ -18,7 +23,7 @@ class JourneyRoadmapSectionDescriptionComponent: ViewComponent {
                     "justifyContent": YGJustify.center,
                 ]
             }).add(children: [
-                ComponentNode(ModeComponent(), in: self, props: {(component: ModeComponent, hasKey: Bool) in
+                ComponentNode(ModeComponent(), in: self, props: { (component: ModeComponent, hasKey: Bool) in
                     component.styles = [
                         "height": 28,
                     ]
@@ -42,12 +47,12 @@ class JourneyRoadmapSectionDescriptionComponent: ViewComponent {
                     "paddingBottom": 18,
                 ]
             }).add(children: [
-                ComponentNode(ViewComponent(), in: self, props: {(component: ViewComponent, hasKey: Bool) in
+                ComponentNode(ViewComponent(), in: self, props: { (component: ViewComponent, hasKey: Bool) in
                     component.styles = [
                         "flexDirection": YGFlexDirection.row,
                     ]
                 }).add(children: [
-                    ComponentNode(LabelComponent(), in: self, props: {(component: LabelComponent, hasKey: Bool) in
+                    ComponentNode(LabelComponent(), in: self, props: { (component: LabelComponent, hasKey: Bool) in
                         component.styles = [
                             "fontSize": 15,
                             "marginRight": 5,
@@ -55,23 +60,23 @@ class JourneyRoadmapSectionDescriptionComponent: ViewComponent {
 
                         component.text = self.modes.getPhysicalMode(section: self.section)
                     }),
-                    ComponentNode(LineCodeComponent(), in: self, props: {(component: LineCodeComponent, hasKey: Bool) in
+                    ComponentNode(LineCodeComponent(), in: self, props: { (component: LineCodeComponent, hasKey: Bool) in
                         component.section = self.section
                     })
                 ]),
-                ComponentNode(ViewComponent(), in: self, props: {(component: ViewComponent, hasKey: Bool) in
+                ComponentNode(ViewComponent(), in: self, props: { (component: ViewComponent, hasKey: Bool) in
                     component.styles = [
                         "flexDirection": YGFlexDirection.row,
                     ]
                 }).add(children: [
-                    ComponentNode(IconComponent(), in: self, props: {(component, hasKey: Bool) in
+                    ComponentNode(IconComponent(), in: self, props: { (component, hasKey: Bool) in
                         component.name = "direction"
                         component.styles = [
                             "fontSize": 12,
                             "marginRight": 5,
                         ]
                     }),
-                    ComponentNode(LabelComponent(), in: self, props: {(component: LabelComponent, hasKey: Bool) in
+                    ComponentNode(LabelComponent(), in: self, props: { (component: LabelComponent, hasKey: Bool) in
                         component.styles = [
                             "fontSize": 15,
                             "numberOfLines": 0,
