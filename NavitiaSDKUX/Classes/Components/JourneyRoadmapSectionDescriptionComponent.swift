@@ -13,9 +13,9 @@ class JourneyRoadmapSectionDescriptionComponent: ViewComponent {
 
             component.firstComponent = ComponentNode(ViewComponent(), in: self, props: { (component: ViewComponent, hasKey: Bool) in
                 component.styles = [
-                    "backgroundColor": UIColor.white,
                     "flexGrow": 1,
                     "alignItems": YGAlign.center,
+                    "justifyContent": YGJustify.center,
                 ]
             }).add(children: [
                 ComponentNode(ModeComponent(), in: self, props: {(component: ModeComponent, hasKey: Bool) in

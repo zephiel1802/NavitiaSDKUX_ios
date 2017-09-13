@@ -30,6 +30,7 @@ class JourneyRoadmapSectionStopPointComponent: ViewComponent {
                     "backgroundColor": UIColor.white,
                     "paddingTop": 14,
                     "alignItems": YGAlign.center,
+                    "justifyContent": YGJustify.center,
                 ]
 
             }).add(children: [
