@@ -44,14 +44,7 @@ class JourneyRoadmapSectionDescriptionComponent: ViewComponent {
                     component.color = self.section!.displayInformations?.color
                 })
 
-                component.thirdComponent = ComponentNode(ViewComponent(), in: self, props: { (component: ViewComponent, hasKey: Bool) in
-                    component.styles = [
-                        "backgroundColor": UIColor.white,
-                        "paddingHorizontal": 5,
-                        "paddingTop": 14,
-                        "paddingBottom": 18,
-                    ]
-                }).add(children: [
+                component.thirdComponent = ComponentNode(ContentContainerComponent(), in: self).add(children: [
                     ComponentNode(ViewComponent(), in: self, props: { (component: ViewComponent, hasKey: Bool) in
                         component.styles = [
                             "flexDirection": YGFlexDirection.row,
@@ -140,14 +133,7 @@ class JourneyRoadmapSectionDescriptionComponent: ViewComponent {
                     component.color = self.color
                 })
 
-                component.thirdComponent = ComponentNode(ViewComponent(), in: self, props: { (component: ViewComponent, hasKey: Bool) in
-                    component.styles = [
-                        "backgroundColor": UIColor.white,
-                        "paddingHorizontal": 5,
-                        "paddingTop": 14,
-                        "paddingBottom": 18,
-                    ]
-                }).add(children: [
+                component.thirdComponent = ComponentNode(ContentContainerComponent(), in: self).add(children: [
                     ComponentNode(ViewComponent(), in: self, props: { (component: ViewComponent, hasKey: Bool) in
                         component.styles = [
                             "flexDirection": YGFlexDirection.row,
@@ -193,14 +179,7 @@ class JourneyRoadmapSectionDescriptionComponent: ViewComponent {
                     component.color = self.color
                 })
 
-                component.thirdComponent = ComponentNode(ViewComponent(), in: self, props: { (component: ViewComponent, hasKey: Bool) in
-                    component.styles = [
-                        "backgroundColor": UIColor.white,
-                        "paddingHorizontal": 5,
-                        "paddingTop": 14,
-                        "paddingBottom": 18,
-                    ]
-                }).add(children: [
+                component.thirdComponent = ComponentNode(ContentContainerComponent(), in: self).add(children: [
                     ComponentNode(ViewComponent(), in: self, props: { (component: ViewComponent, hasKey: Bool) in
                         component.styles = [
                             "flexDirection": YGFlexDirection.row,
@@ -238,6 +217,19 @@ class JourneyRoadmapSectionDescriptionComponent: ViewComponent {
                 component.styles = [
                     "backgroundColor": getUIColorFromHexadecimal(hex: self.color!),
                     "flexGrow": 1,
+                ]
+            })
+        }
+    }
+
+    private class ContentContainerComponent: ViewComponent {
+        override func render() -> NodeType {
+            return ComponentNode(ViewComponent(), in: self, props: { (component: ViewComponent, hasKey: Bool) in
+                component.styles = [
+                    "backgroundColor": UIColor.white,
+                    "paddingHorizontal": 5,
+                    "paddingTop": 14,
+                    "paddingBottom": 18,
                 ]
             })
         }
