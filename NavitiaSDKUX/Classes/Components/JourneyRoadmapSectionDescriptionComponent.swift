@@ -3,159 +3,191 @@ import Render
 import NavitiaSDK
 
 class JourneyRoadmapSectionDescriptionComponent: ViewComponent {
-    let modes = Modes()
     var section: Section?
 
     override func render() -> NodeType {
         return ComponentNode(ViewComponent(), in: self).add(children: [
-            getDescription(),
-            getDetails()
+            ComponentNode(DescriptionComponent(), in: self, props: { (component: DescriptionComponent, hasKey: Bool) in
+                component.section = self.section
+            }),
+            ComponentNode(DetailsComponent(), in: self, props: { (component: DetailsComponent, hasKey: Bool) in
+                component.section = self.section
+            })
         ])
     }
 
-    private func getDescription() -> NodeType {
-        return ComponentNode(JourneyRoadmapSectionLayoutComponent(), in: self, props: { (component: JourneyRoadmapSectionLayoutComponent, hasKey: Bool) in
-            component.styles = self.styles
+    private class DescriptionComponent: ViewComponent {
+        let modes = Modes()
+        var section: Section?
 
-            component.firstComponent = ComponentNode(ViewComponent(), in: self, props: { (component: ViewComponent, hasKey: Bool) in
-                component.styles = [
-                    "flexGrow": 1,
-                    "alignItems": YGAlign.center,
-                    "justifyContent": YGJustify.center,
-                ]
-            }).add(children: [
-                ComponentNode(ModeComponent(), in: self, props: { (component: ModeComponent, hasKey: Bool) in
+        override func render() -> NodeType {
+            return ComponentNode(JourneyRoadmapSectionLayoutComponent(), in: self, props: { (component: JourneyRoadmapSectionLayoutComponent, hasKey: Bool) in
+                component.styles = self.styles
+
+                component.firstComponent = ComponentNode(ViewComponent(), in: self, props: { (component: ViewComponent, hasKey: Bool) in
                     component.styles = [
-                        "height": 28,
-                    ]
-
-                    component.section = self.section
-                })
-            ])
-
-            component.secondComponent = ComponentNode(ViewComponent(), in: self, props: { (component: ViewComponent, hasKey: Bool) in
-                component.styles = [
-                    "backgroundColor": getUIColorFromHexadecimal(hex: (self.section!.displayInformations?.color)!),
-                    "flexGrow": 1,
-                ]
-            })
-
-            component.thirdComponent = ComponentNode(ViewComponent(), in: self, props: { (component: ViewComponent, hasKey: Bool) in
-                component.styles = [
-                    "backgroundColor": UIColor.white,
-                    "paddingHorizontal": 5,
-                    "paddingTop": 14,
-                    "paddingBottom": 18,
-                ]
-            }).add(children: [
-                ComponentNode(ViewComponent(), in: self, props: { (component: ViewComponent, hasKey: Bool) in
-                    component.styles = [
-                        "flexDirection": YGFlexDirection.row,
+                        "flexGrow": 1,
+                        "alignItems": YGAlign.center,
+                        "justifyContent": YGJustify.center,
                     ]
                 }).add(children: [
-                    ComponentNode(LabelComponent(), in: self, props: { (component: LabelComponent, hasKey: Bool) in
+                    ComponentNode(ModeComponent(), in: self, props: { (component: ModeComponent, hasKey: Bool) in
                         component.styles = [
-                            "fontSize": 15,
-                            "marginRight": 5,
+                            "height": 28,
                         ]
 
-                        component.text = self.modes.getPhysicalMode(section: self.section)
-                    }),
-                    ComponentNode(LineCodeComponent(), in: self, props: { (component: LineCodeComponent, hasKey: Bool) in
                         component.section = self.section
                     })
-                ]),
-                ComponentNode(ViewComponent(), in: self, props: { (component: ViewComponent, hasKey: Bool) in
+                ])
+
+                component.secondComponent = ComponentNode(LineDiagramComponent(), in: self, props: { (component: LineDiagramComponent, hasKey: Bool) in
+                    component.section = self.section
+                })
+
+                component.thirdComponent = ComponentNode(ViewComponent(), in: self, props: { (component: ViewComponent, hasKey: Bool) in
                     component.styles = [
-                        "flexDirection": YGFlexDirection.row,
+                        "backgroundColor": UIColor.white,
+                        "paddingHorizontal": 5,
+                        "paddingTop": 14,
+                        "paddingBottom": 18,
                     ]
                 }).add(children: [
-                    ComponentNode(IconComponent(), in: self, props: { (component, hasKey: Bool) in
-                        component.name = "direction"
+                    ComponentNode(ViewComponent(), in: self, props: { (component: ViewComponent, hasKey: Bool) in
                         component.styles = [
-                            "fontSize": 12,
-                            "marginRight": 5,
+                            "flexDirection": YGFlexDirection.row,
                         ]
-                    }),
-                    ComponentNode(LabelComponent(), in: self, props: { (component: LabelComponent, hasKey: Bool) in
-                        component.styles = [
-                            "fontSize": 15,
-                            "numberOfLines": 0,
-                            "lineBreakMode": NSLineBreakMode.byWordWrapping,
-                        ]
+                    }).add(children: [
+                        ComponentNode(LabelComponent(), in: self, props: { (component: LabelComponent, hasKey: Bool) in
+                            component.styles = [
+                                "fontSize": 15,
+                                "marginRight": 5,
+                            ]
 
-                        component.text = self.section!.displayInformations!.direction!
-                    })
+                            component.text = self.modes.getPhysicalMode(section: self.section)
+                        }),
+                        ComponentNode(LineCodeComponent(), in: self, props: { (component: LineCodeComponent, hasKey: Bool) in
+                            component.section = self.section
+                        })
+                    ]),
+                    ComponentNode(ViewComponent(), in: self, props: { (component: ViewComponent, hasKey: Bool) in
+                        component.styles = [
+                            "flexDirection": YGFlexDirection.row,
+                        ]
+                    }).add(children: [
+                        ComponentNode(IconComponent(), in: self, props: { (component, hasKey: Bool) in
+                            component.name = "direction"
+                            component.styles = [
+                                "fontSize": 12,
+                                "marginRight": 5,
+                            ]
+                        }),
+                        ComponentNode(LabelComponent(), in: self, props: { (component: LabelComponent, hasKey: Bool) in
+                            component.styles = [
+                                "fontSize": 15,
+                                "numberOfLines": 0,
+                                "lineBreakMode": NSLineBreakMode.byWordWrapping,
+                            ]
+
+                            component.text = self.section!.displayInformations!.direction!
+                        })
+                    ])
                 ])
-            ])
-        })
+            })
+        }
+
     }
 
-    private func getDetails() -> NodeType {
-        var allDetailsRows: [NodeType] = []
+    private class DetailsComponent: ViewComponent {
+        var section: Section?
 
-        allDetailsRows.append(ComponentNode(JourneyRoadmapSectionLayoutComponent(), in: self, props: { (component: JourneyRoadmapSectionLayoutComponent, hasKey: Bool) in
-            component.styles = self.styles
+        override func render() -> NodeType {
+            var allDetailsRows: [NodeType] = []
 
-            component.firstComponent = ComponentNode(ViewComponent(), in: self)
+            allDetailsRows.append(ComponentNode(DetailsHeaderComponent(), in: self, props: { (component: DetailsHeaderComponent, hasKey: Bool) in
+                component.styles = self.styles
 
-            component.secondComponent = ComponentNode(ViewComponent(), in: self, props: { (component: ViewComponent, hasKey: Bool) in
-                component.styles = [
-                    "backgroundColor": getUIColorFromHexadecimal(hex: (self.section!.displayInformations?.color)!),
-                    "flexGrow": 1,
-                ]
-            })
+                component.section = self.section
+            }))
 
-            component.thirdComponent = ComponentNode(ViewComponent(), in: self, props: { (component: ViewComponent, hasKey: Bool) in
-                component.styles = [
-                    "backgroundColor": UIColor.white,
-                    "paddingHorizontal": 5,
-                    "paddingTop": 14,
-                    "paddingBottom": 18,
-                ]
-            }).add(children: [
-                ComponentNode(ViewComponent(), in: self, props: { (component: ViewComponent, hasKey: Bool) in
-                    component.styles = [
-                        "flexDirection": YGFlexDirection.row,
-                    ]
-                }).add(children: [
-                    ComponentNode(IconComponent(), in: self, props: { (component, hasKey: Bool) in
-                        component.name = "arrow-details-up"
-                        component.styles = [
-                            "color": UIColor.lightGray,
-                            "fontSize": 12,
-                            "marginRight": 5,
-                        ]
-                    }),
-                    ComponentNode(LabelComponent(), in: self, props: { (component: LabelComponent, hasKey: Bool) in
-                        component.styles = [
-                            "color": UIColor.lightGray,
-                            "fontSize": 13,
-                            "marginRight": 5,
-                        ]
+            self.section!.stopDateTimes!.filter { stopDateTime in
+                return stopDateTime != nil
+            }.forEach { stopDateTime in
+                allDetailsRows.append(ComponentNode(IntermediateStopPointComponent(), in: self, props: { (component: IntermediateStopPointComponent, hasKey: Bool) in
+                    component.styles = self.styles
 
-                        component.text = NSLocalizedString("component.JourneyRoadmapSectionDescriptionComponent.detailsHeaderTitle",
-                                bundle: self.bundle,
-                                comment: "Details header title for journey roadmap section"
-                        )
-                    })
-                ])
-            ])
-        }))
+                    component.stopDateTime = stopDateTime
+                    component.section = self.section
+                }))
+            }
 
-        self.section!.stopDateTimes!.filter { stopDateTime in
-            return stopDateTime != nil
-        }.forEach { stopDateTime in
-            allDetailsRows.append(ComponentNode(JourneyRoadmapSectionLayoutComponent(), in: self, props: { (component: JourneyRoadmapSectionLayoutComponent, hasKey: Bool) in
+            return ComponentNode(ViewComponent(), in: self).add(children: allDetailsRows)
+        }
+    }
+
+    private class DetailsHeaderComponent: ViewComponent {
+        var section: Section?
+
+        override func render() -> NodeType {
+            return ComponentNode(JourneyRoadmapSectionLayoutComponent(), in: self, props: { (component: JourneyRoadmapSectionLayoutComponent, hasKey: Bool) in
                 component.styles = self.styles
 
                 component.firstComponent = ComponentNode(ViewComponent(), in: self)
 
-                component.secondComponent = ComponentNode(ViewComponent(), in: self, props: { (component: ViewComponent, hasKey: Bool) in
+                component.secondComponent = ComponentNode(LineDiagramComponent(), in: self, props: { (component: LineDiagramComponent, hasKey: Bool) in
+                    component.section = self.section
+                })
+
+                component.thirdComponent = ComponentNode(ViewComponent(), in: self, props: { (component: ViewComponent, hasKey: Bool) in
                     component.styles = [
-                        "backgroundColor": getUIColorFromHexadecimal(hex: (self.section!.displayInformations?.color)!),
-                        "flexGrow": 1,
+                        "backgroundColor": UIColor.white,
+                        "paddingHorizontal": 5,
+                        "paddingTop": 14,
+                        "paddingBottom": 18,
                     ]
+                }).add(children: [
+                    ComponentNode(ViewComponent(), in: self, props: { (component: ViewComponent, hasKey: Bool) in
+                        component.styles = [
+                            "flexDirection": YGFlexDirection.row,
+                        ]
+                    }).add(children: [
+                        ComponentNode(IconComponent(), in: self, props: { (component, hasKey: Bool) in
+                            component.name = "arrow-details-up"
+                            component.styles = [
+                                "color": UIColor.lightGray,
+                                "fontSize": 12,
+                                "marginRight": 5,
+                            ]
+                        }),
+                        ComponentNode(LabelComponent(), in: self, props: { (component: LabelComponent, hasKey: Bool) in
+                            component.styles = [
+                                "color": UIColor.lightGray,
+                                "fontSize": 13,
+                                "marginRight": 5,
+                            ]
+
+                            component.text = NSLocalizedString("component.JourneyRoadmapSectionDescriptionComponent.detailsHeaderTitle",
+                                    bundle: self.bundle,
+                                    comment: "Details header title for journey roadmap section"
+                            )
+                        })
+                    ])
+                ])
+            })
+        }
+    }
+
+    private class IntermediateStopPointComponent: ViewComponent {
+        var stopDateTime: StopDateTime?
+        var section: Section?
+
+        override func render() -> NodeType {
+            return ComponentNode(JourneyRoadmapSectionLayoutComponent(), in: self, props: { (component: JourneyRoadmapSectionLayoutComponent, hasKey: Bool) in
+                component.styles = self.styles
+
+                component.firstComponent = ComponentNode(ViewComponent(), in: self)
+
+                component.secondComponent = ComponentNode(LineDiagramComponent(), in: self, props: { (component: LineDiagramComponent, hasKey: Bool) in
+                    component.section = self.section
                 })
 
                 component.thirdComponent = ComponentNode(ViewComponent(), in: self, props: { (component: ViewComponent, hasKey: Bool) in
@@ -182,17 +214,29 @@ class JourneyRoadmapSectionDescriptionComponent: ViewComponent {
                         ComponentNode(LabelComponent(), in: self, props: { (component: LabelComponent, hasKey: Bool) in
                             component.styles = [
                                 "color": UIColor.darkText,
+                                "fontWeight": "bold",
                                 "fontSize": 12,
                                 "marginRight": 5,
                             ]
 
-                            component.text = stopDateTime.stopPoint!.label!
+                            component.text = self.stopDateTime!.stopPoint!.label!
                         })
                     ])
                 ])
-            }))
+            })
         }
+    }
 
-        return ComponentNode(ViewComponent(), in: self).add(children: allDetailsRows)
+    private class LineDiagramComponent: ViewComponent {
+        var section: Section?
+
+        override func render() -> NodeType {
+            return ComponentNode(ViewComponent(), in: self, props: { (component: ViewComponent, hasKey: Bool) in
+                component.styles = [
+                    "backgroundColor": getUIColorFromHexadecimal(hex: (self.section!.displayInformations?.color)!),
+                    "flexGrow": 1,
+                ]
+            })
+        }
     }
 }
