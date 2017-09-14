@@ -41,7 +41,7 @@ class JourneyRoadmapSectionDescriptionComponent: ViewComponent {
                 ])
 
                 component.secondComponent = ComponentNode(LineDiagramComponent(), in: self, props: { (component: LineDiagramComponent, hasKey: Bool) in
-                    component.section = self.section
+                    component.color = self.section!.displayInformations?.color
                 })
 
                 component.thirdComponent = ComponentNode(ViewComponent(), in: self, props: { (component: ViewComponent, hasKey: Bool) in
@@ -101,31 +101,34 @@ class JourneyRoadmapSectionDescriptionComponent: ViewComponent {
         var section: Section?
 
         override func render() -> NodeType {
+            var detailsContainer = ComponentNode(ViewComponent(), in: self)
             var allDetailsRows: [NodeType] = []
 
-            allDetailsRows.append(ComponentNode(DetailsHeaderComponent(), in: self, props: { (component: DetailsHeaderComponent, hasKey: Bool) in
-                component.styles = self.styles
+            detailsContainer.add(children: [
+                ComponentNode(DetailsHeaderComponent(), in: self, props: { (component: DetailsHeaderComponent, hasKey: Bool) in
+                    component.styles = self.styles
 
-                component.section = self.section
-            }))
+                    component.color = self.section!.displayInformations?.color
+                })
+            ])
 
-            self.section!.stopDateTimes!.filter { stopDateTime in
+            detailsContainer.add(children: self.section!.stopDateTimes!.filter { stopDateTime in
                 return stopDateTime != nil
-            }.forEach { stopDateTime in
-                allDetailsRows.append(ComponentNode(IntermediateStopPointComponent(), in: self, props: { (component: IntermediateStopPointComponent, hasKey: Bool) in
+            }.map { stopDateTime -> NodeType in
+                return ComponentNode(IntermediateStopPointComponent(), in: self, props: { (component: IntermediateStopPointComponent, hasKey: Bool) in
                     component.styles = self.styles
 
                     component.stopDateTime = stopDateTime
-                    component.section = self.section
-                }))
-            }
+                    component.color = self.section!.displayInformations?.color
+                })
+            })
 
-            return ComponentNode(ViewComponent(), in: self).add(children: allDetailsRows)
+            return detailsContainer
         }
     }
 
     private class DetailsHeaderComponent: ViewComponent {
-        var section: Section?
+        var color: String?
 
         override func render() -> NodeType {
             return ComponentNode(JourneyRoadmapSectionLayoutComponent(), in: self, props: { (component: JourneyRoadmapSectionLayoutComponent, hasKey: Bool) in
@@ -134,7 +137,7 @@ class JourneyRoadmapSectionDescriptionComponent: ViewComponent {
                 component.firstComponent = ComponentNode(ViewComponent(), in: self)
 
                 component.secondComponent = ComponentNode(LineDiagramComponent(), in: self, props: { (component: LineDiagramComponent, hasKey: Bool) in
-                    component.section = self.section
+                    component.color = self.color
                 })
 
                 component.thirdComponent = ComponentNode(ViewComponent(), in: self, props: { (component: ViewComponent, hasKey: Bool) in
@@ -178,7 +181,7 @@ class JourneyRoadmapSectionDescriptionComponent: ViewComponent {
 
     private class IntermediateStopPointComponent: ViewComponent {
         var stopDateTime: StopDateTime?
-        var section: Section?
+        var color: String?
 
         override func render() -> NodeType {
             return ComponentNode(JourneyRoadmapSectionLayoutComponent(), in: self, props: { (component: JourneyRoadmapSectionLayoutComponent, hasKey: Bool) in
@@ -187,7 +190,7 @@ class JourneyRoadmapSectionDescriptionComponent: ViewComponent {
                 component.firstComponent = ComponentNode(ViewComponent(), in: self)
 
                 component.secondComponent = ComponentNode(LineDiagramComponent(), in: self, props: { (component: LineDiagramComponent, hasKey: Bool) in
-                    component.section = self.section
+                    component.color = self.color
                 })
 
                 component.thirdComponent = ComponentNode(ViewComponent(), in: self, props: { (component: ViewComponent, hasKey: Bool) in
@@ -206,7 +209,7 @@ class JourneyRoadmapSectionDescriptionComponent: ViewComponent {
                         ComponentNode(IconComponent(), in: self, props: { (component, hasKey: Bool) in
                             component.name = "origin"
                             component.styles = [
-                                "color": getUIColorFromHexadecimal(hex: (self.section!.displayInformations?.color)!),
+                                "color": getUIColorFromHexadecimal(hex: self.color!),
                                 "fontSize": 10,
                                 "marginRight": 5,
                             ]
@@ -228,12 +231,12 @@ class JourneyRoadmapSectionDescriptionComponent: ViewComponent {
     }
 
     private class LineDiagramComponent: ViewComponent {
-        var section: Section?
+        var color: String?
 
         override func render() -> NodeType {
             return ComponentNode(ViewComponent(), in: self, props: { (component: ViewComponent, hasKey: Bool) in
                 component.styles = [
-                    "backgroundColor": getUIColorFromHexadecimal(hex: (self.section!.displayInformations?.color)!),
+                    "backgroundColor": getUIColorFromHexadecimal(hex: self.color!),
                     "flexGrow": 1,
                 ]
             })
