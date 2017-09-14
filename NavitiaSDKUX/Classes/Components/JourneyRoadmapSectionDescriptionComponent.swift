@@ -215,10 +215,19 @@ class JourneyRoadmapSectionDescriptionComponent: ViewComponent {
         override func render() -> NodeType {
             return ComponentNode(ViewComponent(), in: self, props: { (component: ViewComponent, hasKey: Bool) in
                 component.styles = [
-                    "backgroundColor": getUIColorFromHexadecimal(hex: self.color!),
+                    "backgroundColor": UIColor.white,
                     "flexGrow": 1,
+                    "alignItems": YGAlign.center,
                 ]
-            })
+            }).add(children: [
+                ComponentNode(ViewComponent(), in: self, props: { (component: ViewComponent, hasKey: Bool) in
+                    component.styles = [
+                        "backgroundColor": getUIColorFromHexadecimal(hex: self.color!),
+                        "flexGrow": 1,
+                        "width": 5,
+                    ]
+                })
+            ])
         }
     }
 
