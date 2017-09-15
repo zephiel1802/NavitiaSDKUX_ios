@@ -46,11 +46,8 @@ class JourneyRoadmapSectionStopPointComponent: ViewComponent {
                 })
             ])
 
-            component.secondComponent = ComponentNode(ViewComponent(), in: self, props: { (component: ViewComponent, hasKey: Bool) in
-                component.styles = [
-                    "backgroundColor": getUIColorFromHexadecimal(hex: (self.section!.displayInformations?.color)!),
-                    "flexGrow": 1,
-                ]
+            component.secondComponent = ComponentNode(LineDiagramComponent(), in: self, props: { (component: LineDiagramComponent, hasKey: Bool) in
+                component.color = self.section!.displayInformations?.color
             })
 
             component.thirdComponent = ComponentNode(ViewComponent(), in: self, props: { (component: ViewComponent, hasKey: Bool) in
@@ -75,4 +72,27 @@ class JourneyRoadmapSectionStopPointComponent: ViewComponent {
             ])
         })
     }
+
+    private class LineDiagramComponent: ViewComponent {
+        var color: String?
+
+        override func render() -> NodeType {
+            return ComponentNode(ViewComponent(), in: self, props: { (component: ViewComponent, hasKey: Bool) in
+                component.styles = [
+                    "backgroundColor": UIColor.white,
+                    "flexGrow": 1,
+                    "alignItems": YGAlign.center,
+                ]
+            }).add(children: [
+                ComponentNode(ViewComponent(), in: self, props: { (component: ViewComponent, hasKey: Bool) in
+                    component.styles = [
+                        "backgroundColor": getUIColorFromHexadecimal(hex: self.color!),
+                        "flexGrow": 1,
+                        "width": 5,
+                    ]
+                })
+            ])
+        }
+    }
+
 }
