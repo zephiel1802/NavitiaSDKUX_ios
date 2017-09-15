@@ -116,6 +116,14 @@ class JourneyRoadmapSectionDescriptionComponent: ViewComponent {
                 })
             })
 
+            detailsContainer.add(children: [
+                ComponentNode(DetailsFooterComponent(), in: self, props: { (component: DetailsFooterComponent, hasKey: Bool) in
+                    component.styles = self.styles
+
+                    component.color = self.section!.displayInformations?.color
+                })
+            ])
+
             return detailsContainer
         }
     }
@@ -133,13 +141,15 @@ class JourneyRoadmapSectionDescriptionComponent: ViewComponent {
                     component.color = self.color
                 })
 
-                component.thirdComponent = ComponentNode(ContentContainerComponent(), in: self).add(children: [
+                component.thirdComponent = ComponentNode(ContentContainerForDetailsHeaderComponent(), in: self).add(children: [
                     ComponentNode(ViewComponent(), in: self, props: { (component: ViewComponent, hasKey: Bool) in
                         component.styles = [
                             "flexDirection": YGFlexDirection.row,
+                            "paddingTop": 5,
+                            "paddingBottom": 5,
                         ]
                     }).add(children: [
-                        ComponentNode(IconComponent(), in: self, props: { (component, hasKey: Bool) in
+                        ComponentNode(IconComponent(), in: self, props: { (component: IconComponent, hasKey: Bool) in
                             component.name = "arrow-details-up"
                             component.styles = [
                                 "color": UIColor.lightGray,
@@ -179,10 +189,12 @@ class JourneyRoadmapSectionDescriptionComponent: ViewComponent {
                     component.color = self.color
                 })
 
-                component.thirdComponent = ComponentNode(ContentContainerComponent(), in: self).add(children: [
+                component.thirdComponent = ComponentNode(ContentContainerForIntermediateStopPointComponent(), in: self).add(children: [
                     ComponentNode(ViewComponent(), in: self, props: { (component: ViewComponent, hasKey: Bool) in
                         component.styles = [
                             "flexDirection": YGFlexDirection.row,
+                            "paddingTop": 2,
+                            "paddingBottom": 2,
                         ]
                     }).add(children: [
                         ComponentNode(IconComponent(), in: self, props: { (component, hasKey: Bool) in
@@ -208,6 +220,29 @@ class JourneyRoadmapSectionDescriptionComponent: ViewComponent {
             })
         }
     }
+
+    private class DetailsFooterComponent: ViewComponent {
+        var color: String?
+
+        override func render() -> NodeType {
+            return ComponentNode(JourneyRoadmapSectionLayoutComponent(), in: self, props: { (component: JourneyRoadmapSectionLayoutComponent, hasKey: Bool) in
+                component.styles = self.styles
+
+                component.firstComponent = ComponentNode(ViewComponent(), in: self)
+
+                component.secondComponent = ComponentNode(LineDiagramComponent(), in: self, props: { (component: LineDiagramComponent, hasKey: Bool) in
+                    component.color = self.color
+                })
+
+                component.thirdComponent = ComponentNode(ViewComponent(), in: self, props: { (component: ViewComponent, hasKey: Bool) in
+                    component.styles = [
+                        "paddingBottom": 15,
+                    ]
+                })
+            })
+        }
+    }
+
 
     private class LineDiagramComponent: ViewComponent {
         var color: String?
@@ -243,4 +278,31 @@ class JourneyRoadmapSectionDescriptionComponent: ViewComponent {
             })
         }
     }
+
+    private class ContentContainerForDetailsHeaderComponent: ViewComponent {
+        override func render() -> NodeType {
+            return ComponentNode(ViewComponent(), in: self, props: { (component: ViewComponent, hasKey: Bool) in
+                component.styles = [
+                    "backgroundColor": UIColor.white,
+                    "paddingHorizontal": 5,
+                    "paddingTop": 0,
+                    "paddingBottom": 5,
+                ]
+            })
+        }
+    }
+
+    private class ContentContainerForIntermediateStopPointComponent: ViewComponent {
+        override func render() -> NodeType {
+            return ComponentNode(ViewComponent(), in: self, props: { (component: ViewComponent, hasKey: Bool) in
+                component.styles = [
+                    "backgroundColor": UIColor.white,
+                    "paddingHorizontal": 5,
+                    "paddingTop": 0,
+                    "paddingBottom": 0,
+                ]
+            })
+        }
+    }
+
 }
