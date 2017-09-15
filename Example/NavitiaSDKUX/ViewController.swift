@@ -15,17 +15,18 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         
         // Override Navitia SDK UX Config
-        NavitiaSDKUXConfig.colors.tertiary = getUIColorFromHexadecimal(hex: "40958e")
-        NavitiaSDKUXConfig.metrics.radius = 0
+        NavitiaSDKUXConfig.setTertiaryColor(color: getUIColorFromHexadecimal(hex: "40958e"))
+        NavitiaSDKUXConfig.setRadiusMetrics(value: 0)
+        NavitiaSDKUXConfig.setToken(token: "bc03f9b8-04d1-458c-bedd-7d78e76376f2")
         
         // Set navbar text color
-        let textColor = contrastColor(color: NavitiaSDKUXConfig.colors.tertiary)
+        let textColor = contrastColor(color: NavitiaSDKUXConfig.getTertiaryColor())
         navigationController?.navigationBar.tintColor = textColor
         navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: textColor]
         
         // Totally transparent navbar
         navigationController?.navigationBar.isTranslucent = true
-        navigationController?.navigationBar.barTintColor = NavitiaSDKUXConfig.colors.tertiary
+        navigationController?.navigationBar.barTintColor = NavitiaSDKUXConfig.getTertiaryColor()
         navigationController?.navigationBar.shadowImage = UIImage()
         navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
     }
