@@ -2,10 +2,7 @@ import Foundation
 import Render
 import NavitiaSDK
 
-enum SectionWay {
-    case departure
-    case arrival
-}
+
 
 class JourneyRoadmapSectionStopPointComponent: ViewComponent {
     var section: Section?
@@ -74,7 +71,14 @@ class JourneyRoadmapSectionStopPointComponent: ViewComponent {
                 ComponentNode(EmptySubLineDiagramComponent(), in: self),
                 ComponentNode(LineDiagramStopPointIconComponent(), in: self, props: { (component: LineDiagramStopPointIconComponent, hasKey: Bool) in
                     component.color = self.color
-                    component.sectionWay = self.sectionWay
+                    if (self.sectionWay != nil && self.sectionWay! == SectionWay.departure) {
+                        component.withUpperJunction = false
+                        component.withLowerJunction = true
+                    }
+                    if (self.sectionWay != nil && self.sectionWay! == SectionWay.arrival) {
+                        component.withUpperJunction = true
+                        component.withLowerJunction = false
+                    }
                 }),
                 ComponentNode(SubLineDiagramComponent(), in: self, props: { (component: SubLineDiagramComponent, hasKey: Bool) in
                     component.color = self.color
@@ -89,128 +93,6 @@ class JourneyRoadmapSectionStopPointComponent: ViewComponent {
                     "justifyContent": YGJustify.center,
                 ]
             }).add(children: sectionWay == SectionWay.departure ? subComponents : subComponents.reversed())
-        }
-    }
-
-    private class EmptySubLineDiagramComponent: ViewComponent {
-        override func render() -> NodeType {
-            return ComponentNode(ViewComponent(), in: self, props: { (component: ViewComponent, hasKey: Bool) in
-                component.styles = [
-                    "flexGrow": 1,
-                ]
-            })
-        }
-    }
-
-    private class SubLineDiagramComponent: ViewComponent {
-        var color: String?
-
-        override func render() -> NodeType {
-            return ComponentNode(ViewComponent(), in: self, props: { (component: ViewComponent, hasKey: Bool) in
-                component.styles = [
-                    "backgroundColor": getUIColorFromHexadecimal(hex: self.color!),
-                    "flexGrow": 1,
-                    "width": 4,
-                ]
-            })
-        }
-    }
-
-    private class LineDiagramStopPointIconComponent: ViewComponent {
-        var color: String?
-        var sectionWay: SectionWay?
-
-        override func render() -> NodeType {
-            return ComponentNode(ViewComponent(), in: self, props: { (component: ViewComponent, hasKey: Bool) in
-                component.styles = [
-                    "width": 20,
-                    "height": 20,
-                ]
-            }).add(children: [
-                ComponentNode(StopPointIconComponent(), in: self, props: { (component: StopPointIconComponent, hasKey: Bool) in
-                    component.color = self.color
-                }),
-                ComponentNode(LineDiagramJunctionIconComponent(), in: self, props: { (component: LineDiagramJunctionIconComponent, hasKey: Bool) in
-                    component.color = self.color
-                    component.sectionWay = self.sectionWay
-                }),
-            ])
-        }
-    }
-
-    private class StopPointIconComponent: ViewComponent {
-        var color: String?
-
-        override func render() -> NodeType {
-            return ComponentNode(ViewComponent(), in: self).add(children: [
-                ComponentNode(ViewComponent(), in: self, props: { (component: ViewComponent, hasKey: Bool) in
-                    component.styles = [
-                        "position": YGPositionType.absolute,
-                        "top": 0,
-                        "left": 0,
-                        "width": 20,
-                        "height": 20,
-                        "alignItems": YGAlign.center,
-                        "justifyContent": YGJustify.center,
-                    ]
-                }).add(children: [
-                    ComponentNode(IconComponent(), in: self, props: { (component: IconComponent, hasKey: Bool) in
-                        component.name = "circle-filled"
-
-                        component.styles = [
-                            "color": getUIColorFromHexadecimal(hex: self.color!),
-                            "fontSize": 18,
-                        ]
-                    })
-                ]),
-                ComponentNode(ViewComponent(), in: self, props: { (component: ViewComponent, hasKey: Bool) in
-                    component.styles = [
-                        "position": YGPositionType.absolute,
-                        "top": 0,
-                        "left": 0,
-                        "width": 20,
-                        "height": 20,
-                        "alignItems": YGAlign.center,
-                        "justifyContent": YGJustify.center,
-                    ]
-                }).add(children: [
-                    ComponentNode(IconComponent(), in: self, props: { (component: IconComponent, hasKey: Bool) in
-                        component.name = "circle-filled"
-
-                        component.styles = [
-                            "color": UIColor.white,
-                            "fontSize": 12,
-                        ]
-                    })
-                ])
-            ])
-        }
-    }
-
-    private class LineDiagramJunctionIconComponent: ViewComponent {
-        var color: String?
-        var sectionWay: SectionWay?
-
-        override func render() -> NodeType {
-            return ComponentNode(ViewComponent(), in: self, props: { (component: ViewComponent, hasKey: Bool) in
-                component.styles = [
-                    "position": YGPositionType.absolute,
-                    (self.sectionWay == SectionWay.departure ? "bottom" : "top"): 0,
-                    "left": 0,
-                    "width": 20,
-                    "height": 3,
-                    "alignItems": YGAlign.center,
-                    "justifyContent": YGJustify.center,
-                ]
-            }).add(children: [
-                ComponentNode(ViewComponent(), in: self, props: { (component: ViewComponent, hasKey: Bool) in
-                    component.styles = [
-                        "backgroundColor": getUIColorFromHexadecimal(hex: self.color!),
-                        "flexGrow": 1,
-                        "width": 4,
-                    ]
-                })
-            ])
         }
     }
 
