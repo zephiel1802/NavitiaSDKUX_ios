@@ -12,7 +12,6 @@ class JourneyRoadmapSectionStopPointComponent: ViewComponent {
     var sectionWay: SectionWay?
 
     override func render() -> NodeType {
-
         var dateTime: String?
         var stopPointLabel: String?
         switch self.sectionWay! {
@@ -25,14 +24,31 @@ class JourneyRoadmapSectionStopPointComponent: ViewComponent {
         }
 
         return ComponentNode(JourneyRoadmapSectionLayoutComponent(), in: self, props: { (component: JourneyRoadmapSectionLayoutComponent, hasKey: Bool) in
-            component.firstComponent = ComponentNode(ViewComponent(), in: self, props: { (component: ViewComponent, hasKey: Bool) in
+            component.firstComponent = ComponentNode(TimeComponent(), in: self, props: { (component: TimeComponent, hasKey: Bool) in
+                component.dateTime = dateTime
+            })
+
+            component.secondComponent = ComponentNode(LineDiagramComponent(), in: self, props: { (component: LineDiagramComponent, hasKey: Bool) in
+                component.color = self.section!.displayInformations?.color
+            })
+
+            component.thirdComponent = ComponentNode(DescriptionContentComponent(), in: self, props: { (component: DescriptionContentComponent, hasKey: Bool) in
+                component.stopPointLabel = stopPointLabel
+            })
+        })
+    }
+
+    private class TimeComponent: ViewComponent {
+        var dateTime: String?
+
+        override func render() -> NodeType {
+            return ComponentNode(ViewComponent(), in: self, props: { (component: ViewComponent, hasKey: Bool) in
                 component.styles = [
                     "backgroundColor": UIColor.white,
                     "paddingTop": 14,
                     "alignItems": YGAlign.center,
                     "justifyContent": YGJustify.center,
                 ]
-
             }).add(children: [
                 ComponentNode(LabelComponent(), in: self, props: { (component: LabelComponent, hasKey: Bool) in
                     component.styles = [
@@ -42,35 +58,10 @@ class JourneyRoadmapSectionStopPointComponent: ViewComponent {
                         "lineBreakMode": NSLineBreakMode.byClipping,
                     ]
 
-                    component.text = timeText(isoString: dateTime!)
+                    component.text = timeText(isoString: self.dateTime!)
                 })
             ])
-
-            component.secondComponent = ComponentNode(LineDiagramComponent(), in: self, props: { (component: LineDiagramComponent, hasKey: Bool) in
-                component.color = self.section!.displayInformations?.color
-            })
-
-            component.thirdComponent = ComponentNode(ViewComponent(), in: self, props: { (component: ViewComponent, hasKey: Bool) in
-                component.styles = [
-                    "backgroundColor": config.colors.lighterGray,
-                    "paddingHorizontal": 5,
-                    "paddingTop": 14,
-                    "paddingBottom": 18,
-                ]
-            }).add(children: [
-                ComponentNode(LabelComponent(), in: self, props: { (component: LabelComponent, hasKey: Bool) in
-                    component.styles = [
-                        "color": config.colors.darkText,
-                        "fontWeight": "bold",
-                        "fontSize": 15,
-                        "numberOfLines": 0,
-                        "lineBreakMode": NSLineBreakMode.byWordWrapping,
-                    ]
-
-                    component.text = stopPointLabel!
-                })
-            ])
-        })
+        }
     }
 
     private class LineDiagramComponent: ViewComponent {
@@ -90,6 +81,33 @@ class JourneyRoadmapSectionStopPointComponent: ViewComponent {
                         "flexGrow": 1,
                         "width": 5,
                     ]
+                })
+            ])
+        }
+    }
+
+    private class DescriptionContentComponent: ViewComponent {
+        var stopPointLabel: String?
+
+        override func render() -> NodeType {
+            return ComponentNode(ViewComponent(), in: self, props: { (component: ViewComponent, hasKey: Bool) in
+                component.styles = [
+                    "backgroundColor": config.colors.lighterGray,
+                    "paddingHorizontal": 5,
+                    "paddingTop": 14,
+                    "paddingBottom": 18,
+                ]
+            }).add(children: [
+                ComponentNode(LabelComponent(), in: self, props: { (component: LabelComponent, hasKey: Bool) in
+                    component.styles = [
+                        "color": config.colors.darkText,
+                        "fontWeight": "bold",
+                        "fontSize": 15,
+                        "numberOfLines": 0,
+                        "lineBreakMode": NSLineBreakMode.byWordWrapping,
+                    ]
+
+                    component.text = self.stopPointLabel!
                 })
             ])
         }
