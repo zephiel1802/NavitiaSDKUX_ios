@@ -78,6 +78,7 @@ public struct Configuration {
         "geolocation": "\u{ea19}",
         "home": "\u{ea1a}",
         "location-pin": "\u{ea15}",
+        "line-diagram-stop": "\u{e900}",
         "metro": "\u{ea1b}",
         "notice": "\u{ea1c}",
         "origin": "\u{ea1d}",
