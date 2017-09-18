@@ -64,6 +64,7 @@ public struct Configuration {
         "arrow-right-long": "\u{ea0b}",
         "arrow-right": "\u{ea0c}",
         "bike": "\u{ea0d}",
+        "circle-filled": "\u{e901}",
         "ferry": "\u{ea0e}",
         "bss": "\u{ea0f}",
         "bus": "\u{ea10}",
