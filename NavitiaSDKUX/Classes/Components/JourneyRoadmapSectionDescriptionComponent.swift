@@ -304,7 +304,7 @@ class JourneyRoadmapSectionDescriptionComponent: ViewComponent {
                     component.styles = [
                         "backgroundColor": getUIColorFromHexadecimal(hex: self.color!),
                         "flexGrow": 1,
-                        "width": 5,
+                        "width": 4,
                     ]
                 })
             ])
