@@ -198,7 +198,7 @@ class JourneyRoadmapSectionStopPointComponent: ViewComponent {
                     (self.sectionWay == SectionWay.departure ? "bottom" : "top"): 0,
                     "left": 0,
                     "width": 20,
-                    "height": 2,
+                    "height": 3,
                     "alignItems": YGAlign.center,
                     "justifyContent": YGJustify.center,
                 ]
