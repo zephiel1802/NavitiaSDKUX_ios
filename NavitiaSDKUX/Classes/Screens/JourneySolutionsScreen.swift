@@ -29,7 +29,7 @@ open class JourneySolutionsScreen: StylizedComponent<JourneySolutionsScreenState
     required public init() {
         super.init()
                 
-        let navitiaConfig = NavitiaConfiguration(token: "")
+        let navitiaConfig = NavitiaConfiguration(token: NavitiaSDKUXConfig.getToken())
         self.navitiaSDK = NavitiaSDK(configuration: navitiaConfig)
     }
     

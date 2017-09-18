@@ -94,16 +94,30 @@ public struct Configuration {
     
     public var colors = ColorConfiguration()
     public var metrics = MetricConfiguration()
+    public var token = ""
 }
 
 var config = Configuration()
 
 // Expose outside bundle
-public var NavitiaSDKUXConfig: Configuration {
-    get {
-        return config
+public class NavitiaSDKUXConfig: NSObject {
+    public static func getToken() -> String {
+        return config.token
     }
-    set(newConfig) {
-        config = newConfig
+    
+    public static func setToken(token: String) {
+        config.token = token
+    }
+    
+    public static func getTertiaryColor() -> UIColor {
+        return config.colors.tertiary
+    }
+    
+    public static func setTertiaryColor(color: UIColor) {
+        config.colors.tertiary = color
+    }
+    
+    public static func setRadiusMetrics(value: Int) {
+        config.metrics.radius = value
     }
 }
