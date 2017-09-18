@@ -72,12 +72,12 @@ class JourneyRoadmapSectionStopPointComponent: ViewComponent {
                 ComponentNode(LineDiagramStopPointIconComponent(), in: self, props: { (component: LineDiagramStopPointIconComponent, hasKey: Bool) in
                     component.color = self.color
                     if (self.sectionWay != nil && self.sectionWay! == SectionWay.departure) {
-                        component.withUpperJunction = false
-                        component.withLowerJunction = true
+                        component.hasUpperJunction = false
+                        component.hasLowerJunction = true
                     }
                     if (self.sectionWay != nil && self.sectionWay! == SectionWay.arrival) {
-                        component.withUpperJunction = true
-                        component.withLowerJunction = false
+                        component.hasUpperJunction = true
+                        component.hasLowerJunction = false
                     }
                 }),
                 ComponentNode(SubLineDiagramComponent(), in: self, props: { (component: SubLineDiagramComponent, hasKey: Bool) in
@@ -105,7 +105,7 @@ class JourneyRoadmapSectionStopPointComponent: ViewComponent {
                     "backgroundColor": config.colors.lighterGray,
                     "paddingHorizontal": 5,
                     "paddingTop": 14,
-                    "paddingBottom": 18,
+                    "paddingBottom": 14,
                 ]
             }).add(children: [
                 ComponentNode(LabelComponent(), in: self, props: { (component: LabelComponent, hasKey: Bool) in

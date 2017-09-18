@@ -230,7 +230,7 @@ class JourneyRoadmapSectionDescriptionComponent: ViewComponent {
 
                 component.firstComponent = ComponentNode(ViewComponent(), in: self)
 
-                component.secondComponent = ComponentNode(LineDiagramComponent(), in: self, props: { (component: LineDiagramComponent, hasKey: Bool) in
+                component.secondComponent = ComponentNode(LineDiagramForIntermediateStopPointComponent(), in: self, props: { (component: LineDiagramForIntermediateStopPointComponent, hasKey: Bool) in
                     component.color = self.color
                 })
 
@@ -242,14 +242,6 @@ class JourneyRoadmapSectionDescriptionComponent: ViewComponent {
                             "paddingBottom": 2,
                         ]
                     }).add(children: [
-                        ComponentNode(IconComponent(), in: self, props: { (component, hasKey: Bool) in
-                            component.name = "origin"
-                            component.styles = [
-                                "color": getUIColorFromHexadecimal(hex: self.color!),
-                                "fontSize": 10,
-                                "marginRight": 5,
-                            ]
-                        }),
                         ComponentNode(LabelComponent(), in: self, props: { (component: LabelComponent, hasKey: Bool) in
                             component.styles = [
                                 "color": UIColor.darkText,
@@ -311,6 +303,36 @@ class JourneyRoadmapSectionDescriptionComponent: ViewComponent {
         }
     }
 
+    private class LineDiagramForIntermediateStopPointComponent: ViewComponent {
+        var color: String?
+
+        override func render() -> NodeType {
+            return ComponentNode(ViewComponent(), in: self, props: { (component: ViewComponent, hasKey: Bool) in
+                component.styles = [
+                    "backgroundColor": UIColor.white,
+                    "flexGrow": 1,
+                    "alignItems": YGAlign.center,
+                    "justifyContent": YGJustify.center,
+                ]
+            }).add(children: [
+                ComponentNode(SubLineDiagramComponent(), in: self, props: { (component: SubLineDiagramComponent, hasKey: Bool) in
+                    component.color = self.color
+                }),
+                ComponentNode(LineDiagramStopPointIconComponent(), in: self, props: { (component: LineDiagramStopPointIconComponent, hasKey: Bool) in
+                    component.color = self.color
+                    component.hasUpperJunction = true
+                    component.hasLowerJunction = true
+                    component.outerFontSize = 12
+                    component.innerFontSize = 0
+                }),
+                ComponentNode(SubLineDiagramComponent(), in: self, props: { (component: SubLineDiagramComponent, hasKey: Bool) in
+                    component.color = self.color
+                }),
+            ])
+        }
+    }
+
+
     private class ContentContainerComponent: ViewComponent {
         override func render() -> NodeType {
             return ComponentNode(ViewComponent(), in: self, props: { (component: ViewComponent, hasKey: Bool) in
@@ -343,7 +365,7 @@ class JourneyRoadmapSectionDescriptionComponent: ViewComponent {
                 component.styles = [
                     "backgroundColor": UIColor.white,
                     "paddingHorizontal": 5,
-                    "paddingTop": 0,
+                    "paddingTop": 2,
                     "paddingBottom": 0,
                 ]
             })
