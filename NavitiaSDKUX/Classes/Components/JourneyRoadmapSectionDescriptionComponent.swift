@@ -42,7 +42,6 @@ class JourneyRoadmapSectionDescriptionComponent: ViewComponent {
                 })
             })
         }
-
     }
 
     private class DescriptionModeIconComponent: ViewComponent {
@@ -371,5 +370,4 @@ class JourneyRoadmapSectionDescriptionComponent: ViewComponent {
             })
         }
     }
-
 }
