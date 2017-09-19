@@ -145,7 +145,7 @@ class JourneyRoadmapSectionDescriptionComponent: ViewComponent {
                 ])
             ])
 
-            detailsContainer.add(children: self.section!.stopDateTimes!.filter { stopDateTime in
+            detailsContainer.add(children: self.section!.stopDateTimes![1...(self.section!.stopDateTimes!.count-2)].filter { stopDateTime in
                 return stopDateTime != nil
             }.map { stopDateTime -> NodeType in
                 return ComponentNode(IntermediateStopPointComponent(), in: self, props: { (component: IntermediateStopPointComponent, hasKey: Bool) in
