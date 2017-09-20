@@ -6,7 +6,7 @@ struct ComponentVisibilityState: StateType {
     var visible: Bool = true
 }
 
-class JourneyRoadmapSectionDescriptionComponent: ViewComponent {
+class JourneyRoadmapSectionPublicTransportDescriptionComponent: ViewComponent {
     var section: Section?
 
     override func render() -> NodeType {
@@ -41,28 +41,6 @@ class JourneyRoadmapSectionDescriptionComponent: ViewComponent {
                     component.section = self.section
                 })
             })
-        }
-    }
-
-    private class DescriptionModeIconComponent: ViewComponent {
-        var section: Section?
-
-        override func render() -> NodeType {
-            return ComponentNode(ViewComponent(), in: self, props: { (component: ViewComponent, hasKey: Bool) in
-                component.styles = [
-                    "flexGrow": 1,
-                    "alignItems": YGAlign.center,
-                    "justifyContent": YGJustify.center,
-                ]
-            }).add(children: [
-                ComponentNode(ModeComponent(), in: self, props: { (component: ModeComponent, hasKey: Bool) in
-                    component.styles = [
-                        "height": 28,
-                    ]
-
-                    component.section = self.section
-                })
-            ])
         }
     }
 
@@ -209,7 +187,7 @@ class JourneyRoadmapSectionDescriptionComponent: ViewComponent {
                                 "marginRight": 5,
                             ]
 
-                            component.text = NSLocalizedString("component.JourneyRoadmapSectionDescriptionComponent.detailsHeaderTitle",
+                            component.text = NSLocalizedString("component.JourneyRoadmapSectionPublicTransportDescriptionComponent.detailsHeaderTitle",
                                     bundle: self.bundle,
                                     comment: "Details header title for journey roadmap section"
                             )

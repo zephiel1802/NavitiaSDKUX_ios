@@ -20,4 +20,13 @@
 "controller.JourneySolutionRoadmapViewController.title" = "Journey Roadmap";
 
 /* Navigation bar title for journey roadmap section */
-"component.JourneyRoadmapSectionDescriptionComponent.detailsHeaderTitle" = "Details";
+"component.JourneyRoadmapSectionPublicTransportDescriptionComponent.detailsHeaderTitle" = "Details";
+
+/* Journey roadmap transport action description */
+"journey.roadmap.action.walk" = "walk";
+
+/* Unités */
+"units.minute" = "minute";
+"units.minutes" = "minutes";
+"units.meter" = "meter";
+"units.meters" = "meters";

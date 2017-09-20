@@ -9,14 +9,14 @@ class JourneyRoadmapSectionPublicTransportComponent: ViewComponent {
         return ComponentNode(ViewComponent(), in: self, props: { (component, hasKey: Bool) in
             component.styles = self.sectionStyles
         }).add(children: [
-            ComponentNode(JourneyRoadmapSectionStopPointComponent(), in: self, props: { (component: JourneyRoadmapSectionStopPointComponent, hasKey: Bool) in
+            ComponentNode(JourneyRoadmapSectionPublicTransportStopPointComponent(), in: self, props: { (component: JourneyRoadmapSectionPublicTransportStopPointComponent, hasKey: Bool) in
                 component.section = self.section
                 component.sectionWay = SectionWay.departure
             }),
-            ComponentNode(JourneyRoadmapSectionDescriptionComponent(), in: self, props: { (component: JourneyRoadmapSectionDescriptionComponent, hasKey: Bool) in
+            ComponentNode(JourneyRoadmapSectionPublicTransportDescriptionComponent(), in: self, props: { (component: JourneyRoadmapSectionPublicTransportDescriptionComponent, hasKey: Bool) in
                 component.section = self.section
             }),
-            ComponentNode(JourneyRoadmapSectionStopPointComponent(), in: self, props: { (component: JourneyRoadmapSectionStopPointComponent, hasKey: Bool) in
+            ComponentNode(JourneyRoadmapSectionPublicTransportStopPointComponent(), in: self, props: { (component: JourneyRoadmapSectionPublicTransportStopPointComponent, hasKey: Bool) in
                 component.section = self.section
                 component.sectionWay = SectionWay.arrival
             })
