@@ -121,47 +121,48 @@ class JourneyRoadmapSectionDescriptionComponent: ViewComponent {
 
         override func render() -> NodeType {
             var detailsContainer = ComponentNode(ViewComponent(), in: self)
-            var allDetailsRows: [NodeType] = []
 
-            // NSLog("###### self.state.visible " + self.state.visible.description)
-            detailsContainer.add(children: [
-                ComponentNode(ActionComponent(), in: self, props: { (component: ActionComponent, hasKey: Bool) in
-                    component.onTap = { [weak self] _ in
-                        self?.setState { state in
-                            // NSLog("BEFORE state.visible " + state.visible.description)
-                            state.visible = !state.visible
-                            // NSLog("AFTER state.visible " + state.visible.description)
+            if (self.section!.stopDateTimes != nil && self.section!.stopDateTimes!.count > 2) {
+                // NSLog("###### self.state.visible " + self.state.visible.description)
+                detailsContainer.add(children: [
+                    ComponentNode(ActionComponent(), in: self, props: { (component: ActionComponent, hasKey: Bool) in
+                        component.onTap = { [weak self] _ in
+                            self?.setState { state in
+                                // NSLog("BEFORE state.visible " + state.visible.description)
+                                state.visible = !state.visible
+                                // NSLog("AFTER state.visible " + state.visible.description)
+                            }
                         }
-                    }
-                }).add(children: [
-                    ComponentNode(DetailsHeaderComponent(), in: self, props: { (component: DetailsHeaderComponent, hasKey: Bool) in
+                    }).add(children: [
+                        ComponentNode(DetailsHeaderComponent(), in: self, props: { (component: DetailsHeaderComponent, hasKey: Bool) in
+                            component.styles = self.styles
+
+                            component.color = self.section!.displayInformations?.color
+                            component.collapsed = !self.state.visible
+                            // NSLog(">>>>>> component.collapsed " + component.collapsed.description)
+                        })
+                    ])
+                ])
+
+                detailsContainer.add(children: self.section!.stopDateTimes![1...(self.section!.stopDateTimes!.count - 2)].filter { stopDateTime in
+                    return stopDateTime != nil
+                }.map { stopDateTime -> NodeType in
+                    return ComponentNode(IntermediateStopPointComponent(), in: self, props: { (component: IntermediateStopPointComponent, hasKey: Bool) in
+                        component.styles = self.styles
+
+                        component.stopDateTime = stopDateTime
+                        component.color = self.section!.displayInformations?.color
+                    })
+                })
+
+                detailsContainer.add(children: [
+                    ComponentNode(DetailsFooterComponent(), in: self, props: { (component: DetailsFooterComponent, hasKey: Bool) in
                         component.styles = self.styles
 
                         component.color = self.section!.displayInformations?.color
-                        component.collapsed = !self.state.visible
-                        // NSLog(">>>>>> component.collapsed " + component.collapsed.description)
                     })
                 ])
-            ])
-
-            detailsContainer.add(children: self.section!.stopDateTimes![1...(self.section!.stopDateTimes!.count-2)].filter { stopDateTime in
-                return stopDateTime != nil
-            }.map { stopDateTime -> NodeType in
-                return ComponentNode(IntermediateStopPointComponent(), in: self, props: { (component: IntermediateStopPointComponent, hasKey: Bool) in
-                    component.styles = self.styles
-
-                    component.stopDateTime = stopDateTime
-                    component.color = self.section!.displayInformations?.color
-                })
-            })
-
-            detailsContainer.add(children: [
-                ComponentNode(DetailsFooterComponent(), in: self, props: { (component: DetailsFooterComponent, hasKey: Bool) in
-                    component.styles = self.styles
-
-                    component.color = self.section!.displayInformations?.color
-                })
-            ])
+            }
 
             return detailsContainer
         }
