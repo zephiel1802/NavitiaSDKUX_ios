@@ -43,11 +43,16 @@ class JourneyRoadmapSectionStopPointComponent: ViewComponent {
             return ComponentNode(ViewComponent(), in: self, props: { (component: ViewComponent, hasKey: Bool) in
                 component.styles = [
                     "backgroundColor": UIColor.white,
-                    "paddingTop": 14,
+                    "flexGrow": 1,
                     "alignItems": YGAlign.center,
                     "justifyContent": YGJustify.center,
                 ]
             }).add(children: [
+                ComponentNode(ViewComponent(), in: self, props: { (component: ViewComponent, hasKey: Bool) in
+                    component.styles = [
+                        "flexGrow": 1,
+                    ]
+                }),
                 ComponentNode(LabelComponent(), in: self, props: { (component: LabelComponent, hasKey: Bool) in
                     component.styles = [
                         "color": config.colors.darkText,
@@ -57,6 +62,11 @@ class JourneyRoadmapSectionStopPointComponent: ViewComponent {
                     ]
 
                     component.text = timeText(isoString: self.dateTime!)
+                }),
+                ComponentNode(ViewComponent(), in: self, props: { (component: ViewComponent, hasKey: Bool) in
+                    component.styles = [
+                        "flexGrow": 1,
+                    ]
                 })
             ])
         }
