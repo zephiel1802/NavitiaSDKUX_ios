@@ -8,14 +8,16 @@
 
 import Foundation
 import Render
+import NavitiaSDK
 
 class ModeComponent: ViewComponent {
-    var name: String = ""
-    
+    let modes = Modes()
+    var section: Section?
+
     override func render() -> NodeType {
         let computedStyles = mergeDictionaries(dict1: iconStyles, dict2: self.styles)
         return ComponentNode(IconComponent(), in: self, props: {(component, hasKey: Bool) in
-            component.name = self.name
+            component.name = self.modes.getModeIcon(section: self.section!)
             component.styles = computedStyles
         })
     }

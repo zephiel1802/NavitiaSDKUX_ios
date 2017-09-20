@@ -7,13 +7,20 @@
 //
 
 import Render
+import NavitiaSDK
 
 class JourneySectionSegmentComponent: ViewComponent {
-    var color: UIColor = UIColor()
-    
+    var section: Section?
+
     override func render() -> NodeType {
+        var color: UIColor = config.colors.darkerGray
+
+        if (self.section!.displayInformations != nil) {
+            color = getUIColorFromHexadecimal(hex: (self.section!.displayInformations?.color)!)
+        }
+
         let containerStyles: [String: Any] = [
-            "backgroundColor": self.color,
+            "backgroundColor": color,
             "borderRadius": 3,
             "height": 5,
         ]

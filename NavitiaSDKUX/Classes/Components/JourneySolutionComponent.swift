@@ -13,7 +13,7 @@ import NavitiaSDK
 class JourneySolutionComponent: ViewComponent {
     var navigationController: UINavigationController?
     var journey: Journey = Journey()
-    
+
     override func render() -> NodeType {
         let computedStyles = mergeDictionaries(dict1: listStyles, dict2: self.styles)
         let walkingDistance = getWalkingDistance(sections: journey.sections!)
