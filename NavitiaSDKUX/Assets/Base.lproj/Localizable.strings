@@ -27,6 +27,6 @@
 
 /* Unités */
 "units.minute" = "minute";
-"units.minutes" = "minutes";
+"units.minute.plural" = "minutes";
 "units.meter" = "meter";
-"units.meters" = "meters";
+"units.meter.plural" = "meters";

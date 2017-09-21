@@ -52,7 +52,7 @@ class JourneyRoadmapSectionTransferDescriptionComponent: ViewComponent {
                         ]
 
                         let durationInMinutes:Int = Int.init(self.section!.duration!/60)
-                        let unit =  NSLocalizedString(((durationInMinutes > 1) ? "units.minutes" : "units.minute"),
+                        let unit =  NSLocalizedString("units.minute\((durationInMinutes > 1) ? ".plural" : "")",
                                 bundle: self.bundle,
                                 comment: "Unit for walking duration"
                         )

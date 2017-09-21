@@ -23,10 +23,10 @@
 "component.JourneyRoadmapSectionPublicTransportDescriptionComponent.detailsHeaderTitle" = "Détails";
 
 /* Journey roadmap transport action description */
-"journey.roadmap.action.walk" = "à pied";
+"journey.roadmap.action.walk" = "de marche";
 
 /* Units */
 "units.minute" = "minute";
-"units.minutes" = "minutes";
+"units.minute.plural" = "minutes";
 "units.meter" = "mètre";
-"units.meters" = "mètres";
+"units.meter.plural" = "mètres";
