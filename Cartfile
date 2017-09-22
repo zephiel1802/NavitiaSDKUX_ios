@@ -1,0 +1,2 @@
+github "alexdrone/Render" ~> 4.9.1
+github "CanalTP/NavitiaSDK_ios" "master"
