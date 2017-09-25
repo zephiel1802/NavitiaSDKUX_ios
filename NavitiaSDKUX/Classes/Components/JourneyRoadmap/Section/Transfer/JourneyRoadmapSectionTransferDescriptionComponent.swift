@@ -84,7 +84,7 @@ class JourneyRoadmapSectionTransferDescriptionComponent: ViewComponent {
                         "flexGrow": 1,
                     ]
 
-                    component.color = UIColor.darkGray
+                    component.color = getUIColorFromHexadecimal(hex: "808080")
                     component.lineWidth = 6
                     component.pattern = [0, 12]
                     component.dashPhase = 6

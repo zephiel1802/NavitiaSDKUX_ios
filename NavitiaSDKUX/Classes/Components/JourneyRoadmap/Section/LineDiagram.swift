@@ -8,7 +8,7 @@ enum SectionWay {
 }
 
 class LineDiagramStopPointIconComponent: ViewComponent {
-    var color: String?
+    var color: UIColor?
     var hasUpperJunction: Bool = false
     var hasLowerJunction: Bool = false
     var outerFontSize: Int = 18
@@ -91,12 +91,12 @@ class EmptySubLineDiagramComponent: ViewComponent {
 }
 
 class SubLineDiagramComponent: ViewComponent {
-    var color: String?
+    var color: UIColor?
 
     override func render() -> NodeType {
         return ComponentNode(ViewComponent(), in: self, props: { (component: ViewComponent, hasKey: Bool) in
             component.styles = [
-                "backgroundColor": getUIColorFromHexadecimal(hex: self.color!),
+                "backgroundColor": self.color!,
                 "flexGrow": 1,
                 "width": 4,
             ]
@@ -105,7 +105,7 @@ class SubLineDiagramComponent: ViewComponent {
 }
 
 private class StopPointIconComponent: ViewComponent {
-    var color: String?
+    var color: UIColor?
     var outerFontSize: Int = 18
     var innerFontSize: Int = 12
 
@@ -126,7 +126,7 @@ private class StopPointIconComponent: ViewComponent {
                     component.name = "circle-filled"
 
                     component.styles = [
-                        "color": getUIColorFromHexadecimal(hex: self.color!),
+                        "color": self.color!,
                         "fontSize": self.outerFontSize,
                     ]
                 })
@@ -156,7 +156,7 @@ private class StopPointIconComponent: ViewComponent {
 }
 
 private class LineDiagramJunctionIconComponent: ViewComponent {
-    var color: String?
+    var color: UIColor?
     var hasUpperJunction: Bool = false
     var hasLowerJunction: Bool = false
 
@@ -179,7 +179,7 @@ private class LineDiagramJunctionIconComponent: ViewComponent {
         }).add(children: [
             ComponentNode(ViewComponent(), in: self, props: { (component: ViewComponent, hasKey: Bool) in
                 component.styles = [
-                    "backgroundColor": getUIColorFromHexadecimal(hex: self.color!),
+                    "backgroundColor": self.color!,
                     "flexGrow": 1,
                     "width": 4,
                 ]

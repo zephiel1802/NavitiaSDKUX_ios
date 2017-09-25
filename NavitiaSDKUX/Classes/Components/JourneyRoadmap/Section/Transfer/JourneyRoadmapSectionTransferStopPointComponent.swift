@@ -26,7 +26,7 @@ class JourneyRoadmapSectionTransferStopPointComponent: ViewComponent {
             })
 
             component.secondComponent = ComponentNode(LineDiagramComponent(), in: self, props: { (component: LineDiagramComponent, hasKey: Bool) in
-                component.color = "808080"
+                component.color = getUIColorFromHexadecimal(hex: "808080")
                 component.sectionWay = self.sectionWay
             })
 
@@ -37,7 +37,7 @@ class JourneyRoadmapSectionTransferStopPointComponent: ViewComponent {
     }
 
     private class LineDiagramComponent: ViewComponent {
-        var color: String?
+        var color: UIColor?
         var sectionWay: SectionWay?
 
         override func render() -> NodeType {
@@ -47,15 +47,22 @@ class JourneyRoadmapSectionTransferStopPointComponent: ViewComponent {
                     component.color = self.color
                     if (self.sectionWay != nil && self.sectionWay! == SectionWay.departure) {
                         component.hasUpperJunction = false
-                        component.hasLowerJunction = true
+                        component.hasLowerJunction = false
                     }
                     if (self.sectionWay != nil && self.sectionWay! == SectionWay.arrival) {
-                        component.hasUpperJunction = true
+                        component.hasUpperJunction = false
                         component.hasLowerJunction = false
                     }
                 }),
-                ComponentNode(SubLineDiagramComponent(), in: self, props: { (component: SubLineDiagramComponent, hasKey: Bool) in
-                    component.color = self.color
+                ComponentNode(DottedLineDiagramComponent(), in: self, props: { (component: DottedLineDiagramComponent, hasKey: Bool) in
+                    component.styles = [
+                        "flexGrow": 1,
+                    ]
+
+                    component.color = getUIColorFromHexadecimal(hex: "808080")
+                    component.lineWidth = 6
+                    component.pattern = [0, 12]
+                    component.dashPhase = 6
                 }),
             ]
 

@@ -34,7 +34,7 @@ class JourneyRoadmapSectionPublicTransportDescriptionComponent: ViewComponent {
                 })
 
                 component.secondComponent = ComponentNode(LineDiagramComponent(), in: self, props: { (component: LineDiagramComponent, hasKey: Bool) in
-                    component.color = self.section!.displayInformations?.color
+                    component.color = getUIColorFromHexadecimal(hex: self.section!.displayInformations!.color!)
                 })
 
                 component.thirdComponent = ComponentNode(DescriptionContentComponent(), in: self, props: { (component: DescriptionContentComponent, hasKey: Bool) in
@@ -115,7 +115,7 @@ class JourneyRoadmapSectionPublicTransportDescriptionComponent: ViewComponent {
                         ComponentNode(DetailsHeaderComponent(), in: self, props: { (component: DetailsHeaderComponent, hasKey: Bool) in
                             component.styles = self.styles
 
-                            component.color = self.section!.displayInformations?.color
+                            component.color = getUIColorFromHexadecimal(hex: self.section!.displayInformations!.color!)
                             component.collapsed = !self.state.visible
                             // NSLog(">>>>>> component.collapsed " + component.collapsed.description)
                         })
@@ -129,7 +129,7 @@ class JourneyRoadmapSectionPublicTransportDescriptionComponent: ViewComponent {
                         component.styles = self.styles
 
                         component.stopDateTime = stopDateTime
-                        component.color = self.section!.displayInformations?.color
+                        component.color = getUIColorFromHexadecimal(hex: self.section!.displayInformations!.color!)
                     })
                 })
 
@@ -137,7 +137,7 @@ class JourneyRoadmapSectionPublicTransportDescriptionComponent: ViewComponent {
                     ComponentNode(DetailsFooterComponent(), in: self, props: { (component: DetailsFooterComponent, hasKey: Bool) in
                         component.styles = self.styles
 
-                        component.color = self.section!.displayInformations?.color
+                        component.color = getUIColorFromHexadecimal(hex: self.section!.displayInformations!.color!)
                     })
                 ])
             }
@@ -147,7 +147,7 @@ class JourneyRoadmapSectionPublicTransportDescriptionComponent: ViewComponent {
     }
 
     private class DetailsHeaderComponent: ViewComponent {
-        var color: String?
+        var color: UIColor?
         var collapsed: Bool = true
 
         override func render() -> NodeType {
@@ -200,7 +200,7 @@ class JourneyRoadmapSectionPublicTransportDescriptionComponent: ViewComponent {
 
     private class IntermediateStopPointComponent: ViewComponent {
         var stopDateTime: StopDateTime?
-        var color: String?
+        var color: UIColor?
 
         override func render() -> NodeType {
             return ComponentNode(JourneyRoadmapSectionLayoutComponent(), in: self, props: { (component: JourneyRoadmapSectionLayoutComponent, hasKey: Bool) in
@@ -237,7 +237,7 @@ class JourneyRoadmapSectionPublicTransportDescriptionComponent: ViewComponent {
     }
 
     private class DetailsFooterComponent: ViewComponent {
-        var color: String?
+        var color: UIColor?
 
         override func render() -> NodeType {
             return ComponentNode(JourneyRoadmapSectionLayoutComponent(), in: self, props: { (component: JourneyRoadmapSectionLayoutComponent, hasKey: Bool) in
@@ -260,7 +260,7 @@ class JourneyRoadmapSectionPublicTransportDescriptionComponent: ViewComponent {
 
     // COMMON
     private class LineDiagramComponent: ViewComponent {
-        var color: String?
+        var color: UIColor?
 
         override func render() -> NodeType {
             return ComponentNode(ViewComponent(), in: self, props: { (component: ViewComponent, hasKey: Bool) in
@@ -272,7 +272,7 @@ class JourneyRoadmapSectionPublicTransportDescriptionComponent: ViewComponent {
             }).add(children: [
                 ComponentNode(ViewComponent(), in: self, props: { (component: ViewComponent, hasKey: Bool) in
                     component.styles = [
-                        "backgroundColor": getUIColorFromHexadecimal(hex: self.color!),
+                        "backgroundColor": self.color!,
                         "flexGrow": 1,
                         "width": 4,
                     ]
@@ -282,7 +282,7 @@ class JourneyRoadmapSectionPublicTransportDescriptionComponent: ViewComponent {
     }
 
     private class LineDiagramForIntermediateStopPointComponent: ViewComponent {
-        var color: String?
+        var color: UIColor?
 
         override func render() -> NodeType {
             return ComponentNode(ViewComponent(), in: self, props: { (component: ViewComponent, hasKey: Bool) in

@@ -26,7 +26,7 @@ class JourneyRoadmapSectionPublicTransportStopPointComponent: ViewComponent {
             })
 
             component.secondComponent = ComponentNode(LineDiagramComponent(), in: self, props: { (component: LineDiagramComponent, hasKey: Bool) in
-                component.color = self.section!.displayInformations?.color
+                component.color = getUIColorFromHexadecimal(hex: self.section!.displayInformations!.color!)
                 component.sectionWay = self.sectionWay
             })
 
@@ -37,7 +37,7 @@ class JourneyRoadmapSectionPublicTransportStopPointComponent: ViewComponent {
     }
 
     private class LineDiagramComponent: ViewComponent {
-        var color: String?
+        var color: UIColor?
         var sectionWay: SectionWay?
 
         override func render() -> NodeType {
