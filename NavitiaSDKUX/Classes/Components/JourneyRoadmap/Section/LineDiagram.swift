@@ -46,20 +46,9 @@ class LineDiagramStopPointIconComponent: ViewComponent {
 
 class DottedLineDiagramComponent: ViewComponent {
     var path: UIBezierPath?
-
-    public required init() {
-        super.init()
-        NSLog("DottedLineDiagramComponent init")
-    }
-
-    public required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-
+    
     override func render() -> NodeType {
-        NSLog("DottedLineDiagramComponent render")
         return Node<DottedLineDiagramView>() { view, layout, _ in
-            NSLog("DottedLineDiagramComponent applyStyles")
             view.createDottedLineShapeLayer(fraction: 0.5, lineWidth: 6, pattern: [0, 12], dashPhase: 6)
             self.applyStyles(view: view, layout: layout)
         }
@@ -69,7 +58,6 @@ class DottedLineDiagramComponent: ViewComponent {
         private var path: UIBezierPath!
 
         public func createDottedLineShapeLayer(fraction: CGFloat, lineWidth: CGFloat, pattern: [CGFloat], dashPhase: CGFloat) {
-            NSLog("createDottedLineShapeLayer \(self.frame.size.width) \(self.frame.size.height)")
             path = UIBezierPath()
 
             path.move(to: CGPoint(x: self.frame.size.width*fraction, y: 0.0))
