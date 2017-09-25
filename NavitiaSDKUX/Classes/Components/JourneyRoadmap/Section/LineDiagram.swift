@@ -45,11 +45,14 @@ class LineDiagramStopPointIconComponent: ViewComponent {
 }
 
 class DottedLineDiagramComponent: ViewComponent {
-    var path: UIBezierPath?
-    
+    var lineWidth: CGFloat?
+    var pattern: [CGFloat]?
+    var dashPhase: CGFloat?
+    var color: UIColor?
+
     override func render() -> NodeType {
         return Node<DottedLineDiagramView>() { view, layout, _ in
-            view.createDottedLineShapeLayer(fraction: 0.5, lineWidth: 6, pattern: [0, 12], dashPhase: 6)
+            view.createDottedLineShapeLayer(color: self.color!, lineWidth: self.lineWidth!, pattern: self.pattern!, dashPhase: self.dashPhase!)
             self.applyStyles(view: view, layout: layout)
         }
     }
@@ -57,16 +60,16 @@ class DottedLineDiagramComponent: ViewComponent {
     private class DottedLineDiagramView: UIView {
         private var path: UIBezierPath!
 
-        public func createDottedLineShapeLayer(fraction: CGFloat, lineWidth: CGFloat, pattern: [CGFloat], dashPhase: CGFloat) {
+        public func createDottedLineShapeLayer(color: UIColor, lineWidth: CGFloat, pattern: [CGFloat], dashPhase: CGFloat) {
             path = UIBezierPath()
 
-            path.move(to: CGPoint(x: self.frame.size.width*fraction, y: 0.0))
-            path.addLine(to: CGPoint(x: self.frame.size.width*fraction, y: self.frame.size.height))
+            path.move(to: CGPoint(x: self.frame.size.width*0.5, y: 0.0))
+            path.addLine(to: CGPoint(x: self.frame.size.width*0.5, y: self.frame.size.height))
 
             let shapeLayer = CAShapeLayer()
             shapeLayer.path = self.path.cgPath
 
-            shapeLayer.strokeColor = UIColor.cyan.cgColor
+            shapeLayer.strokeColor = color.cgColor
             shapeLayer.lineDashPattern = pattern as [NSNumber]
             shapeLayer.lineDashPhase = dashPhase
             shapeLayer.lineWidth = lineWidth
