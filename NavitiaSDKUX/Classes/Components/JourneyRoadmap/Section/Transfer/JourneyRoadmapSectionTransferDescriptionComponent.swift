@@ -72,6 +72,7 @@ class JourneyRoadmapSectionTransferDescriptionComponent: ViewComponent {
         var color: String?
 
         override func render() -> NodeType {
+            NSLog("LineDiagramComponent")
             return ComponentNode(ViewComponent(), in: self, props: { (component: ViewComponent, hasKey: Bool) in
                 component.styles = [
                     "backgroundColor": UIColor.white,
@@ -79,11 +80,12 @@ class JourneyRoadmapSectionTransferDescriptionComponent: ViewComponent {
                     "alignItems": YGAlign.center,
                 ]
             }).add(children: [
-                ComponentNode(ViewComponent(), in: self, props: { (component: ViewComponent, hasKey: Bool) in
+                ComponentNode(DottedLineDiagramComponent(), in: self, props: { (component: DottedLineDiagramComponent, hasKey: Bool) in
+                    NSLog("LineDiagramComponent configures DottedLineDiagramComponent")
                     component.styles = [
-                        "backgroundColor": getUIColorFromHexadecimal(hex: self.color!),
-                        "flexGrow": 1,
-                        "width": 4,
+                        //"flexGrow": 1,
+                        "width": 20,
+                        "height": 20,
                     ]
                 })
             ])
