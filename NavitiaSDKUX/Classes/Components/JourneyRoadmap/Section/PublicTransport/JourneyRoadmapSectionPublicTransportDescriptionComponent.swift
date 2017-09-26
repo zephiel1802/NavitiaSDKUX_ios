@@ -173,7 +173,7 @@ class JourneyRoadmapSectionPublicTransportDescriptionComponent: ViewComponent {
                     }).add(children: [
                         ComponentNode(IconComponent(), in: self, props: { (component: IconComponent, hasKey: Bool) in
                             component.name = self.collapsed ? "arrow-details-down" : "arrow-details-up"
-                             // NSLog(">>>>>> IconComponent.name " + component.name)
+                            // NSLog(">>>>>> IconComponent.name " + component.name)
 
                             component.styles = [
                                 "color": UIColor.lightGray,

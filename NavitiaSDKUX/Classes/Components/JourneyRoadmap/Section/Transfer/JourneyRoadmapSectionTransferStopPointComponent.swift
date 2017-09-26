@@ -2,8 +2,6 @@ import Foundation
 import Render
 import NavitiaSDK
 
-
-
 class JourneyRoadmapSectionTransferStopPointComponent: ViewComponent {
     var section: Section?
     var sectionWay: SectionWay?
@@ -45,14 +43,8 @@ class JourneyRoadmapSectionTransferStopPointComponent: ViewComponent {
                 ComponentNode(EmptySubLineDiagramComponent(), in: self),
                 ComponentNode(LineDiagramStopPointIconComponent(), in: self, props: { (component: LineDiagramStopPointIconComponent, hasKey: Bool) in
                     component.color = self.color
-                    if (self.sectionWay != nil && self.sectionWay! == SectionWay.departure) {
-                        component.hasUpperJunction = false
-                        component.hasLowerJunction = false
-                    }
-                    if (self.sectionWay != nil && self.sectionWay! == SectionWay.arrival) {
-                        component.hasUpperJunction = false
-                        component.hasLowerJunction = false
-                    }
+                    component.hasUpperJunction = false
+                    component.hasLowerJunction = false
                 }),
                 ComponentNode(DottedLineDiagramComponent(), in: self, props: { (component: DottedLineDiagramComponent, hasKey: Bool) in
                     component.styles = [
