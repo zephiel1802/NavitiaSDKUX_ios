@@ -10,7 +10,7 @@ class JourneyRoadmapSectionPublicTransportDescriptionComponent: ViewComponent {
     var section: Section?
 
     override func render() -> NodeType {
-        NSLog("JourneyRoadmapSectionDescriptionComponent")
+        // NSLog("JourneyRoadmapSectionDescriptionComponent")
         return ComponentNode(ViewComponent(), in: self).add(children: [
             ComponentNode(DescriptionComponent(), in: self, props: { (component: DescriptionComponent, hasKey: Bool) in
                 component.section = self.section
@@ -102,14 +102,14 @@ class JourneyRoadmapSectionPublicTransportDescriptionComponent: ViewComponent {
             var detailsContainer = ComponentNode(ViewComponent(), in: self)
 
             if (self.section!.stopDateTimes != nil && self.section!.stopDateTimes!.count > 2) {
-                NSLog("###### self.state.visible " + self.state.visible.description)
+                // NSLog("###### self.state.visible " + self.state.visible.description)
                 detailsContainer.add(children: [
                     ComponentNode(ActionComponent(), in: self, props: { (component: ActionComponent, hasKey: Bool) in
                         component.onTap = { [weak self] _ in
                             self?.setState { state in
-                                 NSLog("BEFORE state.visible " + state.visible.description)
+                                 // NSLog("BEFORE state.visible " + state.visible.description)
                                 state.visible = !state.visible
-                                 NSLog("AFTER state.visible " + state.visible.description)
+                                 // NSLog("AFTER state.visible " + state.visible.description)
                             }
                         }
                     }).add(children: [
@@ -118,7 +118,7 @@ class JourneyRoadmapSectionPublicTransportDescriptionComponent: ViewComponent {
 
                             component.color = getUIColorFromHexadecimal(hex: self.section!.displayInformations!.color!)
                             component.collapsed = !self.state.visible
-                             NSLog(">>>>>> component.collapsed " + component.collapsed.description)
+                             // NSLog(">>>>>> component.collapsed " + component.collapsed.description)
                         })
                     ])
                 ])
@@ -152,7 +152,7 @@ class JourneyRoadmapSectionPublicTransportDescriptionComponent: ViewComponent {
         var collapsed: Bool = true
 
         override func render() -> NodeType {
-             NSLog(">>>>>> DetailsHeaderComponent.collapsed " + self.collapsed.description)
+             // NSLog(">>>>>> DetailsHeaderComponent.collapsed " + self.collapsed.description)
 
             return ComponentNode(JourneyRoadmapSectionLayoutComponent(), in: self, props: { (component: JourneyRoadmapSectionLayoutComponent, hasKey: Bool) in
                 component.styles = self.styles
@@ -173,7 +173,7 @@ class JourneyRoadmapSectionPublicTransportDescriptionComponent: ViewComponent {
                     }).add(children: [
                         ComponentNode(IconComponent(), in: self, props: { (component: IconComponent, hasKey: Bool) in
                             component.name = self.collapsed ? "arrow-details-down" : "arrow-details-up"
-                             NSLog(">>>>>> IconComponent.name " + component.name)
+                             // NSLog(">>>>>> IconComponent.name " + component.name)
 
                             component.styles = [
                                 "color": UIColor.lightGray,
