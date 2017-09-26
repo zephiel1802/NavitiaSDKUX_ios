@@ -52,15 +52,16 @@ class JourneyRoadmapSectionTransferStopPointComponent: ViewComponent {
             ]
 
             return ComponentNode(ViewComponent(), in: self, props: { (component: ViewComponent, hasKey: Bool) in
-                component.styles = [
-                    "backgroundColor": UIColor.white,
-                    "flexGrow": 1,
-                    "alignItems": YGAlign.center,
-                    "justifyContent": YGJustify.center,
-                ]
+                component.styles = self.lineDiagramContainerStyle
             }).add(children: sectionWay == SectionWay.departure ? subComponents : subComponents.reversed())
         }
 
+        let lineDiagramContainerStyle: [String: Any] = [
+            "backgroundColor": UIColor.white,
+            "flexGrow": 1,
+            "alignItems": YGAlign.center,
+            "justifyContent": YGJustify.center,
+        ]
         let lineDiagramStyle: [String: Any] = [
             "flexGrow": 1,
             "color": getUIColorFromHexadecimal(hex: "808080"),
@@ -75,26 +76,29 @@ class JourneyRoadmapSectionTransferStopPointComponent: ViewComponent {
 
         override func render() -> NodeType {
             return ComponentNode(ViewComponent(), in: self, props: { (component: ViewComponent, hasKey: Bool) in
-                component.styles = [
-                    "backgroundColor": config.colors.lighterGray,
-                    "paddingHorizontal": 5,
-                    "paddingTop": 14,
-                    "paddingBottom": 14,
-                ]
+                component.styles = self.stopPointContainerStyle
             }).add(children: [
                 ComponentNode(LabelComponent(), in: self, props: { (component: LabelComponent, hasKey: Bool) in
-                    component.styles = [
-                        "color": config.colors.darkText,
-                        "fontWeight": "bold",
-                        "fontSize": 15,
-                        "numberOfLines": 0,
-                        "lineBreakMode": NSLineBreakMode.byWordWrapping,
-                    ]
+                    component.styles = self.stopPointLabelStyle
 
                     component.text = self.stopPointLabel!
                 })
             ])
         }
+
+        let stopPointContainerStyle: [String: Any] = [
+            "backgroundColor": config.colors.lighterGray,
+            "paddingHorizontal": 5,
+            "paddingTop": 14,
+            "paddingBottom": 14,
+        ]
+        let stopPointLabelStyle: [String: Any] = [
+            "color": config.colors.darkText,
+            "fontWeight": "bold",
+            "fontSize": 15,
+            "numberOfLines": 0,
+            "lineBreakMode": NSLineBreakMode.byWordWrapping,
+        ]
     }
 
 }
