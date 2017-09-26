@@ -8,8 +8,12 @@
 
 import UIKit
 
-public func getUIColorFromHexadecimal(hex: String) -> UIColor {
-    var cString:String = hex.trimmingCharacters(in: .whitespacesAndNewlines).uppercased()
+public func getUIColorFromHexadecimal(hex: String?) -> UIColor {
+    if (hex == nil) {
+        return UIColor.black
+    }
+
+    var cString:String = hex!.trimmingCharacters(in: .whitespacesAndNewlines).uppercased()
     
     if (cString.hasPrefix("#")) {
         cString.remove(at: cString.startIndex)
