@@ -47,14 +47,7 @@ class JourneyRoadmapSectionTransferStopPointComponent: ViewComponent {
                     component.hasLowerJunction = false
                 }),
                 ComponentNode(DottedLineDiagramComponent(), in: self, props: { (component: DottedLineDiagramComponent, hasKey: Bool) in
-                    component.styles = [
-                        "flexGrow": 1,
-                    ]
-
-                    component.color = getUIColorFromHexadecimal(hex: "808080")
-                    component.lineWidth = 6
-                    component.pattern = [0, 12]
-                    component.dashPhase = 6
+                    component.styles = self.lineDiagramStyle
                 }),
             ]
 
@@ -67,6 +60,14 @@ class JourneyRoadmapSectionTransferStopPointComponent: ViewComponent {
                 ]
             }).add(children: sectionWay == SectionWay.departure ? subComponents : subComponents.reversed())
         }
+
+        let lineDiagramStyle: [String: Any] = [
+            "flexGrow": 1,
+            "color": getUIColorFromHexadecimal(hex: "808080"),
+            "lineWidth": 6,
+            "pattern": [0, 12] as [CGFloat],
+            "dashPhase": 6,
+        ]
     }
 
     private class DescriptionContentComponent: ViewComponent {

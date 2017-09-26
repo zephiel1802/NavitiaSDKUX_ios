@@ -45,15 +45,28 @@ class LineDiagramStopPointIconComponent: ViewComponent {
 }
 
 class DottedLineDiagramComponent: ViewComponent {
-    var lineWidth: CGFloat?
-    var pattern: [CGFloat]?
-    var dashPhase: CGFloat?
-    var color: UIColor?
+    private var lineWidth: CGFloat?
+    private var pattern: [CGFloat]?
+    private var dashPhase: CGFloat?
+    private var color: UIColor?
 
     override func render() -> NodeType {
         return Node<DottedLineDiagramView>() { view, layout, _ in
-            view.createDottedLineShapeLayer(color: self.color!, lineWidth: self.lineWidth!, pattern: self.pattern!, dashPhase: self.dashPhase!)
             self.applyStyles(view: view, layout: layout)
+            self.applyDottedLineDiagramStyles(view: view, layout: layout)
+            view.createDottedLineShapeLayer(color: self.color!, lineWidth: self.lineWidth!, pattern: self.pattern!, dashPhase: self.dashPhase!)
+        }
+    }
+
+    private func applyDottedLineDiagramStyles(view: DottedLineDiagramView, layout: YGLayout) {
+        for (prop, value) in styles {
+            switch prop {
+            case "color": self.color = value as! UIColor; break
+            case "lineWidth": self.lineWidth = CGFloat(value as! Int) ; break
+            case "pattern": self.pattern = value as! [CGFloat]; break
+            case "dashPhase": self.dashPhase =  CGFloat(value as! Int); break
+            default: break
+            }
         }
     }
 

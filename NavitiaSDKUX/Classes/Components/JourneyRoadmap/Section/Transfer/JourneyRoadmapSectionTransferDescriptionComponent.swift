@@ -39,32 +39,37 @@ class JourneyRoadmapSectionTransferDescriptionComponent: ViewComponent {
         var section: Section?
 
         override func render() -> NodeType {
-            return ComponentNode(ContentContainerComponent(), in: self).add(children: [
-                ComponentNode(ViewComponent(), in: self, props: { (component: ViewComponent, hasKey: Bool) in
-                    component.styles = [
-                        "flexDirection": YGFlexDirection.row,
-                    ]
-                }).add(children: [
-                    ComponentNode(LabelComponent(), in: self, props: { (component: LabelComponent, hasKey: Bool) in
-                        component.styles = [
-                            "fontSize": 15,
-                            "marginRight": 5,
-                        ]
+            return ComponentNode(ViewComponent(), in: self, props: { (component: ViewComponent, hasKey: Bool) in
+                component.styles = self.descriptionContentContainerStyle
+            }).add(children: [
+                ComponentNode(LabelComponent(), in: self, props: { (component: LabelComponent, hasKey: Bool) in
+                    component.styles = self.descriptionlabelStyle
 
-                        let durationInMinutes:Int = Int.init(self.section!.duration!/60)
-                        let unit =  NSLocalizedString("units.minute\((durationInMinutes > 1) ? ".plural" : "")",
-                                bundle: self.bundle,
-                                comment: "Unit for walking duration"
-                        )
-                        let action = NSLocalizedString("journey.roadmap.action.walk",
-                                bundle: self.bundle,
-                                comment: "Action description"
-                        )
-                        component.text = "\(durationInMinutes) \(unit) \(action)"
-                    }),
-                ]),
+                    let durationInMinutes: Int = Int.init(self.section!.duration! / 60)
+                    let unit = NSLocalizedString("units.minute\((durationInMinutes > 1) ? ".plural" : "")",
+                            bundle: self.bundle,
+                            comment: "Unit for walking duration"
+                    )
+                    let action = NSLocalizedString("journey.roadmap.action.walk",
+                            bundle: self.bundle,
+                            comment: "Action description"
+                    )
+                    component.text = "\(durationInMinutes) \(unit) \(action)"
+                }),
             ])
         }
+
+        let descriptionContentContainerStyle: [String: Any] = [
+            "flexDirection": YGFlexDirection.row,
+            "backgroundColor": UIColor.white,
+            "paddingHorizontal": 5,
+            "paddingTop": 14,
+            "paddingBottom": 18,
+        ]
+        let descriptionlabelStyle: [String: Any] = [
+            "fontSize": 15,
+            "marginRight": 5,
+        ]
     }
 
     // COMMON
@@ -73,36 +78,25 @@ class JourneyRoadmapSectionTransferDescriptionComponent: ViewComponent {
 
         override func render() -> NodeType {
             return ComponentNode(ViewComponent(), in: self, props: { (component: ViewComponent, hasKey: Bool) in
-                component.styles = [
-                    "backgroundColor": UIColor.white,
-                    "flexGrow": 1,
-                    "alignItems": YGAlign.center,
-                ]
+                component.styles = self.lineDiagramContainerStyle
             }).add(children: [
                 ComponentNode(DottedLineDiagramComponent(), in: self, props: { (component: DottedLineDiagramComponent, hasKey: Bool) in
-                    component.styles = [
-                        "flexGrow": 1,
-                    ]
-
-                    component.color = getUIColorFromHexadecimal(hex: "808080")
-                    component.lineWidth = 6
-                    component.pattern = [0, 12]
-                    component.dashPhase = 6
+                    component.styles = self.lineDiagramStyle
                 })
             ])
         }
-    }
 
-    private class ContentContainerComponent: ViewComponent {
-        override func render() -> NodeType {
-            return ComponentNode(ViewComponent(), in: self, props: { (component: ViewComponent, hasKey: Bool) in
-                component.styles = [
-                    "backgroundColor": UIColor.white,
-                    "paddingHorizontal": 5,
-                    "paddingTop": 14,
-                    "paddingBottom": 18,
-                ]
-            })
-        }
+        let lineDiagramContainerStyle: [String: Any] = [
+            "backgroundColor": UIColor.white,
+            "flexGrow": 1,
+            "alignItems": YGAlign.center,
+        ]
+        let lineDiagramStyle: [String: Any] = [
+            "flexGrow": 1,
+            "color": getUIColorFromHexadecimal(hex: "808080"),
+            "lineWidth": 6,
+            "pattern": [0, 12] as [CGFloat],
+            "dashPhase": 6,
+        ]
     }
 }
