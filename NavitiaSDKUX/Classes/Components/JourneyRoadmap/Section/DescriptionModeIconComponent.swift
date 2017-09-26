@@ -7,19 +7,22 @@ class DescriptionModeIconComponent: ViewComponent {
 
     override func render() -> NodeType {
         return ComponentNode(ViewComponent(), in: self, props: { (component: ViewComponent, hasKey: Bool) in
-            component.styles = [
-                "flexGrow": 1,
-                "alignItems": YGAlign.center,
-                "justifyContent": YGJustify.center,
-            ]
+            component.styles = self.modeContainerStyle
         }).add(children: [
             ComponentNode(ModeComponent(), in: self, props: { (component: ModeComponent, hasKey: Bool) in
-                component.styles = [
-                    "height": 28,
-                ]
+                component.styles = self.modeIconStyle
 
                 component.section = self.section
             })
         ])
     }
+
+    let modeContainerStyle: [String: Any] = [
+        "flexGrow": 1,
+        "alignItems": YGAlign.center,
+        "justifyContent": YGJustify.center,
+    ]
+    let modeIconStyle: [String: Any] = [
+        "height": 28,
+    ]
 }
