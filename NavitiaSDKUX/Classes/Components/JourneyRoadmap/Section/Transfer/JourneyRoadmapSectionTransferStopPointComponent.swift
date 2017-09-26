@@ -40,7 +40,9 @@ class JourneyRoadmapSectionTransferStopPointComponent: ViewComponent {
 
         override func render() -> NodeType {
             let subComponents = [
-                ComponentNode(EmptySubLineDiagramComponent(), in: self),
+                ComponentNode(ViewComponent(), in: self, props: { (component: ViewComponent, hasKey: Bool) in
+                    component.styles = self.emptyComponentStyle
+                }),
                 ComponentNode(LineDiagramStopPointIconComponent(), in: self, props: { (component: LineDiagramStopPointIconComponent, hasKey: Bool) in
                     component.color = self.color
                     component.hasUpperJunction = false
@@ -56,6 +58,9 @@ class JourneyRoadmapSectionTransferStopPointComponent: ViewComponent {
             }).add(children: sectionWay == SectionWay.departure ? subComponents : subComponents.reversed())
         }
 
+        let emptyComponentStyle: [String: Any] = [
+            "flexGrow": 1,
+        ]
         let lineDiagramContainerStyle: [String: Any] = [
             "backgroundColor": UIColor.white,
             "flexGrow": 1,

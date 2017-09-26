@@ -36,12 +36,14 @@ class LineDiagramStopPointIconComponent: ViewComponent {
         }))
 
         return ComponentNode(ViewComponent(), in: self, props: { (component: ViewComponent, hasKey: Bool) in
-            component.styles = [
-                "width": 20,
-                "height": 20,
-            ]
+            component.styles = self.stopPointIconWithJunctionContainerStyle
         }).add(children: subComponents)
     }
+
+    let stopPointIconWithJunctionContainerStyle: [String: Any] = [
+        "width": 20,
+        "height": 20,
+    ]
 }
 
 class DottedLineDiagramComponent: ViewComponent {
@@ -93,28 +95,20 @@ class DottedLineDiagramComponent: ViewComponent {
     }
 }
 
-class EmptySubLineDiagramComponent: ViewComponent {
-    override func render() -> NodeType {
-        return ComponentNode(ViewComponent(), in: self, props: { (component: ViewComponent, hasKey: Bool) in
-            component.styles = [
-                "flexGrow": 1,
-            ]
-        })
-    }
-}
-
 class SubLineDiagramComponent: ViewComponent {
     var color: UIColor?
 
     override func render() -> NodeType {
         return ComponentNode(ViewComponent(), in: self, props: { (component: ViewComponent, hasKey: Bool) in
-            component.styles = [
-                "backgroundColor": self.color!,
-                "flexGrow": 1,
-                "width": 4,
-            ]
+            component.styles = self.sublineDiagramStyle
+            component.styles["backgroundColor"] = self.color!
         })
     }
+
+    let sublineDiagramStyle: [String: Any] = [
+        "flexGrow": 1,
+        "width": 4,
+    ]
 }
 
 private class StopPointIconComponent: ViewComponent {
@@ -125,47 +119,47 @@ private class StopPointIconComponent: ViewComponent {
     override func render() -> NodeType {
         return ComponentNode(ViewComponent(), in: self).add(children: [
             ComponentNode(ViewComponent(), in: self, props: { (component: ViewComponent, hasKey: Bool) in
-                component.styles = [
-                    "position": YGPositionType.absolute,
-                    "top": 0,
-                    "left": 0,
-                    "width": 20,
-                    "height": 20,
-                    "alignItems": YGAlign.center,
-                    "justifyContent": YGJustify.center,
-                ]
+                component.styles = self.stopPointIconContainerStyle
             }).add(children: [
                 ComponentNode(IconComponent(), in: self, props: { (component: IconComponent, hasKey: Bool) in
+                    component.styles["color"] = self.color!
+                    component.styles["fontSize"] = self.outerFontSize
                     component.name = "circle-filled"
-
-                    component.styles = [
-                        "color": self.color!,
-                        "fontSize": self.outerFontSize,
-                    ]
                 })
             ]),
             ComponentNode(ViewComponent(), in: self, props: { (component: ViewComponent, hasKey: Bool) in
-                component.styles = [
-                    "position": YGPositionType.absolute,
-                    "top": 0,
-                    "left": 0,
-                    "width": 20,
-                    "height": 20,
-                    "alignItems": YGAlign.center,
-                    "justifyContent": YGJustify.center,
-                ]
+                component.styles = self.circleContainerStyle
             }).add(children: [
                 ComponentNode(IconComponent(), in: self, props: { (component: IconComponent, hasKey: Bool) in
+                    component.styles = self.circleStyle
+                    component.styles["fontSize"] = self.innerFontSize
                     component.name = "circle-filled"
-
-                    component.styles = [
-                        "color": UIColor.white,
-                        "fontSize": self.innerFontSize,
-                    ]
                 })
             ])
         ])
     }
+
+    let stopPointIconContainerStyle: [String: Any] = [
+        "position": YGPositionType.absolute,
+        "top": 0,
+        "left": 0,
+        "width": 20,
+        "height": 20,
+        "alignItems": YGAlign.center,
+        "justifyContent": YGJustify.center,
+    ]
+    let circleContainerStyle: [String: Any] = [
+        "position": YGPositionType.absolute,
+        "top": 0,
+        "left": 0,
+        "width": 20,
+        "height": 20,
+        "alignItems": YGAlign.center,
+        "justifyContent": YGJustify.center,
+    ]
+    let circleStyle: [String: Any] = [
+        "color": UIColor.white,
+    ]
 }
 
 private class LineDiagramJunctionIconComponent: ViewComponent {
@@ -175,14 +169,7 @@ private class LineDiagramJunctionIconComponent: ViewComponent {
 
     override func render() -> NodeType {
         return ComponentNode(ViewComponent(), in: self, props: { (component: ViewComponent, hasKey: Bool) in
-            component.styles = [
-                "position": YGPositionType.absolute,
-                "left": 0,
-                "width": 20,
-                "height": 10,
-                "alignItems": YGAlign.center,
-                "justifyContent": YGJustify.center,
-            ]
+            component.styles = self.junctionContainerStyle
             if (self.hasUpperJunction) {
                 component.styles["top"] = 0
             } else
@@ -191,12 +178,23 @@ private class LineDiagramJunctionIconComponent: ViewComponent {
             }
         }).add(children: [
             ComponentNode(ViewComponent(), in: self, props: { (component: ViewComponent, hasKey: Bool) in
-                component.styles = [
-                    "backgroundColor": self.color!,
-                    "flexGrow": 1,
-                    "width": 4,
-                ]
+                component.styles = self.junctionStyle
+                component.styles["backgroundColor"] = self.color!
+
             })
         ])
     }
+
+    let junctionContainerStyle: [String: Any] = [
+        "position": YGPositionType.absolute,
+        "left": 0,
+        "width": 20,
+        "height": 10,
+        "alignItems": YGAlign.center,
+        "justifyContent": YGJustify.center,
+    ]
+    let junctionStyle: [String: Any] = [
+        "flexGrow": 1,
+        "width": 4,
+    ]
 }
