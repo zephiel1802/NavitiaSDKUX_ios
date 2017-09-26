@@ -26,7 +26,7 @@ class JourneyRoadmapSectionPublicTransportStopPointComponent: ViewComponent {
             })
 
             component.secondComponent = ComponentNode(LineDiagramComponent(), in: self, props: { (component: LineDiagramComponent, hasKey: Bool) in
-                component.color = getUIColorFromHexadecimal(hex: self.section!.displayInformations?.color)
+                component.color = getUIColorFromHexadecimal(hex: getHexadecimalColorWithFallback(self.section!.displayInformations?.color))
                 component.sectionWay = self.sectionWay
             })
 

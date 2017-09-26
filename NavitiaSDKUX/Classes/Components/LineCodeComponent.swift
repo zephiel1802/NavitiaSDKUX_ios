@@ -18,12 +18,12 @@ class LineCodeComponent: ViewComponent {
 
         if (self.section!.displayInformations != nil && self.section!.displayInformations!.code != nil) {
             let codeStyles: [String: Any] = [
-                "backgroundColor": getUIColorFromHexadecimal(hex: self.section!.displayInformations?.color),
+                "backgroundColor": getUIColorFromHexadecimal(hex: getHexadecimalColorWithFallback(self.section!.displayInformations?.color)),
                 "borderRadius": 3,
                 "padding": 6,
             ]
             let textStyles: [String: Any] = [
-                "color": getUIColorFromHexadecimal(hex: self.section!.displayInformations?.textColor),
+                "color": getUIColorFromHexadecimal(hex: getHexadecimalColorWithFallback(self.section!.displayInformations?.textColor)),
                 "fontSize": 12,
                 "fontWeight": "bold",
             ]
