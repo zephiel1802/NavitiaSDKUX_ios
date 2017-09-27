@@ -10,7 +10,7 @@ import UIKit
 
 public func getHexadecimalColorWithFallback(_ hex: String?) -> String {
     if (hex == nil) {
-        return "#000000"
+        return "000000"
     }
 
     return hex!

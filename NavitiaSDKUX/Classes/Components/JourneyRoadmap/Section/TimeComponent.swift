@@ -24,7 +24,6 @@ class TimeComponent: ViewComponent {
     }
 
     let timeContainerStyle: [String: Any] = [
-        "backgroundColor": UIColor.white,
         "flexGrow": 1,
         "alignItems": YGAlign.center,
         "justifyContent": YGJustify.center,
