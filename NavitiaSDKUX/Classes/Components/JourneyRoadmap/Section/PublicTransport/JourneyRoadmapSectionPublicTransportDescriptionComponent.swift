@@ -156,15 +156,17 @@ class JourneyRoadmapSectionPublicTransportDescriptionComponent: ViewComponent {
                     ])
                 ])
 
-                detailsContainer.add(children: self.section!.stopDateTimes![1...(self.section!.stopDateTimes!.count - 2)].filter { stopDateTime in
-                    return stopDateTime != nil
-                }.map { stopDateTime -> NodeType in
-                    return ComponentNode(IntermediateStopPointComponent(), in: self, props: { (component: IntermediateStopPointComponent, hasKey: Bool) in
-                        component.styles = self.styles
-                        component.stopDateTime = stopDateTime
-                        component.color = getUIColorFromHexadecimal(hex: getHexadecimalColorWithFallback(self.section!.displayInformations?.color))
+                if (self.state.visible) {
+                    detailsContainer.add(children: self.section!.stopDateTimes![1...(self.section!.stopDateTimes!.count - 2)].filter { stopDateTime in
+                        return stopDateTime != nil
+                    }.map { stopDateTime -> NodeType in
+                        return ComponentNode(IntermediateStopPointComponent(), in: self, props: { (component: IntermediateStopPointComponent, hasKey: Bool) in
+                            component.styles = self.styles
+                            component.stopDateTime = stopDateTime
+                            component.color = getUIColorFromHexadecimal(hex: getHexadecimalColorWithFallback(self.section!.displayInformations?.color))
+                        })
                     })
-                })
+                }
 
                 detailsContainer.add(children: [
                     ComponentNode(DetailsFooterComponent(), in: self, props: { (component: DetailsFooterComponent, hasKey: Bool) in
