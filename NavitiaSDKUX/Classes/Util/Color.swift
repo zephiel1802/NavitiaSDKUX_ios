@@ -8,6 +8,14 @@
 
 import UIKit
 
+public func getHexadecimalColorWithFallback(_ hex: String?) -> String {
+    if (hex == nil) {
+        return "000000"
+    }
+
+    return hex!
+}
+
 public func getUIColorFromHexadecimal(hex: String) -> UIColor {
     var cString:String = hex.trimmingCharacters(in: .whitespacesAndNewlines).uppercased()
     

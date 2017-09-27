@@ -113,7 +113,7 @@ open class JourneySolutionsScreen: StylizedComponent<JourneySolutionsScreenState
         var results: [NodeType] = []
         var index: Int32 = 0
         for journey in journeys.journeys! {
-            results.append(ComponentNode(JourneySolutionComponent(), in: self, props: {(component, hasKey: Bool) in
+            results.append(ComponentNode(JourneySolutionComponent(), in: self, props: {(component: JourneySolutionComponent, hasKey: Bool) in
                 component.journey = journey
                 component.navigationController = self.navigationController
             }))

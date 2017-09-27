@@ -20,4 +20,13 @@
 "controller.JourneySolutionRoadmapViewController.title" = "Feuille de route";
 
 /* Navigation bar title for journey roadmap section */
-"component.JourneyRoadmapSectionDescriptionComponent.detailsHeaderTitle" = "Détails";
+"component.JourneyRoadmapSectionPublicTransportDescriptionComponent.detailsHeaderTitle" = "Détails";
+
+/* Journey roadmap transport action description */
+"journey.roadmap.action.walk" = "de marche";
+
+/* Units */
+"units.minute" = "minute";
+"units.minute.plural" = "minutes";
+"units.meter" = "mètre";
+"units.meter.plural" = "mètres";

@@ -10,19 +10,19 @@ import Foundation
 import Render
 
 open class StylizedComponent<S: StateType>: ComponentView<S> {
-    var styles: Dictionary<String, Any> = [:]
+    var styles: [String: Any] = [:]
     var uniqueKey: String = "<empty!>"
     var bundle: Bundle = Bundle.main
-    
+
     public required init() {
         super.init()
         bundle = Bundle.init(for: self.classForCoder)
     }
-    
+
     public required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
     func applyStyles(view: UIView, layout: YGLayout) {
         for (prop, value) in styles {
             switch prop {
@@ -76,7 +76,13 @@ open class StylizedComponent<S: StateType>: ComponentView<S> {
             case "borderColor": view.layer.borderColor = (value as! UIColor).cgColor; break
             case "percent": layout.percent = value as! YGPercentLayout; break
             case "width": layout.width = CGFloat(value as! Int); break
-            case "height": layout.height = CGFloat(value as! Int); break
+            case "height":
+                if let percent = value as? YGValue {
+                    layout.percent.height = percent
+                } else {
+                    layout.height = CGFloat(value as! Int)
+                }
+                break
             case "minWidth": layout.minWidth = CGFloat(value as! Int); break
             case "minHeight": layout.minHeight = CGFloat(value as! Int); break
             case "maxWidth": layout.maxWidth = CGFloat(value as! Int); break
@@ -85,8 +91,8 @@ open class StylizedComponent<S: StateType>: ComponentView<S> {
             case "shadowOpacity": view.layer.shadowOpacity = Float(value as! Double); break
             case "shadowColor": view.layer.shadowColor = (value as AnyObject).cgColor; break
             case "shadowOffset":
-                view.layer.masksToBounds = false;
-                view.layer.shadowOffset = CGSize(width: 0, height: 0);
+                view.layer.masksToBounds = false
+                view.layer.shadowOffset = CGSize(width: 0, height: 0)
                 break
             default: break
             }

@@ -2,21 +2,21 @@ import Foundation
 import Render
 import NavitiaSDK
 
-class JourneyRoadmapSectionPublicTransportComponent: ViewComponent {
+class JourneyRoadmapSectionTransferComponent: ViewComponent {
     var section: Section?
 
     override func render() -> NodeType {
         return ComponentNode(ViewComponent(), in: self, props: { (component, hasKey: Bool) in
             component.styles = self.sectionStyles
         }).add(children: [
-            ComponentNode(JourneyRoadmapSectionStopPointComponent(), in: self, props: { (component: JourneyRoadmapSectionStopPointComponent, hasKey: Bool) in
+            ComponentNode(JourneyRoadmapSectionTransferStopPointComponent(), in: self, props: { (component: JourneyRoadmapSectionTransferStopPointComponent, hasKey: Bool) in
                 component.section = self.section
                 component.sectionWay = SectionWay.departure
             }),
-            ComponentNode(JourneyRoadmapSectionDescriptionComponent(), in: self, props: { (component: JourneyRoadmapSectionDescriptionComponent, hasKey: Bool) in
+            ComponentNode(JourneyRoadmapSectionTransferDescriptionComponent(), in: self, props: { (component: JourneyRoadmapSectionTransferDescriptionComponent, hasKey: Bool) in
                 component.section = self.section
             }),
-            ComponentNode(JourneyRoadmapSectionStopPointComponent(), in: self, props: { (component: JourneyRoadmapSectionStopPointComponent, hasKey: Bool) in
+            ComponentNode(JourneyRoadmapSectionTransferStopPointComponent(), in: self, props: { (component: JourneyRoadmapSectionTransferStopPointComponent, hasKey: Bool) in
                 component.section = self.section
                 component.sectionWay = SectionWay.arrival
             })

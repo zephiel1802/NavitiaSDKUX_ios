@@ -16,7 +16,7 @@ class JourneySectionSegmentComponent: ViewComponent {
         var color: UIColor = config.colors.darkerGray
 
         if (self.section!.displayInformations != nil) {
-            color = getUIColorFromHexadecimal(hex: (self.section!.displayInformations?.color)!)
+            color = getUIColorFromHexadecimal(hex: getHexadecimalColorWithFallback(self.section!.displayInformations?.color))
         }
 
         let containerStyles: [String: Any] = [

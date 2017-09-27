@@ -4,7 +4,7 @@ import NavitiaSDK
 
 
 
-class JourneyRoadmapSectionStopPointComponent: ViewComponent {
+class JourneyRoadmapSectionPublicTransportStopPointComponent: ViewComponent {
     var section: Section?
     var sectionWay: SectionWay?
 
@@ -26,7 +26,7 @@ class JourneyRoadmapSectionStopPointComponent: ViewComponent {
             })
 
             component.secondComponent = ComponentNode(LineDiagramComponent(), in: self, props: { (component: LineDiagramComponent, hasKey: Bool) in
-                component.color = self.section!.displayInformations?.color
+                component.color = getUIColorFromHexadecimal(hex: getHexadecimalColorWithFallback(self.section!.displayInformations?.color))
                 component.sectionWay = self.sectionWay
             })
 
@@ -36,49 +36,15 @@ class JourneyRoadmapSectionStopPointComponent: ViewComponent {
         })
     }
 
-    private class TimeComponent: ViewComponent {
-        var dateTime: String?
-
-        override func render() -> NodeType {
-            return ComponentNode(ViewComponent(), in: self, props: { (component: ViewComponent, hasKey: Bool) in
-                component.styles = [
-                    "backgroundColor": UIColor.white,
-                    "flexGrow": 1,
-                    "alignItems": YGAlign.center,
-                    "justifyContent": YGJustify.center,
-                ]
-            }).add(children: [
-                ComponentNode(ViewComponent(), in: self, props: { (component: ViewComponent, hasKey: Bool) in
-                    component.styles = [
-                        "flexGrow": 1,
-                    ]
-                }),
-                ComponentNode(LabelComponent(), in: self, props: { (component: LabelComponent, hasKey: Bool) in
-                    component.styles = [
-                        "color": config.colors.darkText,
-                        "fontSize": 12,
-                        "numberOfLines": 1,
-                        "lineBreakMode": NSLineBreakMode.byClipping,
-                    ]
-
-                    component.text = timeText(isoString: self.dateTime!)
-                }),
-                ComponentNode(ViewComponent(), in: self, props: { (component: ViewComponent, hasKey: Bool) in
-                    component.styles = [
-                        "flexGrow": 1,
-                    ]
-                })
-            ])
-        }
-    }
-
     private class LineDiagramComponent: ViewComponent {
-        var color: String?
+        var color: UIColor?
         var sectionWay: SectionWay?
 
         override func render() -> NodeType {
             let subComponents = [
-                ComponentNode(EmptySubLineDiagramComponent(), in: self),
+                ComponentNode(ViewComponent(), in: self, props: { (component: ViewComponent, hasKey: Bool) in
+                    component.styles = self.emptyComponentStyle
+                }),
                 ComponentNode(LineDiagramStopPointIconComponent(), in: self, props: { (component: LineDiagramStopPointIconComponent, hasKey: Bool) in
                     component.color = self.color
                     if (self.sectionWay != nil && self.sectionWay! == SectionWay.departure) {
@@ -96,14 +62,18 @@ class JourneyRoadmapSectionStopPointComponent: ViewComponent {
             ]
 
             return ComponentNode(ViewComponent(), in: self, props: { (component: ViewComponent, hasKey: Bool) in
-                component.styles = [
-                    "backgroundColor": UIColor.white,
-                    "flexGrow": 1,
-                    "alignItems": YGAlign.center,
-                    "justifyContent": YGJustify.center,
-                ]
+                component.styles = self.lineDiagramContainerStyle
             }).add(children: sectionWay == SectionWay.departure ? subComponents : subComponents.reversed())
         }
+
+        let lineDiagramContainerStyle: [String: Any] = [
+            "flexGrow": 1,
+            "alignItems": YGAlign.center,
+            "justifyContent": YGJustify.center,
+        ]
+        let emptyComponentStyle: [String: Any] = [
+            "flexGrow": 1,
+        ]
     }
 
     private class DescriptionContentComponent: ViewComponent {
@@ -111,26 +81,29 @@ class JourneyRoadmapSectionStopPointComponent: ViewComponent {
 
         override func render() -> NodeType {
             return ComponentNode(ViewComponent(), in: self, props: { (component: ViewComponent, hasKey: Bool) in
-                component.styles = [
-                    "backgroundColor": config.colors.lighterGray,
-                    "paddingHorizontal": 5,
-                    "paddingTop": 14,
-                    "paddingBottom": 14,
-                ]
+                component.styles = self.stopPointContainerStyle
             }).add(children: [
                 ComponentNode(LabelComponent(), in: self, props: { (component: LabelComponent, hasKey: Bool) in
-                    component.styles = [
-                        "color": config.colors.darkText,
-                        "fontWeight": "bold",
-                        "fontSize": 15,
-                        "numberOfLines": 0,
-                        "lineBreakMode": NSLineBreakMode.byWordWrapping,
-                    ]
+                    component.styles = self.stopPointLabelStyle
 
                     component.text = self.stopPointLabel!
                 })
             ])
         }
+
+        let stopPointContainerStyle: [String: Any] = [
+            "backgroundColor": config.colors.lighterGray,
+            "paddingHorizontal": 5,
+            "paddingTop": 14,
+            "paddingBottom": 14,
+        ]
+        let stopPointLabelStyle: [String: Any] = [
+            "color": config.colors.darkText,
+            "fontWeight": "bold",
+            "fontSize": 15,
+            "numberOfLines": 0,
+            "lineBreakMode": NSLineBreakMode.byWordWrapping,
+        ]
     }
 
 }
