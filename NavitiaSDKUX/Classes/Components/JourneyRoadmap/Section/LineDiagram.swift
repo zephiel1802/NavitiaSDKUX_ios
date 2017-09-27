@@ -178,8 +178,7 @@ private class LineDiagramJunctionIconComponent: ViewComponent {
             component.styles = self.junctionContainerStyle
             if (self.hasUpperJunction) {
                 component.styles["top"] = 0
-            } else
-            if (self.hasLowerJunction) {
+            } else if (self.hasLowerJunction) {
                 component.styles["bottom"] = 0
             }
         }).add(children: [
@@ -193,9 +192,9 @@ private class LineDiagramJunctionIconComponent: ViewComponent {
 
     let junctionContainerStyle: [String: Any] = [
         "position": YGPositionType.absolute,
-        "left": 0,
-        "width": 20,
-        "height": 10,
+        "start": 0,
+        "end": 0,
+        "height": 50%,
         "alignItems": YGAlign.center,
         "justifyContent": YGJustify.center,
     ]
