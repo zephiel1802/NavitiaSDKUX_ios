@@ -9,8 +9,17 @@ struct ComponentVisibilityState: StateType {
 class JourneyRoadmapSectionPublicTransportDescriptionComponent: ViewComponent {
     var section: Section?
 
+    public required init() {
+        super.init()
+        NSLog("#SCREEN level 3# JourneyRoadmapSectionPublicTransportDescriptionComponent init")
+    }
+
+    public required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
     override func render() -> NodeType {
-        NSLog("JourneyRoadmapSectionDescriptionComponent")
+        NSLog("#SCREEN level 3# JourneyRoadmapSectionPublicTransportDescriptionComponent render")
         return ComponentNode(ViewComponent(), in: self).add(children: [
             ComponentNode(DescriptionComponent(), in: self, props: { (component: DescriptionComponent, hasKey: Bool) in
                 component.section = self.section
@@ -26,7 +35,7 @@ class JourneyRoadmapSectionPublicTransportDescriptionComponent: ViewComponent {
         var section: Section?
 
         override func render() -> NodeType {
-            return ComponentNode(JourneyRoadmapSectionLayoutComponent(), in: self, props: { (component: JourneyRoadmapSectionLayoutComponent, hasKey: Bool) in
+            let descriptionNode = ComponentNode(JourneyRoadmapSectionLayoutComponent(), in: self, props: { (component: JourneyRoadmapSectionLayoutComponent, hasKey: Bool) in
                 component.styles = self.styles
 
                 component.firstComponent = ComponentNode(DescriptionModeIconComponent(), in: self, props: { (component: DescriptionModeIconComponent, hasKey: Bool) in
@@ -41,6 +50,8 @@ class JourneyRoadmapSectionPublicTransportDescriptionComponent: ViewComponent {
                     component.section = self.section
                 })
             })
+
+            return descriptionNode
         }
     }
 
@@ -110,7 +121,18 @@ class JourneyRoadmapSectionPublicTransportDescriptionComponent: ViewComponent {
     private class DetailsComponent: StylizedComponent<ComponentVisibilityState> {
         var section: Section?
 
+        public required init() {
+            super.init()
+            NSLog("#SCREEN level 4# JourneyRoadmapSectionPublicTransportDescriptionComponent.DetailsComponent init")
+        }
+
+        public required init?(coder aDecoder: NSCoder) {
+            fatalError("init(coder:) has not been implemented")
+        }
+
         override func render() -> NodeType {
+            NSLog("#SCREEN level 4# JourneyRoadmapSectionPublicTransportDescriptionComponent.DetailsComponent render")
+
             var detailsContainer = ComponentNode(ViewComponent(), in: self)
 
             if (self.section!.stopDateTimes != nil && self.section!.stopDateTimes!.count > 2) {

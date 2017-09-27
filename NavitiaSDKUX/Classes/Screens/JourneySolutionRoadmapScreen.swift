@@ -13,7 +13,8 @@ open class JourneySolutionRoadmapScreen: ComponentView<JourneySolutionRoadmapSta
     var navigationController: UINavigationController?
 
     override open func render() -> NodeType {
-        return ComponentNode(ScreenComponent(), in: self).add(children: [
+        NSLog("#SCREEN# JourneySolutionRoadmapScreen")
+        let solutionRoadmapScreen = ComponentNode(ScreenComponent(), in: self).add(children: [
             ComponentNode(ScreenHeaderComponent(), in: self, props: { (component: ScreenHeaderComponent, hasKey: Bool) in
                 component.navigationController = self.navigationController
                 component.styles = self.screenHeaderStyle
@@ -27,14 +28,15 @@ open class JourneySolutionRoadmapScreen: ComponentView<JourneySolutionRoadmapSta
             ]),
             ComponentNode(ScrollViewComponent(), in: self).add(children: [
                 ComponentNode(ListViewComponent(), in: self).add(children:
-                    self.state.journey!.sections!.map({ (section: Section) -> NodeType in
-                        return ComponentNode(JourneyRoadmapSectionComponent(), in: self, props: { (component: JourneyRoadmapSectionComponent, hasKey: Bool) in
-                            component.section = section
-                        })
+                self.state.journey!.sections!.map({ (section: Section) -> NodeType in
+                    return ComponentNode(JourneyRoadmapSectionComponent(), in: self, props: { (component: JourneyRoadmapSectionComponent, hasKey: Bool) in
+                        component.section = section
                     })
+                })
                 )
             ])
         ])
+        return solutionRoadmapScreen
     }
 
     let screenHeaderStyle: [String: Any] = [

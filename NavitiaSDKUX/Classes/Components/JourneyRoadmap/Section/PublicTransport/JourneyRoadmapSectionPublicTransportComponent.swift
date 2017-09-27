@@ -5,15 +5,27 @@ import NavitiaSDK
 class JourneyRoadmapSectionPublicTransportComponent: ViewComponent {
     var section: Section?
 
+    public required init() {
+        super.init()
+        NSLog("#SCREEN level 2# JourneyRoadmapSectionPublicTransportComponent init")
+    }
+
+    public required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
     override func render() -> NodeType {
-        return ComponentNode(ViewComponent(), in: self, props: { (component, hasKey: Bool) in
+        NSLog("#SCREEN level 2# JourneyRoadmapSectionPublicTransportComponent \(self.section!.displayInformations!.label!)")
+        let sectionPublicTransportComponent = ComponentNode(ViewComponent(), in: self, props: { (component, hasKey: Bool) in
             component.styles = self.sectionStyles
         }).add(children: [
             ComponentNode(JourneyRoadmapSectionPublicTransportStopPointComponent(), in: self, props: { (component: JourneyRoadmapSectionPublicTransportStopPointComponent, hasKey: Bool) in
                 component.section = self.section
                 component.sectionWay = SectionWay.departure
             }),
-            ComponentNode(JourneyRoadmapSectionPublicTransportDescriptionComponent(), in: self, props: { (component: JourneyRoadmapSectionPublicTransportDescriptionComponent, hasKey: Bool) in
+            ComponentNode(JourneyRoadmapSectionPublicTransportDescriptionComponent(), in: self,
+                    key: "sectionPublicTransportDescription\(self.section!.type!)_\(self.section!.departureDateTime!)",
+                    props: { (component: JourneyRoadmapSectionPublicTransportDescriptionComponent, hasKey: Bool) in
                 component.section = self.section
             }),
             ComponentNode(JourneyRoadmapSectionPublicTransportStopPointComponent(), in: self, props: { (component: JourneyRoadmapSectionPublicTransportStopPointComponent, hasKey: Bool) in
@@ -21,6 +33,8 @@ class JourneyRoadmapSectionPublicTransportComponent: ViewComponent {
                 component.sectionWay = SectionWay.arrival
             })
         ])
+
+        return sectionPublicTransportComponent
     }
 
     let sectionStyles: [String: Any] = [
