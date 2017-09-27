@@ -11,7 +11,6 @@ class DescriptionModeIconComponent: ViewComponent {
         }).add(children: [
             ComponentNode(ModeComponent(), in: self, props: { (component: ModeComponent, hasKey: Bool) in
                 component.styles = self.modeIconStyle
-
                 component.section = self.section
             })
         ])
