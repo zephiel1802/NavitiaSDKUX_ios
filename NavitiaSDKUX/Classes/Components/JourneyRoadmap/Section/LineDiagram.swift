@@ -117,9 +117,11 @@ private class StopPointIconComponent: ViewComponent {
     var innerFontSize: Int = 12
 
     override func render() -> NodeType {
-        return ComponentNode(ViewComponent(), in: self).add(children: [
+        return ComponentNode(ViewComponent(), in: self, props: { (component: ViewComponent, hasKey: Bool) in
+            component.styles = self.stopPointIconContainerStyle
+        }).add(children: [
             ComponentNode(ViewComponent(), in: self, props: { (component: ViewComponent, hasKey: Bool) in
-                component.styles = self.stopPointIconContainerStyle
+                component.styles = self.outerCircleContainerStyle
             }).add(children: [
                 ComponentNode(IconComponent(), in: self, props: { (component: IconComponent, hasKey: Bool) in
                     component.styles["color"] = self.color!
@@ -128,7 +130,7 @@ private class StopPointIconComponent: ViewComponent {
                 })
             ]),
             ComponentNode(ViewComponent(), in: self, props: { (component: ViewComponent, hasKey: Bool) in
-                component.styles = self.circleContainerStyle
+                component.styles = self.innerCircleContainerStyle
             }).add(children: [
                 ComponentNode(IconComponent(), in: self, props: { (component: IconComponent, hasKey: Bool) in
                     component.styles = self.circleStyle
@@ -140,20 +142,24 @@ private class StopPointIconComponent: ViewComponent {
     }
 
     let stopPointIconContainerStyle: [String: Any] = [
+        "flexGrow": 1,
+        "alignSelf": YGAlign.stretch,
+    ]
+    let outerCircleContainerStyle: [String: Any] = [
         "position": YGPositionType.absolute,
+        "start": 0,
         "top": 0,
-        "left": 0,
-        "width": 20,
-        "height": 20,
+        "end": 0,
+        "bottom": 0,
         "alignItems": YGAlign.center,
         "justifyContent": YGJustify.center,
     ]
-    let circleContainerStyle: [String: Any] = [
+    let innerCircleContainerStyle: [String: Any] = [
         "position": YGPositionType.absolute,
+        "start": 0,
         "top": 0,
-        "left": 0,
-        "width": 20,
-        "height": 20,
+        "end": 0,
+        "bottom": 0,
         "alignItems": YGAlign.center,
         "justifyContent": YGJustify.center,
     ]
