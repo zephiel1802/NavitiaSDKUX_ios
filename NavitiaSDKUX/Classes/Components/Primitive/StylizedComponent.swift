@@ -78,9 +78,9 @@ open class StylizedComponent<S: StateType>: ComponentView<S> {
             case "width": layout.width = CGFloat(value as! Int); break
             case "height":
                 if let percent = value as? YGValue {
-                    layout.percent.height = percent;
+                    layout.percent.height = percent
                 } else {
-                    layout.height = CGFloat(value as! Int);
+                    layout.height = CGFloat(value as! Int)
                 }
                 break
             case "minWidth": layout.minWidth = CGFloat(value as! Int); break
@@ -91,8 +91,8 @@ open class StylizedComponent<S: StateType>: ComponentView<S> {
             case "shadowOpacity": view.layer.shadowOpacity = Float(value as! Double); break
             case "shadowColor": view.layer.shadowColor = (value as AnyObject).cgColor; break
             case "shadowOffset":
-                view.layer.masksToBounds = false;
-                view.layer.shadowOffset = CGSize(width: 0, height: 0);
+                view.layer.masksToBounds = false
+                view.layer.shadowOffset = CGSize(width: 0, height: 0)
                 break
             default: break
             }
