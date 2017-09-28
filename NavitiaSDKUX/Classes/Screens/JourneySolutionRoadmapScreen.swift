@@ -14,7 +14,7 @@ open class JourneySolutionRoadmapScreen: ComponentView<JourneySolutionRoadmapSta
 
     override open func render() -> NodeType {
         NSLog("#SCREEN# JourneySolutionRoadmapScreen")
-        let solutionRoadmapScreen = ComponentNode(ScreenComponent(), in: self).add(children: [
+        return ComponentNode(ScreenComponent(), in: self).add(children: [
             ComponentNode(ScreenHeaderComponent(), in: self, props: { (component: ScreenHeaderComponent, hasKey: Bool) in
                 component.navigationController = self.navigationController
                 component.styles = self.screenHeaderStyle
@@ -36,7 +36,6 @@ open class JourneySolutionRoadmapScreen: ComponentView<JourneySolutionRoadmapSta
                 )
             ])
         ])
-        return solutionRoadmapScreen
     }
 
     let screenHeaderStyle: [String: Any] = [

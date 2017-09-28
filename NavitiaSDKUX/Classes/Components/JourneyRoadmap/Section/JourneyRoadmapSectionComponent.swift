@@ -22,14 +22,14 @@ class JourneyRoadmapSectionComponent: ViewComponent {
             })
         case "public_transport":
             NSLog("#SCREEN level 1# JourneyRoadmapSectionComponent public_transport")
-            let sectionPublicTransport = ComponentNode(JourneyRoadmapSectionPublicTransportComponent(),
+            return ComponentNode(JourneyRoadmapSectionPublicTransportComponent(),
                     in: self,
                     key: "sectionPublicTransport\(self.section!.type!)_\(self.section!.departureDateTime!)",
                     props: { (component: JourneyRoadmapSectionPublicTransportComponent, hasKey: Bool) in
-                NSLog("#SCREEN level 1# JourneyRoadmapSectionComponent public_transport configuration \(self.section!.displayInformations!.label!)")
-                component.section = self.section
-            })
-            return sectionPublicTransport
+                        NSLog("#SCREEN level 1# JourneyRoadmapSectionComponent public_transport configuration \(self.section!.displayInformations!.label!)")
+                        component.section = self.section
+                    }
+            )
         default:
             return ComponentNode(JourneyRoadmapSectionDefaultComponent(), in: self, props: { (component: JourneyRoadmapSectionDefaultComponent, hasKey: Bool) in
                 component.section = self.section

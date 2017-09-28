@@ -35,7 +35,7 @@ class JourneyRoadmapSectionPublicTransportDescriptionComponent: ViewComponent {
         var section: Section?
 
         override func render() -> NodeType {
-            let descriptionNode = ComponentNode(JourneyRoadmapSectionLayoutComponent(), in: self, props: { (component: JourneyRoadmapSectionLayoutComponent, hasKey: Bool) in
+            return ComponentNode(JourneyRoadmapSectionLayoutComponent(), in: self, props: { (component: JourneyRoadmapSectionLayoutComponent, hasKey: Bool) in
                 component.styles = self.styles
 
                 component.firstComponent = ComponentNode(DescriptionModeIconComponent(), in: self, props: { (component: DescriptionModeIconComponent, hasKey: Bool) in
@@ -50,8 +50,6 @@ class JourneyRoadmapSectionPublicTransportDescriptionComponent: ViewComponent {
                     component.section = self.section
                 })
             })
-
-            return descriptionNode
         }
     }
 
