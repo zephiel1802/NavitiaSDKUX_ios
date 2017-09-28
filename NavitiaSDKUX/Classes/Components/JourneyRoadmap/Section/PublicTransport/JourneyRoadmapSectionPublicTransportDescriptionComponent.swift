@@ -3,7 +3,7 @@ import Render
 import NavitiaSDK
 
 struct ComponentVisibilityState: StateType {
-    var visible: Bool = true
+    var visible: Bool = false
 }
 
 class JourneyRoadmapSectionPublicTransportDescriptionComponent: ViewComponent {
