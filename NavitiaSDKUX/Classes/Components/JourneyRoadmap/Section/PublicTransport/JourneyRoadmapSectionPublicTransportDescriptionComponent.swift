@@ -24,7 +24,10 @@ class JourneyRoadmapSectionPublicTransportDescriptionComponent: ViewComponent {
             ComponentNode(DescriptionComponent(), in: self, props: { (component: DescriptionComponent, hasKey: Bool) in
                 component.section = self.section
             }),
-            ComponentNode(DetailsComponent(), in: self, key: "sectionDetails\(self.section!.type!)_\(self.section!.departureDateTime!)", props: { (component: DetailsComponent, hasKey: Bool) in
+            ComponentNode(DetailsComponent(),
+                    in: self,
+                    key: "\(String(describing: type(of: self)))_\(self.section!.type!)_\(self.section!.departureDateTime!)",
+                    props: { (component: DetailsComponent, hasKey: Bool) in
                 component.section = self.section
             })
         ])

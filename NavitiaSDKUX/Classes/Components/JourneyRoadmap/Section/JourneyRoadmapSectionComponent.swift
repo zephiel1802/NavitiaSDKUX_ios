@@ -24,7 +24,7 @@ class JourneyRoadmapSectionComponent: ViewComponent {
             NSLog("#SCREEN level 1# JourneyRoadmapSectionComponent public_transport")
             return ComponentNode(JourneyRoadmapSectionPublicTransportComponent(),
                     in: self,
-                    key: "sectionPublicTransport\(self.section!.type!)_\(self.section!.departureDateTime!)",
+                    key: "\(String(describing: type(of: self)))_\(self.section!.type!)_\(self.section!.departureDateTime!)",
                     props: { (component: JourneyRoadmapSectionPublicTransportComponent, hasKey: Bool) in
                         NSLog("#SCREEN level 1# JourneyRoadmapSectionComponent public_transport configuration \(self.section!.displayInformations!.label!)")
                         component.section = self.section

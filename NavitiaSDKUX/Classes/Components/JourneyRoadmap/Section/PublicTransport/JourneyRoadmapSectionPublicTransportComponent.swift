@@ -15,7 +15,7 @@ class JourneyRoadmapSectionPublicTransportComponent: ViewComponent {
     }
 
     override func render() -> NodeType {
-        NSLog("#SCREEN level 2# JourneyRoadmapSectionPublicTransportComponent \(self.section!.displayInformations!.label!)")
+        NSLog("#SCREEN level 2# JourneyRoadmapSectionPublicTransportComponent \(self.section!.displayInformations!.label!) \(String(describing: type(of: self)))_\(self.section!.type!)_\(self.section!.departureDateTime!)")
         return ComponentNode(ViewComponent(), in: self, props: { (component, hasKey: Bool) in
             component.styles = self.sectionStyles
         }).add(children: [
@@ -23,8 +23,9 @@ class JourneyRoadmapSectionPublicTransportComponent: ViewComponent {
                 component.section = self.section
                 component.sectionWay = SectionWay.departure
             }),
-            ComponentNode(JourneyRoadmapSectionPublicTransportDescriptionComponent(), in: self,
-                    key: "sectionPublicTransportDescription\(self.section!.type!)_\(self.section!.departureDateTime!)",
+            ComponentNode(JourneyRoadmapSectionPublicTransportDescriptionComponent(),
+                    in: self,
+                    key: "\(String(describing: type(of: self)))_\(self.section!.type!)_\(self.section!.departureDateTime!)",
                     props: { (component: JourneyRoadmapSectionPublicTransportDescriptionComponent, hasKey: Bool) in
                         component.section = self.section
                     }),
