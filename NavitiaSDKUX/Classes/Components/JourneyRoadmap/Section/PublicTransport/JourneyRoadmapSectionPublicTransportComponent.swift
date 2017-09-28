@@ -5,17 +5,7 @@ import NavitiaSDK
 class JourneyRoadmapSectionPublicTransportComponent: ViewComponent {
     var section: Section?
 
-    public required init() {
-        super.init()
-        NSLog("#SCREEN level 2# JourneyRoadmapSectionPublicTransportComponent init")
-    }
-
-    public required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-
     override func render() -> NodeType {
-        NSLog("#SCREEN level 2# JourneyRoadmapSectionPublicTransportComponent \(self.section!.displayInformations!.label!) \(String(describing: type(of: self)))_\(self.section!.type!)_\(self.section!.departureDateTime!)")
         return ComponentNode(ViewComponent(), in: self, props: { (component, hasKey: Bool) in
             component.styles = self.sectionStyles
         }).add(children: [
