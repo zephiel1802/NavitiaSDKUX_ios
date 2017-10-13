@@ -18,7 +18,7 @@ class ViewController: UIViewController {
         NavitiaSDKUXConfig.setTertiaryColor(color: getUIColorFromHexadecimal(hex: "40958e"))
         NavitiaSDKUXConfig.setRadiusMetrics(value: 0)
         NavitiaSDKUXConfig.setToken(token: "")
-        
+
         // Set navbar text color
         let textColor = contrastColor(color: NavitiaSDKUXConfig.getTertiaryColor())
         navigationController?.navigationBar.tintColor = textColor
@@ -42,4 +42,3 @@ class ViewController: UIViewController {
         }
     }
 }
-

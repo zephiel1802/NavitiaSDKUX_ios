@@ -12,9 +12,13 @@ class JourneyRoadmapSectionComponent: ViewComponent {
                 component.section = self.section
             })
         case "public_transport":
-            return ComponentNode(JourneyRoadmapSectionPublicTransportComponent(), in: self, props: { (component: JourneyRoadmapSectionPublicTransportComponent, hasKey: Bool) in
-                component.section = self.section
-            })
+            return ComponentNode(JourneyRoadmapSectionPublicTransportComponent(),
+                    in: self,
+                    key: "\(String(describing: type(of: self)))_\(self.section!.type!)_\(self.section!.departureDateTime!)",
+                    props: { (component: JourneyRoadmapSectionPublicTransportComponent, hasKey: Bool) in
+                        component.section = self.section
+                    }
+            )
         default:
             return ComponentNode(JourneyRoadmapSectionDefaultComponent(), in: self, props: { (component: JourneyRoadmapSectionDefaultComponent, hasKey: Bool) in
                 component.section = self.section

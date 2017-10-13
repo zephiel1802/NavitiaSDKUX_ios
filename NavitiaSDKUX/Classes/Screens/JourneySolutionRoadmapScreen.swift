@@ -27,11 +27,11 @@ open class JourneySolutionRoadmapScreen: ComponentView<JourneySolutionRoadmapSta
             ]),
             ComponentNode(ScrollViewComponent(), in: self).add(children: [
                 ComponentNode(ListViewComponent(), in: self).add(children:
-                    self.state.journey!.sections!.map({ (section: Section) -> NodeType in
-                        return ComponentNode(JourneyRoadmapSectionComponent(), in: self, props: { (component: JourneyRoadmapSectionComponent, hasKey: Bool) in
-                            component.section = section
-                        })
+                self.state.journey!.sections!.map({ (section: Section) -> NodeType in
+                    return ComponentNode(JourneyRoadmapSectionComponent(), in: self, props: { (component: JourneyRoadmapSectionComponent, hasKey: Bool) in
+                        component.section = section
                     })
+                })
                 )
             ])
         ])

@@ -13,9 +13,12 @@ class JourneyRoadmapSectionPublicTransportComponent: ViewComponent {
                 component.section = self.section
                 component.sectionWay = SectionWay.departure
             }),
-            ComponentNode(JourneyRoadmapSectionPublicTransportDescriptionComponent(), in: self, props: { (component: JourneyRoadmapSectionPublicTransportDescriptionComponent, hasKey: Bool) in
-                component.section = self.section
-            }),
+            ComponentNode(JourneyRoadmapSectionPublicTransportDescriptionComponent(),
+                    in: self,
+                    key: "\(String(describing: type(of: self)))_\(self.section!.type!)_\(self.section!.departureDateTime!)",
+                    props: { (component: JourneyRoadmapSectionPublicTransportDescriptionComponent, hasKey: Bool) in
+                        component.section = self.section
+                    }),
             ComponentNode(JourneyRoadmapSectionPublicTransportStopPointComponent(), in: self, props: { (component: JourneyRoadmapSectionPublicTransportStopPointComponent, hasKey: Bool) in
                 component.section = self.section
                 component.sectionWay = SectionWay.arrival
