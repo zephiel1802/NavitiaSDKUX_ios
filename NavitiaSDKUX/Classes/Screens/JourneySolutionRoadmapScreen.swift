@@ -10,6 +10,8 @@ public struct JourneySolutionRoadmapState: StateType {
 }
 
 open class JourneySolutionRoadmapScreen: ComponentView<JourneySolutionRoadmapState> {
+    let SectionComponent = Components.Journey.Roadmap.SectionComponent.self
+    
     var navigationController: UINavigationController?
 
     override open func render() -> NodeType {
@@ -28,7 +30,7 @@ open class JourneySolutionRoadmapScreen: ComponentView<JourneySolutionRoadmapSta
             ComponentNode(ScrollViewComponent(), in: self).add(children: [
                 ComponentNode(ListViewComponent(), in: self).add(children:
                     self.state.journey!.sections!.map({ (section: Section) -> NodeType in
-                        return ComponentNode(JourneyRoadmapSectionComponent(), in: self, props: { (component: JourneyRoadmapSectionComponent, hasKey: Bool) in
+                        return ComponentNode(self.SectionComponent.init(), in: self, props: { (component: Components.Journey.Roadmap.SectionComponent, hasKey: Bool) in
                             component.section = section
                         })
                     })
