@@ -9,6 +9,8 @@
 import Render
 
 class AutocompleteInputComponent: ButtonComponent {
+    let PlaceComponent = Components.Common.PlaceComponent.self
+    
     var icon: String = ""
     var iconColor: UIColor? = nil
     var placeName: String = ""
@@ -31,7 +33,7 @@ class AutocompleteInputComponent: ButtonComponent {
                         component.styles = iconComputedStyles
                     }),
                     ComponentNode(ViewComponent(), in: self).add(children: [
-                        ComponentNode(PlaceComponent(), in: self, props: {(component, hasKey: Bool) in
+                        ComponentNode(self.PlaceComponent.init(), in: self, props: {(component, hasKey: Bool) in
                             component.name = self.placeName
                         })
                     ])
