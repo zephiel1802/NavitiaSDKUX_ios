@@ -15,28 +15,36 @@ extension Components.Journey.Roadmap.Sections {
                 component.styles = computedStyles
             })
 
+            var firstComponentChildren: [NodeType] = []
             if (self.firstComponent != nil) {
-                container.add(children: [
-                    ComponentNode(ViewComponent(), in: self, props: { (component, hasKey: Bool) in
-                        component.styles = self.firstComponentStyles
-                    }).add(children: [self.firstComponent!])
-                ])
+                firstComponentChildren.append(self.firstComponent!)
             }
+            container.add(children: [
+                ComponentNode(ViewComponent(), in: self, props: { (component, hasKey: Bool) in
+                    component.styles = self.firstComponentStyles
+                }).add(children: firstComponentChildren)
+            ])
+            
+            var secondComponentChildren: [NodeType] = []
             if (self.secondComponent != nil) {
-                container.add(children: [
-                    ComponentNode(ViewComponent(), in: self, props: { (component, hasKey: Bool) in
-                        component.styles = self.secondComponentStyles
-                    }).add(children: [self.secondComponent!])
-                ])
+                secondComponentChildren.append(self.secondComponent!)
             }
-            if (self.thirdComponent != nil) {
-                container.add(children: [
-                    ComponentNode(ViewComponent(), in: self, props: { (component, hasKey: Bool) in
-                        component.styles = self.thirdComponentStyles
-                    }).add(children: [self.thirdComponent!])
-                ])
-            }
+            container.add(children: [
+                ComponentNode(ViewComponent(), in: self, props: { (component, hasKey: Bool) in
+                    component.styles = self.secondComponentStyles
+                }).add(children: secondComponentChildren)
+            ])
 
+            var thirdComponentChildren: [NodeType] = []
+            if (self.thirdComponent != nil) {
+                thirdComponentChildren.append(self.thirdComponent!)
+            }
+            container.add(children: [
+                ComponentNode(ViewComponent(), in: self, props: { (component, hasKey: Bool) in
+                    component.styles = self.thirdComponentStyles
+                }).add(children: thirdComponentChildren)
+            ])
+            
             return container
         }
 

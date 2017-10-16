@@ -5,43 +5,61 @@ import NavitiaSDK
 extension Components.Journey.Roadmap.Sections.LineDiagram {
     class StopPointIconComponent: ViewComponent {
         var color: UIColor?
-        var sectionWay: SectionWay?
-
+        var outerFontSize: Int = 18
+        var innerFontSize: Int = 12
+        
         override func render() -> NodeType {
-            let subComponents = [
-                ComponentNode(ViewComponent(), in: self, props: { (component: ViewComponent, hasKey: Bool) in
-                    component.styles = self.emptyComponentStyle
-                }),
-                /*
-                ComponentNode(LineDiagramStopPointIconComponent(), in: self, props: { (component: LineDiagramStopPointIconComponent, hasKey: Bool) in
-                    component.color = self.color
-                    if (self.sectionWay != nil && self.sectionWay! == SectionWay.departure) {
-                        component.hasUpperJunction = false
-                        component.hasLowerJunction = true
-                    }
-                    if (self.sectionWay != nil && self.sectionWay! == SectionWay.arrival) {
-                        component.hasUpperJunction = true
-                        component.hasLowerJunction = false
-                    }
-                }),
-                ComponentNode(SubLineDiagramComponent(), in: self, props: { (component: SubLineDiagramComponent, hasKey: Bool) in
-                    component.color = self.color
-                }),
-                */
-            ]
-
             return ComponentNode(ViewComponent(), in: self, props: { (component: ViewComponent, hasKey: Bool) in
-                component.styles = self.lineDiagramContainerStyle
-            }).add(children: sectionWay == SectionWay.departure ? subComponents : subComponents.reversed())
+                component.styles = self.stopPointIconContainerStyles
+            }).add(children: [
+                getOuterCicleContainer(color: color!, fontSize: outerFontSize),
+                getInnerCircleContainer(fontSize: innerFontSize),
+            ])
         }
-
-        let lineDiagramContainerStyle: [String: Any] = [
+        
+        func getOuterCicleContainer(color: UIColor, fontSize: Int) -> NodeType {
+            return ComponentNode(ViewComponent(), in: self, props: { (component: ViewComponent, hasKey: Bool) in
+                component.styles = self.circleContainerStyles
+            }).add(children: [
+                ComponentNode(IconComponent(), in: self, props: { (component: IconComponent, hasKey: Bool) in
+                    component.name = "circle-filled"
+                    component.styles = [
+                        "color": color,
+                        "fontSize": fontSize,
+                    ]
+                })
+            ])
+        }
+        
+        func getInnerCircleContainer(fontSize: Int) -> NodeType {
+            return ComponentNode(ViewComponent(), in: self, props: { (component: ViewComponent, hasKey: Bool) in
+                component.styles = self.circleContainerStyles
+            }).add(children: [
+                ComponentNode(IconComponent(), in: self, props: { (component: IconComponent, hasKey: Bool) in
+                    self.innerCircleStyles["fontSize"] = fontSize
+                    component.name = "circle-filled"
+                    component.styles = self.innerCircleStyles
+                })
+            ])
+        }
+        
+        let stopPointIconContainerStyles: [String: Any] = [
             "flexGrow": 1,
+            "alignSelf": YGAlign.stretch,
+        ]
+        
+        let circleContainerStyles: [String: Any] = [
+            "position": YGPositionType.absolute,
+            "start": 0,
+            "top": 0,
+            "end": 0,
+            "bottom": 0,
             "alignItems": YGAlign.center,
             "justifyContent": YGJustify.center,
         ]
-        let emptyComponentStyle: [String: Any] = [
-            "flexGrow": 1,
+        
+        var innerCircleStyles: [String: Any] = [
+            "color": UIColor.white,
         ]
     }
 }

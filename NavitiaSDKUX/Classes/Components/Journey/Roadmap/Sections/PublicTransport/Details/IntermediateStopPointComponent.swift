@@ -4,43 +4,40 @@ import NavitiaSDK
 
 extension Components.Journey.Roadmap.Sections.PublicTransport.Details {
     class IntermediateStopPointComponent: ViewComponent {
-        let SectionLayoutComponent = Components.Journey.Roadmap.Sections.SectionLayoutComponent.self
+        let SectionRowLayoutComponent = Components.Journey.Roadmap.Sections.SectionRowLayoutComponent.self
+        let StopPointIconComponent = Components.Journey.Roadmap.Sections.LineDiagram.StopPointIconComponent.self
         
         var stopDateTime: StopDateTime?
         var color: UIColor?
 
         override func render() -> NodeType {
-            return ComponentNode(SectionLayoutComponent.init(), in: self, props: { (component: Components.Journey.Roadmap.Sections.SectionLayoutComponent, hasKey: Bool) in
+            return ComponentNode(self.SectionRowLayoutComponent.init(), in: self, props: { (component: Components.Journey.Roadmap.Sections.SectionRowLayoutComponent, _) in
                 component.styles = self.styles
 
-                component.header = ComponentNode(ViewComponent(), in: self)
-
-                /*
-                component.body = ComponentNode(LineDiagramForIntermediateStopPointComponent(), in: self, props: { (component: LineDiagramForIntermediateStopPointComponent, hasKey: Bool) in
-                    component.color = self.color
+                component.secondComponent = ComponentNode(self.StopPointIconComponent.init(), in: self, props: { (component: Components.Journey.Roadmap.Sections.LineDiagram.StopPointIconComponent, _) in
+                    component.color = self.color!
+                    component.outerFontSize = 12
+                    component.innerFontSize = 0
                 })
-                */
-
-                component.footer = ComponentNode(ViewComponent(), in: self, props: { (component: ViewComponent, hasKey: Bool) in
-                    component.styles = self.intermediateStopPointLabelContainerStyle
+                
+                component.thirdComponent = ComponentNode(ViewComponent(), in: self, props: { (component: ViewComponent, hasKey: Bool) in
+                    component.styles = self.containerStyle
                 }).add(children: [
                     ComponentNode(LabelComponent(), in: self, props: { (component: LabelComponent, hasKey: Bool) in
-                        component.styles = self.intermediateStopPointLabelStyle
-
+                        component.styles = self.stopPointLabelStyle
                         component.text = self.stopDateTime!.stopPoint!.label!
                     })
                 ])
             })
         }
 
-        let intermediateStopPointLabelContainerStyle: [String: Any] = [
+        let containerStyle: [String: Any] = [
             "flexDirection": YGFlexDirection.row,
-            "backgroundColor": UIColor.white,
             "paddingHorizontal": 5,
             "paddingTop": 2,
             "paddingBottom": 0,
         ]
-        let intermediateStopPointLabelStyle: [String: Any] = [
+        let stopPointLabelStyle: [String: Any] = [
             "color": UIColor.darkText,
             "fontWeight": "bold",
             "fontSize": 12,

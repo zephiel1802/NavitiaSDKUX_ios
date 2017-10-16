@@ -8,23 +8,17 @@ extension Components.Journey.Roadmap.Sections.LineDiagram {
 
         override func render() -> NodeType {
             return ComponentNode(ViewComponent(), in: self, props: { (component: ViewComponent, hasKey: Bool) in
-                component.styles = self.lineDiagramContainerStyle
-            }).add(children: [
-                ComponentNode(ViewComponent(), in: self, props: { (component: ViewComponent, hasKey: Bool) in
-                    component.styles = self.lineDiagramStyle
-                    component.styles["backgroundColor"] = self.color!
-                })
-            ])
+                self.lineDiagramStyle["backgroundColor"] = self.color!
+                component.styles = self.lineDiagramStyle
+            })
         }
 
-        let lineDiagramContainerStyle: [String: Any] = [
-            "backgroundColor": UIColor.white,
-            "flexGrow": 1,
-            "alignItems": YGAlign.center,
-        ]
         var lineDiagramStyle: [String: Any] = [
-            "flexGrow": 1,
+            "start": 58,
             "width": 4,
+            "top": 28,
+            "bottom": 28,
+            "position": YGPositionType.absolute,
         ]
     }
 }

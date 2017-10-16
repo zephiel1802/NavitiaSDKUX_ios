@@ -11,6 +11,14 @@ extension Components.Journey.Roadmap {
         var section: Section?
         
         override func render() -> NodeType {
+            return ComponentNode(ViewComponent(), in: self, props: { (component: ViewComponent, _) in
+                component.styles = self.containerStyles
+            }).add(children: [
+                getTypedSectionComponent(section: section!)
+            ])
+        }
+        
+        func getTypedSectionComponent(section: Section) -> NodeType {
             switch self.section!.type! {
             case "public_transport":
                 return ComponentNode(self.PublicTransportComponent.init(), in: self, props: { (component: Components.Journey.Roadmap.Sections.PublicTransportComponent, hasKey: Bool) in
@@ -26,5 +34,11 @@ extension Components.Journey.Roadmap {
                 })
             }
         }
+        
+        let containerStyles: [String: Any] = [
+            "backgroundColor": UIColor.white,
+            "paddingTop": 4,
+            "marginBottom": config.metrics.margin,
+        ]
     }
 }

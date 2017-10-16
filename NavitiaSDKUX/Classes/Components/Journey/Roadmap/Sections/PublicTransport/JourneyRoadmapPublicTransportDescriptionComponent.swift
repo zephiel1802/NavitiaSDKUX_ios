@@ -30,7 +30,6 @@ extension Components.Journey.Roadmap.Sections.PublicTransport {
         }
 
         let containerStyles: [String: Any] = [
-            "backgroundColor": UIColor.white,
             "paddingHorizontal": 5,
             "paddingTop": 14,
             "paddingBottom": 18,
