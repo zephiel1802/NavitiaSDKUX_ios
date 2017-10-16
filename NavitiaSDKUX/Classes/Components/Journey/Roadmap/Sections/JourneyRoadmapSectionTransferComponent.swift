@@ -14,7 +14,7 @@ extension Components.Journey.Roadmap.Sections {
         override func render() -> NodeType {
             return ComponentNode(ViewComponent(), in: self).add(children: [
                 ComponentNode(self.DottedComponent.init(), in: self, props: { (component: Components.Journey.Roadmap.Sections.LineDiagram.DottedComponent, hasKey: Bool) in
-                    component.color = getUIColorFromHexadecimal(hex: (self.section?.displayInformations?.color)!)
+                    component.color = getUIColorFromHexadecimal(hex: "888888")
                 }),
                 ComponentNode(self.SectionLayoutComponent.init(), in: self, props: { (component: Components.Journey.Roadmap.Sections.SectionLayoutComponent, hasKey: Bool) in
                     component.header = ComponentNode(self.StopPointComponent.init(), in: self, props: { (component: Components.Journey.Roadmap.Sections.StopPointComponent, hasKey: Bool) in
