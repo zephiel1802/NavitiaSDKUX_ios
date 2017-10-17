@@ -28,15 +28,28 @@ open class JourneySolutionRoadmapScreen: ComponentView<JourneySolutionRoadmapSta
                 })
             ]),
             ComponentNode(ScrollViewComponent(), in: self).add(children: [
-                ComponentNode(ListViewComponent(), in: self).add(children:
-                    self.state.journey!.sections!.map({ (section: Section) -> NodeType in
-                        return ComponentNode(self.SectionComponent.init(), in: self, props: { (component: Components.Journey.Roadmap.SectionComponent, hasKey: Bool) in
-                            component.section = section
-                        })
-                    })
-                )
+                ComponentNode(ListViewComponent(), in: self).add(children: getSectionComponents())
             ])
         ])
+    }
+    
+    func getSectionComponents() -> [NodeType] {
+        var sectionComponents: [NodeType] = []
+        var sectionIndex: Int = 0
+        for section in self.state.journey!.sections! {
+            if section.type != "waiting" && section.type != "crow_fly" {
+                sectionComponents.append(
+                    ComponentNode(self.SectionComponent.init(), in: self, props: { (component: Components.Journey.Roadmap.SectionComponent, hasKey: Bool) in
+                        component.section = section
+                        if section.type == "transfer" {
+                            component.destinationSection = self.state.journey?.sections?[sectionIndex + 1]
+                        }
+                    })
+                )
+            }
+            sectionIndex += 1
+        }
+        return sectionComponents
     }
 
     let screenHeaderStyle: [String: Any] = [

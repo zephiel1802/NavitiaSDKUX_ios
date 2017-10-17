@@ -1,5 +1,5 @@
 /* Navigation bar title for journey solutions screen */
-"controller.JourneySolutionsController.title" = "Solutions list";
+"controller.JourneySolutionsController.title" = "Journeys";
 
 /* No solution */
 "controller.JourneySolutionsController.results.no_solution" = "No solution found";
@@ -17,13 +17,16 @@
 "screen.JourneySolutionsScreen.error" = "No journey found";
 
 /* Navigation bar title for journey roadmap screen */
-"controller.JourneySolutionRoadmapViewController.title" = "Journey Roadmap";
+"controller.JourneySolutionRoadmapViewController.title" = "Roadmap";
 
 /* Navigation bar title for journey roadmap section */
 "component.JourneyRoadmapSectionPublicTransportDescriptionComponent.detailsHeaderTitle" = "Details";
 
 /* Journey roadmap transport action description */
 "journey.roadmap.action.walk" = "walk";
+
+/* Journey roadmap waiting description */
+"journey.roadmap.action.wait" = "wait";
 
 /* Unités */
 "units.minute" = "minute";

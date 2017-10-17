@@ -30,9 +30,8 @@ extension Components.Journey.Roadmap.Sections.PublicTransport {
         }
 
         let containerStyles: [String: Any] = [
-            "paddingHorizontal": 5,
-            "paddingTop": 14,
-            "paddingBottom": 18,
+            "paddingHorizontal": 4,
+            "paddingVertical": 14,
         ]
     }
 }

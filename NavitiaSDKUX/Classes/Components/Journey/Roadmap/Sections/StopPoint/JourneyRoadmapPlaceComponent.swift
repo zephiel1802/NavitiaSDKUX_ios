@@ -21,8 +21,7 @@ extension Components.Journey.Roadmap.Sections.StopPoint {
         let stopPointContainerStyle: [String: Any] = [
             "backgroundColor": config.colors.lighterGray,
             "paddingHorizontal": 5,
-            "paddingTop": 14,
-            "paddingBottom": 14,
+            "paddingVertical": 14,
         ]
         let stopPointLabelStyle: [String: Any] = [
             "color": config.colors.darkText,

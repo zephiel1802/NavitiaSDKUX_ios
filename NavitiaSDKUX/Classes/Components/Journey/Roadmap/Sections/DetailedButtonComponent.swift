@@ -15,12 +15,6 @@ extension Components.Journey.Roadmap.Sections {
 
                 component.header = ComponentNode(ViewComponent(), in: self)
 
-                /*
-                component.body = ComponentNode(LineDiagramComponent(), in: self, props: { (component: LineDiagramComponent, hasKey: Bool) in
-                    component.color = self.color
-                })
-                */
-
                 component.footer = ComponentNode(ViewComponent(), in: self, props: { (component: ViewComponent, hasKey: Bool) in
                     component.styles = self.detailsHeaderContainerStyle
                 }).add(children: [

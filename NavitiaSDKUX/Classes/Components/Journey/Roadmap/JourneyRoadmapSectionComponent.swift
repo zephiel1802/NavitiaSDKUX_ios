@@ -9,6 +9,7 @@ extension Components.Journey.Roadmap {
         let DefaultComponent = Components.Journey.Roadmap.Sections.DefaultComponent.self
         
         var section: Section?
+        var destinationSection: Section?
         
         override func render() -> NodeType {
             return ComponentNode(ViewComponent(), in: self, props: { (component: ViewComponent, _) in
@@ -27,6 +28,7 @@ extension Components.Journey.Roadmap {
             case "transfer":
                 return ComponentNode(self.TransferComponent.init(), in: self, props: { (component: Components.Journey.Roadmap.Sections.TransferComponent, hasKey: Bool) in
                     component.section = self.section
+                    component.waitingSection = self.destinationSection
                 })
             default:
                 return ComponentNode(self.DefaultComponent.init(), in: self, props: { (component: Components.Journey.Roadmap.Sections.DefaultComponent, hasKey: Bool) in

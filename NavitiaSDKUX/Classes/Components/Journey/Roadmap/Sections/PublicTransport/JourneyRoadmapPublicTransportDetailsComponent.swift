@@ -4,7 +4,7 @@ import NavitiaSDK
 
 extension Components.Journey.Roadmap.Sections.PublicTransport {
     struct ComponentVisibilityState: StateType {
-        var visible: Bool = true
+        var visible: Bool = false
     }
 
     class DetailsComponent: StylizedComponent<ComponentVisibilityState> {
@@ -35,15 +35,17 @@ extension Components.Journey.Roadmap.Sections.PublicTransport {
                         }),
                     ])
                 ])
-                detailsContainer.add(children: self.section!.stopDateTimes![1...(self.section!.stopDateTimes!.count - 2)].filter { stopDateTime in
-                    return stopDateTime != nil
-                }.map { stopDateTime -> NodeType in
-                    return ComponentNode(IntermediateStopPointComponent.init(), in: self, props: { (component: Components.Journey.Roadmap.Sections.PublicTransport.Details.IntermediateStopPointComponent, hasKey: Bool) in
-                        component.styles = self.styles
-                        component.stopDateTime = stopDateTime
-                        component.color = getUIColorFromHexadecimal(hex: getHexadecimalColorWithFallback(self.section!.displayInformations?.color))
+                if (self.state.visible) {
+                    detailsContainer.add(children: self.section!.stopDateTimes![1...(self.section!.stopDateTimes!.count - 2)].filter { stopDateTime in
+                        return stopDateTime != nil
+                    }.map { stopDateTime -> NodeType in
+                        return ComponentNode(self.IntermediateStopPointComponent.init(), in: self, props: { (component: Components.Journey.Roadmap.Sections.PublicTransport.Details.IntermediateStopPointComponent, hasKey: Bool) in
+                            component.styles = self.styles
+                            component.stopDateTime = stopDateTime
+                            component.color = getUIColorFromHexadecimal(hex: getHexadecimalColorWithFallback(self.section!.displayInformations?.color))
+                        })
                     })
-                })
+                }
             }
 
             return detailsContainer
