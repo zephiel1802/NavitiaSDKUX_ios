@@ -27,8 +27,9 @@ extension Components.Journey.Roadmap.Sections.PublicTransport {
                         }
                     }).add(children: [
                         ComponentNode(self.SectionRowLayoutComponent.init(), in: self, props: { (component: Components.Journey.Roadmap.Sections.SectionRowLayoutComponent, _) in
+                            component.styles = self.containerStyles
+                            
                             component.thirdComponent = ComponentNode(self.DetailedButtonComponent.init(), in: self, props: { (component: Components.Journey.Roadmap.Sections.DetailedButtonComponent, _) in
-                                component.styles = self.styles
                                 component.color = getUIColorFromHexadecimal(hex: getHexadecimalColorWithFallback(self.section!.displayInformations?.color))
                                 component.collapsed = !self.state.visible
                             })
@@ -36,9 +37,7 @@ extension Components.Journey.Roadmap.Sections.PublicTransport {
                     ])
                 ])
                 if (self.state.visible) {
-                    detailsContainer.add(children: self.section!.stopDateTimes![1...(self.section!.stopDateTimes!.count - 2)].filter { stopDateTime in
-                        return stopDateTime != nil
-                    }.map { stopDateTime -> NodeType in
+                    detailsContainer.add(children: self.section!.stopDateTimes![1...(self.section!.stopDateTimes!.count - 2)].map { stopDateTime -> NodeType in
                         return ComponentNode(self.IntermediateStopPointComponent.init(), in: self, props: { (component: Components.Journey.Roadmap.Sections.PublicTransport.Details.IntermediateStopPointComponent, hasKey: Bool) in
                             component.styles = self.styles
                             component.stopDateTime = stopDateTime
@@ -50,5 +49,9 @@ extension Components.Journey.Roadmap.Sections.PublicTransport {
 
             return detailsContainer
         }
+        
+        let containerStyles: [String: Any] = [
+            "paddingBottom": 8,
+        ]
     }
 }

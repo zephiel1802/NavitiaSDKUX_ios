@@ -25,12 +25,17 @@ extension Components.Journey.Roadmap.Sections {
                     component.body = ComponentNode(ViewComponent(), in: self, props: { (component: ViewComponent, hasKey: Bool) in
                         component.styles = self.bodyContainerStyles
                     }).add(children: [
-                        ComponentNode(self.DescriptionComponent.init(), in: self, props: { (component: Components.Journey.Roadmap.Sections.PublicTransport.DescriptionComponent, hasKey: Bool) in
-                            component.section = self.section
-                        }),
-                        ComponentNode(self.DetailsComponent.init(), in: self, props: { (component: Components.Journey.Roadmap.Sections.PublicTransport.DetailsComponent, hasKey: Bool) in
-                            component.section = self.section
-                        }),
+                        ComponentNode(self.DescriptionComponent.init(),
+                            in: self,
+                            props: { (component: Components.Journey.Roadmap.Sections.PublicTransport.DescriptionComponent, hasKey: Bool) in
+                                component.section = self.section
+                            }),
+                        ComponentNode(self.DetailsComponent.init(),
+                            in: self,
+                            key: "\(String(describing: type(of: self)))_\(self.section!.type!)_\(self.section!.departureDateTime!)",
+                            props: { (component: Components.Journey.Roadmap.Sections.PublicTransport.DetailsComponent, hasKey: Bool) in
+                                component.section = self.section
+                            }),
                     ])
                     component.footer = ComponentNode(self.StopPointComponent.init(), in: self, props: { (component: Components.Journey.Roadmap.Sections.StopPointComponent, hasKey: Bool) in
                         component.section = self.section

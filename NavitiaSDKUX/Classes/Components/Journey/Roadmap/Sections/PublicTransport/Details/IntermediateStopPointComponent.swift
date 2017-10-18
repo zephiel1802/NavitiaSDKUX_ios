@@ -12,7 +12,7 @@ extension Components.Journey.Roadmap.Sections.PublicTransport.Details {
 
         override func render() -> NodeType {
             return ComponentNode(self.SectionRowLayoutComponent.init(), in: self, props: { (component: Components.Journey.Roadmap.Sections.SectionRowLayoutComponent, _) in
-                component.styles = self.styles
+                component.styles = mergeDictionaries(dict1: self.containerStyle, dict2: self.styles)
 
                 component.secondComponent = ComponentNode(self.StopPointIconComponent.init(), in: self, props: { (component: Components.Journey.Roadmap.Sections.LineDiagram.StopPointIconComponent, _) in
                     component.color = self.color!
@@ -20,8 +20,8 @@ extension Components.Journey.Roadmap.Sections.PublicTransport.Details {
                     component.innerFontSize = 0
                 })
                 
-                component.thirdComponent = ComponentNode(ViewComponent(), in: self, props: { (component: ViewComponent, hasKey: Bool) in
-                    component.styles = self.containerStyle
+                component.thirdComponent = ComponentNode(ViewComponent(), in: self, props: { (component: ViewComponent, _) in
+                    component.styles = self.stopPointContainerStyle
                 }).add(children: [
                     ComponentNode(LabelComponent(), in: self, props: { (component: LabelComponent, hasKey: Bool) in
                         component.styles = self.stopPointLabelStyle
@@ -33,15 +33,16 @@ extension Components.Journey.Roadmap.Sections.PublicTransport.Details {
 
         let containerStyle: [String: Any] = [
             "flexDirection": YGFlexDirection.row,
-            "paddingHorizontal": 5,
-            "paddingTop": 2,
-            "paddingBottom": 0,
+            "paddingBottom": 10,
+        ]
+        let stopPointContainerStyle: [String: Any] = [
+            "paddingLeft": 5,
+            "paddingRight": 10,
         ]
         let stopPointLabelStyle: [String: Any] = [
-            "color": UIColor.darkText,
-            "fontWeight": "bold",
             "fontSize": 12,
-            "marginRight": 5,
+            "fontWeight": "bold",
+            "color": UIColor.darkText,
         ]
     }
 }

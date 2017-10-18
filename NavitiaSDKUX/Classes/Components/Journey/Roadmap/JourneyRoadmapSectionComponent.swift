@@ -22,9 +22,12 @@ extension Components.Journey.Roadmap {
         func getTypedSectionComponent(section: Section) -> NodeType {
             switch self.section!.type! {
             case "public_transport":
-                return ComponentNode(self.PublicTransportComponent.init(), in: self, props: { (component: Components.Journey.Roadmap.Sections.PublicTransportComponent, hasKey: Bool) in
-                    component.section = self.section
-                })
+                return ComponentNode(self.PublicTransportComponent.init(),
+                    in: self,
+                    key: "\(String(describing: type(of: self)))_\(self.section!.type!)_\(self.section!.departureDateTime!)",
+                    props: { (component: Components.Journey.Roadmap.Sections.PublicTransportComponent, hasKey: Bool) in
+                        component.section = self.section
+                    })
             case "transfer":
                 return ComponentNode(self.TransferComponent.init(), in: self, props: { (component: Components.Journey.Roadmap.Sections.TransferComponent, hasKey: Bool) in
                     component.section = self.section
