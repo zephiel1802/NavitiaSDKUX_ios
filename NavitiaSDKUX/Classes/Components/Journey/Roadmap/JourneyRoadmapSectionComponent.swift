@@ -42,7 +42,8 @@ extension Components.Journey.Roadmap {
         
         let containerStyles: [String: Any] = [
             "backgroundColor": UIColor.white,
-            "paddingTop": 4,
+            "paddingVertical": 4,
+            "paddingHorizontal": 4,
             "marginBottom": config.metrics.margin,
         ]
     }

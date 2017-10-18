@@ -27,7 +27,7 @@ extension Components.Journey.Roadmap.Sections.StopPoint {
             "color": config.colors.darkText,
             "fontWeight": "bold",
             "fontSize": 15,
-            "numberOfLines": 0,
+            "numberOfLines": 2,
             "lineBreakMode": NSLineBreakMode.byWordWrapping,
         ]
     }
