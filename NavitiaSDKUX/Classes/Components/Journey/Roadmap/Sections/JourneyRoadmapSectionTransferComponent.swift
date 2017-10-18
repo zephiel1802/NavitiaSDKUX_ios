@@ -29,6 +29,7 @@ extension Components.Journey.Roadmap.Sections {
                     component.header = ComponentNode(self.StopPointComponent.init(), in: self, props: { (component: Components.Journey.Roadmap.Sections.StopPointComponent, _) in
                         component.section = self.section
                         component.sectionWay = SectionWay.departure
+                        component.color = getUIColorFromHexadecimal(hex: "888888")
                     })
                     component.body = ComponentNode(ViewComponent(), in: self, props: { (component: ViewComponent, _) in
                         
@@ -41,6 +42,7 @@ extension Components.Journey.Roadmap.Sections {
                     component.footer = ComponentNode(self.StopPointComponent.init(), in: self, props: { (component: Components.Journey.Roadmap.Sections.StopPointComponent, _) in
                         component.section = self.section
                         component.sectionWay = SectionWay.arrival
+                        component.color = getUIColorFromHexadecimal(hex: "888888")
                     })
                 }),
             ])
