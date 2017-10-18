@@ -11,7 +11,7 @@ import Render
 import NavitiaSDK
 
 class ModeComponent: ViewComponent {
-    let modes = Modes()
+    let modes: Modes = Modes()
     var section: Section?
 
     override func render() -> NodeType {

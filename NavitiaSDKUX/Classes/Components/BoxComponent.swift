@@ -11,7 +11,7 @@ import Render
 
 class BoxComponent: ViewComponent {
     override func render() -> NodeType {
-        let computedStyles = self.styles
+        let computedStyles: [String: Any] = self.styles
         return ComponentNode(ViewComponent(), in: self, props: {(component, hasKey: Bool) in
             component.styles = computedStyles
         })

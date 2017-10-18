@@ -11,7 +11,7 @@ import Render
 
 class DateTimeButtonComponent: ButtonComponent {
     override func render() -> NodeType {
-        let computedStyles = mergeDictionaries(dict1: listRowStyles, dict2: self.styles)
+        let computedStyles: [String: Any] = mergeDictionaries(dict1: listRowStyles, dict2: self.styles)
         return ComponentNode(ButtonComponent(), in: self, props: {(component, hasKey: Bool) in
             component.styles = computedStyles
         }).add(children: [

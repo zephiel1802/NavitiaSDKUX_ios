@@ -1,5 +1,5 @@
 /* Navigation bar title for journey solutions screen */
-"controller.JourneySolutionsController.title" = "Liste de solutions";
+"controller.JourneySolutionsController.title" = "Itinéraires";
 
 /* No solution */
 "controller.JourneySolutionsController.results.no_solution" = "Aucun itinéraire trouvé";
@@ -24,6 +24,9 @@
 
 /* Journey roadmap transport action description */
 "journey.roadmap.action.walk" = "de marche";
+
+/* Journey roadmap waiting description */
+"journey.roadmap.action.wait" = "d'attente";
 
 /* Units */
 "units.minute" = "minute";
