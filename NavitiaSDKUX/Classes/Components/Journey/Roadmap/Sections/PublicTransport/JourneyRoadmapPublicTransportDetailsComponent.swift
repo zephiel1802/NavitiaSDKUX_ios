@@ -8,9 +8,9 @@ extension Components.Journey.Roadmap.Sections.PublicTransport {
     }
 
     class DetailsComponent: StylizedComponent<ComponentVisibilityState> {
-        let DetailedButtonComponent = Components.Journey.Roadmap.Sections.DetailedButtonComponent.self
-        let IntermediateStopPointComponent = Components.Journey.Roadmap.Sections.PublicTransport.Details.IntermediateStopPointComponent.self
-        let SectionRowLayoutComponent = Components.Journey.Roadmap.Sections.SectionRowLayoutComponent.self
+        let DetailButtonComponent:Components.Journey.Roadmap.Sections.DetailButtonComponent.Type = Components.Journey.Roadmap.Sections.DetailButtonComponent.self
+        let IntermediateStopPointComponent:Components.Journey.Roadmap.Sections.PublicTransport.Details.IntermediateStopPointComponent.Type = Components.Journey.Roadmap.Sections.PublicTransport.Details.IntermediateStopPointComponent.self
+        let SectionRowLayoutComponent:Components.Journey.Roadmap.Sections.SectionRowLayoutComponent.Type = Components.Journey.Roadmap.Sections.SectionRowLayoutComponent.self
         
         var section: Section?
 
@@ -29,7 +29,7 @@ extension Components.Journey.Roadmap.Sections.PublicTransport {
                         ComponentNode(self.SectionRowLayoutComponent.init(), in: self, props: { (component: Components.Journey.Roadmap.Sections.SectionRowLayoutComponent, _) in
                             component.styles = self.containerStyles
                             
-                            component.thirdComponent = ComponentNode(self.DetailedButtonComponent.init(), in: self, props: { (component: Components.Journey.Roadmap.Sections.DetailedButtonComponent, _) in
+                            component.thirdComponent = ComponentNode(self.DetailButtonComponent.init(), in: self, props: { (component: Components.Journey.Roadmap.Sections.DetailButtonComponent, _) in
                                 component.color = getUIColorFromHexadecimal(hex: getHexadecimalColorWithFallback(self.section!.displayInformations?.color))
                                 component.collapsed = !self.state.visible
                             })

@@ -10,7 +10,7 @@ public struct JourneySolutionRoadmapState: StateType {
 }
 
 open class JourneySolutionRoadmapScreen: ComponentView<JourneySolutionRoadmapState> {
-    let SectionComponent = Components.Journey.Roadmap.SectionComponent.self
+    let SectionComponent:Components.Journey.Roadmap.SectionComponent.Type = Components.Journey.Roadmap.SectionComponent.self
     
     var navigationController: UINavigationController?
 

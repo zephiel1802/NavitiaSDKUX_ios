@@ -4,9 +4,9 @@ import NavitiaSDK
 
 extension Components.Journey.Roadmap.Sections.Transfer {
     class DescriptionComponent: ViewComponent {
-        let SectionRowLayoutComponent = Components.Journey.Roadmap.Sections.SectionRowLayoutComponent.self
-        let ModeIconComponent = Components.Journey.Roadmap.Sections.PublicTransport.Description.ModeIconComponent.self
-        let ModeDistanceLabelComponent = Components.Journey.Roadmap.Sections.Transfer.ModeDistanceLabelComponent.self
+        let SectionRowLayoutComponent:Components.Journey.Roadmap.Sections.SectionRowLayoutComponent.Type = Components.Journey.Roadmap.Sections.SectionRowLayoutComponent.self
+        let ModeIconComponent:Components.Journey.Roadmap.Sections.PublicTransport.Description.ModeIconComponent.Type = Components.Journey.Roadmap.Sections.PublicTransport.Description.ModeIconComponent.self
+        let ModeDistanceLabelComponent:Components.Journey.Roadmap.Sections.Transfer.ModeDistanceLabelComponent.Type = Components.Journey.Roadmap.Sections.Transfer.ModeDistanceLabelComponent.self
         
         var section: Section?
 

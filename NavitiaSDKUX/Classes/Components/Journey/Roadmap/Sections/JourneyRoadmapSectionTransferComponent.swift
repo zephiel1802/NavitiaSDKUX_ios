@@ -4,11 +4,11 @@ import NavitiaSDK
 
 extension Components.Journey.Roadmap.Sections {
     class TransferComponent: ViewComponent {
-        let DottedComponent = Components.Journey.Roadmap.Sections.LineDiagram.DottedComponent.self
-        let SectionLayoutComponent = Components.Journey.Roadmap.Sections.SectionLayoutComponent.self
-        let StopPointComponent = Components.Journey.Roadmap.Sections.StopPointComponent.self
-        let DescriptionComponent = Components.Journey.Roadmap.Sections.Transfer.DescriptionComponent.self
-        let WaitingComponent = Components.Journey.Roadmap.Sections.Transfer.WaitingComponent.self
+        let DottedComponent:Components.Journey.Roadmap.Sections.LineDiagram.DottedComponent.Type = Components.Journey.Roadmap.Sections.LineDiagram.DottedComponent.self
+        let SectionLayoutComponent:Components.Journey.Roadmap.Sections.SectionLayoutComponent.Type = Components.Journey.Roadmap.Sections.SectionLayoutComponent.self
+        let StopPointComponent:Components.Journey.Roadmap.Sections.StopPointComponent.Type = Components.Journey.Roadmap.Sections.StopPointComponent.self
+        let DescriptionComponent:Components.Journey.Roadmap.Sections.Transfer.DescriptionComponent.Type = Components.Journey.Roadmap.Sections.Transfer.DescriptionComponent.self
+        let WaitingComponent:Components.Journey.Roadmap.Sections.Transfer.WaitingComponent.Type = Components.Journey.Roadmap.Sections.Transfer.WaitingComponent.self
         
         var section: Section?
         var waitingSection: Section?

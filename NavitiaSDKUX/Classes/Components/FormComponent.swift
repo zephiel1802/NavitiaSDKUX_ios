@@ -11,7 +11,7 @@ import Render
 
 class FormComponent: ViewComponent {
     override func render() -> NodeType {
-        let computedStyles = mergeDictionaries(dict1: formStyles, dict2: self.styles)
+        let computedStyles: [String: Any] = mergeDictionaries(dict1: formStyles, dict2: self.styles)
         return ComponentNode(ViewComponent(), in: self, props: {(component, hasKey: Bool) in
             component.styles = computedStyles
         })

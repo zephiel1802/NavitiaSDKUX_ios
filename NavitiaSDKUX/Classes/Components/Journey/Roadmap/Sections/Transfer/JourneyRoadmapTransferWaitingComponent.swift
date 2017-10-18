@@ -4,7 +4,7 @@ import NavitiaSDK
 
 extension Components.Journey.Roadmap.Sections.Transfer {
     class WaitingComponent: ViewComponent {
-        let SectionRowLayoutComponent = Components.Journey.Roadmap.Sections.SectionRowLayoutComponent.self
+        let SectionRowLayoutComponent:Components.Journey.Roadmap.Sections.SectionRowLayoutComponent.Type = Components.Journey.Roadmap.Sections.SectionRowLayoutComponent.self
         
         var section: Section?
         

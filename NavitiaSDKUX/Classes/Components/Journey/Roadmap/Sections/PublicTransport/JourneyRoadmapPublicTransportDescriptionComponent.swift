@@ -4,10 +4,10 @@ import NavitiaSDK
 
 extension Components.Journey.Roadmap.Sections.PublicTransport {
     class DescriptionComponent: ViewComponent {
-        let SectionRowLayoutComponent = Components.Journey.Roadmap.Sections.SectionRowLayoutComponent.self
-        let ModeIconComponent = Components.Journey.Roadmap.Sections.PublicTransport.Description.ModeIconComponent.self
-        let ModeLineLabelComponent = Components.Journey.Roadmap.Sections.PublicTransport.Description.ModeLineLabelComponent.self
-        let DirectionComponent = Components.Journey.Roadmap.Sections.PublicTransport.Description.DirectionComponent.self
+        let SectionRowLayoutComponent:Components.Journey.Roadmap.Sections.SectionRowLayoutComponent.Type = Components.Journey.Roadmap.Sections.SectionRowLayoutComponent.self
+        let ModeIconComponent:Components.Journey.Roadmap.Sections.PublicTransport.Description.ModeIconComponent.Type = Components.Journey.Roadmap.Sections.PublicTransport.Description.ModeIconComponent.self
+        let ModeLineLabelComponent:Components.Journey.Roadmap.Sections.PublicTransport.Description.ModeLineLabelComponent.Type = Components.Journey.Roadmap.Sections.PublicTransport.Description.ModeLineLabelComponent.self
+        let DirectionComponent:Components.Journey.Roadmap.Sections.PublicTransport.Description.DirectionComponent.Type = Components.Journey.Roadmap.Sections.PublicTransport.Description.DirectionComponent.self
         
         var section: Section?
 

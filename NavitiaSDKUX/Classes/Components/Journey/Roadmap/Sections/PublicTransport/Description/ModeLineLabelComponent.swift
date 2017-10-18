@@ -5,7 +5,7 @@ import NavitiaSDK
 extension Components.Journey.Roadmap.Sections.PublicTransport.Description {
     class ModeLineLabelComponent: ViewComponent {
         var section: Section?
-        let modes = Modes()
+        let modes: Modes = Modes()
 
         override func render() -> NodeType {
             return ComponentNode(ViewComponent(), in: self, props: { (component: ViewComponent, hasKey: Bool) in

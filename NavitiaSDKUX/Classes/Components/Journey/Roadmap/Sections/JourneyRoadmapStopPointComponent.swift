@@ -4,10 +4,10 @@ import NavitiaSDK
 
 extension Components.Journey.Roadmap.Sections {
     class StopPointComponent: ViewComponent {
-        let SectionRowLayoutComponent = Components.Journey.Roadmap.Sections.SectionRowLayoutComponent.self
-        let StopPointIconComponent = Components.Journey.Roadmap.Sections.LineDiagram.StopPointIconComponent.self
-        let PlaceComponent = Components.Journey.Roadmap.Sections.StopPoint.PlaceComponent.self
-        let TimeComponent = Components.Journey.Roadmap.Sections.StopPoint.TimeComponent.self
+        let SectionRowLayoutComponent:Components.Journey.Roadmap.Sections.SectionRowLayoutComponent.Type = Components.Journey.Roadmap.Sections.SectionRowLayoutComponent.self
+        let StopPointIconComponent:Components.Journey.Roadmap.Sections.LineDiagram.StopPointIconComponent.Type = Components.Journey.Roadmap.Sections.LineDiagram.StopPointIconComponent.self
+        let PlaceComponent:Components.Journey.Roadmap.Sections.StopPoint.PlaceComponent.Type = Components.Journey.Roadmap.Sections.StopPoint.PlaceComponent.self
+        let TimeComponent:Components.Journey.Roadmap.Sections.StopPoint.TimeComponent.Type = Components.Journey.Roadmap.Sections.StopPoint.TimeComponent.self
         
         var section: Section?
         var sectionWay: SectionWay?

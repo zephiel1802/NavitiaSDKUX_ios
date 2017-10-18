@@ -4,20 +4,20 @@ import NavitiaSDK
 
 extension Components.Journey.Roadmap.Sections {
     class PublicTransportComponent: ViewComponent {
-        let SectionLayoutComponent = Components.Journey.Roadmap.Sections.SectionLayoutComponent.self
-        let PlainComponent = Components.Journey.Roadmap.Sections.LineDiagram.PlainComponent.self
-        let StopPointComponent = Components.Journey.Roadmap.Sections.StopPointComponent.self
-        let DescriptionComponent = Components.Journey.Roadmap.Sections.PublicTransport.DescriptionComponent.self
-        let DetailsComponent = Components.Journey.Roadmap.Sections.PublicTransport.DetailsComponent.self
+        let SectionLayoutComponent:Components.Journey.Roadmap.Sections.SectionLayoutComponent.Type = Components.Journey.Roadmap.Sections.SectionLayoutComponent.self
+        let PlainComponent:Components.Journey.Roadmap.Sections.LineDiagram.PlainComponent.Type = Components.Journey.Roadmap.Sections.LineDiagram.PlainComponent.self
+        let StopPointComponent:Components.Journey.Roadmap.Sections.StopPointComponent.Type = Components.Journey.Roadmap.Sections.StopPointComponent.self
+        let DescriptionComponent:Components.Journey.Roadmap.Sections.PublicTransport.DescriptionComponent.Type = Components.Journey.Roadmap.Sections.PublicTransport.DescriptionComponent.self
+        let DetailsComponent:Components.Journey.Roadmap.Sections.PublicTransport.DetailsComponent.Type = Components.Journey.Roadmap.Sections.PublicTransport.DetailsComponent.self
         
         var section: Section?
 
         override func render() -> NodeType {
             return ComponentNode(ViewComponent(), in: self).add(children: [
-                ComponentNode(self.PlainComponent.init(), in: self, props: { (component: Components.Journey.Roadmap.Sections.LineDiagram.PlainComponent, hasKey: Bool) in
+                ComponentNode(PlainComponent.init(), in: self, props: { (component: Components.Journey.Roadmap.Sections.LineDiagram.PlainComponent, hasKey: Bool) in
                     component.color = getUIColorFromHexadecimal(hex: (self.section?.displayInformations?.color)!)
                 }),
-                ComponentNode(self.SectionLayoutComponent.init(), in: self, props: { (component: Components.Journey.Roadmap.Sections.SectionLayoutComponent, hasKey: Bool) in
+                ComponentNode(SectionLayoutComponent.init(), in: self, props: { (component: Components.Journey.Roadmap.Sections.SectionLayoutComponent, hasKey: Bool) in
                     component.header = ComponentNode(self.StopPointComponent.init(), in: self, props: { (component: Components.Journey.Roadmap.Sections.StopPointComponent, hasKey: Bool) in
                         component.section = self.section
                         component.sectionWay = SectionWay.departure

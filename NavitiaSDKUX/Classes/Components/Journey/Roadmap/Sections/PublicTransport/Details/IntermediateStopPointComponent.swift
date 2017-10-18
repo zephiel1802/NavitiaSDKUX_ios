@@ -4,8 +4,8 @@ import NavitiaSDK
 
 extension Components.Journey.Roadmap.Sections.PublicTransport.Details {
     class IntermediateStopPointComponent: ViewComponent {
-        let SectionRowLayoutComponent = Components.Journey.Roadmap.Sections.SectionRowLayoutComponent.self
-        let StopPointIconComponent = Components.Journey.Roadmap.Sections.LineDiagram.StopPointIconComponent.self
+        let SectionRowLayoutComponent:Components.Journey.Roadmap.Sections.SectionRowLayoutComponent.Type = Components.Journey.Roadmap.Sections.SectionRowLayoutComponent.self
+        let StopPointIconComponent:Components.Journey.Roadmap.Sections.LineDiagram.StopPointIconComponent.Type = Components.Journey.Roadmap.Sections.LineDiagram.StopPointIconComponent.self
         
         var stopDateTime: StopDateTime?
         var color: UIColor?

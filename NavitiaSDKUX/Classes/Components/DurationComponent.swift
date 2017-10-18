@@ -13,7 +13,7 @@ class DurationComponent: ViewComponent {
     var seconds: Int32 = 0
     
     override func render() -> NodeType {
-        let computedStyles = self.styles
+        let computedStyles: [String: Any] = self.styles
         var durationComponents: [NodeType] = []
         
         if self.seconds >= 3600 {

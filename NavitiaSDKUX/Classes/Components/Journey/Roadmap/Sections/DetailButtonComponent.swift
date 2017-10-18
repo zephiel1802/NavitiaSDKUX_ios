@@ -3,14 +3,14 @@ import Render
 import NavitiaSDK
 
 extension Components.Journey.Roadmap.Sections {
-    class DetailedButtonComponent: ViewComponent {
-        let SectionLayoutComponent = Components.Journey.Roadmap.Sections.SectionLayoutComponent.self
+    class DetailButtonComponent: ViewComponent {
+        let SectionLayoutComponent:Components.Journey.Roadmap.Sections.SectionLayoutComponent.Type = Components.Journey.Roadmap.Sections.SectionLayoutComponent.self
         
         var color: UIColor?
         var collapsed: Bool = true
 
         override func render() -> NodeType {
-            return ComponentNode(self.SectionLayoutComponent.init(), in: self, props: { (component: Components.Journey.Roadmap.Sections.SectionLayoutComponent, hasKey: Bool) in
+            return ComponentNode(SectionLayoutComponent.init(), in: self, props: { (component: Components.Journey.Roadmap.Sections.SectionLayoutComponent, hasKey: Bool) in
                 component.styles = self.styles
 
                 component.header = ComponentNode(ViewComponent(), in: self)
