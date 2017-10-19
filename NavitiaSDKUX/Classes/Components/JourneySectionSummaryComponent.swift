@@ -9,7 +9,7 @@
 import Render
 import NavitiaSDK
 
-class JourneySectionAbstractComponent: ViewComponent {
+class JourneySectionSummaryComponent: ViewComponent {
     var section: Section?
 
     override func render() -> NodeType {

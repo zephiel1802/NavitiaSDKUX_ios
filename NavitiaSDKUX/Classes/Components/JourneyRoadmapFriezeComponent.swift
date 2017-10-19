@@ -30,7 +30,7 @@ class JourneyRoadmapFriezeComponent: ViewComponent {
         return sections.filter { section in
             return (section.type! == "public_transport" || section.type! == "street_network")
         }.map { section -> NodeType in
-            return ComponentNode(JourneySectionAbstractComponent(), in: self, props: { (component, hasKey: Bool) in
+            return ComponentNode(JourneySectionSummaryComponent(), in: self, props: { (component, hasKey: Bool) in
                 component.section = section
             })
         }

@@ -8,7 +8,7 @@
 
 import Render
 
-class JourneyWalkingAbstractComponent: ViewComponent {
+class JourneyWalkingSummaryComponent: ViewComponent {
     var duration: Int32 = 0
     var distance: Int32 = 0
     
@@ -18,14 +18,14 @@ class JourneyWalkingAbstractComponent: ViewComponent {
             component.styles = computedStyles
         }).add(children: [
             ComponentNode(TextComponent(), in: self, props: {(component, hasKey: Bool) in
-                component.text = NSLocalizedString("component.JourneyWalkingAbstractComponent.With", bundle: self.bundle, comment: "Context: With 16 min walking (712m)") + " "
+                component.text = NSLocalizedString("component.JourneyWalkingSummaryComponent.With", bundle: self.bundle, comment: "Context: With 16 min walking (712m)") + " "
             }),
             ComponentNode(TextComponent(), in: self, props: {(component, hasKey: Bool) in
                 component.text = String(self.duration / 60) + " min"
                 component.styles = self.durationStyles
             }),
             ComponentNode(TextComponent(), in: self, props: {(component, hasKey: Bool) in
-                component.text = " " + NSLocalizedString("component.JourneyWalkingAbstractComponent.walking", bundle: self.bundle, comment: "Context: With 16 min walking (712m)")
+                component.text = " " + NSLocalizedString("component.JourneyWalkingSummaryComponent.walking", bundle: self.bundle, comment: "Context: With 16 min walking (712m)")
                 component.text += " (" + distanceText(meters: self.distance) + ")"
             }),
         ])
