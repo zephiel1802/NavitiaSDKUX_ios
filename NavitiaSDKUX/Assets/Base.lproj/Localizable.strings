@@ -5,10 +5,10 @@
 "controller.JourneySolutionsController.results.no_solution" = "No solution found";
 
 /* With 16 min walking (712m) */
-"component.JourneyWalkingAbstractComponent.With" = "With";
+"component.JourneyWalkingSummaryComponent.With" = "With";
 
 /* With 16 min walking (712m) */
-"component.JourneyWalkingAbstractComponent.walking" = "walking";
+"component.JourneyWalkingSummaryComponent.walking" = "walking";
 
 /* Datetime represent label */
 "component.DateTimeButtonComponent.representation.departure" = "Departure: ";

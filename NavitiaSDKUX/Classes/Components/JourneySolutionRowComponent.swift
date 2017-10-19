@@ -41,7 +41,7 @@ class JourneySolutionRowComponent: ViewComponent {
                 ComponentNode(JourneyRoadmapFriezeComponent(), in: self, props: {(component, hasKey: Bool) in
                     component.sections = self.sections
                 }),
-                ComponentNode(JourneyWalkingAbstractComponent(), in: self, props: {(component, hasKey: Bool) in
+                ComponentNode(JourneyWalkingSummaryComponent(), in: self, props: {(component, hasKey: Bool) in
                     component.duration = self.walkingDuration!
                     component.distance = self.walkingDistance!
                 }),
