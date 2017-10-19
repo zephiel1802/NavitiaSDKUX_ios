@@ -11,6 +11,7 @@ import Render
 
 class DurationComponent: ViewComponent {
     var seconds: Int32 = 0
+    var hasArrow: Bool = false
     
     override func render() -> NodeType {
         let computedStyles: [String: Any] = self.styles
@@ -23,10 +24,6 @@ class DurationComponent: ViewComponent {
                     component.text = text
                     component.styles = self.digitsStyles
                 }),
-                ComponentNode(IconComponent(), in: self, props: {(component, hasKey: Bool) in
-                    component.name = "arrow-right"
-                    component.styles = self.arrowStyles
-                })
             ]
         } else {
             durationComponents = [
@@ -38,11 +35,14 @@ class DurationComponent: ViewComponent {
                     component.text = "min"
                     component.styles = self.abbrStyles
                 }),
-                ComponentNode(IconComponent(), in: self, props: {(component, hasKey: Bool) in
-                    component.name = "arrow-right"
-                    component.styles = self.arrowStyles
-                })
             ]
+        }
+        
+        if self.hasArrow {
+            durationComponents.append(ComponentNode(IconComponent(), in: self, props: {(component, hasKey: Bool) in
+                component.name = "arrow-right"
+                component.styles = self.arrowStyles
+            }))
         }
         
         return ComponentNode(ViewComponent(), in: self, props: {(component, hasKey: Bool) in

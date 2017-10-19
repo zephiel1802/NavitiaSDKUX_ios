@@ -36,6 +36,7 @@ class JourneySolutionComponent: ViewComponent {
                         component.walkingDuration = self.journey.durations?.walking
                         component.walkingDistance = walkingDistance
                         component.sections = self.journey.sections!
+                        component.hasArrow = self.navigationController != nil
                     })
                 ])
             ])

@@ -17,6 +17,7 @@ class JourneySolutionRowComponent: ViewComponent {
     var walkingDuration: Int32? = 0
     var walkingDistance: Int32? = 0
     var sections: [Section] = []
+    var hasArrow: Bool = false
     
     override func render() -> NodeType {
         let timesText = timeText(isoString: departureTime) + " - " + timeText(isoString: arrivalTime)
@@ -35,6 +36,7 @@ class JourneySolutionRowComponent: ViewComponent {
                     ComponentNode(DurationComponent(), in: self, props: {(component, hasKey: Bool) in
                         component.seconds = self.totalDuration!
                         component.styles = self.durationStyles
+                        component.hasArrow = self.hasArrow
                     }),
                 ]),
                 ComponentNode(SeparatorComponent(), in: self),
