@@ -30,12 +30,12 @@ func getIsoDatetime(datetime: Date) -> String {
     return formatter.string(from: datetime)
 }
 
-func durationText(seconds: Int32) -> String {
+func durationText(bundle: Bundle, seconds: Int32) -> String {
     if (seconds < 60) {
-        return "< 1 min"
+        return "< 1 " + NSLocalizedString("units.minute", bundle: bundle, comment: "Units minute")
     } else if (seconds < 3600) {
         let minutes: Int32 = seconds / 60
-        return String(minutes) + " min"
+        return String(minutes) + " " + NSLocalizedString("units.minute.plural", bundle: bundle, comment: "Units minutes")
     } else {
         let hours: Int32 = seconds / 3600
         let remainingMinutes: Int32 = (seconds / 60) - (hours * 60)
@@ -43,14 +43,17 @@ func durationText(seconds: Int32) -> String {
         if remainingMinutes < 10 {
             minutes = "0" + String(remainingMinutes)
         }
-        return String(hours) + "h" + minutes
+        return String(hours) + NSLocalizedString("units.hour.abbr", bundle: bundle, comment: "Units hour abbr") + minutes
     }
 }
 
-func distanceText(meters: Int32) -> String {
+func distanceText(bundle: Bundle, meters: Int32) -> String {
     if (meters < 1000) {
-        return String(meters) + "m"
+        return String(meters) + " " + NSLocalizedString("units.meter.plural", bundle: bundle, comment: "Units meters")
     } else {
-        return String(Float(meters) / 1000) + " km"
+        let formatter: NumberFormatter = NumberFormatter()
+        formatter.maximumFractionDigits = 1
+        let distance: String = formatter.string(for: (Float(meters) / 1000))!
+        return distance + " " + NSLocalizedString("units.kilometer.abbr", bundle: bundle, comment: "Units km")
     }
 }

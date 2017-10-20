@@ -29,7 +29,15 @@
 "journey.roadmap.action.wait" = "wait";
 
 /* Unités */
+"units.hour" = "hour";
+"units.hour.plural" = "hours";
+"units.hour.abbr" = "h";
 "units.minute" = "minute";
 "units.minute.plural" = "minutes";
+"units.minute.abbr" = "min";
 "units.meter" = "meter";
 "units.meter.plural" = "meters";
+"units.meter.abbr" = "m";
+"units.kilometer" = "kilometer";
+"units.kilometer.plural" = "kilometers";
+"units.kilometer.abbr" = "km";
