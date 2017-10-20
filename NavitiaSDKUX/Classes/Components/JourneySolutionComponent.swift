@@ -13,6 +13,7 @@ import NavitiaSDK
 class JourneySolutionComponent: ViewComponent {
     var navigationController: UINavigationController?
     var journey: Journey = Journey()
+    var isTouchable: Bool = true
 
     override func render() -> NodeType {
         let computedStyles = mergeDictionaries(dict1: listStyles, dict2: self.styles)
@@ -36,6 +37,7 @@ class JourneySolutionComponent: ViewComponent {
                         component.walkingDuration = self.journey.durations?.walking
                         component.walkingDistance = walkingDistance
                         component.sections = self.journey.sections!
+                        component.hasArrow = self.isTouchable
                     })
                 ])
             ])

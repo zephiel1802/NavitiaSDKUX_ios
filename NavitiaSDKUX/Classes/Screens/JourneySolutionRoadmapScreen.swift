@@ -25,6 +25,7 @@ open class JourneySolutionRoadmapScreen: ComponentView<JourneySolutionRoadmapSta
             }).add(children: [
                 ComponentNode(JourneySolutionComponent(), in: self, props: { (component: JourneySolutionComponent, hasKey: Bool) in
                     component.journey = self.state.journey!
+                    component.isTouchable = false
                 })
             ]),
             ComponentNode(ScrollViewComponent(), in: self).add(children: [
