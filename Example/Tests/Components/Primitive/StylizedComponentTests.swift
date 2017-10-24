@@ -20,6 +20,7 @@ class StylizedComponentTests: XCTestCase {
     func testApplyStyles() {
         let stylizedComponent: StylizedComponent<NilState> = StylizedComponent<NilState>()
         stylizedComponent.styles = [
+            "alpha": CGFloat(0.1),
             "backgroundColor": UIColor.white
         ]
 
@@ -29,6 +30,7 @@ class StylizedComponentTests: XCTestCase {
 
         XCTAssertNotNil(nodeView, "Node<UIView> should not be nil")
         XCTAssertNotNil(nodeView.view, "Node<UIView>.view should not be nil")
-        XCTAssertEqual(nodeView.view!.backgroundColor, UIColor.white, "Node<UIView>.view.backgroundColor should be UIColor.white")
+        XCTAssertTrue(abs(nodeView.view!.alpha - 0.1) < 0.00001, "Node<UIView>.view.alpha should be mapped")
+        XCTAssertEqual(nodeView.view!.backgroundColor, UIColor.white, "Node<UIView>.view.backgroundColor should be mapped")
     }
 }
