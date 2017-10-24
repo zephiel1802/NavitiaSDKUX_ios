@@ -24,7 +24,8 @@ class StylizedComponentTests: XCTestCase {
             "backgroundColor": UIColor.white,
             "borderRadius": 2,
             "direction": YGDirection.LTR,
-            "flexDirection": YGFlexDirection.column
+            "flexDirection": YGFlexDirection.column,
+            "justifyContent": YGJustify.center
         ]
 
         let nodeView = Node<UIView>()
@@ -38,5 +39,6 @@ class StylizedComponentTests: XCTestCase {
         XCTAssertEqual(nodeView.view!.cornerRadius, 2, "Node<UIView>.view.cornerRadius should be mapped")
         XCTAssertEqual(nodeView.view!.yoga.direction, YGDirection.LTR, "Node<UIView>.view.yoga.direction should be mapped")
         XCTAssertEqual(nodeView.view!.yoga.flexDirection, YGFlexDirection.column, "Node<UIView>.view.yoga.flexDirection should be mapped")
+        XCTAssertEqual(nodeView.view!.yoga.justifyContent, YGJustify.center, "Node<UIView>.view.yoga.justifyContent should be mapped")
     }
 }
