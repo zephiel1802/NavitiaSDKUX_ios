@@ -29,7 +29,9 @@ class StylizedComponentTests: XCTestCase {
             "alignContent": YGAlign.auto,
             "alignItems": YGAlign.flexStart,
             "alignSelf": YGAlign.baseline,
-            "position": YGPositionType.relative
+            "position": YGPositionType.relative,
+            "flexWrap": YGWrap.noWrap,
+            "overflow": YGOverflow.hidden
         ]
 
         let nodeView = Node<UIView>()
@@ -48,5 +50,7 @@ class StylizedComponentTests: XCTestCase {
         XCTAssertEqual(nodeView.view!.yoga.alignItems, YGAlign.flexStart, "Node<UIView>.view.yoga.alignItems should be mapped")
         XCTAssertEqual(nodeView.view!.yoga.alignSelf, YGAlign.baseline, "Node<UIView>.view.yoga.alignSelf should be mapped")
         XCTAssertEqual(nodeView.view!.yoga.position, YGPositionType.relative, "Node<UIView>.view.yoga.position should be mapped")
+        XCTAssertEqual(nodeView.view!.yoga.flexWrap, YGWrap.noWrap, "Node<UIView>.view.yoga.flexWrap should be mapped")
+        XCTAssertEqual(nodeView.view!.yoga.overflow, YGOverflow.hidden, "Node<UIView>.view.yoga.overflow should be mapped")
     }
 }
