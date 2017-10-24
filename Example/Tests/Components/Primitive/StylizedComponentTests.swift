@@ -22,7 +22,8 @@ class StylizedComponentTests: XCTestCase {
         stylizedComponent.styles = [
             "alpha": CGFloat(0.1),
             "backgroundColor": UIColor.white,
-            "borderRadius": 2
+            "borderRadius": 2,
+            "direction": YGDirection.LTR
         ]
 
         let nodeView = Node<UIView>()
@@ -34,5 +35,6 @@ class StylizedComponentTests: XCTestCase {
         XCTAssertTrue(abs(nodeView.view!.alpha - 0.1) < 0.00001, "Node<UIView>.view.alpha should be mapped")
         XCTAssertEqual(nodeView.view!.backgroundColor, UIColor.white, "Node<UIView>.view.backgroundColor should be mapped")
         XCTAssertEqual(nodeView.view!.cornerRadius, 2, "Node<UIView>.view.cornerRadius should be mapped")
+        XCTAssertEqual(nodeView.view!.yoga.direction, YGDirection.LTR, "Node<UIView>.view.yoga.direction should be mapped")
     }
 }
