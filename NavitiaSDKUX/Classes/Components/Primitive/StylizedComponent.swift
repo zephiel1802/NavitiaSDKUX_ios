@@ -10,7 +10,7 @@ import Foundation
 import Render
 
 open class StylizedComponent<S: StateType>: ComponentView<S> {
-    var styles: [String: Any] = [:]
+    public var styles: [String: Any] = [:]
     var uniqueKey: String = "<empty!>"
     var bundle: Bundle = Bundle.main
 
@@ -23,7 +23,7 @@ open class StylizedComponent<S: StateType>: ComponentView<S> {
         fatalError("init(coder:) has not been implemented")
     }
 
-    func applyStyles(view: UIView, layout: YGLayout) {
+    public func applyStyles(view: UIView, layout: YGLayout) {
         for (prop, value) in styles {
             switch prop {
             case "alpha": view.alpha = value as! CGFloat; break
