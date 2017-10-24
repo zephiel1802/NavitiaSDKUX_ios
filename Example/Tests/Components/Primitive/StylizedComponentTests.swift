@@ -27,7 +27,8 @@ class StylizedComponentTests: XCTestCase {
             "flexDirection": YGFlexDirection.column,
             "justifyContent": YGJustify.center,
             "alignContent": YGAlign.auto,
-            "alignItems": YGAlign.flexStart
+            "alignItems": YGAlign.flexStart,
+            "alignSelf": YGAlign.baseline
         ]
 
         let nodeView = Node<UIView>()
@@ -44,5 +45,6 @@ class StylizedComponentTests: XCTestCase {
         XCTAssertEqual(nodeView.view!.yoga.justifyContent, YGJustify.center, "Node<UIView>.view.yoga.justifyContent should be mapped")
         XCTAssertEqual(nodeView.view!.yoga.alignContent, YGAlign.auto, "Node<UIView>.view.yoga.alignContent should be mapped")
         XCTAssertEqual(nodeView.view!.yoga.alignItems, YGAlign.flexStart, "Node<UIView>.view.yoga.alignItems should be mapped")
+        XCTAssertEqual(nodeView.view!.yoga.alignSelf, YGAlign.baseline, "Node<UIView>.view.yoga.alignSelf should be mapped")
     }
 }
