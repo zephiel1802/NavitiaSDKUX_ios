@@ -21,7 +21,8 @@ class StylizedComponentTests: XCTestCase {
         let stylizedComponent: StylizedComponent<NilState> = StylizedComponent<NilState>()
         stylizedComponent.styles = [
             "alpha": CGFloat(0.1),
-            "backgroundColor": UIColor.white
+            "backgroundColor": UIColor.white,
+            "borderRadius": 2
         ]
 
         let nodeView = Node<UIView>()
@@ -32,5 +33,6 @@ class StylizedComponentTests: XCTestCase {
         XCTAssertNotNil(nodeView.view, "Node<UIView>.view should not be nil")
         XCTAssertTrue(abs(nodeView.view!.alpha - 0.1) < 0.00001, "Node<UIView>.view.alpha should be mapped")
         XCTAssertEqual(nodeView.view!.backgroundColor, UIColor.white, "Node<UIView>.view.backgroundColor should be mapped")
+        XCTAssertEqual(nodeView.view!.cornerRadius, 2, "Node<UIView>.view.cornerRadius should be mapped")
     }
 }
