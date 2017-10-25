@@ -78,7 +78,7 @@ class StylizedComponentTests: XCTestCase {
             "shadowRadius": 0.2,
             "shadowOpacity": 0.3,
             "shadowColor": UIColor.black,
-            //shadowOffset
+            "shadowOffset": "Whatever"
         ]
 
         let nodeView = Node<UIView>()
@@ -135,7 +135,6 @@ class StylizedComponentTests: XCTestCase {
         XCTAssertEqual(nodeView.view!.yoga.borderEndWidth, 34, "Node<UIView>.view.yoga.borderEndWidth should be mapped")
         XCTAssertEqual(nodeView.view!.layer.borderWidth, 40, "Node<UIView>.view.layer.borderWidth should be mapped")
         XCTAssertEqual(nodeView.view!.layer.borderColor, UIColor.blue.cgColor, "Node<UIView>.view.layer.borderColor should be mapped")
-        // case "borderColor": view.layer.borderColor = (value as! UIColor).cgColor; break
 //        XCTAssertEqual(nodeView.view!.yoga.percent, value as! YGPercentLayout, "Node<UIView>.view.yoga.percent should be mapped")
         XCTAssertEqual(nodeView.view!.yoga.width, 35, "Node<UIView>.view.yoga.width should be mapped")
         // height
@@ -146,6 +145,7 @@ class StylizedComponentTests: XCTestCase {
         XCTAssertEqual(nodeView.view!.layer.shadowRadius, 0.2, "Node<UIView>.view.layer.shadowRadius should be mapped")
         XCTAssertEqual(nodeView.view!.layer.shadowOpacity, 0.3, "Node<UIView>.view.layer.shadowOpacity should be mapped")
         XCTAssertEqual(nodeView.view!.layer.shadowColor, UIColor.black.cgColor, "Node<UIView>.view.layer.shadowColor should be mapped")
-        //shadowOffset
+        //XCTAssertEqual(nodeView.view!.layer.masksToBounds, false, "Node<UIView>.view.layer.masksToBounds should be mapped")
+        XCTAssertEqual(nodeView.view!.layer.shadowOffset, CGSize(width: 0, height: 0), "Node<UIView>.view.layer.shadowOffset should be mapped")
     }
 }
