@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import NavitiaSDK
 
 func timeText(isoString: String) -> String {
     let timeData = isoString.characters.split(separator: "T").map(String.init)
@@ -53,4 +54,12 @@ func distanceText(meters: Int32) -> String {
     } else {
         return String(Float(meters) / 1000) + " km"
     }
+}
+
+func sectionLength(paths: [Path]) -> Int32 {
+    var distance: Int32 = 0
+    for segment in paths {
+        distance += segment.length!
+    }
+    return distance
 }
