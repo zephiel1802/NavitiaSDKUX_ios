@@ -34,6 +34,10 @@ public struct Components {
                     public struct Description {
                     }
                 }
+                public struct StreetNetwork {
+                    public struct Description {
+                    }
+                }
             }
         }
     }
