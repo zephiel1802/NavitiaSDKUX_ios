@@ -146,17 +146,4 @@ class StylizedComponentTests: XCTestCase {
         //XCTAssertEqual(nodeView.view!.layer.masksToBounds, false, "Node<UIView>.view.layer.masksToBounds should be mapped")
         XCTAssertEqual(nodeView.view!.layer.shadowOffset, CGSize(width: 0, height: 0), "Node<UIView>.view.layer.shadowOffset should be mapped")
     }
-
-//    func testApplyStylesWithPercent() {
-//        let stylizedComponent: StylizedComponent<NilState> = StylizedComponent<NilState>()
-//        stylizedComponent.styles = [
-////            "percent": YGPercentLayout(layout: YGLayout()),
-//        ]
-//
-//        let nodeView = Node<UIView>()
-//        nodeView.build()
-//        stylizedComponent.applyStyles(view: nodeView.view!, layout: nodeView.view!.yoga)
-//
-////        XCTAssertEqual(nodeView.view!.yoga.percent, YGPercentLayout., "Node<UIView>.view.yoga.percent should be mapped")
-//    }
 }
