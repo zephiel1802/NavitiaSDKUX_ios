@@ -76,13 +76,7 @@ open class StylizedComponent<S: StateType>: ComponentView<S> {
             case "borderColor": view.layer.borderColor = (value as! UIColor).cgColor; break
             case "percent": layout.percent = value as! YGPercentLayout; break
             case "width": layout.width = CGFloat(value as! Int); break
-            case "height":
-                if let percent = value as? YGValue {
-                    layout.percent.height = percent
-                } else {
-                    layout.height = CGFloat(value as! Int)
-                }
-                break
+            case "height": layout.height = CGFloat(value as! Int); break
             case "minWidth": layout.minWidth = CGFloat(value as! Int); break
             case "minHeight": layout.minHeight = CGFloat(value as! Int); break
             case "maxWidth": layout.maxWidth = CGFloat(value as! Int); break

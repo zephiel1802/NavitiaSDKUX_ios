@@ -17,7 +17,7 @@ class StylizedComponentTests: XCTestCase {
         XCTAssertNotNil(stylizedComponent)
     }
 
-    func testApplyStyles() {
+    func testApplyStylesWithSimpleProperties() {
         let stylizedComponent: StylizedComponent<NilState> = StylizedComponent<NilState>()
         stylizedComponent.styles = [
             "alpha": CGFloat(0.1),
@@ -68,9 +68,8 @@ class StylizedComponentTests: XCTestCase {
             "borderEndWidth": 34,
             "borderWidth": 40,
             "borderColor": UIColor.blue,
-//            "percent": value as! YGPercentLayout,
             "width": 35,
-            // height
+            "height": 41,
             "minWidth": 36,
             "minHeight": 37,
             "maxWidth": 38,
@@ -135,9 +134,8 @@ class StylizedComponentTests: XCTestCase {
         XCTAssertEqual(nodeView.view!.yoga.borderEndWidth, 34, "Node<UIView>.view.yoga.borderEndWidth should be mapped")
         XCTAssertEqual(nodeView.view!.layer.borderWidth, 40, "Node<UIView>.view.layer.borderWidth should be mapped")
         XCTAssertEqual(nodeView.view!.layer.borderColor, UIColor.blue.cgColor, "Node<UIView>.view.layer.borderColor should be mapped")
-//        XCTAssertEqual(nodeView.view!.yoga.percent, value as! YGPercentLayout, "Node<UIView>.view.yoga.percent should be mapped")
         XCTAssertEqual(nodeView.view!.yoga.width, 35, "Node<UIView>.view.yoga.width should be mapped")
-        // height
+        XCTAssertEqual(nodeView.view!.yoga.height, 41, "Node<UIView>.view.yoga.height should be mapped")
         XCTAssertEqual(nodeView.view!.yoga.minWidth, 36, "Node<UIView>.view.yoga.minWidth should be mapped")
         XCTAssertEqual(nodeView.view!.yoga.minHeight, 37, "Node<UIView>.view.yoga.minHeight should be mapped")
         XCTAssertEqual(nodeView.view!.yoga.maxWidth, 38, "Node<UIView>.view.yoga.maxWidth should be mapped")
@@ -148,4 +146,17 @@ class StylizedComponentTests: XCTestCase {
         //XCTAssertEqual(nodeView.view!.layer.masksToBounds, false, "Node<UIView>.view.layer.masksToBounds should be mapped")
         XCTAssertEqual(nodeView.view!.layer.shadowOffset, CGSize(width: 0, height: 0), "Node<UIView>.view.layer.shadowOffset should be mapped")
     }
+
+//    func testApplyStylesWithPercent() {
+//        let stylizedComponent: StylizedComponent<NilState> = StylizedComponent<NilState>()
+//        stylizedComponent.styles = [
+////            "percent": YGPercentLayout(layout: YGLayout()),
+//        ]
+//
+//        let nodeView = Node<UIView>()
+//        nodeView.build()
+//        stylizedComponent.applyStyles(view: nodeView.view!, layout: nodeView.view!.yoga)
+//
+////        XCTAssertEqual(nodeView.view!.yoga.percent, YGPercentLayout., "Node<UIView>.view.yoga.percent should be mapped")
+//    }
 }
