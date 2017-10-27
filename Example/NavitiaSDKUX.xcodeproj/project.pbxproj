@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		57BA89B2D4B9E64ABC25C5A1 /* Pods_NavitiaSDKUX_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30B99FE39643AD86B6351D82 /* Pods_NavitiaSDKUX_Tests.framework */; };
+		5A1AA9179573E3FC366B7028 /* LabelComponentTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A1AADC166AC7308D9BCBEF3 /* LabelComponentTests.swift */; };
 		5DD83388F50960441B290AE1 /* Pods_NavitiaSDKUX_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 72CFE505996D5E7FE3A17C8B /* Pods_NavitiaSDKUX_Example.framework */; };
 		607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACD51AFB9204008FA782 /* AppDelegate.swift */; };
 		607FACD81AFB9204008FA782 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACD71AFB9204008FA782 /* ViewController.swift */; };
@@ -30,6 +31,7 @@
 /* Begin PBXFileReference section */
 		08EA2CBB6FD0207F459D1657 /* Pods-NavitiaSDKUX_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NavitiaSDKUX_Example.debug.xcconfig"; path = "Pods/Target Support Files/Pods-NavitiaSDKUX_Example/Pods-NavitiaSDKUX_Example.debug.xcconfig"; sourceTree = "<group>"; };
 		30B99FE39643AD86B6351D82 /* Pods_NavitiaSDKUX_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_NavitiaSDKUX_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		5A1AADC166AC7308D9BCBEF3 /* LabelComponentTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LabelComponentTests.swift; sourceTree = "<group>"; };
 		607FACD01AFB9204008FA782 /* NavitiaSDKUX_Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NavitiaSDKUX_Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		607FACD41AFB9204008FA782 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		607FACD51AFB9204008FA782 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -172,6 +174,7 @@
 			isa = PBXGroup;
 			children = (
 				FE6411DD1F9F3D9B00E56264 /* StylizedComponentTests.swift */,
+				5A1AADC166AC7308D9BCBEF3 /* LabelComponentTests.swift */,
 			);
 			path = Primitive;
 			sourceTree = "<group>";
@@ -421,6 +424,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FE6411DE1F9F3D9B00E56264 /* StylizedComponentTests.swift in Sources */,
+				5A1AA9179573E3FC366B7028 /* LabelComponentTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
