@@ -25,17 +25,12 @@ class LabelComponentTests: XCTestCase {
             "lineBreakMode": NSLineBreakMode.byWordWrapping,
             "fontSize": 22,
             "fontWeight": "bold",
-            //"fontFamily": "SDKIcons"
         ]
 
         let nodeView = Node<UILabel>()
         nodeView.build()
         labelComponent.applyLabelStyles(view: nodeView.view!, layout: nodeView.view!.yoga)
 
-        for key in nodeView.view!.font.fontDescriptor.fontAttributes.keys {
-            print(key)
-        }
-        //nodeView.view!.font.fontName
         XCTAssertNotNil(nodeView, "Node<UILabel> should not be nil")
         XCTAssertNotNil(nodeView.view, "Node<UILabel>.view should not be nil")
         XCTAssertEqual(nodeView.view!.textColor, UIColor.blue, "Node<UILabel>.view.textColor should be mapped")
@@ -43,7 +38,21 @@ class LabelComponentTests: XCTestCase {
         XCTAssertEqual(nodeView.view!.lineBreakMode, NSLineBreakMode.byWordWrapping, "Node<UILabel>.view.lineBreakMode should be mapped")
         XCTAssertTrue(nodeView.view!.font.fontName.contains("Bold"), "Node<UILabel>.view.font.fontName should be mapped")
         XCTAssertEqual(nodeView.view!.font.pointSize, 22, "Node<UILabel>.view.font.pointSize should be mapped")
+    }
 
-//        XCTAssertEqual(nodeView.view!.font.fontDescriptor.fontAttributes["font-family"].debugDescription, "toto", "Node<UILabel>.view.font should be mapped")
+    func testApplyLabelStylesWithFontFamilyChanging() {
+        let labelComponent: LabelComponent = LabelComponent()
+        labelComponent.styles = [
+            "fontFamily": "SDKIcons"
+        ]
+
+        let nodeView = Node<UILabel>()
+        nodeView.build()
+        labelComponent.applyLabelStyles(view: nodeView.view!, layout: nodeView.view!.yoga)
+
+        //nodeView.view!.font.fontName
+        XCTAssertNotNil(nodeView, "Node<UILabel> should not be nil")
+        XCTAssertNotNil(nodeView.view, "Node<UILabel>.view should not be nil")
+        // Should have a test checking the fontFamily was mapped
     }
 }
