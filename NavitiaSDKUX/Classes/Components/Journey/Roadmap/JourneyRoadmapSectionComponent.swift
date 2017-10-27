@@ -11,6 +11,7 @@ extension Components.Journey.Roadmap {
         
         var section: Section?
         var destinationSection: Section?
+        var label: String?
         
         override func render() -> NodeType {
             return ComponentNode(ViewComponent(), in: self, props: { (component: ViewComponent, _) in
@@ -32,6 +33,7 @@ extension Components.Journey.Roadmap {
             case "street_network":
                 return ComponentNode(StreetNetworkComponent.init(), in: self, props: { (component: Components.Journey.Roadmap.Sections.StreetNetworkComponent, _) in
                     component.section = self.section
+                    component.label = self.label
                 })
             case "transfer":
                 return ComponentNode(TransferComponent.init(), in: self, props: { (component: Components.Journey.Roadmap.Sections.TransferComponent, _) in
