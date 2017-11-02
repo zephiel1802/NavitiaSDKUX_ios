@@ -1,16 +1,16 @@
 PODS:
-  - Alamofire (4.5.0)
+  - Alamofire (4.5.1)
   - AlamofireObjectMapper (4.1.0):
     - Alamofire (~> 4.1)
     - ObjectMapper (~> 2.0)
-  - NavitiaSDK (0.2.0):
+  - NavitiaSDK (0.3.1):
     - Alamofire (~> 4.0)
     - AlamofireObjectMapper (~> 4.0)
-  - NavitiaSDKUX (0.2.0):
-    - NavitiaSDK (= 0.2.0)
-    - Render (~> 4.9)
-  - ObjectMapper (2.2.8)
-  - Render (4.9)
+  - NavitiaSDKUX (0.2.1):
+    - NavitiaSDK (= 0.3.1)
+    - Render (~> 4.9.1)
+  - ObjectMapper (2.2.9)
+  - Render (4.9.1)
 
 DEPENDENCIES:
   - NavitiaSDKUX (from `../`)
@@ -20,12 +20,12 @@ EXTERNAL SOURCES:
     :path: ../
 
 SPEC CHECKSUMS:
-  Alamofire: f28cdffd29de33a7bfa022cbd63ae95a27fae140
+  Alamofire: 2d95912bf4c34f164fdfc335872e8c312acaea4a
   AlamofireObjectMapper: 435adc82f5b367679bd9e71c4974a54efd0b2521
-  NavitiaSDK: dc92142a209c3e22ef992e4083a373ff91d57ef2
-  NavitiaSDKUX: 8c0c61339b726eb4f84ac7a71f815485fc8149ee
-  ObjectMapper: 3d571bb5af471c779e1160828cd9ad5c4ef90958
-  Render: ec3e12861986531a2b043b28b8bee576e3909f4b
+  NavitiaSDK: 82a7e077bebfaff40e0fab4ffdca2e861e63f2b6
+  NavitiaSDKUX: 77a331c5d1aaec77e12d7406d01797f36b1d9bb9
+  ObjectMapper: 63cfe41bc6f8e7c8f44344c49901b8ae7de14c52
+  Render: 02c15b5c85c9310683693d5dc06b8d47878ed465
 
 PODFILE CHECKSUM: 2d89a1edfb759f9c66b4793f35438754ba1bfbc4
 
