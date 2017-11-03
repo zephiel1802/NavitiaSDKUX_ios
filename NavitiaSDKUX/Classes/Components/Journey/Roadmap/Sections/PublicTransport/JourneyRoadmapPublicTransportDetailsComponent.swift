@@ -24,6 +24,7 @@ extension Components.Journey.Roadmap.Sections.PublicTransport {
                             self?.setState { state in
                                 state.visible = !state.visible
                             }
+                            self?.update()
                         }
                     }).add(children: [
                         ComponentNode(self.SectionRowLayoutComponent.init(), in: self, props: { (component: Components.Journey.Roadmap.Sections.SectionRowLayoutComponent, _) in
