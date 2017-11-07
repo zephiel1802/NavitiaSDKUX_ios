@@ -23,16 +23,16 @@
 "component.JourneyRoadmapSectionPublicTransportDescriptionComponent.detailsHeaderTitle" = "Details";
 
 /* StreetNetwork distance label for walking */
-"component.JourneyRoadmapSectionStreetNetworkDescriptionModeDistanceLabelComponent.mode.walking" = "walking";
+"component.JourneyRoadmapSectionStreetNetworkDescriptionModeDistanceLabelComponent.mode.walking" = "A %@ walking";
 
 /* StreetNetwork distance label for bike */
-"component.JourneyRoadmapSectionStreetNetworkDescriptionModeDistanceLabelComponent.mode.bike" = "riding";
+"component.JourneyRoadmapSectionStreetNetworkDescriptionModeDistanceLabelComponent.mode.bike" = "A %@ riding";
 
 /* StreetNetwork distance label for car */
-"component.JourneyRoadmapSectionStreetNetworkDescriptionModeDistanceLabelComponent.mode.car" = "driving";
+"component.JourneyRoadmapSectionStreetNetworkDescriptionModeDistanceLabelComponent.mode.car" = "A %@ driving";
 
 /* StreetNetwork distance label for bss */
-"component.JourneyRoadmapSectionStreetNetworkDescriptionModeDistanceLabelComponent.mode.bss" = "riding";
+"component.JourneyRoadmapSectionStreetNetworkDescriptionModeDistanceLabelComponent.mode.bss" = "A %@ ride on a %@";
 
 /* Journey roadmap transport action description */
 "journey.roadmap.action.walk" = "walk";

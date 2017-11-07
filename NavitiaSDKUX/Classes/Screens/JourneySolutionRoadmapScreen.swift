@@ -47,7 +47,7 @@ open class JourneySolutionRoadmapScreen: StylizedComponent<JourneySolutionRoadma
                         } else if section.type == "street_network" {
                             var network: String = ""
                             if section.from?.poi != nil {
-                                network = "" // poi.properties.network
+                                network = (section.from?.poi?.properties!["network"])!
                             }
                             component.label = self.getDistanceLabel(network: network, mode: section.mode!, distance: sectionLength(paths: section.path!))
                         }
@@ -60,33 +60,39 @@ open class JourneySolutionRoadmapScreen: StylizedComponent<JourneySolutionRoadma
     }
     
     func getDistanceLabel(network: String?, mode: String, distance: Int32) -> String {
-        var distanceLabel: String = distanceText(meters: distance)
+        let distanceLabel: String = distanceText(meters: distance)
+        var resultDistanceLabel = ""
         switch mode {
         case "walking":
-            distanceLabel += " " + NSLocalizedString("component.JourneyRoadmapSectionStreetNetworkDescriptionModeDistanceLabelComponent.mode.walking",
-                                                     bundle: self.bundle,
-                                                     comment: "StreetNetwork distance label for walking")
+            resultDistanceLabel = String(format: NSLocalizedString("component.JourneyRoadmapSectionStreetNetworkDescriptionModeDistanceLabelComponent.mode.walking",
+                                                                   bundle: self.bundle,
+                                                                   comment: "StreetNetwork distance label for walking"),
+                                         distanceLabel)
             break
         case "bike":
             if network == nil {
-                distanceLabel += " " + NSLocalizedString("component.JourneyRoadmapSectionStreetNetworkDescriptionModeDistanceLabelComponent.mode.bike",
-                                                         bundle: self.bundle,
-                                                         comment: "StreetNetwork distance label for bike")
+                resultDistanceLabel = String(format: NSLocalizedString("component.JourneyRoadmapSectionStreetNetworkDescriptionModeDistanceLabelComponent.mode.bike",
+                                                                       bundle: self.bundle,
+                                                                       comment: "StreetNetwork distance label for bike"),
+                                             distanceLabel)
             } else {
-                distanceLabel += " " + NSLocalizedString("component.JourneyRoadmapSectionStreetNetworkDescriptionModeDistanceLabelComponent.mode.bss",
-                                                         bundle: self.bundle,
-                                                         comment: "StreetNetwork distance label for bss")
+                resultDistanceLabel = String(format: NSLocalizedString("component.JourneyRoadmapSectionStreetNetworkDescriptionModeDistanceLabelComponent.mode.bss",
+                                                                       bundle: self.bundle,
+                                                                       comment: "StreetNetwork distance label for bss"),
+                                             distanceLabel,
+                                             network!)
             }
             break
         case "car":
-            distanceLabel += " " + NSLocalizedString("component.JourneyRoadmapSectionStreetNetworkDescriptionModeDistanceLabelComponent.mode.car",
-                                                     bundle: self.bundle,
-                                                     comment: "StreetNetwork distance label for car")
+            resultDistanceLabel = String(format: NSLocalizedString("component.JourneyRoadmapSectionStreetNetworkDescriptionModeDistanceLabelComponent.mode.car",
+                                                                   bundle: self.bundle,
+                                                                   comment: "StreetNetwork distance label for car"),
+                                         distanceLabel)
             break
         default:
             break
         }
-        return distanceLabel
+        return resultDistanceLabel
     }
 
 
