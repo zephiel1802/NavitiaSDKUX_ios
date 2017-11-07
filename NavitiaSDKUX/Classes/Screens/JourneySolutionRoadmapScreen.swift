@@ -70,7 +70,7 @@ open class JourneySolutionRoadmapScreen: StylizedComponent<JourneySolutionRoadma
                                          distanceLabel)
             break
         case "bike":
-            if network == nil {
+            if network == nil || network == "" {
                 resultDistanceLabel = String(format: NSLocalizedString("component.JourneyRoadmapSectionStreetNetworkDescriptionModeDistanceLabelComponent.mode.bike",
                                                                        bundle: self.bundle,
                                                                        comment: "StreetNetwork distance label for bike"),
