@@ -21,7 +21,7 @@ class JourneyWalkingSummaryComponent: ViewComponent {
                 component.text = NSLocalizedString("component.JourneyWalkingSummaryComponent.With", bundle: self.bundle, comment: "Context: With 16 min walking (712m)") + " "
             }),
             ComponentNode(TextComponent(), in: self, props: {(component, hasKey: Bool) in
-                component.text = String(self.duration / 60) + " " + NSLocalizedString("units.minute.plural", bundle: self.bundle, comment: "Units minutes")
+                component.text = durationText(seconds: self.duration)
                 component.styles = self.durationStyles
             }),
             ComponentNode(TextComponent(), in: self, props: {(component, hasKey: Bool) in
