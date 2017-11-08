@@ -8,13 +8,14 @@
 
 /* Begin PBXBuildFile section */
 		57BA89B2D4B9E64ABC25C5A1 /* Pods_NavitiaSDKUX_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30B99FE39643AD86B6351D82 /* Pods_NavitiaSDKUX_Tests.framework */; };
+		5A1AA9179573E3FC366B7028 /* LabelComponentTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A1AADC166AC7308D9BCBEF3 /* LabelComponentTests.swift */; };
 		5DD83388F50960441B290AE1 /* Pods_NavitiaSDKUX_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 72CFE505996D5E7FE3A17C8B /* Pods_NavitiaSDKUX_Example.framework */; };
 		607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACD51AFB9204008FA782 /* AppDelegate.swift */; };
 		607FACD81AFB9204008FA782 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACD71AFB9204008FA782 /* ViewController.swift */; };
 		607FACDB1AFB9204008FA782 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 607FACD91AFB9204008FA782 /* Main.storyboard */; };
 		607FACDD1AFB9204008FA782 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 607FACDC1AFB9204008FA782 /* Images.xcassets */; };
 		607FACE01AFB9204008FA782 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 607FACDE1AFB9204008FA782 /* LaunchScreen.xib */; };
-		607FACEC1AFB9204008FA782 /* Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACEB1AFB9204008FA782 /* Tests.swift */; };
+		FE6411DE1F9F3D9B00E56264 /* StylizedComponentTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE6411DD1F9F3D9B00E56264 /* StylizedComponentTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -30,6 +31,7 @@
 /* Begin PBXFileReference section */
 		08EA2CBB6FD0207F459D1657 /* Pods-NavitiaSDKUX_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NavitiaSDKUX_Example.debug.xcconfig"; path = "Pods/Target Support Files/Pods-NavitiaSDKUX_Example/Pods-NavitiaSDKUX_Example.debug.xcconfig"; sourceTree = "<group>"; };
 		30B99FE39643AD86B6351D82 /* Pods_NavitiaSDKUX_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_NavitiaSDKUX_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		5A1AADC166AC7308D9BCBEF3 /* LabelComponentTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LabelComponentTests.swift; sourceTree = "<group>"; };
 		607FACD01AFB9204008FA782 /* NavitiaSDKUX_Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NavitiaSDKUX_Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		607FACD41AFB9204008FA782 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		607FACD51AFB9204008FA782 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -39,7 +41,6 @@
 		607FACDF1AFB9204008FA782 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		607FACE51AFB9204008FA782 /* NavitiaSDKUX_Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NavitiaSDKUX_Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		607FACEA1AFB9204008FA782 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		607FACEB1AFB9204008FA782 /* Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests.swift; sourceTree = "<group>"; };
 		72CFE505996D5E7FE3A17C8B /* Pods_NavitiaSDKUX_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_NavitiaSDKUX_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7F89B3D0D90DBB421CBC137E /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
 		8AAF064B9D6C5DD07066C545 /* Pods-NavitiaSDKUX_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NavitiaSDKUX_Example.release.xcconfig"; path = "Pods/Target Support Files/Pods-NavitiaSDKUX_Example/Pods-NavitiaSDKUX_Example.release.xcconfig"; sourceTree = "<group>"; };
@@ -48,6 +49,7 @@
 		E64C85D36096454B526230AC /* NavitiaSDKUX.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = NavitiaSDKUX.podspec; path = ../NavitiaSDKUX.podspec; sourceTree = "<group>"; };
 		F36FB7A3014040D8C19CDA34 /* Pods-NavitiaSDKUX_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NavitiaSDKUX_Tests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-NavitiaSDKUX_Tests/Pods-NavitiaSDKUX_Tests.debug.xcconfig"; sourceTree = "<group>"; };
 		FB131ADA642BE6ECAA54E315 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
+		FE6411DD1F9F3D9B00E56264 /* StylizedComponentTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StylizedComponentTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -116,7 +118,7 @@
 		607FACE81AFB9204008FA782 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
-				607FACEB1AFB9204008FA782 /* Tests.swift */,
+				FE6411DB1F9F3D7100E56264 /* Components */,
 				607FACE91AFB9204008FA782 /* Supporting Files */,
 			);
 			path = Tests;
@@ -158,6 +160,23 @@
 				30B99FE39643AD86B6351D82 /* Pods_NavitiaSDKUX_Tests.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		FE6411DB1F9F3D7100E56264 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				FE6411DC1F9F3D7100E56264 /* Primitive */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		FE6411DC1F9F3D7100E56264 /* Primitive */ = {
+			isa = PBXGroup;
+			children = (
+				FE6411DD1F9F3D9B00E56264 /* StylizedComponentTests.swift */,
+				5A1AADC166AC7308D9BCBEF3 /* LabelComponentTests.swift */,
+			);
+			path = Primitive;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -348,9 +367,22 @@
 			files = (
 			);
 			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-NavitiaSDKUX_Tests/Pods-NavitiaSDKUX_Tests-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/AlamofireObjectMapper/AlamofireObjectMapper.framework",
+				"${BUILT_PRODUCTS_DIR}/NavitiaSDK/NavitiaSDK.framework",
+				"${BUILT_PRODUCTS_DIR}/NavitiaSDKUX/NavitiaSDKUX.framework",
+				"${BUILT_PRODUCTS_DIR}/ObjectMapper/ObjectMapper.framework",
+				"${BUILT_PRODUCTS_DIR}/Render/Render.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AlamofireObjectMapper.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/NavitiaSDK.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/NavitiaSDKUX.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ObjectMapper.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Render.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -391,7 +423,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				607FACEC1AFB9204008FA782 /* Tests.swift in Sources */,
+				FE6411DE1F9F3D9B00E56264 /* StylizedComponentTests.swift in Sources */,
+				5A1AA9179573E3FC366B7028 /* LabelComponentTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

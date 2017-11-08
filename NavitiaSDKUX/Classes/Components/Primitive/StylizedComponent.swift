@@ -10,7 +10,7 @@ import Foundation
 import Render
 
 open class StylizedComponent<S: StateType>: ComponentView<S> {
-    var styles: [String: Any] = [:]
+    public var styles: [String: Any] = [:]
     var uniqueKey: String = "<empty!>"
     var bundle: Bundle = Bundle.main
 
@@ -23,7 +23,7 @@ open class StylizedComponent<S: StateType>: ComponentView<S> {
         fatalError("init(coder:) has not been implemented")
     }
 
-    func applyStyles(view: UIView, layout: YGLayout) {
+    public func applyStyles(view: UIView, layout: YGLayout) {
         for (prop, value) in styles {
             switch prop {
             case "alpha": view.alpha = value as! CGFloat; break
@@ -74,15 +74,8 @@ open class StylizedComponent<S: StateType>: ComponentView<S> {
             case "borderEndWidth": layout.borderEndWidth = CGFloat(value as! Int); break
             case "borderWidth": view.layer.borderWidth = CGFloat(value as! Int); break
             case "borderColor": view.layer.borderColor = (value as! UIColor).cgColor; break
-            case "percent": layout.percent = value as! YGPercentLayout; break
             case "width": layout.width = CGFloat(value as! Int); break
-            case "height":
-                if let percent = value as? YGValue {
-                    layout.percent.height = percent
-                } else {
-                    layout.height = CGFloat(value as! Int)
-                }
-                break
+            case "height": layout.height = CGFloat(value as! Int); break
             case "minWidth": layout.minWidth = CGFloat(value as! Int); break
             case "minHeight": layout.minHeight = CGFloat(value as! Int); break
             case "maxWidth": layout.maxWidth = CGFloat(value as! Int); break

@@ -9,18 +9,18 @@
 import Foundation
 import Render
 
-class LabelComponent: StylizedComponent<NilState> {
+open class LabelComponent: StylizedComponent<NilState> {
     var text: String = ""
     var sharedFont: UIFont = UIFont.systemFont(ofSize: 14)
     
-    override func render() -> NodeType {
+    open override func render() -> NodeType {
         return Node<UILabel>() { view, layout, _ in
             view.text = self.text
             self.applyLabelStyles(view: view, layout: layout)
         }
     }
     
-    func applyLabelStyles(view: UILabel, layout: YGLayout) {
+    public func applyLabelStyles(view: UILabel, layout: YGLayout) {
         super.applyStyles(view: view, layout: layout)
         view.font = UIFont.systemFont(ofSize: 14)
         for (prop, value) in styles {
