@@ -11,6 +11,7 @@ class Modes {
         case "public_transport": return getPhysicalMode(section: section).lowercased()
         case "transfer": return section!.transferType!
         case "waiting": return section!.type!
+        case "street_network": return getStreetNetworkMode(section: section).lowercased()
         default: return section!.mode!
         }
     }
@@ -19,6 +20,15 @@ class Modes {
         let id = getPhysicalModeId(section: section)
         var modeData = id.characters.split(separator: ":").map(String.init)
         return modeData[1]
+    }
+    
+    private func getStreetNetworkMode(section: Section?) -> String {
+        if section?.mode == "bike" {
+            if ((section?.from?.poi?.properties!["network"]) != nil) {
+                return "bss"
+            }
+        }
+        return section!.mode!
     }
 
     private func getPhysicalModeId(section: Section?) -> String {
