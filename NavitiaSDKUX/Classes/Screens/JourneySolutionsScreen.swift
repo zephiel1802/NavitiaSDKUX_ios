@@ -92,6 +92,12 @@ open class JourneySolutionsScreen: StylizedComponent<JourneySolutionsScreenState
                 JourneysRequestBuilder.FirstSectionMode.car,
                 JourneysRequestBuilder.FirstSectionMode.walking,
             ])
+            .withLastSectionMode([
+                JourneysRequestBuilder.LastSectionMode.bike,
+                JourneysRequestBuilder.LastSectionMode.bss,
+                JourneysRequestBuilder.LastSectionMode.car,
+                JourneysRequestBuilder.LastSectionMode.walking,
+            ])
             .get(completion: { journeys, error in
                 if error != nil {
                     NSLog(error.debugDescription)
