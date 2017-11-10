@@ -18,7 +18,7 @@ class DurationComponent: ViewComponent {
         var durationComponents: [NodeType] = []
         
         if self.seconds >= 3600 {
-            let text = durationText(seconds: self.seconds)
+            let text = durationText(bundle: self.bundle, seconds: self.seconds)
             durationComponents = [
                 ComponentNode(TextComponent(), in: self, props: {(component, hasKey: Bool) in
                     component.text = text
