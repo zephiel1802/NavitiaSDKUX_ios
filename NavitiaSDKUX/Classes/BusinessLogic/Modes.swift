@@ -1,7 +1,3 @@
-//
-// Created by Chakkra CHAK on 13/09/2017.
-//
-
 import Foundation
 import NavitiaSDK
 
