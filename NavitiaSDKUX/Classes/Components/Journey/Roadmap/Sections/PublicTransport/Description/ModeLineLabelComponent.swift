@@ -15,7 +15,7 @@ extension Components.Journey.Roadmap.Sections.PublicTransport.Description {
                     component.styles = self.modeStyles
                     component.text = self.modes.getPhysicalMode(section: self.section)
                 }),
-                ComponentNode(LineCodeComponent(), in: self, props: { (component: LineCodeComponent, hasKey: Bool) in
+                ComponentNode(LineCodeWithDisruptionStatus(), in: self, props: { (component: LineCodeWithDisruptionStatus, hasKey: Bool) in
                     component.section = self.section
                 })
             ])

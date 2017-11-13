@@ -31,7 +31,7 @@ class JourneySectionSummaryComponent: ViewComponent {
                     component.section = self.section
                     component.styles = self.modeStyles
                 }),
-                ComponentNode(LineCodeComponent(), in: self, props: {(component: LineCodeComponent, hasKey: Bool) in
+                ComponentNode(LineCodeWithDisruptionStatus(), in: self, props: {(component: LineCodeWithDisruptionStatus, hasKey: Bool) in
                     component.section = self.section
                 })
             ]),

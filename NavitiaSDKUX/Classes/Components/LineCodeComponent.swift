@@ -1,6 +1,51 @@
 import Render
 import NavitiaSDK
 
+class LineCodeWithDisruptionStatus: ViewComponent {
+    var section: Section?
+    var disruptions: [Disruption]?
+
+    override func render() -> NodeType {
+        return ComponentNode(ViewComponent(), in: self, props: { (component: ViewComponent, _: Bool) in
+            component.styles = [:]
+        })
+            .add(children: [
+                ComponentNode(LineCodeComponent(), in: self, props: { (component: LineCodeComponent, _: Bool) in
+                    component.section = self.section
+                }),
+                ComponentNode(DisruptionBadge(), in: self, props: { (component: DisruptionBadge, _: Bool) in
+                    component.disruptions = self.disruptions
+                })
+            ])
+    }
+}
+
+class DisruptionBadge: ViewComponent {
+    var disruptions: [Disruption]?
+
+    override func render() -> NodeType {
+        return ComponentNode(ViewComponent(), in: self, props: { (component: ViewComponent, _: Bool) in
+            component.styles = [
+                "position": YGPositionType.absolute,
+                "end": 0,
+                "top" : 0,
+                "alignItems": YGAlign.center,
+                "justifyContent": YGJustify.center,
+            ]
+        })
+            .add(children: [
+                ComponentNode(IconComponent(), in: self, props: { (component: IconComponent, hasKey: Bool) in
+                    component.name = "circle-filled"
+                    component.styles = [
+                        "color": UIColor.red,
+                        "fontSize": 18,
+                        "alignSelf": YGAlign.center,
+                    ]
+                })
+            ])
+    }
+}
+
 class LineCodeComponent: ViewComponent {
     var section: Section?
 
