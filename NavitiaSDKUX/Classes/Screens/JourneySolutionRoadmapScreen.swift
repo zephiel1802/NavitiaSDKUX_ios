@@ -60,7 +60,7 @@ open class JourneySolutionRoadmapScreen: StylizedComponent<JourneySolutionRoadma
     }
     
     func getDistanceLabel(network: String?, mode: String, distance: Int32) -> String {
-        let distanceLabel: String = distanceText(meters: distance)
+        let distanceLabel: String = distanceText(bundle: self.bundle, meters: distance)
         var resultDistanceLabel = ""
         switch mode {
         case "walking":

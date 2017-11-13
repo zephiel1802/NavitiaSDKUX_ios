@@ -34,6 +34,8 @@ func getIsoDatetime(datetime: Date) -> String {
 func durationText(bundle: Bundle, seconds: Int32) -> String {
     if (seconds < 60) {
         return "< 1 " + NSLocalizedString("units.minute", bundle: bundle, comment: "Units minute")
+    } else if (seconds < 120) {
+        return "1 " + NSLocalizedString("units.minute", bundle: bundle, comment: "Units minute")
     } else if (seconds < 3600) {
         let minutes: Int32 = seconds / 60
         return String(minutes) + " " + NSLocalizedString("units.minute.plural", bundle: bundle, comment: "Units minutes")
