@@ -70,7 +70,9 @@ open class JourneySolutionsScreen: StylizedComponent<JourneySolutionsScreenState
                         component.origin = self.state.origin.isEmpty ? self.state.originId : self.state.origin
                         component.destination = self.state.destination.isEmpty ? self.state.destinationId : self.state.destination
                     }),
-                    ComponentNode(DateTimeButtonComponent(), in: self)
+                    ComponentNode(DateTimeButtonComponent(), in: self, props: {(component: DateTimeButtonComponent, _) in
+                        component.datetime = self.state.datetime
+                    }),
                 ])
             ]),
             ComponentNode(ScrollViewComponent(), in: self).add(children: [
@@ -83,7 +85,19 @@ open class JourneySolutionsScreen: StylizedComponent<JourneySolutionsScreenState
         navitiaSDK?.journeysApi.newJourneysRequestBuilder()
             .withFrom(originId)
             .withTo(destinationId)
-            .withDatetime(getIsoDatetime(datetime: state.datetime))
+            .withDatetime(self.state.datetime)
+            .withFirstSectionMode([
+                JourneysRequestBuilder.FirstSectionMode.bike,
+                JourneysRequestBuilder.FirstSectionMode.bss,
+                JourneysRequestBuilder.FirstSectionMode.car,
+                JourneysRequestBuilder.FirstSectionMode.walking,
+            ])
+            .withLastSectionMode([
+                JourneysRequestBuilder.LastSectionMode.bike,
+                JourneysRequestBuilder.LastSectionMode.bss,
+                JourneysRequestBuilder.LastSectionMode.car,
+                JourneysRequestBuilder.LastSectionMode.walking,
+            ])
             .get(completion: { journeys, error in
                 if error != nil {
                     NSLog(error.debugDescription)

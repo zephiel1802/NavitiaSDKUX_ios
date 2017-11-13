@@ -22,6 +22,18 @@
 /* Navigation bar title for journey roadmap section */
 "component.JourneyRoadmapSectionPublicTransportDescriptionComponent.detailsHeaderTitle" = "Détails";
 
+/* StreetNetwork distance label for walking */
+"component.JourneyRoadmapSectionStreetNetworkDescriptionModeDistanceLabelComponent.mode.walking" = "%@ à pied";
+
+/* StreetNetwork distance label for bike */
+"component.JourneyRoadmapSectionStreetNetworkDescriptionModeDistanceLabelComponent.mode.bike" = "%@ en vélo";
+
+/* StreetNetwork distance label for car */
+"component.JourneyRoadmapSectionStreetNetworkDescriptionModeDistanceLabelComponent.mode.car" = "%@ en voiture";
+
+/* StreetNetwork distance label for bss */
+"component.JourneyRoadmapSectionStreetNetworkDescriptionModeDistanceLabelComponent.mode.bss" = "%@ en %@";
+
 /* Journey roadmap transport action description */
 "journey.roadmap.action.walk" = "de marche";
 

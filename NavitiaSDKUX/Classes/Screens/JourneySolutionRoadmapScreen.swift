@@ -9,7 +9,7 @@ public struct JourneySolutionRoadmapState: StateType {
     var journey: Journey?
 }
 
-open class JourneySolutionRoadmapScreen: ComponentView<JourneySolutionRoadmapState> {
+open class JourneySolutionRoadmapScreen: StylizedComponent<JourneySolutionRoadmapState> {
     let SectionComponent:Components.Journey.Roadmap.SectionComponent.Type = Components.Journey.Roadmap.SectionComponent.self
     
     var navigationController: UINavigationController?
@@ -44,6 +44,12 @@ open class JourneySolutionRoadmapScreen: ComponentView<JourneySolutionRoadmapSta
                         component.section = section
                         if section.type == "transfer" {
                             component.destinationSection = self.state.journey?.sections?[sectionIndex + 1]
+                        } else if section.type == "street_network" {
+                            var network: String = ""
+                            if section.from?.poi != nil {
+                                network = (section.from?.poi?.properties!["network"])!
+                            }
+                            component.label = self.getDistanceLabel(network: network, mode: section.mode!, distance: sectionLength(paths: section.path!))
                         }
                     })
                 )
@@ -52,6 +58,43 @@ open class JourneySolutionRoadmapScreen: ComponentView<JourneySolutionRoadmapSta
         }
         return sectionComponents
     }
+    
+    func getDistanceLabel(network: String?, mode: String, distance: Int32) -> String {
+        let distanceLabel: String = distanceText(meters: distance)
+        var resultDistanceLabel = ""
+        switch mode {
+        case "walking":
+            resultDistanceLabel = String(format: NSLocalizedString("component.JourneyRoadmapSectionStreetNetworkDescriptionModeDistanceLabelComponent.mode.walking",
+                                                                   bundle: self.bundle,
+                                                                   comment: "StreetNetwork distance label for walking"),
+                                         distanceLabel)
+            break
+        case "bike":
+            if network == nil || network == "" {
+                resultDistanceLabel = String(format: NSLocalizedString("component.JourneyRoadmapSectionStreetNetworkDescriptionModeDistanceLabelComponent.mode.bike",
+                                                                       bundle: self.bundle,
+                                                                       comment: "StreetNetwork distance label for bike"),
+                                             distanceLabel)
+            } else {
+                resultDistanceLabel = String(format: NSLocalizedString("component.JourneyRoadmapSectionStreetNetworkDescriptionModeDistanceLabelComponent.mode.bss",
+                                                                       bundle: self.bundle,
+                                                                       comment: "StreetNetwork distance label for bss"),
+                                             distanceLabel,
+                                             network!)
+            }
+            break
+        case "car":
+            resultDistanceLabel = String(format: NSLocalizedString("component.JourneyRoadmapSectionStreetNetworkDescriptionModeDistanceLabelComponent.mode.car",
+                                                                   bundle: self.bundle,
+                                                                   comment: "StreetNetwork distance label for car"),
+                                         distanceLabel)
+            break
+        default:
+            break
+        }
+        return resultDistanceLabel
+    }
+
 
     let screenHeaderStyle: [String: Any] = [
         "backgroundColor": config.colors.tertiary,

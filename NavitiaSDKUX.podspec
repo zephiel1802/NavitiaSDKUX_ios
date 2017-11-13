@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'NavitiaSDKUX'
-  s.version          = '0.2.1'
+  s.version          = '0.3.0'
   s.summary          = 'An awesome framework to offer cool transport stuff to your users'
 
   s.description      = <<-DESC
@@ -26,5 +26,5 @@ An awesome framework to offer cool transport stuff to your users
   s.resources = 'NavitiaSDKUX/Assets/**/*'
 
   s.dependency 'Render', '~> 4.9.1'
-  s.dependency 'NavitiaSDK', '0.3.1'
+  s.dependency 'NavitiaSDK', '0.3.2'
 end

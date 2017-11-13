@@ -3,9 +3,9 @@ import Render
 import NavitiaSDK
 
 extension Components.Journey.Roadmap.Sections.Transfer {
-    class ModeDistanceLabelComponent: ViewComponent {
+    class ModeDurationLabelComponent: ViewComponent {
         var section: Section?
-    
+
         override func render() -> NodeType {
             return ComponentNode(ViewComponent(), in: self, props: { (component: ViewComponent, hasKey: Bool) in
                 component.styles = self.containerStyles
@@ -26,7 +26,7 @@ extension Components.Journey.Roadmap.Sections.Transfer {
                 }),
             ])
         }
-    
+
         let containerStyles: [String: Any] = [
             "flexDirection": YGFlexDirection.row,
             "paddingTop": 14,

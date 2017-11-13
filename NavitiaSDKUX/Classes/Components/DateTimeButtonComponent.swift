@@ -10,26 +10,17 @@ import Foundation
 import Render
 
 class DateTimeButtonComponent: ButtonComponent {
+    var datetime: Date?
+    
     override func render() -> NodeType {
         let computedStyles: [String: Any] = mergeDictionaries(dict1: listRowStyles, dict2: self.styles)
         return ComponentNode(ButtonComponent(), in: self, props: {(component, hasKey: Bool) in
             component.styles = computedStyles
         }).add(children: [
             ComponentNode(TextComponent(), in: self, props: {(component, hasKey: Bool) in
-                component.text = NSLocalizedString("component.DateTimeButtonComponent.representation.departure", bundle: self.bundle, comment: "Datetime represent label") + longDateText(datetime: Date())
+                component.text = NSLocalizedString("component.DateTimeButtonComponent.representation.departure", bundle: self.bundle, comment: "Datetime represent label") + longDateText(datetime: self.datetime!)
                 component.styles = self.textStyles
             })
-            /*
-            ,
-            ComponentNode(ViewComponent(), in: self, props: {(component, hasKey: Bool) in
-                component.styles = self.viewStyles
-            }).add(children: [
-                ComponentNode(IconComponent(), in: self, props: {(component, hasKey: Bool) in
-                    component.name = "arrow-right"
-                    component.styles = self.iconStyles
-                })
-            ])
-            */
         ])
     }
     
