@@ -1,2 +1,2 @@
-github "alexdrone/Render" "4.9.1"
-github "CanalTP/NavitiaSDK_ios" "0.3.3"
+github "alexdrone/Render" ~> 4.9
+github "CanalTP/NavitiaSDK_ios" ~> 0.3
