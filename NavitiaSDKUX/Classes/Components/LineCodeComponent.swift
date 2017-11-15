@@ -24,26 +24,16 @@ class DisruptionBadge: ViewComponent {
     var disruptions: [Disruption]?
 
     override func render() -> NodeType {
-        return ComponentNode(ViewComponent(), in: self, props: { (component: ViewComponent, _: Bool) in
+        return ComponentNode(IconComponent(), in: self, props: { (component: IconComponent, _) in
+            component.name = "circle-filled"
             component.styles = [
                 "position": YGPositionType.absolute,
                 "end": -11,
                 "top" : -9,
-                "alignItems": YGAlign.center,
-                "justifyContent": YGJustify.center,
+                "color": UIColor.red,
+                "fontSize": 18,
             ]
         })
-            .add(children: [
-                ComponentNode(IconComponent(), in: self, props: { (component: IconComponent, hasKey: Bool) in
-                    component.name = "circle-filled"
-                    component.styles = [
-                        "color": UIColor.red,
-                        "fontSize": 18,
-                        "alignSelf": YGAlign.center,
-                        "padding": 0,
-                    ]
-                })
-            ])
     }
 }
 
