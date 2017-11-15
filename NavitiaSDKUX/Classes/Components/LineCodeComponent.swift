@@ -27,8 +27,8 @@ class DisruptionBadge: ViewComponent {
         return ComponentNode(ViewComponent(), in: self, props: { (component: ViewComponent, _: Bool) in
             component.styles = [
                 "position": YGPositionType.absolute,
-                "end": 0,
-                "top" : 0,
+                "end": -11,
+                "top" : -9,
                 "alignItems": YGAlign.center,
                 "justifyContent": YGJustify.center,
             ]
@@ -40,6 +40,7 @@ class DisruptionBadge: ViewComponent {
                         "color": UIColor.red,
                         "fontSize": 18,
                         "alignSelf": YGAlign.center,
+                        "padding": 0,
                     ]
                 })
             ])
