@@ -6,9 +6,7 @@ class LineCodeWithDisruptionStatus: ViewComponent {
     var disruptions: [Disruption]?
 
     override func render() -> NodeType {
-        return ComponentNode(ViewComponent(), in: self, props: { (component: ViewComponent, _: Bool) in
-            component.styles = [:]
-        })
+        return ComponentNode(ViewComponent(), in: self)
             .add(children: [
                 ComponentNode(LineCodeComponent(), in: self, props: { (component: LineCodeComponent, _: Bool) in
                     component.section = self.section
@@ -26,15 +24,17 @@ class DisruptionBadge: ViewComponent {
     override func render() -> NodeType {
         return ComponentNode(IconComponent(), in: self, props: { (component: IconComponent, _) in
             component.name = "circle-filled"
-            component.styles = [
-                "position": YGPositionType.absolute,
-                "end": -11,
-                "top" : -9,
-                "color": UIColor.red,
-                "fontSize": 18,
-            ]
+            component.styles = self.disruptionBadgeStyle
         })
     }
+
+    let disruptionBadgeStyle: [String: Any] = [
+        "position": YGPositionType.absolute,
+        "end": -11,
+        "top": -9,
+        "color": UIColor.red,
+        "fontSize": 18,
+    ]
 }
 
 class LineCodeComponent: ViewComponent {
