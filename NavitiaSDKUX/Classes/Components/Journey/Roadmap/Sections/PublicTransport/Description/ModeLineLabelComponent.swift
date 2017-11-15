@@ -5,6 +5,7 @@ import NavitiaSDK
 extension Components.Journey.Roadmap.Sections.PublicTransport.Description {
     class ModeLineLabelComponent: ViewComponent {
         var section: Section?
+        var disruptions: [Disruption]?
         let modes: Modes = Modes()
 
         override func render() -> NodeType {
@@ -17,6 +18,7 @@ extension Components.Journey.Roadmap.Sections.PublicTransport.Description {
                 }),
                 ComponentNode(LineCodeWithDisruptionStatus(), in: self, props: { (component: LineCodeWithDisruptionStatus, hasKey: Bool) in
                     component.section = self.section
+                    component.disruptions = self.disruptions
                 })
             ])
         }

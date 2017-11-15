@@ -11,6 +11,7 @@ extension Components.Journey.Roadmap.Sections {
         let DetailsComponent:Components.Journey.Roadmap.Sections.PublicTransport.DetailsComponent.Type = Components.Journey.Roadmap.Sections.PublicTransport.DetailsComponent.self
         
         var section: Section?
+        var disruptions: [Disruption]?
 
         override func render() -> NodeType {
             return ComponentNode(ViewComponent(), in: self).add(children: [
@@ -29,6 +30,7 @@ extension Components.Journey.Roadmap.Sections {
                             in: self,
                             props: { (component: Components.Journey.Roadmap.Sections.PublicTransport.DescriptionComponent, hasKey: Bool) in
                                 component.section = self.section
+                                component.disruptions = self.disruptions
                             }),
                         ComponentNode(self.DetailsComponent.init(),
                             in: self,

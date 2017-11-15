@@ -17,6 +17,7 @@ class JourneySolutionRowComponent: ViewComponent {
     var walkingDuration: Int32? = 0
     var walkingDistance: Int32? = 0
     var sections: [Section] = []
+    var disruptions: [Disruption]?
     var hasArrow: Bool = false
     
     override func render() -> NodeType {
@@ -40,10 +41,11 @@ class JourneySolutionRowComponent: ViewComponent {
                     }),
                 ]),
                 ComponentNode(SeparatorComponent(), in: self),
-                ComponentNode(JourneyRoadmapFriezeComponent(), in: self, props: {(component, hasKey: Bool) in
+                ComponentNode(JourneyRoadmapFriezeComponent(), in: self, props: {(component: JourneyRoadmapFriezeComponent, hasKey: Bool) in
                     component.sections = self.sections
+                    component.disruptions = self.disruptions
                 }),
-                ComponentNode(JourneyWalkingSummaryComponent(), in: self, props: {(component, hasKey: Bool) in
+                ComponentNode(JourneyWalkingSummaryComponent(), in: self, props: {(component: JourneyWalkingSummaryComponent, hasKey: Bool) in
                     component.duration = self.walkingDuration!
                     component.distance = self.walkingDistance!
                 }),

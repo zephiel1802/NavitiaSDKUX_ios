@@ -12,6 +12,7 @@ import NavitiaSDK
 
 class JourneyRoadmapFriezeComponent: ViewComponent {
     var sections: [Section] = []
+    var disruptions: [Disruption]?
 
     override func render() -> NodeType {
         let computedStyles = mergeDictionaries(dict1: containerStyles, dict2: self.styles)
@@ -30,8 +31,9 @@ class JourneyRoadmapFriezeComponent: ViewComponent {
         return sections.filter { section in
             return (section.type! == "public_transport" || section.type! == "street_network")
         }.map { section -> NodeType in
-            return ComponentNode(JourneySectionSummaryComponent(), in: self, props: { (component, hasKey: Bool) in
+            return ComponentNode(JourneySectionSummaryComponent(), in: self, props: { (component: JourneySectionSummaryComponent, hasKey: Bool) in
                 component.section = section
+                component.disruptions = self.disruptions
             })
         }
     }

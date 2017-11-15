@@ -11,6 +11,7 @@ import NavitiaSDK
 
 class JourneySectionSummaryComponent: ViewComponent {
     var section: Section?
+    var disruptions: [Disruption]?
 
     override func render() -> NodeType {
         var duration: Int32 = 0
@@ -33,6 +34,7 @@ class JourneySectionSummaryComponent: ViewComponent {
                 }),
                 ComponentNode(LineCodeWithDisruptionStatus(), in: self, props: {(component: LineCodeWithDisruptionStatus, hasKey: Bool) in
                     component.section = self.section
+                    component.disruptions = self.disruptions
                 })
             ]),
             ComponentNode(JourneySectionSegmentComponent(), in: self, props: {(component: JourneySectionSegmentComponent, hasKey: Bool) in

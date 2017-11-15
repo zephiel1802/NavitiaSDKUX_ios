@@ -10,6 +10,7 @@ extension Components.Journey.Roadmap {
         let DefaultComponent:Components.Journey.Roadmap.Sections.DefaultComponent.Type = Components.Journey.Roadmap.Sections.DefaultComponent.self
         
         var section: Section?
+        var disruptions: [Disruption]?
         var destinationSection: Section?
         var label: String?
         
@@ -29,6 +30,7 @@ extension Components.Journey.Roadmap {
                     key: "\(String(describing: type(of: self)))_\(self.section!.type!)_\(self.section!.departureDateTime!)",
                     props: { (component: Components.Journey.Roadmap.Sections.PublicTransportComponent, _) in
                         component.section = self.section
+                        component.disruptions = self.disruptions
                     })
             case "street_network":
                 return ComponentNode(StreetNetworkComponent.init(), in: self, props: { (component: Components.Journey.Roadmap.Sections.StreetNetworkComponent, _) in
