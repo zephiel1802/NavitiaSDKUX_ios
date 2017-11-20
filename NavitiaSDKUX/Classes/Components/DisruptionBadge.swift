@@ -7,10 +7,10 @@ class DisruptionBadgeComponent: ViewComponent {
     override func render() -> NodeType {
         var highestDisruptionLevel = Disruption.DisruptionLevel.none
         if disruptions != nil {
-            highestDisruptionLevel = getHighestLevelFrom(disruptions: disruptions!)
+            highestDisruptionLevel = Disruption.getHighestLevelFrom(disruptions: disruptions!)
         }
         
-        iconStyles["color"] = getUIColorFromHexadecimal(hex: getColorOf(disruptionLevel: highestDisruptionLevel))
+        iconStyles["color"] = getUIColorFromHexadecimal(hex: Disruption.getIconColor(of: highestDisruptionLevel))
         
         return ComponentNode(ViewComponent(), in: self, props: { (component: ViewComponent, _) in
             component.styles = self.containerStyles
@@ -20,7 +20,7 @@ class DisruptionBadgeComponent: ViewComponent {
                 component.styles = self.edgeStyle
             }),
             ComponentNode(IconComponent(), in: self, props: { (component: IconComponent, _) in
-                component.name = "disruption-" + getStringOf(disruptionLevel: highestDisruptionLevel)
+                component.name = Disruption.getIconName(of: highestDisruptionLevel)
                 component.styles = self.iconStyles
             }),
         ])

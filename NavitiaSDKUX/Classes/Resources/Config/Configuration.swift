@@ -94,7 +94,7 @@ public struct Configuration {
         "circle-filled": "\u{ea27}",
         "circle": "\u{ea28}",
         "disruption-blocking": "\u{ea29}",
-        "disruption-non-blocking": "\u{ea2a}",
+        "disruption-nonblocking": "\u{ea2a}",
         "disruption-information": "\u{ea2b}",
     ]
     

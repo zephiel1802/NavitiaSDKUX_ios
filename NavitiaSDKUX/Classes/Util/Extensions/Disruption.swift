@@ -3,10 +3,10 @@ import NavitiaSDK
 
 extension Disruption {
     public enum DisruptionLevel: Int {
-        case blocking = 3
-        case nonblocking = 2
-        case information = 1
-        case none = 0
+        case none
+        case information
+        case nonblocking
+        case blocking
     }
 
     public var level: DisruptionLevel {
@@ -25,6 +25,29 @@ extension Disruption {
             return DisruptionLevel.information
         default:
             return DisruptionLevel.none
+        }
+    }
+    
+    public static func getHighestLevelFrom(disruptions: [Disruption]) -> Disruption.DisruptionLevel {
+        var highestLevel: Disruption.DisruptionLevel = Disruption.DisruptionLevel.none
+        for disruption in disruptions {
+            if disruption.level.rawValue > highestLevel.rawValue {
+                highestLevel = disruption.level
+            }
+        }
+        return highestLevel
+    }
+    
+    public static func getIconName(of disruptionLevel: Disruption.DisruptionLevel) -> String {
+        return "disruption-" + String(describing: disruptionLevel)
+    }
+    
+    public static func getIconColor(of disruptionLevel: Disruption.DisruptionLevel) -> String {
+        switch disruptionLevel {
+        case .blocking: return "A94442"
+        case .nonblocking: return "8A6D3B"
+        case .information: return "31708F"
+        case .none: return "888888"
         }
     }
 }
