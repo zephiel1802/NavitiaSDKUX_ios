@@ -17,7 +17,7 @@ class ViewController: UIViewController {
         // Override Navitia SDK UX Config
         NavitiaSDKUXConfig.setTertiaryColor(color: getUIColorFromHexadecimal(hex: "40958e"))
         NavitiaSDKUXConfig.setRadiusMetrics(value: 0)
-        NavitiaSDKUXConfig.setToken(token: "9e304161-bb97-4210-b13d-c71eaf58961c")
+        NavitiaSDKUXConfig.setToken(token: "")
 
         // Set navbar text color
         let textColor = contrastColor(color: NavitiaSDKUXConfig.getTertiaryColor())
@@ -38,7 +38,7 @@ class ViewController: UIViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if  let destination = segue.destination as? JourneySolutionsController {
-            destination.setProps(originId: "stop_area:QUI:SA:ARCOMQUIKVYC", destinationId: "stop_area:QUI:SA:ARCOMQUIVIOL")
+            destination.setProps(originId: "2.3665844;48.8465337", destinationId: "2.2979169;48.8848719")
         }
     }
 }
