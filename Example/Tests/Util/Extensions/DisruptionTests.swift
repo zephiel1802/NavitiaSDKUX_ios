@@ -12,112 +12,97 @@ import NavitiaSDKUX
 
 class DisruptionTests: XCTestCase {
     func testExtensionDisruptionWithSeverityNull() {
-        var disruption: Disruption = Disruption()
-
+        let disruption: Disruption = Disruption()
         disruption.severity = nil
 
-        XCTAssertEqual(disruption.warningLevel, Disruption.WarningLevel.NONE)
+        XCTAssertEqual(disruption.level, Disruption.DisruptionLevel.none)
     }
 
     func testExtensionDisruptionWithNoService() {
-        // GIVEN
-        var disruption: Disruption = Disruption()
+        let disruption: Disruption = Disruption()
         disruption.severity = Severity()
-
-        // WHEN
         disruption.severity!.effect = "NO_SERVICE"
 
-        // THEN
-        XCTAssertEqual(disruption.warningLevel, Disruption.WarningLevel.BLOCKING)
+        XCTAssertEqual(disruption.level, Disruption.DisruptionLevel.blocking)
     }
 
     func testExtensionDisruptionWithReducedService() {
-        var disruption: Disruption = Disruption()
+        let disruption: Disruption = Disruption()
         disruption.severity = Severity()
-
         disruption.severity!.effect = "REDUCED_SERVICE"
 
-        XCTAssertEqual(disruption.warningLevel, Disruption.WarningLevel.WARNING)
+        XCTAssertEqual(disruption.level, Disruption.DisruptionLevel.warning)
     }
 
     func testExtensionDisruptionWithStopMoved() {
-        var disruption: Disruption = Disruption()
+        let disruption: Disruption = Disruption()
         disruption.severity = Severity()
-
         disruption.severity!.effect = "STOP_MOVED"
 
-        XCTAssertEqual(disruption.warningLevel, Disruption.WarningLevel.WARNING)
+        XCTAssertEqual(disruption.level, Disruption.DisruptionLevel.warning)
     }
 
     func testExtensionDisruptionWithDetour() {
-        var disruption: Disruption = Disruption()
+        let disruption: Disruption = Disruption()
         disruption.severity = Severity()
-
         disruption.severity!.effect = "DETOUR"
 
-        XCTAssertEqual(disruption.warningLevel, Disruption.WarningLevel.WARNING)
+        XCTAssertEqual(disruption.level, Disruption.DisruptionLevel.warning)
     }
 
     func testExtensionDisruptionWithSignificantDelays() {
-        var disruption: Disruption = Disruption()
+        let disruption: Disruption = Disruption()
         disruption.severity = Severity()
-
         disruption.severity!.effect = "SIGNIFICANT_DELAYS"
 
-        XCTAssertEqual(disruption.warningLevel, Disruption.WarningLevel.WARNING)
+        XCTAssertEqual(disruption.level, Disruption.DisruptionLevel.warning)
     }
 
     func testExtensionDisruptionWithAdditionalService() {
-        var disruption: Disruption = Disruption()
+        let disruption: Disruption = Disruption()
         disruption.severity = Severity()
-
         disruption.severity!.effect = "ADDITIONAL_SERVICE"
 
-        XCTAssertEqual(disruption.warningLevel, Disruption.WarningLevel.WARNING)
+        XCTAssertEqual(disruption.level, Disruption.DisruptionLevel.warning)
     }
 
     func testExtensionDisruptionWithModifiedService() {
-        var disruption: Disruption = Disruption()
+        let disruption: Disruption = Disruption()
         disruption.severity = Severity()
-
         disruption.severity!.effect = "MODIFIED_SERVICE"
 
-        XCTAssertEqual(disruption.warningLevel, Disruption.WarningLevel.WARNING)
+        XCTAssertEqual(disruption.level, Disruption.DisruptionLevel.warning)
     }
 
     func testExtensionDisruptionWithOtherEffect() {
-        var disruption: Disruption = Disruption()
+        let disruption: Disruption = Disruption()
         disruption.severity = Severity()
-
         disruption.severity!.effect = "OTHER_EFFECT"
 
-        XCTAssertEqual(disruption.warningLevel, Disruption.WarningLevel.INFORMATION)
+        XCTAssertEqual(disruption.level, Disruption.DisruptionLevel.information)
     }
 
     func testExtensionDisruptionWithUnknownEffect() {
-        var disruption: Disruption = Disruption()
+        let disruption: Disruption = Disruption()
         disruption.severity = Severity()
-
         disruption.severity!.effect = "UNKNOWN_EFFECT"
 
-        XCTAssertEqual(disruption.warningLevel, Disruption.WarningLevel.INFORMATION)
+        XCTAssertEqual(disruption.level, Disruption.DisruptionLevel.information)
     }
 
     func testExtensionDisruptionWithNilEffect() {
-        var disruption: Disruption = Disruption()
+        let disruption: Disruption = Disruption()
         disruption.severity = Severity()
-
         disruption.severity!.effect = nil
 
-        XCTAssertEqual(disruption.warningLevel, Disruption.WarningLevel.NONE)
+        XCTAssertEqual(disruption.level, Disruption.DisruptionLevel.none)
     }
 
     func testExtensionDisruptionWithNewEffect() {
-        var disruption: Disruption = Disruption()
+        let disruption: Disruption = Disruption()
         disruption.severity = Severity()
-
         disruption.severity!.effect = "UMADBRO?"
 
-        XCTAssertEqual(disruption.warningLevel, Disruption.WarningLevel.NONE)
+        XCTAssertEqual(disruption.level, Disruption.DisruptionLevel.none)
     }
 }

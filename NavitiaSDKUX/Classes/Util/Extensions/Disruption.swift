@@ -2,29 +2,29 @@ import Foundation
 import NavitiaSDK
 
 extension Disruption {
-    public enum WarningLevel {
-        case BLOCKING
-        case WARNING
-        case INFORMATION
-        case NONE
+    public enum DisruptionLevel: Int {
+        case blocking = 3
+        case warning = 2
+        case information = 1
+        case none = 0
     }
 
-    public var warningLevel: WarningLevel {
+    public var level: DisruptionLevel {
         if self.severity == nil {
-            return WarningLevel.NONE
+            return DisruptionLevel.none
         }
         if self.severity!.effect == nil {
-            return WarningLevel.NONE
+            return DisruptionLevel.none
         }
         switch self.severity!.effect! {
         case "NO_SERVICE":
-            return WarningLevel.BLOCKING
+            return DisruptionLevel.blocking
         case "REDUCED_SERVICE", "STOP_MOVED", "DETOUR", "SIGNIFICANT_DELAYS", "ADDITIONAL_SERVICE", "MODIFIED_SERVICE":
-            return WarningLevel.WARNING
+            return DisruptionLevel.warning
         case "OTHER_EFFECT", "UNKNOWN_EFFECT":
-            return WarningLevel.INFORMATION
+            return DisruptionLevel.information
         default:
-            return WarningLevel.NONE
+            return DisruptionLevel.none
         }
     }
 }
