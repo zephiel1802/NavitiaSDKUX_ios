@@ -31,7 +31,7 @@ class DisruptionTests: XCTestCase {
         disruption.severity = Severity()
         disruption.severity!.effect = "REDUCED_SERVICE"
 
-        XCTAssertEqual(disruption.level, Disruption.DisruptionLevel.warning)
+        XCTAssertEqual(disruption.level, Disruption.DisruptionLevel.nonblocking)
     }
 
     func testExtensionDisruptionWithStopMoved() {
@@ -39,7 +39,7 @@ class DisruptionTests: XCTestCase {
         disruption.severity = Severity()
         disruption.severity!.effect = "STOP_MOVED"
 
-        XCTAssertEqual(disruption.level, Disruption.DisruptionLevel.warning)
+        XCTAssertEqual(disruption.level, Disruption.DisruptionLevel.nonblocking)
     }
 
     func testExtensionDisruptionWithDetour() {
@@ -47,7 +47,7 @@ class DisruptionTests: XCTestCase {
         disruption.severity = Severity()
         disruption.severity!.effect = "DETOUR"
 
-        XCTAssertEqual(disruption.level, Disruption.DisruptionLevel.warning)
+        XCTAssertEqual(disruption.level, Disruption.DisruptionLevel.nonblocking)
     }
 
     func testExtensionDisruptionWithSignificantDelays() {
@@ -55,7 +55,7 @@ class DisruptionTests: XCTestCase {
         disruption.severity = Severity()
         disruption.severity!.effect = "SIGNIFICANT_DELAYS"
 
-        XCTAssertEqual(disruption.level, Disruption.DisruptionLevel.warning)
+        XCTAssertEqual(disruption.level, Disruption.DisruptionLevel.nonblocking)
     }
 
     func testExtensionDisruptionWithAdditionalService() {
@@ -63,7 +63,7 @@ class DisruptionTests: XCTestCase {
         disruption.severity = Severity()
         disruption.severity!.effect = "ADDITIONAL_SERVICE"
 
-        XCTAssertEqual(disruption.level, Disruption.DisruptionLevel.warning)
+        XCTAssertEqual(disruption.level, Disruption.DisruptionLevel.nonblocking)
     }
 
     func testExtensionDisruptionWithModifiedService() {
@@ -71,7 +71,7 @@ class DisruptionTests: XCTestCase {
         disruption.severity = Severity()
         disruption.severity!.effect = "MODIFIED_SERVICE"
 
-        XCTAssertEqual(disruption.level, Disruption.DisruptionLevel.warning)
+        XCTAssertEqual(disruption.level, Disruption.DisruptionLevel.nonblocking)
     }
 
     func testExtensionDisruptionWithOtherEffect() {
@@ -104,5 +104,107 @@ class DisruptionTests: XCTestCase {
         disruption.severity!.effect = "UMADBRO?"
 
         XCTAssertEqual(disruption.level, Disruption.DisruptionLevel.none)
+    }
+    
+    func testHighestLevelIsBlocking() {
+        let disruptions: [Disruption] = [
+            { () in
+                let disruption: Disruption = Disruption()
+                disruption.severity = { () in
+                    let severity: Severity = Severity()
+                    severity.effect = "NO_SERVICE"
+                    return severity
+                }()
+                return disruption
+            } (),
+            { () in
+                let disruption: Disruption = Disruption()
+                disruption.severity = { () in
+                    let severity: Severity = Severity()
+                    severity.effect = "DETOUR"
+                    return severity
+                }()
+                return disruption
+            } (),
+            { () in
+                let disruption: Disruption = Disruption()
+                disruption.severity = { () in
+                    let severity: Severity = Severity()
+                    severity.effect = "DETOUR"
+                    return severity
+                }()
+                return disruption
+            } (),
+        ]
+        
+        XCTAssertEqual(getHighestLevelFrom(disruptions: disruptions), Disruption.DisruptionLevel.blocking)
+    }
+    
+    func testHighestLevelIsNonBlocking() {
+        let disruptions: [Disruption] = [
+        { () in
+            let disruption: Disruption = Disruption()
+            disruption.severity = { () in
+                let severity: Severity = Severity()
+                severity.effect = "OTHER_EFFECT"
+                return severity
+            }()
+            return disruption
+            } (),
+        { () in
+            let disruption: Disruption = Disruption()
+            disruption.severity = { () in
+                let severity: Severity = Severity()
+                severity.effect = "DETOUR"
+                return severity
+            }()
+            return disruption
+            } (),
+        { () in
+            let disruption: Disruption = Disruption()
+            disruption.severity = { () in
+                let severity: Severity = Severity()
+                severity.effect = "OTHER_EFFECT"
+                return severity
+            }()
+            return disruption
+            } (),
+        ]
+        
+        XCTAssertEqual(getHighestLevelFrom(disruptions: disruptions), Disruption.DisruptionLevel.nonblocking)
+    }
+    
+    func testHighestLevelIsInfo() {
+        let disruptions: [Disruption] = [
+        { () in
+            let disruption: Disruption = Disruption()
+            disruption.severity = { () in
+                let severity: Severity = Severity()
+                severity.effect = "OTHER_EFFECT"
+                return severity
+            }()
+            return disruption
+            } (),
+        { () in
+            let disruption: Disruption = Disruption()
+            disruption.severity = { () in
+                let severity: Severity = Severity()
+                severity.effect = "OTHER_EFFECT"
+                return severity
+            }()
+            return disruption
+            } (),
+        { () in
+            let disruption: Disruption = Disruption()
+            disruption.severity = { () in
+                let severity: Severity = Severity()
+                severity.effect = "OTHER_EFFECT"
+                return severity
+            }()
+            return disruption
+            } (),
+        ]
+        
+        XCTAssertEqual(getHighestLevelFrom(disruptions: disruptions), Disruption.DisruptionLevel.information)
     }
 }

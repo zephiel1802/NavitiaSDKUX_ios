@@ -14,7 +14,7 @@ public func getHighestLevelFrom(disruptions: [Disruption]) -> Disruption.Disrupt
 public func getStringOf(disruptionLevel: Disruption.DisruptionLevel) -> String {
     switch disruptionLevel {
     case .blocking: return "blocking"
-    case .warning: return "nonblocking"
+    case .nonblocking: return "nonblocking"
     case .information: return "information"
     case .none: return "none"
     }
@@ -23,7 +23,7 @@ public func getStringOf(disruptionLevel: Disruption.DisruptionLevel) -> String {
 public func getColorOf(disruptionLevel: Disruption.DisruptionLevel) -> String {
     switch disruptionLevel {
     case .blocking: return "A94442"
-    case .warning: return "8A6D3B"
+    case .nonblocking: return "8A6D3B"
     case .information: return "31708F"
     case .none: return "888888"
     }
