@@ -16,6 +16,10 @@
 		607FACDD1AFB9204008FA782 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 607FACDC1AFB9204008FA782 /* Images.xcassets */; };
 		607FACE01AFB9204008FA782 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 607FACDE1AFB9204008FA782 /* LaunchScreen.xib */; };
 		FE6411DE1F9F3D9B00E56264 /* StylizedComponentTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE6411DD1F9F3D9B00E56264 /* StylizedComponentTests.swift */; };
+		FE65EFE11FB5CE88005ADCD5 /* PeriodTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE65EFE01FB5CE88005ADCD5 /* PeriodTests.swift */; };
+		FE65EFE51FB5E0C3005ADCD5 /* SectionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE65EFE41FB5E0C3005ADCD5 /* SectionTests.swift */; };
+		FE65EFE71FB5E124005ADCD5 /* journeysWithDisruptionsResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = FE65EFE61FB5E124005ADCD5 /* journeysWithDisruptionsResponse.json */; };
+		FEB8CABF1FBDA65300F4C938 /* DisruptionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEB8CABE1FBDA65300F4C938 /* DisruptionTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -50,6 +54,10 @@
 		F36FB7A3014040D8C19CDA34 /* Pods-NavitiaSDKUX_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NavitiaSDKUX_Tests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-NavitiaSDKUX_Tests/Pods-NavitiaSDKUX_Tests.debug.xcconfig"; sourceTree = "<group>"; };
 		FB131ADA642BE6ECAA54E315 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 		FE6411DD1F9F3D9B00E56264 /* StylizedComponentTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StylizedComponentTests.swift; sourceTree = "<group>"; };
+		FE65EFE01FB5CE88005ADCD5 /* PeriodTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PeriodTests.swift; sourceTree = "<group>"; };
+		FE65EFE41FB5E0C3005ADCD5 /* SectionTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SectionTests.swift; sourceTree = "<group>"; };
+		FE65EFE61FB5E124005ADCD5 /* journeysWithDisruptionsResponse.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = journeysWithDisruptionsResponse.json; sourceTree = "<group>"; };
+		FEB8CABE1FBDA65300F4C938 /* DisruptionTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DisruptionTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -118,6 +126,8 @@
 		607FACE81AFB9204008FA782 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
+				FE65EFDE1FB5CD63005ADCD5 /* Util */,
+				FE5315831FB34C350065AD72 /* BusinessLogic */,
 				FE6411DB1F9F3D7100E56264 /* Components */,
 				607FACE91AFB9204008FA782 /* Supporting Files */,
 			);
@@ -162,6 +172,13 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		FE5315831FB34C350065AD72 /* BusinessLogic */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = BusinessLogic;
+			sourceTree = "<group>";
+		};
 		FE6411DB1F9F3D7100E56264 /* Components */ = {
 			isa = PBXGroup;
 			children = (
@@ -177,6 +194,25 @@
 				5A1AADC166AC7308D9BCBEF3 /* LabelComponentTests.swift */,
 			);
 			path = Primitive;
+			sourceTree = "<group>";
+		};
+		FE65EFDE1FB5CD63005ADCD5 /* Util */ = {
+			isa = PBXGroup;
+			children = (
+				FE65EFDF1FB5CD63005ADCD5 /* Extensions */,
+			);
+			path = Util;
+			sourceTree = "<group>";
+		};
+		FE65EFDF1FB5CD63005ADCD5 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				FE65EFE61FB5E124005ADCD5 /* journeysWithDisruptionsResponse.json */,
+				FE65EFE01FB5CE88005ADCD5 /* PeriodTests.swift */,
+				FE65EFE41FB5E0C3005ADCD5 /* SectionTests.swift */,
+				FEB8CABE1FBDA65300F4C938 /* DisruptionTests.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -279,6 +315,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FE65EFE71FB5E124005ADCD5 /* journeysWithDisruptionsResponse.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -423,7 +460,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FEB8CABF1FBDA65300F4C938 /* DisruptionTests.swift in Sources */,
 				FE6411DE1F9F3D9B00E56264 /* StylizedComponentTests.swift in Sources */,
+				FE65EFE51FB5E0C3005ADCD5 /* SectionTests.swift in Sources */,
+				FE65EFE11FB5CE88005ADCD5 /* PeriodTests.swift in Sources */,
 				5A1AA9179573E3FC366B7028 /* LabelComponentTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

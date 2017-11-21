@@ -1,0 +1,2185 @@
+{
+    "tickets": [],
+    "links": [
+              {
+              "href": "https://api.navitia.io/v1/coverage/fr-bre/journeys?to=stop_area%3AQUI%3ASA%3AARCOMQUIVIOL&from=stop_area%3AQUI%3ASA%3AARCOMQUIKVYC&datetime_represents=departure&datetime=20171108T172601",
+              "type": "next",
+              "rel": "next",
+              "templated": false
+              },
+              {
+              "href": "https://api.navitia.io/v1/coverage/fr-bre/journeys?to=stop_area%3AQUI%3ASA%3AARCOMQUIVIOL&from=stop_area%3AQUI%3ASA%3AARCOMQUIKVYC&datetime_represents=arrival&datetime=20171108T180159",
+              "type": "prev",
+              "rel": "prev",
+              "templated": false
+              },
+              {
+              "href": "https://api.navitia.io/v1/coverage/fr-bre/journeys?to=stop_area%3AQUI%3ASA%3AARCOMQUIVIOL&from=stop_area%3AQUI%3ASA%3AARCOMQUIKVYC&datetime_represents=departure&datetime=20171108T000000",
+              "type": "first",
+              "rel": "first",
+              "templated": false
+              },
+              {
+              "href": "https://api.navitia.io/v1/coverage/fr-bre/journeys?to=stop_area%3AQUI%3ASA%3AARCOMQUIVIOL&from=stop_area%3AQUI%3ASA%3AARCOMQUIKVYC&datetime_represents=arrival&datetime=20171108T235959",
+              "type": "last",
+              "rel": "last",
+              "templated": false
+              },
+              {
+              "href": "https://api.navitia.io/v1/coverage/fr-bre/stop_points/{stop_point.id}",
+              "type": "stop_point",
+              "rel": "stop_points",
+              "templated": true
+              },
+              {
+              "href": "https://api.navitia.io/v1/coverage/fr-bre/stop_areas/{stop_area.id}",
+              "type": "stop_area",
+              "rel": "stop_areas",
+              "templated": true
+              },
+              {
+              "href": "https://api.navitia.io/v1/coverage/fr-bre/vehicle_journeys/{vehicle_journey.id}",
+              "type": "vehicle_journey",
+              "rel": "vehicle_journeys",
+              "templated": true
+              },
+              {
+              "href": "https://api.navitia.io/v1/coverage/fr-bre/disruptions/{disruption.id}",
+              "type": "disruption",
+              "rel": "disruptions",
+              "templated": true
+              },
+              {
+              "href": "https://api.navitia.io/v1/coverage/fr-bre/disruptions/{disruptions.id}",
+              "type": "disruptions",
+              "rel": "disruptions",
+              "templated": true
+              },
+              {
+              "href": "https://api.navitia.io/v1/coverage/fr-bre/routes/{route.id}",
+              "type": "route",
+              "rel": "routes",
+              "templated": true
+              },
+              {
+              "href": "https://api.navitia.io/v1/coverage/fr-bre/commercial_modes/{commercial_mode.id}",
+              "type": "commercial_mode",
+              "rel": "commercial_modes",
+              "templated": true
+              },
+              {
+              "href": "https://api.navitia.io/v1/coverage/fr-bre/lines/{line.id}",
+              "type": "line",
+              "rel": "lines",
+              "templated": true
+              },
+              {
+              "href": "https://api.navitia.io/v1/coverage/fr-bre/physical_modes/{physical_mode.id}",
+              "type": "physical_mode",
+              "rel": "physical_modes",
+              "templated": true
+              },
+              {
+              "href": "https://api.navitia.io/v1/coverage/fr-bre/networks/{network.id}",
+              "type": "network",
+              "rel": "networks",
+              "templated": true
+              }
+              ],
+    "journeys": [
+                 {
+                 "status": "NO_SERVICE",
+                 "fare": {
+                 "found": false,
+                 "total": {
+                 "value": "0.0"
+                 },
+                 "links": []
+                 },
+                 "links": [
+                           {
+                           "href": "https://api.navitia.io/v1/coverage/fr-bre/journeys?allowed_id%5B%5D=stop_point%3AQUI%3ASP%3AQUIVIOL2&allowed_id%5B%5D=stop_point%3AQUI%3ASP%3AQUIKVYC1&from=stop_area%3AQUI%3ASA%3AARCOMQUIKVYC&to=stop_area%3AQUI%3ASA%3AARCOMQUIVIOL&is_journey_schedules=True&last_section_mode%5B%5D=walking&min_nb_journeys=5&min_nb_transfers=0&direct_path=none&first_section_mode%5B%5D=walking",
+                           "type": "journeys",
+                           "rel": "same_journey_schedules",
+                           "templated": false
+                           }
+                           ],
+                 "tags": [
+                          "walking"
+                          ],
+                 "nb_transfers": 0,
+                 "durations": {
+                 "walking": 0,
+                 "total": 2160
+                 },
+                 "arrival_date_time": "20171108T180200",
+                 "calendars": [
+                               {
+                               "active_periods": [
+                                                  {
+                                                  "begin": "20171108",
+                                                  "end": "20171221"
+                                                  }
+                                                  ],
+                               "week_pattern": {
+                               "monday": false,
+                               "tuesday": false,
+                               "friday": false,
+                               "wednesday": true,
+                               "thursday": false,
+                               "sunday": false,
+                               "saturday": false
+                               },
+                               "id": null
+                               }
+                               ],
+                 "departure_date_time": "20171108T172600",
+                 "requested_date_time": "20171108T171003",
+                 "co2_emission": {
+                 "value": 1102.45,
+                 "unit": "gEC"
+                 },
+                 "type": "best",
+                 "duration": 2160,
+                 "sections": [
+                              {
+                              "from": {
+                              "embedded_type": "stop_area",
+                              "stop_area": {
+                              "codes": [
+                                        {
+                                        "type": "external_code",
+                                        "value": "QUIARCOMQUIKVYC"
+                                        },
+                                        {
+                                        "type": "gtfs_stop_code",
+                                        "value": "ARCOM@QUIKVYC"
+                                        },
+                                        {
+                                        "type": "source",
+                                        "value": "ARCOM@QUIKVYC"
+                                        }
+                                        ],
+                              "name": "KERVOUYEC",
+                              "links": [],
+                              "coord": {
+                              "lat": "48.01514",
+                              "lon": "-4.107415"
+                              },
+                              "label": "KERVOUYEC (Quimper)",
+                              "administrative_regions": [
+                                                         {
+                                                         "insee": "29232",
+                                                         "name": "Quimper",
+                                                         "level": 8,
+                                                         "coord": {
+                                                         "lat": "47.996033",
+                                                         "lon": "-4.102478"
+                                                         },
+                                                         "label": "Quimper",
+                                                         "id": "admin:fr:29232",
+                                                         "zip_code": ""
+                                                         }
+                                                         ],
+                              "timezone": "Europe/Paris",
+                              "id": "stop_area:QUI:SA:ARCOMQUIKVYC"
+                              },
+                              "quality": 0,
+                              "name": "KERVOUYEC (Quimper)",
+                              "id": "stop_area:QUI:SA:ARCOMQUIKVYC"
+                              },
+                              "links": [],
+                              "arrival_date_time": "20171108T172600",
+                              "departure_date_time": "20171108T172600",
+                              "to": {
+                              "embedded_type": "stop_point",
+                              "stop_point": {
+                              "codes": [
+                                        {
+                                        "type": "Timeo_Qub",
+                                        "value": "239"
+                                        },
+                                        {
+                                        "type": "external_code",
+                                        "value": "QUIQUIKVYC1"
+                                        },
+                                        {
+                                        "type": "gtfs_stop_code",
+                                        "value": "QUIKVYC1"
+                                        },
+                                        {
+                                        "type": "source",
+                                        "value": "QUIKVYC1"
+                                        }
+                                        ],
+                              "name": "KERVOUYEC",
+                              "links": [],
+                              "coord": {
+                              "lat": "48.01513",
+                              "lon": "-4.1073"
+                              },
+                              "label": "KERVOUYEC (Quimper)",
+                              "equipments": [],
+                              "administrative_regions": [
+                                                         {
+                                                         "insee": "29232",
+                                                         "name": "Quimper",
+                                                         "level": 8,
+                                                         "coord": {
+                                                         "lat": "47.996033",
+                                                         "lon": "-4.102478"
+                                                         },
+                                                         "label": "Quimper",
+                                                         "id": "admin:fr:29232",
+                                                         "zip_code": ""
+                                                         }
+                                                         ],
+                              "id": "stop_point:QUI:SP:QUIKVYC1",
+                              "stop_area": {
+                              "codes": [
+                                        {
+                                        "type": "external_code",
+                                        "value": "QUIARCOMQUIKVYC"
+                                        },
+                                        {
+                                        "type": "gtfs_stop_code",
+                                        "value": "ARCOM@QUIKVYC"
+                                        },
+                                        {
+                                        "type": "source",
+                                        "value": "ARCOM@QUIKVYC"
+                                        }
+                                        ],
+                              "name": "KERVOUYEC",
+                              "links": [],
+                              "coord": {
+                              "lat": "48.01514",
+                              "lon": "-4.107415"
+                              },
+                              "label": "KERVOUYEC (Quimper)",
+                              "timezone": "Europe/Paris",
+                              "id": "stop_area:QUI:SA:ARCOMQUIKVYC"
+                              }
+                              },
+                              "quality": 0,
+                              "name": "KERVOUYEC (Quimper)",
+                              "id": "stop_point:QUI:SP:QUIKVYC1"
+                              },
+                              "co2_emission": {
+                              "value": 0,
+                              "unit": ""
+                              },
+                              "duration": 0,
+                              "type": "crow_fly",
+                              "id": "section_0_0",
+                              "mode": "walking"
+                              },
+                              {
+                              "from": {
+                              "embedded_type": "stop_point",
+                              "stop_point": {
+                              "codes": [
+                                        {
+                                        "type": "Timeo_Qub",
+                                        "value": "239"
+                                        },
+                                        {
+                                        "type": "external_code",
+                                        "value": "QUIQUIKVYC1"
+                                        },
+                                        {
+                                        "type": "gtfs_stop_code",
+                                        "value": "QUIKVYC1"
+                                        },
+                                        {
+                                        "type": "source",
+                                        "value": "QUIKVYC1"
+                                        }
+                                        ],
+                              "name": "KERVOUYEC",
+                              "links": [],
+                              "coord": {
+                              "lat": "48.01513",
+                              "lon": "-4.1073"
+                              },
+                              "label": "KERVOUYEC (Quimper)",
+                              "equipments": [],
+                              "administrative_regions": [
+                                                         {
+                                                         "insee": "29232",
+                                                         "name": "Quimper",
+                                                         "level": 8,
+                                                         "coord": {
+                                                         "lat": "47.996033",
+                                                         "lon": "-4.102478"
+                                                         },
+                                                         "label": "Quimper",
+                                                         "id": "admin:fr:29232",
+                                                         "zip_code": ""
+                                                         }
+                                                         ],
+                              "id": "stop_point:QUI:SP:QUIKVYC1",
+                              "stop_area": {
+                              "codes": [
+                                        {
+                                        "type": "external_code",
+                                        "value": "QUIARCOMQUIKVYC"
+                                        },
+                                        {
+                                        "type": "gtfs_stop_code",
+                                        "value": "ARCOM@QUIKVYC"
+                                        },
+                                        {
+                                        "type": "source",
+                                        "value": "ARCOM@QUIKVYC"
+                                        }
+                                        ],
+                              "name": "KERVOUYEC",
+                              "links": [],
+                              "coord": {
+                              "lat": "48.01514",
+                              "lon": "-4.107415"
+                              },
+                              "label": "KERVOUYEC (Quimper)",
+                              "timezone": "Europe/Paris",
+                              "id": "stop_area:QUI:SA:ARCOMQUIKVYC"
+                              }
+                              },
+                              "quality": 0,
+                              "name": "KERVOUYEC (Quimper)",
+                              "id": "stop_point:QUI:SP:QUIKVYC1"
+                              },
+                              "links": [
+                                        {
+                                        "type": "vehicle_journey",
+                                        "id": "vehicle_journey:QUI:10759710_51-1_2_W-2"
+                                        },
+                                        {
+                                        "type": "line",
+                                        "id": "line:QUI:10"
+                                        },
+                                        {
+                                        "type": "route",
+                                        "id": "route:QUI:10"
+                                        },
+                                        {
+                                        "type": "commercial_mode",
+                                        "id": "commercial_mode:Bus"
+                                        },
+                                        {
+                                        "type": "physical_mode",
+                                        "id": "physical_mode:Bus"
+                                        },
+                                        {
+                                        "type": "network",
+                                        "id": "network:QUB"
+                                        }
+                                        ],
+                              "arrival_date_time": "20171108T180200",
+                              "additional_informations": [
+                                                          "regular"
+                                                          ],
+                              "departure_date_time": "20171108T172600",
+                              "display_informations": {
+                              "direction": "PRAT AR ROUZ (Quimper)",
+                              "code": "10",
+                              "network": "QUB - Quimper Communauté",
+                              "links": [
+                                        {
+                                        "internal": true,
+                                        "type": "disruption",
+                                        "id": "da0de3a2-a445-11e7-81b9-005056a44da2",
+                                        "rel": "disruptions",
+                                        "templated": false
+                                        }
+                                        ],
+                              "color": "a4705a",
+                              "name": "Kervouyec - Prat Ar Rouz",
+                              "physical_mode": "Bus",
+                              "headsign": "10 Prat Ar Rouz",
+                              "label": "10",
+                              "equipments": [],
+                              "text_color": "000000",
+                              "commercial_mode": "Bus",
+                              "description": ""
+                              },
+                              "to": {
+                              "embedded_type": "stop_point",
+                              "stop_point": {
+                              "codes": [
+                                        {
+                                        "type": "Timeo_Qub",
+                                        "value": "447"
+                                        },
+                                        {
+                                        "type": "external_code",
+                                        "value": "QUIQUIVIOL2"
+                                        },
+                                        {
+                                        "type": "gtfs_stop_code",
+                                        "value": "QUIVIOL2"
+                                        },
+                                        {
+                                        "type": "source",
+                                        "value": "QUIVIOL2"
+                                        }
+                                        ],
+                              "name": "PRAT AR ROUZ",
+                              "links": [],
+                              "coord": {
+                              "lat": "47.99383",
+                              "lon": "-4.13941"
+                              },
+                              "label": "PRAT AR ROUZ (Quimper)",
+                              "equipments": [],
+                              "administrative_regions": [
+                                                         {
+                                                         "insee": "29232",
+                                                         "name": "Quimper",
+                                                         "level": 8,
+                                                         "coord": {
+                                                         "lat": "47.996033",
+                                                         "lon": "-4.102478"
+                                                         },
+                                                         "label": "Quimper",
+                                                         "id": "admin:fr:29232",
+                                                         "zip_code": ""
+                                                         }
+                                                         ],
+                              "id": "stop_point:QUI:SP:QUIVIOL2",
+                              "stop_area": {
+                              "codes": [
+                                        {
+                                        "type": "external_code",
+                                        "value": "QUIARCOMQUIVIOL"
+                                        },
+                                        {
+                                        "type": "gtfs_stop_code",
+                                        "value": "ARCOM@QUIVIOL"
+                                        },
+                                        {
+                                        "type": "source",
+                                        "value": "ARCOM@QUIVIOL"
+                                        }
+                                        ],
+                              "name": "PRAT AR ROUZ",
+                              "links": [],
+                              "coord": {
+                              "lat": "47.99476",
+                              "lon": "-4.13947"
+                              },
+                              "label": "PRAT AR ROUZ (Quimper)",
+                              "timezone": "Europe/Paris",
+                              "id": "stop_area:QUI:SA:ARCOMQUIVIOL"
+                              }
+                              },
+                              "quality": 0,
+                              "name": "PRAT AR ROUZ (Quimper)",
+                              "id": "stop_point:QUI:SP:QUIVIOL2"
+                              },
+                              "base_arrival_date_time": "20171108T180200",
+                              "base_departure_date_time": "20171108T172600",
+                              "co2_emission": {
+                              "value": 1102.45,
+                              "unit": "gEC"
+                              },
+                              "geojson": {
+                              "type": "LineString",
+                              "properties": [
+                                             {
+                                             "length": 8500
+                                             }
+                                             ],
+                              "coordinates": [
+                                              [
+                                               -4.1073,
+                                               48.01513
+                                               ],
+                                              [
+                                               -4.10014,
+                                               48.01622
+                                               ],
+                                              [
+                                               -4.09526,
+                                               48.01569
+                                               ],
+                                              [
+                                               -4.09532,
+                                               48.01217
+                                               ],
+                                              [
+                                               -4.09588,
+                                               48.01001
+                                               ],
+                                              [
+                                               -4.0966,
+                                               48.00846
+                                               ],
+                                              [
+                                               -4.09314,
+                                               48.00736
+                                               ],
+                                              [
+                                               -4.09093,
+                                               48.00778
+                                               ],
+                                              [
+                                               -4.08953,
+                                               48.00688
+                                               ],
+                                              [
+                                               -4.0894,
+                                               48.00603
+                                               ],
+                                              [
+                                               -4.08901,
+                                               48.00387
+                                               ],
+                                              [
+                                               -4.09155,
+                                               48.00458
+                                               ],
+                                              [
+                                               -4.0945,
+                                               48.00217
+                                               ],
+                                              [
+                                               -4.09182,
+                                               48.00131
+                                               ],
+                                              [
+                                               -4.08967,
+                                               48.00027
+                                               ],
+                                              [
+                                               -4.0916,
+                                               47.99934
+                                               ],
+                                              [
+                                               -4.09518,
+                                               47.99824
+                                               ],
+                                              [
+                                               -4.09758,
+                                               47.99763
+                                               ],
+                                              [
+                                               -4.10027,
+                                               47.99674
+                                               ],
+                                              [
+                                               -4.10115,
+                                               47.99517
+                                               ],
+                                              [
+                                               -4.10286,
+                                               47.995
+                                               ],
+                                              [
+                                               -4.10577,
+                                               47.99432
+                                               ],
+                                              [
+                                               -4.10831,
+                                               47.99561
+                                               ],
+                                              [
+                                               -4.11109,
+                                               47.99465
+                                               ],
+                                              [
+                                               -4.11504,
+                                               47.99424
+                                               ],
+                                              [
+                                               -4.1182,
+                                               47.99432
+                                               ],
+                                              [
+                                               -4.12049,
+                                               47.99583
+                                               ],
+                                              [
+                                               -4.12415,
+                                               47.99763
+                                               ],
+                                              [
+                                               -4.12727,
+                                               47.99708
+                                               ],
+                                              [
+                                               -4.12945,
+                                               47.99746
+                                               ],
+                                              [
+                                               -4.13269,
+                                               47.99762
+                                               ],
+                                              [
+                                               -4.13472,
+                                               47.99607
+                                               ],
+                                              [
+                                               -4.13919,
+                                               47.99757
+                                               ],
+                                              [
+                                               -4.14217,
+                                               47.99613
+                                               ],
+                                              [
+                                               -4.13941,
+                                               47.99383
+                                               ]
+                                              ]
+                              },
+                              "duration": 2160,
+                              "type": "public_transport",
+                              "id": "section_1_0",
+                              "data_freshness": "base_schedule",
+                              "stop_date_times": [
+                                                  {
+                                                  "stop_point": {
+                                                  "codes": [
+                                                            {
+                                                            "type": "Timeo_Qub",
+                                                            "value": "239"
+                                                            },
+                                                            {
+                                                            "type": "external_code",
+                                                            "value": "QUIQUIKVYC1"
+                                                            },
+                                                            {
+                                                            "type": "gtfs_stop_code",
+                                                            "value": "QUIKVYC1"
+                                                            },
+                                                            {
+                                                            "type": "source",
+                                                            "value": "QUIKVYC1"
+                                                            }
+                                                            ],
+                                                  "name": "KERVOUYEC",
+                                                  "links": [],
+                                                  "coord": {
+                                                  "lat": "48.01513",
+                                                  "lon": "-4.1073"
+                                                  },
+                                                  "label": "KERVOUYEC (Quimper)",
+                                                  "equipments": [],
+                                                  "id": "stop_point:QUI:SP:QUIKVYC1"
+                                                  },
+                                                  "links": [],
+                                                  "arrival_date_time": "20171108T172600",
+                                                  "additional_informations": [],
+                                                  "departure_date_time": "20171108T172600",
+                                                  "base_arrival_date_time": "20171108T172600",
+                                                  "base_departure_date_time": "20171108T172600"
+                                                  },
+                                                  {
+                                                  "stop_point": {
+                                                  "codes": [
+                                                            {
+                                                            "type": "Timeo_Qub",
+                                                            "value": "274"
+                                                            },
+                                                            {
+                                                            "type": "external_code",
+                                                            "value": "QUIQUIMETA1"
+                                                            },
+                                                            {
+                                                            "type": "gtfs_stop_code",
+                                                            "value": "QUIMETA1"
+                                                            },
+                                                            {
+                                                            "type": "source",
+                                                            "value": "QUIMETA1"
+                                                            }
+                                                            ],
+                                                  "name": "METAIRIE NEUVE",
+                                                  "links": [],
+                                                  "coord": {
+                                                  "lat": "48.01622",
+                                                  "lon": "-4.10014"
+                                                  },
+                                                  "label": "METAIRIE NEUVE (Quimper)",
+                                                  "equipments": [],
+                                                  "id": "stop_point:QUI:SP:QUIMETA1"
+                                                  },
+                                                  "links": [],
+                                                  "arrival_date_time": "20171108T172700",
+                                                  "additional_informations": [],
+                                                  "departure_date_time": "20171108T172700",
+                                                  "base_arrival_date_time": "20171108T172700",
+                                                  "base_departure_date_time": "20171108T172700"
+                                                  },
+                                                  {
+                                                  "stop_point": {
+                                                  "codes": [
+                                                            {
+                                                            "type": "Timeo_Qub",
+                                                            "value": "431"
+                                                            },
+                                                            {
+                                                            "type": "external_code",
+                                                            "value": "QUIQUITYNA1"
+                                                            },
+                                                            {
+                                                            "type": "gtfs_stop_code",
+                                                            "value": "QUITYNA1"
+                                                            },
+                                                            {
+                                                            "type": "source",
+                                                            "value": "QUITYNA1"
+                                                            }
+                                                            ],
+                                                  "name": "TY PONT",
+                                                  "links": [],
+                                                  "coord": {
+                                                  "lat": "48.01569",
+                                                  "lon": "-4.09526"
+                                                  },
+                                                  "label": "TY PONT (Quimper)",
+                                                  "equipments": [],
+                                                  "id": "stop_point:QUI:SP:QUITYNA1"
+                                                  },
+                                                  "links": [],
+                                                  "arrival_date_time": "20171108T172800",
+                                                  "additional_informations": [],
+                                                  "departure_date_time": "20171108T172800",
+                                                  "base_arrival_date_time": "20171108T172800",
+                                                  "base_departure_date_time": "20171108T172800"
+                                                  },
+                                                  {
+                                                  "stop_point": {
+                                                  "codes": [
+                                                            {
+                                                            "type": "Timeo_Qub",
+                                                            "value": "96"
+                                                            },
+                                                            {
+                                                            "type": "external_code",
+                                                            "value": "QUIQUICADM1"
+                                                            },
+                                                            {
+                                                            "type": "gtfs_stop_code",
+                                                            "value": "QUICADM1"
+                                                            },
+                                                            {
+                                                            "type": "source",
+                                                            "value": "QUICADM1"
+                                                            }
+                                                            ],
+                                                  "name": "CITE ADMINISTRATIVE",
+                                                  "links": [],
+                                                  "coord": {
+                                                  "lat": "48.01217",
+                                                  "lon": "-4.09532"
+                                                  },
+                                                  "label": "CITE ADMINISTRATIVE (Quimper)",
+                                                  "equipments": [],
+                                                  "id": "stop_point:QUI:SP:QUICADM1"
+                                                  },
+                                                  "links": [],
+                                                  "arrival_date_time": "20171108T172900",
+                                                  "additional_informations": [],
+                                                  "departure_date_time": "20171108T172900",
+                                                  "base_arrival_date_time": "20171108T172900",
+                                                  "base_departure_date_time": "20171108T172900"
+                                                  },
+                                                  {
+                                                  "stop_point": {
+                                                  "codes": [
+                                                            {
+                                                            "type": "Timeo_Qub",
+                                                            "value": "157"
+                                                            },
+                                                            {
+                                                            "type": "external_code",
+                                                            "value": "QUIQUIGARD1"
+                                                            },
+                                                            {
+                                                            "type": "gtfs_stop_code",
+                                                            "value": "QUIGARD1"
+                                                            },
+                                                            {
+                                                            "type": "source",
+                                                            "value": "QUIGARD1"
+                                                            }
+                                                            ],
+                                                  "name": "CROIX DES GARDIENS",
+                                                  "links": [],
+                                                  "coord": {
+                                                  "lat": "48.01001",
+                                                  "lon": "-4.09588"
+                                                  },
+                                                  "label": "CROIX DES GARDIENS (Quimper)",
+                                                  "equipments": [],
+                                                  "id": "stop_point:QUI:SP:QUIGARD1"
+                                                  },
+                                                  "links": [],
+                                                  "arrival_date_time": "20171108T173000",
+                                                  "additional_informations": [],
+                                                  "departure_date_time": "20171108T173000",
+                                                  "base_arrival_date_time": "20171108T173000",
+                                                  "base_departure_date_time": "20171108T173000"
+                                                  },
+                                                  {
+                                                  "stop_point": {
+                                                  "codes": [
+                                                            {
+                                                            "type": "Timeo_Qub",
+                                                            "value": "153"
+                                                            },
+                                                            {
+                                                            "type": "external_code",
+                                                            "value": "QUIQUIFOCH1"
+                                                            },
+                                                            {
+                                                            "type": "gtfs_stop_code",
+                                                            "value": "QUIFOCH1"
+                                                            },
+                                                            {
+                                                            "type": "source",
+                                                            "value": "QUIFOCH1"
+                                                            }
+                                                            ],
+                                                  "name": "F. FOCH",
+                                                  "links": [],
+                                                  "coord": {
+                                                  "lat": "48.00846",
+                                                  "lon": "-4.0966"
+                                                  },
+                                                  "label": "F. FOCH (Quimper)",
+                                                  "equipments": [],
+                                                  "id": "stop_point:QUI:SP:QUIFOCH1"
+                                                  },
+                                                  "links": [],
+                                                  "arrival_date_time": "20171108T173100",
+                                                  "additional_informations": [],
+                                                  "departure_date_time": "20171108T173100",
+                                                  "base_arrival_date_time": "20171108T173100",
+                                                  "base_departure_date_time": "20171108T173100"
+                                                  },
+                                                  {
+                                                  "stop_point": {
+                                                  "codes": [
+                                                            {
+                                                            "type": "Timeo_Qub",
+                                                            "value": "258"
+                                                            },
+                                                            {
+                                                            "type": "external_code",
+                                                            "value": "QUIQUILROY1"
+                                                            },
+                                                            {
+                                                            "type": "gtfs_stop_code",
+                                                            "value": "QUILROY1"
+                                                            },
+                                                            {
+                                                            "type": "source",
+                                                            "value": "QUILROY1"
+                                                            }
+                                                            ],
+                                                  "name": "LE ROY",
+                                                  "links": [],
+                                                  "coord": {
+                                                  "lat": "48.00736",
+                                                  "lon": "-4.09314"
+                                                  },
+                                                  "label": "LE ROY (Quimper)",
+                                                  "equipments": [],
+                                                  "id": "stop_point:QUI:SP:QUILROY1"
+                                                  },
+                                                  "links": [],
+                                                  "arrival_date_time": "20171108T173100",
+                                                  "additional_informations": [],
+                                                  "departure_date_time": "20171108T173100",
+                                                  "base_arrival_date_time": "20171108T173100",
+                                                  "base_departure_date_time": "20171108T173100"
+                                                  },
+                                                  {
+                                                  "stop_point": {
+                                                  "codes": [
+                                                            {
+                                                            "type": "Timeo_Qub",
+                                                            "value": "74"
+                                                            },
+                                                            {
+                                                            "type": "external_code",
+                                                            "value": "QUIQUIBEAU1"
+                                                            },
+                                                            {
+                                                            "type": "gtfs_stop_code",
+                                                            "value": "QUIBEAU1"
+                                                            },
+                                                            {
+                                                            "type": "source",
+                                                            "value": "QUIBEAU1"
+                                                            }
+                                                            ],
+                                                  "name": "P.A. BEAUMARCHAIS",
+                                                  "links": [],
+                                                  "coord": {
+                                                  "lat": "48.00778",
+                                                  "lon": "-4.09093"
+                                                  },
+                                                  "label": "P.A. BEAUMARCHAIS (Quimper)",
+                                                  "equipments": [],
+                                                  "id": "stop_point:QUI:SP:QUIBEAU1"
+                                                  },
+                                                  "links": [],
+                                                  "arrival_date_time": "20171108T173200",
+                                                  "additional_informations": [],
+                                                  "departure_date_time": "20171108T173200",
+                                                  "base_arrival_date_time": "20171108T173200",
+                                                  "base_departure_date_time": "20171108T173200"
+                                                  },
+                                                  {
+                                                  "stop_point": {
+                                                  "codes": [
+                                                            {
+                                                            "type": "Timeo_Qub",
+                                                            "value": "382"
+                                                            },
+                                                            {
+                                                            "type": "external_code",
+                                                            "value": "QUIQUISAVI1"
+                                                            },
+                                                            {
+                                                            "type": "gtfs_stop_code",
+                                                            "value": "QUISAVI1"
+                                                            },
+                                                            {
+                                                            "type": "source",
+                                                            "value": "QUISAVI1"
+                                                            }
+                                                            ],
+                                                  "name": "SAVINA",
+                                                  "links": [],
+                                                  "coord": {
+                                                  "lat": "48.00688",
+                                                  "lon": "-4.08953"
+                                                  },
+                                                  "label": "SAVINA (Quimper)",
+                                                  "equipments": [],
+                                                  "id": "stop_point:QUI:SP:QUISAVI1"
+                                                  },
+                                                  "links": [],
+                                                  "arrival_date_time": "20171108T173300",
+                                                  "additional_informations": [],
+                                                  "departure_date_time": "20171108T173300",
+                                                  "base_arrival_date_time": "20171108T173300",
+                                                  "base_departure_date_time": "20171108T173300"
+                                                  },
+                                                  {
+                                                  "stop_point": {
+                                                  "codes": [
+                                                            {
+                                                            "type": "Timeo_Qub",
+                                                            "value": "253"
+                                                            },
+                                                            {
+                                                            "type": "external_code",
+                                                            "value": "QUIQUILOTH1"
+                                                            },
+                                                            {
+                                                            "type": "gtfs_stop_code",
+                                                            "value": "QUILOTH1"
+                                                            },
+                                                            {
+                                                            "type": "source",
+                                                            "value": "QUILOTH1"
+                                                            }
+                                                            ],
+                                                  "name": "J. LOTH",
+                                                  "links": [],
+                                                  "coord": {
+                                                  "lat": "48.00603",
+                                                  "lon": "-4.0894"
+                                                  },
+                                                  "label": "J. LOTH (Quimper)",
+                                                  "equipments": [],
+                                                  "id": "stop_point:QUI:SP:QUILOTH1"
+                                                  },
+                                                  "links": [],
+                                                  "arrival_date_time": "20171108T173400",
+                                                  "additional_informations": [],
+                                                  "departure_date_time": "20171108T173400",
+                                                  "base_arrival_date_time": "20171108T173400",
+                                                  "base_departure_date_time": "20171108T173400"
+                                                  },
+                                                  {
+                                                  "stop_point": {
+                                                  "codes": [
+                                                            {
+                                                            "type": "Timeo_Qub",
+                                                            "value": "386"
+                                                            },
+                                                            {
+                                                            "type": "external_code",
+                                                            "value": "QUIQUISSOC1"
+                                                            },
+                                                            {
+                                                            "type": "gtfs_stop_code",
+                                                            "value": "QUISSOC1"
+                                                            },
+                                                            {
+                                                            "type": "source",
+                                                            "value": "QUISSOC1"
+                                                            }
+                                                            ],
+                                                  "name": "SECURITE SOCIALE",
+                                                  "links": [],
+                                                  "coord": {
+                                                  "lat": "48.00387",
+                                                  "lon": "-4.08901"
+                                                  },
+                                                  "label": "SECURITE SOCIALE (Quimper)",
+                                                  "equipments": [],
+                                                  "id": "stop_point:QUI:SP:QUISSOC1"
+                                                  },
+                                                  "links": [],
+                                                  "arrival_date_time": "20171108T173500",
+                                                  "additional_informations": [],
+                                                  "departure_date_time": "20171108T173500",
+                                                  "base_arrival_date_time": "20171108T173500",
+                                                  "base_departure_date_time": "20171108T173500"
+                                                  },
+                                                  {
+                                                  "stop_point": {
+                                                  "codes": [
+                                                            {
+                                                            "type": "Timeo_Qub",
+                                                            "value": "243"
+                                                            },
+                                                            {
+                                                            "type": "external_code",
+                                                            "value": "QUIQUILEUR1"
+                                                            },
+                                                            {
+                                                            "type": "gtfs_stop_code",
+                                                            "value": "QUILEUR1"
+                                                            },
+                                                            {
+                                                            "type": "source",
+                                                            "value": "QUILEUR1"
+                                                            }
+                                                            ],
+                                                  "name": "LEURGUERIC",
+                                                  "links": [],
+                                                  "coord": {
+                                                  "lat": "48.00458",
+                                                  "lon": "-4.09155"
+                                                  },
+                                                  "label": "LEURGUERIC (Quimper)",
+                                                  "equipments": [],
+                                                  "id": "stop_point:QUI:SP:QUILEUR1"
+                                                  },
+                                                  "links": [],
+                                                  "arrival_date_time": "20171108T173600",
+                                                  "additional_informations": [],
+                                                  "departure_date_time": "20171108T173600",
+                                                  "base_arrival_date_time": "20171108T173600",
+                                                  "base_departure_date_time": "20171108T173600"
+                                                  },
+                                                  {
+                                                  "stop_point": {
+                                                  "codes": [
+                                                            {
+                                                            "type": "Timeo_Qub",
+                                                            "value": "279"
+                                                            },
+                                                            {
+                                                            "type": "external_code",
+                                                            "value": "QUIQUIMPTK1"
+                                                            },
+                                                            {
+                                                            "type": "gtfs_stop_code",
+                                                            "value": "QUIMPTK1"
+                                                            },
+                                                            {
+                                                            "type": "source",
+                                                            "value": "QUIMPTK1"
+                                                            }
+                                                            ],
+                                                  "name": "MPT KERFEUNTEUN",
+                                                  "links": [],
+                                                  "coord": {
+                                                  "lat": "48.00217",
+                                                  "lon": "-4.0945"
+                                                  },
+                                                  "label": "MPT KERFEUNTEUN (Quimper)",
+                                                  "equipments": [],
+                                                  "id": "stop_point:QUI:SP:QUIMPTK1"
+                                                  },
+                                                  "links": [],
+                                                  "arrival_date_time": "20171108T173700",
+                                                  "additional_informations": [],
+                                                  "departure_date_time": "20171108T173700",
+                                                  "base_arrival_date_time": "20171108T173700",
+                                                  "base_departure_date_time": "20171108T173700"
+                                                  },
+                                                  {
+                                                  "stop_point": {
+                                                  "codes": [
+                                                            {
+                                                            "type": "Timeo_Qub",
+                                                            "value": "438"
+                                                            },
+                                                            {
+                                                            "type": "external_code",
+                                                            "value": "QUIQUIVDIN1"
+                                                            },
+                                                            {
+                                                            "type": "gtfs_stop_code",
+                                                            "value": "QUIVDIN1"
+                                                            },
+                                                            {
+                                                            "type": "source",
+                                                            "value": "QUIVDIN1"
+                                                            }
+                                                            ],
+                                                  "name": "V. D'INDY",
+                                                  "links": [],
+                                                  "coord": {
+                                                  "lat": "48.00131",
+                                                  "lon": "-4.09182"
+                                                  },
+                                                  "label": "V. D'INDY (Quimper)",
+                                                  "equipments": [],
+                                                  "id": "stop_point:QUI:SP:QUIVDIN1"
+                                                  },
+                                                  "links": [],
+                                                  "arrival_date_time": "20171108T173700",
+                                                  "additional_informations": [],
+                                                  "departure_date_time": "20171108T173700",
+                                                  "base_arrival_date_time": "20171108T173700",
+                                                  "base_departure_date_time": "20171108T173700"
+                                                  },
+                                                  {
+                                                  "stop_point": {
+                                                  "codes": [
+                                                            {
+                                                            "type": "Timeo_Qub",
+                                                            "value": "151"
+                                                            },
+                                                            {
+                                                            "type": "external_code",
+                                                            "value": "QUIQUIFMAI1"
+                                                            },
+                                                            {
+                                                            "type": "gtfs_stop_code",
+                                                            "value": "QUIFMAI1"
+                                                            },
+                                                            {
+                                                            "type": "source",
+                                                            "value": "QUIFMAI1"
+                                                            }
+                                                            ],
+                                                  "name": "FRERES MAILLET",
+                                                  "links": [],
+                                                  "coord": {
+                                                  "lat": "48.00027",
+                                                  "lon": "-4.08967"
+                                                  },
+                                                  "label": "FRERES MAILLET (Quimper)",
+                                                  "equipments": [],
+                                                  "id": "stop_point:QUI:SP:QUIFMAI1"
+                                                  },
+                                                  "links": [],
+                                                  "arrival_date_time": "20171108T173800",
+                                                  "additional_informations": [],
+                                                  "departure_date_time": "20171108T173800",
+                                                  "base_arrival_date_time": "20171108T173800",
+                                                  "base_departure_date_time": "20171108T173800"
+                                                  },
+                                                  {
+                                                  "stop_point": {
+                                                  "codes": [
+                                                            {
+                                                            "type": "Timeo_Qub",
+                                                            "value": "346"
+                                                            },
+                                                            {
+                                                            "type": "external_code",
+                                                            "value": "QUIQUIRBRE1"
+                                                            },
+                                                            {
+                                                            "type": "gtfs_stop_code",
+                                                            "value": "QUIRBRE1"
+                                                            },
+                                                            {
+                                                            "type": "source",
+                                                            "value": "QUIRBRE1"
+                                                            }
+                                                            ],
+                                                  "name": "ROUTE DE BREST",
+                                                  "links": [],
+                                                  "coord": {
+                                                  "lat": "47.99934",
+                                                  "lon": "-4.0916"
+                                                  },
+                                                  "label": "ROUTE DE BREST (Quimper)",
+                                                  "equipments": [],
+                                                  "id": "stop_point:QUI:SP:QUIRBRE1"
+                                                  },
+                                                  "links": [],
+                                                  "arrival_date_time": "20171108T173900",
+                                                  "additional_informations": [],
+                                                  "departure_date_time": "20171108T173900",
+                                                  "base_arrival_date_time": "20171108T173900",
+                                                  "base_departure_date_time": "20171108T173900"
+                                                  },
+                                                  {
+                                                  "stop_point": {
+                                                  "codes": [
+                                                            {
+                                                            "type": "Timeo_Qub",
+                                                            "value": "171"
+                                                            },
+                                                            {
+                                                            "type": "external_code",
+                                                            "value": "QUIQUIGOUN1"
+                                                            },
+                                                            {
+                                                            "type": "gtfs_stop_code",
+                                                            "value": "QUIGOUN1"
+                                                            },
+                                                            {
+                                                            "type": "source",
+                                                            "value": "QUIGOUN1"
+                                                            }
+                                                            ],
+                                                  "name": "C. GOUNOD",
+                                                  "links": [],
+                                                  "coord": {
+                                                  "lat": "47.99824",
+                                                  "lon": "-4.09518"
+                                                  },
+                                                  "label": "C. GOUNOD (Quimper)",
+                                                  "equipments": [],
+                                                  "id": "stop_point:QUI:SP:QUIGOUN1"
+                                                  },
+                                                  "links": [],
+                                                  "arrival_date_time": "20171108T173900",
+                                                  "additional_informations": [],
+                                                  "departure_date_time": "20171108T173900",
+                                                  "base_arrival_date_time": "20171108T173900",
+                                                  "base_departure_date_time": "20171108T173900"
+                                                  },
+                                                  {
+                                                  "stop_point": {
+                                                  "codes": [
+                                                            {
+                                                            "type": "Timeo_Qub",
+                                                            "value": "388"
+                                                            },
+                                                            {
+                                                            "type": "external_code",
+                                                            "value": "QUIQUISTAC1"
+                                                            },
+                                                            {
+                                                            "type": "gtfs_stop_code",
+                                                            "value": "QUISTAC1"
+                                                            },
+                                                            {
+                                                            "type": "source",
+                                                            "value": "QUISTAC1"
+                                                            }
+                                                            ],
+                                                  "name": "STANG AR CHOAT",
+                                                  "links": [],
+                                                  "coord": {
+                                                  "lat": "47.99763",
+                                                  "lon": "-4.09758"
+                                                  },
+                                                  "label": "STANG AR CHOAT (Quimper)",
+                                                  "equipments": [],
+                                                  "id": "stop_point:QUI:SP:QUISTAC1"
+                                                  },
+                                                  "links": [],
+                                                  "arrival_date_time": "20171108T174000",
+                                                  "additional_informations": [],
+                                                  "departure_date_time": "20171108T174000",
+                                                  "base_arrival_date_time": "20171108T174000",
+                                                  "base_departure_date_time": "20171108T174000"
+                                                  },
+                                                  {
+                                                  "stop_point": {
+                                                  "codes": [
+                                                            {
+                                                            "type": "Timeo_Qub",
+                                                            "value": "58"
+                                                            },
+                                                            {
+                                                            "type": "external_code",
+                                                            "value": "QUIQUIAMAS1"
+                                                            },
+                                                            {
+                                                            "type": "gtfs_stop_code",
+                                                            "value": "QUIAMAS1"
+                                                            },
+                                                            {
+                                                            "type": "source",
+                                                            "value": "QUIAMAS1"
+                                                            }
+                                                            ],
+                                                  "name": "A. MASSE",
+                                                  "links": [],
+                                                  "coord": {
+                                                  "lat": "47.99674",
+                                                  "lon": "-4.10027"
+                                                  },
+                                                  "label": "A. MASSE (Quimper)",
+                                                  "equipments": [],
+                                                  "id": "stop_point:QUI:SP:QUIAMAS1"
+                                                  },
+                                                  "links": [],
+                                                  "arrival_date_time": "20171108T174100",
+                                                  "additional_informations": [],
+                                                  "departure_date_time": "20171108T174100",
+                                                  "base_arrival_date_time": "20171108T174100",
+                                                  "base_departure_date_time": "20171108T174100"
+                                                  },
+                                                  {
+                                                  "stop_point": {
+                                                  "codes": [
+                                                            {
+                                                            "type": "Timeo_Qub",
+                                                            "value": "212"
+                                                            },
+                                                            {
+                                                            "type": "external_code",
+                                                            "value": "QUIQUIKGLN1"
+                                                            },
+                                                            {
+                                                            "type": "gtfs_stop_code",
+                                                            "value": "QUIKGLN1"
+                                                            },
+                                                            {
+                                                            "type": "source",
+                                                            "value": "QUIKGLN1"
+                                                            }
+                                                            ],
+                                                  "name": "KERGUELEN",
+                                                  "links": [],
+                                                  "coord": {
+                                                  "lat": "47.99517",
+                                                  "lon": "-4.10115"
+                                                  },
+                                                  "label": "KERGUELEN (Quimper)",
+                                                  "equipments": [],
+                                                  "id": "stop_point:QUI:SP:QUIKGLN1"
+                                                  },
+                                                  "links": [],
+                                                  "arrival_date_time": "20171108T174200",
+                                                  "additional_informations": [],
+                                                  "departure_date_time": "20171108T174200",
+                                                  "base_arrival_date_time": "20171108T174200",
+                                                  "base_departure_date_time": "20171108T174200"
+                                                  },
+                                                  {
+                                                  "stop_point": {
+                                                  "codes": [
+                                                            {
+                                                            "type": "Timeo_Qub",
+                                                            "value": "395"
+                                                            },
+                                                            {
+                                                            "type": "external_code",
+                                                            "value": "QUIQUISTCR1"
+                                                            },
+                                                            {
+                                                            "type": "gtfs_stop_code",
+                                                            "value": "QUISTCR1"
+                                                            },
+                                                            {
+                                                            "type": "source",
+                                                            "value": "QUISTCR1"
+                                                            }
+                                                            ],
+                                                  "name": "SAINT CORENTIN",
+                                                  "links": [],
+                                                  "coord": {
+                                                  "lat": "47.995",
+                                                  "lon": "-4.10286"
+                                                  },
+                                                  "label": "SAINT CORENTIN (Quimper)",
+                                                  "equipments": [],
+                                                  "id": "stop_point:QUI:SP:QUISTCR1"
+                                                  },
+                                                  "links": [],
+                                                  "arrival_date_time": "20171108T174400",
+                                                  "additional_informations": [],
+                                                  "departure_date_time": "20171108T174400",
+                                                  "base_arrival_date_time": "20171108T174400",
+                                                  "base_departure_date_time": "20171108T174400"
+                                                  },
+                                                  {
+                                                  "stop_point": {
+                                                  "codes": [
+                                                            {
+                                                            "type": "Timeo_Qub",
+                                                            "value": "348"
+                                                            },
+                                                            {
+                                                            "type": "external_code",
+                                                            "value": "QUIQUIRDP1"
+                                                            },
+                                                            {
+                                                            "type": "gtfs_stop_code",
+                                                            "value": "QUIRDP1"
+                                                            },
+                                                            {
+                                                            "type": "source",
+                                                            "value": "QUIRDP1"
+                                                            }
+                                                            ],
+                                                  "name": "RUE DU PARC",
+                                                  "links": [],
+                                                  "coord": {
+                                                  "lat": "47.99432",
+                                                  "lon": "-4.10577"
+                                                  },
+                                                  "label": "RUE DU PARC (Quimper)",
+                                                  "equipments": [],
+                                                  "id": "stop_point:QUI:SP:QUIRDP1"
+                                                  },
+                                                  "links": [],
+                                                  "arrival_date_time": "20171108T174600",
+                                                  "additional_informations": [],
+                                                  "departure_date_time": "20171108T174600",
+                                                  "base_arrival_date_time": "20171108T174600",
+                                                  "base_departure_date_time": "20171108T174600"
+                                                  },
+                                                  {
+                                                  "stop_point": {
+                                                  "codes": [
+                                                            {
+                                                            "type": "Timeo_Qub",
+                                                            "value": "404"
+                                                            },
+                                                            {
+                                                            "type": "external_code",
+                                                            "value": "QUIQUISTMA2"
+                                                            },
+                                                            {
+                                                            "type": "gtfs_stop_code",
+                                                            "value": "QUISTMA2"
+                                                            },
+                                                            {
+                                                            "type": "source",
+                                                            "value": "QUISTMA2"
+                                                            }
+                                                            ],
+                                                  "name": "SAINT MATHIEU",
+                                                  "links": [],
+                                                  "coord": {
+                                                  "lat": "47.99561",
+                                                  "lon": "-4.10831"
+                                                  },
+                                                  "label": "SAINT MATHIEU (Quimper)",
+                                                  "equipments": [],
+                                                  "id": "stop_point:QUI:SP:QUISTMA2"
+                                                  },
+                                                  "links": [],
+                                                  "arrival_date_time": "20171108T174700",
+                                                  "additional_informations": [],
+                                                  "departure_date_time": "20171108T174700",
+                                                  "base_arrival_date_time": "20171108T174700",
+                                                  "base_departure_date_time": "20171108T174700"
+                                                  },
+                                                  {
+                                                  "stop_point": {
+                                                  "codes": [
+                                                            {
+                                                            "type": "Timeo_Qub",
+                                                            "value": "327"
+                                                            },
+                                                            {
+                                                            "type": "external_code",
+                                                            "value": "QUIQUIPLTA2"
+                                                            },
+                                                            {
+                                                            "type": "gtfs_stop_code",
+                                                            "value": "QUIPLTA2"
+                                                            },
+                                                            {
+                                                            "type": "source",
+                                                            "value": "QUIPLTA2"
+                                                            }
+                                                            ],
+                                                  "name": "PL DE LA TOUR D'AUVERGNE",
+                                                  "links": [],
+                                                  "coord": {
+                                                  "lat": "47.99465",
+                                                  "lon": "-4.11109"
+                                                  },
+                                                  "label": "PL DE LA TOUR D'AUVERGNE (Quimper)",
+                                                  "equipments": [],
+                                                  "id": "stop_point:QUI:SP:QUIPLTA2"
+                                                  },
+                                                  "links": [],
+                                                  "arrival_date_time": "20171108T174900",
+                                                  "additional_informations": [],
+                                                  "departure_date_time": "20171108T174900",
+                                                  "base_arrival_date_time": "20171108T174900",
+                                                  "base_departure_date_time": "20171108T174900"
+                                                  },
+                                                  {
+                                                  "stop_point": {
+                                                  "codes": [
+                                                            {
+                                                            "type": "Timeo_Qub",
+                                                            "value": "369"
+                                                            },
+                                                            {
+                                                            "type": "external_code",
+                                                            "value": "QUIQUIROSM2"
+                                                            },
+                                                            {
+                                                            "type": "gtfs_stop_code",
+                                                            "value": "QUIROSM2"
+                                                            },
+                                                            {
+                                                            "type": "source",
+                                                            "value": "QUIROSM2"
+                                                            }
+                                                            ],
+                                                  "name": "ROSMADEC",
+                                                  "links": [],
+                                                  "coord": {
+                                                  "lat": "47.99424",
+                                                  "lon": "-4.11504"
+                                                  },
+                                                  "label": "ROSMADEC (Quimper)",
+                                                  "equipments": [],
+                                                  "id": "stop_point:QUI:SP:QUIROSM2"
+                                                  },
+                                                  "links": [],
+                                                  "arrival_date_time": "20171108T175100",
+                                                  "additional_informations": [],
+                                                  "departure_date_time": "20171108T175100",
+                                                  "base_arrival_date_time": "20171108T175100",
+                                                  "base_departure_date_time": "20171108T175100"
+                                                  },
+                                                  {
+                                                  "stop_point": {
+                                                  "codes": [
+                                                            {
+                                                            "type": "Timeo_Qub",
+                                                            "value": "196"
+                                                            },
+                                                            {
+                                                            "type": "external_code",
+                                                            "value": "QUIQUIIUFM2"
+                                                            },
+                                                            {
+                                                            "type": "gtfs_stop_code",
+                                                            "value": "QUIIUFM2"
+                                                            },
+                                                            {
+                                                            "type": "source",
+                                                            "value": "QUIIUFM2"
+                                                            }
+                                                            ],
+                                                  "name": "ESPE",
+                                                  "links": [],
+                                                  "coord": {
+                                                  "lat": "47.99432",
+                                                  "lon": "-4.1182"
+                                                  },
+                                                  "label": "ESPE (Quimper)",
+                                                  "equipments": [],
+                                                  "id": "stop_point:QUI:SP:QUIIUFM2"
+                                                  },
+                                                  "links": [],
+                                                  "arrival_date_time": "20171108T175200",
+                                                  "additional_informations": [],
+                                                  "departure_date_time": "20171108T175200",
+                                                  "base_arrival_date_time": "20171108T175200",
+                                                  "base_departure_date_time": "20171108T175200"
+                                                  },
+                                                  {
+                                                  "stop_point": {
+                                                  "codes": [
+                                                            {
+                                                            "type": "Timeo_Qub",
+                                                            "value": "418"
+                                                            },
+                                                            {
+                                                            "type": "external_code",
+                                                            "value": "QUIQUITNOI2"
+                                                            },
+                                                            {
+                                                            "type": "gtfs_stop_code",
+                                                            "value": "QUITNOI2"
+                                                            },
+                                                            {
+                                                            "type": "source",
+                                                            "value": "QUITNOI2"
+                                                            }
+                                                            ],
+                                                  "name": "TERRE NOIRE",
+                                                  "links": [],
+                                                  "coord": {
+                                                  "lat": "47.99583",
+                                                  "lon": "-4.12049"
+                                                  },
+                                                  "label": "TERRE NOIRE (Quimper)",
+                                                  "equipments": [],
+                                                  "id": "stop_point:QUI:SP:QUITNOI2"
+                                                  },
+                                                  "links": [],
+                                                  "arrival_date_time": "20171108T175300",
+                                                  "additional_informations": [],
+                                                  "departure_date_time": "20171108T175300",
+                                                  "base_arrival_date_time": "20171108T175300",
+                                                  "base_departure_date_time": "20171108T175300"
+                                                  },
+                                                  {
+                                                  "stop_point": {
+                                                  "codes": [
+                                                            {
+                                                            "type": "Timeo_Qub",
+                                                            "value": "266"
+                                                            },
+                                                            {
+                                                            "type": "external_code",
+                                                            "value": "QUIQUIMANC2"
+                                                            },
+                                                            {
+                                                            "type": "gtfs_stop_code",
+                                                            "value": "QUIMANC2"
+                                                            },
+                                                            {
+                                                            "type": "source",
+                                                            "value": "QUIMANC2"
+                                                            }
+                                                            ],
+                                                  "name": "Y. LE MANCHEC",
+                                                  "links": [],
+                                                  "coord": {
+                                                  "lat": "47.99763",
+                                                  "lon": "-4.12415"
+                                                  },
+                                                  "label": "Y. LE MANCHEC (Quimper)",
+                                                  "equipments": [],
+                                                  "id": "stop_point:QUI:SP:QUIMANC2"
+                                                  },
+                                                  "links": [],
+                                                  "arrival_date_time": "20171108T175400",
+                                                  "additional_informations": [],
+                                                  "departure_date_time": "20171108T175400",
+                                                  "base_arrival_date_time": "20171108T175400",
+                                                  "base_departure_date_time": "20171108T175400"
+                                                  },
+                                                  {
+                                                  "stop_point": {
+                                                  "codes": [
+                                                            {
+                                                            "type": "Timeo_Qub",
+                                                            "value": "381"
+                                                            },
+                                                            {
+                                                            "type": "external_code",
+                                                            "value": "QUIQUISAUL2"
+                                                            },
+                                                            {
+                                                            "type": "gtfs_stop_code",
+                                                            "value": "QUISAUL2"
+                                                            },
+                                                            {
+                                                            "type": "source",
+                                                            "value": "QUISAUL2"
+                                                            }
+                                                            ],
+                                                  "name": "LES SAULES",
+                                                  "links": [],
+                                                  "coord": {
+                                                  "lat": "47.99708",
+                                                  "lon": "-4.12727"
+                                                  },
+                                                  "label": "LES SAULES (Quimper)",
+                                                  "equipments": [],
+                                                  "id": "stop_point:QUI:SP:QUISAUL2"
+                                                  },
+                                                  "links": [],
+                                                  "arrival_date_time": "20171108T175500",
+                                                  "additional_informations": [],
+                                                  "departure_date_time": "20171108T175500",
+                                                  "base_arrival_date_time": "20171108T175500",
+                                                  "base_departure_date_time": "20171108T175500"
+                                                  },
+                                                  {
+                                                  "stop_point": {
+                                                  "codes": [
+                                                            {
+                                                            "type": "Timeo_Qub",
+                                                            "value": "101"
+                                                            },
+                                                            {
+                                                            "type": "external_code",
+                                                            "value": "QUIQUICAST2"
+                                                            },
+                                                            {
+                                                            "type": "gtfs_stop_code",
+                                                            "value": "QUICAST2"
+                                                            },
+                                                            {
+                                                            "type": "source",
+                                                            "value": "QUICAST2"
+                                                            }
+                                                            ],
+                                                  "name": "PLACE DES CASTORS",
+                                                  "links": [],
+                                                  "coord": {
+                                                  "lat": "47.99746",
+                                                  "lon": "-4.12945"
+                                                  },
+                                                  "label": "PLACE DES CASTORS (Quimper)",
+                                                  "equipments": [],
+                                                  "id": "stop_point:QUI:SP:QUICAST2"
+                                                  },
+                                                  "links": [],
+                                                  "arrival_date_time": "20171108T175600",
+                                                  "additional_informations": [],
+                                                  "departure_date_time": "20171108T175600",
+                                                  "base_arrival_date_time": "20171108T175600",
+                                                  "base_departure_date_time": "20171108T175600"
+                                                  },
+                                                  {
+                                                  "stop_point": {
+                                                  "codes": [
+                                                            {
+                                                            "type": "Timeo_Qub",
+                                                            "value": "164"
+                                                            },
+                                                            {
+                                                            "type": "external_code",
+                                                            "value": "QUIQUIGLAI2"
+                                                            },
+                                                            {
+                                                            "type": "gtfs_stop_code",
+                                                            "value": "QUIGLAI2"
+                                                            },
+                                                            {
+                                                            "type": "source",
+                                                            "value": "QUIGLAI2"
+                                                            }
+                                                            ],
+                                                  "name": "LES GLAIEULS",
+                                                  "links": [],
+                                                  "coord": {
+                                                  "lat": "47.99762",
+                                                  "lon": "-4.13269"
+                                                  },
+                                                  "label": "LES GLAIEULS (Quimper)",
+                                                  "equipments": [],
+                                                  "id": "stop_point:QUI:SP:QUIGLAI2"
+                                                  },
+                                                  "links": [],
+                                                  "arrival_date_time": "20171108T175700",
+                                                  "additional_informations": [],
+                                                  "departure_date_time": "20171108T175700",
+                                                  "base_arrival_date_time": "20171108T175700",
+                                                  "base_departure_date_time": "20171108T175700"
+                                                  },
+                                                  {
+                                                  "stop_point": {
+                                                  "codes": [
+                                                            {
+                                                            "type": "Timeo_Qub",
+                                                            "value": "90"
+                                                            },
+                                                            {
+                                                            "type": "external_code",
+                                                            "value": "QUIQUIBOSS2"
+                                                            },
+                                                            {
+                                                            "type": "gtfs_stop_code",
+                                                            "value": "QUIBOSS2"
+                                                            },
+                                                            {
+                                                            "type": "source",
+                                                            "value": "QUIBOSS2"
+                                                            }
+                                                            ],
+                                                  "name": "BOSSUET",
+                                                  "links": [],
+                                                  "coord": {
+                                                  "lat": "47.99607",
+                                                  "lon": "-4.13472"
+                                                  },
+                                                  "label": "BOSSUET (Quimper)",
+                                                  "equipments": [],
+                                                  "id": "stop_point:QUI:SP:QUIBOSS2"
+                                                  },
+                                                  "links": [],
+                                                  "arrival_date_time": "20171108T175800",
+                                                  "additional_informations": [],
+                                                  "departure_date_time": "20171108T175800",
+                                                  "base_arrival_date_time": "20171108T175800",
+                                                  "base_departure_date_time": "20171108T175800"
+                                                  },
+                                                  {
+                                                  "stop_point": {
+                                                  "codes": [
+                                                            {
+                                                            "type": "Timeo_Qub",
+                                                            "value": "150"
+                                                            },
+                                                            {
+                                                            "type": "external_code",
+                                                            "value": "QUIQUIEURO2"
+                                                            },
+                                                            {
+                                                            "type": "gtfs_stop_code",
+                                                            "value": "QUIEURO2"
+                                                            },
+                                                            {
+                                                            "type": "source",
+                                                            "value": "QUIEURO2"
+                                                            }
+                                                            ],
+                                                  "name": "EUROPE",
+                                                  "links": [],
+                                                  "coord": {
+                                                  "lat": "47.99757",
+                                                  "lon": "-4.13919"
+                                                  },
+                                                  "label": "EUROPE (Quimper)",
+                                                  "equipments": [],
+                                                  "id": "stop_point:QUI:SP:QUIEURO2"
+                                                  },
+                                                  "links": [],
+                                                  "arrival_date_time": "20171108T180000",
+                                                  "additional_informations": [],
+                                                  "departure_date_time": "20171108T180000",
+                                                  "base_arrival_date_time": "20171108T180000",
+                                                  "base_departure_date_time": "20171108T180000"
+                                                  },
+                                                  {
+                                                  "stop_point": {
+                                                  "codes": [
+                                                            {
+                                                            "type": "Timeo_Qub",
+                                                            "value": "82"
+                                                            },
+                                                            {
+                                                            "type": "external_code",
+                                                            "value": "QUIQUIBLAN2"
+                                                            },
+                                                            {
+                                                            "type": "gtfs_stop_code",
+                                                            "value": "QUIBLAN2"
+                                                            },
+                                                            {
+                                                            "type": "source",
+                                                            "value": "QUIBLAN2"
+                                                            }
+                                                            ],
+                                                  "name": "L. BLANC",
+                                                  "links": [],
+                                                  "coord": {
+                                                  "lat": "47.99613",
+                                                  "lon": "-4.14217"
+                                                  },
+                                                  "label": "L. BLANC (Quimper)",
+                                                  "equipments": [],
+                                                  "id": "stop_point:QUI:SP:QUIBLAN2"
+                                                  },
+                                                  "links": [],
+                                                  "arrival_date_time": "20171108T180100",
+                                                  "additional_informations": [],
+                                                  "departure_date_time": "20171108T180100",
+                                                  "base_arrival_date_time": "20171108T180100",
+                                                  "base_departure_date_time": "20171108T180100"
+                                                  },
+                                                  {
+                                                  "stop_point": {
+                                                  "codes": [
+                                                            {
+                                                            "type": "Timeo_Qub",
+                                                            "value": "447"
+                                                            },
+                                                            {
+                                                            "type": "external_code",
+                                                            "value": "QUIQUIVIOL2"
+                                                            },
+                                                            {
+                                                            "type": "gtfs_stop_code",
+                                                            "value": "QUIVIOL2"
+                                                            },
+                                                            {
+                                                            "type": "source",
+                                                            "value": "QUIVIOL2"
+                                                            }
+                                                            ],
+                                                  "name": "PRAT AR ROUZ",
+                                                  "links": [],
+                                                  "coord": {
+                                                  "lat": "47.99383",
+                                                  "lon": "-4.13941"
+                                                  },
+                                                  "label": "PRAT AR ROUZ (Quimper)",
+                                                  "equipments": [],
+                                                  "id": "stop_point:QUI:SP:QUIVIOL2"
+                                                  },
+                                                  "links": [],
+                                                  "arrival_date_time": "20171108T180200",
+                                                  "additional_informations": [],
+                                                  "departure_date_time": "20171108T180200",
+                                                  "base_arrival_date_time": "20171108T180200",
+                                                  "base_departure_date_time": "20171108T180200"
+                                                  }
+                                                  ]
+                              },
+                              {
+                              "from": {
+                              "embedded_type": "stop_point",
+                              "stop_point": {
+                              "codes": [
+                                        {
+                                        "type": "Timeo_Qub",
+                                        "value": "447"
+                                        },
+                                        {
+                                        "type": "external_code",
+                                        "value": "QUIQUIVIOL2"
+                                        },
+                                        {
+                                        "type": "gtfs_stop_code",
+                                        "value": "QUIVIOL2"
+                                        },
+                                        {
+                                        "type": "source",
+                                        "value": "QUIVIOL2"
+                                        }
+                                        ],
+                              "name": "PRAT AR ROUZ",
+                              "links": [],
+                              "coord": {
+                              "lat": "47.99383",
+                              "lon": "-4.13941"
+                              },
+                              "label": "PRAT AR ROUZ (Quimper)",
+                              "equipments": [],
+                              "administrative_regions": [
+                                                         {
+                                                         "insee": "29232",
+                                                         "name": "Quimper",
+                                                         "level": 8,
+                                                         "coord": {
+                                                         "lat": "47.996033",
+                                                         "lon": "-4.102478"
+                                                         },
+                                                         "label": "Quimper",
+                                                         "id": "admin:fr:29232",
+                                                         "zip_code": ""
+                                                         }
+                                                         ],
+                              "id": "stop_point:QUI:SP:QUIVIOL2",
+                              "stop_area": {
+                              "codes": [
+                                        {
+                                        "type": "external_code",
+                                        "value": "QUIARCOMQUIVIOL"
+                                        },
+                                        {
+                                        "type": "gtfs_stop_code",
+                                        "value": "ARCOM@QUIVIOL"
+                                        },
+                                        {
+                                        "type": "source",
+                                        "value": "ARCOM@QUIVIOL"
+                                        }
+                                        ],
+                              "name": "PRAT AR ROUZ",
+                              "links": [],
+                              "coord": {
+                              "lat": "47.99476",
+                              "lon": "-4.13947"
+                              },
+                              "label": "PRAT AR ROUZ (Quimper)",
+                              "timezone": "Europe/Paris",
+                              "id": "stop_area:QUI:SA:ARCOMQUIVIOL"
+                              }
+                              },
+                              "quality": 0,
+                              "name": "PRAT AR ROUZ (Quimper)",
+                              "id": "stop_point:QUI:SP:QUIVIOL2"
+                              },
+                              "links": [],
+                              "arrival_date_time": "20171108T180200",
+                              "departure_date_time": "20171108T180200",
+                              "to": {
+                              "embedded_type": "stop_area",
+                              "stop_area": {
+                              "codes": [
+                                        {
+                                        "type": "external_code",
+                                        "value": "QUIARCOMQUIVIOL"
+                                        },
+                                        {
+                                        "type": "gtfs_stop_code",
+                                        "value": "ARCOM@QUIVIOL"
+                                        },
+                                        {
+                                        "type": "source",
+                                        "value": "ARCOM@QUIVIOL"
+                                        }
+                                        ],
+                              "name": "PRAT AR ROUZ",
+                              "links": [],
+                              "coord": {
+                              "lat": "47.99476",
+                              "lon": "-4.13947"
+                              },
+                              "label": "PRAT AR ROUZ (Quimper)",
+                              "administrative_regions": [
+                                                         {
+                                                         "insee": "29232",
+                                                         "name": "Quimper",
+                                                         "level": 8,
+                                                         "coord": {
+                                                         "lat": "47.996033",
+                                                         "lon": "-4.102478"
+                                                         },
+                                                         "label": "Quimper",
+                                                         "id": "admin:fr:29232",
+                                                         "zip_code": ""
+                                                         }
+                                                         ],
+                              "timezone": "Europe/Paris",
+                              "id": "stop_area:QUI:SA:ARCOMQUIVIOL"
+                              },
+                              "quality": 0,
+                              "name": "PRAT AR ROUZ (Quimper)",
+                              "id": "stop_area:QUI:SA:ARCOMQUIVIOL"
+                              },
+                              "co2_emission": {
+                              "value": 0,
+                              "unit": ""
+                              },
+                              "duration": 0,
+                              "type": "crow_fly",
+                              "id": "section_2_0",
+                              "mode": "walking"
+                              }
+                              ]
+                 }
+                 ],
+    "disruptions": [
+                    {
+                    "disruption_id": "da0d6f58-a445-11e7-81b9-005056a44da2",
+                    "status": "active",
+                    "severity": {
+                    "color": "",
+                    "priority": 1,
+                    "name": "Bloqué",
+                    "effect": "NO_SERVICE"
+                    },
+                    "impact_id": "da0de3a2-a445-11e7-81b9-005056a44da2",
+                    "application_periods": [
+                                            {
+                                            "begin": "20170928T140500",
+                                            "end": "20171201T194459"
+                                            }
+                                            ],
+                    "messages": [
+                                 {
+                                 "text": "En raison de travaux rue Henri Dunant et rue Chevalier de Kermelec, du lundi 02 octobre 2017 au vendredi 01 décembre 2017, la ligne 10 est déviée dans les deux sens.   Les arrêts \"J.Loth\" sont reportés aux arrêts \"Savina\" - Non Accessible PMR  L?arrêt \"Sécurité Sociale\" en direction de Kervouyec est reporté au poteau provisoire situé rue de la République. - Non Accessible PMR",
+                                 "channel": {
+                                 "content_type": "text/html",
+                                 "id": "abc68290-ac79-11e4-b7e0-005056a47b86",
+                                 "types": [
+                                           "web",
+                                           "sms",
+                                           "email",
+                                           "mobile",
+                                           "notification",
+                                           "twitter",
+                                           "facebook"
+                                           ],
+                                 "name": "web et mobile"
+                                 }
+                                 }
+                                 ],
+                    "updated_at": "20170928T140918",
+                    "uri": "da0de3a2-a445-11e7-81b9-005056a44da2",
+                    "impacted_objects": [
+                                         {
+                                         "pt_object": {
+                                         "embedded_type": "line",
+                                         "line": {
+                                         "properties": [
+                                                        {
+                                                        "name": "realtime_system",
+                                                        "value": "Timeo_Qub"
+                                                        }
+                                                        ],
+                                         "code": "10",
+                                         "name": "Kervouyec - Prat Ar Rouz",
+                                         "links": [],
+                                         "color": "a4705a",
+                                         "geojson": {
+                                         "type": "MultiLineString",
+                                         "coordinates": []
+                                         },
+                                         "text_color": "000000",
+                                         "codes": [
+                                                   {
+                                                   "type": "Timeo_Qub",
+                                                   "value": "10"
+                                                   },
+                                                   {
+                                                   "type": "external_code",
+                                                   "value": "QUI10"
+                                                   },
+                                                   {
+                                                   "type": "source",
+                                                   "value": "10"
+                                                   }
+                                                   ],
+                                         "closing_time": "194500",
+                                         "opening_time": "064800",
+                                         "id": "line:QUI:10"
+                                         },
+                                         "quality": 0,
+                                         "name": "QUB - Quimper Communauté Bus 10",
+                                         "id": "line:QUI:10"
+                                         }
+                                         }
+                                         ],
+                    "id": "da0de3a2-a445-11e7-81b9-005056a44da2",
+                    "contributor": "shortterm.at_fr-bre",
+                    "cause": "Travaux",
+                    "disruption_uri": "da0d6f58-a445-11e7-81b9-005056a44da2"
+                    }
+                    ],
+    "notes": [],
+    "feed_publishers": [
+                        {
+                        "url": "http://www.breizhgo.com",
+                        "id": "fr-bre",
+                        "license": "Privée",
+                        "name": "Bretagne - BreizhGo"
+                        },
+                        {
+                        "url": "https://www.openstreetmap.org/copyright",
+                        "id": "osm",
+                        "license": "ODbL",
+                        "name": "openstreetmap"
+                        }
+                        ],
+    "context": {
+        "car_direct_path": {
+            "co2_emission": {
+                "value": 817.4124348259,
+                "unit": "gEC"
+            }
+        }
+    },
+    "exceptions": []
+}

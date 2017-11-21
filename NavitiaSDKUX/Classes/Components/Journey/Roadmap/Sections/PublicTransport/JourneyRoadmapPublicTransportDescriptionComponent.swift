@@ -10,6 +10,7 @@ extension Components.Journey.Roadmap.Sections.PublicTransport {
         let DirectionComponent:Components.Journey.Roadmap.Sections.PublicTransport.Description.DirectionComponent.Type = Components.Journey.Roadmap.Sections.PublicTransport.Description.DirectionComponent.self
         
         var section: Section?
+        var disruptions: [Disruption]?
 
         override func render() -> NodeType {
             return ComponentNode(SectionRowLayoutComponent.init(), in: self, props: { (component: Components.Journey.Roadmap.Sections.SectionRowLayoutComponent, hasKey: Bool) in
@@ -21,6 +22,7 @@ extension Components.Journey.Roadmap.Sections.PublicTransport {
                 }).add(children: [
                     ComponentNode(self.ModeLineLabelComponent.init(), in: self, props: { (component: Components.Journey.Roadmap.Sections.PublicTransport.Description.ModeLineLabelComponent, hasKey: Bool) in
                         component.section = self.section
+                        component.disruptions = self.disruptions
                     }),
                     ComponentNode(self.DirectionComponent.init(), in: self, props: { (component: Components.Journey.Roadmap.Sections.PublicTransport.Description.DirectionComponent, hasKey: Bool) in
                         component.section = self.section

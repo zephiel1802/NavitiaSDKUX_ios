@@ -13,30 +13,34 @@ import NavitiaSDK
 class JourneySolutionComponent: ViewComponent {
     var navigationController: UINavigationController?
     var journey: Journey = Journey()
+    var disruptions: [Disruption]?
+
     var isTouchable: Bool = true
 
     override func render() -> NodeType {
         let computedStyles = mergeDictionaries(dict1: listStyles, dict2: self.styles)
         let walkingDistance = getWalkingDistance(sections: journey.sections!)
 
-        return ComponentNode(ActionComponent(), in: self, props: {(component, hasKey: Bool) in
+        return ComponentNode(ActionComponent(), in: self, props: {(component: ActionComponent, hasKey: Bool) in
             component.onTap = { [weak self] _ in
                 let journeySolutionRoadmapController: JourneySolutionRoadmapController = JourneySolutionRoadmapController()
                 journeySolutionRoadmapController.journey = self?.journey
+                journeySolutionRoadmapController.disruptions = self?.disruptions
                 if (self?.navigationController != nil) {
                     self?.navigationController?.pushViewController(journeySolutionRoadmapController, animated: true)
                 }
             }}).add(children: [
-                ComponentNode(ListRowComponent(), in: self, props: { (component, hasKey: Bool) in
+                ComponentNode(ListRowComponent(), in: self, props: { (component: ListRowComponent, hasKey: Bool) in
                     component.styles = computedStyles
                 }).add(children: [
-                    ComponentNode(JourneySolutionRowComponent(), in: self, props: {(component, hasKey: Bool) in
+                    ComponentNode(JourneySolutionRowComponent(), in: self, props: {(component: JourneySolutionRowComponent, hasKey: Bool) in
                         component.departureTime = self.journey.departureDateTime!
                         component.arrivalTime = self.journey.arrivalDateTime!
                         component.totalDuration = self.journey.duration
                         component.walkingDuration = self.journey.durations?.walking
                         component.walkingDistance = walkingDistance
                         component.sections = self.journey.sections!
+                        component.disruptions = self.disruptions
                         component.hasArrow = self.isTouchable
                     })
                 ])

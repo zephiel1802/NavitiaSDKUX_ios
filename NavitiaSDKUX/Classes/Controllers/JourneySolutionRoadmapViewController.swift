@@ -3,6 +3,7 @@ import NavitiaSDK
 
 open class JourneySolutionRoadmapController: ViewController, ComponentController {
     var journey: Journey?
+    var disruptions: [Disruption]?
 
     public var component: JourneySolutionRoadmapScreen = JourneySolutionRoadmapScreen()
 
@@ -23,6 +24,7 @@ open class JourneySolutionRoadmapController: ViewController, ComponentController
 
     public func configureComponentProps() {
         component.state.journey = self.journey
+        component.state.disruptions = self.disruptions
         component.navigationController = navigationController
     }
 }

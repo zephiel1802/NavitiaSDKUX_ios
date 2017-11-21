@@ -64,7 +64,6 @@ public struct Configuration {
         "arrow-right-long": "\u{ea0b}",
         "arrow-right": "\u{ea0c}",
         "bike": "\u{ea0d}",
-        "circle-filled": "\u{e901}",
         "ferry": "\u{ea0e}",
         "bss": "\u{ea0f}",
         "bus": "\u{ea10}",
@@ -92,6 +91,11 @@ public struct Configuration {
         "tramway": "\u{ea24}",
         "walking": "\u{ea25}",
         "work": "\u{ea26}",
+        "circle-filled": "\u{ea27}",
+        "circle": "\u{ea28}",
+        "disruption-blocking": "\u{ea29}",
+        "disruption-nonblocking": "\u{ea2a}",
+        "disruption-information": "\u{ea2b}",
     ]
     
     public var colors = ColorConfiguration()
