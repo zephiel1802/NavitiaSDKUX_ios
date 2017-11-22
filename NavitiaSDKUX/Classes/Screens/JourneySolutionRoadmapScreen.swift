@@ -39,7 +39,7 @@ open class JourneySolutionRoadmapScreen: StylizedComponent<JourneySolutionRoadma
         var sectionComponents: [NodeType] = []
         var sectionIndex: Int = 0
         for section in self.state.journey!.sections! {
-            if section.type != "waiting" && section.type != "crow_fly" {
+            if section.type != "crow_fly" {
                 sectionComponents.append(
                     ComponentNode(self.SectionComponent.init(), in: self, props: { (component: Components.Journey.Roadmap.SectionComponent, hasKey: Bool) in
                         component.section = section
