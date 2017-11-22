@@ -38,7 +38,7 @@ class ViewController: UIViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if  let destination = segue.destination as? JourneySolutionsController {
-            destination.setProps(originId: "admin:fr:77058", destinationId: "stop_area:OIF:SA:8738221")
+            destination.setProps(originId: "2.3665844;48.8465337", destinationId: "2.2979169;48.8848719")
         }
     }
 }
