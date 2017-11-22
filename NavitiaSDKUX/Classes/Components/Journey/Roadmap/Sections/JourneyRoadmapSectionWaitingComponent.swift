@@ -4,47 +4,59 @@ import NavitiaSDK
 
 extension Components.Journey.Roadmap.Sections {
     class WaitingComponent: ViewComponent {
-        let DottedComponent:Components.Journey.Roadmap.Sections.LineDiagram.DottedComponent.Type = Components.Journey.Roadmap.Sections.LineDiagram.DottedComponent.self
-        let SectionLayoutComponent:Components.Journey.Roadmap.Sections.SectionLayoutComponent.Type = Components.Journey.Roadmap.Sections.SectionLayoutComponent.self
-        let StopPointComponent:Components.Journey.Roadmap.Sections.StopPointComponent.Type = Components.Journey.Roadmap.Sections.StopPointComponent.self
-        let DescriptionComponent:Components.Journey.Roadmap.Sections.Transfer.DescriptionComponent.Type = Components.Journey.Roadmap.Sections.Transfer.DescriptionComponent.self
-        let WaitingComponent:Components.Journey.Roadmap.Sections.Transfer.WaitingComponent.Type = Components.Journey.Roadmap.Sections.Transfer.WaitingComponent.self
-
         var section: Section?
-        var waitingSection: Section?
 
         override func render() -> NodeType {
-            var waitingSectionComponent: NodeType = ComponentNode(ViewComponent(), in: self)
-            if waitingSection != nil {
-                waitingSectionComponent = ComponentNode(self.WaitingComponent.init(), in: self, props: { (component: Components.Journey.Roadmap.Sections.Transfer.WaitingComponent, _) in
-                    component.section = self.waitingSection
-                })
-            }
-
-            return ComponentNode(ViewComponent(), in: self).add(children: [
-                ComponentNode(self.DottedComponent.init(), in: self, props: { (component: Components.Journey.Roadmap.Sections.LineDiagram.DottedComponent, _) in
-                    component.color = getUIColorFromHexadecimal(hex: "888888")
-                }),
-                ComponentNode(self.SectionLayoutComponent.init(), in: self, props: { (component: Components.Journey.Roadmap.Sections.SectionLayoutComponent, _) in
-                    component.header = ComponentNode(self.StopPointComponent.init(), in: self, props: { (component: Components.Journey.Roadmap.Sections.StopPointComponent, _) in
-                        component.section = self.section
-                        component.sectionWay = SectionWay.departure
-                        component.color = getUIColorFromHexadecimal(hex: "888888")
+            return ComponentNode(ViewComponent(), in: self, props: {(component: ViewComponent, hasKey: Bool) in
+                component.styles = [
+                    "flexDirection": YGFlexDirection.row,
+                ]
+            }).add(children: [
+                ComponentNode(ViewComponent(), in: self, props: {(component: ViewComponent, hasKey: Bool) in
+                    component.styles = [
+                        "width": 50,
+                        "alignItems": YGAlign.center,
+                        "justifyContent": YGJustify.center,
+                    ]
+                }).add(children: [
+                    ComponentNode(IconComponent(), in: self, props: { (component: IconComponent, hasKey: Bool) in
+                        component.name = "clock"
+                        component.styles = [
+                            "color": getUIColorFromHexadecimal(hex: "666666"),
+                            "fontSize": 20,
+                        ]
                     })
-                    component.body = ComponentNode(ViewComponent(), in: self, props: { (component: ViewComponent, _) in
-
-                    }).add(children: [
-                        ComponentNode(self.DescriptionComponent.init(), in: self, props: { (component: Components.Journey.Roadmap.Sections.Transfer.DescriptionComponent, _) in
-                            component.section = self.section
-                        }),
-                        waitingSectionComponent
-                    ])
-                    component.footer = ComponentNode(self.StopPointComponent.init(), in: self, props: { (component: Components.Journey.Roadmap.Sections.StopPointComponent, _) in
-                        component.section = self.section
-                        component.sectionWay = SectionWay.arrival
-                        component.color = getUIColorFromHexadecimal(hex: "888888")
-                    })
-                }),
+                ]),
+                ComponentNode(ViewComponent(), in: self, props: {(component: ViewComponent, hasKey: Bool) in
+                    component.styles = [
+                        "flexGrow": 1,
+                        "paddingStart": 6,
+                        "flexDirection": YGFlexDirection.column,
+                    ]
+                }).add(children: [
+                    ComponentNode(ViewComponent(), in: self, props: {(component: ViewComponent, hasKey: Bool) in
+                        component.styles = [
+                            "flexGrow": 1,
+                        ]
+                    }),
+                    ComponentNode(TextComponent(), in: self, props: {(component: TextComponent, hasKey: Bool) in
+                        let durationInMinutes: Int = Int.init(self.section!.duration! / 60)
+                        let unit: String = NSLocalizedString("units.minute\((durationInMinutes > 1) ? ".plural" : "")",
+                            bundle: self.bundle,
+                            comment: "Unit for waiting duration"
+                        )
+                        let action: String = NSLocalizedString("journey.roadmap.action.wait",
+                            bundle: self.bundle,
+                            comment: "Action description"
+                        )
+                        component.text = "\(durationInMinutes) \(unit) \(action)"
+                    }),
+                    ComponentNode(ViewComponent(), in: self, props: {(component: ViewComponent, hasKey: Bool) in
+                        component.styles = [
+                            "flexGrow": 1,
+                        ]
+                    }),
+                ])
             ])
         }
     }
