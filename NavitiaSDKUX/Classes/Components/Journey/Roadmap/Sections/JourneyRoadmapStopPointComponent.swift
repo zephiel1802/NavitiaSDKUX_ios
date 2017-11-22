@@ -11,6 +11,7 @@ extension Components.Journey.Roadmap.Sections {
         
         var section: Section?
         var sectionWay: SectionWay?
+        var time: String?
         var color: UIColor?
 
         override func render() -> NodeType {
@@ -27,7 +28,7 @@ extension Components.Journey.Roadmap.Sections {
 
             return ComponentNode(SectionRowLayoutComponent.init(), in: self, props: { (component: Components.Journey.Roadmap.Sections.SectionRowLayoutComponent, hasKey: Bool) in
                 component.firstComponent = ComponentNode(self.TimeComponent.init(), in: self, props: { (component: Components.Journey.Roadmap.Sections.StopPoint.TimeComponent, hasKey: Bool) in
-                    component.dateTime = dateTime
+                    component.dateTime = (self.time != nil) ? self.time : dateTime
                 })
                 component.secondComponent = ComponentNode(self.StopPointIconComponent.init(), in: self, props: { (component: Components.Journey.Roadmap.Sections.LineDiagram.StopPointIconComponent, hasKey: Bool) in
                     component.color = (self.color != nil) ? self.color! : getUIColorFromHexadecimal(hex: getHexadecimalColorWithFallback(self.section!.displayInformations?.color))
