@@ -32,14 +32,8 @@ extension Components.Journey.Roadmap.Sections {
                     component.styles = [
                         "flexGrow": 1,
                         "paddingStart": 6,
-                        "flexDirection": YGFlexDirection.column,
                     ]
                 }).add(children: [
-                    ComponentNode(ViewComponent(), in: self, props: {(component: ViewComponent, hasKey: Bool) in
-                        component.styles = [
-                            "flexGrow": 1,
-                        ]
-                    }),
                     ComponentNode(TextComponent(), in: self, props: {(component: TextComponent, hasKey: Bool) in
                         let durationInMinutes: Int = Int.init(self.section!.duration! / 60)
                         let unit: String = NSLocalizedString("units.minute\((durationInMinutes > 1) ? ".plural" : "")",
@@ -51,11 +45,6 @@ extension Components.Journey.Roadmap.Sections {
                             comment: "Action description"
                         )
                         component.text = "\(durationInMinutes) \(unit) \(action)"
-                    }),
-                    ComponentNode(ViewComponent(), in: self, props: {(component: ViewComponent, hasKey: Bool) in
-                        component.styles = [
-                            "flexGrow": 1,
-                        ]
                     }),
                 ])
             ])
