@@ -10,6 +10,7 @@ extension Components.Journey.Roadmap.Sections {
             return ComponentNode(ViewComponent(), in: self, props: {(component: ViewComponent, hasKey: Bool) in
                 component.styles = [
                     "flexDirection": YGFlexDirection.row,
+                    "paddingVertical": 14,
                 ]
             }).add(children: [
                 ComponentNode(ViewComponent(), in: self, props: {(component: ViewComponent, hasKey: Bool) in
