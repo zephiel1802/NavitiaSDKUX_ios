@@ -25,7 +25,7 @@ class JourneySolutionRowComponent: ViewComponent {
         let computedStyles = self.styles
         
         var walkingSummaryComponent: NodeType = ComponentNode(ViewComponent(), in: self)
-        if self.walkingDuration! > 0 {
+        if sections.count > 1 || self.walkingDuration! > 0 {
             walkingSummaryComponent = ComponentNode(JourneyWalkingSummaryComponent(), in: self, props: {(component, hasKey: Bool) in
                 component.duration = self.walkingDuration!
                 component.distance = self.walkingDistance!
