@@ -10,6 +10,8 @@ extension Components.Journey.Roadmap.Sections {
         let DescriptionComponent:Components.Journey.Roadmap.Sections.StreetNetwork.DescriptionComponent.Type = Components.Journey.Roadmap.Sections.StreetNetwork.DescriptionComponent.self
         
         var section: Section?
+        var departureTime: String?
+        var arrivalTime: String?
         var label: String?
         
         override func render() -> NodeType {
@@ -22,6 +24,7 @@ extension Components.Journey.Roadmap.Sections {
                         component.section = self.section
                         component.sectionWay = SectionWay.departure
                         component.color = config.colors.gray
+                        component.time = self.departureTime
                     })
                     component.body = ComponentNode(ViewComponent(), in: self).add(children: [
                         ComponentNode(self.DescriptionComponent.init(), in: self, props: { (component: Components.Journey.Roadmap.Sections.StreetNetwork.DescriptionComponent, _) in
@@ -33,6 +36,7 @@ extension Components.Journey.Roadmap.Sections {
                         component.section = self.section
                         component.sectionWay = SectionWay.arrival
                         component.color = config.colors.gray
+                        component.time = self.arrivalTime
                     })
                 }),
             ])

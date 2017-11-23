@@ -39,7 +39,7 @@ open class JourneySolutionRoadmapScreen: StylizedComponent<JourneySolutionRoadma
         var sectionComponents: [NodeType] = []
         var sectionIndex: Int = 0
         for section in self.state.journey!.sections! {
-            if section.type != "crow_fly" {
+            if section.type == "street_network" || section.type == "public_transport" || section.type == "waiting" {
                 sectionComponents.append(
                     ComponentNode(self.SectionComponent.init(), in: self, props: { (component: Components.Journey.Roadmap.SectionComponent, hasKey: Bool) in
                         component.section = section
@@ -50,6 +50,8 @@ open class JourneySolutionRoadmapScreen: StylizedComponent<JourneySolutionRoadma
                             var network: String = ""
                             if section.from?.poi != nil {
                                 network = (section.from?.poi?.properties!["network"])!
+                                component.departureTime = self.state.journey!.sections![sectionIndex - 1].departureDateTime!
+                                component.arrivalTime = self.state.journey!.sections![sectionIndex + 1].arrivalDateTime!
                             }
                             component.label = self.getDistanceLabel(network: network, mode: section.mode!, distance: sectionLength(paths: section.path!))
                         }
