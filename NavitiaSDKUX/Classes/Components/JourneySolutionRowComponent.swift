@@ -23,6 +23,15 @@ class JourneySolutionRowComponent: ViewComponent {
     override func render() -> NodeType {
         let timesText = timeText(isoString: departureTime) + " - " + timeText(isoString: arrivalTime)
         let computedStyles = self.styles
+        
+        var walkingSummaryComponent: NodeType = ComponentNode(ViewComponent(), in: self)
+        if sections.count > 1 || self.walkingDuration! > 0 {
+            walkingSummaryComponent = ComponentNode(JourneyWalkingSummaryComponent(), in: self, props: {(component, hasKey: Bool) in
+                component.duration = self.walkingDuration!
+                component.distance = self.walkingDistance!
+            })
+        }
+        
         return ComponentNode(ViewComponent(), in: self, props: {(component, hasKey: Bool) in
             component.styles = computedStyles
         }).add(children: [
@@ -45,10 +54,7 @@ class JourneySolutionRowComponent: ViewComponent {
                     component.sections = self.sections
                     component.disruptions = self.disruptions
                 }),
-                ComponentNode(JourneyWalkingSummaryComponent(), in: self, props: {(component: JourneyWalkingSummaryComponent, hasKey: Bool) in
-                    component.duration = self.walkingDuration!
-                    component.distance = self.walkingDistance!
-                }),
+                walkingSummaryComponent,
             ]),
         ])
     }
