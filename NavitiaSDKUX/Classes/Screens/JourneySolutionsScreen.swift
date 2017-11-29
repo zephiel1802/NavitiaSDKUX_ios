@@ -82,6 +82,27 @@ open class JourneySolutionsScreen: StylizedComponent<JourneySolutionsScreenState
         if parameters.datetime != nil {
             journeyRequestBuilder.withDatetime(parameters.datetime!)
         }
+        if parameters.datetimeRepresents != nil {
+            journeyRequestBuilder.withDatetimeRepresents(parameters.datetimeRepresents!)
+        }
+        if parameters.forbiddenUris != nil {
+            journeyRequestBuilder.withForbiddenUris(parameters.forbiddenUris!)
+        }
+        if parameters.firstSectionModes != nil {
+            journeyRequestBuilder.withFirstSectionMode(parameters.firstSectionModes!)
+        }
+        if parameters.lastSectionModes != nil {
+            journeyRequestBuilder.withLastSectionMode(parameters.lastSectionModes!)
+        }
+        if parameters.count != nil {
+            journeyRequestBuilder.withCount(parameters.count!)
+        }
+        if parameters.minNbJourneys != nil {
+            journeyRequestBuilder.withMinNbJourneys(parameters.minNbJourneys!)
+        }
+        if parameters.maxNbJourneys != nil {
+            journeyRequestBuilder.withMaxNbJourneys(parameters.maxNbJourneys!)
+        }
 
         journeyRequestBuilder.get(completion: { journeys, error in
             if error != nil {

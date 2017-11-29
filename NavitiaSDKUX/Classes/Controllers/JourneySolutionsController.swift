@@ -19,12 +19,12 @@ public class JourneySolutionsController: ViewController, ComponentController {
         public var destinationLabel: String?
         public var datetime: Date?
         public var datetimeRepresents: JourneysRequestBuilder.DatetimeRepresents?
-        public var modes: [String]?
-        public var originModes: [String]?
-        public var destinationModes: [String]?
+        public var forbiddenUris: [String]?
+        public var firstSectionModes: [JourneysRequestBuilder.FirstSectionMode]?
+        public var lastSectionModes: [JourneysRequestBuilder.LastSectionMode]?
         public var count: Int32?
-        public var minJourneyCount: Int32?
-        public var maxJourneyCount: Int32?
+        public var minNbJourneys: Int32?
+        public var maxNbJourneys: Int32?
     }
     
     public var component = JourneySolutionsScreen()

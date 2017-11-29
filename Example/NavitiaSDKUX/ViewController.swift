@@ -46,6 +46,11 @@ class ViewController: UIViewController {
             params.datetime = Date()
             params.datetime!.addTimeInterval(2000)
             params.datetimeRepresents = .departure
+            params.forbiddenUris = ["physical_mode:Bus"]
+            params.firstSectionModes = [.bss]
+            params.lastSectionModes = [.car]
+            params.count = 5
+            
             destination.setProps(with: params)
         }
     }
