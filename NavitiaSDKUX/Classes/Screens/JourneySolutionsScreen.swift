@@ -1,21 +1,10 @@
-//
-//  JourneySolutionsScreen.swift
-//  RenderTest
-//
-//  Created by Thomas Noury on 26/07/2017.
-//  Copyright © 2017 Kisio. All rights reserved.
-//
-
 import Foundation
 import Render
 import NavitiaSDK
 
 public struct JourneySolutionsScreenState: StateType {
     public init() { }
-    var origin: String = ""
-    var originId: String = ""
-    var destination: String = ""
-    var destinationId: String = ""
+    var parameters: JourneySolutionsController.InParameters = JourneySolutionsController.InParameters()
     var journeys: Journeys? = nil
     var datetime: Date = Date()
     var loaded: Bool = false
@@ -39,7 +28,7 @@ open class JourneySolutionsScreen: StylizedComponent<JourneySolutionsScreenState
     
     override open func render() -> NodeType {
         if !state.loaded {
-            self.retrieveJourneys(originId: self.state.originId, destinationId: self.state.destinationId)
+            self.retrieveJourneys(with: self.state.parameters)
         }
         
         var journeyComponents: [NodeType] = []
@@ -67,11 +56,12 @@ open class JourneySolutionsScreen: StylizedComponent<JourneySolutionsScreenState
             }).add(children: [
                 ComponentNode(ContainerComponent(), in: self).add(children: [
                     ComponentNode(JourneyFormComponent(), in: self, props: {(component, hasKey: Bool) in
-                        component.origin = self.state.origin.isEmpty ? self.state.originId : self.state.origin
-                        component.destination = self.state.destination.isEmpty ? self.state.destinationId : self.state.destination
+                        component.origin = ((self.state.parameters.originLabel!.isEmpty) ? self.state.parameters.originId! : self.state.parameters.originLabel!)
+                        component.destination = ((self.state.parameters.destinationLabel!.isEmpty) ? self.state.parameters.destinationId! : self.state.parameters.destinationLabel!)
                     }),
                     ComponentNode(DateTimeButtonComponent(), in: self, props: {(component: DateTimeButtonComponent, _) in
-                        component.datetime = self.state.datetime
+                        component.datetime = self.state.parameters.datetime
+                        component.datetimeRepresents = self.state.parameters.datetimeRepresents!
                     }),
                 ])
             ]),
@@ -81,46 +71,41 @@ open class JourneySolutionsScreen: StylizedComponent<JourneySolutionsScreenState
         ])
     }
     
-    func retrieveJourneys(originId: String, destinationId: String) {
-        navitiaSDK?.journeysApi.newJourneysRequestBuilder()
-            .withFrom(originId)
-            .withTo(destinationId)
-            .withDatetime(self.state.datetime)
-            .withFirstSectionMode([
-                JourneysRequestBuilder.FirstSectionMode.bike,
-                JourneysRequestBuilder.FirstSectionMode.bss,
-                JourneysRequestBuilder.FirstSectionMode.car,
-                JourneysRequestBuilder.FirstSectionMode.walking,
-            ])
-            .withLastSectionMode([
-                JourneysRequestBuilder.LastSectionMode.bike,
-                JourneysRequestBuilder.LastSectionMode.bss,
-                JourneysRequestBuilder.LastSectionMode.car,
-                JourneysRequestBuilder.LastSectionMode.walking,
-            ])
-            .get(completion: { journeys, error in
-                if error != nil {
-                    NSLog(error.debugDescription)
-                    self.setState { state in
-                        state.error = true
-                    }
-                } else {
-                    // Journeys successfuly fetched, we store them in the screen state
-                    // This will re-render the screen component (render method called)
-                    self.setState { state in
-                        state.journeys = journeys
-                        state.error = false
-                    }
-                    
-                    if (journeys?.journeys?.isEmpty == false) {
-                        self.extractLabelsFromJourneyResult(journey: (journeys?.journeys![0])!)
-                    }
+    func retrieveJourneys(with parameters: JourneySolutionsController.InParameters) {
+        let journeyRequestBuilder: JourneysRequestBuilder = navitiaSDK!.journeysApi.newJourneysRequestBuilder()
+        if parameters.originId != nil {
+            journeyRequestBuilder.withFrom(parameters.originId!)
+        }
+        if parameters.destinationId != nil {
+            journeyRequestBuilder.withTo(parameters.destinationId!)
+        }
+        if parameters.datetime != nil {
+            journeyRequestBuilder.withDatetime(parameters.datetime!)
+        }
+
+        journeyRequestBuilder.get(completion: { journeys, error in
+            if error != nil {
+                NSLog(error.debugDescription)
+                self.setState { state in
+                    state.error = true
+                }
+            } else {
+                // Journeys successfuly fetched, we store them in the screen state
+                // This will re-render the screen component (render method called)
+                self.setState { state in
+                    state.journeys = journeys
+                    state.error = false
                 }
                 
-                self.setState { state in
-                    state.loaded = true
+                if (journeys?.journeys?.isEmpty == false) {
+                    self.extractLabelsFromJourneyResult(journey: (journeys?.journeys![0])!)
                 }
-            })
+            }
+            
+            self.setState { state in
+                state.loaded = true
+            }
+        })
     }
     
     func getJourneyComponents(journeys: Journeys) -> [NodeType] {
@@ -138,21 +123,21 @@ open class JourneySolutionsScreen: StylizedComponent<JourneySolutionsScreenState
     }
     
     func extractLabelsFromJourneyResult(journey: Journey) {
-        var origin = state.origin
-        var destination = state.destination
+        var origin = state.parameters.originLabel
+        var destination = state.parameters.destinationLabel
         
         if (journey.sections?.isEmpty == false) {
-            if state.origin.isEmpty {
+            if (state.parameters.originLabel!.isEmpty) {
                 origin = (journey.sections![0].from?.name)!
             }
-            if state.destination.isEmpty {
+            if (state.parameters.destinationLabel!.isEmpty) {
                 destination = (journey.sections![journey.sections!.count - 1].from?.name)!
             }
         }
         
         self.setState { state in
-            state.origin = origin
-            state.destination = destination
+            state.parameters.originLabel = origin
+            state.parameters.destinationLabel = destination
         }
     }
     

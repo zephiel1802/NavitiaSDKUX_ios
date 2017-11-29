@@ -8,9 +8,11 @@
 
 import Foundation
 import Render
+import NavitiaSDK
 
 class DateTimeButtonComponent: ButtonComponent {
     var datetime: Date?
+    var datetimeRepresents: JourneysRequestBuilder.DatetimeRepresents = .departure
     
     override func render() -> NodeType {
         let computedStyles: [String: Any] = mergeDictionaries(dict1: listRowStyles, dict2: self.styles)
@@ -18,7 +20,7 @@ class DateTimeButtonComponent: ButtonComponent {
             component.styles = computedStyles
         }).add(children: [
             ComponentNode(TextComponent(), in: self, props: {(component, hasKey: Bool) in
-                component.text = NSLocalizedString("component.DateTimeButtonComponent.representation.departure", bundle: self.bundle, comment: "Datetime represent label") + longDateText(datetime: self.datetime!)
+                component.text = NSLocalizedString("component.DateTimeButtonComponent.representation." + self.datetimeRepresents.rawValue, bundle: self.bundle, comment: "Datetime represent label") + longDateText(datetime: self.datetime!)
                 component.styles = self.textStyles
             })
         ])

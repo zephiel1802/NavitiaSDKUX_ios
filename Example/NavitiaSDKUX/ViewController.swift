@@ -38,7 +38,15 @@ class ViewController: UIViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if  let destination = segue.destination as? JourneySolutionsController {
-            destination.setProps(originId: "2.3665844;48.8465337", destinationId: "2.2979169;48.8848719")
+            var params: JourneySolutionsController.InParameters = JourneySolutionsController.InParameters()
+            params.originId = "2.3665844;48.8465337"
+            params.originLabel = "Chez moi"
+            params.destinationId = "2.2979169;48.8848719"
+            params.destinationLabel = "Au travail"
+            params.datetime = Date()
+            params.datetime!.addTimeInterval(2000)
+            params.datetimeRepresents = .departure
+            destination.setProps(with: params)
         }
     }
 }

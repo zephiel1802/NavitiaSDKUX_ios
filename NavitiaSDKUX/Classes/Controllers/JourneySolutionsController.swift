@@ -9,12 +9,24 @@ import Render
 import UIKit
 import NavitiaSDK
 
-open class JourneySolutionsController: ViewController, ComponentController {
-    var originId: String?
-    var origin: String?
-    var destinationId: String?
-    var destination: String?
-
+public class JourneySolutionsController: ViewController, ComponentController {
+    public struct InParameters {
+        public init() {}
+        
+        public var originId: String?
+        public var originLabel: String?
+        public var destinationId: String?
+        public var destinationLabel: String?
+        public var datetime: Date?
+        public var datetimeRepresents: JourneysRequestBuilder.DatetimeRepresents?
+        public var modes: [String]?
+        public var originModes: [String]?
+        public var destinationModes: [String]?
+        public var count: Int32?
+        public var minJourneyCount: Int32?
+        public var maxJourneyCount: Int32?
+    }
+    
     public var component = JourneySolutionsScreen()
     
     override open func viewDidLoad() {
@@ -31,20 +43,18 @@ open class JourneySolutionsController: ViewController, ComponentController {
         component.navigationController = navigationController
     }
     
-    open func setProps(originId: String, destinationId: String, origin: String? = nil, destination: String? = nil) {
-        component.state.originId = originId
-        component.state.destinationId = destinationId
-        
-        if (origin != nil) {
-            component.state.origin = origin!
-        }
-        if (destination != nil) {
-            component.state.destination = destination!
-        }
+    open func setProps(with parameters: InParameters) {
+        component.state.parameters = parameters
     }
     
     open func setProps(origin: Place, destination: Place) {
-        self.setProps(originId: origin.id!, destinationId: destination.id!, origin: origin.name, destination: destination.name)
+        var params: InParameters = InParameters()
+        params.originId = origin.id!
+        params.destinationId = destination.id!
+        params.originLabel = origin.name!
+        params.destinationLabel = destination.name!
+        
+        self.setProps(with: params)
     }
 }
 
