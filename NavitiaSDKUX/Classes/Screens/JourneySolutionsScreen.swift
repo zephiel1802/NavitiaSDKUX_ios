@@ -6,7 +6,6 @@ public struct JourneySolutionsScreenState: StateType {
     public init() { }
     var parameters: JourneySolutionsController.InParameters = JourneySolutionsController.InParameters()
     var journeys: Journeys? = nil
-    var datetime: Date = Date()
     var loaded: Bool = false
     var error: Bool = false
 }
@@ -56,8 +55,8 @@ open class JourneySolutionsScreen: StylizedComponent<JourneySolutionsScreenState
             }).add(children: [
                 ComponentNode(ContainerComponent(), in: self).add(children: [
                     ComponentNode(JourneyFormComponent(), in: self, props: {(component, hasKey: Bool) in
-                        component.origin = ((self.state.parameters.originLabel!.isEmpty) ? self.state.parameters.originId! : self.state.parameters.originLabel!)
-                        component.destination = ((self.state.parameters.destinationLabel!.isEmpty) ? self.state.parameters.destinationId! : self.state.parameters.destinationLabel!)
+                        component.origin = self.state.parameters.originLabel!.isEmpty ? self.state.parameters.originId! : self.state.parameters.originLabel!
+                        component.destination = self.state.parameters.destinationLabel!.isEmpty ? self.state.parameters.destinationId! : self.state.parameters.destinationLabel!
                     }),
                     ComponentNode(DateTimeButtonComponent(), in: self, props: {(component: DateTimeButtonComponent, _) in
                         component.datetime = self.state.parameters.datetime

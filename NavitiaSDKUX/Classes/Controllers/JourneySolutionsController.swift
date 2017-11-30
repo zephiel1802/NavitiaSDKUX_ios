@@ -46,15 +46,5 @@ public class JourneySolutionsController: ViewController, ComponentController {
     open func setProps(with parameters: InParameters) {
         component.state.parameters = parameters
     }
-    
-    open func setProps(origin: Place, destination: Place) {
-        var params: InParameters = InParameters()
-        params.originId = origin.id!
-        params.destinationId = destination.id!
-        params.originLabel = origin.name!
-        params.destinationLabel = destination.name!
-        
-        self.setProps(with: params)
-    }
 }
 
