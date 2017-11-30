@@ -127,7 +127,6 @@
 			isa = PBXGroup;
 			children = (
 				FE65EFDE1FB5CD63005ADCD5 /* Util */,
-				FE5315831FB34C350065AD72 /* BusinessLogic */,
 				FE6411DB1F9F3D7100E56264 /* Components */,
 				607FACE91AFB9204008FA782 /* Supporting Files */,
 			);
@@ -170,13 +169,6 @@
 				30B99FE39643AD86B6351D82 /* Pods_NavitiaSDKUX_Tests.framework */,
 			);
 			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		FE5315831FB34C350065AD72 /* BusinessLogic */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = BusinessLogic;
 			sourceTree = "<group>";
 		};
 		FE6411DB1F9F3D7100E56264 /* Components */ = {

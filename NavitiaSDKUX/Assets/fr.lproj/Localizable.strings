@@ -12,6 +12,7 @@
 
 /* Datetime represent label */
 "component.DateTimeButtonComponent.representation.departure" = "Départ : ";
+"component.DateTimeButtonComponent.representation.arrival" = "Arrivée : ";
 
 /* No journeys */
 "screen.JourneySolutionsScreen.error" = "Aucun itinéraire trouvé";
