@@ -17,7 +17,7 @@ class ViewController: UIViewController {
         // Override Navitia SDK UX Config
         NavitiaSDKUXConfig.setTertiaryColor(color: getUIColorFromHexadecimal(hex: "40958e"))
         NavitiaSDKUXConfig.setRadiusMetrics(value: 0)
-        NavitiaSDKUXConfig.setToken(token: "")
+        NavitiaSDKUXConfig.setToken(token: "9e304161-bb97-4210-b13d-c71eaf58961c")
 
         // Set navbar text color
         let textColor = contrastColor(color: NavitiaSDKUXConfig.getTertiaryColor())
@@ -39,9 +39,9 @@ class ViewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if  let destination = segue.destination as? JourneySolutionsController {
             var params: JourneySolutionsController.InParameters = JourneySolutionsController.InParameters()
-            params.originId = "2.3665844;48.8465337"
+            params.originId = "stop_area:QUI:SA:ARCOMQUIKVYC"
             params.originLabel = "Chez moi"
-            params.destinationId = "2.2979169;48.8848719"
+            params.destinationId = "stop_area:QUI:SA:ARCOMQUIVIOL"
             params.destinationLabel = "Au travail"
             params.datetime = Date()
             params.datetime!.addTimeInterval(2000)
