@@ -8,7 +8,8 @@ extension Components.Journey.Roadmap.Sections.PublicTransport {
         let ModeIconComponent:Components.Journey.Roadmap.Sections.PublicTransport.Description.ModeIconComponent.Type = Components.Journey.Roadmap.Sections.PublicTransport.Description.ModeIconComponent.self
         let ModeLineLabelComponent:Components.Journey.Roadmap.Sections.PublicTransport.Description.ModeLineLabelComponent.Type = Components.Journey.Roadmap.Sections.PublicTransport.Description.ModeLineLabelComponent.self
         let DirectionComponent:Components.Journey.Roadmap.Sections.PublicTransport.Description.DirectionComponent.Type = Components.Journey.Roadmap.Sections.PublicTransport.Description.DirectionComponent.self
-        
+        let DisruptionDescription:Components.Journey.Roadmap.Sections.PublicTransport.Description.DisruptionDescription.Type = Components.Journey.Roadmap.Sections.PublicTransport.Description.DisruptionDescription.self
+
         var section: Section?
         var disruptions: [Disruption]?
 
@@ -26,6 +27,10 @@ extension Components.Journey.Roadmap.Sections.PublicTransport {
                     }),
                     ComponentNode(self.DirectionComponent.init(), in: self, props: { (component: Components.Journey.Roadmap.Sections.PublicTransport.Description.DirectionComponent, hasKey: Bool) in
                         component.section = self.section
+                    }),
+                    ComponentNode(self.DisruptionDescription.init(), in: self, props: { (component: Components.Journey.Roadmap.Sections.PublicTransport.Description.DisruptionDescription, hasKey: Bool) in
+                        component.section = self.section
+                        component.disruptions = self.disruptions
                     }),
                 ])
             })

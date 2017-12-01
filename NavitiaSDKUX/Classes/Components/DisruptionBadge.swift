@@ -13,7 +13,7 @@ class DisruptionBadgeComponent: ViewComponent {
         iconStyles["color"] = getUIColorFromHexadecimal(hex: Disruption.getIconColor(of: highestDisruptionLevel))
         
         return ComponentNode(ViewComponent(), in: self, props: { (component: ViewComponent, _) in
-            component.styles = self.containerStyles
+            component.styles = self.styles
         }).add(children: [
             ComponentNode(IconComponent(), in: self, props: { (component: IconComponent, _) in
                 component.name = "circle-filled"
@@ -26,11 +26,6 @@ class DisruptionBadgeComponent: ViewComponent {
         ])
     }
 
-    let containerStyles: [String: Any] = [
-        "position": YGPositionType.absolute,
-        "end": -11,
-        "top": -9,
-    ]
     let edgeStyle: [String: Any] = [
         "color": UIColor.white,
         "fontSize": 18,
