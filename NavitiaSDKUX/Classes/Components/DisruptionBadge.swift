@@ -10,7 +10,7 @@ class DisruptionBadgeComponent: ViewComponent {
             highestDisruptionLevel = Disruption.getHighestLevelFrom(disruptions: disruptions!)
         }
         
-        iconStyles["color"] = getUIColorFromHexadecimal(hex: Disruption.getIconColor(of: highestDisruptionLevel))
+        iconStyles["color"] = getUIColorFromHexadecimal(hex: Disruption.getLevelColor(of: highestDisruptionLevel))
         
         return ComponentNode(ViewComponent(), in: self, props: { (component: ViewComponent, _) in
             component.styles = self.styles

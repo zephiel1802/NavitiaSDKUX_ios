@@ -20,6 +20,7 @@ extension Components.Journey.Roadmap.Sections.PublicTransport.Description {
                         }),
                         ComponentNode(LabelComponent(), in: self, props: { (component: LabelComponent, hasKey: Bool) in
                             component.styles = self.causeStyles
+                            component.styles["color"] = getUIColorFromHexadecimal(hex: Disruption.getLevelColor(of: disruption.level))
                             component.text = disruption.cause!
                         })
                     ])
@@ -33,6 +34,7 @@ extension Components.Journey.Roadmap.Sections.PublicTransport.Description {
         let causeStyles: [String: Any] = [
             "fontSize": 15,
             "marginRight": 5,
+            "fontWeight": "bold"
         ]
     }
 }
