@@ -14,14 +14,10 @@ open class LabelComponent: StylizedComponent<NilState> {
     var sharedFont: UIFont = UIFont.systemFont(ofSize: 14)
     
     open override func render() -> NodeType {
-        return ComponentNode(ViewComponent(), in: self, props: { (component: ViewComponent, _) in
-            component.styles = self.styles
-        }).add(children:[
-             Node<UILabel>() { view, layout, _ in
-                view.text = self.text
-                self.applyLabelStyles(view: view, layout: layout)
-             }
-        ])
+        return Node<UILabel>() { view, layout, _ in
+            view.text = self.text
+            self.applyLabelStyles(view: view, layout: layout)
+        }
     }
     
     public func applyLabelStyles(view: UILabel, layout: YGLayout) {

@@ -9,10 +9,10 @@ extension Components.Journey.Roadmap.Sections.PublicTransport.Description {
 
         override func render() -> NodeType {
             return ComponentNode(ViewComponent(), in: self, props: { (component: ViewComponent, hasKey: Bool) in
-                component.styles = self.containerStyles
+                component.styles = self.styles
             }).add(children: disruptions!.map { disruption -> NodeType in
                 return ComponentNode(ViewComponent(), in: self, props: { (component: ViewComponent, hasKey: Bool) in
-                    component.styles = self.disruptionContainerStyles
+                    component.styles = self.containerStyles
                 })
                     .add(children: [
                         ComponentNode(DisruptionBadgeComponent(), in: self, props: { (component: DisruptionBadgeComponent, _: Bool) in
@@ -28,15 +28,12 @@ extension Components.Journey.Roadmap.Sections.PublicTransport.Description {
         }
 
         let containerStyles: [String: Any] = [
-            "paddingTop": 24,
-        ]
-        let disruptionContainerStyles: [String: Any] = [
             "alignItems": YGAlign.center,
             "flexDirection": YGFlexDirection.row,
         ]
         let causeStyles: [String: Any] = [
             "fontSize": 15,
-            "paddingLeft": 5,
+            "marginRight": 5,
             "fontWeight": "bold"
         ]
     }
