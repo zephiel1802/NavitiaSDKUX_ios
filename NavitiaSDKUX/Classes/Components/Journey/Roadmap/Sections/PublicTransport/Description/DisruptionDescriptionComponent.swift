@@ -11,9 +11,9 @@ extension Components.Journey.Roadmap.Sections.PublicTransport.Description {
             return ComponentNode(ViewComponent(), in: self, props: { (component: ViewComponent, hasKey: Bool) in
                 component.styles = self.styles
             }).add(children: disruptions!.map { disruption -> NodeType in
-                return ComponentNode(ViewComponent(), in: self, props: { (component: ViewComponent, hasKey: Bool) in
-                    component.styles = self.containerStyles
-                }).add(children: [
+                var disruptionBlocks: [NodeType] = []
+
+                disruptionBlocks.append(
                     ComponentNode(ViewComponent(), in: self, props: { (component: ViewComponent, hasKey: Bool) in
                         component.styles = self.disruptionTitleStyles
                     }).add(children: [
@@ -31,16 +31,37 @@ extension Components.Journey.Roadmap.Sections.PublicTransport.Description {
                                 component.text = disruption.cause!
                             })
                         ])
-                    ]),
+                    ])
+                )
+
+                if (disruption.messages != nil && disruption.messages!.first != nil && disruption.messages!.first!.escapedText != nil) {
+                    disruptionBlocks.append(
+                        ComponentNode(ViewComponent(), in: self, props: { (component: ViewComponent, hasKey: Bool) in
+                            component.styles = self.disruptionTextContainerStyles
+                        }).add(children: [
+                            ComponentNode(LabelComponent(), in: self, props: { (component: LabelComponent, hasKey: Bool) in
+                                component.styles = self.disruptionTextStyles
+                                component.text = disruption.messages!.first!.escapedText!
+                            })
+                        ])
+                    )
+                }
+
+                // rajouter map + filtre + trad
+                disruptionBlocks.append(
                     ComponentNode(ViewComponent(), in: self, props: { (component: ViewComponent, hasKey: Bool) in
-                        component.styles = self.disruptionTextContainerStyles
+                        component.styles = self.disruptionPeriodContainerStyles
                     }).add(children: [
                         ComponentNode(LabelComponent(), in: self, props: { (component: LabelComponent, hasKey: Bool) in
-                            component.styles = self.disruptionTextStyles
-                            component.text = disruption.messages!.first!.escapedText!
+                            component.styles = self.disruptionPeriodStyles
+                            component.text = "Du \(disruption.applicationPeriods!.first!.begin!) au \(disruption.applicationPeriods!.first!.end!)"
                         })
                     ])
-                ])
+                )
+
+                return ComponentNode(ViewComponent(), in: self, props: { (component: ViewComponent, hasKey: Bool) in
+                    component.styles = self.containerStyles
+                }).add(children: disruptionBlocks)
             })
         }
 
@@ -53,22 +74,30 @@ extension Components.Journey.Roadmap.Sections.PublicTransport.Description {
             "flexDirection": YGFlexDirection.row,
         ]
         var iconStyles: [String: Any] = [
-            "fontSize": 16,
+            "fontSize": 14,
         ]
         let containerCauseStyles: [String: Any] = [
             "marginLeft": 4,
             "alignItems": YGAlign.center,
         ]
         let causeStyles: [String: Any] = [
-            "fontSize": 15,
+            "fontSize": 12,
             "fontWeight": "bold"
         ]
         let disruptionTextContainerStyles: [String: Any] = [
-            :
+            "marginTop": 13,
         ]
         let disruptionTextStyles: [String: Any] = [
             "color": UIColor.lightGray,
-            "fontSize": 15,
+            "fontSize": 12,
         ]
+        let disruptionPeriodContainerStyles: [String: Any] = [
+            "marginTop": 12,
+        ]
+        let disruptionPeriodStyles: [String: Any] = [
+            "fontSize": 12,
+            "fontWeight": "bold"
+        ]
+
     }
 }
