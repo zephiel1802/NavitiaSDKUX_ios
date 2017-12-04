@@ -2,23 +2,6 @@ import Foundation
 import Render
 import NavitiaSDK
 
-extension String {
-    func convertHtml() -> NSAttributedString {
-        guard let data = data(using: .utf8) else {
-            return NSAttributedString()
-        }
-        do {
-            return try NSAttributedString(
-                data: data,
-                options: [NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType, NSCharacterEncodingDocumentAttribute: String.Encoding.utf8.rawValue],
-                documentAttributes: nil
-            )
-        } catch {
-            return NSAttributedString()
-        }
-    }
-}
-
 extension Components.Journey.Roadmap.Sections.PublicTransport.Description {
     class DisruptionDescriptionComponent: ViewComponent {
         var section: Section?
@@ -54,7 +37,7 @@ extension Components.Journey.Roadmap.Sections.PublicTransport.Description {
                     }).add(children: [
                         ComponentNode(LabelComponent(), in: self, props: { (component: LabelComponent, hasKey: Bool) in
                             component.styles = self.disruptionTextStyles
-                            component.text = disruption.messages!.first!.text!.convertHtml().string
+                            component.text = disruption.messages!.first!.escapedText!
                         })
                     ])
                 ])
