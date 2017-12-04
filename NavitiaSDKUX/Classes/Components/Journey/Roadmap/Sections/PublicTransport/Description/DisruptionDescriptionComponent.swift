@@ -15,14 +15,20 @@ extension Components.Journey.Roadmap.Sections.PublicTransport.Description {
                     component.styles = self.containerStyles
                 })
                     .add(children: [
-                        ComponentNode(DisruptionBadgeComponent(), in: self, props: { (component: DisruptionBadgeComponent, _: Bool) in
-                            component.disruptions = self.disruptions
+                        ComponentNode(IconComponent(), in: self, props: { (component: IconComponent, _) in
+                            component.name = Disruption.getIconName(of: disruption.level)
+                            self.iconStyles["color"] = getUIColorFromHexadecimal(hex: Disruption.getLevelColor(of: disruption.level))
+                            component.styles = self.iconStyles
                         }),
-                        ComponentNode(LabelComponent(), in: self, props: { (component: LabelComponent, hasKey: Bool) in
-                            component.styles = self.causeStyles
-                            component.styles["color"] = getUIColorFromHexadecimal(hex: Disruption.getLevelColor(of: disruption.level))
-                            component.text = disruption.cause!
-                        })
+                        ComponentNode(ViewComponent(), in: self, props: { (component: ViewComponent, hasKey: Bool) in
+                            component.styles = self.containerCauseStyles
+                        }).add(children: [
+                            ComponentNode(LabelComponent(), in: self, props: { (component: LabelComponent, hasKey: Bool) in
+                                component.styles = self.causeStyles
+                                component.styles["color"] = getUIColorFromHexadecimal(hex: Disruption.getLevelColor(of: disruption.level))
+                                component.text = disruption.cause!
+                            })
+                        ])
                     ])
             })
         }
@@ -30,10 +36,18 @@ extension Components.Journey.Roadmap.Sections.PublicTransport.Description {
         let containerStyles: [String: Any] = [
             "alignItems": YGAlign.center,
             "flexDirection": YGFlexDirection.row,
+            "marginTop": 26,
+        ]
+        var iconStyles: [String: Any] = [
+            "fontSize": 16,
+        ]
+        let containerCauseStyles: [String: Any] = [
+            "marginLeft": 4,
+            "alignItems": YGAlign.center,
+//            "justifyContent": YGJustify.center,
         ]
         let causeStyles: [String: Any] = [
             "fontSize": 15,
-            "marginRight": 5,
             "fontWeight": "bold"
         ]
     }
