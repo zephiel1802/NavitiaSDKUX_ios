@@ -2,6 +2,23 @@ import Foundation
 import Render
 import NavitiaSDK
 
+extension String {
+    func convertHtml() -> NSAttributedString {
+        guard let data = data(using: .utf8) else {
+            return NSAttributedString()
+        }
+        do {
+            return try NSAttributedString(
+                data: data,
+                options: [NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType, NSCharacterEncodingDocumentAttribute: String.Encoding.utf8.rawValue],
+                documentAttributes: nil
+            )
+        } catch {
+            return NSAttributedString()
+        }
+    }
+}
+
 extension Components.Journey.Roadmap.Sections.PublicTransport.Description {
     class DisruptionDescriptionComponent: ViewComponent {
         var section: Section?
@@ -13,8 +30,10 @@ extension Components.Journey.Roadmap.Sections.PublicTransport.Description {
             }).add(children: disruptions!.map { disruption -> NodeType in
                 return ComponentNode(ViewComponent(), in: self, props: { (component: ViewComponent, hasKey: Bool) in
                     component.styles = self.containerStyles
-                })
-                    .add(children: [
+                }).add(children: [
+                    ComponentNode(ViewComponent(), in: self, props: { (component: ViewComponent, hasKey: Bool) in
+                        component.styles = self.disruptionTitleStyles
+                    }).add(children: [
                         ComponentNode(IconComponent(), in: self, props: { (component: IconComponent, _) in
                             component.name = Disruption.getIconName(of: disruption.level)
                             self.iconStyles["color"] = getUIColorFromHexadecimal(hex: Disruption.getLevelColor(of: disruption.level))
@@ -29,14 +48,26 @@ extension Components.Journey.Roadmap.Sections.PublicTransport.Description {
                                 component.text = disruption.cause!
                             })
                         ])
+                    ]),
+                    ComponentNode(ViewComponent(), in: self, props: { (component: ViewComponent, hasKey: Bool) in
+                        component.styles = self.disruptionTextContainerStyles
+                    }).add(children: [
+                        ComponentNode(LabelComponent(), in: self, props: { (component: LabelComponent, hasKey: Bool) in
+                            component.styles = self.disruptionTextStyles
+                            component.text = disruption.messages!.first!.text!.convertHtml().string
+                        })
                     ])
+                ])
             })
         }
 
         let containerStyles: [String: Any] = [
+            "flexDirection": YGFlexDirection.column,
+            "marginTop": 26,
+        ]
+        let disruptionTitleStyles: [String: Any] = [
             "alignItems": YGAlign.center,
             "flexDirection": YGFlexDirection.row,
-            "marginTop": 26,
         ]
         var iconStyles: [String: Any] = [
             "fontSize": 16,
@@ -44,11 +75,17 @@ extension Components.Journey.Roadmap.Sections.PublicTransport.Description {
         let containerCauseStyles: [String: Any] = [
             "marginLeft": 4,
             "alignItems": YGAlign.center,
-//            "justifyContent": YGJustify.center,
         ]
         let causeStyles: [String: Any] = [
             "fontSize": 15,
             "fontWeight": "bold"
+        ]
+        let disruptionTextContainerStyles: [String: Any] = [
+            :
+        ]
+        let disruptionTextStyles: [String: Any] = [
+            "color": UIColor.lightGray,
+            "fontSize": 15,
         ]
     }
 }
