@@ -3,7 +3,7 @@ import Render
 import NavitiaSDK
 
 extension Components.Journey.Roadmap.Sections.PublicTransport.Description {
-    class DisruptionDescription: ViewComponent {
+    class DisruptionDescriptionComponent: ViewComponent {
         var section: Section?
         var disruptions: [Disruption]?
 
