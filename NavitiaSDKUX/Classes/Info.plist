@@ -15,14 +15,14 @@
 	<key>CFBundlePackageType</key>
 	<string>FMWK</string>
 	<key>CFBundleShortVersionString</key>
-	<string>0.2.0</string>
+	<string>0.2.3</string>
 	<key>CFBundleVersion</key>
 	<string>$(CURRENT_PROJECT_VERSION)</string>
+	<key>NSPrincipalClass</key>
+	<string></string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>SDKIcons.ttf</string>
 	</array>
-	<key>NSPrincipalClass</key>
-	<string></string>
 </dict>
 </plist>
