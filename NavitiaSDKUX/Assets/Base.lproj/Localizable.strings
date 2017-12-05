@@ -41,6 +41,10 @@
 /* Journey roadmap waiting description */
 "journey.roadmap.action.wait" = "wait";
 
+/* PublicTransport disruption period */
+"component.JourneyRoadmapSectionPublicTransportDescriptionDisruptionDescriptionComponentPeriod.from" = "From";
+"component.JourneyRoadmapSectionPublicTransportDescriptionDisruptionDescriptionComponentPeriod.to" = "to";
+
 /* Unités */
 "units.hour" = "hour";
 "units.hour.plural" = "hours";

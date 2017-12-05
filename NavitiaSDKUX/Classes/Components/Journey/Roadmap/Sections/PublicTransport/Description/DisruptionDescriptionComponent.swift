@@ -13,7 +13,6 @@ extension Components.Journey.Roadmap.Sections.PublicTransport.Description {
             }).add(children: disruptions!.map { disruption -> NodeType in
                 var disruptionBlocks: [NodeType] = []
 
-                // Title
                 disruptionBlocks.append(
                     ComponentNode(ViewComponent(), in: self, props: { (component: ViewComponent, hasKey: Bool) in
                         component.styles = self.disruptionTitleStyles
@@ -35,7 +34,6 @@ extension Components.Journey.Roadmap.Sections.PublicTransport.Description {
                     ])
                 )
 
-                // Content : filter
                 if (disruption.messages != nil && disruption.messages!.first != nil && disruption.messages!.first!.escapedText != nil) {
                     disruptionBlocks.append(
                         ComponentNode(ViewComponent(), in: self, props: { (component: ViewComponent, hasKey: Bool) in
@@ -49,7 +47,6 @@ extension Components.Journey.Roadmap.Sections.PublicTransport.Description {
                     )
                 }
 
-                // rajouter trad
                 let periodDateFormatter: DateFormatter = DateFormatter()
                 periodDateFormatter.dateFormat = "dd/MM/yyyy"
                 if (disruption.applicationPeriods != nil) {
@@ -62,7 +59,7 @@ extension Components.Journey.Roadmap.Sections.PublicTransport.Description {
                             }).add(children: [
                                 ComponentNode(LabelComponent(), in: self, props: { (component: LabelComponent, hasKey: Bool) in
                                     component.styles = self.disruptionPeriodStyles
-                                    component.text = "Du \(periodDateFormatter.string(from: period.beginDate!)) au \(periodDateFormatter.string(from: period.endDate!))"
+                                    component.text = "\(NSLocalizedString("component.JourneyRoadmapSectionPublicTransportDescriptionDisruptionDescriptionComponentPeriod.from", bundle: self.bundle, comment: "Disruption period from")) \(periodDateFormatter.string(from: period.beginDate!)) \(NSLocalizedString("component.JourneyRoadmapSectionPublicTransportDescriptionDisruptionDescriptionComponentPeriod.to", bundle: self.bundle, comment: "Disruption period to")) \(periodDateFormatter.string(from: period.endDate!))"
                                 })
                             ])
                         )
