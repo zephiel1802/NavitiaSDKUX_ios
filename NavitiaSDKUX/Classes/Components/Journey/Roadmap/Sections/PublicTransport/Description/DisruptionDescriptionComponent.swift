@@ -59,7 +59,28 @@ extension Components.Journey.Roadmap.Sections.PublicTransport.Description {
                             }).add(children: [
                                 ComponentNode(LabelComponent(), in: self, props: { (component: LabelComponent, hasKey: Bool) in
                                     component.styles = self.disruptionPeriodStyles
-                                    component.text = "\(NSLocalizedString("component.JourneyRoadmapSectionPublicTransportDescriptionDisruptionDescriptionComponentPeriod.from", bundle: self.bundle, comment: "Disruption period from")) \(periodDateFormatter.string(from: period.beginDate!)) \(NSLocalizedString("component.JourneyRoadmapSectionPublicTransportDescriptionDisruptionDescriptionComponentPeriod.to", bundle: self.bundle, comment: "Disruption period to")) \(periodDateFormatter.string(from: period.endDate!))"
+
+                                    let fromText: String = NSLocalizedString(
+                                        "component.JourneyRoadmapSectionPublicTransportDescriptionDisruptionDescriptionComponentPeriod.from",
+                                        bundle: self.bundle,
+                                        comment: "Disruption period from"
+                                    )
+                                    let toText: String = NSLocalizedString(
+                                        "component.JourneyRoadmapSectionPublicTransportDescriptionDisruptionDescriptionComponentPeriod.to",
+                                        bundle: self.bundle,
+                                        comment: "Disruption period to"
+                                    )
+                                    let undefinedToText: String = NSLocalizedString(
+                                        "component.JourneyRoadmapSectionPublicTransportDescriptionDisruptionDescriptionComponentPeriod.to.fallback",
+                                        bundle: self.bundle,
+                                        comment: "Disruption period to fallback"
+                                    )
+
+                                    if (period.endDate != nil) {
+                                        component.text = "\(fromText) \(periodDateFormatter.string(from: period.beginDate!)) \(toText) \(periodDateFormatter.string(from: period.endDate!))"
+                                    } else {
+                                        component.text = "\(fromText) \(periodDateFormatter.string(from: period.beginDate!)) \(undefinedToText)"
+                                    }
                                 })
                             ])
                         )
@@ -109,8 +130,10 @@ extension Components.Journey.Roadmap.Sections.PublicTransport.Description {
         ]
         let disruptionPeriodStyles: [String: Any] = [
             "fontSize": 12,
-            "fontWeight": "bold"
-        ]
+            "fontWeight": "bold",
+            "numberOfLines": 0,
+            "lineBreakMode": NSLineBreakMode.byWordWrapping,
+    ]
 
     }
 }

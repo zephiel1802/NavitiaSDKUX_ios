@@ -44,6 +44,7 @@
 /* PublicTransport disruption period */
 "component.JourneyRoadmapSectionPublicTransportDescriptionDisruptionDescriptionComponentPeriod.from" = "Du";
 "component.JourneyRoadmapSectionPublicTransportDescriptionDisruptionDescriptionComponentPeriod.to" = "au";
+"component.JourneyRoadmapSectionPublicTransportDescriptionDisruptionDescriptionComponentPeriod.to.fallback" = "jusqu'à nouvel ordre";
 
 /* Units */
 "units.hour" = "heure";
