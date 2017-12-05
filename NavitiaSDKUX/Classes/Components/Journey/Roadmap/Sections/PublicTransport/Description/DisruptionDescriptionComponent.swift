@@ -47,17 +47,25 @@ extension Components.Journey.Roadmap.Sections.PublicTransport.Description {
                     )
                 }
 
-                // rajouter map + filtre + trad
-                disruptionBlocks.append(
-                    ComponentNode(ViewComponent(), in: self, props: { (component: ViewComponent, hasKey: Bool) in
-                        component.styles = self.disruptionPeriodContainerStyles
-                    }).add(children: [
-                        ComponentNode(LabelComponent(), in: self, props: { (component: LabelComponent, hasKey: Bool) in
-                            component.styles = self.disruptionPeriodStyles
-                            component.text = "Du \(disruption.applicationPeriods!.first!.begin!) au \(disruption.applicationPeriods!.first!.end!)"
-                        })
-                    ])
-                )
+                // rajouter date format + trad
+                let periodDateFormatter: DateFormatter = DateFormatter()
+                periodDateFormatter.dateFormat = "dd/MM/yyyy"
+                if (disruption.applicationPeriods != nil) {
+                    disruption.applicationPeriods!.filter { period in
+                        return period != nil
+                    }.map { period in
+                        disruptionBlocks.append(
+                            ComponentNode(ViewComponent(), in: self, props: { (component: ViewComponent, hasKey: Bool) in
+                                component.styles = self.disruptionPeriodContainerStyles
+                            }).add(children: [
+                                ComponentNode(LabelComponent(), in: self, props: { (component: LabelComponent, hasKey: Bool) in
+                                    component.styles = self.disruptionPeriodStyles
+                                    component.text = "Du \(periodDateFormatter.string(from: period.beginDate!)) au \(periodDateFormatter.string(from: period.endDate!))"
+                                })
+                            ])
+                        )
+                    }
+                }
 
                 return ComponentNode(ViewComponent(), in: self, props: { (component: ViewComponent, hasKey: Bool) in
                     component.styles = self.containerStyles
@@ -86,13 +94,14 @@ extension Components.Journey.Roadmap.Sections.PublicTransport.Description {
         ]
         let disruptionTextContainerStyles: [String: Any] = [
             "marginTop": 13,
+            "marginBottom": 6,
         ]
         let disruptionTextStyles: [String: Any] = [
             "color": UIColor.lightGray,
             "fontSize": 12,
         ]
         let disruptionPeriodContainerStyles: [String: Any] = [
-            "marginTop": 12,
+            "marginTop": 6,
         ]
         let disruptionPeriodStyles: [String: Any] = [
             "fontSize": 12,
