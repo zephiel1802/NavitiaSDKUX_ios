@@ -35,7 +35,7 @@ extension Components.Journey.Roadmap.Sections.PublicTransport.Description {
                     ])
                 )
 
-                // Content
+                // Content : filter
                 if (disruption.messages != nil && disruption.messages!.first != nil && disruption.messages!.first!.escapedText != nil) {
                     disruptionBlocks.append(
                         ComponentNode(ViewComponent(), in: self, props: { (component: ViewComponent, hasKey: Bool) in
@@ -49,7 +49,7 @@ extension Components.Journey.Roadmap.Sections.PublicTransport.Description {
                     )
                 }
 
-                // rajouter date format + trad
+                // rajouter trad
                 let periodDateFormatter: DateFormatter = DateFormatter()
                 periodDateFormatter.dateFormat = "dd/MM/yyyy"
                 if (disruption.applicationPeriods != nil) {
@@ -102,6 +102,9 @@ extension Components.Journey.Roadmap.Sections.PublicTransport.Description {
         let disruptionTextStyles: [String: Any] = [
             "color": UIColor.lightGray,
             "fontSize": 12,
+            "numberOfLines": 0,
+            "lineBreakMode": NSLineBreakMode.byWordWrapping,
+
         ]
         let disruptionPeriodContainerStyles: [String: Any] = [
             "marginLeft": 18,
