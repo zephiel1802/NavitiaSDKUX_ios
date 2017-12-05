@@ -15,10 +15,10 @@ Pod::Spec.new do |s|
 An awesome framework to offer cool transport stuff to your users
                        DESC
 
-   s.homepage         = 'https://github.com/CanalTP/NavitiaSDKUX_ios'
-   s.license          = { :type => 'GPL-3', :file => 'LICENSE' }
-   s.author           = { 'Kisio Digital' => 'contact@kisio.org' }
-   s.source           = { :git => 'https://github.com/CanalTP/NavitiaSDK_ios.git', :tag => s.version.to_s }
+  s.homepage         = 'https://github.com/CanalTP/NavitiaSDKUX_ios'
+  s.license          = { :type => 'GPL-3', :file => 'LICENSE' }
+  s.authors           = { 'Kisio Digital' => 'contact@kisio.org' }
+  s.source           = { :git => 'https://github.com/CanalTP/NavitiaSDK_ios.git', :tag => s.version.to_s }
 
   s.ios.deployment_target = '10.0'
 
@@ -26,5 +26,5 @@ An awesome framework to offer cool transport stuff to your users
   s.resources = 'NavitiaSDKUX/Assets/**/*'
 
   s.dependency 'Render', '~> 4.9.1'
-  s.dependency 'NavitiaSDK', '0.3.2'
+  s.dependency 'NavitiaSDK', '~> 1.0'
 end
