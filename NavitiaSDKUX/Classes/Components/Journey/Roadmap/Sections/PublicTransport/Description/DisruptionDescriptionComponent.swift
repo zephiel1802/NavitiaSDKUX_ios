@@ -48,43 +48,40 @@ extension Components.Journey.Roadmap.Sections.PublicTransport.Description {
                 }
 
                 let periodDateFormatter: DateFormatter = DateFormatter()
-                periodDateFormatter.dateFormat = "dd/MM/yyyy"
-                if (disruption.applicationPeriods != nil) {
-                    disruption.applicationPeriods!.filter { period in
-                        return period != nil
-                    }.map { period in
-                        disruptionBlocks.append(
-                            ComponentNode(ViewComponent(), in: self, props: { (component: ViewComponent, hasKey: Bool) in
-                                component.styles = self.disruptionPeriodContainerStyles
-                            }).add(children: [
-                                ComponentNode(LabelComponent(), in: self, props: { (component: LabelComponent, hasKey: Bool) in
-                                    component.styles = self.disruptionPeriodStyles
+                periodDateFormatter.dateFormat = config.metrics.shortDateFormat
+                let fromText: String = NSLocalizedString(
+                    "component.JourneyRoadmapSectionPublicTransportDescriptionDisruptionDescriptionComponentPeriod.from",
+                    bundle: self.bundle,
+                    comment: "Disruption period from"
+                )
+                let toText: String = NSLocalizedString(
+                    "component.JourneyRoadmapSectionPublicTransportDescriptionDisruptionDescriptionComponentPeriod.to",
+                    bundle: self.bundle,
+                    comment: "Disruption period to"
+                )
+                let undefinedToText: String = NSLocalizedString(
+                    "component.JourneyRoadmapSectionPublicTransportDescriptionDisruptionDescriptionComponentPeriod.to.fallback",
+                    bundle: self.bundle,
+                    comment: "Disruption period to fallback"
+                )
 
-                                    let fromText: String = NSLocalizedString(
-                                        "component.JourneyRoadmapSectionPublicTransportDescriptionDisruptionDescriptionComponentPeriod.from",
-                                        bundle: self.bundle,
-                                        comment: "Disruption period from"
-                                    )
-                                    let toText: String = NSLocalizedString(
-                                        "component.JourneyRoadmapSectionPublicTransportDescriptionDisruptionDescriptionComponentPeriod.to",
-                                        bundle: self.bundle,
-                                        comment: "Disruption period to"
-                                    )
-                                    let undefinedToText: String = NSLocalizedString(
-                                        "component.JourneyRoadmapSectionPublicTransportDescriptionDisruptionDescriptionComponentPeriod.to.fallback",
-                                        bundle: self.bundle,
-                                        comment: "Disruption period to fallback"
-                                    )
-
-                                    if (period.endDate != nil) {
-                                        component.text = "\(fromText) \(periodDateFormatter.string(from: period.beginDate!)) \(toText) \(periodDateFormatter.string(from: period.endDate!))"
-                                    } else {
-                                        component.text = "\(fromText) \(periodDateFormatter.string(from: period.beginDate!)) \(undefinedToText)"
-                                    }
-                                })
-                            ])
-                        )
-                    }
+                disruption.applicationPeriods?.filter { period in
+                    return period != nil
+                }.map { period in
+                    disruptionBlocks.append(
+                        ComponentNode(ViewComponent(), in: self, props: { (component: ViewComponent, hasKey: Bool) in
+                            component.styles = self.disruptionPeriodContainerStyles
+                        }).add(children: [
+                            ComponentNode(LabelComponent(), in: self, props: { (component: LabelComponent, hasKey: Bool) in
+                                component.styles = self.disruptionPeriodStyles
+                                if (period.endDate != nil) {
+                                    component.text = "\(fromText) \(periodDateFormatter.string(from: period.beginDate!)) \(toText) \(periodDateFormatter.string(from: period.endDate!))"
+                                } else {
+                                    component.text = "\(fromText) \(periodDateFormatter.string(from: period.beginDate!)) \(undefinedToText)"
+                                }
+                            })
+                        ])
+                    )
                 }
 
                 return ComponentNode(ViewComponent(), in: self, props: { (component: ViewComponent, hasKey: Bool) in
@@ -94,7 +91,6 @@ extension Components.Journey.Roadmap.Sections.PublicTransport.Description {
         }
 
         let containerStyles: [String: Any] = [
-            "flexDirection": YGFlexDirection.column,
             "marginTop": 26,
         ]
         let disruptionTitleStyles: [String: Any] = [
