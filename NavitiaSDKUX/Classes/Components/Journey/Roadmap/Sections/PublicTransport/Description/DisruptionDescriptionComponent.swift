@@ -13,6 +13,7 @@ extension Components.Journey.Roadmap.Sections.PublicTransport.Description {
             }).add(children: disruptions!.map { disruption -> NodeType in
                 var disruptionBlocks: [NodeType] = []
 
+                // Title
                 disruptionBlocks.append(
                     ComponentNode(ViewComponent(), in: self, props: { (component: ViewComponent, hasKey: Bool) in
                         component.styles = self.disruptionTitleStyles
@@ -34,6 +35,7 @@ extension Components.Journey.Roadmap.Sections.PublicTransport.Description {
                     ])
                 )
 
+                // Content
                 if (disruption.messages != nil && disruption.messages!.first != nil && disruption.messages!.first!.escapedText != nil) {
                     disruptionBlocks.append(
                         ComponentNode(ViewComponent(), in: self, props: { (component: ViewComponent, hasKey: Bool) in
@@ -93,6 +95,7 @@ extension Components.Journey.Roadmap.Sections.PublicTransport.Description {
             "fontWeight": "bold"
         ]
         let disruptionTextContainerStyles: [String: Any] = [
+            "marginLeft": 18,
             "marginTop": 13,
             "marginBottom": 6,
         ]
@@ -101,6 +104,7 @@ extension Components.Journey.Roadmap.Sections.PublicTransport.Description {
             "fontSize": 12,
         ]
         let disruptionPeriodContainerStyles: [String: Any] = [
+            "marginLeft": 18,
             "marginTop": 6,
         ]
         let disruptionPeriodStyles: [String: Any] = [
