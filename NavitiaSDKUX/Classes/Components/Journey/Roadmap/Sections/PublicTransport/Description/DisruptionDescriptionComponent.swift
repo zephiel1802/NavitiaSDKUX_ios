@@ -48,7 +48,7 @@ extension Components.Journey.Roadmap.Sections.PublicTransport.Description {
                 }
 
                 let periodDateFormatter: DateFormatter = DateFormatter()
-                periodDateFormatter.dateFormat = config.metrics.shortDateFormat
+                periodDateFormatter.dateStyle = .short
                 let fromText: String = NSLocalizedString(
                     "component.JourneyRoadmapSectionPublicTransportDescriptionDisruptionDescriptionComponentPeriod.from",
                     bundle: self.bundle,
