@@ -42,7 +42,7 @@ extension Disruption {
         return "disruption-" + String(describing: disruptionLevel)
     }
     
-    public static func getIconColor(of disruptionLevel: Disruption.DisruptionLevel) -> String {
+    public static func getLevelColor(of disruptionLevel: Disruption.DisruptionLevel) -> String {
         switch disruptionLevel {
         case .blocking: return "A94442"
         case .nonblocking: return "8A6D3B"
