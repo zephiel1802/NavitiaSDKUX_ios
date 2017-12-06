@@ -11,11 +11,14 @@ import NavitiaSDK
 
 public class JourneySolutionsController: ViewController, ComponentController {
     public struct InParameters {
-        public init() {}
+        public init(originId: String, destinationId: String) {
+            self.originId = originId
+            self.destinationId = destinationId
+        }
         
-        public var originId: String?
+        public var originId: String
         public var originLabel: String?
-        public var destinationId: String?
+        public var destinationId: String
         public var destinationLabel: String?
         public var datetime: Date?
         public var datetimeRepresents: JourneysRequestBuilder.DatetimeRepresents?
