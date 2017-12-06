@@ -55,12 +55,27 @@ open class JourneySolutionsScreen: StylizedComponent<JourneySolutionsScreenState
             }).add(children: [
                 ComponentNode(ContainerComponent(), in: self).add(children: [
                     ComponentNode(JourneyFormComponent(), in: self, props: {(component, hasKey: Bool) in
-                        component.origin = self.state.parameters.originLabel!.isEmpty ? self.state.parameters.originId : self.state.parameters.originLabel!
-                        component.destination = self.state.parameters.destinationLabel!.isEmpty ? self.state.parameters.destinationId : self.state.parameters.destinationLabel!
+                        component.origin = self.state.parameters.originId
+                        if (self.state.parameters.originLabel != nil && !self.state.parameters.originLabel!.isEmpty) {
+                            component.origin = self.state.parameters.originLabel!
+                        }
+
+                        component.destination = self.state.parameters.destinationId
+                        if (self.state.parameters.destinationLabel != nil && !self.state.parameters.destinationLabel!.isEmpty) {
+                            component.destination = self.state.parameters.destinationLabel!
+                        }
                     }),
                     ComponentNode(DateTimeButtonComponent(), in: self, props: {(component: DateTimeButtonComponent, _) in
-                        component.datetime = self.state.parameters.datetime
-                        component.datetimeRepresents = self.state.parameters.datetimeRepresents!
+                        if (self.state.parameters.datetime != nil) {
+                            component.datetime = self.state.parameters.datetime
+                        } else {
+                            component.datetime = Date()
+                        }
+                        if (self.state.parameters.datetimeRepresents != nil) {
+                            component.datetimeRepresents = self.state.parameters.datetimeRepresents!
+                        } else {
+                            component.datetimeRepresents = .departure
+                        }
                     }),
                 ])
             ]),
@@ -140,14 +155,14 @@ open class JourneySolutionsScreen: StylizedComponent<JourneySolutionsScreenState
     }
     
     func extractLabelsFromJourneyResult(journey: Journey) {
-        var origin = state.parameters.originLabel
-        var destination = state.parameters.destinationLabel
+        var origin: String? = state.parameters.originLabel
+        var destination: String? = state.parameters.destinationLabel
         
         if (journey.sections?.isEmpty == false) {
-            if (state.parameters.originLabel!.isEmpty) {
+            if (state.parameters.originLabel == nil || state.parameters.originLabel!.isEmpty) {
                 origin = (journey.sections![0].from?.name)!
             }
-            if (state.parameters.destinationLabel!.isEmpty) {
+            if (state.parameters.destinationLabel == nil ||  state.parameters.destinationLabel!.isEmpty) {
                 destination = (journey.sections![journey.sections!.count - 1].from?.name)!
             }
         }
