@@ -12,15 +12,20 @@ import NavitiaSDK
 
 class DateTimeButtonComponent: ButtonComponent {
     var datetime: Date?
-    var datetimeRepresents: JourneysRequestBuilder.DatetimeRepresents = .departure
+    var datetimeRepresents: JourneysRequestBuilder.DatetimeRepresents?
     
     override func render() -> NodeType {
         let computedStyles: [String: Any] = mergeDictionaries(dict1: listRowStyles, dict2: self.styles)
         return ComponentNode(ButtonComponent(), in: self, props: {(component, hasKey: Bool) in
             component.styles = computedStyles
         }).add(children: [
-            ComponentNode(TextComponent(), in: self, props: {(component, hasKey: Bool) in
-                component.text = NSLocalizedString("component.DateTimeButtonComponent.representation." + self.datetimeRepresents.rawValue, bundle: self.bundle, comment: "Datetime represent label") + longDateText(datetime: self.datetime!)
+            ComponentNode(TextComponent(), in: self, props: {(component: TextComponent, hasKey: Bool) in
+                let datetimeRepresentsText = NSLocalizedString(
+                    "component.DateTimeButtonComponent.representation." + self.datetimeRepresents!.rawValue,
+                    bundle: self.bundle,
+                    comment: "Datetime represent label"
+                )
+                component.text = datetimeRepresentsText + longDateText(datetime: self.datetime!)
                 component.styles = self.textStyles
             })
         ])
