@@ -16,7 +16,7 @@
 		04E429991F72C593004B23A3 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 04E429571F72C593004B23A3 /* Localizable.strings */; };
 		04E4299A1F72C593004B23A3 /* Journey.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 04E4295A1F72C593004B23A3 /* Journey.storyboard */; };
 		04E4299B1F72C593004B23A3 /* SDKIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 04E4295B1F72C593004B23A3 /* SDKIcons.ttf */; };
-		A18804651FE12C3C003AD92A /* NavitiaSDKUX.h in Headers */ = {isa = PBXBuildFile; fileRef = A18804021FE12C3C003AD92A /* NavitiaSDKUX.h */; };
+		A10BF21F1FE42B5900A73706 /* NavitiaSDKUX.h in Headers */ = {isa = PBXBuildFile; fileRef = A10BF21E1FE42B5900A73706 /* NavitiaSDKUX.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A18804661FE12C3C003AD92A /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = A18804041FE12C3C003AD92A /* Date.swift */; };
 		A18804671FE12C3C003AD92A /* Icons.swift in Sources */ = {isa = PBXBuildFile; fileRef = A18804051FE12C3C003AD92A /* Icons.swift */; };
 		A18804681FE12C3C003AD92A /* Period.swift in Sources */ = {isa = PBXBuildFile; fileRef = A18804071FE12C3C003AD92A /* Period.swift */; };
@@ -109,7 +109,7 @@
 		04E429591F72C593004B23A3 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
 		04E4295A1F72C593004B23A3 /* Journey.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Journey.storyboard; sourceTree = "<group>"; };
 		04E4295B1F72C593004B23A3 /* SDKIcons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = SDKIcons.ttf; sourceTree = "<group>"; };
-		A18804021FE12C3C003AD92A /* NavitiaSDKUX.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NavitiaSDKUX.h; sourceTree = "<group>"; };
+		A10BF21E1FE42B5900A73706 /* NavitiaSDKUX.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NavitiaSDKUX.h; sourceTree = "<group>"; };
 		A18804041FE12C3C003AD92A /* Date.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
 		A18804051FE12C3C003AD92A /* Icons.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Icons.swift; sourceTree = "<group>"; };
 		A18804071FE12C3C003AD92A /* Period.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Period.swift; sourceTree = "<group>"; };
@@ -258,7 +258,7 @@
 		A18804011FE12C3C003AD92A /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				A18804021FE12C3C003AD92A /* NavitiaSDKUX.h */,
+				A10BF21E1FE42B5900A73706 /* NavitiaSDKUX.h */,
 				A18804031FE12C3C003AD92A /* Util */,
 				A188040F1FE12C3C003AD92A /* Resources */,
 				A18804121FE12C3C003AD92A /* Screens */,
@@ -508,7 +508,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A18804651FE12C3C003AD92A /* NavitiaSDKUX.h in Headers */,
+				A10BF21F1FE42B5900A73706 /* NavitiaSDKUX.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
