@@ -18,6 +18,9 @@ open class LabelComponent: StylizedComponent<NilState> {
         return Node<UILabel>() { view, layout, _ in
             self.applyLabelStyles(view: view, layout: layout)
             if self.attributedText != nil {
+                if self.styles["lineHeight"] != nil {
+                    self.setLineHeight(lineHeight: self.styles["lineHeight"] as! Int, attributedText: self.attributedText!)
+                }
                 view.attributedText = self.attributedText
             }
             else {
@@ -55,5 +58,12 @@ open class LabelComponent: StylizedComponent<NilState> {
     
     func setFontFamily(name: String) {
         self.sharedFont = UIFont.iconFontOfSize(name: name, size: self.sharedFont.pointSize)
+    }
+    
+    func setLineHeight(lineHeight: Int, attributedText: NSMutableAttributedString)
+    {
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.lineSpacing = CGFloat(lineHeight)
+        attributedText.addAttribute(NSParagraphStyleAttributeName, value: paragraphStyle, range: NSMakeRange(0, attributedText.length))
     }
 }

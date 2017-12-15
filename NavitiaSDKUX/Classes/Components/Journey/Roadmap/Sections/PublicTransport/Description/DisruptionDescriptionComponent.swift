@@ -33,14 +33,14 @@ extension Components.Journey.Roadmap.Sections.PublicTransport.Description {
                     ])
                 )
 
-                if (disruption.messages != nil && disruption.messages!.first != nil && disruption.messages!.first!.text != nil) {
+                if (disruption.messages != nil && disruption.messages!.first != nil && disruption.messages!.first!.escapedText != nil) {
                     disruptionBlocks.append(
                         ComponentNode(ViewComponent(), in: self, props: { (component: ViewComponent, hasKey: Bool) in
                             component.styles = self.disruptionTextContainerStyles
                         }).add(children: [
                             ComponentNode(LabelComponent(), in: self, props: { (component: LabelComponent, hasKey: Bool) in
                                 component.styles = self.disruptionTextStyles
-                                component.text = disruption.messages!.first!.text!
+                                component.text = disruption.messages!.first!.escapedText!
                             })
                         ])
                     )
@@ -109,7 +109,7 @@ extension Components.Journey.Roadmap.Sections.PublicTransport.Description {
         ]
         let disruptionTextContainerStyles: [String: Any] = [
             "marginLeft": 18,
-            "marginTop": 12,
+            "marginTop": 8,
             "marginBottom": 6,
         ]
         let disruptionTextStyles: [String: Any] = [

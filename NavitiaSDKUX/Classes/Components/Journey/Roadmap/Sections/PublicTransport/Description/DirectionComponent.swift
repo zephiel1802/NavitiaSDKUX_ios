@@ -27,16 +27,13 @@ extension Components.Journey.Roadmap.Sections.PublicTransport.Description {
                 ComponentNode(LabelComponent(), in: self, props: { (component: LabelComponent, hasKey: Bool) in
                     component.styles = self.textStyles
                     let localizedToResource = NSLocalizedString("component.JourneyRoadmapSectionPublicTransportComponent.DirectionComponent.at", bundle: self.bundle, comment: "PublicTransport description")
-                    let firstStationName = NSMutableAttributedString.init(string: "\(localizedToResource) \(self.section!.from!.name!)")
-                    firstStationName.setAttributes([NSFontAttributeName: UIFont.systemFont(ofSize: 15, weight: UIFontWeightBold)], range: NSMakeRange(localizedToResource.count + 1, self.section!.from!.name!.count))
-                    component.attributedText = firstStationName
-                }),
-                ComponentNode(LabelComponent(), in: self, props: { (component: LabelComponent, hasKey: Bool) in
-                    component.styles = mergeDictionaries(dict1: self.textStyles, dict2: self.directionStyles)
                     let localizedDirectionResource = NSLocalizedString("component.JourneyRoadmapSectionPublicTransportComponent.DirectionComponent.direction", bundle: self.bundle, comment: "PublicTransport description")
-                    let displayInformationDirection = NSMutableAttributedString.init(string: "\(localizedDirectionResource) \(self.section!.displayInformations!.direction!)")
-                    displayInformationDirection.setAttributes([NSFontAttributeName: UIFont.systemFont(ofSize: 15, weight: UIFontWeightBold)], range: NSMakeRange(localizedDirectionResource.count + 1, self.section!.displayInformations!.direction!.count))
-                    component.attributedText = displayInformationDirection
+                    let fullDescriptionText = NSMutableAttributedString.init(string: "\(localizedToResource) \(self.section!.from!.name!)")
+                    fullDescriptionText.setAttributes([NSFontAttributeName: UIFont.systemFont(ofSize: 15, weight: UIFontWeightBold)], range: NSMakeRange(localizedToResource.count + 1, self.section!.from!.name!.count))
+                    let tripDirectionText = NSMutableAttributedString.init(string: "\n\(localizedDirectionResource) \(self.section!.displayInformations!.direction!)")
+                    tripDirectionText.setAttributes([NSFontAttributeName: UIFont.systemFont(ofSize: 15, weight: UIFontWeightBold)], range: NSMakeRange(localizedDirectionResource.count + 1, self.section!.displayInformations!.direction!.count))
+                    fullDescriptionText.append(tripDirectionText)
+                    component.attributedText = fullDescriptionText
                 })
             ])
         }
@@ -48,10 +45,9 @@ extension Components.Journey.Roadmap.Sections.PublicTransport.Description {
             "fontSize": 12,
         ]
         let textStyles: [String: Any] = [
-            "fontSize": 15
-        ]
-        let directionStyles: [String: Any] = [
-            "marginTop" : 4
+            "fontSize": 15,
+            "lineHeight": 6,
+            "numberOfLines": 0
         ]
         let transportModeStyles: [String : Any] = [
             "marginLeft" : 2
