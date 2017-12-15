@@ -31,7 +31,7 @@ func getIsoDatetime(datetime: Date) -> String {
     return formatter.string(from: datetime)
 }
 
-func durationText(bundle: Bundle, seconds: Int32) -> String {
+func durationText(bundle: Bundle, seconds: Int32, useFullFormat: Bool) -> String {
     if (seconds < 60) {
         return "< 1 " + NSLocalizedString("units.minute", bundle: bundle, comment: "Units minute")
     } else if (seconds < 120) {
@@ -46,7 +46,27 @@ func durationText(bundle: Bundle, seconds: Int32) -> String {
         if remainingMinutes < 10 {
             minutes = "0" + String(remainingMinutes)
         }
-        return String(hours) + NSLocalizedString("units.hour.abbr", bundle: bundle, comment: "Units hour abbr") + minutes
+        if useFullFormat {
+            if hours > 1 {
+                if remainingMinutes > 1 {
+                    return String(format:NSLocalizedString("units.hour.plural.and.minute.plural", bundle: bundle, comment: "Units hours and minutes"), hours, remainingMinutes)
+                }
+                else {
+                    return String(format:NSLocalizedString("units.hour.plural.and.minute", bundle: bundle, comment: "Units hours and minute"), hours, remainingMinutes)
+                }
+            }
+            else {
+                if remainingMinutes > 1 {
+                    return String(format:NSLocalizedString("units.hour.and.minute.plural", bundle: bundle, comment: "Units hour and minutes"), hours, remainingMinutes)
+                }
+                else {
+                    return String(format:NSLocalizedString("units.hour.and.minute", bundle: bundle, comment: "Units hour and minute"), hours, remainingMinutes)
+                }
+            }
+        }
+        else {
+            return String(hours) + NSLocalizedString("units.hour.abbr", bundle: bundle, comment: "Units hour abbr") + minutes
+        }
     }
 }
 

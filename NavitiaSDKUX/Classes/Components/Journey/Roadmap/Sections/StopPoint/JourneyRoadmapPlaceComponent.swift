@@ -12,16 +12,14 @@ extension Components.Journey.Roadmap.Sections.StopPoint {
             }).add(children: [
                 ComponentNode(LabelComponent(), in: self, props: { (component: LabelComponent, hasKey: Bool) in
                     component.styles = self.stopPointLabelStyle
-
                     component.text = self.stopPointLabel!
                 })
             ])
         }
 
         let stopPointContainerStyle: [String: Any] = [
-            "backgroundColor": config.colors.lighterGray,
-            "paddingHorizontal": 5,
-            "paddingVertical": 14,
+            "backgroundColor": config.colors.white,
+            "paddingHorizontal": 5
         ]
         let stopPointLabelStyle: [String: Any] = [
             "color": config.colors.darkText,

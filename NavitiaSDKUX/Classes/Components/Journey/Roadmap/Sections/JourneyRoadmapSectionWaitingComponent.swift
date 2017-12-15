@@ -10,42 +10,28 @@ extension Components.Journey.Roadmap.Sections {
             return ComponentNode(ViewComponent(), in: self, props: {(component: ViewComponent, hasKey: Bool) in
                 component.styles = [
                     "flexDirection": YGFlexDirection.row,
-                    "paddingTop": 16,
-                    "paddingBottom": 14,
+                    "marginTop": 12
                 ]
             }).add(children: [
-                ComponentNode(ViewComponent(), in: self, props: {(component: ViewComponent, hasKey: Bool) in
+                ComponentNode(IconComponent(), in: self, props: { (component: IconComponent, hasKey: Bool) in
+                    component.name = "clock"
                     component.styles = [
-                        "width": 50,
-                        "alignItems": YGAlign.center,
-                        "justifyContent": YGJustify.center,
+                        "color": getUIColorFromHexadecimal(hex: "666666"),
+                        "fontSize": 18,
                     ]
-                }).add(children: [
-                    ComponentNode(IconComponent(), in: self, props: { (component: IconComponent, hasKey: Bool) in
-                        component.name = "clock"
-                        component.styles = [
-                            "color": getUIColorFromHexadecimal(hex: "666666"),
-                            "fontSize": 20,
-                        ]
-                    })
-                ]),
+                }),
                 ComponentNode(ViewComponent(), in: self, props: {(component: ViewComponent, hasKey: Bool) in
                     component.styles = [
                         "flexGrow": 1,
-                        "paddingStart": 6,
+                        "marginLeft": 3
                     ]
                 }).add(children: [
                     ComponentNode(TextComponent(), in: self, props: {(component: TextComponent, hasKey: Bool) in
-                        let durationInMinutes: Int = Int.init(self.section!.duration! / 60)
-                        let unit: String = NSLocalizedString("units.minute\((durationInMinutes > 1) ? ".plural" : "")",
-                            bundle: self.bundle,
-                            comment: "Unit for waiting duration"
-                        )
                         let action: String = NSLocalizedString("journey.roadmap.action.wait",
                             bundle: self.bundle,
                             comment: "Action description"
                         )
-                        component.text = "\(durationInMinutes) \(unit) \(action)"
+                        component.text = "\(action) \(durationText(bundle: self.bundle, seconds: self.section!.duration!, useFullFormat: true))"
                     }),
                 ])
             ])

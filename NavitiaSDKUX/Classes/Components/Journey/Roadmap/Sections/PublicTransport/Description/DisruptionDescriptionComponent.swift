@@ -12,7 +12,6 @@ extension Components.Journey.Roadmap.Sections.PublicTransport.Description {
                 component.styles = self.styles
             }).add(children: disruptions!.map { disruption -> NodeType in
                 var disruptionBlocks: [NodeType] = []
-
                 disruptionBlocks.append(
                     ComponentNode(ViewComponent(), in: self, props: { (component: ViewComponent, hasKey: Bool) in
                         component.styles = self.disruptionTitleStyles
@@ -34,14 +33,14 @@ extension Components.Journey.Roadmap.Sections.PublicTransport.Description {
                     ])
                 )
 
-                if (disruption.messages != nil && disruption.messages!.first != nil && disruption.messages!.first!.escapedText != nil) {
+                if (disruption.messages != nil && disruption.messages!.first != nil && disruption.messages!.first!.text != nil) {
                     disruptionBlocks.append(
                         ComponentNode(ViewComponent(), in: self, props: { (component: ViewComponent, hasKey: Bool) in
                             component.styles = self.disruptionTextContainerStyles
                         }).add(children: [
                             ComponentNode(LabelComponent(), in: self, props: { (component: LabelComponent, hasKey: Bool) in
                                 component.styles = self.disruptionTextStyles
-                                component.text = disruption.messages!.first!.escapedText!
+                                component.text = disruption.messages!.first!.text!
                             })
                         ])
                     )
@@ -91,17 +90,17 @@ extension Components.Journey.Roadmap.Sections.PublicTransport.Description {
         }
 
         let containerStyles: [String: Any] = [
-            "marginTop": 26,
+            "marginTop": 10,
         ]
         let disruptionTitleStyles: [String: Any] = [
             "alignItems": YGAlign.center,
             "flexDirection": YGFlexDirection.row,
         ]
         var iconStyles: [String: Any] = [
-            "fontSize": 14,
+            "fontSize": 18,
         ]
         let containerCauseStyles: [String: Any] = [
-            "marginLeft": 4,
+            "marginLeft": 3,
             "alignItems": YGAlign.center,
         ]
         let causeStyles: [String: Any] = [
@@ -110,7 +109,7 @@ extension Components.Journey.Roadmap.Sections.PublicTransport.Description {
         ]
         let disruptionTextContainerStyles: [String: Any] = [
             "marginLeft": 18,
-            "marginTop": 13,
+            "marginTop": 12,
             "marginBottom": 6,
         ]
         let disruptionTextStyles: [String: Any] = [

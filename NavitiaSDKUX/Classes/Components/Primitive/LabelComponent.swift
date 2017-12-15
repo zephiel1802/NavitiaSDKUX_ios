@@ -11,12 +11,18 @@ import Render
 
 open class LabelComponent: StylizedComponent<NilState> {
     var text: String = ""
+    var attributedText: NSMutableAttributedString?
     var sharedFont: UIFont = UIFont.systemFont(ofSize: 14)
     
     open override func render() -> NodeType {
         return Node<UILabel>() { view, layout, _ in
-            view.text = self.text
             self.applyLabelStyles(view: view, layout: layout)
+            if self.attributedText != nil {
+                view.attributedText = self.attributedText
+            }
+            else {
+                view.text = self.text
+            }
         }
     }
     

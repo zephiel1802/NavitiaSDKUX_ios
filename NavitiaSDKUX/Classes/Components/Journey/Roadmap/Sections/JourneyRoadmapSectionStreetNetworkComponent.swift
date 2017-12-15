@@ -15,7 +15,9 @@ extension Components.Journey.Roadmap.Sections {
         var label: String?
         
         override func render() -> NodeType {
-            return ComponentNode(ViewComponent(), in: self).add(children: [
+            return ComponentNode(ViewComponent(), in: self, props:{(component: ViewComponent, hasKey: Bool) in
+                component.styles = self.containerStyles
+            }).add(children: [
                 ComponentNode(self.DottedComponent.init(), in: self, props: { (component: Components.Journey.Roadmap.Sections.LineDiagram.DottedComponent, _) in
                     component.color = config.colors.gray
                 }),
@@ -41,5 +43,9 @@ extension Components.Journey.Roadmap.Sections {
                 }),
             ])
         }
+        
+        let containerStyles: [String : Any] = [
+            "paddingVertical" : 12
+        ]
     }
 }

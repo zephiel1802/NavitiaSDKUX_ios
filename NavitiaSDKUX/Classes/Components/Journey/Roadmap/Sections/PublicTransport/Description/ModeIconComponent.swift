@@ -8,7 +8,7 @@ extension Components.Journey.Roadmap.Sections.PublicTransport.Description {
 
         override func render() -> NodeType {
             return ComponentNode(ViewComponent(), in: self, props: { (component: ViewComponent, hasKey: Bool) in
-                component.styles = self.modeContainerStyle
+                component.styles = mergeDictionaries(dict1:self.modeContainerStyle , dict2: self.styles)
             }).add(children: [
                 ComponentNode(ModeComponent(), in: self, props: { (component: ModeComponent, hasKey: Bool) in
                     component.styles = self.modeIconStyle
