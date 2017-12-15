@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'NavitiaSDKUX'
-  s.version          = '0.3.1'
+  s.version          = '0.3.2'
   s.summary          = 'An awesome framework to offer cool transport stuff to your users'
 
   s.description      = <<-DESC
