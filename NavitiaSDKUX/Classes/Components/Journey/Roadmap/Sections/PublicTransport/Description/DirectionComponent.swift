@@ -19,7 +19,6 @@ extension Components.Journey.Roadmap.Sections.PublicTransport.Description {
                         component.text = NSLocalizedString("component.JourneyRoadmapSectionPublicTransportComponent.DirectionComponent.take", bundle: self.bundle, comment: "PublicTransport description")
                     }),
                     ComponentNode(self.ModeLineLabelComponent.init(), in: self, props: { (component: Components.Journey.Roadmap.Sections.PublicTransport.Description.ModeLineLabelComponent, hasKey: Bool) in
-                        component.styles = self.transportModeStyles
                         component.section = self.section
                         component.disruptions = self.disruptions
                     })
@@ -48,9 +47,6 @@ extension Components.Journey.Roadmap.Sections.PublicTransport.Description {
             "fontSize": 15,
             "lineHeight": 6,
             "numberOfLines": 0
-        ]
-        let transportModeStyles: [String : Any] = [
-            "marginLeft" : 2
         ]
     }
 }

@@ -10,7 +10,7 @@ extension Components.Journey.Roadmap.Sections.PublicTransport.Description {
 
         override func render() -> NodeType {
             return ComponentNode(ViewComponent(), in: self, props: { (component: ViewComponent, hasKey: Bool) in
-                component.styles = mergeDictionaries(dict1: self.styles, dict2: self.containerStyles)
+                component.styles = self.containerStyles
             }).add(children: [
                 ComponentNode(LabelComponent(), in: self, props: { (component: LabelComponent, hasKey: Bool) in
                     component.styles = self.modeStyles
@@ -26,6 +26,7 @@ extension Components.Journey.Roadmap.Sections.PublicTransport.Description {
         let containerStyles: [String: Any] = [
             "alignItems": YGAlign.center,
             "flexDirection": YGFlexDirection.row,
+            "marginLeft" : 2
         ]
         let modeStyles: [String: Any] = [
             "fontSize": 15,

@@ -58,7 +58,7 @@ open class JourneySolutionRoadmapScreen: StylizedComponent<JourneySolutionRoadma
                             component.label = self.getDistanceLabel(network: network, mode: section.mode!, distance: sectionLength(paths: section.path!))
                         }
                         if index > 1 && self.state.journey!.sections![index - 1].type! == "waiting" {
-                            component.waitingSection = self.state.journey!.sections![index - 1]
+                            component.waitingTime = self.state.journey!.sections![index - 1].duration!
                         }
                     })
                 )

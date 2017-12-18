@@ -4,7 +4,7 @@ import NavitiaSDK
 
 extension Components.Journey.Roadmap.Sections {
     class WaitingComponent: ViewComponent {
-        var section: Section?
+        var waitingTime: Int32!
 
         override func render() -> NodeType {
             return ComponentNode(ViewComponent(), in: self, props: {(component: ViewComponent, hasKey: Bool) in
@@ -16,7 +16,7 @@ extension Components.Journey.Roadmap.Sections {
                 ComponentNode(IconComponent(), in: self, props: { (component: IconComponent, hasKey: Bool) in
                     component.name = "clock"
                     component.styles = [
-                        "color": getUIColorFromHexadecimal(hex: "666666"),
+                        "color": config.colors.gray,
                         "fontSize": 18,
                     ]
                 }),
@@ -31,7 +31,7 @@ extension Components.Journey.Roadmap.Sections {
                             bundle: self.bundle,
                             comment: "Action description"
                         )
-                        component.text = "\(action) \(durationText(bundle: self.bundle, seconds: self.section!.duration!, useFullFormat: true))"
+                        component.text = "\(action) \(durationText(bundle: self.bundle, seconds: self.waitingTime, useFullFormat: true))"
                     }),
                 ])
             ])

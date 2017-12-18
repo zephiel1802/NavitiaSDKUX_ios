@@ -10,7 +10,6 @@ extension Components.Journey.Roadmap.Sections {
         let DescriptionComponent:Components.Journey.Roadmap.Sections.Transfer.DescriptionComponent.Type = Components.Journey.Roadmap.Sections.Transfer.DescriptionComponent.self
 
         var section: Section?
-        var waitingSection: Section?
 
         override func render() -> NodeType {
             return ComponentNode(ViewComponent(), in: self).add(children: [

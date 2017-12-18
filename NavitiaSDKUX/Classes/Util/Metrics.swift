@@ -31,7 +31,7 @@ func getIsoDatetime(datetime: Date) -> String {
     return formatter.string(from: datetime)
 }
 
-func durationText(bundle: Bundle, seconds: Int32, useFullFormat: Bool) -> String {
+func durationText(bundle: Bundle, seconds: Int32, useFullFormat: Bool = false) -> String {
     if (seconds < 60) {
         return "< 1 " + NSLocalizedString("units.minute", bundle: bundle, comment: "Units minute")
     } else if (seconds < 120) {

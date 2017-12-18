@@ -22,8 +22,7 @@ open class LabelComponent: StylizedComponent<NilState> {
                     self.setLineHeight(lineHeight: self.styles["lineHeight"] as! Int, attributedText: self.attributedText!)
                 }
                 view.attributedText = self.attributedText
-            }
-            else {
+            } else {
                 view.text = self.text
             }
         }
