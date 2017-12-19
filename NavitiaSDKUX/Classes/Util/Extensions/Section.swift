@@ -15,13 +15,7 @@ extension Section {
         }
 
         return disruptions!.filter { disruption in
-            if (disruption.id != nil && linkIdsWithDisruption.contains(disruption.id!) && disruption.applicationPeriods != nil) {
-                return (disruption.applicationPeriods!.filter { period in
-                    return period.contains(date != nil ? date! : Date())
-                }.count > 0)
-            }
-
-            return false
+            return (disruption.id != nil && linkIdsWithDisruption.contains(disruption.id!) && disruption.applicationPeriods != nil)
         }
     }
 }
