@@ -6,7 +6,7 @@ class DisruptionBadgeComponent: ViewComponent {
 
     override func render() -> NodeType {
         var highestDisruptionLevel = Disruption.DisruptionLevel.none
-        if disruptions != nil {
+        if disruptions != nil && disruptions!.count > 0 {
             highestDisruptionLevel = Disruption.getHighestLevelFrom(disruptions: disruptions!)
         }
         
