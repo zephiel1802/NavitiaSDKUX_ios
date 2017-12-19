@@ -41,8 +41,7 @@ open class JourneySolutionRoadmapScreen: StylizedComponent<JourneySolutionRoadma
 
     func getSectionComponents() -> [NodeType] {
         var sectionComponents: [NodeType] = []
-        for (index, section) in self.state.journey!.sections!.enumerated()
-        {
+        for (index, section) in self.state.journey!.sections!.enumerated() {
             if section.type == "street_network" || section.type == "public_transport" {
                 sectionComponents.append(
                     ComponentNode(self.SectionComponent.init(), in: self, props: { (component: Components.Journey.Roadmap.SectionComponent, hasKey: Bool) in
@@ -105,9 +104,9 @@ open class JourneySolutionRoadmapScreen: StylizedComponent<JourneySolutionRoadma
 
     let screenHeaderStyle: [String: Any] = [
         "backgroundColor": config.colors.tertiary,
-        "paddingTop": 40
+        "paddingTop": 40,
     ]
     let journeySolutionCard: [String: Any] = [
-        "marginTop": -40
+        "marginTop": -40,
     ]
 }

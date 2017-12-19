@@ -45,7 +45,7 @@ extension Components.Journey.Roadmap.Sections {
         }
         
         let containerStyles: [String : Any] = [
-            "paddingVertical" : 12
+            "paddingVertical" : 12,
         ]
     }
 }

@@ -50,21 +50,17 @@ func durationText(bundle: Bundle, seconds: Int32, useFullFormat: Bool = false) -
             if hours > 1 {
                 if remainingMinutes > 1 {
                     return String(format:NSLocalizedString("units.hour.plural.and.minute.plural", bundle: bundle, comment: "Units hours and minutes"), hours, remainingMinutes)
-                }
-                else {
+                } else {
                     return String(format:NSLocalizedString("units.hour.plural.and.minute", bundle: bundle, comment: "Units hours and minute"), hours, remainingMinutes)
                 }
-            }
-            else {
+            } else {
                 if remainingMinutes > 1 {
                     return String(format:NSLocalizedString("units.hour.and.minute.plural", bundle: bundle, comment: "Units hour and minutes"), hours, remainingMinutes)
-                }
-                else {
+                } else {
                     return String(format:NSLocalizedString("units.hour.and.minute", bundle: bundle, comment: "Units hour and minute"), hours, remainingMinutes)
                 }
             }
-        }
-        else {
+        } else {
             return String(hours) + NSLocalizedString("units.hour.abbr", bundle: bundle, comment: "Units hour abbr") + minutes
         }
     }

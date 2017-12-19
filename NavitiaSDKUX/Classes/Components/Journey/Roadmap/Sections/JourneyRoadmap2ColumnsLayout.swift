@@ -43,14 +43,14 @@ extension Components.Journey.Roadmap.Sections.PublicTransport {
         }
         
         let leftComponentStyles: [String: Any] = [
-                "width": 50,
-            ]
+            "width": 50,
+        ]
         let rightComponentStyles: [String: Any] = [
-                "flexGrow": 1,
-                "flexShrink": 1
-            ]
+            "flexGrow": 1,
+            "flexShrink": 1,
+        ]
         let containerStyles: [String: Any] = [
-                "flexDirection": YGFlexDirection.row,
-            ]
+            "flexDirection": YGFlexDirection.row,
+        ]
     }
 }

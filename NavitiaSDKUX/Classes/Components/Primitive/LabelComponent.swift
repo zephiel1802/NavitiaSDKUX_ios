@@ -59,8 +59,7 @@ open class LabelComponent: StylizedComponent<NilState> {
         self.sharedFont = UIFont.iconFontOfSize(name: name, size: self.sharedFont.pointSize)
     }
     
-    func setLineHeight(lineHeight: Int, attributedText: NSMutableAttributedString)
-    {
+    func setLineHeight(lineHeight: Int, attributedText: NSMutableAttributedString) {
         let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.lineSpacing = CGFloat(lineHeight)
         attributedText.addAttribute(NSParagraphStyleAttributeName, value: paragraphStyle, range: NSMakeRange(0, attributedText.length))

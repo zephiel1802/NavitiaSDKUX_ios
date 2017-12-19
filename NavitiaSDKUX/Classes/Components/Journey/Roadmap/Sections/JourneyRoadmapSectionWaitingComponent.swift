@@ -10,7 +10,7 @@ extension Components.Journey.Roadmap.Sections {
             return ComponentNode(ViewComponent(), in: self, props: {(component: ViewComponent, hasKey: Bool) in
                 component.styles = [
                     "flexDirection": YGFlexDirection.row,
-                    "marginTop": 12
+                    "marginTop": 12,
                 ]
             }).add(children: [
                 ComponentNode(IconComponent(), in: self, props: { (component: IconComponent, hasKey: Bool) in
@@ -23,7 +23,7 @@ extension Components.Journey.Roadmap.Sections {
                 ComponentNode(ViewComponent(), in: self, props: {(component: ViewComponent, hasKey: Bool) in
                     component.styles = [
                         "flexGrow": 1,
-                        "marginLeft": 3
+                        "marginLeft": 3,
                     ]
                 }).add(children: [
                     ComponentNode(TextComponent(), in: self, props: {(component: TextComponent, hasKey: Bool) in

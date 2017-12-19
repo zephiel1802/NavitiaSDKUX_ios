@@ -105,7 +105,7 @@ extension Components.Journey.Roadmap.Sections.PublicTransport.Description {
         ]
         let causeStyles: [String: Any] = [
             "fontSize": 12,
-            "fontWeight": "bold"
+            "fontWeight": "bold",
         ]
         let disruptionTextContainerStyles: [String: Any] = [
             "marginLeft": 18,
@@ -117,7 +117,6 @@ extension Components.Journey.Roadmap.Sections.PublicTransport.Description {
             "fontSize": 12,
             "numberOfLines": 0,
             "lineBreakMode": NSLineBreakMode.byWordWrapping,
-
         ]
         let disruptionPeriodContainerStyles: [String: Any] = [
             "marginLeft": 18,
@@ -128,7 +127,6 @@ extension Components.Journey.Roadmap.Sections.PublicTransport.Description {
             "fontWeight": "bold",
             "numberOfLines": 0,
             "lineBreakMode": NSLineBreakMode.byWordWrapping,
-    ]
-
+        ]
     }
 }

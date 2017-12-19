@@ -174,6 +174,6 @@ open class JourneySolutionsScreen: StylizedComponent<JourneySolutionsScreenState
     }
     
     let headerStyles: [String: Any] = [
-        "backgroundColor": config.colors.tertiary
+        "backgroundColor": config.colors.tertiary,
     ]
 }

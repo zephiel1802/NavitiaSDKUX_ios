@@ -79,15 +79,15 @@ extension Components.Journey.Roadmap.Sections {
         }
 
         let containerStyles: [String: Any] = [
-            "paddingVertical": 12
+            "paddingVertical": 12,
         ]
         
         let modeIconContainerStyles: [String: Any] = [
-            "paddingTop": 10
+            "paddingTop": 10,
         ]
         
         let stationListStyles: [String: Any] = [
-            "marginTop" : 30
+            "marginTop" : 30,
         ]
     }
 }

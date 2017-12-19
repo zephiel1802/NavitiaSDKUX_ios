@@ -26,7 +26,7 @@ extension Components.Journey.Roadmap.Sections.PublicTransport.Description {
         let containerStyles: [String: Any] = [
             "alignItems": YGAlign.center,
             "flexDirection": YGFlexDirection.row,
-            "marginLeft" : 2
+            "marginLeft" : 2,
         ]
         let modeStyles: [String: Any] = [
             "fontSize": 15,

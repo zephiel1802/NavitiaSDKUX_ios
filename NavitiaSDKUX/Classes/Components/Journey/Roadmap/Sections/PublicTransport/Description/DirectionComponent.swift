@@ -37,7 +37,7 @@ extension Components.Journey.Roadmap.Sections.PublicTransport.Description {
             ])
         }
         let containerStyles: [String: Any] = [
-            "flexDirection": YGFlexDirection.row
+            "flexDirection": YGFlexDirection.row,
         ]
         let iconStyles: [String: Any] = [
             "marginRight": 5,
@@ -46,7 +46,7 @@ extension Components.Journey.Roadmap.Sections.PublicTransport.Description {
         let textStyles: [String: Any] = [
             "fontSize": 15,
             "lineHeight": 6,
-            "numberOfLines": 0
+            "numberOfLines": 0,
         ]
     }
 }
