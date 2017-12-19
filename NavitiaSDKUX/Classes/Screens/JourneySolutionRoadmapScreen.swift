@@ -43,7 +43,9 @@ open class JourneySolutionRoadmapScreen: StylizedComponent<JourneySolutionRoadma
                 sectionComponents.append(
                     ComponentNode(self.SectionComponent.init(), in: self, props: { (component: Components.Journey.Roadmap.SectionComponent, hasKey: Bool) in
                         component.section = section
-                        component.disruptions = self.state.disruptions
+                        if (section != nil) {
+                            component.disruptions = section.getMatchingDisruptions(from: self.state.disruptions)
+                        }
                         if section.type == "transfer" {
                             component.destinationSection = self.state.journey?.sections?[sectionIndex + 1]
                         } else if section.type == "street_network" {

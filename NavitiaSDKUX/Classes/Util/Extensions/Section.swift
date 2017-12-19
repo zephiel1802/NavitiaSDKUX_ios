@@ -4,7 +4,7 @@ import NavitiaSDK
 
 extension Section {
     public func getMatchingDisruptions(from disruptions: [Disruption]?) -> [Disruption] {
-        if (disruptions == nil) {
+        if (disruptions == nil || self.displayInformations == nil || self.displayInformations!.links == nil) {
             return []
         }
 
