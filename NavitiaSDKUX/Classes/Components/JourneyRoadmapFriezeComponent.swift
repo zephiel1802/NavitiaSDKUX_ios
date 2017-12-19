@@ -33,7 +33,7 @@ class JourneyRoadmapFriezeComponent: ViewComponent {
         }.map { section -> NodeType in
             var sectionDisruptions: [Disruption] = []
             if section.type == "public_transport" {
-                sectionDisruptions = section.getMatchingDisruptions(from: self.disruptions, for: nil)
+                sectionDisruptions = section.getMatchingDisruptions(from: self.disruptions)
             }
             return ComponentNode(JourneySectionSummaryComponent(), in: self, props: { (component: JourneySectionSummaryComponent, hasKey: Bool) in
                 component.section = section

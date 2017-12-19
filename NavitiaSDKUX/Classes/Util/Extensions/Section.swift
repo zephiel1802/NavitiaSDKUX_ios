@@ -3,7 +3,7 @@ import Foundation
 import NavitiaSDK
 
 extension Section {
-    public func getMatchingDisruptions(from disruptions: [Disruption]?, for date: Date?) -> [Disruption] {
+    public func getMatchingDisruptions(from disruptions: [Disruption]?) -> [Disruption] {
         if (disruptions == nil) {
             return []
         }
