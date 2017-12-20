@@ -25,10 +25,7 @@ class SectionTests: XCTestCase {
     func testExtensionSectionWithValidDisruptionsAndIncludedDate() {
         let section: Section = journeysResponse!.journeys!.first!.sections![1]
 
-        let matchingDisruptions: [Disruption] = section.getMatchingDisruptions(
-            from: journeysResponse!.disruptions,
-            for: Date()
-        )
+        let matchingDisruptions: [Disruption] = section.getMatchingDisruptions(from: journeysResponse!.disruptions)
 
         XCTAssertEqual(matchingDisruptions.count, 1)
         XCTAssertEqual(matchingDisruptions[0].cause!, "Travaux")
@@ -41,7 +38,7 @@ class SectionTests: XCTestCase {
     func testExtensionSectionWithEmptyDisruptions() {
         let section: Section = journeysResponse!.journeys!.first!.sections![1]
 
-        let matchingDisruptions: [Disruption] = section.getMatchingDisruptions(from: [], for: Date())
+        let matchingDisruptions: [Disruption] = section.getMatchingDisruptions(from: [])
 
         XCTAssertEqual(matchingDisruptions.count, 0)
     }
@@ -49,32 +46,7 @@ class SectionTests: XCTestCase {
     func testExtensionSectionWithNilDisruptions() {
         let section: Section = journeysResponse!.journeys!.first!.sections![1]
 
-        let matchingDisruptions: [Disruption] = section.getMatchingDisruptions(
-            from: nil,
-            for: Date()
-        )
-
-        XCTAssertEqual(matchingDisruptions.count, 0)
-    }
-
-    func testExtensionSectionWithValidDisruptionsAndDateBefore() {
-        let section: Section = journeysResponse!.journeys!.first!.sections![1]
-
-        let matchingDisruptions: [Disruption] = section.getMatchingDisruptions(
-            from: journeysResponse!.disruptions,
-            for: Date.navitiaDateFormatter.date(from: "20160928T140500")
-        )
-
-        XCTAssertEqual(matchingDisruptions.count, 0)
-    }
-
-    func testExtensionSectionWithValidDisruptionsAndDateAfter() {
-        let section: Section = journeysResponse!.journeys!.first!.sections![1]
-
-        let matchingDisruptions: [Disruption] = section.getMatchingDisruptions(
-            from: journeysResponse!.disruptions,
-            for: Date.navitiaDateFormatter.date(from: "20180928T140500")
-        )
+        let matchingDisruptions: [Disruption] = section.getMatchingDisruptions(from: nil)
 
         XCTAssertEqual(matchingDisruptions.count, 0)
     }

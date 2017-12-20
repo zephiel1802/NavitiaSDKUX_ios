@@ -137,7 +137,7 @@ class DisruptionTests: XCTestCase {
             } (),
         ]
         
-        XCTAssertEqual(getHighestLevelFrom(disruptions: disruptions), Disruption.DisruptionLevel.blocking)
+        XCTAssertEqual(Disruption.getHighestLevelFrom(disruptions: disruptions), Disruption.DisruptionLevel.blocking)
     }
     
     func testHighestLevelIsNonBlocking() {
@@ -171,7 +171,7 @@ class DisruptionTests: XCTestCase {
             } (),
         ]
         
-        XCTAssertEqual(getHighestLevelFrom(disruptions: disruptions), Disruption.DisruptionLevel.nonblocking)
+        XCTAssertEqual(Disruption.getHighestLevelFrom(disruptions: disruptions), Disruption.DisruptionLevel.nonblocking)
     }
     
     func testHighestLevelIsInfo() {
@@ -205,6 +205,6 @@ class DisruptionTests: XCTestCase {
             } (),
         ]
         
-        XCTAssertEqual(getHighestLevelFrom(disruptions: disruptions), Disruption.DisruptionLevel.information)
+        XCTAssertEqual(Disruption.getHighestLevelFrom(disruptions: disruptions), Disruption.DisruptionLevel.information)
     }
 }
