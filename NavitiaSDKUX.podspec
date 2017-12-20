@@ -17,13 +17,13 @@ An awesome framework to offer cool transport stuff to your users
 
   s.homepage         = 'https://github.com/CanalTP/NavitiaSDKUX_ios'
   s.license          = { :type => 'GPL-3', :file => 'LICENSE' }
-  s.authors           = { 'Kisio Digital' => 'contact@kisio.org' }
+  s.authors          = { 'Kisio Digital' => 'contact@kisio.org' }
   s.source           = { :git => 'https://github.com/CanalTP/NavitiaSDK_ios.git', :tag => s.version.to_s }
 
   s.ios.deployment_target = '10.0'
 
-  s.source_files = 'NavitiaSDKUX/Classes/**/*'
-  s.resources = 'NavitiaSDKUX/Assets/**/*'
+  s.source_files = 'NavitiaSDKUX/Classes/**/*.swift'
+  s.resources = 'NavitiaSDKUX/Assets/**/*.*'
 
   s.dependency 'Render', '4.9.1'
   s.dependency 'NavitiaSDK', '~> 1.0'
