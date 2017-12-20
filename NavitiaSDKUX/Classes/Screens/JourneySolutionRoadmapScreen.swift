@@ -14,6 +14,10 @@ open class JourneySolutionRoadmapScreen: StylizedComponent<JourneySolutionRoadma
     let SectionComponent: Components.Journey.Roadmap.SectionComponent.Type = Components.Journey.Roadmap.SectionComponent.self
     var navigationController: UINavigationController?
 
+    open override func componentDidMount() {
+        self.update()
+    }
+    
     override open func render() -> NodeType {
         return ComponentNode(ScreenComponent(), in: self).add(children: [
             ComponentNode(ScreenHeaderComponent(), in: self, props: { (component: ScreenHeaderComponent, hasKey: Bool) in
