@@ -12,7 +12,6 @@ extension Components.Journey.Roadmap.Sections.PublicTransport.Description {
                 component.styles = self.styles
             }).add(children: disruptions!.map { disruption -> NodeType in
                 var disruptionBlocks: [NodeType] = []
-
                 disruptionBlocks.append(
                     ComponentNode(ViewComponent(), in: self, props: { (component: ViewComponent, hasKey: Bool) in
                         component.styles = self.disruptionTitleStyles
@@ -91,26 +90,26 @@ extension Components.Journey.Roadmap.Sections.PublicTransport.Description {
         }
 
         let containerStyles: [String: Any] = [
-            "marginTop": 26,
+            "marginTop": 10,
         ]
         let disruptionTitleStyles: [String: Any] = [
             "alignItems": YGAlign.center,
             "flexDirection": YGFlexDirection.row,
         ]
         var iconStyles: [String: Any] = [
-            "fontSize": 14,
+            "fontSize": 18,
         ]
         let containerCauseStyles: [String: Any] = [
-            "marginLeft": 4,
+            "marginLeft": 3,
             "alignItems": YGAlign.center,
         ]
         let causeStyles: [String: Any] = [
             "fontSize": 12,
-            "fontWeight": "bold"
+            "fontWeight": "bold",
         ]
         let disruptionTextContainerStyles: [String: Any] = [
             "marginLeft": 18,
-            "marginTop": 13,
+            "marginTop": 8,
             "marginBottom": 6,
         ]
         let disruptionTextStyles: [String: Any] = [
@@ -118,7 +117,6 @@ extension Components.Journey.Roadmap.Sections.PublicTransport.Description {
             "fontSize": 12,
             "numberOfLines": 0,
             "lineBreakMode": NSLineBreakMode.byWordWrapping,
-
         ]
         let disruptionPeriodContainerStyles: [String: Any] = [
             "marginLeft": 18,
@@ -129,7 +127,6 @@ extension Components.Journey.Roadmap.Sections.PublicTransport.Description {
             "fontWeight": "bold",
             "numberOfLines": 0,
             "lineBreakMode": NSLineBreakMode.byWordWrapping,
-    ]
-
+        ]
     }
 }

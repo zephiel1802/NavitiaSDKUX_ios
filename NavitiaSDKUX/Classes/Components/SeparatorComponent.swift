@@ -19,6 +19,6 @@ class SeparatorComponent: ViewComponent {
     
     let lineStyles: [String: Any] = [
         "height": 1,
-        "backgroundColor": config.colors.secondary
+        "backgroundColor": config.colors.secondary,
     ]
 }

@@ -13,6 +13,10 @@ public struct JourneySolutionRoadmapState: StateType {
 open class JourneySolutionRoadmapScreen: StylizedComponent<JourneySolutionRoadmapState> {
     let SectionComponent: Components.Journey.Roadmap.SectionComponent.Type = Components.Journey.Roadmap.SectionComponent.self
     var navigationController: UINavigationController?
+    
+    open override func componentDidMount() {
+        self.update()
+    }
 
     override open func render() -> NodeType {
         return ComponentNode(ScreenComponent(), in: self).add(children: [
@@ -37,28 +41,27 @@ open class JourneySolutionRoadmapScreen: StylizedComponent<JourneySolutionRoadma
 
     func getSectionComponents() -> [NodeType] {
         var sectionComponents: [NodeType] = []
-        var sectionIndex: Int = 0
-        for section in self.state.journey!.sections! {
-            if section.type == "street_network" || section.type == "public_transport" || section.type == "waiting" {
+        for (index, section) in self.state.journey!.sections!.enumerated() {
+            if section.type == "street_network" || section.type == "public_transport" {
                 sectionComponents.append(
                     ComponentNode(self.SectionComponent.init(), in: self, props: { (component: Components.Journey.Roadmap.SectionComponent, hasKey: Bool) in
                         component.section = section
                         component.disruptions = self.state.disruptions
-                        if section.type == "transfer" {
-                            component.destinationSection = self.state.journey?.sections?[sectionIndex + 1]
-                        } else if section.type == "street_network" {
+                        if section.type == "street_network" {
                             var network: String = ""
-                            if section.from?.poi != nil {
+                            if section.from?.poi != nil && section.from?.poi?.properties?["network"] != nil {
                                 network = (section.from?.poi?.properties!["network"])!
-                                component.departureTime = self.state.journey!.sections![sectionIndex - 1].departureDateTime!
-                                component.arrivalTime = self.state.journey!.sections![sectionIndex + 1].arrivalDateTime!
+                                component.departureTime = self.state.journey!.sections![index - 1].departureDateTime!
+                                component.arrivalTime = self.state.journey!.sections![index + 1].arrivalDateTime!
                             }
                             component.label = self.getDistanceLabel(network: network, mode: section.mode!, distance: sectionLength(paths: section.path!))
+                        }
+                        if index > 1 && self.state.journey!.sections![index - 1].type! == "waiting" {
+                            component.waitingTime = self.state.journey!.sections![index - 1].duration!
                         }
                     })
                 )
             }
-            sectionIndex += 1
         }
         return sectionComponents
     }
@@ -101,9 +104,9 @@ open class JourneySolutionRoadmapScreen: StylizedComponent<JourneySolutionRoadma
 
     let screenHeaderStyle: [String: Any] = [
         "backgroundColor": config.colors.tertiary,
-        "paddingTop": 40
+        "paddingTop": 40,
     ]
     let journeySolutionCard: [String: Any] = [
-        "marginTop": -40
+        "marginTop": -40,
     ]
 }

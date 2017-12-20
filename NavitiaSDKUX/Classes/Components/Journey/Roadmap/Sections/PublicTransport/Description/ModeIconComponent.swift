@@ -20,7 +20,6 @@ extension Components.Journey.Roadmap.Sections.PublicTransport.Description {
         let modeContainerStyle: [String: Any] = [
             "flexGrow": 1,
             "alignItems": YGAlign.center,
-            "justifyContent": YGJustify.center,
         ]
         let modeIconStyle: [String: Any] = [
             "height": 28,

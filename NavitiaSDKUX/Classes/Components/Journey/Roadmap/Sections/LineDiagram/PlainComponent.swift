@@ -16,8 +16,8 @@ extension Components.Journey.Roadmap.Sections.LineDiagram {
         var lineDiagramStyle: [String: Any] = [
             "start": 58,
             "width": 4,
-            "top": 28,
-            "bottom": 28,
+            "top": 16,
+            "bottom": 16,
             "position": YGPositionType.absolute,
         ]
     }

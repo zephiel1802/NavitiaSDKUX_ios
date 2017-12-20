@@ -23,7 +23,7 @@ extension Components.Common {
         
         let nameStyles: [String: Any] = [
             "fontWeight": "bold",
-            "marginEnd": config.metrics.marginS
+            "marginEnd": config.metrics.marginS,
         ]
     }
 }

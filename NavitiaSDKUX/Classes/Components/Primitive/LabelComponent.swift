@@ -11,12 +11,20 @@ import Render
 
 open class LabelComponent: StylizedComponent<NilState> {
     var text: String = ""
+    var attributedText: NSMutableAttributedString?
     var sharedFont: UIFont = UIFont.systemFont(ofSize: 14)
     
     open override func render() -> NodeType {
         return Node<UILabel>() { view, layout, _ in
-            view.text = self.text
             self.applyLabelStyles(view: view, layout: layout)
+            if self.attributedText != nil {
+                if self.styles["lineHeight"] != nil {
+                    self.setLineHeight(lineHeight: self.styles["lineHeight"] as! Int, attributedText: self.attributedText!)
+                }
+                view.attributedText = self.attributedText
+            } else {
+                view.text = self.text
+            }
         }
     }
     
@@ -49,5 +57,11 @@ open class LabelComponent: StylizedComponent<NilState> {
     
     func setFontFamily(name: String) {
         self.sharedFont = UIFont.iconFontOfSize(name: name, size: self.sharedFont.pointSize)
+    }
+    
+    func setLineHeight(lineHeight: Int, attributedText: NSMutableAttributedString) {
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.lineSpacing = CGFloat(lineHeight)
+        attributedText.addAttribute(NSParagraphStyleAttributeName, value: paragraphStyle, range: NSMakeRange(0, attributedText.length))
     }
 }

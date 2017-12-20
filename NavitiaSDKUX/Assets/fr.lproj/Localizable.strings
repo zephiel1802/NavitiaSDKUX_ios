@@ -22,6 +22,7 @@
 
 /* Navigation bar title for journey roadmap section */
 "component.JourneyRoadmapSectionPublicTransportDescriptionComponent.detailsHeaderTitle" = "Détails";
+"component.JourneyRoadmapSectionPublicTransportDescriptionComponent.stopsHeaderTitle" = "arrêts";
 
 /* StreetNetwork distance label for walking */
 "component.JourneyRoadmapSectionStreetNetworkDescriptionModeDistanceLabelComponent.mode.walking" = "%@ à pied";
@@ -39,7 +40,12 @@
 "journey.roadmap.action.walk" = "de marche";
 
 /* Journey roadmap waiting description */
-"journey.roadmap.action.wait" = "d'attente";
+"journey.roadmap.action.wait" = "Attendre";
+
+/* PublicTransport description */
+"component.JourneyRoadmapSectionPublicTransportComponent.DirectionComponent.take" = "Prendre le";
+"component.JourneyRoadmapSectionPublicTransportComponent.DirectionComponent.at" = "à";
+"component.JourneyRoadmapSectionPublicTransportComponent.DirectionComponent.direction" = "en direction de";
 
 /* PublicTransport disruption period */
 "component.JourneyRoadmapSectionPublicTransportDescriptionDisruptionDescriptionComponentPeriod.from" = "Du";
@@ -53,6 +59,10 @@
 "units.minute" = "minute";
 "units.minute.plural" = "minutes";
 "units.minute.abbr" = "min";
+"units.hour.and.minute" = "%d heure et %d minute";
+"units.hour.and.minute.plural" = "%d heure et %d minutes";
+"units.hour.plural.and.minute" = "%d heures et %d minute";
+"units.hour.plural.and.minute.plural" = "%d heures et %d minutes";
 "units.meter" = "mètre";
 "units.meter.plural" = "mètres";
 "units.meter.abbr" = "m";

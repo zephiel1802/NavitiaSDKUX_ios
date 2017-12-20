@@ -57,7 +57,7 @@ class AutocompleteInputComponent: ButtonComponent {
     ]
     let titleStyles: [String: Any] = [
         "fontWeight": "bold",
-        "color": config.colors.darkGray
+        "color": config.colors.darkGray,
     ]
     let placeholderStyles: [String: Any] = [
         "color": config.colors.gray,
