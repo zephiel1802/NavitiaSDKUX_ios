@@ -18,18 +18,4 @@ extension Period {
             return nil
         }
     }
-    
-    public func contains(_ date: Date) -> Bool {
-        if (self.beginDate != nil && self.endDate != nil && self.beginDate! <= date && date <= self.endDate!) {
-            return true
-        }
-        
-        return false
-    }
-    
-    public func contains(_ dateString: String) -> Bool {
-        let date: Date? = Date.navitiaDateFormatter.date(from: dateString)
-        
-        return date != nil ? self.contains(date!) : false
-    }
 }

@@ -18,6 +18,10 @@ open class JourneySolutionRoadmapScreen: StylizedComponent<JourneySolutionRoadma
         self.update()
     }
 
+    open override func componentDidMount() {
+        self.update()
+    }
+    
     override open func render() -> NodeType {
         return ComponentNode(ScreenComponent(), in: self).add(children: [
             ComponentNode(ScreenHeaderComponent(), in: self, props: { (component: ScreenHeaderComponent, hasKey: Bool) in
@@ -46,7 +50,9 @@ open class JourneySolutionRoadmapScreen: StylizedComponent<JourneySolutionRoadma
                 sectionComponents.append(
                     ComponentNode(self.SectionComponent.init(), in: self, props: { (component: Components.Journey.Roadmap.SectionComponent, hasKey: Bool) in
                         component.section = section
-                        component.disruptions = self.state.disruptions
+                        if (section != nil) {
+                            component.disruptions = section.getMatchingDisruptions(from: self.state.disruptions)
+                        }
                         if section.type == "street_network" {
                             var network: String = ""
                             if section.from?.poi != nil && section.from?.poi?.properties?["network"] != nil {

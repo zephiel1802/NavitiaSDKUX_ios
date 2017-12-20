@@ -3,8 +3,8 @@ import Foundation
 import NavitiaSDK
 
 extension Section {
-    public func getMatchingDisruptions(from disruptions: [Disruption]?, for date: Date?) -> [Disruption] {
-        if (disruptions == nil) {
+    public func getMatchingDisruptions(from disruptions: [Disruption]?) -> [Disruption] {
+        if (disruptions == nil || self.displayInformations == nil || self.displayInformations!.links == nil) {
             return []
         }
 
@@ -15,13 +15,7 @@ extension Section {
         }
 
         return disruptions!.filter { disruption in
-            if (disruption.id != nil && linkIdsWithDisruption.contains(disruption.id!) && disruption.applicationPeriods != nil) {
-                return (disruption.applicationPeriods!.filter { period in
-                    return period.contains(date != nil ? date! : Date())
-                }.count > 0)
-            }
-
-            return false
+            return (disruption.id != nil && linkIdsWithDisruption.contains(disruption.id!) && disruption.applicationPeriods != nil)
         }
     }
 }
