@@ -28,7 +28,6 @@ extension Components.Journey.Roadmap.Sections.PublicTransport {
                         }
                     }).add(children: [
                         ComponentNode(self.SectionRowLayoutComponent.init(), in: self, props: { (component: Components.Journey.Roadmap.Sections.SectionRowLayoutComponent, _) in
-                            component.styles = self.containerStyles
                             component.thirdComponent = ComponentNode(self.DetailButtonComponent.init(), in: self, props: { (component: Components.Journey.Roadmap.Sections.DetailButtonComponent, _) in
                                 component.color = getUIColorFromHexadecimal(hex: getHexadecimalColorWithFallback(self.section!.displayInformations?.color))
                                 component.collapsed = !self.state.visible
@@ -38,21 +37,25 @@ extension Components.Journey.Roadmap.Sections.PublicTransport {
                     ])
                 ])
                 if (self.state.visible) {
-                    detailsContainer.add(children: self.section!.stopDateTimes![1...(self.section!.stopDateTimes!.count - 2)].map { stopDateTime -> NodeType in
+                    let stationListContainer = ComponentNode(ViewComponent(), in: self, props: {(component: ViewComponent, _) in
+                        component.styles = self.stationListStyles
+                    })
+                    stationListContainer.add(children: self.section!.stopDateTimes![1...(self.section!.stopDateTimes!.count - 2)].map { stopDateTime -> NodeType in
                         return ComponentNode(self.IntermediateStopPointComponent.init(), in: self, props: { (component: Components.Journey.Roadmap.Sections.PublicTransport.Details.IntermediateStopPointComponent, hasKey: Bool) in
                             component.styles = self.styles
                             component.stopDateTime = stopDateTime
                             component.color = getUIColorFromHexadecimal(hex: getHexadecimalColorWithFallback(self.section!.displayInformations?.color))
                         })
                     })
+                    detailsContainer.add(children: [stationListContainer])
                 }
             }
 
             return detailsContainer
         }
         
-        let containerStyles: [String: Any] = [
-            "paddingBottom": 8,
+        let stationListStyles: [String: Any] = [
+            "marginTop": 15
         ]
     }
 }

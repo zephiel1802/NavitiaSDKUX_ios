@@ -37,10 +37,8 @@ extension Components.Journey.Roadmap.Sections {
 
         let detailsHeaderContainerStyle: [String: Any] = [
             "flexDirection": YGFlexDirection.row,
-            "backgroundColor": UIColor.white,
             "paddingHorizontal": 5,
-            "paddingTop": 0,
-            "paddingBottom": 5,
+            "alignItems": YGAlign.center
         ]
         let collapserWayIconStyle: [String: Any] = [
             "color": UIColor.lightGray,
