@@ -38,7 +38,7 @@ extension Components.Journey.Roadmap.Sections.PublicTransport {
                 ])
                 if (self.state.visible) {
                     let intermediateStopPointContainer = ComponentNode(ViewComponent(), in: self, props: {(component: ViewComponent, _) in
-                        component.styles = self.intermediateStopPointStyles
+                        component.styles = self.intermediateStopPointContainerStyles
                     })
                     intermediateStopPointContainer.add(children: self.section!.stopDateTimes![1...(self.section!.stopDateTimes!.count - 2)].map { stopDateTime -> NodeType in
                         return ComponentNode(self.IntermediateStopPointComponent.init(), in: self, props: { (component: Components.Journey.Roadmap.Sections.PublicTransport.Details.IntermediateStopPointComponent, hasKey: Bool) in
@@ -54,7 +54,7 @@ extension Components.Journey.Roadmap.Sections.PublicTransport {
             return detailsContainer
         }
         
-        let intermediateStopPointStyles: [String: Any] = [
+        let intermediateStopPointContainerStyles: [String: Any] = [
             "marginTop": 15
         ]
     }
