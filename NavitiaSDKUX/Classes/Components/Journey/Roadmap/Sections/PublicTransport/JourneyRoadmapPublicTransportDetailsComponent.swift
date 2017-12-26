@@ -37,24 +37,24 @@ extension Components.Journey.Roadmap.Sections.PublicTransport {
                     ])
                 ])
                 if (self.state.visible) {
-                    let stationListContainer = ComponentNode(ViewComponent(), in: self, props: {(component: ViewComponent, _) in
-                        component.styles = self.stationListStyles
+                    let intermediateStopPointContainer = ComponentNode(ViewComponent(), in: self, props: {(component: ViewComponent, _) in
+                        component.styles = self.intermediateStopPointStyles
                     })
-                    stationListContainer.add(children: self.section!.stopDateTimes![1...(self.section!.stopDateTimes!.count - 2)].map { stopDateTime -> NodeType in
+                    intermediateStopPointContainer.add(children: self.section!.stopDateTimes![1...(self.section!.stopDateTimes!.count - 2)].map { stopDateTime -> NodeType in
                         return ComponentNode(self.IntermediateStopPointComponent.init(), in: self, props: { (component: Components.Journey.Roadmap.Sections.PublicTransport.Details.IntermediateStopPointComponent, hasKey: Bool) in
                             component.styles = self.styles
                             component.stopDateTime = stopDateTime
                             component.color = getUIColorFromHexadecimal(hex: getHexadecimalColorWithFallback(self.section!.displayInformations?.color))
                         })
                     })
-                    detailsContainer.add(children: [stationListContainer])
+                    detailsContainer.add(children: [intermediateStopPointContainer])
                 }
             }
 
             return detailsContainer
         }
         
-        let stationListStyles: [String: Any] = [
+        let intermediateStopPointStyles: [String: Any] = [
             "marginTop": 15
         ]
     }
