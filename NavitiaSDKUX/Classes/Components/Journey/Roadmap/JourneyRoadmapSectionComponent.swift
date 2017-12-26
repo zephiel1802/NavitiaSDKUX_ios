@@ -30,7 +30,7 @@ extension Components.Journey.Roadmap {
             case "public_transport":
                 return ComponentNode(PublicTransportComponent.init(), in: self, key: "\(String(describing: type(of: self)))_\(self.section!.type!)_\(self.section!.departureDateTime!)", props: { (component: Components.Journey.Roadmap.Sections.PublicTransportComponent, _) in
                     component.section = self.section
-                    component.disruptions = section.getMatchingDisruptions(from: self.disruptions, for: nil)
+                    component.disruptions = section.getMatchingDisruptions(from: self.disruptions)
                     if self.waitingTime != nil {
                         component.waitingTime = self.waitingTime!
                     }

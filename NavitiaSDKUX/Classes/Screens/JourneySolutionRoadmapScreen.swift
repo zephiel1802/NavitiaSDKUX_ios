@@ -17,10 +17,6 @@ open class JourneySolutionRoadmapScreen: StylizedComponent<JourneySolutionRoadma
     open override func componentDidMount() {
         self.update()
     }
-
-    open override func componentDidMount() {
-        self.update()
-    }
     
     override open func render() -> NodeType {
         return ComponentNode(ScreenComponent(), in: self).add(children: [
