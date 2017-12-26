@@ -24,6 +24,7 @@ extension Components.Journey.Roadmap.Sections.StreetNetwork {
         }
         
         let containerStyles: [String: Any] = [
+            "alignItems": YGAlign.center,
             "paddingHorizontal": 4,
             "paddingVertical": 24,
         ]
