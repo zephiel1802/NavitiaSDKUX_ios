@@ -16,6 +16,11 @@ open class JourneySolutionRoadmapScreen: StylizedComponent<JourneySolutionRoadma
     
     open override func componentDidMount() {
         self.update()
+        for childComponentView in self.childrenComponent.enumerated() {
+            if let mapViewComponent = childComponentView.element.value as? JourneyMapViewComponent {
+                mapViewComponent.componentDidMount()
+            }
+        }
     }
     
     override open func render() -> NodeType {
@@ -24,16 +29,22 @@ open class JourneySolutionRoadmapScreen: StylizedComponent<JourneySolutionRoadma
                 component.navigationController = self.navigationController
                 component.styles = self.screenHeaderStyle
             }),
-            ComponentNode(ContainerComponent(), in: self, props: { (component: ContainerComponent, hasKey: Bool) in
-                component.styles = self.journeySolutionCard
-            }).add(children: [
-                ComponentNode(JourneySolutionComponent(), in: self, props: { (component: JourneySolutionComponent, hasKey: Bool) in
-                    component.journey = self.state.journey!
-                    component.disruptions = self.state.disruptions
-                    component.isTouchable = false
+            Node<UIView>() { view, layout, size in
+                layout.height = 0.4 * size.height
+            }.add(children: [
+                ComponentNode(JourneyMapViewComponent(), in: self, props: { (component: JourneyMapViewComponent, hasKey: Bool) in
+                    component.styles = self.mapViewStyles
+                    component.journey = self.state.journey
                 })
             ]),
             ComponentNode(ScrollViewComponent(), in: self).add(children: [
+                ComponentNode(ContainerComponent(), in: self).add(children: [
+                    ComponentNode(JourneySolutionComponent(), in: self, props: { (component: JourneySolutionComponent, hasKey: Bool) in
+                        component.journey = self.state.journey!
+                        component.disruptions = self.state.disruptions
+                        component.isTouchable = false
+                    })
+                ]),
                 ComponentNode(ListViewComponent(), in: self).add(children: getSectionComponents())
             ])
         ])
@@ -46,9 +57,7 @@ open class JourneySolutionRoadmapScreen: StylizedComponent<JourneySolutionRoadma
                 sectionComponents.append(
                     ComponentNode(self.SectionComponent.init(), in: self, props: { (component: Components.Journey.Roadmap.SectionComponent, hasKey: Bool) in
                         component.section = section
-                        if (section != nil) {
-                            component.disruptions = section.getMatchingDisruptions(from: self.state.disruptions)
-                        }
+                        component.disruptions = section.getMatchingDisruptions(from: self.state.disruptions)
                         if section.type == "street_network" {
                             var network: String = ""
                             if section.from?.poi != nil && section.from?.poi?.properties?["network"] != nil {
@@ -106,9 +115,9 @@ open class JourneySolutionRoadmapScreen: StylizedComponent<JourneySolutionRoadma
 
     let screenHeaderStyle: [String: Any] = [
         "backgroundColor": config.colors.tertiary,
-        "paddingTop": 40,
+        "height": 20,
     ]
-    let journeySolutionCard: [String: Any] = [
-        "marginTop": -40,
+    let mapViewStyles: [String: Any] = [
+        "flexGrow": 1,
     ]
 }
