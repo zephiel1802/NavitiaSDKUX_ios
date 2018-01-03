@@ -46,8 +46,8 @@ public struct Configuration {
         let gray = UIColor(red: 0.5, green: 0.5, blue: 0.5, alpha: 1.0)
         let darkGray = UIColor(red:0.25, green:0.25, blue:0.25, alpha:1.0)
         let darkerGray = UIColor(red:0.12, green:0.12, blue:0.12, alpha:1.0)
-        public var origin = UIColor(red:0.22, green:0.74, blue:0.43, alpha:1.0)
-        public var destination = UIColor(red:0.95, green:0.63, blue:0.08, alpha:1.0)
+        public var origin = UIColor(red:0, green:0.73, blue:0.46, alpha:1.0)
+        public var destination = UIColor(red:0.69, green:0.01, blue:0.33, alpha:1.0)
     }
     
     let iconFontCodes:[String: String] = [
