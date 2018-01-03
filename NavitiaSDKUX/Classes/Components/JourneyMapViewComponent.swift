@@ -24,28 +24,28 @@ class JourneyMapViewComponent: StylizedComponent<NilState>, MKMapViewDelegate {
     }
     
     override func componentDidMount() {
-        let journeyPathOverlays = self.getJourneyPathOverlays(self.renderedMapView!)
+        let journeyPathOverlays = self.getJourneyPathOverlays(cameraAltitude: self.renderedMapView!.camera.altitude)
         let journeyPolyline = journeyPathOverlays["journey_polyline"] as! MKPolyline
         let sectionsPolylines = journeyPathOverlays["sections_polylines"] as! [MKPolyline]
         self.intermediatePointsCircles = journeyPathOverlays["intermediate_circles"] as! [MKCircle]
         self.renderedMapView!.addOverlays(sectionsPolylines)
         self.renderedMapView!.addOverlays(self.intermediatePointsCircles)
         
-        let sourceMarker = MKPointAnnotation()
-        sourceMarker.coordinate = self.getJourneyDepartureCoordinates()
-        sourceMarker.title = NSLocalizedString("component.JourneyMapViewComponent.departure", bundle: self.bundle, comment: "Departure annotation")
-        sourceMarker.subtitle = "Departure"
-        let destinationMarker = MKPointAnnotation()
-        destinationMarker.coordinate = self.getJourneyArrivalCoordinates()
-        destinationMarker.title = NSLocalizedString("component.JourneyMapViewComponent.arrival", bundle: self.bundle, comment: "Arrival annotation")
-        destinationMarker.subtitle = "Arrival"
-        self.renderedMapView!.addAnnotation(sourceMarker)
-        self.renderedMapView!.addAnnotation(destinationMarker)
+        let departureAnnotation = PlaceAnnotation()
+        departureAnnotation.coordinate = self.getJourneyDepartureCoordinates()
+        departureAnnotation.title = NSLocalizedString("component.JourneyMapViewComponent.departure", bundle: self.bundle, comment: "Departure annotation")
+        departureAnnotation.annotationType = .Departure
+        let arrivalAnnotation = PlaceAnnotation()
+        arrivalAnnotation.coordinate = self.getJourneyArrivalCoordinates()
+        arrivalAnnotation.title = NSLocalizedString("component.JourneyMapViewComponent.arrival", bundle: self.bundle, comment: "Arrival annotation")
+        arrivalAnnotation.annotationType = .Arrival
+        self.renderedMapView!.addAnnotation(departureAnnotation)
+        self.renderedMapView!.addAnnotation(arrivalAnnotation)
         
         self.zoomToPolyline(targetPolyline: journeyPolyline, animated: false)
     }
     
-    private func getJourneyPathOverlays(_ mapView: MKMapView) -> [String: Any] {
+    private func getJourneyPathOverlays(cameraAltitude: CLLocationDistance) -> [String: Any] {
         var journeyPolylineCoordinates = [CLLocationCoordinate2D]()
         var sectionsPolylines = [MKPolyline]()
         var intermediatePointsCircles = [MKCircle]()
@@ -58,7 +58,7 @@ class JourneyMapViewComponent: StylizedComponent<NilState>, MKMapViewDelegate {
                 }
                 let sectionPolyline = MKPolyline(coordinates: sectionPolylineCoordinates, count: sectionPolylineCoordinates.count)
                 sectionsPolylines.append(sectionPolyline)
-                let intermediatePointCircle = MKCircle(center: sectionPolylineCoordinates[sectionPolylineCoordinates.count - 1], radius: self.getCircleRadiusDependingOnCurrentCameraAltitude(cameraAltitude: mapView.camera.altitude))
+                let intermediatePointCircle = MKCircle(center: sectionPolylineCoordinates[sectionPolylineCoordinates.count - 1], radius: self.getCircleRadiusDependingOnCurrentCameraAltitude(cameraAltitude: cameraAltitude))
                 intermediatePointsCircles.append(intermediatePointCircle)
                 journeyPolylineCoordinates.append(contentsOf: sectionPolylineCoordinates)
             }
@@ -139,16 +139,16 @@ class JourneyMapViewComponent: StylizedComponent<NilState>, MKMapViewDelegate {
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         let annotationIdentifier = "annotationViewIdentifier"
         var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: annotationIdentifier)
-        if annotationView == nil {
+        if annotationView == nil, let placeAnnotation = annotation as? PlaceAnnotation {
             let annotationPin = UILabel(frame: CGRect(x: 28, y: 27, width: 26, height: 26))
-            annotationPin.textColor = annotation.subtitle! == "Departure" ? config.colors.origin : config.colors.destination
+            annotationPin.textColor = placeAnnotation.annotationType == .Departure ? config.colors.origin : config.colors.destination
             annotationPin.text = String.fontString(name: "location-pin")
             annotationPin.font = UIFont.iconFontOfSize(name: "SDKIcons", size: 26)
             
             let annotationLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 80, height: 25))
             annotationLabel.backgroundColor = .black
             annotationLabel.textColor = .white
-            annotationLabel.text = annotation.title!
+            annotationLabel.text = placeAnnotation.title!
             annotationLabel.font = UIFont(descriptor: annotationLabel.font.fontDescriptor, size: 14)
             annotationLabel.textAlignment = NSTextAlignment.center
             annotationLabel.alpha = 0.8
@@ -166,4 +166,12 @@ class JourneyMapViewComponent: StylizedComponent<NilState>, MKMapViewDelegate {
         
         return annotationView
     }
+}
+
+class PlaceAnnotation : MKPointAnnotation {
+    enum AnnotationType {
+        case Departure
+        case Arrival
+    }
+    var annotationType: AnnotationType = .Departure
 }
