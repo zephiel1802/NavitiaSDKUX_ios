@@ -1,5 +1,5 @@
 //
-//  FormComponent.swift
+//  ListRow.swift
 //  RenderTest
 //
 //  Created by Thomas Noury on 26/07/2017.
@@ -9,16 +9,20 @@
 import Foundation
 import Render
 
-class FormComponent: ViewComponent {
+class CardComponent: ViewComponent {
     override func render() -> NodeType {
-        let computedStyles: [String: Any] = mergeDictionaries(dict1: formStyles, dict2: self.styles)
+        let computedStyles = mergeDictionaries(dict1: self.defaultStyles, dict2: self.styles)
         return ComponentNode(ViewComponent(), in: self, props: {(component: ViewComponent, _) in
             component.styles = computedStyles
         })
     }
     
-    let formStyles: [String: Any] = [
-        "backgroundColor": config.colors.white,
+    let defaultStyles: [String: Any] = [
+        "backgroundColor": UIColor.white,
         "borderRadius": config.metrics.radius,
+        "shadowRadius": 2.0,
+        "shadowOpacity": 0.12,
+        "shadowOffset": [0, 0],
+        "shadowColor": UIColor.black,
     ]
 }

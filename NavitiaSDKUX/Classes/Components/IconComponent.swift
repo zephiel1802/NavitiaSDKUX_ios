@@ -14,7 +14,7 @@ class IconComponent: LabelComponent {
     
     override func render() -> NodeType {
         let computedStyles = mergeDictionaries(dict1: iconStyles, dict2: self.styles)
-        return ComponentNode(LabelComponent(), in: self, props: {(component, hasKey: Bool) in
+        return ComponentNode(LabelComponent(), in: self, props: {(component: LabelComponent, _) in
             component.text = String.fontString(name: self.name)
             component.styles = computedStyles
         })
