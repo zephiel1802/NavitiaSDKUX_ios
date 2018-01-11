@@ -24,11 +24,9 @@ class JourneyMapViewComponent: StylizedComponent<NilState>, MKMapViewDelegate {
     }
     
     override func componentDidMount() {
-        let journeyPathOverlays = self.getJourneyPathOverlays(cameraAltitude: self.renderedMapView!.camera.altitude)
-        let journeyPolyline = journeyPathOverlays["journey_polyline"] as! MKPolyline
-        let sectionsPolylines = journeyPathOverlays["sections_polylines"] as! [MKPolyline]
-        self.intermediatePointsCircles = journeyPathOverlays["intermediate_circles"] as! [MKCircle]
-        self.renderedMapView!.addOverlays(sectionsPolylines)
+        let journeyPathOverlays = JourneyPathOverlays(journey: self.journey!, intermediatePointCircleRadius: self.getCircleRadiusDependingOnCurrentCameraAltitude(cameraAltitude: self.renderedMapView!.camera.altitude))
+        self.renderedMapView!.addOverlays(journeyPathOverlays.sectionsPolylines)
+        self.intermediatePointsCircles = journeyPathOverlays.intermediatesPointsCircles
         self.renderedMapView!.addOverlays(self.intermediatePointsCircles)
         
         let departureAnnotation = PlaceAnnotation()
@@ -42,34 +40,7 @@ class JourneyMapViewComponent: StylizedComponent<NilState>, MKMapViewDelegate {
         self.renderedMapView!.addAnnotation(departureAnnotation)
         self.renderedMapView!.addAnnotation(arrivalAnnotation)
         
-        self.zoomToPolyline(targetPolyline: journeyPolyline, animated: false)
-    }
-    
-    private func getJourneyPathOverlays(cameraAltitude: CLLocationDistance) -> [String: Any] {
-        var journeyPolylineCoordinates = [CLLocationCoordinate2D]()
-        var sectionsPolylines = [MKPolyline]()
-        var intermediatePointsCircles = [MKCircle]()
-        for (_ , section) in self.journey!.sections!.enumerated() {
-            if section.geojson != nil {
-                let sectionGeoJSONCoordinates = section.geojson?.coordinates
-                var sectionPolylineCoordinates = [CLLocationCoordinate2D]()
-                for (_, coordinate) in sectionGeoJSONCoordinates!.enumerated() {
-                    sectionPolylineCoordinates.append(CLLocationCoordinate2DMake(Double(coordinate[1]), Double(coordinate[0])))
-                }
-                let sectionPolyline = MKPolyline(coordinates: sectionPolylineCoordinates, count: sectionPolylineCoordinates.count)
-                sectionsPolylines.append(sectionPolyline)
-                let intermediatePointCircle = MKCircle(center: sectionPolylineCoordinates[sectionPolylineCoordinates.count - 1], radius: self.getCircleRadiusDependingOnCurrentCameraAltitude(cameraAltitude: cameraAltitude))
-                intermediatePointsCircles.append(intermediatePointCircle)
-                journeyPolylineCoordinates.append(contentsOf: sectionPolylineCoordinates)
-            }
-        }
-        intermediatePointsCircles.removeLast()
-        
-        var pathOverlays = [String: Any]()
-        pathOverlays["journey_polyline"] = MKPolyline(coordinates: journeyPolylineCoordinates, count: journeyPolylineCoordinates.count)
-        pathOverlays["sections_polylines"] = sectionsPolylines
-        pathOverlays["intermediate_circles"] = intermediatePointsCircles
-        return pathOverlays
+        self.zoomToPolyline(targetPolyline: journeyPathOverlays.journeyPolyline, animated: false)
     }
     
     private func getJourneyDepartureCoordinates() -> CLLocationCoordinate2D {
@@ -121,10 +92,22 @@ class JourneyMapViewComponent: StylizedComponent<NilState>, MKMapViewDelegate {
     }
     
     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
-        if let polyline = overlay as? MKPolyline {
-            let polylineRenderer = MKPolylineRenderer(polyline: polyline)
-            polylineRenderer.strokeColor = UIColor.black
-            polylineRenderer.lineWidth = 3
+        if let sectionPolyline = overlay as? SectionPolyline {
+            let polylineRenderer = MKPolylineRenderer(polyline: sectionPolyline)
+            if self.journey?.sections?[sectionPolyline.sectionIndex!].type == "public_transport" {
+                polylineRenderer.lineWidth = 7
+                polylineRenderer.strokeColor = getUIColorFromHexadecimal(hex: getHexadecimalColorWithFallback(self.journey?.sections?[sectionPolyline.sectionIndex!].displayInformations?.color))
+            } else if self.journey?.sections?[sectionPolyline.sectionIndex!].type == "street_network" {
+                polylineRenderer.strokeColor = config.colors.gray
+                polylineRenderer.lineWidth = 4
+                if self.journey?.sections?[sectionPolyline.sectionIndex!].mode! == "walking" {
+                    polylineRenderer.lineDashPattern = [0.01, NSNumber(value: Float(2 * polylineRenderer.lineWidth))]
+                    polylineRenderer.lineCap = CGLineCap.round
+                }
+            } else {
+                polylineRenderer.lineWidth = 4
+                polylineRenderer.strokeColor = UIColor.black
+            }
             return polylineRenderer
         } else if let circle = overlay as? MKCircle {
             let circleRenderer = MKCircleRenderer(circle: circle)
@@ -152,8 +135,6 @@ class JourneyMapViewComponent: StylizedComponent<NilState>, MKMapViewDelegate {
             annotationLabel.font = UIFont(descriptor: annotationLabel.font.fontDescriptor, size: 14)
             annotationLabel.textAlignment = NSTextAlignment.center
             annotationLabel.alpha = 0.8
-            annotationLabel.layer.cornerRadius = 5
-            annotationLabel.layer.masksToBounds = true
             
             annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: annotationIdentifier)
             annotationView?.addSubview(annotationPin)
@@ -168,10 +149,46 @@ class JourneyMapViewComponent: StylizedComponent<NilState>, MKMapViewDelegate {
     }
 }
 
+class JourneyPathOverlays {
+    var journeyPolyline: MKPolyline
+    var sectionsPolylines: [MKPolyline]
+    var intermediatesPointsCircles: [MKCircle]
+    init(journey: Journey, intermediatePointCircleRadius: CLLocationDistance) {
+        var journeyPolylineCoordinates = [CLLocationCoordinate2D]()
+        self.sectionsPolylines = [MKPolyline]()
+        self.intermediatesPointsCircles = [MKCircle]()
+        for (index , section) in journey.sections!.enumerated() {
+            if section.geojson != nil {
+                let sectionGeoJSONCoordinates = section.geojson?.coordinates
+                var sectionPolylineCoordinates = [CLLocationCoordinate2D]()
+                for (_, coordinate) in sectionGeoJSONCoordinates!.enumerated() {
+                    sectionPolylineCoordinates.append(CLLocationCoordinate2DMake(Double(coordinate[1]), Double(coordinate[0])))
+                }
+                let sectionPolyline = SectionPolyline(coordinates: sectionPolylineCoordinates, count: sectionPolylineCoordinates.count, sectionIndex: index)
+                sectionsPolylines.append(sectionPolyline)
+                let intermediatePointCircle = MKCircle(center: sectionPolylineCoordinates[sectionPolylineCoordinates.count - 1], radius: intermediatePointCircleRadius)
+                self.intermediatesPointsCircles.append(intermediatePointCircle)
+                journeyPolylineCoordinates.append(contentsOf: sectionPolylineCoordinates)
+            }
+        }
+        self.intermediatesPointsCircles.removeLast()
+        self.journeyPolyline = MKPolyline(coordinates: journeyPolylineCoordinates, count: journeyPolylineCoordinates.count)
+    }
+}
+
 class PlaceAnnotation : MKPointAnnotation {
     enum AnnotationType {
         case Departure
         case Arrival
     }
     var annotationType: AnnotationType = .Departure
+}
+
+class SectionPolyline: MKPolyline {
+    var sectionIndex: Int?
+    
+    convenience init(coordinates: UnsafePointer<CLLocationCoordinate2D>, count: Int, sectionIndex: Int) {
+        self.init(coordinates: coordinates, count: count)
+        self.sectionIndex = sectionIndex
+    }
 }
