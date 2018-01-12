@@ -12,7 +12,7 @@ import Render
 class BoxComponent: ViewComponent {
     override func render() -> NodeType {
         let computedStyles: [String: Any] = self.styles
-        return ComponentNode(ViewComponent(), in: self, props: {(component, hasKey: Bool) in
+        return ComponentNode(ViewComponent(), in: self, props: {(component, _) in
             component.styles = computedStyles
         })
     }

@@ -11,6 +11,12 @@ public struct JourneySolutionsScreenState: StateType {
 }
 
 open class JourneySolutionsScreen: StylizedComponent<JourneySolutionsScreenState> {
+    let AlertComponent:Components.Journey.Results.AlertComponent.Type = Components.Journey.Results.AlertComponent.self
+    let DateTimeButtonComponent:Components.Journey.Results.DateTimeButtonComponent.Type = Components.Journey.Results.DateTimeButtonComponent.self
+    let JourneyFormComponent:Components.Journey.Results.JourneyFormComponent.Type = Components.Journey.Results.JourneyFormComponent.self
+    let JourneyLoadingComponent:Components.Journey.Results.JourneyLoadingComponent.Type = Components.Journey.Results.JourneyLoadingComponent.self
+    let JourneySolutionComponent: Components.Journey.Results.JourneySolutionComponent.Type = Components.Journey.Results.JourneySolutionComponent.self
+    
     var navitiaSDK: NavitiaSDK? = nil
     var navigationController: UINavigationController?
     
@@ -35,13 +41,13 @@ open class JourneySolutionsScreen: StylizedComponent<JourneySolutionsScreenState
             journeyComponents = self.getJourneyComponents(journeys: state.journeys!)
         } else {
             journeyComponents = Array(0..<4).map { _ in
-                ComponentNode(JourneySolutionLoadingComponent(), in: self)
+                ComponentNode(JourneyLoadingComponent.init(), in: self)
             }
         }
         
         var resultComponents: [NodeType] = []
         if state.error {
-            resultComponents = [ComponentNode(AlertComponent(), in: self, props: {(component, hasKey: Bool) in
+            resultComponents = [ComponentNode(AlertComponent.init(), in: self, props: {(component, _) in
                 component.text = NSLocalizedString("screen.JourneySolutionsScreen.error", bundle: self.bundle, comment: "No journeys")
             })]
         } else {
@@ -49,12 +55,12 @@ open class JourneySolutionsScreen: StylizedComponent<JourneySolutionsScreenState
         }
         
         return ComponentNode(ScreenComponent(), in: self).add(children: [
-            ComponentNode(ScreenHeaderComponent(), in: self, props: { (component, hasKey: Bool) in
+            ComponentNode(ScreenHeaderComponent(), in: self, props: { (component, _) in
                 component.navigationController = self.navigationController
                 component.styles = self.headerStyles
             }).add(children: [
                 ComponentNode(ContainerComponent(), in: self).add(children: [
-                    ComponentNode(JourneyFormComponent(), in: self, props: {(component, hasKey: Bool) in
+                    ComponentNode(JourneyFormComponent.init(), in: self, props: {(component, _) in
                         component.origin = self.state.parameters.originId
                         if (self.state.parameters.originLabel != nil && !self.state.parameters.originLabel!.isEmpty) {
                             component.origin = self.state.parameters.originLabel!
@@ -65,7 +71,7 @@ open class JourneySolutionsScreen: StylizedComponent<JourneySolutionsScreenState
                             component.destination = self.state.parameters.destinationLabel!
                         }
                     }),
-                    ComponentNode(DateTimeButtonComponent(), in: self, props: {(component: DateTimeButtonComponent, _) in
+                    ComponentNode(DateTimeButtonComponent.init(), in: self, props: {(component, _) in
                         if (self.state.parameters.datetime != nil) {
                             component.datetime = self.state.parameters.datetime
                         } else {
@@ -144,7 +150,7 @@ open class JourneySolutionsScreen: StylizedComponent<JourneySolutionsScreenState
         var results: [NodeType] = []
         var index: Int32 = 0
         for journey in journeys.journeys! {
-            results.append(ComponentNode(JourneySolutionComponent(), in: self, props: {(component: JourneySolutionComponent, hasKey: Bool) in
+            results.append(ComponentNode(JourneySolutionComponent.init(), in: self, props: {(component, _) in
                 component.journey = journey
                 component.disruptions = journeys.disruptions
                 component.navigationController = self.navigationController

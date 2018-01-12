@@ -14,15 +14,12 @@ class ContainerComponent: ViewComponent {
     
     override func render() -> NodeType {
         let computedStyles: [String: Any] = mergeDictionaries(dict1: smallStyles, dict2: self.styles)
-        return ComponentNode(ViewComponent(), in: self, props: {(component, hasKey: Bool) in
+        return ComponentNode(ViewComponent(), in: self, props: {(component, _) in
             component.styles = computedStyles
         })
     }
     
-    let smallStyles = [
-        "padding": 10,
-    ]
-    let standardStyles = [
-        "padding": 20,
+    let smallStyles: [String: Any] = [
+        "padding": config.metrics.margin,
     ]
 }

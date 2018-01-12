@@ -16,7 +16,7 @@ class ModeComponent: ViewComponent {
 
     override func render() -> NodeType {
         let computedStyles = mergeDictionaries(dict1: iconStyles, dict2: self.styles)
-        return ComponentNode(IconComponent(), in: self, props: {(component, hasKey: Bool) in
+        return ComponentNode(IconComponent(), in: self, props: {(component, _) in
             component.name = self.modes.getModeIcon(section: self.section!)
             component.styles = computedStyles
         })

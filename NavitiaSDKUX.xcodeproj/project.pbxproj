@@ -12,12 +12,63 @@
 		04210D1E1F73C2BF00761477 /* NavitiaSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04210D191F73C2BF00761477 /* NavitiaSDK.framework */; };
 		04210D1F1F73C2BF00761477 /* ObjectMapper.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04210D1A1F73C2BF00761477 /* ObjectMapper.framework */; };
 		04210D201F73C2BF00761477 /* Render.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04210D1B1F73C2BF00761477 /* Render.framework */; };
+		043E0B0320053C9A00AC9DFF /* BoxComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043E0AB620053C9A00AC9DFF /* BoxComponent.swift */; };
+		043E0B0420053C9A00AC9DFF /* CardComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043E0AB720053C9A00AC9DFF /* CardComponent.swift */; };
+		043E0B0520053C9A00AC9DFF /* ContainerComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043E0AB820053C9A00AC9DFF /* ContainerComponent.swift */; };
+		043E0B0620053C9A00AC9DFF /* FormComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043E0AB920053C9A00AC9DFF /* FormComponent.swift */; };
+		043E0B0720053C9A00AC9DFF /* IconComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043E0ABA20053C9A00AC9DFF /* IconComponent.swift */; };
+		043E0B0820053C9A00AC9DFF /* AlertComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043E0ABD20053C9A00AC9DFF /* AlertComponent.swift */; };
+		043E0B0920053C9A00AC9DFF /* DateTimeButtonComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043E0ABE20053C9A00AC9DFF /* DateTimeButtonComponent.swift */; };
+		043E0B0A20053C9A00AC9DFF /* AutocompleteInputPart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043E0AC020053C9A00AC9DFF /* AutocompleteInputPart.swift */; };
+		043E0B0B20053C9A00AC9DFF /* PlacePart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043E0AC120053C9A00AC9DFF /* PlacePart.swift */; };
+		043E0B0C20053C9A00AC9DFF /* JourneyFormComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043E0AC220053C9A00AC9DFF /* JourneyFormComponent.swift */; };
+		043E0B0D20053C9A00AC9DFF /* JourneyLoadingComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043E0AC320053C9A00AC9DFF /* JourneyLoadingComponent.swift */; };
+		043E0B0E20053C9A00AC9DFF /* JourneySolutionComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043E0AC420053C9A00AC9DFF /* JourneySolutionComponent.swift */; };
+		043E0B0F20053C9A00AC9DFF /* SeparatorPart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043E0AC720053C9A00AC9DFF /* SeparatorPart.swift */; };
+		043E0B1020053C9A00AC9DFF /* DurationPart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043E0AC920053C9A00AC9DFF /* DurationPart.swift */; };
+		043E0B1120053C9A00AC9DFF /* JourneyFriezePart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043E0ACA20053C9A00AC9DFF /* JourneyFriezePart.swift */; };
+		043E0B1220053C9A00AC9DFF /* JourneyRowPart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043E0ACB20053C9A00AC9DFF /* JourneyRowPart.swift */; };
+		043E0B1320053C9A00AC9DFF /* JourneySectionSegmentPart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043E0ACC20053C9A00AC9DFF /* JourneySectionSegmentPart.swift */; };
+		043E0B1420053C9A00AC9DFF /* JourneySectionSummaryPart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043E0ACD20053C9A00AC9DFF /* JourneySectionSummaryPart.swift */; };
+		043E0B1520053C9A00AC9DFF /* JourneyWalkingSummaryPart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043E0ACE20053C9A00AC9DFF /* JourneyWalkingSummaryPart.swift */; };
+		043E0B1620053C9A00AC9DFF /* JourneyRoadmapStepComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043E0AD020053C9A00AC9DFF /* JourneyRoadmapStepComponent.swift */; };
+		043E0B1720053C9A00AC9DFF /* JourneyRoadmap2ColumnsLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043E0AD220053C9A00AC9DFF /* JourneyRoadmap2ColumnsLayout.swift */; };
+		043E0B1820053C9A00AC9DFF /* JourneyRoadmap3ColumnsLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043E0AD320053C9A00AC9DFF /* JourneyRoadmap3ColumnsLayout.swift */; };
+		043E0B1920053C9A00AC9DFF /* ModeIconPart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043E0AD720053C9A00AC9DFF /* ModeIconPart.swift */; };
+		043E0B1A20053C9A00AC9DFF /* TimePart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043E0AD820053C9A00AC9DFF /* TimePart.swift */; };
+		043E0B1B20053C9A00AC9DFF /* PlaceStepComponentSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043E0AD920053C9A00AC9DFF /* PlaceStepComponentSpec.swift */; };
+		043E0B1C20053C9A00AC9DFF /* PublicTransportStepComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043E0ADD20053C9A00AC9DFF /* PublicTransportStepComponent.swift */; };
+		043E0B1D20053C9A00AC9DFF /* DetailButtonPart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043E0AE020053C9A00AC9DFF /* DetailButtonPart.swift */; };
+		043E0B1E20053C9A00AC9DFF /* IntermediateStopPointPart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043E0AE120053C9A00AC9DFF /* IntermediateStopPointPart.swift */; };
+		043E0B1F20053C9A00AC9DFF /* DirectionPart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043E0AE220053C9A00AC9DFF /* DirectionPart.swift */; };
+		043E0B2020053C9A00AC9DFF /* JourneyRoadmapPublicTransportDetailsPart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043E0AE320053C9A00AC9DFF /* JourneyRoadmapPublicTransportDetailsPart.swift */; };
+		043E0B2120053C9A00AC9DFF /* JourneyRoadmapPublicTransportDisruptionDescriptionPart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043E0AE420053C9A00AC9DFF /* JourneyRoadmapPublicTransportDisruptionDescriptionPart.swift */; };
+		043E0B2220053C9A00AC9DFF /* JourneyRoadmapStopPointPart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043E0AE520053C9A00AC9DFF /* JourneyRoadmapStopPointPart.swift */; };
+		043E0B2320053C9A00AC9DFF /* JourneyRoadmapWaitingComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043E0AE620053C9A00AC9DFF /* JourneyRoadmapWaitingComponent.swift */; };
+		043E0B2420053C9A00AC9DFF /* PlainComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043E0AE820053C9A00AC9DFF /* PlainComponent.swift */; };
+		043E0B2520053C9A00AC9DFF /* StopPointIconComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043E0AE920053C9A00AC9DFF /* StopPointIconComponent.swift */; };
+		043E0B2620053C9A00AC9DFF /* JourneyRoadmapStopPointLabelPart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043E0AEB20053C9A00AC9DFF /* JourneyRoadmapStopPointLabelPart.swift */; };
+		043E0B2720053C9A00AC9DFF /* SharedStepComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043E0AEC20053C9A00AC9DFF /* SharedStepComponent.swift */; };
+		043E0B2820053C9A00AC9DFF /* SimpleStepComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043E0AED20053C9A00AC9DFF /* SimpleStepComponent.swift */; };
+		043E0B2920053C9A00AC9DFF /* JourneyMapViewComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043E0AF220053C9A00AC9DFF /* JourneyMapViewComponent.swift */; };
+		043E0B2A20053C9A00AC9DFF /* LineCodeWithDisruptionStatusComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043E0AF320053C9A00AC9DFF /* LineCodeWithDisruptionStatusComponent.swift */; };
+		043E0B2B20053C9A00AC9DFF /* DisruptionBadgeComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043E0AF520053C9A00AC9DFF /* DisruptionBadgeComponent.swift */; };
+		043E0B2C20053C9A00AC9DFF /* LineCodeComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043E0AF620053C9A00AC9DFF /* LineCodeComponent.swift */; };
+		043E0B2D20053C9A00AC9DFF /* ListViewComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043E0AF720053C9A00AC9DFF /* ListViewComponent.swift */; };
+		043E0B2E20053C9A00AC9DFF /* ModeComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043E0AF820053C9A00AC9DFF /* ModeComponent.swift */; };
+		043E0B2F20053C9A00AC9DFF /* ActionComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043E0AFA20053C9A00AC9DFF /* ActionComponent.swift */; };
+		043E0B3020053C9A00AC9DFF /* ButtonComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043E0AFB20053C9A00AC9DFF /* ButtonComponent.swift */; };
+		043E0B3120053C9A00AC9DFF /* LabelComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043E0AFC20053C9A00AC9DFF /* LabelComponent.swift */; };
+		043E0B3220053C9A00AC9DFF /* ScreenComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043E0AFD20053C9A00AC9DFF /* ScreenComponent.swift */; };
+		043E0B3320053C9A00AC9DFF /* ScrollViewComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043E0AFE20053C9A00AC9DFF /* ScrollViewComponent.swift */; };
+		043E0B3420053C9A00AC9DFF /* StylizedComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043E0AFF20053C9A00AC9DFF /* StylizedComponent.swift */; };
+		043E0B3520053C9A00AC9DFF /* ViewComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043E0B0020053C9A00AC9DFF /* ViewComponent.swift */; };
+		043E0B3620053C9A00AC9DFF /* ScreenHeaderComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043E0B0120053C9A00AC9DFF /* ScreenHeaderComponent.swift */; };
+		043E0B3720053C9A00AC9DFF /* TextComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043E0B0220053C9A00AC9DFF /* TextComponent.swift */; };
 		048F332D1F9A427300FF33A2 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 048F332C1F9A427300FF33A2 /* Images.xcassets */; };
 		04E429991F72C593004B23A3 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 04E429571F72C593004B23A3 /* Localizable.strings */; };
 		04E4299A1F72C593004B23A3 /* Journey.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 04E4295A1F72C593004B23A3 /* Journey.storyboard */; };
 		04E4299B1F72C593004B23A3 /* SDKIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 04E4295B1F72C593004B23A3 /* SDKIcons.ttf */; };
-		3127A9241FF529F000799483 /* JourneyMapViewComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3127A9231FF529EF00799483 /* JourneyMapViewComponent.swift */; };
-		31E3A7481FE81EDD00E4AB9A /* JourneyRoadmap2ColumnsLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E3A7471FE81EDD00E4AB9A /* JourneyRoadmap2ColumnsLayout.swift */; };
 		A10BF21F1FE42B5900A73706 /* NavitiaSDKUX.h in Headers */ = {isa = PBXBuildFile; fileRef = A10BF21E1FE42B5900A73706 /* NavitiaSDKUX.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A18804661FE12C3C003AD92A /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = A18804041FE12C3C003AD92A /* Date.swift */; };
 		A18804671FE12C3C003AD92A /* Icons.swift in Sources */ = {isa = PBXBuildFile; fileRef = A18804051FE12C3C003AD92A /* Icons.swift */; };
@@ -32,64 +83,6 @@
 		A18804701FE12C3D003AD92A /* Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = A18804111FE12C3C003AD92A /* Configuration.swift */; };
 		A18804711FE12C3D003AD92A /* JourneySolutionRoadmapScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = A18804131FE12C3C003AD92A /* JourneySolutionRoadmapScreen.swift */; };
 		A18804721FE12C3D003AD92A /* JourneySolutionsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = A18804141FE12C3C003AD92A /* JourneySolutionsScreen.swift */; };
-		A18804731FE12C3D003AD92A /* DurationComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = A18804161FE12C3C003AD92A /* DurationComponent.swift */; };
-		A18804741FE12C3D003AD92A /* JourneySectionSummaryComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = A18804171FE12C3C003AD92A /* JourneySectionSummaryComponent.swift */; };
-		A18804751FE12C3D003AD92A /* ListRowComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = A18804181FE12C3C003AD92A /* ListRowComponent.swift */; };
-		A18804761FE12C3D003AD92A /* BoxComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = A18804191FE12C3C003AD92A /* BoxComponent.swift */; };
-		A18804771FE12C3D003AD92A /* ScrollViewComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = A188041B1FE12C3C003AD92A /* ScrollViewComponent.swift */; };
-		A18804781FE12C3D003AD92A /* StylizedComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = A188041C1FE12C3C003AD92A /* StylizedComponent.swift */; };
-		A18804791FE12C3D003AD92A /* ScreenComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = A188041D1FE12C3C003AD92A /* ScreenComponent.swift */; };
-		A188047A1FE12C3D003AD92A /* ButtonComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = A188041E1FE12C3C003AD92A /* ButtonComponent.swift */; };
-		A188047B1FE12C3D003AD92A /* ViewComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = A188041F1FE12C3C003AD92A /* ViewComponent.swift */; };
-		A188047C1FE12C3D003AD92A /* ActionComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = A18804201FE12C3C003AD92A /* ActionComponent.swift */; };
-		A188047D1FE12C3D003AD92A /* LabelComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = A18804211FE12C3C003AD92A /* LabelComponent.swift */; };
-		A188047E1FE12C3D003AD92A /* TextComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = A18804221FE12C3C003AD92A /* TextComponent.swift */; };
-		A188047F1FE12C3D003AD92A /* JourneySolutionRowComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = A18804231FE12C3C003AD92A /* JourneySolutionRowComponent.swift */; };
-		A18804801FE12C3D003AD92A /* DisruptionBadge.swift in Sources */ = {isa = PBXBuildFile; fileRef = A18804241FE12C3C003AD92A /* DisruptionBadge.swift */; };
-		A18804811FE12C3D003AD92A /* ListViewComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = A18804251FE12C3C003AD92A /* ListViewComponent.swift */; };
-		A18804821FE12C3D003AD92A /* StopPointIconComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = A188042A1FE12C3C003AD92A /* StopPointIconComponent.swift */; };
-		A18804831FE12C3D003AD92A /* DottedComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = A188042B1FE12C3C003AD92A /* DottedComponent.swift */; };
-		A18804841FE12C3D003AD92A /* PlainComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = A188042C1FE12C3C003AD92A /* PlainComponent.swift */; };
-		A18804851FE12C3D003AD92A /* JourneyRoadmapSectionRowLayoutComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = A188042D1FE12C3C003AD92A /* JourneyRoadmapSectionRowLayoutComponent.swift */; };
-		A18804861FE12C3D003AD92A /* JourneyRoadmapSectionStreetNetworkComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = A188042E1FE12C3C003AD92A /* JourneyRoadmapSectionStreetNetworkComponent.swift */; };
-		A18804871FE12C3D003AD92A /* JourneyRoadmapStopPointComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = A188042F1FE12C3C003AD92A /* JourneyRoadmapStopPointComponent.swift */; };
-		A18804881FE12C3D003AD92A /* JourneyRoadmapSectionLayoutComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = A18804301FE12C3C003AD92A /* JourneyRoadmapSectionLayoutComponent.swift */; };
-		A18804891FE12C3D003AD92A /* JourneyRoadmapPlaceComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = A18804321FE12C3C003AD92A /* JourneyRoadmapPlaceComponent.swift */; };
-		A188048A1FE12C3D003AD92A /* JourneyRoadmapTimeComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = A18804331FE12C3C003AD92A /* JourneyRoadmapTimeComponent.swift */; };
-		A188048B1FE12C3D003AD92A /* JourneyRoadmapSectionPublicTransportComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = A18804341FE12C3C003AD92A /* JourneyRoadmapSectionPublicTransportComponent.swift */; };
-		A188048C1FE12C3D003AD92A /* JourneyRoadmapTransferDescriptionComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = A18804361FE12C3C003AD92A /* JourneyRoadmapTransferDescriptionComponent.swift */; };
-		A188048D1FE12C3D003AD92A /* ModeDurationLabelComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = A18804381FE12C3C003AD92A /* ModeDurationLabelComponent.swift */; };
-		A188048E1FE12C3D003AD92A /* JourneyRoadmapSectionTransferComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = A18804391FE12C3C003AD92A /* JourneyRoadmapSectionTransferComponent.swift */; };
-		A188048F1FE12C3D003AD92A /* DetailButtonComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = A188043A1FE12C3C003AD92A /* DetailButtonComponent.swift */; };
-		A18804901FE12C3D003AD92A /* JourneyRoadmapPublicTransportDescriptionComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = A188043C1FE12C3C003AD92A /* JourneyRoadmapPublicTransportDescriptionComponent.swift */; };
-		A18804911FE12C3D003AD92A /* IntermediateStopPointComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = A188043E1FE12C3C003AD92A /* IntermediateStopPointComponent.swift */; };
-		A18804921FE12C3D003AD92A /* DirectionComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = A18804401FE12C3C003AD92A /* DirectionComponent.swift */; };
-		A18804931FE12C3D003AD92A /* ModeIconComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = A18804411FE12C3C003AD92A /* ModeIconComponent.swift */; };
-		A18804941FE12C3D003AD92A /* DisruptionDescriptionComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = A18804421FE12C3C003AD92A /* DisruptionDescriptionComponent.swift */; };
-		A18804951FE12C3D003AD92A /* ModeLineLabelComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = A18804431FE12C3C003AD92A /* ModeLineLabelComponent.swift */; };
-		A18804961FE12C3D003AD92A /* JourneyRoadmapPublicTransportDetailsComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = A18804441FE12C3C003AD92A /* JourneyRoadmapPublicTransportDetailsComponent.swift */; };
-		A18804971FE12C3D003AD92A /* JourneyRoadmapStreetNetworkDescriptionComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = A18804461FE12C3C003AD92A /* JourneyRoadmapStreetNetworkDescriptionComponent.swift */; };
-		A18804981FE12C3D003AD92A /* JourneyRoadmapSectionDefaultComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = A18804471FE12C3C003AD92A /* JourneyRoadmapSectionDefaultComponent.swift */; };
-		A18804991FE12C3D003AD92A /* JourneyRoadmapSectionWaitingComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = A18804481FE12C3C003AD92A /* JourneyRoadmapSectionWaitingComponent.swift */; };
-		A188049A1FE12C3D003AD92A /* JourneyRoadmapSectionComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = A18804491FE12C3C003AD92A /* JourneyRoadmapSectionComponent.swift */; };
-		A188049B1FE12C3D003AD92A /* JourneyRoadmapFriezeComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = A188044A1FE12C3C003AD92A /* JourneyRoadmapFriezeComponent.swift */; };
-		A188049C1FE12C3D003AD92A /* AutocompleteInputComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = A188044B1FE12C3C003AD92A /* AutocompleteInputComponent.swift */; };
-		A188049D1FE12C3D003AD92A /* ContainerComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = A188044C1FE12C3C003AD92A /* ContainerComponent.swift */; };
-		A188049E1FE12C3D003AD92A /* AlertComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = A188044D1FE12C3C003AD92A /* AlertComponent.swift */; };
-		A188049F1FE12C3D003AD92A /* FormComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = A188044E1FE12C3C003AD92A /* FormComponent.swift */; };
-		A18804A01FE12C3D003AD92A /* ScreenHeaderComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = A188044F1FE12C3C003AD92A /* ScreenHeaderComponent.swift */; };
-		A18804A11FE12C3D003AD92A /* JourneySectionSegmentComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = A18804501FE12C3C003AD92A /* JourneySectionSegmentComponent.swift */; };
-		A18804A21FE12C3D003AD92A /* DateTimeButtonComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = A18804511FE12C3C003AD92A /* DateTimeButtonComponent.swift */; };
-		A18804A31FE12C3D003AD92A /* JourneyFormComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = A18804521FE12C3C003AD92A /* JourneyFormComponent.swift */; };
-		A18804A41FE12C3D003AD92A /* LineCodeWithDisruptionStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = A18804531FE12C3C003AD92A /* LineCodeWithDisruptionStatus.swift */; };
-		A18804A51FE12C3D003AD92A /* ModeComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = A18804541FE12C3C003AD92A /* ModeComponent.swift */; };
-		A18804A61FE12C3D003AD92A /* IconComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = A18804551FE12C3C003AD92A /* IconComponent.swift */; };
-		A18804A71FE12C3D003AD92A /* JourneyWalkingSummaryComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = A18804561FE12C3C003AD92A /* JourneyWalkingSummaryComponent.swift */; };
-		A18804A81FE12C3D003AD92A /* SeparatorComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = A18804571FE12C3C003AD92A /* SeparatorComponent.swift */; };
-		A18804A91FE12C3D003AD92A /* PlaceComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = A18804581FE12C3C003AD92A /* PlaceComponent.swift */; };
-		A18804AA1FE12C3D003AD92A /* LineCodeComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = A18804591FE12C3C003AD92A /* LineCodeComponent.swift */; };
-		A18804AB1FE12C3D003AD92A /* JourneySolutionLoadingComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = A188045A1FE12C3C003AD92A /* JourneySolutionLoadingComponent.swift */; };
-		A18804AC1FE12C3D003AD92A /* JourneySolutionComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = A188045B1FE12C3C003AD92A /* JourneySolutionComponent.swift */; };
 		A18804AD1FE12C3D003AD92A /* Packages.swift in Sources */ = {isa = PBXBuildFile; fileRef = A188045C1FE12C3C003AD92A /* Packages.swift */; };
 		A18804AE1FE12C3D003AD92A /* Modes.swift in Sources */ = {isa = PBXBuildFile; fileRef = A188045E1FE12C3C003AD92A /* Modes.swift */; };
 		A18804AF1FE12C3D003AD92A /* SectionWay.swift in Sources */ = {isa = PBXBuildFile; fileRef = A188045F1FE12C3C003AD92A /* SectionWay.swift */; };
@@ -105,14 +98,65 @@
 		04210D191F73C2BF00761477 /* NavitiaSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NavitiaSDK.framework; path = Carthage/Build/iOS/NavitiaSDK.framework; sourceTree = "<group>"; };
 		04210D1A1F73C2BF00761477 /* ObjectMapper.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ObjectMapper.framework; path = Carthage/Build/iOS/ObjectMapper.framework; sourceTree = "<group>"; };
 		04210D1B1F73C2BF00761477 /* Render.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Render.framework; path = Carthage/Build/iOS/Render.framework; sourceTree = "<group>"; };
+		043E0AB620053C9A00AC9DFF /* BoxComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BoxComponent.swift; sourceTree = "<group>"; };
+		043E0AB720053C9A00AC9DFF /* CardComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardComponent.swift; sourceTree = "<group>"; };
+		043E0AB820053C9A00AC9DFF /* ContainerComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContainerComponent.swift; sourceTree = "<group>"; };
+		043E0AB920053C9A00AC9DFF /* FormComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FormComponent.swift; sourceTree = "<group>"; };
+		043E0ABA20053C9A00AC9DFF /* IconComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IconComponent.swift; sourceTree = "<group>"; };
+		043E0ABD20053C9A00AC9DFF /* AlertComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertComponent.swift; sourceTree = "<group>"; };
+		043E0ABE20053C9A00AC9DFF /* DateTimeButtonComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateTimeButtonComponent.swift; sourceTree = "<group>"; };
+		043E0AC020053C9A00AC9DFF /* AutocompleteInputPart.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AutocompleteInputPart.swift; sourceTree = "<group>"; };
+		043E0AC120053C9A00AC9DFF /* PlacePart.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlacePart.swift; sourceTree = "<group>"; };
+		043E0AC220053C9A00AC9DFF /* JourneyFormComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JourneyFormComponent.swift; sourceTree = "<group>"; };
+		043E0AC320053C9A00AC9DFF /* JourneyLoadingComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JourneyLoadingComponent.swift; sourceTree = "<group>"; };
+		043E0AC420053C9A00AC9DFF /* JourneySolutionComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JourneySolutionComponent.swift; sourceTree = "<group>"; };
+		043E0AC720053C9A00AC9DFF /* SeparatorPart.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SeparatorPart.swift; sourceTree = "<group>"; };
+		043E0AC920053C9A00AC9DFF /* DurationPart.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DurationPart.swift; sourceTree = "<group>"; };
+		043E0ACA20053C9A00AC9DFF /* JourneyFriezePart.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JourneyFriezePart.swift; sourceTree = "<group>"; };
+		043E0ACB20053C9A00AC9DFF /* JourneyRowPart.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JourneyRowPart.swift; sourceTree = "<group>"; };
+		043E0ACC20053C9A00AC9DFF /* JourneySectionSegmentPart.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JourneySectionSegmentPart.swift; sourceTree = "<group>"; };
+		043E0ACD20053C9A00AC9DFF /* JourneySectionSummaryPart.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JourneySectionSummaryPart.swift; sourceTree = "<group>"; };
+		043E0ACE20053C9A00AC9DFF /* JourneyWalkingSummaryPart.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JourneyWalkingSummaryPart.swift; sourceTree = "<group>"; };
+		043E0AD020053C9A00AC9DFF /* JourneyRoadmapStepComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JourneyRoadmapStepComponent.swift; sourceTree = "<group>"; };
+		043E0AD220053C9A00AC9DFF /* JourneyRoadmap2ColumnsLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JourneyRoadmap2ColumnsLayout.swift; sourceTree = "<group>"; };
+		043E0AD320053C9A00AC9DFF /* JourneyRoadmap3ColumnsLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JourneyRoadmap3ColumnsLayout.swift; sourceTree = "<group>"; };
+		043E0AD720053C9A00AC9DFF /* ModeIconPart.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModeIconPart.swift; sourceTree = "<group>"; };
+		043E0AD820053C9A00AC9DFF /* TimePart.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimePart.swift; sourceTree = "<group>"; };
+		043E0AD920053C9A00AC9DFF /* PlaceStepComponentSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaceStepComponentSpec.swift; sourceTree = "<group>"; };
+		043E0ADD20053C9A00AC9DFF /* PublicTransportStepComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PublicTransportStepComponent.swift; sourceTree = "<group>"; };
+		043E0AE020053C9A00AC9DFF /* DetailButtonPart.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailButtonPart.swift; sourceTree = "<group>"; };
+		043E0AE120053C9A00AC9DFF /* IntermediateStopPointPart.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IntermediateStopPointPart.swift; sourceTree = "<group>"; };
+		043E0AE220053C9A00AC9DFF /* DirectionPart.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DirectionPart.swift; sourceTree = "<group>"; };
+		043E0AE320053C9A00AC9DFF /* JourneyRoadmapPublicTransportDetailsPart.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JourneyRoadmapPublicTransportDetailsPart.swift; sourceTree = "<group>"; };
+		043E0AE420053C9A00AC9DFF /* JourneyRoadmapPublicTransportDisruptionDescriptionPart.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JourneyRoadmapPublicTransportDisruptionDescriptionPart.swift; sourceTree = "<group>"; };
+		043E0AE520053C9A00AC9DFF /* JourneyRoadmapStopPointPart.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JourneyRoadmapStopPointPart.swift; sourceTree = "<group>"; };
+		043E0AE620053C9A00AC9DFF /* JourneyRoadmapWaitingComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JourneyRoadmapWaitingComponent.swift; sourceTree = "<group>"; };
+		043E0AE820053C9A00AC9DFF /* PlainComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlainComponent.swift; sourceTree = "<group>"; };
+		043E0AE920053C9A00AC9DFF /* StopPointIconComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StopPointIconComponent.swift; sourceTree = "<group>"; };
+		043E0AEB20053C9A00AC9DFF /* JourneyRoadmapStopPointLabelPart.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JourneyRoadmapStopPointLabelPart.swift; sourceTree = "<group>"; };
+		043E0AEC20053C9A00AC9DFF /* SharedStepComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SharedStepComponent.swift; sourceTree = "<group>"; };
+		043E0AED20053C9A00AC9DFF /* SimpleStepComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SimpleStepComponent.swift; sourceTree = "<group>"; };
+		043E0AF220053C9A00AC9DFF /* JourneyMapViewComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JourneyMapViewComponent.swift; sourceTree = "<group>"; };
+		043E0AF320053C9A00AC9DFF /* LineCodeWithDisruptionStatusComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LineCodeWithDisruptionStatusComponent.swift; sourceTree = "<group>"; };
+		043E0AF520053C9A00AC9DFF /* DisruptionBadgeComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DisruptionBadgeComponent.swift; sourceTree = "<group>"; };
+		043E0AF620053C9A00AC9DFF /* LineCodeComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LineCodeComponent.swift; sourceTree = "<group>"; };
+		043E0AF720053C9A00AC9DFF /* ListViewComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListViewComponent.swift; sourceTree = "<group>"; };
+		043E0AF820053C9A00AC9DFF /* ModeComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModeComponent.swift; sourceTree = "<group>"; };
+		043E0AFA20053C9A00AC9DFF /* ActionComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActionComponent.swift; sourceTree = "<group>"; };
+		043E0AFB20053C9A00AC9DFF /* ButtonComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ButtonComponent.swift; sourceTree = "<group>"; };
+		043E0AFC20053C9A00AC9DFF /* LabelComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LabelComponent.swift; sourceTree = "<group>"; };
+		043E0AFD20053C9A00AC9DFF /* ScreenComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScreenComponent.swift; sourceTree = "<group>"; };
+		043E0AFE20053C9A00AC9DFF /* ScrollViewComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScrollViewComponent.swift; sourceTree = "<group>"; };
+		043E0AFF20053C9A00AC9DFF /* StylizedComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StylizedComponent.swift; sourceTree = "<group>"; };
+		043E0B0020053C9A00AC9DFF /* ViewComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewComponent.swift; sourceTree = "<group>"; };
+		043E0B0120053C9A00AC9DFF /* ScreenHeaderComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScreenHeaderComponent.swift; sourceTree = "<group>"; };
+		043E0B0220053C9A00AC9DFF /* TextComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextComponent.swift; sourceTree = "<group>"; };
 		048F332C1F9A427300FF33A2 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		04E4294E1F72C572004B23A3 /* NavitiaSDKUX.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = NavitiaSDKUX.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		04E429581F72C593004B23A3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
 		04E429591F72C593004B23A3 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
 		04E4295A1F72C593004B23A3 /* Journey.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Journey.storyboard; sourceTree = "<group>"; };
 		04E4295B1F72C593004B23A3 /* SDKIcons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = SDKIcons.ttf; sourceTree = "<group>"; };
-		3127A9231FF529EF00799483 /* JourneyMapViewComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JourneyMapViewComponent.swift; sourceTree = "<group>"; };
-		31E3A7471FE81EDD00E4AB9A /* JourneyRoadmap2ColumnsLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JourneyRoadmap2ColumnsLayout.swift; sourceTree = "<group>"; };
 		A10BF21E1FE42B5900A73706 /* NavitiaSDKUX.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NavitiaSDKUX.h; sourceTree = "<group>"; };
 		A18804041FE12C3C003AD92A /* Date.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
 		A18804051FE12C3C003AD92A /* Icons.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Icons.swift; sourceTree = "<group>"; };
@@ -127,64 +171,6 @@
 		A18804111FE12C3C003AD92A /* Configuration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Configuration.swift; sourceTree = "<group>"; };
 		A18804131FE12C3C003AD92A /* JourneySolutionRoadmapScreen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JourneySolutionRoadmapScreen.swift; sourceTree = "<group>"; };
 		A18804141FE12C3C003AD92A /* JourneySolutionsScreen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JourneySolutionsScreen.swift; sourceTree = "<group>"; };
-		A18804161FE12C3C003AD92A /* DurationComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DurationComponent.swift; sourceTree = "<group>"; };
-		A18804171FE12C3C003AD92A /* JourneySectionSummaryComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JourneySectionSummaryComponent.swift; sourceTree = "<group>"; };
-		A18804181FE12C3C003AD92A /* ListRowComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListRowComponent.swift; sourceTree = "<group>"; };
-		A18804191FE12C3C003AD92A /* BoxComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BoxComponent.swift; sourceTree = "<group>"; };
-		A188041B1FE12C3C003AD92A /* ScrollViewComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScrollViewComponent.swift; sourceTree = "<group>"; };
-		A188041C1FE12C3C003AD92A /* StylizedComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StylizedComponent.swift; sourceTree = "<group>"; };
-		A188041D1FE12C3C003AD92A /* ScreenComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScreenComponent.swift; sourceTree = "<group>"; };
-		A188041E1FE12C3C003AD92A /* ButtonComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ButtonComponent.swift; sourceTree = "<group>"; };
-		A188041F1FE12C3C003AD92A /* ViewComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewComponent.swift; sourceTree = "<group>"; };
-		A18804201FE12C3C003AD92A /* ActionComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActionComponent.swift; sourceTree = "<group>"; };
-		A18804211FE12C3C003AD92A /* LabelComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LabelComponent.swift; sourceTree = "<group>"; };
-		A18804221FE12C3C003AD92A /* TextComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextComponent.swift; sourceTree = "<group>"; };
-		A18804231FE12C3C003AD92A /* JourneySolutionRowComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JourneySolutionRowComponent.swift; sourceTree = "<group>"; };
-		A18804241FE12C3C003AD92A /* DisruptionBadge.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DisruptionBadge.swift; sourceTree = "<group>"; };
-		A18804251FE12C3C003AD92A /* ListViewComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListViewComponent.swift; sourceTree = "<group>"; };
-		A188042A1FE12C3C003AD92A /* StopPointIconComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StopPointIconComponent.swift; sourceTree = "<group>"; };
-		A188042B1FE12C3C003AD92A /* DottedComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DottedComponent.swift; sourceTree = "<group>"; };
-		A188042C1FE12C3C003AD92A /* PlainComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlainComponent.swift; sourceTree = "<group>"; };
-		A188042D1FE12C3C003AD92A /* JourneyRoadmapSectionRowLayoutComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JourneyRoadmapSectionRowLayoutComponent.swift; sourceTree = "<group>"; };
-		A188042E1FE12C3C003AD92A /* JourneyRoadmapSectionStreetNetworkComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JourneyRoadmapSectionStreetNetworkComponent.swift; sourceTree = "<group>"; };
-		A188042F1FE12C3C003AD92A /* JourneyRoadmapStopPointComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JourneyRoadmapStopPointComponent.swift; sourceTree = "<group>"; };
-		A18804301FE12C3C003AD92A /* JourneyRoadmapSectionLayoutComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JourneyRoadmapSectionLayoutComponent.swift; sourceTree = "<group>"; };
-		A18804321FE12C3C003AD92A /* JourneyRoadmapPlaceComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JourneyRoadmapPlaceComponent.swift; sourceTree = "<group>"; };
-		A18804331FE12C3C003AD92A /* JourneyRoadmapTimeComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JourneyRoadmapTimeComponent.swift; sourceTree = "<group>"; };
-		A18804341FE12C3C003AD92A /* JourneyRoadmapSectionPublicTransportComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JourneyRoadmapSectionPublicTransportComponent.swift; sourceTree = "<group>"; };
-		A18804361FE12C3C003AD92A /* JourneyRoadmapTransferDescriptionComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JourneyRoadmapTransferDescriptionComponent.swift; sourceTree = "<group>"; };
-		A18804381FE12C3C003AD92A /* ModeDurationLabelComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModeDurationLabelComponent.swift; sourceTree = "<group>"; };
-		A18804391FE12C3C003AD92A /* JourneyRoadmapSectionTransferComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JourneyRoadmapSectionTransferComponent.swift; sourceTree = "<group>"; };
-		A188043A1FE12C3C003AD92A /* DetailButtonComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailButtonComponent.swift; sourceTree = "<group>"; };
-		A188043C1FE12C3C003AD92A /* JourneyRoadmapPublicTransportDescriptionComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JourneyRoadmapPublicTransportDescriptionComponent.swift; sourceTree = "<group>"; };
-		A188043E1FE12C3C003AD92A /* IntermediateStopPointComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IntermediateStopPointComponent.swift; sourceTree = "<group>"; };
-		A18804401FE12C3C003AD92A /* DirectionComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DirectionComponent.swift; sourceTree = "<group>"; };
-		A18804411FE12C3C003AD92A /* ModeIconComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModeIconComponent.swift; sourceTree = "<group>"; };
-		A18804421FE12C3C003AD92A /* DisruptionDescriptionComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DisruptionDescriptionComponent.swift; sourceTree = "<group>"; };
-		A18804431FE12C3C003AD92A /* ModeLineLabelComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModeLineLabelComponent.swift; sourceTree = "<group>"; };
-		A18804441FE12C3C003AD92A /* JourneyRoadmapPublicTransportDetailsComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JourneyRoadmapPublicTransportDetailsComponent.swift; sourceTree = "<group>"; };
-		A18804461FE12C3C003AD92A /* JourneyRoadmapStreetNetworkDescriptionComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JourneyRoadmapStreetNetworkDescriptionComponent.swift; sourceTree = "<group>"; };
-		A18804471FE12C3C003AD92A /* JourneyRoadmapSectionDefaultComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JourneyRoadmapSectionDefaultComponent.swift; sourceTree = "<group>"; };
-		A18804481FE12C3C003AD92A /* JourneyRoadmapSectionWaitingComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JourneyRoadmapSectionWaitingComponent.swift; sourceTree = "<group>"; };
-		A18804491FE12C3C003AD92A /* JourneyRoadmapSectionComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JourneyRoadmapSectionComponent.swift; sourceTree = "<group>"; };
-		A188044A1FE12C3C003AD92A /* JourneyRoadmapFriezeComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JourneyRoadmapFriezeComponent.swift; sourceTree = "<group>"; };
-		A188044B1FE12C3C003AD92A /* AutocompleteInputComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AutocompleteInputComponent.swift; sourceTree = "<group>"; };
-		A188044C1FE12C3C003AD92A /* ContainerComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContainerComponent.swift; sourceTree = "<group>"; };
-		A188044D1FE12C3C003AD92A /* AlertComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertComponent.swift; sourceTree = "<group>"; };
-		A188044E1FE12C3C003AD92A /* FormComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FormComponent.swift; sourceTree = "<group>"; };
-		A188044F1FE12C3C003AD92A /* ScreenHeaderComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScreenHeaderComponent.swift; sourceTree = "<group>"; };
-		A18804501FE12C3C003AD92A /* JourneySectionSegmentComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JourneySectionSegmentComponent.swift; sourceTree = "<group>"; };
-		A18804511FE12C3C003AD92A /* DateTimeButtonComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateTimeButtonComponent.swift; sourceTree = "<group>"; };
-		A18804521FE12C3C003AD92A /* JourneyFormComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JourneyFormComponent.swift; sourceTree = "<group>"; };
-		A18804531FE12C3C003AD92A /* LineCodeWithDisruptionStatus.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LineCodeWithDisruptionStatus.swift; sourceTree = "<group>"; };
-		A18804541FE12C3C003AD92A /* ModeComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModeComponent.swift; sourceTree = "<group>"; };
-		A18804551FE12C3C003AD92A /* IconComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IconComponent.swift; sourceTree = "<group>"; };
-		A18804561FE12C3C003AD92A /* JourneyWalkingSummaryComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JourneyWalkingSummaryComponent.swift; sourceTree = "<group>"; };
-		A18804571FE12C3C003AD92A /* SeparatorComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SeparatorComponent.swift; sourceTree = "<group>"; };
-		A18804581FE12C3C003AD92A /* PlaceComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaceComponent.swift; sourceTree = "<group>"; };
-		A18804591FE12C3C003AD92A /* LineCodeComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LineCodeComponent.swift; sourceTree = "<group>"; };
-		A188045A1FE12C3C003AD92A /* JourneySolutionLoadingComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JourneySolutionLoadingComponent.swift; sourceTree = "<group>"; };
-		A188045B1FE12C3C003AD92A /* JourneySolutionComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JourneySolutionComponent.swift; sourceTree = "<group>"; };
 		A188045C1FE12C3C003AD92A /* Packages.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Packages.swift; sourceTree = "<group>"; };
 		A188045E1FE12C3C003AD92A /* Modes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Modes.swift; sourceTree = "<group>"; };
 		A188045F1FE12C3C003AD92A /* SectionWay.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SectionWay.swift; sourceTree = "<group>"; };
@@ -220,6 +206,258 @@
 				04210D1B1F73C2BF00761477 /* Render.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		043E0AB520053C9A00AC9DFF /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				043E0AB620053C9A00AC9DFF /* BoxComponent.swift */,
+				043E0AB720053C9A00AC9DFF /* CardComponent.swift */,
+				043E0AB820053C9A00AC9DFF /* ContainerComponent.swift */,
+				043E0AB920053C9A00AC9DFF /* FormComponent.swift */,
+				043E0ABA20053C9A00AC9DFF /* IconComponent.swift */,
+				043E0ABB20053C9A00AC9DFF /* Journey */,
+				043E0AF220053C9A00AC9DFF /* JourneyMapViewComponent.swift */,
+				043E0AF320053C9A00AC9DFF /* LineCodeWithDisruptionStatusComponent.swift */,
+				043E0AF420053C9A00AC9DFF /* LineCodeWithDisruptionStatusComponentParts */,
+				043E0AF720053C9A00AC9DFF /* ListViewComponent.swift */,
+				043E0AF820053C9A00AC9DFF /* ModeComponent.swift */,
+				043E0AF920053C9A00AC9DFF /* Primitive */,
+				043E0B0120053C9A00AC9DFF /* ScreenHeaderComponent.swift */,
+				043E0B0220053C9A00AC9DFF /* TextComponent.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		043E0ABB20053C9A00AC9DFF /* Journey */ = {
+			isa = PBXGroup;
+			children = (
+				043E0ABC20053C9A00AC9DFF /* Results */,
+				043E0ACF20053C9A00AC9DFF /* Roadmap */,
+			);
+			path = Journey;
+			sourceTree = "<group>";
+		};
+		043E0ABC20053C9A00AC9DFF /* Results */ = {
+			isa = PBXGroup;
+			children = (
+				043E0ABD20053C9A00AC9DFF /* AlertComponent.swift */,
+				043E0ABE20053C9A00AC9DFF /* DateTimeButtonComponent.swift */,
+				043E0ABF20053C9A00AC9DFF /* FormComponentParts */,
+				043E0AC220053C9A00AC9DFF /* JourneyFormComponent.swift */,
+				043E0AC320053C9A00AC9DFF /* JourneyLoadingComponent.swift */,
+				043E0AC420053C9A00AC9DFF /* JourneySolutionComponent.swift */,
+				043E0AC520053C9A00AC9DFF /* LoadingComponentParts */,
+				043E0AC620053C9A00AC9DFF /* Parts */,
+				043E0AC820053C9A00AC9DFF /* SolutionComponentParts */,
+			);
+			path = Results;
+			sourceTree = "<group>";
+		};
+		043E0ABF20053C9A00AC9DFF /* FormComponentParts */ = {
+			isa = PBXGroup;
+			children = (
+				043E0AC020053C9A00AC9DFF /* AutocompleteInputPart.swift */,
+				043E0AC120053C9A00AC9DFF /* PlacePart.swift */,
+			);
+			path = FormComponentParts;
+			sourceTree = "<group>";
+		};
+		043E0AC520053C9A00AC9DFF /* LoadingComponentParts */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = LoadingComponentParts;
+			sourceTree = "<group>";
+		};
+		043E0AC620053C9A00AC9DFF /* Parts */ = {
+			isa = PBXGroup;
+			children = (
+				043E0AC720053C9A00AC9DFF /* SeparatorPart.swift */,
+			);
+			path = Parts;
+			sourceTree = "<group>";
+		};
+		043E0AC820053C9A00AC9DFF /* SolutionComponentParts */ = {
+			isa = PBXGroup;
+			children = (
+				043E0AC920053C9A00AC9DFF /* DurationPart.swift */,
+				043E0ACA20053C9A00AC9DFF /* JourneyFriezePart.swift */,
+				043E0ACB20053C9A00AC9DFF /* JourneyRowPart.swift */,
+				043E0ACC20053C9A00AC9DFF /* JourneySectionSegmentPart.swift */,
+				043E0ACD20053C9A00AC9DFF /* JourneySectionSummaryPart.swift */,
+				043E0ACE20053C9A00AC9DFF /* JourneyWalkingSummaryPart.swift */,
+			);
+			path = SolutionComponentParts;
+			sourceTree = "<group>";
+		};
+		043E0ACF20053C9A00AC9DFF /* Roadmap */ = {
+			isa = PBXGroup;
+			children = (
+				043E0AD020053C9A00AC9DFF /* JourneyRoadmapStepComponent.swift */,
+				043E0AD120053C9A00AC9DFF /* Steps */,
+			);
+			path = Roadmap;
+			sourceTree = "<group>";
+		};
+		043E0AD120053C9A00AC9DFF /* Steps */ = {
+			isa = PBXGroup;
+			children = (
+				043E0AD220053C9A00AC9DFF /* JourneyRoadmap2ColumnsLayout.swift */,
+				043E0AD320053C9A00AC9DFF /* JourneyRoadmap3ColumnsLayout.swift */,
+				043E0AD420053C9A00AC9DFF /* LineDiagram */,
+				043E0AD520053C9A00AC9DFF /* New Group */,
+				043E0AD620053C9A00AC9DFF /* Parts */,
+				043E0AD920053C9A00AC9DFF /* PlaceStepComponentSpec.swift */,
+				043E0ADA20053C9A00AC9DFF /* PublicTransport */,
+				043E0ADD20053C9A00AC9DFF /* PublicTransportStepComponent.swift */,
+				043E0ADE20053C9A00AC9DFF /* PublicTransportStepComponentParts */,
+				043E0AEC20053C9A00AC9DFF /* SharedStepComponent.swift */,
+				043E0AED20053C9A00AC9DFF /* SimpleStepComponent.swift */,
+				043E0AEE20053C9A00AC9DFF /* StopPoint */,
+				043E0AEF20053C9A00AC9DFF /* StreetNetwork */,
+				043E0AF020053C9A00AC9DFF /* Transfer */,
+			);
+			path = Steps;
+			sourceTree = "<group>";
+		};
+		043E0AD420053C9A00AC9DFF /* LineDiagram */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = LineDiagram;
+			sourceTree = "<group>";
+		};
+		043E0AD520053C9A00AC9DFF /* New Group */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "New Group";
+			sourceTree = "<group>";
+		};
+		043E0AD620053C9A00AC9DFF /* Parts */ = {
+			isa = PBXGroup;
+			children = (
+				043E0AD720053C9A00AC9DFF /* ModeIconPart.swift */,
+				043E0AD820053C9A00AC9DFF /* TimePart.swift */,
+			);
+			path = Parts;
+			sourceTree = "<group>";
+		};
+		043E0ADA20053C9A00AC9DFF /* PublicTransport */ = {
+			isa = PBXGroup;
+			children = (
+				043E0ADB20053C9A00AC9DFF /* Description */,
+				043E0ADC20053C9A00AC9DFF /* Details */,
+			);
+			path = PublicTransport;
+			sourceTree = "<group>";
+		};
+		043E0ADB20053C9A00AC9DFF /* Description */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Description;
+			sourceTree = "<group>";
+		};
+		043E0ADC20053C9A00AC9DFF /* Details */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Details;
+			sourceTree = "<group>";
+		};
+		043E0ADE20053C9A00AC9DFF /* PublicTransportStepComponentParts */ = {
+			isa = PBXGroup;
+			children = (
+				043E0ADF20053C9A00AC9DFF /* Details */,
+				043E0AE220053C9A00AC9DFF /* DirectionPart.swift */,
+				043E0AE320053C9A00AC9DFF /* JourneyRoadmapPublicTransportDetailsPart.swift */,
+				043E0AE420053C9A00AC9DFF /* JourneyRoadmapPublicTransportDisruptionDescriptionPart.swift */,
+				043E0AE520053C9A00AC9DFF /* JourneyRoadmapStopPointPart.swift */,
+				043E0AE620053C9A00AC9DFF /* JourneyRoadmapWaitingComponent.swift */,
+				043E0AE720053C9A00AC9DFF /* LineDiagram */,
+				043E0AEA20053C9A00AC9DFF /* StopPoint */,
+			);
+			path = PublicTransportStepComponentParts;
+			sourceTree = "<group>";
+		};
+		043E0ADF20053C9A00AC9DFF /* Details */ = {
+			isa = PBXGroup;
+			children = (
+				043E0AE020053C9A00AC9DFF /* DetailButtonPart.swift */,
+				043E0AE120053C9A00AC9DFF /* IntermediateStopPointPart.swift */,
+			);
+			path = Details;
+			sourceTree = "<group>";
+		};
+		043E0AE720053C9A00AC9DFF /* LineDiagram */ = {
+			isa = PBXGroup;
+			children = (
+				043E0AE820053C9A00AC9DFF /* PlainComponent.swift */,
+				043E0AE920053C9A00AC9DFF /* StopPointIconComponent.swift */,
+			);
+			path = LineDiagram;
+			sourceTree = "<group>";
+		};
+		043E0AEA20053C9A00AC9DFF /* StopPoint */ = {
+			isa = PBXGroup;
+			children = (
+				043E0AEB20053C9A00AC9DFF /* JourneyRoadmapStopPointLabelPart.swift */,
+			);
+			path = StopPoint;
+			sourceTree = "<group>";
+		};
+		043E0AEE20053C9A00AC9DFF /* StopPoint */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = StopPoint;
+			sourceTree = "<group>";
+		};
+		043E0AEF20053C9A00AC9DFF /* StreetNetwork */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = StreetNetwork;
+			sourceTree = "<group>";
+		};
+		043E0AF020053C9A00AC9DFF /* Transfer */ = {
+			isa = PBXGroup;
+			children = (
+				043E0AF120053C9A00AC9DFF /* Description */,
+			);
+			path = Transfer;
+			sourceTree = "<group>";
+		};
+		043E0AF120053C9A00AC9DFF /* Description */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Description;
+			sourceTree = "<group>";
+		};
+		043E0AF420053C9A00AC9DFF /* LineCodeWithDisruptionStatusComponentParts */ = {
+			isa = PBXGroup;
+			children = (
+				043E0AF520053C9A00AC9DFF /* DisruptionBadgeComponent.swift */,
+				043E0AF620053C9A00AC9DFF /* LineCodeComponent.swift */,
+			);
+			path = LineCodeWithDisruptionStatusComponentParts;
+			sourceTree = "<group>";
+		};
+		043E0AF920053C9A00AC9DFF /* Primitive */ = {
+			isa = PBXGroup;
+			children = (
+				043E0AFA20053C9A00AC9DFF /* ActionComponent.swift */,
+				043E0AFB20053C9A00AC9DFF /* ButtonComponent.swift */,
+				043E0AFC20053C9A00AC9DFF /* LabelComponent.swift */,
+				043E0AFD20053C9A00AC9DFF /* ScreenComponent.swift */,
+				043E0AFE20053C9A00AC9DFF /* ScrollViewComponent.swift */,
+				043E0AFF20053C9A00AC9DFF /* StylizedComponent.swift */,
+				043E0B0020053C9A00AC9DFF /* ViewComponent.swift */,
+			);
+			path = Primitive;
 			sourceTree = "<group>";
 		};
 		04E4294F1F72C572004B23A3 /* NavitiaSDKUX */ = {
@@ -266,9 +504,9 @@
 				A18804031FE12C3C003AD92A /* Util */,
 				A188040F1FE12C3C003AD92A /* Resources */,
 				A18804121FE12C3C003AD92A /* Screens */,
-				A18804151FE12C3C003AD92A /* Components */,
 				A188045C1FE12C3C003AD92A /* Packages.swift */,
 				A188045D1FE12C3C003AD92A /* BusinessLogic */,
+				043E0AB520053C9A00AC9DFF /* Components */,
 				A18804601FE12C3C003AD92A /* Controllers */,
 				A18804641FE12C3C003AD92A /* Info.plist */,
 			);
@@ -323,169 +561,6 @@
 				A18804141FE12C3C003AD92A /* JourneySolutionsScreen.swift */,
 			);
 			path = Screens;
-			sourceTree = "<group>";
-		};
-		A18804151FE12C3C003AD92A /* Components */ = {
-			isa = PBXGroup;
-			children = (
-				3127A9231FF529EF00799483 /* JourneyMapViewComponent.swift */,
-				A18804161FE12C3C003AD92A /* DurationComponent.swift */,
-				A18804171FE12C3C003AD92A /* JourneySectionSummaryComponent.swift */,
-				A18804181FE12C3C003AD92A /* ListRowComponent.swift */,
-				A18804191FE12C3C003AD92A /* BoxComponent.swift */,
-				A188041A1FE12C3C003AD92A /* Primitive */,
-				A18804221FE12C3C003AD92A /* TextComponent.swift */,
-				A18804231FE12C3C003AD92A /* JourneySolutionRowComponent.swift */,
-				A18804241FE12C3C003AD92A /* DisruptionBadge.swift */,
-				A18804251FE12C3C003AD92A /* ListViewComponent.swift */,
-				A18804261FE12C3C003AD92A /* Journey */,
-				A188044A1FE12C3C003AD92A /* JourneyRoadmapFriezeComponent.swift */,
-				A188044B1FE12C3C003AD92A /* AutocompleteInputComponent.swift */,
-				A188044C1FE12C3C003AD92A /* ContainerComponent.swift */,
-				A188044D1FE12C3C003AD92A /* AlertComponent.swift */,
-				A188044E1FE12C3C003AD92A /* FormComponent.swift */,
-				A188044F1FE12C3C003AD92A /* ScreenHeaderComponent.swift */,
-				A18804501FE12C3C003AD92A /* JourneySectionSegmentComponent.swift */,
-				A18804511FE12C3C003AD92A /* DateTimeButtonComponent.swift */,
-				A18804521FE12C3C003AD92A /* JourneyFormComponent.swift */,
-				A18804531FE12C3C003AD92A /* LineCodeWithDisruptionStatus.swift */,
-				A18804541FE12C3C003AD92A /* ModeComponent.swift */,
-				A18804551FE12C3C003AD92A /* IconComponent.swift */,
-				A18804561FE12C3C003AD92A /* JourneyWalkingSummaryComponent.swift */,
-				A18804571FE12C3C003AD92A /* SeparatorComponent.swift */,
-				A18804581FE12C3C003AD92A /* PlaceComponent.swift */,
-				A18804591FE12C3C003AD92A /* LineCodeComponent.swift */,
-				A188045A1FE12C3C003AD92A /* JourneySolutionLoadingComponent.swift */,
-				A188045B1FE12C3C003AD92A /* JourneySolutionComponent.swift */,
-			);
-			path = Components;
-			sourceTree = "<group>";
-		};
-		A188041A1FE12C3C003AD92A /* Primitive */ = {
-			isa = PBXGroup;
-			children = (
-				A188041B1FE12C3C003AD92A /* ScrollViewComponent.swift */,
-				A188041C1FE12C3C003AD92A /* StylizedComponent.swift */,
-				A188041D1FE12C3C003AD92A /* ScreenComponent.swift */,
-				A188041E1FE12C3C003AD92A /* ButtonComponent.swift */,
-				A188041F1FE12C3C003AD92A /* ViewComponent.swift */,
-				A18804201FE12C3C003AD92A /* ActionComponent.swift */,
-				A18804211FE12C3C003AD92A /* LabelComponent.swift */,
-			);
-			path = Primitive;
-			sourceTree = "<group>";
-		};
-		A18804261FE12C3C003AD92A /* Journey */ = {
-			isa = PBXGroup;
-			children = (
-				A18804271FE12C3C003AD92A /* Roadmap */,
-			);
-			path = Journey;
-			sourceTree = "<group>";
-		};
-		A18804271FE12C3C003AD92A /* Roadmap */ = {
-			isa = PBXGroup;
-			children = (
-				A18804281FE12C3C003AD92A /* Sections */,
-				A18804491FE12C3C003AD92A /* JourneyRoadmapSectionComponent.swift */,
-			);
-			path = Roadmap;
-			sourceTree = "<group>";
-		};
-		A18804281FE12C3C003AD92A /* Sections */ = {
-			isa = PBXGroup;
-			children = (
-				31E3A7471FE81EDD00E4AB9A /* JourneyRoadmap2ColumnsLayout.swift */,
-				A18804291FE12C3C003AD92A /* LineDiagram */,
-				A188042D1FE12C3C003AD92A /* JourneyRoadmapSectionRowLayoutComponent.swift */,
-				A188042E1FE12C3C003AD92A /* JourneyRoadmapSectionStreetNetworkComponent.swift */,
-				A188042F1FE12C3C003AD92A /* JourneyRoadmapStopPointComponent.swift */,
-				A18804301FE12C3C003AD92A /* JourneyRoadmapSectionLayoutComponent.swift */,
-				A18804311FE12C3C003AD92A /* StopPoint */,
-				A18804341FE12C3C003AD92A /* JourneyRoadmapSectionPublicTransportComponent.swift */,
-				A18804351FE12C3C003AD92A /* Transfer */,
-				A18804391FE12C3C003AD92A /* JourneyRoadmapSectionTransferComponent.swift */,
-				A188043A1FE12C3C003AD92A /* DetailButtonComponent.swift */,
-				A188043B1FE12C3C003AD92A /* PublicTransport */,
-				A18804451FE12C3C003AD92A /* StreetNetwork */,
-				A18804471FE12C3C003AD92A /* JourneyRoadmapSectionDefaultComponent.swift */,
-				A18804481FE12C3C003AD92A /* JourneyRoadmapSectionWaitingComponent.swift */,
-			);
-			path = Sections;
-			sourceTree = "<group>";
-		};
-		A18804291FE12C3C003AD92A /* LineDiagram */ = {
-			isa = PBXGroup;
-			children = (
-				A188042A1FE12C3C003AD92A /* StopPointIconComponent.swift */,
-				A188042B1FE12C3C003AD92A /* DottedComponent.swift */,
-				A188042C1FE12C3C003AD92A /* PlainComponent.swift */,
-			);
-			path = LineDiagram;
-			sourceTree = "<group>";
-		};
-		A18804311FE12C3C003AD92A /* StopPoint */ = {
-			isa = PBXGroup;
-			children = (
-				A18804321FE12C3C003AD92A /* JourneyRoadmapPlaceComponent.swift */,
-				A18804331FE12C3C003AD92A /* JourneyRoadmapTimeComponent.swift */,
-			);
-			path = StopPoint;
-			sourceTree = "<group>";
-		};
-		A18804351FE12C3C003AD92A /* Transfer */ = {
-			isa = PBXGroup;
-			children = (
-				A18804361FE12C3C003AD92A /* JourneyRoadmapTransferDescriptionComponent.swift */,
-				A18804371FE12C3C003AD92A /* Description */,
-			);
-			path = Transfer;
-			sourceTree = "<group>";
-		};
-		A18804371FE12C3C003AD92A /* Description */ = {
-			isa = PBXGroup;
-			children = (
-				A18804381FE12C3C003AD92A /* ModeDurationLabelComponent.swift */,
-			);
-			path = Description;
-			sourceTree = "<group>";
-		};
-		A188043B1FE12C3C003AD92A /* PublicTransport */ = {
-			isa = PBXGroup;
-			children = (
-				A188043C1FE12C3C003AD92A /* JourneyRoadmapPublicTransportDescriptionComponent.swift */,
-				A188043D1FE12C3C003AD92A /* Details */,
-				A188043F1FE12C3C003AD92A /* Description */,
-				A18804441FE12C3C003AD92A /* JourneyRoadmapPublicTransportDetailsComponent.swift */,
-			);
-			path = PublicTransport;
-			sourceTree = "<group>";
-		};
-		A188043D1FE12C3C003AD92A /* Details */ = {
-			isa = PBXGroup;
-			children = (
-				A188043E1FE12C3C003AD92A /* IntermediateStopPointComponent.swift */,
-			);
-			path = Details;
-			sourceTree = "<group>";
-		};
-		A188043F1FE12C3C003AD92A /* Description */ = {
-			isa = PBXGroup;
-			children = (
-				A18804401FE12C3C003AD92A /* DirectionComponent.swift */,
-				A18804411FE12C3C003AD92A /* ModeIconComponent.swift */,
-				A18804421FE12C3C003AD92A /* DisruptionDescriptionComponent.swift */,
-				A18804431FE12C3C003AD92A /* ModeLineLabelComponent.swift */,
-			);
-			path = Description;
-			sourceTree = "<group>";
-		};
-		A18804451FE12C3C003AD92A /* StreetNetwork */ = {
-			isa = PBXGroup;
-			children = (
-				A18804461FE12C3C003AD92A /* JourneyRoadmapStreetNetworkDescriptionComponent.swift */,
-			);
-			path = StreetNetwork;
 			sourceTree = "<group>";
 		};
 		A188045D1FE12C3C003AD92A /* BusinessLogic */ = {
@@ -621,85 +696,78 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				043E0B0420053C9A00AC9DFF /* CardComponent.swift in Sources */,
+				043E0B3020053C9A00AC9DFF /* ButtonComponent.swift in Sources */,
+				043E0B2F20053C9A00AC9DFF /* ActionComponent.swift in Sources */,
+				043E0B1D20053C9A00AC9DFF /* DetailButtonPart.swift in Sources */,
+				043E0B1320053C9A00AC9DFF /* JourneySectionSegmentPart.swift in Sources */,
 				A18804B01FE12C3D003AD92A /* ViewController.swift in Sources */,
-				A18804841FE12C3D003AD92A /* PlainComponent.swift in Sources */,
 				A18804671FE12C3C003AD92A /* Icons.swift in Sources */,
-				A18804A11FE12C3D003AD92A /* JourneySectionSegmentComponent.swift in Sources */,
-				A18804A91FE12C3D003AD92A /* PlaceComponent.swift in Sources */,
-				A188048D1FE12C3D003AD92A /* ModeDurationLabelComponent.swift in Sources */,
-				A188049E1FE12C3D003AD92A /* AlertComponent.swift in Sources */,
-				31E3A7481FE81EDD00E4AB9A /* JourneyRoadmap2ColumnsLayout.swift in Sources */,
-				A18804821FE12C3D003AD92A /* StopPointIconComponent.swift in Sources */,
+				043E0B1920053C9A00AC9DFF /* ModeIconPart.swift in Sources */,
+				043E0B2420053C9A00AC9DFF /* PlainComponent.swift in Sources */,
+				043E0B2820053C9A00AC9DFF /* SimpleStepComponent.swift in Sources */,
+				043E0B2920053C9A00AC9DFF /* JourneyMapViewComponent.swift in Sources */,
+				043E0B1F20053C9A00AC9DFF /* DirectionPart.swift in Sources */,
+				043E0B0520053C9A00AC9DFF /* ContainerComponent.swift in Sources */,
+				043E0B0E20053C9A00AC9DFF /* JourneySolutionComponent.swift in Sources */,
+				043E0B2D20053C9A00AC9DFF /* ListViewComponent.swift in Sources */,
+				043E0B1820053C9A00AC9DFF /* JourneyRoadmap3ColumnsLayout.swift in Sources */,
+				043E0B1C20053C9A00AC9DFF /* PublicTransportStepComponent.swift in Sources */,
+				043E0B0920053C9A00AC9DFF /* DateTimeButtonComponent.swift in Sources */,
+				043E0B3220053C9A00AC9DFF /* ScreenComponent.swift in Sources */,
+				043E0B0A20053C9A00AC9DFF /* AutocompleteInputPart.swift in Sources */,
+				043E0B1220053C9A00AC9DFF /* JourneyRowPart.swift in Sources */,
 				A18804691FE12C3C003AD92A /* Message.swift in Sources */,
+				043E0B1620053C9A00AC9DFF /* JourneyRoadmapStepComponent.swift in Sources */,
+				043E0B2E20053C9A00AC9DFF /* ModeComponent.swift in Sources */,
 				A18804AD1FE12C3D003AD92A /* Packages.swift in Sources */,
-				A188047D1FE12C3D003AD92A /* LabelComponent.swift in Sources */,
-				A18804981FE12C3D003AD92A /* JourneyRoadmapSectionDefaultComponent.swift in Sources */,
-				A18804A81FE12C3D003AD92A /* SeparatorComponent.swift in Sources */,
-				A18804A21FE12C3D003AD92A /* DateTimeButtonComponent.swift in Sources */,
-				A18804A31FE12C3D003AD92A /* JourneyFormComponent.swift in Sources */,
 				A18804721FE12C3D003AD92A /* JourneySolutionsScreen.swift in Sources */,
+				043E0B0D20053C9A00AC9DFF /* JourneyLoadingComponent.swift in Sources */,
+				043E0B2C20053C9A00AC9DFF /* LineCodeComponent.swift in Sources */,
+				043E0B0320053C9A00AC9DFF /* BoxComponent.swift in Sources */,
+				043E0B2A20053C9A00AC9DFF /* LineCodeWithDisruptionStatusComponent.swift in Sources */,
+				043E0B3720053C9A00AC9DFF /* TextComponent.swift in Sources */,
+				043E0B2B20053C9A00AC9DFF /* DisruptionBadgeComponent.swift in Sources */,
+				043E0B1120053C9A00AC9DFF /* JourneyFriezePart.swift in Sources */,
+				043E0B0620053C9A00AC9DFF /* FormComponent.swift in Sources */,
+				043E0B3120053C9A00AC9DFF /* LabelComponent.swift in Sources */,
 				A18804681FE12C3C003AD92A /* Period.swift in Sources */,
-				A188048F1FE12C3D003AD92A /* DetailButtonComponent.swift in Sources */,
-				A18804931FE12C3D003AD92A /* ModeIconComponent.swift in Sources */,
-				A188047A1FE12C3D003AD92A /* ButtonComponent.swift in Sources */,
-				A18804801FE12C3D003AD92A /* DisruptionBadge.swift in Sources */,
-				3127A9241FF529F000799483 /* JourneyMapViewComponent.swift in Sources */,
-				A188047E1FE12C3D003AD92A /* TextComponent.swift in Sources */,
+				043E0B2220053C9A00AC9DFF /* JourneyRoadmapStopPointPart.swift in Sources */,
+				043E0B0720053C9A00AC9DFF /* IconComponent.swift in Sources */,
 				A188046F1FE12C3D003AD92A /* Color.swift in Sources */,
-				A188048A1FE12C3D003AD92A /* JourneyRoadmapTimeComponent.swift in Sources */,
-				A18804961FE12C3D003AD92A /* JourneyRoadmapPublicTransportDetailsComponent.swift in Sources */,
-				A188047F1FE12C3D003AD92A /* JourneySolutionRowComponent.swift in Sources */,
-				A188049B1FE12C3D003AD92A /* JourneyRoadmapFriezeComponent.swift in Sources */,
+				043E0B1B20053C9A00AC9DFF /* PlaceStepComponentSpec.swift in Sources */,
 				A18804B21FE12C3D003AD92A /* JourneySolutionRoadmapViewController.swift in Sources */,
-				A18804771FE12C3D003AD92A /* ScrollViewComponent.swift in Sources */,
-				A188048C1FE12C3D003AD92A /* JourneyRoadmapTransferDescriptionComponent.swift in Sources */,
-				A18804901FE12C3D003AD92A /* JourneyRoadmapPublicTransportDescriptionComponent.swift in Sources */,
-				A18804991FE12C3D003AD92A /* JourneyRoadmapSectionWaitingComponent.swift in Sources */,
+				043E0B2520053C9A00AC9DFF /* StopPointIconComponent.swift in Sources */,
 				A188046B1FE12C3C003AD92A /* Section.swift in Sources */,
-				A18804871FE12C3D003AD92A /* JourneyRoadmapStopPointComponent.swift in Sources */,
-				A18804811FE12C3D003AD92A /* ListViewComponent.swift in Sources */,
-				A188049C1FE12C3D003AD92A /* AutocompleteInputComponent.swift in Sources */,
+				043E0B1720053C9A00AC9DFF /* JourneyRoadmap2ColumnsLayout.swift in Sources */,
+				043E0B2120053C9A00AC9DFF /* JourneyRoadmapPublicTransportDisruptionDescriptionPart.swift in Sources */,
+				043E0B3620053C9A00AC9DFF /* ScreenHeaderComponent.swift in Sources */,
 				A188046E1FE12C3D003AD92A /* Metrics.swift in Sources */,
-				A18804921FE12C3D003AD92A /* DirectionComponent.swift in Sources */,
-				A18804A01FE12C3D003AD92A /* ScreenHeaderComponent.swift in Sources */,
-				A18804741FE12C3D003AD92A /* JourneySectionSummaryComponent.swift in Sources */,
-				A188047B1FE12C3D003AD92A /* ViewComponent.swift in Sources */,
-				A18804751FE12C3D003AD92A /* ListRowComponent.swift in Sources */,
-				A18804731FE12C3D003AD92A /* DurationComponent.swift in Sources */,
-				A18804A51FE12C3D003AD92A /* ModeComponent.swift in Sources */,
+				043E0B2720053C9A00AC9DFF /* SharedStepComponent.swift in Sources */,
 				A188046D1FE12C3D003AD92A /* Font.swift in Sources */,
-				A188048E1FE12C3D003AD92A /* JourneyRoadmapSectionTransferComponent.swift in Sources */,
-				A18804AC1FE12C3D003AD92A /* JourneySolutionComponent.swift in Sources */,
+				043E0B3420053C9A00AC9DFF /* StylizedComponent.swift in Sources */,
+				043E0B1420053C9A00AC9DFF /* JourneySectionSummaryPart.swift in Sources */,
 				A18804B11FE12C3D003AD92A /* JourneySolutionsController.swift in Sources */,
 				A188046C1FE12C3C003AD92A /* Dictionary.swift in Sources */,
-				A188048B1FE12C3D003AD92A /* JourneyRoadmapSectionPublicTransportComponent.swift in Sources */,
+				043E0B0F20053C9A00AC9DFF /* SeparatorPart.swift in Sources */,
 				A18804AE1FE12C3D003AD92A /* Modes.swift in Sources */,
-				A18804851FE12C3D003AD92A /* JourneyRoadmapSectionRowLayoutComponent.swift in Sources */,
+				043E0B1E20053C9A00AC9DFF /* IntermediateStopPointPart.swift in Sources */,
 				A18804AF1FE12C3D003AD92A /* SectionWay.swift in Sources */,
-				A18804761FE12C3D003AD92A /* BoxComponent.swift in Sources */,
-				A18804A41FE12C3D003AD92A /* LineCodeWithDisruptionStatus.swift in Sources */,
-				A188049A1FE12C3D003AD92A /* JourneyRoadmapSectionComponent.swift in Sources */,
+				043E0B1A20053C9A00AC9DFF /* TimePart.swift in Sources */,
+				043E0B1020053C9A00AC9DFF /* DurationPart.swift in Sources */,
+				043E0B1520053C9A00AC9DFF /* JourneyWalkingSummaryPart.swift in Sources */,
+				043E0B3320053C9A00AC9DFF /* ScrollViewComponent.swift in Sources */,
+				043E0B0820053C9A00AC9DFF /* AlertComponent.swift in Sources */,
 				A18804661FE12C3C003AD92A /* Date.swift in Sources */,
-				A18804861FE12C3D003AD92A /* JourneyRoadmapSectionStreetNetworkComponent.swift in Sources */,
-				A18804A61FE12C3D003AD92A /* IconComponent.swift in Sources */,
+				043E0B2320053C9A00AC9DFF /* JourneyRoadmapWaitingComponent.swift in Sources */,
 				A188046A1FE12C3C003AD92A /* Disruption.swift in Sources */,
+				043E0B2620053C9A00AC9DFF /* JourneyRoadmapStopPointLabelPart.swift in Sources */,
 				A18804711FE12C3D003AD92A /* JourneySolutionRoadmapScreen.swift in Sources */,
-				A18804891FE12C3D003AD92A /* JourneyRoadmapPlaceComponent.swift in Sources */,
-				A18804951FE12C3D003AD92A /* ModeLineLabelComponent.swift in Sources */,
-				A18804941FE12C3D003AD92A /* DisruptionDescriptionComponent.swift in Sources */,
-				A18804831FE12C3D003AD92A /* DottedComponent.swift in Sources */,
-				A18804AB1FE12C3D003AD92A /* JourneySolutionLoadingComponent.swift in Sources */,
-				A18804781FE12C3D003AD92A /* StylizedComponent.swift in Sources */,
-				A18804A71FE12C3D003AD92A /* JourneyWalkingSummaryComponent.swift in Sources */,
-				A188049D1FE12C3D003AD92A /* ContainerComponent.swift in Sources */,
+				043E0B0B20053C9A00AC9DFF /* PlacePart.swift in Sources */,
 				A18804701FE12C3D003AD92A /* Configuration.swift in Sources */,
-				A188047C1FE12C3D003AD92A /* ActionComponent.swift in Sources */,
-				A188049F1FE12C3D003AD92A /* FormComponent.swift in Sources */,
-				A18804911FE12C3D003AD92A /* IntermediateStopPointComponent.swift in Sources */,
-				A18804881FE12C3D003AD92A /* JourneyRoadmapSectionLayoutComponent.swift in Sources */,
-				A18804971FE12C3D003AD92A /* JourneyRoadmapStreetNetworkDescriptionComponent.swift in Sources */,
-				A18804791FE12C3D003AD92A /* ScreenComponent.swift in Sources */,
-				A18804AA1FE12C3D003AD92A /* LineCodeComponent.swift in Sources */,
+				043E0B2020053C9A00AC9DFF /* JourneyRoadmapPublicTransportDetailsPart.swift in Sources */,
+				043E0B3520053C9A00AC9DFF /* ViewComponent.swift in Sources */,
+				043E0B0C20053C9A00AC9DFF /* JourneyFormComponent.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

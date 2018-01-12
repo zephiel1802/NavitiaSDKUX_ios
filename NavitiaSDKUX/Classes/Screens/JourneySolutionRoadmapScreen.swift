@@ -11,7 +11,10 @@ public struct JourneySolutionRoadmapState: StateType {
 }
 
 open class JourneySolutionRoadmapScreen: StylizedComponent<JourneySolutionRoadmapState> {
-    let SectionComponent: Components.Journey.Roadmap.SectionComponent.Type = Components.Journey.Roadmap.SectionComponent.self
+    let StepComponent: Components.Journey.Roadmap.StepComponent.Type = Components.Journey.Roadmap.StepComponent.self
+    let PlaceStepComponent: Components.Journey.Roadmap.Steps.PlaceStepComponent.Type = Components.Journey.Roadmap.Steps.PlaceStepComponent.self
+    let JourneySolutionComponent: Components.Journey.Results.JourneySolutionComponent.Type = Components.Journey.Results.JourneySolutionComponent.self
+    
     var navigationController: UINavigationController?
     
     open override func componentDidMount() {
@@ -25,21 +28,21 @@ open class JourneySolutionRoadmapScreen: StylizedComponent<JourneySolutionRoadma
     
     override open func render() -> NodeType {
         return ComponentNode(ScreenComponent(), in: self).add(children: [
-            ComponentNode(ScreenHeaderComponent(), in: self, props: { (component: ScreenHeaderComponent, hasKey: Bool) in
+            ComponentNode(ScreenHeaderComponent(), in: self, props: { (component, _) in
                 component.navigationController = self.navigationController
                 component.styles = self.screenHeaderStyle
             }),
             Node<UIView>() { view, layout, size in
                 layout.height = 0.4 * size.height
             }.add(children: [
-                ComponentNode(JourneyMapViewComponent(), in: self, props: { (component: JourneyMapViewComponent, hasKey: Bool) in
+                ComponentNode(JourneyMapViewComponent(), in: self, props: { (component, _) in
                     component.styles = self.mapViewStyles
                     component.journey = self.state.journey
                 })
             ]),
             ComponentNode(ScrollViewComponent(), in: self).add(children: [
                 ComponentNode(ContainerComponent(), in: self).add(children: [
-                    ComponentNode(JourneySolutionComponent(), in: self, props: { (component: JourneySolutionComponent, hasKey: Bool) in
+                    ComponentNode(JourneySolutionComponent.init(), in: self, props: { (component, _) in
                         component.journey = self.state.journey!
                         component.disruptions = self.state.disruptions
                         component.isTouchable = false
@@ -52,24 +55,70 @@ open class JourneySolutionRoadmapScreen: StylizedComponent<JourneySolutionRoadma
 
     func getSectionComponents() -> [NodeType] {
         var sectionComponents: [NodeType] = []
-        for (index, section) in self.state.journey!.sections!.enumerated() {
-            if section.type == "street_network" || section.type == "public_transport" {
+        
+        let journey = self.state.journey!
+        let disruptions = self.state.disruptions ?? []
+        
+        let lastIndex = journey.sections!.count - 1
+        for (index, section) in journey.sections!.enumerated() {
+            if index == 0 {
                 sectionComponents.append(
-                    ComponentNode(self.SectionComponent.init(), in: self, props: { (component: Components.Journey.Roadmap.SectionComponent, hasKey: Bool) in
+                    ComponentNode(self.PlaceStepComponent.init(), in: self, props: {(component, _) in
+                        component.styles = self.originSectionStyles
+                        component.datetime = journey.departureDateTime
+                        component.placeType = NSLocalizedString("component.PlaceStepComponent.departure", bundle: self.bundle, comment: "")
+                        component.placeLabel = section.from?.name!
+                        component.backgroundColorProp = config.colors.origin
+                    })
+                )
+            }
+            
+            if section.type == "street_network" || section.type == "public_transport" || section.type == "transfer" {
+                sectionComponents.append(
+                    ComponentNode(self.StepComponent.init(), in: self, props: { (component, _) in
                         component.section = section
-                        component.disruptions = section.getMatchingDisruptions(from: self.state.disruptions)
-                        if section.type == "street_network" {
-                            var network: String = ""
-                            if section.from?.poi != nil && section.from?.poi?.properties?["network"] != nil {
-                                network = (section.from?.poi?.properties!["network"])!
-                                component.departureTime = self.state.journey!.sections![index - 1].departureDateTime!
-                                component.arrivalTime = self.state.journey!.sections![index + 1].arrivalDateTime!
+                        
+                        if section.type == "public_transport" {
+                            if index > 0 {
+                                let prevSection = journey.sections![index - 1]
+                                if prevSection.type == "waiting" {
+                                    component.waitingTime = prevSection.duration
+                                }
                             }
-                            component.label = self.getDistanceLabel(network: network, mode: section.mode!, distance: sectionLength(paths: section.path!))
+                            
+                            if disruptions.count > 0 {
+                                component.disruptions = section.getMatchingDisruptions(from: disruptions)
+                            }
+                        } else if section.type == "street_network" {
+                            let mode = section.mode!
+                            var network: String?
+                            if index > 0 {
+                                let prevSection = journey.sections![index - 1]
+                                if prevSection.type == "bss_rent" {
+                                    network = ""
+                                    if let poi = section.from?.poi, let networkProp = poi.properties?["network"] {
+                                        network = networkProp
+                                    }
+                                    component.isBSS = true
+                                }
+                            }
+                            component.descriptionProp = self.getDescriptionLabel(mode: mode, duration: section.duration!, toLabel: section.to!.name!, network: network, fromLabel: section.from?.name!)
+                        } else if section.type == "transfer" {
+                            let mode = section.transferType!
+                            component.descriptionProp = self.getDescriptionLabel(mode: mode, duration: section.duration!, toLabel: section.to!.name!)
                         }
-                        if index > 1 && self.state.journey!.sections![index - 1].type! == "waiting" {
-                            component.waitingTime = self.state.journey!.sections![index - 1].duration!
-                        }
+                    })
+                )
+            }
+            
+            if index == lastIndex {
+                sectionComponents.append(
+                    ComponentNode(self.PlaceStepComponent.init(), in: self, props: {(component, _) in
+                        component.styles = self.destinationSectionStyles
+                        component.datetime = journey.arrivalDateTime
+                        component.placeType = NSLocalizedString("component.PlaceStepComponent.arrival", bundle: self.bundle, comment: "")
+                        component.placeLabel = section.to?.name!
+                        component.backgroundColorProp = config.colors.destination
                     })
                 )
             }
@@ -77,40 +126,56 @@ open class JourneySolutionRoadmapScreen: StylizedComponent<JourneySolutionRoadma
         return sectionComponents
     }
 
-    func getDistanceLabel(network: String?, mode: String, distance: Int32) -> String {
-        let distanceLabel: String = distanceText(bundle: self.bundle, meters: distance)
-        var resultDistanceLabel = ""
+    func getDescriptionLabel(mode: String, duration: Int32, toLabel: String) -> NSMutableAttributedString {
+        return self.getDescriptionLabel(mode: mode, duration: duration, toLabel: toLabel, network: nil, fromLabel: nil)
+    }
+    
+    func getDescriptionLabel(mode: String, duration: Int32, toLabel: String, network: String?, fromLabel: String?) -> NSMutableAttributedString {
+        let durationLabel: String = durationText(bundle: self.bundle, seconds: duration, useFullFormat: true)
+        let descriptionLabel = NSMutableAttributedString.init()
+        
+        if network != nil {
+            let takeStringTemplate = NSLocalizedString("component.JourneyRoadmapStepComponent.mode.bss.take", bundle: self.bundle, comment: "") + " "
+            let take = String(format: takeStringTemplate, network!)
+            descriptionLabel.append(NSAttributedString.init(string: take))
+            
+            let departureSpannableString = NSAttributedString.init(string: fromLabel!, attributes: [
+                NSFontAttributeName: UIFont.systemFont(ofSize: CGFloat.init(config.metrics.text), weight: UIFontWeightBold)
+            ])
+            descriptionLabel.append(departureSpannableString)
+            
+            let inDirection = " " + NSLocalizedString("component.JourneyRoadmapStepComponent.mode.bss.to", bundle: self.bundle, comment: "") + " "
+            descriptionLabel.append(NSAttributedString.init(string: inDirection))
+        } else {
+            let to = NSLocalizedString("component.JourneyRoadmapStepComponent.to", bundle: self.bundle, comment: "") + " "
+            descriptionLabel.append(NSAttributedString.init(string: to))
+        }
+        
+        let toSpannableString = NSAttributedString.init(string: toLabel, attributes: [
+            NSFontAttributeName: UIFont.systemFont(ofSize: CGFloat.init(config.metrics.text), weight: UIFontWeightBold)
+            ])
+        descriptionLabel.append(toSpannableString)
+        
+        var durationString = "\n"
         switch mode {
         case "walking":
-            resultDistanceLabel = String(format: NSLocalizedString("component.JourneyRoadmapSectionStreetNetworkDescriptionModeDistanceLabelComponent.mode.walking",
-                bundle: self.bundle,
-                comment: "StreetNetwork distance label for walking"),
-                distanceLabel)
+            let walkingStringTemplate = NSLocalizedString("component.JourneyRoadmapStepComponent.mode.walking", bundle: self.bundle, comment: "")
+            durationString += String(format: walkingStringTemplate, durationLabel)
             break
         case "bike":
-            if network == nil || network == "" {
-                resultDistanceLabel = String(format: NSLocalizedString("component.JourneyRoadmapSectionStreetNetworkDescriptionModeDistanceLabelComponent.mode.bike",
-                    bundle: self.bundle,
-                    comment: "StreetNetwork distance label for bike"),
-                    distanceLabel)
-            } else {
-                resultDistanceLabel = String(format: NSLocalizedString("component.JourneyRoadmapSectionStreetNetworkDescriptionModeDistanceLabelComponent.mode.bss",
-                    bundle: self.bundle,
-                    comment: "StreetNetwork distance label for bss"),
-                    distanceLabel,
-                    network!)
-            }
+            let bikeStringTemplate = NSLocalizedString("component.JourneyRoadmapStepComponent.mode.bike", bundle: self.bundle, comment: "")
+            durationString += String(format: bikeStringTemplate, durationLabel)
             break
         case "car":
-            resultDistanceLabel = String(format: NSLocalizedString("component.JourneyRoadmapSectionStreetNetworkDescriptionModeDistanceLabelComponent.mode.car",
-                bundle: self.bundle,
-                comment: "StreetNetwork distance label for car"),
-                distanceLabel)
+            let carStringTemplate = NSLocalizedString("component.JourneyRoadmapStepComponent.mode.car", bundle: self.bundle, comment: "")
+            durationString += String(format: carStringTemplate, durationLabel)
             break
         default:
             break
         }
-        return resultDistanceLabel
+        descriptionLabel.append(NSAttributedString.init(string: durationString))
+        
+        return descriptionLabel
     }
 
     let screenHeaderStyle: [String: Any] = [
@@ -119,5 +184,11 @@ open class JourneySolutionRoadmapScreen: StylizedComponent<JourneySolutionRoadma
     ]
     let mapViewStyles: [String: Any] = [
         "flexGrow": 1,
+    ]
+    let originSectionStyles: [String: Any] = [
+        "marginBottom": config.metrics.margin,
+    ]
+    let destinationSectionStyles: [String: Any] = [
+        "marginTop": config.metrics.margin,
     ]
 }

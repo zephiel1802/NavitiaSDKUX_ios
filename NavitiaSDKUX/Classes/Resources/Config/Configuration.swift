@@ -15,6 +15,8 @@ public struct Configuration {
         let marginS = 4
         let margin = 8
         let marginL = 16
+        let textS = 13
+        let text = 17
         let timeFormat = "HH:mm"
         let longDateFormat = "EEE d MMM - HH:mm"
     }
