@@ -17,7 +17,6 @@ extension Components.Journey.Results {
         var navigationController: UINavigationController?
         var journey: Journey = Journey()
         var disruptions: [Disruption]?
-
         var isTouchable: Bool = true
 
         override func render() -> NodeType {

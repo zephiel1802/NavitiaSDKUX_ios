@@ -49,7 +49,6 @@ extension Components.Journey.Results.SolutionComponentParts {
         let containerStyles: [String: Any] = [
             "flexDirection": YGFlexDirection.row,
         ]
-
         let modeListStyles: [String: Any] = [
             "paddingTop": config.metrics.marginL,
             "paddingBottom": config.metrics.marginL,

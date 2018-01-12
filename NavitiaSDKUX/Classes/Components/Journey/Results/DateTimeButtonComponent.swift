@@ -34,8 +34,6 @@ extension Components.Journey.Results {
         
         let listRowStyles: [String: Any] = [
             "paddingTop": config.metrics.marginL,
-            "paddingLeft": 0,
-            "paddingRight": 0,
             "paddingBottom": config.metrics.margin,
             "flexDirection": YGFlexDirection.row,
         ]

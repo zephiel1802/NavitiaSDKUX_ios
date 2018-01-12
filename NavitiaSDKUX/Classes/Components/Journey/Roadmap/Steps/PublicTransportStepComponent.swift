@@ -85,15 +85,12 @@ extension Components.Journey.Roadmap.Steps {
         let diagramContainerStyles: [String: Any] = [
             "marginTop" : 20,
         ]
-
         let containerStyles: [String: Any] = [    
             "paddingVertical": config.metrics.margin,
         ]
-        
         let modeIconContainerStyles: [String: Any] = [
             "paddingTop": 10,
         ]
-        
         let bodyContainerStyles: [String: Any] = [
             "paddingVertical": config.metrics.margin,
         ]

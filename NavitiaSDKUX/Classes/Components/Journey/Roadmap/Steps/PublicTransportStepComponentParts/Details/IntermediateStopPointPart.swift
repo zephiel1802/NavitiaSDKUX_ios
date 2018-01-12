@@ -13,7 +13,6 @@ extension Components.Journey.Roadmap.Steps.PublicTransportStepComponentParts.Det
         override func render() -> NodeType {
             return ComponentNode(self.Roadmap3ColumnsLayout.init(), in: self, props: { (component, _) in
                 component.styles = self.containerStyles
-
                 component.middleChildren = [
                     ComponentNode(self.StopPointIconPart.init(), in: self, props: { (component, _) in
                         component.color = self.color!
@@ -21,7 +20,6 @@ extension Components.Journey.Roadmap.Steps.PublicTransportStepComponentParts.Det
                         component.innerFontSize = 0
                     })
                 ]
-                
                 component.rightChildren = [
                     ComponentNode(ViewComponent(), in: self, props: { (component, _) in
                         component.styles = self.stopPointContainerStyles

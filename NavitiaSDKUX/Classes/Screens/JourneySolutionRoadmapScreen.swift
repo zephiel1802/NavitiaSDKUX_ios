@@ -63,12 +63,12 @@ open class JourneySolutionRoadmapScreen: StylizedComponent<JourneySolutionRoadma
         for (index, section) in journey.sections!.enumerated() {
             if index == 0 {
                 sectionComponents.append(
-                    ComponentNode(self.PlaceStepComponent.init(), in: self, props: {(components, _) in
-                        components.styles = self.originSectionStyles
-                        components.datetime = journey.departureDateTime
-                        components.placeType = NSLocalizedString("component.PlaceStepComponent.departure", bundle: self.bundle, comment: "")
-                        components.placeLabel = section.from?.name!
-                        components.backgroundColorProp = config.colors.origin
+                    ComponentNode(self.PlaceStepComponent.init(), in: self, props: {(component, _) in
+                        component.styles = self.originSectionStyles
+                        component.datetime = journey.departureDateTime
+                        component.placeType = NSLocalizedString("component.PlaceStepComponent.departure", bundle: self.bundle, comment: "")
+                        component.placeLabel = section.from?.name!
+                        component.backgroundColorProp = config.colors.origin
                     })
                 )
             }
@@ -113,12 +113,12 @@ open class JourneySolutionRoadmapScreen: StylizedComponent<JourneySolutionRoadma
             
             if index == lastIndex {
                 sectionComponents.append(
-                    ComponentNode(self.PlaceStepComponent.init(), in: self, props: {(components: Components.Journey.Roadmap.Steps.PlaceStepComponent, _) in
-                        components.styles = self.destinationSectionStyles
-                        components.datetime = journey.arrivalDateTime
-                        components.placeType = NSLocalizedString("component.PlaceStepComponent.arrival", bundle: self.bundle, comment: "")
-                        components.placeLabel = section.to?.name!
-                        components.backgroundColorProp = config.colors.destination
+                    ComponentNode(self.PlaceStepComponent.init(), in: self, props: {(component, _) in
+                        component.styles = self.destinationSectionStyles
+                        component.datetime = journey.arrivalDateTime
+                        component.placeType = NSLocalizedString("component.PlaceStepComponent.arrival", bundle: self.bundle, comment: "")
+                        component.placeLabel = section.to?.name!
+                        component.backgroundColorProp = config.colors.destination
                     })
                 )
             }

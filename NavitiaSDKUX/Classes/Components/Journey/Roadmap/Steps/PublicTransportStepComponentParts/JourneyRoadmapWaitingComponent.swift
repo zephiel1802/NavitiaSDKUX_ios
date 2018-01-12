@@ -43,7 +43,7 @@ extension Components.Journey.Roadmap.Steps.PublicTransportStepComponentParts {
         ]
         let labelContainerStyles: [String: Any] = [
             "padding": 6,
-            ]
+        ]
         let labelStyles: [String: Any] = [
             "fontSize": config.metrics.textS,
             "color": config.colors.gray,
