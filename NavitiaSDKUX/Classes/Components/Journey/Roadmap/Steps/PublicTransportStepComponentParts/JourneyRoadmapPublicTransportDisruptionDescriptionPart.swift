@@ -8,23 +8,23 @@ extension Components.Journey.Roadmap.Steps.PublicTransportStepComponentParts {
         var disruptions: [Disruption]?
 
         override func render() -> NodeType {
-            return ComponentNode(ViewComponent(), in: self, props: { (component: ViewComponent, _) in
+            return ComponentNode(ViewComponent(), in: self, props: { (component, _) in
                 component.styles = self.styles
             }).add(children: disruptions!.map { disruption -> NodeType in
                 var disruptionBlocks: [NodeType] = []
                 disruptionBlocks.append(
-                    ComponentNode(ViewComponent(), in: self, props: { (component: ViewComponent, _) in
+                    ComponentNode(ViewComponent(), in: self, props: { (component, _) in
                         component.styles = self.disruptionTitleStyles
                     }).add(children: [
-                        ComponentNode(IconComponent(), in: self, props: { (component: IconComponent, _) in
+                        ComponentNode(IconComponent(), in: self, props: { (component, _) in
                             component.name = Disruption.getIconName(of: disruption.level)
                             self.iconStyles["color"] = getUIColorFromHexadecimal(hex: Disruption.getLevelColor(of: disruption.level))
                             component.styles = self.iconStyles
                         }),
-                        ComponentNode(ViewComponent(), in: self, props: { (component: ViewComponent, _) in
+                        ComponentNode(ViewComponent(), in: self, props: { (component, _) in
                             component.styles = self.containerCauseStyles
                         }).add(children: [
-                            ComponentNode(LabelComponent(), in: self, props: { (component: LabelComponent, _) in
+                            ComponentNode(LabelComponent(), in: self, props: { (component, _) in
                                 component.styles = self.causeStyles
                                 component.styles["color"] = getUIColorFromHexadecimal(hex: Disruption.getLevelColor(of: disruption.level))
                                 component.text = disruption.cause!
@@ -35,10 +35,10 @@ extension Components.Journey.Roadmap.Steps.PublicTransportStepComponentParts {
 
                 if (disruption.messages != nil && disruption.messages!.first != nil && disruption.messages!.first!.escapedText != nil) {
                     disruptionBlocks.append(
-                        ComponentNode(ViewComponent(), in: self, props: { (component: ViewComponent, _) in
+                        ComponentNode(ViewComponent(), in: self, props: { (component, _) in
                             component.styles = self.disruptionTextContainerStyles
                         }).add(children: [
-                            ComponentNode(LabelComponent(), in: self, props: { (component: LabelComponent, _) in
+                            ComponentNode(LabelComponent(), in: self, props: { (component, _) in
                                 component.styles = self.disruptionTextStyles
                                 component.text = disruption.messages!.first!.escapedText!
                             })
@@ -68,10 +68,10 @@ extension Components.Journey.Roadmap.Steps.PublicTransportStepComponentParts {
                     return period != nil
                 }.map { period in
                     disruptionBlocks.append(
-                        ComponentNode(ViewComponent(), in: self, props: { (component: ViewComponent, _) in
+                        ComponentNode(ViewComponent(), in: self, props: { (component, _) in
                             component.styles = self.disruptionPeriodContainerStyles
                         }).add(children: [
-                            ComponentNode(LabelComponent(), in: self, props: { (component: LabelComponent, _) in
+                            ComponentNode(LabelComponent(), in: self, props: { (component, _) in
                                 component.styles = self.disruptionPeriodStyles
                                 if (period.endDate != nil) {
                                     component.text = "\(fromText) \(periodDateFormatter.string(from: period.beginDate!)) \(toText) \(periodDateFormatter.string(from: period.endDate!))"
@@ -83,7 +83,7 @@ extension Components.Journey.Roadmap.Steps.PublicTransportStepComponentParts {
                     )
                 }
 
-                return ComponentNode(ViewComponent(), in: self, props: { (component: ViewComponent, _) in
+                return ComponentNode(ViewComponent(), in: self, props: { (component, _) in
                     component.styles = self.containerStyles
                 }).add(children: disruptionBlocks)
             })

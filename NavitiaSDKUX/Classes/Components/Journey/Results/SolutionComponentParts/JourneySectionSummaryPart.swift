@@ -28,19 +28,19 @@ extension Components.Journey.Results.SolutionComponentParts {
             return ComponentNode(ViewComponent(), in: self, props: {(component, _) in
                 component.styles = mergeDictionaries(dict1: containerStyles, dict2: self.styles)
             }).add(children: [
-                ComponentNode(ViewComponent(), in: self, props: {(component: ViewComponent, _) in
+                ComponentNode(ViewComponent(), in: self, props: {(component, _) in
                     component.styles = self.viewStyles
                 }).add(children: [
-                    ComponentNode(ModeComponent(), in: self, props: {(component: ModeComponent, _) in
+                    ComponentNode(ModeComponent(), in: self, props: {(component, _) in
                         component.section = self.section
                         component.styles = self.modeStyles
                     }),
-                    ComponentNode(LineCodeWithDisruptionStatusComponent(), in: self, props: {(component: LineCodeWithDisruptionStatusComponent, _) in
+                    ComponentNode(LineCodeWithDisruptionStatusComponent(), in: self, props: {(component, _) in
                         component.section = self.section
                         component.disruptions = self.disruptions
                     })
                 ]),
-                ComponentNode(JourneySectionSegmentPart.init(), in: self, props: {(component: Components.Journey.Results.SolutionComponentParts.JourneySectionSegmentPart, _) in
+                ComponentNode(JourneySectionSegmentPart.init(), in: self, props: {(component, _) in
                     component.section = self.section
                 }),
             ])

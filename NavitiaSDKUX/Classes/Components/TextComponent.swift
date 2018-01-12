@@ -12,7 +12,7 @@ import Render
 class TextComponent: LabelComponent {
     override func render() -> NodeType {
         let computedStyles = mergeDictionaries(dict1: textStyles, dict2: self.styles)
-        return ComponentNode(LabelComponent(), in: self, props: {(component: LabelComponent, _) in
+        return ComponentNode(LabelComponent(), in: self, props: {(component, _) in
             component.text = self.text
             component.styles = computedStyles
         })

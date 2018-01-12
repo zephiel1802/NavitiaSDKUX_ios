@@ -17,7 +17,7 @@ class LineCodeWithDisruptionStatusComponent: ViewComponent {
                 "top": -9,
             ]
 
-            disruptionBadgeComponent = ComponentNode(self.DisruptionBadgeComponent.init(), in: self, props: { (component: Components.LineCodeWithDisruptionStatusComponentParts.DisruptionBadgeComponent, _: Bool) in
+            disruptionBadgeComponent = ComponentNode(self.DisruptionBadgeComponent.init(), in: self, props: { (component, _: Bool) in
                 component.disruptions = self.disruptions
                 component.styles = disruptionBadgeStyles
             })
@@ -25,7 +25,7 @@ class LineCodeWithDisruptionStatusComponent: ViewComponent {
         
         return ComponentNode(ViewComponent(), in: self)
             .add(children: [
-                ComponentNode(self.LineCodeComponent.init(), in: self, props: { (component: Components.LineCodeWithDisruptionStatusComponentParts.LineCodeComponent, _: Bool) in
+                ComponentNode(self.LineCodeComponent.init(), in: self, props: { (component, _: Bool) in
                     component.section = self.section
                 }),
                 disruptionBadgeComponent,

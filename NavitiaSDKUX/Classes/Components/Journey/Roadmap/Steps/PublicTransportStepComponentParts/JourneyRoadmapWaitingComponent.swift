@@ -7,21 +7,21 @@ extension Components.Journey.Roadmap.Steps.PublicTransportStepComponentParts {
         var waitingTime: Int32!
 
         override func render() -> NodeType {
-            return ComponentNode(ViewComponent(), in: self, props: {(component: ViewComponent, _) in
+            return ComponentNode(ViewComponent(), in: self, props: {(component, _) in
                 component.styles = self.containerStyles
             }).add(children: [
-                ComponentNode(ViewComponent(), in: self, props: {(component: ViewComponent, _) in
+                ComponentNode(ViewComponent(), in: self, props: {(component, _) in
                     component.styles = self.iconContainerStyles
                 }).add(children: [
-                    ComponentNode(IconComponent(), in: self, props: { (component: IconComponent, _) in
+                    ComponentNode(IconComponent(), in: self, props: { (component, _) in
                         component.name = "clock"
                         component.styles = self.iconStyles
                     })
                 ]),
-                ComponentNode(ViewComponent(), in: self, props: {(component: ViewComponent, _) in
+                ComponentNode(ViewComponent(), in: self, props: {(component, _) in
                     component.styles = self.labelContainerStyles
                 }).add(children: [
-                    ComponentNode(TextComponent(), in: self, props: {(component: TextComponent, _) in
+                    ComponentNode(TextComponent(), in: self, props: {(component, _) in
                         component.styles = self.labelStyles
                         let action: String = NSLocalizedString("journey.roadmap.action.wait", bundle: self.bundle, comment: "Action description")
                         component.text = "\(action) \(durationText(bundle: self.bundle, seconds: self.waitingTime, useFullFormat: true))"

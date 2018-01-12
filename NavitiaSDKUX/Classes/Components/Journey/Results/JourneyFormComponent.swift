@@ -23,14 +23,14 @@ extension Components.Journey.Results {
             return ComponentNode(FormComponent(), in: self, props: {(component, _) in
                 component.styles = computedStyles
             }).add(children: [
-                ComponentNode(AutocompleteInputPart.init(), in: self, props: {(component: Components.Journey.Results.FormComponentParts.AutocompleteInputPart, _) in
+                ComponentNode(AutocompleteInputPart.init(), in: self, props: {(component, _) in
                     component.icon = "location-pin"
                     component.iconColor = config.colors.origin
                     component.placeName = self.origin
                     
                 }),
                 ComponentNode(SeparatorPart.init(), in: self),
-                ComponentNode(AutocompleteInputPart.init(), in: self, props: {(component: Components.Journey.Results.FormComponentParts.AutocompleteInputPart, _) in
+                ComponentNode(AutocompleteInputPart.init(), in: self, props: {(component, _) in
                     component.icon = "location-pin"
                     component.iconColor = config.colors.destination
                     component.placeName = self.destination

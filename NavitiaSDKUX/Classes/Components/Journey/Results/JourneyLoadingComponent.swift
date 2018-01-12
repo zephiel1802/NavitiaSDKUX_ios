@@ -26,7 +26,7 @@ extension Components.Journey.Results {
         override func render() -> NodeType {
             let computedStyles = mergeDictionaries(dict1: listStyles, dict2: self.styles)
             
-            return ComponentNode(CardComponent(), in: self, props: {(component: CardComponent, _) in
+            return ComponentNode(CardComponent(), in: self, props: {(component, _) in
                 component.styles = computedStyles
             }).add(children: [
                 ComponentNode(ViewComponent(), in: self).add(children: [

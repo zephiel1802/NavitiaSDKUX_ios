@@ -22,13 +22,13 @@ extension Components.LineCodeWithDisruptionStatusComponentParts {
                 ]
                 computedStyles = mergeDictionaries(dict1: codeStyles, dict2: computedStyles)
 
-                lineTextComponents.append(ComponentNode(TextComponent(), in: self, props: { (component: TextComponent, _) in
+                lineTextComponents.append(ComponentNode(TextComponent(), in: self, props: { (component, _) in
                     component.text = self.section!.displayInformations!.code!
                     component.styles = textStyles
                 }))
             }
 
-            return ComponentNode(ViewComponent(), in: self, props: { (component: ViewComponent, _) in
+            return ComponentNode(ViewComponent(), in: self, props: { (component, _) in
                 component.styles = computedStyles
             }).add(children: lineTextComponents)
         }

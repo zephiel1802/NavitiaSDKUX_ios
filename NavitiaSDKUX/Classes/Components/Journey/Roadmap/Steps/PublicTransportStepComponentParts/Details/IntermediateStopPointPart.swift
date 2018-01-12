@@ -11,11 +11,11 @@ extension Components.Journey.Roadmap.Steps.PublicTransportStepComponentParts.Det
         var color: UIColor?
 
         override func render() -> NodeType {
-            return ComponentNode(self.Roadmap3ColumnsLayout.init(), in: self, props: { (component: Components.Journey.Roadmap.Steps.JourneyRoadmap3ColumnsLayout, _) in
+            return ComponentNode(self.Roadmap3ColumnsLayout.init(), in: self, props: { (component, _) in
                 component.styles = self.containerStyles
 
                 component.middleChildren = [
-                    ComponentNode(self.StopPointIconPart.init(), in: self, props: { (component: Components.Journey.Roadmap.Steps.PublicTransportStepComponentParts.LineDiagram.StopPointIconPart, _) in
+                    ComponentNode(self.StopPointIconPart.init(), in: self, props: { (component, _) in
                         component.color = self.color!
                         component.outerFontSize = 12
                         component.innerFontSize = 0
@@ -23,10 +23,10 @@ extension Components.Journey.Roadmap.Steps.PublicTransportStepComponentParts.Det
                 ]
                 
                 component.rightChildren = [
-                    ComponentNode(ViewComponent(), in: self, props: { (component: ViewComponent, _) in
+                    ComponentNode(ViewComponent(), in: self, props: { (component, _) in
                         component.styles = self.stopPointContainerStyles
                     }).add(children: [
-                        ComponentNode(LabelComponent(), in: self, props: { (component: LabelComponent, _) in
+                        ComponentNode(LabelComponent(), in: self, props: { (component, _) in
                             component.styles = self.stopPointLabelStyles
                             component.text = self.stopDateTime!.stopPoint!.label!
                         })

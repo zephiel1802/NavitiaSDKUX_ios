@@ -20,14 +20,14 @@ extension Components.Journey.Roadmap.Steps.PublicTransportStepComponentParts.Det
         }
 
         override func render() -> NodeType {
-            return ComponentNode(ViewComponent(), in: self, props: { (component: ViewComponent, _) in
+            return ComponentNode(ViewComponent(), in: self, props: { (component, _) in
                 component.styles = self.detailsHeaderContainerStyle
             }).add(children: [
-                ComponentNode(LabelComponent(), in: self, props: { (component: LabelComponent, _) in
+                ComponentNode(LabelComponent(), in: self, props: { (component, _) in
                     component.styles = self.detailsHeaderTitleStyle
                     component.text = self.text
                 }),
-                ComponentNode(IconComponent(), in: self, props: { (component: IconComponent, _) in
+                ComponentNode(IconComponent(), in: self, props: { (component, _) in
                     component.styles = self.collapserWayIconStyle
                     component.name = self.collapsed ? "arrow-details-down" : "arrow-details-up"
                 })

@@ -10,19 +10,19 @@ extension Components.Journey.Roadmap.Steps.PublicTransportStepComponentParts {
 
         override func render() -> NodeType {
             return ComponentNode(ViewComponent(), in: self).add(children: [
-                ComponentNode(ViewComponent(), in: self, props: { (component: ViewComponent, _) in
+                ComponentNode(ViewComponent(), in: self, props: { (component, _) in
                     component.styles = self.modeLineLabelStyles
                 }).add(children: [
-                    ComponentNode(LabelComponent(), in: self, props: { (component: LabelComponent, _) in
+                    ComponentNode(LabelComponent(), in: self, props: { (component, _) in
                         component.styles = mergeDictionaries(dict1: self.instructionTextStyles, dict2: self.modeStyles)
                         component.text = NSLocalizedString("component.JourneyRoadmapSectionPublicTransportComponent.DirectionComponent.take", bundle: self.bundle, comment: "PublicTransport description")
                     }),
-                    ComponentNode(LineCodeWithDisruptionStatusComponent(), in: self, props: { (component: LineCodeWithDisruptionStatusComponent, _) in
+                    ComponentNode(LineCodeWithDisruptionStatusComponent(), in: self, props: { (component, _) in
                         component.section = self.section
                         component.disruptions = self.disruptions
                     })
                 ]),
-                ComponentNode(LabelComponent(), in: self, props: { (component: LabelComponent, _) in
+                ComponentNode(LabelComponent(), in: self, props: { (component, _) in
                     component.styles = self.instructionTextStyles
                     let localizedToResource = NSLocalizedString("component.JourneyRoadmapSectionPublicTransportComponent.DirectionComponent.at", bundle: self.bundle, comment: "PublicTransport description")
                     let localizedDirectionResource = NSLocalizedString("component.JourneyRoadmapSectionPublicTransportComponent.DirectionComponent.direction", bundle: self.bundle, comment: "PublicTransport description")

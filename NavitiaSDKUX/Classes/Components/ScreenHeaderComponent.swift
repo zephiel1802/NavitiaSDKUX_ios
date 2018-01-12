@@ -16,7 +16,7 @@ class ScreenHeaderComponent: StylizedComponent<NilState> {
         var computedStyles = self.styles
         let initialPaddingTop = (self.styles["paddingTop"] != nil) ? self.styles["paddingTop"] as! Int : 0
         computedStyles["paddingTop"] = initialPaddingTop + getMargin()
-        return ComponentNode(ViewComponent(), in: self, props: {(component: ViewComponent, _) in
+        return ComponentNode(ViewComponent(), in: self, props: {(component, _) in
             component.styles = computedStyles
         })
     }

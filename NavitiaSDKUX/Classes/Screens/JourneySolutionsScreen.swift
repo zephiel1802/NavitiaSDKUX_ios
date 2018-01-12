@@ -47,7 +47,7 @@ open class JourneySolutionsScreen: StylizedComponent<JourneySolutionsScreenState
         
         var resultComponents: [NodeType] = []
         if state.error {
-            resultComponents = [ComponentNode(AlertComponent.init(), in: self, props: {(component: Components.Journey.Results.AlertComponent, _) in
+            resultComponents = [ComponentNode(AlertComponent.init(), in: self, props: {(component, _) in
                 component.text = NSLocalizedString("screen.JourneySolutionsScreen.error", bundle: self.bundle, comment: "No journeys")
             })]
         } else {
@@ -60,7 +60,7 @@ open class JourneySolutionsScreen: StylizedComponent<JourneySolutionsScreenState
                 component.styles = self.headerStyles
             }).add(children: [
                 ComponentNode(ContainerComponent(), in: self).add(children: [
-                    ComponentNode(JourneyFormComponent.init(), in: self, props: {(component: Components.Journey.Results.JourneyFormComponent, _) in
+                    ComponentNode(JourneyFormComponent.init(), in: self, props: {(component, _) in
                         component.origin = self.state.parameters.originId
                         if (self.state.parameters.originLabel != nil && !self.state.parameters.originLabel!.isEmpty) {
                             component.origin = self.state.parameters.originLabel!
@@ -71,7 +71,7 @@ open class JourneySolutionsScreen: StylizedComponent<JourneySolutionsScreenState
                             component.destination = self.state.parameters.destinationLabel!
                         }
                     }),
-                    ComponentNode(DateTimeButtonComponent.init(), in: self, props: {(component: Components.Journey.Results.DateTimeButtonComponent, _) in
+                    ComponentNode(DateTimeButtonComponent.init(), in: self, props: {(component, _) in
                         if (self.state.parameters.datetime != nil) {
                             component.datetime = self.state.parameters.datetime
                         } else {
@@ -150,7 +150,7 @@ open class JourneySolutionsScreen: StylizedComponent<JourneySolutionsScreenState
         var results: [NodeType] = []
         var index: Int32 = 0
         for journey in journeys.journeys! {
-            results.append(ComponentNode(JourneySolutionComponent.init(), in: self, props: {(component: Components.Journey.Results.JourneySolutionComponent, _) in
+            results.append(ComponentNode(JourneySolutionComponent.init(), in: self, props: {(component, _) in
                 component.journey = journey
                 component.disruptions = journeys.disruptions
                 component.navigationController = self.navigationController

@@ -13,14 +13,14 @@ extension Components.LineCodeWithDisruptionStatusComponentParts {
             
             iconStyles["color"] = getUIColorFromHexadecimal(hex: Disruption.getLevelColor(of: highestDisruptionLevel))
             
-            return ComponentNode(ViewComponent(), in: self, props: { (component: ViewComponent, _) in
+            return ComponentNode(ViewComponent(), in: self, props: { (component, _) in
                 component.styles = self.styles
             }).add(children: [
-                ComponentNode(IconComponent(), in: self, props: { (component: IconComponent, _) in
+                ComponentNode(IconComponent(), in: self, props: { (component, _) in
                     component.name = "circle-filled"
                     component.styles = self.edgeStyle
                 }),
-                ComponentNode(IconComponent(), in: self, props: { (component: IconComponent, _) in
+                ComponentNode(IconComponent(), in: self, props: { (component, _) in
                     component.name = Disruption.getIconName(of: highestDisruptionLevel)
                     component.styles = self.iconStyles
                 }),

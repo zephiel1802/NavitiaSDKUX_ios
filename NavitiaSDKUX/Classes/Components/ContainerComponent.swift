@@ -14,7 +14,7 @@ class ContainerComponent: ViewComponent {
     
     override func render() -> NodeType {
         let computedStyles: [String: Any] = mergeDictionaries(dict1: smallStyles, dict2: self.styles)
-        return ComponentNode(ViewComponent(), in: self, props: {(component: ViewComponent, _) in
+        return ComponentNode(ViewComponent(), in: self, props: {(component, _) in
             component.styles = computedStyles
         })
     }

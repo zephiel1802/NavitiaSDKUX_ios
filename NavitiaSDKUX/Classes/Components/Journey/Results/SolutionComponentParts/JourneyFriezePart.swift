@@ -39,7 +39,7 @@ extension Components.Journey.Results.SolutionComponentParts {
                 if section.type == "public_transport" {
                     sectionDisruptions = section.getMatchingDisruptions(from: self.disruptions)
                 }
-                return ComponentNode(JourneySectionSummaryPart.init(), in: self, props: { (component: Components.Journey.Results.SolutionComponentParts.JourneySectionSummaryPart, _) in
+                return ComponentNode(JourneySectionSummaryPart.init(), in: self, props: { (component, _) in
                     component.section = section
                     component.disruptions = sectionDisruptions
                 })

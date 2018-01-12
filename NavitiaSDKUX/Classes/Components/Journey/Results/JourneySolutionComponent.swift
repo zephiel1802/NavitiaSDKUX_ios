@@ -24,7 +24,7 @@ extension Components.Journey.Results {
             let computedStyles = mergeDictionaries(dict1: listStyles, dict2: self.styles)
             let walkingDistance = getWalkingDistance(sections: journey.sections!)
 
-            return ComponentNode(ActionComponent(), in: self, props: {(component: ActionComponent, _) in
+            return ComponentNode(ActionComponent(), in: self, props: {(component, _) in
                 component.onTap = { [weak self] _ in
                     let journeySolutionRoadmapController: JourneySolutionRoadmapController = JourneySolutionRoadmapController()
                     journeySolutionRoadmapController.journey = self?.journey
@@ -33,10 +33,10 @@ extension Components.Journey.Results {
                         self?.navigationController?.pushViewController(journeySolutionRoadmapController, animated: true)
                     }
                 }}).add(children: [
-                    ComponentNode(CardComponent(), in: self, props: { (component: CardComponent, _) in
+                    ComponentNode(CardComponent(), in: self, props: { (component, _) in
                         component.styles = computedStyles
                     }).add(children: [
-                        ComponentNode(JourneyRowPart.init(), in: self, props: {(component: Components.Journey.Results.SolutionComponentParts.JourneyRowPart, _) in
+                        ComponentNode(JourneyRowPart.init(), in: self, props: {(component, _) in
                             component.departureTime = self.journey.departureDateTime!
                             component.arrivalTime = self.journey.arrivalDateTime!
                             component.totalDuration = self.journey.duration

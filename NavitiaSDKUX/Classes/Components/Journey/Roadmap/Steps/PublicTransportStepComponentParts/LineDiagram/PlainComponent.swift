@@ -7,7 +7,7 @@ extension Components.Journey.Roadmap.Steps.PublicTransportStepComponentParts.Lin
         var color: UIColor?
 
         override func render() -> NodeType {
-            return ComponentNode(ViewComponent(), in: self, props: { (component: ViewComponent, _) in
+            return ComponentNode(ViewComponent(), in: self, props: { (component, _) in
                 self.lineDiagramStyle["backgroundColor"] = self.color!
                 component.styles = self.lineDiagramStyle
             })

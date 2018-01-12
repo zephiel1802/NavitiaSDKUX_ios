@@ -15,7 +15,7 @@ extension Components.Journey.Roadmap {
         var isBSS: Bool = false
         
         override func render() -> NodeType {
-            return ComponentNode(ViewComponent(), in: self, props: { (component: ViewComponent, _) in
+            return ComponentNode(ViewComponent(), in: self, props: { (component, _) in
                 component.styles = self.containerStyles
             }).add(children: [
                 getTypedSectionComponent(section: section!, disruptions: disruptions, description: description, waitingTime: waitingTime, isBSS: isBSS)
@@ -25,7 +25,7 @@ extension Components.Journey.Roadmap {
         func getTypedSectionComponent(section: Section, disruptions: [Disruption], description: String?, waitingTime: Int32?, isBSS: Bool) -> NodeType {
             switch section.type! {
                 case "public_transport":
-                    return ComponentNode(PublicTransportStepComponent.init(), in: self, key: "\(String(describing: type(of: self)))_\(self.section!.type!)_\(self.section!.departureDateTime!)", props: { (component: Components.Journey.Roadmap.Steps.PublicTransportStepComponent, _) in
+                    return ComponentNode(PublicTransportStepComponent.init(), in: self, key: "\(String(describing: type(of: self)))_\(self.section!.type!)_\(self.section!.departureDateTime!)", props: { (component, _) in
                         component.section = section
                         component.disruptions = disruptions
                         if waitingTime != nil {
@@ -34,19 +34,19 @@ extension Components.Journey.Roadmap {
                     })
                 case "street_network":
                     if (isBSS) {
-                        return ComponentNode(SharedStepComponent.init(), in: self, props: { (component: Components.Journey.Roadmap.Steps.SharedStepComponent, _) in
+                        return ComponentNode(SharedStepComponent.init(), in: self, props: { (component, _) in
                             component.section = section
                             component.descriptionProp = self.descriptionProp
                         })
                     } else {
-                        return ComponentNode(SimpleStepComponent.init(), in: self, props: { (component: Components.Journey.Roadmap.Steps.SimpleStepComponent, _) in
+                        return ComponentNode(SimpleStepComponent.init(), in: self, props: { (component, _) in
                             component.section = section
                             component.descriptionProp = self.descriptionProp
                         })
                     }
                 // case "transfer":
                 default:
-                    return ComponentNode(SimpleStepComponent.init(), in: self, props: { (component: Components.Journey.Roadmap.Steps.SimpleStepComponent, _) in
+                    return ComponentNode(SimpleStepComponent.init(), in: self, props: { (component, _) in
                         component.section = section
                         component.descriptionProp = self.descriptionProp
                     })

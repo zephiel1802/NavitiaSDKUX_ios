@@ -32,7 +32,7 @@ extension Components.Journey.Results.SolutionComponentParts {
             
             var walkingSummaryComponent: NodeType = ComponentNode(ViewComponent(), in: self)
             if sections.count > 1 || self.walkingDuration! > 0 {
-                walkingSummaryComponent = ComponentNode(JourneyWalkingSummaryPart.init(), in: self, props: {(component: Components.Journey.Results.SolutionComponentParts.JourneyWalkingSummaryPart, _) in
+                walkingSummaryComponent = ComponentNode(JourneyWalkingSummaryPart.init(), in: self, props: {(component, _) in
                     component.duration = self.walkingDuration!
                     component.distance = self.walkingDistance!
                 })
@@ -49,14 +49,14 @@ extension Components.Journey.Results.SolutionComponentParts {
                             component.text = timesText
                             component.styles = self.timesStyles
                         }),
-                        ComponentNode(DurationPart.init(), in: self, props: {(component: Components.Journey.Results.SolutionComponentParts.DurationPart, _) in
+                        ComponentNode(DurationPart.init(), in: self, props: {(component, _) in
                             component.seconds = self.totalDuration!
                             component.styles = self.durationStyles
                             component.hasArrow = self.hasArrow
                         }),
                     ]),
                     ComponentNode(SeparatorPart.init(), in: self),
-                    ComponentNode(JourneyFriezePart.init(), in: self, props: {(component: Components.Journey.Results.SolutionComponentParts.JourneyFriezePart, _) in
+                    ComponentNode(JourneyFriezePart.init(), in: self, props: {(component, _) in
                         component.sections = self.sections
                         component.disruptions = self.disruptions
                     }),

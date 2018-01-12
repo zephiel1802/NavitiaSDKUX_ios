@@ -8,17 +8,17 @@ extension Components.Journey.Roadmap.Steps.Parts {
         var dateTime: String?
 
         override func render() -> NodeType {
-            return ComponentNode(ViewComponent(), in: self, props: { (component: ViewComponent, _) in
+            return ComponentNode(ViewComponent(), in: self, props: { (component, _) in
                 component.styles = self.containerStyles
             }).add(children: [
-                ComponentNode(ViewComponent(), in: self, props: { (component: ViewComponent, _) in
+                ComponentNode(ViewComponent(), in: self, props: { (component, _) in
                     component.styles = self.paddingCenteringStyles
                 }),
-                ComponentNode(LabelComponent(), in: self, props: { (component: LabelComponent, _) in
+                ComponentNode(LabelComponent(), in: self, props: { (component, _) in
                     component.styles = mergeDictionaries(dict1: self.labelBaseStyles, dict2: self.labelStyles)
                     component.text = timeText(isoString: self.dateTime!)
                 }),
-                ComponentNode(ViewComponent(), in: self, props: { (component: ViewComponent, _) in
+                ComponentNode(ViewComponent(), in: self, props: { (component, _) in
                     component.styles = self.paddingCenteringStyles
                 })
             ])

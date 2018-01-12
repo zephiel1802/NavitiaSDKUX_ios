@@ -10,18 +10,18 @@ extension Components.Journey.Roadmap.Steps {
         var descriptionProp: NSMutableAttributedString?
         
         override func render() -> NodeType {
-            return ComponentNode(JourneyRoadmap2ColumnsLayout.init(), in: self, props: {(component: Components.Journey.Roadmap.Steps.JourneyRoadmap2ColumnsLayout, _) in
+            return ComponentNode(JourneyRoadmap2ColumnsLayout.init(), in: self, props: {(component, _) in
                 component.leftChildren = [
-                    ComponentNode(ViewComponent(), in: self, props: {(component: ViewComponent, _) in
+                    ComponentNode(ViewComponent(), in: self, props: {(component, _) in
                         component.styles = self.modeContainerStyles
                     }).add(children: [
-                        ComponentNode(ModeComponent(), in: self, props: {(component: ModeComponent, _) in
+                        ComponentNode(ModeComponent(), in: self, props: {(component, _) in
                             component.section = self.section!
                         })
                         ])
                 ]
                 component.rightChildren = [
-                    ComponentNode(LabelComponent(), in: self, props: {(component: LabelComponent, _) in
+                    ComponentNode(LabelComponent(), in: self, props: {(component, _) in
                         component.attributedText = self.descriptionProp!
                         component.styles = self.instructionTextStyles
                     })

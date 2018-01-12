@@ -12,7 +12,7 @@ import Render
 class CardComponent: ViewComponent {
     override func render() -> NodeType {
         let computedStyles = mergeDictionaries(dict1: self.defaultStyles, dict2: self.styles)
-        return ComponentNode(ViewComponent(), in: self, props: {(component: ViewComponent, _) in
+        return ComponentNode(ViewComponent(), in: self, props: {(component, _) in
             component.styles = computedStyles
         })
     }

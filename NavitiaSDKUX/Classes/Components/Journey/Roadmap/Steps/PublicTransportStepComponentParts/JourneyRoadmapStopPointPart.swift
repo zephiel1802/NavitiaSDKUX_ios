@@ -26,19 +26,19 @@ extension Components.Journey.Roadmap.Steps.PublicTransportStepComponentParts {
                     stopPointLabel = self.section!.to!.name
             }
 
-            return ComponentNode(JourneyRoadmap3ColumnsLayout.init(), in: self, props: { (component: Components.Journey.Roadmap.Steps.JourneyRoadmap3ColumnsLayout, _) in
+            return ComponentNode(JourneyRoadmap3ColumnsLayout.init(), in: self, props: { (component, _) in
                 component.leftChildren = [
-                    ComponentNode(self.TimePart.init(), in: self, props: { (component: Components.Journey.Roadmap.Steps.Parts.TimePart, _) in
+                    ComponentNode(self.TimePart.init(), in: self, props: { (component, _) in
                         component.dateTime = (self.time != nil) ? self.time : dateTime
                     })
                 ]
                 component.middleChildren = [
-                    ComponentNode(self.StopPointIconPart.init(), in: self, props: { (component: Components.Journey.Roadmap.Steps.PublicTransportStepComponentParts.LineDiagram.StopPointIconPart, _) in
+                    ComponentNode(self.StopPointIconPart.init(), in: self, props: { (component, _) in
                         component.color = (self.color != nil) ? self.color! : getUIColorFromHexadecimal(hex: getHexadecimalColorWithFallback(self.section!.displayInformations?.color))
                     })
                 ]
                 component.rightChildren = [
-                    ComponentNode(self.StopPointLabelPart.init(), in: self, props: { (component: Components.Journey.Roadmap.Steps.PublicTransportStepComponentParts.StopPoint.StopPointLabelPart, _) in
+                    ComponentNode(self.StopPointLabelPart.init(), in: self, props: { (component, _) in
                         component.stopPointLabel = stopPointLabel
                     })
                 ]

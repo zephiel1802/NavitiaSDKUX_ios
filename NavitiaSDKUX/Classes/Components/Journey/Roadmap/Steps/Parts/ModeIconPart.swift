@@ -7,10 +7,10 @@ extension Components.Journey.Roadmap.Steps.Parts {
         var section: Section?
 
         override func render() -> NodeType {
-            return ComponentNode(ViewComponent(), in: self, props: { (component: ViewComponent, _) in
+            return ComponentNode(ViewComponent(), in: self, props: { (component, _) in
                 component.styles = self.containerStyle
             }).add(children: [
-                ComponentNode(ModeComponent(), in: self, props: { (component: ModeComponent, _) in
+                ComponentNode(ModeComponent(), in: self, props: { (component, _) in
                     component.section = self.section
                 })
             ])

@@ -12,7 +12,7 @@ import Render
 class ListViewComponent: ViewComponent {
     override func render() -> NodeType {
         let computedStyles = self.styles
-        return ComponentNode(ContainerComponent(), in: self, props: {(component: ContainerComponent, _) in
+        return ComponentNode(ContainerComponent(), in: self, props: {(component, _) in
             component.styles = computedStyles
         })
     }

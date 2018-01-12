@@ -7,10 +7,10 @@ extension Components.Journey.Roadmap.Steps.PublicTransportStepComponentParts.Sto
         var stopPointLabel: String?
 
         override func render() -> NodeType {
-            return ComponentNode(ViewComponent(), in: self, props: { (component: ViewComponent, _) in
+            return ComponentNode(ViewComponent(), in: self, props: { (component, _) in
                 component.styles = self.stopPointContainerStyle
             }).add(children: [
-                ComponentNode(LabelComponent(), in: self, props: { (component: LabelComponent, _) in
+                ComponentNode(LabelComponent(), in: self, props: { (component, _) in
                     component.styles = self.stopPointLabelStyle
                     component.text = self.stopPointLabel!
                 })

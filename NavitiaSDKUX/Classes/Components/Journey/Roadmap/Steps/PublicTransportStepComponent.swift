@@ -18,22 +18,22 @@ extension Components.Journey.Roadmap.Steps {
         var waitingTime: Int32?
 
         override func render() -> NodeType {
-            return ComponentNode(CardComponent(), in: self, props:{ (component: CardComponent, _) in
+            return ComponentNode(CardComponent(), in: self, props:{ (component, _) in
                 component.styles = self.containerStyles
             }).add(children: [
-                ComponentNode(self.JourneyRoadmap2ColumnsLayout.init(), in: self, props: { (component: Components.Journey.Roadmap.Steps.JourneyRoadmap2ColumnsLayout, _) in
+                ComponentNode(self.JourneyRoadmap2ColumnsLayout.init(), in: self, props: { (component, _) in
                     component.leftChildren = [
-                        ComponentNode(ViewComponent(), in: self, props: { (component: ViewComponent, _) in
+                        ComponentNode(ViewComponent(), in: self, props: { (component, _) in
                             component.styles = self.modeIconContainerStyles
                         }).add(children: [
-                            ComponentNode(self.ModeIconPart.init(), in: self, props: { (component: Components.Journey.Roadmap.Steps.Parts.ModeIconPart, _) in
+                            ComponentNode(self.ModeIconPart.init(), in: self, props: { (component, _) in
                                 component.section = self.section
                             })
                         ])
                     ]
                     component.rightChildren = [
                         ComponentNode(ViewComponent(), in: self).add(children: [
-                            ComponentNode(self.DirectionPart.init(), in: self, props: { (component: Components.Journey.Roadmap.Steps.PublicTransportStepComponentParts.DirectionPart, _) in
+                            ComponentNode(self.DirectionPart.init(), in: self, props: { (component, _) in
                                 component.section = self.section
                                 component.disruptions = self.disruptions
                             })
@@ -41,7 +41,7 @@ extension Components.Journey.Roadmap.Steps {
                     ]
                     if self.disruptions != nil && self.disruptions!.count > 0 {
                         component.rightChildren!.append(
-                            ComponentNode(self.DisruptionDescriptionPart.init(), in: self, props: { (component: Components.Journey.Roadmap.Steps.PublicTransportStepComponentParts.DisruptionDescriptionPart, _) in
+                            ComponentNode(self.DisruptionDescriptionPart.init(), in: self, props: { (component, _) in
                                 component.section = self.section
                                 component.disruptions = self.disruptions
                             })
@@ -49,31 +49,31 @@ extension Components.Journey.Roadmap.Steps {
                     }
                     if self.waitingTime != nil {
                         component.rightChildren!.append(
-                            ComponentNode(self.WaitingPart.init(), in: self, props: { (component: Components.Journey.Roadmap.Steps.PublicTransportStepComponentParts.WaitingPart, _) in
+                            ComponentNode(self.WaitingPart.init(), in: self, props: { (component, _) in
                                 component.waitingTime = self.waitingTime!
                             })
                         )
                     }
                 }),
-                ComponentNode(ViewComponent(), in: self, props:{ (component: ViewComponent, _) in
+                ComponentNode(ViewComponent(), in: self, props:{ (component, _) in
                     component.styles = self.diagramContainerStyles
                 }).add(children: [
-                    ComponentNode(PlainPart.init(), in: self, props: { (component: Components.Journey.Roadmap.Steps.PublicTransportStepComponentParts.LineDiagram.PlainPart, _) in
+                    ComponentNode(PlainPart.init(), in: self, props: { (component, _) in
                         component.color = getUIColorFromHexadecimal(hex: (self.section?.displayInformations?.color)!)
                     }),
                     ComponentNode(ViewComponent(), in: self).add(children: [
-                        ComponentNode(self.StopPointPart.init(), in: self, props: { (component: Components.Journey.Roadmap.Steps.PublicTransportStepComponentParts.StopPointPart, _) in
+                        ComponentNode(self.StopPointPart.init(), in: self, props: { (component, _) in
                             component.section = self.section
                             component.sectionWay = SectionWay.departure
                         }),
-                        ComponentNode(ViewComponent(), in: self, props: { (component: ViewComponent, _) in
+                        ComponentNode(ViewComponent(), in: self, props: { (component, _) in
                             component.styles = self.bodyContainerStyles
                         }).add(children: [
-                            ComponentNode(self.DetailsPart.init(), in: self, key: "\(String(describing: type(of: self)))_\(self.section!.type!)_\(self.section!.departureDateTime!)", props: { (component: Components.Journey.Roadmap.Steps.PublicTransportStepComponentParts.DetailsPart, _) in
+                            ComponentNode(self.DetailsPart.init(), in: self, key: "\(String(describing: type(of: self)))_\(self.section!.type!)_\(self.section!.departureDateTime!)", props: { (component, _) in
                                 component.section = self.section
                             })
                         ]),
-                        ComponentNode(self.StopPointPart.init(), in: self, props: { (component: Components.Journey.Roadmap.Steps.PublicTransportStepComponentParts.StopPointPart, _) in
+                        ComponentNode(self.StopPointPart.init(), in: self, props: { (component, _) in
                             component.section = self.section
                             component.sectionWay = SectionWay.arrival
                         })

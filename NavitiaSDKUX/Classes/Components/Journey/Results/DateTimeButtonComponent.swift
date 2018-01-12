@@ -20,7 +20,7 @@ extension Components.Journey.Results {
             return ComponentNode(ButtonComponent(), in: self, props: {(component, _) in
                 component.styles = computedStyles
             }).add(children: [
-                ComponentNode(TextComponent(), in: self, props: {(component: TextComponent, _) in
+                ComponentNode(TextComponent(), in: self, props: {(component, _) in
                     let datetimeRepresentsText = NSLocalizedString(
                         "component.DateTimeButtonComponent.representation." + self.datetimeRepresents!.rawValue,
                         bundle: self.bundle,

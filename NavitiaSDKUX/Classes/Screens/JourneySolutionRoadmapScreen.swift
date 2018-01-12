@@ -28,21 +28,21 @@ open class JourneySolutionRoadmapScreen: StylizedComponent<JourneySolutionRoadma
     
     override open func render() -> NodeType {
         return ComponentNode(ScreenComponent(), in: self).add(children: [
-            ComponentNode(ScreenHeaderComponent(), in: self, props: { (component: ScreenHeaderComponent, _) in
+            ComponentNode(ScreenHeaderComponent(), in: self, props: { (component, _) in
                 component.navigationController = self.navigationController
                 component.styles = self.screenHeaderStyle
             }),
             Node<UIView>() { view, layout, size in
                 layout.height = 0.4 * size.height
             }.add(children: [
-                ComponentNode(JourneyMapViewComponent(), in: self, props: { (component: JourneyMapViewComponent, _) in
+                ComponentNode(JourneyMapViewComponent(), in: self, props: { (component, _) in
                     component.styles = self.mapViewStyles
                     component.journey = self.state.journey
                 })
             ]),
             ComponentNode(ScrollViewComponent(), in: self).add(children: [
                 ComponentNode(ContainerComponent(), in: self).add(children: [
-                    ComponentNode(JourneySolutionComponent.init(), in: self, props: { (component: Components.Journey.Results.JourneySolutionComponent, _) in
+                    ComponentNode(JourneySolutionComponent.init(), in: self, props: { (component, _) in
                         component.journey = self.state.journey!
                         component.disruptions = self.state.disruptions
                         component.isTouchable = false
@@ -63,7 +63,7 @@ open class JourneySolutionRoadmapScreen: StylizedComponent<JourneySolutionRoadma
         for (index, section) in journey.sections!.enumerated() {
             if index == 0 {
                 sectionComponents.append(
-                    ComponentNode(self.PlaceStepComponent.init(), in: self, props: {(components: Components.Journey.Roadmap.Steps.PlaceStepComponent, _) in
+                    ComponentNode(self.PlaceStepComponent.init(), in: self, props: {(components, _) in
                         components.styles = self.originSectionStyles
                         components.datetime = journey.departureDateTime
                         components.placeType = NSLocalizedString("component.PlaceStepComponent.departure", bundle: self.bundle, comment: "")
@@ -75,7 +75,7 @@ open class JourneySolutionRoadmapScreen: StylizedComponent<JourneySolutionRoadma
             
             if section.type == "street_network" || section.type == "public_transport" || section.type == "transfer" {
                 sectionComponents.append(
-                    ComponentNode(self.StepComponent.init(), in: self, props: { (component: Components.Journey.Roadmap.StepComponent, _) in
+                    ComponentNode(self.StepComponent.init(), in: self, props: { (component, _) in
                         component.section = section
                         
                         if section.type == "public_transport" {

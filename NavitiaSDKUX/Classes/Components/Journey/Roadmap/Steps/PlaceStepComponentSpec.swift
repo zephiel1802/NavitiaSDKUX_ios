@@ -17,23 +17,23 @@ extension Components.Journey.Roadmap.Steps {
             ]
             let textStepStyles = mergeDictionaries(dict1: self.textStyles, dict2: self.textStepBaseStyles)
             
-            return ComponentNode(CardComponent(), in: self, props: {(component: CardComponent, _) in
+            return ComponentNode(CardComponent(), in: self, props: {(component, _) in
                 component.styles = mergeDictionaries(dict1: self.containerStyles, dict2: [
                     "backgroundColor": self.backgroundColorProp!
                 ])
             }).add(children: [
-                ComponentNode(JourneyRoadmap3ColumnsLayout.init(), in: self, props: {(component: Components.Journey.Roadmap.Steps.JourneyRoadmap3ColumnsLayout, _) in
+                ComponentNode(JourneyRoadmap3ColumnsLayout.init(), in: self, props: {(component, _) in
                     component.leftChildren = [
-                        ComponentNode(self.TimePart.init(), in: self, props: {(component: Components.Journey.Roadmap.Steps.Parts.TimePart, _) in
+                        ComponentNode(self.TimePart.init(), in: self, props: {(component, _) in
                             component.dateTime = self.datetime
                             component.labelStyles = colorStyles
                         })
                     ]
                     component.middleChildren = [
-                        ComponentNode(ViewComponent(), in: self, props: {(component: ViewComponent, _) in
+                        ComponentNode(ViewComponent(), in: self, props: {(component, _) in
                             component.styles = self.iconContainerStyles
                         }).add(children: [
-                            ComponentNode(IconComponent(), in: self, props: {(component: IconComponent, _) in
+                            ComponentNode(IconComponent(), in: self, props: {(component, _) in
                                 component.styles = mergeDictionaries(dict1: self.iconStyles, dict2: colorStyles)
                                 component.name = "location-pin"
                                 component.autoresizingMask = UIViewAutoresizing.flexibleWidth
@@ -41,14 +41,14 @@ extension Components.Journey.Roadmap.Steps {
                         ])
                     ]
                     component.rightChildren = [
-                        ComponentNode(ViewComponent(), in: self, props: {(component: ViewComponent, _) in
+                        ComponentNode(ViewComponent(), in: self, props: {(component, _) in
                             component.styles = self.textContainerStyles
                         }).add(children: [
-                            ComponentNode(TextComponent(), in: self, props: {(component: TextComponent, _) in
+                            ComponentNode(TextComponent(), in: self, props: {(component, _) in
                                 component.text = self.placeType!
                                 component.styles = mergeDictionaries(dict1: textStepStyles, dict2: colorStyles)
                             }),
-                            ComponentNode(TextComponent(), in: self, props: {(component: TextComponent, _) in
+                            ComponentNode(TextComponent(), in: self, props: {(component, _) in
                                 component.text = self.placeLabel!
                                 component.styles = mergeDictionaries(dict1: self.textStyles, dict2: colorStyles)
                             }),

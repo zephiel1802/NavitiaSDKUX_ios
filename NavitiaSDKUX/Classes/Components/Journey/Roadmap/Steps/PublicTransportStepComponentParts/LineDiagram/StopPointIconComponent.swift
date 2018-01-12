@@ -9,7 +9,7 @@ extension Components.Journey.Roadmap.Steps.PublicTransportStepComponentParts.Lin
         var innerFontSize: Int = 12
         
         override func render() -> NodeType {
-            return ComponentNode(ViewComponent(), in: self, props: { (component: ViewComponent, _) in
+            return ComponentNode(ViewComponent(), in: self, props: { (component, _) in
                 component.styles = self.stopPointIconContainerStyles
             }).add(children: [
                 getOuterCicleContainer(color: color!, fontSize: outerFontSize),
@@ -18,10 +18,10 @@ extension Components.Journey.Roadmap.Steps.PublicTransportStepComponentParts.Lin
         }
         
         func getOuterCicleContainer(color: UIColor, fontSize: Int) -> NodeType {
-            return ComponentNode(ViewComponent(), in: self, props: { (component: ViewComponent, _) in
+            return ComponentNode(ViewComponent(), in: self, props: { (component, _) in
                 component.styles = self.circleContainerStyles
             }).add(children: [
-                ComponentNode(IconComponent(), in: self, props: { (component: IconComponent, _) in
+                ComponentNode(IconComponent(), in: self, props: { (component, _) in
                     component.name = "circle-filled"
                     component.styles = [
                         "color": color,
@@ -32,10 +32,10 @@ extension Components.Journey.Roadmap.Steps.PublicTransportStepComponentParts.Lin
         }
         
         func getInnerCircleContainer(fontSize: Int) -> NodeType {
-            return ComponentNode(ViewComponent(), in: self, props: { (component: ViewComponent, _) in
+            return ComponentNode(ViewComponent(), in: self, props: { (component, _) in
                 component.styles = self.circleContainerStyles
             }).add(children: [
-                ComponentNode(IconComponent(), in: self, props: { (component: IconComponent, _) in
+                ComponentNode(IconComponent(), in: self, props: { (component, _) in
                     self.innerCircleStyles["fontSize"] = fontSize
                     component.name = "circle-filled"
                     component.styles = self.innerCircleStyles
