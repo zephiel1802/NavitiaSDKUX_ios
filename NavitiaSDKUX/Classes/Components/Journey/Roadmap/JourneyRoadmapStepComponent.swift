@@ -54,7 +54,6 @@ extension Components.Journey.Roadmap {
         }
         
         let containerStyles: [String: Any] = [
-            "paddingHorizontal": config.metrics.marginS,
             "paddingVertical": config.metrics.margin,
         ]
     }

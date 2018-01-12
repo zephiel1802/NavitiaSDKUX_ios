@@ -11,7 +11,9 @@ extension Components.Journey.Roadmap.Steps {
         var descriptionProp: NSMutableAttributedString?
         
         override func render() -> NodeType {
-            return ComponentNode(CardComponent(), in: self).add(children: [
+            return ComponentNode(CardComponent(), in: self, props:{ (component, _) in
+                component.styles = self.containerStyles
+            }).add(children: [
                 ComponentNode(JourneyRoadmap2ColumnsLayout.init(), in: self, props: {(component, _) in
                     component.styles = self.containerStyles
                     component.leftChildren = [
