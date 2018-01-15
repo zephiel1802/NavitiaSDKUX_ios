@@ -93,14 +93,15 @@ class JourneyMapViewComponent: StylizedComponent<NilState>, MKMapViewDelegate {
     
     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
         if let sectionPolyline = overlay as? SectionPolyline {
+            let targetSection = (self.journey?.sections?[sectionPolyline.sectionIndex!])!
             let polylineRenderer = MKPolylineRenderer(polyline: sectionPolyline)
-            if self.journey?.sections?[sectionPolyline.sectionIndex!].type == "public_transport" {
-                polylineRenderer.lineWidth = 7
-                polylineRenderer.strokeColor = getUIColorFromHexadecimal(hex: getHexadecimalColorWithFallback(self.journey?.sections?[sectionPolyline.sectionIndex!].displayInformations?.color))
-            } else if self.journey?.sections?[sectionPolyline.sectionIndex!].type == "street_network" {
+            if targetSection.type == "public_transport" && targetSection.displayInformations?.color != nil {
+                polylineRenderer.lineWidth = 5
+                polylineRenderer.strokeColor = getUIColorFromHexadecimal(hex: getHexadecimalColorWithFallback(targetSection.displayInformations?.color))
+            } else if targetSection.type == "street_network" || targetSection.type == "transfer" {
                 polylineRenderer.strokeColor = config.colors.gray
                 polylineRenderer.lineWidth = 4
-                if self.journey?.sections?[sectionPolyline.sectionIndex!].mode! == "walking" {
+                if targetSection.mode == "walking" {
                     polylineRenderer.lineDashPattern = [0.01, NSNumber(value: Float(2 * polylineRenderer.lineWidth))]
                     polylineRenderer.lineCap = CGLineCap.round
                 }
@@ -153,6 +154,7 @@ class JourneyPathOverlays {
     var journeyPolyline: MKPolyline
     var sectionsPolylines: [MKPolyline]
     var intermediatesPointsCircles: [MKCircle]
+    
     init(journey: Journey, intermediatePointCircleRadius: CLLocationDistance) {
         var journeyPolylineCoordinates = [CLLocationCoordinate2D]()
         self.sectionsPolylines = [MKPolyline]()
