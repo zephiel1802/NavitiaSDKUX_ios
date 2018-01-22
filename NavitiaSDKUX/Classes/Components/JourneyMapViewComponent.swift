@@ -161,7 +161,7 @@ class JourneyPathOverlays {
         self.intermediatesPointsCircles = [MKCircle]()
         for (index , section) in journey.sections!.enumerated() {
             if section.geojson != nil {
-                let sectionGeoJSONCoordinates = section.geojson?.coordinates
+                let sectionGeoJSONCoordinates = section.geojson!.coordinates
                 var sectionPolylineCoordinates = [CLLocationCoordinate2D]()
                 for (_, coordinate) in sectionGeoJSONCoordinates!.enumerated() {
                     sectionPolylineCoordinates.append(CLLocationCoordinate2DMake(Double(coordinate[1]), Double(coordinate[0])))
