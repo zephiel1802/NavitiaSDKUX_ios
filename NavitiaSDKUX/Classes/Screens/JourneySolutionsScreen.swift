@@ -105,6 +105,9 @@ open class JourneySolutionsScreen: StylizedComponent<JourneySolutionsScreenState
         if parameters.forbiddenUris != nil {
             journeyRequestBuilder.withForbiddenUris(parameters.forbiddenUris!)
         }
+        if parameters.allowedId != nil {
+            journeyRequestBuilder.withAllowedId(parameters.allowedId!)
+        }
         if parameters.firstSectionModes != nil {
             journeyRequestBuilder.withFirstSectionMode(parameters.firstSectionModes!)
         }

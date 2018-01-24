@@ -23,6 +23,7 @@ public class JourneySolutionsController: ViewController, ComponentController {
         public var datetime: Date?
         public var datetimeRepresents: JourneysRequestBuilder.DatetimeRepresents?
         public var forbiddenUris: [String]?
+        public var allowedId: [String]?
         public var firstSectionModes: [JourneysRequestBuilder.FirstSectionMode]?
         public var lastSectionModes: [JourneysRequestBuilder.LastSectionMode]?
         public var count: Int32?
