@@ -66,7 +66,7 @@ open class JourneySolutionRoadmapScreen: StylizedComponent<JourneySolutionRoadma
                     ComponentNode(self.PlaceStepComponent.init(), in: self, props: {(component, _) in
                         component.styles = self.originSectionStyles
                         component.datetime = journey.departureDateTime
-                        component.placeType = NSLocalizedString("component.PlaceStepComponent.departure", bundle: self.bundle, comment: "")
+                        component.placeType = NSLocalizedString("departure_with_colon", bundle: self.bundle, comment: "")
                         component.placeLabel = section.from?.name!
                         component.backgroundColorProp = config.colors.origin
                     })
@@ -116,7 +116,7 @@ open class JourneySolutionRoadmapScreen: StylizedComponent<JourneySolutionRoadma
                     ComponentNode(self.PlaceStepComponent.init(), in: self, props: {(component, _) in
                         component.styles = self.destinationSectionStyles
                         component.datetime = journey.arrivalDateTime
-                        component.placeType = NSLocalizedString("component.PlaceStepComponent.arrival", bundle: self.bundle, comment: "")
+                        component.placeType = NSLocalizedString("arrival_with_colon", bundle: self.bundle, comment: "")
                         component.placeLabel = section.to?.name!
                         component.backgroundColorProp = config.colors.destination
                     })
@@ -135,7 +135,7 @@ open class JourneySolutionRoadmapScreen: StylizedComponent<JourneySolutionRoadma
         let descriptionLabel = NSMutableAttributedString.init()
         
         if network != nil {
-            let takeStringTemplate = NSLocalizedString("component.JourneyRoadmapStepComponent.mode.bss.take", bundle: self.bundle, comment: "") + " "
+            let takeStringTemplate = NSLocalizedString("take_a_bike_at", bundle: self.bundle, comment: "") + " "
             let take = String(format: takeStringTemplate, network!)
             descriptionLabel.append(NSAttributedString.init(string: take))
             
@@ -144,10 +144,10 @@ open class JourneySolutionRoadmapScreen: StylizedComponent<JourneySolutionRoadma
             ])
             descriptionLabel.append(departureSpannableString)
             
-            let inDirection = " " + NSLocalizedString("component.JourneyRoadmapStepComponent.mode.bss.to", bundle: self.bundle, comment: "") + " "
+            let inDirection = " " + NSLocalizedString("to", bundle: self.bundle, comment: "") + " "
             descriptionLabel.append(NSAttributedString.init(string: inDirection))
         } else {
-            let to = NSLocalizedString("component.JourneyRoadmapStepComponent.to", bundle: self.bundle, comment: "") + " "
+            let to = NSLocalizedString("to_with_uppercase", bundle: self.bundle, comment: "") + " "
             descriptionLabel.append(NSAttributedString.init(string: to))
         }
         
@@ -159,15 +159,15 @@ open class JourneySolutionRoadmapScreen: StylizedComponent<JourneySolutionRoadma
         var durationString = "\n"
         switch mode {
         case "walking":
-            let walkingStringTemplate = NSLocalizedString("component.JourneyRoadmapStepComponent.mode.walking", bundle: self.bundle, comment: "")
+            let walkingStringTemplate = NSLocalizedString("a_time_walk", bundle: self.bundle, comment: "")
             durationString += String(format: walkingStringTemplate, durationLabel)
             break
         case "bike":
-            let bikeStringTemplate = NSLocalizedString("component.JourneyRoadmapStepComponent.mode.bike", bundle: self.bundle, comment: "")
+            let bikeStringTemplate = NSLocalizedString("a_time_ride", bundle: self.bundle, comment: "")
             durationString += String(format: bikeStringTemplate, durationLabel)
             break
         case "car":
-            let carStringTemplate = NSLocalizedString("component.JourneyRoadmapStepComponent.mode.car", bundle: self.bundle, comment: "")
+            let carStringTemplate = NSLocalizedString("a_time_drive", bundle: self.bundle, comment: "")
             durationString += String(format: carStringTemplate, durationLabel)
             break
         default:

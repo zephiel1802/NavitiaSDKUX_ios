@@ -33,12 +33,12 @@ func getIsoDatetime(datetime: Date) -> String {
 
 func durationText(bundle: Bundle, seconds: Int32, useFullFormat: Bool = false) -> String {
     if (seconds < 60) {
-        return "< 1 " + NSLocalizedString("units.minute", bundle: bundle, comment: "Units minute")
+        return NSLocalizedString("less_than_a", bundle: bundle, comment: "") + " " + NSLocalizedString("units_minute", bundle: bundle, comment: "Units minute")
     } else if (seconds < 120) {
-        return "1 " + NSLocalizedString("units.minute", bundle: bundle, comment: "Units minute")
+        return "1 " + NSLocalizedString("units_minute", bundle: bundle, comment: "Units minute")
     } else if (seconds < 3600) {
         let minutes: Int32 = seconds / 60
-        return String(minutes) + " " + NSLocalizedString("units.minute.plural", bundle: bundle, comment: "Units minutes")
+        return String(minutes) + " " + NSLocalizedString("units_minutes", bundle: bundle, comment: "Units minutes")
     } else {
         let hours: Int32 = seconds / 3600
         let remainingMinutes: Int32 = (seconds / 60) - (hours * 60)
@@ -49,31 +49,31 @@ func durationText(bundle: Bundle, seconds: Int32, useFullFormat: Bool = false) -
         if useFullFormat {
             if hours > 1 {
                 if remainingMinutes > 1 {
-                    return String(format:NSLocalizedString("units.hour.plural.and.minute.plural", bundle: bundle, comment: "Units hours and minutes"), hours, remainingMinutes)
+                    return String(format:NSLocalizedString("units_hours_and_minutes", bundle: bundle, comment: "Units hours and minutes"), hours, remainingMinutes)
                 } else {
-                    return String(format:NSLocalizedString("units.hour.plural.and.minute", bundle: bundle, comment: "Units hours and minute"), hours, remainingMinutes)
+                    return String(format:NSLocalizedString("units_hours_and_minute", bundle: bundle, comment: "Units hours and minute"), hours, remainingMinutes)
                 }
             } else {
                 if remainingMinutes > 1 {
-                    return String(format:NSLocalizedString("units.hour.and.minute.plural", bundle: bundle, comment: "Units hour and minutes"), hours, remainingMinutes)
+                    return String(format:NSLocalizedString("units_hour_and_minutes", bundle: bundle, comment: "Units hour and minutes"), hours, remainingMinutes)
                 } else {
-                    return String(format:NSLocalizedString("units.hour.and.minute", bundle: bundle, comment: "Units hour and minute"), hours, remainingMinutes)
+                    return String(format:NSLocalizedString("units_hour_and_minute", bundle: bundle, comment: "Units hour and minute"), hours, remainingMinutes)
                 }
             }
         } else {
-            return String(hours) + NSLocalizedString("units.hour.abbr", bundle: bundle, comment: "Units hour abbr") + minutes
+            return String(hours) + NSLocalizedString("units_h", bundle: bundle, comment: "Units hour abbr") + minutes
         }
     }
 }
 
 func distanceText(bundle: Bundle, meters: Int32) -> String {
     if (meters < 1000) {
-        return String(meters) + " " + NSLocalizedString("units.meter.plural", bundle: bundle, comment: "Units meters")
+        return String(meters) + " " + NSLocalizedString("units_meters", bundle: bundle, comment: "Units meters")
     } else {
         let formatter: NumberFormatter = NumberFormatter()
         formatter.maximumFractionDigits = 1
         let distance: String = formatter.string(for: (Float(meters) / 1000))!
-        return distance + " " + NSLocalizedString("units.kilometer.abbr", bundle: bundle, comment: "Units km")
+        return distance + " " + NSLocalizedString("units_km", bundle: bundle, comment: "Units km")
     }
 }
 

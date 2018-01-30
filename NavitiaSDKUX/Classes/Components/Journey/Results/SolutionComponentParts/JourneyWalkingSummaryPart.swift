@@ -19,14 +19,14 @@ extension Components.Journey.Results.SolutionComponentParts {
                 component.styles = computedStyles
             }).add(children: [
                 ComponentNode(TextComponent(), in: self, props: {(component, _) in
-                    component.text = NSLocalizedString("component.JourneyWalkingSummaryComponent.With", bundle: self.bundle, comment: "Context: With 16 min walking (712m)") + " "
+                    component.text = NSLocalizedString("with", bundle: self.bundle, comment: "Context: With 16 min walking (712m)") + " "
                 }),
                 ComponentNode(TextComponent(), in: self, props: {(component, _) in
                     component.text = durationText(bundle: self.bundle, seconds: self.duration)
                     component.styles = self.durationStyles
                 }),
                 ComponentNode(TextComponent(), in: self, props: {(component, _) in
-                    component.text = " " + NSLocalizedString("component.JourneyWalkingSummaryComponent.walking", bundle: self.bundle, comment: "Context: With 16 min walking (712m)")
+                    component.text = " " + NSLocalizedString("walking", bundle: self.bundle, comment: "Context: With 16 min walking (712m)")
                     component.text += " (" + distanceText(bundle: self.bundle, meters: self.distance) + ")"
                 }),
             ])

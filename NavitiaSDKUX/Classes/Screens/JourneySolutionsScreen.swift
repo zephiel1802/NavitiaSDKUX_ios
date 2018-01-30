@@ -48,7 +48,7 @@ open class JourneySolutionsScreen: StylizedComponent<JourneySolutionsScreenState
         var resultComponents: [NodeType] = []
         if state.error {
             resultComponents = [ComponentNode(AlertComponent.init(), in: self, props: {(component, _) in
-                component.text = NSLocalizedString("screen.JourneySolutionsScreen.error", bundle: self.bundle, comment: "No journeys")
+                component.text = NSLocalizedString("no_journey_found", bundle: self.bundle, comment: "No journeys")
             })]
         } else {
             resultComponents = journeyComponents
