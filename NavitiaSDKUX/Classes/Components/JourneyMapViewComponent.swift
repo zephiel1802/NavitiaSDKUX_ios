@@ -44,26 +44,22 @@ class JourneyMapViewComponent: StylizedComponent<NilState>, MKMapViewDelegate {
     }
     
     private func getJourneyDepartureCoordinates() -> CLLocationCoordinate2D {
-        var lat: Double = 0
-        var lon: Double = 0
-        if let coordinates = self.journey?.sections?[0].geojson?.coordinates {
-            lat = Double(coordinates[0][1])
-            lon = Double(coordinates[0][0])
+        for (_, section) in (self.journey?.sections?.enumerated())! {
+            if section.geojson != nil {
+                return CLLocationCoordinate2DMake(Double((section.geojson?.coordinates![0][1])!), Double((section.geojson?.coordinates![0][0])!))
+            }
         }
-        
-        return CLLocationCoordinate2DMake(lat, lon)
+        return CLLocationCoordinate2DMake(0, 0)
     }
     
     private func getJourneyArrivalCoordinates() -> CLLocationCoordinate2D {
-        var lat: Double = 0
-        var lon: Double = 0
-        if let sectionLength = self.journey?.sections?.count, let coordinates = self.journey?.sections?[sectionLength - 1].geojson?.coordinates {
-            let coordinatesLength = coordinates.count
-            lat = Double(coordinates[coordinatesLength - 1][1])
-            lon = Double(coordinates[coordinatesLength - 1][0])
+        for section in (self.journey?.sections?.reversed())! {
+            if section.geojson != nil {
+                let coordinatesLength = section.geojson?.coordinates!.count
+                return CLLocationCoordinate2DMake(Double((section.geojson?.coordinates![coordinatesLength! - 1][1])!), Double((section.geojson?.coordinates![coordinatesLength! - 1][0])!))
+            }
         }
-        
-        return CLLocationCoordinate2DMake(lat, lon)
+        return CLLocationCoordinate2DMake(0, 0)
     }
     
     private func zoomToPolyline(targetPolyline: MKPolyline, animated: Bool) {
