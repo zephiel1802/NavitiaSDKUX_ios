@@ -22,11 +22,11 @@ extension Components.Journey.Results {
             }).add(children: [
                 ComponentNode(TextComponent(), in: self, props: {(component, _) in
                     let datetimeRepresentsText = NSLocalizedString(
-                        self.datetimeRepresents!.rawValue + "_with_colon",
+                        String(format: "%@_with_colon", self.datetimeRepresents!.rawValue),
                         bundle: self.bundle,
                         comment: "Datetime represent label"
                     )
-                    component.text = datetimeRepresentsText + " " + longDateText(datetime: self.datetime!)
+                    component.text = String(format: "%@ %@", datetimeRepresentsText, longDateText(datetime: self.datetime!))
                     component.styles = self.textStyles
                 })
             ])

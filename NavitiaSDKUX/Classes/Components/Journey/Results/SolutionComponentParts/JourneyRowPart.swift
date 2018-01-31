@@ -27,7 +27,7 @@ extension Components.Journey.Results.SolutionComponentParts {
         var hasArrow: Bool = false
         
         override func render() -> NodeType {
-            let timesText = timeText(isoString: departureTime) + " - " + timeText(isoString: arrivalTime)
+            let timesText = String(format: "%@ - %@", timeText(isoString: departureTime), timeText(isoString: arrivalTime))
             let computedStyles = self.styles
             
             var walkingSummaryComponent: NodeType = ComponentNode(ViewComponent(), in: self)

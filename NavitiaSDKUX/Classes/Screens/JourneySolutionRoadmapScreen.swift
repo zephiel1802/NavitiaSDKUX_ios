@@ -55,7 +55,6 @@ open class JourneySolutionRoadmapScreen: StylizedComponent<JourneySolutionRoadma
 
     func getSectionComponents() -> [NodeType] {
         var sectionComponents: [NodeType] = []
-        
         let journey = self.state.journey!
         let disruptions = self.state.disruptions ?? []
         
@@ -135,7 +134,7 @@ open class JourneySolutionRoadmapScreen: StylizedComponent<JourneySolutionRoadma
         let descriptionLabel = NSMutableAttributedString.init()
         
         if network != nil {
-            let takeStringTemplate = NSLocalizedString("take_a_bike_at", bundle: self.bundle, comment: "") + " "
+            let takeStringTemplate = String(format: "%@ ", NSLocalizedString("take_a_bike_at", bundle: self.bundle, comment: ""))
             let take = String(format: takeStringTemplate, network!)
             descriptionLabel.append(NSAttributedString.init(string: take))
             
@@ -143,12 +142,9 @@ open class JourneySolutionRoadmapScreen: StylizedComponent<JourneySolutionRoadma
                 NSFontAttributeName: UIFont.systemFont(ofSize: CGFloat.init(config.metrics.text), weight: UIFontWeightBold)
             ])
             descriptionLabel.append(departureSpannableString)
-            
-            let inDirection = " " + NSLocalizedString("to", bundle: self.bundle, comment: "") + " "
-            descriptionLabel.append(NSAttributedString.init(string: inDirection))
+            descriptionLabel.append(NSAttributedString.init(string: String(format: " %@ ", NSLocalizedString("to", bundle: self.bundle, comment: ""))))
         } else {
-            let to = NSLocalizedString("to_with_uppercase", bundle: self.bundle, comment: "") + " "
-            descriptionLabel.append(NSAttributedString.init(string: to))
+            descriptionLabel.append(NSAttributedString.init(string: String(format: "%@ ", NSLocalizedString("to_with_uppercase", bundle: self.bundle, comment: ""))))
         }
         
         let toSpannableString = NSAttributedString.init(string: toLabel, attributes: [
