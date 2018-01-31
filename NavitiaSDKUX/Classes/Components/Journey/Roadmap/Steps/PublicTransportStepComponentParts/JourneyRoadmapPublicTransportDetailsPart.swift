@@ -32,7 +32,7 @@ extension Components.Journey.Roadmap.Steps.PublicTransportStepComponentParts {
                                 ComponentNode(self.DetailButtonPart.init(), in: self, props: { (component, _) in
                                     component.color = getUIColorFromHexadecimal(hex: getHexadecimalColorWithFallback(self.section!.displayInformations?.color))
                                     component.collapsed = !self.state.visible
-                                    component.text = "\(self.section!.stopDateTimes!.count - 1) \(NSLocalizedString("component.JourneyRoadmapSectionPublicTransportDescriptionComponent.stopsHeaderTitle",bundle: self.bundle,comment: "Details header title for journey roadmap section"))"
+                                    component.text = "\(self.section!.stopDateTimes!.count - 1) \(NSLocalizedString("stops",bundle: self.bundle,comment: "Details header title for journey roadmap section"))"
                                 })
                             ]
                         }),

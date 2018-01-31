@@ -10,7 +10,7 @@ extension Components.Journey.Roadmap.Steps.PublicTransportStepComponentParts.Det
         
         required init() {
             super.init()
-            text = NSLocalizedString("component.JourneyRoadmapSectionPublicTransportDescriptionComponent.detailsHeaderTitle",
+            text = NSLocalizedString("details",
                                      bundle: self.bundle,
                                      comment: "Details header title for journey roadmap section")
         }

@@ -49,17 +49,17 @@ extension Components.Journey.Roadmap.Steps.PublicTransportStepComponentParts {
                 let periodDateFormatter: DateFormatter = DateFormatter()
                 periodDateFormatter.dateStyle = .short
                 let fromText: String = NSLocalizedString(
-                    "component.JourneyRoadmapSectionPublicTransportDescriptionDisruptionDescriptionComponentPeriod.from",
+                    "from",
                     bundle: self.bundle,
                     comment: "Disruption period from"
                 )
                 let toText: String = NSLocalizedString(
-                    "component.JourneyRoadmapSectionPublicTransportDescriptionDisruptionDescriptionComponentPeriod.to",
+                    "to_period",
                     bundle: self.bundle,
                     comment: "Disruption period to"
                 )
                 let undefinedToText: String = NSLocalizedString(
-                    "component.JourneyRoadmapSectionPublicTransportDescriptionDisruptionDescriptionComponentPeriod.to.fallback",
+                    "until_further_notice",
                     bundle: self.bundle,
                     comment: "Disruption period to fallback"
                 )

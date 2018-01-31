@@ -31,11 +31,11 @@ class JourneyMapViewComponent: StylizedComponent<NilState>, MKMapViewDelegate {
         
         let departureAnnotation = PlaceAnnotation()
         departureAnnotation.coordinate = self.getJourneyDepartureCoordinates()
-        departureAnnotation.title = NSLocalizedString("component.JourneyMapViewComponent.departure", bundle: self.bundle, comment: "Departure annotation")
+        departureAnnotation.title = NSLocalizedString("departure", bundle: self.bundle, comment: "Departure annotation")
         departureAnnotation.annotationType = .Departure
         let arrivalAnnotation = PlaceAnnotation()
         arrivalAnnotation.coordinate = self.getJourneyArrivalCoordinates()
-        arrivalAnnotation.title = NSLocalizedString("component.JourneyMapViewComponent.arrival", bundle: self.bundle, comment: "Arrival annotation")
+        arrivalAnnotation.title = NSLocalizedString("arrival", bundle: self.bundle, comment: "Arrival annotation")
         arrivalAnnotation.annotationType = .Arrival
         self.renderedMapView!.addAnnotation(departureAnnotation)
         self.renderedMapView!.addAnnotation(arrivalAnnotation)

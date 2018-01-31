@@ -23,7 +23,7 @@ extension Components.Journey.Roadmap.Steps.PublicTransportStepComponentParts {
                 }).add(children: [
                     ComponentNode(TextComponent(), in: self, props: {(component, _) in
                         component.styles = self.labelStyles
-                        let action: String = NSLocalizedString("journey.roadmap.action.wait", bundle: self.bundle, comment: "Action description")
+                        let action: String = NSLocalizedString("wait", bundle: self.bundle, comment: "Action description")
                         component.text = "\(action) \(durationText(bundle: self.bundle, seconds: self.waitingTime, useFullFormat: true))"
                     })
                 ])

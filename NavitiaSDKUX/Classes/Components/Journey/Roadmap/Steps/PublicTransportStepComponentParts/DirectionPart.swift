@@ -15,7 +15,7 @@ extension Components.Journey.Roadmap.Steps.PublicTransportStepComponentParts {
                 }).add(children: [
                     ComponentNode(LabelComponent(), in: self, props: { (component, _) in
                         component.styles = mergeDictionaries(dict1: self.instructionTextStyles, dict2: self.modeStyles)
-                        component.text = NSLocalizedString("component.JourneyRoadmapSectionPublicTransportComponent.DirectionComponent.take", bundle: self.bundle, comment: "PublicTransport description")
+                        component.text = NSLocalizedString("take_the", bundle: self.bundle, comment: "PublicTransport description")
                     }),
                     ComponentNode(LineCodeWithDisruptionStatusComponent(), in: self, props: { (component, _) in
                         component.section = self.section
@@ -24,8 +24,8 @@ extension Components.Journey.Roadmap.Steps.PublicTransportStepComponentParts {
                 ]),
                 ComponentNode(LabelComponent(), in: self, props: { (component, _) in
                     component.styles = self.instructionTextStyles
-                    let localizedToResource = NSLocalizedString("component.JourneyRoadmapSectionPublicTransportComponent.DirectionComponent.at", bundle: self.bundle, comment: "PublicTransport description")
-                    let localizedDirectionResource = NSLocalizedString("component.JourneyRoadmapSectionPublicTransportComponent.DirectionComponent.direction", bundle: self.bundle, comment: "PublicTransport description")
+                    let localizedToResource = NSLocalizedString("at", bundle: self.bundle, comment: "PublicTransport description")
+                    let localizedDirectionResource = NSLocalizedString("in_the_direction_of", bundle: self.bundle, comment: "PublicTransport description")
                     let fullDescriptionText = NSMutableAttributedString.init(string: "\(localizedToResource) \(self.section!.from!.name!)")
                     fullDescriptionText.setAttributes([NSFontAttributeName: UIFont.systemFont(ofSize: 15, weight: UIFontWeightBold)], range: NSMakeRange(localizedToResource.characters.count + 1, self.section!.from!.name!.characters.count))
                     let tripDirectionText = NSMutableAttributedString.init(string: "\n\(localizedDirectionResource) \(self.section!.displayInformations!.direction!)")
