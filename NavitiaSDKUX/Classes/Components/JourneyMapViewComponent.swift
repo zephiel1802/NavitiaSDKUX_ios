@@ -162,7 +162,8 @@ class JourneyPathOverlays {
                 for (_, coordinate) in sectionGeoJSONCoordinates!.enumerated() {
                     sectionPolylineCoordinates.append(CLLocationCoordinate2DMake(Double(coordinate[1]), Double(coordinate[0])))
                 }
-                let sectionPolyline = SectionPolyline(coordinates: sectionPolylineCoordinates, count: sectionPolylineCoordinates.count, sectionIndex: index)
+                let sectionPolyline = SectionPolyline(coordinates: sectionPolylineCoordinates, count: sectionPolylineCoordinates.count)
+                sectionPolyline.sectionIndex = index
                 sectionsPolylines.append(sectionPolyline)
                 let intermediatePointCircle = MKCircle(center: sectionPolylineCoordinates[sectionPolylineCoordinates.count - 1], radius: intermediatePointCircleRadius)
                 self.intermediatesPointsCircles.append(intermediatePointCircle)
@@ -184,9 +185,4 @@ class PlaceAnnotation : MKPointAnnotation {
 
 class SectionPolyline: MKPolyline {
     var sectionIndex: Int?
-    
-    convenience init(coordinates: UnsafePointer<CLLocationCoordinate2D>, count: Int, sectionIndex: Int) {
-        self.init(coordinates: coordinates, count: count)
-        self.sectionIndex = sectionIndex
-    }
 }
