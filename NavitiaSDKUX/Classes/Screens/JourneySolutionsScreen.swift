@@ -86,7 +86,11 @@ open class JourneySolutionsScreen: StylizedComponent<JourneySolutionsScreenState
                 ])
             ]),
             ComponentNode(ScrollViewComponent(), in: self).add(children: [
-                ComponentNode(ListViewComponent(), in: self).add(children: resultComponents)
+                ComponentNode(ListViewComponent(), in: self).add(children: resultComponents),
+                ComponentNode(TextComponent(), in: self, props: {(component, _) in
+                    component.text = NSLocalizedString("carpooling", bundle: self.bundle, comment: "Carpooling").uppercased()
+                    component.styles = self.carpoolingHeaderStyles
+                })
             ])
         ])
     }
@@ -184,5 +188,12 @@ open class JourneySolutionsScreen: StylizedComponent<JourneySolutionsScreenState
     
     let headerStyles: [String: Any] = [
         "backgroundColor": config.colors.tertiary,
+    ]
+    let carpoolingHeaderStyles: [String: Any] = [
+        "color": config.colors.darkGray,
+        "fontSize": 12,
+        "fontWeight": "bold",
+        "marginLeft": 10,
+        "marginBottom": 10,
     ]
 }
