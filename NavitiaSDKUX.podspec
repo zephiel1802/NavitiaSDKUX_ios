@@ -26,5 +26,5 @@ This SDK provides journey computation screens you can add to your application.
   s.resources = 'NavitiaSDKUX/Assets/**/*.*'
 
   s.dependency 'Render', '4.9.1'
-  s.dependency 'NavitiaSDK', '~> 1.0'
+  s.dependency 'NavitiaSDK', '1.1.0'
 end

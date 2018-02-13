@@ -97,6 +97,7 @@ public struct Configuration {
         "disruption-blocking": "\u{ea29}",
         "disruption-nonblocking": "\u{ea2a}",
         "disruption-information": "\u{ea2b}",
+        "ridesharing": "\u{ea2c}"
     ]
     
     public var colors = ColorConfiguration()

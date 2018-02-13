@@ -41,27 +41,25 @@ extension Components.Journey.Results.SolutionComponentParts {
             return ComponentNode(ViewComponent(), in: self, props: {(component, _) in
                 component.styles = computedStyles
             }).add(children: [
-                ComponentNode(ViewComponent(), in: self).add(children: [
-                    ComponentNode(ViewComponent(), in: self, props: {(component, _) in
-                        component.styles = self.journeyHeaderStyles
-                    }).add(children: [
-                        ComponentNode(TextComponent(), in: self, props: {(component, _) in
-                            component.text = timesText
-                            component.styles = self.timesStyles
-                        }),
-                        ComponentNode(DurationPart.init(), in: self, props: {(component, _) in
-                            component.seconds = self.totalDuration!
-                            component.styles = self.durationStyles
-                            component.hasArrow = self.hasArrow
-                        }),
-                    ]),
-                    ComponentNode(SeparatorPart.init(), in: self),
-                    ComponentNode(JourneyFriezePart.init(), in: self, props: {(component, _) in
-                        component.sections = self.sections
-                        component.disruptions = self.disruptions
+                ComponentNode(ViewComponent(), in: self, props: {(component, _) in
+                    component.styles = self.journeyHeaderStyles
+                }).add(children: [
+                    ComponentNode(TextComponent(), in: self, props: {(component, _) in
+                        component.text = timesText
+                        component.styles = self.timesStyles
                     }),
-                    walkingSummaryComponent,
+                    ComponentNode(DurationPart.init(), in: self, props: {(component, _) in
+                        component.seconds = self.totalDuration!
+                        component.styles = self.durationStyles
+                        component.hasArrow = self.hasArrow
+                    }),
                 ]),
+                ComponentNode(SeparatorPart.init(), in: self),
+                ComponentNode(JourneyFriezePart.init(), in: self, props: {(component, _) in
+                    component.sections = self.sections
+                    component.disruptions = self.disruptions
+                }),
+                walkingSummaryComponent,
             ])
         }
         

@@ -16,7 +16,7 @@ extension Components.LineCodeWithDisruptionStatusComponentParts {
                     "padding": 6,
                 ]
                 let textStyles: [String: Any] = [
-                    "color": getUIColorFromHexadecimal(hex: getHexadecimalColorWithFallback(self.section!.displayInformations?.textColor)),
+                    "color": getUIColorFromHexadecimal(hex: getHexadecimalColorWithFallback(self.section!.displayInformations?.textColor), defaultColor: UIColor.white),
                     "fontSize": config.metrics.textS,
                     "fontWeight": "bold",
                 ]

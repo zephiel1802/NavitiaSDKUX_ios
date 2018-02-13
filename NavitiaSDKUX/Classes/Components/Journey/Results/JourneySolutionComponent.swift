@@ -24,12 +24,12 @@ extension Components.Journey.Results {
             let walkingDistance = getWalkingDistance(sections: journey.sections!)
 
             return ComponentNode(ActionComponent(), in: self, props: {(component, _) in
-                component.onTap = { [weak self] _ in
-                    let journeySolutionRoadmapController: JourneySolutionRoadmapController = JourneySolutionRoadmapController()
-                    journeySolutionRoadmapController.journey = self?.journey
-                    journeySolutionRoadmapController.disruptions = self?.disruptions
-                    if (self?.navigationController != nil) {
-                        self?.navigationController?.pushViewController(journeySolutionRoadmapController, animated: true)
+                component.onTap = { _ in
+                    if self.isTouchable {
+                        let journeySolutionRoadmapController: JourneySolutionRoadmapController = JourneySolutionRoadmapController()
+                        journeySolutionRoadmapController.journey = self.journey
+                        journeySolutionRoadmapController.disruptions = self.disruptions
+                        self.navigationController?.pushViewController(journeySolutionRoadmapController, animated: true)
                     }
                 }}).add(children: [
                     ComponentNode(CardComponent(), in: self, props: { (component, _) in
