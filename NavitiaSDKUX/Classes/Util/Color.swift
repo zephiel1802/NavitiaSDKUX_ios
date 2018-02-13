@@ -16,15 +16,14 @@ public func getHexadecimalColorWithFallback(_ hex: String?) -> String {
     return hex!
 }
 
-public func getUIColorFromHexadecimal(hex: String, defaultColor: UIColor = UIColor.gray) -> UIColor {
+public func getUIColorFromHexadecimal(hex: String) -> UIColor {
     var cString:String = hex.trimmingCharacters(in: .whitespacesAndNewlines).uppercased()
-    
     if (cString.hasPrefix("#")) {
         cString.remove(at: cString.startIndex)
     }
     
     if ((cString.characters.count) != 6) {
-        return defaultColor
+        return UIColor.gray
     }
     
     var rgbValue:UInt32 = 0
