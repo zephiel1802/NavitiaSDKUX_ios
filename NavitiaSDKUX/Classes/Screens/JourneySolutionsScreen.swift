@@ -68,11 +68,27 @@ open class JourneySolutionsScreen: StylizedComponent<JourneySolutionsScreenState
         var ridesharingJourneyResultComponents: [NodeType] = []
         if state.error {
             classicJourneyResultComponents = [ComponentNode(AlertComponent.init(), in: self, props: {(component, _) in
-                component.text = NSLocalizedString("no_journey_found", bundle: self.bundle, comment: "No journeys")
+                component.text = NSLocalizedString("no_journey_found", bundle: self.bundle, comment: "No classic journeys")
+            })]
+            ridesharingJourneyResultComponents = [ComponentNode(AlertComponent.init(), in: self, props: {(component, _) in
+                component.text = NSLocalizedString("no_carpooling_options_found", bundle: self.bundle, comment: "No ridesharing journeys")
             })]
         } else {
-            classicJourneyResultComponents = classicJourneyComponents
-            ridesharingJourneyResultComponents = ridesharingJourneyComponents
+            if classicJourneyComponents.count > 0 {
+                classicJourneyResultComponents = classicJourneyComponents
+            } else {
+                classicJourneyResultComponents = [ComponentNode(AlertComponent.init(), in: self, props: {(component, _) in
+                    component.text = NSLocalizedString("no_journey_found", bundle: self.bundle, comment: "No classic journeys")
+                })]
+            }
+            
+            if ridesharingJourneyComponents.count > 0 {
+                ridesharingJourneyResultComponents = ridesharingJourneyComponents
+            } else {
+                ridesharingJourneyResultComponents = [ComponentNode(AlertComponent.init(), in: self, props: {(component, _) in
+                    component.text = NSLocalizedString("no_carpooling_options_found", bundle: self.bundle, comment: "No ridesharing journeys")
+                })]
+            }
         }
         
         return ComponentNode(ScreenComponent(), in: self).add(children: [
@@ -202,6 +218,6 @@ open class JourneySolutionsScreen: StylizedComponent<JourneySolutionsScreenState
         "fontSize": 12,
         "fontWeight": "bold",
         "marginLeft": 10,
-        "marginBottom": 10,
+        "marginBottom": 2,
     ]
 }
