@@ -45,7 +45,8 @@ open class JourneySolutionsScreen: StylizedComponent<JourneySolutionsScreenState
                         component.journey = journey
                         component.disruptions = self.state.journeys!.disruptions
                         component.navigationController = self.navigationController
-                        component.isTouchable = false
+                        component.hasArrow = false
+                        component.isRidesharingComponent = true
                     }))
                 } else {
                     classicJourneyComponents.append(ComponentNode(JourneySolutionComponent.init(), in: self, props: {(component, _) in

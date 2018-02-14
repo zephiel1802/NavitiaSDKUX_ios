@@ -17,7 +17,8 @@ extension Components.Journey.Results {
         var navigationController: UINavigationController?
         var journey: Journey = Journey()
         var disruptions: [Disruption]?
-        var isTouchable: Bool = true
+        var hasArrow: Bool = true
+        var isRidesharingComponent: Bool = false
 
         override func render() -> NodeType {
             let computedStyles = mergeDictionaries(dict1: listStyles, dict2: self.styles)
@@ -25,11 +26,17 @@ extension Components.Journey.Results {
 
             return ComponentNode(ActionComponent(), in: self, props: {(component, _) in
                 component.onTap = { _ in
-                    if self.isTouchable {
+                    if self.hasArrow {
                         let journeySolutionRoadmapController: JourneySolutionRoadmapController = JourneySolutionRoadmapController()
                         journeySolutionRoadmapController.journey = self.journey
                         journeySolutionRoadmapController.disruptions = self.disruptions
                         self.navigationController?.pushViewController(journeySolutionRoadmapController, animated: true)
+                    } else if self.isRidesharingComponent, let ridesharingDeepLink = self.getRidesharingDeepLink() {
+                        if #available(iOS 10.0, *) {
+                            UIApplication.shared.open(ridesharingDeepLink, options: [:], completionHandler: nil)
+                        } else {
+                            UIApplication.shared.openURL(ridesharingDeepLink)
+                        }
                     }
                 }}).add(children: [
                     ComponentNode(CardComponent(), in: self, props: { (component, _) in
@@ -43,7 +50,7 @@ extension Components.Journey.Results {
                             component.walkingDistance = walkingDistance
                             component.sections = self.journey.sections!
                             component.disruptions = self.disruptions
-                            component.hasArrow = self.isTouchable
+                            component.hasArrow = self.hasArrow
                         })
                     ])
                 ])
@@ -59,6 +66,24 @@ extension Components.Journey.Results {
                 }
             }
             return distance
+        }
+        
+        func getRidesharingDeepLink() -> URL? {
+            for (_, section) in (self.journey.sections?.enumerated())! {
+                if section.type == "street_network" && section.mode == "ridesharing" {
+                    let targetRidesharingJourney: Journey = section.ridesharingJourneys![0]
+                    for (_, journeySection) in (targetRidesharingJourney.sections?.enumerated())! {
+                        if journeySection.type == "ridesharing" && journeySection.links != nil && journeySection.links!.count > 0 {
+                            for (_, linkSchema) in (journeySection.links?.enumerated())! {
+                                if linkSchema.type == "ridesharing_ad" && linkSchema.href != nil {
+                                    return URL(string: linkSchema.href!)
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            return nil
         }
         
         let listStyles:[String: Any] = [

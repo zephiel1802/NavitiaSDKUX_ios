@@ -45,7 +45,7 @@ open class JourneySolutionRoadmapScreen: StylizedComponent<JourneySolutionRoadma
                     ComponentNode(JourneySolutionComponent.init(), in: self, props: { (component, _) in
                         component.journey = self.state.journey!
                         component.disruptions = self.state.disruptions
-                        component.isTouchable = false
+                        component.hasArrow = false
                     })
                 ]),
                 ComponentNode(ListViewComponent(), in: self).add(children: getSectionComponents())
