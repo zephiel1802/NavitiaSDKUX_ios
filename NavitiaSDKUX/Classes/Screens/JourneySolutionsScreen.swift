@@ -16,6 +16,7 @@ open class JourneySolutionsScreen: StylizedComponent<JourneySolutionsScreenState
     let JourneyFormComponent:Components.Journey.Results.JourneyFormComponent.Type = Components.Journey.Results.JourneyFormComponent.self
     let JourneyLoadingComponent:Components.Journey.Results.JourneyLoadingComponent.Type = Components.Journey.Results.JourneyLoadingComponent.self
     let JourneySolutionComponent: Components.Journey.Results.JourneySolutionComponent.Type = Components.Journey.Results.JourneySolutionComponent.self
+    let SeparatorPart:Components.Journey.Results.Parts.SeparatorPart.Type = Components.Journey.Results.Parts.SeparatorPart.self
     
     var navitiaSDK: NavitiaSDK? = nil
     var navigationController: UINavigationController?
@@ -129,6 +130,9 @@ open class JourneySolutionsScreen: StylizedComponent<JourneySolutionsScreenState
                     component.text = NSLocalizedString("carpooling", bundle: self.bundle, comment: "Carpooling").uppercased()
                     component.styles = self.ridesharingHeaderStyles
                 }),
+                ComponentNode(SeparatorPart.init(), in: self, props: {(component, _) in
+                    component.styles = self.ridesharingSeparatorStyles
+                }),
                 ComponentNode(ListViewComponent(), in: self).add(children: ridesharingJourneyResultComponents)
             ])
         ])
@@ -220,5 +224,11 @@ open class JourneySolutionsScreen: StylizedComponent<JourneySolutionsScreenState
         "fontWeight": "bold",
         "marginLeft": 10,
         "marginBottom": 2,
+        "marginTop": 10,
+    ]
+    let ridesharingSeparatorStyles: [String: Any] = [
+        "marginHorizontal": 10,
+        "marginVertical": 5,
+        "backgroundColor": config.colors.ridesharingSeparatorColor,
     ]
 }
