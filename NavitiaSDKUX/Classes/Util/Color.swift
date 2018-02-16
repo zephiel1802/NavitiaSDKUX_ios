@@ -18,7 +18,6 @@ public func getHexadecimalColorWithFallback(_ hex: String?) -> String {
 
 public func getUIColorFromHexadecimal(hex: String) -> UIColor {
     var cString:String = hex.trimmingCharacters(in: .whitespacesAndNewlines).uppercased()
-    
     if (cString.hasPrefix("#")) {
         cString.remove(at: cString.startIndex)
     }

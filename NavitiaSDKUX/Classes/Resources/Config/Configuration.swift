@@ -50,6 +50,7 @@ public struct Configuration {
         let darkerGray = UIColor(red:0.12, green:0.12, blue:0.12, alpha:1.0)
         public var origin = UIColor(red:0, green:0.73, blue:0.46, alpha:1.0)
         public var destination = UIColor(red:0.69, green:0.01, blue:0.33, alpha:1.0)
+        public var ridesharingSeparatorColor = UIColor(red: 0.87, green: 0.87, blue: 0.87, alpha: 1.0)
     }
     
     let iconFontCodes:[String: String] = [
@@ -97,6 +98,7 @@ public struct Configuration {
         "disruption-blocking": "\u{ea29}",
         "disruption-nonblocking": "\u{ea2a}",
         "disruption-information": "\u{ea2b}",
+        "ridesharing": "\u{ea2c}"
     ]
     
     public var colors = ColorConfiguration()

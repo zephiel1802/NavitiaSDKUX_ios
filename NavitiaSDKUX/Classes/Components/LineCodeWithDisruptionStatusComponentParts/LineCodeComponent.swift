@@ -16,7 +16,7 @@ extension Components.LineCodeWithDisruptionStatusComponentParts {
                     "padding": 6,
                 ]
                 let textStyles: [String: Any] = [
-                    "color": getUIColorFromHexadecimal(hex: getHexadecimalColorWithFallback(self.section!.displayInformations?.textColor)),
+                    "color": self.getLineCodeTextColor(lineColorHex: getHexadecimalColorWithFallback(self.section!.displayInformations?.color), lineCodeColorHex: getHexadecimalColorWithFallback(self.section!.displayInformations?.textColor)),
                     "fontSize": config.metrics.textS,
                     "fontWeight": "bold",
                 ]
@@ -31,6 +31,19 @@ extension Components.LineCodeWithDisruptionStatusComponentParts {
             return ComponentNode(ViewComponent(), in: self, props: { (component, _) in
                 component.styles = computedStyles
             }).add(children: lineTextComponents)
+        }
+        
+        private func getLineCodeTextColor(lineColorHex: String, lineCodeColorHex: String) -> UIColor {
+            var cString:String = lineCodeColorHex.trimmingCharacters(in: .whitespacesAndNewlines).uppercased()
+            if (cString.hasPrefix("#")) {
+                cString.remove(at: cString.startIndex)
+            }
+            
+            if ((cString.characters.count) != 6) {
+                return contrastColor(color: getUIColorFromHexadecimal(hex: lineColorHex), brightColor: UIColor.white, darkColor: UIColor.black)
+            } else {
+                return getUIColorFromHexadecimal(hex: lineCodeColorHex)
+            }
         }
     }
 }

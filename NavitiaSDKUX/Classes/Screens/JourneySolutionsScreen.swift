@@ -16,6 +16,7 @@ open class JourneySolutionsScreen: StylizedComponent<JourneySolutionsScreenState
     let JourneyFormComponent:Components.Journey.Results.JourneyFormComponent.Type = Components.Journey.Results.JourneyFormComponent.self
     let JourneyLoadingComponent:Components.Journey.Results.JourneyLoadingComponent.Type = Components.Journey.Results.JourneyLoadingComponent.self
     let JourneySolutionComponent: Components.Journey.Results.JourneySolutionComponent.Type = Components.Journey.Results.JourneySolutionComponent.self
+    let SeparatorPart:Components.Journey.Results.Parts.SeparatorPart.Type = Components.Journey.Results.Parts.SeparatorPart.self
     
     var navitiaSDK: NavitiaSDK? = nil
     var navigationController: UINavigationController?
@@ -36,22 +37,60 @@ open class JourneySolutionsScreen: StylizedComponent<JourneySolutionsScreenState
             self.retrieveJourneys(with: self.state.parameters)
         }
         
-        var journeyComponents: [NodeType] = []
+        var classicJourneyComponents: [NodeType] = []
+        var ridesharingJourneyComponents: [NodeType] = []
         if state.journeys != nil {
-            journeyComponents = self.getJourneyComponents(journeys: state.journeys!)
+            for journey in state.journeys!.journeys! {
+                if journey.tags != nil && journey.tags!.contains("ridesharing") {
+                    ridesharingJourneyComponents.append(ComponentNode(JourneySolutionComponent.init(), in: self, props: {(component, _) in
+                        component.journey = journey
+                        component.disruptions = self.state.journeys!.disruptions
+                        component.navigationController = self.navigationController
+                        component.hasArrow = false
+                        component.isRidesharingComponent = true
+                    }))
+                } else {
+                    classicJourneyComponents.append(ComponentNode(JourneySolutionComponent.init(), in: self, props: {(component, _) in
+                        component.journey = journey
+                        component.disruptions = self.state.journeys!.disruptions
+                        component.navigationController = self.navigationController
+                    }))
+                }
+            }
         } else {
-            journeyComponents = Array(0..<4).map { _ in
+            classicJourneyComponents = Array(0..<4).map { _ in
+                ComponentNode(JourneyLoadingComponent.init(), in: self)
+            }
+            ridesharingJourneyComponents = Array(0..<2).map { _ in
                 ComponentNode(JourneyLoadingComponent.init(), in: self)
             }
         }
         
-        var resultComponents: [NodeType] = []
+        var classicJourneyResultComponents: [NodeType] = []
+        var ridesharingJourneyResultComponents: [NodeType] = []
         if state.error {
-            resultComponents = [ComponentNode(AlertComponent.init(), in: self, props: {(component, _) in
-                component.text = NSLocalizedString("no_journey_found", bundle: self.bundle, comment: "No journeys")
+            classicJourneyResultComponents = [ComponentNode(AlertComponent.init(), in: self, props: {(component, _) in
+                component.text = NSLocalizedString("no_journey_found", bundle: self.bundle, comment: "No classic journeys")
+            })]
+            ridesharingJourneyResultComponents = [ComponentNode(AlertComponent.init(), in: self, props: {(component, _) in
+                component.text = NSLocalizedString("no_carpooling_options_found", bundle: self.bundle, comment: "No ridesharing journeys")
             })]
         } else {
-            resultComponents = journeyComponents
+            if classicJourneyComponents.count > 0 {
+                classicJourneyResultComponents = classicJourneyComponents
+            } else {
+                classicJourneyResultComponents = [ComponentNode(AlertComponent.init(), in: self, props: {(component, _) in
+                    component.text = NSLocalizedString("no_journey_found", bundle: self.bundle, comment: "No classic journeys")
+                })]
+            }
+            
+            if ridesharingJourneyComponents.count > 0 {
+                ridesharingJourneyResultComponents = ridesharingJourneyComponents
+            } else {
+                ridesharingJourneyResultComponents = [ComponentNode(AlertComponent.init(), in: self, props: {(component, _) in
+                    component.text = NSLocalizedString("no_carpooling_options_found", bundle: self.bundle, comment: "No ridesharing journeys")
+                })]
+            }
         }
         
         return ComponentNode(ScreenComponent(), in: self).add(children: [
@@ -86,7 +125,15 @@ open class JourneySolutionsScreen: StylizedComponent<JourneySolutionsScreenState
                 ])
             ]),
             ComponentNode(ScrollViewComponent(), in: self).add(children: [
-                ComponentNode(ListViewComponent(), in: self).add(children: resultComponents)
+                ComponentNode(ListViewComponent(), in: self).add(children: classicJourneyResultComponents),
+                ComponentNode(TextComponent(), in: self, props: {(component, _) in
+                    component.text = NSLocalizedString("carpooling", bundle: self.bundle, comment: "Carpooling").uppercased()
+                    component.styles = self.ridesharingHeaderStyles
+                }),
+                ComponentNode(SeparatorPart.init(), in: self, props: {(component, _) in
+                    component.styles = self.ridesharingSeparatorStyles
+                }),
+                ComponentNode(ListViewComponent(), in: self).add(children: ridesharingJourneyResultComponents)
             ])
         ])
     }
@@ -149,20 +196,6 @@ open class JourneySolutionsScreen: StylizedComponent<JourneySolutionsScreenState
         })
     }
     
-    func getJourneyComponents(journeys: Journeys) -> [NodeType] {
-        var results: [NodeType] = []
-        var index: Int32 = 0
-        for journey in journeys.journeys! {
-            results.append(ComponentNode(JourneySolutionComponent.init(), in: self, props: {(component, _) in
-                component.journey = journey
-                component.disruptions = journeys.disruptions
-                component.navigationController = self.navigationController
-            }))
-            index += 1
-        }
-        return results
-    }
-    
     func extractLabelsFromJourneyResult(journey: Journey) {
         var origin: String? = state.parameters.originLabel
         var destination: String? = state.parameters.destinationLabel
@@ -184,5 +217,18 @@ open class JourneySolutionsScreen: StylizedComponent<JourneySolutionsScreenState
     
     let headerStyles: [String: Any] = [
         "backgroundColor": config.colors.tertiary,
+    ]
+    let ridesharingHeaderStyles: [String: Any] = [
+        "color": config.colors.darkGray,
+        "fontSize": 12,
+        "fontWeight": "bold",
+        "marginLeft": 10,
+        "marginBottom": 2,
+        "marginTop": 10,
+    ]
+    let ridesharingSeparatorStyles: [String: Any] = [
+        "marginHorizontal": 10,
+        "marginVertical": 5,
+        "backgroundColor": config.colors.ridesharingSeparatorColor,
     ]
 }
