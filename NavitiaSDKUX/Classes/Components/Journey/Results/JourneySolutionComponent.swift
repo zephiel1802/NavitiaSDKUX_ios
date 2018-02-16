@@ -27,15 +27,15 @@ extension Components.Journey.Results {
             return ComponentNode(ActionComponent(), in: self, props: {(component, _) in
                 component.onTap = { _ in
                     if self.hasArrow {
-                        let journeySolutionRoadmapController: JourneySolutionRoadmapController = JourneySolutionRoadmapController()
-                        journeySolutionRoadmapController.journey = self.journey
-                        journeySolutionRoadmapController.disruptions = self.disruptions
-                        self.navigationController?.pushViewController(journeySolutionRoadmapController, animated: true)
-                    } else if self.isRidesharingComponent, let ridesharingDeepLink = self.getRidesharingDeepLink() {
-                        if #available(iOS 10.0, *) {
-                            UIApplication.shared.open(ridesharingDeepLink, options: [:], completionHandler: nil)
+                        if self.isRidesharingComponent {
+                            let journeyRidesharingSolutionsViewController: JourneyRidesharingSolutionsViewController = JourneyRidesharingSolutionsViewController()
+                            journeyRidesharingSolutionsViewController.journey = self.journey
+                            self.navigationController?.pushViewController(journeyRidesharingSolutionsViewController, animated: true)
                         } else {
-                            UIApplication.shared.openURL(ridesharingDeepLink)
+                            let journeySolutionRoadmapController: JourneySolutionRoadmapController = JourneySolutionRoadmapController()
+                            journeySolutionRoadmapController.journey = self.journey
+                            journeySolutionRoadmapController.disruptions = self.disruptions
+                            self.navigationController?.pushViewController(journeySolutionRoadmapController, animated: true)
                         }
                     }
                 }}).add(children: [

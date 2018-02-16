@@ -46,7 +46,6 @@ open class JourneySolutionsScreen: StylizedComponent<JourneySolutionsScreenState
                         component.journey = journey
                         component.disruptions = self.state.journeys!.disruptions
                         component.navigationController = self.navigationController
-                        component.hasArrow = false
                         component.isRidesharingComponent = true
                     }))
                 } else {
