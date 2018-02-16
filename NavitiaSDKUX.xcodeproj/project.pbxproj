@@ -247,7 +247,6 @@
 				043E0AC220053C9A00AC9DFF /* JourneyFormComponent.swift */,
 				043E0AC320053C9A00AC9DFF /* JourneyLoadingComponent.swift */,
 				043E0AC420053C9A00AC9DFF /* JourneySolutionComponent.swift */,
-				043E0AC520053C9A00AC9DFF /* LoadingComponentParts */,
 				043E0AC620053C9A00AC9DFF /* Parts */,
 				043E0AC820053C9A00AC9DFF /* SolutionComponentParts */,
 			);
@@ -261,13 +260,6 @@
 				043E0AC120053C9A00AC9DFF /* PlacePart.swift */,
 			);
 			path = FormComponentParts;
-			sourceTree = "<group>";
-		};
-		043E0AC520053C9A00AC9DFF /* LoadingComponentParts */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = LoadingComponentParts;
 			sourceTree = "<group>";
 		};
 		043E0AC620053C9A00AC9DFF /* Parts */ = {
