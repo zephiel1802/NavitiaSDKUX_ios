@@ -71,8 +71,7 @@ extension Components.Journey.Results {
         func getRidesharingDeepLink() -> URL? {
             for (_, section) in (self.journey.sections?.enumerated())! {
                 if section.type == "street_network" && section.mode == "ridesharing" {
-                    let targetRidesharingJourney: Journey = section.ridesharingJourneys![0]
-                    for (_, journeySection) in (targetRidesharingJourney.sections?.enumerated())! {
+                    for (_, journeySection) in (section.ridesharingJourneys![0].sections?.enumerated())! {
                         if journeySection.type == "ridesharing" && journeySection.links != nil && journeySection.links!.count > 0 {
                             for (_, linkSchema) in (journeySection.links?.enumerated())! {
                                 if linkSchema.type == "ridesharing_ad" && linkSchema.href != nil {
