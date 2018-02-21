@@ -30,6 +30,7 @@ extension Components.Journey.Results {
                         if self.isRidesharingComponent {
                             let journeyRidesharingSolutionsViewController: JourneyRidesharingSolutionsViewController = JourneyRidesharingSolutionsViewController()
                             journeyRidesharingSolutionsViewController.journey = self.journey
+                            journeyRidesharingSolutionsViewController.disruptions = self.disruptions
                             self.navigationController?.pushViewController(journeyRidesharingSolutionsViewController, animated: true)
                         } else {
                             let journeySolutionRoadmapController: JourneySolutionRoadmapController = JourneySolutionRoadmapController()
@@ -66,23 +67,6 @@ extension Components.Journey.Results {
                 }
             }
             return distance
-        }
-        
-        func getRidesharingDeepLink() -> URL? {
-            for (_, section) in (self.journey.sections?.enumerated())! {
-                if section.type == "street_network" && section.mode == "ridesharing" {
-                    for (_, journeySection) in (section.ridesharingJourneys![0].sections?.enumerated())! {
-                        if journeySection.type == "ridesharing" && journeySection.links != nil && journeySection.links!.count > 0 {
-                            for (_, linkSchema) in (journeySection.links?.enumerated())! {
-                                if linkSchema.type == "ridesharing_ad" && linkSchema.href != nil {
-                                    return URL(string: linkSchema.href!)
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-            return nil
         }
         
         let listStyles:[String: Any] = [

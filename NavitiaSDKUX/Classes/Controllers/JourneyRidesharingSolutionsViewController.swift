@@ -10,6 +10,7 @@ import NavitiaSDK
 
 open class JourneyRidesharingSolutionsViewController: ViewController, ComponentController {
     var journey: Journey?
+    var disruptions: [Disruption]?
     
     public var component: JourneyRidesharingSolutionsScreen = JourneyRidesharingSolutionsScreen()
     
@@ -24,7 +25,8 @@ open class JourneyRidesharingSolutionsViewController: ViewController, ComponentC
     }
     
     public func configureComponentProps() {
-        component.state.ridesharingJourney = self.journey
+        component.journey = self.journey
+        component.disruptions = self.disruptions
         component.navigationController = navigationController
     }
 }

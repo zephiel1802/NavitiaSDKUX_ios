@@ -9,11 +9,14 @@
 import Foundation
 import NavitiaSDK
 
-func timeText(isoString: String) -> String {
+func timeText(isoString: String, useCharacterFormat: Bool = false) -> String {
     let timeData = isoString.characters.split(separator: "T").map(String.init)
     let hours = String(Array(timeData[1].characters)[0...1])
     let minutes = String(Array(timeData[1].characters)[2...3])
     
+    if useCharacterFormat {
+        return String(format: "%@h%@", hours, minutes)
+    }
     return String(format: "%@:%@", hours, minutes)
 }
 

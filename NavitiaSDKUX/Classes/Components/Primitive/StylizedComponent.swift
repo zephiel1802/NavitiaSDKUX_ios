@@ -27,6 +27,7 @@ open class StylizedComponent<S: StateType>: ComponentView<S> {
         for (prop, value) in styles {
             switch prop {
             case "alpha": view.alpha = value as! CGFloat; break
+            case "aspectRatio": layout.aspectRatio = CGFloat(value as! Int); break
             case "backgroundColor": view.backgroundColor = value as? UIColor; break
             case "borderRadius": view.cornerRadius = CGFloat(value as! Int); break
             case "direction": layout.direction = value as! YGDirection; break
