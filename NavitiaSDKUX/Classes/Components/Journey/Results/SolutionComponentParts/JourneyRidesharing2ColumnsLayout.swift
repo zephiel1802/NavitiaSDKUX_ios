@@ -41,7 +41,7 @@ extension Components.Journey.Results.SolutionComponentParts {
         }
         
         let rightComponentStyles: [String: Any] = [
-            "width": 140,
+            "width": 105,
             "alignItems": YGAlign.flexEnd,
         ]
         let leftComponentStyles: [String: Any] = [

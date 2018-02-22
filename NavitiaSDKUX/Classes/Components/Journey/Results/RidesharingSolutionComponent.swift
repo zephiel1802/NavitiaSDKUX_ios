@@ -48,7 +48,7 @@ extension Components.Journey.Results {
                     
                     let localizedDepartureResource = NSLocalizedString("departure_with_colon", bundle: self.bundle, comment: "Departure:")
                     let ridesharingDepartureText = NSMutableAttributedString.init(string: "\(localizedDepartureResource) \(self.departureDate!)")
-                    ridesharingDepartureText.setAttributes([NSFontAttributeName: UIFont.systemFont(ofSize: 20, weight: UIFontWeightBold)], range: NSMakeRange(localizedDepartureResource.characters.count + 1, self.departureDate!.characters.count))
+                    ridesharingDepartureText.setAttributes([NSFontAttributeName: UIFont.systemFont(ofSize: 14, weight: UIFontWeightBold)], range: NSMakeRange(localizedDepartureResource.characters.count + 1, self.departureDate!.characters.count))
                     component.rightChildren = [
                         ComponentNode(LabelComponent(), in: self, props: {(component, _) in
                             component.styles = self.departureDateStyles
@@ -91,8 +91,8 @@ extension Components.Journey.Results {
                             component.styles = self.driverInfoRightPartStyles
                         }).add(children: [
                             Node<FloatRatingView>(){ view, layout, _ in
-                                layout.width = 112
-                                layout.aspectRatio = 5
+                                layout.width = 88
+                                layout.height = 16
                                 
                                 view.backgroundColor = UIColor.clear
                                 view.contentMode = UIViewContentMode.scaleAspectFit
@@ -101,7 +101,7 @@ extension Components.Journey.Results {
                                 view.type = .floatRatings
                                 view.editable = false
                                 view.rating = Double(self.driverRating)
-                                view.starsInterspace = 3
+                                view.starsInterspace = 2
                             },
                             ComponentNode(TextComponent(), in: self, props: {(component, _) in
                                 component.styles = self.driverRateCountStyles
@@ -111,25 +111,24 @@ extension Components.Journey.Results {
                     ]
                 }),
                 ComponentNode(SeparatorPart.init(), in: self),
-                ComponentNode(JourneyRidesharing2ColumnsLayout.init(), in: self, props: {(component, _) in
+                ComponentNode(ViewComponent(), in: self, props: {(component, _) in
                     component.styles = self.ridsharingInfoSectionStyles
-                    
-                    component.leftChildren = [
-                        ComponentNode(ViewComponent(), in: self, props: {(component, _) in
-                            component.styles = self.ridesharingInfoStyles
-                        }).add(children: [
-                            ComponentNode(TextComponent(), in: self, props: {(component, _) in
-                                component.styles = self.seatsAvailableStyles
-                                component.text = self.seatsAvailable
-                            }),
-                            ComponentNode(TextComponent(), in: self, props: {(component, _) in
-                                component.styles = self.priceTextStyles
-                                component.text = self.tripFareText!
-                            })
-                        ])
-                    ]
-                    
-                    component.rightChildren = [
+                }).add(children: [
+                    ComponentNode(ViewComponent(), in: self, props: {(component, _) in
+                        component.styles = self.ridesharingInfoStyles
+                    }).add(children: [
+                        ComponentNode(TextComponent(), in: self, props: {(component, _) in
+                            component.styles = self.seatsAvailableStyles
+                            component.text = self.seatsAvailable
+                        }),
+                        ComponentNode(TextComponent(), in: self, props: {(component, _) in
+                            component.styles = self.priceTextStyles
+                            component.text = self.tripFareText!
+                        })
+                    ]),
+                    ComponentNode(ViewComponent(), in: self, props: {(component, _) in
+                        component.styles = self.ridesharingActionStyles
+                    }).add(children: [
                         ComponentNode(ActionComponent(), in: self, props: {(component, _) in
                             component.onTap = { _ in
                                 if let ridesharingDeepLink = self.getRidesharingDeepLink() {
@@ -142,16 +141,16 @@ extension Components.Journey.Results {
                             }
                         }).add(children: [
                             ComponentNode(ViewComponent(), in: self, props: {(component, _) in
-                                component.styles = self.seeOfferButtonStyles
+                                component.styles = self.actionButtonStyles
                             }).add(children: [
                                 ComponentNode(TextComponent(), in: self, props: {(component, _) in
-                                    component.styles = self.seeOfferButtonTextStyles
+                                    component.styles = self.actionButtonTextStyles
                                     component.text = NSLocalizedString("see_offer", bundle: self.bundle, comment: "Not available")
                                 })
                             ])
                         ])
-                    ]
-                })
+                    ])
+                ])
             ])
         }
         
@@ -166,7 +165,7 @@ extension Components.Journey.Results {
                         self.driverGender = section.ridesharingInformations!.driver!.gender != nil ? String(format: "(%@)", arguments:[NSLocalizedString(section.ridesharingInformations!.driver!.gender!, bundle: self.bundle, comment: "Gender")]) : ""
                         self.driverRating = section.ridesharingInformations!.driver!.rating != nil ? self.getDriverRatingValue(individualRating: section.ridesharingInformations!.driver!.rating!, numberOfStars: 5) : 0
                         self.driverRateCount = section.ridesharingInformations!.driver!.rating != nil ? section.ridesharingInformations!.driver!.rating!.count! : 0
-                        self.seatsAvailable = (section.ridesharingInformations!.seats != nil && section.ridesharingInformations!.seats!.available != nil && section.ridesharingInformations!.seats!.available! > 0) ? String(format: NSLocalizedString("available_seat_plural", bundle: self.bundle, comment: "x seats available"), section.ridesharingInformations!.seats!.available!) : NSLocalizedString("no_available_seats", bundle: self.bundle, comment: "No available seats")
+                        self.seatsAvailable = (section.ridesharingInformations!.seats != nil && section.ridesharingInformations!.seats!.available != nil) ? String(format: NSLocalizedString("available_seats", bundle: self.bundle, comment: "Available seats: x"), section.ridesharingInformations!.seats!.available!) : NSLocalizedString("no_available_seats", bundle: self.bundle, comment: "Available seats: N/A")
                         self.tripFareText = self.ridesharingJourney!.fare!.found! ? self.getRidesharingTripFareText(tripCost: self.ridesharingJourney!.fare!.total!) : NSLocalizedString("price_not_available", bundle: self.bundle, comment: "Price not available")
                     }
                 }
@@ -204,7 +203,8 @@ extension Components.Journey.Results {
         
         let ridesharingCardStyles:[String: Any] = [
             "backgroundColor": config.colors.white,
-            "padding": 15,
+            "padding": 10,
+            "paddingTop": 17,
             "borderRadius": config.metrics.radius,
             "marginBottom": config.metrics.margin,
             "shadowRadius": 2.0,
@@ -215,12 +215,12 @@ extension Components.Journey.Results {
         let networkStyles: [String: Any] = [
             "fontWeight": "bold",
             "color": config.colors.darkGray,
-            "fontSize": 20,
+            "fontSize": 14,
         ]
         let departureDateStyles: [String: Any] = [
             "color": config.colors.tertiary,
             "fontWeight": "bold",
-            "fontSize": 14,
+            "fontSize": 9,
         ]
         let driverInfoStyles: [String: Any] = [
             "marginVertical": 15,
@@ -229,7 +229,7 @@ extension Components.Journey.Results {
             "flexDirection": YGFlexDirection.row,
         ]
         let driverImageStyles: [String: Any] = [
-            "width": 80,
+            "width": 60,
             "aspectRatio": 1,
         ]
         let driverPersonalInfoStyles: [String: Any] = [
@@ -238,56 +238,61 @@ extension Components.Journey.Results {
             "flexShrink": 1,
         ]
         let driverNicknameStyles: [String: Any] = [
-            "color": UIColor.black,
-            "fontWeight": "bold",
-            "fontSize": 16,
+            "color": config.colors.darkGray,
+            "fontWeight": "semi-bold",
+            "fontSize": 13,
             "numberOfLines": 2,
         ]
         let driverGenderStyles: [String: Any] = [
-            "marginTop": 4,
+            "marginTop": 2,
             "color": config.colors.gray,
-            "fontSize": 14,
+            "fontSize": 12,
         ]
         let driverInfoRightPartStyles: [String: Any] = [
             "flexGrow": 1,
-            "width": 140,
+            "width": 105,
             "justifyContent": YGJustify.center,
             "alignItems": YGAlign.center,
         ]
         let driverRateCountStyles: [String: Any] = [
-            "marginTop": 7,
+            "marginTop": 5,
             "color": config.colors.gray,
-            "fontSize": 13,
+            "fontSize": 10,
         ]
         let ridsharingInfoSectionStyles: [String: Any] = [
             "marginTop" : 10,
+            "flexDirection": YGFlexDirection.row,
         ]
         let ridesharingInfoStyles: [String: Any] = [
             "justifyContent": YGJustify.center,
         ]
         let seatsAvailableStyles: [String: Any] = [
-            "color": UIColor.black,
-            "fontWeight": "bold",
-            "fontSize": 16,
-        ]
-        let priceTextStyles: [String: Any] = [
-            "marginTop": 4,
-            "color": config.colors.orange,
-            "fontWeight": "bold",
+            "color": config.colors.darkGray,
+            "fontWeight": "semi-bold",
             "fontSize": 13,
         ]
-        let seeOfferButtonStyles: [String: Any] = [
-            "width": 127,
-            "height": 40,
+        let priceTextStyles: [String: Any] = [
+            "marginTop": 3,
+            "color": config.colors.orange,
+            "fontWeight": "semi-bold",
+            "fontSize": 10,
+        ]
+        let ridesharingActionStyles: [String: Any] = [
+            "flexDirection": YGFlexDirection.row,
+            "flexGrow": 1,
+            "justifyContent": YGJustify.flexEnd,
+        ]
+        let actionButtonStyles: [String: Any] = [
+            "padding": 10,
             "backgroundColor": config.colors.orange,
             "alignItems": YGAlign.center,
             "justifyContent": YGJustify.center,
             "borderRadius": 3,
         ]
-        let seeOfferButtonTextStyles: [String: Any] = [
+        let actionButtonTextStyles: [String: Any] = [
             "color": UIColor.white,
             "fontWeight": "bold",
-            "fontSize": 16,
+            "fontSize": 13,
         ]
     }
 }
