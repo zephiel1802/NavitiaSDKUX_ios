@@ -50,7 +50,8 @@ open class LabelComponent: StylizedComponent<NilState> {
     
     func setFontWeight(weight: String) {
         switch weight {
-        case "bold": self.sharedFont = UIFont.systemFont(ofSize: self.sharedFont.pointSize, weight: UIFontWeightBold)
+        case "bold": self.sharedFont = UIFont.systemFont(ofSize: self.sharedFont.pointSize, weight: UIFontWeightBold); break
+        case "semi-bold": self.sharedFont = UIFont.systemFont(ofSize: self.sharedFont.pointSize, weight: UIFontWeightMedium); break
         default: self.sharedFont = UIFont.systemFont(ofSize: self.sharedFont.pointSize, weight: UIFontWeightRegular)
         }
     }
