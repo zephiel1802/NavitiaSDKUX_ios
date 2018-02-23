@@ -157,16 +157,16 @@ extension Components.Journey.Results {
         func initRidesharingJourneyInfo() {
             for (_, section) in (self.ridesharingJourney!.sections?.enumerated())! {
                 if section.type == "ridesharing" && section.ridesharingInformations != nil {
-                    self.network = section.ridesharingInformations!.network != nil ? section.ridesharingInformations!.network! : ""
-                    self.departureDate = section.departureDateTime != nil ? timeText(isoString: section.departureDateTime!, useCharacterFormat: true) : ""
+                    self.network = section.ridesharingInformations!.network != nil ? section.ridesharingInformations!.network! : self.network
+                    self.departureDate = section.departureDateTime != nil ? timeText(isoString: section.departureDateTime!, useCharacterFormat: true) : self.departureDate
                     
                     if section.ridesharingInformations!.driver != nil {
                         let driverInformation = section.ridesharingInformations!.driver!
-                        self.driverNickname = driverInformation.alias != nil ? driverInformation.alias! : ""
-                        self.driverImageURL = driverInformation.image != nil ? driverInformation.image! : ""
-                        self.driverGender = driverInformation.gender != nil ? String(format: "(%@)", arguments:[NSLocalizedString(driverInformation.gender!, bundle: self.bundle, comment: "Gender")]) : ""
-                        self.driverRating = driverInformation.rating != nil ? self.getDriverRatingValue(individualRating: driverInformation.rating!, numberOfStars: 5) : 0
-                        self.driverRateCount = driverInformation.rating != nil ? driverInformation.rating!.count! : 0
+                        self.driverNickname = driverInformation.alias != nil ? driverInformation.alias! : self.driverNickname
+                        self.driverImageURL = driverInformation.image != nil ? driverInformation.image! : self.driverImageURL
+                        self.driverGender = driverInformation.gender != nil ? String(format: "(%@)", arguments:[NSLocalizedString(driverInformation.gender!, bundle: self.bundle, comment: "Gender")]) : self.driverGender
+                        self.driverRating = driverInformation.rating != nil ? self.getDriverRatingValue(individualRating: driverInformation.rating!, numberOfStars: 5) : self.driverRating
+                        self.driverRateCount = driverInformation.rating != nil ? driverInformation.rating!.count! : self.driverRateCount
                     }
                     
                     self.seatsAvailable = (section.ridesharingInformations!.seats != nil && section.ridesharingInformations!.seats!.available != nil) ? String(format: NSLocalizedString("available_seats", bundle: self.bundle, comment: "Available seats: x"), section.ridesharingInformations!.seats!.available!) : NSLocalizedString("no_available_seats", bundle: self.bundle, comment: "Available seats: N/A")
