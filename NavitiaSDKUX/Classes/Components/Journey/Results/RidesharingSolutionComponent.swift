@@ -16,7 +16,7 @@ extension Components.Journey.Results {
         
         var ridesharingJourney: Journey?
         var network: String = ""
-        var departureDate: String?
+        var departureDate: String = ""
         var driverImageURL: String = ""
         var driverNickname: String = ""
         var driverGender: String = ""
@@ -47,8 +47,8 @@ extension Components.Journey.Results {
                     ]
                     
                     let localizedDepartureResource = NSLocalizedString("departure_with_colon", bundle: self.bundle, comment: "Departure:")
-                    let ridesharingDepartureText = NSMutableAttributedString.init(string: "\(localizedDepartureResource) \(self.departureDate!)")
-                    ridesharingDepartureText.setAttributes([NSFontAttributeName: UIFont.systemFont(ofSize: 14, weight: UIFontWeightBold)], range: NSMakeRange(localizedDepartureResource.characters.count + 1, self.departureDate!.characters.count))
+                    let ridesharingDepartureText = NSMutableAttributedString.init(string: "\(localizedDepartureResource) \(self.departureDate)")
+                    ridesharingDepartureText.setAttributes([NSFontAttributeName: UIFont.systemFont(ofSize: 14, weight: UIFontWeightBold)], range: NSMakeRange(localizedDepartureResource.characters.count + 1, self.departureDate.characters.count))
                     component.rightChildren = [
                         ComponentNode(LabelComponent(), in: self, props: {(component, _) in
                             component.styles = self.departureDateStyles
@@ -157,17 +157,20 @@ extension Components.Journey.Results {
         func initRidesharingJourneyInfo() {
             for (_, section) in (self.ridesharingJourney!.sections?.enumerated())! {
                 if section.type == "ridesharing" && section.ridesharingInformations != nil {
-                    self.departureDate = timeText(isoString: section.departureDateTime!, useCharacterFormat: true)
                     self.network = section.ridesharingInformations!.network != nil ? section.ridesharingInformations!.network! : ""
+                    self.departureDate = section.departureDateTime != nil ? timeText(isoString: section.departureDateTime!, useCharacterFormat: true) : ""
+                    
                     if section.ridesharingInformations!.driver != nil {
-                        self.driverNickname = section.ridesharingInformations!.driver!.alias != nil ? section.ridesharingInformations!.driver!.alias! : ""
-                        self.driverImageURL = section.ridesharingInformations!.driver!.image != nil ? section.ridesharingInformations!.driver!.image! : ""
-                        self.driverGender = section.ridesharingInformations!.driver!.gender != nil ? String(format: "(%@)", arguments:[NSLocalizedString(section.ridesharingInformations!.driver!.gender!, bundle: self.bundle, comment: "Gender")]) : ""
-                        self.driverRating = section.ridesharingInformations!.driver!.rating != nil ? self.getDriverRatingValue(individualRating: section.ridesharingInformations!.driver!.rating!, numberOfStars: 5) : 0
-                        self.driverRateCount = section.ridesharingInformations!.driver!.rating != nil ? section.ridesharingInformations!.driver!.rating!.count! : 0
-                        self.seatsAvailable = (section.ridesharingInformations!.seats != nil && section.ridesharingInformations!.seats!.available != nil) ? String(format: NSLocalizedString("available_seats", bundle: self.bundle, comment: "Available seats: x"), section.ridesharingInformations!.seats!.available!) : NSLocalizedString("no_available_seats", bundle: self.bundle, comment: "Available seats: N/A")
-                        self.tripFareText = self.ridesharingJourney!.fare!.found! ? self.getRidesharingTripFareText(tripCost: self.ridesharingJourney!.fare!.total!) : NSLocalizedString("price_not_available", bundle: self.bundle, comment: "Price not available")
+                        let driverInformation = section.ridesharingInformations!.driver!
+                        self.driverNickname = driverInformation.alias != nil ? driverInformation.alias! : ""
+                        self.driverImageURL = driverInformation.image != nil ? driverInformation.image! : ""
+                        self.driverGender = driverInformation.gender != nil ? String(format: "(%@)", arguments:[NSLocalizedString(driverInformation.gender!, bundle: self.bundle, comment: "Gender")]) : ""
+                        self.driverRating = driverInformation.rating != nil ? self.getDriverRatingValue(individualRating: driverInformation.rating!, numberOfStars: 5) : 0
+                        self.driverRateCount = driverInformation.rating != nil ? driverInformation.rating!.count! : 0
                     }
+                    
+                    self.seatsAvailable = (section.ridesharingInformations!.seats != nil && section.ridesharingInformations!.seats!.available != nil) ? String(format: NSLocalizedString("available_seats", bundle: self.bundle, comment: "Available seats: x"), section.ridesharingInformations!.seats!.available!) : NSLocalizedString("no_available_seats", bundle: self.bundle, comment: "Available seats: N/A")
+                    self.tripFareText = (self.ridesharingJourney!.fare != nil && self.ridesharingJourney!.fare!.found != nil && self.ridesharingJourney!.fare!.found!) ? self.getRidesharingTripFareText(tripCost: self.ridesharingJourney!.fare!.total!) : NSLocalizedString("price_not_available", bundle: self.bundle, comment: "Price not available")
                 }
             }
         }
