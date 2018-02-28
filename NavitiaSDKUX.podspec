@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'NavitiaSDKUX'
-  s.version          = '1.1.2'
+  s.version          = '1.1.3'
   s.summary          = 'An awesome framework to offer cool transport stuff to your users'
 
   s.description      = <<-DESC
@@ -26,5 +26,5 @@ This SDK provides journey computation screens you can add to your application.
   s.resources = 'NavitiaSDKUX/Assets/**/*.*'
 
   s.dependency 'Render', '4.9.1'
-  s.dependency 'NavitiaSDK', '1.1.1'
+  s.dependency 'NavitiaSDK', '1.1.2'
 end
