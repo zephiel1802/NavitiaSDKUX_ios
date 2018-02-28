@@ -1,6 +1,4 @@
 import Foundation
-import Render
-import NavitiaSDK
 
 public struct JourneySolutionsScreenState: StateType {
     public init() { }

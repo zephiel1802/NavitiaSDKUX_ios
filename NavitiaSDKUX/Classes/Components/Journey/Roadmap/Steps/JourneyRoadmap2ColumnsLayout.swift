@@ -1,5 +1,4 @@
 import Foundation
-import Render
 
 extension Components.Journey.Roadmap.Steps {
     class JourneyRoadmap2ColumnsLayout: ViewComponent {

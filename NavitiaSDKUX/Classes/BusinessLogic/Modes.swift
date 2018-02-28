@@ -1,5 +1,4 @@
 import Foundation
-import NavitiaSDK
 
 class Modes {
     func getModeIcon(section: Section?) -> String {

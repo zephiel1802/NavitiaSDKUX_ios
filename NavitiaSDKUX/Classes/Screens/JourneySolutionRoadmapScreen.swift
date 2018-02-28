@@ -1,6 +1,4 @@
 import Foundation
-import Render
-import NavitiaSDK
 
 public struct JourneySolutionRoadmapState: StateType {
     public init() {

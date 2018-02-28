@@ -5,9 +5,7 @@
 //  Created by Thomas Noury on 26/07/2017.
 //  Copyright © 2017 Kisio. All rights reserved.
 //
-import Render
 import UIKit
-import NavitiaSDK
 
 public class JourneySolutionsController: ViewController, ComponentController {
     public struct InParameters {
@@ -36,7 +34,7 @@ public class JourneySolutionsController: ViewController, ComponentController {
     override open func viewDidLoad() {
         super.viewDidLoad()
         self.title = NSLocalizedString("journeys", bundle: bundle, comment: "Navigation bar title for journey solutions screen")
-        addComponentToViewControllerHierarchy()
+        addComponentToViewControllerHierarchyExtended()
     }
     
     override open func viewDidLayoutSubviews() {

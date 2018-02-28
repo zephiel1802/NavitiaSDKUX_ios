@@ -6,8 +6,6 @@
 //  Copyright © 2017 Kisio. All rights reserved.
 //
 
-import Render
-
 extension Components.Journey.Results.FormComponentParts {
     class AutocompleteInputPart: ButtonComponent {
         let PlacePart:Components.Journey.Results.FormComponentParts.PlacePart.Type = Components.Journey.Results.FormComponentParts.PlacePart.self

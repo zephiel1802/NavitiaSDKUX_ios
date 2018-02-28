@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import NavitiaSDK
 
 func timeText(isoString: String, useCharacterFormat: Bool = false) -> String {
     let timeData = isoString.characters.split(separator: "T").map(String.init)

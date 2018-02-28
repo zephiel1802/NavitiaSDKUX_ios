@@ -6,8 +6,6 @@
 //  Copyright © 2017 Kisio. All rights reserved.
 //
 
-import Render
-
 enum AlertStatus: Int {
     case info = 0
     case success = 1

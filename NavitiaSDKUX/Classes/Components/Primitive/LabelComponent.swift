@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import Render
 
 open class LabelComponent: StylizedComponent<NilState> {
     var text: String = ""

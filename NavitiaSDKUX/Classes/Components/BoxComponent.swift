@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import Render
 
 class BoxComponent: ViewComponent {
     override func render() -> NodeType {

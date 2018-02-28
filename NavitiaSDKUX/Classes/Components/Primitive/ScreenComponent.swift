@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import Render
 
 class ScreenComponent: StylizedComponent<NilState> {
     override func render() -> NodeType {

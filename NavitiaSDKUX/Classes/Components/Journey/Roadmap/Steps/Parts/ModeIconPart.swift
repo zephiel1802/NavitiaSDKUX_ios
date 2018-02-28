@@ -1,6 +1,4 @@
 import Foundation
-import Render
-import NavitiaSDK
 
 extension Components.Journey.Roadmap.Steps.Parts {
     class ModeIconPart: ViewComponent {

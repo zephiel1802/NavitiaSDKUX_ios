@@ -1,5 +1,4 @@
 import Foundation
-import Render
 
 class ActionComponent: ComponentView<NilState> {
     var onTap:((UIGestureRecognizer)->Void)?

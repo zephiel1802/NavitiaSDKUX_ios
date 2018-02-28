@@ -6,8 +6,6 @@
 //
 
 import Foundation
-import Render
-import NavitiaSDK
 
 open class JourneyRidesharingSolutionsScreen: StatelessComponentView {
     let JourneySolutionComponent: Components.Journey.Results.JourneySolutionComponent.Type = Components.Journey.Results.JourneySolutionComponent.self

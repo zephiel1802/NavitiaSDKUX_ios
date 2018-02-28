@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import Render
 
 class ButtonComponent: StylizedComponent<NilState> {
     var text: String = ""

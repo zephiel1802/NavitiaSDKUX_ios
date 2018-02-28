@@ -1,6 +1,3 @@
-import Render
-import NavitiaSDK
-
 class LineCodeWithDisruptionStatusComponent: ViewComponent {
     let DisruptionBadgeComponent: Components.LineCodeWithDisruptionStatusComponentParts.DisruptionBadgeComponent.Type = Components.LineCodeWithDisruptionStatusComponentParts.DisruptionBadgeComponent.self
     let LineCodeComponent: Components.LineCodeWithDisruptionStatusComponentParts.LineCodeComponent.Type = Components.LineCodeWithDisruptionStatusComponentParts.LineCodeComponent.self

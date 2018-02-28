@@ -1,6 +1,3 @@
-import Render
-import NavitiaSDK
-
 open class JourneySolutionRoadmapController: ViewController, ComponentController {
     var journey: Journey?
     var disruptions: [Disruption]?
@@ -10,7 +7,7 @@ open class JourneySolutionRoadmapController: ViewController, ComponentController
     override open func viewDidLoad() {
         super.viewDidLoad()
         self.title = NSLocalizedString("roadmap", bundle: bundle, comment: "Navigation bar title for journey solutions screen")
-        addComponentToViewControllerHierarchy()
+        addComponentToViewControllerHierarchyExtended()
     }
 
     override open func didReceiveMemoryWarning() {

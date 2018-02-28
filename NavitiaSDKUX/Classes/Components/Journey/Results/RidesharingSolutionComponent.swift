@@ -6,8 +6,6 @@
 //
 
 import Foundation
-import Render
-import NavitiaSDK
 
 extension Components.Journey.Results {
     class RidesharingSolutionComponent: ViewComponent {

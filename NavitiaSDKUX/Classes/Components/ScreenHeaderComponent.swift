@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import Render
 
 class ScreenHeaderComponent: StylizedComponent<NilState> {
     var navigationController: UINavigationController?

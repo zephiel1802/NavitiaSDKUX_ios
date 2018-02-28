@@ -7,8 +7,6 @@
 //
 
 import Foundation
-import Render
-import NavitiaSDK
 
 class ModeComponent: ViewComponent {
     let modes: Modes = Modes()

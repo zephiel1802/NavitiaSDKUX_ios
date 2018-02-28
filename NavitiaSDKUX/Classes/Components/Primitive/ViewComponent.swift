@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import Render
 
 class ViewComponent: StylizedComponent<NilState> {
     override func render() -> NodeType {

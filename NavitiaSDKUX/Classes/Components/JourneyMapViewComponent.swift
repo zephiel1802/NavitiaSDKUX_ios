@@ -6,9 +6,7 @@
 //
 
 import Foundation
-import Render
 import MapKit
-import NavitiaSDK
 
 class JourneyMapViewComponent: StylizedComponent<NilState>, MKMapViewDelegate {
     var journey: Journey?
