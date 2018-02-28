@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import Render
 
 class CardComponent: ViewComponent {
     override func render() -> NodeType {

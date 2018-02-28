@@ -1,9 +1,5 @@
 PODS:
-  - NavitiaSDK (1.1.2)
-  - NavitiaSDKUX (1.1.3):
-    - NavitiaSDK (= 1.1.2)
-    - Render (= 4.9.1)
-  - Render (4.9.1)
+  - NavitiaSDKUX (1.1.4)
 
 DEPENDENCIES:
   - NavitiaSDKUX (from `../`)
@@ -13,9 +9,7 @@ EXTERNAL SOURCES:
     :path: ../
 
 SPEC CHECKSUMS:
-  NavitiaSDK: 8c9b1ed72adf9e38542b065be8bff3f516b59dd7
-  NavitiaSDKUX: 1ce4513141ed752c47b3a91f2900486a570822fa
-  Render: 02c15b5c85c9310683693d5dc06b8d47878ed465
+  NavitiaSDKUX: 4eccbf18c0c2f53f94ca896a6258bac31e73c787
 
 PODFILE CHECKSUM: 9d397b0e34454570d5a488b7be28ce8d7681f9e7
 

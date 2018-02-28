@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import Render
 
 class ScrollViewComponent: StylizedComponent<NilState> {
     override func render() -> NodeType {

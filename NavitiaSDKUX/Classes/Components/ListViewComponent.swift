@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import Render
 
 class ListViewComponent: ViewComponent {
     override func render() -> NodeType {

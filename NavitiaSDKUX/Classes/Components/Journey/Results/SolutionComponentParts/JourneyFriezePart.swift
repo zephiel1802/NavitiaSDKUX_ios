@@ -7,8 +7,6 @@
 //
 
 import Foundation
-import Render
-import NavitiaSDK
 
 extension Components.Journey.Results.SolutionComponentParts {
     class JourneyFriezePart: ViewComponent {

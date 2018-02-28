@@ -1,6 +1,4 @@
 import Foundation
-import Render
-import NavitiaSDK
 
 extension Components.Journey.Roadmap {
     class StepComponent: ViewComponent {

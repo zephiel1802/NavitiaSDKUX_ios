@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import Render
 
 extension Components.Journey.Results.Parts {
     class SeparatorPart: ViewComponent {

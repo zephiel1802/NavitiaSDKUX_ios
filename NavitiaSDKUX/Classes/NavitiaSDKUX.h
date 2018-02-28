@@ -7,6 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "UIView+Yoga.h"
+#import "YGEnums.h"
+#import "YGLayout.h"
+#import "YGLayout+Private.h"
+#import "YGPercentLayout.h"
+#import "YGNodeList.h"
+#import "Yoga.h"
+#import "IGListCollectionViewLayout.h"
 
 //! Project version number for NavitiaSDKUX.
 FOUNDATION_EXPORT double NavitiaSDKUXVersionNumber;

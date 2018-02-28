@@ -1,6 +1,3 @@
-import Render
-import NavitiaSDK
-
 extension Components.LineCodeWithDisruptionStatusComponentParts {
     class DisruptionBadgeComponent: ViewComponent {
         var disruptions: [Disruption]?

@@ -6,9 +6,6 @@
 //  Copyright © 2017 Kisio. All rights reserved.
 //
 
-import Render
-import NavitiaSDK
-
 extension Components.Journey.Results.SolutionComponentParts {
     class JourneySectionSegmentPart: ViewComponent {
         var section: Section?

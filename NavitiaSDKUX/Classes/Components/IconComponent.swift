@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import Render
 
 class IconComponent: LabelComponent {
     var name: String = ""

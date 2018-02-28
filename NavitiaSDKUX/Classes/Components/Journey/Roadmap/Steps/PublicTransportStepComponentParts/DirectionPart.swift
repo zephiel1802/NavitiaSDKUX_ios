@@ -1,6 +1,4 @@
 import Foundation
-import Render
-import NavitiaSDK
 
 extension Components.Journey.Roadmap.Steps.PublicTransportStepComponentParts {
     class DirectionPart: ViewComponent {

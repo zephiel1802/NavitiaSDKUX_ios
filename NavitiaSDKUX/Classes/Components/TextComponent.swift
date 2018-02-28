@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import Render
 
 class TextComponent: LabelComponent {
     override func render() -> NodeType {

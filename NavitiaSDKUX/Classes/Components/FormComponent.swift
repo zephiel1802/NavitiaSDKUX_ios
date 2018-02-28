@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import Render
 
 class FormComponent: ViewComponent {
     override func render() -> NodeType {

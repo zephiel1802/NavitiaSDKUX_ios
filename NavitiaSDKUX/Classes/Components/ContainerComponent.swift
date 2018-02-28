@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import Render
 
 class ContainerComponent: ViewComponent {
     var containerSize: String = ""

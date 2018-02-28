@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import Render
 
 open class ViewController: UIViewController {
     var bundle: Bundle = Bundle.main
@@ -51,7 +50,7 @@ open class ViewController: UIViewController {
 public extension ComponentController where Self: UIViewController {
 
     /// Adds the component to the view hierarchy.
-    public func addComponentToViewControllerHierarchy() {
+    public func addComponentToViewControllerHierarchyExtended() {
         component.onLayoutCallback = { [weak self] duration, component, size in
             self?.onLayout(duration: duration, component: component, size: size)
         }
@@ -59,11 +58,5 @@ public extension ComponentController where Self: UIViewController {
             view.addSubview(componentView)
         }
         configureComponentProps()
-    }
-
-    /// By default the component is centered in the view controller main view.
-    /// Overrid this method for a custom layout.
-    public func onLayout(duration: TimeInterval, component: AnyComponentView, size: CGSize) {
-        // component.center = view.center
     }
 }

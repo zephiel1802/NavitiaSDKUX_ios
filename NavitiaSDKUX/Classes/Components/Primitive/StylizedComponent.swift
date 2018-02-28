@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import Render
 
 open class StylizedComponent<S: StateType>: ComponentView<S> {
     public var styles: [String: Any] = [:]

@@ -6,8 +6,6 @@
 //  Copyright © 2017 Kisio. All rights reserved.
 //
 
-import Render
-
 extension Components.Journey.Results.SolutionComponentParts {
     class JourneyWalkingSummaryPart: ViewComponent {
         var duration: Int32 = 0
