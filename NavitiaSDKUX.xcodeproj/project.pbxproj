@@ -7,10 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		04210D1C1F73C2BF00761477 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04210D171F73C2BF00761477 /* Alamofire.framework */; };
-		04210D1D1F73C2BF00761477 /* AlamofireObjectMapper.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04210D181F73C2BF00761477 /* AlamofireObjectMapper.framework */; };
 		04210D1E1F73C2BF00761477 /* NavitiaSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04210D191F73C2BF00761477 /* NavitiaSDK.framework */; };
-		04210D1F1F73C2BF00761477 /* ObjectMapper.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04210D1A1F73C2BF00761477 /* ObjectMapper.framework */; };
 		04210D201F73C2BF00761477 /* Render.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04210D1B1F73C2BF00761477 /* Render.framework */; };
 		043E0B0320053C9A00AC9DFF /* BoxComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043E0AB620053C9A00AC9DFF /* BoxComponent.swift */; };
 		043E0B0420053C9A00AC9DFF /* CardComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043E0AB720053C9A00AC9DFF /* CardComponent.swift */; };
@@ -100,10 +97,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		04210D171F73C2BF00761477 /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = Carthage/Build/iOS/Alamofire.framework; sourceTree = "<group>"; };
-		04210D181F73C2BF00761477 /* AlamofireObjectMapper.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AlamofireObjectMapper.framework; path = Carthage/Build/iOS/AlamofireObjectMapper.framework; sourceTree = "<group>"; };
 		04210D191F73C2BF00761477 /* NavitiaSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NavitiaSDK.framework; path = Carthage/Build/iOS/NavitiaSDK.framework; sourceTree = "<group>"; };
-		04210D1A1F73C2BF00761477 /* ObjectMapper.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ObjectMapper.framework; path = Carthage/Build/iOS/ObjectMapper.framework; sourceTree = "<group>"; };
 		04210D1B1F73C2BF00761477 /* Render.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Render.framework; path = Carthage/Build/iOS/Render.framework; sourceTree = "<group>"; };
 		043E0AB620053C9A00AC9DFF /* BoxComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BoxComponent.swift; sourceTree = "<group>"; };
 		043E0AB720053C9A00AC9DFF /* CardComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardComponent.swift; sourceTree = "<group>"; };
@@ -199,10 +193,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				04210D1C1F73C2BF00761477 /* Alamofire.framework in Frameworks */,
-				04210D1D1F73C2BF00761477 /* AlamofireObjectMapper.framework in Frameworks */,
 				04210D1E1F73C2BF00761477 /* NavitiaSDK.framework in Frameworks */,
-				04210D1F1F73C2BF00761477 /* ObjectMapper.framework in Frameworks */,
 				04210D201F73C2BF00761477 /* Render.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -213,10 +204,7 @@
 		04210D161F73C2BF00761477 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				04210D171F73C2BF00761477 /* Alamofire.framework */,
-				04210D181F73C2BF00761477 /* AlamofireObjectMapper.framework */,
 				04210D191F73C2BF00761477 /* NavitiaSDK.framework */,
-				04210D1A1F73C2BF00761477 /* ObjectMapper.framework */,
 				04210D1B1F73C2BF00761477 /* Render.framework */,
 			);
 			name = Frameworks;
@@ -613,17 +601,11 @@
 			files = (
 			);
 			inputPaths = (
-				"$(SRCROOT)/Carthage/Build/iOS/Alamofire.framework",
-				"$(SRCROOT)/Carthage/Build/iOS/AlamofireObjectMapper.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/NavitiaSDK.framework",
-				"$(SRCROOT)/Carthage/Build/iOS/ObjectMapper.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/Render.framework",
 			);
 			outputPaths = (
-				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/Alamofire.framework",
-				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/AlamofireObjectMapper.framework",
 				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/NavitiaSDK.framework",
-				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/ObjectMapper.framework",
 				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/Render.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
