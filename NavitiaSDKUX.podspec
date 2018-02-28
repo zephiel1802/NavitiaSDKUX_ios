@@ -22,6 +22,6 @@ This SDK provides journey computation screens you can add to your application.
 
   s.ios.deployment_target = '9.0'
 
-  s.source_files = 'NavitiaSDKUX/Classes/**/*.swift'
+  s.source_files = 'NavitiaSDKUX/Classes/**/*.swift', 'NavitiaSDKUX/Classes/**/*.h', 'NavitiaSDKUX/Classes/**/*.c', 'NavitiaSDKUX/Classes/**/*.m', 'NavitiaSDKUX/Classes/**/*.mm'
   s.resources = 'NavitiaSDKUX/Assets/**/*.*'
 end
