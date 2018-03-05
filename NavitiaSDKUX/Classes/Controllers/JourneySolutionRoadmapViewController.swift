@@ -25,4 +25,3 @@ open class JourneySolutionRoadmapController: ViewController, ComponentController
         component.navigationController = navigationController
     }
 }
-    

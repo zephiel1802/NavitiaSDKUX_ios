@@ -312,6 +312,8 @@
 		31340C4C203DD80F00D18A8E /* ImageComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31340C4B203DD80F00D18A8E /* ImageComponent.swift */; };
 		31340C4E203DD81D00D18A8E /* FloatRatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31340C4D203DD81D00D18A8E /* FloatRatingView.swift */; };
 		31340C50203DD82E00D18A8E /* Image+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31340C4F203DD82E00D18A8E /* Image+extension.swift */; };
+		31504681204D4892003FB19A /* JourneyRidesharingRoadmapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31504680204D4892003FB19A /* JourneyRidesharingRoadmapViewController.swift */; };
+		31504683204D489D003FB19A /* JourneyRidesharingSolutionRoadmapScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31504682204D489D003FB19A /* JourneyRidesharingSolutionRoadmapScreen.swift */; };
 		31F7ED0720371E9800934BA9 /* JourneyRidesharingSolutionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31F7ED0620371E9800934BA9 /* JourneyRidesharingSolutionsViewController.swift */; };
 		31F7ED0920371F0700934BA9 /* JourneyRidesharingSolutionsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31F7ED0820371F0700934BA9 /* JourneyRidesharingSolutionsScreen.swift */; };
 		A10BF21F1FE42B5900A73706 /* NavitiaSDKUX.h in Headers */ = {isa = PBXBuildFile; fileRef = A10BF21E1FE42B5900A73706 /* NavitiaSDKUX.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -645,6 +647,8 @@
 		31340C4B203DD80F00D18A8E /* ImageComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageComponent.swift; sourceTree = "<group>"; };
 		31340C4D203DD81D00D18A8E /* FloatRatingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FloatRatingView.swift; sourceTree = "<group>"; };
 		31340C4F203DD82E00D18A8E /* Image+extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Image+extension.swift"; sourceTree = "<group>"; };
+		31504680204D4892003FB19A /* JourneyRidesharingRoadmapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JourneyRidesharingRoadmapViewController.swift; sourceTree = "<group>"; };
+		31504682204D489D003FB19A /* JourneyRidesharingSolutionRoadmapScreen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JourneyRidesharingSolutionRoadmapScreen.swift; sourceTree = "<group>"; };
 		31F7ED0620371E9800934BA9 /* JourneyRidesharingSolutionsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JourneyRidesharingSolutionsViewController.swift; sourceTree = "<group>"; };
 		31F7ED0820371F0700934BA9 /* JourneyRidesharingSolutionsScreen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JourneyRidesharingSolutionsScreen.swift; sourceTree = "<group>"; };
 		A10BF21E1FE42B5900A73706 /* NavitiaSDKUX.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NavitiaSDKUX.h; sourceTree = "<group>"; };
@@ -1317,6 +1321,7 @@
 		A18804121FE12C3C003AD92A /* Screens */ = {
 			isa = PBXGroup;
 			children = (
+				31504682204D489D003FB19A /* JourneyRidesharingSolutionRoadmapScreen.swift */,
 				31F7ED0820371F0700934BA9 /* JourneyRidesharingSolutionsScreen.swift */,
 				A18804131FE12C3C003AD92A /* JourneySolutionRoadmapScreen.swift */,
 				A18804141FE12C3C003AD92A /* JourneySolutionsScreen.swift */,
@@ -1336,6 +1341,7 @@
 		A18804601FE12C3C003AD92A /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				31504680204D4892003FB19A /* JourneyRidesharingRoadmapViewController.swift */,
 				31F7ED0620371E9800934BA9 /* JourneyRidesharingSolutionsViewController.swift */,
 				A18804631FE12C3C003AD92A /* JourneySolutionRoadmapViewController.swift */,
 				A18804621FE12C3C003AD92A /* JourneySolutionsController.swift */,
@@ -1547,6 +1553,7 @@
 				31340C4E203DD81D00D18A8E /* FloatRatingView.swift in Sources */,
 				310ABF92204754FC0050B1C4 /* CellLatSchema.swift in Sources */,
 				310ABFDF204755B00050B1C4 /* YGLayout.m in Sources */,
+				31504681204D4892003FB19A /* JourneyRidesharingRoadmapViewController.swift in Sources */,
 				310ABE90204754DE0050B1C4 /* DateFormatterTransform.swift in Sources */,
 				A18804AD1FE12C3D003AD92A /* Packages.swift in Sources */,
 				A18804721FE12C3D003AD92A /* JourneySolutionsScreen.swift in Sources */,
@@ -1712,6 +1719,7 @@
 				310ABE3A2047547A0050B1C4 /* TrafficReportApi.swift in Sources */,
 				043E0B3320053C9A00AC9DFF /* ScrollViewComponent.swift in Sources */,
 				310ABF8B204754FC0050B1C4 /* Message.swift in Sources */,
+				31504683204D489D003FB19A /* JourneyRidesharingSolutionRoadmapScreen.swift in Sources */,
 				043E0B0820053C9A00AC9DFF /* AlertComponent.swift in Sources */,
 				310ABF5F204754FC0050B1C4 /* StopSchedules.swift in Sources */,
 				A18804661FE12C3C003AD92A /* Date.swift in Sources */,

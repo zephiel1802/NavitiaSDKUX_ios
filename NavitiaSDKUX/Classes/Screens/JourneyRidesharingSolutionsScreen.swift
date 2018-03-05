@@ -47,7 +47,11 @@ open class JourneyRidesharingSolutionsScreen: StatelessComponentView {
             if section.type == "street_network" && section.mode == "ridesharing" {
                 for (_, ridesharingJourney) in (section.ridesharingJourneys?.enumerated())! {
                     resultComponents.append(ComponentNode(RidesharingSolutionComponent.init(), in: self, props: {(component, _) in
+                        component.navigationController = self.navigationController
+                        component.journey = self.journey
                         component.ridesharingJourney = ridesharingJourney
+                        component.disruptions = self.disruptions
+                        
                         component.initRidesharingJourneyInfo()
                     }))
                 }

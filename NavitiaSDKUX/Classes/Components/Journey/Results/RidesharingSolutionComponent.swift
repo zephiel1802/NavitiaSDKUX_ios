@@ -12,7 +12,10 @@ extension Components.Journey.Results {
         let JourneyRidesharing2ColumnsLayout: Components.Journey.Results.SolutionComponentParts.JourneyRidesharing2ColumnsLayout.Type = Components.Journey.Results.SolutionComponentParts.JourneyRidesharing2ColumnsLayout.self
         let SeparatorPart: Components.Journey.Results.Parts.SeparatorPart.Type = Components.Journey.Results.Parts.SeparatorPart.self
         
+        var navigationController: UINavigationController?
+        var journey: Journey?
         var ridesharingJourney: Journey?
+        var disruptions: [Disruption]?
         var network: String = ""
         var departureDate: String = ""
         var driverImageURL: String = ""
@@ -22,6 +25,7 @@ extension Components.Journey.Results {
         var driverRateCount: Int32 = 0
         var seatsAvailable: String = ""
         var tripFareText: String?
+        var isRoadmapComponent: Bool = false
         
         required init() {
             super.init()
@@ -129,12 +133,20 @@ extension Components.Journey.Results {
                     }).add(children: [
                         ComponentNode(ActionComponent(), in: self, props: {(component, _) in
                             component.onTap = { _ in
-                                if let ridesharingDeepLink = self.getRidesharingDeepLink() {
-                                    if #available(iOS 10.0, *) {
-                                        UIApplication.shared.open(ridesharingDeepLink, options: [:], completionHandler: nil)
-                                    } else {
-                                        UIApplication.shared.openURL(ridesharingDeepLink)
+                                if self.isRoadmapComponent {
+                                    if let ridesharingDeepLink = self.getRidesharingDeepLink() {
+                                        if #available(iOS 10.0, *) {
+                                            UIApplication.shared.open(ridesharingDeepLink, options: [:], completionHandler: nil)
+                                        } else {
+                                            UIApplication.shared.openURL(ridesharingDeepLink)
+                                        }
                                     }
+                                } else {
+                                    let journeyRidesharingRoadmapViewController: JourneyRidesharingRoadmapViewController = JourneyRidesharingRoadmapViewController()
+                                    journeyRidesharingRoadmapViewController.journey = self.journey
+                                    journeyRidesharingRoadmapViewController.ridesharingJourney = self.ridesharingJourney
+                                    journeyRidesharingRoadmapViewController.disruptions = self.disruptions
+                                    self.navigationController?.pushViewController(journeyRidesharingRoadmapViewController, animated: true)
                                 }
                             }
                         }).add(children: [
@@ -143,7 +155,11 @@ extension Components.Journey.Results {
                             }).add(children: [
                                 ComponentNode(TextComponent(), in: self, props: {(component, _) in
                                     component.styles = self.actionButtonTextStyles
-                                    component.text = NSLocalizedString("see_offer", bundle: self.bundle, comment: "Not available")
+                                    if self.isRoadmapComponent {
+                                        component.text = NSLocalizedString("book", bundle: self.bundle, comment: "Book")
+                                    } else {
+                                        component.text = NSLocalizedString("view_on_the_map", bundle: self.bundle, comment: "View on the map")
+                                    }
                                 })
                             ])
                         ])
@@ -205,7 +221,6 @@ extension Components.Journey.Results {
         let ridesharingCardStyles:[String: Any] = [
             "backgroundColor": config.colors.white,
             "padding": 10,
-            "paddingTop": 17,
             "borderRadius": config.metrics.radius,
             "marginBottom": config.metrics.margin,
             "shadowRadius": 2.0,
@@ -224,7 +239,7 @@ extension Components.Journey.Results {
             "fontSize": 9,
         ]
         let driverInfoStyles: [String: Any] = [
-            "marginVertical": 15,
+            "marginVertical": 10,
         ]
         let driverInfoLeftPartStyles: [String: Any] = [
             "flexDirection": YGFlexDirection.row,
