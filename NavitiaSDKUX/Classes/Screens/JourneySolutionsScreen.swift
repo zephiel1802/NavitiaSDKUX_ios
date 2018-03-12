@@ -130,6 +130,18 @@ open class JourneySolutionsScreen: StylizedComponent<JourneySolutionsScreenState
                 ComponentNode(SeparatorPart.init(), in: self, props: {(component, _) in
                     component.styles = self.ridesharingSeparatorStyles
                 }),
+                ComponentNode(ViewComponent(), in: self, props: {(component, _) in
+                    component.styles = self.ridesharingInformativeMessageStyles
+                }).add(children: [
+                    ComponentNode(ImageComponent(), in: self, props: {(component, _) in
+                        component.styles = self.ridesharingInformativeMessageImageStyles
+                        component.image = UIImage(named: "ridesharing_info", in: self.bundle, compatibleWith: nil)
+                    }),
+                    ComponentNode(TextComponent(), in: self, props: {(component, _) in
+                        component.styles = self.ridesharingInformativeMessageTextStyles
+                        component.text = NSLocalizedString("carpool_highlight_message", bundle: self.bundle, comment: "")
+                    }),
+                ]),
                 ComponentNode(ListViewComponent(), in: self).add(children: ridesharingJourneyResultComponents)
             ])
         ])
@@ -222,6 +234,26 @@ open class JourneySolutionsScreen: StylizedComponent<JourneySolutionsScreenState
         "marginLeft": 10,
         "marginBottom": 2,
         "marginTop": 10,
+    ]
+    let ridesharingInformativeMessageStyles: [String: Any] = [
+        "backgroundColor": config.colors.orange,
+        "flexDirection": YGFlexDirection.row,
+        "marginHorizontal": 8,
+        "marginVertical": 5,
+        "height": 76,
+    ]
+    let ridesharingInformativeMessageImageStyles: [String: Any] = [
+        "width": 91,
+        "height": 75,
+    ]
+    let ridesharingInformativeMessageTextStyles: [String: Any] = [
+        "color": config.colors.white,
+        "marginHorizontal": 19,
+        "flexGrow": 1,
+        "flexShrink": 1,
+        "fontSize": config.metrics.textS,
+        "numberOfLines": 3,
+        "fontWeight": "semi-bold"
     ]
     let ridesharingSeparatorStyles: [String: Any] = [
         "marginHorizontal": 10,
