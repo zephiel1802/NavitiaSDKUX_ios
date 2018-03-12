@@ -238,7 +238,7 @@ open class JourneySolutionsScreen: StylizedComponent<JourneySolutionsScreenState
     let ridesharingInformativeMessageStyles: [String: Any] = [
         "backgroundColor": config.colors.orange,
         "flexDirection": YGFlexDirection.row,
-        "marginHorizontal": 10,
+        "marginHorizontal": 8,
         "marginVertical": 5,
         "height": 76,
     ]
@@ -248,8 +248,7 @@ open class JourneySolutionsScreen: StylizedComponent<JourneySolutionsScreenState
     ]
     let ridesharingInformativeMessageTextStyles: [String: Any] = [
         "color": config.colors.white,
-        "marginLeft": 19,
-        "marginRight": 31,
+        "marginHorizontal": 19,
         "flexGrow": 1,
         "flexShrink": 1,
         "fontSize": config.metrics.textS,
