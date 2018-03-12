@@ -37,23 +37,13 @@ extension Components.Journey.Results {
         }
         
         override func render() -> NodeType {
-            var bottomNode = ComponentNode(ActionComponent(), in: self, props: {(component, _) in
+            let bottomNode = ComponentNode(ActionComponent(), in: self, props: {(component, _) in
                 component.onTap = { _ in
-                    if self.isRoadmapComponent {
-                        if let ridesharingDeepLink = self.getRidesharingDeepLink() {
-                            if #available(iOS 10.0, *) {
-                                UIApplication.shared.open(ridesharingDeepLink, options: [:], completionHandler: nil)
-                            } else {
-                                UIApplication.shared.openURL(ridesharingDeepLink)
-                            }
-                        }
-                    } else {
-                        let journeyRidesharingRoadmapViewController: JourneyRidesharingRoadmapViewController = JourneyRidesharingRoadmapViewController()
-                        journeyRidesharingRoadmapViewController.journey = self.journey
-                        journeyRidesharingRoadmapViewController.ridesharingJourney = self.ridesharingJourney
-                        journeyRidesharingRoadmapViewController.disruptions = self.disruptions
-                        self.navigationController?.pushViewController(journeyRidesharingRoadmapViewController, animated: true)
-                    }
+                    let journeyRidesharingRoadmapViewController: JourneyRidesharingRoadmapViewController = JourneyRidesharingRoadmapViewController()
+                    journeyRidesharingRoadmapViewController.journey = self.journey
+                    journeyRidesharingRoadmapViewController.ridesharingJourney = self.ridesharingJourney
+                    journeyRidesharingRoadmapViewController.disruptions = self.disruptions
+                    self.navigationController?.pushViewController(journeyRidesharingRoadmapViewController, animated: true)
                 }
             })
             
@@ -70,18 +60,30 @@ extension Components.Journey.Results {
                 ])
             }
             
-            var mainNode = ComponentNode(CardComponent(), in: self, props: {(component, _) in
+            let mainNode = ComponentNode(CardComponent(), in: self, props: {(component, _) in
                 component.styles = self.ridesharingCardStyles
             })
             if self.isRoadmapComponent {
                 mainNode.add(children: [
-                    ComponentNode(ViewComponent(), in: self, props: {(component, _) in
-                        component.styles = self.actionButtonStyles
+                    ComponentNode(ActionComponent(), in: self, props: {(component, _) in
+                        component.onTap = { _ in
+                            if let ridesharingDeepLink = self.getRidesharingDeepLink() {
+                                if #available(iOS 10.0, *) {
+                                    UIApplication.shared.open(ridesharingDeepLink, options: [:], completionHandler: nil)
+                                } else {
+                                    UIApplication.shared.openURL(ridesharingDeepLink)
+                                }
+                            }
+                        }
                     }).add(children: [
-                        ComponentNode(TextComponent(), in: self, props: {(component, _) in
-                            component.styles = self.actionButtonTextStyles
-                            component.text = NSLocalizedString("book", bundle: self.bundle, comment: "Book")
-                        })
+                        ComponentNode(ViewComponent(), in: self, props: {(component, _) in
+                            component.styles = self.actionButtonStyles
+                        }).add(children: [
+                            ComponentNode(TextComponent(), in: self, props: {(component, _) in
+                                component.styles = self.actionButtonTextStyles
+                                component.text = NSLocalizedString("book", bundle: self.bundle, comment: "Book")
+                            })
+                        ])
                     ]),
                     ComponentNode(SeparatorPart.init(), in: self, props: {(component, _) in
                         component.styles = self.topSeparatorStyles
