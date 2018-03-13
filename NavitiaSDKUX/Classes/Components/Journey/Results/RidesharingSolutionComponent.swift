@@ -37,9 +37,37 @@ extension Components.Journey.Results {
         }
         
         override func render() -> NodeType {
-            return ComponentNode(CardComponent(), in: self, props: {(component, _) in
+            let mainNode = ComponentNode(CardComponent(), in: self, props: {(component, _) in
                 component.styles = self.ridesharingCardStyles
-            }).add(children: [
+            })
+            if self.isRoadmapComponent {
+                mainNode.add(children: [
+                    ComponentNode(ActionComponent(), in: self, props: {(component, _) in
+                        component.onTap = { _ in
+                            if let ridesharingDeepLink = self.getRidesharingDeepLink() {
+                                if #available(iOS 10.0, *) {
+                                    UIApplication.shared.open(ridesharingDeepLink, options: [:], completionHandler: nil)
+                                } else {
+                                    UIApplication.shared.openURL(ridesharingDeepLink)
+                                }
+                            }
+                        }
+                    }).add(children: [
+                        ComponentNode(ViewComponent(), in: self, props: {(component, _) in
+                            component.styles = self.actionButtonStyles
+                        }).add(children: [
+                            ComponentNode(TextComponent(), in: self, props: {(component, _) in
+                                component.styles = self.actionButtonTextStyles
+                                component.text = NSLocalizedString("book", bundle: self.bundle, comment: "Book")
+                            })
+                        ])
+                    ]),
+                    ComponentNode(SeparatorPart.init(), in: self, props: {(component, _) in
+                        component.styles = self.topSeparatorStyles
+                    })
+                ])
+            }
+            mainNode.add(children: [
                 ComponentNode(JourneyRidesharing2ColumnsLayout.init(), in: self, props: {(component, _) in
                     component.leftChildren = [
                         ComponentNode(TextComponent(), in: self, props: {(component, _) in
@@ -130,42 +158,11 @@ extension Components.Journey.Results {
                     ]),
                     ComponentNode(ViewComponent(), in: self, props: {(component, _) in
                         component.styles = self.ridesharingActionStyles
-                    }).add(children: [
-                        ComponentNode(ActionComponent(), in: self, props: {(component, _) in
-                            component.onTap = { _ in
-                                if self.isRoadmapComponent {
-                                    if let ridesharingDeepLink = self.getRidesharingDeepLink() {
-                                        if #available(iOS 10.0, *) {
-                                            UIApplication.shared.open(ridesharingDeepLink, options: [:], completionHandler: nil)
-                                        } else {
-                                            UIApplication.shared.openURL(ridesharingDeepLink)
-                                        }
-                                    }
-                                } else {
-                                    let journeyRidesharingRoadmapViewController: JourneyRidesharingRoadmapViewController = JourneyRidesharingRoadmapViewController()
-                                    journeyRidesharingRoadmapViewController.journey = self.journey
-                                    journeyRidesharingRoadmapViewController.ridesharingJourney = self.ridesharingJourney
-                                    journeyRidesharingRoadmapViewController.disruptions = self.disruptions
-                                    self.navigationController?.pushViewController(journeyRidesharingRoadmapViewController, animated: true)
-                                }
-                            }
-                        }).add(children: [
-                            ComponentNode(ViewComponent(), in: self, props: {(component, _) in
-                                component.styles = self.actionButtonStyles
-                            }).add(children: [
-                                ComponentNode(TextComponent(), in: self, props: {(component, _) in
-                                    component.styles = self.actionButtonTextStyles
-                                    if self.isRoadmapComponent {
-                                        component.text = NSLocalizedString("book", bundle: self.bundle, comment: "Book")
-                                    } else {
-                                        component.text = NSLocalizedString("view_on_the_map", bundle: self.bundle, comment: "View on the map")
-                                    }
-                                })
-                            ])
-                        ])
-                    ])
+                    }).add(children: getButtonComponentNode())
                 ])
             ])
+            
+            return mainNode
         }
         
         func initRidesharingJourneyInfo() {
@@ -187,6 +184,33 @@ extension Components.Journey.Results {
                     self.tripFareText = (self.ridesharingJourney!.fare != nil && self.ridesharingJourney!.fare!.found != nil && self.ridesharingJourney!.fare!.found!) ? self.getRidesharingTripFareText(tripCost: self.ridesharingJourney!.fare!.total!) : NSLocalizedString("price_not_available", bundle: self.bundle, comment: "Price not available")
                 }
             }
+        }
+        
+        func getButtonComponentNode() -> [NodeType] {
+            var buttonComponentNode = [NodeType]()
+            
+            if !self.isRoadmapComponent {
+                buttonComponentNode.append(ComponentNode(ActionComponent(), in: self, props: {(component, _) in
+                    component.onTap = { _ in
+                        let journeyRidesharingRoadmapViewController: JourneyRidesharingRoadmapViewController = JourneyRidesharingRoadmapViewController()
+                        journeyRidesharingRoadmapViewController.journey = self.journey
+                        journeyRidesharingRoadmapViewController.ridesharingJourney = self.ridesharingJourney
+                        journeyRidesharingRoadmapViewController.disruptions = self.disruptions
+                        self.navigationController?.pushViewController(journeyRidesharingRoadmapViewController, animated: true)
+                    }
+                }).add(children: [
+                    ComponentNode(ViewComponent(), in: self, props: {(component, _) in
+                        component.styles = self.actionButtonStyles
+                    }).add(children: [
+                        ComponentNode(TextComponent(), in: self, props: {(component, _) in
+                            component.styles = self.actionButtonTextStyles
+                            component.text = NSLocalizedString("view_on_the_map", bundle: self.bundle, comment: "View on the map")
+                        })
+                    ])
+                ]))
+            }
+            
+            return buttonComponentNode
         }
         
         func getDriverRatingValue(individualRating: IndividualRating, numberOfStars: Float) -> Float {
@@ -309,6 +333,9 @@ extension Components.Journey.Results {
             "color": UIColor.white,
             "fontWeight": "bold",
             "fontSize": 13,
+        ]
+        let topSeparatorStyles: [String: Any] = [
+            "marginVertical": 10
         ]
     }
 }
