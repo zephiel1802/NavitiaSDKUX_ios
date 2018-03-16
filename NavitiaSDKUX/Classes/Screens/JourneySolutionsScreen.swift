@@ -37,7 +37,7 @@ open class JourneySolutionsScreen: StylizedComponent<JourneySolutionsScreenState
         
         var classicJourneyComponents: [NodeType] = []
         var ridesharingJourneyComponents: [NodeType] = []
-        if state.journeys != nil {
+        if state.journeys != nil && state.journeys!.journeys != nil {
             for journey in state.journeys!.journeys! {
                 if journey.tags != nil && journey.tags!.contains("ridesharing") {
                     ridesharingJourneyComponents.append(ComponentNode(JourneySolutionComponent.init(), in: self, props: {(component, _) in
@@ -181,12 +181,7 @@ open class JourneySolutionsScreen: StylizedComponent<JourneySolutionsScreenState
         }
 
         journeyRequestBuilder.get(completion: { journeys, error in
-            if error != nil {
-                NSLog(error.debugDescription)
-                self.setState { state in
-                    state.error = true
-                }
-            } else {
+            if error == nil && journeys != nil && journeys!.journeys != nil {
                 // Journeys successfuly fetched, we store them in the screen state
                 // This will re-render the screen component (render method called)
                 self.setState { state in
@@ -196,6 +191,14 @@ open class JourneySolutionsScreen: StylizedComponent<JourneySolutionsScreenState
                 
                 if (journeys?.journeys?.isEmpty == false) {
                     self.extractLabelsFromJourneyResult(journey: (journeys?.journeys![0])!)
+                }
+            } else {
+                self.setState { state in
+                    state.error = true
+                }
+                
+                if error != nil {
+                    print(error.debugDescription)
                 }
             }
             
