@@ -38,10 +38,20 @@ open class ViewController: UIViewController {
 
             self.navigationItem.leftBarButtonItem = backBarButton
         }
+        
+        UIDevice.current.setValue(UIInterfaceOrientation.portrait.rawValue, forKey: "orientation")
     }
 
     func closeRootController() {
         self.dismiss(animated: true, completion: nil)
+    }
+    
+    open override var preferredInterfaceOrientationForPresentation: UIInterfaceOrientation {
+        return UIInterfaceOrientation.portrait
+    }
+    
+    open override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
+        return UIInterfaceOrientationMask.portrait
     }
 }
 
