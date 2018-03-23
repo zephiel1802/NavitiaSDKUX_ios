@@ -45,15 +45,19 @@ extension Components.Journey.Results {
                 mainNode.add(children: [
                     ComponentNode(ActionComponent(), in: self, props: {(component, _) in
                         component.onTap = { _ in
-                            let alertController = AlertViewController(nibName: "AlertView", bundle: self.bundle)
-                            alertController.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
-                            alertController.negativeButtonText = NSLocalizedString("cancel", bundle: self.bundle, comment: "Cancel").uppercased()
-                            alertController.positiveButtonText = NSLocalizedString("proceed", bundle: self.bundle, comment: "Continue").uppercased()
-                            alertController.alertMessage = NSLocalizedString("redirection_message", bundle: self.bundle, comment: "Redirection Message")
-                            alertController.checkBoxText = NSLocalizedString("dont_show_this_message_again", bundle: self.bundle, comment: "Don't show this message again")
-                            alertController.alertViewDelegate = self
-                            
-                            self.navigationController?.visibleViewController?.present(alertController, animated: false, completion: nil)
+                            if UserDefaults.standard.bool(forKey: "navitiaSdkShowRedirectionDialog") {
+                                let alertController = AlertViewController(nibName: "AlertView", bundle: self.bundle)
+                                alertController.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
+                                alertController.negativeButtonText = NSLocalizedString("cancel", bundle: self.bundle, comment: "Cancel").uppercased()
+                                alertController.positiveButtonText = NSLocalizedString("proceed", bundle: self.bundle, comment: "Continue").uppercased()
+                                alertController.alertMessage = NSLocalizedString("redirection_message", bundle: self.bundle, comment: "Redirection Message")
+                                alertController.checkBoxText = NSLocalizedString("dont_show_this_message_again", bundle: self.bundle, comment: "Don't show this message again")
+                                alertController.alertViewDelegate = self
+                                
+                                self.navigationController?.visibleViewController?.present(alertController, animated: false, completion: nil)
+                            } else {
+                                self.openDeepLink()
+                            }
                         }
                     }).add(children: [
                         ComponentNode(ViewComponent(), in: self, props: {(component, _) in
@@ -250,6 +254,11 @@ extension Components.Journey.Results {
         }
         
         func onPositiveButtonClicked(_ alertViewController: AlertViewController) {
+            self.openDeepLink()
+            alertViewController.dismiss(animated: false, completion: nil)
+        }
+        
+        func openDeepLink() {
             if let ridesharingDeepLink = getRidesharingDeepLink() {
                 if #available(iOS 10.0, *) {
                     UIApplication.shared.open(ridesharingDeepLink, options: [:], completionHandler: nil)

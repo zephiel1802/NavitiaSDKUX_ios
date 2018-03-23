@@ -51,6 +51,10 @@ class AlertViewController: UIViewController {
     
     @IBAction func positiveButtonClicked(_ sender: Any) {
         self.alertViewDelegate?.onPositiveButtonClicked(self)
+        
+        if self.checkbox.isChecked {
+            UserDefaults.standard.set(false, forKey: "navitiaSdkShowRedirectionDialog")
+        }
     }
     
     @IBAction func switchCheckBoxState(_ sender: Any) {
