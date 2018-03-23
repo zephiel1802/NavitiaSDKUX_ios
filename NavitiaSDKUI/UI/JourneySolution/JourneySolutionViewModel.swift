@@ -12,4 +12,8 @@ class JourneySolutionViewModel: NSObject {
 
     var journeySolutionDidChange: ((JourneySolutionViewModel) -> ())?
     
+    func request() {
+        
+    }
+    
 }

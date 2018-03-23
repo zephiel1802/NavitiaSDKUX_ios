@@ -13,6 +13,9 @@ open class JourneySolutionViewController: UIViewController {
     override open func viewDidLoad() {
         super.viewDidLoad()
 
+        self.navigationController?.navigationBar.setBackgroundImage(UIImage(named: ""), for: UIBarMetrics.default)
+        self.navigationController?.navigationBar.shadowImage = UIImage(named: "")
+        self.title = "Itinéraires"
         // Do any additional setup after loading the view.
     }
 
