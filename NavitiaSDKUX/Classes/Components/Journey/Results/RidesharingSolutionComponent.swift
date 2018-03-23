@@ -8,7 +8,8 @@
 import Foundation
 
 extension Components.Journey.Results {
-    class RidesharingSolutionComponent: ViewComponent {
+    class RidesharingSolutionComponent: ViewComponent, AlertViewControllerProtocol {
+        
         let JourneyRidesharing2ColumnsLayout: Components.Journey.Results.SolutionComponentParts.JourneyRidesharing2ColumnsLayout.Type = Components.Journey.Results.SolutionComponentParts.JourneyRidesharing2ColumnsLayout.self
         let SeparatorPart: Components.Journey.Results.Parts.SeparatorPart.Type = Components.Journey.Results.Parts.SeparatorPart.self
         
@@ -44,13 +45,15 @@ extension Components.Journey.Results {
                 mainNode.add(children: [
                     ComponentNode(ActionComponent(), in: self, props: {(component, _) in
                         component.onTap = { _ in
-                            if let ridesharingDeepLink = self.getRidesharingDeepLink() {
-                                if #available(iOS 10.0, *) {
-                                    UIApplication.shared.open(ridesharingDeepLink, options: [:], completionHandler: nil)
-                                } else {
-                                    UIApplication.shared.openURL(ridesharingDeepLink)
-                                }
-                            }
+                            let alertController = AlertViewController(nibName: "AlertView", bundle: self.bundle)
+                            alertController.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
+                            alertController.negativeButtonText = NSLocalizedString("cancel", bundle: self.bundle, comment: "Cancel").uppercased()
+                            alertController.positiveButtonText = NSLocalizedString("proceed", bundle: self.bundle, comment: "Continue").uppercased()
+                            alertController.alertMessage = NSLocalizedString("redirection_message", bundle: self.bundle, comment: "Redirection Message")
+                            alertController.checkBoxText = NSLocalizedString("dont_show_this_message_again", bundle: self.bundle, comment: "Don't show this message again")
+                            alertController.alertViewDelegate = self
+                            
+                            self.navigationController?.visibleViewController?.present(alertController, animated: false, completion: nil)
                         }
                     }).add(children: [
                         ComponentNode(ViewComponent(), in: self, props: {(component, _) in
@@ -240,6 +243,20 @@ extension Components.Journey.Results {
                 }
             }
             return nil
+        }
+        
+        func onNegativeButtonClicked(_ alertViewController: AlertViewController) {
+            alertViewController.dismiss(animated: false, completion: nil)
+        }
+        
+        func onPositiveButtonClicked(_ alertViewController: AlertViewController) {
+            if let ridesharingDeepLink = getRidesharingDeepLink() {
+                if #available(iOS 10.0, *) {
+                    UIApplication.shared.open(ridesharingDeepLink, options: [:], completionHandler: nil)
+                } else {
+                    UIApplication.shared.openURL(ridesharingDeepLink)
+                }
+            }
         }
         
         let ridesharingCardStyles:[String: Any] = [
