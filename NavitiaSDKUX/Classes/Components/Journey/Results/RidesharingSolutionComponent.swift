@@ -48,7 +48,7 @@ extension Components.Journey.Results {
                             if UserDefaults.standard.bool(forKey: "navitiaSdkShowRedirectionDialog") {
                                 let alertController = AlertViewController(nibName: "AlertView", bundle: self.bundle)
                                 alertController.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
-                                alertController.keyState = "navitiaSdkShowRedirectionDialog"
+                                alertController.stateKey = "navitiaSdkShowRedirectionDialog"
                                 alertController.alertMessage = NSLocalizedString("redirection_message", bundle: self.bundle, comment: "Redirection Message")
                                 alertController.checkBoxText = NSLocalizedString("dont_show_this_message_again", bundle: self.bundle, comment: "Don't show this message again")
                                 alertController.negativeButtonText = NSLocalizedString("cancel", bundle: self.bundle, comment: "Cancel").uppercased()

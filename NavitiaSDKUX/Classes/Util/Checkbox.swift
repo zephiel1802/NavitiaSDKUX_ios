@@ -6,6 +6,10 @@
 import Foundation
 import UIKit
 
+public protocol CheckboxDelegate {
+    func checkboxStateDidChange(checkbox: Checkbox)
+}
+
 /// Checkbox is a simple, animation free checkbox and UISwitch alternative designed
 /// to be performant and easy to implement.
 public class Checkbox: UIControl {
@@ -91,9 +95,14 @@ public class Checkbox: UIControl {
     /// Indicates whether the checkbox is currently in a state of being
     /// checked or not.
     public var isChecked: Bool = false {
-        didSet { setNeedsDisplay() }
+        didSet {
+            setNeedsDisplay()
+            delegate?.checkboxStateDidChange(checkbox: self)
+        }
     }
 
+    public var delegate: CheckboxDelegate?
+    
     // MARK: - Lifecycle
 
     public override init(frame: CGRect) {

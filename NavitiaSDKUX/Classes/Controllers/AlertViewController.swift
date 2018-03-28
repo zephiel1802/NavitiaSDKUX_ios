@@ -10,8 +10,8 @@ protocol AlertViewControllerProtocol {
     func onPositiveButtonClicked(_ alertViewController: AlertViewController)
 }
 
-class AlertViewController: UIViewController {
-    var keyState: String = ""
+class AlertViewController: UIViewController, CheckboxDelegate {
+    var stateKey: String = ""
     var alertMessage: String = ""
     var checkBoxText: String = ""
     var negativeButtonText: String = ""
@@ -35,6 +35,7 @@ class AlertViewController: UIViewController {
         self.checkbox.borderStyle = .square
         self.checkbox.checkmarkStyle = .tick
         self.checkbox.checkmarkColor = config.colors.tertiary
+        self.checkbox.delegate = self
         
         self.message.text = self.alertMessage
         self.checkBoxMessageLabel.text = self.checkBoxText
@@ -47,14 +48,10 @@ class AlertViewController: UIViewController {
     
     @IBAction func negativeButtonClicked(_ sender: Any) {
         self.alertViewDelegate?.onNegativeButtonClicked(self)
-        
-        saveCheckBoxState()
     }
     
     @IBAction func positiveButtonClicked(_ sender: Any) {
         self.alertViewDelegate?.onPositiveButtonClicked(self)
-        
-        saveCheckBoxState()
     }
     
     @IBAction func switchCheckBoxState(_ sender: Any) {
@@ -65,9 +62,7 @@ class AlertViewController: UIViewController {
         self.dismiss(animated: false, completion: nil)
     }
     
-    func saveCheckBoxState() {
-        if self.checkbox.isChecked {
-            UserDefaults.standard.set(false, forKey: self.keyState)
-        }
+    func checkboxStateDidChange(checkbox: Checkbox) {
+        UserDefaults.standard.set(!checkbox.isChecked, forKey: self.stateKey)
     }
 }
