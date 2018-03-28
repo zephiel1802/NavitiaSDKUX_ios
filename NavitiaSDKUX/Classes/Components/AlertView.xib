@@ -14,6 +14,7 @@
             <connections>
                 <outlet property="checkBoxContentWidthConstraint" destination="7Cg-iZ-J9q" id="ye8-F7-LOT"/>
                 <outlet property="checkBoxMessageLabel" destination="Z5o-9Z-WSv" id="MFO-x8-ef3"/>
+                <outlet property="checkBoxTextLeadingConstraint" destination="6WM-Xe-EXA" id="G6o-YK-gfv"/>
                 <outlet property="checkbox" destination="Uz2-60-uMq" id="59r-mz-CTz"/>
                 <outlet property="message" destination="zLG-bJ-ML5" id="vOD-ZQ-UXC"/>
                 <outlet property="negativeButton" destination="jEi-w5-J4s" id="lUH-Qm-zpo"/>

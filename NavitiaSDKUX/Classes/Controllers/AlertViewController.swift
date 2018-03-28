@@ -2,8 +2,6 @@
 //  AlertViewController.swift
 //  NavitiaSDKUX
 //
-//  Created by Even Modiguy on 21/03/2018.
-//
 
 import Foundation
 
@@ -13,6 +11,7 @@ protocol AlertViewControllerProtocol {
 }
 
 class AlertViewController: UIViewController {
+    var keyState: String = ""
     var alertMessage: String = ""
     var checkBoxText: String = ""
     var negativeButtonText: String = ""
@@ -25,6 +24,7 @@ class AlertViewController: UIViewController {
     @IBOutlet weak var checkbox: Checkbox!
     @IBOutlet weak var checkBoxMessageLabel: UILabel!
     @IBOutlet weak var checkBoxContentWidthConstraint: NSLayoutConstraint!
+    @IBOutlet weak var checkBoxTextLeadingConstraint: NSLayoutConstraint!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -42,19 +42,19 @@ class AlertViewController: UIViewController {
         self.positiveButton.setTitle(self.positiveButtonText, for: UIControlState.normal)
         
         let newCheckBoxTextSize = self.checkBoxMessageLabel.sizeThatFits(CGSize(width: self.checkBoxMessageLabel.frame.size.width, height: CGFloat.max))
-        self.checkBoxContentWidthConstraint.constant = 25 + newCheckBoxTextSize.width
+        self.checkBoxContentWidthConstraint.constant = self.checkBoxMessageLabel.frame.size.width + self.checkBoxTextLeadingConstraint.constant + newCheckBoxTextSize.width
     }
     
     @IBAction func negativeButtonClicked(_ sender: Any) {
         self.alertViewDelegate?.onNegativeButtonClicked(self)
+        
+        saveCheckBoxState()
     }
     
     @IBAction func positiveButtonClicked(_ sender: Any) {
         self.alertViewDelegate?.onPositiveButtonClicked(self)
         
-        if self.checkbox.isChecked {
-            UserDefaults.standard.set(false, forKey: "navitiaSdkShowRedirectionDialog")
-        }
+        saveCheckBoxState()
     }
     
     @IBAction func switchCheckBoxState(_ sender: Any) {
@@ -63,5 +63,11 @@ class AlertViewController: UIViewController {
     
     @IBAction func dismissAlertController(_ sender: Any) {
         self.dismiss(animated: false, completion: nil)
-    }    
+    }
+    
+    func saveCheckBoxState() {
+        if self.checkbox.isChecked {
+            UserDefaults.standard.set(false, forKey: self.keyState)
+        }
+    }
 }
