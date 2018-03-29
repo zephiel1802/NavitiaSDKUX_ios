@@ -64,6 +64,9 @@
 		04E429991F72C593004B23A3 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 04E429571F72C593004B23A3 /* Localizable.strings */; };
 		04E4299A1F72C593004B23A3 /* Journey.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 04E4295A1F72C593004B23A3 /* Journey.storyboard */; };
 		04E4299B1F72C593004B23A3 /* SDKIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 04E4295B1F72C593004B23A3 /* SDKIcons.ttf */; };
+		30641755206540CF005E5EB9 /* AlertView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30641754206540CF005E5EB9 /* AlertView.xib */; };
+		30641757206540E4005E5EB9 /* AlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30641756206540E4005E5EB9 /* AlertViewController.swift */; };
+		30641759206540F2005E5EB9 /* Checkbox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30641758206540F2005E5EB9 /* Checkbox.swift */; };
 		310ABE01204754690050B1C4 /* NavitiaSDK.swift in Sources */ = {isa = PBXBuildFile; fileRef = 310ABDFF204754680050B1C4 /* NavitiaSDK.swift */; };
 		310ABE02204754690050B1C4 /* NavitiaConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 310ABE00204754690050B1C4 /* NavitiaConfiguration.swift */; };
 		310ABE282047547A0050B1C4 /* CoordApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 310ABE03204754770050B1C4 /* CoordApi.swift */; };
@@ -400,6 +403,9 @@
 		04E429591F72C593004B23A3 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
 		04E4295A1F72C593004B23A3 /* Journey.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Journey.storyboard; sourceTree = "<group>"; };
 		04E4295B1F72C593004B23A3 /* SDKIcons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = SDKIcons.ttf; sourceTree = "<group>"; };
+		30641754206540CF005E5EB9 /* AlertView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AlertView.xib; sourceTree = "<group>"; };
+		30641756206540E4005E5EB9 /* AlertViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertViewController.swift; sourceTree = "<group>"; };
+		30641758206540F2005E5EB9 /* Checkbox.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Checkbox.swift; sourceTree = "<group>"; };
 		310ABDFF204754680050B1C4 /* NavitiaSDK.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavitiaSDK.swift; sourceTree = "<group>"; };
 		310ABE00204754690050B1C4 /* NavitiaConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavitiaConfiguration.swift; sourceTree = "<group>"; };
 		310ABE03204754770050B1C4 /* CoordApi.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoordApi.swift; sourceTree = "<group>"; };
@@ -690,6 +696,7 @@
 		043E0AB520053C9A00AC9DFF /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				30641754206540CF005E5EB9 /* AlertView.xib */,
 				043E0AB620053C9A00AC9DFF /* BoxComponent.swift */,
 				043E0AB720053C9A00AC9DFF /* CardComponent.swift */,
 				043E0AB820053C9A00AC9DFF /* ContainerComponent.swift */,
@@ -1280,6 +1287,7 @@
 		A18804031FE12C3C003AD92A /* Util */ = {
 			isa = PBXGroup;
 			children = (
+				30641758206540F2005E5EB9 /* Checkbox.swift */,
 				A188040E1FE12C3C003AD92A /* Color.swift */,
 				A18804041FE12C3C003AD92A /* Date.swift */,
 				A188040B1FE12C3C003AD92A /* Dictionary.swift */,
@@ -1344,6 +1352,7 @@
 		A18804601FE12C3C003AD92A /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				30641756206540E4005E5EB9 /* AlertViewController.swift */,
 				31504680204D4892003FB19A /* JourneyRidesharingRoadmapViewController.swift */,
 				31F7ED0620371E9800934BA9 /* JourneyRidesharingSolutionsViewController.swift */,
 				A18804631FE12C3C003AD92A /* JourneySolutionRoadmapViewController.swift */,
@@ -1443,6 +1452,7 @@
 				048F332D1F9A427300FF33A2 /* Images.xcassets in Resources */,
 				04E429991F72C593004B23A3 /* Localizable.strings in Resources */,
 				04E4299B1F72C593004B23A3 /* SDKIcons.ttf in Resources */,
+				30641755206540CF005E5EB9 /* AlertView.xib in Resources */,
 				A18804B31FE12C3D003AD92A /* Info.plist in Resources */,
 				04E4299A1F72C593004B23A3 /* Journey.storyboard in Resources */,
 			);
@@ -1528,6 +1538,7 @@
 				310ABF39204754FC0050B1C4 /* Amount.swift in Sources */,
 				310ABF95204754FC0050B1C4 /* Companies.swift in Sources */,
 				043E0B2D20053C9A00AC9DFF /* ListViewComponent.swift in Sources */,
+				30641757206540E4005E5EB9 /* AlertViewController.swift in Sources */,
 				310ABF49204754FC0050B1C4 /* VehicleJourney.swift in Sources */,
 				043E0B1820053C9A00AC9DFF /* JourneyRoadmap3ColumnsLayout.swift in Sources */,
 				043E0B1C20053C9A00AC9DFF /* PublicTransportStepComponent.swift in Sources */,
@@ -1726,6 +1737,7 @@
 				043E0B0820053C9A00AC9DFF /* AlertComponent.swift in Sources */,
 				310ABF5F204754FC0050B1C4 /* StopSchedules.swift in Sources */,
 				A18804661FE12C3C003AD92A /* Date.swift in Sources */,
+				30641759206540F2005E5EB9 /* Checkbox.swift in Sources */,
 				310ABE9A204754DE0050B1C4 /* Mappable.swift in Sources */,
 				310ABF48204754FC0050B1C4 /* Line.swift in Sources */,
 				310ABEA3204754DE0050B1C4 /* Mapper.swift in Sources */,
