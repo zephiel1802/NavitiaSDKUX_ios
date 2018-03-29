@@ -18,6 +18,7 @@ open class JourneySolutionsScreen: StylizedComponent<JourneySolutionsScreenState
     
     var navitiaSDK: NavitiaSDK? = nil
     var navigationController: UINavigationController?
+    var carpoolRequested: Bool = false
     
     required public init() {
         super.init()
@@ -40,12 +41,14 @@ open class JourneySolutionsScreen: StylizedComponent<JourneySolutionsScreenState
         if state.journeys != nil && state.journeys!.journeys != nil {
             for journey in state.journeys!.journeys! {
                 if journey.tags != nil && journey.tags!.contains("ridesharing") {
-                    ridesharingJourneyComponents.append(ComponentNode(JourneySolutionComponent.init(), in: self, props: {(component, _) in
-                        component.journey = journey
-                        component.disruptions = self.state.journeys!.disruptions
-                        component.navigationController = self.navigationController
-                        component.isRidesharingComponent = true
-                    }))
+                    if self.carpoolRequested {
+                        ridesharingJourneyComponents.append(ComponentNode(JourneySolutionComponent.init(), in: self, props: {(component, _) in
+                            component.journey = journey
+                            component.disruptions = self.state.journeys!.disruptions
+                            component.navigationController = self.navigationController
+                            component.isRidesharingComponent = true
+                        }))
+                    }
                 } else {
                     classicJourneyComponents.append(ComponentNode(JourneySolutionComponent.init(), in: self, props: {(component, _) in
                         component.journey = journey
@@ -90,7 +93,10 @@ open class JourneySolutionsScreen: StylizedComponent<JourneySolutionsScreenState
             }
         }
         
-        return ComponentNode(ScreenComponent(), in: self).add(children: [
+        let screenComponent = ComponentNode(ScreenComponent(), in: self)
+        
+        var contentComponents = [NodeType]()
+        contentComponents.append(
             ComponentNode(ScreenHeaderComponent(), in: self, props: { (component, _) in
                 component.navigationController = self.navigationController
                 component.styles = self.headerStyles
@@ -101,7 +107,7 @@ open class JourneySolutionsScreen: StylizedComponent<JourneySolutionsScreenState
                         if (self.state.parameters.originLabel != nil && !self.state.parameters.originLabel!.isEmpty) {
                             component.origin = self.state.parameters.originLabel!
                         }
-
+                        
                         component.destination = self.state.parameters.destinationId
                         if (self.state.parameters.destinationLabel != nil && !self.state.parameters.destinationLabel!.isEmpty) {
                             component.destination = self.state.parameters.destinationLabel!
@@ -120,31 +126,46 @@ open class JourneySolutionsScreen: StylizedComponent<JourneySolutionsScreenState
                         }
                     }),
                 ])
-            ]),
-            ComponentNode(ScrollViewComponent(), in: self).add(children: [
-                ComponentNode(ListViewComponent(), in: self).add(children: classicJourneyResultComponents),
-                ComponentNode(TextComponent(), in: self, props: {(component, _) in
-                    component.text = NSLocalizedString("carpooling", bundle: self.bundle, comment: "Carpooling").uppercased()
-                    component.styles = self.ridesharingHeaderStyles
-                }),
-                ComponentNode(SeparatorPart.init(), in: self, props: {(component, _) in
-                    component.styles = self.ridesharingSeparatorStyles
-                }),
-                ComponentNode(ViewComponent(), in: self, props: {(component, _) in
-                    component.styles = self.ridesharingInformativeMessageStyles
-                }).add(children: [
-                    ComponentNode(ImageComponent(), in: self, props: {(component, _) in
-                        component.styles = self.ridesharingInformativeMessageImageStyles
-                        component.image = UIImage(named: "ridesharing_info", in: self.bundle, compatibleWith: nil)
-                    }),
-                    ComponentNode(TextComponent(), in: self, props: {(component, _) in
-                        component.styles = self.ridesharingInformativeMessageTextStyles
-                        component.text = NSLocalizedString("carpool_highlight_message", bundle: self.bundle, comment: "")
-                    }),
-                ]),
-                ComponentNode(ListViewComponent(), in: self).add(children: ridesharingJourneyResultComponents)
             ])
-        ])
+        )
+        
+        if self.carpoolRequested {
+            contentComponents.append(
+                ComponentNode(ScrollViewComponent(), in: self).add(children: [
+                    ComponentNode(ListViewComponent(), in: self).add(children: classicJourneyResultComponents),
+                    ComponentNode(TextComponent(), in: self, props: {(component, _) in
+                        component.text = NSLocalizedString("carpooling", bundle: self.bundle, comment: "Carpooling").uppercased()
+                        component.styles = self.ridesharingHeaderStyles
+                    }),
+                    ComponentNode(SeparatorPart.init(), in: self, props: {(component, _) in
+                        component.styles = self.ridesharingSeparatorStyles
+                    }),
+                    ComponentNode(ViewComponent(), in: self, props: {(component, _) in
+                        component.styles = self.ridesharingInformativeMessageStyles
+                    }).add(children: [
+                        ComponentNode(ImageComponent(), in: self, props: {(component, _) in
+                            component.styles = self.ridesharingInformativeMessageImageStyles
+                            component.image = UIImage(named: "ridesharing_info", in: self.bundle, compatibleWith: nil)
+                        }),
+                        ComponentNode(TextComponent(), in: self, props: {(component, _) in
+                            component.styles = self.ridesharingInformativeMessageTextStyles
+                            component.text = NSLocalizedString("carpool_highlight_message", bundle: self.bundle, comment: "")
+                        }),
+                        ]),
+                    ComponentNode(ListViewComponent(), in: self).add(children: ridesharingJourneyResultComponents),
+                ])
+            )
+        } else {
+            contentComponents.append(
+                ComponentNode(ScrollViewComponent(), in: self).add(children: [
+                    ComponentNode(ListViewComponent(), in: self).add(children: classicJourneyResultComponents),
+                ])
+            )
+        }
+        
+        screenComponent.add(children: contentComponents)
+        
+        return screenComponent
     }
     
     func retrieveJourneys(with parameters: JourneySolutionsController.InParameters) {
@@ -180,6 +201,8 @@ open class JourneySolutionsScreen: StylizedComponent<JourneySolutionsScreenState
             journeyRequestBuilder.withMaxNbJourneys(parameters.maxNbJourneys!)
         }
 
+        self.carpoolRequested = parameters.firstSectionModes != nil && parameters.firstSectionModes!.contains(.ridesharing) || parameters.lastSectionModes != nil && parameters.lastSectionModes!.contains(.ridesharing)
+        
         journeyRequestBuilder.get(completion: { journeys, error in
             if error == nil && journeys != nil && journeys!.journeys != nil {
                 // Journeys successfuly fetched, we store them in the screen state
