@@ -17,7 +17,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
-        NavitiaSDKUIConfig.shared.setToken(token: "f4b98e72-9769-400b-b541-05e2e2b30e8c")
+        NavitiaSDKUIConfig.shared.setToken(token: "")
         
         return true
     }
