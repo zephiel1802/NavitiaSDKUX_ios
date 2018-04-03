@@ -22,7 +22,7 @@
                                 <rect key="frame" x="153" y="286.5" width="68" height="30"/>
                                 <state key="normal" title="Let's go :)"/>
                                 <connections>
-                                    <segue destination="zTe-PK-TSN" kind="show" id="OGJ-I5-r55"/>
+                                    <action selector="touch:" destination="BYZ-38-t0r" eventType="touchUpInside" id="vMy-oX-GHv"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -39,19 +39,10 @@
             </objects>
             <point key="canvasLocation" x="812" y="28.335832083958024"/>
         </scene>
-        <!--Journey-->
-        <scene sceneID="EyE-hr-6Vq">
-            <objects>
-                <viewControllerPlaceholder storyboardName="Journey" bundleIdentifier="org.cocoapods.NavitiaSDKUI" id="zTe-PK-TSN" sceneMemberID="viewController">
-                    <navigationItem key="navigationItem" id="rnZ-MD-4wL"/>
-                </viewControllerPlaceholder>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="MPF-dW-cS4" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1392" y="27.886056971514247"/>
-        </scene>
         <!--Navigation Controller-->
         <scene sceneID="qub-lm-a7q">
             <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Ent-Vx-a7V" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="NOP-nf-fyr" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translucent="NO" id="rje-9D-45e">
@@ -71,7 +62,6 @@
                         <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="Oii-Io-UIU"/>
                     </connections>
                 </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Ent-Vx-a7V" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="14" y="28"/>
         </scene>

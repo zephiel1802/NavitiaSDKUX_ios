@@ -90,56 +90,56 @@ public func <- <T: UnsignedInteger>(left: inout T!, right: Map) {
 
 /// Convert any value to `SignedInteger`.
 private func toSignedInteger<T: SignedInteger>(_ value: Any?) -> T? {
-	guard
-		let value = value,
-		case let number as NSNumber = value
-	else {
-		return nil
-	}
-
-	if T.self ==   Int.self, let x = Int(exactly: number.int64Value)?.toIntMax() {
-		return T.init(x)
-	}
-	if T.self ==  Int8.self, let x = Int8(exactly: number.int64Value)?.toIntMax() {
-		return T.init(x)
-	}
-	if T.self == Int16.self, let x = Int16(exactly: number.int64Value)?.toIntMax() {
-		return T.init(x)
-	}
-	if T.self == Int32.self, let x = Int32(exactly: number.int64Value)?.toIntMax() {
-		return T.init(x)
-	}
-	if T.self == Int64.self, let x = Int64(exactly: number.int64Value)?.toIntMax() {
-		return T.init(x)
-	}
-
-	return nil
+    guard
+        let value = value,
+        case let number as NSNumber = value
+        else {
+            return nil
+    }
+    
+    if T.self ==   Int.self, let x = Int(exactly: number.int64Value) {
+        return T.init(x)
+    }
+    if T.self ==  Int8.self, let x = Int8(exactly: number.int64Value) {
+        return T.init(x)
+    }
+    if T.self == Int16.self, let x = Int16(exactly: number.int64Value) {
+        return T.init(x)
+    }
+    if T.self == Int32.self, let x = Int32(exactly: number.int64Value) {
+        return T.init(x)
+    }
+    if T.self == Int64.self, let x = Int64(exactly: number.int64Value) {
+        return T.init(x)
+    }
+    
+    return nil
 }
 
 /// Convert any value to `UnsignedInteger`.
 private func toUnsignedInteger<T: UnsignedInteger>(_ value: Any?) -> T? {
-	guard
-		let value = value,
-		case let number as NSNumber = value
-	else {
-		return nil
-	}
-
-	if T.self == UInt.self, let x = UInt(exactly: number.uint64Value)?.toUIntMax() {
-		return T.init(x)
-	}
-	if T.self == UInt8.self, let x = UInt8(exactly: number.uint64Value)?.toUIntMax() {
-		return T.init(x)
-	}
-	if T.self == UInt16.self, let x = UInt16(exactly: number.uint64Value)?.toUIntMax() {
-		return T.init(x)
-	}
-	if T.self == UInt32.self, let x = UInt32(exactly: number.uint64Value)?.toUIntMax() {
-		return T.init(x)
-	}
-	if T.self == UInt64.self, let x = UInt64(exactly: number.uint64Value)?.toUIntMax() {
-		return T.init(x)
-	}
-
-	return nil
+    guard
+        let value = value,
+        case let number as NSNumber = value
+        else {
+            return nil
+    }
+    
+    if T.self == UInt.self, let x = UInt(exactly: number.uint64Value) {
+        return T.init(x)
+    }
+    if T.self == UInt8.self, let x = UInt8(exactly: number.uint64Value) {
+        return T.init(x)
+    }
+    if T.self == UInt16.self, let x = UInt16(exactly: number.uint64Value) {
+        return T.init(x)
+    }
+    if T.self == UInt32.self, let x = UInt32(exactly: number.uint64Value) {
+        return T.init(x)
+    }
+    if T.self == UInt64.self, let x = UInt64(exactly: number.uint64Value) {
+        return T.init(x)
+    }
+    
+    return nil
 }

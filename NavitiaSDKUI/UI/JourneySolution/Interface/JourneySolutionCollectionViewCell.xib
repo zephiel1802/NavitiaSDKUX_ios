@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="JourneySolutionCollectionViewCell" id="8iX-MJ-bAx" customClass="JourneySolutionCollectionViewCell" customModule="NavitiaSDKUI" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="300" height="130"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
+                <rect key="frame" x="0.0" y="0.0" width="300" height="130"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="19:30 - 20:06" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dhB-Xm-3aP">
+                        <rect key="frame" x="10" y="10" width="78" height="12"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uiE-c6-acZ">
+                        <rect key="frame" x="10" y="32" width="280" height="1"/>
+                        <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="1" id="4NV-8o-Sx6"/>
+                        </constraints>
+                    </view>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lqf-YV-oSL" customClass="JourneySummaryView" customModule="NavitiaSDKUI" customModuleProvider="target">
+                        <rect key="frame" x="10" y="43.5" width="280" height="42"/>
+                        <color key="backgroundColor" white="0.46188616071428573" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="42" id="QSN-M6-RlN"/>
+                        </constraints>
+                    </view>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="Dont 8 min à pied (910m)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JUD-Ce-byI">
+                        <rect key="frame" x="10" y="100.5" width="144" height="14.5"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="30 min" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qi9-Ve-v5r">
+                        <rect key="frame" x="234" y="10" width="39" height="14.5"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="s" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Yza-xI-lKm">
+                        <rect key="frame" x="283" y="0.0" width="7" height="32"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+            </view>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstItem="uiE-c6-acZ" firstAttribute="top" secondItem="Yza-xI-lKm" secondAttribute="bottom" id="8Hm-EF-cKA"/>
+                <constraint firstAttribute="trailing" secondItem="Yza-xI-lKm" secondAttribute="trailing" constant="10" id="91O-Y0-FcZ"/>
+                <constraint firstItem="Yza-xI-lKm" firstAttribute="leading" secondItem="Qi9-Ve-v5r" secondAttribute="trailing" constant="10" id="I62-2h-XUA"/>
+                <constraint firstItem="dhB-Xm-3aP" firstAttribute="top" secondItem="8iX-MJ-bAx" secondAttribute="top" constant="10" id="Ij7-WS-ciy"/>
+                <constraint firstAttribute="trailing" secondItem="lqf-YV-oSL" secondAttribute="trailing" constant="10" id="J1i-ed-dRN"/>
+                <constraint firstItem="dhB-Xm-3aP" firstAttribute="leading" secondItem="8iX-MJ-bAx" secondAttribute="leading" constant="10" id="MKs-ls-tJk"/>
+                <constraint firstItem="JUD-Ce-byI" firstAttribute="top" secondItem="lqf-YV-oSL" secondAttribute="bottom" constant="15" id="Mgd-oC-fwr"/>
+                <constraint firstItem="lqf-YV-oSL" firstAttribute="top" secondItem="uiE-c6-acZ" secondAttribute="bottom" constant="10" id="Tb9-si-dTb"/>
+                <constraint firstAttribute="trailing" secondItem="uiE-c6-acZ" secondAttribute="trailing" constant="10" id="Tn6-4s-6kB"/>
+                <constraint firstItem="lqf-YV-oSL" firstAttribute="leading" secondItem="8iX-MJ-bAx" secondAttribute="leading" constant="10" id="YAs-HY-Yy3"/>
+                <constraint firstItem="JUD-Ce-byI" firstAttribute="leading" secondItem="8iX-MJ-bAx" secondAttribute="leading" constant="10" id="b5U-aA-OQr"/>
+                <constraint firstItem="Qi9-Ve-v5r" firstAttribute="top" secondItem="8iX-MJ-bAx" secondAttribute="top" constant="10" id="hki-LY-er7"/>
+                <constraint firstItem="uiE-c6-acZ" firstAttribute="leading" secondItem="8iX-MJ-bAx" secondAttribute="leading" constant="10" id="hks-Tt-06d"/>
+                <constraint firstItem="uiE-c6-acZ" firstAttribute="top" secondItem="dhB-Xm-3aP" secondAttribute="bottom" constant="10" id="udo-uH-bvm"/>
+                <constraint firstAttribute="bottom" secondItem="JUD-Ce-byI" secondAttribute="bottom" constant="15" id="wRi-Fv-KrL"/>
+                <constraint firstItem="Yza-xI-lKm" firstAttribute="top" secondItem="8iX-MJ-bAx" secondAttribute="top" id="wfD-Z8-D2z"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="UO3-ac-tHw"/>
+            <size key="customSize" width="260" height="129"/>
+            <connections>
+                <outlet property="arrowLabel" destination="Yza-xI-lKm" id="WHj-ZP-2av"/>
+                <outlet property="dateTimeLabel" destination="dhB-Xm-3aP" id="2q5-50-6I9"/>
+                <outlet property="durationLabel" destination="Qi9-Ve-v5r" id="v4m-aF-ytE"/>
+                <outlet property="durationWalkerLabel" destination="JUD-Ce-byI" id="Rwh-J8-bok"/>
+                <outlet property="journeySummaryView" destination="lqf-YV-oSL" id="029-vs-TaP"/>
+            </connections>
+            <point key="canvasLocation" x="-1865" y="67"/>
+        </collectionViewCell>
+    </objects>
+</document>

@@ -13,15 +13,20 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        // Do any additional setup after loading the view, typically from a nib.
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
 
-
+    @IBAction func touch(_ sender: Any) {
+        let bundle = Bundle(identifier: "org.cocoapods.NavitiaSDKUI")
+        let storyboard = UIStoryboard(name: "Journey", bundle: bundle)
+        let journeyResultsViewController = storyboard.instantiateInitialViewController() as! JourneySolutionViewController
+//        self.present(UINavigationController(rootViewController: journeyResultsViewController), animated: true, completion: nil)
+        navigationController?.pushViewController(journeyResultsViewController, animated: true)
+    }
+    
 }
+
 

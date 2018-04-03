@@ -10,8 +10,18 @@ import Foundation
 
 open class NavitiaSDKUIConfig: NSObject {
     
-    static let shared = NavitiaSDKUIConfig()
+    open static let shared = NavitiaSDKUIConfig()
     
-    internal var token = ""
-        
+    open var navitiaSDK: NavitiaSDK!
+    var token: String!
+    
+    open func setToken(token: String) {
+        self.token = token
+        self.navitiaSDK = NavitiaSDK(configuration: NavitiaConfiguration(token: token))
+    }
+    
+    open func getToken() -> String {
+        return self.token
+    }
+
 }
