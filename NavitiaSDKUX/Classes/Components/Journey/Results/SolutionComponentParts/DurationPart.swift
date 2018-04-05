@@ -28,7 +28,7 @@ extension Components.Journey.Results.SolutionComponentParts {
             } else {
                 durationNodes = [
                     ComponentNode(TextComponent(), in: self, props: {(component, _) in
-                        component.text = String(Int(ceil(Double(self.seconds) / 60)))
+                        component.text = String(Int(Double(self.seconds) / 60))
                         component.styles = self.digitsStyles
                     }),
                     ComponentNode(TextComponent(), in: self, props: {(component, _) in
