@@ -13,6 +13,7 @@ class ScrollViewComponent: StylizedComponent<NilState> {
         return Node<UIScrollView>() { view, layout, size in
             layout.flex()
             self.applyStyles(view: view, layout: layout)
+            view.bounces = false
         }
     }
 }
