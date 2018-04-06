@@ -45,7 +45,9 @@ extension Components.Journey.Results {
                             component.departureTime = self.journey.departureDateTime!
                             component.arrivalTime = self.journey.arrivalDateTime!
                             component.totalDuration = self.journey.duration
-                            component.walkingDuration = self.journey.durations?.walking
+                            if !self.isRidesharingComponent {
+                                component.walkingDuration = self.journey.durations?.walking
+                            }
                             component.walkingDistance = walkingDistance
                             component.sections = self.journey.sections!
                             component.disruptions = self.disruptions

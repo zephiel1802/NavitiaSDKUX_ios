@@ -29,7 +29,7 @@ extension Components.Journey.Results.SolutionComponentParts {
             let computedStyles = self.styles
             
             var walkingSummaryComponent: NodeType = ComponentNode(ViewComponent(), in: self)
-            if sections.count > 1 || self.walkingDuration! > 0 {
+            if sections.count > 1 && self.walkingDuration! > 0 {
                 walkingSummaryComponent = ComponentNode(JourneyWalkingSummaryPart.init(), in: self, props: {(component, _) in
                     component.duration = self.walkingDuration!
                     component.distance = self.walkingDistance!
