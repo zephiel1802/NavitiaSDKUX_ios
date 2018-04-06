@@ -45,10 +45,10 @@ extension Components.Journey.Results {
                 mainNode.add(children: [
                     ComponentNode(ActionComponent(), in: self, props: {(component, _) in
                         component.onTap = { _ in
-                            if UserDefaults.standard.bool(forKey: "navitiaSdkShowRedirectionDialog") {
+                            if UserDefaults.standard.bool(forKey: NavitiaSDKUserDefaultsManager.SHOW_REDIRECTION_DIALOG_PREF_KEY) {
                                 let alertController = AlertViewController(nibName: "AlertView", bundle: self.bundle)
                                 alertController.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
-                                alertController.stateKey = "navitiaSdkShowRedirectionDialog"
+                                alertController.stateKey = NavitiaSDKUserDefaultsManager.SHOW_REDIRECTION_DIALOG_PREF_KEY
                                 alertController.alertMessage = NSLocalizedString("redirection_message", bundle: self.bundle, comment: "Redirection Message")
                                 alertController.checkBoxText = NSLocalizedString("dont_show_this_message_again", bundle: self.bundle, comment: "Don't show this message again")
                                 alertController.negativeButtonText = NSLocalizedString("cancel", bundle: self.bundle, comment: "Cancel").uppercased()
