@@ -19,10 +19,8 @@ extension UIStackView {
             return allSubviews + [subview]
         }
         
-        // Deactivate all constraints
         NSLayoutConstraint.deactivate(removedSubviews.flatMap({ $0.constraints }))
         
-        // Remove the views from self
         removedSubviews.forEach({ $0.removeFromSuperview() })
     }
 }
@@ -40,70 +38,67 @@ class JourneySummaryView: UIView {
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-      //  fatalError("init(coder:) has not been implemented")
     }
     
     override func awakeFromNib() {
         super.awakeFromNib()
         _setup()
-        //custom logic goes here
     }
     
     
     func addSections(_ sections: [Section]) {
+        var durationAllSections:Int32 = 0
+        var sectionCount = 0.0
+        
         _stackView.removeAllArrangedSubviews()
-        var test:Double = 0
-        var nb:Double = 0
         for section in sections {
-            if section.type == "street_network" && section.mode == "walking" ||// et aussi != 0 et size- 1
-                section.type != "transfer" && section.type != "waiting" && section.type != "leave_parking" {
-                test += Double(section.duration ?? 0)
-                nb += 1
+            if validDisplaySection(section) {
+                if let duration = section.duration {
+                    durationAllSections += duration
+                    sectionCount += 1
+                }
             }
         }
         for section in sections {
-            if section.type == "street_network" && section.mode == "walking" ||// et aussi != 0 et size- 1
-                section.type != "transfer" && section.type != "waiting" && section.type != "leave_parking" && section.type != "bss_rent" && section.type != "bss_put_back" {
-                let journeySummaryPartView = JourneySummaryPartView()
-                journeySummaryPartView.width = max(nb * 17, Double(section.duration ?? 0) * nb * 100 / test)
-                print("LOL \(journeySummaryPartView.width)")
-                journeySummaryPartView.color = UIColor.red
-                
-               // print(section.displayInformations)
-                journeySummaryPartView.name = section.displayInformations?.label
-                journeySummaryPartView.color = section.displayInformations?.color?.toUIColor() ?? UIColor.black
-                journeySummaryPartView.icon = Modes().getModeIcon(section: section)
-                print(section.duration ?? "--")
-                _stackView.addArrangedSubview(journeySummaryPartView)
-            }// et aussi != 0 et size- 1
-
+            if validDisplaySection(section) {
+                if let duration = section.duration {
+                    let journeySummaryPartView = JourneySummaryPartView()
+                    journeySummaryPartView.width = widthJourneySummaryPartView(sectionCount: sectionCount,
+                                                                               durationAllSections: durationAllSections,
+                                                                               duration: duration)
+                    journeySummaryPartView.name = section.displayInformations?.label
+                    journeySummaryPartView.color = section.displayInformations?.color?.toUIColor() ?? UIColor.black
+                    journeySummaryPartView.icon = Modes().getModeIcon(section: section)
+                    //journeySummaryPartView.displayDisruption("disruption-information")
+                    _stackView.addArrangedSubview(journeySummaryPartView)
+                }
+            }
         }
     }
     
-    func getIconMode() {
-        
-    }
-    
     private func _setup() {
-        
         UINib(nibName: "JourneySummaryView", bundle: bundle).instantiate(withOwner: self, options: nil)
-        self.addSubview(_view)
         _view.frame = self.bounds
+        addSubview(_view)
         
         _stackView.distribution = .fillProportionally
         _stackView.translatesAutoresizingMaskIntoConstraints = false
     }
 
-    func nbTest(nb: Double, pourcent: Double) -> Double {
-        return pourcent * nb * 100
+    private func validDisplaySection(_ section: Section) -> Bool {
+        if section.type == "street_network" && section.mode == "walking" ||
+            section.type != "transfer" &&
+            section.type != "waiting" &&
+            section.type != "leave_parking" &&
+            section.type != "bss_rent" &&
+            section.type != "bss_put_back" {
+            return true
+        }
+        return false
     }
     
-    /*
-    // Only override draw() if you perform custom drawing.
-    // An empty implementation adversely affects performance during animation.
-    override func draw(_ rect: CGRect) {
-        // Drawing code
+    private func widthJourneySummaryPartView(sectionCount: Double, durationAllSections: Int32, duration: Int32) -> Double {
+        return max(sectionCount * 17, Double(duration) * sectionCount * 100 / Double(durationAllSections))
     }
-    */
 
 }

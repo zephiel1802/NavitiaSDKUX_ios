@@ -14,8 +14,6 @@ class JourneySolutionViewModel: NSObject {
     
     var journeys: [Journey] = []
     var journeysRidesharing: [Journey] = []
-//    var journeySolutionModels: [JourneySolutionModel] = []
-//    var journeyRidesharingSolutionModels: [JourneySolutionModel] = []
     
     func request(with parameters: JourneySolutionViewController.InParameters) {
         if NavitiaSDKUIConfig.shared.navitiaSDK != nil {
@@ -53,27 +51,10 @@ class JourneySolutionViewModel: NSObject {
             }
             journeyRequestBuilder.get { (result, error) in
                 if let journeys = result?.journeys {
-                    //  self.journeys = journeys
                     self.parseNavitia(journeys: journeys)
-                    
-                    
-                    
-                  //  self.journeys = journeys
                     self.journeySolutionDidChange?(self)
-                    //  print(journeys)
                 }
             }
-//            NavitiaSDKUIConfig.shared.navitiaSDK.journeysApi.newJourneysRequestBuilder()
-//                .withFrom("2.38;48.84")
-//                .withTo("2.29;48.82")
-//                .get { (result, error) in
-//                    if let journeys = result?.journeys {
-//                      //  self.journeys = journeys
-//                        self.parseNavitia(journeys: journeys)
-//                        self.journeySolutionDidChange?(self)
-//                      //  print(journeys)
-//                    }
-//            }
         }
     }
     

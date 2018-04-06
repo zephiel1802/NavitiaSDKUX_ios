@@ -15,6 +15,8 @@ class JourneySummaryPartView: UIView {
     @IBOutlet weak var _tagTransportView: UIView!
     @IBOutlet weak var _tagTransportLabel: UILabel!
     @IBOutlet weak var _lineTransportView: UIView!
+    @IBOutlet weak var _disruptionLabel: UILabel!
+    @IBOutlet weak var _circleLabel: UILabel!
     
     var _type: TypeTransport?
     var width = 1.0
@@ -37,9 +39,27 @@ class JourneySummaryPartView: UIView {
     
     private func _setup() {
         UINib(nibName: "JourneySummaryPartView", bundle:  bundle).instantiate(withOwner: self, options: nil)
-        addSubview(_view)
         _view.frame = self.bounds
+        addSubview(_view)
         
+        _setupDisruption()
+    }
+    
+    private func _setupDisruption() {
+        _circleLabel.text = Icon("circle-filled").iconFontCode
+        _circleLabel.textColor = UIColor.white
+        _circleLabel.font = UIFont(name: "SDKIcons", size: 15)
+        _circleLabel.isHidden = true
+        
+        _disruptionLabel.textColor = UIColor.red
+        _disruptionLabel.font = UIFont(name: "SDKIcons", size: 14)
+        _disruptionLabel.isHidden = true
+    }
+    
+    func displayDisruption(_ iconName: String) {
+        _disruptionLabel.text = Icon(iconName).iconFontCode
+        _disruptionLabel.isHidden = false
+        _circleLabel.isHidden = false
     }
     
 }
@@ -81,31 +101,5 @@ extension JourneySummaryPartView {
         }
     }
     
-    var type: TypeTransport? {
-        get {
-            return _type
-        }
-        set {
-            if let newValue = newValue {
-                _type = newValue
-                switch newValue {
-                case .metro:
-//                    _iconTransportImageView.image = UIImage(named: "metroIcon")
-                    break
-                case .bus:
-//                    _iconTransportImageView.image = UIImage(named: "busIcon")
-                    break
-                case .tramway:
-//                    _iconTransportImageView.image = UIImage(named: "tramwayIcon")
-                    break
-                case .car:
-//                    _iconTransportImageView.image = UIImage(named: "carIcon")
-                    break
-                case .walk:
-//                    _iconTransportImageView.image = UIImage(named: "walkIcon")
-                    break
-                }
-            }
-        }
-    }
 }
+
