@@ -11,7 +11,7 @@ import UIKit
 class JourneySummaryPartView: UIView {
     
     @IBOutlet weak var _view: UIView!
-    @IBOutlet weak var _iconTransportImageView: UIImageView!
+    @IBOutlet weak var transportLabel: UILabel!
     @IBOutlet weak var _tagTransportView: UIView!
     @IBOutlet weak var _tagTransportLabel: UILabel!
     @IBOutlet weak var _lineTransportView: UIView!
@@ -25,16 +25,20 @@ class JourneySummaryPartView: UIView {
         _setup()
     }
     
+    
+    
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override public var intrinsicContentSize: CGSize {
+        return CGSize(width: width, height: 0.0)
+    }
     
     private func _setup() {
         UINib(nibName: "JourneySummaryPartView", bundle:  bundle).instantiate(withOwner: self, options: nil)
         addSubview(_view)
         _view.frame = self.bounds
-        
         
     }
     
@@ -58,6 +62,22 @@ extension JourneySummaryPartView {
         }
         set {
             _tagTransportLabel.text = newValue
+        }
+    }
+    
+    var icon: String? {
+        get {
+            return transportLabel.text
+        }
+        set {
+            if let newValue = newValue {
+                if newValue == "walking" || newValue == "bss" || newValue == "car" {
+                    _tagTransportView.isHidden = true
+                    _tagTransportLabel.isHidden = true
+                }
+                transportLabel.text = Icon(newValue).iconFontCode
+                transportLabel.font = UIFont(name: "SDKIcons", size: 20)
+            }
         }
     }
     

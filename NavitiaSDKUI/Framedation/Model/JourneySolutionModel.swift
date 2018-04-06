@@ -23,10 +23,16 @@ class JourneySolutionModel {
         self.duration = journey.durations?.total ?? 0
         self.durationWalking = journey.durations?.walking ?? 0
         self.distanceWalking = journey.distances?.walking ?? 0
+        
         self.distances = (car: journey.distances?.car ?? 0,
                           walking: journey.distances?.walking ?? 0,
                           ridesharing: journey.distances?.ridesharing ?? 0,
                           bike: journey.distances?.bike ?? 0)
     }
+    
+}
+
+class JourneySolutionSectionModel {
+    
     
 }

@@ -18,4 +18,8 @@ extension Int32 {
         formatter.zeroFormattingBehavior = [ .dropAll ]
         return formatter.string(from: TimeInterval(self))
     }
+    
+    func toString() -> String {
+        return String(self)
+    }
 }

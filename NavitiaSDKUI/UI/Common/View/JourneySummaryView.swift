@@ -10,6 +10,23 @@ import UIKit
 
 var bundle: Bundle!
 
+extension UIStackView {
+    
+    func removeAllArrangedSubviews() {
+        
+        let removedSubviews = arrangedSubviews.reduce([]) { (allSubviews, subview) -> [UIView] in
+            self.removeArrangedSubview(subview)
+            return allSubviews + [subview]
+        }
+        
+        // Deactivate all constraints
+        NSLayoutConstraint.deactivate(removedSubviews.flatMap({ $0.constraints }))
+        
+        // Remove the views from self
+        removedSubviews.forEach({ $0.removeFromSuperview() })
+    }
+}
+
 class JourneySummaryView: UIView {
 
     @IBOutlet weak var _view: UIView!
@@ -28,9 +45,43 @@ class JourneySummaryView: UIView {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        print("coucouc toi")
         _setup()
         //custom logic goes here
+    }
+    
+    
+    func addSections(_ sections: [Section]) {
+        _stackView.removeAllArrangedSubviews()
+        var test:Double = 0
+        var nb:Double = 0
+        for section in sections {
+            if section.type == "street_network" && section.mode == "walking" ||// et aussi != 0 et size- 1
+                section.type != "transfer" && section.type != "waiting" && section.type != "leave_parking" {
+                test += Double(section.duration ?? 0)
+                nb += 1
+            }
+        }
+        for section in sections {
+            if section.type == "street_network" && section.mode == "walking" ||// et aussi != 0 et size- 1
+                section.type != "transfer" && section.type != "waiting" && section.type != "leave_parking" && section.type != "bss_rent" && section.type != "bss_put_back" {
+                let journeySummaryPartView = JourneySummaryPartView()
+                journeySummaryPartView.width = max(nb * 17, Double(section.duration ?? 0) * nb * 100 / test)
+                print("LOL \(journeySummaryPartView.width)")
+                journeySummaryPartView.color = UIColor.red
+                
+               // print(section.displayInformations)
+                journeySummaryPartView.name = section.displayInformations?.label
+                journeySummaryPartView.color = section.displayInformations?.color?.toUIColor() ?? UIColor.black
+                journeySummaryPartView.icon = Modes().getModeIcon(section: section)
+                print(section.duration ?? "--")
+                _stackView.addArrangedSubview(journeySummaryPartView)
+            }// et aussi != 0 et size- 1
+
+        }
+    }
+    
+    func getIconMode() {
+        
     }
     
     private func _setup() {
@@ -39,32 +90,14 @@ class JourneySummaryView: UIView {
         self.addSubview(_view)
         _view.frame = self.bounds
         
-        //_stackView.distribution = .fillProportionally
-        
-        let test1 = JourneySummaryPartView()
-        test1.widthAnchor.constraint(equalToConstant: (frame.size.width - 20) * 0.12).isActive = true
-        test1.color = UIColor.red
-        test1.name = "A"
-        
-        let test2 = JourneySummaryPartView()
-        test2.widthAnchor.constraint(equalToConstant: (frame.size.width - 20) * 0.51).isActive = true
-        test2.color = UIColor.blue
-        test2.name = "C1"
-
-        let test3 = JourneySummaryPartView()
-        test3.widthAnchor.constraint(equalToConstant: (frame.size.width - 20) * 0.37).isActive = true
-        test3.color = UIColor.green
-        test3.name = "2"
-        
-        _stackView.addArrangedSubview(test1)
-        _stackView.addArrangedSubview(test2)
-        _stackView.addArrangedSubview(test3)
+        _stackView.distribution = .fillProportionally
+        _stackView.translatesAutoresizingMaskIntoConstraints = false
     }
 
-    func calcul(pourcent: CGFloat) -> CGFloat {
-        print("\(self._view.frame.size) \(self._stackView.frame.size)")
-        return pourcent * (self._stackView.frame.size.width - self._stackView.spacing * 3)
+    func nbTest(nb: Double, pourcent: Double) -> Double {
+        return pourcent * nb * 100
     }
+    
     /*
     // Only override draw() if you perform custom drawing.
     // An empty implementation adversely affects performance during animation.

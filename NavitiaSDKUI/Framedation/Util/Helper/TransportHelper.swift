@@ -8,6 +8,8 @@
 
 import Foundation
 
+
+
 enum TypeTransport {
     case metro
     case bus
@@ -15,3 +17,4 @@ enum TypeTransport {
     case car
     case walk
 }
+

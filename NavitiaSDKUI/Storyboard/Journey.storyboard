@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="uos-wP-qKq">
-    <device id="retina4_7" orientation="portrait">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="uos-wP-qKq">
+    <device id="retina5_9" orientation="landscape">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -15,44 +15,44 @@
             <objects>
                 <viewController storyboardIdentifier="JourneySolutionView" useStoryboardIdentifierAsRestorationIdentifier="YES" id="uos-wP-qKq" customClass="JourneySolutionViewController" customModule="NavitiaSDKUI" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="O1O-dz-djj">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="812" height="375"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bND-g8-CMA">
-                                <rect key="frame" x="0.0" y="64" width="375" height="150"/>
+                                <rect key="frame" x="44" y="32" width="724" height="150"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="V0r-kK-JZJ">
-                                        <rect key="frame" x="10" y="0.0" width="355" height="100"/>
+                                        <rect key="frame" x="10" y="10" width="704" height="100"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="A8Q-hf-wu0">
-                                                <rect key="frame" x="0.0" y="49.5" width="355" height="1"/>
+                                                <rect key="frame" x="0.0" y="49.666666666666671" width="704" height="1"/>
                                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="1" id="JUv-X7-bLP"/>
                                                 </constraints>
                                             </view>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="origin-icon" translatesAutoresizingMaskIntoConstraints="NO" id="oFw-Xg-3iz">
-                                                <rect key="frame" x="10" y="65.5" width="17" height="20"/>
+                                                <rect key="frame" x="10" y="65.666666666666671" width="17" height="20"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="17" id="YFF-90-6rf"/>
                                                     <constraint firstAttribute="height" constant="20" id="ic4-tb-ixi"/>
                                                 </constraints>
                                             </imageView>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="origin-icon" translatesAutoresizingMaskIntoConstraints="NO" id="orl-2L-yBM">
-                                                <rect key="frame" x="10" y="14.5" width="17" height="20"/>
+                                                <rect key="frame" x="10" y="14.666666666666664" width="17" height="20"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="20" id="F6C-bS-pr9"/>
                                                     <constraint firstAttribute="width" constant="17" id="UIX-es-UDW"/>
                                                 </constraints>
                                             </imageView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="20 Rue Hector Malot 75020 Paris" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cft-3O-VNq">
-                                                <rect key="frame" x="37" y="13" width="308" height="23.5"/>
+                                                <rect key="frame" x="37" y="13.000000000000002" width="657" height="23.666666666666671"/>
                                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Ménilmontant 75020 Paris" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HKB-WT-Eok">
-                                                <rect key="frame" x="37" y="64" width="308" height="23"/>
+                                                <rect key="frame" x="37" y="64" width="657" height="23"/>
                                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
@@ -79,7 +79,7 @@
                                         </constraints>
                                     </view>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Départ : Ven. 21 Jui. - 13:30" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7s5-gx-cJB">
-                                        <rect key="frame" x="10" y="115" width="355" height="22"/>
+                                        <rect key="frame" x="10" y="125" width="704" height="12"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
                                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
@@ -94,11 +94,11 @@
                                     <constraint firstItem="V0r-kK-JZJ" firstAttribute="leading" secondItem="bND-g8-CMA" secondAttribute="leading" constant="10" id="Tha-Wq-as3"/>
                                     <constraint firstItem="7s5-gx-cJB" firstAttribute="leading" secondItem="bND-g8-CMA" secondAttribute="leading" constant="10" id="e66-0Y-sRE"/>
                                     <constraint firstAttribute="height" constant="150" id="xYN-RY-dRI"/>
-                                    <constraint firstItem="V0r-kK-JZJ" firstAttribute="top" secondItem="bND-g8-CMA" secondAttribute="top" id="yb2-Ao-nUu"/>
+                                    <constraint firstItem="V0r-kK-JZJ" firstAttribute="top" secondItem="bND-g8-CMA" secondAttribute="top" constant="10" id="yb2-Ao-nUu"/>
                                 </constraints>
                             </view>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="yNZ-3x-aub">
-                                <rect key="frame" x="0.0" y="214" width="375" height="453"/>
+                                <rect key="frame" x="44" y="182" width="724" height="193"/>
                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="mQy-EO-Msz">
                                     <size key="itemSize" width="0.0" height="0.0"/>
@@ -129,18 +129,21 @@
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <connections>
                         <outlet property="collectionView" destination="yNZ-3x-aub" id="jsb-UR-PlL"/>
+                        <outlet property="dateTimeLabel" destination="7s5-gx-cJB" id="Fsq-5t-ULA"/>
+                        <outlet property="fromLabel" destination="cft-3O-VNq" id="9wB-vf-AHC"/>
+                        <outlet property="toLabel" destination="HKB-WT-Eok" id="NNU-Fi-Egf"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Wpw-Ek-38a" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="631.20000000000005" y="13.300492610837439"/>
+            <point key="canvasLocation" x="586" y="-138"/>
         </scene>
         <!--Journey Solution Roadmap View Controller-->
         <scene sceneID="kVo-IF-55q">
             <objects>
                 <viewController id="z4Z-Pd-Lif" customClass="JourneySolutionRoadmapViewController" customModule="NavitiaSDKUI" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="jJw-gq-5GI">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="812" height="375"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="HfL-JU-5ET"/>
@@ -155,11 +158,23 @@
             <objects>
                 <viewController id="0w9-Hr-lVK" customClass="JourneySolutionRidesharingViewController" customModule="NavitiaSDKUI" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="fhA-0v-Uex">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="812" height="375"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="LP3-EK-wHp">
+                                <rect key="frame" x="44" y="32" width="724" height="322"/>
+                            </mapView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="LP3-EK-wHp" firstAttribute="top" secondItem="hDI-dy-l1R" secondAttribute="top" id="Lb8-uQ-9HB"/>
+                            <constraint firstItem="LP3-EK-wHp" firstAttribute="leading" secondItem="hDI-dy-l1R" secondAttribute="leading" id="MU8-Bv-cUj"/>
+                            <constraint firstItem="hDI-dy-l1R" firstAttribute="trailing" secondItem="LP3-EK-wHp" secondAttribute="trailing" id="iBk-Ry-gNF"/>
+                            <constraint firstItem="hDI-dy-l1R" firstAttribute="bottom" secondItem="LP3-EK-wHp" secondAttribute="bottom" id="nL6-Vs-YyT"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="hDI-dy-l1R"/>
                     </view>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wss-qm-pX7" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

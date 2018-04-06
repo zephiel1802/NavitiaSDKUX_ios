@@ -18,6 +18,38 @@ class JourneySolutionCollectionViewCell: UICollectionViewCell {
     
     public var height = 130
     
+    func setup(_ journey: Journey) {
+        arrowLabel.text = "\u{ea0c}"
+        arrowLabel.font = UIFont(name: "SDKIcons", size: 15)
+        
+        let formattedStringDateTime = NSMutableAttributedString()
+        formattedStringDateTime
+            .bold((journey.departureDateTime?.toDate(format: "yyyyMMdd'T'HHmmss")?.toString(format: "HH:mm"))!)
+            .bold(" - ")
+            .bold((journey.arrivalDateTime?.toDate(format: "yyyyMMdd'T'HHmmss")?.toString(format: "HH:mm"))!)
+        
+        
+        dateTime = formattedStringDateTime
+        
+        let formattedStringDuration = NSMutableAttributedString()
+        formattedStringDuration
+            .bold((journey.duration?.toString(allowedUnits: [ .hour, .minute ])!)!)
+        duration = formattedStringDuration
+        
+        let formattedString = NSMutableAttributedString()
+        formattedString
+            .normal("Dont ")
+            .bold((journey.durations?.walking?.toString(allowedUnits: [ .hour, .minute ])!)!)
+            .normal(" à pied (")
+            .normal((journey.distances?.walking?.toString())!)
+            .normal(" mètres)")
+        durationWalker = formattedString
+        
+        if let sections = journey.sections {
+            journeySummaryView.addSections(sections)
+        }
+    }
+    
     var dateTime: NSAttributedString? {
         get {
             return dateTimeLabel.attributedText
