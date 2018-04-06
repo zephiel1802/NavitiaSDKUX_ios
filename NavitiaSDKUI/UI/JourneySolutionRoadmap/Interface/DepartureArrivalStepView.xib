@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" rowHeight="81" id="aor-Bd-Db7">
+            <rect key="frame" x="0.0" y="0.0" width="337" height="81"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="aor-Bd-Db7" id="gOc-Qb-JyX">
+                <rect key="frame" x="0.0" y="0.0" width="337" height="80.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Mbe-if-F9b">
+                        <rect key="frame" x="10" y="0.0" width="317" height="80.5"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="18:30" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="h5J-YV-qJc">
+                                <rect key="frame" x="10" y="30" width="41" height="20"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="P" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RLI-Nz-sQy">
+                                <rect key="frame" x="56" y="30" width="11" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" red="0.25098039220000001" green="0.58431372550000005" blue="0.5568627451" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="RLI-Nz-sQy" firstAttribute="leading" secondItem="h5J-YV-qJc" secondAttribute="trailing" constant="5" id="4fg-I0-IJD"/>
+                            <constraint firstItem="h5J-YV-qJc" firstAttribute="leading" secondItem="Mbe-if-F9b" secondAttribute="leading" constant="10" id="7uw-DR-8e2"/>
+                            <constraint firstItem="RLI-Nz-sQy" firstAttribute="centerY" secondItem="Mbe-if-F9b" secondAttribute="centerY" id="VuH-Sj-oso"/>
+                            <constraint firstItem="h5J-YV-qJc" firstAttribute="centerY" secondItem="Mbe-if-F9b" secondAttribute="centerY" id="WNl-FU-PHz"/>
+                        </constraints>
+                    </view>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="bottom" secondItem="Mbe-if-F9b" secondAttribute="bottom" id="1Jl-Zy-5r6"/>
+                    <constraint firstItem="Mbe-if-F9b" firstAttribute="leading" secondItem="gOc-Qb-JyX" secondAttribute="leading" constant="10" id="PfE-Ig-ivU"/>
+                    <constraint firstItem="Mbe-if-F9b" firstAttribute="top" secondItem="gOc-Qb-JyX" secondAttribute="top" id="aLp-zo-NUB"/>
+                    <constraint firstAttribute="trailing" secondItem="Mbe-if-F9b" secondAttribute="trailing" constant="10" id="hFF-Na-xQc"/>
+                </constraints>
+            </tableViewCellContentView>
+            <point key="canvasLocation" x="-61.5" y="131.5"/>
+        </tableViewCell>
+        <view contentMode="scaleToFill" id="ome-kM-Vmr">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="87"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="18:30" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="G7C-9x-Edy">
+                    <rect key="frame" x="23" y="33" width="41" height="20"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="P" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YaX-53-ulz">
+                    <rect key="frame" x="72" y="33" width="11" height="21"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" misplaced="YES" text="Départ: 20 Rue Hector Malot 75020 Paris" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7Rj-Hq-nOQ">
+                    <rect key="frame" x="115" y="25" width="230" height="36"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <color key="backgroundColor" red="0.25098039220000001" green="0.58431372550000005" blue="0.5568627451" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="7Rj-Hq-nOQ" secondAttribute="trailing" constant="30" id="2J4-I7-R5m"/>
+                <constraint firstItem="7Rj-Hq-nOQ" firstAttribute="centerY" secondItem="ome-kM-Vmr" secondAttribute="centerY" id="Xdd-Qh-Wvu"/>
+            </constraints>
+            <nil key="simulatedTopBarMetrics"/>
+            <nil key="simulatedBottomBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="y4a-1d-YKp"/>
+            <point key="canvasLocation" x="-28" y="-54"/>
+        </view>
+    </objects>
+</document>
