@@ -36,8 +36,8 @@ public class JourneySolutionsController: ViewController, ComponentController {
         self.title = NSLocalizedString("journeys", bundle: bundle, comment: "Navigation bar title for journey solutions screen")
         addComponentToViewControllerHierarchyExtended()
         
-        if UserDefaults.standard.object(forKey: "navitiaSdkShowRedirectionDialog") == nil {
-            UserDefaults.standard.register(defaults: ["navitiaSdkShowRedirectionDialog": true])
+        if UserDefaults.standard.object(forKey: NavitiaSDKUserDefaultsManager.SHOW_REDIRECTION_DIALOG_PREF_KEY) == nil {
+            NavitiaSDKUserDefaultsManager.saveUserDefault(key: NavitiaSDKUserDefaultsManager.SHOW_REDIRECTION_DIALOG_PREF_KEY, value: NavitiaSDKUserDefaultsManager.SHOW_REDIRECTION_DIALOG_DEF_VALUE)
         }
     }
     
