@@ -1,7 +1,6 @@
 //
 //  NavitiaSDKUserDefaultsManager.swift
 //  NavitiaSDKUX
-
 //
 
 import Foundation
