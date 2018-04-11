@@ -127,6 +127,14 @@ public class NavitiaSDKUXConfig: NSObject {
         config.colors.tertiary = color
     }
     
+    public static func setOriginColor(color: UIColor) {
+        config.colors.origin = color
+    }
+    
+    public static func setDestinationColor(color: UIColor) {
+        config.colors.destination = color
+    }
+    
     public static func setRadiusMetrics(value: Int) {
         config.metrics.radius = value
     }

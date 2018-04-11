@@ -15,7 +15,9 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         
         // Override Navitia SDK UX Config
-        NavitiaSDKUXConfig.setTertiaryColor(color: getUIColorFromHexadecimal(hex: "40958e"))
+        NavitiaSDKUXConfig.setTertiaryColor(color: getUIColorFromHexadecimal(hex: "#40958E"))
+        NavitiaSDKUXConfig.setOriginColor(color: getUIColorFromHexadecimal(hex: "#00BB75"))
+        NavitiaSDKUXConfig.setDestinationColor(color: getUIColorFromHexadecimal(hex: "#B00353"))
         NavitiaSDKUXConfig.setRadiusMetrics(value: 0)
         NavitiaSDKUXConfig.setToken(token: "")
 
