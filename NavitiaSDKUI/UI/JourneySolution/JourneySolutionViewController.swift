@@ -33,8 +33,11 @@ open class JourneySolutionViewController: UIViewController {
     
     public var inParameters: InParameters!
     
+    @IBOutlet weak var searchView: UIView!
     @IBOutlet weak var fromLabel: UILabel!
+    @IBOutlet weak var fromPinLabel: UILabel!
     @IBOutlet weak var toLabel: UILabel!
+    @IBOutlet weak var toPinLabel: UILabel!
     @IBOutlet weak var dateTimeLabel: UILabel!
     @IBOutlet weak var collectionView: UICollectionView!
     
@@ -52,30 +55,26 @@ open class JourneySolutionViewController: UIViewController {
     
     override open func viewDidLoad() {
         super.viewDidLoad()
-
-        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarPosition.any, barMetrics: UIBarMetrics.default)
-        navigationController?.navigationBar.shadowImage = UIImage()
-        
         title = "Itinéraires"
-
-        _viewModel = JourneySolutionViewModel()
-        _viewModel.request(with: inParameters)
-        
-        fromLabel.text = inParameters.originLabel
-        toLabel.text = inParameters.destinationLabel
-        dateTimeLabel.text = "Dépars : " + (inParameters.datetime?.toString(format: "EEE dd MMM - HH:mm"))!
-        
-        
-        collectionView.register(UINib(nibName: JourneySolutionCollectionViewCell.identifier, bundle: self.nibBundle), forCellWithReuseIdentifier: JourneySolutionCollectionViewCell.identifier)
-        collectionView.register(UINib(nibName: JourneySolutionLoadCollectionViewCell.identifier, bundle: self.nibBundle), forCellWithReuseIdentifier: JourneySolutionLoadCollectionViewCell.identifier)
-        collectionView.register(UINib(nibName: RidesharingInformationCollectionViewCell.identifier, bundle: self.nibBundle), forCellWithReuseIdentifier: RidesharingInformationCollectionViewCell.identifier)
-        collectionView.register(UINib(nibName: JourneyEmptySolutionCollectionViewCell.identifier, bundle: self.nibBundle), forCellWithReuseIdentifier: JourneyEmptySolutionCollectionViewCell.identifier)
-        collectionView.register(UINib(nibName: JourneyHeaderCollectionReusableView.identifier, bundle: self.nibBundle), forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: JourneyHeaderCollectionReusableView.identifier)
         
         bundle = self.nibBundle
         UIFont.registerFontWithFilenameString(filenameString: "SDKIcons.ttf", bundle: bundle)
-        
-        // Do any additional setup after loading the view.
+        if #available(iOS 11.0, *) {
+            collectionView?.contentInsetAdjustmentBehavior = .always
+        }
+
+        setupInterface()
+        registerCollectionView()
+
+        // Request
+        _viewModel = JourneySolutionViewModel()
+        _viewModel.request(with: inParameters)
+  
+        if let count = navigationController?.viewControllers.count {
+            if count == 1 {
+                print("mettre le back")
+            }
+        }
     }
     
     override open func viewWillLayoutSubviews() {
@@ -88,12 +87,36 @@ open class JourneySolutionViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    override open func viewDidLayoutSubviews() {
+        
+    }
     
+    private func registerCollectionView() {
+        collectionView.register(UINib(nibName: JourneySolutionCollectionViewCell.identifier, bundle: self.nibBundle), forCellWithReuseIdentifier: JourneySolutionCollectionViewCell.identifier)
+        collectionView.register(UINib(nibName: JourneySolutionLoadCollectionViewCell.identifier, bundle: self.nibBundle), forCellWithReuseIdentifier: JourneySolutionLoadCollectionViewCell.identifier)
+        collectionView.register(UINib(nibName: RidesharingInformationCollectionViewCell.identifier, bundle: self.nibBundle), forCellWithReuseIdentifier: RidesharingInformationCollectionViewCell.identifier)
+        collectionView.register(UINib(nibName: JourneyEmptySolutionCollectionViewCell.identifier, bundle: self.nibBundle), forCellWithReuseIdentifier: JourneyEmptySolutionCollectionViewCell.identifier)
+        collectionView.register(UINib(nibName: JourneyHeaderCollectionReusableView.identifier, bundle: self.nibBundle), forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: JourneyHeaderCollectionReusableView.identifier)
+    }
     
-    @IBAction func resultAction(_ sender: Any) {
-        if let navigationController = self.navigationController {
-            navigationController.pushViewController(JourneySolutionRoadmapViewController(), animated: true)
+    private func setupInterface() {
+        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarPosition.any, barMetrics: UIBarMetrics.default)
+        navigationController?.navigationBar.shadowImage = UIImage()
+        
+        if let backgroundColor = navigationController?.navigationBar.barTintColor {
+            searchView.backgroundColor = backgroundColor
         }
+
+        
+        fromLabel.text = inParameters.originLabel
+        fromPinLabel.text = Icon("location-pin").iconFontCode
+        fromPinLabel.font = UIFont(name: "SDKIcons", size: 22)
+        fromPinLabel.textColor = UIColor(red:0, green:0.73, blue:0.46, alpha:1.0)
+        
+        toLabel.text = inParameters.destinationLabel
+        toPinLabel.text = Icon("location-pin").iconFontCode
+        toPinLabel.font = UIFont(name: "SDKIcons", size: 22)
+        toPinLabel.textColor = UIColor(red:0.69, green:0.01, blue:0.33, alpha:1.0)
     }
 
 }
@@ -108,6 +131,9 @@ extension JourneySolutionViewController: UICollectionViewDataSource {
     }
     
     public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        if self._viewModel.loading {
+            return 3
+        }
         if section == 1 {
             return self._viewModel.journeysRidesharing.count
         }
@@ -115,6 +141,12 @@ extension JourneySolutionViewController: UICollectionViewDataSource {
     }
     
     public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        if self._viewModel.loading {
+            if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: JourneySolutionLoadCollectionViewCell.identifier, for: indexPath) as? JourneySolutionLoadCollectionViewCell {
+                //cell.setup(self._viewModel.journeys[indexPath.row])
+                return cell
+            }
+        }
         if indexPath.section == 1 {
             if indexPath.row == 0 {
                 if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: RidesharingInformationCollectionViewCell.identifier, for: indexPath) as? RidesharingInformationCollectionViewCell {
@@ -122,7 +154,7 @@ extension JourneySolutionViewController: UICollectionViewDataSource {
                 }
             } else {
                 if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: JourneySolutionCollectionViewCell.identifier, for: indexPath) as? JourneySolutionCollectionViewCell {
-                    cell.setup(self._viewModel.journeysRidesharing[indexPath.row])
+                    cell.setupRidesharing(self._viewModel.journeysRidesharing[indexPath.row])
                     return cell
                 }
             }
@@ -146,7 +178,6 @@ extension JourneySolutionViewController: UICollectionViewDataSource {
 
 extension JourneySolutionViewController: UICollectionViewDelegate {
     
-    
     public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
         if section != 0 {
             return CGSize(width: 0, height: 30)
@@ -155,15 +186,15 @@ extension JourneySolutionViewController: UICollectionViewDelegate {
     }
     
     public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        print(indexPath)
-        
-        let viewController = storyboard?.instantiateViewController(withIdentifier: "journeySolutionRoadmapViewController") as! JourneySolutionRoadmapViewController
-        if indexPath.section == 1 {
-            viewController.ridesharingJourney = _viewModel.journeysRidesharing[indexPath.row]
-        } else {
-            viewController.journey = _viewModel.journeys[indexPath.row]
+        if !_viewModel.loading {
+            let viewController = storyboard?.instantiateViewController(withIdentifier: "journeySolutionRoadmapViewController") as! JourneySolutionRoadmapViewController
+            if indexPath.section == 1 {
+                viewController.ridesharingJourney = _viewModel.journeysRidesharing[indexPath.row]
+            } else {
+                viewController.journey = _viewModel.journeys[indexPath.row]
+            }
+            self.navigationController?.pushViewController(viewController, animated: true)
         }
-        self.navigationController?.pushViewController(viewController, animated: true)
     }
     
 }
@@ -171,12 +202,16 @@ extension JourneySolutionViewController: UICollectionViewDelegate {
 extension JourneySolutionViewController: UICollectionViewDelegateFlowLayout {
     
     public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        if indexPath.section == 1 && indexPath.row == 0 {
-            return CGSize(width: self.collectionView.frame.size.width - 20, height: 75)
-        } else if indexPath.section == 1 {
-            return CGSize(width: self.collectionView.frame.size.width - 20, height: 130)
+        var safeAreaWidth: CGFloat = 20.0
+        if #available(iOS 11.0, *) {
+            safeAreaWidth += self.collectionView.safeAreaInsets.left + self.collectionView.safeAreaInsets.right
         }
-        return CGSize(width: self.collectionView.frame.size.width - 20, height: 130)
+        if indexPath.section == 1 && indexPath.row == 0 {
+            return CGSize(width: self.collectionView.frame.size.width - safeAreaWidth, height: 75)
+        } else if indexPath.section == 1 {
+            return CGSize(width: self.collectionView.frame.size.width - safeAreaWidth, height: 130)
+        }
+        return CGSize(width: self.collectionView.frame.size.width - safeAreaWidth, height: 130)
     }
 
 }

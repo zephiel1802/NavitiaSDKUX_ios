@@ -8,9 +8,7 @@
 
 import Foundation
 
-
-
-enum TypeTransport {
+enum TypeTransport: String {
     case metro
     case bus
     case tramway
@@ -18,3 +16,8 @@ enum TypeTransport {
     case walk
 }
 
+enum TypeDisruption: String {
+    case blocking
+    case nonblocking
+    case information
+}

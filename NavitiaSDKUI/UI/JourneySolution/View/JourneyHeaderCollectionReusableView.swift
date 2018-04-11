@@ -12,8 +12,6 @@ class JourneyHeaderCollectionReusableView: UICollectionReusableView {
     
     @IBOutlet weak var title: UILabel!
     
-    public var height = 30
-    
     override func awakeFromNib() {
         super.awakeFromNib()
     }

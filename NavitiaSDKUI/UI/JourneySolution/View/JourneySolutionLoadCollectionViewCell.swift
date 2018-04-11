@@ -10,8 +10,7 @@ import UIKit
 
 class JourneySolutionLoadCollectionViewCell: UICollectionViewCell {
     
-    func setup() {
-    }
+    func setup() {}
     
     static var nib:UINib {
         return UINib(nibName: identifier, bundle: nil)

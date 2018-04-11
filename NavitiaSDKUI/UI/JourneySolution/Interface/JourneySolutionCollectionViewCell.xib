@@ -75,6 +75,7 @@
                 <constraint firstItem="Qi9-Ve-v5r" firstAttribute="top" secondItem="8iX-MJ-bAx" secondAttribute="top" constant="10" id="hki-LY-er7"/>
                 <constraint firstItem="uiE-c6-acZ" firstAttribute="leading" secondItem="8iX-MJ-bAx" secondAttribute="leading" constant="10" id="hks-Tt-06d"/>
                 <constraint firstItem="uiE-c6-acZ" firstAttribute="top" secondItem="dhB-Xm-3aP" secondAttribute="bottom" constant="10" id="udo-uH-bvm"/>
+                <constraint firstItem="UO3-ac-tHw" firstAttribute="bottom" secondItem="lqf-YV-oSL" secondAttribute="bottom" priority="500" constant="10" id="urS-PO-EW5"/>
                 <constraint firstAttribute="bottom" secondItem="JUD-Ce-byI" secondAttribute="bottom" constant="15" id="wRi-Fv-KrL"/>
                 <constraint firstItem="Yza-xI-lKm" firstAttribute="top" secondItem="8iX-MJ-bAx" secondAttribute="top" id="wfD-Z8-D2z"/>
             </constraints>
@@ -87,7 +88,7 @@
                 <outlet property="durationWalkerLabel" destination="JUD-Ce-byI" id="Rwh-J8-bok"/>
                 <outlet property="journeySummaryView" destination="lqf-YV-oSL" id="029-vs-TaP"/>
             </connections>
-            <point key="canvasLocation" x="-1865" y="67"/>
+            <point key="canvasLocation" x="-1970" y="59"/>
         </collectionViewCell>
     </objects>
 </document>

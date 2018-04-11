@@ -10,8 +10,6 @@ import UIKit
 
 class JourneyEmptySolutionCollectionViewCell: UICollectionViewCell {
     
-    public var height = 40
-    
     override func awakeFromNib() {
         super.awakeFromNib()
     }

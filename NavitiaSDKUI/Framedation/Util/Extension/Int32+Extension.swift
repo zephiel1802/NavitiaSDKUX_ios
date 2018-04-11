@@ -22,4 +22,10 @@ extension Int32 {
     func toString() -> String {
         return String(self)
     }
+    
+    func toString(format: String) -> String {
+        let tmp = Double(self)
+        return String(format: format, tmp / 1000)
+    }
+    
 }

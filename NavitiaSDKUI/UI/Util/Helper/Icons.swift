@@ -8,6 +8,8 @@
 
 import Foundation
 
+
+
 public struct Icon {
     
     internal var _value: String

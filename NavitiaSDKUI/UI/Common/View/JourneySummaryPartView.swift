@@ -18,16 +18,12 @@ class JourneySummaryPartView: UIView {
     @IBOutlet weak var _disruptionLabel: UILabel!
     @IBOutlet weak var _circleLabel: UILabel!
     
-    var _type: TypeTransport?
     var width = 1.0
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
         _setup()
     }
-    
-    
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -38,10 +34,9 @@ class JourneySummaryPartView: UIView {
     }
     
     private func _setup() {
-        UINib(nibName: "JourneySummaryPartView", bundle:  bundle).instantiate(withOwner: self, options: nil)
+        UINib(nibName: "JourneySummaryPartView", bundle: bundle).instantiate(withOwner: self, options: nil)
         _view.frame = self.bounds
         addSubview(_view)
-        
         _setupDisruption()
     }
     

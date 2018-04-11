@@ -14,6 +14,7 @@ class JourneySolutionViewModel: NSObject {
     
     var journeys: [Journey] = []
     var journeysRidesharing: [Journey] = []
+    var loading: Bool = true
     
     func request(with parameters: JourneySolutionViewController.InParameters) {
         if NavitiaSDKUIConfig.shared.navitiaSDK != nil {
@@ -49,9 +50,11 @@ class JourneySolutionViewModel: NSObject {
             if let maxNbJourneys = parameters.maxNbJourneys {
                 _ = journeyRequestBuilder.withMaxNbJourneys(maxNbJourneys)
             }
+            self.loading = true
             journeyRequestBuilder.get { (result, error) in
                 if let journeys = result?.journeys {
                     self.parseNavitia(journeys: journeys)
+                    self.loading = false
                     self.journeySolutionDidChange?(self)
                 }
             }

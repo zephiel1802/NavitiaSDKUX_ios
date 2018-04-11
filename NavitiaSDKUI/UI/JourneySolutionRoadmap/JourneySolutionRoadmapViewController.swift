@@ -12,7 +12,12 @@ import MapKit
 open class JourneySolutionRoadmapViewController: UIViewController {
 
     @IBOutlet weak var mapView: MKMapView!
-    @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var scrollView: UIScrollView!
+    
+    var viewScroll: [UIView] = []
+    
+    var marge: CGFloat = 10
+    var composentWidth: CGFloat = 0
     
     var journey: Journey?
     var ridesharingJourney: Journey?
@@ -20,21 +25,139 @@ open class JourneySolutionRoadmapViewController: UIViewController {
     
     override open func viewDidLoad() {
         super.viewDidLoad()
-
         self.setupMapView()
+        
+        composentWidth = updateWidth()
+        
+        if #available(iOS 11.0, *) {
+            scrollView?.contentInsetAdjustmentBehavior = .always
+        }
+        
+        let view = DepartureArrivalStepView(frame: CGRect(x: 0, y: 0, width: composentWidth, height: 70))
+        view.title = "Départ:"
+        view.information = "20 Rue Hector malot 75020 Paris"
+        view.type = .departure
+        addViewInScroll(view: view)
+        
+        
+        let view1 = TransferStepView(frame: CGRect(x: 0, y: 0, width: composentWidth, height: 100))
+        view1.icon = "walking"
+        view1.lineOne = "Gare de Lyon (Paris)"
+        view1.lineTwo = "3 minutes de marche"
+        addViewInScroll(view: view1)
+        
+        let view2 = PublicTransportView(frame: CGRect(x: 0, y: 0, width: composentWidth, height: 100))
+        view2.type = .metro
+        view2.transportColor = UIColor.purple
+        view2.transportName = "14"
+        view2.waitTime = "2"
+        view2.origin = "Gare de Lyon (Paris)"
+        view2.directionTransit = "Saint-Lazare"
+        view2.destination = "Pyramides (Paris)"
+        view2.stations = ["Chatelet"TD
+        ]
+        addViewInScroll(view: view2)
+
+    
+        let view3 = TransferStepView(frame: CGRect(x: 0, y: 0, width: composentWidth, height: 100))
+        view3.icon = "walking"
+        view3.lineOne = "Pyramides (Paris)"
+        view3.lineTwo = "3 minutes de marche"
+        addViewInScroll(view: view3)
+        
+        
+        let view4 = PublicTransportView(frame: CGRect(x: 0, y: 0, width: composentWidth, height: 100))
+        view4.type = .bus
+        view4.transportColor = UIColor.blue
+        view4.transportName = "93"
+        view4.disruptionType = .blocking
+        view4.disruptionInformation = "Suite à un incident d’exploitation, le trafic est interrompu sur l’ensemble de la ligne."
+        view4.disruptionDate = "Du 01/08/17 au 17/08/17"
+        view4.waitTime = "7"
+        view4.origin = "Pyramides (Paris)"
+        view4.directionTransit = "Place de Clichy"
+        view4.destination = "Liege (Paris)"
+        view4.stations = ["Petits Champs",
+                          "Opéra - 4 septembre",
+                          "Opéra",
+                          "Haussmann",
+                          "Trinité"
+                            ]
+        addViewInScroll(view: view4)
+        
+        let view5 = TransferStepView(frame: CGRect(x: 0, y: 0, width: composentWidth, height: 100))
+        view5.icon = "walking"
+        view5.lineOne = "10 Rue de Milan (Paris)"
+        view5.lineTwo = "5 minutes de marche"
+        addViewInScroll(view: view5)
+        
+        let viewArrival = DepartureArrivalStepView(frame: CGRect(x: 0, y: 0, width: composentWidth, height: 70))
+        viewArrival.title = "Arrivée:"
+        viewArrival.information = "Ménilmontant 75020 Paris"
+        viewArrival.type = .arrival
+        addViewInScroll(view: viewArrival)
 
     }
+    
+
 
     override open func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
 
+    override open func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        updateOriginViewScroll()
+    }
+    
+    func updateWidth() -> CGFloat {
+        if #available(iOS 11.0, *) {
+            return scrollView.frame.size.width - scrollView.safeAreaInsets.left - scrollView.safeAreaInsets.right - (marge * 2)
+        }
+        return scrollView.frame.size.width - (marge * 2)
+    }
+    
+
+    func addViewInScroll(view: UIView) {
+        view.frame.origin.x = marge
+        if viewScroll.isEmpty {
+            view.frame.origin.y = 0
+        } else {
+            if let viewBefore = viewScroll.last {
+                view.frame.origin.y = viewBefore.frame.origin.y + viewBefore.frame.size.height
+            }
+        }
+        viewScroll.append(view)
+        if let last = viewScroll.last {
+            scrollView.contentSize.height = last.frame.origin.y + last.frame.height
+        }
+        scrollView.addSubview(view)
+    }
+    
+    func updateOriginViewScroll() {
+        print("Update")
+        for (index, view)  in viewScroll.enumerated() {
+            if index == 0 {
+                view.frame.origin.y = marge
+            } else {
+                view.frame.origin.y = viewScroll[index - 1].frame.origin.y + viewScroll[index - 1].frame.height + marge
+            }
+            composentWidth = updateWidth()
+            view.frame.size.width = updateWidth()
+        }
+        if let last = viewScroll.last {
+            scrollView.contentSize.height = last.frame.origin.y + last.frame.height + marge
+        }
+    }
+    
 }
 
 extension JourneySolutionRoadmapViewController: MKMapViewDelegate {
     
     func setupMapView() {
+        title = "Roadmap"
+        
         let ridesharingJourneyCoordinates = getRidesharingJourneyCoordinates(journey: self.journey!)
         
         let journeyPathOverlays = JourneyPathOverlays(journey: self.journey!, ridesharingJourneyCoordinates: ridesharingJourneyCoordinates, intermediatePointCircleRadius: self.getCircleRadiusDependingOnCurrentCameraAltitude(cameraAltitude: self.mapView.camera.altitude))
@@ -182,30 +305,10 @@ extension JourneySolutionRoadmapViewController: MKMapViewDelegate {
     
 }
 
-extension JourneySolutionRoadmapViewController: UITableViewDelegate {
+extension JourneySolutionRoadmapViewController: UIScrollViewDelegate {
     
 }
 
-extension JourneySolutionRoadmapViewController: UITableViewDataSource {
-    
-//    public func numberOfSections(in tableView: UITableView) -> Int {
-//        return 1
-//    }
-//
-//    public func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-//        let headerView:UIView =  UIView()
-//        return headerView
-//    }
-    
-    public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 0
-    }
-    
-    public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        return UITableViewCell()
-    }
-    
-}
 
 class JourneyPathOverlays {
     var journeyPolyline: MKPolyline
@@ -308,8 +411,8 @@ class CustomAnnotation: MKPointAnnotation {
                 annotationView.addSubview(annotationImage)
             } else {
                 let annotationPin = UILabel(frame: CGRect(x: 28, y: 27, width: 26, height: 26))
-                annotationPin.textColor = self.placeType == .Departure ? UIColor.red/*config.colors.origin*/ : UIColor.blue/*config.colors.destination*/
-                annotationPin.text = "\u{ea15}"//String.fontString(name: "location-pin")
+                annotationPin.textColor = self.placeType == .Departure ? UIColor(red:0, green:0.73, blue:0.46, alpha:1.0)/*config.colors.origin*/ : UIColor(red:0.69, green:0.01, blue:0.33, alpha:1.0)/*config.colors.destination*/
+                annotationPin.text = Icon("location-pin").iconFontCode// "\u{ea15}"//String.fontString(name: "location-pin")
                 annotationPin.font = UIFont(name: "SDKIcons", size: 26)
                 
                 annotationView.addSubview(annotationPin)
@@ -336,4 +439,115 @@ class SectionPolyline: MKPolyline {
     var sectionStrokeColor: UIColor?
     var sectionLineDashPattern: [NSNumber]?
     var sectionLineCap: CGLineCap?
+}
+
+
+
+
+
+
+
+
+
+import UIKit
+
+@IBDesignable
+public class ScrollableStackView: UIView {
+    
+    fileprivate var didSetupConstraints = false
+    @IBInspectable open var spacing: CGFloat = 8
+    open var durationForAnimations:TimeInterval = 1.45
+    
+    public lazy var scrollView: UIScrollView = {
+        let instance = UIScrollView(frame: CGRect.zero)
+        instance.translatesAutoresizingMaskIntoConstraints = false
+        instance.layoutMargins = .zero
+        return instance
+    }()
+    
+    public lazy var stackView: UIStackView = {
+        let instance = UIStackView(frame: CGRect.zero)
+        instance.translatesAutoresizingMaskIntoConstraints = false
+        instance.axis = .vertical
+        instance.spacing = self.spacing
+        instance.distribution = .equalSpacing
+        return instance
+    }()
+    
+    //MARK: View life cycle
+    override public func didMoveToSuperview() {
+        super.didMoveToSuperview()
+        
+        setupUI()
+    }
+    
+    //MARK: UI
+    func setupUI() {
+        translatesAutoresizingMaskIntoConstraints = false
+        clipsToBounds = true
+        
+        addSubview(scrollView)
+        scrollView.addSubview(stackView)
+        
+        setNeedsUpdateConstraints() // Bootstrap auto layout
+    }
+    
+    // Scrolls to item at index
+    public func scrollToItem(index: Int) {
+        if stackView.arrangedSubviews.count > 0 {
+            let view = stackView.arrangedSubviews[index]
+            
+            UIView.animate(withDuration: durationForAnimations, animations: {
+                self.scrollView.setContentOffset(CGPoint(x: 0, y:view.frame.origin.y), animated: true)
+            })
+        }
+    }
+    
+    // Used to scroll till the end of scrollview
+    public func scrollToBottom() {
+        if stackView.arrangedSubviews.count > 0 {
+            UIView.animate(withDuration: durationForAnimations, animations: {
+                self.scrollView.scrollToBottom(true)
+            })
+        }
+    }
+    
+    // Scrolls to top of scrollable area
+    public func scrollToTop() {
+        if stackView.arrangedSubviews.count > 0 {
+            UIView.animate(withDuration: durationForAnimations, animations: {
+                self.scrollView.setContentOffset(CGPoint(x: 0, y:0), animated: true)
+            })
+        }
+    }
+    
+    override public func updateConstraints() {
+        super.updateConstraints()
+        
+        if !didSetupConstraints {
+            scrollView.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
+            scrollView.leadingAnchor.constraint(equalTo: self.leadingAnchor).isActive = true
+            scrollView.trailingAnchor.constraint(equalTo: self.trailingAnchor).isActive = true
+            scrollView.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
+            
+            stackView.topAnchor.constraint(equalTo: scrollView.topAnchor).isActive = true
+            stackView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor).isActive = true
+            stackView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor).isActive = true
+            stackView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor).isActive = true
+            
+            // Set the width of the stack view to the width of the scroll view for vertical scrolling
+            stackView.widthAnchor.constraint(equalTo: scrollView.widthAnchor).isActive = true
+            
+            didSetupConstraints = true
+        }
+    }
+}
+
+// Used to scroll till the end of scrollview
+extension UIScrollView {
+    func scrollToBottom(_ animated: Bool) {
+        if self.contentSize.height < self.bounds.size.height { return }
+        let bottomOffset = CGPoint(x: 0, y: self.contentSize.height - self.bounds.size.height)
+        self.setContentOffset(bottomOffset, animated: animated)
+    }
 }

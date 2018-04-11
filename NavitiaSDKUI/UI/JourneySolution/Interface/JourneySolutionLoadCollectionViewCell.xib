@@ -13,11 +13,11 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="JourneySolutionCollectionViewCell" id="8iX-MJ-bAx" customClass="JourneySolutionCollectionViewCell" customModule="NavitiaSDKUI" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="299" height="130"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="JourneySolutionLoadCollectionViewCell" id="8iX-MJ-bAx" customClass="JourneySolutionLoadCollectionViewCell" customModule="NavitiaSDKUI" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="300" height="130"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
-                <rect key="frame" x="0.0" y="0.0" width="299" height="130"/>
+                <rect key="frame" x="0.0" y="0.0" width="300" height="130"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aqq-ct-uuU">
@@ -29,14 +29,14 @@
                         </constraints>
                     </view>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uiE-c6-acZ">
-                        <rect key="frame" x="10" y="32" width="279" height="1"/>
+                        <rect key="frame" x="10" y="32" width="280" height="1"/>
                         <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="1" id="4NV-8o-Sx6"/>
                         </constraints>
                     </view>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pyj-oZ-UVF">
-                        <rect key="frame" x="239" y="8" width="50" height="16"/>
+                        <rect key="frame" x="240" y="8" width="50" height="16"/>
                         <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="50" id="L5N-1S-Yl6"/>
@@ -52,7 +52,7 @@
                         </constraints>
                     </view>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="g5f-J5-NPB">
-                        <rect key="frame" x="50.5" y="46" width="103.5" height="42"/>
+                        <rect key="frame" x="50.5" y="46" width="104" height="42"/>
                         <color key="backgroundColor" white="0.87" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="42" id="kk7-5c-NRZ"/>
@@ -66,14 +66,14 @@
                         </constraints>
                     </view>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Iyy-Wp-17X">
-                        <rect key="frame" x="164" y="46" width="77" height="42"/>
+                        <rect key="frame" x="164.5" y="46" width="77.5" height="42"/>
                         <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="42" id="vgK-2J-Uas"/>
                         </constraints>
                     </view>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="L7Y-aP-CxQ">
-                        <rect key="frame" x="251" y="46" width="38" height="42"/>
+                        <rect key="frame" x="252" y="46" width="38" height="42"/>
                         <color key="backgroundColor" white="0.90000000000000002" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="42" id="5ah-Os-yYq"/>
@@ -108,7 +108,7 @@
             </constraints>
             <viewLayoutGuide key="safeArea" id="UO3-ac-tHw"/>
             <size key="customSize" width="259" height="129"/>
-            <point key="canvasLocation" x="-1884" y="66"/>
+            <point key="canvasLocation" x="-1918.5" y="59"/>
         </collectionViewCell>
     </objects>
 </document>

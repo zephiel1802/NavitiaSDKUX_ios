@@ -10,8 +10,6 @@ import UIKit
 
 class RidesharingInformationCollectionViewCell: UICollectionViewCell {
     
-    public var height = 75
-    
     override func awakeFromNib() {
         super.awakeFromNib()
     }

@@ -32,7 +32,6 @@ class JourneySummaryView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
         _setup()
     }
     
@@ -44,7 +43,6 @@ class JourneySummaryView: UIView {
         super.awakeFromNib()
         _setup()
     }
-    
     
     func addSections(_ sections: [Section]) {
         var durationAllSections:Int32 = 0

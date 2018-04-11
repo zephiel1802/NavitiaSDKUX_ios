@@ -16,39 +16,94 @@ class JourneySolutionCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var journeySummaryView: JourneySummaryView!
     @IBOutlet weak var arrowLabel: UILabel!
     
-    public var height = 130
-    
     func setup(_ journey: Journey) {
-        arrowLabel.text = "\u{ea0c}"
+        arrowLabel.text = Icon("arrow-right").iconFontCode
+        arrowLabel.textColor = UIColor.red
         arrowLabel.font = UIFont(name: "SDKIcons", size: 15)
         
-        let formattedStringDateTime = NSMutableAttributedString()
-        formattedStringDateTime
-            .bold((journey.departureDateTime?.toDate(format: "yyyyMMdd'T'HHmmss")?.toString(format: "HH:mm"))!)
-            .bold(" - ")
-            .bold((journey.arrivalDateTime?.toDate(format: "yyyyMMdd'T'HHmmss")?.toString(format: "HH:mm"))!)
-        
-        
-        dateTime = formattedStringDateTime
-        
-        let formattedStringDuration = NSMutableAttributedString()
-        formattedStringDuration
-            .bold((journey.duration?.toString(allowedUnits: [ .hour, .minute ])!)!)
-        duration = formattedStringDuration
-        
-        let formattedString = NSMutableAttributedString()
-        formattedString
-            .normal("Dont ")
-            .bold((journey.durations?.walking?.toString(allowedUnits: [ .hour, .minute ])!)!)
-            .normal(" à pied (")
-            .normal((journey.distances?.walking?.toString())!)
-            .normal(" mètres)")
-        durationWalker = formattedString
-        
+        if let departureDateTime = journey.departureDateTime?.toDate(format: "yyyyMMdd'T'HHmmss"),
+            let arrivalDateTime = journey.arrivalDateTime?.toDate(format: "yyyyMMdd'T'HHmmss") {
+            formattedDateTime(departureDateTime, arrivalDateTime)
+        }
+        if let durationStr = journey.duration?.toString(allowedUnits: [.hour, .minute]) {
+            formattedDuration(durationStr)
+        }
+        if let durationWalkingStr = journey.durations?.walking?.toString(allowedUnits: [ .hour, .minute ]),
+            let distanceWalking = journey.distances?.walking {
+            if distanceWalking > 999 {
+                formattedDurationWalker(durationWalkingStr, distanceWalking.toString(format: "%.01f"), "km")
+            } else {
+                formattedDurationWalker(durationWalkingStr, distanceWalking.toString())
+            }
+        }
         if let sections = journey.sections {
             journeySummaryView.addSections(sections)
         }
     }
+    
+    func setupRidesharing(_ journey: Journey) {
+        arrowLabel.text = Icon("arrow-right").iconFontCode
+        arrowLabel.font = UIFont(name: "SDKIcons", size: 15)
+        
+        if let departureDateTime = journey.departureDateTime?.toDate(format: "yyyyMMdd'T'HHmmss"),
+            let arrivalDateTime = journey.arrivalDateTime?.toDate(format: "yyyyMMdd'T'HHmmss") {
+            formattedDateTime(departureDateTime, arrivalDateTime)
+        }
+        if let durationStr = journey.duration?.toString(allowedUnits: [.hour, .minute]) {
+            formattedDuration("Environ " + durationStr)
+        }
+        if let sections = journey.sections {
+            journeySummaryView.addSections(sections)
+        }
+        if durationWalkerLabel != nil {
+            durationWalkerLabel.isHidden = true
+        }
+    }
+    
+    private func formattedDateTime(_ departureDateTime: Date,_ arrivalDateTime: Date) {
+        let formattedStringDateTime = NSMutableAttributedString()
+        formattedStringDateTime
+            .bold(departureDateTime.toString(format: "HH:mm"))
+            .bold(" - ")
+            .bold(arrivalDateTime.toString(format: "HH:mm"))
+        dateTime = formattedStringDateTime
+    }
+    
+    private func formattedDuration(_ durationStr: String) {
+        let formattedStringDuration = NSMutableAttributedString()
+        formattedStringDuration
+            .bold(durationStr, color: UIColor.red)
+        duration = formattedStringDuration
+    }
+    
+    private func formattedDurationWalker(_ durationWalking: String, _ distanceWalking: String, _ unitDistance: String = "mètres") {
+        let formattedString = NSMutableAttributedString()
+        formattedString
+            .normal("Dont ")
+            .bold(durationWalking)
+            .normal(" à pied (")
+            .normal(distanceWalking)
+            .normal(" ")
+            .normal(unitDistance)
+            .normal(")")
+        durationWalker = formattedString
+    }
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+    }
+    
+    static var nib:UINib {
+        return UINib(nibName: identifier, bundle: nil)
+    }
+    
+    static var identifier: String {
+        return String(describing: self)
+    }
+
+}
+
+extension JourneySolutionCollectionViewCell {
     
     var dateTime: NSAttributedString? {
         get {
@@ -73,48 +128,9 @@ class JourneySolutionCollectionViewCell: UICollectionViewCell {
             return durationWalkerLabel.attributedText
         }
         set {
+            durationWalkerLabel.isHidden = false
             durationWalkerLabel.attributedText = newValue
         }
     }
-    
-//    var durationWalker: String {
-//        get {
-//            return durationWalkerLabel.text ?? ""
-//        }
-//        set {
-//            durationWalkerLabel.text = newValue
-//        }
-//    }
-    
-    var testJourney: Int {
-        get {
-            return 2
-        }
-//        set {
-//
-//        }
-    }
-    
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        
-//        arrowLabel.text = "\u{ea08}"
-//        if let font = UIFont(name: "SDKIcons", size: 14) {
-//            print("djfkqdsfjkdsjfksdjf")
-//            arrowLabel.font = UIFont(name: "SDKIcons", size: 14)
-//        }
-        
-
-    }
-    
-    static var nib:UINib {
-        return UINib(nibName: identifier, bundle: nil)
-    }
-    
-    static var identifier: String {
-        return String(describing: self)
-    }
-    
-    
     
 }
