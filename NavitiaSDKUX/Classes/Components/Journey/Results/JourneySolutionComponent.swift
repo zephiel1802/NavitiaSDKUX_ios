@@ -51,6 +51,7 @@ extension Components.Journey.Results {
                             component.walkingDistance = walkingDistance
                             component.sections = self.journey.sections!
                             component.disruptions = self.disruptions
+                            component.isRidesharingComponent = self.isRidesharingComponent
                             component.hasArrow = self.hasArrow
                         })
                     ])

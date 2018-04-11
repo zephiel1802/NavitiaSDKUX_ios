@@ -22,6 +22,7 @@ extension Components.Journey.Results.SolutionComponentParts {
         var walkingDistance: Int32? = 0
         var sections: [Section] = []
         var disruptions: [Disruption]?
+        var isRidesharingComponent: Bool = false
         var hasArrow: Bool = false
         
         override func render() -> NodeType {
@@ -49,6 +50,7 @@ extension Components.Journey.Results.SolutionComponentParts {
                     ComponentNode(DurationPart.init(), in: self, props: {(component, _) in
                         component.seconds = self.totalDuration!
                         component.styles = self.durationStyles
+                        component.isRidesharingComponent = self.isRidesharingComponent
                         component.hasArrow = self.hasArrow
                     }),
                 ]),
