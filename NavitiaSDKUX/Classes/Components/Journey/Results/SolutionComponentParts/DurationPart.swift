@@ -11,6 +11,7 @@ import Foundation
 extension Components.Journey.Results.SolutionComponentParts {
     class DurationPart: ViewComponent {
         var seconds: Int32 = 0
+        var isRidesharingComponent: Bool = false
         var hasArrow: Bool = false
         
         override func render() -> NodeType {
@@ -18,7 +19,7 @@ extension Components.Journey.Results.SolutionComponentParts {
             var durationNodes: [NodeType] = []
             
             if self.seconds >= 3600 {
-                let text = durationText(bundle: self.bundle, seconds: self.seconds)
+                let text = self.isRidesharingComponent ? NSLocalizedString("about", bundle: self.bundle, comment: "About") + " " + durationText(bundle: self.bundle, seconds: self.seconds) : durationText(bundle: self.bundle, seconds: self.seconds)
                 durationNodes = [
                     ComponentNode(TextComponent(), in: self, props: {(component, _) in
                         component.text = text
@@ -26,9 +27,10 @@ extension Components.Journey.Results.SolutionComponentParts {
                     }),
                 ]
             } else {
+                let text = self.isRidesharingComponent ? NSLocalizedString("about", bundle: self.bundle, comment: "About") + " " + String(self.seconds / 60) : String(self.seconds / 60)
                 durationNodes = [
                     ComponentNode(TextComponent(), in: self, props: {(component, _) in
-                        component.text = String(self.seconds / 60)
+                        component.text = text
                         component.styles = self.digitsStyles
                     }),
                     ComponentNode(TextComponent(), in: self, props: {(component, _) in

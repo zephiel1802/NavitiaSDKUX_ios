@@ -45,6 +45,7 @@ open class JourneyRidesharingSolutionRoadmapScreen: StatelessComponentView {
                     component.journey = self.journey!
                     component.disruptions = self.disruptions
                     component.hasArrow = false
+                    component.isRidesharingComponent = true
                 }),
                 ComponentNode(ListViewComponent(), in: self).add(children: [
                     ComponentNode(RidesharingSolutionComponent.init(), in: self, props: {(component, _) in
