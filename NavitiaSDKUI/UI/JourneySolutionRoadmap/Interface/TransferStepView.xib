@@ -13,14 +13,14 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="TransferStepView" customModule="NavitiaSDKUI" customModuleProvider="target">
             <connections>
                 <outlet property="_view" destination="SFE-8L-uze" id="W9Y-Jh-1Aj"/>
+                <outlet property="directionLabel" destination="Vxj-0O-9fg" id="MHQ-Yy-Wxo"/>
                 <outlet property="iconLabel" destination="Yul-bb-BxK" id="RDP-U2-mCe"/>
-                <outlet property="lineOneLabel" destination="Vxj-0O-9fg" id="MHQ-Yy-Wxo"/>
-                <outlet property="lineTwoLabel" destination="g1T-w8-LMm" id="ONw-lt-sjR"/>
+                <outlet property="timeLabel" destination="g1T-w8-LMm" id="ONw-lt-sjR"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view contentMode="scaleToFill" id="SFE-8L-uze">
-            <rect key="frame" x="0.0" y="0.0" width="275" height="54"/>
+            <rect key="frame" x="0.0" y="0.0" width="275" height="98"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="Vers Gare de Lyon (Paris)" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vxj-0O-9fg">
@@ -57,7 +57,7 @@
             <nil key="simulatedBottomBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <viewLayoutGuide key="safeArea" id="8TB-jX-AEd"/>
-            <point key="canvasLocation" x="-382" y="-329"/>
+            <point key="canvasLocation" x="-241" y="-312"/>
         </view>
     </objects>
 </document>

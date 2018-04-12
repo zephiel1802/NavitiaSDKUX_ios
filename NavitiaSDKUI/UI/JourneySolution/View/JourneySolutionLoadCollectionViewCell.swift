@@ -10,7 +10,9 @@ import UIKit
 
 class JourneySolutionLoadCollectionViewCell: UICollectionViewCell {
     
-    func setup() {}
+    override func awakeFromNib() {
+        super.awakeFromNib()
+    }
     
     static var nib:UINib {
         return UINib(nibName: identifier, bundle: nil)

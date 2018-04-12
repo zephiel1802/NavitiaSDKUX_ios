@@ -22,7 +22,6 @@ class PublicTransportView: UIView {
     @IBOutlet weak var disruptionCircleLabel: UILabel!
     @IBOutlet weak var disruptionIconTransportLabel: UILabel!
     
-    
     @IBOutlet var disruptionView: UIView!
     @IBOutlet var waitView: UIView!
     @IBOutlet var waitHeightContraint: NSLayoutConstraint!
@@ -54,28 +53,21 @@ class PublicTransportView: UIView {
     @IBOutlet weak var lineView: UIView!
     @IBOutlet weak var pinEndView: UIView!
     
-     var _type: TypeTransport?
-     var _disruptionType: TypeDisruption?
+    var _type: TypeTransport?
+    var _disruptionType: TypeDisruption?
     
     var stations: [String] = [] {
         didSet {
             stationsIsHidden = true
-            displayStationStack()
+            updateStationStack()
         }
     }
     var stationStackView: UIStackView!
-    
-    enum TypeStep: String {
-        case departure
-        case arrival
-    }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         _setup()
     }
-    
-    
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -88,7 +80,6 @@ class PublicTransportView: UIView {
             }
         }
     }
-
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -99,6 +90,8 @@ class PublicTransportView: UIView {
         UINib(nibName: "PublicTransportView", bundle: bundle).instantiate(withOwner: self, options: nil)
         _view.frame = self.bounds
         addSubview(_view)
+
+        frame.size.height = destinationLabel.frame.height + destinationLabel.frame.origin.y + 15
         
         stationsIsHidden = true
         waitIsHidden = true
@@ -106,51 +99,22 @@ class PublicTransportView: UIView {
         disruptionIconTransportLabel.isHidden = true
         disruptionCircleLabel.isHidden = true
         
-        setHeight()
-        addStationStackView()
-        
-//
-////
-////        let s = UIStackView(frame: stationsView.bounds)
-////        s.axis = .vertical
-////        s.distribution = .fillEqually
-////        s.alignment = .fill
-////        s.spacing = 7
-////        s.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-////
-////
-////
-////
-////
-////        stationsView.addSubview(s)
-//
-//        let view1 = StationsView(frame: CGRect(x: 0, y: 0, width: stationsView.frame.size.width, height: 20))
-//        view1.stationColor = UIColor.purple
-//        view1.stationName = "Chatelet"
-//
-//
-//        let view2 = StationsView(frame: CGRect(x: 0, y: 0, width: stationsView.frame.size.width, height: 20))
-//        view2.stationColor = UIColor.purple
-//        view2.stationName = "Madelaine"
-//
-//        let view3 = StationsView(frame: CGRect(x: 0, y: 0, width: stationsView.frame.size.width, height: 20))
-//        view3.stationColor = UIColor.purple
-//        view3.stationName = "Pyramide"
-//
-//        stationStackView.addArrangedSubview(view1)
-//        stationStackView.addArrangedSubview(view2)
-//        stationStackView.addArrangedSubview(view3)
+        setupStationStackView()
     }
 
-    @IBAction func actiii(_ sender: Any) {
+    @IBAction func actionStationButton(_ sender: Any) {
         stationsIsHidden = !stationsView.isHidden
     }
     
     private func setHeight() {
         frame.size.height = destinationLabel.frame.height + destinationLabel.frame.origin.y + 15
     }
+
+}
+
+extension PublicTransportView {
     
-    private func addStationStackView() {
+    private func setupStationStackView() {
         stationStackView = UIStackView(frame: stationsView.bounds)
         stationStackView.axis = .vertical
         stationStackView.distribution = .fillEqually
@@ -160,8 +124,8 @@ class PublicTransportView: UIView {
         stationsView.addSubview(stationStackView)
     }
     
-    private func displayStationStack() {
-        stationsHeightContraint.constant = CGFloat(stations.count)  * 21
+    private func updateStationStack() {
+        stationsHeightContraint.constant = CGFloat(stations.count) * 21
         for station in stations {
             let view = StationsView(frame: CGRect(x: 0, y: 0, width: stationsView.frame.size.width, height: 20))
             view.stationColor = transportColor
@@ -169,7 +133,7 @@ class PublicTransportView: UIView {
             stationStackView.addArrangedSubview(view)
         }
     }
-
+    
 }
 
 extension PublicTransportView {
@@ -182,7 +146,18 @@ extension PublicTransportView {
             if let type = newValue {
                 _type = type
                 icon = type.rawValue
-                take = type.rawValue
+            }
+        }
+    }
+    
+    var typeString: String? {
+        get {
+            return _type?.rawValue
+        }
+        set {
+            if let newValue = newValue {
+                _type = TypeTransport(rawValue: newValue)
+                icon = newValue
             }
         }
     }
@@ -211,7 +186,7 @@ extension PublicTransportView {
         }
     }
 
-    var icon: String? {
+    private var icon: String? {
         get {
             return iconLabel.text
         }
@@ -249,8 +224,6 @@ extension PublicTransportView {
                 disruptionIconLabel.textColor = UIColor.red
                 disruptionTitleLabel.attributedText = NSMutableAttributedString()
                     .normal(newValue.rawValue, size: 12)
-                
-                
                 disruptionCircleLabel.attributedText = NSMutableAttributedString()
                     .icon("circle-filled", size: 15)
                 disruptionCircleLabel.textColor = UIColor.white
@@ -302,6 +275,30 @@ extension PublicTransportView {
                     .normal(newValue, size: 12)
                     .normal(" minutes", size: 12)
                 waitIsHidden = false
+            }
+        }
+    }
+    
+    var startTime: String? {
+        get {
+            return startTimeLabel.text
+        }
+        set {
+            if let newValue = newValue {
+                startTimeLabel.attributedText = NSMutableAttributedString()
+                    .normal(newValue, size: 12)
+            }
+        }
+    }
+    
+    var endTime: String? {
+        get {
+            return endTimeLabel.text
+        }
+        set {
+            if let newValue = newValue {
+                startTimeLabel.attributedText = NSMutableAttributedString()
+                    .normal(newValue, size: 12)
             }
         }
     }

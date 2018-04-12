@@ -17,9 +17,7 @@ class JourneySolutionCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var arrowLabel: UILabel!
     
     func setup(_ journey: Journey) {
-        arrowLabel.text = Icon("arrow-right").iconFontCode
-        arrowLabel.textColor = UIColor.red
-        arrowLabel.font = UIFont(name: "SDKIcons", size: 15)
+        _setupArrowIcon()
         
         if let departureDateTime = journey.departureDateTime?.toDate(format: "yyyyMMdd'T'HHmmss"),
             let arrivalDateTime = journey.arrivalDateTime?.toDate(format: "yyyyMMdd'T'HHmmss") {
@@ -42,8 +40,7 @@ class JourneySolutionCollectionViewCell: UICollectionViewCell {
     }
     
     func setupRidesharing(_ journey: Journey) {
-        arrowLabel.text = Icon("arrow-right").iconFontCode
-        arrowLabel.font = UIFont(name: "SDKIcons", size: 15)
+        _setupArrowIcon()
         
         if let departureDateTime = journey.departureDateTime?.toDate(format: "yyyyMMdd'T'HHmmss"),
             let arrivalDateTime = journey.arrivalDateTime?.toDate(format: "yyyyMMdd'T'HHmmss") {
@@ -58,6 +55,12 @@ class JourneySolutionCollectionViewCell: UICollectionViewCell {
         if durationWalkerLabel != nil {
             durationWalkerLabel.isHidden = true
         }
+    }
+    
+    private func _setupArrowIcon() {
+        arrowLabel.text = Icon("arrow-right").iconFontCode
+        arrowLabel.textColor = UIColor.red
+        arrowLabel.font = UIFont(name: "SDKIcons", size: 15)
     }
     
     private func formattedDateTime(_ departureDateTime: Date,_ arrivalDateTime: Date) {

@@ -33,69 +33,90 @@ open class JourneySolutionRoadmapViewController: UIViewController {
             scrollView?.contentInsetAdjustmentBehavior = .always
         }
         
-        let view = DepartureArrivalStepView(frame: CGRect(x: 0, y: 0, width: composentWidth, height: 70))
-        view.title = "Départ:"
-        view.information = "20 Rue Hector malot 75020 Paris"
-        view.type = .departure
-        addViewInScroll(view: view)
+        display()
         
         
-        let view1 = TransferStepView(frame: CGRect(x: 0, y: 0, width: composentWidth, height: 100))
-        view1.icon = "walking"
-        view1.lineOne = "Gare de Lyon (Paris)"
-        view1.lineTwo = "3 minutes de marche"
-        addViewInScroll(view: view1)
-        
-        let view2 = PublicTransportView(frame: CGRect(x: 0, y: 0, width: composentWidth, height: 100))
-        view2.type = .metro
-        view2.transportColor = UIColor.purple
-        view2.transportName = "14"
-        view2.waitTime = "2"
-        view2.origin = "Gare de Lyon (Paris)"
-        view2.directionTransit = "Saint-Lazare"
-        view2.destination = "Pyramides (Paris)"
-        view2.stations = ["Chatelet"TD
-        ]
-        addViewInScroll(view: view2)
-
-    
-        let view3 = TransferStepView(frame: CGRect(x: 0, y: 0, width: composentWidth, height: 100))
-        view3.icon = "walking"
-        view3.lineOne = "Pyramides (Paris)"
-        view3.lineTwo = "3 minutes de marche"
-        addViewInScroll(view: view3)
-        
-        
-        let view4 = PublicTransportView(frame: CGRect(x: 0, y: 0, width: composentWidth, height: 100))
-        view4.type = .bus
-        view4.transportColor = UIColor.blue
-        view4.transportName = "93"
-        view4.disruptionType = .blocking
-        view4.disruptionInformation = "Suite à un incident d’exploitation, le trafic est interrompu sur l’ensemble de la ligne."
-        view4.disruptionDate = "Du 01/08/17 au 17/08/17"
-        view4.waitTime = "7"
-        view4.origin = "Pyramides (Paris)"
-        view4.directionTransit = "Place de Clichy"
-        view4.destination = "Liege (Paris)"
-        view4.stations = ["Petits Champs",
-                          "Opéra - 4 septembre",
-                          "Opéra",
-                          "Haussmann",
-                          "Trinité"
-                            ]
-        addViewInScroll(view: view4)
-        
-        let view5 = TransferStepView(frame: CGRect(x: 0, y: 0, width: composentWidth, height: 100))
-        view5.icon = "walking"
-        view5.lineOne = "10 Rue de Milan (Paris)"
-        view5.lineTwo = "5 minutes de marche"
-        addViewInScroll(view: view5)
-        
-        let viewArrival = DepartureArrivalStepView(frame: CGRect(x: 0, y: 0, width: composentWidth, height: 70))
-        viewArrival.title = "Arrivée:"
-        viewArrival.information = "Ménilmontant 75020 Paris"
-        viewArrival.type = .arrival
-        addViewInScroll(view: viewArrival)
+//        let view = DepartureArrivalStepView(frame: CGRect(x: 0, y: 0, width: composentWidth, height: 70))
+//        view.title = "Départ:"
+//        view.information = "20 Rue Hector malot 75020 Paris"
+//        view.type = .departure
+//        addViewInScroll(view: view)
+//
+//        let viewWalk = TransferStepView(frame: CGRect(x: 0, y: 0, width: composentWidth, height: 100))
+//        viewWalk.icon = "walking"
+//        viewWalk.direction = "Hector Malot (Paris)"
+//        viewWalk.time = "1 minutes de marche"
+//        addViewInScroll(view: viewWalk)
+//
+//        let viewBike = BikeStepView(frame: CGRect(x: 0, y: 0, width: composentWidth, height: 100))
+//        viewBike.type = .bss
+//        viewBike.takeName = "Vélib'"
+//        viewBike.origin = "Hector Malot (Paris)"
+//        viewBike.destination = "Gare de Lyon - Parvis (Paris)"
+//        viewBike.time = "2"
+//        addViewInScroll(view: viewBike)
+//
+//        let view1 = TransferStepView(frame: CGRect(x: 0, y: 0, width: composentWidth, height: 100))
+//        view1.icon = "walking"
+//        view1.direction = "Gare de Lyon (Paris)"
+//        view1.time = "3 minutes de marche"
+//        addViewInScroll(view: view1)
+//
+//        let view2 = PublicTransportView(frame: CGRect(x: 0, y: 0, width: composentWidth, height: 100))
+//        view2.type = .metro
+//        view2.transportColor = UIColor.purple
+//        view2.transportName = "14"
+//        view2.waitTime = "2"
+//        view2.origin = "Gare de Lyon (Paris)"
+//        view2.directionTransit = "Saint-Lazare"
+//        view2.destination = "Pyramides (Paris)"
+//        view2.stations = ["Chatelet"
+//        ]
+//        addViewInScroll(view: view2)
+//
+//
+//        let view3 = TransferStepView(frame: CGRect(x: 0, y: 0, width: composentWidth, height: 100))
+//        view3.icon = "walking"
+//        view3.direction = "Pyramides (Paris)"
+//        view3.time = "3 minutes de marche"
+//        addViewInScroll(view: view3)
+//
+//
+//        let view4 = PublicTransportView(frame: CGRect(x: 0, y: 0, width: composentWidth, height: 100))
+//        view4.type = .bus
+//        view4.transportColor = UIColor.blue
+//        view4.transportName = "93"
+//        view4.disruptionType = .blocking
+//        view4.disruptionInformation = "Suite à un incident d’exploitation, le trafic est interrompu sur l’ensemble de la ligne."
+//        view4.disruptionDate = "Du 01/08/17 au 17/08/17"
+//        view4.waitTime = "7"
+//        view4.origin = "Pyramides (Paris)"
+//        view4.directionTransit = "Place de Clichy"
+//        view4.destination = "Liege (Paris)"
+//        view4.stations = ["Petits Champs",
+//                          "Opéra - 4 septembre",
+//                          "Opéra",
+//                          "Haussmann",
+//                          "Trinité",
+//                          "Petits Champs",
+//                          "Opéra - 4 septembre",
+//                          "Opéra",
+//                          "Haussmann",
+//                          "Trinité"
+//                            ]
+//        addViewInScroll(view: view4)
+//
+//        let view5 = TransferStepView(frame: CGRect(x: 0, y: 0, width: composentWidth, height: 100))
+//        view5.icon = "walking"
+//        view5.direction = "10 Rue de Milan (Paris)"
+//        view5.time = "5 minutes de marche"
+//        addViewInScroll(view: view5)
+//
+//        let viewArrival = DepartureArrivalStepView(frame: CGRect(x: 0, y: 0, width: composentWidth, height: 70))
+//        viewArrival.title = "Arrivée:"
+//        viewArrival.information = "Ménilmontant 75020 Paris"
+//        viewArrival.type = .arrival
+//        addViewInScroll(view: viewArrival)
 
     }
     
@@ -136,8 +157,7 @@ open class JourneySolutionRoadmapViewController: UIViewController {
     }
     
     func updateOriginViewScroll() {
-        print("Update")
-        for (index, view)  in viewScroll.enumerated() {
+        for (index, view) in viewScroll.enumerated() {
             if index == 0 {
                 view.frame.origin.y = marge
             } else {
@@ -149,6 +169,93 @@ open class JourneySolutionRoadmapViewController: UIViewController {
         if let last = viewScroll.last {
             scrollView.contentSize.height = last.frame.origin.y + last.frame.height + marge
         }
+    }
+    
+    private func display() {
+        
+        let viewDeparture = DepartureArrivalStepView(frame: CGRect(x: 0, y: 0, width: composentWidth, height: 70))
+        viewDeparture.information = journey?.sections?.first?.from?.name ?? ""
+        viewDeparture.time = journey?.departureDateTime?.toDate(format: "yyyyMMdd'T'HHmmss")?.toString(format: "HH:mm") ?? ""
+        viewDeparture.type = .departure
+        addViewInScroll(view: viewDeparture)
+
+        
+        if let sections = journey?.sections {
+            for (_ , section) in sections.enumerated() {
+                if let type = section.type {
+                    if type == "public_transport" {
+                        _displayPublicTransport(section)
+                    } else if type == "transfer" {
+                        let view = TransferStepView(frame: CGRect(x: 0, y: 0, width: composentWidth, height: 100))
+                        view.icon = section.transferType ?? ""
+                        view.direction = section.to?.name ?? ""
+                        view.time = section.duration?.toString(allowedUnits: [.minute])
+                        addViewInScroll(view: view)
+                    } else if type == "street_network" {
+                        if let mode = section.mode {
+                            if mode == "walking" || mode == "car" {
+                                let view = TransferStepView(frame: CGRect(x: 0, y: 0, width: composentWidth, height: 100))
+                                view.icon = mode
+                                view.direction = section.to?.name ?? ""
+                                view.time = section.duration?.toString(allowedUnits: [.hour, .minute])
+                                addViewInScroll(view: view)
+                            } else if mode == "ridesharing" {
+                                
+                            } else {
+                                let view = BikeStepView(frame: CGRect(x: 0, y: 0, width: composentWidth, height: 91))
+                                view.typeString = mode
+                                view.takeName = ""
+                                view.origin = section.from?.name ?? ""
+                                view.destination = section.to?.name ?? ""
+                                view.time = section.duration?.toString(allowedUnits: [.hour, .minute])
+                                addViewInScroll(view: view)
+                            }
+                        }
+                        
+                    }
+                }
+            }
+        }
+        
+        let viewArrival = DepartureArrivalStepView(frame: CGRect(x: 0, y: 0, width: composentWidth, height: 70))
+        viewArrival.information = journey?.sections?.last?.to?.name ?? ""
+        viewArrival.time = journey?.arrivalDateTime?.toDate(format: "yyyyMMdd'T'HHmmss")?.toString(format: "HH:mm") ?? ""
+        viewArrival.type = .arrival
+        addViewInScroll(view: viewArrival)
+    }
+    
+    
+    
+    private func _displayPublicTransport(_ section: Section) {
+        let view4 = PublicTransportView(frame: CGRect(x: 0, y: 0, width: composentWidth, height: 100))
+        view4.typeString = Modes().getModeIcon(section: section)
+        view4.take = section.displayInformations?.commercialMode ?? ""
+        view4.transportColor = section.displayInformations?.color?.toUIColor() ?? UIColor.black
+        view4.transportName = section.displayInformations?.label ?? ""
+        
+        // view4.disruptionType = .blocking
+        // view4.disruptionInformation = "Suite à un incident d’exploitation, le trafic est interrompu sur l’ensemble de la ligne."
+        // view4.disruptionDate = "Du 01/08/17 au 17/08/17"
+        // view4.waitTime = "7"
+        
+        view4.origin = section.from?.name ?? ""
+        view4.startTime = section.departureDateTime?.toDate(format: "yyyyMMdd'T'HHmmss")?.toString(format: "HH:mm") ?? ""
+        view4.directionTransit = section.displayInformations?.direction ?? ""
+        view4.destination = section.to?.name ?? ""
+        view4.endTime = section.arrivalDateTime?.toDate(format: "yyyyMMdd'T'HHmmss")?.toString(format: "HH:mm") ?? ""
+        
+        var tab: [String] = []
+        if let stopDateTimes = section.stopDateTimes {
+            for (index, stop) in stopDateTimes.enumerated() {
+                if let name = stop.stopPoint?.name {
+                    if index != 0 && index != (stopDateTimes.count - 1) {
+                        tab.append(name)
+                    }
+                }
+            }
+        }
+        view4.stations = tab
+        addViewInScroll(view: view4)
     }
     
 }

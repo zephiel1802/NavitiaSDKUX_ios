@@ -9,15 +9,29 @@
 import Foundation
 
 enum TypeTransport: String {
-    case metro
+    case bike
+    case ferry
+    case bss
     case bus
-    case tramway
     case car
-    case walk
+    case finecular
+    case metro
+    case localtrain
+    case rapidtransit
+    case longdistancetrain
+    case tramway
+    case walking
+    case ridesharing
+
 }
 
 enum TypeDisruption: String {
     case blocking
     case nonblocking
     case information
+}
+
+enum TypeStep: String {
+    case departure
+    case arrival
 }

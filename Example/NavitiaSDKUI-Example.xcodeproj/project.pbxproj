@@ -7,8 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		18CE099327D83F06831D01DB /* Pods_NavitiaSDKUI_ExampleUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01576863A5EF7E49ED7B8235 /* Pods_NavitiaSDKUI_ExampleUITests.framework */; };
-		3089F60496B814E62C147C72 /* Pods_NavitiaSDKUI_ExampleTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D5B26E56EC4E503FC19E733 /* Pods_NavitiaSDKUI_ExampleTests.framework */; };
+		511F2E03626CF45DE3A8D0C5 /* Pods_NavitiaSDKUI_ExampleTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EAC63EAD94B1663203ED8451 /* Pods_NavitiaSDKUI_ExampleTests.framework */; };
 		8451DA752065081600CFA1E4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8451DA742065081600CFA1E4 /* AppDelegate.swift */; };
 		8451DA772065081600CFA1E4 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8451DA762065081600CFA1E4 /* ViewController.swift */; };
 		8451DA7A2065081600CFA1E4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8451DA782065081600CFA1E4 /* Main.storyboard */; };
@@ -16,7 +15,8 @@
 		8451DA7F2065081600CFA1E4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8451DA7D2065081600CFA1E4 /* LaunchScreen.storyboard */; };
 		8451DA8A2065081600CFA1E4 /* NavitiaSDKUI_ExampleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8451DA892065081600CFA1E4 /* NavitiaSDKUI_ExampleTests.swift */; };
 		8451DA952065081600CFA1E4 /* NavitiaSDKUI_ExampleUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8451DA942065081600CFA1E4 /* NavitiaSDKUI_ExampleUITests.swift */; };
-		D24E701FB4F117288443FCF8 /* Pods_NavitiaSDKUI_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F99270DAEE0B23DD18F770A9 /* Pods_NavitiaSDKUI_Example.framework */; };
+		8C1D31458A9236B79D648460 /* Pods_NavitiaSDKUI_ExampleUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01E5ECE1364B355F30EC9358 /* Pods_NavitiaSDKUI_ExampleUITests.framework */; };
+		9B576ADE6F31E14F2A7B6763 /* Pods_NavitiaSDKUI_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D7F4320AA0BD524067882E0 /* Pods_NavitiaSDKUI_Example.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -37,11 +37,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		01576863A5EF7E49ED7B8235 /* Pods_NavitiaSDKUI_ExampleUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_NavitiaSDKUI_ExampleUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		15F595E265C8938851752A08 /* Pods-NavitiaSDKUI-Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NavitiaSDKUI-Example.release.xcconfig"; path = "Pods/Target Support Files/Pods-NavitiaSDKUI-Example/Pods-NavitiaSDKUI-Example.release.xcconfig"; sourceTree = "<group>"; };
-		491245CE4032ABED638F5507 /* Pods-NavitiaSDKUI-ExampleUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NavitiaSDKUI-ExampleUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-NavitiaSDKUI-ExampleUITests/Pods-NavitiaSDKUI-ExampleUITests.release.xcconfig"; sourceTree = "<group>"; };
-		5B7394397A248EAD95F3DB35 /* Pods-NavitiaSDKUI-Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NavitiaSDKUI-Example.debug.xcconfig"; path = "Pods/Target Support Files/Pods-NavitiaSDKUI-Example/Pods-NavitiaSDKUI-Example.debug.xcconfig"; sourceTree = "<group>"; };
-		7D5B26E56EC4E503FC19E733 /* Pods_NavitiaSDKUI_ExampleTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_NavitiaSDKUI_ExampleTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		01E5ECE1364B355F30EC9358 /* Pods_NavitiaSDKUI_ExampleUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_NavitiaSDKUI_ExampleUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		0222B4F183E8A1A15405D939 /* Pods-NavitiaSDKUI-ExampleTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NavitiaSDKUI-ExampleTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-NavitiaSDKUI-ExampleTests/Pods-NavitiaSDKUI-ExampleTests.debug.xcconfig"; sourceTree = "<group>"; };
+		1D7F4320AA0BD524067882E0 /* Pods_NavitiaSDKUI_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_NavitiaSDKUI_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		2FCFABD95899705A58C7BE03 /* Pods-NavitiaSDKUI-Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NavitiaSDKUI-Example.debug.xcconfig"; path = "Pods/Target Support Files/Pods-NavitiaSDKUI-Example/Pods-NavitiaSDKUI-Example.debug.xcconfig"; sourceTree = "<group>"; };
+		3BDC13CB9AE38CC6D1EAC5F7 /* Pods-NavitiaSDKUI-ExampleUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NavitiaSDKUI-ExampleUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-NavitiaSDKUI-ExampleUITests/Pods-NavitiaSDKUI-ExampleUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		56B51123B282C554FE4F17D6 /* Pods-NavitiaSDKUI-ExampleTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NavitiaSDKUI-ExampleTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-NavitiaSDKUI-ExampleTests/Pods-NavitiaSDKUI-ExampleTests.release.xcconfig"; sourceTree = "<group>"; };
 		8451DA712065081600CFA1E4 /* NavitiaSDKUI-Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "NavitiaSDKUI-Example.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8451DA742065081600CFA1E4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8451DA762065081600CFA1E4 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -55,10 +56,9 @@
 		8451DA902065081600CFA1E4 /* NavitiaSDKUI-ExampleUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "NavitiaSDKUI-ExampleUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8451DA942065081600CFA1E4 /* NavitiaSDKUI_ExampleUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavitiaSDKUI_ExampleUITests.swift; sourceTree = "<group>"; };
 		8451DA962065081600CFA1E4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		C85C16034814BD3EAE0D9099 /* Pods-NavitiaSDKUI-ExampleUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NavitiaSDKUI-ExampleUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-NavitiaSDKUI-ExampleUITests/Pods-NavitiaSDKUI-ExampleUITests.debug.xcconfig"; sourceTree = "<group>"; };
-		D4219F6BFD372D0823A7241F /* Pods-NavitiaSDKUI-ExampleTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NavitiaSDKUI-ExampleTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-NavitiaSDKUI-ExampleTests/Pods-NavitiaSDKUI-ExampleTests.release.xcconfig"; sourceTree = "<group>"; };
-		F99270DAEE0B23DD18F770A9 /* Pods_NavitiaSDKUI_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_NavitiaSDKUI_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		FE8B428EDF5B14F2C65702F1 /* Pods-NavitiaSDKUI-ExampleTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NavitiaSDKUI-ExampleTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-NavitiaSDKUI-ExampleTests/Pods-NavitiaSDKUI-ExampleTests.debug.xcconfig"; sourceTree = "<group>"; };
+		92EFAD14190B2A2D1959D1F0 /* Pods-NavitiaSDKUI-ExampleUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NavitiaSDKUI-ExampleUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-NavitiaSDKUI-ExampleUITests/Pods-NavitiaSDKUI-ExampleUITests.release.xcconfig"; sourceTree = "<group>"; };
+		C7261AD01C33D6E410E8FE08 /* Pods-NavitiaSDKUI-Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NavitiaSDKUI-Example.release.xcconfig"; path = "Pods/Target Support Files/Pods-NavitiaSDKUI-Example/Pods-NavitiaSDKUI-Example.release.xcconfig"; sourceTree = "<group>"; };
+		EAC63EAD94B1663203ED8451 /* Pods_NavitiaSDKUI_ExampleTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_NavitiaSDKUI_ExampleTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,7 +66,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D24E701FB4F117288443FCF8 /* Pods_NavitiaSDKUI_Example.framework in Frameworks */,
+				9B576ADE6F31E14F2A7B6763 /* Pods_NavitiaSDKUI_Example.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -74,7 +74,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3089F60496B814E62C147C72 /* Pods_NavitiaSDKUI_ExampleTests.framework in Frameworks */,
+				511F2E03626CF45DE3A8D0C5 /* Pods_NavitiaSDKUI_ExampleTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -82,26 +82,13 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				18CE099327D83F06831D01DB /* Pods_NavitiaSDKUI_ExampleUITests.framework in Frameworks */,
+				8C1D31458A9236B79D648460 /* Pods_NavitiaSDKUI_ExampleUITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		4A6550F52A2FDC34DB94EB34 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				5B7394397A248EAD95F3DB35 /* Pods-NavitiaSDKUI-Example.debug.xcconfig */,
-				15F595E265C8938851752A08 /* Pods-NavitiaSDKUI-Example.release.xcconfig */,
-				FE8B428EDF5B14F2C65702F1 /* Pods-NavitiaSDKUI-ExampleTests.debug.xcconfig */,
-				D4219F6BFD372D0823A7241F /* Pods-NavitiaSDKUI-ExampleTests.release.xcconfig */,
-				C85C16034814BD3EAE0D9099 /* Pods-NavitiaSDKUI-ExampleUITests.debug.xcconfig */,
-				491245CE4032ABED638F5507 /* Pods-NavitiaSDKUI-ExampleUITests.release.xcconfig */,
-			);
-			name = Pods;
-			sourceTree = "<group>";
-		};
 		8451DA682065081600CFA1E4 = {
 			isa = PBXGroup;
 			children = (
@@ -109,8 +96,8 @@
 				8451DA882065081600CFA1E4 /* NavitiaSDKUI-ExampleTests */,
 				8451DA932065081600CFA1E4 /* NavitiaSDKUI-ExampleUITests */,
 				8451DA722065081600CFA1E4 /* Products */,
-				4A6550F52A2FDC34DB94EB34 /* Pods */,
-				9B357FF64E4E57B7E31A4BDB /* Frameworks */,
+				E5404463E87C151FB932E27A /* Pods */,
+				C1A4B1F27CBDC0A63D2BED8A /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -155,14 +142,27 @@
 			path = "NavitiaSDKUI-ExampleUITests";
 			sourceTree = "<group>";
 		};
-		9B357FF64E4E57B7E31A4BDB /* Frameworks */ = {
+		C1A4B1F27CBDC0A63D2BED8A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				F99270DAEE0B23DD18F770A9 /* Pods_NavitiaSDKUI_Example.framework */,
-				7D5B26E56EC4E503FC19E733 /* Pods_NavitiaSDKUI_ExampleTests.framework */,
-				01576863A5EF7E49ED7B8235 /* Pods_NavitiaSDKUI_ExampleUITests.framework */,
+				1D7F4320AA0BD524067882E0 /* Pods_NavitiaSDKUI_Example.framework */,
+				EAC63EAD94B1663203ED8451 /* Pods_NavitiaSDKUI_ExampleTests.framework */,
+				01E5ECE1364B355F30EC9358 /* Pods_NavitiaSDKUI_ExampleUITests.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		E5404463E87C151FB932E27A /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				2FCFABD95899705A58C7BE03 /* Pods-NavitiaSDKUI-Example.debug.xcconfig */,
+				C7261AD01C33D6E410E8FE08 /* Pods-NavitiaSDKUI-Example.release.xcconfig */,
+				0222B4F183E8A1A15405D939 /* Pods-NavitiaSDKUI-ExampleTests.debug.xcconfig */,
+				56B51123B282C554FE4F17D6 /* Pods-NavitiaSDKUI-ExampleTests.release.xcconfig */,
+				3BDC13CB9AE38CC6D1EAC5F7 /* Pods-NavitiaSDKUI-ExampleUITests.debug.xcconfig */,
+				92EFAD14190B2A2D1959D1F0 /* Pods-NavitiaSDKUI-ExampleUITests.release.xcconfig */,
+			);
+			name = Pods;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -172,12 +172,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 8451DA992065081600CFA1E4 /* Build configuration list for PBXNativeTarget "NavitiaSDKUI-Example" */;
 			buildPhases = (
-				C7A9D960382419741DE07C73 /* [CP] Check Pods Manifest.lock */,
+				917639DCCEDAE90B08F8728A /* [CP] Check Pods Manifest.lock */,
 				8451DA6D2065081600CFA1E4 /* Sources */,
 				8451DA6E2065081600CFA1E4 /* Frameworks */,
 				8451DA6F2065081600CFA1E4 /* Resources */,
-				CC1540CCD087055737210CC1 /* [CP] Embed Pods Frameworks */,
-				8FC78B1EDE064873F68F4CCD /* [CP] Copy Pods Resources */,
+				44BE93CAD37F261F10363CF1 /* [CP] Embed Pods Frameworks */,
+				042B377394E0855C1176C647 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -192,12 +192,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 8451DA9C2065081600CFA1E4 /* Build configuration list for PBXNativeTarget "NavitiaSDKUI-ExampleTests" */;
 			buildPhases = (
-				062D49D97DE847F3CD8E7B34 /* [CP] Check Pods Manifest.lock */,
+				5A987A38DF4C0E45C786B2A3 /* [CP] Check Pods Manifest.lock */,
 				8451DA812065081600CFA1E4 /* Sources */,
 				8451DA822065081600CFA1E4 /* Frameworks */,
 				8451DA832065081600CFA1E4 /* Resources */,
-				42D8E92356A4A9C71CDE2794 /* [CP] Embed Pods Frameworks */,
-				BC3D9FC15A0C13FC64733E2D /* [CP] Copy Pods Resources */,
+				14017B55C33A88AC184E61ED /* [CP] Embed Pods Frameworks */,
+				B733AC90D6A69503EE0CD2BE /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -213,12 +213,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 8451DA9F2065081600CFA1E4 /* Build configuration list for PBXNativeTarget "NavitiaSDKUI-ExampleUITests" */;
 			buildPhases = (
-				5888A3E8B43D1202473589D6 /* [CP] Check Pods Manifest.lock */,
+				3EA777D49BFE185C46190C28 /* [CP] Check Pods Manifest.lock */,
 				8451DA8C2065081600CFA1E4 /* Sources */,
 				8451DA8D2065081600CFA1E4 /* Frameworks */,
 				8451DA8E2065081600CFA1E4 /* Resources */,
-				01E1675D921401316C2525F4 /* [CP] Embed Pods Frameworks */,
-				AFFFA963A4F7D4CBB4BEC6A4 /* [CP] Copy Pods Resources */,
+				56CAAF199C843640D6C378DA /* [CP] Embed Pods Frameworks */,
+				C5BFD510E9E37E11482824AB /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -304,43 +304,22 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		01E1675D921401316C2525F4 /* [CP] Embed Pods Frameworks */ = {
+		042B377394E0855C1176C647 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-NavitiaSDKUI-ExampleUITests/Pods-NavitiaSDKUI-ExampleUITests-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/NavitiaSDKUI/NavitiaSDKUI.framework",
 			);
-			name = "[CP] Embed Pods Frameworks";
+			name = "[CP] Copy Pods Resources";
 			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/NavitiaSDKUI.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-NavitiaSDKUI-ExampleUITests/Pods-NavitiaSDKUI-ExampleUITests-frameworks.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-NavitiaSDKUI-Example/Pods-NavitiaSDKUI-Example-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		062D49D97DE847F3CD8E7B34 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-NavitiaSDKUI-ExampleTests-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		42D8E92356A4A9C71CDE2794 /* [CP] Embed Pods Frameworks */ = {
+		14017B55C33A88AC184E61ED /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -358,7 +337,7 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-NavitiaSDKUI-ExampleTests/Pods-NavitiaSDKUI-ExampleTests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		5888A3E8B43D1202473589D6 /* [CP] Check Pods Manifest.lock */ = {
+		3EA777D49BFE185C46190C28 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -376,52 +355,61 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		8FC78B1EDE064873F68F4CCD /* [CP] Copy Pods Resources */ = {
+		44BE93CAD37F261F10363CF1 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-NavitiaSDKUI-Example/Pods-NavitiaSDKUI-Example-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/NavitiaSDKUI/NavitiaSDKUI.framework",
 			);
-			name = "[CP] Copy Pods Resources";
+			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/NavitiaSDKUI.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-NavitiaSDKUI-Example/Pods-NavitiaSDKUI-Example-resources.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-NavitiaSDKUI-Example/Pods-NavitiaSDKUI-Example-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		AFFFA963A4F7D4CBB4BEC6A4 /* [CP] Copy Pods Resources */ = {
+		56CAAF199C843640D6C378DA /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-NavitiaSDKUI-ExampleUITests/Pods-NavitiaSDKUI-ExampleUITests-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/NavitiaSDKUI/NavitiaSDKUI.framework",
 			);
-			name = "[CP] Copy Pods Resources";
+			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/NavitiaSDKUI.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-NavitiaSDKUI-ExampleUITests/Pods-NavitiaSDKUI-ExampleUITests-resources.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-NavitiaSDKUI-ExampleUITests/Pods-NavitiaSDKUI-ExampleUITests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		BC3D9FC15A0C13FC64733E2D /* [CP] Copy Pods Resources */ = {
+		5A987A38DF4C0E45C786B2A3 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
 			);
-			name = "[CP] Copy Pods Resources";
+			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-NavitiaSDKUI-ExampleTests-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-NavitiaSDKUI-ExampleTests/Pods-NavitiaSDKUI-ExampleTests-resources.sh\"\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		C7A9D960382419741DE07C73 /* [CP] Check Pods Manifest.lock */ = {
+		917639DCCEDAE90B08F8728A /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -439,22 +427,34 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		CC1540CCD087055737210CC1 /* [CP] Embed Pods Frameworks */ = {
+		B733AC90D6A69503EE0CD2BE /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-NavitiaSDKUI-Example/Pods-NavitiaSDKUI-Example-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/NavitiaSDKUI/NavitiaSDKUI.framework",
 			);
-			name = "[CP] Embed Pods Frameworks";
+			name = "[CP] Copy Pods Resources";
 			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/NavitiaSDKUI.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-NavitiaSDKUI-Example/Pods-NavitiaSDKUI-Example-frameworks.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-NavitiaSDKUI-ExampleTests/Pods-NavitiaSDKUI-ExampleTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		C5BFD510E9E37E11482824AB /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-NavitiaSDKUI-ExampleUITests/Pods-NavitiaSDKUI-ExampleUITests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -633,7 +633,7 @@
 		};
 		8451DA9A2065081600CFA1E4 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 5B7394397A248EAD95F3DB35 /* Pods-NavitiaSDKUI-Example.debug.xcconfig */;
+			baseConfigurationReference = 2FCFABD95899705A58C7BE03 /* Pods-NavitiaSDKUI-Example.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -649,7 +649,7 @@
 		};
 		8451DA9B2065081600CFA1E4 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 15F595E265C8938851752A08 /* Pods-NavitiaSDKUI-Example.release.xcconfig */;
+			baseConfigurationReference = C7261AD01C33D6E410E8FE08 /* Pods-NavitiaSDKUI-Example.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -665,7 +665,7 @@
 		};
 		8451DA9D2065081600CFA1E4 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = FE8B428EDF5B14F2C65702F1 /* Pods-NavitiaSDKUI-ExampleTests.debug.xcconfig */;
+			baseConfigurationReference = 0222B4F183E8A1A15405D939 /* Pods-NavitiaSDKUI-ExampleTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -682,7 +682,7 @@
 		};
 		8451DA9E2065081600CFA1E4 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = D4219F6BFD372D0823A7241F /* Pods-NavitiaSDKUI-ExampleTests.release.xcconfig */;
+			baseConfigurationReference = 56B51123B282C554FE4F17D6 /* Pods-NavitiaSDKUI-ExampleTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -699,7 +699,7 @@
 		};
 		8451DAA02065081600CFA1E4 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = C85C16034814BD3EAE0D9099 /* Pods-NavitiaSDKUI-ExampleUITests.debug.xcconfig */;
+			baseConfigurationReference = 3BDC13CB9AE38CC6D1EAC5F7 /* Pods-NavitiaSDKUI-ExampleUITests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
@@ -715,7 +715,7 @@
 		};
 		8451DAA12065081600CFA1E4 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 491245CE4032ABED638F5507 /* Pods-NavitiaSDKUI-ExampleUITests.release.xcconfig */;
+			baseConfigurationReference = 92EFAD14190B2A2D1959D1F0 /* Pods-NavitiaSDKUI-ExampleUITests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;

@@ -63,18 +63,20 @@ open class JourneySolutionViewController: UIViewController {
             collectionView?.contentInsetAdjustmentBehavior = .always
         }
 
-        setupInterface()
+        _setupInterface()
         registerCollectionView()
 
         // Request
         _viewModel = JourneySolutionViewModel()
         _viewModel.request(with: inParameters)
   
-        if let count = navigationController?.viewControllers.count {
-            if count == 1 {
-                print("mettre le back")
-            }
-        }
+//        A voir dans une évolution
+//
+//        if let count = navigationController?.viewControllers.count {
+//            if count == 1 {
+//                print("mettre le back")
+//            }
+//        }
     }
     
     override open func viewWillLayoutSubviews() {
@@ -99,15 +101,18 @@ open class JourneySolutionViewController: UIViewController {
         collectionView.register(UINib(nibName: JourneyHeaderCollectionReusableView.identifier, bundle: self.nibBundle), forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: JourneyHeaderCollectionReusableView.identifier)
     }
     
-    private func setupInterface() {
+    private func _setupInterface() {
         navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarPosition.any, barMetrics: UIBarMetrics.default)
         navigationController?.navigationBar.shadowImage = UIImage()
         
         if let backgroundColor = navigationController?.navigationBar.barTintColor {
             searchView.backgroundColor = backgroundColor
         }
-
         
+        _setupFromTo()
+    }
+    
+    private func _setupFromTo() {
         fromLabel.text = inParameters.originLabel
         fromPinLabel.text = Icon("location-pin").iconFontCode
         fromPinLabel.font = UIFont(name: "SDKIcons", size: 22)
