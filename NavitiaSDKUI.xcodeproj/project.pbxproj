@@ -23,6 +23,10 @@
 		8433F396207F4608007DBBCE /* BikeStepView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8433F395207F4608007DBBCE /* BikeStepView.xib */; };
 		8433F398207F47E0007DBBCE /* BikeStepView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8433F397207F47E0007DBBCE /* BikeStepView.swift */; };
 		8433F39A207F47F0007DBBCE /* DepartureArrivalStepView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8433F399207F47F0007DBBCE /* DepartureArrivalStepView.swift */; };
+		8433F39C207F89C0007DBBCE /* RidesharingView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8433F39B207F89C0007DBBCE /* RidesharingView.xib */; };
+		8433F39E207F8E14007DBBCE /* RidesharingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8433F39D207F8E14007DBBCE /* RidesharingView.swift */; };
+		8433F3A0207FAECF007DBBCE /* AlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8433F39F207FAECF007DBBCE /* AlertViewController.swift */; };
+		8433F3A2207FAF23007DBBCE /* AlertView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8433F3A1207FAF22007DBBCE /* AlertView.xib */; };
 		8451DA44206503F100CFA1E4 /* NavitiaSDKUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8451DA3A206503F100CFA1E4 /* NavitiaSDKUI.framework */; };
 		8451DA49206503F100CFA1E4 /* NavitiaSDKUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8451DA48206503F100CFA1E4 /* NavitiaSDKUITests.swift */; };
 		8451DA4B206503F100CFA1E4 /* NavitiaSDKUI.h in Headers */ = {isa = PBXBuildFile; fileRef = 8451DA3D206503F100CFA1E4 /* NavitiaSDKUI.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -295,6 +299,10 @@
 		8433F395207F4608007DBBCE /* BikeStepView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BikeStepView.xib; sourceTree = "<group>"; };
 		8433F397207F47E0007DBBCE /* BikeStepView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BikeStepView.swift; sourceTree = "<group>"; };
 		8433F399207F47F0007DBBCE /* DepartureArrivalStepView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DepartureArrivalStepView.swift; sourceTree = "<group>"; };
+		8433F39B207F89C0007DBBCE /* RidesharingView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RidesharingView.xib; sourceTree = "<group>"; };
+		8433F39D207F8E14007DBBCE /* RidesharingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RidesharingView.swift; sourceTree = "<group>"; };
+		8433F39F207FAECF007DBBCE /* AlertViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertViewController.swift; sourceTree = "<group>"; };
+		8433F3A1207FAF22007DBBCE /* AlertView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AlertView.xib; sourceTree = "<group>"; };
 		8451DA3A206503F100CFA1E4 /* NavitiaSDKUI.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = NavitiaSDKUI.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8451DA3D206503F100CFA1E4 /* NavitiaSDKUI.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NavitiaSDKUI.h; sourceTree = "<group>"; };
 		8451DA3E206503F100CFA1E4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -576,6 +584,7 @@
 		8422B462206A30200097E6C9 /* Interface */ = {
 			isa = PBXGroup;
 			children = (
+				8433F3A1207FAF22007DBBCE /* AlertView.xib */,
 				8422B469206A33540097E6C9 /* JourneySummaryView.xib */,
 				8422B463206A30300097E6C9 /* JourneySummaryPartView.xib */,
 				84E350F820776F1100E9BA46 /* DisruptionStepView.xib */,
@@ -715,6 +724,7 @@
 			children = (
 				8422B461206A30180097E6C9 /* View */,
 				8422B462206A30200097E6C9 /* Interface */,
+				8433F39F207FAECF007DBBCE /* AlertViewController.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -799,6 +809,7 @@
 				848D7C2B207B95B0002E9B1A /* PublicTransportView.swift */,
 				84EBF8CA207CF86500053E61 /* TransferStepView.swift */,
 				8433F397207F47E0007DBBCE /* BikeStepView.swift */,
+				8433F39D207F8E14007DBBCE /* RidesharingView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -829,6 +840,7 @@
 				848D7C29207B92D4002E9B1A /* PublicTransportView.xib */,
 				84E350F420776BC600E9BA46 /* TransferStepView.xib */,
 				8433F395207F4608007DBBCE /* BikeStepView.xib */,
+				8433F39B207F89C0007DBBCE /* RidesharingView.xib */,
 			);
 			path = Interface;
 			sourceTree = "<group>";
@@ -1226,6 +1238,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				848D7C2A207B92D4002E9B1A /* PublicTransportView.xib in Resources */,
+				8433F39C207F89C0007DBBCE /* RidesharingView.xib in Resources */,
 				84BC297E207E66CC0073F198 /* StationsView.xib in Resources */,
 				8451DAC32065338B00CFA1E4 /* Journey.storyboard in Resources */,
 				84E350F920776F1100E9BA46 /* DisruptionStepView.xib in Resources */,
@@ -1239,6 +1252,7 @@
 				8422B46A206A33540097E6C9 /* JourneySummaryView.xib in Resources */,
 				8422B45B206A242D0097E6C9 /* JourneyHeaderCollectionReusableView.xib in Resources */,
 				8454D44E20692CA200C97D2F /* SDKIcons.ttf in Resources */,
+				8433F3A2207FAF23007DBBCE /* AlertView.xib in Resources */,
 				84339A7E206CC5E200F2CB65 /* JourneyEmptySolutionCollectionViewCell.xib in Resources */,
 				8451DA63206506ED00CFA1E4 /* Localizable.strings in Resources */,
 				84E350F520776BC600E9BA46 /* TransferStepView.xib in Resources */,
@@ -1386,6 +1400,7 @@
 				8454D4212068D3A800C97D2F /* Request.swift in Sources */,
 				8454D3A42068D3A800C97D2F /* JourneyPatternPoint.swift in Sources */,
 				8454D4382068D3A800C97D2F /* TransformOperators.swift in Sources */,
+				8433F3A0207FAECF007DBBCE /* AlertViewController.swift in Sources */,
 				8454D3C22068D3A800C97D2F /* Message.swift in Sources */,
 				8454D4022068D3A800C97D2F /* RouteSchedule.swift in Sources */,
 				8454D41B2068D3A800C97D2F /* ParameterEncoding.swift in Sources */,
@@ -1444,6 +1459,7 @@
 				8454D4402068D3A800C97D2F /* TransformOf.swift in Sources */,
 				8454D3EF2068D3A800C97D2F /* Contributors.swift in Sources */,
 				8454D3E32068D3A800C97D2F /* Disruption.swift in Sources */,
+				8433F39E207F8E14007DBBCE /* RidesharingView.swift in Sources */,
 				8454D3A72068D3A800C97D2F /* Severity.swift in Sources */,
 				8454D4112068D3A800C97D2F /* Pois.swift in Sources */,
 				8451DAAA20650C9200CFA1E4 /* JourneySolutionRoadmapViewController.swift in Sources */,

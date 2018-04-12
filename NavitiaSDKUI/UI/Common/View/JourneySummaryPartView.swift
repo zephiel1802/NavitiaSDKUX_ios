@@ -86,7 +86,7 @@ extension JourneySummaryPartView {
         }
         set {
             if let newValue = newValue {
-                if newValue == "walking" || newValue == "bss" || newValue == "car" {
+                if newValue == "walking" || newValue == "bss" || newValue == "car" || newValue == "ridesharing" {
                     _tagTransportView.isHidden = true
                     _tagTransportLabel.isHidden = true
                 }

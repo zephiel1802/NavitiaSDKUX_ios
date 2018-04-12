@@ -23,6 +23,9 @@ open class JourneySolutionRoadmapViewController: UIViewController {
     var ridesharingJourney: Journey?
     var intermediatePointsCircles = [MKCircle]()
     
+    var ridesharing: Bool = false
+    var ridesharingView: RidesharingView!
+    
     override open func viewDidLoad() {
         super.viewDidLoad()
         self.setupMapView()
@@ -173,6 +176,13 @@ open class JourneySolutionRoadmapViewController: UIViewController {
     
     private func display() {
         
+        if ridesharing {
+            print(composentWidth)
+            print(updateWidth())
+            ridesharingView = RidesharingView(frame: CGRect(x: 0, y: 0, width: 0, height: 260))
+            addViewInScroll(view: ridesharingView)
+        }
+        
         let viewDeparture = DepartureArrivalStepView(frame: CGRect(x: 0, y: 0, width: composentWidth, height: 70))
         viewDeparture.information = journey?.sections?.first?.from?.name ?? ""
         viewDeparture.time = journey?.departureDateTime?.toDate(format: "yyyyMMdd'T'HHmmss")?.toString(format: "HH:mm") ?? ""
@@ -199,8 +209,6 @@ open class JourneySolutionRoadmapViewController: UIViewController {
                                 view.direction = section.to?.name ?? ""
                                 view.time = section.duration?.toString(allowedUnits: [.hour, .minute])
                                 addViewInScroll(view: view)
-                            } else if mode == "ridesharing" {
-                                
                             } else {
                                 let view = BikeStepView(frame: CGRect(x: 0, y: 0, width: composentWidth, height: 91))
                                 view.typeString = mode
@@ -209,6 +217,17 @@ open class JourneySolutionRoadmapViewController: UIViewController {
                                 view.destination = section.to?.name ?? ""
                                 view.time = section.duration?.toString(allowedUnits: [.hour, .minute])
                                 addViewInScroll(view: view)
+                                if mode == "ridesharing" {
+                                    ridesharingView.title = section.ridesharingJourneys?[0].sections?[1].ridesharingInformations?._operator ?? ""
+                                    ridesharingView.startDate = section.ridesharingJourneys?[0].sections?[1].departureDateTime?.toDate(format: "yyyyMMdd'T'HHmmss")?.toString(format: "HH:mm") ?? ""
+                                    ridesharingView.login = section.ridesharingJourneys?[0].sections?[1].ridesharingInformations?.driver?.alias ?? ""
+                                    ridesharingView.gender = section.ridesharingJourneys?[0].sections?[1].ridesharingInformations?.driver?.gender ?? ""
+                                    ridesharingView.addressFrom = section.ridesharingJourneys?[0].sections?[1].from?.name ?? ""
+                                    ridesharingView.addressTo = section.ridesharingJourneys?[0].sections?[1].to?.name ?? ""
+                                    ridesharingView.seatCount = section.ridesharingJourneys?[0].sections?[1].ridesharingInformations?.seats?.available?.toString() ?? ""
+                                    ridesharingView.price = section.ridesharingJourneys?[0].fare?.total?.value ?? ""
+                                    print(section.ridesharingJourneys?[0].sections?[1].links?[0].href ?? "")
+                                }
                             }
                         }
                         
@@ -226,7 +245,7 @@ open class JourneySolutionRoadmapViewController: UIViewController {
     
     
     
-    private func _displayPublicTransport(_ section: Section) {
+    func _displayPublicTransport(_ section: Section) {
         let view4 = PublicTransportView(frame: CGRect(x: 0, y: 0, width: composentWidth, height: 100))
         view4.typeString = Modes().getModeIcon(section: section)
         view4.take = section.displayInformations?.commercialMode ?? ""

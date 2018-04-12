@@ -114,7 +114,7 @@ class PublicTransportView: UIView {
 
 extension PublicTransportView {
     
-    private func setupStationStackView() {
+    func setupStationStackView() {
         stationStackView = UIStackView(frame: stationsView.bounds)
         stationStackView.axis = .vertical
         stationStackView.distribution = .fillEqually
@@ -124,7 +124,7 @@ extension PublicTransportView {
         stationsView.addSubview(stationStackView)
     }
     
-    private func updateStationStack() {
+    func updateStationStack() {
         stationsHeightContraint.constant = CGFloat(stations.count) * 21
         for station in stations {
             let view = StationsView(frame: CGRect(x: 0, y: 0, width: stationsView.frame.size.width, height: 20))
@@ -297,7 +297,7 @@ extension PublicTransportView {
         }
         set {
             if let newValue = newValue {
-                startTimeLabel.attributedText = NSMutableAttributedString()
+                endTimeLabel.attributedText = NSMutableAttributedString()
                     .normal(newValue, size: 12)
             }
         }

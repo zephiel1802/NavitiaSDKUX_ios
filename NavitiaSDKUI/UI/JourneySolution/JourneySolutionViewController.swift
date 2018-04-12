@@ -194,7 +194,8 @@ extension JourneySolutionViewController: UICollectionViewDelegate {
         if !_viewModel.loading {
             let viewController = storyboard?.instantiateViewController(withIdentifier: "journeySolutionRoadmapViewController") as! JourneySolutionRoadmapViewController
             if indexPath.section == 1 {
-                viewController.ridesharingJourney = _viewModel.journeysRidesharing[indexPath.row]
+                viewController.journey = _viewModel.journeysRidesharing[indexPath.row]
+                viewController.ridesharing = true
             } else {
                 viewController.journey = _viewModel.journeys[indexPath.row]
             }

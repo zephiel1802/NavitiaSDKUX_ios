@@ -49,7 +49,7 @@ class BikeStepView: UIView {
         
     }
     
-    private func setHeight() {
+    func setHeight() {
         frame.size.height = timeLabel.frame.size.height + timeLabel.frame.origin.y + 10
     }
 
