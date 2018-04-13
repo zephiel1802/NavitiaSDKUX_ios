@@ -969,8 +969,8 @@ open class JourneysRequestBuilder: NSObject {
         url?.queryItems = APIHelper.mapValuesToQueryItems(values: paramValues)
         url?.percentEncodedQuery = url?.percentEncodedQuery?.replacingOccurrences(of: "+", with: "%2B")
 
-        return "http://navitia2-ws.ctp.dev.canaltp.fr/v1/coverage/fr-nw-rennes/journeys?from=-1.67782%3B48.10972&to=-1.74854%3B48.02231&first_section_mode%5B%5D=ridesharing&first_section_mode%5B%5D=walking&last_section_mode%5B%5D=ridesharing&last_section_mode%5B%5D=walking&datetime=20180202T080000&"
-       // return (url?.string ?? URLString)
+       // return "http://navitia2-ws.ctp.dev.canaltp.fr/v1/coverage/fr-nw-rennes/journeys?from=-1.67782%3B48.10972&to=-1.74854%3B48.02231&first_section_mode%5B%5D=ridesharing&first_section_mode%5B%5D=walking&last_section_mode%5B%5D=ridesharing&last_section_mode%5B%5D=walking&datetime=20180202T080000&"
+        return (url?.string ?? URLString)
     }
 
     open func get(completion: @escaping ((_ data: Journeys?,_ error: Error?) -> Void)) {
