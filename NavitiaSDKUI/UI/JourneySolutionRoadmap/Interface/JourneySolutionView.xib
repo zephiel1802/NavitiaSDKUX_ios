@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="JourneySolutionView" customModule="NavitiaSDKUI" customModuleProvider="target">
+            <connections>
+                <outlet property="_view" destination="iN0-l3-epB" id="WEc-2w-8G2"/>
+                <outlet property="dateTimeLabel" destination="UUD-7C-Phi" id="pd0-So-lUc"/>
+                <outlet property="durationBottomContraint" destination="XM9-9P-7fu" id="ENi-cg-C32"/>
+                <outlet property="durationLabel" destination="Ytc-Wb-FnP" id="VtO-l4-2lr"/>
+                <outlet property="durationLeadingContraint" destination="T5a-xB-QQx" id="fXy-x3-yDP"/>
+                <outlet property="durationTopContraint" destination="Y2D-JI-w6V" id="qho-lF-3mv"/>
+                <outlet property="durationWalkerLabel" destination="3U9-RU-4ac" id="9Vb-JK-xkn"/>
+                <outlet property="journeySummaryView" destination="GEM-rR-i2b" id="2cg-zd-oQP"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="300" height="130"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="O7R-o7-86U">
+                    <rect key="frame" x="10" y="32.5" width="280" height="1"/>
+                    <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="1" id="gLk-04-KsC"/>
+                    </constraints>
+                </view>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="19:30 - 20:06" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UUD-7C-Phi">
+                    <rect key="frame" x="10" y="10" width="78" height="13"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="30 min" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ytc-Wb-FnP">
+                    <rect key="frame" x="251" y="10" width="39" height="14.5"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="Dont 8 min à pied (910m)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3U9-RU-4ac">
+                    <rect key="frame" x="10" y="100.5" width="144" height="14.5"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GEM-rR-i2b" customClass="JourneySummaryView" customModule="NavitiaSDKUI" customModuleProvider="target">
+                    <rect key="frame" x="10" y="43.5" width="280" height="42"/>
+                    <color key="backgroundColor" white="0.46188616069999999" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="42" id="cNN-2j-ZPt"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="UUD-7C-Phi" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="10" id="49i-9v-NdE"/>
+                <constraint firstItem="Ytc-Wb-FnP" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="10" id="DsS-hs-1fJ"/>
+                <constraint firstItem="GEM-rR-i2b" firstAttribute="top" secondItem="O7R-o7-86U" secondAttribute="bottom" constant="10" id="SdO-NM-97U"/>
+                <constraint firstItem="3U9-RU-4ac" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="10" id="T5a-xB-QQx"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="Ytc-Wb-FnP" secondAttribute="trailing" constant="10" id="Ubs-m1-iLj"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="GEM-rR-i2b" secondAttribute="bottom" priority="500" constant="10" id="Uek-wP-2WK"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="3U9-RU-4ac" secondAttribute="bottom" constant="15" id="XM9-9P-7fu"/>
+                <constraint firstItem="3U9-RU-4ac" firstAttribute="top" secondItem="GEM-rR-i2b" secondAttribute="bottom" constant="15" id="Y2D-JI-w6V"/>
+                <constraint firstItem="O7R-o7-86U" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="10" id="ZtM-1w-sHN"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="GEM-rR-i2b" secondAttribute="trailing" priority="999" constant="10" id="cz6-RD-u1D"/>
+                <constraint firstItem="GEM-rR-i2b" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="10" id="nSe-1T-LFC"/>
+                <constraint firstItem="O7R-o7-86U" firstAttribute="top" secondItem="UUD-7C-Phi" secondAttribute="bottom" constant="10" id="pBa-61-URU"/>
+                <constraint firstAttribute="trailing" secondItem="O7R-o7-86U" secondAttribute="trailing" priority="999" constant="10" id="sVs-dA-4aA"/>
+                <constraint firstItem="UUD-7C-Phi" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="10" id="xeV-qD-5oG"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <point key="canvasLocation" x="-14" y="-204"/>
+        </view>
+    </objects>
+</document>

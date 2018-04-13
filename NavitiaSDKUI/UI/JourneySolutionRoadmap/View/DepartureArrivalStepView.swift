@@ -67,10 +67,10 @@ extension DepartureArrivalStepView {
         set {
             _type = newValue
             if newValue == .departure {
-                self._view.backgroundColor = UIColor(red:0, green:0.73, blue:0.46, alpha:1.0)
+                self._view.backgroundColor = NavitiaSDKUIConfig.shared.color.origin
                 title = "Départ:"
             } else {
-                self._view.backgroundColor = UIColor(red:0.69, green:0.01, blue:0.33, alpha:1.0)
+                self._view.backgroundColor = NavitiaSDKUIConfig.shared.color.destination
                 title = "Arrivée:"
             }
         }

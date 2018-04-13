@@ -28,4 +28,8 @@ extension Int32 {
         return String(format: format, tmp / 1000)
     }
     
+    func minuteToString() -> String {
+        return String(self / 60)
+    }
+    
 }

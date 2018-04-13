@@ -6,7 +6,6 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
-        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -84,7 +83,7 @@
                                     <constraint firstItem="WZS-es-G4Y" firstAttribute="top" secondItem="V0r-kK-JZJ" secondAttribute="top" constant="13" id="y59-NP-RbR"/>
                                 </constraints>
                             </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Départ : Ven. 21 Jui. - 13:30" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7s5-gx-cJB">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7s5-gx-cJB">
                                 <rect key="frame" x="54" y="155" width="704" height="14"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -151,13 +150,13 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="b4l-6W-DHd">
-                                <rect key="frame" x="0.0" y="31.999999999999986" width="812" height="239.66666666666663"/>
+                                <rect key="frame" x="0.0" y="32" width="812" height="171.66666666666666"/>
                                 <connections>
                                     <outlet property="delegate" destination="z4Z-Pd-Lif" id="ubg-bG-db4"/>
                                 </connections>
                             </mapView>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="X3m-G1-NsD">
-                                <rect key="frame" x="0.0" y="136" width="812" height="239"/>
+                                <rect key="frame" x="0.0" y="203.66666666666663" width="812" height="171.33333333333337"/>
                                 <color key="backgroundColor" red="0.93725490196078431" green="0.93725490196078431" blue="0.93725490196078431" alpha="1" colorSpace="calibratedRGB"/>
                             </scrollView>
                         </subviews>
@@ -169,7 +168,7 @@
                             <constraint firstItem="X3m-G1-NsD" firstAttribute="bottom" secondItem="jJw-gq-5GI" secondAttribute="bottom" id="CeV-0T-ZWi"/>
                             <constraint firstItem="b4l-6W-DHd" firstAttribute="top" secondItem="HfL-JU-5ET" secondAttribute="top" id="NHL-vB-r31"/>
                             <constraint firstAttribute="trailing" secondItem="X3m-G1-NsD" secondAttribute="trailing" id="PjE-DR-yLn"/>
-                            <constraint firstItem="X3m-G1-NsD" firstAttribute="top" secondItem="b4l-6W-DHd" secondAttribute="bottom" multiplier="0.5" id="cM9-NT-Wnr"/>
+                            <constraint firstItem="X3m-G1-NsD" firstAttribute="top" secondItem="b4l-6W-DHd" secondAttribute="bottom" id="cM9-NT-Wnr"/>
                             <constraint firstAttribute="trailing" secondItem="b4l-6W-DHd" secondAttribute="trailing" id="kaR-ob-xCB"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="HfL-JU-5ET"/>

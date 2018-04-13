@@ -259,6 +259,10 @@
 		8454D4502069429500C97D2F /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8454D44F2069429500C97D2F /* String+Extension.swift */; };
 		8454D452206942B800C97D2F /* Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8454D451206942B800C97D2F /* Date+Extension.swift */; };
 		846B185120775479005D4A9B /* DepartureArrivalStepView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 846B185020775479005D4A9B /* DepartureArrivalStepView.xib */; };
+		8471D38320809EAD000C9125 /* JourneySolutionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8471D38220809EAD000C9125 /* JourneySolutionView.xib */; };
+		8471D38520809EC7000C9125 /* JourneySolutionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8471D38420809EC7000C9125 /* JourneySolutionView.swift */; };
+		8471D3872080A0DD000C9125 /* Checkbox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8471D3862080A0DC000C9125 /* Checkbox.swift */; };
+		8471D3892080CD85000C9125 /* ColorHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8471D3882080CD85000C9125 /* ColorHelper.swift */; };
 		848D7C2A207B92D4002E9B1A /* PublicTransportView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 848D7C29207B92D4002E9B1A /* PublicTransportView.xib */; };
 		848D7C2C207B95B0002E9B1A /* PublicTransportView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848D7C2B207B95B0002E9B1A /* PublicTransportView.swift */; };
 		84BC297E207E66CC0073F198 /* StationsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84BC297D207E66CC0073F198 /* StationsView.xib */; };
@@ -539,6 +543,10 @@
 		8454D44F2069429500C97D2F /* String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
 		8454D451206942B800C97D2F /* Date+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extension.swift"; sourceTree = "<group>"; };
 		846B185020775479005D4A9B /* DepartureArrivalStepView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DepartureArrivalStepView.xib; sourceTree = "<group>"; };
+		8471D38220809EAD000C9125 /* JourneySolutionView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = JourneySolutionView.xib; sourceTree = "<group>"; };
+		8471D38420809EC7000C9125 /* JourneySolutionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JourneySolutionView.swift; sourceTree = "<group>"; };
+		8471D3862080A0DC000C9125 /* Checkbox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Checkbox.swift; sourceTree = "<group>"; };
+		8471D3882080CD85000C9125 /* ColorHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorHelper.swift; sourceTree = "<group>"; };
 		848D7C29207B92D4002E9B1A /* PublicTransportView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PublicTransportView.xib; sourceTree = "<group>"; };
 		848D7C2B207B95B0002E9B1A /* PublicTransportView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublicTransportView.swift; sourceTree = "<group>"; };
 		84BC297D207E66CC0073F198 /* StationsView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = StationsView.xib; sourceTree = "<group>"; };
@@ -649,6 +657,7 @@
 			isa = PBXGroup;
 			children = (
 				8454D2922068D3A700C97D2F /* NavitiaSDK */,
+				8471D3862080A0DC000C9125 /* Checkbox.swift */,
 			);
 			path = Lib;
 			sourceTree = "<group>";
@@ -774,6 +783,7 @@
 			isa = PBXGroup;
 			children = (
 				8422B46B206A37610097E6C9 /* TransportHelper.swift */,
+				8471D3882080CD85000C9125 /* ColorHelper.swift */,
 			);
 			path = Helper;
 			sourceTree = "<group>";
@@ -810,6 +820,7 @@
 				84EBF8CA207CF86500053E61 /* TransferStepView.swift */,
 				8433F397207F47E0007DBBCE /* BikeStepView.swift */,
 				8433F39D207F8E14007DBBCE /* RidesharingView.swift */,
+				8471D38420809EC7000C9125 /* JourneySolutionView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -841,6 +852,7 @@
 				84E350F420776BC600E9BA46 /* TransferStepView.xib */,
 				8433F395207F4608007DBBCE /* BikeStepView.xib */,
 				8433F39B207F89C0007DBBCE /* RidesharingView.xib */,
+				8471D38220809EAD000C9125 /* JourneySolutionView.xib */,
 			);
 			path = Interface;
 			sourceTree = "<group>";
@@ -1237,6 +1249,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8471D38320809EAD000C9125 /* JourneySolutionView.xib in Resources */,
 				848D7C2A207B92D4002E9B1A /* PublicTransportView.xib in Resources */,
 				8433F39C207F89C0007DBBCE /* RidesharingView.xib in Resources */,
 				84BC297E207E66CC0073F198 /* StationsView.xib in Resources */,
@@ -1290,6 +1303,7 @@
 				8454D3C92068D3A800C97D2F /* Admin.swift in Sources */,
 				8454D42F2068D3A800C97D2F /* NSDecimalNumberTransform.swift in Sources */,
 				8451DAB0206512C100CFA1E4 /* JourneySolutionViewModel.swift in Sources */,
+				8471D3892080CD85000C9125 /* ColorHelper.swift in Sources */,
 				8454D3DE2068D3A800C97D2F /* Header.swift in Sources */,
 				8454D4192068D3A800C97D2F /* DispatchQueue+Alamofire.swift in Sources */,
 				8454D4092068D3A800C97D2F /* Networks.swift in Sources */,
@@ -1497,6 +1511,7 @@
 				8454D3E62068D3A800C97D2F /* CellLatSchema.swift in Sources */,
 				8454D3872068D3A800C97D2F /* LineGroupsApi.swift in Sources */,
 				8454D40E2068D3A800C97D2F /* Datasets.swift in Sources */,
+				8471D3872080A0DD000C9125 /* Checkbox.swift in Sources */,
 				8454D40A2068D3A800C97D2F /* Calendar.swift in Sources */,
 				8454D3F72068D3A800C97D2F /* PtObjects.swift in Sources */,
 				8454D3812068D3A800C97D2F /* PtobjectsApi.swift in Sources */,
@@ -1505,6 +1520,7 @@
 				8454D3AB2068D3A800C97D2F /* RouteDisplayInformation.swift in Sources */,
 				8454D3702068D3A800C97D2F /* PlaceUriApi.swift in Sources */,
 				8422B46C206A37610097E6C9 /* TransportHelper.swift in Sources */,
+				8471D38520809EC7000C9125 /* JourneySolutionView.swift in Sources */,
 				8454D3962068D3A800C97D2F /* Extensions.swift in Sources */,
 				8454D3972068D3A800C97D2F /* Models.swift in Sources */,
 				8454D4202068D3A800C97D2F /* Alamofire.swift in Sources */,

@@ -11,6 +11,8 @@ import MapKit
 
 open class JourneySolutionRoadmapViewController: UIViewController {
 
+    
+
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var scrollView: UIScrollView!
     
@@ -25,6 +27,8 @@ open class JourneySolutionRoadmapViewController: UIViewController {
     
     var ridesharing: Bool = false
     var ridesharingView: RidesharingView!
+    
+    var ridesharingDeepLink: String?
     
     override open func viewDidLoad() {
         super.viewDidLoad()
@@ -123,8 +127,6 @@ open class JourneySolutionRoadmapViewController: UIViewController {
 
     }
     
-
-
     override open func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -175,20 +177,24 @@ open class JourneySolutionRoadmapViewController: UIViewController {
     }
     
     private func display() {
-        
         if ridesharing {
-            print(composentWidth)
-            print(updateWidth())
+            if let journey = journey {
+                let tc = JourneySolutionView(frame: CGRect(x: 0, y: 0, width: 0, height: 97))
+                tc.setDataRidesharing(journey)
+                addViewInScroll(view: tc)
+            }
             ridesharingView = RidesharingView(frame: CGRect(x: 0, y: 0, width: 0, height: 260))
             addViewInScroll(view: ridesharingView)
+
+        } else {
+            if let journey = journey {
+                let tc = JourneySolutionView(frame: CGRect(x: 0, y: 0, width: 0, height: 130))
+                tc.setData(journey)
+                addViewInScroll(view: tc)
+            }
         }
         
-        let viewDeparture = DepartureArrivalStepView(frame: CGRect(x: 0, y: 0, width: composentWidth, height: 70))
-        viewDeparture.information = journey?.sections?.first?.from?.name ?? ""
-        viewDeparture.time = journey?.departureDateTime?.toDate(format: "yyyyMMdd'T'HHmmss")?.toString(format: "HH:mm") ?? ""
-        viewDeparture.type = .departure
-        addViewInScroll(view: viewDeparture)
-
+        _displayDeparture(journey)
         
         if let sections = journey?.sections {
             for (_ , section) in sections.enumerated() {
@@ -196,37 +202,15 @@ open class JourneySolutionRoadmapViewController: UIViewController {
                     if type == "public_transport" {
                         _displayPublicTransport(section)
                     } else if type == "transfer" {
-                        let view = TransferStepView(frame: CGRect(x: 0, y: 0, width: composentWidth, height: 100))
-                        view.icon = section.transferType ?? ""
-                        view.direction = section.to?.name ?? ""
-                        view.time = section.duration?.toString(allowedUnits: [.minute])
-                        addViewInScroll(view: view)
+                        _displayTransferStep(section, mode: section.transferType ?? "")
                     } else if type == "street_network" {
                         if let mode = section.mode {
                             if mode == "walking" || mode == "car" {
-                                let view = TransferStepView(frame: CGRect(x: 0, y: 0, width: composentWidth, height: 100))
-                                view.icon = mode
-                                view.direction = section.to?.name ?? ""
-                                view.time = section.duration?.toString(allowedUnits: [.hour, .minute])
-                                addViewInScroll(view: view)
+                                _displayTransferStep(section, mode: mode)
                             } else {
-                                let view = BikeStepView(frame: CGRect(x: 0, y: 0, width: composentWidth, height: 91))
-                                view.typeString = mode
-                                view.takeName = ""
-                                view.origin = section.from?.name ?? ""
-                                view.destination = section.to?.name ?? ""
-                                view.time = section.duration?.toString(allowedUnits: [.hour, .minute])
-                                addViewInScroll(view: view)
+                                _displayBikeStep(section, mode: mode)
                                 if mode == "ridesharing" {
-                                    ridesharingView.title = section.ridesharingJourneys?[0].sections?[1].ridesharingInformations?._operator ?? ""
-                                    ridesharingView.startDate = section.ridesharingJourneys?[0].sections?[1].departureDateTime?.toDate(format: "yyyyMMdd'T'HHmmss")?.toString(format: "HH:mm") ?? ""
-                                    ridesharingView.login = section.ridesharingJourneys?[0].sections?[1].ridesharingInformations?.driver?.alias ?? ""
-                                    ridesharingView.gender = section.ridesharingJourneys?[0].sections?[1].ridesharingInformations?.driver?.gender ?? ""
-                                    ridesharingView.addressFrom = section.ridesharingJourneys?[0].sections?[1].from?.name ?? ""
-                                    ridesharingView.addressTo = section.ridesharingJourneys?[0].sections?[1].to?.name ?? ""
-                                    ridesharingView.seatCount = section.ridesharingJourneys?[0].sections?[1].ridesharingInformations?.seats?.available?.toString() ?? ""
-                                    ridesharingView.price = section.ridesharingJourneys?[0].fare?.total?.value ?? ""
-                                    print(section.ridesharingJourneys?[0].sections?[1].links?[0].href ?? "")
+                                    _updateRidesharingView(section)
                                 }
                             }
                         }
@@ -236,6 +220,18 @@ open class JourneySolutionRoadmapViewController: UIViewController {
             }
         }
         
+        _displayArrival(journey)
+    }
+    
+    func _displayDeparture(_ journey: Journey?) {
+        let viewDeparture = DepartureArrivalStepView(frame: CGRect(x: 0, y: 0, width: composentWidth, height: 70))
+        viewDeparture.information = journey?.sections?.first?.from?.name ?? ""
+        viewDeparture.time = journey?.departureDateTime?.toDate(format: "yyyyMMdd'T'HHmmss")?.toString(format: "HH:mm") ?? ""
+        viewDeparture.type = .departure
+        addViewInScroll(view: viewDeparture)
+    }
+    
+    func _displayArrival(_ journey: Journey?) {
         let viewArrival = DepartureArrivalStepView(frame: CGRect(x: 0, y: 0, width: composentWidth, height: 70))
         viewArrival.information = journey?.sections?.last?.to?.name ?? ""
         viewArrival.time = journey?.arrivalDateTime?.toDate(format: "yyyyMMdd'T'HHmmss")?.toString(format: "HH:mm") ?? ""
@@ -243,38 +239,94 @@ open class JourneySolutionRoadmapViewController: UIViewController {
         addViewInScroll(view: viewArrival)
     }
     
+    func _displayTransferStep(_ section: Section, mode: String) {
+        let view = TransferStepView(frame: CGRect(x: 0, y: 0, width: composentWidth, height: 50))
+        view.icon = mode
+        view.time = section.duration?.minuteToString()
+        view.direction = section.to?.name ?? ""
+        addViewInScroll(view: view)
+    }
     
+    func _displayBikeStep(_ section: Section, mode: String) {
+        let view = BikeStepView(frame: CGRect(x: 0, y: 0, width: composentWidth, height: 50))
+        view.typeString = mode
+        view.takeName = ""
+        view.origin = section.from?.name ?? ""
+        view.destination = section.to?.name ?? ""
+        view.time = section.duration?.minuteToString()
+        addViewInScroll(view: view)
+    }
+    
+    func _updateRidesharingView(_ section: Section) {
+        ridesharingView.title = section.ridesharingJourneys?[0].sections?[1].ridesharingInformations?._operator ?? ""
+        ridesharingView.startDate = section.ridesharingJourneys?[0].sections?[1].departureDateTime?.toDate(format: "yyyyMMdd'T'HHmmss")?.toString(format: "HH:mm") ?? ""
+        ridesharingView.login = section.ridesharingJourneys?[0].sections?[1].ridesharingInformations?.driver?.alias ?? ""
+        ridesharingView.gender = section.ridesharingJourneys?[0].sections?[1].ridesharingInformations?.driver?.gender ?? ""
+        ridesharingView.addressFrom = section.ridesharingJourneys?[0].sections?[1].from?.name ?? ""
+        ridesharingView.addressTo = section.ridesharingJourneys?[0].sections?[1].to?.name ?? ""
+        ridesharingView.seatCount = section.ridesharingJourneys?[0].sections?[1].ridesharingInformations?.seats?.available?.toString() ?? ""
+        ridesharingView.price = section.ridesharingJourneys?[0].fare?.total?.value ?? ""
+        ridesharingView.setPicture(url: section.ridesharingJourneys?[0].sections?[1].ridesharingInformations?.driver?.image)
+        ridesharingView.setNotation(section.ridesharingJourneys?[0].sections?[1].ridesharingInformations?.driver?.rating?.count)
+        ridesharingView.setFullStar(section.ridesharingJourneys?[0].sections?[1].ridesharingInformations?.driver?.rating?.value)
+        ridesharingView._parent = self
+        ridesharingDeepLink = section.ridesharingJourneys?[0].sections?[1].links?[0].href
+        // Url section.ridesharingJourneys?[0].sections?[1].links?[0].href ?? ""
+    }
     
     func _displayPublicTransport(_ section: Section) {
-        let view4 = PublicTransportView(frame: CGRect(x: 0, y: 0, width: composentWidth, height: 100))
-        view4.typeString = Modes().getModeIcon(section: section)
-        view4.take = section.displayInformations?.commercialMode ?? ""
-        view4.transportColor = section.displayInformations?.color?.toUIColor() ?? UIColor.black
-        view4.transportName = section.displayInformations?.label ?? ""
+        let publicTransportView = PublicTransportView(frame: CGRect(x: 0, y: 0, width: composentWidth, height: 100))
+        publicTransportView.typeString = Modes().getModeIcon(section: section)
+        publicTransportView.take = section.displayInformations?.commercialMode ?? ""
+        publicTransportView.transportColor = section.displayInformations?.color?.toUIColor() ?? UIColor.black
+        publicTransportView.transportName = section.displayInformations?.label ?? ""
         
-        // view4.disruptionType = .blocking
-        // view4.disruptionInformation = "Suite à un incident d’exploitation, le trafic est interrompu sur l’ensemble de la ligne."
-        // view4.disruptionDate = "Du 01/08/17 au 17/08/17"
-        // view4.waitTime = "7"
+        // publicTransportView.disruptionType = .blocking
+        // publicTransportView.disruptionInformation = "Suite à un incident d’exploitation, le trafic est interrompu sur l’ensemble de la ligne."
+        // publicTransportView.disruptionDate = "Du 01/08/17 au 17/08/17"
+        // publicTransportView.waitTime = "7"
         
-        view4.origin = section.from?.name ?? ""
-        view4.startTime = section.departureDateTime?.toDate(format: "yyyyMMdd'T'HHmmss")?.toString(format: "HH:mm") ?? ""
-        view4.directionTransit = section.displayInformations?.direction ?? ""
-        view4.destination = section.to?.name ?? ""
-        view4.endTime = section.arrivalDateTime?.toDate(format: "yyyyMMdd'T'HHmmss")?.toString(format: "HH:mm") ?? ""
+        publicTransportView.origin = section.from?.name ?? ""
+        publicTransportView.startTime = section.departureDateTime?.toDate(format: "yyyyMMdd'T'HHmmss")?.toString(format: "HH:mm") ?? ""
+        publicTransportView.directionTransit = section.displayInformations?.direction ?? ""
+        publicTransportView.destination = section.to?.name ?? ""
+        publicTransportView.endTime = section.arrivalDateTime?.toDate(format: "yyyyMMdd'T'HHmmss")?.toString(format: "HH:mm") ?? ""
         
-        var tab: [String] = []
+        var stopDate: [String] = []
         if let stopDateTimes = section.stopDateTimes {
             for (index, stop) in stopDateTimes.enumerated() {
                 if let name = stop.stopPoint?.name {
                     if index != 0 && index != (stopDateTimes.count - 1) {
-                        tab.append(name)
+                        stopDate.append(name)
                     }
                 }
             }
         }
-        view4.stations = tab
-        addViewInScroll(view: view4)
+        publicTransportView.stations = stopDate
+        addViewInScroll(view: publicTransportView)
+    }
+    
+}
+
+extension JourneySolutionRoadmapViewController: AlertViewControllerProtocol {
+    
+    func onNegativeButtonClicked(_ alertViewController: AlertViewController) {
+        alertViewController.dismiss(animated: false, completion: nil)
+    }
+    
+    func onPositiveButtonClicked(_ alertViewController: AlertViewController) {
+        self.openDeepLink()
+        alertViewController.dismiss(animated: false, completion: nil)
+    }
+    
+    func openDeepLink() {
+        if let ridesharingDeepLink = self.ridesharingDeepLink {
+            if #available(iOS 10.0, *) {
+                UIApplication.shared.open(URL(string: ridesharingDeepLink)!, options: [:], completionHandler: nil)
+            } else {
+                UIApplication.shared.openURL(URL(string: ridesharingDeepLink)!)
+            }
+        }
     }
     
 }
@@ -467,7 +519,7 @@ class JourneyPathOverlays {
                         sectionPolyline.sectionStrokeColor = section.displayInformations?.color?.toUIColor()
                     } else if section.type == "street_network" || section.type == "transfer" {
                         sectionPolyline.sectionLineWidth = 4
-                        sectionPolyline.sectionStrokeColor = UIColor.gray//config.colors.gray
+                        sectionPolyline.sectionStrokeColor = NavitiaSDKUIConfig.shared.color.gray
                         if section.mode == "walking" {
                             sectionPolyline.sectionLineDashPattern = [0.01, NSNumber(value: Float(2 * sectionPolyline.sectionLineWidth))]
                             sectionPolyline.sectionLineCap = CGLineCap.round
@@ -537,8 +589,8 @@ class CustomAnnotation: MKPointAnnotation {
                 annotationView.addSubview(annotationImage)
             } else {
                 let annotationPin = UILabel(frame: CGRect(x: 28, y: 27, width: 26, height: 26))
-                annotationPin.textColor = self.placeType == .Departure ? UIColor(red:0, green:0.73, blue:0.46, alpha:1.0)/*config.colors.origin*/ : UIColor(red:0.69, green:0.01, blue:0.33, alpha:1.0)/*config.colors.destination*/
-                annotationPin.text = Icon("location-pin").iconFontCode// "\u{ea15}"//String.fontString(name: "location-pin")
+                annotationPin.textColor = self.placeType == .Departure ? NavitiaSDKUIConfig.shared.color.origin : NavitiaSDKUIConfig.shared.color.destination
+                annotationPin.text = Icon("location-pin").iconFontCode
                 annotationPin.font = UIFont(name: "SDKIcons", size: 26)
                 
                 annotationView.addSubview(annotationPin)

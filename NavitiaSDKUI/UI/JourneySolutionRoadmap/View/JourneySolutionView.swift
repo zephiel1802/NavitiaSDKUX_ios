@@ -1,28 +1,48 @@
 //
-//  JourneySolutionCollectionViewCell.swift
+//  JourneySolutionView.swift
 //  NavitiaSDKUI
 //
-//  Created by Flavien Sicard on 26/03/2018.
+//  Created by Flavien Sicard on 13/04/2018.
 //  Copyright © 2018 kisio. All rights reserved.
 //
 
 import UIKit
 
-class JourneySolutionCollectionViewCell: UICollectionViewCell {
+class JourneySolutionView: UIView {
+    
+    @IBOutlet var _view: UIView!
     
     @IBOutlet weak var dateTimeLabel: UILabel!
     @IBOutlet weak var durationLabel: UILabel!
-    @IBOutlet var durationWalkerLabel: UILabel!
     @IBOutlet weak var journeySummaryView: JourneySummaryView!
-    @IBOutlet weak var arrowLabel: UILabel!
+    @IBOutlet weak var durationWalkerLabel: UILabel!
     
-    @IBOutlet var durationTopContraint: NSLayoutConstraint!
-    @IBOutlet var durationBottomContraint: NSLayoutConstraint!
-    @IBOutlet var durationLeadingContraint: NSLayoutConstraint!
+    @IBOutlet weak var durationTopContraint: NSLayoutConstraint!
+    @IBOutlet weak var durationBottomContraint: NSLayoutConstraint!
+    @IBOutlet weak var durationLeadingContraint: NSLayoutConstraint!
     
-    func setup(_ journey: Journey) {
-        _setupArrowIcon()
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        _setup()
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+    }
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        _setup()
+    }
+    
+    private func _setup() {
+        UINib(nibName: "JourneySolutionView", bundle: bundle).instantiate(withOwner: self, options: nil)
+        _view.frame = self.bounds
+        addSubview(_view)
         
+    }
+    
+    func setData(_ journey: Journey) {
         if let departureDateTime = journey.departureDateTime?.toDate(format: "yyyyMMdd'T'HHmmss"),
             let arrivalDateTime = journey.arrivalDateTime?.toDate(format: "yyyyMMdd'T'HHmmss") {
             formattedDateTime(departureDateTime, arrivalDateTime)
@@ -43,9 +63,7 @@ class JourneySolutionCollectionViewCell: UICollectionViewCell {
         }
     }
     
-    func setupRidesharing(_ journey: Journey) {
-        _setupArrowIcon()
-        
+    func setDataRidesharing(_ journey: Journey) {
         if let departureDateTime = journey.departureDateTime?.toDate(format: "yyyyMMdd'T'HHmmss"),
             let arrivalDateTime = journey.arrivalDateTime?.toDate(format: "yyyyMMdd'T'HHmmss") {
             formattedDateTime(departureDateTime, arrivalDateTime)
@@ -64,13 +82,7 @@ class JourneySolutionCollectionViewCell: UICollectionViewCell {
         durationLeadingContraint.isActive = false
     }
     
-    private func _setupArrowIcon() {
-        arrowLabel.text = Icon("arrow-right").iconFontCode
-        arrowLabel.textColor = NavitiaSDKUIConfig.shared.color.tertiary
-        arrowLabel.font = UIFont(name: "SDKIcons", size: 15)
-    }
-    
-    private func formattedDateTime(_ departureDateTime: Date,_ arrivalDateTime: Date) {
+    func formattedDateTime(_ departureDateTime: Date,_ arrivalDateTime: Date) {
         let formattedStringDateTime = NSMutableAttributedString()
         formattedStringDateTime
             .bold(departureDateTime.toString(format: "HH:mm"))
@@ -79,16 +91,15 @@ class JourneySolutionCollectionViewCell: UICollectionViewCell {
         dateTime = formattedStringDateTime
     }
     
-    private func formattedDuration(_ durationStr: String) {
+    func formattedDuration(_ durationStr: String) {
         let formattedStringDuration = NSMutableAttributedString()
         formattedStringDuration
             .bold(durationStr, color: NavitiaSDKUIConfig.shared.color.tertiary)
         duration = formattedStringDuration
     }
     
-    private func formattedDurationWalker(_ durationWalking: String, _ distanceWalking: String, _ unitDistance: String = "mètres") {
+    func formattedDurationWalker(_ durationWalking: String, _ distanceWalking: String, _ unitDistance: String = "mètres") {
         let formattedString = NSMutableAttributedString()
-        
         formattedString
             .normal("Dont ", color: NavitiaSDKUIConfig.shared.color.gray)
             .bold(durationWalking, color: NavitiaSDKUIConfig.shared.color.gray)
@@ -100,10 +111,6 @@ class JourneySolutionCollectionViewCell: UICollectionViewCell {
         durationWalker = formattedString
     }
     
-    override func awakeFromNib() {
-        super.awakeFromNib()
-    }
-    
     static var nib:UINib {
         return UINib(nibName: identifier, bundle: nil)
     }
@@ -111,10 +118,10 @@ class JourneySolutionCollectionViewCell: UICollectionViewCell {
     static var identifier: String {
         return String(describing: self)
     }
-
+    
 }
 
-extension JourneySolutionCollectionViewCell {
+extension JourneySolutionView {
     
     var dateTime: NSAttributedString? {
         get {
@@ -140,9 +147,6 @@ extension JourneySolutionCollectionViewCell {
         }
         set {
             durationWalkerLabel.isHidden = false
-            durationTopContraint.isActive = true
-            durationBottomContraint.isActive = true
-            durationLeadingContraint.isActive = true
             durationWalkerLabel.attributedText = newValue
         }
     }

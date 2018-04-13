@@ -48,6 +48,11 @@ open class JourneySolutionViewController: UIViewController {
                 if journeySolutionViewModel.journeys.isEmpty == false {
                     self.fromLabel.text = journeySolutionViewModel.journeys[0].sections?[0].from?.name
                     self.toLabel.text = journeySolutionViewModel.journeys[0].sections?[(journeySolutionViewModel.journeys[0].sections?.count)! - 1].to?.name
+                    if self.inParameters.datetime == nil {
+                        if let dateTime = journeySolutionViewModel.journeys[0].departureDateTime?.toDate(format: "yyyyMMdd'T'HHmmss") {
+                            self.dateTime = dateTime.toString(format: "EEE dd MMM - HH:mm")
+                        }
+                    }
                 }
             }
         }
@@ -69,14 +74,6 @@ open class JourneySolutionViewController: UIViewController {
         // Request
         _viewModel = JourneySolutionViewModel()
         _viewModel.request(with: inParameters)
-  
-//        A voir dans une évolution
-//
-//        if let count = navigationController?.viewControllers.count {
-//            if count == 1 {
-//                print("mettre le back")
-//            }
-//        }
     }
     
     override open func viewWillLayoutSubviews() {
@@ -105,8 +102,14 @@ open class JourneySolutionViewController: UIViewController {
         navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarPosition.any, barMetrics: UIBarMetrics.default)
         navigationController?.navigationBar.shadowImage = UIImage()
         
+        navigationController?.navigationBar.barTintColor = NavitiaSDKUIConfig.shared.color.tertiary
+        
         if let backgroundColor = navigationController?.navigationBar.barTintColor {
             searchView.backgroundColor = backgroundColor
+        }
+        
+        if let dateTime = inParameters.datetime {
+            self.dateTime = dateTime.toString(format: "EEE dd MMM - HH:mm")
         }
         
         _setupFromTo()
@@ -116,12 +119,12 @@ open class JourneySolutionViewController: UIViewController {
         fromLabel.text = inParameters.originLabel
         fromPinLabel.text = Icon("location-pin").iconFontCode
         fromPinLabel.font = UIFont(name: "SDKIcons", size: 22)
-        fromPinLabel.textColor = UIColor(red:0, green:0.73, blue:0.46, alpha:1.0)
+        fromPinLabel.textColor = NavitiaSDKUIConfig.shared.color.origin//  UIColor(red:0, green:0.73, blue:0.46, alpha:1.0)
         
         toLabel.text = inParameters.destinationLabel
         toPinLabel.text = Icon("location-pin").iconFontCode
         toPinLabel.font = UIFont(name: "SDKIcons", size: 22)
-        toPinLabel.textColor = UIColor(red:0.69, green:0.01, blue:0.33, alpha:1.0)
+        toPinLabel.textColor = NavitiaSDKUIConfig.shared.color.destination//UIColor(red:0.69, green:0.01, blue:0.33, alpha:1.0)
     }
 
 }
@@ -148,7 +151,6 @@ extension JourneySolutionViewController: UICollectionViewDataSource {
     public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if self._viewModel.loading {
             if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: JourneySolutionLoadCollectionViewCell.identifier, for: indexPath) as? JourneySolutionLoadCollectionViewCell {
-                //cell.setup(self._viewModel.journeys[indexPath.row])
                 return cell
             }
         }
@@ -215,10 +217,26 @@ extension JourneySolutionViewController: UICollectionViewDelegateFlowLayout {
         if indexPath.section == 1 && indexPath.row == 0 {
             return CGSize(width: self.collectionView.frame.size.width - safeAreaWidth, height: 75)
         } else if indexPath.section == 1 {
-            return CGSize(width: self.collectionView.frame.size.width - safeAreaWidth, height: 130)
+            return CGSize(width: self.collectionView.frame.size.width - safeAreaWidth, height: 97)
         }
         return CGSize(width: self.collectionView.frame.size.width - safeAreaWidth, height: 130)
     }
 
+}
+
+extension JourneySolutionViewController {
+    
+    var dateTime: String? {
+        get {
+            return dateTimeLabel.text
+        }
+        set {
+            if let newValue = newValue {
+                dateTimeLabel.attributedText = NSMutableAttributedString()
+                    .bold("Départ : ", color: UIColor.white, size: 12.5)
+                    .bold(newValue, color: UIColor.white, size: 12.5)
+            }
+        }
+    }
 }
 

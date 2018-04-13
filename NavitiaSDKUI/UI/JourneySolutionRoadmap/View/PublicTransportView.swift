@@ -14,8 +14,9 @@ class PublicTransportView: UIView {
     
     @IBOutlet weak var iconLabel: UILabel!
     @IBOutlet weak var takeLabel: UILabel!
+    
     @IBOutlet weak var originTransitLabel: UILabel!
-    @IBOutlet weak var directionTransitLabel: UILabel!
+   // @IBOutlet weak var directionTransitLabel: UILabel!
     
     @IBOutlet weak var transportView: UIView!
     @IBOutlet weak var transportLabel: UILabel!
@@ -56,8 +57,32 @@ class PublicTransportView: UIView {
     var _type: TypeTransport?
     var _disruptionType: TypeDisruption?
     
+    var origin: String = "" {
+        didSet {
+            originTransitLabel.attributedText = NSMutableAttributedString()
+                .normal("à ", size: 15)
+                .bold(origin, size: 15)
+                .normal(" en direction de ", size: 15)
+                .bold(directionTransit, size: 15)
+            originLabel.attributedText = NSMutableAttributedString()
+                .bold(origin, size: 15)
+        }
+    }
+    var directionTransit: String = "" {
+        didSet {
+            originTransitLabel.attributedText = NSMutableAttributedString()
+                .normal("à ", size: 15)
+                .bold(origin, size: 15)
+                .normal(" en direction de ", size: 15)
+                .bold(directionTransit, size: 15)
+        }
+    }
+    
     var stations: [String] = [] {
         didSet {
+            if !stations.isEmpty {
+                stationButton.isHidden = false
+            }
             stationsIsHidden = true
             updateStationStack()
         }
@@ -86,6 +111,10 @@ class PublicTransportView: UIView {
         _setup()
     }
     
+    override func layoutSubviews() {
+        setHeight()
+    }
+    
     private func _setup() {
         UINib(nibName: "PublicTransportView", bundle: bundle).instantiate(withOwner: self, options: nil)
         _view.frame = self.bounds
@@ -98,12 +127,15 @@ class PublicTransportView: UIView {
         disruptionIsHidden = true
         disruptionIconTransportLabel.isHidden = true
         disruptionCircleLabel.isHidden = true
+        stationButton.isHidden = true
         
         setupStationStackView()
     }
 
     @IBAction func actionStationButton(_ sender: Any) {
-        stationsIsHidden = !stationsView.isHidden
+        if !stations.isEmpty {
+            stationsIsHidden = !stationsView.isHidden
+        }
     }
     
     private func setHeight() {
@@ -119,13 +151,12 @@ extension PublicTransportView {
         stationStackView.axis = .vertical
         stationStackView.distribution = .fillEqually
         stationStackView.alignment = .fill
-        stationStackView.spacing = 7
         stationStackView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         stationsView.addSubview(stationStackView)
     }
     
     func updateStationStack() {
-        stationsHeightContraint.constant = CGFloat(stations.count) * 21
+        stationsHeightContraint.constant = CGFloat(stations.count) * 25
         for station in stations {
             let view = StationsView(frame: CGRect(x: 0, y: 0, width: stationsView.frame.size.width, height: 20))
             view.stationColor = transportColor
@@ -303,20 +334,20 @@ extension PublicTransportView {
         }
     }
     
-    var origin: String? {
-        get {
-            return originLabel.text
-        }
-        set {
-            if let newValue = newValue {
-                originTransitLabel.attributedText = NSMutableAttributedString()
-                    .normal("à ", size: 15)
-                    .bold(newValue, size: 15)
-                originLabel.attributedText = NSMutableAttributedString()
-                    .bold(newValue, size: 15)
-            }
-        }
-    }
+//    var origin: String? {
+//        get {
+//            return originLabel.text
+//        }
+//        set {
+//            if let newValue = newValue {
+//                originTransitLabel.attributedText = NSMutableAttributedString()
+//                    .normal("à ", size: 15)
+//                    .bold(newValue, size: 15)
+//                originLabel.attributedText = NSMutableAttributedString()
+//                    .bold(newValue, size: 15)
+//            }
+//        }
+//    }
     
     var destination: String? {
         get {
@@ -330,18 +361,18 @@ extension PublicTransportView {
         }
     }
     
-    var directionTransit: String? {
-        get {
-            return directionTransitLabel.text
-        }
-        set {
-            if let newValue = newValue {
-                directionTransitLabel.attributedText = NSMutableAttributedString()
-                    .normal("en direction de ", size: 15)
-                    .bold(newValue, size: 15)
-            }
-        }
-    }
+//    var directionTransit: String? {
+//        get {
+//            return directionTransitLabel.text
+//        }
+//        set {
+//            if let newValue = newValue {
+//                directionTransitLabel.attributedText = NSMutableAttributedString()
+//                    .normal("en direction de ", size: 15)
+//                    .bold(newValue, size: 15)
+//            }
+//        }
+//    }
     
     var disruptionIsHidden: Bool {
         get {
@@ -393,7 +424,7 @@ extension PublicTransportView {
                 stationButton.setAttributedTitle(NSMutableAttributedString()
                     .normal(String(stations.count), size: 13)
                     .normal(" arrêts  ", size: 13)
-                    .icon("arrow-details-up", size: 13)
+                    .icon("arrow-details-down", size: 13)
                     ,for: .normal)
                 frame.size.height -= stationsView.frame.size.height
             } else {
@@ -403,7 +434,7 @@ extension PublicTransportView {
                 stationButton.setAttributedTitle(NSMutableAttributedString()
                     .normal(String(stations.count), size: 13)
                     .normal(" arrêts  ", size: 13)
-                    .icon("arrow-details-down", size: 13)
+                    .icon("arrow-details-up", size: 13)
                     ,for: .normal)
                 frame.size.height += stationsView.frame.size.height
             }

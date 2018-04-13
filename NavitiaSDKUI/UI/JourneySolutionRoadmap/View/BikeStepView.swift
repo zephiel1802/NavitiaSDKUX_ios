@@ -14,11 +14,67 @@ class BikeStepView: UIView {
     
     @IBOutlet weak var iconLabel: UILabel!
     @IBOutlet weak var takeLabel: UILabel!
-    @IBOutlet weak var originLabel: UILabel!
-    @IBOutlet weak var destinationLabel: UILabel!
+    //@IBOutlet weak var originLabel: UILabel!
+    //@IBOutlet weak var destinationLabel: UILabel!
     @IBOutlet weak var timeLabel: UILabel!
     
     var _type: TypeTransport?
+    
+    var takeName: String = "" {
+        didSet {
+            var typeString = ""
+            if let type = _type {
+                typeString = type.rawValue + " "
+            }
+            takeLabel.attributedText = NSMutableAttributedString()
+                .normal("Prendre un ", size: 15)
+                .normal(typeString, size: 15)
+                .normal(takeName, size: 15)
+                .normal(" à ", size: 15)
+                .bold(origin, size: 15)
+                .normal(" vers ", size: 15)
+                .bold(destination, size: 15)
+            takeLabel.sizeToFit()
+            setHeight()
+        }
+    }
+    var origin: String = "" {
+        didSet {
+            var typeString = ""
+            if let type = _type {
+                typeString = type.rawValue + " "
+            }
+            takeLabel.attributedText = NSMutableAttributedString()
+                .normal("Prendre un ", size: 15)
+                .normal(typeString, size: 15)
+                .normal(takeName, size: 15)
+                .normal(" à ", size: 15)
+                .bold(origin, size: 15)
+                .normal(" vers ", size: 15)
+                .bold(destination, size: 15)
+            takeLabel.sizeToFit()
+            setHeight()
+        }
+    }
+    var destination: String = "" {
+        didSet {
+            var typeString = ""
+            if let type = _type {
+                typeString = type.rawValue + " "
+            }
+            takeLabel.attributedText = NSMutableAttributedString()
+                .normal("Prendre un ", size: 15)
+                .normal(typeString, size: 15)
+                .normal(takeName, size: 15)
+                .normal(" à ", size: 15)
+                .bold(origin, size: 15)
+                .normal(" vers ", size: 15)
+                .bold(destination, size: 15)
+            takeLabel.sizeToFit()
+            setHeight()
+        }
+    }
+    
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -29,10 +85,19 @@ class BikeStepView: UIView {
         super.init(coder: aDecoder)
     }
     
+    override func layoutSubviews() {
+        takeLabel.sizeToFit()
+        timeLabel.sizeToFit()
+        timeLabel.frame.origin.y = takeLabel.frame.origin.y + takeLabel.frame.size.height
+        frame.size.height = timeLabel.frame.size.height + timeLabel.frame.origin.y + 10
+        super.layoutSubviews()
+    }
+    
     override var frame: CGRect {
         willSet {
             if let _view = _view {
                 _view.frame.size = newValue.size
+                
             }
         }
     }
@@ -47,6 +112,7 @@ class BikeStepView: UIView {
         _view.frame = self.bounds
         addSubview(_view)
         
+        frame.size.height = timeLabel.frame.size.height + timeLabel.frame.origin.y + 10
     }
     
     func setHeight() {
@@ -93,55 +159,55 @@ extension BikeStepView {
         }
     }
     
-    var takeName:String? {
-        get {
-            return takeLabel.text
-        }
-        set {
-            if let newValue = newValue {
-                var typeString = ""
-                if let type = _type {
-                    typeString = type.rawValue + " "
-                }
-                takeLabel.attributedText = NSMutableAttributedString()
-                    .normal("Prendre un ", size: 15)
-                    .normal(typeString, size: 15)
-                    .normal(newValue, size: 15)
-                takeLabel.sizeToFit()
-                setHeight()
-            }
-        }
-    }
+//    var takeName:String? {
+//        get {
+//            return takeLabel.text
+//        }
+//        set {
+//            if let newValue = newValue {
+//                var typeString = ""
+//                if let type = _type {
+//                    typeString = type.rawValue + " "
+//                }
+//                takeLabel.attributedText = NSMutableAttributedString()
+//                    .normal("Prendre un ", size: 15)
+//                    .normal(typeString, size: 15)
+//                    .normal(newValue, size: 15)
+//                takeLabel.sizeToFit()
+//                setHeight()
+//            }
+//        }
+//    }
     
-    var origin:String? {
-        get {
-            return originLabel.text
-        }
-        set {
-            if let newValue = newValue {
-                originLabel.attributedText = NSMutableAttributedString()
-                    .normal("à ", size: 15)
-                    .bold(newValue, size: 15)
-                originLabel.sizeToFit()
-                setHeight()
-            }
-        }
-    }
+//    var origin:String? {
+//        get {
+//            return originLabel.text
+//        }
+//        set {
+//            if let newValue = newValue {
+//                originLabel.attributedText = NSMutableAttributedString()
+//                    .normal("à ", size: 15)
+//                    .bold(newValue, size: 15)
+//                originLabel.sizeToFit()
+//                setHeight()
+//            }
+//        }
+//    }
     
-    var destination:String? {
-        get {
-            return destinationLabel.text
-        }
-        set {
-            if let newValue = newValue {
-                destinationLabel.attributedText = NSMutableAttributedString()
-                    .normal("vers ", size: 15)
-                    .bold(newValue, size: 15)
-                destinationLabel.sizeToFit()
-                setHeight()
-            }
-        }
-    }
+//    var destination:String? {
+//        get {
+//            return destinationLabel.text
+//        }
+//        set {
+//            if let newValue = newValue {
+//                destinationLabel.attributedText = NSMutableAttributedString()
+//                    .normal("vers ", size: 15)
+//                    .bold(newValue, size: 15)
+//                destinationLabel.sizeToFit()
+//                setHeight()
+//            }
+//        }
+//    }
     
     var time:String? {
         get {
@@ -157,8 +223,8 @@ extension BikeStepView {
                     .normal(newValue, size: 15)
                     .normal(" minutes", size: 15)
                     .normal(typeString, size: 15)
-                timeLabel.sizeToFit()
-                setHeight()
+//                timeLabel.sizeToFit()
+//                setHeight()
             }
         }
     }

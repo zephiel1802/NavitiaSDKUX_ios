@@ -20,12 +20,15 @@ class RidesharingView: UIView {
     @IBOutlet weak var pictureImage: UIImageView!
     @IBOutlet weak var loginLabel: UILabel!
     @IBOutlet weak var genderLabel: UILabel!
+    @IBOutlet weak var starStack: UIStackView!
+    @IBOutlet weak var notationLabel: UILabel!
     @IBOutlet weak var addressFromLabel: UILabel!
     @IBOutlet weak var addressToLabel: UILabel!
     @IBOutlet weak var seatCountLabel: UILabel!
     @IBOutlet weak var priceLabel: UILabel!
     
     var _type: TypeTransport?
+    var _parent: UIViewController?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -54,36 +57,74 @@ class RidesharingView: UIView {
         _view.frame = self.bounds
         addSubview(_view)
         
+//        for _ in 0...4 {
+//            let myView = UIImageView(frame: CGRect(x: 0, y: 0, width: 15, height: 15))
+//            myView.image = UIImage(named: "start_full", in: bundle, compatibleWith: nil)
+//            starStack.addArrangedSubview(myView)
+//        }
+
     }
     
-//    private func setHeight() {
-//        frame.size.height = timeLabel.frame.size.height + timeLabel.frame.origin.y + 10
-//    }
+    func setPicture(url: String?) {
+        if let url = url {
+            pictureImage.loadImageFromURL(urlString: url)
+        }
+    }
+    
+    func setNotation(_ count: Int32?) {
+        if let count = count {
+            notationLabel.attributedText = NSMutableAttributedString()
+                .normal(String(count), size: 10)
+                .normal(" notes", size: 10)
+        }
+    }
+    
+    func setFullStar(_ count: Float?) {
+        if count != nil {
+            var count = Int(count ?? 0)
+            if count < 0 {
+                count = 0
+            }
+            if count > 5 {
+                count = 5
+            }
+            let full = count - 1
+            if full >= 0 {
+                for _ in 0...full {
+                    let myView = UIImageView(frame: CGRect(x: 0, y: 0, width: 15, height: 15))
+                    myView.image = UIImage(named: "star_full", in: bundle, compatibleWith: nil)
+                    starStack.addArrangedSubview(myView)
+                }
+            }
+            let empty = 4 - count
+            if empty >= 0 {
+                for _ in 0...empty {
+                    let myView = UIImageView(frame: CGRect(x: 0, y: 0, width: 15, height: 15))
+                    myView.image = UIImage(named: "star_empty", in: bundle, compatibleWith: nil)
+                    starStack.addArrangedSubview(myView)
+                }
+            }
+        }
+    }
+    
+    @IBAction func actionBookButton(_ sender: Any) {
+        if let parentViewController = _parent {
+            let alertController = AlertViewController(nibName: "AlertView", bundle: bundle)
+            alertController.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
+            //alertController.stateKey = //NavitiaSDKUserDefaultsManager.SHOW_REDIRECTION_DIALOG_PREF_KEY
+            alertController.alertMessage = NSLocalizedString("redirection_message", bundle: bundle, comment: "Redirection Message")
+            alertController.checkBoxText = NSLocalizedString("dont_show_this_message_again", bundle: bundle, comment: "Don't show this message again")
+            alertController.negativeButtonText = NSLocalizedString("cancel", bundle: bundle, comment: "Cancel").uppercased()
+            alertController.positiveButtonText = NSLocalizedString("proceed", bundle: bundle, comment: "Continue").uppercased()
+            alertController.alertViewDelegate = parentViewController as! JourneySolutionRoadmapViewController
+            parentViewController.navigationController?.visibleViewController?.present(alertController, animated: false, completion: nil)
+        }
+    }
+    
     
 }
 
-//@IBOutlet weak var titleLabel: UILabel!
-//@IBOutlet weak var startLabel: UILabel!
-//@IBOutlet weak var pictureImage: UIImageView!
-//@IBOutlet weak var loginLabel: UILabel!
-//@IBOutlet weak var genderLabel: UILabel!
-//@IBOutlet weak var addressFromLabel: UILabel!
-//@IBOutlet weak var addressToLabel: UILabel!
-//@IBOutlet weak var seatCountLabel: UILabel!
-//@IBOutlet weak var priceLabel: UILabel!
-
 extension RidesharingView {
-    
-//    var d: String? {
-//        get {
-//            return
-//        }
-//        set {
-//            if let newValue = newValue {
-//                titleLabel.attributedText = NSMutableAttributedString()
-//            }
-//        }
-//    }
 
     var title: String? {
         get {
@@ -104,19 +145,8 @@ extension RidesharingView {
         set {
             if let newValue = newValue {
                 startLabel.attributedText = NSMutableAttributedString()
-                    .normal("Départ: ", size: 8.5)
-                    .bold(newValue, size: 14)
-            }
-        }
-    }
-    
-    var picture: UIImage? {
-        get {
-            return pictureImage.image
-        }
-        set {
-            if let newValue = newValue {
-                pictureImage.image = newValue
+                    .normal("Départ: ", color: NavitiaSDKUIConfig.shared.color.tertiary, size: 8.5)
+                    .bold(newValue, color: NavitiaSDKUIConfig.shared.color.tertiary, size: 14)
             }
         }
     }
@@ -192,18 +222,13 @@ extension RidesharingView {
             if let newValue = newValue {
                 if newValue == "0.0" {
                     priceLabel.attributedText = NSMutableAttributedString()
-                        .normal("Gratuit", size: 8.5)
+                        .normal("Gratuit", color: NavitiaSDKUIConfig.shared.color.orange,size: 8.5)
                 } else {
                     priceLabel.attributedText = NSMutableAttributedString()
-                        .normal(newValue, size: 8.5)
+                        .normal(newValue, color: NavitiaSDKUIConfig.shared.color.orange, size: 8.5)
                 }
             }
         }
     }
-    
-//    timeLabel.attributedText = NSMutableAttributedString()
-//    .normal(newValue, size: 15)
-//    .normal(" minutes", size: 15)
-//    .normal(typeString, size: 15)
-    
+
 }

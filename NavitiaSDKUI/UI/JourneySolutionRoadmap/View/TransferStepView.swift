@@ -32,10 +32,18 @@ class TransferStepView: UIView {
             }
         }
     }
+
     
     override func awakeFromNib() {
         super.awakeFromNib()
         _setup()
+    }
+    
+    override func layoutSubviews() {
+        directionLabel.sizeToFit()
+        timeLabel.sizeToFit()
+        timeLabel.frame.origin.y = directionLabel.frame.origin.y + directionLabel.frame.size.height
+        frame.size.height = timeLabel.frame.size.height + timeLabel.frame.origin.y + 10
     }
 
     private func _setup() {
@@ -44,9 +52,6 @@ class TransferStepView: UIView {
         addSubview(_view)
     }
     
-    func setHeight() {
-        frame.size.height = timeLabel.frame.size.height + timeLabel.frame.origin.y + 10
-    }
 }
 
 extension TransferStepView {
@@ -74,8 +79,6 @@ extension TransferStepView {
                     .normal("Vers ", size: 15)
                     .bold(newValue, size: 15)
                 directionLabel.attributedText = formattedString
-                directionLabel.sizeToFit()
-                setHeight()
             }
         }
     }
@@ -89,9 +92,8 @@ extension TransferStepView {
                 let formattedString = NSMutableAttributedString()
                 formattedString
                     .normal(newValue, size: 15)
+                    .normal(" minutes de marche", size: 15)
                 timeLabel.attributedText = formattedString
-                timeLabel.sizeToFit()
-                setHeight()
             }
         }
     }

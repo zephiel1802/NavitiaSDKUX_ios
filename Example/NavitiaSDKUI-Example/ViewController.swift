@@ -38,10 +38,10 @@ class ViewController: UIViewController {
                                                                                                destinationId: "2.294685;48.884075")
         journeyResultsViewController.inParameters.originLabel = "Chez moi"
         journeyResultsViewController.inParameters.destinationLabel = "Au travail"
-        journeyResultsViewController.inParameters.datetime = Date()
-        journeyResultsViewController.inParameters.datetime!.addTimeInterval(2000)
+//        journeyResultsViewController.inParameters.datetime = Date()
+//        journeyResultsViewController.inParameters.datetime!.addTimeInterval(2000)
         journeyResultsViewController.inParameters.datetimeRepresents = .departure
-        journeyResultsViewController.inParameters.forbiddenUris = ["physical_mode:Bus"]
+//        journeyResultsViewController.inParameters.forbiddenUris = ["physical_mode:Bus"]
         journeyResultsViewController.inParameters.firstSectionModes = [.bss]
         journeyResultsViewController.inParameters.lastSectionModes = [.car]
         journeyResultsViewController.inParameters.count = 5
