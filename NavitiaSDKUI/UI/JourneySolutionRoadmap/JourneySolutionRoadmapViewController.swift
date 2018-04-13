@@ -11,9 +11,7 @@ import MapKit
 
 open class JourneySolutionRoadmapViewController: UIViewController {
 
-    
-
-    @IBOutlet weak var mapView: MKMapView!
+        @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var scrollView: UIScrollView!
     
     var viewScroll: [UIView] = []
@@ -29,6 +27,9 @@ open class JourneySolutionRoadmapViewController: UIViewController {
     var ridesharingView: RidesharingView!
     
     var ridesharingDeepLink: String?
+    var ridesharingIndex = 0
+
+    var timeRidesharing: Int32?
     
     override open func viewDidLoad() {
         super.viewDidLoad()
@@ -39,92 +40,7 @@ open class JourneySolutionRoadmapViewController: UIViewController {
         if #available(iOS 11.0, *) {
             scrollView?.contentInsetAdjustmentBehavior = .always
         }
-        
         display()
-        
-        
-//        let view = DepartureArrivalStepView(frame: CGRect(x: 0, y: 0, width: composentWidth, height: 70))
-//        view.title = "Départ:"
-//        view.information = "20 Rue Hector malot 75020 Paris"
-//        view.type = .departure
-//        addViewInScroll(view: view)
-//
-//        let viewWalk = TransferStepView(frame: CGRect(x: 0, y: 0, width: composentWidth, height: 100))
-//        viewWalk.icon = "walking"
-//        viewWalk.direction = "Hector Malot (Paris)"
-//        viewWalk.time = "1 minutes de marche"
-//        addViewInScroll(view: viewWalk)
-//
-//        let viewBike = BikeStepView(frame: CGRect(x: 0, y: 0, width: composentWidth, height: 100))
-//        viewBike.type = .bss
-//        viewBike.takeName = "Vélib'"
-//        viewBike.origin = "Hector Malot (Paris)"
-//        viewBike.destination = "Gare de Lyon - Parvis (Paris)"
-//        viewBike.time = "2"
-//        addViewInScroll(view: viewBike)
-//
-//        let view1 = TransferStepView(frame: CGRect(x: 0, y: 0, width: composentWidth, height: 100))
-//        view1.icon = "walking"
-//        view1.direction = "Gare de Lyon (Paris)"
-//        view1.time = "3 minutes de marche"
-//        addViewInScroll(view: view1)
-//
-//        let view2 = PublicTransportView(frame: CGRect(x: 0, y: 0, width: composentWidth, height: 100))
-//        view2.type = .metro
-//        view2.transportColor = UIColor.purple
-//        view2.transportName = "14"
-//        view2.waitTime = "2"
-//        view2.origin = "Gare de Lyon (Paris)"
-//        view2.directionTransit = "Saint-Lazare"
-//        view2.destination = "Pyramides (Paris)"
-//        view2.stations = ["Chatelet"
-//        ]
-//        addViewInScroll(view: view2)
-//
-//
-//        let view3 = TransferStepView(frame: CGRect(x: 0, y: 0, width: composentWidth, height: 100))
-//        view3.icon = "walking"
-//        view3.direction = "Pyramides (Paris)"
-//        view3.time = "3 minutes de marche"
-//        addViewInScroll(view: view3)
-//
-//
-//        let view4 = PublicTransportView(frame: CGRect(x: 0, y: 0, width: composentWidth, height: 100))
-//        view4.type = .bus
-//        view4.transportColor = UIColor.blue
-//        view4.transportName = "93"
-//        view4.disruptionType = .blocking
-//        view4.disruptionInformation = "Suite à un incident d’exploitation, le trafic est interrompu sur l’ensemble de la ligne."
-//        view4.disruptionDate = "Du 01/08/17 au 17/08/17"
-//        view4.waitTime = "7"
-//        view4.origin = "Pyramides (Paris)"
-//        view4.directionTransit = "Place de Clichy"
-//        view4.destination = "Liege (Paris)"
-//        view4.stations = ["Petits Champs",
-//                          "Opéra - 4 septembre",
-//                          "Opéra",
-//                          "Haussmann",
-//                          "Trinité",
-//                          "Petits Champs",
-//                          "Opéra - 4 septembre",
-//                          "Opéra",
-//                          "Haussmann",
-//                          "Trinité"
-//                            ]
-//        addViewInScroll(view: view4)
-//
-//        let view5 = TransferStepView(frame: CGRect(x: 0, y: 0, width: composentWidth, height: 100))
-//        view5.icon = "walking"
-//        view5.direction = "10 Rue de Milan (Paris)"
-//        view5.time = "5 minutes de marche"
-//        addViewInScroll(view: view5)
-//
-//        let viewArrival = DepartureArrivalStepView(frame: CGRect(x: 0, y: 0, width: composentWidth, height: 70))
-//        viewArrival.title = "Arrivée:"
-//        viewArrival.information = "Ménilmontant 75020 Paris"
-//        viewArrival.type = .arrival
-//        addViewInScroll(view: viewArrival)
-
     }
     
     override open func didReceiveMemoryWarning() {
@@ -208,9 +124,17 @@ open class JourneySolutionRoadmapViewController: UIViewController {
                             if mode == "walking" || mode == "car" {
                                 _displayTransferStep(section, mode: mode)
                             } else {
-                                _displayBikeStep(section, mode: mode)
                                 if mode == "ridesharing" {
                                     _updateRidesharingView(section)
+                                    let view = BikeStepView(frame: CGRect(x: 0, y: 0, width: composentWidth, height: 50))
+                                    view.typeString = mode
+                                    view.takeName = ""
+                                    view.origin = ridesharingView.addressFrom ?? ""
+                                    view.destination = ridesharingView.addressTo ?? ""
+                                    view.time = timeRidesharing?.minuteToString() ?? ""
+                                    addViewInScroll(view: view)
+                                } else {
+                                    _displayBikeStep(section, mode: mode)
                                 }
                             }
                         }
@@ -258,19 +182,22 @@ open class JourneySolutionRoadmapViewController: UIViewController {
     }
     
     func _updateRidesharingView(_ section: Section) {
-        ridesharingView.title = section.ridesharingJourneys?[0].sections?[1].ridesharingInformations?._operator ?? ""
-        ridesharingView.startDate = section.ridesharingJourneys?[0].sections?[1].departureDateTime?.toDate(format: "yyyyMMdd'T'HHmmss")?.toString(format: "HH:mm") ?? ""
-        ridesharingView.login = section.ridesharingJourneys?[0].sections?[1].ridesharingInformations?.driver?.alias ?? ""
-        ridesharingView.gender = section.ridesharingJourneys?[0].sections?[1].ridesharingInformations?.driver?.gender ?? ""
-        ridesharingView.addressFrom = section.ridesharingJourneys?[0].sections?[1].from?.name ?? ""
-        ridesharingView.addressTo = section.ridesharingJourneys?[0].sections?[1].to?.name ?? ""
-        ridesharingView.seatCount = section.ridesharingJourneys?[0].sections?[1].ridesharingInformations?.seats?.available?.toString() ?? ""
-        ridesharingView.price = section.ridesharingJourneys?[0].fare?.total?.value ?? ""
-        ridesharingView.setPicture(url: section.ridesharingJourneys?[0].sections?[1].ridesharingInformations?.driver?.image)
-        ridesharingView.setNotation(section.ridesharingJourneys?[0].sections?[1].ridesharingInformations?.driver?.rating?.count)
-        ridesharingView.setFullStar(section.ridesharingJourneys?[0].sections?[1].ridesharingInformations?.driver?.rating?.value)
+        ridesharingView.title = section.ridesharingJourneys?[ridesharingIndex].sections?[1].ridesharingInformations?._operator ?? ""
+        ridesharingView.startDate = section.ridesharingJourneys?[ridesharingIndex].sections?[1].departureDateTime?.toDate(format: "yyyyMMdd'T'HHmmss")?.toString(format: "HH:mm") ?? ""
+        ridesharingView.login = section.ridesharingJourneys?[ridesharingIndex].sections?[1].ridesharingInformations?.driver?.alias ?? ""
+        ridesharingView.gender = section.ridesharingJourneys?[ridesharingIndex].sections?[1].ridesharingInformations?.driver?.gender ?? ""
+        ridesharingView.addressFrom = section.ridesharingJourneys?[ridesharingIndex].sections?[1].from?.name ?? ""
+        ridesharingView.addressTo = section.ridesharingJourneys?[ridesharingIndex].sections?[1].to?.name ?? ""
+        ridesharingView.seatCount = section.ridesharingJourneys?[ridesharingIndex].sections?[1].ridesharingInformations?.seats?.available?.toString() ?? ""
+        ridesharingView.price = section.ridesharingJourneys?[ridesharingIndex].fare?.total?.value ?? ""
+        ridesharingView.setPicture(url: section.ridesharingJourneys?[ridesharingIndex].sections?[1].ridesharingInformations?.driver?.image)
+        ridesharingView.setNotation(section.ridesharingJourneys?[ridesharingIndex].sections?[1].ridesharingInformations?.driver?.rating?.count)
+        ridesharingView.setFullStar(section.ridesharingJourneys?[ridesharingIndex].sections?[1].ridesharingInformations?.driver?.rating?.value)
         ridesharingView._parent = self
-        ridesharingDeepLink = section.ridesharingJourneys?[0].sections?[1].links?[0].href
+        ridesharingDeepLink = section.ridesharingJourneys?[ridesharingIndex].sections?[1].links?[0].href
+        
+        
+        timeRidesharing = section.ridesharingJourneys?[ridesharingIndex].sections?[1].duration
         // Url section.ridesharingJourneys?[0].sections?[1].links?[0].href ?? ""
     }
     

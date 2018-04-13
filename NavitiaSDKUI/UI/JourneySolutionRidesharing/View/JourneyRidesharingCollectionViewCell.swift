@@ -1,20 +1,15 @@
 //
-//  RidesharingView.swift
+//  JourneyRidesharingCollectionViewCell.swift
 //  NavitiaSDKUI
 //
-//  Created by Flavien Sicard on 12/04/2018.
+//  Created by Flavien Sicard on 13/04/2018.
 //  Copyright © 2018 kisio. All rights reserved.
 //
 
 import UIKit
 
-import UIKit
-
-class RidesharingView: UIView {
+class JourneyRidesharingCollectionViewCell: UICollectionViewCell {
     
-    @IBOutlet var _view: UIView!
-    
-    @IBOutlet weak var bookButton: UIButton!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var startLabel: UILabel!
     @IBOutlet weak var pictureImage: UIImageView!
@@ -22,46 +17,24 @@ class RidesharingView: UIView {
     @IBOutlet weak var genderLabel: UILabel!
     @IBOutlet weak var starStack: UIStackView!
     @IBOutlet weak var notationLabel: UILabel!
-    @IBOutlet weak var addressFromLabel: UILabel!
-    @IBOutlet weak var addressToLabel: UILabel!
     @IBOutlet weak var seatCountLabel: UILabel!
     @IBOutlet weak var priceLabel: UILabel!
-    
-    var _parent: UIViewController?
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        _setup()
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-    }
-    
-//    override var frame: CGRect {
-////        willSet {
-////            if let _view = _view {
-////                _view.frame.size = newValue.size
-////            }
-////        }
-//    }
+    @IBOutlet weak var roadmapButton: UIButton!
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        _setup()
     }
     
-    private func _setup() {
-        UINib(nibName: "RidesharingView", bundle: bundle).instantiate(withOwner: self, options: nil)
-        _view.frame = self.bounds
-        addSubview(_view)
+    static var nib:UINib {
+        return UINib(nibName: identifier, bundle: nil)
+    }
+    
+    static var identifier: String {
+        return String(describing: self)
+    }
+    
+    @IBAction func actionRoadmapButton(_ sender: Any) {
         
-//        for _ in 0...4 {
-//            let myView = UIImageView(frame: CGRect(x: 0, y: 0, width: 15, height: 15))
-//            myView.image = UIImage(named: "start_full", in: bundle, compatibleWith: nil)
-//            starStack.addArrangedSubview(myView)
-//        }
-
     }
     
     func setPicture(url: String?) {
@@ -106,25 +79,10 @@ class RidesharingView: UIView {
         }
     }
     
-    @IBAction func actionBookButton(_ sender: Any) {
-        if let parentViewController = _parent {
-            let alertController = AlertViewController(nibName: "AlertView", bundle: bundle)
-            alertController.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
-            //alertController.stateKey = //NavitiaSDKUserDefaultsManager.SHOW_REDIRECTION_DIALOG_PREF_KEY
-            alertController.alertMessage = NSLocalizedString("redirection_message", bundle: bundle, comment: "Redirection Message")
-            alertController.checkBoxText = NSLocalizedString("dont_show_this_message_again", bundle: bundle, comment: "Don't show this message again")
-            alertController.negativeButtonText = NSLocalizedString("cancel", bundle: bundle, comment: "Cancel").uppercased()
-            alertController.positiveButtonText = NSLocalizedString("proceed", bundle: bundle, comment: "Continue").uppercased()
-            alertController.alertViewDelegate = parentViewController as! JourneySolutionRoadmapViewController
-            parentViewController.navigationController?.visibleViewController?.present(alertController, animated: false, completion: nil)
-        }
-    }
-    
-    
 }
 
-extension RidesharingView {
-
+extension JourneyRidesharingCollectionViewCell {
+    
     var title: String? {
         get {
             return titleLabel.text
@@ -176,30 +134,6 @@ extension RidesharingView {
         }
     }
     
-    var addressFrom: String? {
-        get {
-            return addressFromLabel.text
-        }
-        set {
-            if let newValue = newValue {
-                addressFromLabel.attributedText = NSMutableAttributedString()
-                    .normal(newValue, size: 11)
-            }
-        }
-    }
-    
-    var addressTo: String? {
-        get {
-            return addressToLabel.text
-        }
-        set {
-            if let newValue = newValue {
-                addressToLabel.attributedText = NSMutableAttributedString()
-                    .normal(newValue, size: 11)
-            }
-        }
-    }
-    
     var seatCount: String? {
         get {
             return seatCountLabel.text
@@ -229,5 +163,5 @@ extension RidesharingView {
             }
         }
     }
-
+    
 }

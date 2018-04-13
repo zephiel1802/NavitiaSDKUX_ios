@@ -194,14 +194,16 @@ extension JourneySolutionViewController: UICollectionViewDelegate {
     
     public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if !_viewModel.loading {
-            let viewController = storyboard?.instantiateViewController(withIdentifier: "journeySolutionRoadmapViewController") as! JourneySolutionRoadmapViewController
             if indexPath.section == 1 {
+                let viewController = storyboard?.instantiateViewController(withIdentifier: "JourneySolutionRidesharingViewController") as! JourneySolutionRidesharingViewController
                 viewController.journey = _viewModel.journeysRidesharing[indexPath.row]
-                viewController.ridesharing = true
+                self.navigationController?.pushViewController(viewController, animated: true)
+             //   viewController.ridesharing = true
             } else {
+                let viewController = storyboard?.instantiateViewController(withIdentifier: "journeySolutionRoadmapViewController") as! JourneySolutionRoadmapViewController
                 viewController.journey = _viewModel.journeys[indexPath.row]
+                self.navigationController?.pushViewController(viewController, animated: true)
             }
-            self.navigationController?.pushViewController(viewController, animated: true)
         }
     }
     

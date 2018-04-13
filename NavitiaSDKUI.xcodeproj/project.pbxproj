@@ -27,6 +27,8 @@
 		8433F39E207F8E14007DBBCE /* RidesharingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8433F39D207F8E14007DBBCE /* RidesharingView.swift */; };
 		8433F3A0207FAECF007DBBCE /* AlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8433F39F207FAECF007DBBCE /* AlertViewController.swift */; };
 		8433F3A2207FAF23007DBBCE /* AlertView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8433F3A1207FAF22007DBBCE /* AlertView.xib */; };
+		844CA2E22080F15A00C6B259 /* JourneyRidesharingCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 844CA2E12080F15A00C6B259 /* JourneyRidesharingCollectionViewCell.xib */; };
+		844CA2E42080F16E00C6B259 /* JourneyRidesharingCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 844CA2E32080F16E00C6B259 /* JourneyRidesharingCollectionViewCell.swift */; };
 		8451DA44206503F100CFA1E4 /* NavitiaSDKUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8451DA3A206503F100CFA1E4 /* NavitiaSDKUI.framework */; };
 		8451DA49206503F100CFA1E4 /* NavitiaSDKUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8451DA48206503F100CFA1E4 /* NavitiaSDKUITests.swift */; };
 		8451DA4B206503F100CFA1E4 /* NavitiaSDKUI.h in Headers */ = {isa = PBXBuildFile; fileRef = 8451DA3D206503F100CFA1E4 /* NavitiaSDKUI.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -307,6 +309,8 @@
 		8433F39D207F8E14007DBBCE /* RidesharingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RidesharingView.swift; sourceTree = "<group>"; };
 		8433F39F207FAECF007DBBCE /* AlertViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertViewController.swift; sourceTree = "<group>"; };
 		8433F3A1207FAF22007DBBCE /* AlertView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AlertView.xib; sourceTree = "<group>"; };
+		844CA2E12080F15A00C6B259 /* JourneyRidesharingCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = JourneyRidesharingCollectionViewCell.xib; sourceTree = "<group>"; };
+		844CA2E32080F16E00C6B259 /* JourneyRidesharingCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JourneyRidesharingCollectionViewCell.swift; sourceTree = "<group>"; };
 		8451DA3A206503F100CFA1E4 /* NavitiaSDKUI.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = NavitiaSDKUI.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8451DA3D206503F100CFA1E4 /* NavitiaSDKUI.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NavitiaSDKUI.h; sourceTree = "<group>"; };
 		8451DA3E206503F100CFA1E4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -828,6 +832,7 @@
 		8451DAB9206516C000CFA1E4 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				844CA2E32080F16E00C6B259 /* JourneyRidesharingCollectionViewCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -860,6 +865,7 @@
 		8451DABC2065175B00CFA1E4 /* Interface */ = {
 			isa = PBXGroup;
 			children = (
+				844CA2E12080F15A00C6B259 /* JourneyRidesharingCollectionViewCell.xib */,
 			);
 			path = Interface;
 			sourceTree = "<group>";
@@ -1268,6 +1274,7 @@
 				8433F3A2207FAF23007DBBCE /* AlertView.xib in Resources */,
 				84339A7E206CC5E200F2CB65 /* JourneyEmptySolutionCollectionViewCell.xib in Resources */,
 				8451DA63206506ED00CFA1E4 /* Localizable.strings in Resources */,
+				844CA2E22080F15A00C6B259 /* JourneyRidesharingCollectionViewCell.xib in Resources */,
 				84E350F520776BC600E9BA46 /* TransferStepView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1422,6 +1429,7 @@
 				8454D3C32068D3A800C97D2F /* Place.swift in Sources */,
 				8454D4342068D3A800C97D2F /* Mapper.swift in Sources */,
 				8454D39D2068D3A800C97D2F /* Arrivals.swift in Sources */,
+				844CA2E42080F16E00C6B259 /* JourneyRidesharingCollectionViewCell.swift in Sources */,
 				8454D3CB2068D3A800C97D2F /* PlaceNearby.swift in Sources */,
 				8454D3DA2068D3A800C97D2F /* Stands.swift in Sources */,
 				8454D4102068D3A800C97D2F /* Cost.swift in Sources */,
