@@ -54,9 +54,9 @@ class JourneySolutionViewModel: NSObject {
             journeyRequestBuilder.get { (result, error) in
                 if let journeys = result?.journeys {
                     self.parseNavitia(journeys: journeys)
-                    self.loading = false
-                    self.journeySolutionDidChange?(self)
                 }
+                self.loading = false
+                self.journeySolutionDidChange?(self)
             }
         }
     }

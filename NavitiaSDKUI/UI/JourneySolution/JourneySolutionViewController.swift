@@ -65,6 +65,7 @@ open class JourneySolutionViewController: UIViewController {
         title = "journeys".localized(withComment: "journeys", bundle: bundle)
         
         UIFont.registerFontWithFilenameString(filenameString: "SDKIcons.ttf", bundle: bundle)
+        
         if #available(iOS 11.0, *) {
             collectionView?.contentInsetAdjustmentBehavior = .always
         }
@@ -120,12 +121,12 @@ open class JourneySolutionViewController: UIViewController {
         fromLabel.text = inParameters.originLabel
         fromPinLabel.text = Icon("location-pin").iconFontCode
         fromPinLabel.font = UIFont(name: "SDKIcons", size: 22)
-        fromPinLabel.textColor = NavitiaSDKUIConfig.shared.color.origin//  UIColor(red:0, green:0.73, blue:0.46, alpha:1.0)
+        fromPinLabel.textColor = NavitiaSDKUIConfig.shared.color.origin
         
         toLabel.text = inParameters.destinationLabel
         toPinLabel.text = Icon("location-pin").iconFontCode
         toPinLabel.font = UIFont(name: "SDKIcons", size: 22)
-        toPinLabel.textColor = NavitiaSDKUIConfig.shared.color.destination//UIColor(red:0.69, green:0.01, blue:0.33, alpha:1.0)
+        toPinLabel.textColor = NavitiaSDKUIConfig.shared.color.destination
     }
 
 }
@@ -146,6 +147,9 @@ extension JourneySolutionViewController: UICollectionViewDataSource {
         if section == 1 {
             return self._viewModel.journeysRidesharing.count
         }
+        if self._viewModel.journeys.count == 0 {
+            return 1
+        }
         return self._viewModel.journeys.count
     }
     
@@ -165,6 +169,11 @@ extension JourneySolutionViewController: UICollectionViewDataSource {
                     cell.setupRidesharing(self._viewModel.journeysRidesharing[indexPath.row])
                     return cell
                 }
+            }
+        }
+        if self._viewModel.journeys.count == 0 {
+            if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: JourneyEmptySolutionCollectionViewCell.identifier, for: indexPath) as? JourneyEmptySolutionCollectionViewCell {
+                return cell
             }
         }
         if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: JourneySolutionCollectionViewCell.identifier, for: indexPath) as? JourneySolutionCollectionViewCell {
@@ -195,11 +204,11 @@ extension JourneySolutionViewController: UICollectionViewDelegate {
     
     public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if !_viewModel.loading {
-            if indexPath.section == 1 {
+            if indexPath.section == 1 && _viewModel.journeysRidesharing.count > indexPath.row {
                 let viewController = storyboard?.instantiateViewController(withIdentifier: "JourneySolutionRidesharingViewController") as! JourneySolutionRidesharingViewController
                 viewController.journey = _viewModel.journeysRidesharing[indexPath.row]
                 self.navigationController?.pushViewController(viewController, animated: true)
-            } else {
+            } else if _viewModel.journeys.count > indexPath.row {
                 let viewController = storyboard?.instantiateViewController(withIdentifier: "journeySolutionRoadmapViewController") as! JourneySolutionRoadmapViewController
                 viewController.journey = _viewModel.journeys[indexPath.row]
                 self.navigationController?.pushViewController(viewController, animated: true)
@@ -220,6 +229,10 @@ extension JourneySolutionViewController: UICollectionViewDelegateFlowLayout {
             return CGSize(width: self.collectionView.frame.size.width - safeAreaWidth, height: 75)
         } else if indexPath.section == 1 {
             return CGSize(width: self.collectionView.frame.size.width - safeAreaWidth, height: 97)
+        }
+        //
+        if !_viewModel.loading && self._viewModel.journeys.count == 0 {
+            return CGSize(width: self.collectionView.frame.size.width - safeAreaWidth, height: 35)
         }
         return CGSize(width: self.collectionView.frame.size.width - safeAreaWidth, height: 130)
     }

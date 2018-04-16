@@ -18,6 +18,8 @@ open class JourneySolutionRidesharingViewController: UIViewController {
     override open func viewDidLoad() {
         super.viewDidLoad()
 
+        title = "carpooling".localized(withComment: "Carpooling", bundle: bundle)
+        
         if let journey = journey {
             journeySolutionRoadmap.setDataRidesharing(journey)
         }

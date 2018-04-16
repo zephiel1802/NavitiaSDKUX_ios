@@ -90,7 +90,7 @@ extension TransferStepView {
             if let newValue = newValue {
                 let formattedString = NSMutableAttributedString()
                 formattedString
-                    .normal("to".localized(withComment: "to", bundle: bundle), size: 15)
+                    .normal("to_with_uppercase".localized(withComment: "To", bundle: bundle), size: 15)
                     .normal(" ", size: 15)
                     .bold(newValue, size: 15)
                 directionLabel.attributedText = formattedString

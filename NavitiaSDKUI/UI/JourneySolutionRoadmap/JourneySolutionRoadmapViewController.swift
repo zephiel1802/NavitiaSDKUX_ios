@@ -260,7 +260,7 @@ extension JourneySolutionRoadmapViewController: AlertViewControllerProtocol {
 extension JourneySolutionRoadmapViewController: MKMapViewDelegate {
     
     func setupMapView() {
-        title = "Roadmap"
+        title = "roadmap".localized(withComment: "Roadmap", bundle: bundle)
         
         let ridesharingJourneyCoordinates = getRidesharingJourneyCoordinates(journey: self.journey!)
         
@@ -323,32 +323,62 @@ extension JourneySolutionRoadmapViewController: MKMapViewDelegate {
             let ridesharingJourneyIndex = self.getRidesharingJourneyIndex(journey: self.journey!)
             
             if ridesharingJourneyIndex == 0 {
-                self.mapView.addAnnotation(CustomAnnotation(coordinate: self.getJourneyDepartureCoordinates(), title: NSLocalizedString("departure", bundle: bundle, comment: "Departure annotation"), annotationType: .RidesharingAnnotation, placeType: .Departure))
-
+                self.mapView.addAnnotation(CustomAnnotation(coordinate: self.getJourneyDepartureCoordinates(),
+                                                            title: "departure".localized(withComment: "Departure annotation", bundle: bundle),
+                                                            annotationType: .RidesharingAnnotation,
+                                                            placeType: .Departure))
                 if drawnPathsCount == 1 {
-                    self.mapView.addAnnotation(CustomAnnotation(coordinate: self.getJourneyArrivalCoordinates(), title: NSLocalizedString("arrival", bundle: bundle, comment: "Arrival annotation"), annotationType: .RidesharingAnnotation, placeType: .Arrival))
+                    self.mapView.addAnnotation(CustomAnnotation(coordinate: self.getJourneyArrivalCoordinates(),
+                                                                title: "arrival".localized(withComment: "Arrival annotation", bundle: bundle),
+                                                                annotationType: .RidesharingAnnotation,
+                                                                placeType: .Arrival))
                 } else {
                     self.mapView.addAnnotation(CustomAnnotation(coordinate: ridesharingJourneyCoordinates[1], annotationType: .RidesharingAnnotation, placeType: .Other))
-                    self.mapView.addAnnotation(CustomAnnotation(coordinate: self.getJourneyArrivalCoordinates(), title: NSLocalizedString("arrival", bundle: bundle, comment: "Arrival annotation"), annotationType: .PlaceAnnotation, placeType: .Arrival))
+                    self.mapView.addAnnotation(CustomAnnotation(coordinate: self.getJourneyArrivalCoordinates(),
+                                                                title: "arrival".localized(withComment: "Arrival annotation", bundle: bundle),
+                                                                annotationType: .PlaceAnnotation,
+                                                                placeType: .Arrival))
                 }
             } else if ridesharingJourneyIndex == drawnPathsCount - 1 {
-                self.mapView.addAnnotation(CustomAnnotation(coordinate: self.getJourneyDepartureCoordinates(), title: NSLocalizedString("departure", bundle: bundle, comment: "Departure annotation"), annotationType: .PlaceAnnotation, placeType: .Departure))
-                self.mapView.addAnnotation(CustomAnnotation(coordinate: ridesharingJourneyCoordinates[0], annotationType: .RidesharingAnnotation, placeType: .Other))
-                self.mapView.addAnnotation(CustomAnnotation(coordinate: self.getJourneyArrivalCoordinates(), title: NSLocalizedString("arrival", bundle: bundle, comment: "Arrival annotation"), annotationType: .RidesharingAnnotation, placeType: .Arrival))
+                self.mapView.addAnnotation(CustomAnnotation(coordinate: self.getJourneyDepartureCoordinates(),
+                                                            title: "departure".localized(withComment: "Departure annotation", bundle: bundle),
+                                                            annotationType: .PlaceAnnotation,
+                                                            placeType: .Departure))
+                self.mapView.addAnnotation(CustomAnnotation(coordinate: ridesharingJourneyCoordinates[0],
+                                                            annotationType: .RidesharingAnnotation,
+                                                            placeType: .Other))
+                self.mapView.addAnnotation(CustomAnnotation(coordinate: self.getJourneyArrivalCoordinates(),
+                                                            title: "arrival".localized(withComment: "Arrival annotation", bundle: bundle),
+                                                            annotationType: .RidesharingAnnotation,
+                                                            placeType: .Arrival))
             } else {
-                self.mapView.addAnnotation(CustomAnnotation(coordinate: self.getJourneyDepartureCoordinates(), title: NSLocalizedString("departure", bundle: bundle, comment: "Departure annotation"), annotationType: .PlaceAnnotation, placeType: .Departure))
-                self.mapView.addAnnotation(CustomAnnotation(coordinate: ridesharingJourneyCoordinates[0], annotationType: .RidesharingAnnotation, placeType: .Other))
-                self.mapView.addAnnotation(CustomAnnotation(coordinate: ridesharingJourneyCoordinates[1], annotationType: .RidesharingAnnotation, placeType: .Other))
-                self.mapView.addAnnotation(CustomAnnotation(coordinate: self.getJourneyArrivalCoordinates(), title: NSLocalizedString("arrival", bundle: bundle, comment: "Arrival annotation"), annotationType: .PlaceAnnotation, placeType: .Arrival))
+                self.mapView.addAnnotation(CustomAnnotation(coordinate: self.getJourneyDepartureCoordinates(),
+                                                            title: "departure".localized(withComment: "Departure annotation", bundle: bundle),
+                                                            annotationType: .PlaceAnnotation,
+                                                            placeType: .Departure))
+                self.mapView.addAnnotation(CustomAnnotation(coordinate: ridesharingJourneyCoordinates[0],
+                                                            annotationType: .RidesharingAnnotation,
+                                                            placeType: .Other))
+                self.mapView.addAnnotation(CustomAnnotation(coordinate: ridesharingJourneyCoordinates[1],
+                                                            annotationType: .RidesharingAnnotation,
+                                                            placeType: .Other))
+                self.mapView.addAnnotation(CustomAnnotation(coordinate: self.getJourneyArrivalCoordinates(),
+                                                            title: "arrival".localized(withComment: "Arrival annotation", bundle: bundle),
+                                                            annotationType: .PlaceAnnotation,
+                                                            placeType: .Arrival))
             }
         } else {
-            self.mapView.addAnnotation(CustomAnnotation(coordinate: self.getJourneyDepartureCoordinates(), title: NSLocalizedString("departure", bundle: bundle, comment: "Departure annotation"), annotationType: .PlaceAnnotation, placeType: .Departure))
-            self.mapView.addAnnotation(CustomAnnotation(coordinate: self.getJourneyArrivalCoordinates(), title: NSLocalizedString("arrival", bundle: bundle, comment: "Arrival annotation"), annotationType: .PlaceAnnotation, placeType: .Arrival))
+            self.mapView.addAnnotation(CustomAnnotation(coordinate: self.getJourneyDepartureCoordinates(),
+                                                        title: "departure".localized(withComment: "Departure annotation", bundle: bundle),
+                                                        annotationType: .PlaceAnnotation,
+                                                        placeType: .Departure))
+            self.mapView.addAnnotation(CustomAnnotation(coordinate: self.getJourneyArrivalCoordinates(),
+                                                        title: "arrival".localized(withComment: "Arrival annotation", bundle: bundle), annotationType: .PlaceAnnotation,
+                                                        placeType: .Arrival))
         }
     }
     
     func zoomToPolyline(targetPolyline: MKPolyline, animated: Bool) {
-//        self.mapView.setVisibleMapRect(targetPolyline.boundingMapRect, edgePadding: UIEdgeInsetsMake(60, 20, 20, 20), animated: animated)
         self.mapView.setVisibleMapRect(targetPolyline.boundingMapRect, edgePadding: UIEdgeInsetsMake(70, 60, 60, 60), animated: animated)
     }
     
