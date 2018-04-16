@@ -37,7 +37,7 @@ class AlertViewController: UIViewController, CheckboxDelegate {
         self.checkbox.layer.cornerRadius = 2
         self.checkbox.borderStyle = .square
         self.checkbox.checkmarkStyle = .tick
-        self.checkbox.checkmarkColor = UIColor.red// config.colors.tertiary
+        self.checkbox.checkmarkColor = UIColor.red
         self.checkbox.delegate = self
         
         self.message.text = self.alertMessage
@@ -66,6 +66,6 @@ class AlertViewController: UIViewController, CheckboxDelegate {
     }
     
     func checkboxStateDidChange(checkbox: Checkbox) {
-        //NavitiaSDKUserDefaultsManager.saveUserDefault(key: self.stateKey, value: !checkbox.isChecked)
+        NavitiaSDKUserDefaultsManager.saveUserDefault(key: self.stateKey, value: !checkbox.isChecked)
     }
 }

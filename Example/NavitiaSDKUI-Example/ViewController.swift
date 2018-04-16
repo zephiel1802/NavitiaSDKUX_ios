@@ -40,7 +40,8 @@ class ViewController: UIViewController {
 //        journeyResultsViewController.inParameters.datetime!.addTimeInterval(2000)
         journeyResultsViewController.inParameters.datetimeRepresents = .departure
 //        journeyResultsViewController.inParameters.forbiddenUris = ["physical_mode:Bus"]
-        journeyResultsViewController.inParameters.firstSectionModes = [.bss, .ridesharing] //       journeyResultsViewController.inParameters.lastSectionModes = [.car]
+        journeyResultsViewController.inParameters.firstSectionModes = [.bss]
+        //       journeyResultsViewController.inParameters.lastSectionModes = [.car]
         journeyResultsViewController.inParameters.count = 5
         return journeyResultsViewController
     }

@@ -267,6 +267,7 @@
 		8471D3892080CD85000C9125 /* ColorHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8471D3882080CD85000C9125 /* ColorHelper.swift */; };
 		848D7C2A207B92D4002E9B1A /* PublicTransportView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 848D7C29207B92D4002E9B1A /* PublicTransportView.xib */; };
 		848D7C2C207B95B0002E9B1A /* PublicTransportView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848D7C2B207B95B0002E9B1A /* PublicTransportView.swift */; };
+		8490A6D52084D2C700F7CFA1 /* NavitiaSDKUserDefaultsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8490A6D42084D2C700F7CFA1 /* NavitiaSDKUserDefaultsManager.swift */; };
 		84BC297E207E66CC0073F198 /* StationsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84BC297D207E66CC0073F198 /* StationsView.xib */; };
 		84BC2980207E66D50073F198 /* StationsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84BC297F207E66D50073F198 /* StationsView.swift */; };
 		84E350F520776BC600E9BA46 /* TransferStepView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84E350F420776BC600E9BA46 /* TransferStepView.xib */; };
@@ -553,6 +554,7 @@
 		8471D3882080CD85000C9125 /* ColorHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorHelper.swift; sourceTree = "<group>"; };
 		848D7C29207B92D4002E9B1A /* PublicTransportView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PublicTransportView.xib; sourceTree = "<group>"; };
 		848D7C2B207B95B0002E9B1A /* PublicTransportView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublicTransportView.swift; sourceTree = "<group>"; };
+		8490A6D42084D2C700F7CFA1 /* NavitiaSDKUserDefaultsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavitiaSDKUserDefaultsManager.swift; sourceTree = "<group>"; };
 		84BC297D207E66CC0073F198 /* StationsView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = StationsView.xib; sourceTree = "<group>"; };
 		84BC297F207E66D50073F198 /* StationsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StationsView.swift; sourceTree = "<group>"; };
 		84E350F420776BC600E9BA46 /* TransferStepView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TransferStepView.xib; sourceTree = "<group>"; };
@@ -788,6 +790,7 @@
 			children = (
 				8422B46B206A37610097E6C9 /* TransportHelper.swift */,
 				8471D3882080CD85000C9125 /* ColorHelper.swift */,
+				8490A6D42084D2C700F7CFA1 /* NavitiaSDKUserDefaultsManager.swift */,
 			);
 			path = Helper;
 			sourceTree = "<group>";
@@ -1217,7 +1220,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0920;
-				LastUpgradeCheck = 0920;
+				LastUpgradeCheck = 0930;
 				ORGANIZATIONNAME = kisio;
 				TargetAttributes = {
 					8451DA39206503F100CFA1E4 = {
@@ -1498,6 +1501,7 @@
 				8454D3E22068D3A800C97D2F /* CalendarPeriod.swift in Sources */,
 				8454D41C2068D3A800C97D2F /* AFError.swift in Sources */,
 				8454D3D72068D3A800C97D2F /* DictAddresses.swift in Sources */,
+				8490A6D52084D2C700F7CFA1 /* NavitiaSDKUserDefaultsManager.swift in Sources */,
 				8454D3B12068D3A800C97D2F /* Companies.swift in Sources */,
 				8454D4502069429500C97D2F /* String+Extension.swift in Sources */,
 				8454D38B2068D3A800C97D2F /* DatasetsApi.swift in Sources */,
@@ -1584,6 +1588,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -1591,6 +1596,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
@@ -1645,6 +1651,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -1652,6 +1659,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;

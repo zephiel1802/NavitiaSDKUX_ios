@@ -27,14 +27,15 @@ public extension UIFont {
             print("UIFont+:  Failed to register font - data provider could not be loaded.")
             return
         }
-
+        
         let fontRef = CGFont(dataProvider)
-        if fontRef != nil {
-            var errorRef: Unmanaged<CFError>? = nil
-            if !CTFontManagerRegisterGraphicsFont(fontRef!, &errorRef) {
+        
+        var errorRef: Unmanaged<CFError>? = nil
+        if let fontRef = fontRef {
+            if (CTFontManagerRegisterGraphicsFont(fontRef, &errorRef) == false) {
                 print("UIFont+:  Failed to register font - register graphics font failed - this font may have already been registered in the main bundle.")
             }
         }
-
+        
     }
 }

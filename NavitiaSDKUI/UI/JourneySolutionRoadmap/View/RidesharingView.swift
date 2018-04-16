@@ -105,7 +105,7 @@ class RidesharingView: UIView {
         if let parentViewController = _parent {
             let alertController = AlertViewController(nibName: "AlertView", bundle: NavitiaSDKUIConfig.shared.bundle)
             alertController.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
-            //alertController.stateKey = //NavitiaSDKUserDefaultsManager.SHOW_REDIRECTION_DIALOG_PREF_KEY
+            alertController.stateKey = NavitiaSDKUserDefaultsManager.SHOW_REDIRECTION_DIALOG_PREF_KEY
             alertController.alertMessage = "redirection_message".localized(withComment: "Redirection Message", bundle: NavitiaSDKUIConfig.shared.bundle)
             alertController.checkBoxText = "dont_show_this_message_again".localized(withComment: "Don't show this message again", bundle: NavitiaSDKUIConfig.shared.bundle)
             alertController.negativeButtonText = "cancel".localized(withComment: "Cancel", bundle: NavitiaSDKUIConfig.shared.bundle).uppercased()

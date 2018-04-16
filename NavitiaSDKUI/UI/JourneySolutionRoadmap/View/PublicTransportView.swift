@@ -311,13 +311,13 @@ extension PublicTransportView {
                     unit = "units_minute".localized(withComment: "units_minute", bundle: NavitiaSDKUIConfig.shared.bundle)
                 }
                 waitIconLabel.attributedText = NSMutableAttributedString()
-                    .icon("clock", size: 15)
+                    .icon("clock", color: NavitiaSDKUIConfig.shared.color.gray, size: 15)
                 waitTimeLabel.attributedText = NSMutableAttributedString()
-                    .normal("wait".localized(withComment: "wait", bundle: NavitiaSDKUIConfig.shared.bundle), size: 12)
-                    .normal(" ", size: 12)
-                    .normal(newValue, size: 12)
-                    .normal(" ", size: 12)
-                    .normal(unit, size: 12)
+                    .normal("wait".localized(withComment: "wait", bundle: NavitiaSDKUIConfig.shared.bundle), color: NavitiaSDKUIConfig.shared.color.gray, size: 12)
+                    .normal(" ", color: NavitiaSDKUIConfig.shared.color.gray, size: 12)
+                    .normal(newValue, color: NavitiaSDKUIConfig.shared.color.gray, size: 12)
+                    .normal(" ", color: NavitiaSDKUIConfig.shared.color.gray, size: 12)
+                    .normal(unit, color: NavitiaSDKUIConfig.shared.color.gray, size: 12)
                 waitIsHidden = false
             }
         }

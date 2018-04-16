@@ -26,10 +26,13 @@ extension NSMutableAttributedString {
     }
     
     @discardableResult func icon(_ iconName: String, color: UIColor = UIColor.black, size: CGFloat = 12.0) -> NSMutableAttributedString {
-        let icon = NSMutableAttributedString(string: Icon(iconName).iconFontCode,
-                                             attributes: [.font : UIFont(name: "SDKIcons", size: size),
-                                                          .foregroundColor: color])
-        append(icon)
+        if let font = UIFont(name: "SDKIcons", size: size) {
+            let icon = NSMutableAttributedString(string: Icon(iconName).iconFontCode,
+                                                 attributes: [.font : font,
+                             .foregroundColor: color])
+            append(icon)
+        }
+
         return self
     }
 }

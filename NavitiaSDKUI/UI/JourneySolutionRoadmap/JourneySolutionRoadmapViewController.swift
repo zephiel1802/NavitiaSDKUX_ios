@@ -113,10 +113,13 @@ open class JourneySolutionRoadmapViewController: UIViewController {
         _displayDeparture(journey)
         
         if let sections = journey?.sections {
-            for (_ , section) in sections.enumerated() {
+            for (index, section) in sections.enumerated() {
                 if let type = section.type {
                     if type == "public_transport" {
-                        _displayPublicTransport(section)
+                        if index == 0 {
+                            _displayPublicTransport(section)
+                        }
+                        _displayPublicTransport(section, waiting: sections[index - 1])
                     } else if type == "transfer" {
                         _displayTransferStep(section, mode: section.transferType ?? "")
                     } else if type == "street_network" {
@@ -200,7 +203,7 @@ open class JourneySolutionRoadmapViewController: UIViewController {
         // Url section.ridesharingJourneys?[0].sections?[1].links?[0].href ?? ""
     }
     
-    func _displayPublicTransport(_ section: Section) {
+    func _displayPublicTransport(_ section: Section, waiting: Section? = nil) {
         let publicTransportView = PublicTransportView(frame: CGRect(x: 0, y: 0, width: composentWidth, height: 100))
         publicTransportView.typeString = Modes().getModeIcon(section: section)
         publicTransportView.take = section.displayInformations?.commercialMode ?? ""
@@ -229,6 +232,15 @@ open class JourneySolutionRoadmapViewController: UIViewController {
             }
         }
         publicTransportView.stations = stopDate
+        
+        if let waiting = waiting {
+            if waiting.type == "waiting" {
+                if let durationWaiting = waiting.duration?.minuteToString() {
+                    publicTransportView.waitTime = durationWaiting
+                }
+            }
+        }
+
         addViewInScroll(view: publicTransportView)
     }
     
@@ -538,18 +550,15 @@ class CustomAnnotation: MKPointAnnotation {
             annotationLabel.font = UIFont(descriptor: annotationLabel.font.fontDescriptor, size: 14)
             annotationLabel.textAlignment = NSTextAlignment.center
             annotationLabel.alpha = 0.8
-            
             if annotationType == .RidesharingAnnotation {
                 let annotationImage = UIImageView(frame: CGRect(x: 30, y: 27, width: 20, height: 30))
                 annotationImage.image = UIImage(named: "ridesharing_pin", in: bundle, compatibleWith: nil)
-                
                 annotationView.addSubview(annotationImage)
             } else {
                 let annotationPin = UILabel(frame: CGRect(x: 28, y: 27, width: 26, height: 26))
                 annotationPin.textColor = self.placeType == .Departure ? NavitiaSDKUIConfig.shared.color.origin : NavitiaSDKUIConfig.shared.color.destination
                 annotationPin.text = Icon("location-pin").iconFontCode
                 annotationPin.font = UIFont(name: "SDKIcons", size: 26)
-                
                 annotationView.addSubview(annotationPin)
             }
             
