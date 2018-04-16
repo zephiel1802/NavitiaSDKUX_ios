@@ -8,8 +8,6 @@
 
 import UIKit
 
-var bundle: Bundle!
-
 extension UIStackView {
     
     func removeAllArrangedSubviews() {
@@ -75,7 +73,7 @@ class JourneySummaryView: UIView {
     }
     
     private func _setup() {
-        UINib(nibName: "JourneySummaryView", bundle: bundle).instantiate(withOwner: self, options: nil)
+        UINib(nibName: "JourneySummaryView", bundle: NavitiaSDKUIConfig.shared.bundle).instantiate(withOwner: self, options: nil)
         _view.frame = self.bounds
         addSubview(_view)
         

@@ -60,11 +60,12 @@ open class JourneySolutionViewController: UIViewController {
     
     override open func viewDidLoad() {
         super.viewDidLoad()
-        bundle = self.nibBundle
         
-        title = "journeys".localized(withComment: "journeys", bundle: bundle)
+        NavitiaSDKUIConfig.shared.bundle = self.nibBundle
         
-        UIFont.registerFontWithFilenameString(filenameString: "SDKIcons.ttf", bundle: bundle)
+        title = "journeys".localized(withComment: "journeys", bundle: NavitiaSDKUIConfig.shared.bundle)
+        
+        UIFont.registerFontWithFilenameString(filenameString: "SDKIcons.ttf", bundle: NavitiaSDKUIConfig.shared.bundle)
         
         if #available(iOS 11.0, *) {
             collectionView?.contentInsetAdjustmentBehavior = .always
@@ -134,52 +135,76 @@ open class JourneySolutionViewController: UIViewController {
 extension JourneySolutionViewController: UICollectionViewDataSource {
     
     public func numberOfSections(in collectionView: UICollectionView) -> Int {
-        if self._viewModel.journeysRidesharing.count > 0 {
+        if ridesharing && !_viewModel.loading {
             return 2
         }
         return 1
     }
     
     public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if self._viewModel.loading {
+
+        if _viewModel.loading {
             return 3
         }
-        if section == 1 {
-            return self._viewModel.journeysRidesharing.count
+        
+        
+        if section == 1 && _viewModel.journeysRidesharing.count == 0 {
+            return 2
         }
         if self._viewModel.journeys.count == 0 {
             return 1
         }
+        
+        if section == 1 {
+            return self._viewModel.journeysRidesharing.count
+        }
+        
         return self._viewModel.journeys.count
     }
     
     public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        if self._viewModel.loading {
+        // Loading
+        if _viewModel.loading {
             if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: JourneySolutionLoadCollectionViewCell.identifier, for: indexPath) as? JourneySolutionLoadCollectionViewCell {
                 return cell
             }
         }
+        // Journey
+        if indexPath.section == 0 {
+            // No journey
+            if self._viewModel.journeys.count == 0 {
+                if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: JourneyEmptySolutionCollectionViewCell.identifier, for: indexPath) as? JourneyEmptySolutionCollectionViewCell {
+                    return cell
+                }
+            }
+            // Result
+            if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: JourneySolutionCollectionViewCell.identifier, for: indexPath) as? JourneySolutionCollectionViewCell {
+                cell.setup(self._viewModel.journeys[indexPath.row])
+                return cell
+            }
+        }
+        // Carsharing
         if indexPath.section == 1 {
+            // Header
             if indexPath.row == 0 {
                 if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: RidesharingInformationCollectionViewCell.identifier, for: indexPath) as? RidesharingInformationCollectionViewCell {
                     return cell
                 }
-            } else {
-                if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: JourneySolutionCollectionViewCell.identifier, for: indexPath) as? JourneySolutionCollectionViewCell {
-                    cell.setupRidesharing(self._viewModel.journeysRidesharing[indexPath.row])
+            }
+            // No journey
+            if indexPath.row == 1 && self._viewModel.journeysRidesharing.count == 0 {
+                if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: JourneyEmptySolutionCollectionViewCell.identifier, for: indexPath) as? JourneyEmptySolutionCollectionViewCell {
+                    cell.text = "no_carpooling_options_found".localized(withComment: "no_carpooling_options_found", bundle: NavitiaSDKUIConfig.shared.bundle)
                     return cell
                 }
             }
-        }
-        if self._viewModel.journeys.count == 0 {
-            if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: JourneyEmptySolutionCollectionViewCell.identifier, for: indexPath) as? JourneyEmptySolutionCollectionViewCell {
+            // Result
+            if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: JourneySolutionCollectionViewCell.identifier, for: indexPath) as? JourneySolutionCollectionViewCell {
+                cell.setupRidesharing(self._viewModel.journeysRidesharing[indexPath.row])
                 return cell
             }
         }
-        if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: JourneySolutionCollectionViewCell.identifier, for: indexPath) as? JourneySolutionCollectionViewCell {
-            cell.setup(self._viewModel.journeys[indexPath.row])
-            return cell
-        }
+        // Other
         return UICollectionViewCell()
     }
     
@@ -225,15 +250,34 @@ extension JourneySolutionViewController: UICollectionViewDelegateFlowLayout {
         if #available(iOS 11.0, *) {
             safeAreaWidth += self.collectionView.safeAreaInsets.left + self.collectionView.safeAreaInsets.right
         }
-        if indexPath.section == 1 && indexPath.row == 0 {
-            return CGSize(width: self.collectionView.frame.size.width - safeAreaWidth, height: 75)
-        } else if indexPath.section == 1 {
+        
+        // Loading
+        if _viewModel.loading {
+            return CGSize(width: self.collectionView.frame.size.width - safeAreaWidth, height: 130)
+        }
+        // Journey
+        if indexPath.section == 0 {
+            // No journey
+            if self._viewModel.journeys.count == 0 {
+                return CGSize(width: self.collectionView.frame.size.width - safeAreaWidth, height: 35)
+            }
+            // Result
+            return CGSize(width: self.collectionView.frame.size.width - safeAreaWidth, height: 130)
+        }
+        // Carsharing
+        if indexPath.section == 1 {
+            // Header
+            if indexPath.row == 0 {
+                return CGSize(width: self.collectionView.frame.size.width - safeAreaWidth, height: 75)
+            }
+            // No journey
+            if indexPath.row == 1 && self._viewModel.journeysRidesharing.count == 0 {
+                return CGSize(width: self.collectionView.frame.size.width - safeAreaWidth, height: 35)
+            }
+            // Result
             return CGSize(width: self.collectionView.frame.size.width - safeAreaWidth, height: 97)
         }
-        //
-        if !_viewModel.loading && self._viewModel.journeys.count == 0 {
-            return CGSize(width: self.collectionView.frame.size.width - safeAreaWidth, height: 35)
-        }
+        // Other
         return CGSize(width: self.collectionView.frame.size.width - safeAreaWidth, height: 130)
     }
 
@@ -248,10 +292,32 @@ extension JourneySolutionViewController {
         set {
             if let newValue = newValue {
                 dateTimeLabel.attributedText = NSMutableAttributedString()
-                    .bold("departure".localized(withComment: "departure", bundle: bundle) + " : ", color: UIColor.white, size: 12.5)
+                    .bold("departure".localized(withComment: "departure", bundle: NavitiaSDKUIConfig.shared.bundle) + " : ", color: UIColor.white, size: 12.5)
                     .bold(newValue, color: UIColor.white, size: 12.5)
             }
         }
     }
+    
+    var ridesharing: Bool {
+        get {
+            if let firstSectionModes = inParameters.firstSectionModes {
+                for firstSectionMode in firstSectionModes {
+                    if firstSectionMode == .ridesharing {
+                        return true
+                    }
+                }
+            }
+            if let lastSectionModes = inParameters.lastSectionModes {
+                for lastSectionMode in lastSectionModes {
+                    if lastSectionMode == .ridesharing {
+                        return true
+                    }
+                }
+            }
+            return false
+        }
+    }
+
+    
 }
 

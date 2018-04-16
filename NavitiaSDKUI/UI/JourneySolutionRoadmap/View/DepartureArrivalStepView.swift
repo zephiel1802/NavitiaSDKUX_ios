@@ -43,7 +43,7 @@ class DepartureArrivalStepView: UIView {
     }
     
     private func _setup() {
-        UINib(nibName: "DepartureArrivalStepView", bundle: bundle).instantiate(withOwner: self, options: nil)
+        UINib(nibName: "DepartureArrivalStepView", bundle: NavitiaSDKUIConfig.shared.bundle).instantiate(withOwner: self, options: nil)
         _view.frame = self.bounds
         addSubview(_view)
         
@@ -68,10 +68,10 @@ extension DepartureArrivalStepView {
             _type = newValue
             if newValue == .departure {
                 self._view.backgroundColor = NavitiaSDKUIConfig.shared.color.origin
-                title = "departure".localized(withComment: "departure", bundle: bundle) + ":"
+                title = "departure".localized(withComment: "departure", bundle: NavitiaSDKUIConfig.shared.bundle) + ":"
             } else {
                 self._view.backgroundColor = NavitiaSDKUIConfig.shared.color.destination
-                title = "arrival".localized(withComment: "arrival", bundle: bundle) + ":"
+                title = "arrival".localized(withComment: "arrival", bundle: NavitiaSDKUIConfig.shared.bundle) + ":"
             }
         }
     }

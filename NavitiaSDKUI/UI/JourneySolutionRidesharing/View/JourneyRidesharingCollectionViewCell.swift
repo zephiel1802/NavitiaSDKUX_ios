@@ -24,7 +24,7 @@ class JourneyRidesharingCollectionViewCell: UICollectionViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         
-        roadmapButton.setTitle("view_on_the_map".localized(withComment: "view_on_the_map", bundle: bundle), for: .normal)
+        roadmapButton.setTitle("view_on_the_map".localized(withComment: "view_on_the_map", bundle: NavitiaSDKUIConfig.shared.bundle), for: .normal)
     }
     
     static var nib:UINib {
@@ -47,9 +47,9 @@ class JourneyRidesharingCollectionViewCell: UICollectionViewCell {
     
     func setNotation(_ count: Int32?) {
         if let count = count {
-            var template = "rating_plural".localized(withComment: "rating_plural", bundle: bundle)
+            var template = "rating_plural".localized(withComment: "rating_plural", bundle: NavitiaSDKUIConfig.shared.bundle)
             if count == 0 || count == 1 {
-                template = "rating".localized(withComment: "rating", bundle: bundle)
+                template = "rating".localized(withComment: "rating", bundle: NavitiaSDKUIConfig.shared.bundle)
             }
             notationLabel.attributedText = NSMutableAttributedString()
                 .normal(String(format: template, count), size: 10)
@@ -69,7 +69,7 @@ class JourneyRidesharingCollectionViewCell: UICollectionViewCell {
             if full >= 0 {
                 for _ in 0...full {
                     let myView = UIImageView(frame: CGRect(x: 0, y: 0, width: 15, height: 15))
-                    myView.image = UIImage(named: "star_full", in: bundle, compatibleWith: nil)
+                    myView.image = UIImage(named: "star_full", in: NavitiaSDKUIConfig.shared.bundle, compatibleWith: nil)
                     starStack.addArrangedSubview(myView)
                 }
             }
@@ -77,7 +77,7 @@ class JourneyRidesharingCollectionViewCell: UICollectionViewCell {
             if empty >= 0 {
                 for _ in 0...empty {
                     let myView = UIImageView(frame: CGRect(x: 0, y: 0, width: 15, height: 15))
-                    myView.image = UIImage(named: "star_empty", in: bundle, compatibleWith: nil)
+                    myView.image = UIImage(named: "star_empty", in: NavitiaSDKUIConfig.shared.bundle, compatibleWith: nil)
                     starStack.addArrangedSubview(myView)
                 }
             }
@@ -107,7 +107,7 @@ extension JourneyRidesharingCollectionViewCell {
         set {
             if let newValue = newValue {
                 startLabel.attributedText = NSMutableAttributedString()
-                    .normal("departure".localized(withComment: "departure", bundle: bundle), color: NavitiaSDKUIConfig.shared.color.tertiary, size: 8.5)
+                    .normal("departure".localized(withComment: "departure", bundle: NavitiaSDKUIConfig.shared.bundle), color: NavitiaSDKUIConfig.shared.color.tertiary, size: 8.5)
                     .normal(": ", color: NavitiaSDKUIConfig.shared.color.tertiary, size: 8.5)
                     .bold(newValue, color: NavitiaSDKUIConfig.shared.color.tertiary, size: 14)
             }
@@ -147,12 +147,12 @@ extension JourneyRidesharingCollectionViewCell {
         set {
             if let newValue = newValue {
               //  print("value \(newValue)")
-                let template = "available_seats".localized(withComment: "available_seats", bundle: bundle)
+                let template = "available_seats".localized(withComment: "available_seats", bundle: NavitiaSDKUIConfig.shared.bundle)
                 seatCountLabel.attributedText = NSMutableAttributedString()
                     .normal(String(format: template, newValue), size: 12.5)
             } else {
                 seatCountLabel.attributedText = NSMutableAttributedString()
-                    .normal("no_available_seats".localized(withComment: "no_available_seats", bundle: bundle), size: 12.5)
+                    .normal("no_available_seats".localized(withComment: "no_available_seats", bundle: NavitiaSDKUIConfig.shared.bundle), size: 12.5)
             }
         }
     }
@@ -165,14 +165,14 @@ extension JourneyRidesharingCollectionViewCell {
             if let newValue = newValue {
                 if newValue == "0.0" {
                     priceLabel.attributedText = NSMutableAttributedString()
-                        .normal("free".localized(withComment: "free", bundle: bundle), color: NavitiaSDKUIConfig.shared.color.orange,size: 8.5)
+                        .normal("free".localized(withComment: "free", bundle: NavitiaSDKUIConfig.shared.bundle), color: NavitiaSDKUIConfig.shared.color.orange,size: 8.5)
                 } else {
                     priceLabel.attributedText = NSMutableAttributedString()
                         .normal(newValue, color: NavitiaSDKUIConfig.shared.color.orange, size: 8.5)
                 }
             } else {
                 priceLabel.attributedText = NSMutableAttributedString()
-                    .normal("price_not_available".localized(withComment: "price_not_available", bundle: bundle), color: NavitiaSDKUIConfig.shared.color.orange,size: 8.5)
+                    .normal("price_not_available".localized(withComment: "price_not_available", bundle: NavitiaSDKUIConfig.shared.bundle), color: NavitiaSDKUIConfig.shared.color.orange,size: 8.5)
             }
         }
     }

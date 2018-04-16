@@ -37,7 +37,7 @@ class StationsView: UIView {
     }
     
     private func _setup() {
-        UINib(nibName: "StationsView", bundle: bundle).instantiate(withOwner: self, options: nil)
+        UINib(nibName: "StationsView", bundle: NavitiaSDKUIConfig.shared.bundle).instantiate(withOwner: self, options: nil)
         _view.frame = self.bounds
         addSubview(_view)
     }

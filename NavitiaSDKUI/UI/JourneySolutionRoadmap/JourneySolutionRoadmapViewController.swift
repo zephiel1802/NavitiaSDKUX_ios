@@ -260,7 +260,7 @@ extension JourneySolutionRoadmapViewController: AlertViewControllerProtocol {
 extension JourneySolutionRoadmapViewController: MKMapViewDelegate {
     
     func setupMapView() {
-        title = "roadmap".localized(withComment: "Roadmap", bundle: bundle)
+        title = "roadmap".localized(withComment: "Roadmap", bundle: NavitiaSDKUIConfig.shared.bundle)
         
         let ridesharingJourneyCoordinates = getRidesharingJourneyCoordinates(journey: self.journey!)
         
@@ -324,36 +324,36 @@ extension JourneySolutionRoadmapViewController: MKMapViewDelegate {
             
             if ridesharingJourneyIndex == 0 {
                 self.mapView.addAnnotation(CustomAnnotation(coordinate: self.getJourneyDepartureCoordinates(),
-                                                            title: "departure".localized(withComment: "Departure annotation", bundle: bundle),
+                                                            title: "departure".localized(withComment: "Departure annotation", bundle: NavitiaSDKUIConfig.shared.bundle),
                                                             annotationType: .RidesharingAnnotation,
                                                             placeType: .Departure))
                 if drawnPathsCount == 1 {
                     self.mapView.addAnnotation(CustomAnnotation(coordinate: self.getJourneyArrivalCoordinates(),
-                                                                title: "arrival".localized(withComment: "Arrival annotation", bundle: bundle),
+                                                                title: "arrival".localized(withComment: "Arrival annotation", bundle: NavitiaSDKUIConfig.shared.bundle),
                                                                 annotationType: .RidesharingAnnotation,
                                                                 placeType: .Arrival))
                 } else {
                     self.mapView.addAnnotation(CustomAnnotation(coordinate: ridesharingJourneyCoordinates[1], annotationType: .RidesharingAnnotation, placeType: .Other))
                     self.mapView.addAnnotation(CustomAnnotation(coordinate: self.getJourneyArrivalCoordinates(),
-                                                                title: "arrival".localized(withComment: "Arrival annotation", bundle: bundle),
+                                                                title: "arrival".localized(withComment: "Arrival annotation", bundle: NavitiaSDKUIConfig.shared.bundle),
                                                                 annotationType: .PlaceAnnotation,
                                                                 placeType: .Arrival))
                 }
             } else if ridesharingJourneyIndex == drawnPathsCount - 1 {
                 self.mapView.addAnnotation(CustomAnnotation(coordinate: self.getJourneyDepartureCoordinates(),
-                                                            title: "departure".localized(withComment: "Departure annotation", bundle: bundle),
+                                                            title: "departure".localized(withComment: "Departure annotation", bundle: NavitiaSDKUIConfig.shared.bundle),
                                                             annotationType: .PlaceAnnotation,
                                                             placeType: .Departure))
                 self.mapView.addAnnotation(CustomAnnotation(coordinate: ridesharingJourneyCoordinates[0],
                                                             annotationType: .RidesharingAnnotation,
                                                             placeType: .Other))
                 self.mapView.addAnnotation(CustomAnnotation(coordinate: self.getJourneyArrivalCoordinates(),
-                                                            title: "arrival".localized(withComment: "Arrival annotation", bundle: bundle),
+                                                            title: "arrival".localized(withComment: "Arrival annotation", bundle: NavitiaSDKUIConfig.shared.bundle),
                                                             annotationType: .RidesharingAnnotation,
                                                             placeType: .Arrival))
             } else {
                 self.mapView.addAnnotation(CustomAnnotation(coordinate: self.getJourneyDepartureCoordinates(),
-                                                            title: "departure".localized(withComment: "Departure annotation", bundle: bundle),
+                                                            title: "departure".localized(withComment: "Departure annotation", bundle: NavitiaSDKUIConfig.shared.bundle),
                                                             annotationType: .PlaceAnnotation,
                                                             placeType: .Departure))
                 self.mapView.addAnnotation(CustomAnnotation(coordinate: ridesharingJourneyCoordinates[0],
@@ -363,17 +363,17 @@ extension JourneySolutionRoadmapViewController: MKMapViewDelegate {
                                                             annotationType: .RidesharingAnnotation,
                                                             placeType: .Other))
                 self.mapView.addAnnotation(CustomAnnotation(coordinate: self.getJourneyArrivalCoordinates(),
-                                                            title: "arrival".localized(withComment: "Arrival annotation", bundle: bundle),
+                                                            title: "arrival".localized(withComment: "Arrival annotation", bundle: NavitiaSDKUIConfig.shared.bundle),
                                                             annotationType: .PlaceAnnotation,
                                                             placeType: .Arrival))
             }
         } else {
             self.mapView.addAnnotation(CustomAnnotation(coordinate: self.getJourneyDepartureCoordinates(),
-                                                        title: "departure".localized(withComment: "Departure annotation", bundle: bundle),
+                                                        title: "departure".localized(withComment: "Departure annotation", bundle: NavitiaSDKUIConfig.shared.bundle),
                                                         annotationType: .PlaceAnnotation,
                                                         placeType: .Departure))
             self.mapView.addAnnotation(CustomAnnotation(coordinate: self.getJourneyArrivalCoordinates(),
-                                                        title: "arrival".localized(withComment: "Arrival annotation", bundle: bundle), annotationType: .PlaceAnnotation,
+                                                        title: "arrival".localized(withComment: "Arrival annotation", bundle: NavitiaSDKUIConfig.shared.bundle), annotationType: .PlaceAnnotation,
                                                         placeType: .Arrival))
         }
     }
@@ -431,7 +431,7 @@ extension JourneySolutionRoadmapViewController: MKMapViewDelegate {
         let annotationIdentifier = "annotationViewIdentifier"
         var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: annotationIdentifier)
         if annotationView == nil, let customAnnotation = annotation as? CustomAnnotation {
-            annotationView = customAnnotation.getAnnotationView(annotationIdentifier: annotationIdentifier, bundle: bundle)
+            annotationView = customAnnotation.getAnnotationView(annotationIdentifier: annotationIdentifier, bundle: NavitiaSDKUIConfig.shared.bundle)
         } else {
             annotationView?.annotation = annotation
         }

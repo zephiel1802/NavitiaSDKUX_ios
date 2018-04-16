@@ -15,7 +15,7 @@ class RidesharingInformationCollectionViewCell: UICollectionViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         
-        messageLabel.text = "carpool_highlight_message".localized(withComment: "carpool_highlight_message", bundle: bundle)
+        messageLabel.text = "carpool_highlight_message".localized(withComment: "carpool_highlight_message", bundle: NavitiaSDKUIConfig.shared.bundle)
     }
     
     static var nib:UINib {

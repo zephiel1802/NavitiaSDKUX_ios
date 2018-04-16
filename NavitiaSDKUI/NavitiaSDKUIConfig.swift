@@ -15,6 +15,7 @@ open class NavitiaSDKUIConfig: NSObject {
     
     open var navitiaSDK: NavitiaSDK!
     open var token: String!
+    open var bundle: Bundle!
     
     open func setToken(token: String) {
         self.token = token

@@ -34,7 +34,7 @@ class JourneySummaryPartView: UIView {
     }
     
     private func _setup() {
-        UINib(nibName: "JourneySummaryPartView", bundle: bundle).instantiate(withOwner: self, options: nil)
+        UINib(nibName: "JourneySummaryPartView", bundle: NavitiaSDKUIConfig.shared.bundle).instantiate(withOwner: self, options: nil)
         _view.frame = self.bounds
         addSubview(_view)
         _setupDisruption()

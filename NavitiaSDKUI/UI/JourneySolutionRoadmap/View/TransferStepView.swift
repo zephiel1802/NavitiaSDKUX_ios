@@ -49,7 +49,7 @@ class TransferStepView: UIView {
     }
 
     private func _setup() {
-        UINib(nibName: "TransferStepView", bundle: bundle).instantiate(withOwner: self, options: nil)
+        UINib(nibName: "TransferStepView", bundle: NavitiaSDKUIConfig.shared.bundle).instantiate(withOwner: self, options: nil)
         _view.frame = self.bounds
         addSubview(_view)
     }
@@ -90,7 +90,7 @@ extension TransferStepView {
             if let newValue = newValue {
                 let formattedString = NSMutableAttributedString()
                 formattedString
-                    .normal("to_with_uppercase".localized(withComment: "To", bundle: bundle), size: 15)
+                    .normal("to_with_uppercase".localized(withComment: "To", bundle: NavitiaSDKUIConfig.shared.bundle), size: 15)
                     .normal(" ", size: 15)
                     .bold(newValue, size: 15)
                 directionLabel.attributedText = formattedString
@@ -104,19 +104,19 @@ extension TransferStepView {
         }
         set {
             if let newValue = newValue {
-                var duration = newValue + " " + "units_minutes".localized(withComment: "units_minutes", bundle: bundle)
+                var duration = newValue + " " + "units_minutes".localized(withComment: "units_minutes", bundle: NavitiaSDKUIConfig.shared.bundle)
                 if time == "1" {
-                    duration = newValue + " " + "unit_minutes".localized(withComment: "unit_minutes", bundle: bundle)
+                    duration = newValue + " " + "unit_minutes".localized(withComment: "unit_minutes", bundle: NavitiaSDKUIConfig.shared.bundle)
                 }
                 var template = ""
                 if let type = _type {
                     switch type {
                     case .walking:
-                        template = "a_time_walk".localized(withComment: "a_time_walk", bundle: bundle)
+                        template = "a_time_walk".localized(withComment: "a_time_walk", bundle: NavitiaSDKUIConfig.shared.bundle)
                     case .car:
-                        template = "a_time_drive".localized(withComment: "a_time_drive", bundle: bundle)
+                        template = "a_time_drive".localized(withComment: "a_time_drive", bundle: NavitiaSDKUIConfig.shared.bundle)
                     case .bike:
-                        template = "a_time_ride".localized(withComment: "a_time_ride", bundle: bundle)
+                        template = "a_time_ride".localized(withComment: "a_time_ride", bundle: NavitiaSDKUIConfig.shared.bundle)
                     default:
                         break
                     }

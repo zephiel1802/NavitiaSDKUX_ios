@@ -60,11 +60,11 @@ class PublicTransportView: UIView {
     var origin: String = "" {
         didSet {
             originTransitLabel.attributedText = NSMutableAttributedString()
-                .normal("at".localized(withComment: "at", bundle: bundle), size: 15)
+                .normal("at".localized(withComment: "at", bundle: NavitiaSDKUIConfig.shared.bundle), size: 15)
                 .normal(" ", size: 15)
                 .bold(origin, size: 15)
                 .normal(" ", size: 15)
-                .normal("in_the_direction_of".localized(withComment: "in_the_direction_of", bundle: bundle), size: 15)
+                .normal("in_the_direction_of".localized(withComment: "in_the_direction_of", bundle: NavitiaSDKUIConfig.shared.bundle), size: 15)
                 .normal(" ", size: 15)
                 .bold(directionTransit, size: 15)
             originLabel.attributedText = NSMutableAttributedString()
@@ -74,11 +74,11 @@ class PublicTransportView: UIView {
     var directionTransit: String = "" {
         didSet {
             originTransitLabel.attributedText = NSMutableAttributedString()
-                .normal("at".localized(withComment: "at", bundle: bundle), size: 15)
+                .normal("at".localized(withComment: "at", bundle: NavitiaSDKUIConfig.shared.bundle), size: 15)
                 .normal(" ", size: 15)
                 .bold(origin, size: 15)
                 .normal(" ", size: 15)
-                .normal("in_the_direction_of".localized(withComment: "in_the_direction_of", bundle: bundle), size: 15)
+                .normal("in_the_direction_of".localized(withComment: "in_the_direction_of", bundle: NavitiaSDKUIConfig.shared.bundle), size: 15)
                 .normal(" ", size: 15)
                 .bold(directionTransit, size: 15)
         }
@@ -122,7 +122,7 @@ class PublicTransportView: UIView {
     }
     
     private func _setup() {
-        UINib(nibName: "PublicTransportView", bundle: bundle).instantiate(withOwner: self, options: nil)
+        UINib(nibName: "PublicTransportView", bundle: NavitiaSDKUIConfig.shared.bundle).instantiate(withOwner: self, options: nil)
         _view.frame = self.bounds
         addSubview(_view)
 
@@ -242,7 +242,7 @@ extension PublicTransportView {
         set {
             if let newValue = newValue {
                 takeLabel.attributedText = NSMutableAttributedString()
-                    .normal("take_the".localized(withComment: "take_the", bundle: bundle), size: 15)
+                    .normal("take_the".localized(withComment: "take_the", bundle: NavitiaSDKUIConfig.shared.bundle), size: 15)
                     .normal(" ", size: 15)
                     .bold(newValue, size: 15)
             }
@@ -306,14 +306,14 @@ extension PublicTransportView {
         }
         set {
             if let newValue = newValue {
-                var unit = "units_minutes".localized(withComment: "units_minutes", bundle: bundle)
+                var unit = "units_minutes".localized(withComment: "units_minutes", bundle: NavitiaSDKUIConfig.shared.bundle)
                 if newValue == "1" {
-                    unit = "units_minute".localized(withComment: "units_minute", bundle: bundle)
+                    unit = "units_minute".localized(withComment: "units_minute", bundle: NavitiaSDKUIConfig.shared.bundle)
                 }
                 waitIconLabel.attributedText = NSMutableAttributedString()
                     .icon("clock", size: 15)
                 waitTimeLabel.attributedText = NSMutableAttributedString()
-                    .normal("wait".localized(withComment: "wait", bundle: bundle), size: 12)
+                    .normal("wait".localized(withComment: "wait", bundle: NavitiaSDKUIConfig.shared.bundle), size: 12)
                     .normal(" ", size: 12)
                     .normal(newValue, size: 12)
                     .normal(" ", size: 12)
@@ -437,7 +437,7 @@ extension PublicTransportView {
                 stationButton.setAttributedTitle(NSMutableAttributedString()
                     .normal(String(stations.count), size: 13)
                     .normal(" ", size: 13)
-                    .normal("stops".localized(withComment: "stops", bundle: bundle), size: 13)
+                    .normal("stops".localized(withComment: "stops", bundle: NavitiaSDKUIConfig.shared.bundle), size: 13)
                     .normal("  ", size: 13)
                     .icon("arrow-details-down", size: 13)
                     ,for: .normal)
@@ -449,7 +449,7 @@ extension PublicTransportView {
                 stationButton.setAttributedTitle(NSMutableAttributedString()
                     .normal(String(stations.count), size: 13)
                     .normal(" ", size: 13)
-                    .normal("stops".localized(withComment: "stops", bundle: bundle), size: 13)
+                    .normal("stops".localized(withComment: "stops", bundle: NavitiaSDKUIConfig.shared.bundle), size: 13)
                     .normal("  ", size: 13)
                     .icon("arrow-details-up", size: 13)
                     ,for: .normal)
