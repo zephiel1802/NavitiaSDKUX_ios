@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="NOP-nf-fyr">
-    <device id="retina5_9" orientation="landscape">
+    <device id="retina5_9" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
@@ -15,34 +15,51 @@
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="NavitiaSDKUI_Example" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="812" height="343"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="724"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="n7A-Pb-Kbc">
-                                <rect key="frame" x="49" y="20" width="139" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Push navigation bar "/>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="xHX-ST-hKc">
+                                <rect key="frame" x="20" y="20" width="335" height="30"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ivm-1t-mtN">
+                                <rect key="frame" x="20" y="70" width="335" height="30"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="n7A-Pb-Kbc">
+                                <rect key="frame" x="172.66666666666666" y="125" width="30" height="30"/>
+                                <state key="normal" title="Go"/>
                                 <connections>
                                     <action selector="touch:" destination="BYZ-38-t0r" eventType="touchUpInside" id="vMy-oX-GHv"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6NE-jW-11b">
-                                <rect key="frame" x="49" y="58" width="88" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Present view"/>
-                                <connections>
-                                    <action selector="touchPresentView:" destination="BYZ-38-t0r" eventType="touchUpInside" id="27e-aF-Ss3"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="ivm-1t-mtN" firstAttribute="top" secondItem="xHX-ST-hKc" secondAttribute="bottom" constant="20" id="5ny-KG-SUv"/>
+                            <constraint firstItem="xHX-ST-hKc" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="C9F-rh-iIb"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="xHX-ST-hKc" secondAttribute="trailing" constant="20" id="TkY-4o-2z4"/>
+                            <constraint firstItem="xHX-ST-hKc" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="20" id="ZAb-OE-8D6"/>
+                            <constraint firstItem="ivm-1t-mtN" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="d7S-es-hCF"/>
+                            <constraint firstItem="n7A-Pb-Kbc" firstAttribute="centerX" secondItem="ivm-1t-mtN" secondAttribute="centerX" id="dDQ-QM-soi"/>
+                            <constraint firstItem="n7A-Pb-Kbc" firstAttribute="top" secondItem="ivm-1t-mtN" secondAttribute="bottom" constant="25" id="gme-2N-3gY"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="ivm-1t-mtN" secondAttribute="trailing" constant="20" id="shU-55-zfF"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <navigationItem key="navigationItem" id="Zm7-93-m0A"/>
+                    <connections>
+                        <outlet property="destinationTextField" destination="ivm-1t-mtN" id="AL1-l3-Mu2"/>
+                        <outlet property="originTextField" destination="xHX-ST-hKc" id="eAh-Nn-1zU"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="677" y="28"/>
+            <point key="canvasLocation" x="676" y="27.339901477832512"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="qub-lm-a7q">
@@ -50,7 +67,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="NOP-nf-fyr" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translucent="NO" id="rje-9D-45e">
-                        <rect key="frame" x="0.0" y="0.0" width="812" height="32"/>
+                        <rect key="frame" x="0.0" y="44" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <color key="barTintColor" red="0.29803921568627451" green="0.40000000000000002" blue="0.44705882352941173" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

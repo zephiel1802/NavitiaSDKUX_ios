@@ -27,12 +27,17 @@ class BikeStepView: UIView {
                 typeString = type.rawValue + " "
             }
             takeLabel.attributedText = NSMutableAttributedString()
-                .normal("Prendre un ", size: 15)
+                .normal("take_the".localized(withComment: "take_the", bundle: bundle), size: 15)
+                .normal(" ", size: 15)
                 .normal(typeString, size: 15)
                 .normal(takeName, size: 15)
-                .normal(" à ", size: 15)
+                .normal(" ", size: 15)
+                .normal("at".localized(withComment: "at", bundle: bundle), size: 15)
+                .normal(" ", size: 15)
                 .bold(origin, size: 15)
-                .normal(" vers ", size: 15)
+                .normal(" ", size: 15)
+                .normal("in_the_direction_of".localized(withComment: "in_the_direction_of", bundle: bundle), size: 15)
+                .normal(" ", size: 15)
                 .bold(destination, size: 15)
             takeLabel.sizeToFit()
             setHeight()
@@ -45,12 +50,17 @@ class BikeStepView: UIView {
                 typeString = type.rawValue + " "
             }
             takeLabel.attributedText = NSMutableAttributedString()
-                .normal("Prendre un ", size: 15)
+                .normal("take_the".localized(withComment: "take_the", bundle: bundle), size: 15)
+                .normal(" ", size: 15)
                 .normal(typeString, size: 15)
                 .normal(takeName, size: 15)
-                .normal(" à ", size: 15)
+                .normal(" ", size: 15)
+                .normal("at".localized(withComment: "at", bundle: bundle), size: 15)
+                .normal(" ", size: 15)
                 .bold(origin, size: 15)
-                .normal(" vers ", size: 15)
+                .normal(" ", size: 15)
+                .normal("in_the_direction_of".localized(withComment: "in_the_direction_of", bundle: bundle), size: 15)
+                .normal(" ", size: 15)
                 .bold(destination, size: 15)
             takeLabel.sizeToFit()
             setHeight()
@@ -63,12 +73,17 @@ class BikeStepView: UIView {
                 typeString = type.rawValue + " "
             }
             takeLabel.attributedText = NSMutableAttributedString()
-                .normal("Prendre un ", size: 15)
+                .normal("take_the".localized(withComment: "take_the", bundle: bundle), size: 15)
+                .normal(" ", size: 15)
                 .normal(typeString, size: 15)
                 .normal(takeName, size: 15)
-                .normal(" à ", size: 15)
+                .normal(" ", size: 15)
+                .normal("at".localized(withComment: "at", bundle: bundle), size: 15)
+                .normal(" ", size: 15)
                 .bold(origin, size: 15)
-                .normal(" vers ", size: 15)
+                .normal(" ", size: 15)
+                .normal("in_the_direction_of".localized(withComment: "in_the_direction_of", bundle: bundle), size: 15)
+                .normal(" ", size: 15)
                 .bold(destination, size: 15)
             takeLabel.sizeToFit()
             setHeight()
@@ -215,17 +230,40 @@ extension BikeStepView {
         }
         set {
             if let newValue = newValue {
-                var typeString = ""
-                if let type = _type {
-                    typeString = " de " + type.rawValue
+                var duration = newValue + " " + "units_minutes".localized(withComment: "units_minutes", bundle: bundle)
+                if time == "1" {
+                    duration = newValue + " " + "unit_minutes".localized(withComment: "unit_minutes", bundle: bundle)
                 }
-                timeLabel.attributedText = NSMutableAttributedString()
-                    .normal(newValue, size: 15)
-                    .normal(" minutes", size: 15)
-                    .normal(typeString, size: 15)
-//                timeLabel.sizeToFit()
-//                setHeight()
+                var template = ""
+                if let type = _type {
+                    switch type {
+                    case .walking:
+                        template = "a_time_walk".localized(withComment: "a_time_walk", bundle: bundle)
+                    case .car:
+                        template = "a_time_drive".localized(withComment: "a_time_drive", bundle: bundle)
+                    case .bike:
+                        template = "a_time_ride".localized(withComment: "a_time_ride", bundle: bundle)
+                    default:
+                        break
+                    }
+                }
+                let formattedString = NSMutableAttributedString()
+                formattedString
+                    .normal(String(format: template, duration), size: 15)
+                timeLabel.attributedText = formattedString
             }
+//            if let newValue = newValue {
+//                var typeString = ""
+//                if let type = _type {
+//                    typeString = " de " + type.rawValue
+//                }
+//                timeLabel.attributedText = NSMutableAttributedString()
+//                    .normal(newValue, size: 15)
+//                    .normal(" minutes", size: 15)
+//                    .normal(typeString, size: 15)
+////                timeLabel.sizeToFit()
+////                setHeight()
+//            }
         }
     }
 }

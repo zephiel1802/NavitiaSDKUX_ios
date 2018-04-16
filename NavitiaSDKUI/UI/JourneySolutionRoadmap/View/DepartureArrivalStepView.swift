@@ -68,10 +68,10 @@ extension DepartureArrivalStepView {
             _type = newValue
             if newValue == .departure {
                 self._view.backgroundColor = NavitiaSDKUIConfig.shared.color.origin
-                title = "Départ:"
+                title = "departure".localized(withComment: "departure", bundle: bundle) + ":"
             } else {
                 self._view.backgroundColor = NavitiaSDKUIConfig.shared.color.destination
-                title = "Arrivée:"
+                title = "arrival".localized(withComment: "arrival", bundle: bundle) + ":"
             }
         }
     }

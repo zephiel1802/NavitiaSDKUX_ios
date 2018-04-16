@@ -33,7 +33,7 @@ class JourneySolutionCollectionViewCell: UICollectionViewCell {
         if let durationWalkingStr = journey.durations?.walking?.toString(allowedUnits: [ .hour, .minute ]),
             let distanceWalking = journey.distances?.walking {
             if distanceWalking > 999 {
-                formattedDurationWalker(durationWalkingStr, distanceWalking.toString(format: "%.01f"), "km")
+                formattedDurationWalker(durationWalkingStr, distanceWalking.toString(format: "%.01f"), "units_km".localized(withComment: "units_km", bundle: bundle))
             } else {
                 formattedDurationWalker(durationWalkingStr, distanceWalking.toString())
             }
@@ -51,7 +51,7 @@ class JourneySolutionCollectionViewCell: UICollectionViewCell {
             formattedDateTime(departureDateTime, arrivalDateTime)
         }
         if let durationStr = journey.duration?.toString(allowedUnits: [.hour, .minute]) {
-            formattedDuration("Environ " + durationStr)
+            formattedDuration("about".localized(withComment: "about", bundle: bundle) + " " + durationStr)
         }
         if let sections = journey.sections {
             journeySummaryView.addSections(sections)
@@ -86,13 +86,18 @@ class JourneySolutionCollectionViewCell: UICollectionViewCell {
         duration = formattedStringDuration
     }
     
-    private func formattedDurationWalker(_ durationWalking: String, _ distanceWalking: String, _ unitDistance: String = "mètres") {
+    private func formattedDurationWalker(_ durationWalking: String,
+                                         _ distanceWalking: String,
+                                         _ unitDistance: String = "units_meters".localized(withComment: "units_meters", bundle: bundle)) {
         let formattedString = NSMutableAttributedString()
         
         formattedString
-            .normal("Dont ", color: NavitiaSDKUIConfig.shared.color.gray)
+            .normal("with".localized(withComment: "with", bundle: bundle), color: NavitiaSDKUIConfig.shared.color.gray)
+            .normal(" ", color: NavitiaSDKUIConfig.shared.color.gray)
             .bold(durationWalking, color: NavitiaSDKUIConfig.shared.color.gray)
-            .normal(" à pied (", color: NavitiaSDKUIConfig.shared.color.gray)
+            .normal(" ", color: NavitiaSDKUIConfig.shared.color.gray)
+            .normal("walking".localized(withComment: "walking", bundle: bundle), color: NavitiaSDKUIConfig.shared.color.gray)
+            .normal(" (", color: NavitiaSDKUIConfig.shared.color.gray)
             .normal(distanceWalking, color: NavitiaSDKUIConfig.shared.color.gray)
             .normal(" ", color: NavitiaSDKUIConfig.shared.color.gray)
             .normal(unitDistance, color: NavitiaSDKUIConfig.shared.color.gray)

@@ -10,8 +10,12 @@ import UIKit
 
 class RidesharingInformationCollectionViewCell: UICollectionViewCell {
     
+    @IBOutlet weak var messageLabel: UILabel!
+
     override func awakeFromNib() {
         super.awakeFromNib()
+        
+        messageLabel.text = "carpool_highlight_message".localized(withComment: "carpool_highlight_message", bundle: bundle)
     }
     
     static var nib:UINib {

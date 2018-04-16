@@ -16,6 +16,8 @@ class TransferStepView: UIView {
     @IBOutlet weak var directionLabel: UILabel!
     @IBOutlet weak var timeLabel: UILabel!
     
+    var _type: TypeTransport?
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         _setup()
@@ -56,6 +58,18 @@ class TransferStepView: UIView {
 
 extension TransferStepView {
     
+    var typeString: String? {
+        get {
+            return _type?.rawValue
+        }
+        set {
+            if let newValue = newValue {
+                _type = TypeTransport(rawValue: newValue)
+                icon = newValue
+            }
+        }
+    }
+    
     var icon: String? {
         get {
             return iconLabel.text
@@ -76,23 +90,40 @@ extension TransferStepView {
             if let newValue = newValue {
                 let formattedString = NSMutableAttributedString()
                 formattedString
-                    .normal("Vers ", size: 15)
+                    .normal("to".localized(withComment: "to", bundle: bundle), size: 15)
+                    .normal(" ", size: 15)
                     .bold(newValue, size: 15)
                 directionLabel.attributedText = formattedString
             }
         }
     }
-    
+
     var time: String? {
         get {
             return timeLabel.text
         }
         set {
             if let newValue = newValue {
+                var duration = newValue + " " + "units_minutes".localized(withComment: "units_minutes", bundle: bundle)
+                if time == "1" {
+                    duration = newValue + " " + "unit_minutes".localized(withComment: "unit_minutes", bundle: bundle)
+                }
+                var template = ""
+                if let type = _type {
+                    switch type {
+                    case .walking:
+                        template = "a_time_walk".localized(withComment: "a_time_walk", bundle: bundle)
+                    case .car:
+                        template = "a_time_drive".localized(withComment: "a_time_drive", bundle: bundle)
+                    case .bike:
+                        template = "a_time_ride".localized(withComment: "a_time_ride", bundle: bundle)
+                    default:
+                        break
+                    }
+                }
                 let formattedString = NSMutableAttributedString()
                 formattedString
-                    .normal(newValue, size: 15)
-                    .normal(" minutes de marche", size: 15)
+                    .normal(String(format: template, duration), size: 15)
                 timeLabel.attributedText = formattedString
             }
         }

@@ -56,12 +56,7 @@ class RidesharingView: UIView {
         _view.frame = self.bounds
         addSubview(_view)
         
-//        for _ in 0...4 {
-//            let myView = UIImageView(frame: CGRect(x: 0, y: 0, width: 15, height: 15))
-//            myView.image = UIImage(named: "start_full", in: bundle, compatibleWith: nil)
-//            starStack.addArrangedSubview(myView)
-//        }
-
+        bookButton.setTitle("book".localized(withComment: "Book", bundle: bundle), for: .normal)
     }
     
     func setPicture(url: String?) {
@@ -111,10 +106,10 @@ class RidesharingView: UIView {
             let alertController = AlertViewController(nibName: "AlertView", bundle: bundle)
             alertController.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
             //alertController.stateKey = //NavitiaSDKUserDefaultsManager.SHOW_REDIRECTION_DIALOG_PREF_KEY
-            alertController.alertMessage = NSLocalizedString("redirection_message", bundle: bundle, comment: "Redirection Message")
-            alertController.checkBoxText = NSLocalizedString("dont_show_this_message_again", bundle: bundle, comment: "Don't show this message again")
-            alertController.negativeButtonText = NSLocalizedString("cancel", bundle: bundle, comment: "Cancel").uppercased()
-            alertController.positiveButtonText = NSLocalizedString("proceed", bundle: bundle, comment: "Continue").uppercased()
+            alertController.alertMessage = "redirection_message".localized(withComment: "Redirection Message", bundle: bundle)
+            alertController.checkBoxText = "dont_show_this_message_again".localized(withComment: "Don't show this message again", bundle: bundle)
+            alertController.negativeButtonText = "cancel".localized(withComment: "Cancel", bundle: bundle).uppercased()
+            alertController.positiveButtonText = "proceed".localized(withComment: "Continue", bundle: bundle).uppercased()
             alertController.alertViewDelegate = parentViewController as! JourneySolutionRoadmapViewController
             parentViewController.navigationController?.visibleViewController?.present(alertController, animated: false, completion: nil)
         }
@@ -144,7 +139,8 @@ extension RidesharingView {
         set {
             if let newValue = newValue {
                 startLabel.attributedText = NSMutableAttributedString()
-                    .normal("Départ: ", color: NavitiaSDKUIConfig.shared.color.tertiary, size: 8.5)
+                    .normal("departure".localized(withComment: "departure", bundle: bundle), color: NavitiaSDKUIConfig.shared.color.tertiary, size: 8.5)
+                    .normal(": ", color: NavitiaSDKUIConfig.shared.color.tertiary, size: 8.5)
                     .bold(newValue, color: NavitiaSDKUIConfig.shared.color.tertiary, size: 14)
             }
         }
@@ -205,10 +201,18 @@ extension RidesharingView {
             return seatCountLabel.text
         }
         set {
+//            if let newValue = newValue {
+//                seatCountLabel.attributedText = NSMutableAttributedString()
+//                    .normal("Places disponibles : ", size: 12.5)
+//                    .normal(newValue, size: 12.5)
+//            }
             if let newValue = newValue {
+                let template = "available_seats".localized(withComment: "available_seats", bundle: bundle)
                 seatCountLabel.attributedText = NSMutableAttributedString()
-                    .normal("Places disponibles : ", size: 12.5)
-                    .normal(newValue, size: 12.5)
+                    .normal(String(format: template, newValue), size: 12.5)
+            } else {
+                seatCountLabel.attributedText = NSMutableAttributedString()
+                    .normal("no_available_seats".localized(withComment: "no_available_seats", bundle: bundle), size: 12.5)
             }
         }
     }
@@ -221,11 +225,14 @@ extension RidesharingView {
             if let newValue = newValue {
                 if newValue == "0.0" {
                     priceLabel.attributedText = NSMutableAttributedString()
-                        .normal("Gratuit", color: NavitiaSDKUIConfig.shared.color.orange,size: 8.5)
+                        .normal("free".localized(withComment: "free", bundle: bundle), color: NavitiaSDKUIConfig.shared.color.orange,size: 8.5)
                 } else {
                     priceLabel.attributedText = NSMutableAttributedString()
                         .normal(newValue, color: NavitiaSDKUIConfig.shared.color.orange, size: 8.5)
                 }
+            } else {
+                priceLabel.attributedText = NSMutableAttributedString()
+                    .normal("price_not_available".localized(withComment: "price_not_available", bundle: bundle), color: NavitiaSDKUIConfig.shared.color.orange,size: 8.5)
             }
         }
     }

@@ -143,7 +143,6 @@ open class JourneySolutionRoadmapViewController: UIViewController {
                 }
             }
         }
-        
         _displayArrival(journey)
     }
     
@@ -165,7 +164,7 @@ open class JourneySolutionRoadmapViewController: UIViewController {
     
     func _displayTransferStep(_ section: Section, mode: String) {
         let view = TransferStepView(frame: CGRect(x: 0, y: 0, width: composentWidth, height: 50))
-        view.icon = mode
+        view.typeString = mode
         view.time = section.duration?.minuteToString()
         view.direction = section.to?.name ?? ""
         addViewInScroll(view: view)

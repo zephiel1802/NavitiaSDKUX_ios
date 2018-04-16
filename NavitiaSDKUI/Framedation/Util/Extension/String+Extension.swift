@@ -44,6 +44,11 @@ extension String {
             alpha: CGFloat(1.0)
         )
     }
+    
+    func localized(withComment: String = "", bundle: Bundle) -> String {
+        return NSLocalizedString(self, tableName: nil, bundle: bundle, value: "", comment: withComment)
+    }
+    
 }
 
 

@@ -60,9 +60,12 @@ class PublicTransportView: UIView {
     var origin: String = "" {
         didSet {
             originTransitLabel.attributedText = NSMutableAttributedString()
-                .normal("à ", size: 15)
+                .normal("at".localized(withComment: "at", bundle: bundle), size: 15)
+                .normal(" ", size: 15)
                 .bold(origin, size: 15)
-                .normal(" en direction de ", size: 15)
+                .normal(" ", size: 15)
+                .normal("in_the_direction_of".localized(withComment: "in_the_direction_of", bundle: bundle), size: 15)
+                .normal(" ", size: 15)
                 .bold(directionTransit, size: 15)
             originLabel.attributedText = NSMutableAttributedString()
                 .bold(origin, size: 15)
@@ -71,9 +74,12 @@ class PublicTransportView: UIView {
     var directionTransit: String = "" {
         didSet {
             originTransitLabel.attributedText = NSMutableAttributedString()
-                .normal("à ", size: 15)
+                .normal("at".localized(withComment: "at", bundle: bundle), size: 15)
+                .normal(" ", size: 15)
                 .bold(origin, size: 15)
-                .normal(" en direction de ", size: 15)
+                .normal(" ", size: 15)
+                .normal("in_the_direction_of".localized(withComment: "in_the_direction_of", bundle: bundle), size: 15)
+                .normal(" ", size: 15)
                 .bold(directionTransit, size: 15)
         }
     }
@@ -236,7 +242,8 @@ extension PublicTransportView {
         set {
             if let newValue = newValue {
                 takeLabel.attributedText = NSMutableAttributedString()
-                    .normal("Prendre le ", size: 15)
+                    .normal("take_the".localized(withComment: "take_the", bundle: bundle), size: 15)
+                    .normal(" ", size: 15)
                     .bold(newValue, size: 15)
             }
         }
@@ -299,12 +306,18 @@ extension PublicTransportView {
         }
         set {
             if let newValue = newValue {
+                var unit = "units_minutes".localized(withComment: "units_minutes", bundle: bundle)
+                if newValue == "1" {
+                    unit = "units_minute".localized(withComment: "units_minute", bundle: bundle)
+                }
                 waitIconLabel.attributedText = NSMutableAttributedString()
                     .icon("clock", size: 15)
                 waitTimeLabel.attributedText = NSMutableAttributedString()
-                    .normal("Attendre ", size: 12)
+                    .normal("wait".localized(withComment: "wait", bundle: bundle), size: 12)
+                    .normal(" ", size: 12)
                     .normal(newValue, size: 12)
-                    .normal(" minutes", size: 12)
+                    .normal(" ", size: 12)
+                    .normal(unit, size: 12)
                 waitIsHidden = false
             }
         }
@@ -423,7 +436,9 @@ extension PublicTransportView {
                 stationsBottomContraint.isActive = false
                 stationButton.setAttributedTitle(NSMutableAttributedString()
                     .normal(String(stations.count), size: 13)
-                    .normal(" arrêts  ", size: 13)
+                    .normal(" ", size: 13)
+                    .normal("stops".localized(withComment: "stops", bundle: bundle), size: 13)
+                    .normal("  ", size: 13)
                     .icon("arrow-details-down", size: 13)
                     ,for: .normal)
                 frame.size.height -= stationsView.frame.size.height
@@ -433,7 +448,9 @@ extension PublicTransportView {
                 stationsBottomContraint.isActive = true
                 stationButton.setAttributedTitle(NSMutableAttributedString()
                     .normal(String(stations.count), size: 13)
-                    .normal(" arrêts  ", size: 13)
+                    .normal(" ", size: 13)
+                    .normal("stops".localized(withComment: "stops", bundle: bundle), size: 13)
+                    .normal("  ", size: 13)
                     .icon("arrow-details-up", size: 13)
                     ,for: .normal)
                 frame.size.height += stationsView.frame.size.height

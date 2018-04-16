@@ -60,9 +60,10 @@ open class JourneySolutionViewController: UIViewController {
     
     override open func viewDidLoad() {
         super.viewDidLoad()
-        title = "Itinéraires"
-        
         bundle = self.nibBundle
+        
+        title = "journeys".localized(withComment: "journeys", bundle: bundle)
+        
         UIFont.registerFontWithFilenameString(filenameString: "SDKIcons.ttf", bundle: bundle)
         if #available(iOS 11.0, *) {
             collectionView?.contentInsetAdjustmentBehavior = .always
@@ -235,7 +236,7 @@ extension JourneySolutionViewController {
         set {
             if let newValue = newValue {
                 dateTimeLabel.attributedText = NSMutableAttributedString()
-                    .bold("Départ : ", color: UIColor.white, size: 12.5)
+                    .bold("departure".localized(withComment: "departure", bundle: bundle) + " : ", color: UIColor.white, size: 12.5)
                     .bold(newValue, color: UIColor.white, size: 12.5)
             }
         }

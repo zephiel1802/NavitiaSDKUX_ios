@@ -11,6 +11,9 @@ import NavitiaSDKUI
 
 class ViewController: UIViewController {
 
+    @IBOutlet weak var originTextField: UITextField!
+    @IBOutlet weak var destinationTextField: UITextField!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
     }
@@ -24,11 +27,6 @@ class ViewController: UIViewController {
         navigationController?.pushViewController(journeyResultsViewController, animated: true)
     }
     
-    @IBAction func touchPresentView(_ sender: Any) {
-        let journeyResultsViewController = UINavigationController(rootViewController: getJourneys())
-        journeyResultsViewController.navigationBar.barTintColor = UIColor.red
-        self.present(journeyResultsViewController, animated: true, completion: nil)
-    }
     
     private func getJourneys() -> JourneySolutionViewController {
         let bundle = Bundle(identifier: "org.cocoapods.NavitiaSDKUI")
@@ -38,7 +36,7 @@ class ViewController: UIViewController {
                                                                                                destinationId: "2.294685;48.884075")
         journeyResultsViewController.inParameters.originLabel = "Chez moi"
         journeyResultsViewController.inParameters.destinationLabel = "Au travail"
-//        journeyResultsViewController.inParameters.datetime = Date()
+        journeyResultsViewController.inParameters.datetime = Date()
 //        journeyResultsViewController.inParameters.datetime!.addTimeInterval(2000)
         journeyResultsViewController.inParameters.datetimeRepresents = .departure
 //        journeyResultsViewController.inParameters.forbiddenUris = ["physical_mode:Bus"]
