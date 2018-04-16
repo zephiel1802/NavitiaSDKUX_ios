@@ -348,7 +348,8 @@ extension JourneySolutionRoadmapViewController: MKMapViewDelegate {
     }
     
     func zoomToPolyline(targetPolyline: MKPolyline, animated: Bool) {
-        self.mapView.setVisibleMapRect(targetPolyline.boundingMapRect, edgePadding: UIEdgeInsetsMake(60, 20, 20, 20), animated: animated)
+//        self.mapView.setVisibleMapRect(targetPolyline.boundingMapRect, edgePadding: UIEdgeInsetsMake(60, 20, 20, 20), animated: animated)
+        self.mapView.setVisibleMapRect(targetPolyline.boundingMapRect, edgePadding: UIEdgeInsetsMake(70, 60, 60, 60), animated: animated)
     }
     
     func getCircleRadiusDependingOnCurrentCameraAltitude(cameraAltitude: CLLocationDistance) -> CLLocationDistance {

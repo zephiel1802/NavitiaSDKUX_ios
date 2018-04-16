@@ -18,12 +18,10 @@ open class JourneySolutionRidesharingViewController: UIViewController {
     override open func viewDidLoad() {
         super.viewDidLoad()
 
-      //  self.view.backgroundColor = UIColor.red
         if let journey = journey {
             journeySolutionRoadmap.setDataRidesharing(journey)
         }
         collectionView.register(UINib(nibName: JourneyRidesharingCollectionViewCell.identifier, bundle: self.nibBundle), forCellWithReuseIdentifier: JourneyRidesharingCollectionViewCell.identifier)
-        //getRidesharingJourneys
         // Do any additional setup after loading the view.
     }
 
