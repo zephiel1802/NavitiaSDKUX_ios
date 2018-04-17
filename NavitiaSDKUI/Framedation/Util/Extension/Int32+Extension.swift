@@ -12,7 +12,7 @@ extension Int32 {
     
 //    func toString(allowedUnits: NSCalendar.Unit) -> String? {
 //        let formatter = DateComponentsFormatter()
-//        
+//
 //        formatter.unitsStyle = .abbreviated
 //        formatter.allowedUnits = allowedUnits
 //        formatter.zeroFormattingBehavior = [ .dropAll ]
@@ -28,6 +28,19 @@ extension Int32 {
             return String(format: "%1dh%02d", hours, minutes)
         }
         return String(format: "%1d min", minutes)
+    }
+    
+    func toAttributedStringTime() -> NSMutableAttributedString {
+        let minutes = (self / 60) % 60
+        let hours = (self / 3600)
+        
+        if hours > 0 {
+            return NSMutableAttributedString()
+                .bold("%1dh%02d", color: NavitiaSDKUIConfig.shared.color.tertiary)
+        }
+        return NSMutableAttributedString()
+            .bold(String(format: "%1d", minutes), color: NavitiaSDKUIConfig.shared.color.tertiary)
+            .normal(" min", color: NavitiaSDKUIConfig.shared.color.tertiary)
     }
     
     func toString() -> String {

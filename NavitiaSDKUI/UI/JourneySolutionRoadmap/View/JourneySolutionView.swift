@@ -47,8 +47,8 @@ class JourneySolutionView: UIView {
             let arrivalDateTime = journey.arrivalDateTime?.toDate(format: "yyyyMMdd'T'HHmmss") {
             formattedDateTime(departureDateTime, arrivalDateTime)
         }
-        if let durationStr = journey.duration?.toStringTime() {
-            formattedDuration(durationStr)
+        if let durationInt = journey.duration {
+            formattedDuration(durationInt)
         }
         if let durationWalkingStr = journey.durations?.walking?.toStringTime(),
             let distanceWalking = journey.distances?.walking {
@@ -68,8 +68,8 @@ class JourneySolutionView: UIView {
             let arrivalDateTime = journey.arrivalDateTime?.toDate(format: "yyyyMMdd'T'HHmmss") {
             formattedDateTime(departureDateTime, arrivalDateTime)
         }
-        if let durationStr = journey.duration?.toStringTime() {
-            formattedDuration("about".localized(withComment: "about", bundle: NavitiaSDKUIConfig.shared.bundle) + " " + durationStr)
+        if let durationInt = journey.duration {
+            formattedDuration(prefix: "about".localized(withComment: "about", bundle: NavitiaSDKUIConfig.shared.bundle) + " ", durationInt)
         }
         if let sections = journey.sections {
             journeySummaryView.addSections(sections)
@@ -91,11 +91,11 @@ class JourneySolutionView: UIView {
         dateTime = formattedStringDateTime
     }
     
-    func formattedDuration(_ durationStr: String) {
-        let formattedStringDuration = NSMutableAttributedString()
-        formattedStringDuration
-            .bold(durationStr, color: NavitiaSDKUIConfig.shared.color.tertiary)
-        duration = formattedStringDuration
+    private func formattedDuration(prefix: String = "", _ duration: Int32) {
+        var formattedStringDuration = NSMutableAttributedString()
+        formattedStringDuration = formattedStringDuration.bold(prefix, color: NavitiaSDKUIConfig.shared.color.tertiary)
+        formattedStringDuration.append(duration.toAttributedStringTime())
+        self.duration = formattedStringDuration
     }
     
     private func formattedDurationWalker(_ durationWalking: String,

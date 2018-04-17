@@ -58,7 +58,7 @@ class JourneySummaryView: UIView {
         for section in sections {
             if validDisplaySection(section) {
                 if let duration = section.duration {
-                    if section.mode == "walking" && duration < 180 {
+                    if section.mode == "walking" && duration <= 180 {
                         continue
                     }
                     let journeySummaryPartView = JourneySummaryPartView()
