@@ -152,7 +152,7 @@ open class JourneySolutionRoadmapViewController: UIViewController {
     func _displayDeparture(_ journey: Journey?) {
         let viewDeparture = DepartureArrivalStepView(frame: CGRect(x: 0, y: 0, width: composentWidth, height: 70))
         viewDeparture.information = journey?.sections?.first?.from?.name ?? ""
-        viewDeparture.time = journey?.departureDateTime?.toDate(format: "yyyyMMdd'T'HHmmss")?.toString(format: "HH:mm") ?? ""
+        viewDeparture.time = journey?.departureDateTime?.toDate(format: FormatConfiguration.date)?.toString(format: FormatConfiguration.time) ?? ""
         viewDeparture.type = .departure
         addViewInScroll(view: viewDeparture)
     }
@@ -160,7 +160,7 @@ open class JourneySolutionRoadmapViewController: UIViewController {
     func _displayArrival(_ journey: Journey?) {
         let viewArrival = DepartureArrivalStepView(frame: CGRect(x: 0, y: 0, width: composentWidth, height: 70))
         viewArrival.information = journey?.sections?.last?.to?.name ?? ""
-        viewArrival.time = journey?.arrivalDateTime?.toDate(format: "yyyyMMdd'T'HHmmss")?.toString(format: "HH:mm") ?? ""
+        viewArrival.time = journey?.arrivalDateTime?.toDate(format: FormatConfiguration.date)?.toString(format: FormatConfiguration.time) ?? ""
         viewArrival.type = .arrival
         addViewInScroll(view: viewArrival)
     }
@@ -185,7 +185,7 @@ open class JourneySolutionRoadmapViewController: UIViewController {
     
     func _updateRidesharingView(_ section: Section) {
         ridesharingView.title = section.ridesharingJourneys?[ridesharingIndex].sections?[1].ridesharingInformations?._operator ?? ""
-        ridesharingView.startDate = section.ridesharingJourneys?[ridesharingIndex].sections?[1].departureDateTime?.toDate(format: "yyyyMMdd'T'HHmmss")?.toString(format: "HH:mm") ?? ""
+        ridesharingView.startDate = section.ridesharingJourneys?[ridesharingIndex].sections?[1].departureDateTime?.toDate(format: FormatConfiguration.date)?.toString(format: FormatConfiguration.time) ?? ""
         ridesharingView.login = section.ridesharingJourneys?[ridesharingIndex].sections?[1].ridesharingInformations?.driver?.alias ?? ""
         ridesharingView.gender = section.ridesharingJourneys?[ridesharingIndex].sections?[1].ridesharingInformations?.driver?.gender ?? ""
         ridesharingView.addressFrom = section.ridesharingJourneys?[ridesharingIndex].sections?[1].from?.name ?? ""
@@ -198,7 +198,6 @@ open class JourneySolutionRoadmapViewController: UIViewController {
         ridesharingView._parent = self
         ridesharingDeepLink = section.ridesharingJourneys?[ridesharingIndex].sections?[1].links?[0].href
         timeRidesharing = section.ridesharingJourneys?[ridesharingIndex].sections?[1].duration
-        // Url section.ridesharingJourneys?[0].sections?[1].links?[0].href ?? ""
     }
     
     func _displayPublicTransport(_ section: Section, waiting: Section? = nil) {
@@ -214,10 +213,10 @@ open class JourneySolutionRoadmapViewController: UIViewController {
         // publicTransportView.waitTime = "7"
         
         publicTransportView.origin = section.from?.name ?? ""
-        publicTransportView.startTime = section.departureDateTime?.toDate(format: "yyyyMMdd'T'HHmmss")?.toString(format: "HH:mm") ?? ""
+        publicTransportView.startTime = section.departureDateTime?.toDate(format: FormatConfiguration.date)?.toString(format: FormatConfiguration.time) ?? ""
         publicTransportView.directionTransit = section.displayInformations?.direction ?? ""
         publicTransportView.destination = section.to?.name ?? ""
-        publicTransportView.endTime = section.arrivalDateTime?.toDate(format: "yyyyMMdd'T'HHmmss")?.toString(format: "HH:mm") ?? ""
+        publicTransportView.endTime = section.arrivalDateTime?.toDate(format: FormatConfiguration.date)?.toString(format: FormatConfiguration.time) ?? ""
         
         var stopDate: [String] = []
         if let stopDateTimes = section.stopDateTimes {

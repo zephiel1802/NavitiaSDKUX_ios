@@ -28,6 +28,13 @@ open class NavitiaSDKUIConfig: NSObject {
 
 }
 
+enum FormatConfiguration {
+    
+    static let date = "yyyyMMdd'T'HHmmss"
+    static let time = "HH:mm"
+    
+}
+
 public struct ColorConfiguration {
     public var primary = UIColor(red:0.40, green:0.40, blue:0.40, alpha:1.0) {
         didSet {

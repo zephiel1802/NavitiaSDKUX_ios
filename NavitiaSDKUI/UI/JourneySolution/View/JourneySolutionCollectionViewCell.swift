@@ -24,8 +24,8 @@ class JourneySolutionCollectionViewCell: UICollectionViewCell {
         _setupArrowIcon()
         _setupShadow()
         
-        if let departureDateTime = journey.departureDateTime?.toDate(format: "yyyyMMdd'T'HHmmss"),
-            let arrivalDateTime = journey.arrivalDateTime?.toDate(format: "yyyyMMdd'T'HHmmss") {
+        if let departureDateTime = journey.departureDateTime?.toDate(format: FormatConfiguration.date),
+            let arrivalDateTime = journey.arrivalDateTime?.toDate(format: FormatConfiguration.date) {
             formattedDateTime(departureDateTime, arrivalDateTime)
         }
         if let durationInt = journey.duration {
@@ -48,8 +48,8 @@ class JourneySolutionCollectionViewCell: UICollectionViewCell {
         _setupArrowIcon()
         _setupShadow()
         
-        if let departureDateTime = journey.departureDateTime?.toDate(format: "yyyyMMdd'T'HHmmss"),
-            let arrivalDateTime = journey.arrivalDateTime?.toDate(format: "yyyyMMdd'T'HHmmss") {
+        if let departureDateTime = journey.departureDateTime?.toDate(format: FormatConfiguration.date),
+            let arrivalDateTime = journey.arrivalDateTime?.toDate(format: FormatConfiguration.date) {
             formattedDateTime(departureDateTime, arrivalDateTime)
         }
         if let durationInt = journey.duration {
@@ -81,17 +81,15 @@ class JourneySolutionCollectionViewCell: UICollectionViewCell {
     }
     
     private func formattedDateTime(_ departureDateTime: Date,_ arrivalDateTime: Date) {
-        let formattedStringDateTime = NSMutableAttributedString()
-        formattedStringDateTime
-            .bold(departureDateTime.toString(format: "HH:mm"))
-            .bold(" - ")
-            .bold(arrivalDateTime.toString(format: "HH:mm"))
-        dateTime = formattedStringDateTime
+        dateTime = NSMutableAttributedString()
+            .bold(String(format: "%@ - %@",
+                         departureDateTime.toString(format: FormatConfiguration.time),
+                         arrivalDateTime.toString(format: FormatConfiguration.time)))
     }
     
     private func formattedDuration(prefix: String = "", _ duration: Int32) {
-        var formattedStringDuration = NSMutableAttributedString()
-        formattedStringDuration = formattedStringDuration.bold(prefix, color: NavitiaSDKUIConfig.shared.color.tertiary)
+        let formattedStringDuration = NSMutableAttributedString()
+            .bold(prefix, color: NavitiaSDKUIConfig.shared.color.tertiary)
         formattedStringDuration.append(duration.toAttributedStringTime())
         self.duration = formattedStringDuration
     }
@@ -99,20 +97,17 @@ class JourneySolutionCollectionViewCell: UICollectionViewCell {
     private func formattedDurationWalker(_ durationWalking: String,
                                          _ distanceWalking: String,
                                          _ unitDistance: String = "units_meters".localized(withComment: "units_meters", bundle: NavitiaSDKUIConfig.shared.bundle)) {
-        let formattedString = NSMutableAttributedString()
         
-        formattedString
-            .normal("with".localized(withComment: "with", bundle: NavitiaSDKUIConfig.shared.bundle), color: NavitiaSDKUIConfig.shared.color.gray)
-            .normal(" ", color: NavitiaSDKUIConfig.shared.color.gray)
+        durationWalker = NSMutableAttributedString()
+            .normal(String(format: "%@ ",
+                           "with".localized(withComment: "with", bundle: NavitiaSDKUIConfig.shared.bundle)),
+                    color: NavitiaSDKUIConfig.shared.color.gray)
             .bold(durationWalking, color: NavitiaSDKUIConfig.shared.color.gray)
-            .normal(" ", color: NavitiaSDKUIConfig.shared.color.gray)
-            .normal("walking".localized(withComment: "walking", bundle: NavitiaSDKUIConfig.shared.bundle), color: NavitiaSDKUIConfig.shared.color.gray)
-            .normal(" (", color: NavitiaSDKUIConfig.shared.color.gray)
-            .normal(distanceWalking, color: NavitiaSDKUIConfig.shared.color.gray)
-            .normal(" ", color: NavitiaSDKUIConfig.shared.color.gray)
-            .normal(unitDistance, color: NavitiaSDKUIConfig.shared.color.gray)
-            .normal(")", color: NavitiaSDKUIConfig.shared.color.gray)
-        durationWalker = formattedString
+            .normal(String(format: " %@ (%@ %@)",
+                           "walking".localized(withComment: "walking", bundle: NavitiaSDKUIConfig.shared.bundle),
+                           distanceWalking,
+                           unitDistance),
+                    color: NavitiaSDKUIConfig.shared.color.gray)
     }
     
     override func awakeFromNib() {
