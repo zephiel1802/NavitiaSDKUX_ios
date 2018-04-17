@@ -197,8 +197,6 @@ open class JourneySolutionRoadmapViewController: UIViewController {
         ridesharingView.setFullStar(section.ridesharingJourneys?[ridesharingIndex].sections?[1].ridesharingInformations?.driver?.rating?.value)
         ridesharingView._parent = self
         ridesharingDeepLink = section.ridesharingJourneys?[ridesharingIndex].sections?[1].links?[0].href
-        
-        
         timeRidesharing = section.ridesharingJourneys?[ridesharingIndex].sections?[1].duration
         // Url section.ridesharingJourneys?[0].sections?[1].links?[0].href ?? ""
     }
