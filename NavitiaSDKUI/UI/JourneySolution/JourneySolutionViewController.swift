@@ -156,7 +156,7 @@ extension JourneySolutionViewController: UICollectionViewDataSource {
         }
         
         if section == 1 {
-            return self._viewModel.journeysRidesharing.count
+            return self._viewModel.journeysRidesharing.count + 1
         }
         
         return self._viewModel.journeys.count
@@ -200,7 +200,7 @@ extension JourneySolutionViewController: UICollectionViewDataSource {
             }
             // Result
             if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: JourneySolutionCollectionViewCell.identifier, for: indexPath) as? JourneySolutionCollectionViewCell {
-                cell.setupRidesharing(self._viewModel.journeysRidesharing[indexPath.row])
+                cell.setupRidesharing(self._viewModel.journeysRidesharing[indexPath.row - 1])
                 return cell
             }
         }
@@ -229,13 +229,13 @@ extension JourneySolutionViewController: UICollectionViewDelegate {
     
     public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if !_viewModel.loading {
-            if indexPath.section == 1 && _viewModel.journeysRidesharing.count > indexPath.row {
-                let viewController = storyboard?.instantiateViewController(withIdentifier: "JourneySolutionRidesharingViewController") as! JourneySolutionRidesharingViewController
-                viewController.journey = _viewModel.journeysRidesharing[indexPath.row]
-                self.navigationController?.pushViewController(viewController, animated: true)
-            } else if _viewModel.journeys.count > indexPath.row {
+            if indexPath.section == 0 && _viewModel.journeys.count > indexPath.row {
                 let viewController = storyboard?.instantiateViewController(withIdentifier: "journeySolutionRoadmapViewController") as! JourneySolutionRoadmapViewController
                 viewController.journey = _viewModel.journeys[indexPath.row]
+                self.navigationController?.pushViewController(viewController, animated: true)
+            } else if indexPath.section == 1 && indexPath.row != 0 {
+                let viewController = storyboard?.instantiateViewController(withIdentifier: "JourneySolutionRidesharingViewController") as! JourneySolutionRidesharingViewController
+                viewController.journey = _viewModel.journeysRidesharing[indexPath.row - 1]
                 self.navigationController?.pushViewController(viewController, animated: true)
             }
         }
