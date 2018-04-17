@@ -84,6 +84,17 @@ class JourneyRidesharingCollectionViewCell: UICollectionViewCell {
         }
     }
     
+    func seatCount(_ count: Int32?) {
+        if let count = count {
+            let template = "available_seats".localized(withComment: "available_seats", bundle: NavitiaSDKUIConfig.shared.bundle)
+            seatCountLabel.attributedText = NSMutableAttributedString()
+                .normal(String(format: template, count), size: 12.5)
+        } else {
+            seatCountLabel.attributedText = NSMutableAttributedString()
+                .normal("no_available_seats".localized(withComment: "no_available_seats", bundle: NavitiaSDKUIConfig.shared.bundle), size: 12.5)
+        }
+    }
+    
 }
 
 extension JourneyRidesharingCollectionViewCell {
@@ -132,27 +143,14 @@ extension JourneyRidesharingCollectionViewCell {
         }
         set {
             if let newValue = newValue {
-                genderLabel.attributedText = NSMutableAttributedString()
-                    .normal("(", size: 12)
-                    .normal(newValue, size: 12)
-                    .normal(")", size: 12)
-            }
-        }
-    }
-    
-    var seatCount: String? {
-        get {
-            return seatCountLabel.text
-        }
-        set {
-            if let newValue = newValue {
-              //  print("value \(newValue)")
-                let template = "available_seats".localized(withComment: "available_seats", bundle: NavitiaSDKUIConfig.shared.bundle)
-                seatCountLabel.attributedText = NSMutableAttributedString()
-                    .normal(String(format: template, newValue), size: 12.5)
-            } else {
-                seatCountLabel.attributedText = NSMutableAttributedString()
-                    .normal("no_available_seats".localized(withComment: "no_available_seats", bundle: NavitiaSDKUIConfig.shared.bundle), size: 12.5)
+                if newValue == "" {
+                    genderLabel.text = ""
+                } else {
+                    genderLabel.attributedText = NSMutableAttributedString()
+                        .normal("(", size: 12)
+                        .normal(newValue, size: 12)
+                        .normal(")", size: 12)
+                }
             }
         }
     }

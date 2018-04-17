@@ -115,6 +115,16 @@ class RidesharingView: UIView {
         }
     }
     
+    func seatCount(_ count: Int32?) {
+        if let count = count {
+            let template = "available_seats".localized(withComment: "available_seats", bundle: NavitiaSDKUIConfig.shared.bundle)
+            seatCountLabel.attributedText = NSMutableAttributedString()
+                .normal(String(format: template, count), size: 12.5)
+        } else {
+            seatCountLabel.attributedText = NSMutableAttributedString()
+                .normal("no_available_seats".localized(withComment: "no_available_seats", bundle: NavitiaSDKUIConfig.shared.bundle), size: 12.5)
+        }
+    }
     
 }
 
@@ -192,27 +202,6 @@ extension RidesharingView {
             if let newValue = newValue {
                 addressToLabel.attributedText = NSMutableAttributedString()
                     .normal(newValue, size: 11)
-            }
-        }
-    }
-    
-    var seatCount: String? {
-        get {
-            return seatCountLabel.text
-        }
-        set {
-//            if let newValue = newValue {
-//                seatCountLabel.attributedText = NSMutableAttributedString()
-//                    .normal("Places disponibles : ", size: 12.5)
-//                    .normal(newValue, size: 12.5)
-//            }
-            if let newValue = newValue {
-                let template = "available_seats".localized(withComment: "available_seats", bundle: NavitiaSDKUIConfig.shared.bundle)
-                seatCountLabel.attributedText = NSMutableAttributedString()
-                    .normal(String(format: template, newValue), size: 12.5)
-            } else {
-                seatCountLabel.attributedText = NSMutableAttributedString()
-                    .normal("no_available_seats".localized(withComment: "no_available_seats", bundle: NavitiaSDKUIConfig.shared.bundle), size: 12.5)
             }
         }
     }

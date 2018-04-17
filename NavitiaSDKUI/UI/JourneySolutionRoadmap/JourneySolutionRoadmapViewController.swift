@@ -190,7 +190,7 @@ open class JourneySolutionRoadmapViewController: UIViewController {
         ridesharingView.gender = section.ridesharingJourneys?[ridesharingIndex].sections?[1].ridesharingInformations?.driver?.gender ?? ""
         ridesharingView.addressFrom = section.ridesharingJourneys?[ridesharingIndex].sections?[1].from?.name ?? ""
         ridesharingView.addressTo = section.ridesharingJourneys?[ridesharingIndex].sections?[1].to?.name ?? ""
-        ridesharingView.seatCount = section.ridesharingJourneys?[ridesharingIndex].sections?[1].ridesharingInformations?.seats?.available?.toString() ?? ""
+        ridesharingView.seatCount(section.ridesharingJourneys?[ridesharingIndex].sections?[1].ridesharingInformations?.seats?.available)
         ridesharingView.price = section.ridesharingJourneys?[ridesharingIndex].fare?.total?.value ?? ""
         ridesharingView.setPicture(url: section.ridesharingJourneys?[ridesharingIndex].sections?[1].ridesharingInformations?.driver?.image)
         ridesharingView.setNotation(section.ridesharingJourneys?[ridesharingIndex].sections?[1].ridesharingInformations?.driver?.rating?.count)
