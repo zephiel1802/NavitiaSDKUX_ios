@@ -47,10 +47,10 @@ class JourneySolutionView: UIView {
             let arrivalDateTime = journey.arrivalDateTime?.toDate(format: "yyyyMMdd'T'HHmmss") {
             formattedDateTime(departureDateTime, arrivalDateTime)
         }
-        if let durationStr = journey.duration?.toString(allowedUnits: [.hour, .minute]) {
+        if let durationStr = journey.duration?.toStringTime() {
             formattedDuration(durationStr)
         }
-        if let durationWalkingStr = journey.durations?.walking?.toString(allowedUnits: [ .hour, .minute ]),
+        if let durationWalkingStr = journey.durations?.walking?.toStringTime(),
             let distanceWalking = journey.distances?.walking {
             if distanceWalking > 999 {
                 formattedDurationWalker(durationWalkingStr, distanceWalking.toString(format: "%.01f"), "units_km".localized(withComment: "units_km", bundle: NavitiaSDKUIConfig.shared.bundle))
@@ -68,7 +68,7 @@ class JourneySolutionView: UIView {
             let arrivalDateTime = journey.arrivalDateTime?.toDate(format: "yyyyMMdd'T'HHmmss") {
             formattedDateTime(departureDateTime, arrivalDateTime)
         }
-        if let durationStr = journey.duration?.toString(allowedUnits: [.hour, .minute]) {
+        if let durationStr = journey.duration?.toStringTime() {
             formattedDuration("about".localized(withComment: "about", bundle: NavitiaSDKUIConfig.shared.bundle) + " " + durationStr)
         }
         if let sections = journey.sections {

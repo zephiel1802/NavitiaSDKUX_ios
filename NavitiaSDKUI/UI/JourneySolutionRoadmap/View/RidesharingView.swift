@@ -174,10 +174,14 @@ extension RidesharingView {
         }
         set {
             if let newValue = newValue {
-                genderLabel.attributedText = NSMutableAttributedString()
-                    .normal("(", size: 12)
-                    .normal(newValue, size: 12)
-                    .normal(")", size: 12)
+                if newValue == "" {
+                    genderLabel.text = ""
+                } else {
+                    genderLabel.attributedText = NSMutableAttributedString()
+                        .normal("(", size: 12)
+                        .normal(newValue, size: 12)
+                        .normal(")", size: 12)
+                }
             }
         }
     }
