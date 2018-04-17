@@ -27,7 +27,7 @@ class RidesharingView: UIView {
     @IBOutlet weak var seatCountLabel: UILabel!
     @IBOutlet weak var priceLabel: UILabel!
     
-    var _parent: UIViewController?
+    var _parent: JourneySolutionRoadmapViewController?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -112,15 +112,19 @@ class RidesharingView: UIView {
     
     @IBAction func actionBookButton(_ sender: Any) {
         if let parentViewController = _parent {
-            let alertController = AlertViewController(nibName: "AlertView", bundle: NavitiaSDKUIConfig.shared.bundle)
-            alertController.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
-            alertController.stateKey = NavitiaSDKUserDefaultsManager.SHOW_REDIRECTION_DIALOG_PREF_KEY
-            alertController.alertMessage = "redirection_message".localized(withComment: "Redirection Message", bundle: NavitiaSDKUIConfig.shared.bundle)
-            alertController.checkBoxText = "dont_show_this_message_again".localized(withComment: "Don't show this message again", bundle: NavitiaSDKUIConfig.shared.bundle)
-            alertController.negativeButtonText = "cancel".localized(withComment: "Cancel", bundle: NavitiaSDKUIConfig.shared.bundle).uppercased()
-            alertController.positiveButtonText = "proceed".localized(withComment: "Continue", bundle: NavitiaSDKUIConfig.shared.bundle).uppercased()
-            alertController.alertViewDelegate = parentViewController as! JourneySolutionRoadmapViewController
-            parentViewController.navigationController?.visibleViewController?.present(alertController, animated: false, completion: nil)
+            if UserDefaults.standard.bool(forKey: NavitiaSDKUserDefaultsManager.SHOW_REDIRECTION_DIALOG_PREF_KEY) {
+                let alertController = AlertViewController(nibName: "AlertView", bundle: NavitiaSDKUIConfig.shared.bundle)
+                alertController.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
+                alertController.stateKey = NavitiaSDKUserDefaultsManager.SHOW_REDIRECTION_DIALOG_PREF_KEY
+                alertController.alertMessage = "redirection_message".localized(withComment: "Redirection Message", bundle: NavitiaSDKUIConfig.shared.bundle)
+                alertController.checkBoxText = "dont_show_this_message_again".localized(withComment: "Don't show this message again", bundle: NavitiaSDKUIConfig.shared.bundle)
+                alertController.negativeButtonText = "cancel".localized(withComment: "Cancel", bundle: NavitiaSDKUIConfig.shared.bundle).uppercased()
+                alertController.positiveButtonText = "proceed".localized(withComment: "Continue", bundle: NavitiaSDKUIConfig.shared.bundle).uppercased()
+                alertController.alertViewDelegate = parentViewController
+                parentViewController.navigationController?.visibleViewController?.present(alertController, animated: false, completion: nil)
+            } else {
+                parentViewController.openDeepLink()
+            }
         }
     }
     

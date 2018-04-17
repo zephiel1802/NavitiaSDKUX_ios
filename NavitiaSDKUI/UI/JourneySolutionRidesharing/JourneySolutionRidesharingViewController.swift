@@ -12,6 +12,7 @@ open class JourneySolutionRidesharingViewController: UIViewController {
 
     @IBOutlet weak var journeySolutionRoadmap: JourneySolutionView!
     @IBOutlet weak var collectionView: UICollectionView!
+    
     var journey: Journey?
     var ridesharingJourneys: [Journey]?
     
@@ -98,7 +99,6 @@ extension JourneySolutionRidesharingViewController: UICollectionViewDelegateFlow
         if #available(iOS 11.0, *) {
             safeAreaWidth += self.collectionView.safeAreaInsets.left + self.collectionView.safeAreaInsets.right
         }
-        print("Je refressh la size \(CGSize(width: self.collectionView.frame.size.width - safeAreaWidth, height: 180))")
         return CGSize(width: self.collectionView.frame.size.width - safeAreaWidth, height: 180)
     }
     

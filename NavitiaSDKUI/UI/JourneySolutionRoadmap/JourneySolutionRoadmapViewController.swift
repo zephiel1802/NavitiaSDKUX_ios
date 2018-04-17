@@ -11,7 +11,7 @@ import MapKit
 
 open class JourneySolutionRoadmapViewController: UIViewController {
 
-        @IBOutlet weak var mapView: MKMapView!
+    @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var scrollView: UIScrollView!
     
     var viewScroll: [UIView] = []
