@@ -14,6 +14,8 @@ class JourneyHeaderCollectionReusableView: UICollectionReusableView {
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        
+        _setupShadow()
     }
     
     static var nib:UINib {
@@ -22,6 +24,14 @@ class JourneyHeaderCollectionReusableView: UICollectionReusableView {
     
     static var identifier: String {
         return String(describing: self)
+    }
+    
+    private func _setupShadow() {
+        layer.masksToBounds = false
+        layer.shadowColor = UIColor.black.cgColor
+        layer.shadowOffset = CGSize(width: 0, height: 0)
+        layer.shadowOpacity = 0.1
+        layer.shadowRadius = 5
     }
     
 }

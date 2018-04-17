@@ -22,6 +22,7 @@ class JourneySolutionCollectionViewCell: UICollectionViewCell {
     
     func setup(_ journey: Journey) {
         _setupArrowIcon()
+        _setupShadow()
         
         if let departureDateTime = journey.departureDateTime?.toDate(format: "yyyyMMdd'T'HHmmss"),
             let arrivalDateTime = journey.arrivalDateTime?.toDate(format: "yyyyMMdd'T'HHmmss") {
@@ -45,6 +46,7 @@ class JourneySolutionCollectionViewCell: UICollectionViewCell {
     
     func setupRidesharing(_ journey: Journey) {
         _setupArrowIcon()
+        _setupShadow()
         
         if let departureDateTime = journey.departureDateTime?.toDate(format: "yyyyMMdd'T'HHmmss"),
             let arrivalDateTime = journey.arrivalDateTime?.toDate(format: "yyyyMMdd'T'HHmmss") {
@@ -62,6 +64,14 @@ class JourneySolutionCollectionViewCell: UICollectionViewCell {
         durationTopContraint.isActive = false
         durationBottomContraint.isActive = false
         durationLeadingContraint.isActive = false
+    }
+    
+    private func _setupShadow() {
+        layer.masksToBounds = false
+        layer.shadowColor = UIColor.black.cgColor
+        layer.shadowOffset = CGSize(width: 0, height: 0)
+        layer.shadowOpacity = 0.1
+        layer.shadowRadius = 5
     }
     
     private func _setupArrowIcon() {

@@ -39,7 +39,15 @@ class JourneySolutionView: UIView {
         UINib(nibName: "JourneySolutionView", bundle: NavitiaSDKUIConfig.shared.bundle).instantiate(withOwner: self, options: nil)
         _view.frame = self.bounds
         addSubview(_view)
-        
+        _setupShadow()
+    }
+    
+    private func _setupShadow() {
+        layer.masksToBounds = false
+        layer.shadowColor = UIColor.black.cgColor
+        layer.shadowOffset = CGSize(width: 0, height: 0)
+        layer.shadowOpacity = 0.1
+        layer.shadowRadius = 5
     }
     
     func setData(_ journey: Journey) {

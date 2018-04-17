@@ -16,6 +16,7 @@ class JourneyEmptySolutionCollectionViewCell: UICollectionViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         
+        _setupShadow()
         noJourneyLabel.text = "no_journey_found".localized(withComment: "No journey found", bundle: NavitiaSDKUIConfig.shared.bundle)
         noJourneyView.backgroundColor = UIColor(red:0.85, green:0.93, blue:0.97, alpha:1.0)
         noJourneyView.layer.borderWidth = 1
@@ -37,6 +38,14 @@ class JourneyEmptySolutionCollectionViewCell: UICollectionViewCell {
         set {
             noJourneyLabel.text = newValue
         }
+    }
+    
+    private func _setupShadow() {
+        layer.masksToBounds = false
+        layer.shadowColor = UIColor.black.cgColor
+        layer.shadowOffset = CGSize(width: 0, height: 0)
+        layer.shadowOpacity = 0.1
+        layer.shadowRadius = 5
     }
     
 }

@@ -250,7 +250,6 @@ extension JourneySolutionViewController: UICollectionViewDelegateFlowLayout {
         if #available(iOS 11.0, *) {
             safeAreaWidth += self.collectionView.safeAreaInsets.left + self.collectionView.safeAreaInsets.right
         }
-        
         // Loading
         if _viewModel.loading {
             return CGSize(width: self.collectionView.frame.size.width - safeAreaWidth, height: 130)
