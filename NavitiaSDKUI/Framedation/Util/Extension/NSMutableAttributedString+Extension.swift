@@ -2,7 +2,6 @@
 //  NSMutableAttributedString+Extension.swift
 //  NavitiaSDKUI
 //
-//  Created by Flavien Sicard on 29/03/2018.
 //  Copyright © 2018 kisio. All rights reserved.
 //
 

@@ -2,7 +2,6 @@
 //  String+Extension.swift
 //  NavitiaSDKUI
 //
-//  Created by Flavien Sicard on 26/03/2018.
 //  Copyright © 2018 kisio. All rights reserved.
 //
 

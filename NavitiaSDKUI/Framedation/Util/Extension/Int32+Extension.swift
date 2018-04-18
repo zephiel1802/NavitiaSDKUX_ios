@@ -2,7 +2,6 @@
 //  Int32+Extension.swift
 //  NavitiaSDKUI
 //
-//  Created by Flavien Sicard on 28/03/2018.
 //  Copyright © 2018 kisio. All rights reserved.
 //
 
