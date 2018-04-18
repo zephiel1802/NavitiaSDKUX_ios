@@ -444,11 +444,12 @@ extension PublicTransportView {
                 stationsTopContraint.isActive = false
                 stationsBottomContraint.isActive = false
                 stationButton.setAttributedTitle(NSMutableAttributedString()
-                    .normal(String(stations.count), size: 13)
-                    .normal(" ", size: 13)
-                    .normal("stops".localized(withComment: "stops", bundle: NavitiaSDKUIConfig.shared.bundle), size: 13)
-                    .normal("  ", size: 13)
-                    .icon("arrow-details-down", size: 13)
+                    .normal(String(format: "%@ %@ ",
+                                   String(stations.count),
+                                   "stops".localized(withComment: "stops", bundle: NavitiaSDKUIConfig.shared.bundle)),
+                            color: NavitiaSDKUIConfig.shared.color.gray,
+                            size: 13)
+                    .icon("arrow-details-down", color: NavitiaSDKUIConfig.shared.color.gray, size: 13)
                     ,for: .normal)
                 frame.size.height -= stationsView.frame.size.height
             } else {
@@ -456,11 +457,12 @@ extension PublicTransportView {
                 stationsTopContraint.isActive = true
                 stationsBottomContraint.isActive = true
                 stationButton.setAttributedTitle(NSMutableAttributedString()
-                    .normal(String(stations.count), size: 13)
-                    .normal(" ", size: 13)
-                    .normal("stops".localized(withComment: "stops", bundle: NavitiaSDKUIConfig.shared.bundle), size: 13)
-                    .normal("  ", size: 13)
-                    .icon("arrow-details-up", size: 13)
+                    .normal(String(format: "%@ %@ ",
+                                   String(stations.count),
+                                   "stops".localized(withComment: "stops", bundle: NavitiaSDKUIConfig.shared.bundle)),
+                            color: NavitiaSDKUIConfig.shared.color.gray,
+                            size: 13)
+                    .icon("arrow-details-up", color: NavitiaSDKUIConfig.shared.color.gray, size: 13)
                     ,for: .normal)
                 frame.size.height += stationsView.frame.size.height
             }
