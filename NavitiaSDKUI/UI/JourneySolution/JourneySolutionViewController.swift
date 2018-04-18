@@ -82,10 +82,7 @@ open class JourneySolutionViewController: UIViewController {
         _viewModel.request(with: inParameters)
     }
     
-    override open func viewWillLayoutSubviews() {
-        super.viewWillLayoutSubviews()
-        collectionView.collectionViewLayout.invalidateLayout()
-    }
+S
 
     override open func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

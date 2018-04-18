@@ -19,7 +19,6 @@ open class JourneySolutionRidesharingViewController: UIViewController {
         super.viewDidLoad()
 
         title = "carpooling".localized(withComment: "Carpooling", bundle: NavitiaSDKUIConfig.shared.bundle)
-        
         if let journey = journey {
             journeySolutionRoadmap.setDataRidesharing(journey)
         }
@@ -30,6 +29,11 @@ open class JourneySolutionRidesharingViewController: UIViewController {
     override open func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    override open func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        collectionView.collectionViewLayout.invalidateLayout()
     }
     
     func getRidesharingCount() -> Int {
