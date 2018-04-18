@@ -32,17 +32,17 @@ class ViewController: UIViewController {
         let bundle = Bundle(identifier: "org.cocoapods.NavitiaSDKUI")
         let storyboard = UIStoryboard(name: "Journey", bundle: bundle)
         let journeyResultsViewController = storyboard.instantiateInitialViewController() as! JourneySolutionViewController
-        journeyResultsViewController.inParameters = JourneySolutionViewController.InParameters(originId: "2.377092;48.846789",
-                                                                                               destinationId: "2.294685;48.884075")
-        journeyResultsViewController.inParameters.originLabel = "Chez moi"
-        journeyResultsViewController.inParameters.destinationLabel = "Au travail"
-        journeyResultsViewController.inParameters.datetime = Date()
-//        journeyResultsViewController.inParameters.datetime!.addTimeInterval(2000)
-        journeyResultsViewController.inParameters.datetimeRepresents = .departure
-//        journeyResultsViewController.inParameters.forbiddenUris = ["physical_mode:Bus"]
-        journeyResultsViewController.inParameters.firstSectionModes = [.bss, .ridesharing]
-        //       journeyResultsViewController.inParameters.lastSectionModes = [.car]
-        journeyResultsViewController.inParameters.count = 5
+        var params = JourneySolutionViewController.InParameters(originId: "2.3665844;48.8465337", destinationId: "2.2979169;48.8848719")
+        params.originLabel = "Chez moi"
+        params.destinationLabel = "Au travail"
+        params.datetime = Date()
+        params.datetime!.addTimeInterval(2000)
+        params.datetimeRepresents = .departure
+        params.forbiddenUris = ["physical_mode:Bus"]
+//        params.firstSectionModes = [.ridesharing]
+//        params.lastSectionModes = [.car]
+        params.count = 5
+        journeyResultsViewController.inParameters = params
         return journeyResultsViewController
     }
     
