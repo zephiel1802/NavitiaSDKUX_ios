@@ -184,7 +184,7 @@ open class JourneySolutionRoadmapViewController: UIViewController {
     
     func _updateRidesharingView(_ section: Section) {
         ridesharingView.title = section.ridesharingJourneys?[ridesharingIndex].sections?[1].ridesharingInformations?._operator ?? ""
-        ridesharingView.startDate = section.ridesharingJourneys?[ridesharingIndex].sections?[1].departureDateTime?.toDate(format: FormatConfiguration.date)?.toString(format: FormatConfiguration.time) ?? ""
+        ridesharingView.startDate = section.ridesharingJourneys?[ridesharingIndex].sections?[1].departureDateTime?.toDate(format: FormatConfiguration.date)?.toString(format: FormatConfiguration.timeRidesharing) ?? ""
         ridesharingView.login = section.ridesharingJourneys?[ridesharingIndex].sections?[1].ridesharingInformations?.driver?.alias ?? ""
         ridesharingView.gender = section.ridesharingJourneys?[ridesharingIndex].sections?[1].ridesharingInformations?.driver?.gender ?? ""
         ridesharingView.addressFrom = section.ridesharingJourneys?[ridesharingIndex].sections?[1].from?.name ?? ""

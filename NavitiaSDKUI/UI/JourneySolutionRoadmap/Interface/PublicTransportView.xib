@@ -76,19 +76,19 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="18:45" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JHv-Tt-dyM">
-                    <rect key="frame" x="0.0" y="276" width="50" height="14.5"/>
+                    <rect key="frame" x="0.0" y="275.5" width="50" height="14.5"/>
                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pyramides (Paris)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5gd-GI-iOO">
-                    <rect key="frame" x="74" y="161.5" width="278" height="21"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pyramides (Paris)" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5gd-GI-iOO">
+                    <rect key="frame" x="74" y="161.5" width="278" height="20.5"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pyramides (Paris)" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Nxl-nB-2cv">
-                    <rect key="frame" x="74" y="272.5" width="278" height="20.5"/>
+                    <rect key="frame" x="74" y="272" width="278" height="20.5"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
@@ -124,7 +124,7 @@
                     </userDefinedRuntimeAttributes>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JT4-IX-zVG">
-                    <rect key="frame" x="50" y="276" width="14" height="14"/>
+                    <rect key="frame" x="50" y="275.5" width="14" height="14"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ggl-io-KqF">
                             <rect key="frame" x="3" y="3" width="8" height="8"/>
@@ -154,14 +154,14 @@
                     </userDefinedRuntimeAttributes>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VBB-0W-Xqs">
-                    <rect key="frame" x="55" y="178.5" width="4" height="97.5"/>
+                    <rect key="frame" x="55" y="178.5" width="4" height="97"/>
                     <color key="backgroundColor" red="0.94889697019999997" green="1" blue="0.52188898800000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="4" id="hU2-6p-PGY"/>
                     </constraints>
                 </view>
                 <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="g8F-1v-Alj">
-                    <rect key="frame" x="74" y="202.5" width="278" height="30"/>
+                    <rect key="frame" x="74" y="202" width="278" height="30"/>
                     <state key="normal" title="6 arrets"/>
                     <connections>
                         <action selector="actionStationButton:" destination="-1" eventType="touchUpInside" id="QXZ-Mk-KVs"/>
@@ -246,7 +246,7 @@
                     </constraints>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="21v-9J-eqd">
-                    <rect key="frame" x="50" y="252.5" width="302" height="0.0"/>
+                    <rect key="frame" x="50" y="252" width="302" height="0.0"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
                         <constraint firstAttribute="height" id="PC3-qv-vvv"/>

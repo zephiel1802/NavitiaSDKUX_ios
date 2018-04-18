@@ -155,9 +155,9 @@
                     </constraints>
                 </view>
                 <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="DAx-zi-0qc">
-                    <rect key="frame" x="268" y="96" width="85" height="15"/>
+                    <rect key="frame" x="268" y="96" width="85" height="18"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="15" id="Sw7-UH-j7z"/>
+                        <constraint firstAttribute="height" constant="18" id="Sw7-UH-j7z"/>
                     </constraints>
                 </stackView>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GUC-4q-3e5">
@@ -168,7 +168,7 @@
                     </constraints>
                 </view>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="6 notes" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="exV-cn-fEE">
-                    <rect key="frame" x="292.5" y="118" width="36.5" height="12"/>
+                    <rect key="frame" x="292.5" y="121" width="36.5" height="12"/>
                     <fontDescription key="fontDescription" type="system" pointSize="10"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>

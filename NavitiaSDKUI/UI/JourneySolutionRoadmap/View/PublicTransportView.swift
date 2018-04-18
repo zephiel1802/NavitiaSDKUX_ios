@@ -250,9 +250,10 @@ extension PublicTransportView {
         set {
             if let newValue = newValue {
                 takeLabel.attributedText = NSMutableAttributedString()
-                    .normal("take_the".localized(withComment: "take_the", bundle: NavitiaSDKUIConfig.shared.bundle), size: 15)
-                    .normal(" ", size: 15)
-                    .bold(newValue, size: 15)
+                    .normal(String(format: "%@ %@",
+                                   "take_the".localized(withComment: "take_the", bundle: NavitiaSDKUIConfig.shared.bundle),
+                                   newValue),
+                            size: 15)
             }
         }
     }

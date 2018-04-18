@@ -31,6 +31,7 @@ enum FormatConfiguration {
     
     static let date = "yyyyMMdd'T'HHmmss"
     static let time = "HH:mm"
+    static let timeRidesharing = "HH'h'mm"
     
 }
 
