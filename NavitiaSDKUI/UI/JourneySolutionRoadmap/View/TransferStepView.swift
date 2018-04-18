@@ -105,8 +105,10 @@ extension TransferStepView {
         set {
             if let newValue = newValue {
                 var duration = newValue + " " + "units_minutes".localized(withComment: "units_minutes", bundle: NavitiaSDKUIConfig.shared.bundle)
-                if time == "1" {
-                    duration = newValue + " " + "unit_minutes".localized(withComment: "unit_minutes", bundle: NavitiaSDKUIConfig.shared.bundle)
+                if newValue == "1" {
+                    duration = newValue + " " + "units_minute".localized(withComment: "units_minute", bundle: NavitiaSDKUIConfig.shared.bundle)
+                } else if newValue == "0" {
+                    duration = "less_than_a".localized(withComment: "less_than_a", bundle: NavitiaSDKUIConfig.shared.bundle) + " " + "units_minute".localized(withComment: "units_minute", bundle: NavitiaSDKUIConfig.shared.bundle)
                 }
                 var template = ""
                 if let type = _type {
