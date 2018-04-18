@@ -76,9 +76,12 @@ class RidesharingView: UIView {
     
     func setNotation(_ count: Int32?) {
         if let count = count {
+            var template = "rating_plural".localized(withComment: "rating_plural", bundle: NavitiaSDKUIConfig.shared.bundle)
+            if count == 0 || count == 1 {
+                template = "rating".localized(withComment: "rating", bundle: NavitiaSDKUIConfig.shared.bundle)
+            }
             notationLabel.attributedText = NSMutableAttributedString()
-                .normal(String(count), size: 10)
-                .normal(" notes", size: 10)
+                .normal(String(format: template, count), color: NavitiaSDKUIConfig.shared.color.gray, size: 10)
         }
     }
     
@@ -191,9 +194,7 @@ extension RidesharingView {
                     genderLabel.text = ""
                 } else {
                     genderLabel.attributedText = NSMutableAttributedString()
-                        .normal("(", size: 12)
-                        .normal(newValue, size: 12)
-                        .normal(")", size: 12)
+                        .normal(String(format: "(%@)", newValue), color: NavitiaSDKUIConfig.shared.color.gray, size: 12)
                 }
             }
         }
@@ -231,14 +232,14 @@ extension RidesharingView {
             if let newValue = newValue {
                 if newValue == "0.0" {
                     priceLabel.attributedText = NSMutableAttributedString()
-                        .normal("free".localized(withComment: "free", bundle: NavitiaSDKUIConfig.shared.bundle), color: NavitiaSDKUIConfig.shared.color.orange,size: 8.5)
+                        .normal("free".localized(withComment: "free", bundle: NavitiaSDKUIConfig.shared.bundle), color: NavitiaSDKUIConfig.shared.color.orange,size: 10)
                 } else {
                     priceLabel.attributedText = NSMutableAttributedString()
-                        .normal(newValue, color: NavitiaSDKUIConfig.shared.color.orange, size: 8.5)
+                        .normal(newValue, color: NavitiaSDKUIConfig.shared.color.orange, size: 10)
                 }
             } else {
                 priceLabel.attributedText = NSMutableAttributedString()
-                    .normal("price_not_available".localized(withComment: "price_not_available", bundle: NavitiaSDKUIConfig.shared.bundle), color: NavitiaSDKUIConfig.shared.color.orange,size: 8.5)
+                    .normal("price_not_available".localized(withComment: "price_not_available", bundle: NavitiaSDKUIConfig.shared.bundle), color: NavitiaSDKUIConfig.shared.color.orange,size: 10)
             }
         }
     }

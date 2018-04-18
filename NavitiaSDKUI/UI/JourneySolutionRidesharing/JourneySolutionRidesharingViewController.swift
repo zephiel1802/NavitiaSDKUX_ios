@@ -99,7 +99,7 @@ extension JourneySolutionRidesharingViewController: UICollectionViewDelegateFlow
         if #available(iOS 11.0, *) {
             safeAreaWidth += self.collectionView.safeAreaInsets.left + self.collectionView.safeAreaInsets.right
         }
-        return CGSize(width: self.collectionView.frame.size.width - safeAreaWidth, height: 180)
+        return CGSize(width: self.collectionView.frame.size.width - safeAreaWidth, height: 155)
     }
     
 }

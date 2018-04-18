@@ -99,7 +99,7 @@ open class JourneySolutionRoadmapViewController: UIViewController {
                 tc.setDataRidesharing(journey)
                 addViewInScroll(view: tc)
             }
-            ridesharingView = RidesharingView(frame: CGRect(x: 0, y: 0, width: 0, height: 260))
+            ridesharingView = RidesharingView(frame: CGRect(x: 0, y: 0, width: 0, height: 255))
             addViewInScroll(view: ridesharingView)
 
         } else {
