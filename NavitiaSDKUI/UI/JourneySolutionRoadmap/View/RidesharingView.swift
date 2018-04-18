@@ -19,7 +19,7 @@ class RidesharingView: UIView {
     @IBOutlet weak var pictureImage: UIImageView!
     @IBOutlet weak var loginLabel: UILabel!
     @IBOutlet weak var genderLabel: UILabel!
-    @IBOutlet weak var starStack: UIStackView!
+    @IBOutlet weak var floatRatingView: FloatRatingView!
     @IBOutlet weak var notationLabel: UILabel!
     @IBOutlet weak var addressFromLabel: UILabel!
     @IBOutlet weak var addressToLabel: UILabel!
@@ -76,7 +76,7 @@ class RidesharingView: UIView {
     func setNotation(_ count: Int32?) {
         if let count = count {
             var template = "rating_plural".localized(withComment: "rating_plural", bundle: NavitiaSDKUIConfig.shared.bundle)
-            if count == 0 || count == 1 {
+            if count == 1 {
                 template = "rating".localized(withComment: "rating", bundle: NavitiaSDKUIConfig.shared.bundle)
             }
             notationLabel.attributedText = NSMutableAttributedString()
@@ -86,29 +86,14 @@ class RidesharingView: UIView {
     
     func setFullStar(_ count: Float?) {
         if count != nil {
-            var count = Int(count ?? 0)
-            if count < 0 {
-                count = 0
-            }
-            if count > 5 {
-                count = 5
-            }
-            let full = count - 1
-            if full >= 0 {
-                for _ in 0...full {
-                    let myView = UIImageView(frame: CGRect(x: 0, y: 0, width: 15, height: 15))
-                    myView.image = UIImage(named: "star_full", in: NavitiaSDKUIConfig.shared.bundle, compatibleWith: nil)
-                    starStack.addArrangedSubview(myView)
-                }
-            }
-            let empty = 4 - count
-            if empty >= 0 {
-                for _ in 0...empty {
-                    let myView = UIImageView(frame: CGRect(x: 0, y: 0, width: 15, height: 15))
-                    myView.image = UIImage(named: "star_empty", in: NavitiaSDKUIConfig.shared.bundle, compatibleWith: nil)
-                    starStack.addArrangedSubview(myView)
-                }
-            }
+            floatRatingView.backgroundColor = UIColor.clear
+            floatRatingView.contentMode = UIViewContentMode.scaleAspectFit
+            floatRatingView.emptyImage = UIImage(named: "star_empty", in: NavitiaSDKUIConfig.shared.bundle, compatibleWith: nil)
+            floatRatingView.fullImage = UIImage(named: "star_full", in: NavitiaSDKUIConfig.shared.bundle, compatibleWith: nil)
+            floatRatingView.type = .floatRatings
+            floatRatingView.editable = false
+            floatRatingView.rating = Double(count!)
+            floatRatingView.starsInterspace = 2
         }
     }
     
@@ -206,7 +191,7 @@ extension RidesharingView {
         set {
             if let newValue = newValue {
                 addressFromLabel.attributedText = NSMutableAttributedString()
-                    .normal(newValue, size: 11)
+                    .normal(newValue, color: NavitiaSDKUIConfig.shared.color.gray, size: 11)
             }
         }
     }
@@ -218,7 +203,7 @@ extension RidesharingView {
         set {
             if let newValue = newValue {
                 addressToLabel.attributedText = NSMutableAttributedString()
-                    .normal(newValue, size: 11)
+                    .normal(newValue, color: NavitiaSDKUIConfig.shared.color.gray, size: 11)
             }
         }
     }

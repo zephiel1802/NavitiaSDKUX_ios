@@ -7,6 +7,10 @@
 
 import UIKit
 
+protocol JourneyRidesharingCollectionViewCellDelegate {
+    func onBookButtonClicked(_ journeyRidesharingCollectionViewCell: JourneyRidesharingCollectionViewCell)
+}
+
 class JourneyRidesharingCollectionViewCell: UICollectionViewCell {
     
     @IBOutlet weak var titleLabel: UILabel!
@@ -14,11 +18,14 @@ class JourneyRidesharingCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var pictureImage: UIImageView!
     @IBOutlet weak var loginLabel: UILabel!
     @IBOutlet weak var genderLabel: UILabel!
-    @IBOutlet weak var starStack: UIStackView!
+    @IBOutlet weak var floatRatingView: FloatRatingView!
     @IBOutlet weak var notationLabel: UILabel!
     @IBOutlet weak var seatCountLabel: UILabel!
     @IBOutlet weak var priceLabel: UILabel!
     @IBOutlet weak var roadmapButton: UIButton!
+    
+    var delegate: JourneyRidesharingCollectionViewCellDelegate?
+    var row: Int?
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -36,7 +43,7 @@ class JourneyRidesharingCollectionViewCell: UICollectionViewCell {
     }
     
     @IBAction func actionRoadmapButton(_ sender: Any) {
-        
+        delegate?.onBookButtonClicked(self)
     }
     
     func setPicture(url: String?) {
@@ -48,7 +55,7 @@ class JourneyRidesharingCollectionViewCell: UICollectionViewCell {
     func setNotation(_ count: Int32?) {
         if let count = count {
             var template = "rating_plural".localized(withComment: "rating_plural", bundle: NavitiaSDKUIConfig.shared.bundle)
-            if count == 0 || count == 1 {
+            if count == 1 {
                 template = "rating".localized(withComment: "rating", bundle: NavitiaSDKUIConfig.shared.bundle)
             }
             notationLabel.attributedText = NSMutableAttributedString()
@@ -58,29 +65,14 @@ class JourneyRidesharingCollectionViewCell: UICollectionViewCell {
     
     func setFullStar(_ count: Float?) {
         if count != nil {
-            var count = Int(count ?? 0)
-            if count < 0 {
-                count = 0
-            }
-            if count > 5 {
-                count = 5
-            }
-            let full = count - 1
-            if full >= 0 {
-                for _ in 0...full {
-                    let myView = UIImageView(frame: CGRect(x: 0, y: 0, width: 15, height: 15))
-                    myView.image = UIImage(named: "star_full", in: NavitiaSDKUIConfig.shared.bundle, compatibleWith: nil)
-                    starStack.addArrangedSubview(myView)
-                }
-            }
-            let empty = 4 - count
-            if empty >= 0 {
-                for _ in 0...empty {
-                    let myView = UIImageView(frame: CGRect(x: 0, y: 0, width: 15, height: 15))
-                    myView.image = UIImage(named: "star_empty", in: NavitiaSDKUIConfig.shared.bundle, compatibleWith: nil)
-                    starStack.addArrangedSubview(myView)
-                }
-            }
+            floatRatingView.backgroundColor = UIColor.clear
+            floatRatingView.contentMode = UIViewContentMode.scaleAspectFit
+            floatRatingView.emptyImage = UIImage(named: "star_empty", in: NavitiaSDKUIConfig.shared.bundle, compatibleWith: nil)
+            floatRatingView.fullImage = UIImage(named: "star_full", in: NavitiaSDKUIConfig.shared.bundle, compatibleWith: nil)
+            floatRatingView.type = .floatRatings
+            floatRatingView.editable = false
+            floatRatingView.rating = Double(count!)
+            floatRatingView.starsInterspace = 2
         }
     }
     

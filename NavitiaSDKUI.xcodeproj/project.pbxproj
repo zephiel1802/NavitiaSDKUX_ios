@@ -265,6 +265,7 @@
 		8471D38520809EC7000C9125 /* JourneySolutionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8471D38420809EC7000C9125 /* JourneySolutionView.swift */; };
 		8471D3872080A0DD000C9125 /* Checkbox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8471D3862080A0DC000C9125 /* Checkbox.swift */; };
 		8471D3892080CD85000C9125 /* ColorHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8471D3882080CD85000C9125 /* ColorHelper.swift */; };
+		84737E9B2087731A002D3748 /* FloatRatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84737E9A2087731A002D3748 /* FloatRatingView.swift */; };
 		848D7C2A207B92D4002E9B1A /* PublicTransportView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 848D7C29207B92D4002E9B1A /* PublicTransportView.xib */; };
 		848D7C2C207B95B0002E9B1A /* PublicTransportView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848D7C2B207B95B0002E9B1A /* PublicTransportView.swift */; };
 		8490A6D52084D2C700F7CFA1 /* NavitiaSDKUserDefaultsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8490A6D42084D2C700F7CFA1 /* NavitiaSDKUserDefaultsManager.swift */; };
@@ -552,6 +553,7 @@
 		8471D38420809EC7000C9125 /* JourneySolutionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JourneySolutionView.swift; sourceTree = "<group>"; };
 		8471D3862080A0DC000C9125 /* Checkbox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Checkbox.swift; sourceTree = "<group>"; };
 		8471D3882080CD85000C9125 /* ColorHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorHelper.swift; sourceTree = "<group>"; };
+		84737E9A2087731A002D3748 /* FloatRatingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloatRatingView.swift; sourceTree = "<group>"; };
 		848D7C29207B92D4002E9B1A /* PublicTransportView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PublicTransportView.xib; sourceTree = "<group>"; };
 		848D7C2B207B95B0002E9B1A /* PublicTransportView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublicTransportView.swift; sourceTree = "<group>"; };
 		8490A6D42084D2C700F7CFA1 /* NavitiaSDKUserDefaultsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavitiaSDKUserDefaultsManager.swift; sourceTree = "<group>"; };
@@ -664,6 +666,7 @@
 			children = (
 				8454D2922068D3A700C97D2F /* NavitiaSDK */,
 				8471D3862080A0DC000C9125 /* Checkbox.swift */,
+				84737E9A2087731A002D3748 /* FloatRatingView.swift */,
 			);
 			path = Lib;
 			sourceTree = "<group>";
@@ -1498,6 +1501,7 @@
 				8454D3B32068D3A800C97D2F /* Journeys.swift in Sources */,
 				8454D41D2068D3A800C97D2F /* Validation.swift in Sources */,
 				8454D3B72068D3A800C97D2F /* SectionGeoJsonSchema.swift in Sources */,
+				84737E9B2087731A002D3748 /* FloatRatingView.swift in Sources */,
 				8454D3E22068D3A800C97D2F /* CalendarPeriod.swift in Sources */,
 				8454D41C2068D3A800C97D2F /* AFError.swift in Sources */,
 				8454D3D72068D3A800C97D2F /* DictAddresses.swift in Sources */,

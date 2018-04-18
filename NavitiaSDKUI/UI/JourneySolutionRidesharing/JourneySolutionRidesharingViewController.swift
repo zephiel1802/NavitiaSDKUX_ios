@@ -70,23 +70,14 @@ extension JourneySolutionRidesharingViewController: UICollectionViewDataSource {
                 cell.price = ridesharingJourneys[indexPath.row].fare?.total?.value ?? ""
                 cell.setPicture(url: ridesharingJourneys[indexPath.row].sections?[1].ridesharingInformations?.driver?.image)
                 cell.setNotation(ridesharingJourneys[indexPath.row].sections?[1].ridesharingInformations?.driver?.rating?.count)
-                cell.setFullStar(ridesharingJourneys[indexPath.row].sections?[1].ridesharingInformations?.driver?.rating?.value)
+              //  cell.setFullStar(ridesharingJourneys[indexPath.row].sections?[1].ridesharingInformations?.driver?.rating?.value)
+                cell.setFullStar(2.8)
+                cell.row = indexPath.row
             }
+            cell.delegate = self
             return cell
         }
         return UICollectionViewCell()
-    }
-    
-}
-
-extension JourneySolutionRidesharingViewController: UICollectionViewDelegate {
-    
-    public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let viewController = storyboard?.instantiateViewController(withIdentifier: "journeySolutionRoadmapViewController") as! JourneySolutionRoadmapViewController
-        viewController.journey = journey
-        viewController.ridesharing = true
-        viewController.ridesharingIndex = indexPath.row
-        self.navigationController?.pushViewController(viewController, animated: true)
     }
     
 }
@@ -99,6 +90,20 @@ extension JourneySolutionRidesharingViewController: UICollectionViewDelegateFlow
             safeAreaWidth += self.collectionView.safeAreaInsets.left + self.collectionView.safeAreaInsets.right
         }
         return CGSize(width: self.collectionView.frame.size.width - safeAreaWidth, height: 155)
+    }
+    
+}
+
+extension JourneySolutionRidesharingViewController: JourneyRidesharingCollectionViewCellDelegate {
+    
+    func onBookButtonClicked(_ journeyRidesharingCollectionViewCell: JourneyRidesharingCollectionViewCell) {
+        if let row = journeyRidesharingCollectionViewCell.row {
+            let viewController = storyboard?.instantiateViewController(withIdentifier: "journeySolutionRoadmapViewController") as! JourneySolutionRoadmapViewController
+            viewController.journey = journey
+            viewController.ridesharing = true
+            viewController.ridesharingIndex = row
+            self.navigationController?.pushViewController(viewController, animated: true)
+        }
     }
     
 }
