@@ -45,8 +45,12 @@ open class JourneySolutionViewController: UIViewController {
             self._viewModel.journeySolutionDidChange = { [weak self] journeySolutionViewModel in
                 self?.collectionView.reloadData()
                 if journeySolutionViewModel.journeys.isEmpty == false {
-                    self?.fromLabel.text = journeySolutionViewModel.journeys[0].sections?[0].from?.name
-                    self?.toLabel.text = journeySolutionViewModel.journeys[0].sections?[(journeySolutionViewModel.journeys[0].sections?.count)! - 1].to?.name
+                    if self?.inParameters.originLabel == nil {
+                        self?.fromLabel.text = journeySolutionViewModel.journeys[0].sections?[0].from?.name
+                    }
+                    if self?.inParameters.destinationLabel == nil {
+                        self?.toLabel.text = journeySolutionViewModel.journeys[0].sections?[(journeySolutionViewModel.journeys[0].sections?.count)! - 1].to?.name
+                    }
                     if self?.inParameters.datetime == nil {
                         if let dateTime = journeySolutionViewModel.journeys[0].departureDateTime?.toDate(format: FormatConfiguration.date) {
                             self?.dateTime = dateTime.toString(format: "EEE dd MMM - HH:mm")
@@ -118,12 +122,12 @@ open class JourneySolutionViewController: UIViewController {
     }
     
     private func _setupFromTo() {
-        fromLabel.text = inParameters.originLabel
+        fromLabel.text = inParameters.originLabel ?? inParameters.originId
         fromPinLabel.text = Icon("location-pin").iconFontCode
         fromPinLabel.font = UIFont(name: "SDKIcons", size: 22)
         fromPinLabel.textColor = NavitiaSDKUIConfig.shared.color.origin
         
-        toLabel.text = inParameters.destinationLabel
+        toLabel.text = inParameters.destinationLabel ?? inParameters.destinationId
         toPinLabel.text = Icon("location-pin").iconFontCode
         toPinLabel.font = UIFont(name: "SDKIcons", size: 22)
         toPinLabel.textColor = NavitiaSDKUIConfig.shared.color.destination
