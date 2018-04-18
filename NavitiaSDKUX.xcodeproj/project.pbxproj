@@ -317,6 +317,7 @@
 		31340C50203DD82E00D18A8E /* Image+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31340C4F203DD82E00D18A8E /* Image+extension.swift */; };
 		31504681204D4892003FB19A /* JourneyRidesharingRoadmapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31504680204D4892003FB19A /* JourneyRidesharingRoadmapViewController.swift */; };
 		31504683204D489D003FB19A /* JourneyRidesharingSolutionRoadmapScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31504682204D489D003FB19A /* JourneyRidesharingSolutionRoadmapScreen.swift */; };
+		31DCAAAF208791FF0010AFAD /* NavitiaSDKUserDefaultsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31DCAAAE208791FE0010AFAD /* NavitiaSDKUserDefaultsManager.swift */; };
 		31F7ED0720371E9800934BA9 /* JourneyRidesharingSolutionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31F7ED0620371E9800934BA9 /* JourneyRidesharingSolutionsViewController.swift */; };
 		31F7ED0920371F0700934BA9 /* JourneyRidesharingSolutionsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31F7ED0820371F0700934BA9 /* JourneyRidesharingSolutionsScreen.swift */; };
 		A10BF21F1FE42B5900A73706 /* NavitiaSDKUX.h in Headers */ = {isa = PBXBuildFile; fileRef = A10BF21E1FE42B5900A73706 /* NavitiaSDKUX.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -655,6 +656,7 @@
 		31340C4F203DD82E00D18A8E /* Image+extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Image+extension.swift"; sourceTree = "<group>"; };
 		31504680204D4892003FB19A /* JourneyRidesharingRoadmapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JourneyRidesharingRoadmapViewController.swift; sourceTree = "<group>"; };
 		31504682204D489D003FB19A /* JourneyRidesharingSolutionRoadmapScreen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JourneyRidesharingSolutionRoadmapScreen.swift; sourceTree = "<group>"; };
+		31DCAAAE208791FE0010AFAD /* NavitiaSDKUserDefaultsManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavitiaSDKUserDefaultsManager.swift; sourceTree = "<group>"; };
 		31F7ED0620371E9800934BA9 /* JourneyRidesharingSolutionsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JourneyRidesharingSolutionsViewController.swift; sourceTree = "<group>"; };
 		31F7ED0820371F0700934BA9 /* JourneyRidesharingSolutionsScreen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JourneyRidesharingSolutionsScreen.swift; sourceTree = "<group>"; };
 		A10BF21E1FE42B5900A73706 /* NavitiaSDKUX.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NavitiaSDKUX.h; sourceTree = "<group>"; };
@@ -1293,6 +1295,7 @@
 				A188040C1FE12C3C003AD92A /* Font.swift */,
 				A18804051FE12C3C003AD92A /* Icons.swift */,
 				A188040D1FE12C3C003AD92A /* Metrics.swift */,
+				31DCAAAE208791FE0010AFAD /* NavitiaSDKUserDefaultsManager.swift */,
 				A18804061FE12C3C003AD92A /* Extensions */,
 			);
 			path = Util;
@@ -1656,6 +1659,7 @@
 				310ABE3F2047547A0050B1C4 /* CalendarsApi.swift in Sources */,
 				310ABE2C2047547A0050B1C4 /* NextArrivalsApi.swift in Sources */,
 				043E0B1720053C9A00AC9DFF /* JourneyRoadmap2ColumnsLayout.swift in Sources */,
+				31DCAAAF208791FF0010AFAD /* NavitiaSDKUserDefaultsManager.swift in Sources */,
 				043E0B2120053C9A00AC9DFF /* JourneyRoadmapPublicTransportDisruptionDescriptionPart.swift in Sources */,
 				310ABE93204754DE0050B1C4 /* ToJSON.swift in Sources */,
 				310ABF26204754FC0050B1C4 /* JourneyDebug.swift in Sources */,
