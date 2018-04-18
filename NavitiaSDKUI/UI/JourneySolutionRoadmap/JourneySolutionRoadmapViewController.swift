@@ -120,11 +120,11 @@ open class JourneySolutionRoadmapViewController: UIViewController {
                         }
                         _displayPublicTransport(section, waiting: sections[index - 1])
                     } else if type == "transfer" {
-                        _displayTransferStep(section, mode: section.transferType ?? "")
+                        _displayTransferStep(section)
                     } else if type == "street_network" {
                         if let mode = section.mode {
                             if mode == "walking" || mode == "car" {
-                                _displayTransferStep(section, mode: mode)
+                                _displayTransferStep(section)
                             } else {
                                 if mode == "ridesharing" {
                                     _updateRidesharingView(section)
@@ -136,7 +136,7 @@ open class JourneySolutionRoadmapViewController: UIViewController {
                                     view.time = timeRidesharing?.minuteToString() ?? ""
                                     addViewInScroll(view: view)
                                 } else {
-                                    _displayBikeStep(section, mode: mode)
+                                    _displayBikeStep(section)
                                 }
                             }
                         }
@@ -164,17 +164,17 @@ open class JourneySolutionRoadmapViewController: UIViewController {
         addViewInScroll(view: viewArrival)
     }
     
-    func _displayTransferStep(_ section: Section, mode: String) {
+    func _displayTransferStep(_ section: Section) {
         let view = TransferStepView(frame: CGRect(x: 0, y: 0, width: composentWidth, height: 50))
-        view.typeString = mode
+        view.typeString = Modes().getModeIcon(section: section)
         view.time = section.duration?.minuteToString()
         view.direction = section.to?.name ?? ""
         addViewInScroll(view: view)
     }
     
-    func _displayBikeStep(_ section: Section, mode: String) {
-        let view = BikeStepView(frame: CGRect(x: 0, y: 0, width: composentWidth, height: 50))
-        view.typeString = mode
+    func _displayBikeStep(_ section: Section) {
+        let view = BikeStepView(frame: CGRect(x: 0, y: 0, width: composentWidth, height: 30))
+        view.typeString = Modes().getModeIcon(section: section)
         view.takeName = ""
         view.origin = section.from?.name ?? ""
         view.destination = section.to?.name ?? ""

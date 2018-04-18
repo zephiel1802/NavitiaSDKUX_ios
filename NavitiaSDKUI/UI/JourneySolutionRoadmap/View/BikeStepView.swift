@@ -13,8 +13,6 @@ class BikeStepView: UIView {
     
     @IBOutlet weak var iconLabel: UILabel!
     @IBOutlet weak var takeLabel: UILabel!
-    //@IBOutlet weak var originLabel: UILabel!
-    //@IBOutlet weak var destinationLabel: UILabel!
     @IBOutlet weak var timeLabel: UILabel!
     
     var _type: TypeTransport?
@@ -88,8 +86,7 @@ class BikeStepView: UIView {
             setHeight()
         }
     }
-    
-    
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         _setup()
@@ -108,18 +105,10 @@ class BikeStepView: UIView {
         layer.shadowRadius = 5
     }
     
-    override func layoutSubviews() {
-        takeLabel.sizeToFit()
-        timeLabel.sizeToFit()
-        timeLabel.frame.origin.y = takeLabel.frame.origin.y + takeLabel.frame.size.height
-        frame.size.height = timeLabel.frame.size.height + timeLabel.frame.origin.y + 10
-        super.layoutSubviews()
-    }
-    
     override var frame: CGRect {
-        willSet {
+        didSet {
             if let _view = _view {
-                _view.frame.size = newValue.size
+                _view.frame.size = frame.size
                 
             }
         }
@@ -134,8 +123,6 @@ class BikeStepView: UIView {
         UINib(nibName: "BikeStepView", bundle: NavitiaSDKUIConfig.shared.bundle).instantiate(withOwner: self, options: nil)
         _view.frame = self.bounds
         addSubview(_view)
-        
-        frame.size.height = timeLabel.frame.size.height + timeLabel.frame.origin.y + 10
     }
     
     func setHeight() {
@@ -182,56 +169,6 @@ extension BikeStepView {
         }
     }
     
-//    var takeName:String? {
-//        get {
-//            return takeLabel.text
-//        }
-//        set {
-//            if let newValue = newValue {
-//                var typeString = ""
-//                if let type = _type {
-//                    typeString = type.rawValue + " "
-//                }
-//                takeLabel.attributedText = NSMutableAttributedString()
-//                    .normal("Prendre un ", size: 15)
-//                    .normal(typeString, size: 15)
-//                    .normal(newValue, size: 15)
-//                takeLabel.sizeToFit()
-//                setHeight()
-//            }
-//        }
-//    }
-    
-//    var origin:String? {
-//        get {
-//            return originLabel.text
-//        }
-//        set {
-//            if let newValue = newValue {
-//                originLabel.attributedText = NSMutableAttributedString()
-//                    .normal("à ", size: 15)
-//                    .bold(newValue, size: 15)
-//                originLabel.sizeToFit()
-//                setHeight()
-//            }
-//        }
-//    }
-    
-//    var destination:String? {
-//        get {
-//            return destinationLabel.text
-//        }
-//        set {
-//            if let newValue = newValue {
-//                destinationLabel.attributedText = NSMutableAttributedString()
-//                    .normal("vers ", size: 15)
-//                    .bold(newValue, size: 15)
-//                destinationLabel.sizeToFit()
-//                setHeight()
-//            }
-//        }
-//    }
-    
     var time:String? {
         get {
             return timeLabel.text
@@ -249,29 +186,19 @@ extension BikeStepView {
                         template = "a_time_walk".localized(withComment: "a_time_walk", bundle: NavitiaSDKUIConfig.shared.bundle)
                     case .car:
                         template = "a_time_drive".localized(withComment: "a_time_drive", bundle: NavitiaSDKUIConfig.shared.bundle)
+                    case .ridesharing:
+                        template = "a_time_drive".localized(withComment: "a_time_drive", bundle: NavitiaSDKUIConfig.shared.bundle)
                     case .bike:
+                        template = "a_time_ride".localized(withComment: "a_time_ride", bundle: NavitiaSDKUIConfig.shared.bundle)
+                    case .bss:
                         template = "a_time_ride".localized(withComment: "a_time_ride", bundle: NavitiaSDKUIConfig.shared.bundle)
                     default:
                         break
                     }
                 }
-                let formattedString = NSMutableAttributedString()
-                formattedString
+                timeLabel.attributedText = NSMutableAttributedString()
                     .normal(String(format: template, duration), size: 15)
-                timeLabel.attributedText = formattedString
             }
-//            if let newValue = newValue {
-//                var typeString = ""
-//                if let type = _type {
-//                    typeString = " de " + type.rawValue
-//                }
-//                timeLabel.attributedText = NSMutableAttributedString()
-//                    .normal(newValue, size: 15)
-//                    .normal(" minutes", size: 15)
-//                    .normal(typeString, size: 15)
-////                timeLabel.sizeToFit()
-////                setHeight()
-//            }
         }
     }
 }
