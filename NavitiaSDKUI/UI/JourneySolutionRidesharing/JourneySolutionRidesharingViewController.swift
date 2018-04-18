@@ -70,8 +70,7 @@ extension JourneySolutionRidesharingViewController: UICollectionViewDataSource {
                 cell.price = ridesharingJourneys[indexPath.row].fare?.total?.value ?? ""
                 cell.setPicture(url: ridesharingJourneys[indexPath.row].sections?[1].ridesharingInformations?.driver?.image)
                 cell.setNotation(ridesharingJourneys[indexPath.row].sections?[1].ridesharingInformations?.driver?.rating?.count)
-              //  cell.setFullStar(ridesharingJourneys[indexPath.row].sections?[1].ridesharingInformations?.driver?.rating?.value)
-                cell.setFullStar(2.8)
+                cell.setFullStar(ridesharingJourneys[indexPath.row].sections?[1].ridesharingInformations?.driver?.rating?.value)
                 cell.row = indexPath.row
             }
             cell.delegate = self
