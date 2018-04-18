@@ -36,6 +36,10 @@ open class JourneySolutionRidesharingViewController: UIViewController {
         collectionView.collectionViewLayout.invalidateLayout()
     }
     
+    static var identifier: String {
+        return String(describing: self)
+    }
+    
     func getRidesharingCount() -> Int {
         if let sections = journey?.sections {
             for section in sections {
@@ -101,7 +105,7 @@ extension JourneySolutionRidesharingViewController: JourneyRidesharingCollection
     
     func onBookButtonClicked(_ journeyRidesharingCollectionViewCell: JourneyRidesharingCollectionViewCell) {
         if let row = journeyRidesharingCollectionViewCell.row {
-            let viewController = storyboard?.instantiateViewController(withIdentifier: "journeySolutionRoadmapViewController") as! JourneySolutionRoadmapViewController
+            let viewController = storyboard?.instantiateViewController(withIdentifier: JourneySolutionRoadmapViewController.identifier) as! JourneySolutionRoadmapViewController
             viewController.journey = journey
             viewController.ridesharing = true
             viewController.ridesharingIndex = row

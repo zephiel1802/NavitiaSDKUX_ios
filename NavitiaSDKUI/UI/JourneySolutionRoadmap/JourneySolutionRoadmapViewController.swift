@@ -52,6 +52,10 @@ open class JourneySolutionRoadmapViewController: UIViewController {
         updateOriginViewScroll()
     }
     
+    static var identifier: String {
+        return String(describing: self)
+    }
+    
     func updateWidth() -> CGFloat {
         if #available(iOS 11.0, *) {
             return scrollView.frame.size.width - scrollView.safeAreaInsets.left - scrollView.safeAreaInsets.right - (marge * 2)

@@ -10,7 +10,6 @@ import UIKit
 class JourneySolutionViewModel: NSObject {
 
     var journeySolutionDidChange: ((JourneySolutionViewModel) -> ())?
-    
     var journeys: [Journey] = []
     var journeysRidesharing: [Journey] = []
     var loading: Bool = true

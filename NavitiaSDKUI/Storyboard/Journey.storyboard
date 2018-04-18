@@ -165,7 +165,7 @@
         <!--Journey Solution Roadmap View Controller-->
         <scene sceneID="kVo-IF-55q">
             <objects>
-                <viewController storyboardIdentifier="journeySolutionRoadmapViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="z4Z-Pd-Lif" customClass="JourneySolutionRoadmapViewController" customModule="NavitiaSDKUI" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="JourneySolutionRoadmapViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="z4Z-Pd-Lif" customClass="JourneySolutionRoadmapViewController" customModule="NavitiaSDKUI" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="jJw-gq-5GI">
                         <rect key="frame" x="0.0" y="0.0" width="812" height="375"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
