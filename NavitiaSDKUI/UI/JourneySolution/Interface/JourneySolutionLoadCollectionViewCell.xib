@@ -14,10 +14,10 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="JourneySolutionLoadCollectionViewCell" id="8iX-MJ-bAx" customClass="JourneySolutionLoadCollectionViewCell" customModule="NavitiaSDKUI" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="350" height="130"/>
+            <rect key="frame" x="0.0" y="0.0" width="300" height="130"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
-                <rect key="frame" x="0.0" y="0.0" width="350" height="130"/>
+                <rect key="frame" x="0.0" y="0.0" width="300" height="130"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aqq-ct-uuU">
@@ -29,14 +29,14 @@
                         </constraints>
                     </view>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uiE-c6-acZ">
-                        <rect key="frame" x="10" y="31" width="330" height="1"/>
+                        <rect key="frame" x="10" y="31" width="280" height="1"/>
                         <color key="backgroundColor" white="0.90000000000000002" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="1" id="4NV-8o-Sx6"/>
                         </constraints>
                     </view>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pyj-oZ-UVF">
-                        <rect key="frame" x="290" y="8" width="50" height="15"/>
+                        <rect key="frame" x="240" y="8" width="50" height="15"/>
                         <color key="backgroundColor" white="0.90000000000000002" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="50" id="L5N-1S-Yl6"/>
@@ -52,42 +52,42 @@
                         </constraints>
                     </view>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="46A-1k-qEy">
-                        <rect key="frame" x="10" y="70" width="103.5" height="15"/>
+                        <rect key="frame" x="10" y="70" width="86.5" height="15"/>
                         <color key="backgroundColor" white="0.90000000000000002" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="15" id="eOG-tG-cMW"/>
                         </constraints>
                     </view>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HRW-bj-vMv">
-                        <rect key="frame" x="123.5" y="70" width="103" height="15"/>
+                        <rect key="frame" x="106.5" y="70" width="87" height="15"/>
                         <color key="backgroundColor" white="0.90000000000000002" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="15" id="Peu-hD-ayy"/>
                         </constraints>
                     </view>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="076-mb-4uH">
-                        <rect key="frame" x="236.5" y="70" width="103.5" height="15"/>
+                        <rect key="frame" x="203.5" y="70" width="86.5" height="15"/>
                         <color key="backgroundColor" white="0.90000000000000002" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="15" id="lJr-jW-6Yj"/>
                         </constraints>
                     </view>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Oft-fO-pXC">
-                        <rect key="frame" x="10" y="47" width="31" height="15"/>
+                        <rect key="frame" x="10" y="47" width="26" height="15"/>
                         <color key="backgroundColor" white="0.90000000000000002" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="15" id="nJi-eW-GPP"/>
                         </constraints>
                     </view>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sIM-bF-5Nc">
-                        <rect key="frame" x="123.5" y="47" width="31.5" height="15"/>
+                        <rect key="frame" x="106.5" y="47" width="26.5" height="15"/>
                         <color key="backgroundColor" white="0.90000000000000002" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="15" id="zhG-bv-gSg"/>
                         </constraints>
                     </view>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hYY-dl-Hy3">
-                        <rect key="frame" x="236.5" y="47" width="31.5" height="15"/>
+                        <rect key="frame" x="203.5" y="47" width="26" height="15"/>
                         <color key="backgroundColor" white="0.90000000000000002" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="15" id="WN7-WN-WzX"/>

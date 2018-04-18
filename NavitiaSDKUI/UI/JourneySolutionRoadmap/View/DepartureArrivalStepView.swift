@@ -47,21 +47,13 @@ class DepartureArrivalStepView: UIView {
         addSubview(_view)
         
         _setupIcon()
-        _setupShadow()
+        addShadow(opacity: 0.28)
     }
     
     private func _setupIcon() {
         iconLabel.text = Icon("location-pin").iconFontCode
         iconLabel.font = UIFont(name: "SDKIcons", size: 22)
         iconLabel.textColor = UIColor.white
-    }
-    
-    private func _setupShadow() {
-        layer.masksToBounds = false
-        layer.shadowColor = UIColor.black.cgColor
-        layer.shadowOffset = CGSize(width: 0, height: 0)
-        layer.shadowOpacity = 0.28
-        layer.shadowRadius = 5
     }
     
 }

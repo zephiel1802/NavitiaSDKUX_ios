@@ -9,7 +9,6 @@ import Foundation
 
 public extension UIFont {
     
-    
     public static func registerFontWithFilenameString(filenameString: String, bundle: Bundle) {
 
         guard let pathForResourceString = bundle.path(forResource: filenameString, ofType: nil) else {
@@ -35,6 +34,6 @@ public extension UIFont {
                 print("UIFont+:  Failed to register font - register graphics font failed - this font may have already been registered in the main bundle.")
             }
         }
-        
     }
+    
 }

@@ -38,17 +38,9 @@ class JourneySolutionView: UIView {
         UINib(nibName: "JourneySolutionView", bundle: NavitiaSDKUIConfig.shared.bundle).instantiate(withOwner: self, options: nil)
         _view.frame = self.bounds
         addSubview(_view)
-        _setupShadow()
+        addShadow()
     }
-    
-    private func _setupShadow() {
-        layer.masksToBounds = false
-        layer.shadowColor = UIColor.black.cgColor
-        layer.shadowOffset = CGSize(width: 0, height: 0)
-        layer.shadowOpacity = 0.1
-        layer.shadowRadius = 5
-    }
-    
+
     func setData(_ journey: Journey) {
         if let departureDateTime = journey.departureDateTime?.toDate(format: FormatConfiguration.date),
             let arrivalDateTime = journey.arrivalDateTime?.toDate(format: FormatConfiguration.date) {
@@ -98,7 +90,7 @@ class JourneySolutionView: UIView {
     
     private func formattedDuration(prefix: String = "", _ duration: Int32) {
         let formattedStringDuration = NSMutableAttributedString()
-            .bold(prefix, color: NavitiaSDKUIConfig.shared.color.tertiary)
+            .semiBold(prefix, color: NavitiaSDKUIConfig.shared.color.tertiary)
         formattedStringDuration.append(duration.toAttributedStringTime())
         self.duration = formattedStringDuration
     }

@@ -21,7 +21,7 @@ class JourneySolutionCollectionViewCell: UICollectionViewCell {
     
     func setup(_ journey: Journey) {
         _setupArrowIcon()
-        _setupShadow()
+        addShadow()
         
         if let departureDateTime = journey.departureDateTime?.toDate(format: FormatConfiguration.date),
             let arrivalDateTime = journey.arrivalDateTime?.toDate(format: FormatConfiguration.date) {
@@ -45,7 +45,7 @@ class JourneySolutionCollectionViewCell: UICollectionViewCell {
     
     func setupRidesharing(_ journey: Journey) {
         _setupArrowIcon()
-        _setupShadow()
+        addShadow()
         
         if let departureDateTime = journey.departureDateTime?.toDate(format: FormatConfiguration.date),
             let arrivalDateTime = journey.arrivalDateTime?.toDate(format: FormatConfiguration.date) {
@@ -65,14 +65,6 @@ class JourneySolutionCollectionViewCell: UICollectionViewCell {
         durationLeadingContraint.isActive = false
     }
     
-    private func _setupShadow() {
-        layer.masksToBounds = false
-        layer.shadowColor = UIColor.black.cgColor
-        layer.shadowOffset = CGSize(width: 0, height: 0)
-        layer.shadowOpacity = 0.1
-        layer.shadowRadius = 5
-    }
-    
     private func _setupArrowIcon() {
         arrowLabel.text = Icon("arrow-right").iconFontCode
         arrowLabel.textColor = NavitiaSDKUIConfig.shared.color.tertiary
@@ -88,7 +80,7 @@ class JourneySolutionCollectionViewCell: UICollectionViewCell {
     
     private func formattedDuration(prefix: String = "", _ duration: Int32) {
         let formattedStringDuration = NSMutableAttributedString()
-            .bold(prefix, color: NavitiaSDKUIConfig.shared.color.tertiary)
+            .semiBold(prefix, color: NavitiaSDKUIConfig.shared.color.tertiary)
         formattedStringDuration.append(duration.toAttributedStringTime())
         self.duration = formattedStringDuration
     }

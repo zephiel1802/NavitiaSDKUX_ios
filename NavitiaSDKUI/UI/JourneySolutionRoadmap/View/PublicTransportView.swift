@@ -119,21 +119,13 @@ class PublicTransportView: UIView {
     override func layoutSubviews() {
         setHeight()
     }
-    
-    private func _setupShadow() {
-        layer.masksToBounds = false
-        layer.shadowColor = UIColor.black.cgColor
-        layer.shadowOffset = CGSize(width: 0, height: 0)
-        layer.shadowOpacity = 0.28
-        layer.shadowRadius = 5
-    }
-    
+
     private func _setup() {
         UINib(nibName: "PublicTransportView", bundle: NavitiaSDKUIConfig.shared.bundle).instantiate(withOwner: self, options: nil)
         _view.frame = self.bounds
         addSubview(_view)
 
-        _setupShadow()
+        addShadow(opacity: 0.28)
         frame.size.height = destinationLabel.frame.height + destinationLabel.frame.origin.y + 15
         
         stationsIsHidden = true

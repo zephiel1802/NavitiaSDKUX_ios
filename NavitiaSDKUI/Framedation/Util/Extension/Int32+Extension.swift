@@ -9,15 +9,6 @@ import Foundation
 
 extension Int32 {
     
-//    func toString(allowedUnits: NSCalendar.Unit) -> String? {
-//        let formatter = DateComponentsFormatter()
-//
-//        formatter.unitsStyle = .abbreviated
-//        formatter.allowedUnits = allowedUnits
-//        formatter.zeroFormattingBehavior = [ .dropAll ]
-//        return formatter.string(from: TimeInterval(self))
-//    }
-    
     func toStringTime() -> String {
         // let seconds = self % 60
         let minutes = (self / 60) % 60

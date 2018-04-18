@@ -14,8 +14,8 @@ class RidesharingInformationCollectionViewCell: UICollectionViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         
-        _setupShadow()
-        messageLabel.text = "carpool_highlight_message".localized(withComment: "carpool_highlight_message", bundle: NavitiaSDKUIConfig.shared.bundle)
+        _setup()
+        addShadow()
     }
     
     static var nib:UINib {
@@ -25,12 +25,9 @@ class RidesharingInformationCollectionViewCell: UICollectionViewCell {
     static var identifier: String {
         return String(describing: self)
     }
-    private func _setupShadow() {
-        layer.masksToBounds = false
-        layer.shadowColor = UIColor.black.cgColor
-        layer.shadowOffset = CGSize(width: 0, height: 0)
-        layer.shadowOpacity = 0.1
-        layer.shadowRadius = 5
+    
+    private func _setup() {
+         messageLabel.text = "carpool_highlight_message".localized(withComment: "Share a car with someone going the same way.", bundle: NavitiaSDKUIConfig.shared.bundle)
     }
     
 }

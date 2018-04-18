@@ -30,7 +30,7 @@ class JourneyRidesharingCollectionViewCell: UICollectionViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         
-        _setupShadow()
+        addShadow()
         roadmapButton.setTitle("view_on_the_map".localized(withComment: "view_on_the_map", bundle: NavitiaSDKUIConfig.shared.bundle), for: .normal)
     }
     
@@ -85,14 +85,6 @@ class JourneyRidesharingCollectionViewCell: UICollectionViewCell {
             seatCountLabel.attributedText = NSMutableAttributedString()
                 .normal("no_available_seats".localized(withComment: "no_available_seats", bundle: NavitiaSDKUIConfig.shared.bundle), size: 12.5)
         }
-    }
-    
-    private func _setupShadow() {
-        layer.masksToBounds = false
-        layer.shadowColor = UIColor.black.cgColor
-        layer.shadowOffset = CGSize(width: 0, height: 0)
-        layer.shadowOpacity = 0.1
-        layer.shadowRadius = 5
     }
     
 }

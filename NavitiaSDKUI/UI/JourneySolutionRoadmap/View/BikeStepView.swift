@@ -90,19 +90,11 @@ class BikeStepView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         _setup()
-        _setupShadow()
+        addShadow(opacity: 0.28)
     }
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-    }
-    
-    private func _setupShadow() {
-        layer.masksToBounds = false
-        layer.shadowColor = UIColor.black.cgColor
-        layer.shadowOffset = CGSize(width: 0, height: 0)
-        layer.shadowOpacity = 0.28
-        layer.shadowRadius = 5
     }
     
     override var frame: CGRect {

@@ -266,6 +266,8 @@
 		8471D3872080A0DD000C9125 /* Checkbox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8471D3862080A0DC000C9125 /* Checkbox.swift */; };
 		8471D3892080CD85000C9125 /* ColorHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8471D3882080CD85000C9125 /* ColorHelper.swift */; };
 		84737E9B2087731A002D3748 /* FloatRatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84737E9A2087731A002D3748 /* FloatRatingView.swift */; };
+		84737E9D2087995B002D3748 /* UIImageView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84737E9C2087995B002D3748 /* UIImageView+Extension.swift */; };
+		84737E9F20879A3C002D3748 /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84737E9E20879A3C002D3748 /* UIView+Extension.swift */; };
 		848D7C2A207B92D4002E9B1A /* PublicTransportView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 848D7C29207B92D4002E9B1A /* PublicTransportView.xib */; };
 		848D7C2C207B95B0002E9B1A /* PublicTransportView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848D7C2B207B95B0002E9B1A /* PublicTransportView.swift */; };
 		8490A6D52084D2C700F7CFA1 /* NavitiaSDKUserDefaultsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8490A6D42084D2C700F7CFA1 /* NavitiaSDKUserDefaultsManager.swift */; };
@@ -554,6 +556,8 @@
 		8471D3862080A0DC000C9125 /* Checkbox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Checkbox.swift; sourceTree = "<group>"; };
 		8471D3882080CD85000C9125 /* ColorHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorHelper.swift; sourceTree = "<group>"; };
 		84737E9A2087731A002D3748 /* FloatRatingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloatRatingView.swift; sourceTree = "<group>"; };
+		84737E9C2087995B002D3748 /* UIImageView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+Extension.swift"; sourceTree = "<group>"; };
+		84737E9E20879A3C002D3748 /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
 		848D7C29207B92D4002E9B1A /* PublicTransportView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PublicTransportView.xib; sourceTree = "<group>"; };
 		848D7C2B207B95B0002E9B1A /* PublicTransportView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublicTransportView.swift; sourceTree = "<group>"; };
 		8490A6D42084D2C700F7CFA1 /* NavitiaSDKUserDefaultsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavitiaSDKUserDefaultsManager.swift; sourceTree = "<group>"; };
@@ -724,6 +728,8 @@
 				8454D451206942B800C97D2F /* Date+Extension.swift */,
 				8433B87A206BE2A900EC51F9 /* Int32+Extension.swift */,
 				84339A81206CC6D900F2CB65 /* NSMutableAttributedString+Extension.swift */,
+				84737E9C2087995B002D3748 /* UIImageView+Extension.swift */,
+				84737E9E20879A3C002D3748 /* UIView+Extension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -1311,6 +1317,7 @@
 				8454D3E92068D3A800C97D2F /* WeekPattern.swift in Sources */,
 				8454D3B42068D3A800C97D2F /* Places.swift in Sources */,
 				84339A80206CC5ED00F2CB65 /* JourneyEmptySolutionCollectionViewCell.swift in Sources */,
+				84737E9F20879A3C002D3748 /* UIView+Extension.swift in Sources */,
 				84FABE122074C7FC00BDDE9D /* Icons.swift in Sources */,
 				8422B460206A2AFF0097E6C9 /* RidesharingInformationCollectionViewCell.swift in Sources */,
 				8454D3C92068D3A800C97D2F /* Admin.swift in Sources */,
@@ -1364,6 +1371,7 @@
 				8454D3762068D3A800C97D2F /* CoordsApi.swift in Sources */,
 				8454D4052068D3A800C97D2F /* IndividualInformation.swift in Sources */,
 				8454D3DB2068D3A800C97D2F /* Dataset.swift in Sources */,
+				84737E9D2087995B002D3748 /* UIImageView+Extension.swift in Sources */,
 				8454D4072068D3A800C97D2F /* Coord.swift in Sources */,
 				8454D40F2068D3A800C97D2F /* Departures.swift in Sources */,
 				8454D3F02068D3A800C97D2F /* JourneyPatterns.swift in Sources */,

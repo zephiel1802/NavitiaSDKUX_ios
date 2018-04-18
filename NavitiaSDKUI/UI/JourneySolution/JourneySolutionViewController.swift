@@ -181,6 +181,7 @@ extension JourneySolutionViewController: UICollectionViewDataSource {
     public func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         if kind.isEqual(UICollectionElementKindSectionHeader) {
             let cell = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: JourneyHeaderCollectionReusableView.identifier, for: indexPath) as! JourneyHeaderCollectionReusableView
+            cell.title = "carpooling".localized(withComment: "Carpooling", bundle: NavitiaSDKUIConfig.shared.bundle)
             return cell
         }
         return UICollectionReusableView()
