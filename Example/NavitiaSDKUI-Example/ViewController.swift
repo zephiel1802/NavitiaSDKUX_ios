@@ -10,9 +10,6 @@ import UIKit
 import NavitiaSDKUI
 
 class ViewController: UIViewController {
-
-    @IBOutlet weak var originTextField: UITextField!
-    @IBOutlet weak var destinationTextField: UITextField!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,15 +29,15 @@ class ViewController: UIViewController {
         let bundle = Bundle(identifier: "org.cocoapods.NavitiaSDKUI")
         let storyboard = UIStoryboard(name: "Journey", bundle: bundle)
         let journeyResultsViewController = storyboard.instantiateInitialViewController() as! JourneySolutionViewController
-        var params = JourneySolutionViewController.InParameters(originId: "2.3665844;48.8465337", destinationId: "2.2979169;48.8848719")
+        var params: JourneySolutionViewController.InParameters = JourneySolutionViewController.InParameters(originId: "2.3665844;48.8465337", destinationId: "2.2979169;48.8848719")
         params.originLabel = "Chez moi"
         params.destinationLabel = "Au travail"
         params.datetime = Date()
         params.datetime!.addTimeInterval(2000)
         params.datetimeRepresents = .departure
         params.forbiddenUris = ["physical_mode:Bus"]
-//        params.firstSectionModes = [.ridesharing]
-//        params.lastSectionModes = [.car]
+        params.firstSectionModes = [.bss]
+        params.lastSectionModes = [.car]
         params.count = 5
         journeyResultsViewController.inParameters = params
         return journeyResultsViewController
