@@ -133,8 +133,8 @@ extension RidesharingView {
         set {
             if let newValue = newValue {
                 startLabel.attributedText = NSMutableAttributedString()
-                    .normal("departure".localized(withComment: "Departure: ", bundle: NavitiaSDKUIConfig.shared.bundle), color: NavitiaSDKUIConfig.shared.color.tertiary, size: 8.5)
-                    .normal(": ", color: NavitiaSDKUIConfig.shared.color.tertiary, size: 8.5)
+                    .semiBold("departure".localized(withComment: "Departure: ", bundle: NavitiaSDKUIConfig.shared.bundle), color: NavitiaSDKUIConfig.shared.color.tertiary, size: 8.5)
+                    .semiBold(": ", color: NavitiaSDKUIConfig.shared.color.tertiary, size: 8.5)
                     .bold(newValue, color: NavitiaSDKUIConfig.shared.color.tertiary, size: 14)
             }
         }
