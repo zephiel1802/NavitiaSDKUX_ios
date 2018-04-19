@@ -122,7 +122,7 @@ open class JourneySolutionRoadmapViewController: UIViewController {
     private func _displayDeparture(_ journey: Journey) {
         let viewDeparture = DepartureArrivalStepView(frame: CGRect(x: 0, y: 0, width: composentWidth, height: 70))
         viewDeparture.information = journey.sections?.first?.from?.name ?? ""
-        viewDeparture.time = journey.departureDateTime?.toDate(format: FormatConfiguration.date)?.toString(format: FormatConfiguration.time) ?? ""
+        viewDeparture.time = journey.departureDateTime?.toDate(format: Configuration.date)?.toString(format: Configuration.time) ?? ""
         viewDeparture.type = .departure
         _addViewInScroll(view: viewDeparture)
     }
@@ -130,7 +130,7 @@ open class JourneySolutionRoadmapViewController: UIViewController {
     private func _displayArrival(_ journey: Journey) {
         let viewArrival = DepartureArrivalStepView(frame: CGRect(x: 0, y: 0, width: composentWidth, height: 70))
         viewArrival.information = journey.sections?.last?.to?.name ?? ""
-        viewArrival.time = journey.arrivalDateTime?.toDate(format: FormatConfiguration.date)?.toString(format: FormatConfiguration.time) ?? ""
+        viewArrival.time = journey.arrivalDateTime?.toDate(format: Configuration.date)?.toString(format: Configuration.time) ?? ""
         viewArrival.type = .arrival
         _addViewInScroll(view: viewArrival)
     }
@@ -174,10 +174,10 @@ open class JourneySolutionRoadmapViewController: UIViewController {
         // publicTransportView.waitTime = "7"
         
         publicTransportView.origin = section.from?.name ?? ""
-        publicTransportView.startTime = section.departureDateTime?.toDate(format: FormatConfiguration.date)?.toString(format: FormatConfiguration.time) ?? ""
+        publicTransportView.startTime = section.departureDateTime?.toDate(format: Configuration.date)?.toString(format: Configuration.time) ?? ""
         publicTransportView.directionTransit = section.displayInformations?.direction ?? ""
         publicTransportView.destination = section.to?.name ?? ""
-        publicTransportView.endTime = section.arrivalDateTime?.toDate(format: FormatConfiguration.date)?.toString(format: FormatConfiguration.time) ?? ""
+        publicTransportView.endTime = section.arrivalDateTime?.toDate(format: Configuration.date)?.toString(format: Configuration.time) ?? ""
         
         var stopDate: [String] = []
         if let stopDateTimes = section.stopDateTimes {
@@ -207,7 +207,7 @@ open class JourneySolutionRoadmapViewController: UIViewController {
                 timeRidesharing = sectionRidesharing.duration
                 ridesharingDeepLink = sectionRidesharing.links?[safe: 0]?.href
                 ridesharingView.title = sectionRidesharing.ridesharingInformations?._operator ?? ""
-                ridesharingView.startDate = sectionRidesharing.departureDateTime?.toDate(format: FormatConfiguration.date)?.toString(format: FormatConfiguration.timeRidesharing) ?? ""
+                ridesharingView.startDate = sectionRidesharing.departureDateTime?.toDate(format: Configuration.date)?.toString(format: Configuration.timeRidesharing) ?? ""
                 ridesharingView.login = sectionRidesharing.ridesharingInformations?.driver?.alias ?? ""
                 ridesharingView.gender = sectionRidesharing.ridesharingInformations?.driver?.gender ?? ""
                 ridesharingView.addressFrom = sectionRidesharing.from?.name ?? ""

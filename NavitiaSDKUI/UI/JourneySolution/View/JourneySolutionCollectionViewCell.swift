@@ -23,8 +23,8 @@ class JourneySolutionCollectionViewCell: UICollectionViewCell {
         _setupArrowIcon()
         addShadow()
         
-        if let departureDateTime = journey.departureDateTime?.toDate(format: FormatConfiguration.date),
-            let arrivalDateTime = journey.arrivalDateTime?.toDate(format: FormatConfiguration.date) {
+        if let departureDateTime = journey.departureDateTime?.toDate(format: Configuration.date),
+            let arrivalDateTime = journey.arrivalDateTime?.toDate(format: Configuration.date) {
             formattedDateTime(departureDateTime, arrivalDateTime)
         }
         if let durationInt = journey.duration {
@@ -47,8 +47,8 @@ class JourneySolutionCollectionViewCell: UICollectionViewCell {
         _setupArrowIcon()
         addShadow()
         
-        if let departureDateTime = journey.departureDateTime?.toDate(format: FormatConfiguration.date),
-            let arrivalDateTime = journey.arrivalDateTime?.toDate(format: FormatConfiguration.date) {
+        if let departureDateTime = journey.departureDateTime?.toDate(format: Configuration.date),
+            let arrivalDateTime = journey.arrivalDateTime?.toDate(format: Configuration.date) {
             formattedDateTime(departureDateTime, arrivalDateTime)
         }
         if let durationInt = journey.duration {
@@ -75,8 +75,8 @@ class JourneySolutionCollectionViewCell: UICollectionViewCell {
     private func formattedDateTime(_ departureDateTime: Date,_ arrivalDateTime: Date) {
         dateTime = NSMutableAttributedString()
             .bold(String(format: "%@ - %@",
-                         departureDateTime.toString(format: FormatConfiguration.time),
-                         arrivalDateTime.toString(format: FormatConfiguration.time)))
+                         departureDateTime.toString(format: Configuration.time),
+                         arrivalDateTime.toString(format: Configuration.time)))
     }
     
     private func formattedDuration(prefix: String = "", _ duration: Int32) {

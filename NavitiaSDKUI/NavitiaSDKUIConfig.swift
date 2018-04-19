@@ -9,6 +9,7 @@ import Foundation
 
 open class NavitiaSDKUIConfig: NSObject {
     
+    // Singleton
     open static let shared = NavitiaSDKUIConfig()
     open var color = ColorConfiguration()
     
@@ -27,13 +28,16 @@ open class NavitiaSDKUIConfig: NSObject {
 
 }
 
-enum FormatConfiguration {
+enum Configuration {
     
+    static let fontIconsName = "SDKIcons"
+    
+    // Format
     static let date = "yyyyMMdd'T'HHmmss"
     static let time = "HH:mm"
     static let timeJourneySolution = "EEE dd MMM - HH:mm"
     static let timeRidesharing = "HH'h'mm"
-
+    
 }
 
 public struct ColorConfiguration {

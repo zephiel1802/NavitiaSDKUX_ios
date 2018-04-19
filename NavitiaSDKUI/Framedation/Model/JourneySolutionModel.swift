@@ -17,8 +17,8 @@ class JourneySolutionModel {
     let distances: (car: Int32, walking: Int32, ridesharing: Int32, bike: Int32)
     
     init(journey: Journey) {
-        self.departureDateTime = journey.departureDateTime?.toDate(format: FormatConfiguration.date) ?? Date()
-        self.arrivalDateTime = journey.arrivalDateTime?.toDate(format: FormatConfiguration.date) ?? Date()
+        self.departureDateTime = journey.departureDateTime?.toDate(format: Configuration.date) ?? Date()
+        self.arrivalDateTime = journey.arrivalDateTime?.toDate(format: Configuration.date) ?? Date()
         self.duration = journey.durations?.total ?? 0
         self.durationWalking = journey.durations?.walking ?? 0
         self.distanceWalking = journey.distances?.walking ?? 0

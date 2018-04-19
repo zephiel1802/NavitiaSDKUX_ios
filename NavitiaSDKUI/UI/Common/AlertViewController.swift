@@ -65,6 +65,6 @@ class AlertViewController: UIViewController, CheckboxDelegate {
     }
     
     func checkboxStateDidChange(checkbox: Checkbox) {
-        NavitiaSDKUserDefaultsManager.saveUserDefault(key: self.stateKey, value: !checkbox.isChecked)
+        NavitiaSDKUserDefaultsManager.saveUserDefault(key: self.stateKey, value: checkbox.isChecked)
     }
 }

@@ -83,7 +83,7 @@ class RidesharingView: UIView {
     
     @IBAction func actionBookButton(_ sender: Any) {
         if let parentViewController = parentViewController {
-            if UserDefaults.standard.bool(forKey: NavitiaSDKUserDefaultsManager.SHOW_REDIRECTION_DIALOG_PREF_KEY) {
+            if !UserDefaults.standard.bool(forKey: NavitiaSDKUserDefaultsManager.SHOW_REDIRECTION_DIALOG_PREF_KEY) {
                 let alertController = AlertViewController(nibName: "AlertView", bundle: NavitiaSDKUIConfig.shared.bundle)
                 alertController.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
                 alertController.stateKey = NavitiaSDKUserDefaultsManager.SHOW_REDIRECTION_DIALOG_PREF_KEY

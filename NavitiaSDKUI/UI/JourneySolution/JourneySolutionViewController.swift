@@ -31,8 +31,8 @@ open class JourneySolutionViewController: UIViewController {
                         self?.toLabel.text = journeySolutionViewModel.journeys[0].sections?[(journeySolutionViewModel.journeys[0].sections?.count)! - 1].to?.name
                     }
                     if self?.inParameters.datetime == nil {
-                        if let dateTime = journeySolutionViewModel.journeys[0].departureDateTime?.toDate(format: FormatConfiguration.date) {
-                            self?.dateTime = dateTime.toString(format: FormatConfiguration.timeJourneySolution)
+                        if let dateTime = journeySolutionViewModel.journeys[0].departureDateTime?.toDate(format: Configuration.date) {
+                            self?.dateTime = dateTime.toString(format: Configuration.timeJourneySolution)
                         }
                     }
                 }
@@ -97,7 +97,7 @@ open class JourneySolutionViewController: UIViewController {
         }
         
         if let dateTime = inParameters.datetime {
-            self.dateTime = dateTime.toString(format: FormatConfiguration.timeJourneySolution)
+            self.dateTime = dateTime.toString(format: Configuration.timeJourneySolution)
         }
     }
 
