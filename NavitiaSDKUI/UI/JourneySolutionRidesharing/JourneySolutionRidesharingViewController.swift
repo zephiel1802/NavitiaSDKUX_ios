@@ -71,17 +71,19 @@ extension JourneySolutionRidesharingViewController: UICollectionViewDataSource {
     
     public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: JourneyRidesharingCollectionViewCell.identifier, for: indexPath) as? JourneyRidesharingCollectionViewCell {
-            if let ridesharingJourneys = ridesharingJourneys {
-                cell.title = ridesharingJourneys[indexPath.row].sections?[1].ridesharingInformations?._operator ?? ""
-                cell.startDate = ridesharingJourneys[indexPath.row].sections?[1].departureDateTime?.toDate(format: FormatConfiguration.date)?.toString(format: FormatConfiguration.timeRidesharing) ?? ""
-                cell.login = ridesharingJourneys[indexPath.row].sections?[1].ridesharingInformations?.driver?.alias ?? ""
-                cell.gender = ridesharingJourneys[indexPath.row].sections?[1].ridesharingInformations?.driver?.gender ?? ""
-                cell.seatCount(ridesharingJourneys[indexPath.row].sections?[1].ridesharingInformations?.seats?.available)
-                cell.price = ridesharingJourneys[indexPath.row].fare?.total?.value ?? ""
-                cell.setPicture(url: ridesharingJourneys[indexPath.row].sections?[1].ridesharingInformations?.driver?.image)
-                cell.setNotation(ridesharingJourneys[indexPath.row].sections?[1].ridesharingInformations?.driver?.rating?.count)
-                cell.setFullStar(ridesharingJourneys[indexPath.row].sections?[1].ridesharingInformations?.driver?.rating?.value)
-                cell.row = indexPath.row
+            if let ridesharingJourneys = ridesharingJourneys?[safe: indexPath.row] {
+                cell.price = ridesharingJourneys.fare?.total?.value ?? ""
+                if let sectionRidesharing = ridesharingJourneys.sections?[safe: 1] {
+                    cell.title = sectionRidesharing.ridesharingInformations?._operator ?? ""
+                    cell.startDate = sectionRidesharing.departureDateTime?.toDate(format: FormatConfiguration.date)?.toString(format: FormatConfiguration.timeRidesharing) ?? ""
+                    cell.login = sectionRidesharing.ridesharingInformations?.driver?.alias ?? ""
+                    cell.gender = sectionRidesharing.ridesharingInformations?.driver?.gender ?? ""
+                    cell.seatCount(sectionRidesharing.ridesharingInformations?.seats?.available)
+                    cell.setPicture(url: sectionRidesharing.ridesharingInformations?.driver?.image)
+                    cell.setNotation(sectionRidesharing.ridesharingInformations?.driver?.rating?.count)
+                    cell.setFullStar(sectionRidesharing.ridesharingInformations?.driver?.rating?.value)
+                    cell.row = indexPath.row
+                }
             }
             cell.delegate = self
             return cell

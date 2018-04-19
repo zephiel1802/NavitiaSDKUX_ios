@@ -80,6 +80,7 @@ open class JourneySolutionRoadmapViewController: UIViewController {
             journeySolutionView.frame.size.height = 97
             journeySolutionView.setDataRidesharing(journey)
             ridesharingView = RidesharingView(frame: CGRect(x: 0, y: 0, width: 0, height: 255))
+            ridesharingView.parentViewController = self
             _addViewInScroll(view: ridesharingView)
         }
     }
@@ -200,20 +201,23 @@ open class JourneySolutionRoadmapViewController: UIViewController {
     }
     
     private func _updateRidesharingView(_ section: Section) {
-        ridesharingView.title = section.ridesharingJourneys?[ridesharingIndex].sections?[1].ridesharingInformations?._operator ?? ""
-        ridesharingView.startDate = section.ridesharingJourneys?[ridesharingIndex].sections?[1].departureDateTime?.toDate(format: FormatConfiguration.date)?.toString(format: FormatConfiguration.timeRidesharing) ?? ""
-        ridesharingView.login = section.ridesharingJourneys?[ridesharingIndex].sections?[1].ridesharingInformations?.driver?.alias ?? ""
-        ridesharingView.gender = section.ridesharingJourneys?[ridesharingIndex].sections?[1].ridesharingInformations?.driver?.gender ?? ""
-        ridesharingView.addressFrom = section.ridesharingJourneys?[ridesharingIndex].sections?[1].from?.name ?? ""
-        ridesharingView.addressTo = section.ridesharingJourneys?[ridesharingIndex].sections?[1].to?.name ?? ""
-        ridesharingView.seatCount(section.ridesharingJourneys?[ridesharingIndex].sections?[1].ridesharingInformations?.seats?.available)
-        ridesharingView.price = section.ridesharingJourneys?[ridesharingIndex].fare?.total?.value ?? ""
-        ridesharingView.setPicture(url: section.ridesharingJourneys?[ridesharingIndex].sections?[1].ridesharingInformations?.driver?.image)
-        ridesharingView.setNotation(section.ridesharingJourneys?[ridesharingIndex].sections?[1].ridesharingInformations?.driver?.rating?.count)
-        ridesharingView.setFullStar(section.ridesharingJourneys?[ridesharingIndex].sections?[1].ridesharingInformations?.driver?.rating?.value)
-        ridesharingView.parentViewController = self
-        ridesharingDeepLink = section.ridesharingJourneys?[ridesharingIndex].sections?[1].links?[0].href
-        timeRidesharing = section.ridesharingJourneys?[ridesharingIndex].sections?[1].duration
+        if let ridesharingJourneys = section.ridesharingJourneys?[safe: ridesharingIndex] {
+            ridesharingView.price = section.ridesharingJourneys?[safe: ridesharingIndex]?.fare?.total?.value ?? ""
+            if let sectionRidesharing = ridesharingJourneys.sections?[safe: 1] {
+                timeRidesharing = sectionRidesharing.duration
+                ridesharingDeepLink = sectionRidesharing.links?[safe: 0]?.href
+                ridesharingView.title = sectionRidesharing.ridesharingInformations?._operator ?? ""
+                ridesharingView.startDate = sectionRidesharing.departureDateTime?.toDate(format: FormatConfiguration.date)?.toString(format: FormatConfiguration.timeRidesharing) ?? ""
+                ridesharingView.login = sectionRidesharing.ridesharingInformations?.driver?.alias ?? ""
+                ridesharingView.gender = sectionRidesharing.ridesharingInformations?.driver?.gender ?? ""
+                ridesharingView.addressFrom = sectionRidesharing.from?.name ?? ""
+                ridesharingView.addressTo = sectionRidesharing.to?.name ?? ""
+                ridesharingView.seatCount(sectionRidesharing.ridesharingInformations?.seats?.available)
+                ridesharingView.setPicture(url: sectionRidesharing.ridesharingInformations?.driver?.image)
+                ridesharingView.setNotation(sectionRidesharing.ridesharingInformations?.driver?.rating?.count)
+                ridesharingView.setFullStar(sectionRidesharing.ridesharingInformations?.driver?.rating?.value)
+            }
+        }
     }
     
     public func openDeepLink() {

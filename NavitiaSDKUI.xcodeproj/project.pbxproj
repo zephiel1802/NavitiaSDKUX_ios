@@ -271,6 +271,7 @@
 		8476DD5420888154006CB506 /* CustomAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8476DD5320888154006CB506 /* CustomAnnotation.swift */; };
 		8476DD562088819C006CB506 /* JourneyPathOverlays.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8476DD552088819C006CB506 /* JourneyPathOverlays.swift */; };
 		8476DD5820888EE8006CB506 /* StackView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8476DD5720888EE8006CB506 /* StackView+Extension.swift */; };
+		8476DD5A208891CB006CB506 /* Collection+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8476DD59208891CB006CB506 /* Collection+Extension.swift */; };
 		848D7C2A207B92D4002E9B1A /* PublicTransportView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 848D7C29207B92D4002E9B1A /* PublicTransportView.xib */; };
 		848D7C2C207B95B0002E9B1A /* PublicTransportView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848D7C2B207B95B0002E9B1A /* PublicTransportView.swift */; };
 		8490A6D52084D2C700F7CFA1 /* NavitiaSDKUserDefaultsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8490A6D42084D2C700F7CFA1 /* NavitiaSDKUserDefaultsManager.swift */; };
@@ -564,6 +565,7 @@
 		8476DD5320888154006CB506 /* CustomAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAnnotation.swift; sourceTree = "<group>"; };
 		8476DD552088819C006CB506 /* JourneyPathOverlays.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JourneyPathOverlays.swift; sourceTree = "<group>"; };
 		8476DD5720888EE8006CB506 /* StackView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "StackView+Extension.swift"; sourceTree = "<group>"; };
+		8476DD59208891CB006CB506 /* Collection+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Collection+Extension.swift"; sourceTree = "<group>"; };
 		848D7C29207B92D4002E9B1A /* PublicTransportView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PublicTransportView.xib; sourceTree = "<group>"; };
 		848D7C2B207B95B0002E9B1A /* PublicTransportView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublicTransportView.swift; sourceTree = "<group>"; };
 		8490A6D42084D2C700F7CFA1 /* NavitiaSDKUserDefaultsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavitiaSDKUserDefaultsManager.swift; sourceTree = "<group>"; };
@@ -737,6 +739,7 @@
 				84737E9C2087995B002D3748 /* UIImageView+Extension.swift */,
 				84737E9E20879A3C002D3748 /* UIView+Extension.swift */,
 				8476DD5720888EE8006CB506 /* StackView+Extension.swift */,
+				8476DD59208891CB006CB506 /* Collection+Extension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -1523,6 +1526,7 @@
 				8454D3B72068D3A800C97D2F /* SectionGeoJsonSchema.swift in Sources */,
 				84737E9B2087731A002D3748 /* FloatRatingView.swift in Sources */,
 				8454D3E22068D3A800C97D2F /* CalendarPeriod.swift in Sources */,
+				8476DD5A208891CB006CB506 /* Collection+Extension.swift in Sources */,
 				8454D41C2068D3A800C97D2F /* AFError.swift in Sources */,
 				8454D3D72068D3A800C97D2F /* DictAddresses.swift in Sources */,
 				8490A6D52084D2C700F7CFA1 /* NavitiaSDKUserDefaultsManager.swift in Sources */,
