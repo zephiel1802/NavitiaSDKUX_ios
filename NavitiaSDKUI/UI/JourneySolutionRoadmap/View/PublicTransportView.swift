@@ -53,7 +53,7 @@ class PublicTransportView: UIView {
     @IBOutlet weak var lineView: UIView!
     @IBOutlet weak var pinEndView: UIView!
     
-    var _type: TypeTransport?
+    var _mode: ModeTransport?
     var _disruptionType: TypeDisruption?
     
     var origin: String = "" {
@@ -175,25 +175,25 @@ extension PublicTransportView {
 
 extension PublicTransportView {
     
-    var type: TypeTransport? {
+    var mode: ModeTransport? {
         get {
-            return _type
+            return _mode
         }
         set {
             if let type = newValue {
-                _type = type
+                _mode = type
                 icon = type.rawValue
             }
         }
     }
     
-    var typeString: String? {
+    var modeString: String? {
         get {
-            return _type?.rawValue
+            return _mode?.rawValue
         }
         set {
             if let newValue = newValue {
-                _type = TypeTransport(rawValue: newValue)
+                _mode = ModeTransport(rawValue: newValue)
                 icon = newValue
             }
         }
@@ -229,8 +229,8 @@ extension PublicTransportView {
         }
         set {
             if let newValue = newValue {
-                iconLabel.text = Icon(newValue).iconFontCode
-                iconLabel.font = UIFont(name: "SDKIcons", size: 20)
+                iconLabel.attributedText = NSMutableAttributedString()
+                    .icon(newValue, size: 20)
             }
         }
     }
@@ -243,7 +243,7 @@ extension PublicTransportView {
             if let newValue = newValue {
                 takeLabel.attributedText = NSMutableAttributedString()
                     .normal(String(format: "%@ %@",
-                                   "take_the".localized(withComment: "take_the", bundle: NavitiaSDKUIConfig.shared.bundle),
+                                   "take_the".localized(withComment: "Take tke", bundle: NavitiaSDKUIConfig.shared.bundle),
                                    newValue),
                             size: 15)
             }
@@ -272,7 +272,6 @@ extension PublicTransportView {
                     .icon("disruption-" + newValue.rawValue, size: 14)
                 disruptionIconTransportLabel.textColor = UIColor.red
                 disruptionIconTransportLabel.isHidden = false
-                
             }
         }
     }
@@ -307,9 +306,9 @@ extension PublicTransportView {
         }
         set {
             if let newValue = newValue {
-                var unit = "units_minutes".localized(withComment: "units_minutes", bundle: NavitiaSDKUIConfig.shared.bundle)
+                var unit = "units_minutes".localized(withComment: "minutes", bundle: NavitiaSDKUIConfig.shared.bundle)
                 if newValue == "1" {
-                    unit = "units_minute".localized(withComment: "units_minute", bundle: NavitiaSDKUIConfig.shared.bundle)
+                    unit = "units_minute".localized(withComment: "minute", bundle: NavitiaSDKUIConfig.shared.bundle)
                 }
                 waitIconLabel.attributedText = NSMutableAttributedString()
                     .icon("clock", color: NavitiaSDKUIConfig.shared.color.gray, size: 15)
@@ -348,21 +347,6 @@ extension PublicTransportView {
         }
     }
     
-//    var origin: String? {
-//        get {
-//            return originLabel.text
-//        }
-//        set {
-//            if let newValue = newValue {
-//                originTransitLabel.attributedText = NSMutableAttributedString()
-//                    .normal("à ", size: 15)
-//                    .bold(newValue, size: 15)
-//                originLabel.attributedText = NSMutableAttributedString()
-//                    .bold(newValue, size: 15)
-//            }
-//        }
-//    }
-    
     var destination: String? {
         get {
             return destinationLabel.text
@@ -374,19 +358,6 @@ extension PublicTransportView {
             }
         }
     }
-    
-//    var directionTransit: String? {
-//        get {
-//            return directionTransitLabel.text
-//        }
-//        set {
-//            if let newValue = newValue {
-//                directionTransitLabel.attributedText = NSMutableAttributedString()
-//                    .normal("en direction de ", size: 15)
-//                    .bold(newValue, size: 15)
-//            }
-//        }
-//    }
     
     var disruptionIsHidden: Bool {
         get {

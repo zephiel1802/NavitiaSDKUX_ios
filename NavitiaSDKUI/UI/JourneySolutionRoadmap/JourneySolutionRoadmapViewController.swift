@@ -32,14 +32,14 @@ open class JourneySolutionRoadmapViewController: UIViewController {
     
     override open func viewDidLoad() {
         super.viewDidLoad()
-        self.setupMapView()
-        
-        composentWidth = updateWidth()
+        title = "roadmap".localized(withComment: "Roadmap", bundle: NavitiaSDKUIConfig.shared.bundle)
         
         if #available(iOS 11.0, *) {
             scrollView?.contentInsetAdjustmentBehavior = .always
         }
-        display()
+        composentWidth = _updateWidth()
+        _setupMapView()
+        _display()
     }
     
     override open func didReceiveMemoryWarning() {
@@ -49,163 +49,120 @@ open class JourneySolutionRoadmapViewController: UIViewController {
 
     override open func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        updateOriginViewScroll()
+        _updateOriginViewScroll()
     }
     
     static var identifier: String {
         return String(describing: self)
     }
     
-    func updateWidth() -> CGFloat {
+    private func _updateWidth() -> CGFloat {
         if #available(iOS 11.0, *) {
             return scrollView.frame.size.width - scrollView.safeAreaInsets.left - scrollView.safeAreaInsets.right - (marge * 2)
         }
         return scrollView.frame.size.width - (marge * 2)
     }
     
-
-    func addViewInScroll(view: UIView) {
-        view.frame.origin.x = marge
-        if viewScroll.isEmpty {
-            view.frame.origin.y = 0
-        } else {
-            if let viewBefore = viewScroll.last {
-                view.frame.origin.y = viewBefore.frame.origin.y + viewBefore.frame.size.height
-            }
-        }
-        viewScroll.append(view)
-        if let last = viewScroll.last {
-            scrollView.contentSize.height = last.frame.origin.y + last.frame.height
-        }
-        scrollView.addSubview(view)
-    }
-    
-    func updateOriginViewScroll() {
-        for (index, view) in viewScroll.enumerated() {
-            if index == 0 {
-                view.frame.origin.y = marge
-            } else {
-                view.frame.origin.y = viewScroll[index - 1].frame.origin.y + viewScroll[index - 1].frame.height + marge
-            }
-            composentWidth = updateWidth()
-            view.frame.size.width = updateWidth()
-        }
-        if let last = viewScroll.last {
-            scrollView.contentSize.height = last.frame.origin.y + last.frame.height + marge
+    private func _display() {
+        if let journey = journey {
+            _displayHeader(journey)
+            _displayDeparture(journey)
+            _displayStep(journey)
+            _displayArrival(journey)
         }
     }
     
-    private func display() {
+    private func _displayHeader(_ journey: Journey) {
+        let journeySolutionView = JourneySolutionView(frame: CGRect(x: 0, y: 0, width: 0, height: 130))
+        journeySolutionView.setData(journey)
+        _addViewInScroll(view: journeySolutionView)
         if ridesharing {
-            if let journey = journey {
-                let tc = JourneySolutionView(frame: CGRect(x: 0, y: 0, width: 0, height: 97))
-                tc.setDataRidesharing(journey)
-                addViewInScroll(view: tc)
-            }
+            journeySolutionView.frame.size.height = 97
+            journeySolutionView.setDataRidesharing(journey)
             ridesharingView = RidesharingView(frame: CGRect(x: 0, y: 0, width: 0, height: 255))
-            addViewInScroll(view: ridesharingView)
-
-        } else {
-            if let journey = journey {
-                let tc = JourneySolutionView(frame: CGRect(x: 0, y: 0, width: 0, height: 130))
-                tc.setData(journey)
-                addViewInScroll(view: tc)
-            }
+            _addViewInScroll(view: ridesharingView)
         }
-        
-        _displayDeparture(journey)
-        
-        if let sections = journey?.sections {
+    }
+    
+    private func _displayStep(_ journey: Journey) {
+        if let sections = journey.sections {
             for (index, section) in sections.enumerated() {
                 if let type = section.type {
-                    if type == "public_transport" {
+                    switch type {
+                    case TypeTransport.publicTransport.rawValue:
                         if index == 0 {
                             _displayPublicTransport(section)
                         }
                         _displayPublicTransport(section, waiting: sections[index - 1])
-                    } else if type == "transfer" {
+                    case TypeTransport.transfer.rawValue:
                         _displayTransferStep(section)
-                    } else if type == "street_network" {
+                    case TypeTransport.streetNetwork.rawValue:
                         if let mode = section.mode {
-                            if mode == "walking" || mode == "car" {
+                            switch mode {
+                            case ModeTransport.walking.rawValue:
                                 _displayTransferStep(section)
-                            } else {
-                                if mode == "ridesharing" {
-                                    _updateRidesharingView(section)
-                                    let view = BikeStepView(frame: CGRect(x: 0, y: 0, width: composentWidth, height: 50))
-                                    view.typeString = mode
-                                    view.takeName = ""
-                                    view.origin = ridesharingView.addressFrom ?? ""
-                                    view.destination = ridesharingView.addressTo ?? ""
-                                    view.time = timeRidesharing?.minuteToString() ?? ""
-                                    addViewInScroll(view: view)
-                                } else {
-                                    _displayBikeStep(section)
-                                }
+                            case ModeTransport.car.rawValue:
+                                _displayTransferStep(section)
+                            case ModeTransport.ridesharing.rawValue:
+                                _updateRidesharingView(section)
+                                _displayRidesharingStep(section)
+                            default:
+                                _displayBikeStep(section)
                             }
                         }
-                        
+                    default :
+                        continue
                     }
                 }
             }
         }
-        _displayArrival(journey)
     }
     
-    func _displayDeparture(_ journey: Journey?) {
+    private func _displayDeparture(_ journey: Journey) {
         let viewDeparture = DepartureArrivalStepView(frame: CGRect(x: 0, y: 0, width: composentWidth, height: 70))
-        viewDeparture.information = journey?.sections?.first?.from?.name ?? ""
-        viewDeparture.time = journey?.departureDateTime?.toDate(format: FormatConfiguration.date)?.toString(format: FormatConfiguration.time) ?? ""
+        viewDeparture.information = journey.sections?.first?.from?.name ?? ""
+        viewDeparture.time = journey.departureDateTime?.toDate(format: FormatConfiguration.date)?.toString(format: FormatConfiguration.time) ?? ""
         viewDeparture.type = .departure
-        addViewInScroll(view: viewDeparture)
+        _addViewInScroll(view: viewDeparture)
     }
     
-    func _displayArrival(_ journey: Journey?) {
+    private func _displayArrival(_ journey: Journey) {
         let viewArrival = DepartureArrivalStepView(frame: CGRect(x: 0, y: 0, width: composentWidth, height: 70))
-        viewArrival.information = journey?.sections?.last?.to?.name ?? ""
-        viewArrival.time = journey?.arrivalDateTime?.toDate(format: FormatConfiguration.date)?.toString(format: FormatConfiguration.time) ?? ""
+        viewArrival.information = journey.sections?.last?.to?.name ?? ""
+        viewArrival.time = journey.arrivalDateTime?.toDate(format: FormatConfiguration.date)?.toString(format: FormatConfiguration.time) ?? ""
         viewArrival.type = .arrival
-        addViewInScroll(view: viewArrival)
+        _addViewInScroll(view: viewArrival)
     }
     
-    func _displayTransferStep(_ section: Section) {
+    private func _displayTransferStep(_ section: Section) {
         let view = TransferStepView(frame: CGRect(x: 0, y: 0, width: composentWidth, height: 50))
-        view.typeString = Modes().getModeIcon(section: section)
+        view.modeString = Modes().getModeIcon(section: section)
         view.time = section.duration?.minuteToString()
         view.direction = section.to?.name ?? ""
-        addViewInScroll(view: view)
+        _addViewInScroll(view: view)
     }
     
-    func _displayBikeStep(_ section: Section) {
-        let view = BikeStepView(frame: CGRect(x: 0, y: 0, width: composentWidth, height: 30))
-        view.typeString = Modes().getModeIcon(section: section)
-        view.takeName = ""
+    private func _displayBikeStep(_ section: Section) {
+        let view = BikeStepView(frame: CGRect(x: 0, y: 0, width: composentWidth, height: 50))
+        view.modeString = Modes().getModeIcon(section: section)
         view.origin = section.from?.name ?? ""
         view.destination = section.to?.name ?? ""
         view.time = section.duration?.minuteToString()
-        addViewInScroll(view: view)
+        _addViewInScroll(view: view)
     }
     
-    func _updateRidesharingView(_ section: Section) {
-        ridesharingView.title = section.ridesharingJourneys?[ridesharingIndex].sections?[1].ridesharingInformations?._operator ?? ""
-        ridesharingView.startDate = section.ridesharingJourneys?[ridesharingIndex].sections?[1].departureDateTime?.toDate(format: FormatConfiguration.date)?.toString(format: FormatConfiguration.timeRidesharing) ?? ""
-        ridesharingView.login = section.ridesharingJourneys?[ridesharingIndex].sections?[1].ridesharingInformations?.driver?.alias ?? ""
-        ridesharingView.gender = section.ridesharingJourneys?[ridesharingIndex].sections?[1].ridesharingInformations?.driver?.gender ?? ""
-        ridesharingView.addressFrom = section.ridesharingJourneys?[ridesharingIndex].sections?[1].from?.name ?? ""
-        ridesharingView.addressTo = section.ridesharingJourneys?[ridesharingIndex].sections?[1].to?.name ?? ""
-        ridesharingView.seatCount(section.ridesharingJourneys?[ridesharingIndex].sections?[1].ridesharingInformations?.seats?.available)
-        ridesharingView.price = section.ridesharingJourneys?[ridesharingIndex].fare?.total?.value ?? ""
-        ridesharingView.setPicture(url: section.ridesharingJourneys?[ridesharingIndex].sections?[1].ridesharingInformations?.driver?.image)
-        ridesharingView.setNotation(section.ridesharingJourneys?[ridesharingIndex].sections?[1].ridesharingInformations?.driver?.rating?.count)
-        ridesharingView.setFullStar(section.ridesharingJourneys?[ridesharingIndex].sections?[1].ridesharingInformations?.driver?.rating?.value)
-        ridesharingView._parent = self
-        ridesharingDeepLink = section.ridesharingJourneys?[ridesharingIndex].sections?[1].links?[0].href
-        timeRidesharing = section.ridesharingJourneys?[ridesharingIndex].sections?[1].duration
+    private func _displayRidesharingStep(_ section: Section) {
+        let view = BikeStepView(frame: CGRect(x: 0, y: 0, width: composentWidth, height: 100))
+        view.modeString = Modes().getModeIcon(section: section)
+        view.origin = ridesharingView.addressFrom ?? ""
+        view.destination = ridesharingView.addressTo ?? ""
+        view.time = timeRidesharing?.minuteToString() ?? ""
+        _addViewInScroll(view: view)
     }
     
-    func _displayPublicTransport(_ section: Section, waiting: Section? = nil) {
+    private func _displayPublicTransport(_ section: Section, waiting: Section? = nil) {
         let publicTransportView = PublicTransportView(frame: CGRect(x: 0, y: 0, width: composentWidth, height: 100))
-        publicTransportView.typeString = Modes().getModeIcon(section: section)
+        publicTransportView.modeString = Modes().getModeIcon(section: section)
         publicTransportView.take = section.displayInformations?.commercialMode ?? ""
         publicTransportView.transportColor = section.displayInformations?.color?.toUIColor() ?? UIColor.black
         publicTransportView.transportName = section.displayInformations?.label ?? ""
@@ -232,16 +189,78 @@ open class JourneySolutionRoadmapViewController: UIViewController {
             }
         }
         publicTransportView.stations = stopDate
-        
         if let waiting = waiting {
-            if waiting.type == "waiting" {
+            if waiting.type == TypeTransport.waiting.rawValue {
                 if let durationWaiting = waiting.duration?.minuteToString() {
                     publicTransportView.waitTime = durationWaiting
                 }
             }
         }
+        _addViewInScroll(view: publicTransportView)
+    }
+    
+    private func _updateRidesharingView(_ section: Section) {
+        ridesharingView.title = section.ridesharingJourneys?[ridesharingIndex].sections?[1].ridesharingInformations?._operator ?? ""
+        ridesharingView.startDate = section.ridesharingJourneys?[ridesharingIndex].sections?[1].departureDateTime?.toDate(format: FormatConfiguration.date)?.toString(format: FormatConfiguration.timeRidesharing) ?? ""
+        ridesharingView.login = section.ridesharingJourneys?[ridesharingIndex].sections?[1].ridesharingInformations?.driver?.alias ?? ""
+        ridesharingView.gender = section.ridesharingJourneys?[ridesharingIndex].sections?[1].ridesharingInformations?.driver?.gender ?? ""
+        ridesharingView.addressFrom = section.ridesharingJourneys?[ridesharingIndex].sections?[1].from?.name ?? ""
+        ridesharingView.addressTo = section.ridesharingJourneys?[ridesharingIndex].sections?[1].to?.name ?? ""
+        ridesharingView.seatCount(section.ridesharingJourneys?[ridesharingIndex].sections?[1].ridesharingInformations?.seats?.available)
+        ridesharingView.price = section.ridesharingJourneys?[ridesharingIndex].fare?.total?.value ?? ""
+        ridesharingView.setPicture(url: section.ridesharingJourneys?[ridesharingIndex].sections?[1].ridesharingInformations?.driver?.image)
+        ridesharingView.setNotation(section.ridesharingJourneys?[ridesharingIndex].sections?[1].ridesharingInformations?.driver?.rating?.count)
+        ridesharingView.setFullStar(section.ridesharingJourneys?[ridesharingIndex].sections?[1].ridesharingInformations?.driver?.rating?.value)
+        ridesharingView.parentViewController = self
+        ridesharingDeepLink = section.ridesharingJourneys?[ridesharingIndex].sections?[1].links?[0].href
+        timeRidesharing = section.ridesharingJourneys?[ridesharingIndex].sections?[1].duration
+    }
+    
+    public func openDeepLink() {
+        if let ridesharingDeepLink = ridesharingDeepLink {
+            if let urlRidesharingDeepLink = URL(string: ridesharingDeepLink) {
+                if #available(iOS 10.0, *) {
+                    UIApplication.shared.open(urlRidesharingDeepLink, options: [:], completionHandler: nil)
+                } else {
+                    UIApplication.shared.openURL(urlRidesharingDeepLink)
+                }
+            }
+        }
+    }
+    
+}
 
-        addViewInScroll(view: publicTransportView)
+extension JourneySolutionRoadmapViewController {
+    
+    private func _addViewInScroll(view: UIView) {
+        view.frame.origin.x = marge
+        if viewScroll.isEmpty {
+            view.frame.origin.y = 0
+        } else {
+            if let viewBefore = viewScroll.last {
+                view.frame.origin.y = viewBefore.frame.origin.y + viewBefore.frame.size.height
+            }
+        }
+        viewScroll.append(view)
+        if let last = viewScroll.last {
+            scrollView.contentSize.height = last.frame.origin.y + last.frame.height
+        }
+        scrollView.addSubview(view)
+    }
+    
+    private func _updateOriginViewScroll() {
+        for (index, view) in viewScroll.enumerated() {
+            if index == 0 {
+                view.frame.origin.y = marge
+            } else {
+                view.frame.origin.y = viewScroll[index - 1].frame.origin.y + viewScroll[index - 1].frame.height + marge
+            }
+            composentWidth = _updateWidth()
+            view.frame.size.width = _updateWidth()
+        }
+        if let last = viewScroll.last {
+            scrollView.contentSize.height = last.frame.origin.y + last.frame.height + marge
+        }
     }
     
 }
@@ -253,26 +272,15 @@ extension JourneySolutionRoadmapViewController: AlertViewControllerProtocol {
     }
     
     func onPositiveButtonClicked(_ alertViewController: AlertViewController) {
-        self.openDeepLink()
+        openDeepLink()
         alertViewController.dismiss(animated: false, completion: nil)
-    }
-    
-    func openDeepLink() {
-        if let ridesharingDeepLink = self.ridesharingDeepLink {
-            if #available(iOS 10.0, *) {
-                UIApplication.shared.open(URL(string: ridesharingDeepLink)!, options: [:], completionHandler: nil)
-            } else {
-                UIApplication.shared.openURL(URL(string: ridesharingDeepLink)!)
-            }
-        }
     }
     
 }
 
 extension JourneySolutionRoadmapViewController: MKMapViewDelegate {
     
-    func setupMapView() {
-        title = "roadmap".localized(withComment: "Roadmap", bundle: NavitiaSDKUIConfig.shared.bundle)
+    private func _setupMapView() {
         
         let ridesharingJourneyCoordinates = getRidesharingJourneyCoordinates(journey: self.journey!)
         
@@ -288,7 +296,7 @@ extension JourneySolutionRoadmapViewController: MKMapViewDelegate {
     
     func getJourneyDepartureCoordinates() -> CLLocationCoordinate2D {
         for (_, section) in (self.journey?.sections?.enumerated())! {
-            if section.type != "crow_fly" && section.geojson != nil {
+            if section.type != TypeTransport.crowFly.rawValue && section.geojson != nil {
                 return CLLocationCoordinate2DMake(Double((section.geojson?.coordinates![0][1])!), Double((section.geojson?.coordinates![0][0])!))
             }
         }
@@ -297,7 +305,7 @@ extension JourneySolutionRoadmapViewController: MKMapViewDelegate {
     
     func getJourneyArrivalCoordinates() -> CLLocationCoordinate2D {
         for section in (self.journey?.sections?.reversed())! {
-            if section.type != "crow_fly" && section.geojson != nil {
+            if section.type != TypeTransport.crowFly.rawValue && section.geojson != nil {
                 let coordinatesLength = section.geojson!.coordinates!.count
                 return CLLocationCoordinate2DMake(Double((section.geojson?.coordinates![coordinatesLength - 1][1])!), Double((section.geojson?.coordinates![coordinatesLength - 1][0])!))
             }
@@ -308,7 +316,7 @@ extension JourneySolutionRoadmapViewController: MKMapViewDelegate {
     func getRidesharingJourneyCoordinates(journey: Journey) -> [CLLocationCoordinate2D] {
         var ridesharingJourneyCoordinates = [CLLocationCoordinate2D]()
         for (_ , section) in journey.sections!.enumerated() {
-            if section.type == "street_network" && section.mode != nil && section.mode == "ridesharing" {
+            if section.type == TypeTransport.streetNetwork.rawValue && section.mode != nil && section.mode == ModeTransport.ridesharing.rawValue {
                 let coordinatesLength = section.geojson!.coordinates!.count
                 ridesharingJourneyCoordinates.append(CLLocationCoordinate2DMake(Double((section.geojson?.coordinates![0][1])!), Double((section.geojson?.coordinates![0][0])!)))
                 ridesharingJourneyCoordinates.append(CLLocationCoordinate2DMake(Double((section.geojson?.coordinates![coordinatesLength - 1][1])!), Double((section.geojson?.coordinates![coordinatesLength - 1][0])!)))
@@ -320,9 +328,10 @@ extension JourneySolutionRoadmapViewController: MKMapViewDelegate {
     func getRidesharingJourneyIndex(journey: Journey) -> Int {
         var ridesharingIndex: Int = 0
         while ridesharingIndex < journey.sections!.count {
-            if (journey.sections![ridesharingIndex].type == "street_network" && journey.sections![ridesharingIndex].mode == "ridesharing") {
+            if (journey.sections![ridesharingIndex].type == TypeTransport.streetNetwork.rawValue &&
+                journey.sections![ridesharingIndex].mode == ModeTransport.ridesharing.rawValue) {
                 return ridesharingIndex
-            } else if (journey.sections![ridesharingIndex].type != "crow_fly") {
+            } else if (journey.sections![ridesharingIndex].type != TypeTransport.crowFly.rawValue) {
                 ridesharingIndex += 1
             }
         }
@@ -426,7 +435,6 @@ extension JourneySolutionRoadmapViewController: MKMapViewDelegate {
             if sectionPolyline.sectionLineCap != nil {
                 polylineRenderer.lineCap = sectionPolyline.sectionLineCap!
             }
-            
             return polylineRenderer
         } else if let circle = overlay as? MKCircle {
             let circleRenderer = MKCircleRenderer(circle: circle)
@@ -440,258 +448,13 @@ extension JourneySolutionRoadmapViewController: MKMapViewDelegate {
     }
     
     public func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
-        let annotationIdentifier = "annotationViewIdentifier"
-        var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: annotationIdentifier)
+        var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: CustomAnnotation.identifier)
         if annotationView == nil, let customAnnotation = annotation as? CustomAnnotation {
-            annotationView = customAnnotation.getAnnotationView(annotationIdentifier: annotationIdentifier, bundle: NavitiaSDKUIConfig.shared.bundle)
+            annotationView = customAnnotation.getAnnotationView(annotationIdentifier: CustomAnnotation.identifier, bundle: NavitiaSDKUIConfig.shared.bundle)
         } else {
             annotationView?.annotation = annotation
         }
         return annotationView
     }
     
-}
-
-extension JourneySolutionRoadmapViewController: UIScrollViewDelegate {
-    
-}
-
-
-class JourneyPathOverlays {
-    var journeyPolyline: MKPolyline
-    var sectionsPolylines: [MKPolyline]
-    var intermediatesPointsCircles: [MKCircle]
-    
-    init(journey: Journey, ridesharingJourneyCoordinates: [CLLocationCoordinate2D], intermediatePointCircleRadius: CLLocationDistance) {
-        var journeyPolylineCoordinates = [CLLocationCoordinate2D]()
-        self.sectionsPolylines = [MKPolyline]()
-        self.intermediatesPointsCircles = [MKCircle]()
-        for (_ , section) in journey.sections!.enumerated() {
-            if section.type != "crow_fly" && section.geojson != nil {
-                var sectionPolylineCoordinates = [CLLocationCoordinate2D]()
-                let sectionGeoJSONCoordinates = section.geojson!.coordinates
-                if section.type == "street_network" && section.mode != nil && section.mode == "ridesharing" {
-                    let sectionPolyline = SectionPolyline(coordinates: ridesharingJourneyCoordinates, count: ridesharingJourneyCoordinates.count)
-                    sectionPolyline.sectionLineWidth = 4
-                    sectionPolyline.sectionStrokeColor = UIColor.black
-                    
-                    sectionsPolylines.append(sectionPolyline)
-                    sectionPolylineCoordinates.append(contentsOf: ridesharingJourneyCoordinates)
-                } else {
-                    for (_, coordinate) in sectionGeoJSONCoordinates!.enumerated() {
-                        sectionPolylineCoordinates.append(CLLocationCoordinate2DMake(Double(coordinate[1]), Double(coordinate[0])))
-                    }
-                    
-                    let sectionPolyline = SectionPolyline(coordinates: sectionPolylineCoordinates, count: sectionPolylineCoordinates.count)
-                    if section.type == "public_transport" && section.displayInformations?.color != nil {
-                        sectionPolyline.sectionLineWidth = 5
-                        sectionPolyline.sectionStrokeColor = section.displayInformations?.color?.toUIColor()
-                    } else if section.type == "street_network" || section.type == "transfer" {
-                        sectionPolyline.sectionLineWidth = 4
-                        sectionPolyline.sectionStrokeColor = NavitiaSDKUIConfig.shared.color.gray
-                        if section.mode == "walking" {
-                            sectionPolyline.sectionLineDashPattern = [0.01, NSNumber(value: Float(2 * sectionPolyline.sectionLineWidth))]
-                            sectionPolyline.sectionLineCap = CGLineCap.round
-                        }
-                    } else {
-                        sectionPolyline.sectionLineWidth = 4
-                        sectionPolyline.sectionStrokeColor = UIColor.black
-                    }
-                    
-                    sectionsPolylines.append(sectionPolyline)
-                }
-                if sectionPolylineCoordinates.count > 0 {
-                    let intermediatePointCircle = MKCircle(center: sectionPolylineCoordinates[sectionPolylineCoordinates.count - 1], radius: intermediatePointCircleRadius)
-                    self.intermediatesPointsCircles.append(intermediatePointCircle)
-                    journeyPolylineCoordinates.append(contentsOf: sectionPolylineCoordinates)
-                }
-            }
-        }
-        if self.intermediatesPointsCircles.count > 0 {
-            self.intermediatesPointsCircles.removeLast()
-        }
-        self.journeyPolyline = MKPolyline(coordinates: journeyPolylineCoordinates, count: journeyPolylineCoordinates.count)
-    }
-}
-
-class CustomAnnotation: MKPointAnnotation {
-    enum AnnotationType {
-        case PlaceAnnotation
-        case RidesharingAnnotation
-    }
-    enum PlaceType {
-        case Departure
-        case Arrival
-        case Other
-    }
-    
-    var annotationType: AnnotationType?
-    var placeType: PlaceType?
-    
-    init(coordinate: CLLocationCoordinate2D, title: String = "", annotationType: AnnotationType = .PlaceAnnotation, placeType: PlaceType = .Departure) {
-        super.init()
-        self.coordinate = coordinate
-        self.title = title
-        self.annotationType = annotationType
-        self.placeType = placeType
-    }
-    
-    func getAnnotationView(annotationIdentifier: String, bundle: Bundle) -> MKAnnotationView {
-        let annotationView = MKAnnotationView(annotation: self, reuseIdentifier: annotationIdentifier)
-        annotationView.canShowCallout = false
-        
-        if placeType == .Departure || placeType == .Arrival {
-            let annotationLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 80, height: 25))
-            annotationLabel.backgroundColor = UIColor.black
-            annotationLabel.layer.masksToBounds = true
-            annotationLabel.layer.cornerRadius = 4.0
-            annotationLabel.textColor = .white
-            annotationLabel.text = self.title!
-            annotationLabel.font = UIFont(descriptor: annotationLabel.font.fontDescriptor, size: 14)
-            annotationLabel.textAlignment = NSTextAlignment.center
-            annotationLabel.alpha = 0.8
-            if annotationType == .RidesharingAnnotation {
-                let annotationImage = UIImageView(frame: CGRect(x: 30, y: 27, width: 20, height: 30))
-                annotationImage.image = UIImage(named: "ridesharing_pin", in: bundle, compatibleWith: nil)
-                annotationView.addSubview(annotationImage)
-            } else {
-                let annotationPin = UILabel(frame: CGRect(x: 28, y: 27, width: 26, height: 26))
-                annotationPin.textColor = self.placeType == .Departure ? NavitiaSDKUIConfig.shared.color.origin : NavitiaSDKUIConfig.shared.color.destination
-                annotationPin.text = Icon("location-pin").iconFontCode
-                annotationPin.font = UIFont(name: "SDKIcons", size: 26)
-                annotationView.addSubview(annotationPin)
-            }
-            
-            annotationView.addSubview(annotationLabel)
-            annotationView.frame = CGRect(x: 0, y: 0, width: 80, height: 100)
-        } else {
-            if annotationType == .RidesharingAnnotation {
-                let annotationImage = UIImageView(frame: CGRect(x: 0, y: -15, width: 20, height: 30))
-                annotationImage.image = UIImage(named: "ridesharing_pin", in: bundle, compatibleWith: nil)
-                
-                annotationView.addSubview(annotationImage)
-                annotationView.frame = CGRect(x: 0, y: 0, width: 20, height: 30)
-            }
-        }
-        
-        return annotationView
-    }
-}
-
-class SectionPolyline: MKPolyline {
-    var sectionLineWidth: CGFloat = 0
-    var sectionStrokeColor: UIColor?
-    var sectionLineDashPattern: [NSNumber]?
-    var sectionLineCap: CGLineCap?
-}
-
-
-
-
-
-
-
-
-
-import UIKit
-
-@IBDesignable
-public class ScrollableStackView: UIView {
-    
-    fileprivate var didSetupConstraints = false
-    @IBInspectable open var spacing: CGFloat = 8
-    open var durationForAnimations:TimeInterval = 1.45
-    
-    public lazy var scrollView: UIScrollView = {
-        let instance = UIScrollView(frame: CGRect.zero)
-        instance.translatesAutoresizingMaskIntoConstraints = false
-        instance.layoutMargins = .zero
-        return instance
-    }()
-    
-    public lazy var stackView: UIStackView = {
-        let instance = UIStackView(frame: CGRect.zero)
-        instance.translatesAutoresizingMaskIntoConstraints = false
-        instance.axis = .vertical
-        instance.spacing = self.spacing
-        instance.distribution = .equalSpacing
-        return instance
-    }()
-    
-    //MARK: View life cycle
-    override public func didMoveToSuperview() {
-        super.didMoveToSuperview()
-        
-        setupUI()
-    }
-    
-    //MARK: UI
-    func setupUI() {
-        translatesAutoresizingMaskIntoConstraints = false
-        clipsToBounds = true
-        
-        addSubview(scrollView)
-        scrollView.addSubview(stackView)
-        
-        setNeedsUpdateConstraints() // Bootstrap auto layout
-    }
-    
-    // Scrolls to item at index
-    public func scrollToItem(index: Int) {
-        if stackView.arrangedSubviews.count > 0 {
-            let view = stackView.arrangedSubviews[index]
-            
-            UIView.animate(withDuration: durationForAnimations, animations: {
-                self.scrollView.setContentOffset(CGPoint(x: 0, y:view.frame.origin.y), animated: true)
-            })
-        }
-    }
-    
-    // Used to scroll till the end of scrollview
-    public func scrollToBottom() {
-        if stackView.arrangedSubviews.count > 0 {
-            UIView.animate(withDuration: durationForAnimations, animations: {
-                self.scrollView.scrollToBottom(true)
-            })
-        }
-    }
-    
-    // Scrolls to top of scrollable area
-    public func scrollToTop() {
-        if stackView.arrangedSubviews.count > 0 {
-            UIView.animate(withDuration: durationForAnimations, animations: {
-                self.scrollView.setContentOffset(CGPoint(x: 0, y:0), animated: true)
-            })
-        }
-    }
-    
-    override public func updateConstraints() {
-        super.updateConstraints()
-        
-        if !didSetupConstraints {
-            scrollView.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
-            scrollView.leadingAnchor.constraint(equalTo: self.leadingAnchor).isActive = true
-            scrollView.trailingAnchor.constraint(equalTo: self.trailingAnchor).isActive = true
-            scrollView.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
-            
-            stackView.topAnchor.constraint(equalTo: scrollView.topAnchor).isActive = true
-            stackView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor).isActive = true
-            stackView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor).isActive = true
-            stackView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor).isActive = true
-            
-            // Set the width of the stack view to the width of the scroll view for vertical scrolling
-            stackView.widthAnchor.constraint(equalTo: scrollView.widthAnchor).isActive = true
-            
-            didSetupConstraints = true
-        }
-    }
-}
-
-// Used to scroll till the end of scrollview
-extension UIScrollView {
-    func scrollToBottom(_ animated: Bool) {
-        if self.contentSize.height < self.bounds.size.height { return }
-        let bottomOffset = CGPoint(x: 0, y: self.contentSize.height - self.bounds.size.height)
-        self.setContentOffset(bottomOffset, animated: animated)
-    }
 }

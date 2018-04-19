@@ -15,7 +15,7 @@ class TransferStepView: UIView {
     @IBOutlet weak var directionLabel: UILabel!
     @IBOutlet weak var timeLabel: UILabel!
     
-    var _type: TypeTransport?
+    var _mode: ModeTransport?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -57,13 +57,13 @@ class TransferStepView: UIView {
 
 extension TransferStepView {
     
-    var typeString: String? {
+    var modeString: String? {
         get {
-            return _type?.rawValue
+            return _mode?.rawValue
         }
         set {
             if let newValue = newValue {
-                _type = TypeTransport(rawValue: newValue)
+                _mode = ModeTransport(rawValue: newValue)
                 icon = newValue
             }
         }
@@ -75,8 +75,8 @@ extension TransferStepView {
         }
         set {
             if let newValue = newValue {
-                iconLabel.text = Icon(newValue).iconFontCode
-                iconLabel.font = UIFont(name: "SDKIcons", size: 20)
+                iconLabel.attributedText = NSMutableAttributedString()
+                    .icon(newValue, size: 20)
             }
         }
     }
@@ -103,21 +103,21 @@ extension TransferStepView {
         }
         set {
             if let newValue = newValue {
-                var duration = newValue + " " + "units_minutes".localized(withComment: "units_minutes", bundle: NavitiaSDKUIConfig.shared.bundle)
+                var duration = newValue + " " + "units_minutes".localized(withComment: "minutes", bundle: NavitiaSDKUIConfig.shared.bundle)
                 if newValue == "1" {
-                    duration = newValue + " " + "units_minute".localized(withComment: "units_minute", bundle: NavitiaSDKUIConfig.shared.bundle)
+                    duration = newValue + " " + "units_minute".localized(withComment: "minute", bundle: NavitiaSDKUIConfig.shared.bundle)
                 } else if newValue == "0" {
-                    duration = "less_than_a".localized(withComment: "less_than_a", bundle: NavitiaSDKUIConfig.shared.bundle) + " " + "units_minute".localized(withComment: "units_minute", bundle: NavitiaSDKUIConfig.shared.bundle)
+                    duration = "less_than_a".localized(withComment: "less than a", bundle: NavitiaSDKUIConfig.shared.bundle) + " " + "units_minute".localized(withComment: "minute", bundle: NavitiaSDKUIConfig.shared.bundle)
                 }
                 var template = ""
-                if let type = _type {
-                    switch type {
+                if let mode = _mode {
+                    switch mode {
                     case .walking:
-                        template = "a_time_walk".localized(withComment: "a_time_walk", bundle: NavitiaSDKUIConfig.shared.bundle)
+                        template = "a_time_walk".localized(withComment: "A time walk", bundle: NavitiaSDKUIConfig.shared.bundle)
                     case .car:
-                        template = "a_time_drive".localized(withComment: "a_time_drive", bundle: NavitiaSDKUIConfig.shared.bundle)
+                        template = "a_time_drive".localized(withComment: "A time drive", bundle: NavitiaSDKUIConfig.shared.bundle)
                     case .bike:
-                        template = "a_time_ride".localized(withComment: "a_time_ride", bundle: NavitiaSDKUIConfig.shared.bundle)
+                        template = "a_time_ride".localized(withComment: "A time ride", bundle: NavitiaSDKUIConfig.shared.bundle)
                     default:
                         break
                     }

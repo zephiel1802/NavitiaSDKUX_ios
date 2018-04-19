@@ -17,13 +17,12 @@ open class JourneySolutionRidesharingViewController: UIViewController {
     
     override open func viewDidLoad() {
         super.viewDidLoad()
-
         title = "carpooling".localized(withComment: "Carpooling", bundle: NavitiaSDKUIConfig.shared.bundle)
+        
+        _registerCollectionView()
         if let journey = journey {
             journeySolutionRoadmap.setDataRidesharing(journey)
         }
-        collectionView.register(UINib(nibName: JourneyRidesharingCollectionViewCell.identifier, bundle: self.nibBundle), forCellWithReuseIdentifier: JourneyRidesharingCollectionViewCell.identifier)
-        // Do any additional setup after loading the view.
     }
 
     override open func didReceiveMemoryWarning() {
@@ -40,11 +39,15 @@ open class JourneySolutionRidesharingViewController: UIViewController {
         return String(describing: self)
     }
     
+    private func _registerCollectionView() {
+        collectionView.register(UINib(nibName: JourneyRidesharingCollectionViewCell.identifier, bundle: self.nibBundle), forCellWithReuseIdentifier: JourneyRidesharingCollectionViewCell.identifier)
+    }
+    
     func getRidesharingCount() -> Int {
         if let sections = journey?.sections {
             for section in sections {
                 if let mode = section.mode {
-                    if mode == "ridesharing" {
+                    if mode == ModeTransport.ridesharing.rawValue {
                         ridesharingJourneys = section.ridesharingJourneys
                         return section.ridesharingJourneys?.count ?? 0
                     }
@@ -69,7 +72,6 @@ extension JourneySolutionRidesharingViewController: UICollectionViewDataSource {
     public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: JourneyRidesharingCollectionViewCell.identifier, for: indexPath) as? JourneyRidesharingCollectionViewCell {
             if let ridesharingJourneys = ridesharingJourneys {
-                cell.title = ridesharingJourneys[indexPath.row].sections?[1].ridesharingInformations?._operator ?? ""
                 cell.title = ridesharingJourneys[indexPath.row].sections?[1].ridesharingInformations?._operator ?? ""
                 cell.startDate = ridesharingJourneys[indexPath.row].sections?[1].departureDateTime?.toDate(format: FormatConfiguration.date)?.toString(format: FormatConfiguration.timeRidesharing) ?? ""
                 cell.login = ridesharingJourneys[indexPath.row].sections?[1].ridesharingInformations?.driver?.alias ?? ""

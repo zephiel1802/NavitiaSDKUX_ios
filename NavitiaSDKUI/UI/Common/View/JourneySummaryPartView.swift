@@ -40,18 +40,19 @@ class JourneySummaryPartView: UIView {
     }
     
     private func _setupDisruption() {
-        _circleLabel.text = Icon("circle-filled").iconFontCode
-        _circleLabel.textColor = UIColor.white
-        _circleLabel.font = UIFont(name: "SDKIcons", size: 15)
+        _circleLabel.attributedText = NSMutableAttributedString()
+            .icon("circle-filled",
+                  color: UIColor.white,
+                  size: 15)
         _circleLabel.isHidden = true
-        
-        _disruptionLabel.textColor = UIColor.red
-        _disruptionLabel.font = UIFont(name: "SDKIcons", size: 14)
         _disruptionLabel.isHidden = true
     }
     
     func displayDisruption(_ iconName: String) {
-        _disruptionLabel.text = Icon(iconName).iconFontCode
+        _disruptionLabel.attributedText = NSMutableAttributedString()
+            .icon(iconName,
+                  color: UIColor.red,
+                  size: 14)
         _disruptionLabel.isHidden = false
         _circleLabel.isHidden = false
     }
@@ -85,12 +86,15 @@ extension JourneySummaryPartView {
         }
         set {
             if let newValue = newValue {
-                if newValue == "walking" || newValue == "bss" || newValue == "car" || newValue == "ridesharing" {
+                if newValue == ModeTransport.walking.rawValue ||
+                newValue == ModeTransport.bss.rawValue ||
+                newValue == ModeTransport.car.rawValue ||
+                newValue == ModeTransport.ridesharing.rawValue {
                     _tagTransportView.isHidden = true
                     _tagTransportLabel.isHidden = true
                 }
-                transportLabel.text = Icon(newValue).iconFontCode
-                transportLabel.font = UIFont(name: "SDKIcons", size: 20)
+                transportLabel.attributedText = NSMutableAttributedString()
+                    .icon(newValue, size: 20)
             }
         }
     }

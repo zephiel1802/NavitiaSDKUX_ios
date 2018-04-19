@@ -51,9 +51,10 @@ class DepartureArrivalStepView: UIView {
     }
     
     private func _setupIcon() {
-        iconLabel.text = Icon("location-pin").iconFontCode
-        iconLabel.font = UIFont(name: "SDKIcons", size: 22)
-        iconLabel.textColor = UIColor.white
+        iconLabel.attributedText = NSMutableAttributedString()
+            .icon("location-pin",
+                  color:UIColor.white,
+                  size: 22)
     }
     
 }
@@ -68,10 +69,10 @@ extension DepartureArrivalStepView {
             _type = newValue
             if newValue == .departure {
                 self._view.backgroundColor = NavitiaSDKUIConfig.shared.color.origin
-                title = "departure".localized(withComment: "departure", bundle: NavitiaSDKUIConfig.shared.bundle) + ":"
+                title = "departure".localized(withComment: "Départure:", bundle: NavitiaSDKUIConfig.shared.bundle) + ":"
             } else {
                 self._view.backgroundColor = NavitiaSDKUIConfig.shared.color.destination
-                title = "arrival".localized(withComment: "arrival", bundle: NavitiaSDKUIConfig.shared.bundle) + ":"
+                title = "arrival".localized(withComment: "Arrival:", bundle: NavitiaSDKUIConfig.shared.bundle) + ":"
             }
         }
     }

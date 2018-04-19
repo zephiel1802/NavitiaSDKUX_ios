@@ -7,21 +7,6 @@
 
 import UIKit
 
-extension UIStackView {
-    
-    func removeAllArrangedSubviews() {
-        
-        let removedSubviews = arrangedSubviews.reduce([]) { (allSubviews, subview) -> [UIView] in
-            self.removeArrangedSubview(subview)
-            return allSubviews + [subview]
-        }
-        
-        NSLayoutConstraint.deactivate(removedSubviews.flatMap({ $0.constraints }))
-        
-        removedSubviews.forEach({ $0.removeFromSuperview() })
-    }
-}
-
 class JourneySummaryView: UIView {
 
     @IBOutlet weak var _view: UIView!
@@ -57,7 +42,7 @@ class JourneySummaryView: UIView {
         for section in sections {
             if validDisplaySection(section) {
                 if let duration = section.duration {
-                    if section.mode == "walking" && duration <= 180 {
+                    if section.mode == ModeTransport.walking.rawValue && duration <= 180 {
                         continue
                     }
                     let journeySummaryPartView = JourneySummaryPartView()
@@ -82,14 +67,14 @@ class JourneySummaryView: UIView {
         _stackView.distribution = .fillProportionally
         _stackView.translatesAutoresizingMaskIntoConstraints = false
     }
-
+    
     private func validDisplaySection(_ section: Section) -> Bool {
-        if section.type == "street_network" && section.mode == "walking" ||
-            section.type != "transfer" &&
-            section.type != "waiting" &&
-            section.type != "leave_parking" &&
-            section.type != "bss_rent" &&
-            section.type != "bss_put_back" {
+        if section.type == TypeTransport.streetNetwork.rawValue && section.mode == ModeTransport.walking.rawValue ||
+            section.type != TypeTransport.transfer.rawValue &&
+            section.type != TypeTransport.waiting.rawValue &&
+            section.type != TypeTransport.leaveParking.rawValue &&
+            section.type != TypeTransport.bssRent.rawValue &&
+            section.type != TypeTransport.bssPutBack.rawValue {
             return true
         }
         return false

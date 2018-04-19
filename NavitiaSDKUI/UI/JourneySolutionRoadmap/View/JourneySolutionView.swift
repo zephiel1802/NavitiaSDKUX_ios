@@ -52,7 +52,7 @@ class JourneySolutionView: UIView {
         if let durationWalkingStr = journey.durations?.walking?.toStringTime(),
             let distanceWalking = journey.distances?.walking {
             if distanceWalking > 999 {
-                formattedDurationWalker(durationWalkingStr, distanceWalking.toString(format: "%.01f"), "units_km".localized(withComment: "units_km", bundle: NavitiaSDKUIConfig.shared.bundle))
+                formattedDurationWalker(durationWalkingStr, distanceWalking.toString(format: "%.01f"), "units_km".localized(withComment: "km", bundle: NavitiaSDKUIConfig.shared.bundle))
             } else {
                 formattedDurationWalker(durationWalkingStr, distanceWalking.toString())
             }
@@ -97,7 +97,7 @@ class JourneySolutionView: UIView {
     
     private func formattedDurationWalker(_ durationWalking: String,
                                          _ distanceWalking: String,
-                                         _ unitDistance: String = "units_meters".localized(withComment: "units_meters", bundle: NavitiaSDKUIConfig.shared.bundle)) {
+                                         _ unitDistance: String = "units_meters".localized(withComment: "meters", bundle: NavitiaSDKUIConfig.shared.bundle)) {
         
         durationWalker = NSMutableAttributedString()
             .normal(String(format: "%@ ",

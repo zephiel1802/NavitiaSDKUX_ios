@@ -66,7 +66,10 @@ open class JourneySolutionViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    override open func viewDidLayoutSubviews() {}
+    override open func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        collectionView.collectionViewLayout.invalidateLayout()
+    }
     
     private func _registerCollectionView() {
         collectionView.register(UINib(nibName: JourneySolutionCollectionViewCell.identifier, bundle: self.nibBundle), forCellWithReuseIdentifier: JourneySolutionCollectionViewCell.identifier)

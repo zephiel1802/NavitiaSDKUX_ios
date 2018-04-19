@@ -15,18 +15,18 @@ class BikeStepView: UIView {
     @IBOutlet weak var takeLabel: UILabel!
     @IBOutlet weak var timeLabel: UILabel!
     
-    var _type: TypeTransport?
+    var _mode: ModeTransport?
     
     var takeName: String = "" {
         didSet {
-            var typeString = ""
-            if let type = _type {
-                typeString = type.rawValue + " "
+            var modeString = ""
+            if let mode = _mode {
+                modeString = mode.rawValue + " "
             }
             takeLabel.attributedText = NSMutableAttributedString()
                 .normal("take_the".localized(withComment: "take_the", bundle: NavitiaSDKUIConfig.shared.bundle), size: 15)
                 .normal(" ", size: 15)
-                .normal(typeString, size: 15)
+                .normal(modeString, size: 15)
                 .normal(takeName, size: 15)
                 .normal(" ", size: 15)
                 .normal("at".localized(withComment: "at", bundle: NavitiaSDKUIConfig.shared.bundle), size: 15)
@@ -42,14 +42,14 @@ class BikeStepView: UIView {
     }
     var origin: String = "" {
         didSet {
-            var typeString = ""
-            if let type = _type {
-                typeString = type.rawValue + " "
+            var modeString = ""
+            if let mode = _mode {
+                modeString = mode.rawValue + " "
             }
             takeLabel.attributedText = NSMutableAttributedString()
                 .normal("take_the".localized(withComment: "take_the", bundle: NavitiaSDKUIConfig.shared.bundle), size: 15)
                 .normal(" ", size: 15)
-                .normal(typeString, size: 15)
+                .normal(modeString, size: 15)
                 .normal(takeName, size: 15)
                 .normal(" ", size: 15)
                 .normal("at".localized(withComment: "at", bundle: NavitiaSDKUIConfig.shared.bundle), size: 15)
@@ -65,14 +65,14 @@ class BikeStepView: UIView {
     }
     var destination: String = "" {
         didSet {
-            var typeString = ""
-            if let type = _type {
-                typeString = type.rawValue + " "
+            var modeString = ""
+            if let mode = _mode {
+                modeString = mode.rawValue + " "
             }
             takeLabel.attributedText = NSMutableAttributedString()
                 .normal("take_the".localized(withComment: "take_the", bundle: NavitiaSDKUIConfig.shared.bundle), size: 15)
                 .normal(" ", size: 15)
-                .normal(typeString, size: 15)
+                .normal(modeString, size: 15)
                 .normal(takeName, size: 15)
                 .normal(" ", size: 15)
                 .normal("at".localized(withComment: "at", bundle: NavitiaSDKUIConfig.shared.bundle), size: 15)
@@ -125,25 +125,25 @@ class BikeStepView: UIView {
 
 extension BikeStepView {
     
-    var type: TypeTransport? {
+    var mode: ModeTransport? {
         get {
-            return _type
+            return _mode
         }
         set {
-            if let type = newValue {
-                _type = type
-                icon = type.rawValue
+            if let mode = newValue {
+                _mode = mode
+                icon = mode.rawValue
             }
         }
     }
     
-    var typeString: String? {
+    var modeString: String? {
         get {
-            return _type?.rawValue
+            return _mode?.rawValue
         }
         set {
             if let newValue = newValue {
-                _type = TypeTransport(rawValue: newValue)
+                _mode = ModeTransport(rawValue: newValue)
                 icon = newValue
             }
         }
@@ -155,8 +155,8 @@ extension BikeStepView {
         }
         set {
             if let newValue = newValue {
-                iconLabel.text = Icon(newValue).iconFontCode
-                iconLabel.font = UIFont(name: "SDKIcons", size: 20)
+                iconLabel.attributedText = NSMutableAttributedString()
+                    .icon(newValue, size: 20)
             }
         }
     }
@@ -167,23 +167,23 @@ extension BikeStepView {
         }
         set {
             if let newValue = newValue {
-                var duration = newValue + " " + "units_minutes".localized(withComment: "units_minutes", bundle: NavitiaSDKUIConfig.shared.bundle)
+                var duration = newValue + " " + "units_minutes".localized(withComment: "minutes", bundle: NavitiaSDKUIConfig.shared.bundle)
                 if time == "1" {
-                    duration = newValue + " " + "unit_minutes".localized(withComment: "unit_minutes", bundle: NavitiaSDKUIConfig.shared.bundle)
+                    duration = newValue + " " + "unit_minutes".localized(withComment: "minute", bundle: NavitiaSDKUIConfig.shared.bundle)
                 }
                 var template = ""
-                if let type = _type {
-                    switch type {
+                if let mode = _mode {
+                    switch mode {
                     case .walking:
-                        template = "a_time_walk".localized(withComment: "a_time_walk", bundle: NavitiaSDKUIConfig.shared.bundle)
+                        template = "a_time_walk".localized(withComment: "A time walk", bundle: NavitiaSDKUIConfig.shared.bundle)
                     case .car:
-                        template = "a_time_drive".localized(withComment: "a_time_drive", bundle: NavitiaSDKUIConfig.shared.bundle)
+                        template = "a_time_drive".localized(withComment: "A time drive", bundle: NavitiaSDKUIConfig.shared.bundle)
                     case .ridesharing:
-                        template = "a_time_drive".localized(withComment: "a_time_drive", bundle: NavitiaSDKUIConfig.shared.bundle)
+                        template = "a_time_drive".localized(withComment: "A time drive", bundle: NavitiaSDKUIConfig.shared.bundle)
                     case .bike:
-                        template = "a_time_ride".localized(withComment: "a_time_ride", bundle: NavitiaSDKUIConfig.shared.bundle)
+                        template = "a_time_ride".localized(withComment: "A time ride", bundle: NavitiaSDKUIConfig.shared.bundle)
                     case .bss:
-                        template = "a_time_ride".localized(withComment: "a_time_ride", bundle: NavitiaSDKUIConfig.shared.bundle)
+                        template = "a_time_ride".localized(withComment: "A time ride", bundle: NavitiaSDKUIConfig.shared.bundle)
                     default:
                         break
                     }

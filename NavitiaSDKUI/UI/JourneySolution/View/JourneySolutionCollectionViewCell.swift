@@ -66,9 +66,10 @@ class JourneySolutionCollectionViewCell: UICollectionViewCell {
     }
     
     private func _setupArrowIcon() {
-        arrowLabel.text = Icon("arrow-right").iconFontCode
-        arrowLabel.textColor = NavitiaSDKUIConfig.shared.color.tertiary
-        arrowLabel.font = UIFont(name: "SDKIcons", size: 15)
+        arrowLabel.attributedText = NSMutableAttributedString()
+            .icon("arrow-right",
+                  color: NavitiaSDKUIConfig.shared.color.tertiary,
+                  size: 15)
     }
     
     private func formattedDateTime(_ departureDateTime: Date,_ arrivalDateTime: Date) {
@@ -87,7 +88,7 @@ class JourneySolutionCollectionViewCell: UICollectionViewCell {
     
     private func formattedDurationWalker(_ durationWalking: String,
                                          _ distanceWalking: String,
-                                         _ unitDistance: String = "units_meters".localized(withComment: "units_meters", bundle: NavitiaSDKUIConfig.shared.bundle)) {
+                                         _ unitDistance: String = "units_meters".localized(withComment: "meters", bundle: NavitiaSDKUIConfig.shared.bundle)) {
         
         durationWalker = NSMutableAttributedString()
             .normal(String(format: "%@ ",
