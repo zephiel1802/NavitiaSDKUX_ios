@@ -58,7 +58,7 @@ class CustomAnnotation: MKPointAnnotation {
                 
                 annotationPin.attributedText = NSMutableAttributedString()
                     .icon("location-pin",
-                          color: self.placeType == .Departure ? NavitiaSDKUIConfig.shared.color.origin : NavitiaSDKUIConfig.shared.color.destination,
+                          color: self.placeType == .Departure ? Configuration.Color.origin : Configuration.Color.destination,
                           size: 26)
                 annotationView.addSubview(annotationPin)
             }

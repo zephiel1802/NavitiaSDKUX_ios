@@ -68,7 +68,7 @@ class JourneySolutionCollectionViewCell: UICollectionViewCell {
     private func _setupArrowIcon() {
         arrowLabel.attributedText = NSMutableAttributedString()
             .icon("arrow-right",
-                  color: NavitiaSDKUIConfig.shared.color.tertiary,
+                  color: Configuration.Color.tertiary,
                   size: 15)
     }
     
@@ -81,7 +81,7 @@ class JourneySolutionCollectionViewCell: UICollectionViewCell {
     
     private func formattedDuration(prefix: String = "", _ duration: Int32) {
         let formattedStringDuration = NSMutableAttributedString()
-            .semiBold(prefix, color: NavitiaSDKUIConfig.shared.color.tertiary)
+            .semiBold(prefix, color: Configuration.Color.tertiary)
         formattedStringDuration.append(duration.toAttributedStringTime(sizeBold: 14, sizeNormal: 10.5))
         self.duration = formattedStringDuration
     }
@@ -93,13 +93,13 @@ class JourneySolutionCollectionViewCell: UICollectionViewCell {
         durationWalker = NSMutableAttributedString()
             .normal(String(format: "%@ ",
                            "with".localized(withComment: "with", bundle: NavitiaSDKUIConfig.shared.bundle)),
-                    color: NavitiaSDKUIConfig.shared.color.gray)
-            .bold(durationWalking, color: NavitiaSDKUIConfig.shared.color.gray)
+                    color: Configuration.Color.gray)
+            .bold(durationWalking, color: Configuration.Color.gray)
             .normal(String(format: " %@ (%@ %@)",
                            "walking".localized(withComment: "walking", bundle: NavitiaSDKUIConfig.shared.bundle),
                            distanceWalking,
                            unitDistance),
-                    color: NavitiaSDKUIConfig.shared.color.gray)
+                    color: Configuration.Color.gray)
     }
     
     override func awakeFromNib() {

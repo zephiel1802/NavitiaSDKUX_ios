@@ -40,7 +40,7 @@ class JourneyPathOverlays {
                         sectionPolyline.sectionStrokeColor = section.displayInformations?.color?.toUIColor()
                     } else if section.type == TypeTransport.streetNetwork.rawValue || section.type == TypeTransport.transfer.rawValue {
                         sectionPolyline.sectionLineWidth = 4
-                        sectionPolyline.sectionStrokeColor = NavitiaSDKUIConfig.shared.color.gray
+                        sectionPolyline.sectionStrokeColor = Configuration.Color.gray
                         if section.mode == ModeTransport.walking.rawValue {
                             sectionPolyline.sectionLineDashPattern = [0.01, NSNumber(value: Float(2 * sectionPolyline.sectionLineWidth))]
                             sectionPolyline.sectionLineCap = CGLineCap.round

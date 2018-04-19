@@ -55,7 +55,7 @@ class JourneySolutionView: UIView {
         aboutLabel.isHidden = false
         durationCenterContraint.constant = 7
         aboutLabel.attributedText = NSMutableAttributedString()
-            .semiBold("about".localized(withComment: "about", bundle: NavitiaSDKUIConfig.shared.bundle), color: NavitiaSDKUIConfig.shared.color.tertiary)
+            .semiBold("about".localized(withComment: "about", bundle: NavitiaSDKUIConfig.shared.bundle), color: Configuration.Color.tertiary)
         
         if let durationInt = journey.duration {
             formattedDuration(durationInt)
@@ -71,7 +71,7 @@ class JourneySolutionView: UIView {
     
     private func formattedDuration(prefix: String = "", _ duration: Int32) {
         let formattedStringDuration = NSMutableAttributedString()
-            .semiBold(prefix, color: NavitiaSDKUIConfig.shared.color.tertiary)
+            .semiBold(prefix, color: Configuration.Color.tertiary)
         formattedStringDuration.append(duration.toAttributedStringTime(sizeBold: 14, sizeNormal: 10.5))
         self.duration = formattedStringDuration
     }

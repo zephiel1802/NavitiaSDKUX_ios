@@ -82,15 +82,15 @@ open class JourneySolutionViewController: UIViewController {
     private func _setupInterface() {
         navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarPosition.any, barMetrics: UIBarMetrics.default)
         navigationController?.navigationBar.shadowImage = UIImage()
-        navigationController?.navigationBar.barTintColor = NavitiaSDKUIConfig.shared.color.tertiary
+        navigationController?.navigationBar.barTintColor = Configuration.Color.tertiary
         
         fromLabel.text = inParameters.originLabel ?? inParameters.originId
         fromPinLabel.attributedText = NSMutableAttributedString()
-            .icon("location-pin", color: NavitiaSDKUIConfig.shared.color.origin, size: 22)
+            .icon("location-pin", color: Configuration.Color.origin, size: 22)
         
         toLabel.text = inParameters.destinationLabel ?? inParameters.destinationId
         toPinLabel.attributedText = NSMutableAttributedString()
-            .icon("location-pin", color: NavitiaSDKUIConfig.shared.color.destination, size: 22)
+            .icon("location-pin", color: Configuration.Color.destination, size: 22)
         
         if let backgroundColor = navigationController?.navigationBar.barTintColor {
             searchView.backgroundColor = backgroundColor

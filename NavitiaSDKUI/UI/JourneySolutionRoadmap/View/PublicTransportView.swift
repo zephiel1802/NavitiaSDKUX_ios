@@ -311,13 +311,13 @@ extension PublicTransportView {
                     unit = "units_minute".localized(withComment: "minute", bundle: NavitiaSDKUIConfig.shared.bundle)
                 }
                 waitIconLabel.attributedText = NSMutableAttributedString()
-                    .icon("clock", color: NavitiaSDKUIConfig.shared.color.gray, size: 15)
+                    .icon("clock", color: Configuration.Color.gray, size: 15)
                 waitTimeLabel.attributedText = NSMutableAttributedString()
-                    .normal("wait".localized(withComment: "wait", bundle: NavitiaSDKUIConfig.shared.bundle), color: NavitiaSDKUIConfig.shared.color.gray, size: 12)
-                    .normal(" ", color: NavitiaSDKUIConfig.shared.color.gray, size: 12)
-                    .normal(newValue, color: NavitiaSDKUIConfig.shared.color.gray, size: 12)
-                    .normal(" ", color: NavitiaSDKUIConfig.shared.color.gray, size: 12)
-                    .normal(unit, color: NavitiaSDKUIConfig.shared.color.gray, size: 12)
+                    .normal("wait".localized(withComment: "wait", bundle: NavitiaSDKUIConfig.shared.bundle), color: Configuration.Color.gray, size: 12)
+                    .normal(" ", color: Configuration.Color.gray, size: 12)
+                    .normal(newValue, color: Configuration.Color.gray, size: 12)
+                    .normal(" ", color: Configuration.Color.gray, size: 12)
+                    .normal(unit, color: Configuration.Color.gray, size: 12)
                 waitIsHidden = false
             }
         }
@@ -410,9 +410,9 @@ extension PublicTransportView {
                     .normal(String(format: "%@ %@ ",
                                    String(stations.count),
                                    "stops".localized(withComment: "stops", bundle: NavitiaSDKUIConfig.shared.bundle)),
-                            color: NavitiaSDKUIConfig.shared.color.gray,
+                            color: Configuration.Color.gray,
                             size: 13)
-                    .icon("arrow-details-down", color: NavitiaSDKUIConfig.shared.color.gray, size: 13)
+                    .icon("arrow-details-down", color: Configuration.Color.gray, size: 13)
                     ,for: .normal)
                 frame.size.height -= stationsView.frame.size.height
             } else {
@@ -423,9 +423,9 @@ extension PublicTransportView {
                     .normal(String(format: "%@ %@ ",
                                    String(stations.count),
                                    "stops".localized(withComment: "stops", bundle: NavitiaSDKUIConfig.shared.bundle)),
-                            color: NavitiaSDKUIConfig.shared.color.gray,
+                            color: Configuration.Color.gray,
                             size: 13)
-                    .icon("arrow-details-up", color: NavitiaSDKUIConfig.shared.color.gray, size: 13)
+                    .icon("arrow-details-up", color: Configuration.Color.gray, size: 13)
                     ,for: .normal)
                 frame.size.height += stationsView.frame.size.height
             }

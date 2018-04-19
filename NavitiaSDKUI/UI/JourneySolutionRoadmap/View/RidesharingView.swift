@@ -64,7 +64,7 @@ class RidesharingView: UIView {
                 template = "rating".localized(withComment: "rating", bundle: NavitiaSDKUIConfig.shared.bundle)
             }
             notationLabel.attributedText = NSMutableAttributedString()
-                .normal(String(format: template, count), color: NavitiaSDKUIConfig.shared.color.gray, size: 10)
+                .normal(String(format: template, count), color: Configuration.Color.gray, size: 10)
         }
     }
     
@@ -133,9 +133,9 @@ extension RidesharingView {
         set {
             if let newValue = newValue {
                 startLabel.attributedText = NSMutableAttributedString()
-                    .semiBold("departure".localized(withComment: "Departure: ", bundle: NavitiaSDKUIConfig.shared.bundle), color: NavitiaSDKUIConfig.shared.color.tertiary, size: 8.5)
-                    .semiBold(": ", color: NavitiaSDKUIConfig.shared.color.tertiary, size: 8.5)
-                    .bold(newValue, color: NavitiaSDKUIConfig.shared.color.tertiary, size: 14)
+                    .semiBold("departure".localized(withComment: "Departure: ", bundle: NavitiaSDKUIConfig.shared.bundle), color: Configuration.Color.tertiary, size: 8.5)
+                    .semiBold(": ", color: Configuration.Color.tertiary, size: 8.5)
+                    .bold(newValue, color: Configuration.Color.tertiary, size: 14)
             }
         }
     }
@@ -162,7 +162,7 @@ extension RidesharingView {
                     genderLabel.text = ""
                 } else {
                     genderLabel.attributedText = NSMutableAttributedString()
-                        .normal(String(format: "(%@)", newValue), color: NavitiaSDKUIConfig.shared.color.gray, size: 12)
+                        .normal(String(format: "(%@)", newValue), color: Configuration.Color.gray, size: 12)
                 }
             }
         }
@@ -175,7 +175,7 @@ extension RidesharingView {
         set {
             if let newValue = newValue {
                 addressFromLabel.attributedText = NSMutableAttributedString()
-                    .normal(newValue, color: NavitiaSDKUIConfig.shared.color.gray, size: 11)
+                    .normal(newValue, color: Configuration.Color.gray, size: 11)
             }
         }
     }
@@ -187,7 +187,7 @@ extension RidesharingView {
         set {
             if let newValue = newValue {
                 addressToLabel.attributedText = NSMutableAttributedString()
-                    .normal(newValue, color: NavitiaSDKUIConfig.shared.color.gray, size: 11)
+                    .normal(newValue, color: Configuration.Color.gray, size: 11)
             }
         }
     }
@@ -200,14 +200,14 @@ extension RidesharingView {
             if let newValue = newValue {
                 if newValue == "0.0" {
                     priceLabel.attributedText = NSMutableAttributedString()
-                        .normal("free".localized(withComment: "Free", bundle: NavitiaSDKUIConfig.shared.bundle), color: NavitiaSDKUIConfig.shared.color.orange,size: 10)
+                        .normal("free".localized(withComment: "Free", bundle: NavitiaSDKUIConfig.shared.bundle), color: Configuration.Color.orange,size: 10)
                 } else {
                     priceLabel.attributedText = NSMutableAttributedString()
-                        .normal(newValue, color: NavitiaSDKUIConfig.shared.color.orange, size: 10)
+                        .normal(newValue, color: Configuration.Color.orange, size: 10)
                 }
             } else {
                 priceLabel.attributedText = NSMutableAttributedString()
-                    .normal("price_not_available".localized(withComment: "Price not available", bundle: NavitiaSDKUIConfig.shared.bundle), color: NavitiaSDKUIConfig.shared.color.orange,size: 10)
+                    .normal("price_not_available".localized(withComment: "Price not available", bundle: NavitiaSDKUIConfig.shared.bundle), color: Configuration.Color.orange,size: 10)
             }
         }
     }
