@@ -213,18 +213,18 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Obq-V9-UMS">
-                                <rect key="frame" x="0.0" y="88" width="375" height="107"/>
+                                <rect key="frame" x="0.0" y="88" width="375" height="60"/>
                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Uaw-W9-Vea" customClass="JourneySolutionView" customModule="NavitiaSDKUI" customModuleProvider="target">
-                                <rect key="frame" x="10" y="98" width="355" height="97"/>
+                                <rect key="frame" x="0.0" y="88" width="375" height="60"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="97" id="osK-jC-DkT"/>
+                                    <constraint firstAttribute="height" constant="60" id="osK-jC-DkT"/>
                                 </constraints>
                             </view>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="i53-B1-z3B">
-                                <rect key="frame" x="0.0" y="195" width="375" height="617"/>
+                                <rect key="frame" x="0.0" y="148" width="375" height="664"/>
                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="TGz-QI-Lon">
                                     <size key="itemSize" width="0.0" height="0.0"/>
@@ -241,11 +241,11 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="Uaw-W9-Vea" firstAttribute="leading" secondItem="hDI-dy-l1R" secondAttribute="leading" constant="10" id="0Ts-Yj-Ll4"/>
-                            <constraint firstItem="Uaw-W9-Vea" firstAttribute="top" secondItem="hDI-dy-l1R" secondAttribute="top" constant="10" id="0j4-Ba-fFR"/>
+                            <constraint firstItem="Uaw-W9-Vea" firstAttribute="leading" secondItem="hDI-dy-l1R" secondAttribute="leading" id="0Ts-Yj-Ll4"/>
+                            <constraint firstItem="Uaw-W9-Vea" firstAttribute="top" secondItem="hDI-dy-l1R" secondAttribute="top" id="0j4-Ba-fFR"/>
                             <constraint firstItem="i53-B1-z3B" firstAttribute="leading" secondItem="fhA-0v-Uex" secondAttribute="leading" id="Eqq-Jr-dBq"/>
                             <constraint firstAttribute="trailing" secondItem="i53-B1-z3B" secondAttribute="trailing" id="Gj3-yq-pof"/>
-                            <constraint firstItem="hDI-dy-l1R" firstAttribute="trailing" secondItem="Uaw-W9-Vea" secondAttribute="trailing" constant="10" id="IV2-c4-dov"/>
+                            <constraint firstItem="hDI-dy-l1R" firstAttribute="trailing" secondItem="Uaw-W9-Vea" secondAttribute="trailing" id="IV2-c4-dov"/>
                             <constraint firstItem="Obq-V9-UMS" firstAttribute="leading" secondItem="fhA-0v-Uex" secondAttribute="leading" id="Ren-6j-KUI"/>
                             <constraint firstAttribute="trailing" secondItem="Obq-V9-UMS" secondAttribute="trailing" id="dUV-KF-oOk"/>
                             <constraint firstItem="Obq-V9-UMS" firstAttribute="top" secondItem="hDI-dy-l1R" secondAttribute="top" id="jkp-BA-w9e"/>

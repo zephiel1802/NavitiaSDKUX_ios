@@ -20,7 +20,7 @@ extension Int32 {
         return String(format: "%1d min", minutes)
     }
     
-    func toAttributedStringTime() -> NSMutableAttributedString {
+    func toAttributedStringTime(sizeBold: CGFloat = 12.0, sizeNormal: CGFloat = 12.0) -> NSMutableAttributedString {
         let minutes = (self / 60) % 60
         let hours = (self / 3600)
         
@@ -29,8 +29,8 @@ extension Int32 {
                 .bold("%1dh%02d", color: NavitiaSDKUIConfig.shared.color.tertiary)
         }
         return NSMutableAttributedString()
-            .bold(String(format: "%1d", minutes), color: NavitiaSDKUIConfig.shared.color.tertiary)
-            .normal(" min", color: NavitiaSDKUIConfig.shared.color.tertiary)
+            .bold(String(format: "%1d", minutes), color: NavitiaSDKUIConfig.shared.color.tertiary, size: sizeBold)
+            .normal(" min", color: NavitiaSDKUIConfig.shared.color.tertiary, size: sizeNormal)
     }
     
     func toString() -> String {

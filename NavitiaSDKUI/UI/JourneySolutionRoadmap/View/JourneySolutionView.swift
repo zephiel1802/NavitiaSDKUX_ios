@@ -11,14 +11,13 @@ class JourneySolutionView: UIView {
     
     @IBOutlet var _view: UIView!
     
-    @IBOutlet weak var dateTimeLabel: UILabel!
+ //   @IBOutlet weak var dateTimeLabel: UILabel!
+    @IBOutlet weak var aboutLabel: UILabel!
     @IBOutlet weak var durationLabel: UILabel!
+    @IBOutlet weak var durationCenterContraint: NSLayoutConstraint!
     @IBOutlet weak var journeySummaryView: JourneySummaryView!
     @IBOutlet weak var durationWalkerLabel: UILabel!
     
-    @IBOutlet weak var durationTopContraint: NSLayoutConstraint!
-    @IBOutlet weak var durationBottomContraint: NSLayoutConstraint!
-    @IBOutlet weak var durationLeadingContraint: NSLayoutConstraint!
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -42,20 +41,10 @@ class JourneySolutionView: UIView {
     }
 
     func setData(_ journey: Journey) {
-        if let departureDateTime = journey.departureDateTime?.toDate(format: Configuration.date),
-            let arrivalDateTime = journey.arrivalDateTime?.toDate(format: Configuration.date) {
-            formattedDateTime(departureDateTime, arrivalDateTime)
-        }
+        aboutLabel.isHidden = true
+        durationCenterContraint.constant = 0
         if let durationInt = journey.duration {
             formattedDuration(durationInt)
-        }
-        if let durationWalkingStr = journey.durations?.walking?.toStringTime(),
-            let distanceWalking = journey.distances?.walking {
-            if distanceWalking > 999 {
-                formattedDurationWalker(durationWalkingStr, distanceWalking.toString(format: "%.01f"), "units_km".localized(withComment: "km", bundle: NavitiaSDKUIConfig.shared.bundle))
-            } else {
-                formattedDurationWalker(durationWalkingStr, distanceWalking.toString())
-            }
         }
         if let sections = journey.sections {
             journeySummaryView.addSections(sections)
@@ -63,12 +52,13 @@ class JourneySolutionView: UIView {
     }
     
     func setDataRidesharing(_ journey: Journey) {
-        if let departureDateTime = journey.departureDateTime?.toDate(format: Configuration.date),
-            let arrivalDateTime = journey.arrivalDateTime?.toDate(format: Configuration.date) {
-            formattedDateTime(departureDateTime, arrivalDateTime)
-        }
+        aboutLabel.isHidden = false
+        durationCenterContraint.constant = 7
+        aboutLabel.attributedText = NSMutableAttributedString()
+            .semiBold("about".localized(withComment: "about", bundle: NavitiaSDKUIConfig.shared.bundle), color: NavitiaSDKUIConfig.shared.color.tertiary)
+        
         if let durationInt = journey.duration {
-            formattedDuration(prefix: "about".localized(withComment: "about", bundle: NavitiaSDKUIConfig.shared.bundle) + " ", durationInt)
+            formattedDuration(durationInt)
         }
         if let sections = journey.sections {
             journeySummaryView.addSections(sections)
@@ -76,39 +66,14 @@ class JourneySolutionView: UIView {
         if durationWalkerLabel != nil {
             durationWalkerLabel.isHidden = true
         }
-        durationTopContraint.isActive = false
-        durationBottomContraint.isActive = false
-        durationLeadingContraint.isActive = false
-    }
-    
-    private func formattedDateTime(_ departureDateTime: Date,_ arrivalDateTime: Date) {
-        dateTime = NSMutableAttributedString()
-            .bold(String(format: "%@ - %@",
-                         departureDateTime.toString(format: Configuration.time),
-                         arrivalDateTime.toString(format: Configuration.time)))
+
     }
     
     private func formattedDuration(prefix: String = "", _ duration: Int32) {
         let formattedStringDuration = NSMutableAttributedString()
             .semiBold(prefix, color: NavitiaSDKUIConfig.shared.color.tertiary)
-        formattedStringDuration.append(duration.toAttributedStringTime())
+        formattedStringDuration.append(duration.toAttributedStringTime(sizeBold: 14, sizeNormal: 10.5))
         self.duration = formattedStringDuration
-    }
-    
-    private func formattedDurationWalker(_ durationWalking: String,
-                                         _ distanceWalking: String,
-                                         _ unitDistance: String = "units_meters".localized(withComment: "meters", bundle: NavitiaSDKUIConfig.shared.bundle)) {
-        
-        durationWalker = NSMutableAttributedString()
-            .normal(String(format: "%@ ",
-                           "with".localized(withComment: "with", bundle: NavitiaSDKUIConfig.shared.bundle)),
-                    color: NavitiaSDKUIConfig.shared.color.gray)
-            .bold(durationWalking, color: NavitiaSDKUIConfig.shared.color.gray)
-            .normal(String(format: " %@ (%@ %@)",
-                           "walking".localized(withComment: "walking", bundle: NavitiaSDKUIConfig.shared.bundle),
-                           distanceWalking,
-                           unitDistance),
-                    color: NavitiaSDKUIConfig.shared.color.gray)
     }
     
     static var nib:UINib {
@@ -123,15 +88,6 @@ class JourneySolutionView: UIView {
 
 extension JourneySolutionView {
     
-    var dateTime: NSAttributedString? {
-        get {
-            return dateTimeLabel.attributedText
-        }
-        set {
-            dateTimeLabel.attributedText = newValue
-        }
-    }
-    
     var duration: NSAttributedString? {
         get {
             return durationLabel.attributedText
@@ -141,14 +97,14 @@ extension JourneySolutionView {
         }
     }
     
-    var durationWalker: NSAttributedString? {
-        get {
-            return durationWalkerLabel.attributedText
-        }
-        set {
-            durationWalkerLabel.isHidden = false
-            durationWalkerLabel.attributedText = newValue
-        }
-    }
+//    var durationWalker: NSAttributedString? {
+//        get {
+//            return durationWalkerLabel.attributedText
+//        }
+//        set {
+//            durationWalkerLabel.isHidden = false
+//            durationWalkerLabel.attributedText = newValue
+//        }
+//    }
     
 }

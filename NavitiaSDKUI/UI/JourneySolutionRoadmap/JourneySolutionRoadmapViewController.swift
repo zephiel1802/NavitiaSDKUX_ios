@@ -56,7 +56,13 @@ open class JourneySolutionRoadmapViewController: UIViewController {
         return String(describing: self)
     }
     
-    private func _updateWidth() -> CGFloat {
+    private func _updateWidth(margeCustom: CGFloat? = nil) -> CGFloat {
+        if let margeCustom = margeCustom {
+            if #available(iOS 11.0, *) {
+                return scrollView.frame.size.width - scrollView.safeAreaInsets.left - scrollView.safeAreaInsets.right - (margeCustom * 2)
+            }
+            return scrollView.frame.size.width - (margeCustom * 2)
+        }
         if #available(iOS 11.0, *) {
             return scrollView.frame.size.width - scrollView.safeAreaInsets.left - scrollView.safeAreaInsets.right - (marge * 2)
         }
@@ -73,11 +79,10 @@ open class JourneySolutionRoadmapViewController: UIViewController {
     }
     
     private func _displayHeader(_ journey: Journey) {
-        let journeySolutionView = JourneySolutionView(frame: CGRect(x: 0, y: 0, width: 0, height: 130))
+        let journeySolutionView = JourneySolutionView(frame: CGRect(x: 0, y: 0, width: 0, height: 60))
         journeySolutionView.setData(journey)
-        _addViewInScroll(view: journeySolutionView)
+        _addViewInScroll(view: journeySolutionView, margeCustom: 0)
         if ridesharing {
-            journeySolutionView.frame.size.height = 97
             journeySolutionView.setDataRidesharing(journey)
             ridesharingView = RidesharingView(frame: CGRect(x: 0, y: 0, width: 0, height: 255))
             ridesharingView.parentViewController = self
@@ -236,8 +241,12 @@ open class JourneySolutionRoadmapViewController: UIViewController {
 
 extension JourneySolutionRoadmapViewController {
     
-    private func _addViewInScroll(view: UIView) {
-        view.frame.origin.x = marge
+    private func _addViewInScroll(view: UIView, margeCustom: CGFloat? = nil) {
+        if let margeCustom = margeCustom {
+            view.frame.origin.x = margeCustom
+        } else {
+            view.frame.origin.x = marge
+        }
         if viewScroll.isEmpty {
             view.frame.origin.y = 0
         } else {
@@ -255,12 +264,13 @@ extension JourneySolutionRoadmapViewController {
     private func _updateOriginViewScroll() {
         for (index, view) in viewScroll.enumerated() {
             if index == 0 {
-                view.frame.origin.y = marge
+                view.frame.origin.y = view.frame.origin.x
+                view.frame.size.width = _updateWidth(margeCustom: view.frame.origin.x)
             } else {
                 view.frame.origin.y = viewScroll[index - 1].frame.origin.y + viewScroll[index - 1].frame.height + marge
+                composentWidth = _updateWidth()
+                view.frame.size.width = _updateWidth()
             }
-            composentWidth = _updateWidth()
-            view.frame.size.width = _updateWidth()
         }
         if let last = viewScroll.last {
             scrollView.contentSize.height = last.frame.origin.y + last.frame.height + marge

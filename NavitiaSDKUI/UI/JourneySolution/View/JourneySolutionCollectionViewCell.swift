@@ -82,7 +82,7 @@ class JourneySolutionCollectionViewCell: UICollectionViewCell {
     private func formattedDuration(prefix: String = "", _ duration: Int32) {
         let formattedStringDuration = NSMutableAttributedString()
             .semiBold(prefix, color: NavitiaSDKUIConfig.shared.color.tertiary)
-        formattedStringDuration.append(duration.toAttributedStringTime())
+        formattedStringDuration.append(duration.toAttributedStringTime(sizeBold: 14, sizeNormal: 10.5))
         self.duration = formattedStringDuration
     }
     
