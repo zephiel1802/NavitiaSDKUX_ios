@@ -2,7 +2,6 @@
 //  CustomAnnotation.swift
 //  NavitiaSDKUI
 //
-//  Created by Flavien Sicard on 19/04/2018.
 //  Copyright © 2018 kisio. All rights reserved.
 //
 
@@ -10,6 +9,7 @@ import UIKit
 import MapKit
 
 class CustomAnnotation: MKPointAnnotation {
+    
     enum AnnotationType {
         case PlaceAnnotation
         case RidesharingAnnotation
@@ -76,4 +76,5 @@ class CustomAnnotation: MKPointAnnotation {
         
         return annotationView
     }
+    
 }

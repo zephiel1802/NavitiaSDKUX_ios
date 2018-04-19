@@ -176,12 +176,10 @@ open class JourneySolutionRoadmapViewController: UIViewController {
         publicTransportView.take = section.displayInformations?.commercialMode ?? ""
         publicTransportView.transportColor = section.displayInformations?.color?.toUIColor() ?? UIColor.black
         publicTransportView.transportName = section.displayInformations?.label ?? ""
-        
         // publicTransportView.disruptionType = .blocking
         // publicTransportView.disruptionInformation = "Suite à un incident d’exploitation, le trafic est interrompu sur l’ensemble de la ligne."
         // publicTransportView.disruptionDate = "Du 01/08/17 au 17/08/17"
         // publicTransportView.waitTime = "7"
-        
         publicTransportView.origin = section.from?.name ?? ""
         publicTransportView.startTime = section.departureDateTime?.toDate(format: Configuration.date)?.toString(format: Configuration.time) ?? ""
         publicTransportView.directionTransit = section.displayInformations?.direction ?? ""

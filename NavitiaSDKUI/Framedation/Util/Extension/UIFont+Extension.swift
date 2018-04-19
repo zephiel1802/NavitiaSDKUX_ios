@@ -26,7 +26,6 @@ public extension UIFont {
         }
         
         let fontRef = CGFont(dataProvider)
-        
         var errorRef: Unmanaged<CFError>? = nil
         if let fontRef = fontRef {
             if (CTFontManagerRegisterGraphicsFont(fontRef, &errorRef) == false) {

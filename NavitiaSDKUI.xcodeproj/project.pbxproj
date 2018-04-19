@@ -264,7 +264,6 @@
 		8471D38320809EAD000C9125 /* JourneySolutionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8471D38220809EAD000C9125 /* JourneySolutionView.xib */; };
 		8471D38520809EC7000C9125 /* JourneySolutionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8471D38420809EC7000C9125 /* JourneySolutionView.swift */; };
 		8471D3872080A0DD000C9125 /* Checkbox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8471D3862080A0DC000C9125 /* Checkbox.swift */; };
-		8471D3892080CD85000C9125 /* ColorHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8471D3882080CD85000C9125 /* ColorHelper.swift */; };
 		84737E9B2087731A002D3748 /* FloatRatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84737E9A2087731A002D3748 /* FloatRatingView.swift */; };
 		84737E9D2087995B002D3748 /* UIImageView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84737E9C2087995B002D3748 /* UIImageView+Extension.swift */; };
 		84737E9F20879A3C002D3748 /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84737E9E20879A3C002D3748 /* UIView+Extension.swift */; };
@@ -558,7 +557,6 @@
 		8471D38220809EAD000C9125 /* JourneySolutionView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = JourneySolutionView.xib; sourceTree = "<group>"; };
 		8471D38420809EC7000C9125 /* JourneySolutionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JourneySolutionView.swift; sourceTree = "<group>"; };
 		8471D3862080A0DC000C9125 /* Checkbox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Checkbox.swift; sourceTree = "<group>"; };
-		8471D3882080CD85000C9125 /* ColorHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorHelper.swift; sourceTree = "<group>"; };
 		84737E9A2087731A002D3748 /* FloatRatingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloatRatingView.swift; sourceTree = "<group>"; };
 		84737E9C2087995B002D3748 /* UIImageView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+Extension.swift"; sourceTree = "<group>"; };
 		84737E9E20879A3C002D3748 /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
@@ -810,7 +808,6 @@
 			isa = PBXGroup;
 			children = (
 				8422B46B206A37610097E6C9 /* TransportHelper.swift */,
-				8471D3882080CD85000C9125 /* ColorHelper.swift */,
 				8490A6D42084D2C700F7CFA1 /* NavitiaSDKUserDefaultsManager.swift */,
 			);
 			path = Helper;
@@ -1336,7 +1333,6 @@
 				8454D3C92068D3A800C97D2F /* Admin.swift in Sources */,
 				8454D42F2068D3A800C97D2F /* NSDecimalNumberTransform.swift in Sources */,
 				8451DAB0206512C100CFA1E4 /* JourneySolutionViewModel.swift in Sources */,
-				8471D3892080CD85000C9125 /* ColorHelper.swift in Sources */,
 				8454D3DE2068D3A800C97D2F /* Header.swift in Sources */,
 				8454D4192068D3A800C97D2F /* DispatchQueue+Alamofire.swift in Sources */,
 				8454D4092068D3A800C97D2F /* Networks.swift in Sources */,

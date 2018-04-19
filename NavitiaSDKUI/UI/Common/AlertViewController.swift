@@ -8,8 +8,10 @@
 import Foundation
 
 protocol AlertViewControllerProtocol {
+    
     func onNegativeButtonClicked(_ alertViewController: AlertViewController)
     func onPositiveButtonClicked(_ alertViewController: AlertViewController)
+    
 }
 
 class AlertViewController: UIViewController, CheckboxDelegate {
@@ -67,4 +69,5 @@ class AlertViewController: UIViewController, CheckboxDelegate {
     func checkboxStateDidChange(checkbox: Checkbox) {
         NavitiaSDKUserDefaultsManager.saveUserDefault(key: self.stateKey, value: checkbox.isChecked)
     }
+    
 }

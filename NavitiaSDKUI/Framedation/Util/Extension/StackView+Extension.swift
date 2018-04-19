@@ -2,7 +2,6 @@
 //  StackView+Extension.swift
 //  NavitiaSDKUI
 //
-//  Created by Flavien Sicard on 19/04/2018.
 //  Copyright © 2018 kisio. All rights reserved.
 //
 
@@ -18,4 +17,5 @@ extension UIStackView {
         NSLayoutConstraint.deactivate(removedSubviews.flatMap({ $0.constraints }))
         removedSubviews.forEach({ $0.removeFromSuperview() })
     }
+    
 }

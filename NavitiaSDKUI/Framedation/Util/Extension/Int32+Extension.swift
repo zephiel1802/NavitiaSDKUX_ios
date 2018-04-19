@@ -27,6 +27,7 @@ extension Int32 {
             return NSMutableAttributedString()
                 .bold("%1dh%02d", color: Configuration.Color.main)
         }
+        
         return NSMutableAttributedString()
             .bold(String(format: "%1d", minutes), color: Configuration.Color.main, size: sizeBold)
             .normal(" min", color: Configuration.Color.main, size: sizeNormal)
@@ -37,12 +38,7 @@ extension Int32 {
     }
     
     func toString(format: String) -> String {
-        let tmp = Double(self)
-        return String(format: format, tmp / 1000)
-    }
-    
-    func minuteToString() -> String {
-        return String(self / 60)
+        return String(format: format, Double(self) / 1000)
     }
     
 }
