@@ -10,7 +10,6 @@ import Foundation
 extension Int32 {
     
     func toStringTime() -> String {
-        // let seconds = self % 60
         let minutes = (self / 60) % 60
         let hours = (self / 3600)
         
@@ -26,11 +25,11 @@ extension Int32 {
         
         if hours > 0 {
             return NSMutableAttributedString()
-                .bold("%1dh%02d", color: Configuration.Color.tertiary)
+                .bold("%1dh%02d", color: Configuration.Color.main)
         }
         return NSMutableAttributedString()
-            .bold(String(format: "%1d", minutes), color: Configuration.Color.tertiary, size: sizeBold)
-            .normal(" min", color: Configuration.Color.tertiary, size: sizeNormal)
+            .bold(String(format: "%1d", minutes), color: Configuration.Color.main, size: sizeBold)
+            .normal(" min", color: Configuration.Color.main, size: sizeNormal)
     }
     
     func toString() -> String {

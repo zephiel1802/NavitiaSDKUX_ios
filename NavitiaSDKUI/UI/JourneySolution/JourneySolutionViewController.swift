@@ -82,7 +82,7 @@ open class JourneySolutionViewController: UIViewController {
     private func _setupInterface() {
         navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarPosition.any, barMetrics: UIBarMetrics.default)
         navigationController?.navigationBar.shadowImage = UIImage()
-        navigationController?.navigationBar.barTintColor = Configuration.Color.tertiary
+        navigationController?.navigationBar.barTintColor = Configuration.Color.main
         
         fromLabel.text = inParameters.originLabel ?? inParameters.originId
         fromPinLabel.attributedText = NSMutableAttributedString()
@@ -117,7 +117,7 @@ extension JourneySolutionViewController: UICollectionViewDataSource {
     public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         // Loading
         if _viewModel.loading {
-            return 3
+            return 4
         }
         // Carsharing : Header + Empty
         if section == 1 && _viewModel.journeysRidesharing.count == 0 {

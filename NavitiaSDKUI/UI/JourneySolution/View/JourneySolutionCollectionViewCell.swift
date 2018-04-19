@@ -68,7 +68,7 @@ class JourneySolutionCollectionViewCell: UICollectionViewCell {
     private func _setupArrowIcon() {
         arrowLabel.attributedText = NSMutableAttributedString()
             .icon("arrow-right",
-                  color: Configuration.Color.tertiary,
+                  color: Configuration.Color.main,
                   size: 15)
     }
     
@@ -81,8 +81,8 @@ class JourneySolutionCollectionViewCell: UICollectionViewCell {
     
     private func formattedDuration(prefix: String = "", _ duration: Int32) {
         let formattedStringDuration = NSMutableAttributedString()
-            .semiBold(prefix, color: Configuration.Color.tertiary)
-        formattedStringDuration.append(duration.toAttributedStringTime(sizeBold: 14, sizeNormal: 10.5))
+            .semiBold(prefix, color: Configuration.Color.main)
+        formattedStringDuration.append(duration.toAttributedStringTime(sizeBold: 12.5, sizeNormal: 12.5))
         self.duration = formattedStringDuration
     }
     

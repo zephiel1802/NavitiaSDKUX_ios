@@ -110,9 +110,9 @@ extension JourneyRidesharingCollectionViewCell {
         set {
             if let newValue = newValue {
                 startLabel.attributedText = NSMutableAttributedString()
-                    .semiBold("departure".localized(withComment: "departure: ", bundle: NavitiaSDKUIConfig.shared.bundle), color: Configuration.Color.tertiary, size: 8.5)
-                    .semiBold(": ", color: Configuration.Color.tertiary, size: 8.5)
-                    .bold(newValue, color: Configuration.Color.tertiary, size: 14)
+                    .semiBold("departure".localized(withComment: "departure: ", bundle: NavitiaSDKUIConfig.shared.bundle), color: Configuration.Color.main, size: 8.5)
+                    .semiBold(": ", color: Configuration.Color.main, size: 8.5)
+                    .bold(newValue, color: Configuration.Color.main, size: 14)
             }
         }
     }

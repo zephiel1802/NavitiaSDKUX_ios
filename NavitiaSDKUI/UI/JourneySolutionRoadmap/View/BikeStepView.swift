@@ -21,13 +21,12 @@ class BikeStepView: UIView {
         didSet {
             var modeString = ""
             if let mode = _mode {
-                modeString = mode.rawValue + " "
+                modeString = mode.rawValue
             }
             takeLabel.attributedText = NSMutableAttributedString()
                 .normal("take_the".localized(withComment: "take_the", bundle: NavitiaSDKUIConfig.shared.bundle), size: 15)
                 .normal(" ", size: 15)
                 .normal(modeString, size: 15)
-                .normal(takeName, size: 15)
                 .normal(" ", size: 15)
                 .normal("at".localized(withComment: "at", bundle: NavitiaSDKUIConfig.shared.bundle), size: 15)
                 .normal(" ", size: 15)
@@ -44,13 +43,12 @@ class BikeStepView: UIView {
         didSet {
             var modeString = ""
             if let mode = _mode {
-                modeString = mode.rawValue + " "
+                modeString = mode.rawValue
             }
             takeLabel.attributedText = NSMutableAttributedString()
                 .normal("take_the".localized(withComment: "take_the", bundle: NavitiaSDKUIConfig.shared.bundle), size: 15)
                 .normal(" ", size: 15)
                 .normal(modeString, size: 15)
-                .normal(takeName, size: 15)
                 .normal(" ", size: 15)
                 .normal("at".localized(withComment: "at", bundle: NavitiaSDKUIConfig.shared.bundle), size: 15)
                 .normal(" ", size: 15)
@@ -67,13 +65,12 @@ class BikeStepView: UIView {
         didSet {
             var modeString = ""
             if let mode = _mode {
-                modeString = mode.rawValue + " "
+                modeString = mode.rawValue
             }
             takeLabel.attributedText = NSMutableAttributedString()
                 .normal("take_the".localized(withComment: "take_the", bundle: NavitiaSDKUIConfig.shared.bundle), size: 15)
                 .normal(" ", size: 15)
                 .normal(modeString, size: 15)
-                .normal(takeName, size: 15)
                 .normal(" ", size: 15)
                 .normal("at".localized(withComment: "at", bundle: NavitiaSDKUIConfig.shared.bundle), size: 15)
                 .normal(" ", size: 15)

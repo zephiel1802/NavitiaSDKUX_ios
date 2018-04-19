@@ -38,11 +38,29 @@ enum Configuration {
     
     // Color
     enum Color {
-        static var tertiary = UIColor(red:0.25, green:0.58, blue:0.56, alpha:1.0)
-        static var origin = UIColor(red:0, green:0.73, blue:0.46, alpha:1.0)
-        static var destination = UIColor(red:0.69, green:0.01, blue:0.33, alpha:1.0)
-        static let orange = UIColor(red:0.97, green:0.58, blue:0.02, alpha:1.0)
-        static let gray = UIColor(red: 0.5, green: 0.5, blue: 0.5, alpha: 1.0)
+        static var main = #colorLiteral(red: 0.2509803922, green: 0.5843137255, blue: 0.5568627451, alpha: 1)
+        static var origin = #colorLiteral(red: 0, green: 0.7333333333, blue: 0.4588235294, alpha: 1)
+        static var destination = #colorLiteral(red: 0.6901960784, green: 0.01176470588, blue: 0.3254901961, alpha: 1)
+        static var dialogBackground = main.withAlphaComponent(0.5)
+        static var markerTitle = main.withAlphaComponent(0.73)
+        static var disruptionBloking = #colorLiteral(red: 0.662745098, green: 0.2666666667, blue: 0.2588235294, alpha: 1)
+        static var disruptionInformation = #colorLiteral(red: 0.1921568627, green: 0.4392156863, blue: 0.5607843137, alpha: 1)
+        static var disruptionNonBloking = #colorLiteral(red: 0.5411764706, green: 0.4274509804, blue: 0.231372549, alpha: 1)
+        static var alertView = #colorLiteral(red: 0.8470588235, green: 0.9294117647, blue: 0.968627451, alpha: 1)
+        static var alertInfoDarker = #colorLiteral(red: 0.1882352941, green: 0.4392156863, blue: 0.5568627451, alpha: 1)
+        static var alertSuccess = #colorLiteral(red: 0.8666666667, green: 0.937254902, blue: 0.8470588235, alpha: 1)
+        static var alertSuccessDarker = #colorLiteral(red: 0.2392156863, green: 0.4588235294, blue: 0.2392156863, alpha: 1)
+        static var alertWarning = #colorLiteral(red: 0.9882352941, green: 0.968627451, blue: 0.8862745098, alpha: 1)
+        static var alertWarningDarker = #colorLiteral(red: 0.537254902, green: 0.4274509804, blue: 0.2274509804, alpha: 1)
+        static var alertError = #colorLiteral(red: 0.9490196078, green: 0.8666666667, blue: 0.8666666667, alpha: 1)
+        static var alertErrorDarker = #colorLiteral(red: 0.6588235294, green: 0.2666666667, blue: 0.2588235294, alpha: 1)
+        static var white = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+        static var black = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+        static var gray = #colorLiteral(red: 0.6196078431, green: 0.6196078431, blue: 0.6196078431, alpha: 1)
+        
+        static let red = #colorLiteral(red: 1, green: 0, blue: 0, alpha: 1)
+        static let orange = #colorLiteral(red: 0.9725490196, green: 0.5803921569, blue: 0.02352941176, alpha: 1)
+        static let backgroud = #colorLiteral(red: 0.9411764706, green: 0.9411764706, blue: 0.9411764706, alpha: 1)
+        static let headerTitle = #colorLiteral(red: 0.2509803922, green: 0.2509803922, blue: 0.2509803922, alpha: 1)
     }
-    
 }

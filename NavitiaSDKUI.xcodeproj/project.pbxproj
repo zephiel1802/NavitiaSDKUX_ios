@@ -880,8 +880,8 @@
 				848D7C29207B92D4002E9B1A /* PublicTransportView.xib */,
 				84E350F420776BC600E9BA46 /* TransferStepView.xib */,
 				8433F395207F4608007DBBCE /* BikeStepView.xib */,
-				8433F39B207F89C0007DBBCE /* RidesharingView.xib */,
 				8471D38220809EAD000C9125 /* JourneySolutionView.xib */,
+				8433F39B207F89C0007DBBCE /* RidesharingView.xib */,
 			);
 			path = Interface;
 			sourceTree = "<group>";

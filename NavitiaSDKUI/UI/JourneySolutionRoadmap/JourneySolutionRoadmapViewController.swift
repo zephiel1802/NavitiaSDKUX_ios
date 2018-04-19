@@ -154,6 +154,7 @@ open class JourneySolutionRoadmapViewController: UIViewController {
         view.origin = section.from?.name ?? ""
         view.destination = section.to?.name ?? ""
         view.time = section.duration?.minuteToString()
+        
         _addViewInScroll(view: view)
     }
     
@@ -163,6 +164,9 @@ open class JourneySolutionRoadmapViewController: UIViewController {
         view.origin = ridesharingView.addressFrom ?? ""
         view.destination = ridesharingView.addressTo ?? ""
         view.time = timeRidesharing?.minuteToString() ?? ""
+        view.backgroundColor = UIColor.clear
+        view.removeShadow()
+        view._view.backgroundColor = UIColor.clear
         _addViewInScroll(view: view)
     }
     
