@@ -171,10 +171,7 @@ open class JourneySolutionRoadmapViewController: UIViewController {
         view.modeString = Modes().getModeIcon(section: section)
         view.origin = ridesharingView.addressFrom ?? ""
         view.destination = ridesharingView.addressTo ?? ""
-        view.time = timeRidesharing?.minuteToString() ?? ""
-        view.backgroundColor = UIColor.clear
-        view.removeShadow()
-        view._view.backgroundColor = UIColor.clear
+        view.timeLabel.removeFromSuperview()
         
         _addViewInScroll(view: view)
     }
