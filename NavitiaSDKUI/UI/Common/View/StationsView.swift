@@ -32,7 +32,6 @@ class StationsView: UIView {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        _setup()
     }
     
     private func _setup() {

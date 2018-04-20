@@ -95,14 +95,4 @@ extension JourneySolutionView {
         }
     }
     
-//    var durationWalker: NSAttributedString? {
-//        get {
-//            return durationWalkerLabel.attributedText
-//        }
-//        set {
-//            durationWalkerLabel.isHidden = false
-//            durationWalkerLabel.attributedText = newValue
-//        }
-//    }
-    
 }

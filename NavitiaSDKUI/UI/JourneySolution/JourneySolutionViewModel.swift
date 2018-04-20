@@ -61,10 +61,12 @@ class JourneySolutionViewModel: NSObject {
     
     func parseNavitia(journeys: [Journey]) {
         for journey in journeys {
-            if journey.distances?.ridesharing != 0 {
-                self.journeysRidesharing.append(journey)
-            } else {
-                self.journeys.append(journey)
+            if let redisharingDistance = journey.distances?.ridesharing {
+                if redisharingDistance > 0 {
+                    self.journeysRidesharing.append(journey)
+                } else {
+                    self.journeys.append(journey)
+                }
             }
         }
     }

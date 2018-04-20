@@ -2,7 +2,6 @@
 //  JourneyPathOverlays.swift
 //  NavitiaSDKUI
 //
-//  Created by Flavien Sicard on 19/04/2018.
 //  Copyright © 2018 kisio. All rights reserved.
 //
 
@@ -10,6 +9,7 @@ import UIKit
 import MapKit
 
 class JourneyPathOverlays {
+    
     var journeyPolyline: MKPolyline
     var sectionsPolylines: [MKPolyline]
     var intermediatesPointsCircles: [MKCircle]
@@ -64,11 +64,14 @@ class JourneyPathOverlays {
         }
         self.journeyPolyline = MKPolyline(coordinates: journeyPolylineCoordinates, count: journeyPolylineCoordinates.count)
     }
+    
 }
 
 class SectionPolyline: MKPolyline {
+    
     var sectionLineWidth: CGFloat = 0
     var sectionStrokeColor: UIColor?
     var sectionLineDashPattern: [NSNumber]?
     var sectionLineCap: CGLineCap?
+    
 }

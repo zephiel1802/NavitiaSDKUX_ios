@@ -12,17 +12,39 @@ open class JourneySolutionRidesharingViewController: UIViewController {
     @IBOutlet weak var journeySolutionRoadmap: JourneySolutionView!
     @IBOutlet weak var collectionView: UICollectionView!
     
-    var journey: Journey?
-    var ridesharingJourneys: [Journey]?
+    var journey: Journey? {
+        get {
+            return _viewModel.journey
+        }
+        set {
+            if _viewModel == nil {
+                _viewModel = JourneySolutionRidesharingViewModel()
+            }
+            _viewModel.journey = newValue
+        }
+    }
+    
+    fileprivate var _viewModel: JourneySolutionRidesharingViewModel! {
+        didSet {
+            self._viewModel.journeySolutionRidesharingDidChange = { [weak self] journeySolutionRidesharingViewModel in
+                if self?.collectionView != nil {
+                    self?.collectionView.reloadData()
+                }
+                if let journey = journeySolutionRidesharingViewModel.journey {
+                    if self?.journeySolutionRoadmap != nil {
+                        self?.journeySolutionRoadmap.setDataRidesharing(journey)
+                    }
+                }
+            }
+        }
+    }
     
     override open func viewDidLoad() {
         super.viewDidLoad()
         title = "carpooling".localized(withComment: "Carpooling", bundle: NavitiaSDKUIConfig.shared.bundle)
         
         _registerCollectionView()
-        if let journey = journey {
-            journeySolutionRoadmap.setDataRidesharing(journey)
-        }
+        _viewModel.journeySolutionRidesharingDidChange!(_viewModel)
     }
 
     override open func didReceiveMemoryWarning() {
@@ -42,15 +64,14 @@ open class JourneySolutionRidesharingViewController: UIViewController {
     private func _registerCollectionView() {
         collectionView.register(UINib(nibName: JourneyRidesharingCollectionViewCell.identifier, bundle: self.nibBundle), forCellWithReuseIdentifier: JourneyRidesharingCollectionViewCell.identifier)
     }
+
     
     func getRidesharingCount() -> Int {
-        if let sections = journey?.sections {
+        if let sections =  _viewModel.journey?.sections {
             for section in sections {
-                if let mode = section.mode {
-                    if mode == ModeTransport.ridesharing.rawValue {
-                        ridesharingJourneys = section.ridesharingJourneys
-                        return section.ridesharingJourneys?.count ?? 0
-                    }
+                if let mode = section.mode, mode == ModeTransport.ridesharing.rawValue {
+                    _viewModel.ridesharingJourneys = section.ridesharingJourneys
+                    return section.ridesharingJourneys?.count ?? 0
                 }
             }
         }
@@ -71,7 +92,7 @@ extension JourneySolutionRidesharingViewController: UICollectionViewDataSource {
     
     public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: JourneyRidesharingCollectionViewCell.identifier, for: indexPath) as? JourneyRidesharingCollectionViewCell {
-            if let ridesharingJourneys = ridesharingJourneys?[safe: indexPath.row] {
+            if let ridesharingJourneys = _viewModel.ridesharingJourneys?[safe: indexPath.row] {
                 cell.price = ridesharingJourneys.fare?.total?.value ?? ""
                 if let sectionRidesharing = ridesharingJourneys.sections?[safe: 1] {
                     cell.title = sectionRidesharing.ridesharingInformations?._operator ?? ""
@@ -110,7 +131,7 @@ extension JourneySolutionRidesharingViewController: JourneyRidesharingCollection
     func onBookButtonClicked(_ journeyRidesharingCollectionViewCell: JourneyRidesharingCollectionViewCell) {
         if let row = journeyRidesharingCollectionViewCell.row {
             let viewController = storyboard?.instantiateViewController(withIdentifier: JourneySolutionRoadmapViewController.identifier) as! JourneySolutionRoadmapViewController
-            viewController.journey = journey
+            viewController.journey = _viewModel.journey
             viewController.ridesharing = true
             viewController.ridesharingIndex = row
             self.navigationController?.pushViewController(viewController, animated: true)

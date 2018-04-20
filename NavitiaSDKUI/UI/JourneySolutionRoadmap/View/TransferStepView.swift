@@ -104,24 +104,29 @@ extension TransferStepView {
         set {
             if let newValue = newValue {
                 var duration = newValue + " " + "units_minutes".localized(withComment: "minutes", bundle: NavitiaSDKUIConfig.shared.bundle)
-                if newValue == "1" {
+                if Int(newValue) == 1 {
                     duration = newValue + " " + "units_minute".localized(withComment: "minute", bundle: NavitiaSDKUIConfig.shared.bundle)
-                } else if newValue == "0" {
+                } else if Int(newValue) == 0 {
                     duration = "less_than_a".localized(withComment: "less than a", bundle: NavitiaSDKUIConfig.shared.bundle) + " " + "units_minute".localized(withComment: "minute", bundle: NavitiaSDKUIConfig.shared.bundle)
                 }
+                
                 var template = ""
                 if let mode = _mode {
                     switch mode {
-                    case .walking:
-                        template = "a_time_walk".localized(withComment: "A time walk", bundle: NavitiaSDKUIConfig.shared.bundle)
-                    case .car:
-                        template = "a_time_drive".localized(withComment: "A time drive", bundle: NavitiaSDKUIConfig.shared.bundle)
-                    case .bike:
-                        template = "a_time_ride".localized(withComment: "A time ride", bundle: NavitiaSDKUIConfig.shared.bundle)
-                    default:
-                        break
+                        case .walking:
+                            template = "a_time_walk".localized(withComment: "A time walk", bundle: NavitiaSDKUIConfig.shared.bundle)
+                            break
+                        case .car:
+                            template = "a_time_drive".localized(withComment: "A time drive", bundle: NavitiaSDKUIConfig.shared.bundle)
+                            break
+                        case .bike:
+                            template = "a_time_ride".localized(withComment: "A time ride", bundle: NavitiaSDKUIConfig.shared.bundle)
+                            break
+                        default:
+                            break
                     }
                 }
+                
                 let formattedString = NSMutableAttributedString()
                 formattedString
                     .normal(String(format: template, duration), size: 15)

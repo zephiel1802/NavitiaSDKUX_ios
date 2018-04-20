@@ -10,18 +10,13 @@ import UIKit
 class PublicTransportView: UIView {
     
     @IBOutlet var _view: UIView!
-    
     @IBOutlet weak var iconLabel: UILabel!
     @IBOutlet weak var takeLabel: UILabel!
-    
     @IBOutlet weak var originTransitLabel: UILabel!
-   // @IBOutlet weak var directionTransitLabel: UILabel!
-    
     @IBOutlet weak var transportView: UIView!
     @IBOutlet weak var transportLabel: UILabel!
     @IBOutlet weak var disruptionCircleLabel: UILabel!
     @IBOutlet weak var disruptionIconTransportLabel: UILabel!
-    
     @IBOutlet var disruptionView: UIView!
     @IBOutlet var waitView: UIView!
     @IBOutlet var waitHeightContraint: NSLayoutConstraint!
@@ -30,25 +25,19 @@ class PublicTransportView: UIView {
     @IBOutlet var waitBottomContraint: NSLayoutConstraint!
     @IBOutlet var waitIconLabel: UILabel!
     @IBOutlet var waitTimeLabel: UILabel!
-    
     @IBOutlet weak var disruptionIconLabel: UILabel!
     @IBOutlet weak var disruptionTitleLabel: UILabel!
     @IBOutlet weak var disruptionInformationLabel: UILabel!
     @IBOutlet weak var disruptionDateLabel: UILabel!
-    
     @IBOutlet weak var startTimeLabel: UILabel!
     @IBOutlet weak var originLabel: UILabel!
-    
     @IBOutlet weak var stationButton: UIButton!
-    
     @IBOutlet var stationsView: UIView!
     @IBOutlet var stationsHeightContraint: NSLayoutConstraint!
     @IBOutlet var stationsTopContraint: NSLayoutConstraint!
     @IBOutlet var stationsBottomContraint: NSLayoutConstraint!
-    
     @IBOutlet weak var endTimeLabel: UILabel!
     @IBOutlet weak var destinationLabel: UILabel!
-    
     @IBOutlet weak var pinOriginView: UIView!
     @IBOutlet weak var lineView: UIView!
     @IBOutlet weak var pinEndView: UIView!

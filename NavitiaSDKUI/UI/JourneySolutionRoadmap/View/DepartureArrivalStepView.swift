@@ -10,7 +10,6 @@ import UIKit
 class DepartureArrivalStepView: UIView {
     
     @IBOutlet var _view: UIView!
-    
     @IBOutlet weak var hourLabel: UILabel!
     @IBOutlet weak var iconLabel: UILabel!
     @IBOutlet weak var stackView: UIStackView!

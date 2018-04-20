@@ -23,7 +23,7 @@ open class JourneySolutionViewController: UIViewController {
         didSet {
             self._viewModel.journeySolutionDidChange = { [weak self] journeySolutionViewModel in
                 self?.collectionView.reloadData()
-                if journeySolutionViewModel.journeys.isEmpty == false {
+                if !journeySolutionViewModel.journeys.isEmpty {
                     if self?.inParameters.originLabel == nil {
                         self?.fromLabel.text = journeySolutionViewModel.journeys[0].sections?[0].from?.name
                     }

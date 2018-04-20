@@ -14,7 +14,6 @@ class JourneySummaryView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        _setup()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -27,14 +26,14 @@ class JourneySummaryView: UIView {
     }
     
     func addSections(_ sections: [Section]) {
-        var durationAllSections:Int32 = 0
+        var allDurationSections:Int32 = 0
         var sectionCount = 0.0
         
         _stackView.removeAllArrangedSubviews()
         for section in sections {
             if validDisplaySection(section) {
                 if let duration = section.duration {
-                    durationAllSections += duration
+                    allDurationSections += duration
                     sectionCount += 1
                 }
             }
@@ -47,12 +46,11 @@ class JourneySummaryView: UIView {
                     }
                     let journeySummaryPartView = JourneySummaryPartView()
                     journeySummaryPartView.width = widthJourneySummaryPartView(sectionCount: sectionCount,
-                                                                               durationAllSections: durationAllSections,
+                                                                               allDurationSections: allDurationSections,
                                                                                duration: duration)
                     journeySummaryPartView.name = section.displayInformations?.label
                     journeySummaryPartView.color = section.displayInformations?.color?.toUIColor() ?? UIColor.black
                     journeySummaryPartView.icon = Modes().getModeIcon(section: section)
-                    //journeySummaryPartView.displayDisruption("disruption-information")
                     _stackView.addArrangedSubview(journeySummaryPartView)
                 }
             }
@@ -69,19 +67,19 @@ class JourneySummaryView: UIView {
     }
     
     private func validDisplaySection(_ section: Section) -> Bool {
-        if section.type == TypeTransport.streetNetwork.rawValue && section.mode == ModeTransport.walking.rawValue ||
-            section.type != TypeTransport.transfer.rawValue &&
+        if (section.type == TypeTransport.streetNetwork.rawValue && section.mode == ModeTransport.walking.rawValue) ||
+           (section.type != TypeTransport.transfer.rawValue &&
             section.type != TypeTransport.waiting.rawValue &&
             section.type != TypeTransport.leaveParking.rawValue &&
             section.type != TypeTransport.bssRent.rawValue &&
-            section.type != TypeTransport.bssPutBack.rawValue {
+            section.type != TypeTransport.bssPutBack.rawValue) {
             return true
         }
         return false
     }
     
-    private func widthJourneySummaryPartView(sectionCount: Double, durationAllSections: Int32, duration: Int32) -> Double {
-        return max(sectionCount * 17, Double(duration) * sectionCount * 100 / Double(durationAllSections))
+    private func widthJourneySummaryPartView(sectionCount: Double, allDurationSections: Int32, duration: Int32) -> Double {
+        return max(sectionCount * 17, Double(duration) * sectionCount * 100 / Double(allDurationSections))
     }
 
 }

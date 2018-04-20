@@ -14,20 +14,15 @@ open class JourneySolutionRoadmapViewController: UIViewController {
     @IBOutlet weak var scrollView: UIScrollView!
     
     var viewScroll = [UIView]()
-    
-    var marge: CGFloat = 10
+    var margin: CGFloat = 10
     var composentWidth: CGFloat = 0
-    
     var journey: Journey?
     var ridesharingJourney: Journey?
     var intermediatePointsCircles = [MKCircle]()
-    
     var ridesharing: Bool = false
     var ridesharingView: RidesharingView!
-    
     var ridesharingDeepLink: String?
     var ridesharingIndex = 0
-
     var timeRidesharing: Int32?
     
     override open func viewDidLoad() {
@@ -56,17 +51,17 @@ open class JourneySolutionRoadmapViewController: UIViewController {
         return String(describing: self)
     }
     
-    private func _updateWidth(margeCustom: CGFloat? = nil) -> CGFloat {
-        if let margeCustom = margeCustom {
+    private func _updateWidth(customMargin: CGFloat? = nil) -> CGFloat {
+        if let margeCustom = customMargin {
             if #available(iOS 11.0, *) {
                 return scrollView.frame.size.width - scrollView.safeAreaInsets.left - scrollView.safeAreaInsets.right - (margeCustom * 2)
             }
             return scrollView.frame.size.width - (margeCustom * 2)
         }
         if #available(iOS 11.0, *) {
-            return scrollView.frame.size.width - scrollView.safeAreaInsets.left - scrollView.safeAreaInsets.right - (marge * 2)
+            return scrollView.frame.size.width - scrollView.safeAreaInsets.left - scrollView.safeAreaInsets.right - (margin * 2)
         }
-        return scrollView.frame.size.width - (marge * 2)
+        return scrollView.frame.size.width - (margin * 2)
     }
     
     private func _display() {
@@ -81,11 +76,14 @@ open class JourneySolutionRoadmapViewController: UIViewController {
     private func _displayHeader(_ journey: Journey) {
         let journeySolutionView = JourneySolutionView(frame: CGRect(x: 0, y: 0, width: 0, height: 60))
         journeySolutionView.setData(journey)
-        _addViewInScroll(view: journeySolutionView, margeCustom: 0)
+        
+        _addViewInScroll(view: journeySolutionView, customMargin: 0)
+        
         if ridesharing {
             journeySolutionView.setDataRidesharing(journey)
             ridesharingView = RidesharingView(frame: CGRect(x: 0, y: 0, width: 0, height: 255))
             ridesharingView.parentViewController = self
+            
             _addViewInScroll(view: ridesharingView)
         }
     }
@@ -95,29 +93,36 @@ open class JourneySolutionRoadmapViewController: UIViewController {
             for (index, section) in sections.enumerated() {
                 if let type = section.type {
                     switch type {
-                    case TypeTransport.publicTransport.rawValue:
-                        if index == 0 {
-                            _displayPublicTransport(section)
-                        }
-                        _displayPublicTransport(section, waiting: sections[index - 1])
-                    case TypeTransport.transfer.rawValue:
-                        _displayTransferStep(section)
-                    case TypeTransport.streetNetwork.rawValue:
-                        if let mode = section.mode {
-                            switch mode {
-                            case ModeTransport.walking.rawValue:
-                                _displayTransferStep(section)
-                            case ModeTransport.car.rawValue:
-                                _displayTransferStep(section)
-                            case ModeTransport.ridesharing.rawValue:
-                                _updateRidesharingView(section)
-                                _displayRidesharingStep(section)
-                            default:
-                                _displayBikeStep(section)
+                        case TypeTransport.publicTransport.rawValue:
+                            if index == 0 {
+                                _displayPublicTransport(section)
                             }
-                        }
-                    default :
-                        continue
+                            _displayPublicTransport(section, waiting: sections[index - 1])
+                            break
+                        case TypeTransport.transfer.rawValue:
+                            _displayTransferStep(section)
+                            break
+                        case TypeTransport.streetNetwork.rawValue:
+                            if let mode = section.mode {
+                                switch mode {
+                                    case ModeTransport.walking.rawValue:
+                                        _displayTransferStep(section)
+                                        break
+                                    case ModeTransport.car.rawValue:
+                                        _displayTransferStep(section)
+                                        break
+                                    case ModeTransport.ridesharing.rawValue:
+                                        _updateRidesharingView(section)
+                                        _displayRidesharingStep(section)
+                                        break
+                                    default:
+                                        _displayBikeStep(section)
+                                        break
+                                }
+                            }
+                            break
+                        default :
+                            continue
                     }
                 }
             }
@@ -129,6 +134,7 @@ open class JourneySolutionRoadmapViewController: UIViewController {
         viewDeparture.information = journey.sections?.first?.from?.name ?? ""
         viewDeparture.time = journey.departureDateTime?.toDate(format: Configuration.date)?.toString(format: Configuration.time) ?? ""
         viewDeparture.type = .departure
+        
         _addViewInScroll(view: viewDeparture)
     }
     
@@ -137,6 +143,7 @@ open class JourneySolutionRoadmapViewController: UIViewController {
         viewArrival.information = journey.sections?.last?.to?.name ?? ""
         viewArrival.time = journey.arrivalDateTime?.toDate(format: Configuration.date)?.toString(format: Configuration.time) ?? ""
         viewArrival.type = .arrival
+        
         _addViewInScroll(view: viewArrival)
     }
     
@@ -145,6 +152,7 @@ open class JourneySolutionRoadmapViewController: UIViewController {
         view.modeString = Modes().getModeIcon(section: section)
         view.time = section.duration?.minuteToString()
         view.direction = section.to?.name ?? ""
+        
         _addViewInScroll(view: view)
     }
     
@@ -167,6 +175,7 @@ open class JourneySolutionRoadmapViewController: UIViewController {
         view.backgroundColor = UIColor.clear
         view.removeShadow()
         view._view.backgroundColor = UIColor.clear
+        
         _addViewInScroll(view: view)
     }
     
@@ -176,10 +185,6 @@ open class JourneySolutionRoadmapViewController: UIViewController {
         publicTransportView.take = section.displayInformations?.commercialMode ?? ""
         publicTransportView.transportColor = section.displayInformations?.color?.toUIColor() ?? UIColor.black
         publicTransportView.transportName = section.displayInformations?.label ?? ""
-        // publicTransportView.disruptionType = .blocking
-        // publicTransportView.disruptionInformation = "Suite à un incident d’exploitation, le trafic est interrompu sur l’ensemble de la ligne."
-        // publicTransportView.disruptionDate = "Du 01/08/17 au 17/08/17"
-        // publicTransportView.waitTime = "7"
         publicTransportView.origin = section.from?.name ?? ""
         publicTransportView.startTime = section.departureDateTime?.toDate(format: Configuration.date)?.toString(format: Configuration.time) ?? ""
         publicTransportView.directionTransit = section.displayInformations?.direction ?? ""
@@ -204,6 +209,7 @@ open class JourneySolutionRoadmapViewController: UIViewController {
                 }
             }
         }
+        
         _addViewInScroll(view: publicTransportView)
     }
     
@@ -243,11 +249,11 @@ open class JourneySolutionRoadmapViewController: UIViewController {
 
 extension JourneySolutionRoadmapViewController {
     
-    private func _addViewInScroll(view: UIView, margeCustom: CGFloat? = nil) {
-        if let margeCustom = margeCustom {
+    private func _addViewInScroll(view: UIView, customMargin: CGFloat? = nil) {
+        if let margeCustom = customMargin {
             view.frame.origin.x = margeCustom
         } else {
-            view.frame.origin.x = marge
+            view.frame.origin.x = margin
         }
         if viewScroll.isEmpty {
             view.frame.origin.y = 0
@@ -267,15 +273,15 @@ extension JourneySolutionRoadmapViewController {
         for (index, view) in viewScroll.enumerated() {
             if index == 0 {
                 view.frame.origin.y = view.frame.origin.x
-                view.frame.size.width = _updateWidth(margeCustom: view.frame.origin.x)
+                view.frame.size.width = _updateWidth(customMargin: view.frame.origin.x)
             } else {
-                view.frame.origin.y = viewScroll[index - 1].frame.origin.y + viewScroll[index - 1].frame.height + marge
+                view.frame.origin.y = viewScroll[index - 1].frame.origin.y + viewScroll[index - 1].frame.height + margin
                 composentWidth = _updateWidth()
                 view.frame.size.width = _updateWidth()
             }
         }
         if let last = viewScroll.last {
-            scrollView.contentSize.height = last.frame.origin.y + last.frame.height + marge
+            scrollView.contentSize.height = last.frame.origin.y + last.frame.height + margin
         }
     }
     

@@ -10,7 +10,6 @@ import UIKit
 class BikeStepView: UIView {
     
     @IBOutlet var _view: UIView!
-    
     @IBOutlet weak var iconLabel: UILabel!
     @IBOutlet weak var takeLabel: UILabel!
     @IBOutlet weak var timeLabel: UILabel!

@@ -8,7 +8,9 @@
 import UIKit
 
 protocol JourneyRidesharingCollectionViewCellDelegate {
+    
     func onBookButtonClicked(_ journeyRidesharingCollectionViewCell: JourneyRidesharingCollectionViewCell)
+    
 }
 
 class JourneyRidesharingCollectionViewCell: UICollectionViewCell {
@@ -64,14 +66,14 @@ class JourneyRidesharingCollectionViewCell: UICollectionViewCell {
     }
     
     func setFullStar(_ count: Float?) {
-        if count != nil {
+        if let count = count {
             floatRatingView.backgroundColor = UIColor.clear
             floatRatingView.contentMode = UIViewContentMode.scaleAspectFit
             floatRatingView.emptyImage = UIImage(named: "star_empty", in: NavitiaSDKUIConfig.shared.bundle, compatibleWith: nil)
             floatRatingView.fullImage = UIImage(named: "star_full", in: NavitiaSDKUIConfig.shared.bundle, compatibleWith: nil)
             floatRatingView.type = .floatRatings
             floatRatingView.editable = false
-            floatRatingView.rating = Double(count!)
+            floatRatingView.rating = Double(count)
             floatRatingView.starsInterspace = 2
         }
     }
@@ -151,7 +153,7 @@ extension JourneyRidesharingCollectionViewCell {
         }
         set {
             if let newValue = newValue {
-                if newValue == "0.0" {
+                if Float(newValue) == 0.0 {
                     priceLabel.attributedText = NSMutableAttributedString()
                         .normal("free".localized(withComment: "Free", bundle: NavitiaSDKUIConfig.shared.bundle), color: Configuration.Color.orange,size: 10)
                 } else {
