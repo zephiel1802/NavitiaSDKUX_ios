@@ -665,7 +665,6 @@
 			isa = PBXGroup;
 			children = (
 				8451DA592065061900CFA1E4 /* Model */,
-				8451DA5A2065061F00CFA1E4 /* Network */,
 				8451DAB72065161100CFA1E4 /* Util */,
 			);
 			path = Framedation;
@@ -719,13 +718,6 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
-		8451DA5A2065061F00CFA1E4 /* Network */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Network;
-			sourceTree = "<group>";
-		};
 		8451DA5B2065062300CFA1E4 /* Extension */ = {
 			isa = PBXGroup;
 			children = (
@@ -746,7 +738,6 @@
 			isa = PBXGroup;
 			children = (
 				8451DAB5206515FA00CFA1E4 /* Helper */,
-				8451DAB6206515FF00CFA1E4 /* Extension */,
 			);
 			path = Util;
 			sourceTree = "<group>";
@@ -819,13 +810,6 @@
 				84FABE112074C7FC00BDDE9D /* Icons.swift */,
 			);
 			path = Helper;
-			sourceTree = "<group>";
-		};
-		8451DAB6206515FF00CFA1E4 /* Extension */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Extension;
 			sourceTree = "<group>";
 		};
 		8451DAB72065161100CFA1E4 /* Util */ = {
