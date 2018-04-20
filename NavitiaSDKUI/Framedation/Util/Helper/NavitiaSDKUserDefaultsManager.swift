@@ -8,6 +8,7 @@
 import Foundation
 
 open class NavitiaSDKUserDefaultsManager {
+    
     open static let SHOW_REDIRECTION_DIALOG_PREF_KEY = "navitiaSdkShowRedirectionDialog"
     open static let SHOW_REDIRECTION_DIALOG_DEF_VALUE = true
     

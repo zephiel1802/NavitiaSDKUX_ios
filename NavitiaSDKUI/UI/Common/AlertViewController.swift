@@ -15,6 +15,7 @@ protocol AlertViewControllerProtocol {
 }
 
 class AlertViewController: UIViewController, CheckboxDelegate {
+    
     var stateKey: String = ""
     var alertMessage: String = ""
     var checkBoxText: String = ""
