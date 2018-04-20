@@ -13,7 +13,7 @@ open class JourneySolutionRoadmapViewController: UIViewController {
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var scrollView: UIScrollView!
     
-    var viewScroll: [UIView] = []
+    var viewScroll = [UIView]()
     
     var marge: CGFloat = 10
     var composentWidth: CGFloat = 0

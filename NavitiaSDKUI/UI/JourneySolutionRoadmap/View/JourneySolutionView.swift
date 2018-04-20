@@ -11,14 +11,12 @@ class JourneySolutionView: UIView {
     
     @IBOutlet var _view: UIView!
     
- //   @IBOutlet weak var dateTimeLabel: UILabel!
     @IBOutlet weak var aboutLabel: UILabel!
     @IBOutlet weak var durationLabel: UILabel!
     @IBOutlet weak var durationCenterContraint: NSLayoutConstraint!
     @IBOutlet weak var journeySummaryView: JourneySummaryView!
     @IBOutlet weak var durationWalkerLabel: UILabel!
-    
-    
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         _setup()

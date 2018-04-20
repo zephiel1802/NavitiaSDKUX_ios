@@ -7,8 +7,6 @@
 
 import Foundation
 
-
-
 public struct Icon {
     
     internal var _value: String
@@ -74,10 +72,6 @@ let iconFontCodes:[String: String] = [
     "disruption-information": "\u{ea2b}",
     "ridesharing": "\u{ea2c}"
 ]
-
-
-
-
 
 class Modes {
     func getModeIcon(section: Section?) -> String {

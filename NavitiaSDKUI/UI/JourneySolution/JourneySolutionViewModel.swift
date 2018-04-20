@@ -10,8 +10,8 @@ import UIKit
 class JourneySolutionViewModel: NSObject {
 
     var journeySolutionDidChange: ((JourneySolutionViewModel) -> ())?
-    var journeys: [Journey] = []
-    var journeysRidesharing: [Journey] = []
+    var journeys = [Journey]()
+    var journeysRidesharing = [Journey]()
     var loading: Bool = true
     
     func request(with parameters: JourneySolutionViewController.InParameters) {
