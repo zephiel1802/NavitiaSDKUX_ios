@@ -19,7 +19,7 @@ This SDK provides journey computation screens you can add to your application.
   s.license          = { :type => 'GPL-3', :file => 'LICENSE' }
   s.authors          = { 'Kisio Digital' => 'contact@kisio.org' }
   s.source           = { :git => 'https://github.com/CanalTP/NavitiaSDKUX_ios.git', :tag => s.version.to_s }
-
+#  s.pod_target_xcconfig = { "SWIFT_VERSION" => "4.0" }
   s.ios.deployment_target = '9.0'
 
   s.source_files = 'NavitiaSDKUI/Framedation/**/*.{h,m,swift}', 'NavitiaSDKUI/UI/**/*.{h,m,swift}', 'NavitiaSDKUI/Lib/**/*.{h,m,swift}', 'NavitiaSDKUI/*.{h,m,swift}'

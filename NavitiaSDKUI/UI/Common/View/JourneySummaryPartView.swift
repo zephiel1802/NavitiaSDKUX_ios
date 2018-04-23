@@ -2,7 +2,6 @@
 //  JourneyPartView.swift
 //  NavitiaSDKUI
 //
-//  Created by Flavien Sicard on 27/03/2018.
 //  Copyright © 2018 kisio. All rights reserved.
 //
 
@@ -11,17 +10,17 @@ import UIKit
 class JourneySummaryPartView: UIView {
     
     @IBOutlet weak var _view: UIView!
-    @IBOutlet weak var _iconTransportImageView: UIImageView!
+    @IBOutlet weak var transportLabel: UILabel!
     @IBOutlet weak var _tagTransportView: UIView!
     @IBOutlet weak var _tagTransportLabel: UILabel!
     @IBOutlet weak var _lineTransportView: UIView!
+    @IBOutlet weak var _disruptionLabel: UILabel!
+    @IBOutlet weak var _circleLabel: UILabel!
     
-    var _type: TypeTransport?
     var width = 1.0
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
         _setup()
     }
     
@@ -29,13 +28,33 @@ class JourneySummaryPartView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override public var intrinsicContentSize: CGSize {
+        return CGSize(width: width, height: 0.0)
+    }
     
     private func _setup() {
-        UINib(nibName: "JourneySummaryPartView", bundle:  bundle).instantiate(withOwner: self, options: nil)
-        addSubview(_view)
+        UINib(nibName: "JourneySummaryPartView", bundle: NavitiaSDKUIConfig.shared.bundle).instantiate(withOwner: self, options: nil)
         _view.frame = self.bounds
-        
-        
+        addSubview(_view)
+        _setupDisruption()
+    }
+    
+    private func _setupDisruption() {
+        _circleLabel.attributedText = NSMutableAttributedString()
+            .icon("circle-filled",
+                  color: UIColor.white,
+                  size: 15)
+        _circleLabel.isHidden = true
+        _disruptionLabel.isHidden = true
+    }
+    
+    func displayDisruption(_ iconName: String) {
+        _disruptionLabel.attributedText = NSMutableAttributedString()
+            .icon(iconName,
+                  color: UIColor.red,
+                  size: 14)
+        _disruptionLabel.isHidden = false
+        _circleLabel.isHidden = false
     }
     
 }
@@ -61,31 +80,24 @@ extension JourneySummaryPartView {
         }
     }
     
-    var type: TypeTransport? {
+    var icon: String? {
         get {
-            return _type
+            return transportLabel.text
         }
         set {
             if let newValue = newValue {
-                _type = newValue
-                switch newValue {
-                case .metro:
-//                    _iconTransportImageView.image = UIImage(named: "metroIcon")
-                    break
-                case .bus:
-//                    _iconTransportImageView.image = UIImage(named: "busIcon")
-                    break
-                case .tramway:
-//                    _iconTransportImageView.image = UIImage(named: "tramwayIcon")
-                    break
-                case .car:
-//                    _iconTransportImageView.image = UIImage(named: "carIcon")
-                    break
-                case .walk:
-//                    _iconTransportImageView.image = UIImage(named: "walkIcon")
-                    break
+                if newValue == ModeTransport.walking.rawValue ||
+                newValue == ModeTransport.bss.rawValue ||
+                newValue == ModeTransport.car.rawValue ||
+                newValue == ModeTransport.ridesharing.rawValue {
+                    _tagTransportView.isHidden = true
+                    _tagTransportLabel.isHidden = true
                 }
+                transportLabel.attributedText = NSMutableAttributedString()
+                    .icon(newValue, size: 20)
             }
         }
     }
+    
 }
+

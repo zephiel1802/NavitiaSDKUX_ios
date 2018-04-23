@@ -2,7 +2,6 @@
 //  JourneyEmptySolutionCollectionViewCell.swift
 //  NavitiaSDKUI
 //
-//  Created by Flavien Sicard on 29/03/2018.
 //  Copyright © 2018 kisio. All rights reserved.
 //
 
@@ -10,10 +9,14 @@ import UIKit
 
 class JourneyEmptySolutionCollectionViewCell: UICollectionViewCell {
     
-    public var height = 40
+    @IBOutlet weak var noJourneyView: UIView!
+    @IBOutlet weak var noJourneyLabel: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        
+        _setup()
+        addShadow()
     }
     
     static var nib:UINib {
@@ -22,6 +25,23 @@ class JourneyEmptySolutionCollectionViewCell: UICollectionViewCell {
     
     static var identifier: String {
         return String(describing: self)
+    }
+    
+    private func _setup() {
+        noJourneyLabel.text = "no_journey_found".localized(withComment: "No journey found", bundle: NavitiaSDKUIConfig.shared.bundle)
+        noJourneyLabel.textColor = Configuration.Color.alertInfoDarker
+        noJourneyView.backgroundColor = Configuration.Color.alertView
+        noJourneyView.layer.borderWidth = 1
+        noJourneyView.layer.borderColor = Configuration.Color.alertInfoDarker.cgColor
+    }
+    
+    var text: String? {
+        get {
+            return noJourneyLabel.text
+        }
+        set {
+            noJourneyLabel.text = newValue
+        }
     }
     
 }

@@ -11,7 +11,7 @@ open class SectionGeoJsonSchema: JSONEncodable, Mappable {
 
     public var type: String?
     public var properties: [Any]?
-    public var coordinates: [[Float]]?
+    public var coordinates: [[Double]]?
 
     public init() {}
     required public init?(map: Map) {
