@@ -4,7 +4,6 @@
 //
 //  Copyright © 2018 kisio. All rights reserved.
 //
-
 import UIKit
 import NavitiaSDKUI
 
@@ -13,16 +12,15 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
-
+    
     @IBAction func touch(_ sender: Any) {
         let journeyResultsViewController = getJourneys()
         navigationController?.pushViewController(journeyResultsViewController, animated: true)
     }
-    
     
     private func getJourneys() -> JourneySolutionViewController {
         let bundle = Bundle(identifier: "org.cocoapods.NavitiaSDKUI")
@@ -43,5 +41,3 @@ class ViewController: UIViewController {
     }
     
 }
-
-
