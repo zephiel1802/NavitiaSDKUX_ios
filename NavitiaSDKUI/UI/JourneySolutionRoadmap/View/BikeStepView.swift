@@ -22,6 +22,7 @@ class BikeStepView: UIView {
             if let mode = _mode {
                 modeString = mode.rawValue
             }
+            
             takeLabel.attributedText = NSMutableAttributedString()
                 .normal("take_the".localized(withComment: "take_the", bundle: NavitiaSDKUIConfig.shared.bundle), size: 15)
                 .normal(" ", size: 15)
@@ -34,7 +35,6 @@ class BikeStepView: UIView {
                 .normal("in_the_direction_of".localized(withComment: "in_the_direction_of", bundle: NavitiaSDKUIConfig.shared.bundle), size: 15)
                 .normal(" ", size: 15)
                 .bold(destination, size: 15)
-            takeLabel.sizeToFit()
             setHeight()
         }
     }
@@ -56,7 +56,6 @@ class BikeStepView: UIView {
                 .normal("in_the_direction_of".localized(withComment: "in_the_direction_of", bundle: NavitiaSDKUIConfig.shared.bundle), size: 15)
                 .normal(" ", size: 15)
                 .bold(destination, size: 15)
-            takeLabel.sizeToFit()
             setHeight()
         }
     }
@@ -78,7 +77,6 @@ class BikeStepView: UIView {
                 .normal("in_the_direction_of".localized(withComment: "in_the_direction_of", bundle: NavitiaSDKUIConfig.shared.bundle), size: 15)
                 .normal(" ", size: 15)
                 .bold(destination, size: 15)
-            takeLabel.sizeToFit()
             setHeight()
         }
     }
@@ -87,6 +85,7 @@ class BikeStepView: UIView {
         super.init(frame: frame)
         _setup()
         addShadow(opacity: 0.28)
+        
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -101,7 +100,7 @@ class BikeStepView: UIView {
             }
         }
     }
-    
+
     override func awakeFromNib() {
         super.awakeFromNib()
         _setup()
@@ -114,7 +113,9 @@ class BikeStepView: UIView {
     }
     
     func setHeight() {
-        frame.size.height = timeLabel.frame.size.height + timeLabel.frame.origin.y + 10
+        let timeLabelSize = timeLabel.attributedText?.boundingRect(with: CGSize(width: frame.size.width - 60, height: 9990), options: .usesLineFragmentOrigin, context: nil)
+        let takeLabelSize = takeLabel.attributedText?.boundingRect(with: CGSize(width: frame.size.width - 60, height: 9990), options: .usesLineFragmentOrigin, context: nil)
+        frame.size.height = (timeLabelSize?.height)! + (takeLabelSize?.height)! + 20
     }
 
 }

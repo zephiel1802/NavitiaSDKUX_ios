@@ -24,6 +24,7 @@ open class JourneySolutionRoadmapViewController: UIViewController {
     var ridesharingDeepLink: String?
     var ridesharingIndex = 0
     var timeRidesharing: Int32?
+    var display = false
     
     override open func viewDidLoad() {
         super.viewDidLoad()
@@ -32,10 +33,12 @@ open class JourneySolutionRoadmapViewController: UIViewController {
         if #available(iOS 11.0, *) {
             scrollView?.contentInsetAdjustmentBehavior = .always
         }
-        composentWidth = _updateWidth()
+        
         _setupMapView()
-        _display()
+//        _display()
     }
+    
+    
     
     override open func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -44,6 +47,11 @@ open class JourneySolutionRoadmapViewController: UIViewController {
 
     override open func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
+        composentWidth = _updateWidth()
+        if !display {
+            _display()
+        }
+        
         _updateOriginViewScroll()
     }
     
@@ -71,6 +79,7 @@ open class JourneySolutionRoadmapViewController: UIViewController {
             _displayStep(journey)
             _displayArrival(journey)
         }
+        display = true
     }
     
     private func _displayHeader(_ journey: Journey) {
@@ -157,6 +166,8 @@ open class JourneySolutionRoadmapViewController: UIViewController {
     }
     
     private func _displayBikeStep(_ section: Section) {
+        print("COUCUOj toit \(composentWidth)")
+
         let view = BikeStepView(frame: CGRect(x: 0, y: 0, width: composentWidth, height: 50))
         view.modeString = Modes().getModeIcon(section: section)
         view.origin = section.from?.name ?? ""
