@@ -27,6 +27,11 @@
 		8433F39E207F8E14007DBBCE /* RidesharingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8433F39D207F8E14007DBBCE /* RidesharingView.swift */; };
 		8433F3A0207FAECF007DBBCE /* AlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8433F39F207FAECF007DBBCE /* AlertViewController.swift */; };
 		8433F3A2207FAF23007DBBCE /* AlertView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8433F3A1207FAF22007DBBCE /* AlertView.xib */; };
+		8434322F208E19E50061F20A /* Book.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8434322E208E19E50061F20A /* Book.storyboard */; };
+		84343234208E1AD80061F20A /* BookShopViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84343233208E1AD80061F20A /* BookShopViewController.swift */; };
+		84343236208E1AE60061F20A /* BookShopViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84343235208E1AE60061F20A /* BookShopViewModel.swift */; };
+		84343238208E1E500061F20A /* TicketCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84343237208E1E500061F20A /* TicketCollectionViewCell.xib */; };
+		8434323A208E1E5F0061F20A /* TicketCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84343239208E1E5F0061F20A /* TicketCollectionViewCell.swift */; };
 		844CA2E22080F15A00C6B259 /* JourneyRidesharingCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 844CA2E12080F15A00C6B259 /* JourneyRidesharingCollectionViewCell.xib */; };
 		844CA2E42080F16E00C6B259 /* JourneyRidesharingCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 844CA2E32080F16E00C6B259 /* JourneyRidesharingCollectionViewCell.swift */; };
 		8451DA44206503F100CFA1E4 /* NavitiaSDKUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8451DA3A206503F100CFA1E4 /* NavitiaSDKUI.framework */; };
@@ -316,6 +321,11 @@
 		8433F39D207F8E14007DBBCE /* RidesharingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RidesharingView.swift; sourceTree = "<group>"; };
 		8433F39F207FAECF007DBBCE /* AlertViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertViewController.swift; sourceTree = "<group>"; };
 		8433F3A1207FAF22007DBBCE /* AlertView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AlertView.xib; sourceTree = "<group>"; };
+		8434322E208E19E50061F20A /* Book.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Book.storyboard; sourceTree = "<group>"; };
+		84343233208E1AD80061F20A /* BookShopViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookShopViewController.swift; sourceTree = "<group>"; };
+		84343235208E1AE60061F20A /* BookShopViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookShopViewModel.swift; sourceTree = "<group>"; };
+		84343237208E1E500061F20A /* TicketCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TicketCollectionViewCell.xib; sourceTree = "<group>"; };
+		84343239208E1E5F0061F20A /* TicketCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicketCollectionViewCell.swift; sourceTree = "<group>"; };
 		844CA2E12080F15A00C6B259 /* JourneyRidesharingCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = JourneyRidesharingCollectionViewCell.xib; sourceTree = "<group>"; };
 		844CA2E32080F16E00C6B259 /* JourneyRidesharingCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JourneyRidesharingCollectionViewCell.swift; sourceTree = "<group>"; };
 		8451DA3A206503F100CFA1E4 /* NavitiaSDKUI.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = NavitiaSDKUI.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -619,6 +629,33 @@
 			path = Interface;
 			sourceTree = "<group>";
 		};
+		84343230208E1A9F0061F20A /* BookShop */ = {
+			isa = PBXGroup;
+			children = (
+				84343231208E1AAE0061F20A /* View */,
+				84343232208E1ABF0061F20A /* Interface */,
+				84343233208E1AD80061F20A /* BookShopViewController.swift */,
+				84343235208E1AE60061F20A /* BookShopViewModel.swift */,
+			);
+			path = BookShop;
+			sourceTree = "<group>";
+		};
+		84343231208E1AAE0061F20A /* View */ = {
+			isa = PBXGroup;
+			children = (
+				84343239208E1E5F0061F20A /* TicketCollectionViewCell.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		84343232208E1ABF0061F20A /* Interface */ = {
+			isa = PBXGroup;
+			children = (
+				84343237208E1E500061F20A /* TicketCollectionViewCell.xib */,
+			);
+			path = Interface;
+			sourceTree = "<group>";
+		};
 		8451DA30206503F100CFA1E4 = {
 			isa = PBXGroup;
 			children = (
@@ -684,6 +721,7 @@
 			isa = PBXGroup;
 			children = (
 				8451DAC22065338B00CFA1E4 /* Journey.storyboard */,
+				8434322E208E19E50061F20A /* Book.storyboard */,
 			);
 			path = Storyboard;
 			sourceTree = "<group>";
@@ -691,6 +729,7 @@
 		8451DA57206505FF00CFA1E4 /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				84343230208E1A9F0061F20A /* BookShop */,
 				8451DAA320650C0700CFA1E4 /* JourneySolutionRoadmap */,
 				8451DAA420650C1200CFA1E4 /* JourneySolutionRidesharing */,
 				8451DAA220650BF200CFA1E4 /* JourneySolution */,
@@ -1263,6 +1302,7 @@
 				8471D38320809EAD000C9125 /* JourneySolutionView.xib in Resources */,
 				848D7C2A207B92D4002E9B1A /* PublicTransportView.xib in Resources */,
 				8433F39C207F89C0007DBBCE /* RidesharingView.xib in Resources */,
+				8434322F208E19E50061F20A /* Book.storyboard in Resources */,
 				84BC297E207E66CC0073F198 /* StationsView.xib in Resources */,
 				8451DAC32065338B00CFA1E4 /* Journey.storyboard in Resources */,
 				84E350F920776F1100E9BA46 /* DisruptionStepView.xib in Resources */,
@@ -1275,6 +1315,7 @@
 				8454D4482068F2BC00C97D2F /* JourneySolutionCollectionViewCell.xib in Resources */,
 				8422B46A206A33540097E6C9 /* JourneySummaryView.xib in Resources */,
 				8422B45B206A242D0097E6C9 /* JourneyHeaderCollectionReusableView.xib in Resources */,
+				84343238208E1E500061F20A /* TicketCollectionViewCell.xib in Resources */,
 				8454D44E20692CA200C97D2F /* SDKIcons.ttf in Resources */,
 				8433F3A2207FAF23007DBBCE /* AlertView.xib in Resources */,
 				84339A7E206CC5E200F2CB65 /* JourneyEmptySolutionCollectionViewCell.xib in Resources */,
@@ -1354,6 +1395,7 @@
 				8454D452206942B800C97D2F /* Date+Extension.swift in Sources */,
 				8454D4302068D3A800C97D2F /* Operators.swift in Sources */,
 				8454D3A02068D3A800C97D2F /* LineGroup.swift in Sources */,
+				8434323A208E1E5F0061F20A /* TicketCollectionViewCell.swift in Sources */,
 				8454D4332068D3A800C97D2F /* DataTransform.swift in Sources */,
 				8454D44A2068FC9F00C97D2F /* JourneySolutionCollectionViewCell.swift in Sources */,
 				8476DD5820888EE8006CB506 /* StackView+Extension.swift in Sources */,
@@ -1455,6 +1497,7 @@
 				8454D4412068D3A800C97D2F /* NavitiaSDK.swift in Sources */,
 				8454D42A2068D3A800C97D2F /* CustomDateFormatTransform.swift in Sources */,
 				8454D3FE2068D3A800C97D2F /* CalendarException.swift in Sources */,
+				84343234208E1AD80061F20A /* BookShopViewController.swift in Sources */,
 				8454D3F82068D3A800C97D2F /* Poi.swift in Sources */,
 				8454D3CC2068D3A800C97D2F /* Table.swift in Sources */,
 				8454D4272068D3A800C97D2F /* AlamofireObjectMapper.swift in Sources */,
@@ -1527,6 +1570,7 @@
 				8454D3C12068D3A800C97D2F /* Coverage.swift in Sources */,
 				8454D3D42068D3A800C97D2F /* MultiLineStringSchema.swift in Sources */,
 				8454D3AA2068D3A800C97D2F /* Property.swift in Sources */,
+				84343236208E1AE60061F20A /* BookShopViewModel.swift in Sources */,
 				8454D39B2068D3A800C97D2F /* Amount.swift in Sources */,
 				8454D3E62068D3A800C97D2F /* CellLatSchema.swift in Sources */,
 				8454D3872068D3A800C97D2F /* LineGroupsApi.swift in Sources */,
