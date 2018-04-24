@@ -95,6 +95,53 @@
                             <action selector="onInformationPressedButton:" destination="aW3-zh-DYM" eventType="touchUpInside" id="etk-ei-sRl"/>
                         </connections>
                     </button>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="paf-pl-HzF">
+                        <rect key="frame" x="25" y="61" width="250" height="49"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CXV-pc-X5e">
+                                <rect key="frame" x="0.0" y="0.0" width="50" height="49"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="50" id="FNX-Ws-9bo"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                                <state key="normal" title="-"/>
+                                <connections>
+                                    <action selector="onLessAmountPressedButton:" destination="aW3-zh-DYM" eventType="touchUpInside" id="ueT-Xc-sVX"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eNM-du-N7W">
+                                <rect key="frame" x="200" y="0.0" width="50" height="49"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="50" id="TJM-E5-BFB"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                                <state key="normal" title="+"/>
+                                <connections>
+                                    <action selector="onMoreAmountPressendButton:" destination="aW3-zh-DYM" eventType="touchUpInside" id="9HH-MA-bXQ"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KpV-OW-3UZ">
+                                <rect key="frame" x="119.5" y="14" width="11.5" height="21"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="bottom" secondItem="eNM-du-N7W" secondAttribute="bottom" id="EH2-2Q-xGk"/>
+                            <constraint firstItem="eNM-du-N7W" firstAttribute="centerY" secondItem="paf-pl-HzF" secondAttribute="centerY" id="JKn-vJ-EjG"/>
+                            <constraint firstAttribute="width" constant="250" id="MPZ-UX-on4"/>
+                            <constraint firstAttribute="trailing" secondItem="eNM-du-N7W" secondAttribute="trailing" id="Rs8-Id-fpw"/>
+                            <constraint firstAttribute="bottom" secondItem="CXV-pc-X5e" secondAttribute="bottom" id="TZc-xC-RYX"/>
+                            <constraint firstItem="eNM-du-N7W" firstAttribute="top" secondItem="paf-pl-HzF" secondAttribute="top" id="WhY-Up-8Jy"/>
+                            <constraint firstItem="CXV-pc-X5e" firstAttribute="leading" secondItem="paf-pl-HzF" secondAttribute="leading" id="fmf-yt-Qv5"/>
+                            <constraint firstItem="KpV-OW-3UZ" firstAttribute="centerY" secondItem="paf-pl-HzF" secondAttribute="centerY" id="fzc-im-anC"/>
+                            <constraint firstItem="CXV-pc-X5e" firstAttribute="top" secondItem="paf-pl-HzF" secondAttribute="top" id="n61-hk-m0d"/>
+                            <constraint firstItem="CXV-pc-X5e" firstAttribute="centerY" secondItem="paf-pl-HzF" secondAttribute="centerY" id="pQo-5h-3II"/>
+                            <constraint firstItem="KpV-OW-3UZ" firstAttribute="centerX" secondItem="paf-pl-HzF" secondAttribute="centerX" id="sRB-B1-YKL"/>
+                        </constraints>
+                    </view>
                 </subviews>
             </view>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -109,12 +156,15 @@
                 <constraint firstItem="Hqj-U7-ujJ" firstAttribute="leading" secondItem="aW3-zh-DYM" secondAttribute="leading" constant="10" id="J2K-cM-g7X"/>
                 <constraint firstAttribute="trailing" secondItem="1Xm-lf-xL6" secondAttribute="trailing" constant="10" id="R5N-aW-cxB"/>
                 <constraint firstItem="ee4-e9-lGz" firstAttribute="leading" secondItem="Hqj-U7-ujJ" secondAttribute="trailing" constant="5" id="RYn-pf-Z2C"/>
+                <constraint firstAttribute="bottom" secondItem="paf-pl-HzF" secondAttribute="bottom" id="Y1N-u2-3EF"/>
                 <constraint firstItem="E8m-He-roK" firstAttribute="centerY" secondItem="Hqj-U7-ujJ" secondAttribute="centerY" constant="7" id="aEX-xe-x8j"/>
                 <constraint firstItem="ndQ-PI-UlH" firstAttribute="top" secondItem="Hqj-U7-ujJ" secondAttribute="bottom" id="d1l-nF-D9J"/>
                 <constraint firstItem="hu1-Xl-ClJ" firstAttribute="centerX" secondItem="aW3-zh-DYM" secondAttribute="centerX" id="eXf-pi-Vo4"/>
                 <constraint firstItem="hu1-Xl-ClJ" firstAttribute="top" secondItem="DI8-Ie-sSA" secondAttribute="bottom" constant="10" id="muU-Rm-SVL"/>
                 <constraint firstItem="Hqj-U7-ujJ" firstAttribute="top" secondItem="aW3-zh-DYM" secondAttribute="top" constant="10" id="p1E-p0-wsl"/>
+                <constraint firstItem="paf-pl-HzF" firstAttribute="centerX" secondItem="aW3-zh-DYM" secondAttribute="centerX" id="pCK-YR-a16"/>
                 <constraint firstItem="ndQ-PI-UlH" firstAttribute="leading" secondItem="aW3-zh-DYM" secondAttribute="leading" constant="10" id="rwV-pi-DWl"/>
+                <constraint firstItem="paf-pl-HzF" firstAttribute="top" secondItem="DI8-Ie-sSA" secondAttribute="bottom" id="tvb-1l-40K"/>
                 <constraint firstItem="YRJ-zn-WUg" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="ee4-e9-lGz" secondAttribute="trailing" constant="85" id="ykd-Jf-j29"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="YRJ-zn-WUg"/>
@@ -125,9 +175,13 @@
             </userDefinedRuntimeAttributes>
             <connections>
                 <outlet property="addBasketButton" destination="hu1-Xl-ClJ" id="UCT-Ri-bla"/>
+                <outlet property="amountLabel" destination="KpV-OW-3UZ" id="wvr-BU-06e"/>
+                <outlet property="amountView" destination="paf-pl-HzF" id="7D1-wZ-R01"/>
                 <outlet property="centimeLabel" destination="1Xm-lf-xL6" id="8Mw-9o-GXm"/>
                 <outlet property="descriptionLabel" destination="ndQ-PI-UlH" id="GK6-44-vWK"/>
                 <outlet property="informationButton" destination="ee4-e9-lGz" id="rFb-Bs-bNr"/>
+                <outlet property="lessAmountButton" destination="CXV-pc-X5e" id="YTj-L6-kZF"/>
+                <outlet property="moreAmountButton" destination="eNM-du-N7W" id="ZWm-DY-gL5"/>
                 <outlet property="priceLabel" destination="E8m-He-roK" id="1eE-ln-gY5"/>
                 <outlet property="titleLabel" destination="Hqj-U7-ujJ" id="7f1-kJ-bIc"/>
             </connections>

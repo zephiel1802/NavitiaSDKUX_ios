@@ -18,16 +18,32 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="V1i-tT-IN8">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                                <color key="backgroundColor" red="0.25098039220000001" green="0.58431372550000005" blue="0.5568627451" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LQh-MV-p7A">
                                 <rect key="frame" x="0.0" y="44" width="375" height="70"/>
-                                <color key="backgroundColor" red="0.0" green="0.61960784310000006" blue="0.87843137250000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" red="0.25098039220000001" green="0.58431372550000005" blue="0.5568627451" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="70" id="SWo-oO-bel"/>
                                 </constraints>
                             </view>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="rHz-Vj-7AX">
+                                <rect key="frame" x="15" y="129" width="345" height="29"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <segments>
+                                    <segment title="Titres unitaires"/>
+                                    <segment title="Abonnements"/>
+                                </segments>
+                                <color key="tintColor" red="0.25098039220000001" green="0.58431372550000005" blue="0.5568627451" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <connections>
+                                    <action selector="onTypePressedSegmentControl:" destination="ARd-8B-8ZT" eventType="valueChanged" id="k29-El-Ha4"/>
+                                </connections>
+                            </segmentedControl>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="dgf-wF-P8x">
-                                <rect key="frame" x="0.0" y="114" width="375" height="698"/>
-                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                <rect key="frame" x="0.0" y="172" width="375" height="640"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="Cka-So-O6a">
                                     <size key="itemSize" width="0.0" height="0.0"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -40,30 +56,30 @@
                                     <outlet property="delegate" destination="ARd-8B-8ZT" id="xsN-Gp-Vux"/>
                                 </connections>
                             </collectionView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="V1i-tT-IN8">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
-                                <color key="backgroundColor" red="0.25098039220000001" green="0.58431372550000005" blue="0.5568627451" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            </view>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="dgf-wF-P8x" secondAttribute="trailing" id="3bF-1r-F4d"/>
                             <constraint firstItem="LQh-MV-p7A" firstAttribute="trailing" secondItem="zxY-ad-elp" secondAttribute="trailing" id="B2q-ia-gWK"/>
+                            <constraint firstItem="rHz-Vj-7AX" firstAttribute="leading" secondItem="HTb-cc-Mzw" secondAttribute="leading" constant="15" id="F5B-cb-CpY"/>
                             <constraint firstItem="V1i-tT-IN8" firstAttribute="top" secondItem="zxY-ad-elp" secondAttribute="top" id="IbK-U9-MAg"/>
+                            <constraint firstItem="HTb-cc-Mzw" firstAttribute="trailing" secondItem="rHz-Vj-7AX" secondAttribute="trailing" constant="15" id="J5V-02-KGe"/>
                             <constraint firstItem="LQh-MV-p7A" firstAttribute="leading" secondItem="zxY-ad-elp" secondAttribute="leading" id="NVz-aG-gTf"/>
                             <constraint firstAttribute="trailing" secondItem="V1i-tT-IN8" secondAttribute="trailing" id="X5r-CO-ACg"/>
+                            <constraint firstItem="dgf-wF-P8x" firstAttribute="top" secondItem="rHz-Vj-7AX" secondAttribute="bottom" constant="15" id="aYS-od-0Sh"/>
                             <constraint firstItem="LQh-MV-p7A" firstAttribute="top" secondItem="V1i-tT-IN8" secondAttribute="bottom" id="bFC-GZ-jue"/>
                             <constraint firstItem="V1i-tT-IN8" firstAttribute="leading" secondItem="zxY-ad-elp" secondAttribute="leading" id="d6M-SR-nR8"/>
+                            <constraint firstItem="rHz-Vj-7AX" firstAttribute="top" secondItem="LQh-MV-p7A" secondAttribute="bottom" constant="15" id="eWK-zp-2tX"/>
                             <constraint firstItem="dgf-wF-P8x" firstAttribute="leading" secondItem="zxY-ad-elp" secondAttribute="leading" id="r5f-Zq-Rhy"/>
                             <constraint firstAttribute="bottom" secondItem="dgf-wF-P8x" secondAttribute="bottom" id="sch-C3-x6g"/>
                             <constraint firstItem="LQh-MV-p7A" firstAttribute="top" secondItem="HTb-cc-Mzw" secondAttribute="top" id="ygL-sZ-cjV"/>
-                            <constraint firstItem="dgf-wF-P8x" firstAttribute="top" secondItem="LQh-MV-p7A" secondAttribute="bottom" id="ynU-5x-c26"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="HTb-cc-Mzw"/>
                     </view>
                     <connections>
                         <outlet property="breadcrumbView" destination="LQh-MV-p7A" id="Dd7-NU-XwW"/>
                         <outlet property="collectionView" destination="dgf-wF-P8x" id="aaX-0T-W2Z"/>
+                        <outlet property="typeSegmentedControl" destination="rHz-Vj-7AX" id="Hgb-46-29p"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="E72-jU-tdV" userLabel="First Responder" sceneMemberID="firstResponder"/>

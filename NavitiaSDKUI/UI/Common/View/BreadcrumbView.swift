@@ -153,8 +153,6 @@ open class BreadcrumbView: UIView {
         thirdLabel.attributedText = NSMutableAttributedString().bold("tickets".localized(withComment: "TICKETS",bundle: NavitiaSDKUIConfig.shared.bundle).uppercased(),
                                                                      color: Configuration.Color.white,
                                                                      size: 9)
-        
-    //    stateBreadcrumb = .shop
     }
     
     @IBAction func onDismissButtonClicked(_ sender: Any) {
