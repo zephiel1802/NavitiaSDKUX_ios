@@ -10,6 +10,7 @@ import UIKit
 
 open class BookShopViewController: UIViewController {
 
+    @IBOutlet weak var breadcrumbView: BreadcrumbView!
     @IBOutlet weak var collectionView: UICollectionView!
     
     override open func viewDidLoad() {
@@ -24,7 +25,7 @@ open class BookShopViewController: UIViewController {
         }
         
         _setupInterface()
-        _registerCollectionView()
+       _registerCollectionView()
     }
 
     override open func didReceiveMemoryWarning() {
@@ -36,12 +37,23 @@ open class BookShopViewController: UIViewController {
         collectionView.collectionViewLayout.invalidateLayout()
     }
     
+    override open func viewDidLayoutSubviews() {}
+    
     private func _registerCollectionView() {
         collectionView.register(UINib(nibName: TicketCollectionViewCell.identifier, bundle: self.nibBundle), forCellWithReuseIdentifier: TicketCollectionViewCell.identifier)
     }
     
     private func _setupInterface() {
+        let breadcrumbView = BreadcrumbView()
+        breadcrumbView.delegate = self
+        breadcrumbView.stateBreadcrumb = .shop
+        breadcrumbView.translatesAutoresizingMaskIntoConstraints = false
+        self.breadcrumbView.addSubview(breadcrumbView)
         
+        NSLayoutConstraint(item: breadcrumbView, attribute: NSLayoutAttribute.top, relatedBy: NSLayoutRelation.equal, toItem: self.breadcrumbView, attribute: NSLayoutAttribute.top, multiplier: 1, constant: 0).isActive = true
+        NSLayoutConstraint(item: breadcrumbView, attribute: NSLayoutAttribute.bottom, relatedBy: NSLayoutRelation.equal, toItem: self.breadcrumbView, attribute: NSLayoutAttribute.bottom, multiplier: 1, constant: 0).isActive = true
+        NSLayoutConstraint(item: breadcrumbView, attribute: NSLayoutAttribute.leading, relatedBy: NSLayoutRelation.equal, toItem: self.breadcrumbView, attribute: NSLayoutAttribute.leading, multiplier: 1, constant: 0).isActive = true
+        NSLayoutConstraint(item: breadcrumbView, attribute: NSLayoutAttribute.trailing, relatedBy: NSLayoutRelation.equal, toItem: self.breadcrumbView, attribute: NSLayoutAttribute.trailing, multiplier: 1, constant: 0).isActive = true
     }
     
 }
@@ -59,7 +71,6 @@ extension BookShopViewController: UICollectionViewDataSource {
     
     public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TicketCollectionViewCell.identifier, for: indexPath) as? TicketCollectionViewCell {
-          //  cell.setup(self._viewModel.journeys[indexPath.row])
             cell.title = "[TITLE]"
             cell.descript = "[DESCRIPTION]\n[DESCRIPTION LINE 2]"
             cell.setPrice(999.99, currency: "CAD")
@@ -86,6 +97,14 @@ extension BookShopViewController: UICollectionViewDelegateFlowLayout {
             safeAreaWidth += self.collectionView.safeAreaInsets.left + self.collectionView.safeAreaInsets.right
         }
         return CGSize(width: self.collectionView.frame.size.width - safeAreaWidth, height: 110)
+    }
+    
+}
+
+extension BookShopViewController: BreadcrumbViewProtocol {
+    
+    func onDismissButtonClicked(_ BreadcrumbView: BreadcrumbView) {
+        self.dismiss(animated: true, completion: nil)
     }
     
 }

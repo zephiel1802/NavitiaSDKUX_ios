@@ -16,6 +16,8 @@
 		8422B468206A334B0097E6C9 /* JourneySummaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8422B467206A334B0097E6C9 /* JourneySummaryView.swift */; };
 		8422B46A206A33540097E6C9 /* JourneySummaryView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8422B469206A33540097E6C9 /* JourneySummaryView.xib */; };
 		8422B46C206A37610097E6C9 /* TransportHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8422B46B206A37610097E6C9 /* TransportHelper.swift */; };
+		84286837208F2B14009EA360 /* BreadcrumbView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84286836208F2B14009EA360 /* BreadcrumbView.swift */; };
+		84286839208F2B1A009EA360 /* BreadcrumbView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84286838208F2B1A009EA360 /* BreadcrumbView.xib */; };
 		84339A7E206CC5E200F2CB65 /* JourneyEmptySolutionCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84339A7D206CC5E200F2CB65 /* JourneyEmptySolutionCollectionViewCell.xib */; };
 		84339A80206CC5ED00F2CB65 /* JourneyEmptySolutionCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84339A7F206CC5ED00F2CB65 /* JourneyEmptySolutionCollectionViewCell.swift */; };
 		84339A82206CC6D900F2CB65 /* NSMutableAttributedString+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84339A81206CC6D900F2CB65 /* NSMutableAttributedString+Extension.swift */; };
@@ -310,6 +312,8 @@
 		8422B467206A334B0097E6C9 /* JourneySummaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JourneySummaryView.swift; sourceTree = "<group>"; };
 		8422B469206A33540097E6C9 /* JourneySummaryView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = JourneySummaryView.xib; sourceTree = "<group>"; };
 		8422B46B206A37610097E6C9 /* TransportHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransportHelper.swift; sourceTree = "<group>"; };
+		84286836208F2B14009EA360 /* BreadcrumbView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BreadcrumbView.swift; sourceTree = "<group>"; };
+		84286838208F2B1A009EA360 /* BreadcrumbView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BreadcrumbView.xib; sourceTree = "<group>"; };
 		84339A7D206CC5E200F2CB65 /* JourneyEmptySolutionCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = JourneyEmptySolutionCollectionViewCell.xib; sourceTree = "<group>"; };
 		84339A7F206CC5ED00F2CB65 /* JourneyEmptySolutionCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JourneyEmptySolutionCollectionViewCell.swift; sourceTree = "<group>"; };
 		84339A81206CC6D900F2CB65 /* NSMutableAttributedString+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSMutableAttributedString+Extension.swift"; sourceTree = "<group>"; };
@@ -610,6 +614,7 @@
 		8422B461206A30180097E6C9 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				84286836208F2B14009EA360 /* BreadcrumbView.swift */,
 				8422B467206A334B0097E6C9 /* JourneySummaryView.swift */,
 				8422B465206A303D0097E6C9 /* JourneySummaryPartView.swift */,
 				84BC297F207E66D50073F198 /* StationsView.swift */,
@@ -620,6 +625,7 @@
 		8422B462206A30200097E6C9 /* Interface */ = {
 			isa = PBXGroup;
 			children = (
+				84286838208F2B1A009EA360 /* BreadcrumbView.xib */,
 				8433F3A1207FAF22007DBBCE /* AlertView.xib */,
 				8422B469206A33540097E6C9 /* JourneySummaryView.xib */,
 				8422B463206A30300097E6C9 /* JourneySummaryPartView.xib */,
@@ -1320,6 +1326,7 @@
 				8433F3A2207FAF23007DBBCE /* AlertView.xib in Resources */,
 				84339A7E206CC5E200F2CB65 /* JourneyEmptySolutionCollectionViewCell.xib in Resources */,
 				8451DA63206506ED00CFA1E4 /* Localizable.strings in Resources */,
+				84286839208F2B1A009EA360 /* BreadcrumbView.xib in Resources */,
 				844CA2E22080F15A00C6B259 /* JourneyRidesharingCollectionViewCell.xib in Resources */,
 				84E350F520776BC600E9BA46 /* TransferStepView.xib in Resources */,
 			);
@@ -1586,6 +1593,7 @@
 				8422B46C206A37610097E6C9 /* TransportHelper.swift in Sources */,
 				8471D38520809EC7000C9125 /* JourneySolutionView.swift in Sources */,
 				8454D3962068D3A800C97D2F /* Extensions.swift in Sources */,
+				84286837208F2B14009EA360 /* BreadcrumbView.swift in Sources */,
 				8454D3972068D3A800C97D2F /* Models.swift in Sources */,
 				8454D4202068D3A800C97D2F /* Alamofire.swift in Sources */,
 				8454D4322068D3A800C97D2F /* EnumTransform.swift in Sources */,

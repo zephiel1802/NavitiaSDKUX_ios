@@ -20,7 +20,10 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Ticket Voyageur" textAlignment="natural" lineBreakMode="characterWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hqj-U7-ujJ">
-                        <rect key="frame" x="10" y="15" width="97.5" height="15"/>
+                        <rect key="frame" x="10" y="10" width="97.5" height="20"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="20" id="BMK-41-vGU"/>
+                        </constraints>
                         <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
                         <color key="textColor" red="0.25098039215686274" green="0.25098039215686274" blue="0.25098039215686274" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
@@ -51,7 +54,7 @@
                         </connections>
                     </button>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1Xm-lf-xL6">
-                        <rect key="frame" x="255" y="23" width="35" height="8"/>
+                        <rect key="frame" x="255" y="20.5" width="35" height="8"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="8" id="n4Q-TT-ZpN"/>
                         </constraints>
@@ -66,7 +69,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="E8m-He-roK">
-                        <rect key="frame" x="225" y="23" width="30" height="13"/>
+                        <rect key="frame" x="225" y="20.5" width="30" height="13"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="13" id="VnL-Zl-NBp"/>
                         </constraints>
@@ -80,11 +83,10 @@
                         </attributedString>
                         <nil key="highlightedColor"/>
                     </label>
-                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ee4-e9-lGz">
-                        <rect key="frame" x="112.5" y="13" width="20" height="20"/>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ee4-e9-lGz">
+                        <rect key="frame" x="112.5" y="10.5" width="30" height="20"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="20" id="4Ql-dw-XTo"/>
-                            <constraint firstAttribute="width" constant="20" id="hij-GO-ovG"/>
                         </constraints>
                         <state key="normal" title="I">
                             <color key="titleColor" red="0.25098039220000001" green="0.58431372550000005" blue="0.5568627451" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -111,7 +113,7 @@
                 <constraint firstItem="ndQ-PI-UlH" firstAttribute="top" secondItem="Hqj-U7-ujJ" secondAttribute="bottom" id="d1l-nF-D9J"/>
                 <constraint firstItem="hu1-Xl-ClJ" firstAttribute="centerX" secondItem="aW3-zh-DYM" secondAttribute="centerX" id="eXf-pi-Vo4"/>
                 <constraint firstItem="hu1-Xl-ClJ" firstAttribute="top" secondItem="DI8-Ie-sSA" secondAttribute="bottom" constant="10" id="muU-Rm-SVL"/>
-                <constraint firstItem="Hqj-U7-ujJ" firstAttribute="top" secondItem="aW3-zh-DYM" secondAttribute="top" constant="15" id="p1E-p0-wsl"/>
+                <constraint firstItem="Hqj-U7-ujJ" firstAttribute="top" secondItem="aW3-zh-DYM" secondAttribute="top" constant="10" id="p1E-p0-wsl"/>
                 <constraint firstItem="ndQ-PI-UlH" firstAttribute="leading" secondItem="aW3-zh-DYM" secondAttribute="leading" constant="10" id="rwV-pi-DWl"/>
                 <constraint firstItem="YRJ-zn-WUg" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="ee4-e9-lGz" secondAttribute="trailing" constant="85" id="ykd-Jf-j29"/>
             </constraints>

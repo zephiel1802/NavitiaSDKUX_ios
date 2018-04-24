@@ -34,18 +34,18 @@ class TicketCollectionViewCell: UICollectionViewCell {
     
     private func _setup() {
         addBasketButton.setAttributedTitle(NSMutableAttributedString()
-            .icon("",
+            .icon("disruption-information",
                   color: Configuration.Color.main,
                   size: 12)
-            .bold("".localized(withComment: "", bundle: NavitiaSDKUIConfig.shared.bundle),
+            .bold(" Ajouter au panier".localized(withComment: " Ajouter au panier", bundle: NavitiaSDKUIConfig.shared.bundle),
                   color: Configuration.Color.main,
                   size: 12),
                                            for: .normal)
         
         informationButton.setAttributedTitle(NSMutableAttributedString()
-            .icon("",
+            .icon("disruption-information",
                   color: Configuration.Color.main,
-                  size: 12),
+                  size: 15),
                                              for: .normal)
     }
     
