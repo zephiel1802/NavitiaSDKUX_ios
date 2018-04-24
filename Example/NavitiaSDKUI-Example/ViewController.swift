@@ -17,12 +17,13 @@ class ViewController: UIViewController {
         super.didReceiveMemoryWarning()
     }
     
-    @IBAction func touch(_ sender: Any) {
-        let journeyResultsViewController = getJourneys()
-        navigationController?.pushViewController(journeyResultsViewController, animated: true)
+    // Journey
+    @IBAction func onSDKJourneyButtonClicked(_ sender: Any) {
+        let journeySolutionViewController = getJourneySolutionViewController()
+        navigationController?.pushViewController(journeySolutionViewController, animated: true)
     }
     
-    private func getJourneys() -> JourneySolutionViewController {
+    private func getJourneySolutionViewController() -> JourneySolutionViewController {
         let bundle = Bundle(identifier: "org.cocoapods.NavitiaSDKUI")
         let storyboard = UIStoryboard(name: "Journey", bundle: bundle)
         let journeyResultsViewController = storyboard.instantiateInitialViewController() as! JourneySolutionViewController
@@ -38,6 +39,19 @@ class ViewController: UIViewController {
         params.count = 5
         journeyResultsViewController.inParameters = params
         return journeyResultsViewController
+    }
+    
+    // Book
+    @IBAction func onSDKBookButtonClicked(_ sender: Any) {
+        let bookShopViewController = getBookShopViewController()
+        present(bookShopViewController, animated: true, completion: nil)
+    }
+    
+    private func getBookShopViewController() -> BookShopViewController {
+        let bundle = Bundle(identifier: "org.cocoapods.NavitiaSDKUI")
+        let storyboard = UIStoryboard(name: "Book", bundle: bundle)
+        let bookShopViewController = storyboard.instantiateInitialViewController() as! BookShopViewController
+        return bookShopViewController
     }
     
 }

@@ -8,11 +8,11 @@
 
 import UIKit
 
-class BookShopViewController: UIViewController {
+open class BookShopViewController: UIViewController {
 
     @IBOutlet weak var collectionView: UICollectionView!
     
-    override func viewDidLoad() {
+    override open func viewDidLoad() {
         super.viewDidLoad()
         
         NavitiaSDKUIConfig.shared.bundle = self.nibBundle
@@ -27,7 +27,7 @@ class BookShopViewController: UIViewController {
         _registerCollectionView()
     }
 
-    override func didReceiveMemoryWarning() {
+    override open func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
 
@@ -54,14 +54,17 @@ extension BookShopViewController: UICollectionViewDataSource {
     
     public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         // Send count - SDK Partner
-        return 5
+        return 10
     }
     
     public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-//        if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: JourneySolutionCollectionViewCell.identifier, for: indexPath) as? JourneySolutionCollectionViewCell {
-//            cell.setup(self._viewModel.journeys[indexPath.row])
-//            return cell
-//        }
+        if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TicketCollectionViewCell.identifier, for: indexPath) as? TicketCollectionViewCell {
+          //  cell.setup(self._viewModel.journeys[indexPath.row])
+            cell.title = "[TITLE]"
+            cell.descript = "[DESCRIPTION]\n[DESCRIPTION LINE 2]"
+            cell.setPrice(999.99, currency: "CAD")
+            return cell
+        }
         return UICollectionViewCell()
     }
     
