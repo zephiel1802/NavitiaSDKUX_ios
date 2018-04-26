@@ -31,7 +31,7 @@
                             </view>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="rHz-Vj-7AX">
                                 <rect key="frame" x="15" y="129" width="345" height="29"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <segments>
                                     <segment title="Titres unitaires"/>
                                     <segment title="Abonnements"/>
@@ -56,15 +56,24 @@
                                     <outlet property="delegate" destination="ARd-8B-8ZT" id="xsN-Gp-Vux"/>
                                 </connections>
                             </collectionView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PY7-dw-rOr">
+                                <rect key="frame" x="0.0" y="762" width="375" height="50"/>
+                                <color key="backgroundColor" red="0.25098039220000001" green="0.58431372550000005" blue="0.5568627451" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="gXg-BY-jka"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <constraints>
+                            <constraint firstAttribute="bottom" secondItem="PY7-dw-rOr" secondAttribute="bottom" id="0wS-zY-0kC"/>
                             <constraint firstAttribute="trailing" secondItem="dgf-wF-P8x" secondAttribute="trailing" id="3bF-1r-F4d"/>
                             <constraint firstItem="LQh-MV-p7A" firstAttribute="trailing" secondItem="zxY-ad-elp" secondAttribute="trailing" id="B2q-ia-gWK"/>
                             <constraint firstItem="rHz-Vj-7AX" firstAttribute="leading" secondItem="HTb-cc-Mzw" secondAttribute="leading" constant="15" id="F5B-cb-CpY"/>
                             <constraint firstItem="V1i-tT-IN8" firstAttribute="top" secondItem="zxY-ad-elp" secondAttribute="top" id="IbK-U9-MAg"/>
                             <constraint firstItem="HTb-cc-Mzw" firstAttribute="trailing" secondItem="rHz-Vj-7AX" secondAttribute="trailing" constant="15" id="J5V-02-KGe"/>
                             <constraint firstItem="LQh-MV-p7A" firstAttribute="leading" secondItem="zxY-ad-elp" secondAttribute="leading" id="NVz-aG-gTf"/>
+                            <constraint firstItem="PY7-dw-rOr" firstAttribute="leading" secondItem="zxY-ad-elp" secondAttribute="leading" id="TOx-x5-rHL"/>
                             <constraint firstAttribute="trailing" secondItem="V1i-tT-IN8" secondAttribute="trailing" id="X5r-CO-ACg"/>
                             <constraint firstItem="dgf-wF-P8x" firstAttribute="top" secondItem="rHz-Vj-7AX" secondAttribute="bottom" constant="15" id="aYS-od-0Sh"/>
                             <constraint firstItem="LQh-MV-p7A" firstAttribute="top" secondItem="V1i-tT-IN8" secondAttribute="bottom" id="bFC-GZ-jue"/>
@@ -72,19 +81,24 @@
                             <constraint firstItem="rHz-Vj-7AX" firstAttribute="top" secondItem="LQh-MV-p7A" secondAttribute="bottom" constant="15" id="eWK-zp-2tX"/>
                             <constraint firstItem="dgf-wF-P8x" firstAttribute="leading" secondItem="zxY-ad-elp" secondAttribute="leading" id="r5f-Zq-Rhy"/>
                             <constraint firstAttribute="bottom" secondItem="dgf-wF-P8x" secondAttribute="bottom" id="sch-C3-x6g"/>
+                            <constraint firstItem="PY7-dw-rOr" firstAttribute="trailing" secondItem="zxY-ad-elp" secondAttribute="trailing" id="tDU-Ck-Lqc"/>
                             <constraint firstItem="LQh-MV-p7A" firstAttribute="top" secondItem="HTb-cc-Mzw" secondAttribute="top" id="ygL-sZ-cjV"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="HTb-cc-Mzw"/>
                     </view>
                     <connections>
-                        <outlet property="breadcrumbView" destination="LQh-MV-p7A" id="Dd7-NU-XwW"/>
+                        <outlet property="breadcrumbContainerView" destination="LQh-MV-p7A" id="Dd7-NU-XwW"/>
                         <outlet property="collectionView" destination="dgf-wF-P8x" id="aaX-0T-W2Z"/>
+                        <outlet property="collectionViewBottomContraint" destination="sch-C3-x6g" id="csC-Td-bev"/>
+                        <outlet property="statusBarView" destination="V1i-tT-IN8" id="hrc-cX-fbh"/>
                         <outlet property="typeSegmentedControl" destination="rHz-Vj-7AX" id="Hgb-46-29p"/>
+                        <outlet property="validateBasketContainerHeightContraint" destination="gXg-BY-jka" id="qah-A4-Y4u"/>
+                        <outlet property="validateBasketContainerView" destination="PY7-dw-rOr" id="mdC-bH-9dE"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="E72-jU-tdV" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="181.59999999999999" y="82.019704433497537"/>
+            <point key="canvasLocation" x="180" y="80.541871921182263"/>
         </scene>
     </scenes>
 </document>

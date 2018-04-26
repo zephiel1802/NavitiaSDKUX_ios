@@ -10,14 +10,27 @@ import UIKit
 
 open class BookShopViewController: UIViewController {
 
-    @IBOutlet weak var breadcrumbView: BreadcrumbView!
+    @IBOutlet weak var statusBarView: UIView!
+    @IBOutlet weak var breadcrumbContainerView: BreadcrumbView!
+    @IBOutlet weak var validateBasketContainerView: UIView!
+    @IBOutlet weak var validateBasketContainerHeightContraint: NSLayoutConstraint!
     @IBOutlet weak var typeSegmentedControl: UISegmentedControl!
     @IBOutlet weak var collectionView: UICollectionView!
+    @IBOutlet var collectionViewBottomContraint: NSLayoutConstraint!
+    
+    private var _validateBasketView: ValidateBasketView!
+    private var _breadcrumbView: BreadcrumbView!
+    private var _validateBasketHeight: CGFloat = 50
     
     fileprivate var _viewModel: BookShopViewModel! {
         didSet {
             self._viewModel.bookShopDidChange = { [weak self] bookShopViewModel in
                 self?.collectionView.reloadData()
+                if bookShopViewModel.didDisplayValidateTicket() {
+                    self?._animationValidateBasket(animated: true, hidden: false)
+                } else {
+                    self?._animationValidateBasket(animated: true, hidden: true)
+                }
             }
         }
     }
@@ -26,7 +39,6 @@ open class BookShopViewController: UIViewController {
         super.viewDidLoad()
         
         NavitiaSDKUIConfig.shared.bundle = self.nibBundle
-        
         UIFont.registerFontWithFilenameString(filenameString: "SDKIcons.ttf", bundle: NavitiaSDKUIConfig.shared.bundle)
         
         if #available(iOS 11.0, *) {
@@ -34,10 +46,8 @@ open class BookShopViewController: UIViewController {
         }
         
         _setupInterface()
-       _registerCollectionView()
-        
+        _registerCollectionView()
         _viewModel = BookShopViewModel()
-      //  _viewModel.request(with: inParameters)
     }
 
     override open func didReceiveMemoryWarning() {
@@ -49,39 +59,83 @@ open class BookShopViewController: UIViewController {
         collectionView.collectionViewLayout.invalidateLayout()
     }
     
-    override open func viewDidLayoutSubviews() {}
+    override open func viewDidLayoutSubviews() {
+        if #available(iOS 11.0, *) {
+            validateBasketContainerHeightContraint.constant = _validateBasketHeight + view.safeAreaInsets.bottom
+        }
+    }
     
     private func _registerCollectionView() {
         collectionView.register(UINib(nibName: TicketCollectionViewCell.identifier, bundle: self.nibBundle), forCellWithReuseIdentifier: TicketCollectionViewCell.identifier)
     }
     
     private func _setupInterface() {
-        let breadcrumbView = BreadcrumbView()
-        breadcrumbView.delegate = self
-        breadcrumbView.stateBreadcrumb = .shop
-        breadcrumbView.translatesAutoresizingMaskIntoConstraints = false
-        self.breadcrumbView.addSubview(breadcrumbView)
+        statusBarView.backgroundColor = Configuration.Color.main
+        validateBasketContainerView.backgroundColor = Configuration.Color.main
+        _animationValidateBasket(animated: false, hidden: true)
         
-        NSLayoutConstraint(item: breadcrumbView, attribute: NSLayoutAttribute.top, relatedBy: NSLayoutRelation.equal, toItem: self.breadcrumbView, attribute: NSLayoutAttribute.top, multiplier: 1, constant: 0).isActive = true
-        NSLayoutConstraint(item: breadcrumbView, attribute: NSLayoutAttribute.bottom, relatedBy: NSLayoutRelation.equal, toItem: self.breadcrumbView, attribute: NSLayoutAttribute.bottom, multiplier: 1, constant: 0).isActive = true
-        NSLayoutConstraint(item: breadcrumbView, attribute: NSLayoutAttribute.leading, relatedBy: NSLayoutRelation.equal, toItem: self.breadcrumbView, attribute: NSLayoutAttribute.leading, multiplier: 1, constant: 0).isActive = true
-        NSLayoutConstraint(item: breadcrumbView, attribute: NSLayoutAttribute.trailing, relatedBy: NSLayoutRelation.equal, toItem: self.breadcrumbView, attribute: NSLayoutAttribute.trailing, multiplier: 1, constant: 0).isActive = true
+        _setupBreadcrumbView()
+        _setupValidateBasketView()
+        _setupTypeSegmentedControl()
+    }
+    
+    private func _setupBreadcrumbView() {
+        _breadcrumbView = BreadcrumbView()
+        _breadcrumbView.delegate = self
+        _breadcrumbView.stateBreadcrumb = .shop
+        _breadcrumbView.translatesAutoresizingMaskIntoConstraints = false
+        breadcrumbContainerView.addSubview(_breadcrumbView)
         
+        NSLayoutConstraint(item: _breadcrumbView, attribute: NSLayoutAttribute.top, relatedBy: NSLayoutRelation.equal, toItem: breadcrumbContainerView, attribute: NSLayoutAttribute.top, multiplier: 1, constant: 0).isActive = true
+        NSLayoutConstraint(item: _breadcrumbView, attribute: NSLayoutAttribute.bottom, relatedBy: NSLayoutRelation.equal, toItem: breadcrumbContainerView, attribute: NSLayoutAttribute.bottom, multiplier: 1, constant: 0).isActive = true
+        NSLayoutConstraint(item: _breadcrumbView, attribute: NSLayoutAttribute.leading, relatedBy: NSLayoutRelation.equal, toItem: breadcrumbContainerView, attribute: NSLayoutAttribute.leading, multiplier: 1, constant: 0).isActive = true
+        NSLayoutConstraint(item: _breadcrumbView, attribute: NSLayoutAttribute.trailing, relatedBy: NSLayoutRelation.equal, toItem: breadcrumbContainerView, attribute: NSLayoutAttribute.trailing, multiplier: 1, constant: 0).isActive = true
+    }
+    
+    private func _setupValidateBasketView() {
+        _validateBasketView = ValidateBasketView()
+        _validateBasketView.delegate = self
+        _validateBasketView.translatesAutoresizingMaskIntoConstraints = false
+        validateBasketContainerView.addSubview(_validateBasketView)
+        
+        NSLayoutConstraint(item: _validateBasketView, attribute: NSLayoutAttribute.top, relatedBy: NSLayoutRelation.equal, toItem: validateBasketContainerView, attribute: NSLayoutAttribute.top, multiplier: 1, constant: 0).isActive = true
+        NSLayoutConstraint(item: _validateBasketView, attribute: NSLayoutAttribute.height, relatedBy: NSLayoutRelation.equal, toItem: nil, attribute: NSLayoutAttribute.height, multiplier: 1, constant: _validateBasketHeight).isActive = true
+        NSLayoutConstraint(item: _validateBasketView, attribute: NSLayoutAttribute.leading, relatedBy: NSLayoutRelation.equal, toItem: validateBasketContainerView, attribute: NSLayoutAttribute.leading, multiplier: 1, constant: 0).isActive = true
+        NSLayoutConstraint(item: _validateBasketView, attribute: NSLayoutAttribute.trailing, relatedBy: NSLayoutRelation.equal, toItem: validateBasketContainerView, attribute: NSLayoutAttribute.trailing, multiplier: 1, constant: 0).isActive = true
+    }
+    
+    private func _setupTypeSegmentedControl() {
         typeSegmentedControl.tintColor = Configuration.Color.main
         typeSegmentedControl.setTitle("Titres unitaires".localized(withComment: "Titres unitaires", bundle: NavitiaSDKUIConfig.shared.bundle), forSegmentAt: 0)
         typeSegmentedControl.setTitle("Abonnements".localized(withComment: "Abonnements", bundle: NavitiaSDKUIConfig.shared.bundle), forSegmentAt: 1)
     }
+    
+    private func _animationValidateBasket(animated: Bool, hidden: Bool) {
+        var duration = 0.0
+        if animated {
+            duration = 0.4
+        }
+        if hidden {
+            self.collectionViewBottomContraint.constant = 0
+            UIView.animate(withDuration: duration, animations: {
+                self.validateBasketContainerView.alpha = 0
+            }, completion: {
+                (value: Bool) in
+                self.validateBasketContainerView.isHidden = true
+            })
+        } else {
+            collectionViewBottomContraint.constant = validateBasketContainerHeightContraint.constant
+            validateBasketContainerView.isHidden = false
+            UIView.animate(withDuration: duration, animations: {
+                self.validateBasketContainerView.alpha = 1
+            }, completion: {
+                (value: Bool) in
+            })
+        }
+    }
 
     @IBAction func onTypePressedSegmentControl(_ sender: UISegmentedControl) {
-        switch sender.selectedSegmentIndex {
-        case 0:
-            print("coucououcoucuouc 1")
-        case 1:
-            print("coucououcoucuouc 2")
-        default:
-            break
-        }
-        collectionView.reloadData()
+        self._viewModel.bookShopDidChange!(self._viewModel)
     }
     
 }
@@ -93,7 +147,6 @@ extension BookShopViewController: UICollectionViewDataSource {
     }
     
     public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        // Send count - SDK Partner
         if typeSegmentedControl.selectedSegmentIndex == 1 {
             return _viewModel.abonnement.count
         }
@@ -123,9 +176,7 @@ extension BookShopViewController: UICollectionViewDataSource {
 
 extension BookShopViewController: UICollectionViewDelegate {
 
-    public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        // No Action
-    }
+    public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {}
     
 }
 
@@ -151,12 +202,9 @@ extension BookShopViewController: BreadcrumbViewProtocol {
 
 extension BookShopViewController: TicketCollectionViewCellDelegate {
     
-    func onInformationPressedButton(_ ticketCollectionViewCell: TicketCollectionViewCell) {
-        print("Oui je veux une information sur le titre")
-    }
+    func onInformationPressedButton(_ ticketCollectionViewCell: TicketCollectionViewCell) {}
     
     func onAddBasketPressedButton(_ ticketCollectionViewCell: TicketCollectionViewCell) {
-        print("Oui je veux un ticket")
         if typeSegmentedControl.selectedSegmentIndex == 1 {
             _viewModel.abonnement[ticketCollectionViewCell.indexPath.row].count = 1
         }
@@ -164,7 +212,6 @@ extension BookShopViewController: TicketCollectionViewCellDelegate {
     }
     
     func onLessAmountPressedButton(_ ticketCollectionViewCell: TicketCollectionViewCell) {
-        print("Oui je veux enlever un ticket")
         if typeSegmentedControl.selectedSegmentIndex == 1 {
             _viewModel.abonnement[ticketCollectionViewCell.indexPath.row].count -= 1
         }
@@ -178,5 +225,11 @@ extension BookShopViewController: TicketCollectionViewCellDelegate {
         _viewModel.ticket[ticketCollectionViewCell.indexPath.row].count += 1
     }
 
+}
+
+extension BookShopViewController: ValidateBasketViewDelegate {
+    
+    func onValidateButtonClicked(_ validateBasketView: ValidateBasketView) {}
+    
 }
 
