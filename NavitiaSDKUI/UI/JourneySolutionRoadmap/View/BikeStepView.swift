@@ -18,66 +18,17 @@ class BikeStepView: UIView {
     
     var takeName: String = "" {
         didSet {
-            var modeString = ""
-            if let mode = _mode {
-                modeString = mode.rawValue
-            }
-            
-            takeLabel.attributedText = NSMutableAttributedString()
-                .normal("take_the".localized(withComment: "take_the", bundle: NavitiaSDKUIConfig.shared.bundle), size: 15)
-                .normal(" ", size: 15)
-                .normal(modeString, size: 15)
-                .normal(" ", size: 15)
-                .normal("at".localized(withComment: "at", bundle: NavitiaSDKUIConfig.shared.bundle), size: 15)
-                .normal(" ", size: 15)
-                .bold(origin, size: 15)
-                .normal(" ", size: 15)
-                .normal("in_the_direction_of".localized(withComment: "in_the_direction_of", bundle: NavitiaSDKUIConfig.shared.bundle), size: 15)
-                .normal(" ", size: 15)
-                .bold(destination, size: 15)
-            setHeight()
+            _updateTakeLabel()
         }
     }
     var origin: String = "" {
         didSet {
-            var modeString = ""
-            if let mode = _mode {
-                modeString = mode.rawValue
-            }
-            takeLabel.attributedText = NSMutableAttributedString()
-                .normal("take_the".localized(withComment: "take_the", bundle: NavitiaSDKUIConfig.shared.bundle), size: 15)
-                .normal(" ", size: 15)
-                .normal(modeString, size: 15)
-                .normal(" ", size: 15)
-                .normal("at".localized(withComment: "at", bundle: NavitiaSDKUIConfig.shared.bundle), size: 15)
-                .normal(" ", size: 15)
-                .bold(origin, size: 15)
-                .normal(" ", size: 15)
-                .normal("in_the_direction_of".localized(withComment: "in_the_direction_of", bundle: NavitiaSDKUIConfig.shared.bundle), size: 15)
-                .normal(" ", size: 15)
-                .bold(destination, size: 15)
-            setHeight()
+            _updateTakeLabel()
         }
     }
     var destination: String = "" {
         didSet {
-            var modeString = ""
-            if let mode = _mode {
-                modeString = mode.rawValue
-            }
-            takeLabel.attributedText = NSMutableAttributedString()
-                .normal("take_the".localized(withComment: "take_the", bundle: NavitiaSDKUIConfig.shared.bundle), size: 15)
-                .normal(" ", size: 15)
-                .normal(modeString, size: 15)
-                .normal(" ", size: 15)
-                .normal("at".localized(withComment: "at", bundle: NavitiaSDKUIConfig.shared.bundle), size: 15)
-                .normal(" ", size: 15)
-                .bold(origin, size: 15)
-                .normal(" ", size: 15)
-                .normal("in_the_direction_of".localized(withComment: "in_the_direction_of", bundle: NavitiaSDKUIConfig.shared.bundle), size: 15)
-                .normal(" ", size: 15)
-                .bold(destination, size: 15)
-            setHeight()
+            _updateTakeLabel()
         }
     }
 
@@ -116,6 +67,34 @@ class BikeStepView: UIView {
         let timeLabelSize = timeLabel.attributedText?.boundingRect(with: CGSize(width: frame.size.width - 60, height: 9990), options: .usesLineFragmentOrigin, context: nil)
         let takeLabelSize = takeLabel.attributedText?.boundingRect(with: CGSize(width: frame.size.width - 60, height: 9990), options: .usesLineFragmentOrigin, context: nil)
         frame.size.height = (timeLabelSize?.height)! + (takeLabelSize?.height)! + 20
+    }
+    
+    private func _updateTakeLabel() {
+        if _mode == .ridesharing {
+            takeLabel.attributedText = NSMutableAttributedString()
+                .normal("take_the_ridesharing".localized(withComment: "Take the ridesharing at", bundle: NavitiaSDKUIConfig.shared.bundle), size: 15)
+                .normal(" ", size: 15)
+                .bold(origin, size: 15)
+                .normal(" ", size: 15)
+                .normal("to".localized(withComment: "to", bundle: NavitiaSDKUIConfig.shared.bundle), size: 15)
+                .normal(" ", size: 15)
+                .bold(destination, size: 15)
+        } else {
+            let modeString = mode?.rawValue ?? ""
+            takeLabel.attributedText = NSMutableAttributedString()
+                .normal("take_the".localized(withComment: "take_the", bundle: NavitiaSDKUIConfig.shared.bundle), size: 15)
+                .normal(" ", size: 15)
+                .normal(modeString, size: 15)
+                .normal(" ", size: 15)
+                .normal("at".localized(withComment: "at", bundle: NavitiaSDKUIConfig.shared.bundle), size: 15)
+                .normal(" ", size: 15)
+                .bold(origin, size: 15)
+                .normal(" ", size: 15)
+                .normal("in_the_direction_of".localized(withComment: "in_the_direction_of", bundle: NavitiaSDKUIConfig.shared.bundle), size: 15)
+                .normal(" ", size: 15)
+                .bold(destination, size: 15)
+        }
+        setHeight()
     }
 
 }
