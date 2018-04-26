@@ -397,7 +397,7 @@ extension PublicTransportView {
                 stationsBottomContraint.isActive = false
                 stationButton.setAttributedTitle(NSMutableAttributedString()
                     .normal(String(format: "%@ %@ ",
-                                   String(stations.count),
+                                   String(stations.count + 1),
                                    "stops".localized(withComment: "stops", bundle: NavitiaSDKUIConfig.shared.bundle)),
                             color: Configuration.Color.gray,
                             size: 13)
@@ -410,7 +410,7 @@ extension PublicTransportView {
                 stationsBottomContraint.isActive = true
                 stationButton.setAttributedTitle(NSMutableAttributedString()
                     .normal(String(format: "%@ %@ ",
-                                   String(stations.count),
+                                   String(stations.count + 1),
                                    "stops".localized(withComment: "stops", bundle: NavitiaSDKUIConfig.shared.bundle)),
                             color: Configuration.Color.gray,
                             size: 13)
