@@ -41,7 +41,7 @@ class CustomAnnotation: MKPointAnnotation {
         
         if placeType == .Departure || placeType == .Arrival {
             let annotationLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 80, height: 25))
-            annotationLabel.backgroundColor = UIColor.black
+            annotationLabel.backgroundColor = Configuration.Color.black
             annotationLabel.layer.masksToBounds = true
             annotationLabel.layer.cornerRadius = 4.0
             annotationLabel.textColor = .white
@@ -53,6 +53,8 @@ class CustomAnnotation: MKPointAnnotation {
                 let annotationImage = UIImageView(frame: CGRect(x: 30, y: 27, width: 20, height: 30))
                 annotationImage.image = UIImage(named: "ridesharing_pin", in: bundle, compatibleWith: nil)
                 annotationView.addSubview(annotationImage)
+                annotationLabel.backgroundColor = Configuration.Color.main
+                annotationLabel.alpha = 1
             } else {
                 let annotationPin = UILabel(frame: CGRect(x: 28, y: 27, width: 26, height: 26))
                 
