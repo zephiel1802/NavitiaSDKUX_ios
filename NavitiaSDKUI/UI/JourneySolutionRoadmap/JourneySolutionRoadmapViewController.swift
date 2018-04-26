@@ -227,7 +227,7 @@ open class JourneySolutionRoadmapViewController: UIViewController {
             if let sectionRidesharing = ridesharingJourneys.sections?[safe: 1] {
                 timeRidesharing = sectionRidesharing.duration
                 ridesharingDeepLink = sectionRidesharing.links?[safe: 0]?.href
-                ridesharingView.title = sectionRidesharing.ridesharingInformations?._operator ?? ""
+                ridesharingView.title = sectionRidesharing.ridesharingInformations?.network ?? ""
                 ridesharingView.startDate = sectionRidesharing.departureDateTime?.toDate(format: Configuration.date)?.toString(format: Configuration.timeRidesharing) ?? ""
                 ridesharingView.login = sectionRidesharing.ridesharingInformations?.driver?.alias ?? ""
                 ridesharingView.gender = sectionRidesharing.ridesharingInformations?.driver?.gender ?? ""
