@@ -129,7 +129,7 @@ open class BreadcrumbView: UIView {
     override open func layoutSubviews() {}
     
     private func _setup() {
-        UINib(nibName: "BreadcrumbView", bundle: NavitiaSDKUIConfig.shared.bundle).instantiate(withOwner: self, options: nil)
+        UINib(nibName: "BreadcrumbView", bundle: NavitiaSDKUI.shared.bundle).instantiate(withOwner: self, options: nil)
         _view.frame = self.bounds
         _view.backgroundColor = Configuration.Color.main
         addSubview(_view)
@@ -138,19 +138,19 @@ open class BreadcrumbView: UIView {
         firstIconLabel.attributedText = NSMutableAttributedString().icon("circle-filled",
                                                                          color: Configuration.Color.white,
                                                                          size: 20)
-        firstLabel.attributedText = NSMutableAttributedString().bold("shop".localized(withComment: "SHOP", bundle: NavitiaSDKUIConfig.shared.bundle).uppercased(),
+        firstLabel.attributedText = NSMutableAttributedString().bold("shop".localized(withComment: "SHOP", bundle: NavitiaSDKUI.shared.bundle).uppercased(),
                                                                      color: Configuration.Color.white,
                                                                      size: 9)
         secondIconLabel.attributedText = NSMutableAttributedString().icon("circle-filled",
                                                                           color: Configuration.Color.white,
                                                                           size: 20)
-        secondLabel.attributedText = NSMutableAttributedString().bold("payment".localized(withComment: "PAYMENT", bundle: NavitiaSDKUIConfig.shared.bundle).uppercased(),
+        secondLabel.attributedText = NSMutableAttributedString().bold("payment".localized(withComment: "PAYMENT", bundle: NavitiaSDKUI.shared.bundle).uppercased(),
                                                                       color: Configuration.Color.white,
                                                                       size: 9)
         thirdIconLabel.attributedText = NSMutableAttributedString().icon("circle-filled",
                                                                          color: Configuration.Color.white,
                                                                          size: 20)
-        thirdLabel.attributedText = NSMutableAttributedString().bold("tickets".localized(withComment: "TICKETS",bundle: NavitiaSDKUIConfig.shared.bundle).uppercased(),
+        thirdLabel.attributedText = NSMutableAttributedString().bold("tickets".localized(withComment: "TICKETS",bundle: NavitiaSDKUI.shared.bundle).uppercased(),
                                                                      color: Configuration.Color.white,
                                                                      size: 9)
     }

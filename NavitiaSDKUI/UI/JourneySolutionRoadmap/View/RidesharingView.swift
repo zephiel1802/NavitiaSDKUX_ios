@@ -44,11 +44,11 @@ class RidesharingView: UIView {
     }
     
     private func _setup() {
-        UINib(nibName: "RidesharingView", bundle: NavitiaSDKUIConfig.shared.bundle).instantiate(withOwner: self, options: nil)
+        UINib(nibName: "RidesharingView", bundle: NavitiaSDKUI.shared.bundle).instantiate(withOwner: self, options: nil)
         _view.frame = self.bounds
         addSubview(_view)
         
-        bookButton.setTitle("book".localized(withComment: "Book", bundle: NavitiaSDKUIConfig.shared.bundle), for: .normal)
+        bookButton.setTitle("book".localized(withComment: "Book", bundle: NavitiaSDKUI.shared.bundle), for: .normal)
     }
     
     func setPicture(url: String?) {
@@ -59,9 +59,9 @@ class RidesharingView: UIView {
     
     func setNotation(_ count: Int32?) {
         if let count = count {
-            var template = "rating_plural".localized(withComment: "ratings", bundle: NavitiaSDKUIConfig.shared.bundle)
+            var template = "rating_plural".localized(withComment: "ratings", bundle: NavitiaSDKUI.shared.bundle)
             if count == 1 {
-                template = "rating".localized(withComment: "rating", bundle: NavitiaSDKUIConfig.shared.bundle)
+                template = "rating".localized(withComment: "rating", bundle: NavitiaSDKUI.shared.bundle)
             }
             notationLabel.attributedText = NSMutableAttributedString()
                 .normal(String(format: template, count), color: Configuration.Color.gray, size: 10)
@@ -72,8 +72,8 @@ class RidesharingView: UIView {
         if count != nil {
             floatRatingView.backgroundColor = UIColor.clear
             floatRatingView.contentMode = UIViewContentMode.scaleAspectFit
-            floatRatingView.emptyImage = UIImage(named: "star_empty", in: NavitiaSDKUIConfig.shared.bundle, compatibleWith: nil)
-            floatRatingView.fullImage = UIImage(named: "star_full", in: NavitiaSDKUIConfig.shared.bundle, compatibleWith: nil)
+            floatRatingView.emptyImage = UIImage(named: "star_empty", in: NavitiaSDKUI.shared.bundle, compatibleWith: nil)
+            floatRatingView.fullImage = UIImage(named: "star_full", in: NavitiaSDKUI.shared.bundle, compatibleWith: nil)
             floatRatingView.type = .floatRatings
             floatRatingView.editable = false
             floatRatingView.rating = Double(count!)
@@ -84,13 +84,13 @@ class RidesharingView: UIView {
     @IBAction func actionBookButton(_ sender: Any) {
         if let parentViewController = parentViewController {
             if !UserDefaults.standard.bool(forKey: NavitiaSDKUserDefaultsManager.SHOW_REDIRECTION_DIALOG_PREF_KEY) {
-                let alertController = AlertViewController(nibName: "AlertView", bundle: NavitiaSDKUIConfig.shared.bundle)
+                let alertController = AlertViewController(nibName: "AlertView", bundle: NavitiaSDKUI.shared.bundle)
                 alertController.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
                 alertController.stateKey = NavitiaSDKUserDefaultsManager.SHOW_REDIRECTION_DIALOG_PREF_KEY
-                alertController.alertMessage = "redirection_message".localized(withComment: "Redirection Message", bundle: NavitiaSDKUIConfig.shared.bundle)
-                alertController.checkBoxText = "dont_show_this_message_again".localized(withComment: "Don't show this message again", bundle: NavitiaSDKUIConfig.shared.bundle)
-                alertController.negativeButtonText = "cancel".localized(withComment: "Cancel", bundle: NavitiaSDKUIConfig.shared.bundle).uppercased()
-                alertController.positiveButtonText = "proceed".localized(withComment: "Continue", bundle: NavitiaSDKUIConfig.shared.bundle).uppercased()
+                alertController.alertMessage = "redirection_message".localized(withComment: "Redirection Message", bundle: NavitiaSDKUI.shared.bundle)
+                alertController.checkBoxText = "dont_show_this_message_again".localized(withComment: "Don't show this message again", bundle: NavitiaSDKUI.shared.bundle)
+                alertController.negativeButtonText = "cancel".localized(withComment: "Cancel", bundle: NavitiaSDKUI.shared.bundle).uppercased()
+                alertController.positiveButtonText = "proceed".localized(withComment: "Continue", bundle: NavitiaSDKUI.shared.bundle).uppercased()
                 alertController.alertViewDelegate = parentViewController
                 parentViewController.navigationController?.visibleViewController?.present(alertController, animated: false, completion: nil)
             } else {
@@ -101,12 +101,12 @@ class RidesharingView: UIView {
     
     func seatCount(_ count: Int32?) {
         if let count = count {
-            let template = "available_seats".localized(withComment: "Available seats : 3", bundle: NavitiaSDKUIConfig.shared.bundle)
+            let template = "available_seats".localized(withComment: "Available seats : 3", bundle: NavitiaSDKUI.shared.bundle)
             seatCountLabel.attributedText = NSMutableAttributedString()
                 .normal(String(format: template, count), size: 12.5)
         } else {
             seatCountLabel.attributedText = NSMutableAttributedString()
-                .normal("no_available_seats".localized(withComment: "Available seats : N/A", bundle: NavitiaSDKUIConfig.shared.bundle), size: 12.5)
+                .normal("no_available_seats".localized(withComment: "Available seats : N/A", bundle: NavitiaSDKUI.shared.bundle), size: 12.5)
         }
     }
     
@@ -133,7 +133,7 @@ extension RidesharingView {
         set {
             if let newValue = newValue {
                 startLabel.attributedText = NSMutableAttributedString()
-                    .semiBold("departure".localized(withComment: "Departure: ", bundle: NavitiaSDKUIConfig.shared.bundle), color: Configuration.Color.main, size: 8.5)
+                    .semiBold("departure".localized(withComment: "Departure: ", bundle: NavitiaSDKUI.shared.bundle), color: Configuration.Color.main, size: 8.5)
                     .semiBold(": ", color: Configuration.Color.main, size: 8.5)
                     .bold(newValue, color: Configuration.Color.main, size: 14)
             }
@@ -200,14 +200,14 @@ extension RidesharingView {
             if let newValue = newValue {
                 if newValue == "0.0" {
                     priceLabel.attributedText = NSMutableAttributedString()
-                        .normal("free".localized(withComment: "Free", bundle: NavitiaSDKUIConfig.shared.bundle), color: Configuration.Color.orange,size: 10)
+                        .normal("free".localized(withComment: "Free", bundle: NavitiaSDKUI.shared.bundle), color: Configuration.Color.orange,size: 10)
                 } else {
                     priceLabel.attributedText = NSMutableAttributedString()
                         .normal(newValue, color: Configuration.Color.orange, size: 10)
                 }
             } else {
                 priceLabel.attributedText = NSMutableAttributedString()
-                    .normal("price_not_available".localized(withComment: "Price not available", bundle: NavitiaSDKUIConfig.shared.bundle), color: Configuration.Color.orange,size: 10)
+                    .normal("price_not_available".localized(withComment: "Price not available", bundle: NavitiaSDKUI.shared.bundle), color: Configuration.Color.orange,size: 10)
             }
         }
     }

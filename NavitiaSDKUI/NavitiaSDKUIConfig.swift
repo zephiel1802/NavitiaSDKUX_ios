@@ -7,9 +7,9 @@
 
 import Foundation
 
-open class NavitiaSDKUIConfig: NSObject {
+open class NavitiaSDKUI: NSObject {
     
-    open static let shared = NavitiaSDKUIConfig()
+    open static let shared = NavitiaSDKUI()
     
     open var navitiaSDK: NavitiaSDK!
     open var bundle: Bundle!
@@ -20,10 +20,18 @@ open class NavitiaSDKUIConfig: NSObject {
         }
     }
     
-    public func setToken(token: String) {
+    public func initialize(token: String) {
         self.token = token
     }
-
+    
+    open var setMainColor: UIColor {
+        get {
+            return Configuration.Color.main
+        }
+        set {
+            Configuration.Color.main = newValue
+        }
+    }
 }
 
 enum Configuration {

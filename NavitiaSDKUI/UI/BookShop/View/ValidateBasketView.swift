@@ -47,14 +47,14 @@ open class ValidateBasketView: UIView {
     override open func layoutSubviews() {}
     
     private func _setup() {
-        UINib(nibName: "ValidateBasketView", bundle: NavitiaSDKUIConfig.shared.bundle).instantiate(withOwner: self, options: nil)
+        UINib(nibName: "ValidateBasketView", bundle: NavitiaSDKUI.shared.bundle).instantiate(withOwner: self, options: nil)
         _view.frame = self.bounds
         _view.backgroundColor = Configuration.Color.main
         addSubview(_view)
         
         titleLabel.attributedText = NSMutableAttributedString()
             .icon("arrow-direction-left", color: Configuration.Color.white, size: 15)
-            .bold(String(format: " %@","shop".localized(withComment: "SHOP", bundle: NavitiaSDKUIConfig.shared.bundle)), color: Configuration.Color.white, size: 15)
+            .bold(String(format: " %@","shop".localized(withComment: "SHOP", bundle: NavitiaSDKUI.shared.bundle)), color: Configuration.Color.white, size: 15)
         
         let gesture = UITapGestureRecognizer(target: self, action: #selector(self.onValidateButtonClicked))
         _view.addGestureRecognizer(gesture)

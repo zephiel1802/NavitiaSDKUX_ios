@@ -14,7 +14,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
-        NavitiaSDKUIConfig.shared.setToken(token: "")
+        let accountConfig = KeolisAccountManagementConfiguration(network: "",
+                                                                 encodedSecretClient64Oauth: "",
+                                                                 encodedSecretClient64WS: "")
+        let bookConfig = VSCTBookManagementConfiguration(network: "")
+        NavitiaSDKPartners.shared.initialize(accountConfiguration: accountConfig, bookConfiguration: bookConfig)
+        NavitiaSDKUI.shared.initialize(token: "")
         UIApplication.shared.statusBarStyle = UIStatusBarStyle.lightContent
         
         return true

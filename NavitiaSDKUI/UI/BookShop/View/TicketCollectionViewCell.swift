@@ -67,7 +67,7 @@ class TicketCollectionViewCell: UICollectionViewCell {
             .icon("disruption-information",
                   color: Configuration.Color.main,
                   size: 12)
-            .bold(" Ajouter au panier".localized(withComment: " Ajouter au panier", bundle: NavitiaSDKUIConfig.shared.bundle),
+            .bold(" Ajouter au panier".localized(withComment: " Ajouter au panier", bundle: NavitiaSDKUI.shared.bundle),
                   color: Configuration.Color.main,
                   size: 12),
                                            for: .normal)
@@ -117,7 +117,7 @@ class TicketCollectionViewCell: UICollectionViewCell {
                   color: Configuration.Color.darkGray,
                   size: 15)
         centimeLabel.attributedText = NSMutableAttributedString()
-            .bold(String(format: "%@%@", currency, priceComponent[1]),
+            .bold(String(format: "%@%1d", currency, Int(priceComponent[1])!),
                   color: Configuration.Color.darkGray,
                   size: 10)
     }

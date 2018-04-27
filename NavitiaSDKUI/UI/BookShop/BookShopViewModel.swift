@@ -11,6 +11,30 @@ import UIKit
 class BookShopViewModel: NSObject {
     
     var bookShopDidChange: ((BookShopViewModel) -> ())?
+    var loading: Bool = true
+    var tickets = [VSCTBookOffer]() {
+        didSet {
+            bookShopDidChange!(self)
+        }
+    }
+    
+    var memberships = [VSCTBookOffer]() {
+        didSet {
+            bookShopDidChange!(self)
+        }
+    }
+    
+    func request() {
+        loading = true
+        NavitiaSDKPartners.shared.getOffers(callbackSuccess: { (offersArray) in
+            self.memberships = offersArray?.filter { ($0 as! VSCTBookOffer).type == .Membership } as! [VSCTBookOffer]
+            self.tickets = offersArray?.filter { ($0 as! VSCTBookOffer).type == .Ticket } as! [VSCTBookOffer]
+            self.loading = false
+        }) {(statusCode, data) in
+            self.loading = false
+        }
+    }
+    
     var ticket: [(name: String, count: Int)] = [(name: "Ticket 1", count: 0),
                                                 (name: "Ticket 10", count: 0),
                                                 (name: "Ticket Semaine", count: 0),

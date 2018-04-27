@@ -24,15 +24,15 @@ class BikeStepView: UIView {
             }
             
             takeLabel.attributedText = NSMutableAttributedString()
-                .normal("take_the".localized(withComment: "take_the", bundle: NavitiaSDKUIConfig.shared.bundle), size: 15)
+                .normal("take_the".localized(withComment: "take_the", bundle: NavitiaSDKUI.shared.bundle), size: 15)
                 .normal(" ", size: 15)
                 .normal(modeString, size: 15)
                 .normal(" ", size: 15)
-                .normal("at".localized(withComment: "at", bundle: NavitiaSDKUIConfig.shared.bundle), size: 15)
+                .normal("at".localized(withComment: "at", bundle: NavitiaSDKUI.shared.bundle), size: 15)
                 .normal(" ", size: 15)
                 .bold(origin, size: 15)
                 .normal(" ", size: 15)
-                .normal("in_the_direction_of".localized(withComment: "in_the_direction_of", bundle: NavitiaSDKUIConfig.shared.bundle), size: 15)
+                .normal("in_the_direction_of".localized(withComment: "in_the_direction_of", bundle: NavitiaSDKUI.shared.bundle), size: 15)
                 .normal(" ", size: 15)
                 .bold(destination, size: 15)
             setHeight()
@@ -45,15 +45,15 @@ class BikeStepView: UIView {
                 modeString = mode.rawValue
             }
             takeLabel.attributedText = NSMutableAttributedString()
-                .normal("take_the".localized(withComment: "take_the", bundle: NavitiaSDKUIConfig.shared.bundle), size: 15)
+                .normal("take_the".localized(withComment: "take_the", bundle: NavitiaSDKUI.shared.bundle), size: 15)
                 .normal(" ", size: 15)
                 .normal(modeString, size: 15)
                 .normal(" ", size: 15)
-                .normal("at".localized(withComment: "at", bundle: NavitiaSDKUIConfig.shared.bundle), size: 15)
+                .normal("at".localized(withComment: "at", bundle: NavitiaSDKUI.shared.bundle), size: 15)
                 .normal(" ", size: 15)
                 .bold(origin, size: 15)
                 .normal(" ", size: 15)
-                .normal("in_the_direction_of".localized(withComment: "in_the_direction_of", bundle: NavitiaSDKUIConfig.shared.bundle), size: 15)
+                .normal("in_the_direction_of".localized(withComment: "in_the_direction_of", bundle: NavitiaSDKUI.shared.bundle), size: 15)
                 .normal(" ", size: 15)
                 .bold(destination, size: 15)
             setHeight()
@@ -66,15 +66,15 @@ class BikeStepView: UIView {
                 modeString = mode.rawValue
             }
             takeLabel.attributedText = NSMutableAttributedString()
-                .normal("take_the".localized(withComment: "take_the", bundle: NavitiaSDKUIConfig.shared.bundle), size: 15)
+                .normal("take_the".localized(withComment: "take_the", bundle: NavitiaSDKUI.shared.bundle), size: 15)
                 .normal(" ", size: 15)
                 .normal(modeString, size: 15)
                 .normal(" ", size: 15)
-                .normal("at".localized(withComment: "at", bundle: NavitiaSDKUIConfig.shared.bundle), size: 15)
+                .normal("at".localized(withComment: "at", bundle: NavitiaSDKUI.shared.bundle), size: 15)
                 .normal(" ", size: 15)
                 .bold(origin, size: 15)
                 .normal(" ", size: 15)
-                .normal("in_the_direction_of".localized(withComment: "in_the_direction_of", bundle: NavitiaSDKUIConfig.shared.bundle), size: 15)
+                .normal("in_the_direction_of".localized(withComment: "in_the_direction_of", bundle: NavitiaSDKUI.shared.bundle), size: 15)
                 .normal(" ", size: 15)
                 .bold(destination, size: 15)
             setHeight()
@@ -107,7 +107,7 @@ class BikeStepView: UIView {
     }
     
     private func _setup() {
-        UINib(nibName: "BikeStepView", bundle: NavitiaSDKUIConfig.shared.bundle).instantiate(withOwner: self, options: nil)
+        UINib(nibName: "BikeStepView", bundle: NavitiaSDKUI.shared.bundle).instantiate(withOwner: self, options: nil)
         _view.frame = self.bounds
         addSubview(_view)
     }
@@ -164,23 +164,23 @@ extension BikeStepView {
         }
         set {
             if let newValue = newValue {
-                var duration = newValue + " " + "units_minutes".localized(withComment: "minutes", bundle: NavitiaSDKUIConfig.shared.bundle)
+                var duration = newValue + " " + "units_minutes".localized(withComment: "minutes", bundle: NavitiaSDKUI.shared.bundle)
                 if time == "1" {
-                    duration = newValue + " " + "unit_minutes".localized(withComment: "minute", bundle: NavitiaSDKUIConfig.shared.bundle)
+                    duration = newValue + " " + "unit_minutes".localized(withComment: "minute", bundle: NavitiaSDKUI.shared.bundle)
                 }
                 var template = ""
                 if let mode = _mode {
                     switch mode {
                     case .walking:
-                        template = "a_time_walk".localized(withComment: "A time walk", bundle: NavitiaSDKUIConfig.shared.bundle)
+                        template = "a_time_walk".localized(withComment: "A time walk", bundle: NavitiaSDKUI.shared.bundle)
                     case .car:
-                        template = "a_time_drive".localized(withComment: "A time drive", bundle: NavitiaSDKUIConfig.shared.bundle)
+                        template = "a_time_drive".localized(withComment: "A time drive", bundle: NavitiaSDKUI.shared.bundle)
                     case .ridesharing:
-                        template = "a_time_drive".localized(withComment: "A time drive", bundle: NavitiaSDKUIConfig.shared.bundle)
+                        template = "a_time_drive".localized(withComment: "A time drive", bundle: NavitiaSDKUI.shared.bundle)
                     case .bike:
-                        template = "a_time_ride".localized(withComment: "A time ride", bundle: NavitiaSDKUIConfig.shared.bundle)
+                        template = "a_time_ride".localized(withComment: "A time ride", bundle: NavitiaSDKUI.shared.bundle)
                     case .bss:
-                        template = "a_time_ride".localized(withComment: "A time ride", bundle: NavitiaSDKUIConfig.shared.bundle)
+                        template = "a_time_ride".localized(withComment: "A time ride", bundle: NavitiaSDKUI.shared.bundle)
                     default:
                         break
                     }
