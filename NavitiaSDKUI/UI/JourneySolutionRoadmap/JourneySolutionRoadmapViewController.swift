@@ -35,7 +35,6 @@ open class JourneySolutionRoadmapViewController: UIViewController {
         }
         
         _setupMapView()
-//        _display()
     }
     
     
@@ -166,7 +165,6 @@ open class JourneySolutionRoadmapViewController: UIViewController {
     }
     
     private func _displayBikeStep(_ section: Section) {
-        print("COUCUOj toit \(composentWidth)")
 
         let view = BikeStepView(frame: CGRect(x: 0, y: 0, width: composentWidth, height: 50))
         view.modeString = Modes().getModeIcon(section: section)
@@ -330,6 +328,7 @@ extension JourneySolutionRoadmapViewController: MKMapViewDelegate {
                 return CLLocationCoordinate2DMake(Double((section.geojson?.coordinates![0][1])!), Double((section.geojson?.coordinates![0][0])!))
             }
         }
+        
         return CLLocationCoordinate2DMake(0, 0)
     }
     
@@ -340,6 +339,7 @@ extension JourneySolutionRoadmapViewController: MKMapViewDelegate {
                 return CLLocationCoordinate2DMake(Double((section.geojson?.coordinates![coordinatesLength - 1][1])!), Double((section.geojson?.coordinates![coordinatesLength - 1][0])!))
             }
         }
+        
         return CLLocationCoordinate2DMake(0, 0)
     }
     
@@ -352,6 +352,7 @@ extension JourneySolutionRoadmapViewController: MKMapViewDelegate {
                 ridesharingJourneyCoordinates.append(CLLocationCoordinate2DMake(Double((section.geojson?.coordinates![coordinatesLength - 1][1])!), Double((section.geojson?.coordinates![coordinatesLength - 1][0])!)))
             }
         }
+        
         return ridesharingJourneyCoordinates
     }
     
@@ -430,7 +431,7 @@ extension JourneySolutionRoadmapViewController: MKMapViewDelegate {
     }
     
     func zoomToPolyline(targetPolyline: MKPolyline, animated: Bool) {
-        self.mapView.setVisibleMapRect(targetPolyline.boundingMapRect, edgePadding: UIEdgeInsetsMake(90, 40, 40, 40), animated: animated)
+        self.mapView.setVisibleMapRect(targetPolyline.boundingMapRect, edgePadding: UIEdgeInsetsMake(60, 40, 10, 40), animated: animated)
     }
     
     func getCircleRadiusDependingOnCurrentCameraAltitude(cameraAltitude: CLLocationDistance) -> CLLocationDistance {
@@ -447,6 +448,7 @@ extension JourneySolutionRoadmapViewController: MKMapViewDelegate {
             updatedIntermediatePointsCircles.append(updatedCircleView)
         }
         self.intermediatePointsCircles = updatedIntermediatePointsCircles
+        
         mapView.addOverlays(self.intermediatePointsCircles)
     }
     
@@ -474,6 +476,7 @@ extension JourneySolutionRoadmapViewController: MKMapViewDelegate {
             
             return circleRenderer
         }
+        
         return MKOverlayRenderer()
     }
     
@@ -484,6 +487,7 @@ extension JourneySolutionRoadmapViewController: MKMapViewDelegate {
         } else {
             annotationView?.annotation = annotation
         }
+        
         return annotationView
     }
     

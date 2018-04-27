@@ -1,21 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="AlertViewController" customModule="NavitiaSDKUI" customModuleProvider="target">
             <connections>
+                <outlet property="alertBackgroundView" destination="OkP-wz-Mnx" id="kqI-Lr-RtG"/>
                 <outlet property="checkBoxContentWidthConstraint" destination="7Cg-iZ-J9q" id="ye8-F7-LOT"/>
                 <outlet property="checkBoxMessageLabel" destination="Z5o-9Z-WSv" id="MFO-x8-ef3"/>
                 <outlet property="checkBoxTextLeadingConstraint" destination="6WM-Xe-EXA" id="G6o-YK-gfv"/>
                 <outlet property="checkbox" destination="Uz2-60-uMq" id="59r-mz-CTz"/>
+                <outlet property="headerView" destination="HQX-Eo-W0w" id="198-5Z-4Tg"/>
                 <outlet property="message" destination="zLG-bJ-ML5" id="vOD-ZQ-UXC"/>
                 <outlet property="negativeButton" destination="jEi-w5-J4s" id="lUH-Qm-zpo"/>
                 <outlet property="positiveButton" destination="DUt-hZ-KyD" id="b59-Bm-egt"/>
