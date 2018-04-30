@@ -12,7 +12,27 @@ import Foundation
     
     private var stockedOffers : [VSCTBookOffer] = []
     
-    public var cart: [BookManagementCartItem] = []
+    public private(set) var cart: [BookManagementCartItem] = []
+    
+    public var cartTotalPrice : Float {
+        get {
+            var totalPrice : Float = 0.0
+            cart.forEach { (item) in
+                totalPrice += item.itemPrice
+            }
+            return totalPrice
+        }
+    }
+    
+    public var cartTotalVAT : Float {
+        get {
+            var totalVAT : Float = 0.0
+            cart.forEach { (item) in
+                totalVAT += item.itemVAT
+            }
+            return totalVAT
+        }
+    }
     
     public var _vsctConfiguration : VSCTBookManagementConfiguration? = nil
     
@@ -127,15 +147,105 @@ import Foundation
         }
     }
     
-    public func addOffer(offerId: Int, callbackSuccess: @escaping () -> Void, callbackError: @escaping (Int, [String : Any]?) -> Void) {
+    public func addOffer(offerId: String, callbackSuccess: @escaping () -> Void, callbackError: @escaping (Int, [String : Any]?) -> Void) {
+        
+        let offerItem = stockedOffers.first { (offer) -> Bool in
+            offer.id == offerId
+        }
+        
+        if offerItem == nil {
+            print("NavitiaSDKPartners/addOffer : error")
+            callbackError(NavitiaSDKPartnersReturnCode.badParameter.getCode(), NavitiaSDKPartnersReturnCode.badParameter.getError())
+            return
+        } else if offerItem!.saleable == false && offerItem!.maxQuantity != 0 {
+            print("NavitiaSDKPartners/addOffer : error")
+            callbackError(NavitiaSDKPartnersReturnCode.badParameter.getCode(), NavitiaSDKPartnersReturnCode.badParameter.getError())
+            return
+        }
+        
+        let cartItem = cart.first(where: { (bookOffer) -> Bool in
+            (bookOffer.bookOffer as! VSCTBookOffer).id == offerId
+        })
+        
+        if cartItem == nil {
+            cart.append(BookManagementCartItem(bookOffer: offerItem!, quantity: 1))
+        } else if cartItem!.quantity < (cartItem!.bookOffer as! VSCTBookOffer).maxQuantity {
+            cartItem!.setQuantity(q: cartItem!.quantity + 1)
+        } else {
+            print("NavitiaSDKPartners/addOffer : error")
+            callbackError(NavitiaSDKPartnersReturnCode.internalError.getCode(), ["error" : "max quantity"])
+            return
+        }
+        
+        print("NavitiaSDKPartners/addOffer : success")
         callbackSuccess()
     }
     
-    public func removeOffer(offerId: Int, callbackSuccess: @escaping () -> Void, callbackError: @escaping (Int, [String : Any]?) -> Void) {
+    public func removeOffer(offerId: String, callbackSuccess: @escaping () -> Void, callbackError: @escaping (Int, [String : Any]?) -> Void) {
+        let offerItem = stockedOffers.first { (offer) -> Bool in
+            offer.id == offerId
+        }
+        
+        if offerItem == nil {
+            print("NavitiaSDKPartners/removeOffer : error")
+            callbackError(NavitiaSDKPartnersReturnCode.badParameter.getCode(), NavitiaSDKPartnersReturnCode.badParameter.getError())
+            return
+        } else if offerItem!.saleable == false && offerItem!.maxQuantity != 0 {
+            print("NavitiaSDKPartners/removeOffer : error")
+            callbackError(NavitiaSDKPartnersReturnCode.badParameter.getCode(), NavitiaSDKPartnersReturnCode.badParameter.getError())
+            return
+        }
+        
+        let cartItem = cart.first(where: { (bookOffer) -> Bool in
+            (bookOffer.bookOffer as! VSCTBookOffer).id == offerId
+        })
+        
+        if cartItem == nil || cartItem?.quantity == 0 {
+            print("NavitiaSDKPartners/removeOffer : error")
+            callbackError(NavitiaSDKPartnersReturnCode.badParameter.getCode(), NavitiaSDKPartnersReturnCode.badParameter.getError())
+            return
+        }
+        
+        print("NavitiaSDKPartners/removeOffer : success")
+        cartItem!.setQuantity(q: cartItem!.quantity - 1)
+        cart = cart.filter({ (item) -> Bool in
+            item.quantity > 0
+        })
+        
         callbackSuccess()
     }
     
-    public func setOfferQuantity(offerId: Int, quantity: Int, callbackSuccess: @escaping () -> Void, callbackError: @escaping (Int, [String : Any]?) -> Void) {
+    public func setOfferQuantity(offerId: String, quantity: Int, callbackSuccess: @escaping () -> Void, callbackError: @escaping (Int, [String : Any]?) -> Void) {
+        
+        let offerItem = stockedOffers.first { (offer) -> Bool in
+            offer.id == offerId
+        }
+        
+        if offerItem == nil {
+            print("NavitiaSDKPartners/removeOffer : error")
+            callbackError(NavitiaSDKPartnersReturnCode.badParameter.getCode(), NavitiaSDKPartnersReturnCode.badParameter.getError())
+            return
+        } else if offerItem!.saleable == false && offerItem!.maxQuantity != 0 {
+            print("NavitiaSDKPartners/removeOffer : error")
+            callbackError(NavitiaSDKPartnersReturnCode.badParameter.getCode(), NavitiaSDKPartnersReturnCode.badParameter.getError())
+            return
+        }
+        
+        let cartItem = cart.first(where: { (bookOffer) -> Bool in
+            (bookOffer.bookOffer as! VSCTBookOffer).id == offerId
+        })
+        
+        if cartItem == nil {
+            cart.append(BookManagementCartItem(bookOffer: offerItem!, quantity: quantity))
+        } else if quantity < (cartItem!.bookOffer as! VSCTBookOffer).maxQuantity {
+            cartItem!.setQuantity(q: quantity)
+        } else {
+            print("NavitiaSDKPartners/addOffer : error")
+            callbackError(NavitiaSDKPartnersReturnCode.internalError.getCode(), ["error" : "max quantity"])
+            return
+        }
+        
+        print("NavitiaSDKPartners/addOffer : success")
         callbackSuccess()
     }
 
@@ -146,21 +256,18 @@ extension VSCTBookManagement {
         
         var array : [VSCTBookOffer] = []
         (data["array"] as! [[String: Any]]).forEach { rawOffer in
-            let offer : VSCTBookOffer = VSCTBookOffer()
-            
-            offer.id = (rawOffer["id"] as! String)
-            offer.productId = (rawOffer["idProduit"] as! String)
-            offer.title = (rawOffer["label"] as! String)
-            offer.maxQuantity = (rawOffer["maxQuantity"] as! Int)
-            offer.currency = ((rawOffer["fare"] as! [String: Any])["currency"] as! String)
-            offer.type = (rawOffer["typeOffer"] as! String) == "PASS" ? BookOfferType.Membership : BookOfferType.Ticket
-            offer.shortDescription = NavitiaSDKPartnersExtension.getString(from: (rawOffer["description"] as! String))!
-            offer.VAT = ((rawOffer["fare"] as! [String: Any])["tva"] as! Float)
-            offer.saleable = (rawOffer["saleable"] as! Bool)
-            offer.displayOrder = (rawOffer["displayOrder"] as! Int)
-            offer.legalInfos = (rawOffer["legalInfos"] as! String)
-            offer.imageUrl = (((rawOffer["image"] as! [String: Any])["link"] as! [String: Any])["href"] as! String)
-            offer.price = (((rawOffer["fare"] as! [String: Any])["price"] as! NSNumber).floatValue)
+            let offer : VSCTBookOffer = VSCTBookOffer(id: (rawOffer["id"] as! String),
+                                                      productId: (rawOffer["idProduit"] as! String),
+                                                      title: (rawOffer["label"] as! String), shortDescription: NavitiaSDKPartnersExtension.getString(from: (rawOffer["description"] as! String))!,
+                                                      price: (((rawOffer["fare"] as! [String: Any])["price"] as! NSNumber).floatValue),
+                                                      currency: ((rawOffer["fare"] as! [String: Any])["currency"] as! String),
+                                                      maxQuantity: (rawOffer["maxQuantity"] as! Int),
+                                                      type: (rawOffer["typeOffer"] as! String) == "PASS" ? BookOfferType.Membership : BookOfferType.Ticket,
+                                                      VATRate: ((rawOffer["fare"] as! [String: Any])["tva"] as! Float),
+                                                      saleable: (rawOffer["saleable"] as! Bool),
+                                                      displayOrder: (rawOffer["displayOrder"] as! Int),
+                                                      legalInfos: (rawOffer["legalInfos"] as! String),
+                                                      imageUrl: (((rawOffer["image"] as! [String: Any])["link"] as! [String: Any])["href"] as! String))
             
             array.append(offer)
         }

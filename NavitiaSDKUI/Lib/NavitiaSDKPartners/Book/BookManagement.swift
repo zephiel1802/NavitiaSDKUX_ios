@@ -12,14 +12,16 @@ import Foundation
 
     var bookConfiguration : BookManagementConfiguration? { get set }
     var cart : [BookManagementCartItem] { get }
+    var cartTotalPrice : Float { get }
+    var cartTotalVAT : Float { get }
     
     func getBookManagementName() -> String
     func getBookManagementType() -> BookManagementType
     
     func getOffers(callbackSuccess : @escaping ([BookOffer]?) -> Void, callbackError : @escaping (Int, [String: Any]?) -> Void)
     func getOffers(offerType: BookOfferType, callbackSuccess: @escaping ([BookOffer]?) -> Void, callbackError: @escaping (Int, [String: Any]?) -> Void)
-    func addOffer(offerId: Int, callbackSuccess: @escaping () -> Void, callbackError : @escaping (Int, [String: Any]?) -> Void)
-    func removeOffer(offerId: Int, callbackSuccess: @escaping () -> Void, callbackError: @escaping (Int, [String: Any]?) -> Void)
-    func setOfferQuantity(offerId: Int, quantity: Int, callbackSuccess: @escaping () -> Void, callbackError: @escaping (Int, [String: Any]?) -> Void)
+    func addOffer(offerId: String, callbackSuccess: @escaping () -> Void, callbackError : @escaping (Int, [String: Any]?) -> Void)
+    func removeOffer(offerId: String, callbackSuccess: @escaping () -> Void, callbackError: @escaping (Int, [String: Any]?) -> Void)
+    func setOfferQuantity(offerId: String, quantity: Int, callbackSuccess: @escaping () -> Void, callbackError: @escaping (Int, [String: Any]?) -> Void)
     
 }

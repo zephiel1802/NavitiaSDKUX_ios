@@ -10,8 +10,24 @@ import Foundation
 
 @objc(BookManagementCartItem) public class BookManagementCartItem: NSObject {
     
-    var bookOffer : BookOffer
-    var quantity : Int
+    public private(set) var bookOffer : BookOffer
+    public private(set) var quantity : Int
+    
+    public var itemPrice : Float {
+        get {
+            return Float(quantity) * bookOffer.price
+        }
+    }
+    
+    public var itemVAT : Float {
+        get {
+            return Float(quantity) * bookOffer.VAT
+        }
+    }
+    
+    func setQuantity(q : Int) {
+        quantity = q
+    }
     
     init(bookOffer : BookOffer, quantity : Int) {
         

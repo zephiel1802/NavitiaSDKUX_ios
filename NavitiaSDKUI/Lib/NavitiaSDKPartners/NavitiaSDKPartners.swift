@@ -227,6 +227,24 @@ extension NavitiaSDKPartners : BookManagement {
             return bookManagement!.cart
         }
     }
+    
+    public var cartTotalVAT : Float {
+        get {
+            if bookManagement == nil {
+                return 0.0
+            }
+            return bookManagement!.cartTotalVAT
+        }
+    }
+    
+    public var cartTotalPrice : Float {
+        get {
+            if bookManagement == nil {
+                return 0.0
+            }
+            return bookManagement!.cartTotalPrice
+        }
+    }
 
     public var bookConfiguration: BookManagementConfiguration? {
         get {
@@ -272,7 +290,7 @@ extension NavitiaSDKPartners : BookManagement {
         }
         bookManagement?.getOffers(offerType: offerType, callbackSuccess: callbackSuccess, callbackError: callbackError)
     }
-    public func addOffer(offerId: Int, callbackSuccess: @escaping () -> Void, callbackError: @escaping (Int, [String : Any]?) -> Void) {
+    public func addOffer(offerId: String, callbackSuccess: @escaping () -> Void, callbackError: @escaping (Int, [String : Any]?) -> Void) {
         
         if bookManagement == nil {
             let error = NavitiaSDKPartnersReturnCode.bookManagementNotInit
@@ -282,7 +300,7 @@ extension NavitiaSDKPartners : BookManagement {
         bookManagement?.addOffer(offerId: offerId, callbackSuccess: callbackSuccess, callbackError: callbackError)
     }
     
-    public func removeOffer(offerId: Int, callbackSuccess: @escaping () -> Void, callbackError: @escaping (Int, [String : Any]?) -> Void) {
+    public func removeOffer(offerId: String, callbackSuccess: @escaping () -> Void, callbackError: @escaping (Int, [String : Any]?) -> Void) {
         
         if bookManagement == nil {
             let error = NavitiaSDKPartnersReturnCode.bookManagementNotInit
@@ -292,7 +310,7 @@ extension NavitiaSDKPartners : BookManagement {
         bookManagement?.removeOffer(offerId: offerId, callbackSuccess: callbackSuccess, callbackError: callbackError)
     }
     
-    public func setOfferQuantity(offerId: Int, quantity: Int, callbackSuccess: @escaping () -> Void, callbackError: @escaping (Int, [String : Any]?) -> Void) {
+    public func setOfferQuantity(offerId: String, quantity: Int, callbackSuccess: @escaping () -> Void, callbackError: @escaping (Int, [String : Any]?) -> Void) {
         
         if bookManagement == nil {
             let error = NavitiaSDKPartnersReturnCode.bookManagementNotInit

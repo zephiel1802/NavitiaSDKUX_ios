@@ -10,16 +10,12 @@ import Foundation
 
 extension String {
     func hmac(key: String) -> String {
-        print(self)
-        print(key)
         do {
             let arrayKey : Array<UInt8> = (key.data(using: .utf8)?.bytes)!
             let arrayStr : Array<UInt8> = (self.data(using: .utf8)?.bytes)!
             let hmac = HMAC(key: arrayKey, variant: .sha1)
             let hmaced = try hmac.authenticate(arrayStr)
-            print(hmaced)
             let finalStr = hmaced.toHexString()
-            print(finalStr)
             return finalStr
         } catch {
             return "12345678"

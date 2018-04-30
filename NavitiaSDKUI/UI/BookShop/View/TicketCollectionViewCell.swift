@@ -31,11 +31,18 @@ class TicketCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var moreAmountButton: UIButton!
     
     var delegate: TicketCollectionViewCellDelegate?
+    var maxQuantity: Int?
     var amount: Int = 0 {
         didSet {
             if amount > 0 {
                 amountView.isHidden = false
                 addBasketButton.isHidden = true
+                moreAmountButton.setAttributedTitle(NSMutableAttributedString()
+                    //            .icon("disruption-information",
+                    .bold("+",
+                          color: Configuration.Color.main,
+                          size: 30),
+                                                    for: .normal)
                 amountLabel.attributedText = NSMutableAttributedString()
                     .bold(String(amount),
                           size: 18)
@@ -43,9 +50,20 @@ class TicketCollectionViewCell: UICollectionViewCell {
                 amountView.isHidden = true
                 addBasketButton.isHidden = false
             }
+            if let maxQuantity = maxQuantity {
+                if amount == maxQuantity {
+                    moreAmountButton.setAttributedTitle(NSMutableAttributedString()
+                        //            .icon("disruption-information",
+                        .bold("+",
+                              color: Configuration.Color.gray,
+                              size: 30),
+                                                        for: .normal)
+                }
+            }
         }
     }
     var indexPath: IndexPath!
+    var id: String!
     
     override func awakeFromNib() {
         super.awakeFromNib()

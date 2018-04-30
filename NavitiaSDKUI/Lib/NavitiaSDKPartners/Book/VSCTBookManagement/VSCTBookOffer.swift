@@ -9,24 +9,45 @@
 import Foundation
 
 @objc(VSCTBookOffer) public class VSCTBookOffer : NSObject, BookOffer {
-
     
-    public var id : String = ""
-    public var productId : String = ""
-    public var title : String = ""
-    public var shortDescription : String = ""
-    public var price : Float = 0.0
-    public var currency : String = ""
-    public var maxQuantity : Int = 10
-    public var type : BookOfferType = .Unknown
-    public var VAT : Float = 0.0
-    public var saleable : Bool = false
-    public var displayOrder : Int = 9999
-    public var legalInfos : String = ""
+    public private(set) var id : String = ""
+    public private(set) var productId : String = ""
+    public private(set) var title : String = ""
+    public private(set) var shortDescription : String = ""
+    public private(set) var price : Float = 0.0
+    public private(set) var currency : String = ""
+    public private(set) var maxQuantity : Int = 10
+    public private(set) var type : BookOfferType = .Unknown
+    public private(set) var VATRate : Float = 0.0
+    public private(set) var saleable : Bool = false
+    public private(set) var displayOrder : Int = 9999
+    public private(set) var legalInfos : String = ""
+    public private(set) var imageUrl : String = ""
     
-    var imageUrl : String = ""
-    let imageCache = NSCache<NSString, AnyObject>()
+    public var VAT : Float {
+        get {
+            return price - (price / (1 + VATRate / 100))
+        }
+    }
+    
+    private let imageCache = NSCache<NSString, AnyObject>()
   
+    init(id : String, productId : String, title : String, shortDescription : String, price : Float, currency : String, maxQuantity : Int, type : BookOfferType, VATRate : Float, saleable : Bool, displayOrder : Int, legalInfos : String, imageUrl : String) {
+        self.id = id
+        self.productId = productId
+        self.title = title
+        self.shortDescription = shortDescription
+        self.price = price
+        self.currency = currency
+        self.maxQuantity = maxQuantity
+        self.type = type
+        self.VATRate = VATRate
+        self.saleable = saleable
+        self.displayOrder = displayOrder
+        self.legalInfos = legalInfos
+        self.imageUrl = imageUrl
+    }
+    
     @objc public func toDictionnary() -> [String : Any] {
         return [ "id" : self.id,
                  "title" : self.title,

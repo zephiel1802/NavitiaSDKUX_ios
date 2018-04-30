@@ -83,7 +83,6 @@ internal class NavitiaSDKPartnersRequestBuilder {
                 if returnArray {
                     
                     guard let tempSerialized  = try JSONSerialization.jsonObject(with: responseData, options: []) as? [[String : Any]] else {
-                        print(String(data: data!, encoding: String.Encoding.utf8) as String!)
                         print("NavitiaSDKPartners : error on serialization")
                         DispatchQueue.main.async {
                             completion(false, (response as! HTTPURLResponse).statusCode, nil)
@@ -94,7 +93,6 @@ internal class NavitiaSDKPartnersRequestBuilder {
                 } else {
                     
                     guard let tempSerialized = try JSONSerialization.jsonObject(with: responseData, options: []) as? [String : Any] else {
-                        print(String(data: data!, encoding: String.Encoding.utf8) as String!)
                         print("NavitiaSDKPartners : error on serialization")
                         DispatchQueue.main.async {
                             completion(false, (response as! HTTPURLResponse).statusCode, nil)
@@ -276,7 +274,6 @@ internal class NavitiaSDKPartnersRequestBuilder {
                         completion(true, 200, dataParsed)
                     }
                 } else {
-                    print(NSString(data: data!, encoding:  String.Encoding.utf8.rawValue)! as String)
                     let dataParsed = SWXMLHash.parse(NSString(data: data!, encoding:  String.Encoding.utf8.rawValue)! as String)
                     DispatchQueue.main.async {
                         completion(false, (httpResponse?.statusCode)!, dataParsed)
