@@ -135,21 +135,21 @@ open class BreadcrumbView: UIView {
         addSubview(_view)
         
         returnButton.setAttributedTitle(NSMutableAttributedString().icon("arrow-direction-left", color: Configuration.Color.white, size: 20), for: .normal)
-        firstIconLabel.attributedText = NSMutableAttributedString().icon("circle-filled",
+        firstIconLabel.attributedText = NSMutableAttributedString().icon("tickets",
                                                                          color: Configuration.Color.white,
-                                                                         size: 20)
+                                                                         size: 22)
         firstLabel.attributedText = NSMutableAttributedString().bold("shop".localized(withComment: "SHOP", bundle: NavitiaSDKUI.shared.bundle).uppercased(),
                                                                      color: Configuration.Color.white,
                                                                      size: 9)
-        secondIconLabel.attributedText = NSMutableAttributedString().icon("circle-filled",
+        secondIconLabel.attributedText = NSMutableAttributedString().icon("basket",
                                                                           color: Configuration.Color.white,
-                                                                          size: 20)
+                                                                          size: 22)
         secondLabel.attributedText = NSMutableAttributedString().bold("payment".localized(withComment: "PAYMENT", bundle: NavitiaSDKUI.shared.bundle).uppercased(),
                                                                       color: Configuration.Color.white,
                                                                       size: 9)
-        thirdIconLabel.attributedText = NSMutableAttributedString().icon("circle-filled",
+        thirdIconLabel.attributedText = NSMutableAttributedString().icon("ticket",
                                                                          color: Configuration.Color.white,
-                                                                         size: 20)
+                                                                         size: 22)
         thirdLabel.attributedText = NSMutableAttributedString().bold("tickets".localized(withComment: "TICKETS",bundle: NavitiaSDKUI.shared.bundle).uppercased(),
                                                                      color: Configuration.Color.white,
                                                                      size: 9)

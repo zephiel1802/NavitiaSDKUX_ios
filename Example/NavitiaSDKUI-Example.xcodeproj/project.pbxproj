@@ -641,6 +641,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 6BE8E84CACE292C6E86264CB /* Pods-NavitiaSDKUI-Example.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = AK7DPF549M;
@@ -657,6 +658,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 5236C80FEB45B98C8508DC5B /* Pods-NavitiaSDKUI-Example.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = AK7DPF549M;
@@ -673,7 +675,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 833508C2C5F30E4DCE9558C9 /* Pods-NavitiaSDKUI-ExampleTests.debug.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = "NavitiaSDKUI-ExampleTests/Info.plist";
@@ -690,7 +692,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 34AFDB26C0C650A163FB244F /* Pods-NavitiaSDKUI-ExampleTests.release.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = "NavitiaSDKUI-ExampleTests/Info.plist";
@@ -707,7 +709,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 60488A08D8F50BC13B2ABBFF /* Pods-NavitiaSDKUI-ExampleUITests.debug.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = "NavitiaSDKUI-ExampleUITests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -723,7 +725,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 56F59D8CDAE0410C23E99BA6 /* Pods-NavitiaSDKUI-ExampleUITests.release.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = "NavitiaSDKUI-ExampleUITests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";

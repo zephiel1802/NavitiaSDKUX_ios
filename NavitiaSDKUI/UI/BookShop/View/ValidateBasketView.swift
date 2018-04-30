@@ -53,8 +53,8 @@ open class ValidateBasketView: UIView {
         addSubview(_view)
         
         titleLabel.attributedText = NSMutableAttributedString()
-            .icon("arrow-direction-left", color: Configuration.Color.white, size: 15)
-            .bold(String(format: " %@","shop".localized(withComment: "SHOP", bundle: NavitiaSDKUI.shared.bundle)), color: Configuration.Color.white, size: 15)
+            .icon("basket", color: Configuration.Color.white, size: 20)
+            .bold(String(format: "  %@","shop".localized(withComment: "SHOP", bundle: NavitiaSDKUI.shared.bundle)), color: Configuration.Color.white, size: 15)
         
         let gesture = UITapGestureRecognizer(target: self, action: #selector(self.onValidateButtonClicked))
         _view.addGestureRecognizer(gesture)

@@ -11,7 +11,6 @@ import UIKit
 protocol TicketCollectionViewCellDelegate {
     
     func onInformationPressedButton(_ ticketCollectionViewCell: TicketCollectionViewCell)
-    func onAddBasketPressedButton(_ ticketCollectionViewCell: TicketCollectionViewCell)
     func onLessAmountPressedButton(_ ticketCollectionViewCell: TicketCollectionViewCell)
     func onMoreAmountPressendButton(_ ticketCollectionViewCell: TicketCollectionViewCell)
     
@@ -38,10 +37,9 @@ class TicketCollectionViewCell: UICollectionViewCell {
                 amountView.isHidden = false
                 addBasketButton.isHidden = true
                 moreAmountButton.setAttributedTitle(NSMutableAttributedString()
-                    //            .icon("disruption-information",
-                    .bold("+",
+                    .icon("more",
                           color: Configuration.Color.main,
-                          size: 30),
+                          size: 25),
                                                     for: .normal)
                 amountLabel.attributedText = NSMutableAttributedString()
                     .bold(String(amount),
@@ -53,10 +51,9 @@ class TicketCollectionViewCell: UICollectionViewCell {
             if let maxQuantity = maxQuantity {
                 if amount == maxQuantity {
                     moreAmountButton.setAttributedTitle(NSMutableAttributedString()
-                        //            .icon("disruption-information",
-                        .bold("+",
+                        .icon("more",
                               color: Configuration.Color.gray,
-                              size: 30),
+                              size: 25),
                                                         for: .normal)
                 }
             }
@@ -82,10 +79,10 @@ class TicketCollectionViewCell: UICollectionViewCell {
     
     private func _setup() {
         addBasketButton.setAttributedTitle(NSMutableAttributedString()
-            .icon("disruption-information",
+            .icon("add",
                   color: Configuration.Color.main,
                   size: 12)
-            .bold(" Ajouter au panier".localized(withComment: " Ajouter au panier", bundle: NavitiaSDKUI.shared.bundle),
+            .bold("  Ajouter au panier".localized(withComment: " Ajouter au panier", bundle: NavitiaSDKUI.shared.bundle).uppercased(),
                   color: Configuration.Color.main,
                   size: 12),
                                            for: .normal)
@@ -93,19 +90,17 @@ class TicketCollectionViewCell: UICollectionViewCell {
         informationButton.setAttributedTitle(NSMutableAttributedString()
             .icon("disruption-information",
                   color: Configuration.Color.main,
-                  size: 15),
+                  size: 13),
                                              for: .normal)
         lessAmountButton.setAttributedTitle(NSMutableAttributedString()
-//            .icon("disruption-information",
-            .bold("-",
+            .icon("less",
                   color: Configuration.Color.main,
-                  size: 30),
+                  size: 25),
                                             for: .normal)
         moreAmountButton.setAttributedTitle(NSMutableAttributedString()
-//            .icon("disruption-information",
-            .bold("+",
+            .icon("more",
                   color: Configuration.Color.main,
-                  size: 30),
+                  size: 25),
                                             for: .normal)
         amountView.isHidden = true
     }
@@ -116,7 +111,7 @@ class TicketCollectionViewCell: UICollectionViewCell {
     }
     
     @IBAction func onAddBasketPressedButton(_ sender: Any) {
-        delegate?.onAddBasketPressedButton(self)
+        delegate?.onMoreAmountPressendButton(self)
     }
     
     @IBAction func onLessAmountPressedButton(_ sender: Any) {
@@ -128,14 +123,17 @@ class TicketCollectionViewCell: UICollectionViewCell {
     }
     
     func setPrice(_ price: Float, currency: String) {
-        let priceComponent = String(price).components(separatedBy :".")
+        var priceComponent = String(price).components(separatedBy :".")
         
         priceLabel.attributedText = NSMutableAttributedString()
             .bold(priceComponent[0],
                   color: Configuration.Color.darkGray,
                   size: 15)
+        if priceComponent[1].count == 1 {
+            priceComponent[1].append("0")
+        }
         centimeLabel.attributedText = NSMutableAttributedString()
-            .bold(String(format: "%@%1d", currency, Int(priceComponent[1])!),
+            .bold(String(format: "%@%@", currency, priceComponent[1]),
                   color: Configuration.Color.darkGray,
                   size: 10)
     }

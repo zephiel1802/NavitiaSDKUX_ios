@@ -160,10 +160,6 @@ extension BookShopViewController: UICollectionViewDataSource {
             return 4
         }
         return _viewModel.bookOffer[typeSegmentedControl.selectedSegmentIndex].count
-//        if typeSegmentedControl.selectedSegmentIndex == 1 {
-//            return _viewModel.memberships.count
-//        }
-//        return _viewModel.tickets.count
     }
     
     public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -173,39 +169,15 @@ extension BookShopViewController: UICollectionViewDataSource {
             }
         }
         if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TicketCollectionViewCell.identifier, for: indexPath) as? TicketCollectionViewCell {
+            cell.delegate = self
+            cell.indexPath = indexPath
             cell.title = _viewModel.bookOffer[typeSegmentedControl.selectedSegmentIndex][indexPath.row].title
-            cell.setPrice(_viewModel.bookOffer[typeSegmentedControl.selectedSegmentIndex][indexPath.row].price,
-                          currency: _viewModel.bookOffer[typeSegmentedControl.selectedSegmentIndex][indexPath.row].currency)
             cell.descript = _viewModel.bookOffer[typeSegmentedControl.selectedSegmentIndex][indexPath.row].shortDescription
             cell.id = _viewModel.bookOffer[typeSegmentedControl.selectedSegmentIndex][indexPath.row].id
             cell.maxQuantity = _viewModel.bookOffer[typeSegmentedControl.selectedSegmentIndex][indexPath.row].maxQuantity
-            //print(NavitiaSDKPartners.shared.cart.filter({ $0.bookOffer.productId == cell.id }))
-            let test = NavitiaSDKPartners.shared.cart.filter({ $0.bookOffer.id == cell.id })
-            print(test.first?.quantity)
-//            {
-               cell.amount = test.first?.quantity ?? 0
-//            } else {
-//                cell.amount = 0
-//            }
-            
-//            if typeSegmentedControl.selectedSegmentIndex == 1 {
-////                cell.title = _viewModel.abonnement[indexPath.row].name
-////                cell.amount = _viewModel.abonnement[indexPath.row].count
-////                cell.setPrice(0.00, currency: "E")
-////                cell.descript = "[DESCRIPTION]"
-//                cell.title = _viewModel.memberships[indexPath.row].title
-//                cell.setPrice(_viewModel.memberships[indexPath.row].price, currency: _viewModel.memberships[indexPath.row].currency)
-//                cell.descript = _viewModel.memberships[indexPath.row].shortDescription
-//              //  cell.amount = _viewModel.abonnement[indexPath.row].count
-//            } else {
-//                cell.title = _viewModel.tickets[indexPath.row].title
-//                cell.setPrice(_viewModel.tickets[indexPath.row].price, currency: _viewModel.tickets[indexPath.row].currency)
-//                cell.descript = _viewModel.tickets[indexPath.row].shortDescription
-//                cell.amount = _viewModel.ticket[indexPath.row].count
-//            }
-            cell.delegate = self
-            cell.indexPath = indexPath
-            
+            cell.amount = NavitiaSDKPartners.shared.cart.filter({ $0.bookOffer.id == cell.id }).first?.quantity ?? 0
+            cell.setPrice(_viewModel.bookOffer[typeSegmentedControl.selectedSegmentIndex][indexPath.row].price,
+                          currency: _viewModel.bookOffer[typeSegmentedControl.selectedSegmentIndex][indexPath.row].currency)
             return cell
         }
         return UICollectionViewCell()
@@ -242,15 +214,6 @@ extension BookShopViewController: BreadcrumbViewProtocol {
 extension BookShopViewController: TicketCollectionViewCellDelegate {
     
     func onInformationPressedButton(_ ticketCollectionViewCell: TicketCollectionViewCell) {}
-    
-    func onAddBasketPressedButton(_ ticketCollectionViewCell: TicketCollectionViewCell) {
-        NavitiaSDKPartners.shared.addOffer(offerId: ticketCollectionViewCell.id, callbackSuccess: {
-            print(NavitiaSDKPartners.shared.cartTotalPrice)
-            self._viewModel.bookShopDidChange!(self._viewModel)
-        }) { (codeStatus, data) in
-            print("😭")
-        }
-    }
     
     func onLessAmountPressedButton(_ ticketCollectionViewCell: TicketCollectionViewCell) {
         NavitiaSDKPartners.shared.removeOffer(offerId: ticketCollectionViewCell.id, callbackSuccess: {
