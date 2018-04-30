@@ -17,7 +17,8 @@ open class BookShopViewController: UIViewController {
     @IBOutlet weak var typeSegmentedControl: UISegmentedControl!
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet var collectionViewBottomContraint: NSLayoutConstraint!
-    
+    @IBOutlet weak var warningContainerView: UIView!
+
     private var _validateBasketView: ValidateBasketView!
     private var _breadcrumbView: BreadcrumbView!
     private var _validateBasketHeight: CGFloat = 50
@@ -32,11 +33,6 @@ open class BookShopViewController: UIViewController {
                     self?._animationValidateBasket(animated: true, hidden: false)
                     self?._validateBasketView.setAmount(NavitiaSDKPartners.shared.cartTotalPrice, currency: "E")
                 }
-//                if bookShopViewModel.didDisplayValidateTicket() {
-//                    self?._animationValidateBasket(animated: true, hidden: false)
-//                } else {
-//                    self?._animationValidateBasket(animated: true, hidden: true)
-//                }
             }
         }
     }
@@ -213,7 +209,15 @@ extension BookShopViewController: BreadcrumbViewProtocol {
 
 extension BookShopViewController: TicketCollectionViewCellDelegate {
     
-    func onInformationPressedButton(_ ticketCollectionViewCell: TicketCollectionViewCell) {}
+    func onInformationPressedButton(_ ticketCollectionViewCell: TicketCollectionViewCell) {
+        let informationViewController = InformationViewController(nibName: "InformationView", bundle: NavitiaSDKUI.shared.bundle)
+        informationViewController.modalTransitionStyle = .crossDissolve
+        informationViewController.modalPresentationStyle = .overCurrentContext
+        informationViewController.titleButton = ["Compris !"]
+        informationViewController.delegate = self
+        informationViewController.information = _viewModel.bookOffer[typeSegmentedControl.selectedSegmentIndex][ticketCollectionViewCell.indexPath.row].legalInfos
+        present(informationViewController, animated: true) {}
+    }
     
     func onLessAmountPressedButton(_ ticketCollectionViewCell: TicketCollectionViewCell) {
         NavitiaSDKPartners.shared.removeOffer(offerId: ticketCollectionViewCell.id, callbackSuccess: {
@@ -238,6 +242,14 @@ extension BookShopViewController: TicketCollectionViewCellDelegate {
 extension BookShopViewController: ValidateBasketViewDelegate {
     
     func onValidateButtonClicked(_ validateBasketView: ValidateBasketView) {}
+    
+}
+
+extension BookShopViewController: InformationViewDelegate {
+    
+    func onFirstButtonClicked(_ informationViewController: InformationViewController) {
+        informationViewController.dismiss(animated: true) {}
+    }
     
 }
 
