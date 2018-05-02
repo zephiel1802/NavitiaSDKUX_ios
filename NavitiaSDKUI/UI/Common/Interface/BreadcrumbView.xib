@@ -91,13 +91,13 @@
                     <color key="textColor" white="1" alpha="0.5" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="trailing" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kct-K6-MKQ">
-                    <rect key="frame" x="0.0" y="0.0" width="30" height="40"/>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="trailing" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kct-K6-MKQ">
+                    <rect key="frame" x="0.0" y="0.0" width="31" height="40"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="40" id="ZeA-Qc-m8T"/>
                     </constraints>
-                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                    <state key="normal" title="&lt;">
+                    <inset key="contentEdgeInsets" minX="9" minY="0.0" maxX="10" maxY="0.0"/>
+                    <state key="normal" image="UINavigationBarBackIndicatorDefault">
                         <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </state>
                     <connections>
@@ -138,4 +138,7 @@
             <point key="canvasLocation" x="-71" y="-282"/>
         </view>
     </objects>
+    <resources>
+        <image name="UINavigationBarBackIndicatorDefault" width="12" height="20"/>
+    </resources>
 </document>

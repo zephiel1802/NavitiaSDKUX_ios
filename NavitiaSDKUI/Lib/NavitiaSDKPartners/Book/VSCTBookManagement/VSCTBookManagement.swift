@@ -10,27 +10,38 @@ import Foundation
 
 @objc(VSCTBookManagement) public class VSCTBookManagement : NSObject, BookManagement {
     
+    private var cartId : String = ""
     private var stockedOffers : [VSCTBookOffer] = []
     
     public private(set) var cart: [BookManagementCartItem] = []
     
-    public var cartTotalPrice : Float {
+    public var cartTotalPrice : NavitiaSDKPartnersPrice {
         get {
+            let money = NavitiaSDKPartnersPrice()
             var totalPrice : Float = 0.0
             cart.forEach { (item) in
                 totalPrice += item.itemPrice
             }
-            return totalPrice
+            
+            let currency : String = (cart.first?.bookOffer.currency) ?? ""
+            money.currency = currency
+            money.value = totalPrice
+            return money
         }
     }
     
-    public var cartTotalVAT : Float {
+    public var cartTotalVAT : NavitiaSDKPartnersPrice {
         get {
+            let money = NavitiaSDKPartnersPrice()
             var totalVAT : Float = 0.0
             cart.forEach { (item) in
                 totalVAT += item.itemVAT
             }
-            return totalVAT
+            
+            let currency : String = (cart.first?.bookOffer.currency) ?? ""
+            money.currency = currency
+            money.value = totalVAT
+            return money
         }
     }
     
@@ -91,6 +102,21 @@ import Foundation
                 callbackError(statusCode, data)
             }
         }
+    }
+    
+    internal func addItemsInAPI(index : Int = 0, callbackSuccess : @escaping () -> Void, callbackError : @escaping (Int, [String: Any]?) -> Void) {
+        NavitiaSDKPartnersRequestBuilder.post(stringUrl: "\(self._getUrl())/baskets/\(self.cartId)/items/?simulate=false", header: self._getConnectedHeader(), content: ["offer": ["id" : self.cart[index].bookOffer.id], "quantity" : self.cart[index].quantity], completion: { (success, statusCode, data) in
+
+            if success {
+                if self.cart.count == index + 1 { //isLast
+                    callbackSuccess()
+                } else {
+                    self.addItemsInAPI(index: index + 1, callbackSuccess: callbackSuccess, callbackError: callbackError)
+                }
+            } else {
+                callbackError(statusCode, data)
+            }
+        })
     }
     
     public func getOffers(callbackSuccess : @escaping ([BookOffer]?) -> Void, callbackError : @escaping (Int, [String: Any]?) -> Void) {
@@ -248,7 +274,33 @@ import Foundation
         print("NavitiaSDKPartners/addOffer : success")
         callbackSuccess()
     }
-
+    
+    public func getOrderValidation(callbackSuccess : @escaping ([BookManagementCartItem]) -> Void, callbackError : @escaping (Int, [String: Any]?) -> Void) {
+        
+        if cart.isEmpty {
+            callbackError(NavitiaSDKPartnersReturnCode.badParameter.getCode(), NavitiaSDKPartnersReturnCode.badParameter.getError())
+            return
+        }
+        
+        NavitiaSDKPartnersRequestBuilder.post(stringUrl: "\(_getUrl())/baskets", header: _getConnectedHeader()) { (success, statusCode, data) in
+            if success && data != nil {
+                self.cartId = data!["id"] as! String
+                self.addItemsInAPI(callbackSuccess: {
+                    NavitiaSDKPartnersRequestBuilder.get(stringUrl: "\(self._getUrl())/baskets/\(self.cartId)/validation", header: self._getConnectedHeader(), completion: { (success, statusCode, data) in
+                        if success {
+                            callbackSuccess(self.cart)
+                        } else {
+                            callbackError(statusCode, data)
+                        }
+                    })
+                }, callbackError: {(statusCode, data) in
+                    callbackError(statusCode, data)
+                })
+            } else {
+                callbackError(statusCode, data)
+            }
+        }
+    }
 }
 
 extension VSCTBookManagement {
@@ -267,8 +319,9 @@ extension VSCTBookManagement {
                                                       saleable: (rawOffer["saleable"] as! Bool),
                                                       displayOrder: (rawOffer["displayOrder"] as! Int),
                                                       legalInfos: (rawOffer["legalInfos"] as! String),
-                                                      imageUrl: (((rawOffer["image"] as! [String: Any])["link"] as! [String: Any])["href"] as! String))
-            
+                                                      imageUrl: (((rawOffer["image"] as! [String: Any])["link"] as! [String: Any])["href"] as! String),
+                                                      displayOffer : (rawOffer["display"] as! Bool),
+                                                      mandatoryAccount: false)
             array.append(offer)
         }
         

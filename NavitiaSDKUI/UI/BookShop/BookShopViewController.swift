@@ -14,6 +14,7 @@ open class BookShopViewController: UIViewController {
     @IBOutlet weak var breadcrumbContainerView: BreadcrumbView!
     @IBOutlet weak var validateBasketContainerView: UIView!
     @IBOutlet weak var validateBasketContainerHeightContraint: NSLayoutConstraint!
+    @IBOutlet weak var typeSegmentedContainerView: UIView!
     @IBOutlet weak var typeSegmentedControl: UISegmentedControl!
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet var collectionViewBottomContraint: NSLayoutConstraint!
@@ -31,7 +32,7 @@ open class BookShopViewController: UIViewController {
                     self?._animationValidateBasket(animated: true, hidden: true)
                 } else {
                     self?._animationValidateBasket(animated: true, hidden: false)
-                    self?._validateBasketView.setAmount(NavitiaSDKPartners.shared.cartTotalPrice, currency: "E")
+                    self?._validateBasketView.setAmount(NavitiaSDKPartners.shared.cartTotalPrice.value, currency: NavitiaSDKPartners.shared.cartTotalPrice.currency)
                 }
             }
         }
@@ -51,7 +52,6 @@ open class BookShopViewController: UIViewController {
         _registerCollectionView()
         _viewModel = BookShopViewModel()
         _viewModel.request()
-
     }
 
     override open func didReceiveMemoryWarning() {
@@ -82,6 +82,10 @@ open class BookShopViewController: UIViewController {
         _setupBreadcrumbView()
         _setupValidateBasketView()
         _setupTypeSegmentedControl()
+        
+        if let color = view.backgroundColor?.cgColor {
+            typeSegmentedContainerView.addShadow(color: color, offset: CGSize(width: 0.0, height: 7.0), opacity: 1, radius: 7)
+        }
     }
     
     private func _setupBreadcrumbView() {
@@ -111,8 +115,8 @@ open class BookShopViewController: UIViewController {
     
     private func _setupTypeSegmentedControl() {
         typeSegmentedControl.tintColor = Configuration.Color.main
-        typeSegmentedControl.setTitle("Titres unitaires".localized(withComment: "Titres unitaires", bundle: NavitiaSDKUI.shared.bundle), forSegmentAt: 0)
-        typeSegmentedControl.setTitle("Abonnements".localized(withComment: "Abonnements", bundle: NavitiaSDKUI.shared.bundle), forSegmentAt: 1)
+        typeSegmentedControl.setTitle("unit_tickets".localized(withComment: "Unit tickets", bundle: NavitiaSDKUI.shared.bundle), forSegmentAt: 0)
+        typeSegmentedControl.setTitle("subscriptions".localized(withComment: "Subscriptions", bundle: NavitiaSDKUI.shared.bundle), forSegmentAt: 1)
     }
     
     private func _animationValidateBasket(animated: Bool, hidden: Bool) {
@@ -181,12 +185,6 @@ extension BookShopViewController: UICollectionViewDataSource {
     
 }
 
-extension BookShopViewController: UICollectionViewDelegate {
-
-    public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {}
-    
-}
-
 extension BookShopViewController: UICollectionViewDelegateFlowLayout {
 
     public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -213,27 +211,31 @@ extension BookShopViewController: TicketCollectionViewCellDelegate {
         let informationViewController = InformationViewController(nibName: "InformationView", bundle: NavitiaSDKUI.shared.bundle)
         informationViewController.modalTransitionStyle = .crossDissolve
         informationViewController.modalPresentationStyle = .overCurrentContext
-        informationViewController.titleButton = ["Compris !"]
+        informationViewController.titleButton = [String(format: "%@ !", "understand".localized(withComment: "Understand", bundle: NavitiaSDKUI.shared.bundle))]
         informationViewController.delegate = self
-        informationViewController.information = _viewModel.bookOffer[typeSegmentedControl.selectedSegmentIndex][ticketCollectionViewCell.indexPath.row].legalInfos
+        if let indexPath = ticketCollectionViewCell.indexPath {
+            informationViewController.information = _viewModel.bookOffer[typeSegmentedControl.selectedSegmentIndex][indexPath.row].legalInfos
+        }
         present(informationViewController, animated: true) {}
     }
     
     func onLessAmountPressedButton(_ ticketCollectionViewCell: TicketCollectionViewCell) {
-        NavitiaSDKPartners.shared.removeOffer(offerId: ticketCollectionViewCell.id, callbackSuccess: {
-            print(NavitiaSDKPartners.shared.cartTotalPrice)
-            self._viewModel.bookShopDidChange!(self._viewModel)
-        }) { (codeStatus, data) in
-            print("😭")
+        if let id = ticketCollectionViewCell.id {
+            NavitiaSDKPartners.shared.removeOffer(offerId: id, callbackSuccess: {
+                if let didChange = self._viewModel.bookShopDidChange {
+                    didChange(self._viewModel)
+                }
+            }) { (codeStatus, data) in }
         }
     }
     
     func onMoreAmountPressendButton(_ ticketCollectionViewCell: TicketCollectionViewCell) {
-        NavitiaSDKPartners.shared.addOffer(offerId: ticketCollectionViewCell.id, callbackSuccess: {
-            print(NavitiaSDKPartners.shared.cartTotalPrice)
-            self._viewModel.bookShopDidChange!(self._viewModel)
-        }) { (codeStatus, data) in
-            print("😭")
+        if let id = ticketCollectionViewCell.id {
+            NavitiaSDKPartners.shared.addOffer(offerId: id, callbackSuccess: {
+                if let didChange = self._viewModel.bookShopDidChange {
+                    didChange(self._viewModel)
+                }
+            }) { (codeStatus, data) in }
         }
     }
 

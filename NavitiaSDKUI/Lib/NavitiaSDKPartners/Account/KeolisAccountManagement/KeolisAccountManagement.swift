@@ -372,7 +372,7 @@ extension KeolisAccountManagement {
 
                 if success && statusCode < 300 {
 
-                    print("NavitiaSDKPartners : success logOut")
+                    print("NavitiaSDKPartners/logOut : success ")
                     self._accessToken = ""
                     self._refreshToken = ""
                     self._anonymousEmail = ""
@@ -380,7 +380,7 @@ extension KeolisAccountManagement {
                     callbackSuccess()
                 } else {
 
-                    print("NavitiaSDKPartners : error logOut")
+                    print("NavitiaSDKPartners/logOut : error")
                     callbackError(statusCode, data)
                 }
             }

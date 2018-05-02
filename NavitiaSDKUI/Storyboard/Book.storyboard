@@ -29,20 +29,8 @@
                                     <constraint firstAttribute="height" constant="70" id="SWo-oO-bel"/>
                                 </constraints>
                             </view>
-                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="rHz-Vj-7AX">
-                                <rect key="frame" x="15" y="105" width="290" height="29"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <segments>
-                                    <segment title="Titres unitaires"/>
-                                    <segment title="Abonnements"/>
-                                </segments>
-                                <color key="tintColor" red="0.25098039220000001" green="0.58431372550000005" blue="0.5568627451" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <connections>
-                                    <action selector="onTypePressedSegmentControl:" destination="ARd-8B-8ZT" eventType="valueChanged" id="k29-El-Ha4"/>
-                                </connections>
-                            </segmentedControl>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="dgf-wF-P8x">
-                                <rect key="frame" x="0.0" y="148" width="320" height="420"/>
+                                <rect key="frame" x="0.0" y="143" width="320" height="425"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="Cka-So-O6a">
                                     <size key="itemSize" width="0.0" height="0.0"/>
@@ -56,11 +44,28 @@
                                     <outlet property="delegate" destination="ARd-8B-8ZT" id="xsN-Gp-Vux"/>
                                 </connections>
                             </collectionView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PY7-dw-rOr">
-                                <rect key="frame" x="0.0" y="518" width="320" height="50"/>
-                                <color key="backgroundColor" red="0.25098039220000001" green="0.58431372550000005" blue="0.5568627451" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="K9m-Ep-DcY">
+                                <rect key="frame" x="0.0" y="90" width="320" height="53"/>
+                                <subviews>
+                                    <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="rHz-Vj-7AX">
+                                        <rect key="frame" x="15" y="15" width="290" height="29"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <segments>
+                                            <segment title="Titres unitaires"/>
+                                            <segment title="Abonnements"/>
+                                        </segments>
+                                        <color key="tintColor" red="0.25098039220000001" green="0.58431372550000005" blue="0.5568627451" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <connections>
+                                            <action selector="onTypePressedSegmentControl:" destination="ARd-8B-8ZT" eventType="valueChanged" id="k29-El-Ha4"/>
+                                        </connections>
+                                    </segmentedControl>
+                                </subviews>
+                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="50" id="gXg-BY-jka"/>
+                                    <constraint firstItem="rHz-Vj-7AX" firstAttribute="leading" secondItem="K9m-Ep-DcY" secondAttribute="leading" constant="15" id="4RJ-gQ-Hhd"/>
+                                    <constraint firstItem="rHz-Vj-7AX" firstAttribute="top" secondItem="K9m-Ep-DcY" secondAttribute="top" constant="15" id="BMe-Ld-lxJ"/>
+                                    <constraint firstAttribute="trailing" secondItem="rHz-Vj-7AX" secondAttribute="trailing" constant="15" id="LTd-Rb-C9G"/>
+                                    <constraint firstAttribute="bottom" secondItem="rHz-Vj-7AX" secondAttribute="bottom" constant="10" id="aSi-Yz-zYT"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uZc-RC-0kf">
@@ -97,27 +102,33 @@
                                     <constraint firstItem="R1V-Xf-Zil" firstAttribute="top" secondItem="uZc-RC-0kf" secondAttribute="top" constant="15" id="reD-bO-geF"/>
                                 </constraints>
                             </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PY7-dw-rOr">
+                                <rect key="frame" x="0.0" y="518" width="320" height="50"/>
+                                <color key="backgroundColor" red="0.25098039220000001" green="0.58431372550000005" blue="0.5568627451" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="gXg-BY-jka"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <constraints>
                             <constraint firstAttribute="bottom" secondItem="PY7-dw-rOr" secondAttribute="bottom" id="0wS-zY-0kC"/>
                             <constraint firstAttribute="trailing" secondItem="dgf-wF-P8x" secondAttribute="trailing" id="3bF-1r-F4d"/>
                             <constraint firstItem="LQh-MV-p7A" firstAttribute="trailing" secondItem="zxY-ad-elp" secondAttribute="trailing" id="B2q-ia-gWK"/>
-                            <constraint firstItem="rHz-Vj-7AX" firstAttribute="leading" secondItem="HTb-cc-Mzw" secondAttribute="leading" constant="15" id="F5B-cb-CpY"/>
+                            <constraint firstItem="K9m-Ep-DcY" firstAttribute="top" secondItem="LQh-MV-p7A" secondAttribute="bottom" id="CtX-lh-zdi"/>
                             <constraint firstItem="V1i-tT-IN8" firstAttribute="top" secondItem="zxY-ad-elp" secondAttribute="top" id="IbK-U9-MAg"/>
-                            <constraint firstItem="HTb-cc-Mzw" firstAttribute="trailing" secondItem="rHz-Vj-7AX" secondAttribute="trailing" constant="15" id="J5V-02-KGe"/>
                             <constraint firstItem="uZc-RC-0kf" firstAttribute="centerX" secondItem="zxY-ad-elp" secondAttribute="centerX" id="L19-i1-RTL"/>
                             <constraint firstItem="LQh-MV-p7A" firstAttribute="leading" secondItem="zxY-ad-elp" secondAttribute="leading" id="NVz-aG-gTf"/>
                             <constraint firstItem="PY7-dw-rOr" firstAttribute="leading" secondItem="zxY-ad-elp" secondAttribute="leading" id="TOx-x5-rHL"/>
                             <constraint firstAttribute="trailing" secondItem="V1i-tT-IN8" secondAttribute="trailing" id="X5r-CO-ACg"/>
-                            <constraint firstItem="uZc-RC-0kf" firstAttribute="top" secondItem="rHz-Vj-7AX" secondAttribute="bottom" constant="15" id="Zhz-AY-ITm"/>
-                            <constraint firstItem="dgf-wF-P8x" firstAttribute="top" secondItem="rHz-Vj-7AX" secondAttribute="bottom" constant="15" id="aYS-od-0Sh"/>
                             <constraint firstItem="LQh-MV-p7A" firstAttribute="top" secondItem="V1i-tT-IN8" secondAttribute="bottom" id="bFC-GZ-jue"/>
                             <constraint firstItem="V1i-tT-IN8" firstAttribute="leading" secondItem="zxY-ad-elp" secondAttribute="leading" id="d6M-SR-nR8"/>
-                            <constraint firstItem="rHz-Vj-7AX" firstAttribute="top" secondItem="LQh-MV-p7A" secondAttribute="bottom" constant="15" id="eWK-zp-2tX"/>
+                            <constraint firstItem="K9m-Ep-DcY" firstAttribute="leading" secondItem="zxY-ad-elp" secondAttribute="leading" id="eLC-Og-Vgw"/>
+                            <constraint firstItem="HTb-cc-Mzw" firstAttribute="trailing" secondItem="K9m-Ep-DcY" secondAttribute="trailing" id="q4C-5y-8u2"/>
                             <constraint firstItem="dgf-wF-P8x" firstAttribute="leading" secondItem="zxY-ad-elp" secondAttribute="leading" id="r5f-Zq-Rhy"/>
                             <constraint firstAttribute="bottom" secondItem="dgf-wF-P8x" secondAttribute="bottom" id="sch-C3-x6g"/>
                             <constraint firstItem="PY7-dw-rOr" firstAttribute="trailing" secondItem="zxY-ad-elp" secondAttribute="trailing" id="tDU-Ck-Lqc"/>
+                            <constraint firstItem="dgf-wF-P8x" firstAttribute="top" secondItem="K9m-Ep-DcY" secondAttribute="bottom" id="veO-Ut-pq3"/>
                             <constraint firstItem="LQh-MV-p7A" firstAttribute="top" secondItem="HTb-cc-Mzw" secondAttribute="top" id="ygL-sZ-cjV"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="HTb-cc-Mzw"/>
@@ -132,6 +143,7 @@
                         <outlet property="collectionView" destination="dgf-wF-P8x" id="aaX-0T-W2Z"/>
                         <outlet property="collectionViewBottomContraint" destination="sch-C3-x6g" id="csC-Td-bev"/>
                         <outlet property="statusBarView" destination="V1i-tT-IN8" id="hrc-cX-fbh"/>
+                        <outlet property="typeSegmentedContainerView" destination="K9m-Ep-DcY" id="UVz-wH-LRr"/>
                         <outlet property="typeSegmentedControl" destination="rHz-Vj-7AX" id="Hgb-46-29p"/>
                         <outlet property="validateBasketContainerHeightContraint" destination="gXg-BY-jka" id="qah-A4-Y4u"/>
                         <outlet property="validateBasketContainerView" destination="PY7-dw-rOr" id="mdC-bH-9dE"/>

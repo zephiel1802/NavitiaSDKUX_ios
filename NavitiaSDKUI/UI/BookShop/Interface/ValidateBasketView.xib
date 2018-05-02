@@ -12,9 +12,11 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ValidateBasketView" customModule="NavitiaSDKUI" customModuleProvider="target">
             <connections>
-                <outlet property="_view" destination="iN0-l3-epB" id="Ioa-1V-AtQ"/>
                 <outlet property="amoutLabel" destination="wPP-0y-MsX" id="42V-87-Msk"/>
+                <outlet property="iconAmoutLabel" destination="sTk-KW-f5T" id="Jib-nD-gGV"/>
+                <outlet property="iconTitleLabel" destination="Lwx-VK-y41" id="Pl8-gv-V5O"/>
                 <outlet property="titleLabel" destination="So0-dr-9zR" id="2g7-8e-iqb"/>
+                <outlet property="view" destination="iN0-l3-epB" id="Ioa-1V-AtQ"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
@@ -23,13 +25,25 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" horizontalCompressionResistancePriority="749" text="Valider mon panier" textAlignment="natural" lineBreakMode="characterWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="So0-dr-9zR">
-                    <rect key="frame" x="15" y="16" width="182" height="18"/>
+                    <rect key="frame" x="31.5" y="16" width="164" height="18"/>
                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="999,99CAD  &gt;" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wPP-0y-MsX">
-                    <rect key="frame" x="207" y="16" width="98" height="18"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="999,99CAD " textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wPP-0y-MsX">
+                    <rect key="frame" x="205.5" y="16" width="85" height="18"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="O" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Lwx-VK-y41">
+                    <rect key="frame" x="15" y="16.5" width="11.5" height="18"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="&gt;" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sTk-KW-f5T">
+                    <rect key="frame" x="295.5" y="16" width="9.5" height="18"/>
                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <nil key="highlightedColor"/>
@@ -37,10 +51,14 @@
             </subviews>
             <color key="backgroundColor" red="0.25098039220000001" green="0.58431372550000005" blue="0.5568627451" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
+                <constraint firstItem="So0-dr-9zR" firstAttribute="leading" secondItem="Lwx-VK-y41" secondAttribute="trailing" constant="5" id="7yE-ib-vW8"/>
+                <constraint firstItem="sTk-KW-f5T" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="EIh-tH-Waz"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="sTk-KW-f5T" secondAttribute="trailing" constant="15" id="SlU-1O-Oof"/>
+                <constraint firstItem="Lwx-VK-y41" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="15" id="Zq3-bR-8o2"/>
                 <constraint firstItem="So0-dr-9zR" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="bq7-rC-3eJ"/>
-                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="wPP-0y-MsX" secondAttribute="trailing" constant="15" id="dWj-ff-1yx"/>
                 <constraint firstItem="wPP-0y-MsX" firstAttribute="leading" secondItem="So0-dr-9zR" secondAttribute="trailing" constant="10" id="dcq-43-21e"/>
-                <constraint firstItem="So0-dr-9zR" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="15" id="r3K-Lu-nMj"/>
+                <constraint firstItem="Lwx-VK-y41" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="iqI-hD-ifj"/>
+                <constraint firstItem="sTk-KW-f5T" firstAttribute="leading" secondItem="wPP-0y-MsX" secondAttribute="trailing" constant="5" id="lHc-4E-lR3"/>
                 <constraint firstItem="wPP-0y-MsX" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="sGa-sY-bBX"/>
             </constraints>
             <nil key="simulatedTopBarMetrics"/>

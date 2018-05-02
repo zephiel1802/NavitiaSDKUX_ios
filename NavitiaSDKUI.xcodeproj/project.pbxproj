@@ -374,6 +374,7 @@
 		848D7C2A207B92D4002E9B1A /* PublicTransportView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 848D7C29207B92D4002E9B1A /* PublicTransportView.xib */; };
 		848D7C2C207B95B0002E9B1A /* PublicTransportView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848D7C2B207B95B0002E9B1A /* PublicTransportView.swift */; };
 		8490A6D52084D2C700F7CFA1 /* NavitiaSDKUserDefaultsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8490A6D42084D2C700F7CFA1 /* NavitiaSDKUserDefaultsManager.swift */; };
+		84A8D6ED2099B3680007A523 /* NavitiaSDKPartnersPrice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A8D6EC2099B3680007A523 /* NavitiaSDKPartnersPrice.swift */; };
 		84BC297E207E66CC0073F198 /* StationsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84BC297D207E66CC0073F198 /* StationsView.xib */; };
 		84BC2980207E66D50073F198 /* StationsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84BC297F207E66D50073F198 /* StationsView.swift */; };
 		84E350F520776BC600E9BA46 /* TransferStepView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84E350F420776BC600E9BA46 /* TransferStepView.xib */; };
@@ -770,6 +771,7 @@
 		848D7C29207B92D4002E9B1A /* PublicTransportView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PublicTransportView.xib; sourceTree = "<group>"; };
 		848D7C2B207B95B0002E9B1A /* PublicTransportView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublicTransportView.swift; sourceTree = "<group>"; };
 		8490A6D42084D2C700F7CFA1 /* NavitiaSDKUserDefaultsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavitiaSDKUserDefaultsManager.swift; sourceTree = "<group>"; };
+		84A8D6EC2099B3680007A523 /* NavitiaSDKPartnersPrice.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavitiaSDKPartnersPrice.swift; sourceTree = "<group>"; };
 		84BC297D207E66CC0073F198 /* StationsView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = StationsView.xib; sourceTree = "<group>"; };
 		84BC297F207E66D50073F198 /* StationsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StationsView.swift; sourceTree = "<group>"; };
 		84E350F420776BC600E9BA46 /* TransferStepView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TransferStepView.xib; sourceTree = "<group>"; };
@@ -841,6 +843,7 @@
 		8423AAAA2093177A005224CC /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				84A8D6EC2099B3680007A523 /* NavitiaSDKPartnersPrice.swift */,
 				8423AAAB2093177A005224CC /* NavitiaSDKPartnersRequestBuilder.swift */,
 				8423AAAC2093177A005224CC /* NavitiaSDKPartnersCourtesyEnum.swift */,
 				8423AAAD2093177A005224CC /* NavitiaSDKPartnersReturnCodes.swift */,
@@ -1016,8 +1019,8 @@
 		84343231208E1AAE0061F20A /* View */ = {
 			isa = PBXGroup;
 			children = (
-				84343239208E1E5F0061F20A /* TicketCollectionViewCell.swift */,
 				84208C982093657500980762 /* TicketLoadCollectionViewCell.swift */,
+				84343239208E1E5F0061F20A /* TicketCollectionViewCell.swift */,
 				845ACC412090A81300AB24B9 /* ValidateBasketView.swift */,
 			);
 			path = View;
@@ -1026,8 +1029,8 @@
 		84343232208E1ABF0061F20A /* Interface */ = {
 			isa = PBXGroup;
 			children = (
-				84343237208E1E500061F20A /* TicketCollectionViewCell.xib */,
 				84208C962093656D00980762 /* TicketLoadCollectionViewCell.xib */,
+				84343237208E1E500061F20A /* TicketCollectionViewCell.xib */,
 				845ACC432090A81B00AB24B9 /* ValidateBasketView.xib */,
 			);
 			path = Interface;
@@ -1145,8 +1148,8 @@
 				84339A81206CC6D900F2CB65 /* NSMutableAttributedString+Extension.swift */,
 				84737E9C2087995B002D3748 /* UIImageView+Extension.swift */,
 				84737E9E20879A3C002D3748 /* UIView+Extension.swift */,
-				8476DD5720888EE8006CB506 /* StackView+Extension.swift */,
 				8476DD59208891CB006CB506 /* Collection+Extension.swift */,
+				8476DD5720888EE8006CB506 /* StackView+Extension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -1778,6 +1781,7 @@
 				8454D3932068D3A800C97D2F /* APIHelper.swift in Sources */,
 				8423AB472093177B005224CC /* PCBC.swift in Sources */,
 				8454D3EE2068D3A800C97D2F /* Companie.swift in Sources */,
+				84A8D6ED2099B3680007A523 /* NavitiaSDKPartnersPrice.swift in Sources */,
 				8454D3942068D3A800C97D2F /* AlamofireImplementations.swift in Sources */,
 				8454D3802068D3A800C97D2F /* StopPointsApi.swift in Sources */,
 				8454D3DF2068D3A800C97D2F /* IndividualRating.swift in Sources */,

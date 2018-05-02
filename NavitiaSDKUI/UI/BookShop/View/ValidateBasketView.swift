@@ -16,14 +16,17 @@ protocol ValidateBasketViewDelegate {
 
 open class ValidateBasketView: UIView {
     
-    @IBOutlet var _view: UIView!
+    @IBOutlet var view: UIView!
+    @IBOutlet weak var iconTitleLabel: UILabel!
     @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var iconAmoutLabel: UILabel!
     @IBOutlet weak var amoutLabel: UILabel!
     
     var delegate: ValidateBasketViewDelegate?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        
         _setup()
     }
     
@@ -33,12 +36,13 @@ open class ValidateBasketView: UIView {
     
     override open func awakeFromNib() {
         super.awakeFromNib()
+        
         _setup()
     }
     
     override open var frame: CGRect {
         willSet {
-            if let _view = _view {
+            if let _view = view {
                 _view.frame.size = newValue.size
             }
         }
@@ -48,29 +52,37 @@ open class ValidateBasketView: UIView {
     
     private func _setup() {
         UINib(nibName: "ValidateBasketView", bundle: NavitiaSDKUI.shared.bundle).instantiate(withOwner: self, options: nil)
-        _view.frame = self.bounds
-        _view.backgroundColor = Configuration.Color.main
-        addSubview(_view)
+        view.frame = self.bounds
+        view.backgroundColor = Configuration.Color.main
+        addSubview(view)
         
-        titleLabel.attributedText = NSMutableAttributedString()
-            .icon("basket", color: Configuration.Color.white, size: 20)
-            .bold(String(format: "  %@","shop".localized(withComment: "SHOP", bundle: NavitiaSDKUI.shared.bundle)), color: Configuration.Color.white, size: 15)
-        
-        let gesture = UITapGestureRecognizer(target: self, action: #selector(self.onValidateButtonClicked))
-        _view.addGestureRecognizer(gesture)
+        _setupIcon()
+        _setupGesture()
     }
     
-    @objc func onValidateButtonClicked(sender : UITapGestureRecognizer) {
-        delegate?.onValidateButtonClicked(self)
-        // Do what you want
+    private func _setupIcon() {
+        iconTitleLabel.attributedText = NSMutableAttributedString()
+            .icon("basket", color: Configuration.Color.white, size: 22)
+        titleLabel.attributedText = NSMutableAttributedString()
+            .bold(String(format: "  %@","proceed_to_checkout".localized(withComment: "proceed_to_checkout", bundle: NavitiaSDKUI.shared.bundle)), color: Configuration.Color.white, size: 15)
+        iconAmoutLabel.attributedText = NSMutableAttributedString()
+            .icon("arrow-right", color: Configuration.Color.white, size: 15)
     }
-
+    
+    private func _setupGesture() {
+        let gesture = UITapGestureRecognizer(target: self, action: #selector(self.onValidateButtonClicked))
+        view.addGestureRecognizer(gesture)
+    }
+    
     func setAmount(_ amout: Float, currency: String) {
         amoutLabel.attributedText = NSMutableAttributedString()
             .bold(String(format: "%.2f %@", amout, currency),
                   color: Configuration.Color.white,
                   size: 15)
-            .icon("arrow-right", color: Configuration.Color.white, size: 15)
     }
     
+    @objc func onValidateButtonClicked(sender : UITapGestureRecognizer) {
+        delegate?.onValidateButtonClicked(self)
+    }
+
 }

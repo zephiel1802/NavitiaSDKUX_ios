@@ -30,38 +30,29 @@ class TicketCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var moreAmountButton: UIButton!
     
     var delegate: TicketCollectionViewCellDelegate?
-    var maxQuantity: Int?
+    var indexPath: IndexPath?
+    var id: String?
+    var maxQuantity: Int = 999
     var amount: Int = 0 {
         didSet {
             if amount > 0 {
                 amountView.isHidden = false
                 addBasketButton.isHidden = true
-                moreAmountButton.setAttributedTitle(NSMutableAttributedString()
-                    .icon("more",
-                          color: Configuration.Color.main,
-                          size: 25),
-                                                    for: .normal)
                 amountLabel.attributedText = NSMutableAttributedString()
                     .bold(String(amount),
                           size: 18)
+                if amount == maxQuantity {
+                    _moreAmountButtonSetColor(color: Configuration.Color.gray)
+                } else {
+                    _moreAmountButtonSetColor()
+                }
             } else {
                 amountView.isHidden = true
                 addBasketButton.isHidden = false
             }
-            if let maxQuantity = maxQuantity {
-                if amount == maxQuantity {
-                    moreAmountButton.setAttributedTitle(NSMutableAttributedString()
-                        .icon("more",
-                              color: Configuration.Color.gray,
-                              size: 25),
-                                                        for: .normal)
-                }
-            }
         }
     }
-    var indexPath: IndexPath!
-    var id: String!
-    
+
     override func awakeFromNib() {
         super.awakeFromNib()
         
@@ -78,15 +69,19 @@ class TicketCollectionViewCell: UICollectionViewCell {
     }
     
     private func _setup() {
+        _setupIcon()
+        amountView.isHidden = true
+    }
+    
+    private func _setupIcon() {
         addBasketButton.setAttributedTitle(NSMutableAttributedString()
             .icon("add",
                   color: Configuration.Color.main,
                   size: 12)
-            .bold("  Ajouter au panier".localized(withComment: " Ajouter au panier", bundle: NavitiaSDKUI.shared.bundle).uppercased(),
+            .bold(String(format: "  %@", "add_to_cart".localized(withComment: "ADD TO CART", bundle: NavitiaSDKUI.shared.bundle).uppercased()),
                   color: Configuration.Color.main,
                   size: 12),
                                            for: .normal)
-        
         informationButton.setAttributedTitle(NSMutableAttributedString()
             .icon("disruption-information",
                   color: Configuration.Color.main,
@@ -102,11 +97,9 @@ class TicketCollectionViewCell: UICollectionViewCell {
                   color: Configuration.Color.main,
                   size: 25),
                                             for: .normal)
-        amountView.isHidden = true
     }
     
     @IBAction func onInformationPressedButton(_ sender: Any) {
-        
         delegate?.onInformationPressedButton(self)
     }
     
@@ -124,7 +117,6 @@ class TicketCollectionViewCell: UICollectionViewCell {
     
     func setPrice(_ price: Float, currency: String) {
         var priceComponent = String(price).components(separatedBy :".")
-        
         priceLabel.attributedText = NSMutableAttributedString()
             .bold(priceComponent[0],
                   color: Configuration.Color.darkGray,
@@ -136,6 +128,16 @@ class TicketCollectionViewCell: UICollectionViewCell {
             .bold(String(format: "%@%@", currency, priceComponent[1]),
                   color: Configuration.Color.darkGray,
                   size: 10)
+    }
+    
+    
+    
+    private func _moreAmountButtonSetColor(color: UIColor = Configuration.Color.main) {
+        moreAmountButton.setAttributedTitle(NSMutableAttributedString()
+            .icon("more",
+                  color: color,
+                  size: 25),
+                                            for: .normal)
     }
     
 }

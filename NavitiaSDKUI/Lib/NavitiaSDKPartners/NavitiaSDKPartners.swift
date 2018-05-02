@@ -228,19 +228,19 @@ extension NavitiaSDKPartners : BookManagement {
         }
     }
     
-    public var cartTotalVAT : Float {
+    public var cartTotalVAT : NavitiaSDKPartnersPrice {
         get {
             if bookManagement == nil {
-                return 0.0
+                return NavitiaSDKPartnersPrice()
             }
             return bookManagement!.cartTotalVAT
         }
     }
     
-    public var cartTotalPrice : Float {
+    public var cartTotalPrice : NavitiaSDKPartnersPrice {
         get {
             if bookManagement == nil {
-                return 0.0
+                return NavitiaSDKPartnersPrice()
             }
             return bookManagement!.cartTotalPrice
         }
@@ -318,5 +318,15 @@ extension NavitiaSDKPartners : BookManagement {
             return
         }
         bookManagement?.setOfferQuantity(offerId: offerId, quantity: quantity, callbackSuccess: callbackSuccess, callbackError: callbackError)
+    }
+    
+    public func getOrderValidation(callbackSuccess : @escaping ([BookManagementCartItem]) -> Void, callbackError : @escaping (Int, [String: Any]?) -> Void) {
+        
+        if bookManagement == nil {
+            let error = NavitiaSDKPartnersReturnCode.bookManagementNotInit
+            callbackError(error.getCode(), error.getError())
+            return
+        }
+        bookManagement?.getOrderValidation(callbackSuccess : callbackSuccess, callbackError : callbackError)
     }
 }

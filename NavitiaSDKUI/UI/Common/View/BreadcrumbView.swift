@@ -134,7 +134,10 @@ open class BreadcrumbView: UIView {
         _view.backgroundColor = Configuration.Color.main
         addSubview(_view)
         
-        returnButton.setAttributedTitle(NSMutableAttributedString().icon("arrow-direction-left", color: Configuration.Color.white, size: 20), for: .normal)
+//        returnButton.setAttributedTitle(NSMutableAttributedString().icon("arrow-direction-left", color: Configuration.Color.white, size: 20), for: .normal)
+        
+//        returnButton.setImage(UIImage(named: "UINavigationBarBackIndicatorDefault")?.withRenderingMode(.alwaysTemplate), for: .normal)
+//        returnButton.tintColor = UIColor.white
         firstIconLabel.attributedText = NSMutableAttributedString().icon("tickets",
                                                                          color: Configuration.Color.white,
                                                                          size: 22)

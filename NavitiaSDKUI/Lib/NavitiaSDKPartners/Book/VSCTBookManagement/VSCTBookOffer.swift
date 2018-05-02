@@ -19,20 +19,24 @@ import Foundation
     public private(set) var maxQuantity : Int = 10
     public private(set) var type : BookOfferType = .Unknown
     public private(set) var VATRate : Float = 0.0
-    public private(set) var saleable : Bool = false
+    public private(set) var saleable : Bool = true
     public private(set) var displayOrder : Int = 9999
     public private(set) var legalInfos : String = ""
     public private(set) var imageUrl : String = ""
     
+    // VSCT OWN PROPERTY
+    public private(set) var displayOffer : Bool = true
+    public private(set) var mandatoryAccount : Bool = false
+    
     public var VAT : Float {
         get {
-            return price - (price / (1 + VATRate / 100))
+            return price - (price / (1 + VATRate / 100)) 
         }
     }
     
     private let imageCache = NSCache<NSString, AnyObject>()
   
-    init(id : String, productId : String, title : String, shortDescription : String, price : Float, currency : String, maxQuantity : Int, type : BookOfferType, VATRate : Float, saleable : Bool, displayOrder : Int, legalInfos : String, imageUrl : String) {
+    init(id : String, productId : String, title : String, shortDescription : String, price : Float, currency : String, maxQuantity : Int, type : BookOfferType, VATRate : Float, saleable : Bool, displayOrder : Int, legalInfos : String, imageUrl : String, displayOffer : Bool, mandatoryAccount : Bool) {
         self.id = id
         self.productId = productId
         self.title = title
@@ -46,6 +50,8 @@ import Foundation
         self.displayOrder = displayOrder
         self.legalInfos = legalInfos
         self.imageUrl = imageUrl
+        self.displayOffer = displayOffer
+        self.mandatoryAccount = mandatoryAccount
     }
     
     @objc public func toDictionnary() -> [String : Any] {
