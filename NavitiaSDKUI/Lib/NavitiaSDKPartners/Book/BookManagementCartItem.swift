@@ -29,6 +29,13 @@ import Foundation
         quantity = q
     }
     
+    public func toDictionnary() -> [String: Any] {
+        return [ "quantity" : quantity,
+                 "itemPrice" : itemPrice,
+                 "itemVAT" : itemVAT,
+                 "bookOffer" : bookOffer.toDictionnary()]
+    }
+    
     init(bookOffer : BookOffer, quantity : Int) {
         
         self.bookOffer = bookOffer

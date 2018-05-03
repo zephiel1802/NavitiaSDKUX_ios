@@ -12,4 +12,9 @@ import Foundation
     
     public var currency : String = "€"
     public var value : Float = 0.0
+    
+    public func toDictionnary() -> [String: Any] {
+        return [ "currency" : currency,
+                 "value" : value]
+    }
 }

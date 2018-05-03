@@ -271,7 +271,7 @@ extension NavitiaSDKPartners : BookManagement {
         return (bookManagement?.getBookManagementType())!
     }
     
-    public func getOffers(callbackSuccess: @escaping ([BookOffer]?) -> Void, callbackError: @escaping (Int, [String : Any]?) -> Void) {
+    public func getOffers(callbackSuccess: @escaping ([BookOffer]) -> Void, callbackError: @escaping (Int, [String : Any]?) -> Void) {
         
         if bookManagement == nil {
             let error = NavitiaSDKPartnersReturnCode.bookManagementNotInit
@@ -281,7 +281,7 @@ extension NavitiaSDKPartners : BookManagement {
         bookManagement?.getOffers(callbackSuccess: callbackSuccess, callbackError: callbackError)
     }
     
-    public func getOffers(offerType: BookOfferType, callbackSuccess: @escaping ([BookOffer]?) -> Void, callbackError: @escaping (Int, [String : Any]?) -> Void) {
+    public func getOffers(offerType: BookOfferType, callbackSuccess: @escaping ([BookOffer]) -> Void, callbackError: @escaping (Int, [String : Any]?) -> Void) {
         
         if bookManagement == nil {
             let error = NavitiaSDKPartnersReturnCode.bookManagementNotInit
@@ -328,5 +328,25 @@ extension NavitiaSDKPartners : BookManagement {
             return
         }
         bookManagement?.getOrderValidation(callbackSuccess : callbackSuccess, callbackError : callbackError)
+    }
+    
+    public func resetCart(callbackSuccess: @escaping () -> Void, callbackError: @escaping (Int, [String : Any]?) -> Void) {
+        
+        if bookManagement == nil {
+            let error = NavitiaSDKPartnersReturnCode.bookManagementNotInit
+            callbackError(error.getCode(), error.getError())
+            return
+        }
+        bookManagement?.resetCart(callbackSuccess: callbackSuccess, callbackError: callbackError)
+    }
+    
+    public func launchPayment(color: UIColor = UIColor.white, callbackSuccess: @escaping (String, String) -> Void, callbackError: @escaping (Int, [String : Any]?) -> Void) {
+        
+        if bookManagement == nil {
+            let error = NavitiaSDKPartnersReturnCode.bookManagementNotInit
+            callbackError(error.getCode(), error.getError())
+            return
+        }
+        bookManagement?.launchPayment(color : color, callbackSuccess: callbackSuccess, callbackError: callbackError)
     }
 }

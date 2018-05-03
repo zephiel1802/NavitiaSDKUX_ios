@@ -119,7 +119,7 @@ import Foundation
         })
     }
     
-    public func getOffers(callbackSuccess : @escaping ([BookOffer]?) -> Void, callbackError : @escaping (Int, [String: Any]?) -> Void) {
+    public func getOffers(callbackSuccess : @escaping ([BookOffer]) -> Void, callbackError : @escaping (Int, [String: Any]?) -> Void) {
         if NavitiaSDKPartners.shared.isConnected {
             NavitiaSDKPartners.shared.refreshToken(callbackSuccess: {
                 self.openSession(callbackSuccess: {
@@ -159,14 +159,14 @@ import Foundation
         }
     }
     
-    public func getOffers(offerType: BookOfferType, callbackSuccess: @escaping ([BookOffer]?) -> Void, callbackError: @escaping (Int, [String : Any]?) -> Void) {
+    public func getOffers(offerType: BookOfferType, callbackSuccess: @escaping ([BookOffer]) -> Void, callbackError: @escaping (Int, [String : Any]?) -> Void) {
         getOffers(callbackSuccess: { (offersArray) in
             
-            if offersArray == nil  {
-                callbackSuccess(nil)
+            if offersArray.count == 0  {
+                callbackSuccess([])
                 return
             }
-            callbackSuccess(offersArray?.filter { ($0 as! VSCTBookOffer).type == offerType })
+            callbackSuccess(offersArray.filter { ($0 as! VSCTBookOffer).type == offerType })
         }) { (statusCode, data) in
             
             callbackError(statusCode, data)
@@ -301,6 +301,52 @@ import Foundation
             }
         }
     }
+    
+    public func resetCart(callbackSuccess : @escaping () -> Void, callbackError : @escaping (Int, [String: Any]?) -> Void) {
+        
+        cart = []
+        callbackSuccess()
+    }
+    
+    public func launchPayment(color : UIColor = UIColor.white , callbackSuccess: @escaping (String, String) -> Void, callbackError: @escaping (Int, [String : Any]?) -> Void) {
+        
+        let content : [String: Any] = [ "contactInfo" : [ "firstName": "Toto",
+                                                          "lastName": "Lezero",
+                                                          "email": "valentin.cousien@gmail.com",
+                                                          "emailconfirmation": "valentin.cousien@gmail.com" ],
+                                        "deliveryMode" : [    "type": "HOME_DELIVERY",
+                                                              "label": "Envoi à domicile",
+                                                              "delay": "2",
+                                                              "rate": 0,
+                                                              "tva": 10,
+                                                              "displayOrder": 1,
+                                                              "active": true,
+                                                              "productCode": "ABC",
+                                                              "deliveryAddress": [
+                                                                "address": "12 rue de paris",
+                                                                "zipCode": "75001",
+                                                                "city": "PAris"]],
+                                        "paymentMean" : [ "label" : "Carte Bancaire",
+                                                          "type" : "CB",
+                                                          "displayOrder" : 1 ] ]
+        NavitiaSDKPartnersRequestBuilder.post(stringUrl: _getUrl() + "/orders", header: _getConnectedHeader(), content: content) { (success, statusCode, data) in
+            if success {
+                print("NavitiaSDKPartners/createOrder : success")
+                NavitiaSDKPartnersRequestBuilder.get(stringUrl: self._getUrl() + "/payment/sogenactif/paymentmeans", header: self._getConnectedHeader(), completion: { (success, statusCode, data) in
+                    if success && data != nil {
+                        print("NavitiaSDKPartners/launchPayment : success")
+                        callbackSuccess(self.customPaymentMeanHTML(htmlCode: data!["paymentMeans"] as! String, color: color), (self._vsctConfiguration?.baseUrl)!)
+                    } else {
+                        print("NavitiaSDKPartners/launchPayment : error")
+                        callbackError(statusCode, data)
+                    }
+                })
+            } else {
+                print("NavitiaSDKPartners/createOrder : error")
+                callbackError(statusCode, data)
+            }
+        }
+    }
 }
 
 extension VSCTBookManagement {
@@ -332,5 +378,85 @@ extension VSCTBookManagement {
         return array.filter({ (offer) -> Bool in
             offer.saleable
         })
+    }
+    
+    func customPaymentMeanHTML( htmlCode : String, color : UIColor = UIColor.white ) -> String {
+        
+        let before = """
+        <HTML lang="fr">
+        <BODY style="background-color: rgb(\(Int(color.redValue * 255)), \(Int(color.greenValue * 255)), \(Int(color.blueValue * 255))); height: 100%;">
+        <DIV style="height: 100%; width: 100%; display: table;">
+        """
+        
+        let after = """
+        </DIV>
+        </BODY>
+        <SCRIPT>
+        document.body.style.margin = 0;
+        var formElement = document.querySelector('form');
+        if (formElement) {
+            formElement.style.height = "100%";
+            formElement.style.display = "table-cell";
+            formElement.style.verticalAlign = "middle";
+        }
+
+        var headerTextElement = document.querySelector('div[align="center"] > img[border="0"]');
+        if (headerTextElement && headerTextElement.parentElement) {
+            headerTextElement.parentElement.outerHTML = "";
+        }
+
+        var intervalImagesElements = document.querySelectorAll('div[align="center"] > img');
+        if (intervalImagesElements) {
+            for (var i = 0; i < intervalImagesElements.length; i++) {
+                intervalImagesElements[i].parentNode.removeChild(intervalImagesElements[i]);
+            }
+        }
+
+        var interlineElements = document.getElementsByTagName('br');
+        if (interlineElements) {
+            while (interlineElements.length > 0) {
+                interlineElements[0].parentNode.removeChild(interlineElements[0]);
+            }
+        }
+        
+        function resizeBankCards() {
+            var bankCardInputElements = document.querySelectorAll('input[type="IMAGE"]');
+            if (bankCardInputElements && bankCardInputElements.length > 0) {
+                var interspaceBetweenBankCards = 10;
+                var inputAspectRatio = 1.57;
+                var totalBlankSpace = ((bankCardInputElements.length - 1) + 2) * interspaceBetweenBankCards;
+                var totalWidth = document.body.clientWidth;
+                var totalHeight = document.body.clientHeight;
+                var bankCardImageComputedWidth = (totalWidth - totalBlankSpace) / bankCardInputElements.length;
+                var bankCardImageComputedHeight = bankCardImageComputedWidth / inputAspectRatio;
+                if (bankCardImageComputedHeight > totalHeight) {
+                    bankCardImageComputedHeight = totalHeight - 20;
+                    bankCardImageComputedWidth = inputAspectRatio * bankCardImageComputedHeight;
+                }
+
+                for (var i = 0; i < bankCardInputElements.length; i++) {
+                    bankCardInputElements[i].style.width = bankCardImageComputedWidth;
+                    if (i != bankCardInputElements.length - 1) {
+                        bankCardInputElements[i].style.marginRight = interspaceBetweenBankCards;
+                    }
+                }
+            }
+        }
+
+        document.addEventListener("DOMContentLoaded", function(event) {
+            resizeBankCards();
+        });
+        window.onresize = function(event) {
+            resizeBankCards();
+        }
+        </SCRIPT>
+        </HTML>
+        """
+        
+        return """
+        \(before)
+        \(htmlCode)
+        \(after)
+        """
     }
 }

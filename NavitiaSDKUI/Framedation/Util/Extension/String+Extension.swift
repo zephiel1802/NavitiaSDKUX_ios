@@ -48,6 +48,13 @@ extension String {
         return NSLocalizedString(self, bundle: NavitiaSDKUI.shared.bundle, value: "", comment: withComment)
     }
     
+    func isValidEmail() -> Bool {
+        let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z ]{2,64}"
+        
+        let emailTest = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
+        return emailTest.evaluate(with: self)
+    }
+    
     // CryptoSwift
     func md5() -> String {
         return self.utf8.lazy.map({ $0 as UInt8 }).md5().toHexString()
