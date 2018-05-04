@@ -7,7 +7,7 @@
 
 import UIKit
 
-open class BookShopViewController: UIViewController {
+@objc open class BookShopViewController: UIViewController {
 
     @IBOutlet weak var statusBarView: UIView!
     @IBOutlet weak var breadcrumbContainerView: BreadcrumbView!
