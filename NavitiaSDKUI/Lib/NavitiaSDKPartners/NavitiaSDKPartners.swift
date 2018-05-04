@@ -98,6 +98,15 @@ extension NavitiaSDKPartners : AccountManagement {
         }
     }
     
+    public var userInfo : NavitiaUserInfo {
+        get {
+            if accountManagement == nil {
+                return KeolisUserInfo()
+            }
+            return accountManagement!.userInfo
+        }
+    }
+    
     public func createAccount( callbackSuccess: @escaping () -> Void,
                                callbackError: @escaping (Int, [String : Any]?) -> Void) {
         
@@ -218,6 +227,15 @@ extension NavitiaSDKPartners : AccountManagement {
 }
 
 extension NavitiaSDKPartners : BookManagement {
+    
+    public var orderId: String {
+        get {
+            if bookManagement == nil {
+                return ""
+            }
+            return bookManagement!.orderId
+        }
+    }
     
     public var cart: [BookManagementCartItem] {
         get {
@@ -340,13 +358,13 @@ extension NavitiaSDKPartners : BookManagement {
         bookManagement?.resetCart(callbackSuccess: callbackSuccess, callbackError: callbackError)
     }
     
-    public func launchPayment(color: UIColor = UIColor.white, callbackSuccess: @escaping (String, String) -> Void, callbackError: @escaping (Int, [String : Any]?) -> Void) {
+    public func launchPayment(email : String = NavitiaSDKPartners.shared.userInfo.email, color: UIColor = UIColor.white, callbackSuccess: @escaping (String) -> Void, callbackError: @escaping (Int, [String : Any]?) -> Void) {
         
         if bookManagement == nil {
             let error = NavitiaSDKPartnersReturnCode.bookManagementNotInit
             callbackError(error.getCode(), error.getError())
             return
         }
-        bookManagement?.launchPayment(color : color, callbackSuccess: callbackSuccess, callbackError: callbackError)
+        bookManagement?.launchPayment(email : email, color : color, callbackSuccess: callbackSuccess, callbackError: callbackError)
     }
 }

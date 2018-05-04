@@ -66,4 +66,13 @@ open class BookPaymentMailFormView: UIView {
         }
     }
     
+    var isValid: Bool {
+        get {
+            if let text = mailTextField.text {
+                return text.isValidEmail()
+            }
+            return false
+        }
+    }
+    
 }

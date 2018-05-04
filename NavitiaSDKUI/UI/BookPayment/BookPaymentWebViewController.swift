@@ -17,6 +17,7 @@ class BookPaymentWebViewController: UIViewController {
     private var _breadcrumbView: BreadcrumbView!
     var request: URLRequest?
     var baseURL: String?
+    var viewModel: BookPaymentViewModel?
     
     override open func viewDidLoad() {
         super.viewDidLoad()
@@ -75,21 +76,29 @@ extension BookPaymentWebViewController: UIWebViewDelegate {
     
     func webViewDidFinishLoad(_ webView: UIWebView) {
         let html = webView.stringByEvaluatingJavaScript(from: "document.getElementsByTagName('html')[0].innerHTML")
-        
-//        if let html = html {
-//     //       let id = subStringPayment(html, lowerBound: "<span id=\"span_sips_trans_ref_table_id_customer_result\">", upperBound: "</span>")
-//            let ref = subStringPayment(html, lowerBound: "<span id=\"span_sips_trans_ref_table_id_transaction_result\">", upperBound: "</span>")
-//     //       print("id \(id ?? "")")
-//            print("ref \(ref ?? "")")
-//        }
+        if let transactionSogenActif = html?.extractTransactionSogenActif() {
+            print("ID : \(transactionSogenActif)")
+        }
+        if let customerSogenActif = html?.extractCustomerSogenActif() {
+            print("ID : \(customerSogenActif)")
+        }
     }
     
     public func webView(_ webView: UIWebView, shouldStartLoadWith request: URLRequest, navigationType: UIWebViewNavigationType) -> Bool {
-    //    print("webView sould \(request.url?.absoluteString ?? "")")
         if let url = request.url?.absoluteString {
-            let vartest = test(baseURL: baseURL!, url: url)
-            if vartest != .unknown {
-                print("Result : \(vartest)")//" - \(url) - \(baseURL)")
+            switch test(baseURL: baseURL!, url: url) {
+            case .success:
+                print("Result : ✅ Success")
+            case .error:
+                print("Result : ❌ Error")
+                dismiss(animated: true) {
+                    if let returnPayment = self.viewModel?.returnPayment { returnPayment() }
+                }
+            case .cancel:
+                print("Result : ⚠️ Cancel")
+                dismiss(animated: true) {}
+            case .unknown:
+                break
             }
         }
         return true
@@ -117,19 +126,5 @@ func test(baseURL: String, url: String) -> test2 {
         }
     }
     return .unknown
-}
-
-//func subStringPayment(_ text: String, lowerBound: String.Index?, upperBound: String.Index?) {
-//    if let lowerBound = lowerBound && let upperBound = upperBound {
-//        let substring = text.substring(with: lowerBound..<upperBound)
-//    }
-//}
-
-func subStringPayment(_ text: String, lowerBound: String, upperBound: String) -> String? {
-    if let lowerBound = text.range(of: lowerBound)?.upperBound, let upperBound = text.range(of: upperBound)?.lowerBound {
-        let substring = text.substring(with: lowerBound..<upperBound)
-        return substring
-    }
-    return nil
 }
 

@@ -14,14 +14,23 @@ open class BookPaymentViewController: UIViewController {
     @IBOutlet weak var scrollView: UIScrollView!
     
     private var _breadcrumbView: BreadcrumbView!
+    var bookPaymentMailFormView: BookPaymentMailFormView?
+    var bookPaymentConditionView: BookPaymentConditionView?
     var bookPaymentView: BookPaymentView!
+    
     var viewScroll = [UIView]()
     var margin: CGFloat = 20
     var composentWidth: CGFloat = 0
     var display = false
     
+    var log = true
+    
     fileprivate var _viewModel: BookPaymentViewModel! {
         didSet {
+            _viewModel.returnPayment = { [weak self] in
+                self?.onInformationPressedButton()
+                self?.viewScroll.last?.removeFromSuperview()
+            }
         }
     }
     
@@ -29,6 +38,11 @@ open class BookPaymentViewController: UIViewController {
         super.viewDidLoad()
         _setupInterface()
         scrollView.bounces = false
+        
+        _viewModel = BookPaymentViewModel()
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(BookPaymentViewController.dismissKeyboard))
+
+        view.addGestureRecognizer(tap)
     }
     
     override open func didReceiveMemoryWarning() {
@@ -43,8 +57,11 @@ open class BookPaymentViewController: UIViewController {
         super.viewDidLayoutSubviews()
         composentWidth = _updateWidth()
         if !display {
-            _displayLogin()
-            //_displayLogout()
+            if log {
+                _displayLogin()
+            } else {
+                _displayLogout()
+            }
         }
         
         _updateOriginViewScroll()
@@ -63,12 +80,14 @@ open class BookPaymentViewController: UIViewController {
             bookPaymentCartView.addOffer(cartItem)
         }
         
-        let bookPaymentConditionView = BookPaymentConditionView(frame: CGRect(x: 0, y: 0, width: 0, height: 31))
-        bookPaymentConditionView.delegate = self
-        _addViewInScroll(view: bookPaymentConditionView)
+        bookPaymentConditionView = BookPaymentConditionView(frame: CGRect(x: 0, y: 0, width: 0, height: 31))
+        bookPaymentConditionView!.delegate = self
+        _addViewInScroll(view: bookPaymentConditionView!)
 
         bookPaymentView = BookPaymentView(frame: CGRect(x: 0, y: 0, width: 0, height: 140))
         bookPaymentView.delegate = self
+        bookPaymentView.log = log
+        bookPaymentView.loadHTML()
         _addViewInScroll(view: bookPaymentView)
         
         display = true
@@ -83,8 +102,8 @@ open class BookPaymentViewController: UIViewController {
             bookPaymentCartView.addOffer(cartItem)
         }
         
-        let bookPaymentMailFormView = BookPaymentMailFormView(frame: CGRect(x: 0, y: 0, width: 0, height: 60))
-        _addViewInScroll(view: bookPaymentMailFormView)
+        bookPaymentMailFormView = BookPaymentMailFormView(frame: CGRect(x: 0, y: 0, width: 0, height: 60))
+        _addViewInScroll(view: bookPaymentMailFormView!)
         
         let bookPaymentConditionView = BookPaymentConditionView(frame: CGRect(x: 0, y: 0, width: 0, height: 31))
         bookPaymentConditionView.delegate = self
@@ -92,6 +111,7 @@ open class BookPaymentViewController: UIViewController {
         
         bookPaymentView = BookPaymentView(frame: CGRect(x: 0, y: 0, width: 0, height: 140))
         bookPaymentView.delegate = self
+        bookPaymentView.log = log
         _addViewInScroll(view: bookPaymentView)
         
         display = true
@@ -131,6 +151,16 @@ open class BookPaymentViewController: UIViewController {
         NSLayoutConstraint(item: _breadcrumbView, attribute: NSLayoutAttribute.bottom, relatedBy: NSLayoutRelation.equal, toItem: breadcrumbContainerView, attribute: NSLayoutAttribute.bottom, multiplier: 1, constant: 0).isActive = true
         NSLayoutConstraint(item: _breadcrumbView, attribute: NSLayoutAttribute.leading, relatedBy: NSLayoutRelation.equal, toItem: breadcrumbContainerView, attribute: NSLayoutAttribute.leading, multiplier: 1, constant: 0).isActive = true
         NSLayoutConstraint(item: _breadcrumbView, attribute: NSLayoutAttribute.trailing, relatedBy: NSLayoutRelation.equal, toItem: breadcrumbContainerView, attribute: NSLayoutAttribute.trailing, multiplier: 1, constant: 0).isActive = true
+    }
+    
+    func onInformationPressedButton() {
+        let informationViewController = InformationViewController(nibName: "InformationView", bundle: NavitiaSDKUI.shared.bundle)
+        informationViewController.modalTransitionStyle = .crossDissolve
+        informationViewController.modalPresentationStyle = .overCurrentContext
+        informationViewController.titleButton = [String(format: "%@ !", "understand".localized(withComment: "Understand", bundle: NavitiaSDKUI.shared.bundle))]
+        informationViewController.delegate = self
+        informationViewController.information = "Votre paiement a été refusé."
+        present(informationViewController, animated: true) {}
     }
     
 }
@@ -176,6 +206,11 @@ extension BookPaymentViewController {
         }
     }
     
+    @objc func dismissKeyboard() {
+        //Causes the view (or one of its embedded text fields) to resign the first responder status.
+        view.endEditing(true)
+    }
+    
 }
 
 extension BookPaymentViewController: BreadcrumbViewProtocol {
@@ -188,9 +223,22 @@ extension BookPaymentViewController: BreadcrumbViewProtocol {
 
 extension BookPaymentViewController: BookPaymentConditionViewDelegate {
     
-    func onConditionSwitchValueChanged(_ state: Bool, _ bookPaymentConditionView: BookPaymentConditionView) {
-        bookPaymentView.hidden(!state)
-        if state {
+    func onConditionSwitchValueChanged(_ bookPaymentConditionView: BookPaymentConditionView) {
+        if !log {
+            guard let bookPaymentMailFormView = bookPaymentMailFormView else {
+                return
+            }
+            if !bookPaymentMailFormView.isValid {
+                bookPaymentConditionView.conditionSwitch.setOn(false, animated: true)
+                return
+            } else {
+                bookPaymentView.mail = bookPaymentMailFormView.mailTextField.text
+                bookPaymentView.loadHTML()
+            }
+        }
+        bookPaymentView.hidden(!bookPaymentConditionView.conditionSwitch.isOn)
+        
+        if bookPaymentConditionView.conditionSwitch.isOn {
             scrollView.setContentOffset(CGPoint(x: 0, y: max(0, scrollView.contentSize.height - scrollView.bounds.size.height)), animated: true)
         }
     }
@@ -211,9 +259,18 @@ extension BookPaymentViewController: BookPaymentViewDelegate {
         let viewController = storyboard?.instantiateViewController(withIdentifier: BookPaymentWebViewController.identifier) as! BookPaymentWebViewController
         viewController.request = request
         viewController.baseURL = baseURL
+        viewController.viewModel = _viewModel
         viewController.modalTransitionStyle = .crossDissolve
         viewController.modalPresentationStyle = .overCurrentContext
         self.present(viewController, animated: true, completion: nil)
+    }
+    
+}
+
+extension BookPaymentViewController: InformationViewDelegate {
+    
+    func onFirstButtonClicked(_ informationViewController: InformationViewController) {
+        informationViewController.dismiss(animated: true) {}
     }
     
 }

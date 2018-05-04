@@ -12,6 +12,7 @@ import Foundation
 
     var bookConfiguration : BookManagementConfiguration? { get set }
     var cart : [BookManagementCartItem] { get }
+    var orderId : String { get }
     var cartTotalPrice : NavitiaSDKPartnersPrice { get }
     var cartTotalVAT : NavitiaSDKPartnersPrice { get }
     
@@ -25,5 +26,5 @@ import Foundation
     func setOfferQuantity(offerId: String, quantity: Int, callbackSuccess: @escaping () -> Void, callbackError: @escaping (Int, [String: Any]?) -> Void)
     func getOrderValidation(callbackSuccess : @escaping ([BookManagementCartItem]) -> Void, callbackError : @escaping (Int, [String: Any]?) -> Void)
     func resetCart(callbackSuccess: @escaping () -> Void, callbackError : @escaping (Int, [String: Any]?) -> Void)
-    func launchPayment(color : UIColor, callbackSuccess : @escaping (String, String) -> Void, callbackError: @escaping (Int, [String: Any]?) -> Void)
+    func launchPayment(email : String, color : UIColor, callbackSuccess : @escaping (String) -> Void, callbackError: @escaping (Int, [String: Any]?) -> Void)
 }

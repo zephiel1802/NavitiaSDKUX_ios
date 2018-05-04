@@ -10,7 +10,7 @@ import UIKit
 
 protocol BookPaymentConditionViewDelegate {
     
-    func onConditionSwitchValueChanged(_ state: Bool, _ bookPaymentConditionView: BookPaymentConditionView)
+    func onConditionSwitchValueChanged(_ bookPaymentConditionView: BookPaymentConditionView)
     func onConditionButtonClicked(_ bookPaymentConditionView: BookPaymentConditionView)
 }
 
@@ -69,7 +69,7 @@ open class BookPaymentConditionView: UIView {
     }
     
     @IBAction func onConditionSwitchValueChanged(_ sender: UISwitch) {
-        delegate?.onConditionSwitchValueChanged(sender.isOn, self)
+        delegate?.onConditionSwitchValueChanged(self)
     }
     
     @IBAction func onConditionButtonClicked(_ sender: UIButton) {

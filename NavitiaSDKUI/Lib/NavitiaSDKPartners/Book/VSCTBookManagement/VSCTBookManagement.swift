@@ -13,6 +13,7 @@ import Foundation
     private var cartId : String = ""
     private var stockedOffers : [VSCTBookOffer] = []
     
+    public private(set) var orderId : String = ""
     public private(set) var cart: [BookManagementCartItem] = []
     
     public var cartTotalPrice : NavitiaSDKPartnersPrice {
@@ -308,34 +309,29 @@ import Foundation
         callbackSuccess()
     }
     
-    public func launchPayment(color : UIColor = UIColor.white , callbackSuccess: @escaping (String, String) -> Void, callbackError: @escaping (Int, [String : Any]?) -> Void) {
+    public func launchPayment(email : String = NavitiaSDKPartners.shared.userInfo.email, color : UIColor = UIColor.white , callbackSuccess: @escaping (String) -> Void, callbackError: @escaping (Int, [String : Any]?) -> Void) {
         
-        let content : [String: Any] = [ "contactInfo" : [ "firstName": "Toto",
-                                                          "lastName": "Lezero",
-                                                          "email": "valentin.cousien@gmail.com",
-                                                          "emailconfirmation": "valentin.cousien@gmail.com" ],
-                                        "deliveryMode" : [    "type": "HOME_DELIVERY",
-                                                              "label": "Envoi à domicile",
-                                                              "delay": "2",
-                                                              "rate": 0,
-                                                              "tva": 10,
-                                                              "displayOrder": 1,
-                                                              "active": true,
-                                                              "productCode": "ABC",
-                                                              "deliveryAddress": [
-                                                                "address": "12 rue de paris",
-                                                                "zipCode": "75001",
-                                                                "city": "PAris"]],
+        let content : [String: Any] = [ "contactInfo" : [ "firstName": (NavitiaSDKPartners.shared.isAnonymous ? "Madame" :  NavitiaSDKPartners.shared.userInfo.firstName),
+                                                          "lastName": (NavitiaSDKPartners.shared.isAnonymous ? "Monsieur" :  NavitiaSDKPartners.shared.userInfo.lastName),
+                                                          "email": email,
+                                                          "emailconfirmation": email ],
+                                        "deliveryMode" : ["type": "M_TICKET_CB2D",
+                                                          "label": "M-Ticket",
+                                                          "displayOrder": 1,
+                                                          "productCode": "ABC"],
                                         "paymentMean" : [ "label" : "Carte Bancaire",
                                                           "type" : "CB",
                                                           "displayOrder" : 1 ] ]
         NavitiaSDKPartnersRequestBuilder.post(stringUrl: _getUrl() + "/orders", header: _getConnectedHeader(), content: content) { (success, statusCode, data) in
             if success {
                 print("NavitiaSDKPartners/createOrder : success")
+                if data != nil {
+                    self.orderId = (data!["referenceOrder"] as! String)
+                }
                 NavitiaSDKPartnersRequestBuilder.get(stringUrl: self._getUrl() + "/payment/sogenactif/paymentmeans", header: self._getConnectedHeader(), completion: { (success, statusCode, data) in
                     if success && data != nil {
                         print("NavitiaSDKPartners/launchPayment : success")
-                        callbackSuccess(self.customPaymentMeanHTML(htmlCode: data!["paymentMeans"] as! String, color: color), (self._vsctConfiguration?.baseUrl)!)
+                        callbackSuccess(self.customPaymentMeanHTML(htmlCode: data!["paymentMeans"] as! String, color: color))
                     } else {
                         print("NavitiaSDKPartners/launchPayment : error")
                         callbackError(statusCode, data)
@@ -381,6 +377,8 @@ extension VSCTBookManagement {
     }
     
     func customPaymentMeanHTML( htmlCode : String, color : UIColor = UIColor.white ) -> String {
+        
+        let newHtmlCode = htmlCode.replacingOccurrences(of: "SRC=\"", with: "SRC=\"" + (self._vsctConfiguration?.baseUrl)!)
         
         let before = """
         <HTML lang="fr">
@@ -455,7 +453,7 @@ extension VSCTBookManagement {
         
         return """
         \(before)
-        \(htmlCode)
+        \(newHtmlCode)
         \(after)
         """
     }

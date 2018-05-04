@@ -10,6 +10,7 @@ import UIKit
 class BookPaymentViewModel: NSObject {
     
     public var bookPaymentDidChange: ((BookPaymentViewModel) -> ())?
+    public var returnPayment: (() -> ())?
     public private(set) var loading: Bool = true
     
     var bookOffer = [[VSCTBookOffer]]() {

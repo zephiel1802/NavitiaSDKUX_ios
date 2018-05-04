@@ -20,8 +20,11 @@ open class BookPaymentView: UIView {
     @IBOutlet weak var paymentWebView: UIWebView!
     @IBOutlet weak var filterView: UIView!
     
-    var baseURL: String = ""
+    var baseURL: String = "https://preprod1.vad.vad.keolis.vsct.fr"
     var delegate: BookPaymentViewDelegate?
+    
+    var mail: String?
+    var log: Bool!
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -51,17 +54,35 @@ open class BookPaymentView: UIView {
         paymentWebView.isOpaque = false
         paymentWebView.backgroundColor = UIColor.clear
         hidden(true)
-        loadHTML()
     }
     
     func loadHTML() {
-        NavitiaSDKPartners.shared.launchPayment(color: UIColor(red: 238/255, green: 238/255, blue: 242/255, alpha: 1),
-                                                callbackSuccess: { (htmlString, baseURL) in
-            self.baseURL = baseURL
-            self.paymentWebView.loadHTMLString(htmlString, baseURL: URL(string: baseURL))
-        }) { (statusCode, data) in
+//        NavitiaSDKPartners.shared.launchPayment(color: UIColor(red: 238/255, green: 238/255, blue: 242/255, alpha: 1),
+//                                                callbackSuccess: { (html) in
+//                                                    // self.baseURL = baseURL
+//                                                    self.paymentWebView.loadHTMLString(html, baseURL: nil)
+//        }) { (statusCode, data) in
+//
+//        }
+        if log {
+            NavitiaSDKPartners.shared.launchPayment(email: "flavien.sicard@gmail.com",
+                                                    color: UIColor(red: 238/255, green: 238/255, blue: 242/255, alpha: 1),
+                                                    callbackSuccess: { (html) in
+                                                        self.paymentWebView.loadHTMLString(html, baseURL: URL(string: self.baseURL))
+            }) { (statusCode, data) in
+                
+            }
+        } else {
             
+            NavitiaSDKPartners.shared.launchPayment(email: "flavien.sicard@gmail.com",
+                                                    color: UIColor(red: 238/255, green: 238/255, blue: 242/255, alpha: 1),
+                                                    callbackSuccess: { (html) in
+                                                        self.paymentWebView.loadHTMLString(html, baseURL: URL(string: self.baseURL))
+            }) { (statusCode, data) in
+                
+            }
         }
+        
     }
     
     func hidden(_ state: Bool) {
