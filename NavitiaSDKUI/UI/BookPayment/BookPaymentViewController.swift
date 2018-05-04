@@ -189,8 +189,10 @@ extension BookPaymentViewController: BreadcrumbViewProtocol {
 extension BookPaymentViewController: BookPaymentConditionViewDelegate {
     
     func onConditionSwitchValueChanged(_ state: Bool, _ bookPaymentConditionView: BookPaymentConditionView) {
-        print("Changement d'état \(state)")
         bookPaymentView.hidden(!state)
+        if state {
+            scrollView.setContentOffset(CGPoint(x: 0, y: max(0, scrollView.contentSize.height - scrollView.bounds.size.height)), animated: true)
+        }
     }
     
     func onConditionButtonClicked(_ bookPaymentConditionView: BookPaymentConditionView) {
@@ -205,9 +207,10 @@ extension BookPaymentViewController: BookPaymentConditionViewDelegate {
 
 extension BookPaymentViewController: BookPaymentViewDelegate {
     
-    func onClickPayment(_ request: URLRequest, _ bookPaymentView: BookPaymentView) {
+    func onClickPayment(_ request: URLRequest, _ baseURL: String, _ bookPaymentView: BookPaymentView) {
         let viewController = storyboard?.instantiateViewController(withIdentifier: BookPaymentWebViewController.identifier) as! BookPaymentWebViewController
         viewController.request = request
+        viewController.baseURL = baseURL
         viewController.modalTransitionStyle = .crossDissolve
         viewController.modalPresentationStyle = .overCurrentContext
         self.present(viewController, animated: true, completion: nil)

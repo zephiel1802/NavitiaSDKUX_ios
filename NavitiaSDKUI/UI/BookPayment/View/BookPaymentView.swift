@@ -10,7 +10,7 @@ import UIKit
 
 protocol BookPaymentViewDelegate {
     
-    func onClickPayment(_ request: URLRequest, _ bookPaymentView: BookPaymentView)
+    func onClickPayment(_ request: URLRequest, _ baseURL: String, _ bookPaymentView: BookPaymentView)
     
 }
 
@@ -48,6 +48,8 @@ open class BookPaymentView: UIView {
         
         paymentWebView.scrollView.bounces = false
         paymentWebView.delegate = self
+        paymentWebView.isOpaque = false
+        paymentWebView.backgroundColor = UIColor.clear
         hidden(true)
         loadHTML()
     }
@@ -57,7 +59,6 @@ open class BookPaymentView: UIView {
                                                 callbackSuccess: { (htmlString, baseURL) in
             self.baseURL = baseURL
             self.paymentWebView.loadHTMLString(htmlString, baseURL: URL(string: baseURL))
-            print(htmlString)
         }) { (statusCode, data) in
             
         }
@@ -84,7 +85,7 @@ extension BookPaymentView: UIWebViewDelegate {
         if request.url?.absoluteString.starts(with: baseURL) ?? true {
             return true
         }
-        delegate?.onClickPayment(request, self)
+        delegate?.onClickPayment(request, baseURL, self)
         return false
     }
     

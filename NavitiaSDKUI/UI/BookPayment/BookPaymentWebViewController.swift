@@ -16,7 +16,8 @@ class BookPaymentWebViewController: UIViewController {
     
     private var _breadcrumbView: BreadcrumbView!
     var request: URLRequest?
-
+    var baseURL: String?
+    
     override open func viewDidLoad() {
         super.viewDidLoad()
         _setupInterface()
@@ -72,9 +73,63 @@ extension BookPaymentWebViewController: BreadcrumbViewProtocol {
 
 extension BookPaymentWebViewController: UIWebViewDelegate {
     
+    func webViewDidFinishLoad(_ webView: UIWebView) {
+        let html = webView.stringByEvaluatingJavaScript(from: "document.getElementsByTagName('html')[0].innerHTML")
+        
+//        if let html = html {
+//     //       let id = subStringPayment(html, lowerBound: "<span id=\"span_sips_trans_ref_table_id_customer_result\">", upperBound: "</span>")
+//            let ref = subStringPayment(html, lowerBound: "<span id=\"span_sips_trans_ref_table_id_transaction_result\">", upperBound: "</span>")
+//     //       print("id \(id ?? "")")
+//            print("ref \(ref ?? "")")
+//        }
+    }
+    
     public func webView(_ webView: UIWebView, shouldStartLoadWith request: URLRequest, navigationType: UIWebViewNavigationType) -> Bool {
-        print("webView sould \(request.url?.absoluteString ?? "")")
+    //    print("webView sould \(request.url?.absoluteString ?? "")")
+        if let url = request.url?.absoluteString {
+            let vartest = test(baseURL: baseURL!, url: url)
+            if vartest != .unknown {
+                print("Result : \(vartest)")//" - \(url) - \(baseURL)")
+            }
+        }
         return true
     }
     
 }
+
+enum test2 {
+    case error
+    case cancel
+    case success
+    case unknown
+}
+
+func test(baseURL: String, url: String) -> test2 {
+    if url.range(of: baseURL) != nil && url.range(of: "commandes") != nil {
+        if url.range(of: "payment?oid=") != nil {
+            if url.range(of: "payst=cancel") != nil {
+                return .cancel
+            } else if url.range(of: "payst=error") != nil {
+                return .error
+            }
+        } else if url.range(of: "recap?oid=") != nil {
+            return .success
+        }
+    }
+    return .unknown
+}
+
+//func subStringPayment(_ text: String, lowerBound: String.Index?, upperBound: String.Index?) {
+//    if let lowerBound = lowerBound && let upperBound = upperBound {
+//        let substring = text.substring(with: lowerBound..<upperBound)
+//    }
+//}
+
+func subStringPayment(_ text: String, lowerBound: String, upperBound: String) -> String? {
+    if let lowerBound = text.range(of: lowerBound)?.upperBound, let upperBound = text.range(of: upperBound)?.lowerBound {
+        let substring = text.substring(with: lowerBound..<upperBound)
+        return substring
+    }
+    return nil
+}
+
