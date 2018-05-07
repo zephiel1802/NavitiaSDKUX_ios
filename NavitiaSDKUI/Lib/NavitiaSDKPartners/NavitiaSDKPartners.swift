@@ -7,7 +7,7 @@
 
 import Foundation
 
-@objc(NavitiaSDKPartners) public class NavitiaSDKPartners : NSObject {
+@objc(NavitiaSDKPartners) open class NavitiaSDKPartners : NSObject {
     
     private override init() { }
     internal var accountManagement : AccountManagement? = nil
