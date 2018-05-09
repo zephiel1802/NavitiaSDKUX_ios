@@ -32,15 +32,20 @@ class TicketCollectionViewCell: UICollectionViewCell {
     var indexPath: IndexPath?
     var id: String?
     var maxQuantity: Int = 999
-    var amount: Int = 0 {
+    var quantity: Int = 0 {
+        willSet {
+            if quantity > maxQuantity {
+                quantity = maxQuantity
+            }
+        }
         didSet {
-            if amount > 0 {
+            if quantity > 0 {
                 amountView.isHidden = false
                 addBasketButton.isHidden = true
                 amountLabel.attributedText = NSMutableAttributedString()
-                    .bold(String(amount),
+                    .bold(String(quantity),
                           size: 18)
-                if amount == maxQuantity {
+                if quantity == maxQuantity {
                     _moreAmountButtonSetColor(color: Configuration.Color.gray)
                 } else {
                     _moreAmountButtonSetColor()

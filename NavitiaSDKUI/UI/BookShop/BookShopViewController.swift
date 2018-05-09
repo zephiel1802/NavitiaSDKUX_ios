@@ -174,7 +174,7 @@ extension BookShopViewController: UICollectionViewDataSource {
             cell.descript = _viewModel.bookOffer[typeSegmentedControl.selectedSegmentIndex][indexPath.row].shortDescription
             cell.id = _viewModel.bookOffer[typeSegmentedControl.selectedSegmentIndex][indexPath.row].id
             cell.maxQuantity = _viewModel.bookOffer[typeSegmentedControl.selectedSegmentIndex][indexPath.row].maxQuantity
-            cell.amount = NavitiaSDKPartners.shared.cart.filter({ $0.bookOffer.id == cell.id }).first?.quantity ?? 0
+            cell.quantity = NavitiaSDKPartners.shared.cart.filter({ $0.bookOffer.id == cell.id }).first?.quantity ?? 0
             cell.setPrice(_viewModel.bookOffer[typeSegmentedControl.selectedSegmentIndex][indexPath.row].price,
                           currency: _viewModel.bookOffer[typeSegmentedControl.selectedSegmentIndex][indexPath.row].currency)
             return cell
@@ -229,7 +229,7 @@ extension BookShopViewController: TicketCollectionViewCellDelegate {
     }
     
     func onMoreAmountPressendButton(_ ticketCollectionViewCell: TicketCollectionViewCell) {
-        if let id = ticketCollectionViewCell.id {
+        if let id = ticketCollectionViewCell.id, ticketCollectionViewCell.quantity < ticketCollectionViewCell.maxQuantity {
             NavitiaSDKPartners.shared.addOffer(offerId: id, callbackSuccess: {
                 if let didChange = self._viewModel.bookShopDidChange {
                     didChange(self._viewModel)
