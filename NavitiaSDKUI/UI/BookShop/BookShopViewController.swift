@@ -7,6 +7,12 @@
 
 import UIKit
 
+@objc public protocol BookShopViewControllerDelegate {
+    
+    func onDismissBookShopViewController()
+    
+}
+
 @objc open class BookShopViewController: UIViewController {
 
     @IBOutlet weak var statusBarView: UIView!
@@ -18,10 +24,11 @@ import UIKit
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet var collectionViewBottomContraint: NSLayoutConstraint!
     @IBOutlet weak var warningContainerView: UIView!
-
+    
     private var _validateBasketView: ValidateBasketView!
     private var _breadcrumbView: BreadcrumbView!
     private var _validateBasketHeight: CGFloat = 50
+    public var delegate: BookShopViewControllerDelegate?
     
     fileprivate var _viewModel: BookShopViewModel! {
         didSet {
@@ -89,7 +96,7 @@ import UIKit
     
     private func _setupBreadcrumbView() {
         _breadcrumbView = BreadcrumbView()
-        _breadcrumbView.delegate = self
+        _breadcrumbView.delegate = self.delegate
         _breadcrumbView.stateBreadcrumb = .shop
         _breadcrumbView.translatesAutoresizingMaskIntoConstraints = false
         breadcrumbContainerView.addSubview(_breadcrumbView)
@@ -196,14 +203,6 @@ extension BookShopViewController: UICollectionViewDelegateFlowLayout {
     
 }
 
-extension BookShopViewController: BreadcrumbViewProtocol {
-    
-    func onDismissButtonClicked(_ BreadcrumbView: BreadcrumbView) {
-        self.dismiss(animated: true, completion: nil)
-    }
-    
-}
-
 extension BookShopViewController: TicketCollectionViewCellDelegate {
     
     func onInformationPressedButton(_ ticketCollectionViewCell: TicketCollectionViewCell) {
@@ -253,4 +252,3 @@ extension BookShopViewController: InformationViewDelegate {
     }
     
 }
-

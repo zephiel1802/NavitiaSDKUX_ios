@@ -7,7 +7,9 @@
 import UIKit
 import NavitiaSDKUI
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, BookShopViewControllerDelegate {
+    
+    var bookShopViewController: BookShopViewController?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -43,15 +45,17 @@ class ViewController: UIViewController {
     
     // Book
     @IBAction func onSDKBookButtonClicked(_ sender: Any) {
-        let bookShopViewController = getBookShopViewController()
-        present(bookShopViewController, animated: true, completion: nil)
-    }
-    
-    private func getBookShopViewController() -> BookShopViewController {
         let bundle = Bundle(identifier: "org.cocoapods.NavitiaSDKUI")
         let storyboard = UIStoryboard(name: "Book", bundle: bundle)
-        let bookShopViewController = storyboard.instantiateInitialViewController() as! BookShopViewController
-        return bookShopViewController
+        bookShopViewController = storyboard.instantiateInitialViewController() as? BookShopViewController
+        bookShopViewController?.delegate = self
+        present(bookShopViewController!, animated: true, completion: nil)
+    }
+    
+    func onDismissBookShopViewController() {
+        if bookShopViewController != nil {
+            bookShopViewController!.dismiss(animated: true, completion: nil)
+        }
     }
     
 }
