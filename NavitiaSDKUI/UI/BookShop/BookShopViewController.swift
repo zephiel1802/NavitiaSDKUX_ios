@@ -28,7 +28,7 @@ import UIKit
     private var _validateBasketView: ValidateBasketView!
     private var _breadcrumbView: BreadcrumbView!
     private var _validateBasketHeight: CGFloat = 50
-    public var delegate: BookShopViewControllerDelegate?
+    @objc public var delegate: BookShopViewControllerDelegate?
     
     fileprivate var _viewModel: BookShopViewModel! {
         didSet {
