@@ -22,10 +22,7 @@ class CustomAnnotation: MKPointAnnotation {
     
     var annotationType: AnnotationType?
     var placeType: PlaceType?
-    
-    static var identifier: String {
-        return "annotationViewIdentifier"
-    }
+    var identifier = "annotationViewIdentifier"
     
     init(coordinate: CLLocationCoordinate2D, title: String = "", annotationType: AnnotationType = .PlaceAnnotation, placeType: PlaceType = .Departure) {
         super.init()
@@ -33,6 +30,7 @@ class CustomAnnotation: MKPointAnnotation {
         self.title = title
         self.annotationType = annotationType
         self.placeType = placeType
+        self.identifier = "\(annotationType.hashValue + placeType.hashValue)"
     }
     
     func getAnnotationView(annotationIdentifier: String, bundle: Bundle) -> MKAnnotationView {
