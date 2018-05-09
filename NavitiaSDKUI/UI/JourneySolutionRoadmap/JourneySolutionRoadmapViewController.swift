@@ -170,17 +170,17 @@ open class JourneySolutionRoadmapViewController: UIViewController {
         view.modeString = Modes().getModeIcon(section: section)
         view.origin = section.from?.name ?? ""
         view.destination = section.to?.name ?? ""
+        view.takeName = section.from?.poi?.properties?["network"] ?? ""
         view.time = section.duration?.minuteToString()
         
         _addViewInScroll(view: view)
     }
     
     private func _displayRidesharingStep(_ section: Section) {
-        let view = BikeStepView(frame: CGRect(x: 0, y: 0, width: composentWidth, height: 100))
-        view.modeString = Modes().getModeIcon(section: section)
+        let view = RidesharingStepView(frame: CGRect(x: 0, y: 0, width: composentWidth, height: 100))
         view.origin = ridesharingView.addressFrom ?? ""
         view.destination = ridesharingView.addressTo ?? ""
-        view.timeLabel.removeFromSuperview()
+        view.time = section.duration?.minuteToString()
         
         _addViewInScroll(view: view)
     }

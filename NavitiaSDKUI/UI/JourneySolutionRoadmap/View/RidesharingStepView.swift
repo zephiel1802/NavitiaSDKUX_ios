@@ -7,7 +7,7 @@
 
 import UIKit
 
-class BikeStepView: UIView {
+class RidesharingStepView: UIView {
     
     @IBOutlet var _view: UIView!
     @IBOutlet weak var iconLabel: UILabel!
@@ -21,9 +21,6 @@ class BikeStepView: UIView {
             _updateTakeLabel()
         }
     }
-    
-    
-    
     var origin: String = "" {
         didSet {
             _updateTakeLabel()
@@ -61,9 +58,16 @@ class BikeStepView: UIView {
     }
     
     private func _setup() {
-        UINib(nibName: "BikeStepView", bundle: NavitiaSDKUIConfig.shared.bundle).instantiate(withOwner: self, options: nil)
+        UINib(nibName: "RidesharingStepView", bundle: NavitiaSDKUIConfig.shared.bundle).instantiate(withOwner: self, options: nil)
         _view.frame = self.bounds
         addSubview(_view)
+        
+        _setIcon()
+    }
+    
+    private func _setIcon() {
+        iconLabel.attributedText = NSMutableAttributedString()
+            .icon("ridesharing", size: 20)
     }
     
     func setHeight() {
@@ -74,11 +78,11 @@ class BikeStepView: UIView {
     
     private func _updateTakeLabel() {
         takeLabel.attributedText = NSMutableAttributedString()
-            .normal(String(format: "take_a_bike_at".localized(withComment: "take_a_bike_at", bundle: NavitiaSDKUIConfig.shared.bundle), takeName), size: 15)
+            .normal("take_the_ridesharing".localized(withComment: "Take the ridesharing at", bundle: NavitiaSDKUIConfig.shared.bundle), size: 15)
             .normal(" ", size: 15)
             .bold(origin, size: 15)
             .normal(" ", size: 15)
-            .normal("in_the_direction_of".localized(withComment: "in_the_direction_of", bundle: NavitiaSDKUIConfig.shared.bundle), size: 15)
+            .normal("to".localized(withComment: "to", bundle: NavitiaSDKUIConfig.shared.bundle), size: 15)
             .normal(" ", size: 15)
             .bold(destination, size: 15)
         setHeight()
@@ -86,43 +90,7 @@ class BikeStepView: UIView {
 
 }
 
-extension BikeStepView {
-    
-    var mode: ModeTransport? {
-        get {
-            return _mode
-        }
-        set {
-            if let mode = newValue {
-                _mode = mode
-                icon = mode.rawValue
-            }
-        }
-    }
-    
-    var modeString: String? {
-        get {
-            return _mode?.rawValue
-        }
-        set {
-            if let newValue = newValue {
-                _mode = ModeTransport(rawValue: newValue)
-                icon = newValue
-            }
-        }
-    }
-    
-    var icon: String? {
-        get {
-            return iconLabel.text
-        }
-        set {
-            if let newValue = newValue {
-                iconLabel.attributedText = NSMutableAttributedString()
-                    .icon(newValue, size: 20)
-            }
-        }
-    }
+extension RidesharingStepView {
     
     var time:String? {
         get {
@@ -134,25 +102,10 @@ extension BikeStepView {
                 if time == "1" {
                     duration = newValue + " " + "unit_minutes".localized(withComment: "minute", bundle: NavitiaSDKUIConfig.shared.bundle)
                 }
-                var template = ""
-                if let mode = _mode {
-                    switch mode {
-                    case .walking:
-                        template = "a_time_walk".localized(withComment: "A time walk", bundle: NavitiaSDKUIConfig.shared.bundle)
-                    case .car:
-                        template = "a_time_drive".localized(withComment: "A time drive", bundle: NavitiaSDKUIConfig.shared.bundle)
-                    case .ridesharing:
-                        template = "a_time_drive".localized(withComment: "A time drive", bundle: NavitiaSDKUIConfig.shared.bundle)
-                    case .bike:
-                        template = "a_time_ride".localized(withComment: "A time ride", bundle: NavitiaSDKUIConfig.shared.bundle)
-                    case .bss:
-                        template = "a_time_ride".localized(withComment: "A time ride", bundle: NavitiaSDKUIConfig.shared.bundle)
-                    default:
-                        break
-                    }
-                }
                 timeLabel.attributedText = NSMutableAttributedString()
-                    .normal(String(format: template, duration), size: 15)
+                    .normal(String(format: "about".localized(withComment: "About", bundle: NavitiaSDKUIConfig.shared.bundle), ""), size: 15)
+                    .normal(" ", size: 15)
+                    .normal(String(format: "a_time_drive".localized(withComment: "A time drive", bundle: NavitiaSDKUIConfig.shared.bundle), duration), size: 15)
             }
         }
     }

@@ -76,7 +76,10 @@ extension JourneySummaryPartView {
             return _tagTransportLabel.text
         }
         set {
-            _tagTransportLabel.text = newValue
+            if let newValue = newValue {
+                _tagTransportLabel.attributedText = NSMutableAttributedString()
+                    .bold(newValue, color: Configuration.Color.white, size: 9)
+            }
         }
     }
     
