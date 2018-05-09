@@ -7,9 +7,9 @@
 
 import Foundation
 
-open class NavitiaSDKUI: NSObject {
+@objc open class NavitiaSDKUI: NSObject {
     
-    open static let shared = NavitiaSDKUI()
+    @objc open static let shared = NavitiaSDKUI()
     
     open var navitiaSDK: NavitiaSDK!
     open var bundle: Bundle!
@@ -24,7 +24,7 @@ open class NavitiaSDKUI: NSObject {
         self.token = token
     }
     
-    open var setMainColor: UIColor {
+    @objc open var mainColor: UIColor {
         get {
             return Configuration.Color.main
         }
