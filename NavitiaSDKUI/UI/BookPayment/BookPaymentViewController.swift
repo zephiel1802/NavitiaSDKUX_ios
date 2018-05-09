@@ -23,13 +23,13 @@ open class BookPaymentViewController: UIViewController {
     var composentWidth: CGFloat = 0
     var display = false
     
-    var log = true
+    var log = NavitiaSDKPartners.shared.isConnected
     
     fileprivate var _viewModel: BookPaymentViewModel! {
         didSet {
             _viewModel.returnPayment = { [weak self] in
                 self?.onInformationPressedButton()
-                self?.viewScroll.last?.removeFromSuperview()
+                self?.bookPaymentView.loadHTML()
             }
         }
     }
@@ -43,6 +43,11 @@ open class BookPaymentViewController: UIViewController {
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(BookPaymentViewController.dismissKeyboard))
 
         view.addGestureRecognizer(tap)
+        if (NavitiaSDKPartners.shared.userInfo as! KeolisUserInfo).accountStatus == .anonymous {
+            log = false
+        } else {
+            log = true
+        }
     }
     
     override open func didReceiveMemoryWarning() {
@@ -115,6 +120,10 @@ open class BookPaymentViewController: UIViewController {
         _addViewInScroll(view: bookPaymentView)
         
         display = true
+        
+        let notificationCenter = NotificationCenter.default
+        notificationCenter.addObserver(self, selector: #selector(BookPaymentViewController.adjustForKeyboard), name: Notification.Name.UIKeyboardWillHide, object: nil)
+        notificationCenter.addObserver(self, selector: #selector(BookPaymentViewController.adjustForKeyboard), name: Notification.Name.UIKeyboardWillChangeFrame, object: nil)
     }
     
     static var identifier: String {
@@ -160,6 +169,7 @@ open class BookPaymentViewController: UIViewController {
         informationViewController.titleButton = [String(format: "%@ !", "understand".localized(withComment: "Understand", bundle: NavitiaSDKUI.shared.bundle))]
         informationViewController.delegate = self
         informationViewController.information = "Votre paiement a été refusé."
+        informationViewController.iconName = "paiement-denied"
         present(informationViewController, animated: true) {}
     }
     
@@ -209,6 +219,26 @@ extension BookPaymentViewController {
     @objc func dismissKeyboard() {
         //Causes the view (or one of its embedded text fields) to resign the first responder status.
         view.endEditing(true)
+    }
+    
+    @objc func adjustForKeyboard(notification: Notification) {
+        let userInfo = notification.userInfo!
+
+        
+        let keyboardScreenEndFrame = (userInfo[UIKeyboardFrameEndUserInfoKey] as! NSValue).cgRectValue
+        let keyboardViewEndFrame = view.convert(keyboardScreenEndFrame, from: view.window)
+        
+        if notification.name == Notification.Name.UIKeyboardWillHide {
+            print("OUI 1")
+            scrollView.contentInset = UIEdgeInsets.zero
+        } else {
+            scrollView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: keyboardViewEndFrame.height, right: 0)
+        }
+        
+        scrollView.scrollIndicatorInsets = scrollView.contentInset
+        if let bookPaymentMailFormView = bookPaymentMailFormView {
+            scrollView.setContentOffset(CGPoint(x: 0, y: bookPaymentMailFormView.frame.origin.y), animated: true)
+        }
     }
     
 }

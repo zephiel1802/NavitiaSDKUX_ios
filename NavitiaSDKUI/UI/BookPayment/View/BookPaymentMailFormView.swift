@@ -42,7 +42,9 @@ open class BookPaymentMailFormView: UIView {
         }
     }
     
-    override open func layoutSubviews() {}
+    override open func layoutSubviews() {
+        //textFieldContainerView.addInnerShadow(topColor: Configuration.Color.gray)
+    }
     
     private func _setup() {
         UINib(nibName: "BookPaymentMailFormView", bundle: NavitiaSDKUI.shared.bundle).instantiate(withOwner: self, options: nil)
