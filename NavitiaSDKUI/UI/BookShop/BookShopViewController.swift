@@ -165,7 +165,10 @@ extension BookShopViewController: UICollectionViewDataSource {
         if _viewModel.loading {
             return 4
         }
-        return _viewModel.bookOffer[typeSegmentedControl.selectedSegmentIndex].count
+        if _viewModel.bookOffer.count > typeSegmentedControl.selectedSegmentIndex {
+            return _viewModel.bookOffer[typeSegmentedControl.selectedSegmentIndex].count
+        }
+        return 0
     }
     
     public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {

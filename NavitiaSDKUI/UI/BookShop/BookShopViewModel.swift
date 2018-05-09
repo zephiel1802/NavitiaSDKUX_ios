@@ -26,6 +26,7 @@ class BookShopViewModel: NSObject {
             self.loading = false
         }) {(statusCode, data) in
             self.loading = false
+            self.bookOffer = []
         }
     }
     
