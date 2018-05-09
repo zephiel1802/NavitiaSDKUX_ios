@@ -48,13 +48,16 @@ class ViewController: UIViewController, BookShopViewControllerDelegate {
         let bundle = Bundle(identifier: "org.cocoapods.NavitiaSDKUI")
         let storyboard = UIStoryboard(name: "Book", bundle: bundle)
         bookShopViewController = storyboard.instantiateInitialViewController() as? BookShopViewController
-        bookShopViewController?.delegate = self
-        present(bookShopViewController!, animated: true, completion: nil)
+        
+        if let bookShopViewController = bookShopViewController {
+            bookShopViewController.delegate = self
+            present(bookShopViewController, animated: true, completion: nil)
+        }
     }
     
     func onDismissBookShopViewController() {
-        if bookShopViewController != nil {
-            bookShopViewController!.dismiss(animated: true, completion: nil)
+        if let bookShopViewController = bookShopViewController {
+            bookShopViewController.dismiss(animated: true, completion: nil)
         }
     }
     
