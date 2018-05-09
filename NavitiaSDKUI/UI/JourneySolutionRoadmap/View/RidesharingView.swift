@@ -162,7 +162,7 @@ extension RidesharingView {
                     genderLabel.text = ""
                 } else {
                     genderLabel.attributedText = NSMutableAttributedString()
-                        .normal(String(format: "(%@)", newValue), color: Configuration.Color.gray, size: 12)
+                        .normal(String(format: "(%@)", newValue.localized(withComment: "Gender", bundle: NavitiaSDKUIConfig.shared.bundle)), color: Configuration.Color.gray, size: 12)
                 }
             }
         }

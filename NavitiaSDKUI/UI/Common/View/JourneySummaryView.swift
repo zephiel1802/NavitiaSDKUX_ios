@@ -45,7 +45,6 @@ class JourneySummaryView: UIView {
                         continue
                     }
                     let journeySummaryPartView = JourneySummaryPartView()
-                    
                     journeySummaryPartView.name = section.displayInformations?.label
                     journeySummaryPartView.icon = Modes().getModeIcon(section: section)
                     journeySummaryPartView.color = section.displayInformations?.color?.toUIColor() ?? UIColor.black
@@ -53,6 +52,7 @@ class JourneySummaryView: UIView {
                                                                                allDurationSections: allDurationSections,
                                                                                duration: duration,
                                                                                journeySummaryPartView: journeySummaryPartView)
+                    
                     _stackView.addArrangedSubview(journeySummaryPartView)
                 }
             }
@@ -82,7 +82,7 @@ class JourneySummaryView: UIView {
     
     private func widthJourneySummaryPartView(sectionCount: Double, allDurationSections: Int32, duration: Int32, journeySummaryPartView: JourneySummaryPartView) -> Double {
         var priority = 65.0
-        var minValue = 5.0
+        var minValue = 50.0
         if let widthPart = journeySummaryPartView._tagTransportLabel.attributedText?.boundingRect(with: CGSize(width: frame.size.width - 60, height: 9990), options: .usesLineFragmentOrigin, context: nil).width {
             if !journeySummaryPartView._tagTransportView.isHidden {
                 minValue = Double(widthPart + 25)

@@ -21,9 +21,7 @@ class BikeStepView: UIView {
             _updateTakeLabel()
         }
     }
-    
-    
-    
+
     var origin: String = "" {
         didSet {
             _updateTakeLabel()
@@ -39,7 +37,6 @@ class BikeStepView: UIView {
         super.init(frame: frame)
         _setup()
         addShadow(opacity: 0.28)
-        
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -156,4 +153,5 @@ extension BikeStepView {
             }
         }
     }
+    
 }
