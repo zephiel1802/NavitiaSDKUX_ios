@@ -51,3 +51,71 @@ public class NavitiaSDKPartnersExtension {
         return finalStr
     }
 }
+
+extension UIColor {
+    var redValue: CGFloat{ return CIColor(color: self).red }
+    var greenValue: CGFloat{ return CIColor(color: self).green }
+    var blueValue: CGFloat{ return CIColor(color: self).blue }
+    var alphaValue: CGFloat{ return CIColor(color: self).alpha }
+}
+
+extension String {
+    
+    func hmac(key: String) -> String {
+        do {
+            let arrayKey : Array<UInt8> = (key.data(using: .utf8)?.bytes)!
+            let arrayStr : Array<UInt8> = (self.data(using: .utf8)?.bytes)!
+            let hmac = HMAC(key: arrayKey, variant: .sha1)
+            let hmaced = try hmac.authenticate(arrayStr)
+            let finalStr = hmaced.toHexString()
+            return finalStr
+        } catch {
+            return "12345678"
+        }
+        
+    }
+    
+    func toBase64() -> String {
+        return Data(self.utf8).base64EncodedString()
+    }
+    
+    func hexadecimal() -> Data? {
+        var data = Data(capacity: self.count / 2)
+        
+        let regex = try! NSRegularExpression(pattern: "[0-9a-f]{1,2}", options: .caseInsensitive)
+        regex.enumerateMatches(in: self, range: NSMakeRange(0, utf16.count)) { match, flags, stop in
+            let byteString = (self as NSString).substring(with: match!.range)
+            var num = UInt8(byteString, radix: 16)!
+            data.append(&num, count: 1)
+        }
+        
+        guard data.count > 0 else { return nil }
+        
+        return data
+    }
+    
+    
+    func encodeURIComponent() -> String? {
+        let characterSet = NSMutableCharacterSet.alphanumeric()
+        characterSet.addCharacters(in: "-_.!~*'()")
+        
+        return self.addingPercentEncoding(withAllowedCharacters: characterSet as CharacterSet)
+    }
+    
+    func slice(from: String, to: String) -> String? {
+        
+        return (range(of: from)?.upperBound).flatMap { substringFrom in
+            (range(of: to, range: substringFrom..<endIndex)?.lowerBound).map { substringTo in
+                substring(with: substringFrom..<substringTo)
+            }
+        }
+    }
+    
+    public func extractTransactionSogenActif() -> String? {
+        return self.slice(from: "<span id=\"span_sips_trans_ref_table_id_transaction_result\">", to: "</span>")
+    }
+    
+    public func extractCustomerSogenActif() -> String? {
+        return self.slice(from: "<span id=\"span_sips_trans_ref_table_id_customer_result\">", to: "</span>")
+    }
+}

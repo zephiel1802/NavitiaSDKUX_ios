@@ -54,7 +54,7 @@ import Foundation
         self.mandatoryAccount = mandatoryAccount
     }
     
-    @objc public func toDictionnary() -> [String : Any] {
+    public func toDictionnary() -> [String : Any] {
         return [ "id" : self.id,
                  "title" : self.title,
                  "shortDescription" : self.shortDescription,

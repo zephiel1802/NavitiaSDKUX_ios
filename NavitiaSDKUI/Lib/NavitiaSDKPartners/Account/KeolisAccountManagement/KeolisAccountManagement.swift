@@ -60,13 +60,13 @@ import Foundation
             if !isConnected {
                 return false
             }
-            return self.userInfo.accountStatus == .anonymous
+            return (self.userInfo as! KeolisUserInfo).accountStatus == .anonymous
         }
     }
 
     internal var _keolisConfiguration : KeolisAccountManagementConfiguration? = nil
 
-    public var userInfo : KeolisUserInfo {
+    public private(set) var userInfo : NavitiaUserInfo {
         get {
             let decoded = UserDefaults.standard.object(forKey: "__NavitiaSDKPartners_KeolisAccountManagement_userInfo") as? Data
             if decoded == nil {
@@ -377,6 +377,9 @@ extension KeolisAccountManagement {
                     self._refreshToken = ""
                     self._anonymousEmail = ""
                     self._anonymousPassword = ""
+                    NavitiaSDKPartners.shared.resetCart(callbackSuccess: {
+                    }, callbackError: { (_, _) in
+                    })
                     callbackSuccess()
                 } else {
 
@@ -597,9 +600,13 @@ extension KeolisAccountManagement {
                 print("NavitiaSDKPartners/resetPassword: error")
 
                 if data != nil {
-
-                    callbackError(statusCode, [ "error": (data!["reponse"]["compteRendu"]["libelleRetour"].element?.text) ?? "",
+                    if ((data!["reponse"]["compteRendu"]["codeRetour"].element?.text) ?? "") == "0003" {
+                        let error = NavitiaSDKPartnersReturnCode.notMatchingAccount
+                        callbackError(error.getCode(), error.getError())
+                    } else {
+                        callbackError(statusCode, [ "error": (data!["reponse"]["compteRendu"]["libelleRetour"].element?.text) ?? "",
                                                 "code" : (data!["reponse"]["compteRendu"]["codeRetour"].element?.text) ?? "" ] )
+                    }
                 } else if NavitiaSDKPartnersReturnCode(rawValue: statusCode) != nil {
 
                     callbackError(statusCode, NavitiaSDKPartnersReturnCode(rawValue: statusCode)?.getError())
@@ -639,8 +646,8 @@ extension KeolisAccountManagement {
         self.getUserInfo(tryAccess: true) { success, statusCode, data in
             if success && data != nil {
                 let newUserInfo : KeolisUserInfo = KeolisUserInfo()
-                newUserInfo.firstName = data!["prenom"] as? String ?? ""
-                newUserInfo.lastName = data!["nom"] as? String ?? ""
+                newUserInfo.firstName = ((data!["prenom"] as? String ?? "").isEmpty ? "X" : (data!["prenom"] as? String ?? "X"))
+                newUserInfo.lastName = ((data!["nom"] as? String ?? "").isEmpty ? "X" : (data!["nom"] as? String ?? "X"))
                 newUserInfo.network = data!["filiale"] as? String ?? ""
                 newUserInfo.idTechPortal = data!["idTechPortail"] as? String ?? ""
                 newUserInfo.accountStatus = KeolisAccountStatus(rawValue : Int(data!["statutCompte"] as? String ?? "0")!)!
@@ -811,12 +818,12 @@ extension KeolisAccountManagement {
 
     func updatePasswordXML(oldPassword : String, newPassword : String) -> String {
         let numeroFlux : String = "INTWSV0024"
-        return "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\" ?>\n<question xmlns=\"http://www.keoliscrm.fr/ModifierCompteInternetV2/V2.0\">\n<entete>\n<idTransaction>\(getIdTransaction(numeroFlux:numeroFlux))</idTransaction>\n<numeroFlux>\(numeroFlux)</numeroFlux>\n<siEmetteur>\(_keolisConfiguration?.network ?? "")</siEmetteur>\n<casUsage>CU02</casUsage>\n<ssaEmetteur>VAD</ssaEmetteur>\n<versionFlux>02.10</versionFlux>\n<dateOrigineFlux>\(getFormattedDate())</dateOrigineFlux>\n<ssaRecepteur>\(_keolisConfiguration?.ssaRecepteur ?? "")</ssaRecepteur>\n<dateTraitementFlux>\(getFormattedDate())</dateTraitementFlux>\n<typeFlux>\(_keolisConfiguration?.typeFlux ?? "")</typeFlux>\n</entete>\n<compteInternet>\n<idCompteInternet>\(userInfo.idTechPortal)</idCompteInternet>\n<motDePasse>\((oldPassword.encrypt(key: (_keolisConfiguration!).hmacKey))!)</motDePasse>\n<nouveauMotDePasse>\((newPassword.encrypt(key: (_keolisConfiguration!).hmacKey))!)</nouveauMotDePasse>\n</compteInternet>\n</question>"
+        return "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\" ?>\n<question xmlns=\"http://www.keoliscrm.fr/ModifierCompteInternetV2/V2.0\">\n<entete>\n<idTransaction>\(getIdTransaction(numeroFlux:numeroFlux))</idTransaction>\n<numeroFlux>\(numeroFlux)</numeroFlux>\n<siEmetteur>\(_keolisConfiguration?.network ?? "")</siEmetteur>\n<casUsage>CU02</casUsage>\n<ssaEmetteur>VAD</ssaEmetteur>\n<versionFlux>02.10</versionFlux>\n<dateOrigineFlux>\(getFormattedDate())</dateOrigineFlux>\n<ssaRecepteur>\(_keolisConfiguration?.ssaRecepteur ?? "")</ssaRecepteur>\n<dateTraitementFlux>\(getFormattedDate())</dateTraitementFlux>\n<typeFlux>\(_keolisConfiguration?.typeFlux ?? "")</typeFlux>\n</entete>\n<compteInternet>\n<idCompteInternet>\((userInfo as! KeolisUserInfo).idTechPortal)</idCompteInternet>\n<motDePasse>\((oldPassword.encrypt(key: (_keolisConfiguration!).hmacKey))!)</motDePasse>\n<nouveauMotDePasse>\((newPassword.encrypt(key: (_keolisConfiguration!).hmacKey))!)</nouveauMotDePasse>\n</compteInternet>\n</question>"
     }
 
     internal func getAccountInfoXML() -> String {
         let numeroFlux : String = "INTWSV0020"
-        return "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\" ?>\n<question xmlns=\"http://www.keoliscrm.fr/RechercherCompteInternetV2/V2.0\">\n<entete>\n<idTransaction>\(getIdTransaction(numeroFlux:numeroFlux))</idTransaction>\n<numeroFlux>\(numeroFlux)</numeroFlux>\n<siEmetteur>\(_keolisConfiguration?.network ?? "")</siEmetteur>\n<casUsage>CU01</casUsage>\n<ssaEmetteur>\(_keolisConfiguration?.ssaEmeteur ?? "")</ssaEmetteur>\n<versionFlux>02.10</versionFlux>\n<dateOrigineFlux>\(getFormattedDate())</dateOrigineFlux>\n<ssaRecepteur>\(_keolisConfiguration?.ssaRecepteur ?? "")</ssaRecepteur>\n<dateTraitementFlux>\(getFormattedDate())</dateTraitementFlux>\n<typeFlux>\(_keolisConfiguration?.typeFlux ?? "")</typeFlux>\n</entete>\n<criteres>\n<idCompteInternet>\(userInfo.idTechPortal)</idCompteInternet>\n</criteres>\n</question>\n"
+        return "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\" ?>\n<question xmlns=\"http://www.keoliscrm.fr/RechercherCompteInternetV2/V2.0\">\n<entete>\n<idTransaction>\(getIdTransaction(numeroFlux:numeroFlux))</idTransaction>\n<numeroFlux>\(numeroFlux)</numeroFlux>\n<siEmetteur>\(_keolisConfiguration?.network ?? "")</siEmetteur>\n<casUsage>CU01</casUsage>\n<ssaEmetteur>\(_keolisConfiguration?.ssaEmeteur ?? "")</ssaEmetteur>\n<versionFlux>02.10</versionFlux>\n<dateOrigineFlux>\(getFormattedDate())</dateOrigineFlux>\n<ssaRecepteur>\(_keolisConfiguration?.ssaRecepteur ?? "")</ssaRecepteur>\n<dateTraitementFlux>\(getFormattedDate())</dateTraitementFlux>\n<typeFlux>\(_keolisConfiguration?.typeFlux ?? "")</typeFlux>\n</entete>\n<criteres>\n<idCompteInternet>\((userInfo as! KeolisUserInfo).idTechPortal)</idCompteInternet>\n</criteres>\n</question>\n"
     }
 
     internal func transformAccountXML(firstName : String, lastName : String, email : String, birthdate : Date? = nil, password : String, courtesy : String = "") -> String {
@@ -877,7 +884,7 @@ extension KeolisAccountManagement {
         <typeFlux>\(_keolisConfiguration?.typeFlux ?? "")</typeFlux>
         </entete>
         <compteInternet>
-        <idCompteInternet>\(userInfo.idTechPortal)</idCompteInternet>
+        <idCompteInternet>\((userInfo as! KeolisUserInfo).idTechPortal)</idCompteInternet>
         <nouvelEmail>\(email)</nouvelEmail>
         <motDePasse>\(_anonymousPassword.encrypt(key: (_keolisConfiguration?.hmacKey)!)!)</motDePasse>
         </compteInternet>
@@ -903,7 +910,7 @@ extension KeolisAccountManagement {
         <typeFlux>\(_keolisConfiguration?.typeFlux ?? "")</typeFlux>
         </entete>
         <personnePhysique>
-        <idTechnique>\(userInfo.idTechPortalPerson)</idTechnique>
+        <idTechnique>\((userInfo as! KeolisUserInfo).idTechPortalPerson)</idTechnique>
         <canalModification>3</canalModification>
         \(courtesy.isEmpty ? "" : "<civilite>\(courtesy)</civilite>")
         \(lastName.isEmpty ? "" : "<nom>\(lastName)</nom>")
@@ -932,7 +939,7 @@ extension KeolisAccountManagement {
                 <typeFlux>\(_keolisConfiguration?.typeFlux ?? "")</typeFlux>
             </entete>
             <compteInternet>
-                <idCompteInternet>\(userInfo.idTechPortal)</idCompteInternet>
+                <idCompteInternet>\((userInfo as! KeolisUserInfo).idTechPortal)</idCompteInternet>
             </compteInternet>
         </question>
         """

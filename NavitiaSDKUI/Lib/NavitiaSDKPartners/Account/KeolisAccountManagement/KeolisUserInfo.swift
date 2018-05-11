@@ -9,8 +9,8 @@ import Foundation
 
 @objc(KeolisUserInfo) public class KeolisUserInfo : NSObject, NSCoding, NavitiaUserInfo {
     
-    public var firstName : String = "" // "prenom"
-    public var lastName : String = "" // "nom"
+    public var firstName : String = "X" // "prenom"
+    public var lastName : String = "X" // "nom"
     public var network : String = "" // "filiale"
     public var idTechPortal : String = "" // "idTechPortail"
     public var idTechPortalPerson : String = "" // "idTechPortailPersonne"

@@ -98,6 +98,15 @@ extension NavitiaSDKPartners : AccountManagement {
         }
     }
     
+    public var userInfo : NavitiaUserInfo {
+        get {
+            if accountManagement == nil {
+                return KeolisUserInfo()
+            }
+            return accountManagement!.userInfo
+        }
+    }
+    
     public func createAccount( callbackSuccess: @escaping () -> Void,
                                callbackError: @escaping (Int, [String : Any]?) -> Void) {
         
@@ -219,6 +228,24 @@ extension NavitiaSDKPartners : AccountManagement {
 
 extension NavitiaSDKPartners : BookManagement {
     
+    public var orderId: String {
+        get {
+            if bookManagement == nil {
+                return ""
+            }
+            return bookManagement!.orderId
+        }
+    }
+    
+    public var paymentBaseUrl: String {
+        get {
+            if bookManagement == nil {
+                return ""
+            }
+            return bookManagement!.paymentBaseUrl
+        }
+    }
+    
     public var cart: [BookManagementCartItem] {
         get {
             if bookManagement == nil {
@@ -271,7 +298,7 @@ extension NavitiaSDKPartners : BookManagement {
         return (bookManagement?.getBookManagementType())!
     }
     
-    public func getOffers(callbackSuccess: @escaping ([BookOffer]?) -> Void, callbackError: @escaping (Int, [String : Any]?) -> Void) {
+    public func getOffers(callbackSuccess: @escaping ([BookOffer]) -> Void, callbackError: @escaping (Int, [String : Any]?) -> Void) {
         
         if bookManagement == nil {
             let error = NavitiaSDKPartnersReturnCode.bookManagementNotInit
@@ -281,7 +308,7 @@ extension NavitiaSDKPartners : BookManagement {
         bookManagement?.getOffers(callbackSuccess: callbackSuccess, callbackError: callbackError)
     }
     
-    public func getOffers(offerType: BookOfferType, callbackSuccess: @escaping ([BookOffer]?) -> Void, callbackError: @escaping (Int, [String : Any]?) -> Void) {
+    public func getOffers(offerType: BookOfferType, callbackSuccess: @escaping ([BookOffer]) -> Void, callbackError: @escaping (Int, [String : Any]?) -> Void) {
         
         if bookManagement == nil {
             let error = NavitiaSDKPartnersReturnCode.bookManagementNotInit
@@ -328,5 +355,25 @@ extension NavitiaSDKPartners : BookManagement {
             return
         }
         bookManagement?.getOrderValidation(callbackSuccess : callbackSuccess, callbackError : callbackError)
+    }
+    
+    public func resetCart(callbackSuccess: @escaping () -> Void, callbackError: @escaping (Int, [String : Any]?) -> Void) {
+        
+        if bookManagement == nil {
+            let error = NavitiaSDKPartnersReturnCode.bookManagementNotInit
+            callbackError(error.getCode(), error.getError())
+            return
+        }
+        bookManagement?.resetCart(callbackSuccess: callbackSuccess, callbackError: callbackError)
+    }
+    
+    public func launchPayment(email : String = NavitiaSDKPartners.shared.userInfo.email, color: UIColor = UIColor.white, callbackSuccess: @escaping (String) -> Void, callbackError: @escaping (Int, [String : Any]?) -> Void) {
+        
+        if bookManagement == nil {
+            let error = NavitiaSDKPartnersReturnCode.bookManagementNotInit
+            callbackError(error.getCode(), error.getError())
+            return
+        }
+        bookManagement?.launchPayment(email : email, color : color, callbackSuccess: callbackSuccess, callbackError: callbackError)
     }
 }

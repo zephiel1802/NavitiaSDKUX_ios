@@ -23,4 +23,6 @@ import Foundation
     var displayOrder : Int { get }
     var legalInfos : String { get }
     var VAT : Float { get }
+    
+    func toDictionnary() -> [String: Any]
 }

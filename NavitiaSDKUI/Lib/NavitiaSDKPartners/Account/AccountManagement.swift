@@ -11,6 +11,8 @@ import Foundation
     
     var configuration : AccountManagementConfiguration? { get set }
     
+    var userInfo : NavitiaUserInfo { get }
+    
     var isConnected : Bool { get }
     
     var isAnonymous : Bool { get }
