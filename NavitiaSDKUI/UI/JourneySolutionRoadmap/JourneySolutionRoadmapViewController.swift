@@ -481,19 +481,21 @@ extension JourneySolutionRoadmapViewController: MKMapViewDelegate {
     }
     
     public func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
-        var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: "annotationViewIdentifier")
         if let customAnnotation = annotation as? CustomAnnotation {
-            annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: customAnnotation.identifier)
+            var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: customAnnotation.identifier)
             if annotationView == nil {
                 annotationView = customAnnotation.getAnnotationView(annotationIdentifier: customAnnotation.identifier, bundle: NavitiaSDKUIConfig.shared.bundle)
             } else {
                 annotationView?.annotation = annotation
             }
+            
+            return annotationView
         } else {
+            let annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: "annotationViewIdentifier")
             annotationView?.annotation = annotation
+            
+            return annotationView
         }
-        
-        return annotationView
     }
     
 }
