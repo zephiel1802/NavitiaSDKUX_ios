@@ -57,13 +57,7 @@ open class BookPaymentView: UIView {
     }
     
     func loadHTML() {
-//        NavitiaSDKPartners.shared.launchPayment(color: UIColor(red: 238/255, green: 238/255, blue: 242/255, alpha: 1),
-//                                                callbackSuccess: { (html) in
-//                                                    // self.baseURL = baseURL
-//                                                    self.paymentWebView.loadHTMLString(html, baseURL: nil)
-//        }) { (statusCode, data) in
-//
-//        }
+
         if log {
             NavitiaSDKPartners.shared.launchPayment(email: "flavien.sicard@gmail.com",
                                                     color: UIColor(red: 238/255, green: 238/255, blue: 242/255, alpha: 1),

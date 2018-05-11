@@ -7,7 +7,7 @@
 
 import Foundation
 
-@objc(NavitiaSDKPartners) public class NavitiaSDKPartners : NSObject {
+@objc(NavitiaSDKPartners) open class NavitiaSDKPartners : NSObject {
     
     private override init() { }
     internal var accountManagement : AccountManagement? = nil
@@ -234,6 +234,15 @@ extension NavitiaSDKPartners : BookManagement {
                 return ""
             }
             return bookManagement!.orderId
+        }
+    }
+    
+    public var paymentBaseUrl: String {
+        get {
+            if bookManagement == nil {
+                return ""
+            }
+            return bookManagement!.paymentBaseUrl
         }
     }
     

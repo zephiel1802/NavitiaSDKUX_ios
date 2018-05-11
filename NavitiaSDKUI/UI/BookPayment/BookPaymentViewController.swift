@@ -19,11 +19,10 @@ open class BookPaymentViewController: UIViewController {
     var bookPaymentView: BookPaymentView!
     
     var viewScroll = [UIView]()
-    var margin: CGFloat = 20
+    
+    var margin: UIEdgeInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
     var composentWidth: CGFloat = 0
     var display = false
-    
-    var log = NavitiaSDKPartners.shared.isConnected
     
     fileprivate var _viewModel: BookPaymentViewModel! {
         didSet {
@@ -40,14 +39,10 @@ open class BookPaymentViewController: UIViewController {
         scrollView.bounces = false
         
         _viewModel = BookPaymentViewModel()
-        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(BookPaymentViewController.dismissKeyboard))
-
+        
+        // Gesture
+        let tap = UITapGestureRecognizer(target: self, action: #selector(BookPaymentViewController.dismissKeyboard))
         view.addGestureRecognizer(tap)
-        if (NavitiaSDKPartners.shared.userInfo as! KeolisUserInfo).accountStatus == .anonymous {
-            log = false
-        } else {
-            log = true
-        }
     }
     
     override open func didReceiveMemoryWarning() {
@@ -62,7 +57,7 @@ open class BookPaymentViewController: UIViewController {
         super.viewDidLayoutSubviews()
         composentWidth = _updateWidth()
         if !display {
-            if log {
+            if _viewModel.isConnected {
                 _displayLogin()
             } else {
                 _displayLogout()
@@ -91,7 +86,7 @@ open class BookPaymentViewController: UIViewController {
 
         bookPaymentView = BookPaymentView(frame: CGRect(x: 0, y: 0, width: 0, height: 140))
         bookPaymentView.delegate = self
-        bookPaymentView.log = log
+        bookPaymentView.log = _viewModel.isConnected
         bookPaymentView.loadHTML()
         _addViewInScroll(view: bookPaymentView)
         
@@ -116,7 +111,7 @@ open class BookPaymentViewController: UIViewController {
         
         bookPaymentView = BookPaymentView(frame: CGRect(x: 0, y: 0, width: 0, height: 140))
         bookPaymentView.delegate = self
-        bookPaymentView.log = log
+        bookPaymentView.log = _viewModel.isConnected
         _addViewInScroll(view: bookPaymentView)
         
         display = true
@@ -129,18 +124,18 @@ open class BookPaymentViewController: UIViewController {
     static var identifier: String {
         return String(describing: self)
     }
-    
-    private func _updateWidth(customMargin: CGFloat? = nil) -> CGFloat {
+
+    private func _updateWidth(customMargin: UIEdgeInsets? = nil) -> CGFloat {
         if let margeCustom = customMargin {
             if #available(iOS 11.0, *) {
-                return scrollView.frame.size.width - scrollView.safeAreaInsets.left - scrollView.safeAreaInsets.right - (margeCustom * 2)
+                return scrollView.frame.size.width - scrollView.safeAreaInsets.left - scrollView.safeAreaInsets.right - margeCustom.left - margeCustom.right
             }
-            return scrollView.frame.size.width - (margeCustom * 2)
+            return scrollView.frame.size.width - margeCustom.left - margeCustom.right
         }
         if #available(iOS 11.0, *) {
-            return scrollView.frame.size.width - scrollView.safeAreaInsets.left - scrollView.safeAreaInsets.right - (margin * 2)
+            return scrollView.frame.size.width - scrollView.safeAreaInsets.left - scrollView.safeAreaInsets.right - margin.left - margin.right
         }
-        return scrollView.frame.size.width - (margin * 2)
+        return scrollView.frame.size.width - margin.left - margin.right
     }
     
     private func _setupInterface() {
@@ -173,6 +168,8 @@ open class BookPaymentViewController: UIViewController {
         present(informationViewController, animated: true) {}
     }
     
+    
+    
 }
 
 extension BookPaymentViewController {
@@ -181,7 +178,7 @@ extension BookPaymentViewController {
         if let margeCustom = customMargin {
             view.frame.origin.x = margeCustom
         } else {
-            view.frame.origin.x = margin
+            view.frame.origin.x = margin.left
         }
         if viewScroll.isEmpty {
             view.frame.origin.y = 0
@@ -199,19 +196,22 @@ extension BookPaymentViewController {
     
     private func _updateOriginViewScroll() {
         for (index, view) in viewScroll.enumerated() {
+            
+            view.frame.origin.x = margin.left
+            
             if index == 0 {
-                view.frame.origin.y = view.frame.origin.x
-                view.frame.size.width = _updateWidth(customMargin: view.frame.origin.x)
+                view.frame.origin.y = margin.top
+                view.frame.size.width = _updateWidth(customMargin: margin)//_updateWidth(customMargin: view.frame.origin.x)
             } else {
-                view.frame.origin.y = viewScroll[index - 1].frame.origin.y + viewScroll[index - 1].frame.height + margin
+                view.frame.origin.y = viewScroll[index - 1].frame.origin.y + viewScroll[index - 1].frame.height + margin.bottom + margin.top
                 composentWidth = _updateWidth()
                 view.frame.size.width = _updateWidth()
             }
         }
         if let last = viewScroll.last {
-            scrollView.contentSize.height = last.frame.origin.y + last.frame.height + margin
+            scrollView.contentSize.height = last.frame.origin.y + last.frame.height + margin.bottom
             if last is BookPaymentView && scrollView.contentSize.height < scrollView.frame.size.height {
-                last.frame.origin.y = scrollView.frame.size.height - last.frame.height - margin
+                last.frame.origin.y = scrollView.frame.size.height - last.frame.height - margin.bottom
             }
         }
     }
@@ -254,7 +254,7 @@ extension BookPaymentViewController: BreadcrumbViewProtocol {
 extension BookPaymentViewController: BookPaymentConditionViewDelegate {
     
     func onConditionSwitchValueChanged(_ bookPaymentConditionView: BookPaymentConditionView) {
-        if !log {
+        if !_viewModel.isConnected {
             guard let bookPaymentMailFormView = bookPaymentMailFormView else {
                 return
             }

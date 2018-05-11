@@ -7,6 +7,11 @@
 
 import Foundation
 
+enum JSONSerializationError : Error {
+    case not_json_object
+    case not_json_array
+}
+
 internal class NavitiaSDKPartnersRequestBuilder {
     
     class func get(returnArray : Bool = false, stringUrl : String, header : [String: String], completion : @escaping (Bool, Int, [String : Any]?) -> Void ) -> Void {
@@ -206,11 +211,27 @@ internal class NavitiaSDKPartnersRequestBuilder {
                     return
                 }
                 
-                guard let serializedData = try JSONSerialization.jsonObject(with: responseData, options: []) as? [String : Any] else {
-                    
-                    print("NavitiaSDKPartners : error on serialization")
+                var serializedData : [String : Any] = [:]
+                do {
+                    guard let serializedObject = try JSONSerialization.jsonObject(with: responseData, options: []) as? [String : Any] else {
+                        throw JSONSerializationError.not_json_object
+                    }
+                    serializedData = serializedObject
+                } catch JSONSerializationError.not_json_object {
+                    guard let serializedArray = try JSONSerialization.jsonObject(with: responseData, options: []) as? [[String : Any]] else {
+                        
+                        print("NavitiaSDKPartners : error on serialization")
+                        DispatchQueue.main.async {
+                            completion(false, (response as! HTTPURLResponse).statusCode, nil)
+                        }
+                        return
+                    }
+                    serializedData["array"] = serializedArray
+                }
+                
+                if (response as! HTTPURLResponse).statusCode >= 300 {
                     DispatchQueue.main.async {
-                        completion(false, (response as! HTTPURLResponse).statusCode, nil)
+                        completion(false, (response as! HTTPURLResponse).statusCode, serializedData)
                     }
                     return
                 }

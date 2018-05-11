@@ -15,6 +15,11 @@ import Foundation
     
     public private(set) var orderId : String = ""
     public private(set) var cart: [BookManagementCartItem] = []
+    public var paymentBaseUrl : String {
+        get {
+            return (_vsctConfiguration?.baseUrl)!
+        }
+    }
     
     public var cartTotalPrice : NavitiaSDKPartnersPrice {
         get {
@@ -97,9 +102,11 @@ import Foundation
         NavitiaSDKPartnersRequestBuilder.post(stringUrl: "\(_getUrl())/sessions?mticket=true&authToken=\((NavitiaSDKPartners.shared.accountManagement as! KeolisAccountManagement)._accessToken)&hideMyAccount=true", header: _getHeader()) { (success, statusCode, data) in
             
             if success {
+                print("NavitiaSDKPartners/openSession : success")
                 self._token = (data!["token"] as! String)
                 callbackSuccess()
             } else {
+                print("NavitiaSDKPartners/openSession : error")
                 callbackError(statusCode, data)
             }
         }
@@ -127,16 +134,20 @@ import Foundation
                     NavitiaSDKPartnersRequestBuilder.get(returnArray: true, stringUrl: "\(self._getUrl())/offers?", header: self._getConnectedHeader()) { (success, statusCode, data) in
                         
                         if success {
+                            print("NavitiaSDKPartners/getOffers : success")
                             self.stockedOffers = self.parseOffers(data: data!)
                             callbackSuccess(self.stockedOffers)
                         } else {
+                            print("NavitiaSDKPartners/getOffers : error")
                             callbackError(statusCode, data)
                         }
                     }
                 }, callbackError: { (statusCode, data) in
+                    print("NavitiaSDKPartners/getOffers : error")
                     callbackError(statusCode, data)
                 })
             }, callbackError: { (statusCode, data) in
+                print("NavitiaSDKPartners/getOffers : error")
                 callbackError(statusCode, data)
             })
 
@@ -146,15 +157,20 @@ import Foundation
                     NavitiaSDKPartnersRequestBuilder.get(returnArray: true, stringUrl: "\(self._getUrl())/offers?", header: self._getConnectedHeader()) { (success, statusCode, data) in
                         
                         if success {
-                            callbackSuccess(self.parseOffers(data: data!))
+                            print("NavitiaSDKPartners/getOffers : success")
+                            self.stockedOffers = self.parseOffers(data: data!)
+                            callbackSuccess(self.stockedOffers)
                         } else {
+                            print("NavitiaSDKPartners/getOffers : error")
                             callbackError(statusCode, data)
                         }
                     }
                 }, callbackError: { (statusCode, data) in
+                    print("NavitiaSDKPartners/getOffers : error")
                     callbackError(statusCode, data)
                 })
             }, callbackError: { (statusCode, data) in
+                print("NavitiaSDKPartners/getOffers : error")
                 callbackError(statusCode, data)
             })
         }
@@ -182,11 +198,13 @@ import Foundation
         
         if offerItem == nil {
             print("NavitiaSDKPartners/addOffer : error")
-            callbackError(NavitiaSDKPartnersReturnCode.badParameter.getCode(), NavitiaSDKPartnersReturnCode.badParameter.getError())
+            let error = NavitiaSDKPartnersReturnCode.wrongOfferId
+            callbackError(error.getCode(), error.getError())
             return
         } else if offerItem!.saleable == false && offerItem!.maxQuantity != 0 {
             print("NavitiaSDKPartners/addOffer : error")
-            callbackError(NavitiaSDKPartnersReturnCode.badParameter.getCode(), NavitiaSDKPartnersReturnCode.badParameter.getError())
+            let error = NavitiaSDKPartnersReturnCode.offerNotSaleable
+            callbackError(error.getCode(), error.getError())
             return
         }
         
@@ -200,7 +218,8 @@ import Foundation
             cartItem!.setQuantity(q: cartItem!.quantity + 1)
         } else {
             print("NavitiaSDKPartners/addOffer : error")
-            callbackError(NavitiaSDKPartnersReturnCode.internalError.getCode(), ["error" : "max quantity"])
+            let error = NavitiaSDKPartnersReturnCode.maxQuantity
+            callbackError(error.getCode(), error.getError())
             return
         }
         
@@ -215,11 +234,13 @@ import Foundation
         
         if offerItem == nil {
             print("NavitiaSDKPartners/removeOffer : error")
-            callbackError(NavitiaSDKPartnersReturnCode.badParameter.getCode(), NavitiaSDKPartnersReturnCode.badParameter.getError())
+            let error = NavitiaSDKPartnersReturnCode.wrongOfferId
+            callbackError(error.getCode(), error.getError())
             return
         } else if offerItem!.saleable == false && offerItem!.maxQuantity != 0 {
             print("NavitiaSDKPartners/removeOffer : error")
-            callbackError(NavitiaSDKPartnersReturnCode.badParameter.getCode(), NavitiaSDKPartnersReturnCode.badParameter.getError())
+            let error = NavitiaSDKPartnersReturnCode.offerNotSaleable
+            callbackError(error.getCode(), error.getError())
             return
         }
         
@@ -229,7 +250,8 @@ import Foundation
         
         if cartItem == nil || cartItem?.quantity == 0 {
             print("NavitiaSDKPartners/removeOffer : error")
-            callbackError(NavitiaSDKPartnersReturnCode.badParameter.getCode(), NavitiaSDKPartnersReturnCode.badParameter.getError())
+            let error = NavitiaSDKPartnersReturnCode.notInCart
+            callbackError(error.getCode(), error.getError())
             return
         }
         
@@ -249,12 +271,14 @@ import Foundation
         }
         
         if offerItem == nil {
-            print("NavitiaSDKPartners/removeOffer : error")
-            callbackError(NavitiaSDKPartnersReturnCode.badParameter.getCode(), NavitiaSDKPartnersReturnCode.badParameter.getError())
+            print("NavitiaSDKPartners/setOfferQuantity : error")
+            let error = NavitiaSDKPartnersReturnCode.wrongOfferId
+            callbackError(error.getCode(), error.getError())
             return
         } else if offerItem!.saleable == false && offerItem!.maxQuantity != 0 {
-            print("NavitiaSDKPartners/removeOffer : error")
-            callbackError(NavitiaSDKPartnersReturnCode.badParameter.getCode(), NavitiaSDKPartnersReturnCode.badParameter.getError())
+            print("NavitiaSDKPartners/setOfferQuantity : error")
+            let error = NavitiaSDKPartnersReturnCode.offerNotSaleable
+            callbackError(error.getCode(), error.getError())
             return
         }
         
@@ -267,26 +291,31 @@ import Foundation
         } else if quantity < (cartItem!.bookOffer as! VSCTBookOffer).maxQuantity {
             cartItem!.setQuantity(q: quantity)
         } else {
-            print("NavitiaSDKPartners/addOffer : error")
-            callbackError(NavitiaSDKPartnersReturnCode.internalError.getCode(), ["error" : "max quantity"])
+            print("NavitiaSDKPartners/setOfferQuantity : error")
+            let error = NavitiaSDKPartnersReturnCode.maxQuantity
+            callbackError(error.getCode(), error.getError())
             return
         }
         
-        print("NavitiaSDKPartners/addOffer : success")
+        print("NavitiaSDKPartners/setOfferQuantity : success")
         callbackSuccess()
     }
     
     public func getOrderValidation(callbackSuccess : @escaping ([BookManagementCartItem]) -> Void, callbackError : @escaping (Int, [String: Any]?) -> Void) {
         
         if cart.isEmpty {
-            callbackError(NavitiaSDKPartnersReturnCode.badParameter.getCode(), NavitiaSDKPartnersReturnCode.badParameter.getError())
+            print("NavitiaSDKPartners/getOrderValidation : error")
+            callbackError(NavitiaSDKPartnersReturnCode.cartEmpty.getCode(), NavitiaSDKPartnersReturnCode.cartEmpty.getError())
             return
         }
         
         NavitiaSDKPartnersRequestBuilder.post(stringUrl: "\(_getUrl())/baskets", header: _getConnectedHeader()) { (success, statusCode, data) in
             if success && data != nil {
+                print("NavitiaSDKPartners/createBasket : success")
                 self.cartId = data!["id"] as! String
                 self.addItemsInAPI(callbackSuccess: {
+                    
+                    print("NavitiaSDKPartners/addToBasket : success")
                     NavitiaSDKPartnersRequestBuilder.get(stringUrl: "\(self._getUrl())/baskets/\(self.cartId)/validation", header: self._getConnectedHeader(), completion: { (success, statusCode, data) in
                         if success {
                             callbackSuccess(self.cart)
@@ -295,9 +324,13 @@ import Foundation
                         }
                     })
                 }, callbackError: {(statusCode, data) in
+                    
+                    print("NavitiaSDKPartners/addToBasket : error")
                     callbackError(statusCode, data)
                 })
             } else {
+                
+                print("NavitiaSDKPartners/createBasket : error")
                 callbackError(statusCode, data)
             }
         }
@@ -306,13 +339,25 @@ import Foundation
     public func resetCart(callbackSuccess : @escaping () -> Void, callbackError : @escaping (Int, [String: Any]?) -> Void) {
         
         cart = []
+        print("NavitiaSDKPartners/resetCart : success")
         callbackSuccess()
     }
     
     public func launchPayment(email : String = NavitiaSDKPartners.shared.userInfo.email, color : UIColor = UIColor.white , callbackSuccess: @escaping (String) -> Void, callbackError: @escaping (Int, [String : Any]?) -> Void) {
         
-        let content : [String: Any] = [ "contactInfo" : [ "firstName": (NavitiaSDKPartners.shared.isAnonymous ? "Madame" :  NavitiaSDKPartners.shared.userInfo.firstName),
-                                                          "lastName": (NavitiaSDKPartners.shared.isAnonymous ? "Monsieur" :  NavitiaSDKPartners.shared.userInfo.lastName),
+        if NavitiaSDKPartnersExtension.isValidEmail(str: email) == false {
+            var data = NavitiaSDKPartnersReturnCode.badParameter.getError()
+            var details : [String: Any] = [ : ]
+            details["email"] = NavitiaSDKPartnersParameterCode.invalid
+            data["details"] = details
+            callbackError(NavitiaSDKPartnersReturnCode.badParameter.getCode(), data)
+            return
+        }
+        
+        let content : [String: Any] = [ "contactInfo" : [ "firstName": (NavitiaSDKPartners.shared.isAnonymous ? "Madame" :
+                                                            NavitiaSDKPartners.shared.userInfo.firstName),
+                                                          "lastName": (NavitiaSDKPartners.shared.isAnonymous ? "Monsieur" :
+                                                            NavitiaSDKPartners.shared.userInfo.lastName),
                                                           "email": email,
                                                           "emailconfirmation": email ],
                                         "deliveryMode" : ["type": "M_TICKET_CB2D",
@@ -322,10 +367,11 @@ import Foundation
                                         "paymentMean" : [ "label" : "Carte Bancaire",
                                                           "type" : "CB",
                                                           "displayOrder" : 1 ] ]
+        
         NavitiaSDKPartnersRequestBuilder.post(stringUrl: _getUrl() + "/orders", header: _getConnectedHeader(), content: content) { (success, statusCode, data) in
             if success {
                 print("NavitiaSDKPartners/createOrder : success")
-                if data != nil {
+                if data != nil && data!["referenceOrder"] != nil {
                     self.orderId = (data!["referenceOrder"] as! String)
                 }
                 NavitiaSDKPartnersRequestBuilder.get(stringUrl: self._getUrl() + "/payment/sogenactif/paymentmeans", header: self._getConnectedHeader(), completion: { (success, statusCode, data) in
@@ -339,6 +385,13 @@ import Foundation
                 })
             } else {
                 print("NavitiaSDKPartners/createOrder : error")
+                if statusCode == 400 && data != nil && ((data!["array"] as! [[String: Any]])[0]["code"] as! Int) == 2000 {
+                    let error = NavitiaSDKPartnersReturnCode.cartNotValidated
+                    var returnData = error.getError()
+                    returnData["details"] = (data!["array"] as! [[String: Any]])[0]
+                    callbackError(error.getCode(), returnData)
+                    return
+                }
                 callbackError(statusCode, data)
             }
         }

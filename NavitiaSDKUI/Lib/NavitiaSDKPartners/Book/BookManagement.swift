@@ -13,6 +13,7 @@ import Foundation
     var bookConfiguration : BookManagementConfiguration? { get set }
     var cart : [BookManagementCartItem] { get }
     var orderId : String { get }
+    var paymentBaseUrl : String { get }
     var cartTotalPrice : NavitiaSDKPartnersPrice { get }
     var cartTotalVAT : NavitiaSDKPartnersPrice { get }
     

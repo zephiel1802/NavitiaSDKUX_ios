@@ -377,6 +377,9 @@ extension KeolisAccountManagement {
                     self._refreshToken = ""
                     self._anonymousEmail = ""
                     self._anonymousPassword = ""
+                    NavitiaSDKPartners.shared.resetCart(callbackSuccess: {
+                    }, callbackError: { (_, _) in
+                    })
                     callbackSuccess()
                 } else {
 
@@ -597,9 +600,13 @@ extension KeolisAccountManagement {
                 print("NavitiaSDKPartners/resetPassword: error")
 
                 if data != nil {
-
-                    callbackError(statusCode, [ "error": (data!["reponse"]["compteRendu"]["libelleRetour"].element?.text) ?? "",
+                    if ((data!["reponse"]["compteRendu"]["codeRetour"].element?.text) ?? "") == "0003" {
+                        let error = NavitiaSDKPartnersReturnCode.notMatchingAccount
+                        callbackError(error.getCode(), error.getError())
+                    } else {
+                        callbackError(statusCode, [ "error": (data!["reponse"]["compteRendu"]["libelleRetour"].element?.text) ?? "",
                                                 "code" : (data!["reponse"]["compteRendu"]["codeRetour"].element?.text) ?? "" ] )
+                    }
                 } else if NavitiaSDKPartnersReturnCode(rawValue: statusCode) != nil {
 
                     callbackError(statusCode, NavitiaSDKPartnersReturnCode(rawValue: statusCode)?.getError())
