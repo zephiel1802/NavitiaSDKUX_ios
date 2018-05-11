@@ -1,16 +1,16 @@
 PODS:
-  - NavitiaSDKUX (1.1.4)
+  - NavitiaSDKUI (2.0.0)
 
 DEPENDENCIES:
-  - NavitiaSDKUX (from `../`)
+  - NavitiaSDKUI (from `../`)
 
 EXTERNAL SOURCES:
-  NavitiaSDKUX:
+  NavitiaSDKUI:
     :path: ../
 
 SPEC CHECKSUMS:
-  NavitiaSDKUX: 4eccbf18c0c2f53f94ca896a6258bac31e73c787
+  NavitiaSDKUI: 6d5991f5570448803f69d2f834027b48fcc33df4
 
-PODFILE CHECKSUM: 9d397b0e34454570d5a488b7be28ce8d7681f9e7
+PODFILE CHECKSUM: 5084eb02cd0a2f6221a8f9b502cd004e19abc3fe
 
-COCOAPODS: 1.3.1
+COCOAPODS: 1.4.0

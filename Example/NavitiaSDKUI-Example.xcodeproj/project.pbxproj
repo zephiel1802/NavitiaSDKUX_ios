@@ -1,0 +1,780 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 48;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		14CE6431779C9196FEAD18C1 /* Pods_NavitiaSDKUI_ExampleTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 44246528183F8EED2693B774 /* Pods_NavitiaSDKUI_ExampleTests.framework */; };
+		47E8C769D19800D6A56FE21B /* Pods_NavitiaSDKUI_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD16C016E489CCBD2135C296 /* Pods_NavitiaSDKUI_Example.framework */; };
+		8451DA752065081600CFA1E4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8451DA742065081600CFA1E4 /* AppDelegate.swift */; };
+		8451DA772065081600CFA1E4 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8451DA762065081600CFA1E4 /* ViewController.swift */; };
+		8451DA7A2065081600CFA1E4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8451DA782065081600CFA1E4 /* Main.storyboard */; };
+		8451DA7C2065081600CFA1E4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8451DA7B2065081600CFA1E4 /* Assets.xcassets */; };
+		8451DA7F2065081600CFA1E4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8451DA7D2065081600CFA1E4 /* LaunchScreen.storyboard */; };
+		8451DA8A2065081600CFA1E4 /* NavitiaSDKUI_ExampleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8451DA892065081600CFA1E4 /* NavitiaSDKUI_ExampleTests.swift */; };
+		8451DA952065081600CFA1E4 /* NavitiaSDKUI_ExampleUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8451DA942065081600CFA1E4 /* NavitiaSDKUI_ExampleUITests.swift */; };
+		FB4E20D6A6598FE3D65DCB3A /* Pods_NavitiaSDKUI_ExampleUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B830C7D2F31EBE64DA24411 /* Pods_NavitiaSDKUI_ExampleUITests.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		8451DA862065081600CFA1E4 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8451DA692065081600CFA1E4 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 8451DA702065081600CFA1E4;
+			remoteInfo = "NavitiaSDKUI-Example";
+		};
+		8451DA912065081600CFA1E4 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8451DA692065081600CFA1E4 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 8451DA702065081600CFA1E4;
+			remoteInfo = "NavitiaSDKUI-Example";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		44246528183F8EED2693B774 /* Pods_NavitiaSDKUI_ExampleTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_NavitiaSDKUI_ExampleTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		4638D6D9930A783C4DF97D67 /* Pods-NavitiaSDKUI-ExampleTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NavitiaSDKUI-ExampleTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-NavitiaSDKUI-ExampleTests/Pods-NavitiaSDKUI-ExampleTests.debug.xcconfig"; sourceTree = "<group>"; };
+		5B830C7D2F31EBE64DA24411 /* Pods_NavitiaSDKUI_ExampleUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_NavitiaSDKUI_ExampleUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		780A21D4FBEB5CCA86DF39E5 /* Pods-NavitiaSDKUI-ExampleUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NavitiaSDKUI-ExampleUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-NavitiaSDKUI-ExampleUITests/Pods-NavitiaSDKUI-ExampleUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		7C1AC524AB5C265956EFDF19 /* Pods-NavitiaSDKUI-ExampleTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NavitiaSDKUI-ExampleTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-NavitiaSDKUI-ExampleTests/Pods-NavitiaSDKUI-ExampleTests.release.xcconfig"; sourceTree = "<group>"; };
+		8451DA712065081600CFA1E4 /* NavitiaSDKUI-Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "NavitiaSDKUI-Example.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		8451DA742065081600CFA1E4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		8451DA762065081600CFA1E4 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		8451DA792065081600CFA1E4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		8451DA7B2065081600CFA1E4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		8451DA7E2065081600CFA1E4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		8451DA802065081600CFA1E4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8451DA852065081600CFA1E4 /* NavitiaSDKUI-ExampleTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "NavitiaSDKUI-ExampleTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		8451DA892065081600CFA1E4 /* NavitiaSDKUI_ExampleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavitiaSDKUI_ExampleTests.swift; sourceTree = "<group>"; };
+		8451DA8B2065081600CFA1E4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8451DA902065081600CFA1E4 /* NavitiaSDKUI-ExampleUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "NavitiaSDKUI-ExampleUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		8451DA942065081600CFA1E4 /* NavitiaSDKUI_ExampleUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavitiaSDKUI_ExampleUITests.swift; sourceTree = "<group>"; };
+		8451DA962065081600CFA1E4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8490A6D020849B2E00F7CFA1 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Main.strings; sourceTree = "<group>"; };
+		8490A6D120849B2F00F7CFA1 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
+		8F1B1A1E4C2F06FAC2398C3C /* Pods-NavitiaSDKUI-Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NavitiaSDKUI-Example.release.xcconfig"; path = "Pods/Target Support Files/Pods-NavitiaSDKUI-Example/Pods-NavitiaSDKUI-Example.release.xcconfig"; sourceTree = "<group>"; };
+		CD16C016E489CCBD2135C296 /* Pods_NavitiaSDKUI_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_NavitiaSDKUI_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D57D237D7AD62C6FADB2537C /* Pods-NavitiaSDKUI-ExampleUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NavitiaSDKUI-ExampleUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-NavitiaSDKUI-ExampleUITests/Pods-NavitiaSDKUI-ExampleUITests.release.xcconfig"; sourceTree = "<group>"; };
+		DA3203EEC9E6B785E874F030 /* Pods-NavitiaSDKUI-Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NavitiaSDKUI-Example.debug.xcconfig"; path = "Pods/Target Support Files/Pods-NavitiaSDKUI-Example/Pods-NavitiaSDKUI-Example.debug.xcconfig"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		8451DA6E2065081600CFA1E4 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				47E8C769D19800D6A56FE21B /* Pods_NavitiaSDKUI_Example.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8451DA822065081600CFA1E4 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				14CE6431779C9196FEAD18C1 /* Pods_NavitiaSDKUI_ExampleTests.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8451DA8D2065081600CFA1E4 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FB4E20D6A6598FE3D65DCB3A /* Pods_NavitiaSDKUI_ExampleUITests.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		5A71362A5EDC315BAA126519 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				DA3203EEC9E6B785E874F030 /* Pods-NavitiaSDKUI-Example.debug.xcconfig */,
+				8F1B1A1E4C2F06FAC2398C3C /* Pods-NavitiaSDKUI-Example.release.xcconfig */,
+				4638D6D9930A783C4DF97D67 /* Pods-NavitiaSDKUI-ExampleTests.debug.xcconfig */,
+				7C1AC524AB5C265956EFDF19 /* Pods-NavitiaSDKUI-ExampleTests.release.xcconfig */,
+				780A21D4FBEB5CCA86DF39E5 /* Pods-NavitiaSDKUI-ExampleUITests.debug.xcconfig */,
+				D57D237D7AD62C6FADB2537C /* Pods-NavitiaSDKUI-ExampleUITests.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		8451DA682065081600CFA1E4 = {
+			isa = PBXGroup;
+			children = (
+				8451DA732065081600CFA1E4 /* NavitiaSDKUI-Example */,
+				8451DA882065081600CFA1E4 /* NavitiaSDKUI-ExampleTests */,
+				8451DA932065081600CFA1E4 /* NavitiaSDKUI-ExampleUITests */,
+				8451DA722065081600CFA1E4 /* Products */,
+				5A71362A5EDC315BAA126519 /* Pods */,
+				B214B548A467408A165DE035 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		8451DA722065081600CFA1E4 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				8451DA712065081600CFA1E4 /* NavitiaSDKUI-Example.app */,
+				8451DA852065081600CFA1E4 /* NavitiaSDKUI-ExampleTests.xctest */,
+				8451DA902065081600CFA1E4 /* NavitiaSDKUI-ExampleUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		8451DA732065081600CFA1E4 /* NavitiaSDKUI-Example */ = {
+			isa = PBXGroup;
+			children = (
+				8451DA742065081600CFA1E4 /* AppDelegate.swift */,
+				8451DA762065081600CFA1E4 /* ViewController.swift */,
+				8451DA782065081600CFA1E4 /* Main.storyboard */,
+				8451DA7B2065081600CFA1E4 /* Assets.xcassets */,
+				8451DA7D2065081600CFA1E4 /* LaunchScreen.storyboard */,
+				8451DA802065081600CFA1E4 /* Info.plist */,
+			);
+			path = "NavitiaSDKUI-Example";
+			sourceTree = "<group>";
+		};
+		8451DA882065081600CFA1E4 /* NavitiaSDKUI-ExampleTests */ = {
+			isa = PBXGroup;
+			children = (
+				8451DA892065081600CFA1E4 /* NavitiaSDKUI_ExampleTests.swift */,
+				8451DA8B2065081600CFA1E4 /* Info.plist */,
+			);
+			path = "NavitiaSDKUI-ExampleTests";
+			sourceTree = "<group>";
+		};
+		8451DA932065081600CFA1E4 /* NavitiaSDKUI-ExampleUITests */ = {
+			isa = PBXGroup;
+			children = (
+				8451DA942065081600CFA1E4 /* NavitiaSDKUI_ExampleUITests.swift */,
+				8451DA962065081600CFA1E4 /* Info.plist */,
+			);
+			path = "NavitiaSDKUI-ExampleUITests";
+			sourceTree = "<group>";
+		};
+		B214B548A467408A165DE035 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				CD16C016E489CCBD2135C296 /* Pods_NavitiaSDKUI_Example.framework */,
+				44246528183F8EED2693B774 /* Pods_NavitiaSDKUI_ExampleTests.framework */,
+				5B830C7D2F31EBE64DA24411 /* Pods_NavitiaSDKUI_ExampleUITests.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		8451DA702065081600CFA1E4 /* NavitiaSDKUI-Example */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8451DA992065081600CFA1E4 /* Build configuration list for PBXNativeTarget "NavitiaSDKUI-Example" */;
+			buildPhases = (
+				797393FC92729CAB270C7B97 /* [CP] Check Pods Manifest.lock */,
+				8451DA6D2065081600CFA1E4 /* Sources */,
+				8451DA6E2065081600CFA1E4 /* Frameworks */,
+				8451DA6F2065081600CFA1E4 /* Resources */,
+				4DC0F52FDE4D16FDF0634FAD /* [CP] Embed Pods Frameworks */,
+				26F024AA8FA7C346F8733F62 /* [CP] Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "NavitiaSDKUI-Example";
+			productName = "NavitiaSDKUI-Example";
+			productReference = 8451DA712065081600CFA1E4 /* NavitiaSDKUI-Example.app */;
+			productType = "com.apple.product-type.application";
+		};
+		8451DA842065081600CFA1E4 /* NavitiaSDKUI-ExampleTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8451DA9C2065081600CFA1E4 /* Build configuration list for PBXNativeTarget "NavitiaSDKUI-ExampleTests" */;
+			buildPhases = (
+				2AD670569009EF5E480B8406 /* [CP] Check Pods Manifest.lock */,
+				8451DA812065081600CFA1E4 /* Sources */,
+				8451DA822065081600CFA1E4 /* Frameworks */,
+				8451DA832065081600CFA1E4 /* Resources */,
+				E140B91B37B40B52DCFA7EF2 /* [CP] Embed Pods Frameworks */,
+				D1F4077D51318D2A30529377 /* [CP] Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				8451DA872065081600CFA1E4 /* PBXTargetDependency */,
+			);
+			name = "NavitiaSDKUI-ExampleTests";
+			productName = "NavitiaSDKUI-ExampleTests";
+			productReference = 8451DA852065081600CFA1E4 /* NavitiaSDKUI-ExampleTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		8451DA8F2065081600CFA1E4 /* NavitiaSDKUI-ExampleUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8451DA9F2065081600CFA1E4 /* Build configuration list for PBXNativeTarget "NavitiaSDKUI-ExampleUITests" */;
+			buildPhases = (
+				6373E06F79816E52CE3A6F01 /* [CP] Check Pods Manifest.lock */,
+				8451DA8C2065081600CFA1E4 /* Sources */,
+				8451DA8D2065081600CFA1E4 /* Frameworks */,
+				8451DA8E2065081600CFA1E4 /* Resources */,
+				31230BCA883920D2CA0C81D2 /* [CP] Embed Pods Frameworks */,
+				C316476DFAD153DC6A4D09CF /* [CP] Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				8451DA922065081600CFA1E4 /* PBXTargetDependency */,
+			);
+			name = "NavitiaSDKUI-ExampleUITests";
+			productName = "NavitiaSDKUI-ExampleUITests";
+			productReference = 8451DA902065081600CFA1E4 /* NavitiaSDKUI-ExampleUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		8451DA692065081600CFA1E4 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0920;
+				LastUpgradeCheck = 0930;
+				ORGANIZATIONNAME = kisio;
+				TargetAttributes = {
+					8451DA702065081600CFA1E4 = {
+						CreatedOnToolsVersion = 9.2;
+						ProvisioningStyle = Automatic;
+					};
+					8451DA842065081600CFA1E4 = {
+						CreatedOnToolsVersion = 9.2;
+						ProvisioningStyle = Automatic;
+						TestTargetID = 8451DA702065081600CFA1E4;
+					};
+					8451DA8F2065081600CFA1E4 = {
+						CreatedOnToolsVersion = 9.2;
+						ProvisioningStyle = Automatic;
+						TestTargetID = 8451DA702065081600CFA1E4;
+					};
+				};
+			};
+			buildConfigurationList = 8451DA6C2065081600CFA1E4 /* Build configuration list for PBXProject "NavitiaSDKUI-Example" */;
+			compatibilityVersion = "Xcode 8.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 8451DA682065081600CFA1E4;
+			productRefGroup = 8451DA722065081600CFA1E4 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				8451DA702065081600CFA1E4 /* NavitiaSDKUI-Example */,
+				8451DA842065081600CFA1E4 /* NavitiaSDKUI-ExampleTests */,
+				8451DA8F2065081600CFA1E4 /* NavitiaSDKUI-ExampleUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		8451DA6F2065081600CFA1E4 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8451DA7F2065081600CFA1E4 /* LaunchScreen.storyboard in Resources */,
+				8451DA7C2065081600CFA1E4 /* Assets.xcassets in Resources */,
+				8451DA7A2065081600CFA1E4 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8451DA832065081600CFA1E4 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8451DA8E2065081600CFA1E4 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		26F024AA8FA7C346F8733F62 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-NavitiaSDKUI-Example/Pods-NavitiaSDKUI-Example-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		2AD670569009EF5E480B8406 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-NavitiaSDKUI-ExampleTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		31230BCA883920D2CA0C81D2 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-NavitiaSDKUI-ExampleUITests/Pods-NavitiaSDKUI-ExampleUITests-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/NavitiaSDKUI/NavitiaSDKUI.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/NavitiaSDKUI.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-NavitiaSDKUI-ExampleUITests/Pods-NavitiaSDKUI-ExampleUITests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		4DC0F52FDE4D16FDF0634FAD /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-NavitiaSDKUI-Example/Pods-NavitiaSDKUI-Example-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/NavitiaSDKUI/NavitiaSDKUI.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/NavitiaSDKUI.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-NavitiaSDKUI-Example/Pods-NavitiaSDKUI-Example-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		6373E06F79816E52CE3A6F01 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-NavitiaSDKUI-ExampleUITests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		797393FC92729CAB270C7B97 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-NavitiaSDKUI-Example-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		C316476DFAD153DC6A4D09CF /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-NavitiaSDKUI-ExampleUITests/Pods-NavitiaSDKUI-ExampleUITests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		D1F4077D51318D2A30529377 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-NavitiaSDKUI-ExampleTests/Pods-NavitiaSDKUI-ExampleTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		E140B91B37B40B52DCFA7EF2 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-NavitiaSDKUI-ExampleTests/Pods-NavitiaSDKUI-ExampleTests-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/NavitiaSDKUI/NavitiaSDKUI.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/NavitiaSDKUI.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-NavitiaSDKUI-ExampleTests/Pods-NavitiaSDKUI-ExampleTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		8451DA6D2065081600CFA1E4 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8451DA772065081600CFA1E4 /* ViewController.swift in Sources */,
+				8451DA752065081600CFA1E4 /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8451DA812065081600CFA1E4 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8451DA8A2065081600CFA1E4 /* NavitiaSDKUI_ExampleTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8451DA8C2065081600CFA1E4 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8451DA952065081600CFA1E4 /* NavitiaSDKUI_ExampleUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		8451DA872065081600CFA1E4 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 8451DA702065081600CFA1E4 /* NavitiaSDKUI-Example */;
+			targetProxy = 8451DA862065081600CFA1E4 /* PBXContainerItemProxy */;
+		};
+		8451DA922065081600CFA1E4 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 8451DA702065081600CFA1E4 /* NavitiaSDKUI-Example */;
+			targetProxy = 8451DA912065081600CFA1E4 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		8451DA782065081600CFA1E4 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				8451DA792065081600CFA1E4 /* Base */,
+				8490A6D020849B2E00F7CFA1 /* fr */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		8451DA7D2065081600CFA1E4 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				8451DA7E2065081600CFA1E4 /* Base */,
+				8490A6D120849B2F00F7CFA1 /* fr */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		8451DA972065081600CFA1E4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		8451DA982065081600CFA1E4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		8451DA9A2065081600CFA1E4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = DA3203EEC9E6B785E874F030 /* Pods-NavitiaSDKUI-Example.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = AK7DPF549M;
+				INFOPLIST_FILE = "NavitiaSDKUI-Example/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.demo.NavitiaSDKUI-Example";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		8451DA9B2065081600CFA1E4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8F1B1A1E4C2F06FAC2398C3C /* Pods-NavitiaSDKUI-Example.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = AK7DPF549M;
+				INFOPLIST_FILE = "NavitiaSDKUI-Example/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.demo.NavitiaSDKUI-Example";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		8451DA9D2065081600CFA1E4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4638D6D9930A783C4DF97D67 /* Pods-NavitiaSDKUI-ExampleTests.debug.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = "NavitiaSDKUI-ExampleTests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.demo.NavitiaSDKUI-ExampleTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/NavitiaSDKUI-Example.app/NavitiaSDKUI-Example";
+			};
+			name = Debug;
+		};
+		8451DA9E2065081600CFA1E4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7C1AC524AB5C265956EFDF19 /* Pods-NavitiaSDKUI-ExampleTests.release.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = "NavitiaSDKUI-ExampleTests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.demo.NavitiaSDKUI-ExampleTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/NavitiaSDKUI-Example.app/NavitiaSDKUI-Example";
+			};
+			name = Release;
+		};
+		8451DAA02065081600CFA1E4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 780A21D4FBEB5CCA86DF39E5 /* Pods-NavitiaSDKUI-ExampleUITests.debug.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = "NavitiaSDKUI-ExampleUITests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.demo.NavitiaSDKUI-ExampleUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = "NavitiaSDKUI-Example";
+			};
+			name = Debug;
+		};
+		8451DAA12065081600CFA1E4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = D57D237D7AD62C6FADB2537C /* Pods-NavitiaSDKUI-ExampleUITests.release.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = "NavitiaSDKUI-ExampleUITests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.demo.NavitiaSDKUI-ExampleUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = "NavitiaSDKUI-Example";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		8451DA6C2065081600CFA1E4 /* Build configuration list for PBXProject "NavitiaSDKUI-Example" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8451DA972065081600CFA1E4 /* Debug */,
+				8451DA982065081600CFA1E4 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		8451DA992065081600CFA1E4 /* Build configuration list for PBXNativeTarget "NavitiaSDKUI-Example" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8451DA9A2065081600CFA1E4 /* Debug */,
+				8451DA9B2065081600CFA1E4 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		8451DA9C2065081600CFA1E4 /* Build configuration list for PBXNativeTarget "NavitiaSDKUI-ExampleTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8451DA9D2065081600CFA1E4 /* Debug */,
+				8451DA9E2065081600CFA1E4 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		8451DA9F2065081600CFA1E4 /* Build configuration list for PBXNativeTarget "NavitiaSDKUI-ExampleUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8451DAA02065081600CFA1E4 /* Debug */,
+				8451DAA12065081600CFA1E4 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 8451DA692065081600CFA1E4 /* Project object */;
+}
