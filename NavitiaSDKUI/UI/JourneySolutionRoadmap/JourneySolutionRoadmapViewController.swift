@@ -35,7 +35,6 @@ open class JourneySolutionRoadmapViewController: UIViewController {
         }
         
         _setupMapView()
-//        _display()
     }
     
     
@@ -166,23 +165,22 @@ open class JourneySolutionRoadmapViewController: UIViewController {
     }
     
     private func _displayBikeStep(_ section: Section) {
-        print("COUCUOj toit \(composentWidth)")
 
         let view = BikeStepView(frame: CGRect(x: 0, y: 0, width: composentWidth, height: 50))
         view.modeString = Modes().getModeIcon(section: section)
         view.origin = section.from?.name ?? ""
         view.destination = section.to?.name ?? ""
+        view.takeName = section.from?.poi?.properties?["network"] ?? ""
         view.time = section.duration?.minuteToString()
         
         _addViewInScroll(view: view)
     }
     
     private func _displayRidesharingStep(_ section: Section) {
-        let view = BikeStepView(frame: CGRect(x: 0, y: 0, width: composentWidth, height: 100))
-        view.modeString = Modes().getModeIcon(section: section)
+        let view = RidesharingStepView(frame: CGRect(x: 0, y: 0, width: composentWidth, height: 100))
         view.origin = ridesharingView.addressFrom ?? ""
         view.destination = ridesharingView.addressTo ?? ""
-        view.timeLabel.removeFromSuperview()
+        view.time = section.duration?.minuteToString()
         
         _addViewInScroll(view: view)
     }
@@ -227,7 +225,7 @@ open class JourneySolutionRoadmapViewController: UIViewController {
             if let sectionRidesharing = ridesharingJourneys.sections?[safe: 1] {
                 timeRidesharing = sectionRidesharing.duration
                 ridesharingDeepLink = sectionRidesharing.links?[safe: 0]?.href
-                ridesharingView.title = sectionRidesharing.ridesharingInformations?._operator ?? ""
+                ridesharingView.title = sectionRidesharing.ridesharingInformations?.network ?? ""
                 ridesharingView.startDate = sectionRidesharing.departureDateTime?.toDate(format: Configuration.date)?.toString(format: Configuration.timeRidesharing) ?? ""
                 ridesharingView.login = sectionRidesharing.ridesharingInformations?.driver?.alias ?? ""
                 ridesharingView.gender = sectionRidesharing.ridesharingInformations?.driver?.gender ?? ""
@@ -330,6 +328,7 @@ extension JourneySolutionRoadmapViewController: MKMapViewDelegate {
                 return CLLocationCoordinate2DMake(Double((section.geojson?.coordinates![0][1])!), Double((section.geojson?.coordinates![0][0])!))
             }
         }
+        
         return CLLocationCoordinate2DMake(0, 0)
     }
     
@@ -340,6 +339,7 @@ extension JourneySolutionRoadmapViewController: MKMapViewDelegate {
                 return CLLocationCoordinate2DMake(Double((section.geojson?.coordinates![coordinatesLength - 1][1])!), Double((section.geojson?.coordinates![coordinatesLength - 1][0])!))
             }
         }
+        
         return CLLocationCoordinate2DMake(0, 0)
     }
     
@@ -352,6 +352,7 @@ extension JourneySolutionRoadmapViewController: MKMapViewDelegate {
                 ridesharingJourneyCoordinates.append(CLLocationCoordinate2DMake(Double((section.geojson?.coordinates![coordinatesLength - 1][1])!), Double((section.geojson?.coordinates![coordinatesLength - 1][0])!)))
             }
         }
+        
         return ridesharingJourneyCoordinates
     }
     
@@ -430,7 +431,7 @@ extension JourneySolutionRoadmapViewController: MKMapViewDelegate {
     }
     
     func zoomToPolyline(targetPolyline: MKPolyline, animated: Bool) {
-        self.mapView.setVisibleMapRect(targetPolyline.boundingMapRect, edgePadding: UIEdgeInsetsMake(90, 40, 40, 40), animated: animated)
+        self.mapView.setVisibleMapRect(targetPolyline.boundingMapRect, edgePadding: UIEdgeInsetsMake(60, 40, 10, 40), animated: animated)
     }
     
     func getCircleRadiusDependingOnCurrentCameraAltitude(cameraAltitude: CLLocationDistance) -> CLLocationDistance {
@@ -447,6 +448,7 @@ extension JourneySolutionRoadmapViewController: MKMapViewDelegate {
             updatedIntermediatePointsCircles.append(updatedCircleView)
         }
         self.intermediatePointsCircles = updatedIntermediatePointsCircles
+        
         mapView.addOverlays(self.intermediatePointsCircles)
     }
     
@@ -474,17 +476,26 @@ extension JourneySolutionRoadmapViewController: MKMapViewDelegate {
             
             return circleRenderer
         }
+        
         return MKOverlayRenderer()
     }
     
     public func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
-        var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: CustomAnnotation.identifier)
-        if annotationView == nil, let customAnnotation = annotation as? CustomAnnotation {
-            annotationView = customAnnotation.getAnnotationView(annotationIdentifier: CustomAnnotation.identifier, bundle: NavitiaSDKUIConfig.shared.bundle)
+        if let customAnnotation = annotation as? CustomAnnotation {
+            var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: customAnnotation.identifier)
+            if annotationView == nil {
+                annotationView = customAnnotation.getAnnotationView(annotationIdentifier: customAnnotation.identifier, bundle: NavitiaSDKUIConfig.shared.bundle)
+            } else {
+                annotationView?.annotation = annotation
+            }
+            
+            return annotationView
         } else {
+            let annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: "annotationViewIdentifier")
             annotationView?.annotation = annotation
+            
+            return annotationView
         }
-        return annotationView
     }
     
 }

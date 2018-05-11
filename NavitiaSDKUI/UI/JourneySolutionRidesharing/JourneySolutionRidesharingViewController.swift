@@ -95,7 +95,7 @@ extension JourneySolutionRidesharingViewController: UICollectionViewDataSource {
             if let ridesharingJourneys = _viewModel.ridesharingJourneys?[safe: indexPath.row] {
                 cell.price = ridesharingJourneys.fare?.total?.value ?? ""
                 if let sectionRidesharing = ridesharingJourneys.sections?[safe: 1] {
-                    cell.title = sectionRidesharing.ridesharingInformations?._operator ?? ""
+                    cell.title = sectionRidesharing.ridesharingInformations?.network ?? ""
                     cell.startDate = sectionRidesharing.departureDateTime?.toDate(format: Configuration.date)?.toString(format: Configuration.timeRidesharing) ?? ""
                     cell.login = sectionRidesharing.ridesharingInformations?.driver?.alias ?? ""
                     cell.gender = sectionRidesharing.ridesharingInformations?.driver?.gender ?? ""

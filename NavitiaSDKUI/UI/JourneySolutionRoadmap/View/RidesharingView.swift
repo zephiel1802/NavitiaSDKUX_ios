@@ -103,10 +103,10 @@ class RidesharingView: UIView {
         if let count = count {
             let template = "available_seats".localized(withComment: "Available seats : 3", bundle: NavitiaSDKUIConfig.shared.bundle)
             seatCountLabel.attributedText = NSMutableAttributedString()
-                .normal(String(format: template, count), size: 12.5)
+                .semiBold(String(format: template, count), size: 12.5)
         } else {
             seatCountLabel.attributedText = NSMutableAttributedString()
-                .normal("no_available_seats".localized(withComment: "Available seats : N/A", bundle: NavitiaSDKUIConfig.shared.bundle), size: 12.5)
+                .semiBold("no_available_seats".localized(withComment: "Available seats : N/A", bundle: NavitiaSDKUIConfig.shared.bundle), size: 12.5)
         }
     }
     
@@ -147,7 +147,7 @@ extension RidesharingView {
         set {
             if let newValue = newValue {
                 loginLabel.attributedText = NSMutableAttributedString()
-                    .normal(newValue, size: 12.5)
+                    .semiBold(newValue, size: 12.5)
             }
         }
     }
@@ -162,7 +162,7 @@ extension RidesharingView {
                     genderLabel.text = ""
                 } else {
                     genderLabel.attributedText = NSMutableAttributedString()
-                        .normal(String(format: "(%@)", newValue), color: Configuration.Color.gray, size: 12)
+                        .normal(String(format: "(%@)", newValue.localized(withComment: "Gender", bundle: NavitiaSDKUIConfig.shared.bundle)), color: Configuration.Color.gray, size: 12)
                 }
             }
         }
@@ -200,14 +200,14 @@ extension RidesharingView {
             if let newValue = newValue {
                 if newValue == "0.0" {
                     priceLabel.attributedText = NSMutableAttributedString()
-                        .normal("free".localized(withComment: "Free", bundle: NavitiaSDKUIConfig.shared.bundle), color: Configuration.Color.orange,size: 10)
+                        .semiBold("free".localized(withComment: "Free", bundle: NavitiaSDKUIConfig.shared.bundle), color: Configuration.Color.orange,size: 10)
                 } else {
                     priceLabel.attributedText = NSMutableAttributedString()
-                        .normal(newValue, color: Configuration.Color.orange, size: 10)
+                        .semiBold(newValue, color: Configuration.Color.orange, size: 10)
                 }
             } else {
                 priceLabel.attributedText = NSMutableAttributedString()
-                    .normal("price_not_available".localized(withComment: "Price not available", bundle: NavitiaSDKUIConfig.shared.bundle), color: Configuration.Color.orange,size: 10)
+                    .semiBold("price_not_available".localized(withComment: "Price not available", bundle: NavitiaSDKUIConfig.shared.bundle), color: Configuration.Color.orange,size: 10)
             }
         }
     }

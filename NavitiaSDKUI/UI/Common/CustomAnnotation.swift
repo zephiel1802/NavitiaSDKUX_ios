@@ -22,10 +22,7 @@ class CustomAnnotation: MKPointAnnotation {
     
     var annotationType: AnnotationType?
     var placeType: PlaceType?
-    
-    static var identifier: String {
-        return "annotationViewIdentifier"
-    }
+    var identifier = "annotationViewIdentifier"
     
     init(coordinate: CLLocationCoordinate2D, title: String = "", annotationType: AnnotationType = .PlaceAnnotation, placeType: PlaceType = .Departure) {
         super.init()
@@ -33,6 +30,7 @@ class CustomAnnotation: MKPointAnnotation {
         self.title = title
         self.annotationType = annotationType
         self.placeType = placeType
+        self.identifier = "\(annotationType.hashValue + placeType.hashValue)"
     }
     
     func getAnnotationView(annotationIdentifier: String, bundle: Bundle) -> MKAnnotationView {
@@ -41,25 +39,27 @@ class CustomAnnotation: MKPointAnnotation {
         
         if placeType == .Departure || placeType == .Arrival {
             let annotationLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 80, height: 25))
-            annotationLabel.backgroundColor = UIColor.black
+            annotationLabel.backgroundColor = Configuration.Color.main
             annotationLabel.layer.masksToBounds = true
             annotationLabel.layer.cornerRadius = 4.0
             annotationLabel.textColor = .white
             annotationLabel.text = self.title!
             annotationLabel.font = UIFont(descriptor: annotationLabel.font.fontDescriptor, size: 14)
             annotationLabel.textAlignment = NSTextAlignment.center
-            annotationLabel.alpha = 0.8
+            annotationLabel.alpha = 1
+            
             if annotationType == .RidesharingAnnotation {
                 let annotationImage = UIImageView(frame: CGRect(x: 30, y: 27, width: 20, height: 30))
                 annotationImage.image = UIImage(named: "ridesharing_pin", in: bundle, compatibleWith: nil)
+                
                 annotationView.addSubview(annotationImage)
             } else {
                 let annotationPin = UILabel(frame: CGRect(x: 28, y: 27, width: 26, height: 26))
-                
                 annotationPin.attributedText = NSMutableAttributedString()
                     .icon("location-pin",
                           color: self.placeType == .Departure ? Configuration.Color.origin : Configuration.Color.destination,
                           size: 26)
+                
                 annotationView.addSubview(annotationPin)
             }
             
@@ -69,6 +69,7 @@ class CustomAnnotation: MKPointAnnotation {
             if annotationType == .RidesharingAnnotation {
                 let annotationImage = UIImageView(frame: CGRect(x: 0, y: -15, width: 20, height: 30))
                 annotationImage.image = UIImage(named: "ridesharing_pin", in: bundle, compatibleWith: nil)
+                
                 annotationView.addSubview(annotationImage)
                 annotationView.frame = CGRect(x: 0, y: 0, width: 20, height: 30)
             }

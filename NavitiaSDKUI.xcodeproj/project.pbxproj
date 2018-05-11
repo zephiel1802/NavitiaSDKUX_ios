@@ -29,6 +29,8 @@
 		8433F3A2207FAF23007DBBCE /* AlertView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8433F3A1207FAF22007DBBCE /* AlertView.xib */; };
 		844CA2E22080F15A00C6B259 /* JourneyRidesharingCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 844CA2E12080F15A00C6B259 /* JourneyRidesharingCollectionViewCell.xib */; };
 		844CA2E42080F16E00C6B259 /* JourneyRidesharingCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 844CA2E32080F16E00C6B259 /* JourneyRidesharingCollectionViewCell.swift */; };
+		84506C28209C4FE7006BF393 /* RidesharingStepView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84506C27209C4FE7006BF393 /* RidesharingStepView.swift */; };
+		84506C2A209C5007006BF393 /* RidesharingStepView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84506C29209C5007006BF393 /* RidesharingStepView.xib */; };
 		8451DA44206503F100CFA1E4 /* NavitiaSDKUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8451DA3A206503F100CFA1E4 /* NavitiaSDKUI.framework */; };
 		8451DA49206503F100CFA1E4 /* NavitiaSDKUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8451DA48206503F100CFA1E4 /* NavitiaSDKUITests.swift */; };
 		8451DA4B206503F100CFA1E4 /* NavitiaSDKUI.h in Headers */ = {isa = PBXBuildFile; fileRef = 8451DA3D206503F100CFA1E4 /* NavitiaSDKUI.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -318,6 +320,8 @@
 		8433F3A1207FAF22007DBBCE /* AlertView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AlertView.xib; sourceTree = "<group>"; };
 		844CA2E12080F15A00C6B259 /* JourneyRidesharingCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = JourneyRidesharingCollectionViewCell.xib; sourceTree = "<group>"; };
 		844CA2E32080F16E00C6B259 /* JourneyRidesharingCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JourneyRidesharingCollectionViewCell.swift; sourceTree = "<group>"; };
+		84506C27209C4FE7006BF393 /* RidesharingStepView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RidesharingStepView.swift; sourceTree = "<group>"; };
+		84506C29209C5007006BF393 /* RidesharingStepView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RidesharingStepView.xib; sourceTree = "<group>"; };
 		8451DA3A206503F100CFA1E4 /* NavitiaSDKUI.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = NavitiaSDKUI.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8451DA3D206503F100CFA1E4 /* NavitiaSDKUI.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NavitiaSDKUI.h; sourceTree = "<group>"; };
 		8451DA3E206503F100CFA1E4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -824,6 +828,7 @@
 		8451DAB8206516BC00CFA1E4 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				84506C27209C4FE7006BF393 /* RidesharingStepView.swift */,
 				8433F399207F47F0007DBBCE /* DepartureArrivalStepView.swift */,
 				848D7C2B207B95B0002E9B1A /* PublicTransportView.swift */,
 				84EBF8CA207CF86500053E61 /* TransferStepView.swift */,
@@ -857,6 +862,7 @@
 		8451DABB2065175000CFA1E4 /* Interface */ = {
 			isa = PBXGroup;
 			children = (
+				84506C29209C5007006BF393 /* RidesharingStepView.xib */,
 				846B185020775479005D4A9B /* DepartureArrivalStepView.xib */,
 				848D7C29207B92D4002E9B1A /* PublicTransportView.xib */,
 				84E350F420776BC600E9BA46 /* TransferStepView.xib */,
@@ -1281,6 +1287,7 @@
 				8451DA63206506ED00CFA1E4 /* Localizable.strings in Resources */,
 				844CA2E22080F15A00C6B259 /* JourneyRidesharingCollectionViewCell.xib in Resources */,
 				84E350F520776BC600E9BA46 /* TransferStepView.xib in Resources */,
+				84506C2A209C5007006BF393 /* RidesharingStepView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1519,6 +1526,7 @@
 				8454D3ED2068D3A800C97D2F /* Ticket.swift in Sources */,
 				8454D3D52068D3A800C97D2F /* Code.swift in Sources */,
 				8433F39A207F47F0007DBBCE /* DepartureArrivalStepView.swift in Sources */,
+				84506C28209C4FE7006BF393 /* RidesharingStepView.swift in Sources */,
 				8454D43E2068D3A800C97D2F /* DateFormatterTransform.swift in Sources */,
 				8454D3A52068D3A800C97D2F /* LinesSchema.swift in Sources */,
 				8454D3D82068D3A800C97D2F /* RidesharingInformation.swift in Sources */,
