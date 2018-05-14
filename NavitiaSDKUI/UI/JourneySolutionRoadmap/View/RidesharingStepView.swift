@@ -58,7 +58,7 @@ class RidesharingStepView: UIView {
     }
     
     private func _setup() {
-        UINib(nibName: "RidesharingStepView", bundle: NavitiaSDKUIConfig.shared.bundle).instantiate(withOwner: self, options: nil)
+        UINib(nibName: "RidesharingStepView", bundle: NavitiaSDKUI.shared.bundle).instantiate(withOwner: self, options: nil)
         _view.frame = self.bounds
         addSubview(_view)
         
@@ -78,11 +78,11 @@ class RidesharingStepView: UIView {
     
     private func _updateTakeLabel() {
         takeLabel.attributedText = NSMutableAttributedString()
-            .normal("take_the_ridesharing".localized(withComment: "Take the ridesharing at", bundle: NavitiaSDKUIConfig.shared.bundle), size: 15)
+            .normal("take_the_ridesharing".localized(withComment: "Take the ridesharing at", bundle: NavitiaSDKUI.shared.bundle), size: 15)
             .normal(" ", size: 15)
             .bold(origin, size: 15)
             .normal(" ", size: 15)
-            .normal("to".localized(withComment: "to", bundle: NavitiaSDKUIConfig.shared.bundle), size: 15)
+            .normal("to".localized(withComment: "to", bundle: NavitiaSDKUI.shared.bundle), size: 15)
             .normal(" ", size: 15)
             .bold(destination, size: 15)
         setHeight()
@@ -98,14 +98,14 @@ extension RidesharingStepView {
         }
         set {
             if let newValue = newValue {
-                var duration = newValue + " " + "units_minutes".localized(withComment: "minutes", bundle: NavitiaSDKUIConfig.shared.bundle)
+                var duration = newValue + " " + "units_minutes".localized(withComment: "minutes", bundle: NavitiaSDKUI.shared.bundle)
                 if time == "1" {
-                    duration = newValue + " " + "unit_minutes".localized(withComment: "minute", bundle: NavitiaSDKUIConfig.shared.bundle)
+                    duration = newValue + " " + "unit_minutes".localized(withComment: "minute", bundle: NavitiaSDKUI.shared.bundle)
                 }
                 timeLabel.attributedText = NSMutableAttributedString()
-                    .normal(String(format: "about".localized(withComment: "About", bundle: NavitiaSDKUIConfig.shared.bundle), ""), size: 15)
+                    .normal(String(format: "about".localized(withComment: "About", bundle: NavitiaSDKUI.shared.bundle), ""), size: 15)
                     .normal(" ", size: 15)
-                    .normal(String(format: "a_time_drive".localized(withComment: "A time drive", bundle: NavitiaSDKUIConfig.shared.bundle), duration), size: 15)
+                    .normal(String(format: "a_time_drive".localized(withComment: "A time drive", bundle: NavitiaSDKUI.shared.bundle), duration), size: 15)
             }
         }
     }

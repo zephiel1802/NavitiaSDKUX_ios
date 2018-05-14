@@ -45,7 +45,7 @@ extension String {
     }
     
     func localized(withComment: String = "", bundle: Bundle) -> String {
-        return NSLocalizedString(self, bundle: NavitiaSDKUIConfig.shared.bundle, value: "", comment: withComment)
+        return NSLocalizedString(self, bundle: NavitiaSDKUI.shared.bundle, value: "", comment: withComment)
     }
     
 }

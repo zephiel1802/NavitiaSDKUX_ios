@@ -60,7 +60,7 @@ class JourneySummaryView: UIView {
     }
     
     private func _setup() {
-        UINib(nibName: "JourneySummaryView", bundle: NavitiaSDKUIConfig.shared.bundle).instantiate(withOwner: self, options: nil)
+        UINib(nibName: "JourneySummaryView", bundle: NavitiaSDKUI.shared.bundle).instantiate(withOwner: self, options: nil)
         _view.frame = self.bounds
         addSubview(_view)
         
