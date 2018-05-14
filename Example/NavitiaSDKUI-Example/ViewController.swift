@@ -5,7 +5,7 @@
 //  Copyright © 2018 kisio. All rights reserved.
 //
 import UIKit
-import NavitiaSDKUX
+import NavitiaSDKUI
 
 class ViewController: UIViewController {
     

@@ -32,7 +32,7 @@ class JourneySolutionView: UIView {
     }
     
     private func _setup() {
-        UINib(nibName: "JourneySolutionView", bundle: NavitiaSDKUIConfig.shared.bundle).instantiate(withOwner: self, options: nil)
+        UINib(nibName: "JourneySolutionView", bundle: NavitiaSDKUI.shared.bundle).instantiate(withOwner: self, options: nil)
         _view.frame = self.bounds
         addSubview(_view)
         addShadow()
@@ -53,7 +53,7 @@ class JourneySolutionView: UIView {
         aboutLabel.isHidden = false
         durationCenterContraint.constant = 7
         aboutLabel.attributedText = NSMutableAttributedString()
-            .semiBold("about".localized(withComment: "about", bundle: NavitiaSDKUIConfig.shared.bundle), color: Configuration.Color.main)
+            .semiBold("about".localized(withComment: "about", bundle: NavitiaSDKUI.shared.bundle), color: Configuration.Color.main)
         
         if let durationInt = journey.duration {
             formattedDuration(durationInt)

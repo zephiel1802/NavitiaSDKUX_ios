@@ -41,7 +41,7 @@ open class JourneySolutionRidesharingViewController: UIViewController {
     
     override open func viewDidLoad() {
         super.viewDidLoad()
-        title = "carpooling".localized(withComment: "Carpooling", bundle: NavitiaSDKUIConfig.shared.bundle)
+        title = "carpooling".localized(withComment: "Carpooling", bundle: NavitiaSDKUI.shared.bundle)
         
         _registerCollectionView()
         _viewModel.journeySolutionRidesharingDidChange!(_viewModel)

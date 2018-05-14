@@ -43,11 +43,11 @@ open class JourneySolutionViewController: UIViewController {
     override open func viewDidLoad() {
         super.viewDidLoad()
         
-        NavitiaSDKUIConfig.shared.bundle = self.nibBundle
+        NavitiaSDKUI.shared.bundle = self.nibBundle
         
-        title = "journeys".localized(withComment: "Journeys", bundle: NavitiaSDKUIConfig.shared.bundle)
+        title = "journeys".localized(withComment: "Journeys", bundle: NavitiaSDKUI.shared.bundle)
         
-        UIFont.registerFontWithFilenameString(filenameString: "SDKIcons.ttf", bundle: NavitiaSDKUIConfig.shared.bundle)
+        UIFont.registerFontWithFilenameString(filenameString: "SDKIcons.ttf", bundle: NavitiaSDKUI.shared.bundle)
         
         if #available(iOS 11.0, *) {
             collectionView?.contentInsetAdjustmentBehavior = .always
@@ -167,7 +167,7 @@ extension JourneySolutionViewController: UICollectionViewDataSource {
             // No journey
             if indexPath.row == 1 && self._viewModel.journeysRidesharing.count == 0 {
                 if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: JourneyEmptySolutionCollectionViewCell.identifier, for: indexPath) as? JourneyEmptySolutionCollectionViewCell {
-                    cell.text = "no_carpooling_options_found".localized(withComment: "No carpooling options found", bundle: NavitiaSDKUIConfig.shared.bundle)
+                    cell.text = "no_carpooling_options_found".localized(withComment: "No carpooling options found", bundle: NavitiaSDKUI.shared.bundle)
                     return cell
                 }
             }
@@ -184,7 +184,7 @@ extension JourneySolutionViewController: UICollectionViewDataSource {
     public func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         if kind.isEqual(UICollectionElementKindSectionHeader) {
             let cell = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: JourneyHeaderCollectionReusableView.identifier, for: indexPath) as! JourneyHeaderCollectionReusableView
-            cell.title = "carpooling".localized(withComment: "Carpooling", bundle: NavitiaSDKUIConfig.shared.bundle)
+            cell.title = "carpooling".localized(withComment: "Carpooling", bundle: NavitiaSDKUI.shared.bundle)
             return cell
         }
         return UICollectionReusableView()
@@ -268,7 +268,7 @@ extension JourneySolutionViewController {
             if let newValue = newValue {
                 dateTimeLabel.attributedText = NSMutableAttributedString()
                     .bold(String(format: "%@ : %@",
-                                 "departure".localized(withComment: "Departure : ", bundle: NavitiaSDKUIConfig.shared.bundle),
+                                 "departure".localized(withComment: "Departure : ", bundle: NavitiaSDKUI.shared.bundle),
                                  newValue),
                           color: UIColor.white,
                           size: 12.5)
