@@ -5,7 +5,7 @@
 //  Copyright © 2018 kisio. All rights reserved.
 //
 import UIKit
-import NavitiaSDKUI
+import NavitiaSDKUX
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
