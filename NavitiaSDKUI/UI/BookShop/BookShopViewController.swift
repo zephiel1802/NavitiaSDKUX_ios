@@ -34,12 +34,7 @@ import UIKit
         didSet {
             self._viewModel.bookShopDidChange = { [weak self] bookShopViewModel in
                 self?.collectionView.reloadData()
-                if NavitiaSDKPartners.shared.cart.isEmpty {
-                    self?._animationValidateBasket(animated: true, hidden: true)
-                } else {
-                    self?._animationValidateBasket(animated: true, hidden: false)
-                    self?._validateBasketView.setAmount(NavitiaSDKPartners.shared.cartTotalPrice.value, currency: NavitiaSDKPartners.shared.cartTotalPrice.currency)
-                }
+                self?._reloadCart()
             }
         }
     }
@@ -76,6 +71,7 @@ import UIKit
     }
     
     private func _registerCollectionView() {
+        collectionView.register(UINib(nibName: TicketCollectionViewCell.identifier, bundle: self.nibBundle), forCellWithReuseIdentifier: TicketCollectionViewCell.identifier)
         collectionView.register(UINib(nibName: TicketCollectionViewCell.identifier, bundle: self.nibBundle), forCellWithReuseIdentifier: TicketCollectionViewCell.identifier)
         collectionView.register(UINib(nibName: TicketLoadCollectionViewCell.identifier, bundle: self.nibBundle), forCellWithReuseIdentifier: TicketLoadCollectionViewCell.identifier)
     }
@@ -148,6 +144,15 @@ import UIKit
             })
         }
     }
+    
+    private func _reloadCart() {
+        if NavitiaSDKPartners.shared.cart.isEmpty {
+            _animationValidateBasket(animated: true, hidden: true)
+        } else {
+            _animationValidateBasket(animated: true, hidden: false)
+            _validateBasketView.setAmount(NavitiaSDKPartners.shared.cartTotalPrice.value, currency: NavitiaSDKPartners.shared.cartTotalPrice.currency)
+        }
+    }
 
     @IBAction func onTypePressedSegmentControl(_ sender: UISegmentedControl) {
         self._viewModel.bookShopDidChange!(self._viewModel)
@@ -177,6 +182,7 @@ extension BookShopViewController: UICollectionViewDataSource {
                 return cell
             }
         }
+
         if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TicketCollectionViewCell.identifier, for: indexPath) as? TicketCollectionViewCell {
             cell.delegate = self
             cell.indexPath = indexPath
@@ -223,9 +229,8 @@ extension BookShopViewController: TicketCollectionViewCellDelegate {
     func onLessAmountPressedButton(_ ticketCollectionViewCell: TicketCollectionViewCell) {
         if let id = ticketCollectionViewCell.id {
             NavitiaSDKPartners.shared.removeOffer(offerId: id, callbackSuccess: {
-                if let didChange = self._viewModel.bookShopDidChange {
-                    didChange(self._viewModel)
-                }
+                ticketCollectionViewCell.quantity -= 1
+                self._reloadCart()
             }) { (codeStatus, data) in }
         }
     }
@@ -233,9 +238,8 @@ extension BookShopViewController: TicketCollectionViewCellDelegate {
     func onMoreAmountPressendButton(_ ticketCollectionViewCell: TicketCollectionViewCell) {
         if let id = ticketCollectionViewCell.id, ticketCollectionViewCell.quantity < ticketCollectionViewCell.maxQuantity {
             NavitiaSDKPartners.shared.addOffer(offerId: id, callbackSuccess: {
-                if let didChange = self._viewModel.bookShopDidChange {
-                    didChange(self._viewModel)
-                }
+                ticketCollectionViewCell.quantity += 1
+                self._reloadCart()
             }) { (codeStatus, data) in }
         }
     }
