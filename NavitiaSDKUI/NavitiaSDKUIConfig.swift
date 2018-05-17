@@ -11,8 +11,8 @@ open class NavitiaSDKUI: NSObject {
     
     open static let shared = NavitiaSDKUI()
     
-    open var navitiaSDK: NavitiaSDK!
     open var bundle: Bundle!
+    open var navitiaSDK: NavitiaSDK!
     
     private var token: String! {
         didSet {
@@ -32,11 +32,25 @@ open class NavitiaSDKUI: NSObject {
             Configuration.Color.main = newValue
         }
     }
+
+    open var cguURL: String? {
+        get {
+            return Configuration.cguURL?.absoluteString
+        }
+        set {
+            if let newValue = newValue {
+                Configuration.cguURL = URL(string: newValue)
+            }
+        }
+        
+    }
+    
 }
 
 enum Configuration {
     
     static let fontIconsName = "SDKIcons"
+    static var cguURL: URL?
     
     // Format
     static let date = "yyyyMMdd'T'HHmmss"
@@ -64,10 +78,11 @@ enum Configuration {
         static var alertErrorDarker = #colorLiteral(red: 0.6588235294, green: 0.2666666667, blue: 0.2588235294, alpha: 1)
         static var white = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
         static var black = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+        static var disableGray = #colorLiteral(red: 0.862745098, green: 0.862745098, blue: 0.8784313725, alpha: 1)
         static var darkGray = #colorLiteral(red: 0.2509803922, green: 0.2509803922, blue: 0.2509803922, alpha: 1)
         static var gray = #colorLiteral(red: 0.5019607843, green: 0.5019607843, blue: 0.5019607843, alpha: 1)
         
-        static let red = #colorLiteral(red: 1, green: 0, blue: 0, alpha: 1)
+        static let red = #colorLiteral(red: 0.9568627451, green: 0.262745098, blue: 0.2117647059, alpha: 1)
         static let green = #colorLiteral(red: 0.5921568627, green: 0.7490196078, blue: 0.05098039216, alpha: 1)
         static let orange = #colorLiteral(red: 0.9725490196, green: 0.5803921569, blue: 0.02352941176, alpha: 1)
         static let backgroud = #colorLiteral(red: 0.9411764706, green: 0.9411764706, blue: 0.9411764706, alpha: 1)

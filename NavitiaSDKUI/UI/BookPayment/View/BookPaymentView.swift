@@ -10,6 +10,7 @@ import UIKit
 
 protocol BookPaymentViewDelegate {
     
+    func onClickFilter(_ bookPaymentView: BookPaymentView)
     func onClickPayment(_ request: URLRequest, _ baseURL: String, _ bookPaymentView: BookPaymentView)
     
 }
@@ -18,12 +19,14 @@ open class BookPaymentView: UIView {
     
     @IBOutlet var view: UIView!
     @IBOutlet weak var paymentWebView: UIWebView!
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     @IBOutlet weak var filterView: UIView!
     
-    var baseURL: String = "https://preprod1.vad.vad.keolis.vsct.fr"
     var delegate: BookPaymentViewDelegate?
     
+    
     var mail: String?
+    // C'est à enlever
     var log: Bool!
     
     override init(frame: CGRect) {
@@ -49,20 +52,29 @@ open class BookPaymentView: UIView {
         view.frame = self.bounds
         addSubview(view)
         
+        let tap = UITapGestureRecognizer(target: self, action: #selector(BookPaymentView.clickFilter))
+        view.addGestureRecognizer(tap)
+        
         paymentWebView.scrollView.bounces = false
         paymentWebView.delegate = self
         paymentWebView.isOpaque = false
         paymentWebView.backgroundColor = UIColor.clear
         hidden(true)
+        activityIndicator.color = Configuration.Color.darkGray
+        activityIndicator.isHidden = true
     }
     
     func loadHTML() {
-
+        
+        paymentWebView.stringByEvaluatingJavaScript(from: "document.open();document.close()")
+        paymentWebView.isHidden = false
+        activityIndicator.isHidden = false
+        activityIndicator.startAnimating()
         if log {
             NavitiaSDKPartners.shared.launchPayment(email: "flavien.sicard@gmail.com",
                                                     color: UIColor(red: 238/255, green: 238/255, blue: 242/255, alpha: 1),
                                                     callbackSuccess: { (html) in
-                                                        self.paymentWebView.loadHTMLString(html, baseURL: URL(string: self.baseURL))
+                                                        self.paymentWebView.loadHTMLString(html, baseURL: URL(string: NavitiaSDKPartners.shared.paymentBaseUrl))
             }) { (statusCode, data) in
                 
             }
@@ -71,12 +83,17 @@ open class BookPaymentView: UIView {
             NavitiaSDKPartners.shared.launchPayment(email: "flavien.sicard@gmail.com",
                                                     color: UIColor(red: 238/255, green: 238/255, blue: 242/255, alpha: 1),
                                                     callbackSuccess: { (html) in
-                                                        self.paymentWebView.loadHTMLString(html, baseURL: URL(string: self.baseURL))
+                                                        self.paymentWebView.loadHTMLString(html, baseURL: URL(string: NavitiaSDKPartners.shared.paymentBaseUrl))
             }) { (statusCode, data) in
                 
             }
         }
         
+    }
+    
+    func dismissHTML() {
+        paymentWebView.isHidden = true
+        activityIndicator.isHidden = true
     }
     
     func hidden(_ state: Bool) {
@@ -92,15 +109,24 @@ open class BookPaymentView: UIView {
         }
     }
     
+    @objc func clickFilter() {
+        self.delegate?.onClickFilter(self)
+    }
+    
 }
 
 extension BookPaymentView: UIWebViewDelegate {
     
+    public func webViewDidFinishLoad(_ webView: UIWebView) {
+        activityIndicator.stopAnimating()
+        activityIndicator.isHidden = true
+    }
+    
     public func webView(_ webView: UIWebView, shouldStartLoadWith request: URLRequest, navigationType: UIWebViewNavigationType) -> Bool {
-        if request.url?.absoluteString.starts(with: baseURL) ?? true {
+        if request.url?.absoluteString.starts(with: NavitiaSDKPartners.shared.paymentBaseUrl) ?? true {
             return true
         }
-        delegate?.onClickPayment(request, baseURL, self)
+        delegate?.onClickPayment(request, NavitiaSDKPartners.shared.paymentBaseUrl, self)
         return false
     }
     

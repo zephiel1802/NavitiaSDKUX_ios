@@ -13,6 +13,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="BookPaymentMailFormView" customModule="NavitiaSDKUI" customModuleProvider="target">
             <connections>
                 <outlet property="indicatorIconLabel" destination="Kgu-md-gVN" id="1FJ-IE-nbD"/>
+                <outlet property="indicatorView" destination="fMe-Gs-uub" id="9Jl-2W-N7p"/>
                 <outlet property="mailTextField" destination="DgE-j5-owU" id="LNL-0C-KoN"/>
                 <outlet property="textFieldContainerView" destination="Dcx-aB-v3s" id="Wl2-6M-O7C"/>
                 <outlet property="titleLabel" destination="Tdi-lq-TXX" id="oVn-1L-atv"/>
@@ -24,8 +25,8 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="60"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Merci d'indiquer votre adresse mail" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tdi-lq-TXX">
-                    <rect key="frame" x="0.0" y="0.0" width="212" height="15"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pour recevoir votre justificatif :" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tdi-lq-TXX">
+                    <rect key="frame" x="0.0" y="0.0" width="188" height="15"/>
                     <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
@@ -33,13 +34,21 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Dcx-aB-v3s">
                     <rect key="frame" x="0.0" y="20" width="320" height="40"/>
                     <subviews>
-                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="DgE-j5-owU">
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fMe-Gs-uub">
+                            <rect key="frame" x="0.0" y="38" width="320" height="2"/>
+                            <color key="backgroundColor" red="0.97254901959999995" green="0.58039215690000001" blue="0.023529411760000001" alpha="1" colorSpace="calibratedRGB"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="2" id="i8K-s0-0MZ"/>
+                            </constraints>
+                        </view>
+                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Adresse email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="DgE-j5-owU">
                             <rect key="frame" x="10" y="0.0" width="277" height="40"/>
                             <nil key="textColor"/>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                            <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no" textContentType="email"/>
+                            <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" returnKeyType="continue" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no"/>
                             <connections>
                                 <action selector="mailTextFieldEditingChanged:" destination="-1" eventType="editingChanged" id="VoN-SZ-Hnk"/>
+                                <action selector="mailTextFieldPrimaryAction:" destination="-1" eventType="primaryActionTriggered" id="cre-BF-lra"/>
                             </connections>
                         </textField>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="O" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Kgu-md-gVN">
@@ -56,7 +65,10 @@
                         <constraint firstAttribute="height" constant="40" id="CJO-hH-nbP"/>
                         <constraint firstItem="DgE-j5-owU" firstAttribute="top" secondItem="Dcx-aB-v3s" secondAttribute="top" id="MIm-Z8-ISU"/>
                         <constraint firstItem="Kgu-md-gVN" firstAttribute="centerY" secondItem="Dcx-aB-v3s" secondAttribute="centerY" id="OvY-JF-bmq"/>
+                        <constraint firstAttribute="trailing" secondItem="fMe-Gs-uub" secondAttribute="trailing" id="RYN-L6-OIP"/>
                         <constraint firstItem="Kgu-md-gVN" firstAttribute="leading" secondItem="DgE-j5-owU" secondAttribute="trailing" constant="10" id="Ytc-kj-5S6"/>
+                        <constraint firstItem="fMe-Gs-uub" firstAttribute="leading" secondItem="Dcx-aB-v3s" secondAttribute="leading" id="iDy-Mz-O3R"/>
+                        <constraint firstAttribute="bottom" secondItem="fMe-Gs-uub" secondAttribute="bottom" id="uhZ-8c-dG6"/>
                         <constraint firstItem="DgE-j5-owU" firstAttribute="leading" secondItem="Dcx-aB-v3s" secondAttribute="leading" constant="10" id="y3l-Rc-Uo7"/>
                     </constraints>
                     <userDefinedRuntimeAttributes>
@@ -79,7 +91,7 @@
             <nil key="simulatedBottomBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <viewLayoutGuide key="safeArea" id="vvP-Yy-IKh"/>
-            <point key="canvasLocation" x="54" y="-260.5"/>
+            <point key="canvasLocation" x="54" y="-261"/>
         </view>
     </objects>
 </document>

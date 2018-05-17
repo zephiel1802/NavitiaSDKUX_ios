@@ -86,17 +86,14 @@ extension BookPaymentWebViewController: UIWebViewDelegate {
     
     public func webView(_ webView: UIWebView, shouldStartLoadWith request: URLRequest, navigationType: UIWebViewNavigationType) -> Bool {
         if let url = request.url?.absoluteString {
-            print("URL Callback \(url)")
             switch test(baseURL: baseURL!, url: url) {
             case .success:
                 print("Result : ✅ Success")
             case .error:
-                print("Result : ❌ Error")
                 dismiss(animated: true) {
                     if let returnPayment = self.viewModel?.returnPayment { returnPayment() }
                 }
             case .cancel:
-                print("Result : ⚠️ Cancel")
                 dismiss(animated: true) {}
             case .unknown:
                 break

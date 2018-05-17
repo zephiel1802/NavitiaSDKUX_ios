@@ -12,6 +12,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="BookPaymentView" customModule="NavitiaSDKUI" customModuleProvider="target">
             <connections>
+                <outlet property="activityIndicator" destination="kk3-NP-UOb" id="FK5-fU-0zX"/>
                 <outlet property="filterView" destination="UiN-S7-SNs" id="Tft-cO-bo1"/>
                 <outlet property="paymentWebView" destination="T3j-ZF-Cn6" id="7zI-lm-t2v"/>
                 <outlet property="view" destination="iN0-l3-epB" id="TuY-4o-5IW"/>
@@ -48,6 +49,9 @@
                         <constraint firstAttribute="height" constant="55" id="OnC-Kn-2EG"/>
                     </constraints>
                 </webView>
+                <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="kk3-NP-UOb">
+                    <rect key="frame" x="199" y="103" width="20" height="20"/>
+                </activityIndicatorView>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UiN-S7-SNs">
                     <rect key="frame" x="0.0" y="1" width="419" height="139"/>
                     <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
@@ -59,11 +63,13 @@
                 <constraint firstItem="rzR-I1-tva" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="GHk-00-V77"/>
                 <constraint firstItem="NHQ-SC-iyc" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="Hh2-Bk-soF"/>
                 <constraint firstItem="UiN-S7-SNs" firstAttribute="trailing" secondItem="vUN-kp-3ea" secondAttribute="trailing" id="OMJ-Fb-qNt"/>
+                <constraint firstItem="kk3-NP-UOb" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="QtA-xc-bDq"/>
                 <constraint firstItem="T3j-ZF-Cn6" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="cOZ-HW-cOu"/>
                 <constraint firstItem="rzR-I1-tva" firstAttribute="top" secondItem="NHQ-SC-iyc" secondAttribute="bottom" constant="25" id="dO7-hP-Tvv"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="NHQ-SC-iyc" secondAttribute="trailing" id="dup-Mo-bb4"/>
                 <constraint firstItem="UiN-S7-SNs" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="jWT-Qq-aWo"/>
                 <constraint firstItem="UiN-S7-SNs" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="1" id="lDn-yL-cXE"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="kk3-NP-UOb" secondAttribute="bottom" constant="17" id="lcB-Vw-tnr"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="T3j-ZF-Cn6" secondAttribute="bottom" id="prf-9J-3RM"/>
                 <constraint firstItem="T3j-ZF-Cn6" firstAttribute="trailing" secondItem="vUN-kp-3ea" secondAttribute="trailing" id="q3P-0R-ESa"/>
                 <constraint firstItem="jdf-Lb-CF4" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="roL-hR-v1H"/>

@@ -8,6 +8,12 @@
 
 import UIKit
 
+protocol BookPaymentMailFormViewDelegate {
+    
+    func onReturnButtonClicked(_ bookPaymentMailFormView: BookPaymentMailFormView)
+    func valueChangedTextField(_ value: Bool,_ bookPaymentMailFormView: BookPaymentMailFormView)
+}
+
 open class BookPaymentMailFormView: UIView {
     
     @IBOutlet var view: UIView!
@@ -15,7 +21,9 @@ open class BookPaymentMailFormView: UIView {
     @IBOutlet weak var textFieldContainerView: UIView!
     @IBOutlet weak var mailTextField: UITextField!
     @IBOutlet weak var indicatorIconLabel: UILabel!
+    @IBOutlet weak var indicatorView: UIView!
     
+    var delegate: BookPaymentMailFormViewDelegate?
     //    var delegate: ValidateBasketViewDelegate?
     
     override init(frame: CGRect) {
@@ -51,22 +59,42 @@ open class BookPaymentMailFormView: UIView {
         view.frame = self.bounds
         addSubview(view)
         
+        textFieldContainerView.layer.masksToBounds = true
+        
         indicatorIconLabel.text = ""
+        indicatorView.backgroundColor = UIColor.clear
     }
     
     @IBAction func mailTextFieldEditingChanged(_ sender: UITextField) {
         if let text = sender.text {
             if text == "" {
-                indicatorIconLabel.text = ""
+                setIndicatorLabel(nil)
+                setIndicatorView(false)
+                delegate?.valueChangedTextField(false, self)
             } else if text.isValidEmail() {
-                indicatorIconLabel.attributedText = NSMutableAttributedString()
-                .icon("check-circled", color: Configuration.Color.green, size: 15)
+                setIndicatorLabel(false)
+                setIndicatorView(false)
+                delegate?.valueChangedTextField(true, self)
             } else {
-                indicatorIconLabel.attributedText = NSMutableAttributedString()
-                    .icon("cross-circled", color: Configuration.Color.red, size: 15)
+                setIndicatorLabel(true)
+                delegate?.valueChangedTextField(false, self)
             }
         }
     }
+    
+    @IBAction func mailTextFieldPrimaryAction(_ sender: UITextField) {
+        if let text = sender.text {
+            if text == "" || !text.isValidEmail() {
+                setIndicatorLabel(true)
+                setIndicatorView(true)
+            } else {
+                setIndicatorLabel(false)
+                setIndicatorView(false)
+                self.delegate?.onReturnButtonClicked(self)
+            }
+        }
+    }
+    
     
     var isValid: Bool {
         get {
@@ -74,6 +102,28 @@ open class BookPaymentMailFormView: UIView {
                 return text.isValidEmail()
             }
             return false
+        }
+    }
+    
+    func setIndicatorView(_ bool: Bool) {
+        if bool {
+            indicatorView.backgroundColor = UIColor.red
+        } else {
+            indicatorView.backgroundColor = UIColor.clear
+        }
+    }
+    
+    func setIndicatorLabel(_ bool: Bool?) {
+        if let bool = bool {
+            if bool {
+                indicatorIconLabel.attributedText = NSMutableAttributedString()
+                    .icon("cross-circled", color: Configuration.Color.red, size: 15)
+            } else {
+                indicatorIconLabel.attributedText = NSMutableAttributedString()
+                    .icon("check-circled", color: Configuration.Color.green, size: 15)
+            }
+        } else {
+            indicatorIconLabel.text = ""
         }
     }
     
