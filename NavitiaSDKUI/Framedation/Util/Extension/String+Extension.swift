@@ -48,4 +48,61 @@ extension String {
         return NSLocalizedString(self, bundle: NavitiaSDKUI.shared.bundle, value: "", comment: withComment)
     }
     
+    // CryptoSwift
+    func md5() -> String {
+        return self.utf8.lazy.map({ $0 as UInt8 }).md5().toHexString()
+    }
+    
+    func sha1() -> String {
+        return self.utf8.lazy.map({ $0 as UInt8 }).sha1().toHexString()
+    }
+    
+    func sha224() -> String {
+        return self.utf8.lazy.map({ $0 as UInt8 }).sha224().toHexString()
+    }
+    
+    func sha256() -> String {
+        return self.utf8.lazy.map({ $0 as UInt8 }).sha256().toHexString()
+    }
+    
+    func sha384() -> String {
+        return self.utf8.lazy.map({ $0 as UInt8 }).sha384().toHexString()
+    }
+    
+    func sha512() -> String {
+        return self.utf8.lazy.map({ $0 as UInt8 }).sha512().toHexString()
+    }
+    
+    func sha3(_ variant: SHA3.Variant) -> String {
+        return self.utf8.lazy.map({ $0 as UInt8 }).sha3(variant).toHexString()
+    }
+    
+    func crc32(seed: UInt32? = nil, reflect: Bool = true) -> String {
+        return self.utf8.lazy.map({ $0 as UInt8 }).crc32(seed: seed, reflect: reflect).bytes().toHexString()
+    }
+    
+    func crc16(seed: UInt16? = nil) -> String {
+        return self.utf8.lazy.map({ $0 as UInt8 }).crc16(seed: seed).bytes().toHexString()
+    }
+    
+    /// - parameter cipher: Instance of `Cipher`
+    /// - returns: hex string of bytes
+    func encrypt(cipher: Cipher) throws -> String {
+        return try Array(self.utf8).encrypt(cipher: cipher).toHexString()
+    }
+    
+    /// - parameter cipher: Instance of `Cipher`
+    /// - returns: base64 encoded string of encrypted bytes
+    func encryptToBase64(cipher: Cipher) throws -> String? {
+        return try Array(self.utf8).encrypt(cipher: cipher).toBase64()
+    }
+    
+    // decrypt() does not make sense for String
+    
+    /// - parameter authenticator: Instance of `Authenticator`
+    /// - returns: hex string of string
+    func authenticate<A: Authenticator>(with authenticator: A) throws -> String {
+        return try Array(self.utf8).authenticate(with: authenticator).toHexString()
+    }
+    
 }

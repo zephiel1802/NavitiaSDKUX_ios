@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="NOP-nf-fyr">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="NOP-nf-fyr">
     <device id="retina5_9" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -19,17 +19,26 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="n7A-Pb-Kbc">
-                                <rect key="frame" x="142.66666666666666" y="330" width="90" height="30"/>
-                                <state key="normal" title="Open SDK UI"/>
+                                <rect key="frame" x="113.66666666666669" y="305" width="149" height="30"/>
+                                <state key="normal" title="Open SDK UI Journey"/>
                                 <connections>
-                                    <action selector="touch:" destination="BYZ-38-t0r" eventType="touchUpInside" id="vMy-oX-GHv"/>
+                                    <action selector="onSDKJourneyButtonClicked:" destination="BYZ-38-t0r" eventType="touchUpInside" id="awj-ji-rVF"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="T6T-aE-byG">
+                                <rect key="frame" x="123" y="367" width="129" height="30"/>
+                                <state key="normal" title="Open SDK UI Book"/>
+                                <connections>
+                                    <action selector="onSDKBookButtonClicked:" destination="BYZ-38-t0r" eventType="touchUpInside" id="OU7-zA-cxA"/>
                                 </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="n7A-Pb-Kbc" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" id="3xv-br-haa"/>
+                            <constraint firstItem="n7A-Pb-Kbc" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" constant="-25" id="3xv-br-haa"/>
+                            <constraint firstItem="T6T-aE-byG" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="EWQ-Vl-HSG"/>
                             <constraint firstItem="n7A-Pb-Kbc" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="f9l-cx-jz9"/>
+                            <constraint firstItem="T6T-aE-byG" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" constant="20" id="nwx-nY-PCv"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>

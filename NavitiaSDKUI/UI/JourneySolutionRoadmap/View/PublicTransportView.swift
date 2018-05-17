@@ -108,12 +108,12 @@ class PublicTransportView: UIView {
     override func layoutSubviews() {
         setHeight()
     }
-
+    
     private func _setup() {
         UINib(nibName: "PublicTransportView", bundle: NavitiaSDKUI.shared.bundle).instantiate(withOwner: self, options: nil)
         _view.frame = self.bounds
         addSubview(_view)
-
+        
         addShadow(opacity: 0.28)
         frame.size.height = destinationLabel.frame.height + destinationLabel.frame.origin.y + 15
         
@@ -126,7 +126,7 @@ class PublicTransportView: UIView {
         
         setupStationStackView()
     }
-
+    
     @IBAction func actionStationButton(_ sender: Any) {
         if !stations.isEmpty {
             stationsIsHidden = !stationsView.isHidden
@@ -136,7 +136,7 @@ class PublicTransportView: UIView {
     private func setHeight() {
         frame.size.height = destinationLabel.frame.height + destinationLabel.frame.origin.y + 15
     }
-
+    
 }
 
 extension PublicTransportView {
@@ -211,7 +211,7 @@ extension PublicTransportView {
             }
         }
     }
-
+    
     private var icon: String? {
         get {
             return iconLabel.text

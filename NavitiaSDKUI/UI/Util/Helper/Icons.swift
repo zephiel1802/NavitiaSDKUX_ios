@@ -70,7 +70,18 @@ let iconFontCodes:[String: String] = [
     "disruption-blocking": "\u{ea29}",
     "disruption-nonblocking": "\u{ea2a}",
     "disruption-information": "\u{ea2b}",
-    "ridesharing": "\u{ea2c}"
+    "ridesharing": "\u{ea2c}",
+    "basket": "\u{ea2d}",
+    "ticket": "\u{e901}",
+    "tickets": "\u{e902}",
+    "user": "\u{e903}",
+    "less": "\u{e904}",
+    "more": "\u{e905}",
+    "add": "\u{e906}",
+    "check-circled": "\u{e907}",
+    "cross-circled": "\u{e908}",
+    "information": "\u{e909}",
+    "warning": "\u{e90a}",
 ]
 
 class Modes {

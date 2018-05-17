@@ -9,7 +9,7 @@ import UIKit
 import MapKit
 
 open class JourneySolutionRoadmapViewController: UIViewController {
-
+    
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var scrollView: UIScrollView!
     
@@ -43,7 +43,7 @@ open class JourneySolutionRoadmapViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
+    
     override open func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         composentWidth = _updateWidth()
@@ -101,36 +101,36 @@ open class JourneySolutionRoadmapViewController: UIViewController {
             for (index, section) in sections.enumerated() {
                 if let type = section.type {
                     switch type {
-                        case TypeTransport.publicTransport.rawValue:
-                            if index == 0 {
-                                _displayPublicTransport(section)
+                    case TypeTransport.publicTransport.rawValue:
+                        if index == 0 {
+                            _displayPublicTransport(section)
+                        }
+                        _displayPublicTransport(section, waiting: sections[index - 1])
+                        break
+                    case TypeTransport.transfer.rawValue:
+                        _displayTransferStep(section)
+                        break
+                    case TypeTransport.streetNetwork.rawValue:
+                        if let mode = section.mode {
+                            switch mode {
+                            case ModeTransport.walking.rawValue:
+                                _displayTransferStep(section)
+                                break
+                            case ModeTransport.car.rawValue:
+                                _displayTransferStep(section)
+                                break
+                            case ModeTransport.ridesharing.rawValue:
+                                _updateRidesharingView(section)
+                                _displayRidesharingStep(section)
+                                break
+                            default:
+                                _displayBikeStep(section)
+                                break
                             }
-                            _displayPublicTransport(section, waiting: sections[index - 1])
-                            break
-                        case TypeTransport.transfer.rawValue:
-                            _displayTransferStep(section)
-                            break
-                        case TypeTransport.streetNetwork.rawValue:
-                            if let mode = section.mode {
-                                switch mode {
-                                    case ModeTransport.walking.rawValue:
-                                        _displayTransferStep(section)
-                                        break
-                                    case ModeTransport.car.rawValue:
-                                        _displayTransferStep(section)
-                                        break
-                                    case ModeTransport.ridesharing.rawValue:
-                                        _updateRidesharingView(section)
-                                        _displayRidesharingStep(section)
-                                        break
-                                    default:
-                                        _displayBikeStep(section)
-                                        break
-                                }
-                            }
-                            break
-                        default :
-                            continue
+                        }
+                        break
+                    default :
+                        continue
                     }
                 }
             }
@@ -165,7 +165,7 @@ open class JourneySolutionRoadmapViewController: UIViewController {
     }
     
     private func _displayBikeStep(_ section: Section) {
-
+        
         let view = BikeStepView(frame: CGRect(x: 0, y: 0, width: composentWidth, height: 50))
         view.modeString = Modes().getModeIcon(section: section)
         view.origin = section.from?.name ?? ""

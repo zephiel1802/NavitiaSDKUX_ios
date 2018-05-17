@@ -21,7 +21,7 @@ class BikeStepView: UIView {
             _updateTakeLabel()
         }
     }
-
+    
     var origin: String = "" {
         didSet {
             _updateTakeLabel()
@@ -32,7 +32,7 @@ class BikeStepView: UIView {
             _updateTakeLabel()
         }
     }
-
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         _setup()
@@ -51,7 +51,7 @@ class BikeStepView: UIView {
             }
         }
     }
-
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         _setup()
@@ -80,7 +80,7 @@ class BikeStepView: UIView {
             .bold(destination, size: 15)
         setHeight()
     }
-
+    
 }
 
 extension BikeStepView {

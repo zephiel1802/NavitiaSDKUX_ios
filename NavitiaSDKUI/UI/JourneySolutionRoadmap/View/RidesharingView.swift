@@ -7,12 +7,9 @@
 
 import UIKit
 
-import UIKit
-
 class RidesharingView: UIView {
     
     @IBOutlet var _view: UIView!
-    
     @IBOutlet weak var bookButton: UIButton!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var startLabel: UILabel!
@@ -113,7 +110,7 @@ class RidesharingView: UIView {
 }
 
 extension RidesharingView {
-
+    
     var title: String? {
         get {
             return titleLabel.text
@@ -211,5 +208,5 @@ extension RidesharingView {
             }
         }
     }
-
+    
 }
