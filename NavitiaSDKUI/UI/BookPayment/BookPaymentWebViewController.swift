@@ -32,7 +32,6 @@ class BookPaymentWebViewController: UIViewController {
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
     override func viewDidLayoutSubviews() {
@@ -86,8 +85,7 @@ extension BookPaymentWebViewController: UIWebViewDelegate {
     
     public func webView(_ webView: UIWebView, shouldStartLoadWith request: URLRequest, navigationType: UIWebViewNavigationType) -> Bool {
         if let url = request.url?.absoluteString {
-  
-            switch test(baseURL: baseURL!, url: url) {
+            switch NavitiaSDKPartnersSogenActif.getReturnValue(url: url) {
             case .success:
                 print("Result : ✅ Success")
             case .error:
@@ -103,27 +101,5 @@ extension BookPaymentWebViewController: UIWebViewDelegate {
         return true
     }
     
-}
-
-enum test2 {
-    case error
-    case cancel
-    case success
-    case unknown
-}
-
-func test(baseURL: String, url: String) -> test2 {
-    if url.range(of: baseURL) != nil && url.range(of: "commandes") != nil {
-        if url.range(of: "payment?oid=") != nil {
-            if url.range(of: "payst=cancel") != nil {
-                return .cancel
-            } else if url.range(of: "payst=error") != nil {
-                return .error
-            }
-        } else if url.range(of: "recap?oid=") != nil {
-            return .success
-        }
-    }
-    return .unknown
 }
 

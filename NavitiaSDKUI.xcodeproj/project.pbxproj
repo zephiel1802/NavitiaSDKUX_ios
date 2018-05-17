@@ -376,6 +376,7 @@
 		8476DD562088819C006CB506 /* JourneyPathOverlays.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8476DD552088819C006CB506 /* JourneyPathOverlays.swift */; };
 		8476DD5820888EE8006CB506 /* StackView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8476DD5720888EE8006CB506 /* StackView+Extension.swift */; };
 		8476DD5A208891CB006CB506 /* Collection+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8476DD59208891CB006CB506 /* Collection+Extension.swift */; };
+		848D5BB020AD856A005F4701 /* NavitiaSDKPartnersSogenActif.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848D5BAF20AD856A005F4701 /* NavitiaSDKPartnersSogenActif.swift */; };
 		848D7C2A207B92D4002E9B1A /* PublicTransportView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 848D7C29207B92D4002E9B1A /* PublicTransportView.xib */; };
 		848D7C2C207B95B0002E9B1A /* PublicTransportView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848D7C2B207B95B0002E9B1A /* PublicTransportView.swift */; };
 		8490A6D52084D2C700F7CFA1 /* NavitiaSDKUserDefaultsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8490A6D42084D2C700F7CFA1 /* NavitiaSDKUserDefaultsManager.swift */; };
@@ -788,6 +789,7 @@
 		8476DD552088819C006CB506 /* JourneyPathOverlays.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JourneyPathOverlays.swift; sourceTree = "<group>"; };
 		8476DD5720888EE8006CB506 /* StackView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "StackView+Extension.swift"; sourceTree = "<group>"; };
 		8476DD59208891CB006CB506 /* Collection+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Collection+Extension.swift"; sourceTree = "<group>"; };
+		848D5BAF20AD856A005F4701 /* NavitiaSDKPartnersSogenActif.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavitiaSDKPartnersSogenActif.swift; sourceTree = "<group>"; };
 		848D7C29207B92D4002E9B1A /* PublicTransportView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PublicTransportView.xib; sourceTree = "<group>"; };
 		848D7C2B207B95B0002E9B1A /* PublicTransportView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublicTransportView.swift; sourceTree = "<group>"; };
 		8490A6D42084D2C700F7CFA1 /* NavitiaSDKUserDefaultsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavitiaSDKUserDefaultsManager.swift; sourceTree = "<group>"; };
@@ -997,6 +999,7 @@
 				8423AAFC2093177A005224CC /* BookManagementType.swift */,
 				8423AAFD2093177A005224CC /* BookManagementConfiguration.swift */,
 				8423AAFE2093177A005224CC /* BookOffer.swift */,
+				848D5BAE20AD856A005F4701 /* SogenActif */,
 				8423AAFF2093177A005224CC /* VSCTBookManagement */,
 			);
 			path = Book;
@@ -1614,6 +1617,14 @@
 			path = ObjectMapper;
 			sourceTree = "<group>";
 		};
+		848D5BAE20AD856A005F4701 /* SogenActif */ = {
+			isa = PBXGroup;
+			children = (
+				848D5BAF20AD856A005F4701 /* NavitiaSDKPartnersSogenActif.swift */,
+			);
+			path = SogenActif;
+			sourceTree = "<group>";
+		};
 		84A8D6EE2099EBD60007A523 /* BookPayment */ = {
 			isa = PBXGroup;
 			children = (
@@ -1947,6 +1958,7 @@
 				8423AB292093177B005224CC /* PKCS5.swift in Sources */,
 				8423AB522093177B005224CC /* SWXMLHash+TypeConversion.swift in Sources */,
 				8423AB112093177B005224CC /* AES.swift in Sources */,
+				848D5BB020AD856A005F4701 /* NavitiaSDKPartnersSogenActif.swift in Sources */,
 				8423AB5F2093177B005224CC /* AccountManagement.swift in Sources */,
 				8454D3782068D3A800C97D2F /* NetworksApi.swift in Sources */,
 				8454D3902068D3A800C97D2F /* PhysicalModesApi.swift in Sources */,

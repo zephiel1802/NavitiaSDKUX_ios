@@ -106,7 +106,6 @@ import Foundation
                 self._token = (data!["token"] as! String)
                 callbackSuccess()
             } else {
-                print(statusCode)
                 print("NavitiaSDKPartners/openSession : error")
                 callbackError(statusCode, data)
             }
