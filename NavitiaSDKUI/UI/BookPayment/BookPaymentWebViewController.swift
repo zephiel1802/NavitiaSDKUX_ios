@@ -86,6 +86,7 @@ extension BookPaymentWebViewController: UIWebViewDelegate {
     
     public func webView(_ webView: UIWebView, shouldStartLoadWith request: URLRequest, navigationType: UIWebViewNavigationType) -> Bool {
         if let url = request.url?.absoluteString {
+  
             switch test(baseURL: baseURL!, url: url) {
             case .success:
                 print("Result : ✅ Success")

@@ -12,7 +12,8 @@ protocol BookPaymentConditionViewDelegate {
     
     func onConditionSwitchClicked(_ bookPaymentConditionView: BookPaymentConditionView)
     func onConditionSwitchValueChanged(_ bookPaymentConditionView: BookPaymentConditionView)
-    func onConditionButtonClicked(_ bookPaymentConditionView: BookPaymentConditionView)
+    func onConditionLabelClicked(_ bookPaymentConditionView: BookPaymentConditionView)
+    
 }
 
 open class BookPaymentConditionView: UIView {
@@ -23,7 +24,35 @@ open class BookPaymentConditionView: UIView {
     @IBOutlet weak var conditionSwitch: UISwitch!
     @IBOutlet weak var conditionTapView: UIView!
     
+    enum State {
+        case error
+        case none
+    }
+    
     var delegate: BookPaymentConditionViewDelegate?
+    var state: State = .none {
+        didSet {
+            switch state {
+            case .error:
+                acceptLabel.attributedText = NSMutableAttributedString()
+                    .semiBold(String(format: "%@ ", "J'accepte les".localized(withComment: "J'accepte les", bundle: NavitiaSDKUI.shared.bundle)),
+                              color: Configuration.Color.red,
+                              size: 10.5)
+                    .bold(String(format: "%@.", "Conditions Générales".localized(withComment: "Conditions Générales", bundle: NavitiaSDKUI.shared.bundle)),
+                          color: Configuration.Color.red,
+                          size: 11)
+            case .none:
+                acceptLabel.attributedText = NSMutableAttributedString()
+                    .normal(String(format: "%@ ", "J'accepte les".localized(withComment: "J'accepte les", bundle: NavitiaSDKUI.shared.bundle)),
+                            color: Configuration.Color.gray,
+                            size: 10.5,
+                            underline: false)
+                    .semiBold(String(format: "%@.", "Conditions Générales".localized(withComment: "Conditions Générales", bundle: NavitiaSDKUI.shared.bundle)),
+                              color: Configuration.Color.gray,
+                              size: 11)
+            }
+        }
+    }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -56,57 +85,40 @@ open class BookPaymentConditionView: UIView {
         view.frame = self.bounds
         addSubview(view)
         
+        state = .none
+        _setupGesture()
+        _setupSwitch()
+    }
+    
+    private func _setupSwitch() {
         conditionSwitch.onTintColor = Configuration.Color.main
         conditionSwitch.isEnabled = false
-        state(false)
+    }
+    
+    private func _setupGesture() {
+        let conditionTapViewGesture = UITapGestureRecognizer(target: self,
+                                                             action: #selector(BookPaymentConditionView.onConditionSwitchClicked))
+        conditionTapView.addGestureRecognizer(conditionTapViewGesture)
         
-        let tap = UITapGestureRecognizer(target: self, action: #selector(BookPaymentConditionView.onConditionSwitchClicked))
-        conditionTapView.addGestureRecognizer(tap)
-        
-        let tap2 = UITapGestureRecognizer(target: self, action: #selector(BookPaymentConditionView.text))
-        acceptLabel.addGestureRecognizer(tap2)
+        let acceptLabelGesture = UITapGestureRecognizer(target: self,
+                                                        action: #selector(BookPaymentConditionView.onConditionLabelClicked))
+        acceptLabel.addGestureRecognizer(acceptLabelGesture)
         acceptLabel.isUserInteractionEnabled = true
     }
-
+    
+    @objc func onConditionLabelClicked() {
+        delegate?.onConditionLabelClicked(self)
+    }
+    
     @objc func onConditionSwitchClicked() {
         delegate?.onConditionSwitchClicked(self)
     }
     
-    
     @IBAction func onConditionSwitchValueChanged(_ sender: UISwitch) {
         if sender.isOn {
-            state(false)
+            state = .none
         }
         delegate?.onConditionSwitchValueChanged(self)
-    }
-    
-    @IBAction func onConditionButtonClicked(_ sender: UIButton) {
-        delegate?.onConditionButtonClicked(self)
-    }
-    
-    @objc func text() {
-        delegate?.onConditionButtonClicked(self)
-    }
-    
-    func state(_ bool: Bool) {
-        if bool {
-            acceptLabel.attributedText = NSMutableAttributedString()
-                .semiBold(String(format: "%@ ", "J'accepte les".localized(withComment: "J'accepte les", bundle: NavitiaSDKUI.shared.bundle)),
-                        color: Configuration.Color.red,
-                        size: 10.5)
-                .bold(String(format: "%@.", "Conditions Générales".localized(withComment: "Conditions Générales", bundle: NavitiaSDKUI.shared.bundle)),
-                      color: Configuration.Color.red,
-                      size: 11)
-        } else {
-            acceptLabel.attributedText = NSMutableAttributedString()
-                .normal(String(format: "%@ ", "J'accepte les".localized(withComment: "J'accepte les", bundle: NavitiaSDKUI.shared.bundle)),
-                        color: Configuration.Color.gray,
-                        size: 10.5,
-                        underline: false)
-                .semiBold(String(format: "%@.", "Conditions Générales".localized(withComment: "Conditions Générales", bundle: NavitiaSDKUI.shared.bundle)),
-                          color: Configuration.Color.gray,
-                          size: 11)
-        }
     }
     
 }

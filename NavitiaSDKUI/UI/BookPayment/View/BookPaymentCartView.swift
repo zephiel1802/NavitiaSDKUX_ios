@@ -18,6 +18,8 @@ open class BookPaymentCartView: UIView {
     @IBOutlet weak var titleTaxLabel: UILabel!
     @IBOutlet weak var amountTaxLabel: UILabel!
     
+    var heightCart:CGFloat = 35
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -50,42 +52,41 @@ open class BookPaymentCartView: UIView {
         addSubview(view)
         
         addShadow(opacity: 0.28)
-        
+        _setupIcon()
+    }
+    
+    private func _setupIcon() {
         titleLabel.attributedText = NSMutableAttributedString()
-            .bold("mon panier".localized(withComment: "", bundle: NavitiaSDKUI.shared.bundle).uppercased(),
+            .bold("Mon panier".localized(withComment: "", bundle: NavitiaSDKUI.shared.bundle).uppercased(),
                   color: Configuration.Color.gray, size: 10)
         titleAmountLabel.attributedText = NSMutableAttributedString()
             .bold("Total".localized(withComment: "", bundle: NavitiaSDKUI.shared.bundle),
                   color: Configuration.Color.main, size: 12)
         titleTaxLabel.attributedText = NSMutableAttributedString()
             .semiBold("Dont TVA".localized(withComment: "", bundle: NavitiaSDKUI.shared.bundle),
-                  color: Configuration.Color.gray, size: 10)
+                      color: Configuration.Color.gray, size: 10)
     }
     
-    public func addOffer(_ cartItem: BookManagementCartItem) {
-        frame.size.height += 35
-        let bookPaymentOfferView = BookPaymentOfferView(frame: CGRect(x: 0, y: 0, width: offerStackView.frame.size.width, height: 35))
-        bookPaymentOfferView.setTitle(cartItem.bookOffer.title, quantity: cartItem.quantity)
-        bookPaymentOfferView.setPrice(cartItem.itemPrice, currency: cartItem.bookOffer.currency)
-        offerStackView.addArrangedSubview(bookPaymentOfferView)
-    }
-    
-    func setPrice(_ price: Float, currency: String) {
+    public func setPrice(_ price: Float, currency: String) {
         amountLabel.attributedText = NSMutableAttributedString()
             .bold(String(format: "%0.2f%@", price, currency),
                   color: Configuration.Color.main,
                   size: 12)
     }
     
-    func setVAT(_ VAT: Float, currency: String) {
+    public func setVAT(_ VAT: Float, currency: String) {
         amountTaxLabel.attributedText = NSMutableAttributedString()
             .bold(String(format: "%0.2f%@", VAT, currency),
                   color: Configuration.Color.gray,
                   size: 10)
     }
     
-}
-
-extension BookPaymentCartView {
+    public func addOffer(_ cartItem: BookManagementCartItem) {
+        let bookPaymentOfferView = BookPaymentOfferView(frame: CGRect(x: 0, y: 0, width: offerStackView.frame.size.width, height: heightCart))
+        bookPaymentOfferView.setTitle(cartItem.bookOffer.title, quantity: cartItem.quantity)
+        bookPaymentOfferView.setPrice(cartItem.itemPrice, currency: cartItem.bookOffer.currency)
+        offerStackView.addArrangedSubview(bookPaymentOfferView)
+        frame.size.height += heightCart
+    }
     
 }

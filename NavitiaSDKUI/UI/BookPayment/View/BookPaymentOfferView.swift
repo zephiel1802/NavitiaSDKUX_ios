@@ -60,8 +60,3 @@ open class BookPaymentOfferView: UIView {
     }
     
 }
-
-extension BookPaymentOfferView {
-    
-}
-

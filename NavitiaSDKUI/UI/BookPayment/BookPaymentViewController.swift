@@ -28,7 +28,7 @@ open class BookPaymentViewController: UIViewController {
         didSet {
             _viewModel.returnPayment = { [weak self] in
                 self?.onInformationPressedButton()
-                self?.bookPaymentView.loadHTML()
+                self?.bookPaymentView.launchPayment()
             }
         }
     }
@@ -86,8 +86,8 @@ open class BookPaymentViewController: UIViewController {
 
         bookPaymentView = BookPaymentView(frame: CGRect(x: 0, y: 0, width: 0, height: 140))
         bookPaymentView.delegate = self
-        bookPaymentView.log = _viewModel.isConnected
-        bookPaymentView.loadHTML()
+   //     bookPaymentView.log = _viewModel.isConnected
+        bookPaymentView.launchPayment()
         _addViewInScroll(view: bookPaymentView)
         
         display = true
@@ -112,7 +112,7 @@ open class BookPaymentViewController: UIViewController {
         
         bookPaymentView = BookPaymentView(frame: CGRect(x: 0, y: 0, width: 0, height: 140))
         bookPaymentView.delegate = self
-        bookPaymentView.log = _viewModel.isConnected
+    //    bookPaymentView.log = _viewModel.isConnected
         _addViewInScroll(view: bookPaymentView)
         
         display = true
@@ -168,9 +168,7 @@ open class BookPaymentViewController: UIViewController {
         informationViewController.iconName = "paiement-denied"
         present(informationViewController, animated: true) {}
     }
-    
-    
-    
+
 }
 
 extension BookPaymentViewController {
@@ -270,28 +268,26 @@ extension BookPaymentViewController: BookPaymentConditionViewDelegate {
             
             if bookPaymentConditionView.conditionSwitch.isOn {
                 if bookPaymentMailFormView.isValid {
-                    bookPaymentView.mail = bookPaymentMailFormView.mailTextField.text
-                    bookPaymentView.loadHTML()
+                    bookPaymentView.email = bookPaymentMailFormView.mailTextField.text
+                    bookPaymentView.launchPayment()
                 }
             } else {
-                bookPaymentView.dismissHTML()
+                bookPaymentView.enablePaymentView = false
             }
         }
         if bookPaymentConditionView.conditionSwitch.isOn {
-            bookPaymentView.hidden(false)
+            bookPaymentView.enableFilter = false
             if let bookPaymentMailFormView = bookPaymentMailFormView {
                 bookPaymentMailFormView.textFieldContainerView.backgroundColor = Configuration.Color.disableGray
                 bookPaymentMailFormView.mailTextField.isEnabled = false
             }
         } else {
-            bookPaymentView.hidden(true)
+            bookPaymentView.enableFilter = true
             if let bookPaymentMailFormView = bookPaymentMailFormView {
                 bookPaymentMailFormView.textFieldContainerView.backgroundColor = Configuration.Color.white
                 bookPaymentMailFormView.mailTextField.isEnabled = true
             }
         }
-        
-    //    bookPaymentView.hidden(!bookPaymentConditionView.conditionSwitch.isOn)
         
         
         
@@ -312,13 +308,12 @@ extension BookPaymentViewController: BookPaymentConditionViewDelegate {
                 return
             }
             if !bookPaymentMailFormView.isValid {
-                bookPaymentMailFormView.setIndicatorView(true)
-                bookPaymentMailFormView.setIndicatorLabel(true)
+                bookPaymentMailFormView.stateIndicator = .error
             }
         }
     }
     
-    func onConditionButtonClicked(_ bookPaymentConditionView: BookPaymentConditionView) {
+    func onConditionLabelClicked(_ bookPaymentConditionView: BookPaymentConditionView) {
         if let url = Configuration.cguURL {
             if #available(iOS 10.0, *) {
                 UIApplication.shared.open(url, options: [:], completionHandler: { (status) in })
@@ -341,7 +336,7 @@ extension BookPaymentViewController: BookPaymentConditionViewDelegate {
 
 extension BookPaymentViewController: BookPaymentViewDelegate {
     
-    func onClickPayment(_ request: URLRequest, _ baseURL: String, _ bookPaymentView: BookPaymentView) {
+    func onPaymentClicked(_ request: URLRequest, _ baseURL: String, _ bookPaymentView: BookPaymentView) {
         let viewController = storyboard?.instantiateViewController(withIdentifier: BookPaymentWebViewController.identifier) as! BookPaymentWebViewController
         viewController.request = request
         viewController.baseURL = baseURL
@@ -351,16 +346,15 @@ extension BookPaymentViewController: BookPaymentViewDelegate {
         self.present(viewController, animated: true, completion: nil)
     }
     
-    func onClickFilter(_ bookPaymentView: BookPaymentView) {
+    func onFilterClicked(_ bookPaymentView: BookPaymentView) {
         if let bookPaymentMailFormView = bookPaymentMailFormView {
             if !bookPaymentMailFormView.isValid {
-                bookPaymentMailFormView.setIndicatorView(true)
-                bookPaymentMailFormView.setIndicatorLabel(true)
+                bookPaymentMailFormView.stateIndicator = .error
             }
         }
         if let bookPaymentConditionView = bookPaymentConditionView {
             if !bookPaymentConditionView.conditionSwitch.isOn {
-                bookPaymentConditionView.state(true)
+                bookPaymentConditionView.state = .error
             }
         }
     }
@@ -372,10 +366,10 @@ extension BookPaymentViewController: BookPaymentMailFormViewDelegate {
         dismissKeyboard()
         if let value = bookPaymentConditionView?.conditionSwitch.isOn {
             if !value {
-                bookPaymentConditionView?.state(true)
+                bookPaymentConditionView?.state = .error
             }
         } else {
-            bookPaymentConditionView?.state(true)
+            bookPaymentConditionView?.state = .error
         }
         // dismiss now
     }

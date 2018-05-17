@@ -12,6 +12,7 @@ protocol BookPaymentMailFormViewDelegate {
     
     func onReturnButtonClicked(_ bookPaymentMailFormView: BookPaymentMailFormView)
     func valueChangedTextField(_ value: Bool,_ bookPaymentMailFormView: BookPaymentMailFormView)
+    
 }
 
 open class BookPaymentMailFormView: UIView {
@@ -23,8 +24,35 @@ open class BookPaymentMailFormView: UIView {
     @IBOutlet weak var indicatorIconLabel: UILabel!
     @IBOutlet weak var indicatorView: UIView!
     
+    enum State {
+        case valid
+        case invalid
+        case error
+        case none
+    }
+    
     var delegate: BookPaymentMailFormViewDelegate?
-    //    var delegate: ValidateBasketViewDelegate?
+    var stateIndicator: State = .none {
+        didSet {
+            switch stateIndicator {
+            case .valid:
+                indicatorIconLabel.attributedText = NSMutableAttributedString()
+                    .icon("check-circled", color: Configuration.Color.green, size: 15)
+                indicatorView.backgroundColor = UIColor.clear
+            case .invalid:
+                indicatorIconLabel.attributedText = NSMutableAttributedString()
+                    .icon("cross-circled", color: Configuration.Color.red, size: 15)
+                indicatorView.backgroundColor = UIColor.clear
+            case .error:
+                indicatorIconLabel.attributedText = NSMutableAttributedString()
+                    .icon("cross-circled", color: Configuration.Color.red, size: 15)
+                indicatorView.backgroundColor = UIColor.red
+            case .none:
+                indicatorIconLabel.text = ""
+                indicatorView.backgroundColor = UIColor.clear
+            }
+        }
+    }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -50,33 +78,25 @@ open class BookPaymentMailFormView: UIView {
         }
     }
     
-    override open func layoutSubviews() {
-        //textFieldContainerView.addInnerShadow(topColor: Configuration.Color.gray)
-    }
-    
     private func _setup() {
         UINib(nibName: "BookPaymentMailFormView", bundle: NavitiaSDKUI.shared.bundle).instantiate(withOwner: self, options: nil)
         view.frame = self.bounds
         addSubview(view)
         
         textFieldContainerView.layer.masksToBounds = true
-        
-        indicatorIconLabel.text = ""
-        indicatorView.backgroundColor = UIColor.clear
+        stateIndicator = .none
     }
     
     @IBAction func mailTextFieldEditingChanged(_ sender: UITextField) {
         if let text = sender.text {
-            if text == "" {
-                setIndicatorLabel(nil)
-                setIndicatorView(false)
+            if text.isEmpty {
+                stateIndicator = .none
                 delegate?.valueChangedTextField(false, self)
             } else if text.isValidEmail() {
-                setIndicatorLabel(false)
-                setIndicatorView(false)
+                stateIndicator = .valid
                 delegate?.valueChangedTextField(true, self)
             } else {
-                setIndicatorLabel(true)
+                stateIndicator = .invalid
                 delegate?.valueChangedTextField(false, self)
             }
         }
@@ -84,17 +104,18 @@ open class BookPaymentMailFormView: UIView {
     
     @IBAction func mailTextFieldPrimaryAction(_ sender: UITextField) {
         if let text = sender.text {
-            if text == "" || !text.isValidEmail() {
-                setIndicatorLabel(true)
-                setIndicatorView(true)
+            if text.isEmpty || !text.isValidEmail() {
+                stateIndicator = .error
             } else {
-                setIndicatorLabel(false)
-                setIndicatorView(false)
+                stateIndicator = .valid
                 self.delegate?.onReturnButtonClicked(self)
             }
         }
     }
     
+}
+
+extension BookPaymentMailFormView {
     
     var isValid: Bool {
         get {
@@ -102,28 +123,6 @@ open class BookPaymentMailFormView: UIView {
                 return text.isValidEmail()
             }
             return false
-        }
-    }
-    
-    func setIndicatorView(_ bool: Bool) {
-        if bool {
-            indicatorView.backgroundColor = UIColor.red
-        } else {
-            indicatorView.backgroundColor = UIColor.clear
-        }
-    }
-    
-    func setIndicatorLabel(_ bool: Bool?) {
-        if let bool = bool {
-            if bool {
-                indicatorIconLabel.attributedText = NSMutableAttributedString()
-                    .icon("cross-circled", color: Configuration.Color.red, size: 15)
-            } else {
-                indicatorIconLabel.attributedText = NSMutableAttributedString()
-                    .icon("check-circled", color: Configuration.Color.green, size: 15)
-            }
-        } else {
-            indicatorIconLabel.text = ""
         }
     }
     

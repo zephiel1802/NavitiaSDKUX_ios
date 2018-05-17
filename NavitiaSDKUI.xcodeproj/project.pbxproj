@@ -1629,12 +1629,12 @@
 		84A8D6F32099EC210007A523 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				847311BE209B0E98000F6F57 /* BookPaymentView.swift */,
 				84A8D6FD2099FA480007A523 /* BookPaymentProfilView.swift */,
 				84A8D6FF2099FA530007A523 /* BookPaymentCartView.swift */,
-				84A8D7012099FA5D0007A523 /* BookPaymentConditionView.swift */,
-				84A8D7032099FA6A0007A523 /* BookPaymentMailFormView.swift */,
 				847311BA209B006B000F6F57 /* BookPaymentOfferView.swift */,
+				84A8D7032099FA6A0007A523 /* BookPaymentMailFormView.swift */,
+				84A8D7012099FA5D0007A523 /* BookPaymentConditionView.swift */,
+				847311BE209B0E98000F6F57 /* BookPaymentView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1642,12 +1642,12 @@
 		84A8D6F42099EC250007A523 /* Interface */ = {
 			isa = PBXGroup;
 			children = (
-				847311BC209B0E8F000F6F57 /* BookPaymentView.xib */,
 				84A8D6F52099F5AB0007A523 /* BookPaymentProfilView.xib */,
 				84A8D6F72099F5BA0007A523 /* BookPaymentCartView.xib */,
-				84A8D6F92099F63E0007A523 /* BookPaymentConditionView.xib */,
-				84A8D6FB2099F6530007A523 /* BookPaymentMailFormView.xib */,
 				847311B8209B0065000F6F57 /* BookPaymentOfferView.xib */,
+				84A8D6FB2099F6530007A523 /* BookPaymentMailFormView.xib */,
+				84A8D6F92099F63E0007A523 /* BookPaymentConditionView.xib */,
+				847311BC209B0E8F000F6F57 /* BookPaymentView.xib */,
 			);
 			path = Interface;
 			sourceTree = "<group>";

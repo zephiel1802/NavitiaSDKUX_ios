@@ -10,8 +10,8 @@ import UIKit
 
 protocol BookPaymentViewDelegate {
     
-    func onClickFilter(_ bookPaymentView: BookPaymentView)
-    func onClickPayment(_ request: URLRequest, _ baseURL: String, _ bookPaymentView: BookPaymentView)
+    func onFilterClicked(_ bookPaymentView: BookPaymentView)
+    func onPaymentClicked(_ request: URLRequest, _ baseURL: String, _ bookPaymentView: BookPaymentView)
     
 }
 
@@ -23,12 +23,8 @@ open class BookPaymentView: UIView {
     @IBOutlet weak var filterView: UIView!
     
     var delegate: BookPaymentViewDelegate?
-    
-    
-    var mail: String?
-    // C'est à enlever
-    var log: Bool!
-    
+    var email: String?
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -51,66 +47,88 @@ open class BookPaymentView: UIView {
         UINib(nibName: "BookPaymentView", bundle: NavitiaSDKUI.shared.bundle).instantiate(withOwner: self, options: nil)
         view.frame = self.bounds
         addSubview(view)
+
+        _setupGesture()
+        _setupWebView()
+        _setupActivityIndicator()
         
-        let tap = UITapGestureRecognizer(target: self, action: #selector(BookPaymentView.clickFilter))
-        view.addGestureRecognizer(tap)
-        
+        enableFilter = true
+        enablePaymentView = false
+    }
+    
+    private func _setupGesture() {
+        let viewGesture = UITapGestureRecognizer(target: self, action: #selector(BookPaymentView.clickFilter))
+        view.addGestureRecognizer(viewGesture)
+    }
+    
+    private func _setupWebView() {
         paymentWebView.scrollView.bounces = false
         paymentWebView.delegate = self
         paymentWebView.isOpaque = false
         paymentWebView.backgroundColor = UIColor.clear
-        hidden(true)
+    }
+    
+    private func _setupActivityIndicator() {
         activityIndicator.color = Configuration.Color.darkGray
-        activityIndicator.isHidden = true
     }
     
-    func loadHTML() {
-        
-        paymentWebView.stringByEvaluatingJavaScript(from: "document.open();document.close()")
-        paymentWebView.isHidden = false
-        activityIndicator.isHidden = false
-        activityIndicator.startAnimating()
-        if log {
-            NavitiaSDKPartners.shared.launchPayment(email: "flavien.sicard@gmail.com",
-                                                    color: UIColor(red: 238/255, green: 238/255, blue: 242/255, alpha: 1),
-                                                    callbackSuccess: { (html) in
-                                                        self.paymentWebView.loadHTMLString(html, baseURL: URL(string: NavitiaSDKPartners.shared.paymentBaseUrl))
-            }) { (statusCode, data) in
-                
-            }
-        } else {
-            
-            NavitiaSDKPartners.shared.launchPayment(email: "flavien.sicard@gmail.com",
-                                                    color: UIColor(red: 238/255, green: 238/255, blue: 242/255, alpha: 1),
-                                                    callbackSuccess: { (html) in
-                                                        self.paymentWebView.loadHTMLString(html, baseURL: URL(string: NavitiaSDKPartners.shared.paymentBaseUrl))
-            }) { (statusCode, data) in
-                
-            }
+    func launchPayment() {
+        guard let email = email else {
+            return
         }
-        
-    }
-    
-    func dismissHTML() {
-        paymentWebView.isHidden = true
-        activityIndicator.isHidden = true
-    }
-    
-    func hidden(_ state: Bool) {
-        if state {
-            filterView.layer.opacity = 0.75
-            paymentWebView.isUserInteractionEnabled = false
-            filterView.isUserInteractionEnabled = false
-            
-        } else {
-            filterView.layer.opacity = 0
-            paymentWebView.isUserInteractionEnabled = true
-            filterView.isUserInteractionEnabled = true
+        enablePaymentView = true
+        activityIndicator.startAnimating()
+        NavitiaSDKPartners.shared.launchPayment(email: email,
+                                                color: Configuration.Color.backgroundPayment,
+                                                callbackSuccess: { (html) in
+                                                    self.paymentWebView.loadHTMLString(html, baseURL: URL(string: NavitiaSDKPartners.shared.paymentBaseUrl))
+        }) { (statusCode, data) in
+            self.activityIndicator.stopAnimating()
         }
     }
     
     @objc func clickFilter() {
-        self.delegate?.onClickFilter(self)
+        self.delegate?.onFilterClicked(self)
+    }
+    
+}
+
+extension BookPaymentView {
+    
+    var enableFilter: Bool {
+        get {
+            if filterView.layer.opacity == 0 {
+                return false
+            }
+            return true
+        }
+        set {
+            if newValue {
+                filterView.layer.opacity = 0.75
+                paymentWebView.isUserInteractionEnabled = false
+                filterView.isUserInteractionEnabled = false
+            } else {
+                filterView.layer.opacity = 0
+                paymentWebView.isUserInteractionEnabled = true
+                filterView.isUserInteractionEnabled = true
+            }
+        }
+    }
+    
+    var enablePaymentView: Bool {
+        get {
+            return !paymentWebView.isHidden
+        }
+        set {
+            if newValue {
+                paymentWebView.isHidden = false
+                activityIndicator.isHidden = false
+            } else {
+                paymentWebView.stringByEvaluatingJavaScript(from: "document.open();document.close()")
+                paymentWebView.isHidden = true
+                activityIndicator.isHidden = true
+            }
+        }
     }
     
 }
@@ -126,7 +144,7 @@ extension BookPaymentView: UIWebViewDelegate {
         if request.url?.absoluteString.starts(with: NavitiaSDKPartners.shared.paymentBaseUrl) ?? true {
             return true
         }
-        delegate?.onClickPayment(request, NavitiaSDKPartners.shared.paymentBaseUrl, self)
+        delegate?.onPaymentClicked(request, NavitiaSDKPartners.shared.paymentBaseUrl, self)
         return false
     }
     
