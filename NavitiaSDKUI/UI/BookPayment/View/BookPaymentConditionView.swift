@@ -36,21 +36,21 @@ open class BookPaymentConditionView: UIView {
             switch state {
             case .error:
                 acceptLabel.attributedText = NSMutableAttributedString()
-                    .semiBold(String(format: "%@ ", "J'accepte les".localized(withComment: "J'accepte les", bundle: NavitiaSDKUI.shared.bundle)),
+                    .normal(String(format: "%@ ", "i_accept_the".localized(withComment: "I accept the", bundle: NavitiaSDKUI.shared.bundle)),
                               color: Configuration.Color.red,
                               size: 10.5)
                 cguLabel.attributedText = NSMutableAttributedString()
-                    .bold(String(format: "%@.", "Conditions Générales".localized(withComment: "Conditions Générales", bundle: NavitiaSDKUI.shared.bundle)),
+                    .semiBold(String(format: "%@.", "terms_and_conditions".localized(withComment: "Terms and Conditions", bundle: NavitiaSDKUI.shared.bundle)),
                           color: Configuration.Color.red,
                           size: 11,
                           underline: true)
             case .none:
                 acceptLabel.attributedText = NSMutableAttributedString()
-                    .normal(String(format: "%@ ", "J'accepte les".localized(withComment: "J'accepte les", bundle: NavitiaSDKUI.shared.bundle)),
+                    .normal(String(format: "%@ ", "i_accept_the".localized(withComment: "I accept the", bundle: NavitiaSDKUI.shared.bundle)),
                             color: Configuration.Color.gray,
                             size: 10.5)
                 cguLabel.attributedText = NSMutableAttributedString()
-                    .semiBold(String(format: "%@.", "Conditions Générales".localized(withComment: "Conditions Générales", bundle: NavitiaSDKUI.shared.bundle)),
+                    .semiBold(String(format: "%@.", "terms_and_conditions".localized(withComment: "Terms and Conditions", bundle: NavitiaSDKUI.shared.bundle)),
                               color: Configuration.Color.gray,
                               size: 11,
                               underline: true)
@@ -94,6 +94,7 @@ open class BookPaymentConditionView: UIView {
         UINib(nibName: "BookPaymentConditionView", bundle: NavitiaSDKUI.shared.bundle).instantiate(withOwner: self, options: nil)
         view.frame = self.bounds
         addSubview(view)
+        
         
         state = .none
         isEnable = false

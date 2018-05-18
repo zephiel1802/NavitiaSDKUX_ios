@@ -83,6 +83,11 @@ open class BookPaymentMailFormView: UIView {
         view.frame = self.bounds
         addSubview(view)
         
+        
+        titleLabel.attributedText = NSMutableAttributedString()
+            .bold("to_receive_your_receipt".localized(withComment: "To receive your receipt :", bundle: NavitiaSDKUI.shared.bundle),
+                  size: 12)
+        mailTextField.placeholder = "e_mail_address".localized(withComment: "e-mail address", bundle: NavitiaSDKUI.shared.bundle)
         textFieldContainerView.layer.masksToBounds = true
         stateIndicator = .none
     }

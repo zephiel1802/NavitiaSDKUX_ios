@@ -57,13 +57,13 @@ open class BookPaymentCartView: UIView {
     
     private func _setupIcon() {
         titleLabel.attributedText = NSMutableAttributedString()
-            .bold("Mon panier".localized(withComment: "", bundle: NavitiaSDKUI.shared.bundle).uppercased(),
+            .bold("my_cart".localized(withComment: "My Cart", bundle: NavitiaSDKUI.shared.bundle).uppercased(),
                   color: Configuration.Color.gray, size: 10)
         titleAmountLabel.attributedText = NSMutableAttributedString()
-            .bold("Total".localized(withComment: "", bundle: NavitiaSDKUI.shared.bundle),
+            .bold("total".localized(withComment: "Total", bundle: NavitiaSDKUI.shared.bundle),
                   color: Configuration.Color.main, size: 12)
         titleTaxLabel.attributedText = NSMutableAttributedString()
-            .semiBold("Dont TVA".localized(withComment: "", bundle: NavitiaSDKUI.shared.bundle),
+            .semiBold("including_vat".localized(withComment: "Including VAT", bundle: NavitiaSDKUI.shared.bundle),
                       color: Configuration.Color.gray, size: 10)
     }
     

@@ -13,8 +13,10 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="BookPaymentView" customModule="NavitiaSDKUI" customModuleProvider="target">
             <connections>
                 <outlet property="activityIndicator" destination="kk3-NP-UOb" id="FK5-fU-0zX"/>
+                <outlet property="descriptionLabel" destination="jdf-Lb-CF4" id="2sS-LS-kMM"/>
                 <outlet property="filterView" destination="UiN-S7-SNs" id="Tft-cO-bo1"/>
                 <outlet property="paymentWebView" destination="T3j-ZF-Cn6" id="7zI-lm-t2v"/>
+                <outlet property="titleLabel" destination="rzR-I1-tva" id="Z9f-Ts-2oX"/>
                 <outlet property="view" destination="iN0-l3-epB" id="TuY-4o-5IW"/>
             </connections>
         </placeholder>

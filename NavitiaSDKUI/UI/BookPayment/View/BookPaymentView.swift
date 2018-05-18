@@ -18,6 +18,8 @@ protocol BookPaymentViewDelegate {
 open class BookPaymentView: UIView {
     
     @IBOutlet var view: UIView!
+    @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var descriptionLabel: UILabel!
     @IBOutlet weak var paymentWebView: UIWebView!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     @IBOutlet weak var filterView: UIView!
@@ -48,6 +50,13 @@ open class BookPaymentView: UIView {
         view.frame = self.bounds
         addSubview(view)
 
+        titleLabel.attributedText = NSMutableAttributedString()
+            .bold("payment_method".localized(withComment: "payment_method", bundle: NavitiaSDKUI.shared.bundle),
+                  size: 14)
+        descriptionLabel.attributedText = NSMutableAttributedString()
+            .normal("choose_your_card".localized(withComment: "choose_your_card", bundle: NavitiaSDKUI.shared.bundle),
+                  size: 11)
+        
         _setupGesture()
         _setupWebView()
         _setupActivityIndicator()

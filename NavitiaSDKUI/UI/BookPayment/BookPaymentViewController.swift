@@ -151,7 +151,7 @@ open class BookPaymentViewController: UIViewController {
         informationViewController.modalPresentationStyle = .overCurrentContext
         informationViewController.titleButton = [String(format: "%@ !", "understand".localized(withComment: "Understand", bundle: NavitiaSDKUI.shared.bundle))]
         informationViewController.delegate = self
-        informationViewController.information = "Votre paiement a été refusé."
+        informationViewController.information =  "your_payment_has_been_refused".localized(withComment: "Your payment has been refused", bundle: NavitiaSDKUI.shared.bundle)
         informationViewController.iconName = "paiement-denied"
         present(informationViewController, animated: true) {}
     }
