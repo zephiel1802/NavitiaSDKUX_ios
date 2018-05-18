@@ -19,20 +19,17 @@
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view contentMode="scaleToFill" id="iN0-l3-epB">
-            <rect key="frame" x="0.0" y="0.0" width="250" height="45"/>
+            <rect key="frame" x="0.0" y="0.0" width="403" height="45"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" horizontalCompressionResistancePriority="749" text="1 x Abonnement Novembre et puis après c'est comme ca aussi donc voila" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ldt-Oo-Vxe">
-                    <rect key="frame" x="13" y="8.5" width="138" height="29"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="749" text="1 x Abonnement Novembre et puis après c'est comme ca aussi donc voila" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ldt-Oo-Vxe">
+                    <rect key="frame" x="13" y="8.5" width="350.5" height="29"/>
                     <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" text="999CAD999" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MOq-iR-Su6">
-                    <rect key="frame" x="161" y="15.5" width="76" height="14.5"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="15" id="iUU-Or-UYS"/>
-                    </constraints>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" text="99" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MOq-iR-Su6">
+                    <rect key="frame" x="373.5" y="15.5" width="16.5" height="14.5"/>
                     <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
@@ -40,17 +37,17 @@
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
-                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="MOq-iR-Su6" secondAttribute="trailing" constant="13" id="64R-3Q-Uf2"/>
-                <constraint firstItem="Ldt-Oo-Vxe" firstAttribute="centerY" secondItem="vUN-kp-3ea" secondAttribute="centerY" id="FQg-eI-0mO"/>
-                <constraint firstItem="Ldt-Oo-Vxe" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="13" id="OKi-qB-hp8"/>
-                <constraint firstItem="Ldt-Oo-Vxe" firstAttribute="centerY" secondItem="MOq-iR-Su6" secondAttribute="centerY" id="m4x-nX-pjk"/>
-                <constraint firstItem="MOq-iR-Su6" firstAttribute="leading" secondItem="Ldt-Oo-Vxe" secondAttribute="trailing" constant="10" id="pgV-AA-esQ"/>
+                <constraint firstItem="Ldt-Oo-Vxe" firstAttribute="trailing" secondItem="MOq-iR-Su6" secondAttribute="leading" constant="-10" id="22q-WM-FDO"/>
+                <constraint firstItem="Ldt-Oo-Vxe" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="13" id="4Oo-cK-kmv"/>
+                <constraint firstItem="MOq-iR-Su6" firstAttribute="centerY" secondItem="vUN-kp-3ea" secondAttribute="centerY" id="VpJ-2g-dYe"/>
+                <constraint firstItem="Ldt-Oo-Vxe" firstAttribute="centerY" secondItem="vUN-kp-3ea" secondAttribute="centerY" id="gdR-cb-l7u"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="MOq-iR-Su6" secondAttribute="trailing" constant="13" id="u84-hB-kr2"/>
             </constraints>
             <nil key="simulatedTopBarMetrics"/>
             <nil key="simulatedBottomBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
-            <point key="canvasLocation" x="33" y="294.5"/>
+            <point key="canvasLocation" x="-43.5" y="294.5"/>
         </view>
     </objects>
 </document>
