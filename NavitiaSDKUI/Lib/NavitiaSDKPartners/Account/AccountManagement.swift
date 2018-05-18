@@ -9,7 +9,9 @@ import Foundation
 
 @objc(AccountManagement) public protocol AccountManagement {
     
-    var configuration : AccountManagementConfiguration? { get set }
+    var accountConfiguration : AccountManagementConfiguration? { get set }
+    
+    var accessToken : String { get }
     
     var userInfo : NavitiaUserInfo { get }
     

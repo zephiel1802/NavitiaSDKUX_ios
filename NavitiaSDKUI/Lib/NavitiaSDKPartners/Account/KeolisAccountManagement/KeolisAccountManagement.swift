@@ -49,6 +49,12 @@ import Foundation
         }
     }
 
+    public var accessToken: String {
+        get {
+            return _accessToken
+        }
+    }
+    
     public var isConnected: Bool {
         get {
             return !(_accessToken.isEmpty)
@@ -82,7 +88,7 @@ import Foundation
         }
     }
 
-    public var configuration : AccountManagementConfiguration? {
+    public var accountConfiguration : AccountManagementConfiguration? {
         get {
             return _keolisConfiguration
         }
@@ -94,7 +100,7 @@ import Foundation
 
     internal func getUserInfo(tryAccess : Bool = true, completion : @escaping (Bool, Int, [String : Any]?) -> Void) {
 
-        NavitiaSDKPartnersRequestBuilder.get(stringUrl: "\((configuration as! KeolisAccountManagementConfiguration).url)/oauth2/\((configuration as! KeolisAccountManagementConfiguration).network)/userinfo", header: _getKeolisConnectedHeader()) { (success, statusCode, data) in
+        NavitiaSDKPartnersRequestBuilder.get(stringUrl: "\((accountConfiguration as! KeolisAccountManagementConfiguration).url)/oauth2/\((accountConfiguration as! KeolisAccountManagementConfiguration).network)/userinfo", header: _getKeolisConnectedHeader()) { (success, statusCode, data) in
 
             if (statusCode == 401 || statusCode == 500) && tryAccess == true { // getUserInfo crashing due to disconnection
                 self.refreshToken() { success, statusCode, data in // try to refresh
@@ -133,7 +139,7 @@ import Foundation
             completion(false, NavitiaSDKPartnersReturnCode.badParameter.getCode(), data)
         }
 
-        NavitiaSDKPartnersRequestBuilder.soapPost(stringUrl: "\((configuration as! KeolisAccountManagementConfiguration).url)/socle/\((configuration as! KeolisAccountManagementConfiguration).network)/UpdateAccount/V1.0/", header: _getKeolisConnectedHeaderWS(), soapMessage: updatePasswordXML(oldPassword: oldPassword, newPassword: newPassword)) { (success, statusCode, data) in
+        NavitiaSDKPartnersRequestBuilder.soapPost(stringUrl: "\((accountConfiguration as! KeolisAccountManagementConfiguration).url)/socle/\((accountConfiguration as! KeolisAccountManagementConfiguration).network)/UpdateAccount/V1.0/", header: _getKeolisConnectedHeaderWS(), soapMessage: updatePasswordXML(oldPassword: oldPassword, newPassword: newPassword)) { (success, statusCode, data) in
 
             if statusCode == 401 && tryAccess == true {
                 self.refreshToken() { success, statusCode, data in
@@ -152,9 +158,12 @@ import Foundation
             } else {
 
                 if data != nil {
-
-                    completion(success, statusCode, [ "error": (data!["reponse"]["compteRendu"]["libelleRetour"].element?.text) ?? "",
-                                                      "code" : (data!["reponse"]["compteRendu"]["codeRetour"].element?.text) ?? "" ] )
+                    if ((data!["reponse"]["compteRendu"]["codeRetour"].element?.text) ?? "") == "0003" {
+                        completion(success, NavitiaSDKPartnersReturnCode.passwordInvalid.getCode(), NavitiaSDKPartnersReturnCode.passwordInvalid.getError())
+                    } else {
+                        completion(success, statusCode, [ "error": (data!["reponse"]["compteRendu"]["libelleRetour"].element?.text) ?? "",
+                                                          "code" : (data!["reponse"]["compteRendu"]["codeRetour"].element?.text) ?? "" ] )
+                    }
                 } else if NavitiaSDKPartnersReturnCode(rawValue: statusCode) != nil {
 
                     completion(success, statusCode, NavitiaSDKPartnersReturnCode(rawValue: statusCode)?.getError())
@@ -173,7 +182,7 @@ import Foundation
         }
 
         let courtesyStr : String = (courtesy == .Unknown ? "" : (courtesy == .Mr ? "M." : "MME"))
-        NavitiaSDKPartnersRequestBuilder.soapPost(stringUrl: "\((self.configuration as! KeolisAccountManagementConfiguration).url)/socle/\((self.configuration as! KeolisAccountManagementConfiguration).network)/UpdatePerson/V1.0/", header: self._getKeolisConnectedHeaderWS(), soapMessage: updateInfoXML(courtesy: courtesyStr, firstName: firstName, lastName: lastName, birthdate: birthdate), completion: { (success, statusCode, data) in
+        NavitiaSDKPartnersRequestBuilder.soapPost(stringUrl: "\((self.accountConfiguration as! KeolisAccountManagementConfiguration).url)/socle/\((self.accountConfiguration as! KeolisAccountManagementConfiguration).network)/UpdatePerson/V1.0/", header: self._getKeolisConnectedHeaderWS(), soapMessage: updateInfoXML(courtesy: courtesyStr, firstName: firstName, lastName: lastName, birthdate: birthdate), completion: { (success, statusCode, data) in
             if (statusCode == 401) && tryAccess == true {
                 self.refreshToken() { success, statusCode, data in
                     if success == true && statusCode == 200 {
@@ -212,7 +221,7 @@ import Foundation
             return
         }
 
-        NavitiaSDKPartnersRequestBuilder.soapPost(stringUrl: "\((configuration as! KeolisAccountManagementConfiguration).url)/socle/\((configuration as! KeolisAccountManagementConfiguration).network)/UpdateAccount/V1.0/", header: _getKeolisConnectedHeaderWS(), soapMessage: updateEmailXML(email: email)) { (success, statusCode, data) in
+        NavitiaSDKPartnersRequestBuilder.soapPost(stringUrl: "\((accountConfiguration as! KeolisAccountManagementConfiguration).url)/socle/\((accountConfiguration as! KeolisAccountManagementConfiguration).network)/UpdateAccount/V1.0/", header: _getKeolisConnectedHeaderWS(), soapMessage: updateEmailXML(email: email)) { (success, statusCode, data) in
 
             if (statusCode == 401) && tryAccess == true {
                 self.refreshToken() { success, statusCode, data in
@@ -250,7 +259,7 @@ import Foundation
             return
         }
 
-        NavitiaSDKPartnersRequestBuilder.post(stringUrl: "\((configuration as! KeolisAccountManagementConfiguration).url)/oauth2/\((configuration as! KeolisAccountManagementConfiguration).network)/token?grant_type=refresh_token&refresh_token=\(_refreshToken)", header: _getKeolisHeader()) { success, statusCode, data in
+        NavitiaSDKPartnersRequestBuilder.post(stringUrl: "\((accountConfiguration as! KeolisAccountManagementConfiguration).url)/oauth2/\((accountConfiguration as! KeolisAccountManagementConfiguration).network)/token?grant_type=refresh_token&refresh_token=\(_refreshToken)", header: _getKeolisHeader()) { success, statusCode, data in
 
             if success == true && statusCode == 200 && data != nil {
 
@@ -277,7 +286,7 @@ import Foundation
     internal func _getKeolisHeader(isXMLContent : Bool = false) -> [String : String] {
 
         return ["Content-Type" : "application/" + ( isXMLContent ? "xml" : "x-www-form-urlencoded"),
-                "Authorization" : "Basic \((configuration as! KeolisAccountManagementConfiguration).encodedSecretClient64Oauth)"]
+                "Authorization" : "Basic \((accountConfiguration as! KeolisAccountManagementConfiguration).encodedSecretClient64Oauth)"]
     }
 
     internal func _getKeolisConnectedHeader(isXMLContent : Bool = false) -> [String : String] {
@@ -289,7 +298,7 @@ import Foundation
     internal func _getKeolisHeaderWS() -> [String : String] {
 
         return ["Content-Type" : "application/xml",
-                "Authorization" : "Basic \((configuration as! KeolisAccountManagementConfiguration).encodedSecretClient64WS)"]
+                "Authorization" : "Basic \((accountConfiguration as! KeolisAccountManagementConfiguration).encodedSecretClient64WS)"]
     }
 
     internal func _getKeolisConnectedHeaderWS() -> [String: String] {
@@ -331,7 +340,8 @@ extension KeolisAccountManagement {
         }
 
         let encryptPassword = password.encrypt(key: (_keolisConfiguration!).hmacKey)
-        NavitiaSDKPartnersRequestBuilder.post(stringUrl: "\((configuration as! KeolisAccountManagementConfiguration).url)/oauth2/\((configuration as! KeolisAccountManagementConfiguration).network)/token?grant_type=password&password=\((encryptPassword!.encodeURIComponent())!)&username=\((username.encodeURIComponent())!)", header: _getKeolisHeader()) { ( success, statusCode, data) in
+        print("\((accountConfiguration as! KeolisAccountManagementConfiguration).url)/oauth2/\((accountConfiguration as! KeolisAccountManagementConfiguration).network)/token?grant_type=password&password=\((encryptPassword!.encodeURIComponent())!)&username=\((username.encodeURIComponent())!)")
+        NavitiaSDKPartnersRequestBuilder.post(stringUrl: "\((accountConfiguration as! KeolisAccountManagementConfiguration).url)/oauth2/\((accountConfiguration as! KeolisAccountManagementConfiguration).network)/token?grant_type=password&password=\((encryptPassword!.encodeURIComponent())!)&username=\((username.encodeURIComponent())!)", header: _getKeolisHeader()) { ( success, statusCode, data) in
 
             if success && data != nil && statusCode < 300 {
 
@@ -368,18 +378,18 @@ extension KeolisAccountManagement {
 
     public func logOut( callbackSuccess : @escaping () -> Void, callbackError : @escaping (Int, [String : Any]?) -> Void) {
 
-        NavitiaSDKPartnersRequestBuilder.post(stringUrl: "\((configuration as! KeolisAccountManagementConfiguration).url)/oauth2/\((configuration as! KeolisAccountManagementConfiguration).network)/revoke?token=\(_accessToken.encodeURIComponent()!)&token_type_hint=access_token&revoke?token=\(self._refreshToken.encodeURIComponent()!)&token_type_hint=refresh", header: self._getKeolisHeader()) { (success, statusCode, data) in
+        NavitiaSDKPartnersRequestBuilder.post(stringUrl: "\((accountConfiguration as! KeolisAccountManagementConfiguration).url)/oauth2/\((accountConfiguration as! KeolisAccountManagementConfiguration).network)/revoke?token=\(_accessToken.encodeURIComponent()!)&token_type_hint=access_token&revoke?token=\(self._refreshToken.encodeURIComponent()!)&token_type_hint=refresh", header: self._getKeolisHeader()) { (success, statusCode, data) in
 
                 if success && statusCode < 300 {
 
                     print("NavitiaSDKPartners/logOut : success ")
+                    NavitiaSDKPartners.shared.resetCart(callbackSuccess: {
+                    }, callbackError: { (_, _) in
+                    })
                     self._accessToken = ""
                     self._refreshToken = ""
                     self._anonymousEmail = ""
                     self._anonymousPassword = ""
-                    NavitiaSDKPartners.shared.resetCart(callbackSuccess: {
-                    }, callbackError: { (_, _) in
-                    })
                     callbackSuccess()
                 } else {
 
@@ -393,7 +403,7 @@ extension KeolisAccountManagement {
                                callbackError: @escaping (Int, [String : Any]?) -> Void) {
 
         let password = NavitiaSDKPartnersExtension.randomString(length: 8)
-        NavitiaSDKPartnersRequestBuilder.soapPost(stringUrl: "\((configuration as! KeolisAccountManagementConfiguration).url)/socle/\((configuration as! KeolisAccountManagementConfiguration).network)/CreateAccount/V1.0/", header: _getKeolisHeaderWS(), soapMessage: createAccountAnonymousXML(password: password.encrypt(key: (_keolisConfiguration?.hmacKey)!))) { success, statusCode, data in
+        NavitiaSDKPartnersRequestBuilder.soapPost(stringUrl: "\((accountConfiguration as! KeolisAccountManagementConfiguration).url)/socle/\((accountConfiguration as! KeolisAccountManagementConfiguration).network)/CreateAccount/V1.0/", header: _getKeolisHeaderWS(), soapMessage: createAccountAnonymousXML(password: password.encrypt(key: (_keolisConfiguration?.hmacKey)!))) { success, statusCode, data in
 
             if success {
 
@@ -453,7 +463,7 @@ extension KeolisAccountManagement {
         }
 
         let courtesyStr : String = (courtesy == .Unknown ? "" : (courtesy == .Mr ? "M." : "MME"))
-        NavitiaSDKPartnersRequestBuilder.soapPost(stringUrl: "\((configuration as! KeolisAccountManagementConfiguration).url)/socle/\((configuration as! KeolisAccountManagementConfiguration).network)/CreateAccount/V1.0/", header: _getKeolisHeaderWS(), soapMessage: createAccountNonAnonymousXML(firstName: firstName, lastName: lastName, email: email, birthdate: birthdate, password: (password.encrypt(key: (_keolisConfiguration?.hmacKey)!))!, courtesy: courtesyStr)) { (success, statusCode, data) in
+        NavitiaSDKPartnersRequestBuilder.soapPost(stringUrl: "\((accountConfiguration as! KeolisAccountManagementConfiguration).url)/socle/\((accountConfiguration as! KeolisAccountManagementConfiguration).network)/CreateAccount/V1.0/", header: _getKeolisHeaderWS(), soapMessage: createAccountNonAnonymousXML(firstName: firstName, lastName: lastName, email: email, birthdate: birthdate, password: (password.encrypt(key: (_keolisConfiguration?.hmacKey)!))!, courtesy: courtesyStr)) { (success, statusCode, data) in
 
             if success {
 
@@ -506,7 +516,7 @@ extension KeolisAccountManagement {
         }
 
         let courtesyStr : String = (courtesy == .Unknown ? "" : (courtesy == .Mr ? "M." : "MME"))
-        NavitiaSDKPartnersRequestBuilder.soapPost(stringUrl: "\((configuration as! KeolisAccountManagementConfiguration).url)/socle/\((configuration as! KeolisAccountManagementConfiguration).network)/CreateAccount/V1.0/", header: _getKeolisHeaderWS(), soapMessage: transformAccountXML(firstName: firstName, lastName: lastName, email: email, birthdate: birthdate, password: (password.encrypt(key: (_keolisConfiguration?.hmacKey)!))!, courtesy: courtesyStr)) { (success, statusCode, data) in
+        NavitiaSDKPartnersRequestBuilder.soapPost(stringUrl: "\((accountConfiguration as! KeolisAccountManagementConfiguration).url)/socle/\((accountConfiguration as! KeolisAccountManagementConfiguration).network)/CreateAccount/V1.0/", header: _getKeolisHeaderWS(), soapMessage: transformAccountXML(firstName: firstName, lastName: lastName, email: email, birthdate: birthdate, password: (password.encrypt(key: (_keolisConfiguration?.hmacKey)!))!, courtesy: courtesyStr)) { (success, statusCode, data) in
 
             if success {
 
@@ -545,7 +555,7 @@ extension KeolisAccountManagement {
     public func activateAccount( internetAccountId: String, token: String,
                                  callbackSuccess: @escaping () -> Void, callbackError: @escaping (Int, [String : Any]?) -> Void) {
 
-        NavitiaSDKPartnersRequestBuilder.soapPost(stringUrl: "\((configuration as! KeolisAccountManagementConfiguration).url)/socle/\((configuration as! KeolisAccountManagementConfiguration).network)/ActivateAccount/V1.0/", header: _getKeolisHeaderWS(), soapMessage: activateAccountXML(internetAccountId: internetAccountId, token: token)) { (success, statusCode, data) in
+        NavitiaSDKPartnersRequestBuilder.soapPost(stringUrl: "\((accountConfiguration as! KeolisAccountManagementConfiguration).url)/socle/\((accountConfiguration as! KeolisAccountManagementConfiguration).network)/ActivateAccount/V1.0/", header: _getKeolisHeaderWS(), soapMessage: activateAccountXML(internetAccountId: internetAccountId, token: token)) { (success, statusCode, data) in
 
             if success {
 
@@ -589,7 +599,7 @@ extension KeolisAccountManagement {
             return
         }
 
-        NavitiaSDKPartnersRequestBuilder.soapPost(stringUrl: "\((configuration as! KeolisAccountManagementConfiguration).url)/socle/\((configuration as! KeolisAccountManagementConfiguration).network)/ResetPassword/V1.0/", header: _getKeolisHeaderWS(), soapMessage: resetPasswordXML(email: email)) { (success, statusCode, data) in
+        NavitiaSDKPartnersRequestBuilder.soapPost(stringUrl: "\((accountConfiguration as! KeolisAccountManagementConfiguration).url)/socle/\((accountConfiguration as! KeolisAccountManagementConfiguration).network)/ResetPassword/V1.0/", header: _getKeolisHeaderWS(), soapMessage: resetPasswordXML(email: email)) { (success, statusCode, data) in
 
             if success {
 
@@ -649,7 +659,7 @@ extension KeolisAccountManagement {
                 newUserInfo.firstName = ((data!["prenom"] as? String ?? "").isEmpty ? "X" : (data!["prenom"] as? String ?? "X"))
                 newUserInfo.lastName = ((data!["nom"] as? String ?? "").isEmpty ? "X" : (data!["nom"] as? String ?? "X"))
                 newUserInfo.network = data!["filiale"] as? String ?? ""
-                newUserInfo.idTechPortal = data!["idTechPortail"] as? String ?? ""
+                newUserInfo.id = data!["idTechPortail"] as? String ?? ""
                 newUserInfo.accountStatus = KeolisAccountStatus(rawValue : Int(data!["statutCompte"] as? String ?? "0")!)!
                 newUserInfo.email = data!["email"] as? String ?? ""
                 newUserInfo.courtesy = NavitiaSDKPartnersCourtesy.fromKeolis(str: data!["civilite"] as? String ?? "")
@@ -710,7 +720,7 @@ extension KeolisAccountManagement {
     }
 
     public func sendActivationEmail(callbackSuccess: @escaping () -> Void, callbackError: @escaping (Int, [String : Any]?) -> Void) {
-        NavitiaSDKPartnersRequestBuilder.soapPost(stringUrl: "\((configuration as! KeolisAccountManagementConfiguration).url)/socle/\((configuration as! KeolisAccountManagementConfiguration).network)/UpdateAccount/V1.0/", header: _getKeolisConnectedHeaderWS(), soapMessage: sendActivationEmailXML()) { (success, statusCode, data) in
+        NavitiaSDKPartnersRequestBuilder.soapPost(stringUrl: "\((accountConfiguration as! KeolisAccountManagementConfiguration).url)/socle/\((accountConfiguration as! KeolisAccountManagementConfiguration).network)/UpdateAccount/V1.0/", header: _getKeolisConnectedHeaderWS(), soapMessage: sendActivationEmailXML()) { (success, statusCode, data) in
 
             if success  {
                 print("NavitiaSDKPartners/sendActivationEmail: success")
@@ -818,12 +828,12 @@ extension KeolisAccountManagement {
 
     func updatePasswordXML(oldPassword : String, newPassword : String) -> String {
         let numeroFlux : String = "INTWSV0024"
-        return "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\" ?>\n<question xmlns=\"http://www.keoliscrm.fr/ModifierCompteInternetV2/V2.0\">\n<entete>\n<idTransaction>\(getIdTransaction(numeroFlux:numeroFlux))</idTransaction>\n<numeroFlux>\(numeroFlux)</numeroFlux>\n<siEmetteur>\(_keolisConfiguration?.network ?? "")</siEmetteur>\n<casUsage>CU02</casUsage>\n<ssaEmetteur>VAD</ssaEmetteur>\n<versionFlux>02.10</versionFlux>\n<dateOrigineFlux>\(getFormattedDate())</dateOrigineFlux>\n<ssaRecepteur>\(_keolisConfiguration?.ssaRecepteur ?? "")</ssaRecepteur>\n<dateTraitementFlux>\(getFormattedDate())</dateTraitementFlux>\n<typeFlux>\(_keolisConfiguration?.typeFlux ?? "")</typeFlux>\n</entete>\n<compteInternet>\n<idCompteInternet>\((userInfo as! KeolisUserInfo).idTechPortal)</idCompteInternet>\n<motDePasse>\((oldPassword.encrypt(key: (_keolisConfiguration!).hmacKey))!)</motDePasse>\n<nouveauMotDePasse>\((newPassword.encrypt(key: (_keolisConfiguration!).hmacKey))!)</nouveauMotDePasse>\n</compteInternet>\n</question>"
+        return "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\" ?>\n<question xmlns=\"http://www.keoliscrm.fr/ModifierCompteInternetV2/V2.0\">\n<entete>\n<idTransaction>\(getIdTransaction(numeroFlux:numeroFlux))</idTransaction>\n<numeroFlux>\(numeroFlux)</numeroFlux>\n<siEmetteur>\(_keolisConfiguration?.network ?? "")</siEmetteur>\n<casUsage>CU02</casUsage>\n<ssaEmetteur>VAD</ssaEmetteur>\n<versionFlux>02.10</versionFlux>\n<dateOrigineFlux>\(getFormattedDate())</dateOrigineFlux>\n<ssaRecepteur>\(_keolisConfiguration?.ssaRecepteur ?? "")</ssaRecepteur>\n<dateTraitementFlux>\(getFormattedDate())</dateTraitementFlux>\n<typeFlux>\(_keolisConfiguration?.typeFlux ?? "")</typeFlux>\n</entete>\n<compteInternet>\n<idCompteInternet>\((userInfo as! KeolisUserInfo).id)</idCompteInternet>\n<motDePasse>\((oldPassword.encrypt(key: (_keolisConfiguration!).hmacKey))!)</motDePasse>\n<nouveauMotDePasse>\((newPassword.encrypt(key: (_keolisConfiguration!).hmacKey))!)</nouveauMotDePasse>\n</compteInternet>\n</question>"
     }
 
     internal func getAccountInfoXML() -> String {
         let numeroFlux : String = "INTWSV0020"
-        return "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\" ?>\n<question xmlns=\"http://www.keoliscrm.fr/RechercherCompteInternetV2/V2.0\">\n<entete>\n<idTransaction>\(getIdTransaction(numeroFlux:numeroFlux))</idTransaction>\n<numeroFlux>\(numeroFlux)</numeroFlux>\n<siEmetteur>\(_keolisConfiguration?.network ?? "")</siEmetteur>\n<casUsage>CU01</casUsage>\n<ssaEmetteur>\(_keolisConfiguration?.ssaEmeteur ?? "")</ssaEmetteur>\n<versionFlux>02.10</versionFlux>\n<dateOrigineFlux>\(getFormattedDate())</dateOrigineFlux>\n<ssaRecepteur>\(_keolisConfiguration?.ssaRecepteur ?? "")</ssaRecepteur>\n<dateTraitementFlux>\(getFormattedDate())</dateTraitementFlux>\n<typeFlux>\(_keolisConfiguration?.typeFlux ?? "")</typeFlux>\n</entete>\n<criteres>\n<idCompteInternet>\((userInfo as! KeolisUserInfo).idTechPortal)</idCompteInternet>\n</criteres>\n</question>\n"
+        return "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\" ?>\n<question xmlns=\"http://www.keoliscrm.fr/RechercherCompteInternetV2/V2.0\">\n<entete>\n<idTransaction>\(getIdTransaction(numeroFlux:numeroFlux))</idTransaction>\n<numeroFlux>\(numeroFlux)</numeroFlux>\n<siEmetteur>\(_keolisConfiguration?.network ?? "")</siEmetteur>\n<casUsage>CU01</casUsage>\n<ssaEmetteur>\(_keolisConfiguration?.ssaEmeteur ?? "")</ssaEmetteur>\n<versionFlux>02.10</versionFlux>\n<dateOrigineFlux>\(getFormattedDate())</dateOrigineFlux>\n<ssaRecepteur>\(_keolisConfiguration?.ssaRecepteur ?? "")</ssaRecepteur>\n<dateTraitementFlux>\(getFormattedDate())</dateTraitementFlux>\n<typeFlux>\(_keolisConfiguration?.typeFlux ?? "")</typeFlux>\n</entete>\n<criteres>\n<idCompteInternet>\((userInfo as! KeolisUserInfo).id)</idCompteInternet>\n</criteres>\n</question>\n"
     }
 
     internal func transformAccountXML(firstName : String, lastName : String, email : String, birthdate : Date? = nil, password : String, courtesy : String = "") -> String {
@@ -884,7 +894,7 @@ extension KeolisAccountManagement {
         <typeFlux>\(_keolisConfiguration?.typeFlux ?? "")</typeFlux>
         </entete>
         <compteInternet>
-        <idCompteInternet>\((userInfo as! KeolisUserInfo).idTechPortal)</idCompteInternet>
+        <idCompteInternet>\((userInfo as! KeolisUserInfo).id)</idCompteInternet>
         <nouvelEmail>\(email)</nouvelEmail>
         <motDePasse>\(_anonymousPassword.encrypt(key: (_keolisConfiguration?.hmacKey)!)!)</motDePasse>
         </compteInternet>
@@ -897,26 +907,26 @@ extension KeolisAccountManagement {
         return """
         <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
         <question xmlns="http://www.keoliscrm.fr/ModifierPersonneV2/V2.0">
-        <entete>
-        <idTransaction>\(getIdTransaction(numeroFlux:numeroFlux))</idTransaction>
-        <numeroFlux>\(numeroFlux)</numeroFlux>
-        <siEmetteur>\(_keolisConfiguration?.network ?? "")</siEmetteur>
-        <casUsage>CU01</casUsage>
-        <ssaEmetteur>VAD</ssaEmetteur>
-        <versionFlux>02.00</versionFlux>
-        <dateOrigineFlux>\(getFormattedDate())</dateOrigineFlux>
-        <ssaRecepteur>\(_keolisConfiguration?.ssaRecepteur ?? "")</ssaRecepteur>
-        <dateTraitementFlux>\(getFormattedDate())</dateTraitementFlux>
-        <typeFlux>\(_keolisConfiguration?.typeFlux ?? "")</typeFlux>
-        </entete>
-        <personnePhysique>
-        <idTechnique>\((userInfo as! KeolisUserInfo).idTechPortalPerson)</idTechnique>
-        <canalModification>3</canalModification>
-        \(courtesy.isEmpty ? "" : "<civilite>\(courtesy)</civilite>")
-        \(lastName.isEmpty ? "" : "<nom>\(lastName)</nom>")
-        \(firstName.isEmpty ? "" : "<prenom>\(firstName)</prenom>")
-        \(birthdate == nil ? "" : "<dateNaissance>\(getFormattedDate(date: birthdate!))</dateNaissance>")
-        </personnePhysique>
+            <entete>
+                <idTransaction>\(getIdTransaction(numeroFlux:numeroFlux))</idTransaction>
+                <numeroFlux>\(numeroFlux)</numeroFlux>
+                <siEmetteur>\(_keolisConfiguration?.network ?? "")</siEmetteur>
+                <casUsage>CU01</casUsage>
+                <ssaEmetteur>VAD</ssaEmetteur>
+                <versionFlux>02.00</versionFlux>
+                <dateOrigineFlux>\(getFormattedDate())</dateOrigineFlux>
+                <ssaRecepteur>\(_keolisConfiguration?.ssaRecepteur ?? "")</ssaRecepteur>
+                <dateTraitementFlux>\(getFormattedDate())</dateTraitementFlux>
+                <typeFlux>\(_keolisConfiguration?.typeFlux ?? "")</typeFlux>
+            </entete>
+            <personnePhysique>
+                <idTechnique>\((userInfo as! KeolisUserInfo).idTechPortalPerson)</idTechnique>
+                <canalModification>3</canalModification>
+                \(courtesy.isEmpty ? "" : "<civilite>\(courtesy)</civilite>")
+                \(lastName.isEmpty ? "" : "<nom>\(lastName)</nom>")
+                \(firstName.isEmpty ? "" : "<prenom>\(firstName)</prenom>")
+                \(birthdate == nil ? "" : "<dateNaissance>\(getFormattedDate(date: birthdate!))</dateNaissance>")
+            </personnePhysique>
         </question>
         """
     }
@@ -939,7 +949,7 @@ extension KeolisAccountManagement {
                 <typeFlux>\(_keolisConfiguration?.typeFlux ?? "")</typeFlux>
             </entete>
             <compteInternet>
-                <idCompteInternet>\((userInfo as! KeolisUserInfo).idTechPortal)</idCompteInternet>
+                <idCompteInternet>\((userInfo as! KeolisUserInfo).id)</idCompteInternet>
             </compteInternet>
         </question>
         """

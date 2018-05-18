@@ -8,7 +8,7 @@
 
 import Foundation
 
-@objc(BookOfferType) public enum BookOfferType : Int {
+@objc(NavitiaBookOfferType) public enum NavitiaBookOfferType : Int {
     
     case Ticket
     case Membership

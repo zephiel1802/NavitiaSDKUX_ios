@@ -8,7 +8,7 @@
 
 import Foundation
 
-@objc(BookOffer) public protocol BookOffer {
+@objc(NavitiaBookOffer) public protocol NavitiaBookOffer {
     
     var id : String { get }
     var productId : String { get }
@@ -17,7 +17,7 @@ import Foundation
     var price : Float { get }
     var currency : String { get }
     var maxQuantity : Int { get }
-    var type : BookOfferType { get }
+    var type : NavitiaBookOfferType { get }
     var VATRate : Float { get }
     var saleable : Bool { get }
     var displayOrder : Int { get }

@@ -14,7 +14,7 @@ import Foundation
     private var stockedOffers : [VSCTBookOffer] = []
     
     public private(set) var orderId : String = ""
-    public private(set) var cart: [BookManagementCartItem] = []
+    public private(set) var cart: [NavitiaBookCartItem] = []
     public var paymentBaseUrl : String {
         get {
             return (_vsctConfiguration?.baseUrl)!
@@ -127,7 +127,7 @@ import Foundation
         })
     }
     
-    public func getOffers(callbackSuccess : @escaping ([BookOffer]) -> Void, callbackError : @escaping (Int, [String: Any]?) -> Void) {
+    public func getOffers(callbackSuccess : @escaping ([NavitiaBookOffer]) -> Void, callbackError : @escaping (Int, [String: Any]?) -> Void) {
         if NavitiaSDKPartners.shared.isConnected {
             NavitiaSDKPartners.shared.refreshToken(callbackSuccess: {
                 self.openSession(callbackSuccess: {
@@ -176,7 +176,7 @@ import Foundation
         }
     }
     
-    public func getOffers(offerType: BookOfferType, callbackSuccess: @escaping ([BookOffer]) -> Void, callbackError: @escaping (Int, [String : Any]?) -> Void) {
+    public func getOffers(offerType: NavitiaBookOfferType, callbackSuccess: @escaping ([NavitiaBookOffer]) -> Void, callbackError: @escaping (Int, [String : Any]?) -> Void) {
         getOffers(callbackSuccess: { (offersArray) in
             
             if offersArray.count == 0  {
@@ -213,7 +213,7 @@ import Foundation
         })
         
         if cartItem == nil {
-            cart.append(BookManagementCartItem(bookOffer: offerItem!, quantity: 1))
+            cart.append(NavitiaBookCartItem(bookOffer: offerItem!, quantity: 1))
         } else if cartItem!.quantity < (cartItem!.bookOffer as! VSCTBookOffer).maxQuantity {
             cartItem!.setQuantity(q: cartItem!.quantity + 1)
         } else {
@@ -287,7 +287,7 @@ import Foundation
         })
         
         if cartItem == nil {
-            cart.append(BookManagementCartItem(bookOffer: offerItem!, quantity: quantity))
+            cart.append(NavitiaBookCartItem(bookOffer: offerItem!, quantity: quantity))
         } else if quantity < (cartItem!.bookOffer as! VSCTBookOffer).maxQuantity {
             cartItem!.setQuantity(q: quantity)
         } else {
@@ -301,7 +301,7 @@ import Foundation
         callbackSuccess()
     }
     
-    public func getOrderValidation(callbackSuccess : @escaping ([BookManagementCartItem]) -> Void, callbackError : @escaping (Int, [String: Any]?) -> Void) {
+    public func getOrderValidation(callbackSuccess : @escaping ([NavitiaBookCartItem]) -> Void, callbackError : @escaping (Int, [String: Any]?) -> Void) {
         
         if cart.isEmpty {
             print("NavitiaSDKPartners/getOrderValidation : error")
@@ -367,7 +367,7 @@ import Foundation
                                         "paymentMean" : [ "label" : "Carte Bancaire",
                                                           "type" : "CB",
                                                           "displayOrder" : 1 ] ]
-        
+        print(content)
         NavitiaSDKPartnersRequestBuilder.post(stringUrl: _getUrl() + "/orders", header: _getConnectedHeader(), content: content) { (success, statusCode, data) in
             if success {
                 print("NavitiaSDKPartners/createOrder : success")
@@ -403,17 +403,20 @@ extension VSCTBookManagement {
         
         var array : [VSCTBookOffer] = []
         (data["array"] as! [[String: Any]]).forEach { rawOffer in
+            print(NavitiaSDKPartnersExtension.getString(from:(rawOffer["legalInfos"] as! String)))
+            print(rawOffer["legalInfos"] as! String)
             let offer : VSCTBookOffer = VSCTBookOffer(id: (rawOffer["id"] as! String),
                                                       productId: (rawOffer["idProduit"] as! String),
-                                                      title: (rawOffer["label"] as! String), shortDescription: NavitiaSDKPartnersExtension.getString(from: (rawOffer["description"] as! String))!,
+                                                      title: (rawOffer["label"] as! String),
+                                                      shortDescription: NavitiaSDKPartnersExtension.getString(from: (rawOffer["description"] as! String))!,
                                                       price: (((rawOffer["fare"] as! [String: Any])["price"] as! NSNumber).floatValue),
                                                       currency: ((rawOffer["fare"] as! [String: Any])["currency"] as! String),
                                                       maxQuantity: (rawOffer["maxQuantity"] as! Int),
-                                                      type: (rawOffer["typeOffer"] as! String) == "PASS" ? BookOfferType.Membership : BookOfferType.Ticket,
+                                                      type: (rawOffer["typeOffer"] as! String) == "PASS" ? NavitiaBookOfferType.Membership : NavitiaBookOfferType.Ticket,
                                                       VATRate: ((rawOffer["fare"] as! [String: Any])["tva"] as! Float),
                                                       saleable: (rawOffer["saleable"] as! Bool),
                                                       displayOrder: (rawOffer["displayOrder"] as! Int),
-                                                      legalInfos: (rawOffer["legalInfos"] as! String),
+                                                      legalInfos: NavitiaSDKPartnersExtension.getString(from:(rawOffer["legalInfos"] as! String))!,
                                                       imageUrl: (((rawOffer["image"] as! [String: Any])["link"] as! [String: Any])["href"] as! String),
                                                       displayOffer : (rawOffer["display"] as! Bool),
                                                       mandatoryAccount: false)

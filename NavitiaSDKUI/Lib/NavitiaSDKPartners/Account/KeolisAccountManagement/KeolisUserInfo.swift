@@ -12,7 +12,7 @@ import Foundation
     public var firstName : String = "X" // "prenom"
     public var lastName : String = "X" // "nom"
     public var network : String = "" // "filiale"
-    public var idTechPortal : String = "" // "idTechPortail"
+    public var id : String = "" // "idTechPortail"
     public var idTechPortalPerson : String = "" // "idTechPortailPersonne"
     public var accountStatus : KeolisAccountStatus = KeolisAccountStatus(rawValue: 0)! // "statutCompte"
     public var email : String = ""// "email"
@@ -23,7 +23,7 @@ import Foundation
         aCoder.encode(firstName, forKey: "firstName")
         aCoder.encode(lastName, forKey: "lastName")
         aCoder.encode(network, forKey: "network")
-        aCoder.encode(idTechPortal, forKey: "idTechPortal")
+        aCoder.encode(id, forKey: "id")
         aCoder.encode(idTechPortalPerson, forKey: "idTechPortalPerson")
         aCoder.encode(String(accountStatus.rawValue), forKey: "accountStatus")
         aCoder.encode(email, forKey: "email")
@@ -35,7 +35,7 @@ import Foundation
         self.firstName = aDecoder.decodeObject(forKey: "firstName") as! String
         self.lastName = aDecoder.decodeObject(forKey: "lastName") as! String
         self.network = aDecoder.decodeObject(forKey: "network") as! String
-        self.idTechPortal = aDecoder.decodeObject(forKey: "idTechPortal") as! String
+        self.id = aDecoder.decodeObject(forKey: "id") as! String
         self.idTechPortalPerson = aDecoder.decodeObject(forKey: "idTechPortalPerson") as! String
         self.accountStatus = KeolisAccountStatus(rawValue: Int(aDecoder.decodeObject(forKey: "accountStatus") as! String)!)!
         self.email = aDecoder.decodeObject(forKey: "email") as! String
@@ -51,7 +51,7 @@ import Foundation
         return [ "firstName" : self.firstName,
                  "lastName" : self.lastName,
                  "network" : self.network,
-                 "idTechPortal" : self.idTechPortal,
+                 "idTechPortal" : self.id,
                  "idTechPortalPerson" : self.idTechPortalPerson,
                  "accountStatus" : self.accountStatus.getStatus(),
                  "email" : self.email,
