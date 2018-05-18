@@ -146,9 +146,9 @@
             </subviews>
             <constraints>
                 <constraint firstItem="omQ-IP-gJc" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="3MA-xx-9bk"/>
-                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="omQ-IP-gJc" secondAttribute="trailing" id="7AV-FF-NG6"/>
-                <constraint firstItem="omQ-IP-gJc" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="TVQ-fa-n6M"/>
-                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="omQ-IP-gJc" secondAttribute="bottom" id="XSv-sL-ZaH"/>
+                <constraint firstAttribute="trailing" secondItem="omQ-IP-gJc" secondAttribute="trailing" id="7AV-FF-NG6"/>
+                <constraint firstItem="omQ-IP-gJc" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="TVQ-fa-n6M"/>
+                <constraint firstAttribute="bottom" secondItem="omQ-IP-gJc" secondAttribute="bottom" id="XSv-sL-ZaH"/>
                 <constraint firstItem="doZ-wr-sWf" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="gxN-cU-aqj"/>
                 <constraint firstItem="doZ-wr-sWf" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="mA1-tW-EZg"/>
             </constraints>

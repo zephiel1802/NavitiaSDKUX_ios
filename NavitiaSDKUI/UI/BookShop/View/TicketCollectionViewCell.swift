@@ -58,7 +58,7 @@ class TicketCollectionViewCell: UICollectionViewCell {
         super.awakeFromNib()
         
         _setup()
-        addShadow(opacity: 0.28)
+        addShadow(opacity: 0.1)
     }
     
     static var nib:UINib {
