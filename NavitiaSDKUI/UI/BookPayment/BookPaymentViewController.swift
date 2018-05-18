@@ -69,7 +69,9 @@ open class BookPaymentViewController: UIViewController {
     
     private func _displayLogin() {
         let bookPaymentProfilView = BookPaymentProfilView(frame: CGRect(x: 0, y: 0, width: 0, height: 75))
-        bookPaymentProfilView.name = "Test"
+        if let userInfo = NavitiaSDKPartners.shared.userInfo as? KeolisUserInfo {
+            bookPaymentProfilView.name = String(format: "%@ %@", userInfo.firstName, userInfo.lastName)
+        }
         _addViewInScroll(view: bookPaymentProfilView)
         
         let bookPaymentCartView = BookPaymentCartView(frame: CGRect(x: 0, y: 0, width: composentWidth, height: 111))
@@ -82,11 +84,11 @@ open class BookPaymentViewController: UIViewController {
         
         bookPaymentConditionView = BookPaymentConditionView(frame: CGRect(x: 0, y: 0, width: 0, height: 31))
         bookPaymentConditionView!.delegate = self
+        bookPaymentConditionView!.isEnable = true
         _addViewInScroll(view: bookPaymentConditionView!)
 
         bookPaymentView = BookPaymentView(frame: CGRect(x: 0, y: 0, width: 0, height: 140))
         bookPaymentView.delegate = self
-        bookPaymentView.launchPayment()
         _addViewInScroll(view: bookPaymentView)
         
         display = true
@@ -111,7 +113,6 @@ open class BookPaymentViewController: UIViewController {
         
         bookPaymentView = BookPaymentView(frame: CGRect(x: 0, y: 0, width: 0, height: 140))
         bookPaymentView.delegate = self
-    //    bookPaymentView.log = _viewModel.isConnected
         _addViewInScroll(view: bookPaymentView)
         
         display = true
@@ -223,7 +224,6 @@ extension BookPaymentViewController {
         view.endEditing(true)
     }
     
-    // A REFAIRE
     @objc func adjustForKeyboard(notification: Notification) {
         if scrollView.contentSize.height > scrollView.bounds.size.height {
             let userInfo = notification.userInfo!
@@ -265,7 +265,7 @@ extension BookPaymentViewController: BookPaymentConditionViewDelegate {
             if bookPaymentConditionView.conditionSwitch.isOn {
                 if bookPaymentMailFormView.isValid {
                     bookPaymentView.email = bookPaymentMailFormView.mailTextField.text
-                    bookPaymentView.launchPayment()
+                    
                 }
             } else {
                 bookPaymentView.enablePaymentView = false
@@ -273,7 +273,11 @@ extension BookPaymentViewController: BookPaymentConditionViewDelegate {
         }
         if bookPaymentConditionView.conditionSwitch.isOn {
             dismissKeyboard()
-            bookPaymentView.enableFilter = false
+            if let userInfo = NavitiaSDKPartners.shared.userInfo as? KeolisUserInfo {
+                bookPaymentView.email = userInfo.email
+                bookPaymentView.launchPayment()
+                bookPaymentView.enableFilter = false
+            }
             scrollView.setContentOffset(CGPoint(x: 0, y: max(0, scrollView.contentSize.height - scrollView.bounds.size.height)), animated: true)
         } else {
             bookPaymentView.enableFilter = true
