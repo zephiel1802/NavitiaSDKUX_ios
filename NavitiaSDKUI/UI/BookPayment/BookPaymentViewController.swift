@@ -225,23 +225,24 @@ extension BookPaymentViewController {
     
     // A REFAIRE
     @objc func adjustForKeyboard(notification: Notification) {
-        let userInfo = notification.userInfo!
-        let keyboardScreenEndFrame = (userInfo[UIKeyboardFrameEndUserInfoKey] as! NSValue).cgRectValue
-        let keyboardViewEndFrame = view.convert(keyboardScreenEndFrame, from: view.window)
-        
-        if notification.name == Notification.Name.UIKeyboardWillHide {
-            scrollView.contentInset = UIEdgeInsets.zero
-            if let bookPaymentMailFormView = bookPaymentMailFormView {
-                scrollView.setContentOffset(CGPoint(x: 0, y: 0), animated: true)
+        if scrollView.contentSize.height > scrollView.bounds.size.height {
+            let userInfo = notification.userInfo!
+            let keyboardScreenEndFrame = (userInfo[UIKeyboardFrameEndUserInfoKey] as! NSValue).cgRectValue
+            let keyboardViewEndFrame = view.convert(keyboardScreenEndFrame, from: view.window)
+            
+            if notification.name == Notification.Name.UIKeyboardWillHide {
+                scrollView.contentInset = UIEdgeInsets.zero
+                if let _ = bookPaymentMailFormView {
+                    scrollView.setContentOffset(CGPoint(x: 0, y: 0), animated: true)
+                }
+            } else {
+                 scrollView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: keyboardViewEndFrame.height, right: 0)
+                if let bookPaymentMailFormView = bookPaymentMailFormView {
+                    scrollView.setContentOffset(CGPoint(x: 0, y: bookPaymentMailFormView.frame.origin.y - 10), animated: true)
+                }
             }
-        } else {
-            scrollView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: keyboardViewEndFrame.height, right: 0)
-            if let bookPaymentMailFormView = bookPaymentMailFormView {
-                let value = bookPaymentMailFormView.frame.origin.y - scrollView.contentInset.bottom + bookPaymentMailFormView.frame.size.height
-                scrollView.setContentOffset(CGPoint(x: 0, y: value), animated: true)
-            }
+            scrollView.scrollIndicatorInsets = scrollView.contentInset
         }
-        scrollView.scrollIndicatorInsets = scrollView.contentInset
     }
     
 }
@@ -256,13 +257,11 @@ extension BookPaymentViewController: BookShopViewControllerDelegate {
 
 extension BookPaymentViewController: BookPaymentConditionViewDelegate {
     
-    // A REFAIRE
     func onConditionSwitchValueChanged(_ bookPaymentConditionView: BookPaymentConditionView) {
         if !_viewModel.isConnected {
             guard let bookPaymentMailFormView = bookPaymentMailFormView else {
                 return
             }
-            
             if bookPaymentConditionView.conditionSwitch.isOn {
                 if bookPaymentMailFormView.isValid {
                     bookPaymentView.email = bookPaymentMailFormView.mailTextField.text
@@ -273,31 +272,12 @@ extension BookPaymentViewController: BookPaymentConditionViewDelegate {
             }
         }
         if bookPaymentConditionView.conditionSwitch.isOn {
+            dismissKeyboard()
             bookPaymentView.enableFilter = false
-            if let bookPaymentMailFormView = bookPaymentMailFormView {
-                bookPaymentMailFormView.textFieldContainerView.backgroundColor = Configuration.Color.disableGray
-                bookPaymentMailFormView.mailTextField.isEnabled = false
-                bookPaymentMailFormView.stateIndicator = .none
-            }
+            scrollView.setContentOffset(CGPoint(x: 0, y: max(0, scrollView.contentSize.height - scrollView.bounds.size.height)), animated: true)
         } else {
             bookPaymentView.enableFilter = true
-            if let bookPaymentMailFormView = bookPaymentMailFormView {
-                bookPaymentMailFormView.textFieldContainerView.backgroundColor = Configuration.Color.white
-                bookPaymentMailFormView.mailTextField.isEnabled = true
-            }
         }
-        
-        
-        
-        if bookPaymentConditionView.conditionSwitch.isOn {
-            scrollView.setContentOffset(CGPoint(x: 0, y: max(0, scrollView.contentSize.height - scrollView.bounds.size.height)), animated: true)
-        }
-        
-        guard let bookPaymentMailFormView = bookPaymentMailFormView else {
-            return
-        }
-        
-        bookPaymentMailFormView.mailTextField.isEnabled = !bookPaymentConditionView.conditionSwitch.isOn
     }
     
     func onConditionSwitchClicked(_ bookPaymentConditionView: BookPaymentConditionView) {
@@ -344,6 +324,13 @@ extension BookPaymentViewController: BookPaymentMailFormViewDelegate {
     func valueChangedTextField(_ value: Bool, _ bookPaymentMailFormView: BookPaymentMailFormView) {
         if let bookPaymentConditionView = bookPaymentConditionView {
             bookPaymentConditionView.isEnable = value
+        }
+        if bookPaymentConditionView?.conditionSwitch.isOn ?? true {
+            bookPaymentConditionView?.conditionSwitch.setOn(false, animated: true)
+            if !_viewModel.isConnected {
+                bookPaymentView.enablePaymentView = false
+            }
+            bookPaymentView.enableFilter = true
         }
     }
     

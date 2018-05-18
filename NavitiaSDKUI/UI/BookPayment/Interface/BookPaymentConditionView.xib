@@ -13,6 +13,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="BookPaymentConditionView" customModule="NavitiaSDKUI" customModuleProvider="target">
             <connections>
                 <outlet property="acceptLabel" destination="dNs-0C-6ad" id="r61-dI-0mA"/>
+                <outlet property="cguLabel" destination="faw-4t-nAq" id="ePf-bI-HfX"/>
                 <outlet property="conditionSwitch" destination="lbE-fu-C3X" id="lGD-xH-G5A"/>
                 <outlet property="conditionTapView" destination="k1p-9i-V1J" id="2La-ei-xsU"/>
                 <outlet property="view" destination="GgS-0D-NFP" id="pJ2-R6-b8r"/>
@@ -29,8 +30,8 @@
                         <action selector="onConditionSwitchValueChanged:" destination="-1" eventType="valueChanged" id="3HV-Ys-oPl"/>
                     </connections>
                 </switch>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="J'accepte les Conditions Générale." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dNs-0C-6ad">
-                    <rect key="frame" x="5" y="9.5" width="168" height="12"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="J'accepte les" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dNs-0C-6ad">
+                    <rect key="frame" x="5" y="9.5" width="64" height="12"/>
                     <fontDescription key="fontDescription" type="system" pointSize="10"/>
                     <color key="textColor" red="0.50196078431372548" green="0.50196078431372548" blue="0.50196078431372548" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
@@ -41,15 +42,23 @@
                         <constraint firstAttribute="width" constant="51" id="cau-mZ-Q4m"/>
                     </constraints>
                 </view>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" Conditions Générales." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="faw-4t-nAq">
+                    <rect key="frame" x="69" y="9" width="110" height="12"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                    <color key="textColor" red="0.50196078430000002" green="0.50196078430000002" blue="0.50196078430000002" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
             </subviews>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
                 <constraint firstItem="dNs-0C-6ad" firstAttribute="leading" secondItem="5TA-sT-Kfi" secondAttribute="leading" constant="5" id="0B5-CO-JEB"/>
                 <constraint firstItem="lbE-fu-C3X" firstAttribute="top" secondItem="5TA-sT-Kfi" secondAttribute="top" id="Az1-3c-Qo3"/>
+                <constraint firstItem="faw-4t-nAq" firstAttribute="leading" secondItem="dNs-0C-6ad" secondAttribute="trailing" id="BvV-KG-RlN"/>
                 <constraint firstItem="k1p-9i-V1J" firstAttribute="top" secondItem="5TA-sT-Kfi" secondAttribute="top" id="Gus-Cj-Cf6"/>
                 <constraint firstItem="k1p-9i-V1J" firstAttribute="bottom" secondItem="5TA-sT-Kfi" secondAttribute="bottom" id="LxP-1R-xlF"/>
                 <constraint firstItem="lbE-fu-C3X" firstAttribute="bottom" secondItem="5TA-sT-Kfi" secondAttribute="bottom" id="QMV-dd-2Iz"/>
                 <constraint firstItem="5TA-sT-Kfi" firstAttribute="trailing" secondItem="k1p-9i-V1J" secondAttribute="trailing" constant="5" id="YWu-1U-3cS"/>
+                <constraint firstItem="faw-4t-nAq" firstAttribute="centerY" secondItem="GgS-0D-NFP" secondAttribute="centerY" id="gvc-U4-H3r"/>
                 <constraint firstItem="dNs-0C-6ad" firstAttribute="centerY" secondItem="GgS-0D-NFP" secondAttribute="centerY" id="sdn-Zp-jgh"/>
                 <constraint firstAttribute="trailing" secondItem="lbE-fu-C3X" secondAttribute="trailing" constant="5" id="uj7-fN-jbo"/>
             </constraints>

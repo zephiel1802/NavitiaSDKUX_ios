@@ -20,6 +20,7 @@ open class BookPaymentConditionView: UIView {
     
     @IBOutlet var view: UIView!
     @IBOutlet weak var acceptLabel: UILabel!
+    @IBOutlet weak var cguLabel: UILabel!
     @IBOutlet weak var conditionButton: UIButton!
     @IBOutlet weak var conditionSwitch: UISwitch!
     @IBOutlet weak var conditionTapView: UIView!
@@ -38,18 +39,21 @@ open class BookPaymentConditionView: UIView {
                     .semiBold(String(format: "%@ ", "J'accepte les".localized(withComment: "J'accepte les", bundle: NavitiaSDKUI.shared.bundle)),
                               color: Configuration.Color.red,
                               size: 10.5)
+                cguLabel.attributedText = NSMutableAttributedString()
                     .bold(String(format: "%@.", "Conditions Générales".localized(withComment: "Conditions Générales", bundle: NavitiaSDKUI.shared.bundle)),
                           color: Configuration.Color.red,
-                          size: 11)
+                          size: 11,
+                          underline: true)
             case .none:
                 acceptLabel.attributedText = NSMutableAttributedString()
                     .normal(String(format: "%@ ", "J'accepte les".localized(withComment: "J'accepte les", bundle: NavitiaSDKUI.shared.bundle)),
                             color: Configuration.Color.gray,
-                            size: 10.5,
-                            underline: false)
+                            size: 10.5)
+                cguLabel.attributedText = NSMutableAttributedString()
                     .semiBold(String(format: "%@.", "Conditions Générales".localized(withComment: "Conditions Générales", bundle: NavitiaSDKUI.shared.bundle)),
                               color: Configuration.Color.gray,
-                              size: 11)
+                              size: 11,
+                              underline: true)
             }
         }
     }
@@ -110,6 +114,11 @@ open class BookPaymentConditionView: UIView {
                                                         action: #selector(BookPaymentConditionView.onConditionLabelClicked))
         acceptLabel.addGestureRecognizer(acceptLabelGesture)
         acceptLabel.isUserInteractionEnabled = true
+        
+        let cguLabelGesture = UITapGestureRecognizer(target: self,
+                                                        action: #selector(BookPaymentConditionView.onConditionLabelClicked))
+        cguLabel.addGestureRecognizer(cguLabelGesture)
+        cguLabel.isUserInteractionEnabled = true
     }
     
     @objc func onConditionLabelClicked() {
