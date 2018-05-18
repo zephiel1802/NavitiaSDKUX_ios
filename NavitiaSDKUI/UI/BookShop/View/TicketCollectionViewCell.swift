@@ -131,8 +131,6 @@ class TicketCollectionViewCell: UICollectionViewCell {
                   size: 10)
     }
     
-    
-    
     private func _moreAmountButtonSetColor(color: UIColor = Configuration.Color.main) {
         moreAmountButton.setAttributedTitle(NSMutableAttributedString()
             .icon("more",
