@@ -117,6 +117,8 @@ import UIKit
     
     private func _setupTypeSegmentedControl() {
         typeSegmentedControl.tintColor = Configuration.Color.main
+        typeSegmentedControl.setTitleTextAttributes([kCTFontAttributeName : UIFont.systemFont(ofSize: 13, weight: .regular)], for: .normal)
+        typeSegmentedControl.setTitleTextAttributes([kCTFontAttributeName : UIFont.systemFont(ofSize: 13, weight: .bold)], for: .selected)
         typeSegmentedControl.setTitle("unit_tickets".localized(withComment: "Unit tickets", bundle: NavitiaSDKUI.shared.bundle), forSegmentAt: 0)
         typeSegmentedControl.setTitle("subscriptions".localized(withComment: "Subscriptions", bundle: NavitiaSDKUI.shared.bundle), forSegmentAt: 1)
     }

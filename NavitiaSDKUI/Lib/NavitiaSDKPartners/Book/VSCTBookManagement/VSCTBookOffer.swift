@@ -8,7 +8,7 @@
 
 import Foundation
 
-@objc(VSCTBookOffer) public class VSCTBookOffer : NSObject, BookOffer {
+@objc(VSCTBookOffer) public class VSCTBookOffer : NSObject, NavitiaBookOffer {
     
     public private(set) var id : String = ""
     public private(set) var productId : String = ""
@@ -17,7 +17,7 @@ import Foundation
     public private(set) var price : Float = 0.0
     public private(set) var currency : String = ""
     public private(set) var maxQuantity : Int = 10
-    public private(set) var type : BookOfferType = .Unknown
+    public private(set) var type : NavitiaBookOfferType = .Unknown
     public private(set) var VATRate : Float = 0.0
     public private(set) var saleable : Bool = true
     public private(set) var displayOrder : Int = 9999
@@ -36,7 +36,7 @@ import Foundation
     
     private let imageCache = NSCache<NSString, AnyObject>()
   
-    init(id : String, productId : String, title : String, shortDescription : String, price : Float, currency : String, maxQuantity : Int, type : BookOfferType, VATRate : Float, saleable : Bool, displayOrder : Int, legalInfos : String, imageUrl : String, displayOffer : Bool, mandatoryAccount : Bool) {
+    init(id : String, productId : String, title : String, shortDescription : String, price : Float, currency : String, maxQuantity : Int, type : NavitiaBookOfferType, VATRate : Float, saleable : Bool, displayOrder : Int, legalInfos : String, imageUrl : String, displayOffer : Bool, mandatoryAccount : Bool) {
         self.id = id
         self.productId = productId
         self.title = title

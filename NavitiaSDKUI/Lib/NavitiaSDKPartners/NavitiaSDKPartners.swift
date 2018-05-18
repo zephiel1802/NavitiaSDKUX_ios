@@ -13,7 +13,7 @@ import Foundation
     internal var accountManagement : AccountManagement? = nil
     internal var bookManagement : BookManagement? = nil
     
-    public static let shared = NavitiaSDKPartners()
+    @objc public static let shared = NavitiaSDKPartners()
     
     @objc public func getAccountManagement() -> AccountManagement? {
         
@@ -25,14 +25,17 @@ import Foundation
         return bookManagement
     }
     
-    @objc public func initialize(accountConfiguration : AccountManagementConfiguration?, bookConfiguration : BookManagementConfiguration?) {
+    @objc public func initialize( accountConfiguration : AccountManagementConfiguration? = nil,
+                                  bookConfiguration : BookManagementConfiguration? = nil) {
 
         if accountConfiguration != nil {
-            setAccountManagement(for: (accountConfiguration?.type)!)?.configuration = accountConfiguration
+            setAccountManagement(for: (accountConfiguration?.type)!)?.accountConfiguration = accountConfiguration
         }
+        
         if bookConfiguration != nil {
             setBookManagement(for: (bookConfiguration?.type)!)?.bookConfiguration = bookConfiguration
         }
+        
     }
     
     func setAccountManagement(for type : AccountManagementType) -> AccountManagement? {
@@ -59,6 +62,7 @@ import Foundation
         print("NavitiaSDKPartners : Book system set to \(bookManagement?.getBookManagementName() ?? "undefined")")
         return bookManagement
     }
+    
 }
 
 extension NavitiaSDKPartners : AccountManagement {
@@ -69,6 +73,15 @@ extension NavitiaSDKPartners : AccountManagement {
             return
         }
         accountManagement?.refreshToken(callbackSuccess: callbackSuccess, callbackError: callbackError)
+    }
+    
+    public var accessToken : String {
+        get {
+            if accountManagement == nil {
+                return ""
+            }
+            return accountManagement!.accessToken
+        }
     }
     
     public var isConnected : Bool {
@@ -89,12 +102,12 @@ extension NavitiaSDKPartners : AccountManagement {
         }
     }
     
-    public var configuration: AccountManagementConfiguration? {
+    public var accountConfiguration: AccountManagementConfiguration? {
         get {
-            return (accountManagement?.configuration)
+            return (accountManagement?.accountConfiguration)
         }
         set {
-            accountManagement?.configuration = newValue
+            accountManagement?.accountConfiguration = newValue
         }
     }
     
@@ -246,7 +259,7 @@ extension NavitiaSDKPartners : BookManagement {
         }
     }
     
-    public var cart: [BookManagementCartItem] {
+    public var cart: [NavitiaBookCartItem] {
         get {
             if bookManagement == nil {
                 return [ ]
@@ -298,7 +311,7 @@ extension NavitiaSDKPartners : BookManagement {
         return (bookManagement?.getBookManagementType())!
     }
     
-    public func getOffers(callbackSuccess: @escaping ([BookOffer]) -> Void, callbackError: @escaping (Int, [String : Any]?) -> Void) {
+    public func getOffers(callbackSuccess: @escaping ([NavitiaBookOffer]) -> Void, callbackError: @escaping (Int, [String : Any]?) -> Void) {
         
         if bookManagement == nil {
             let error = NavitiaSDKPartnersReturnCode.bookManagementNotInit
@@ -308,7 +321,7 @@ extension NavitiaSDKPartners : BookManagement {
         bookManagement?.getOffers(callbackSuccess: callbackSuccess, callbackError: callbackError)
     }
     
-    public func getOffers(offerType: BookOfferType, callbackSuccess: @escaping ([BookOffer]) -> Void, callbackError: @escaping (Int, [String : Any]?) -> Void) {
+    public func getOffers(offerType: NavitiaBookOfferType, callbackSuccess: @escaping ([NavitiaBookOffer]) -> Void, callbackError: @escaping (Int, [String : Any]?) -> Void) {
         
         if bookManagement == nil {
             let error = NavitiaSDKPartnersReturnCode.bookManagementNotInit
@@ -347,7 +360,7 @@ extension NavitiaSDKPartners : BookManagement {
         bookManagement?.setOfferQuantity(offerId: offerId, quantity: quantity, callbackSuccess: callbackSuccess, callbackError: callbackError)
     }
     
-    public func getOrderValidation(callbackSuccess : @escaping ([BookManagementCartItem]) -> Void, callbackError : @escaping (Int, [String: Any]?) -> Void) {
+    public func getOrderValidation(callbackSuccess : @escaping ([NavitiaBookCartItem]) -> Void, callbackError : @escaping (Int, [String: Any]?) -> Void) {
         
         if bookManagement == nil {
             let error = NavitiaSDKPartnersReturnCode.bookManagementNotInit

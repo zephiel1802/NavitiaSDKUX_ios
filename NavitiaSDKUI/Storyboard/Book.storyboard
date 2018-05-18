@@ -48,7 +48,7 @@
                                 <rect key="frame" x="0.0" y="90" width="320" height="53"/>
                                 <subviews>
                                     <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="rHz-Vj-7AX">
-                                        <rect key="frame" x="15" y="15" width="290" height="29"/>
+                                        <rect key="frame" x="10" y="15" width="300" height="29"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <segments>
                                             <segment title="Titres unitaires"/>
@@ -62,9 +62,9 @@
                                 </subviews>
                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 <constraints>
-                                    <constraint firstItem="rHz-Vj-7AX" firstAttribute="leading" secondItem="K9m-Ep-DcY" secondAttribute="leading" constant="15" id="4RJ-gQ-Hhd"/>
+                                    <constraint firstItem="rHz-Vj-7AX" firstAttribute="leading" secondItem="K9m-Ep-DcY" secondAttribute="leading" constant="10" id="4RJ-gQ-Hhd"/>
                                     <constraint firstItem="rHz-Vj-7AX" firstAttribute="top" secondItem="K9m-Ep-DcY" secondAttribute="top" constant="15" id="BMe-Ld-lxJ"/>
-                                    <constraint firstAttribute="trailing" secondItem="rHz-Vj-7AX" secondAttribute="trailing" constant="15" id="LTd-Rb-C9G"/>
+                                    <constraint firstAttribute="trailing" secondItem="rHz-Vj-7AX" secondAttribute="trailing" constant="10" id="LTd-Rb-C9G"/>
                                     <constraint firstAttribute="bottom" secondItem="rHz-Vj-7AX" secondAttribute="bottom" constant="10" id="aSi-Yz-zYT"/>
                                 </constraints>
                             </view>

@@ -42,5 +42,6 @@ extension NSMutableAttributedString {
         }
         return self
     }
+    
 }
 

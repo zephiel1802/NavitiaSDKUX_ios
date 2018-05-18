@@ -12,7 +12,7 @@ class TicketLoadCollectionViewCell: UICollectionViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         
-        addShadow(opacity: 0.28)
+        addShadow(opacity: 0.1)
     }
     
     static var nib:UINib {

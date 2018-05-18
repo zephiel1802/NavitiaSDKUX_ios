@@ -8,9 +8,9 @@
 
 import Foundation
 
-@objc(BookManagementCartItem) public class BookManagementCartItem: NSObject {
+@objc(NavitiaBookCartItem) public class NavitiaBookCartItem: NSObject {
     
-    public private(set) var bookOffer : BookOffer
+    public private(set) var bookOffer : NavitiaBookOffer
     public private(set) var quantity : Int
     
     public var itemPrice : Float {
@@ -36,7 +36,7 @@ import Foundation
                  "bookOffer" : bookOffer.toDictionnary()]
     }
     
-    init(bookOffer : BookOffer, quantity : Int) {
+    init(bookOffer : NavitiaBookOffer, quantity : Int) {
         
         self.bookOffer = bookOffer
         self.quantity = quantity

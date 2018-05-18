@@ -24,6 +24,10 @@
     case notInCart = 9014 // trying to remove an offer not in cart
     case cartNotValidated = 9015 // cart was not validated
     case cartEmpty = 9016 // cart is empty
+    case ticketManagementNotInit = 9017 // at this moment, the ticket management is not initialized
+    case masabiDeviceChangeError = 9018 // masabi error on sync wallet, warn user device change credit will be used
+    case masabiNoDeviceChangeCredit = 9019 // masabi error on sync wallet, user don't any device change token left
+    case passwordInvalid = 9020 // on update password, old password is not matching current password
 
     public static let all: [String: Int] = [
         "notLogged" : notLogged.rawValue,
@@ -33,6 +37,7 @@
         "badParameter" : badParameter.rawValue,
         "timeOut" : timeOut.rawValue,
         "invalidGrant" : invalidGrant.rawValue,
+        "passwordInvalid" : passwordInvalid.rawValue,
         "infoAlreadyUsed" : infoAlreadyUsed.rawValue,
         "bookManagementNotInit" : bookManagementNotInit.rawValue,
         "notMatchingAccount" : notMatchingAccount.rawValue,
@@ -41,7 +46,10 @@
         "maxQuantity" : maxQuantity.rawValue,
         "notInCart" : notInCart.rawValue,
         "cartNotValidated" : cartNotValidated.rawValue,
-        "cartEmpty" : cartEmpty.rawValue
+        "cartEmpty" : cartEmpty.rawValue,
+        "ticketManagementNotInit" : ticketManagementNotInit.rawValue,
+        "masabiDeviceChangeError" : masabiDeviceChangeError.rawValue,
+        "masabiNoDeviceChangeCredit" : masabiNoDeviceChangeCredit.rawValue
     ]
     
     func getError() -> [String: Any] {
@@ -64,6 +72,9 @@
             break
         case .timeOut:
             error["error"] = "Request timed out"
+            break
+        case .passwordInvalid:
+            error["error"] = "Password invalid"
             break
         case .invalidGrant:
             error["error"] = "Invalid grant"
@@ -90,11 +101,19 @@
             error["error"] = "Not in cart"
             break
         case .cartNotValidated:
-            error["error"] = "Cart Not Validated"
+            error["error"] = "Cart not validated"
             break
         case .cartEmpty:
-            error["error"] = "Cart Empty"
+            error["error"] = "Cart empty"
             break
+        case .ticketManagementNotInit:
+            error["error"] = "Ticket management not init"
+            break
+        case .masabiDeviceChangeError:
+            error["error"] = "Masabi/Warning : Warning device changed"
+            break
+        case .masabiNoDeviceChangeCredit:
+            error["error"] = "Masabi/Error : No device change credit"
         }
         return error
     }
