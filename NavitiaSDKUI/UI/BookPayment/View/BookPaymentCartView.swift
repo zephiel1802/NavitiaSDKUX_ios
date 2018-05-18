@@ -81,7 +81,7 @@ open class BookPaymentCartView: UIView {
                   size: 10)
     }
     
-    public func addOffer(_ cartItem: BookManagementCartItem) {
+    public func addOffer(_ cartItem: NavitiaBookCartItem) {
         let bookPaymentOfferView = BookPaymentOfferView(frame: CGRect(x: 0, y: 0, width: offerStackView.frame.size.width, height: heightCart))
         bookPaymentOfferView.setTitle(cartItem.bookOffer.title, quantity: cartItem.quantity)
         bookPaymentOfferView.setPrice(cartItem.itemPrice, currency: cartItem.bookOffer.currency)
