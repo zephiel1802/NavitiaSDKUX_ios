@@ -9,27 +9,36 @@ import Foundation
 
 extension NSMutableAttributedString {
     
-    @discardableResult func normal(_ text: String, color: UIColor = UIColor.black, size: CGFloat = 12.0) -> NSMutableAttributedString {
+    @discardableResult func normal(_ text: String, color: UIColor = UIColor.black, size: CGFloat = 12.0, underline: Bool = false) -> NSMutableAttributedString {
         let normal = NSMutableAttributedString(string:text,
                                                attributes: [.font : UIFont.systemFont(ofSize: size, weight: .regular),
                                                             .foregroundColor: color])
         append(normal)
+        if underline {
+            addAttribute(.underlineStyle, value: NSUnderlineStyle.styleSingle.rawValue, range: NSRange(location: 0, length: text.characters.count))
+        }
         return self
     }
     
-    @discardableResult func semiBold(_ text: String, color: UIColor = UIColor.black, size: CGFloat = 12.0) -> NSMutableAttributedString {
+    @discardableResult func semiBold(_ text: String, color: UIColor = UIColor.black, size: CGFloat = 12.0, underline: Bool = false) -> NSMutableAttributedString {
         let normal = NSMutableAttributedString(string:text,
                                                attributes: [.font : UIFont.systemFont(ofSize: size, weight: .semibold),
                                                             .foregroundColor: color])
         append(normal)
+        if underline {
+            addAttribute(.underlineStyle, value: NSUnderlineStyle.styleSingle.rawValue, range: NSRange(location: 0, length: text.characters.count))
+        }
         return self
     }
     
-    @discardableResult func bold(_ text: String, color: UIColor = UIColor.black, size: CGFloat = 12.0) -> NSMutableAttributedString {
+    @discardableResult func bold(_ text: String, color: UIColor = UIColor.black, size: CGFloat = 12.0, underline: Bool = false) -> NSMutableAttributedString {
         let boldString = NSMutableAttributedString(string:text,
                                                    attributes: [.font : UIFont.systemFont(ofSize: size, weight: .bold),
                                                                 .foregroundColor: color])
         append(boldString)
+        if underline {
+            addAttribute(.underlineStyle, value: NSUnderlineStyle.styleSingle.rawValue, range: NSRange(location: 0, length: text.characters.count))
+        }
         return self
     }
     

@@ -28,4 +28,16 @@ extension UIView {
         layer.shadowRadius = 0
     }
     
+    public func addInnerShadow(topColor: UIColor = UIColor.black.withAlphaComponent(0.3)) {
+        let shadowLayer = CAGradientLayer()
+        shadowLayer.cornerRadius = layer.cornerRadius
+        shadowLayer.frame = bounds
+        shadowLayer.frame.size.height = 10.0
+        shadowLayer.colors = [
+            topColor.cgColor,
+            UIColor.white.withAlphaComponent(0).cgColor
+        ]
+        layer.addSublayer(shadowLayer)
+    }
+    
 }
