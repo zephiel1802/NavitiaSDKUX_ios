@@ -301,7 +301,6 @@
 		84A2C52720AECF0500E7ADA0 /* Bit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A2C4BB20AECF0500E7ADA0 /* Bit.swift */; };
 		84A2C52820AECF0500E7ADA0 /* HMAC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A2C4BC20AECF0500E7ADA0 /* HMAC.swift */; };
 		84A2C52920AECF0500E7ADA0 /* UInt16+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A2C4BD20AECF0500E7ADA0 /* UInt16+Extension.swift */; };
-		84A2C52A20AECF0600E7ADA0 /* Collection+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A2C4BE20AECF0500E7ADA0 /* Collection+Extension.swift */; };
 		84A2C52B20AECF0600E7ADA0 /* UInt32+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A2C4BF20AECF0500E7ADA0 /* UInt32+Extension.swift */; };
 		84A2C52C20AECF0600E7ADA0 /* Digest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A2C4C020AECF0500E7ADA0 /* Digest.swift */; };
 		84A2C52D20AECF0600E7ADA0 /* NoPadding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A2C4C120AECF0500E7ADA0 /* NoPadding.swift */; };
@@ -322,10 +321,8 @@
 		84A2C53C20AECF0600E7ADA0 /* PBKDF1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A2C4D220AECF0500E7ADA0 /* PBKDF1.swift */; };
 		84A2C53D20AECF0600E7ADA0 /* SecureBytes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A2C4D320AECF0500E7ADA0 /* SecureBytes.swift */; };
 		84A2C53E20AECF0600E7ADA0 /* ZeroPadding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A2C4D420AECF0500E7ADA0 /* ZeroPadding.swift */; };
-		84A2C53F20AECF0600E7ADA0 /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A2C4D520AECF0500E7ADA0 /* String+Extension.swift */; };
 		84A2C54020AECF0600E7ADA0 /* Authenticator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A2C4D620AECF0500E7ADA0 /* Authenticator.swift */; };
 		84A2C54120AECF0600E7ADA0 /* SHA3.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A2C4D720AECF0500E7ADA0 /* SHA3.swift */; };
-		84A2C54220AECF0600E7ADA0 /* Operators.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A2C4D820AECF0500E7ADA0 /* Operators.swift */; };
 		84A2C54320AECF0600E7ADA0 /* RandomBytesSequence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A2C4D920AECF0500E7ADA0 /* RandomBytesSequence.swift */; };
 		84A2C54420AECF0600E7ADA0 /* Rabbit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A2C4DA20AECF0500E7ADA0 /* Rabbit.swift */; };
 		84A2C54520AECF0600E7ADA0 /* PKCS7.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A2C4DB20AECF0500E7ADA0 /* PKCS7.swift */; };
@@ -1796,7 +1793,6 @@
 				84A2C55020AECF0600E7ADA0 /* SHA2.swift in Sources */,
 				84A2C57620AECF0600E7ADA0 /* AccountManagement.swift in Sources */,
 				8454D42D2068D3A800C97D2F /* ISO8601DateTransform.swift in Sources */,
-				84A2C53F20AECF0600E7ADA0 /* String+Extension.swift in Sources */,
 				8454D3932068D3A800C97D2F /* APIHelper.swift in Sources */,
 				8454D3EE2068D3A800C97D2F /* Companie.swift in Sources */,
 				8454D3942068D3A800C97D2F /* AlamofireImplementations.swift in Sources */,
@@ -1844,7 +1840,6 @@
 				8454D4372068D3A800C97D2F /* DictionaryTransform.swift in Sources */,
 				8454D37F2068D3A800C97D2F /* HeatMapApi.swift in Sources */,
 				8454D4312068D3A800C97D2F /* EnumOperators.swift in Sources */,
-				84A2C52A20AECF0600E7ADA0 /* Collection+Extension.swift in Sources */,
 				8454D3BD2068D3A800C97D2F /* HeatMap1.swift in Sources */,
 				8454D3C62068D3A800C97D2F /* Network.swift in Sources */,
 				84A2C55A20AECF0600E7ADA0 /* BlockMode.swift in Sources */,
@@ -2021,7 +2016,6 @@
 				8454D3DD2068D3A800C97D2F /* Context.swift in Sources */,
 				8454D3CF2068D3A800C97D2F /* TrafficReports.swift in Sources */,
 				84A2C51E20AECF0500E7ADA0 /* NavitiaSDKPartnersRequestBuilder.swift in Sources */,
-				84A2C54220AECF0600E7ADA0 /* Operators.swift in Sources */,
 				8454D4002068D3A800C97D2F /* PhysicalModes.swift in Sources */,
 				8454D3FD2068D3A800C97D2F /* StopDateTime.swift in Sources */,
 				84A2C54720AECF0600E7ADA0 /* Poly1305.swift in Sources */,
