@@ -24,7 +24,7 @@ open class BookPaymentMailFormView: UIView {
     @IBOutlet weak var indicatorIconLabel: UILabel!
     @IBOutlet weak var indicatorView: UIView!
     
-    enum State {
+    public enum State {
         case valid
         case invalid
         case error
@@ -112,6 +112,14 @@ open class BookPaymentMailFormView: UIView {
             }
         }
     }
+
+    public func checkValidation(_ invalidType: State = .invalid) {
+        if isEmpty || !isValid {
+            stateIndicator = invalidType
+        } else {
+            stateIndicator = .valid
+        }
+    }
     
 }
 
@@ -121,6 +129,15 @@ extension BookPaymentMailFormView {
         get {
             if let text = mailTextField.text {
                 return text.isValidEmail()
+            }
+            return false
+        }
+    }
+    
+    var isEmpty: Bool {
+        get {
+            if let text = mailTextField.text {
+                return text.isEmpty
             }
             return false
         }

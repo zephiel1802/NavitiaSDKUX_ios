@@ -53,6 +53,12 @@ open class BookPaymentConditionView: UIView {
             }
         }
     }
+    var isEnable: Bool = true {
+        didSet {
+            conditionSwitch.isEnabled = isEnable
+            conditionTapView.isHidden = isEnable
+        }
+    }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -86,13 +92,13 @@ open class BookPaymentConditionView: UIView {
         addSubview(view)
         
         state = .none
+        isEnable = false
         _setupGesture()
         _setupSwitch()
     }
     
     private func _setupSwitch() {
         conditionSwitch.onTintColor = Configuration.Color.main
-        conditionSwitch.isEnabled = false
     }
     
     private func _setupGesture() {
@@ -121,4 +127,11 @@ open class BookPaymentConditionView: UIView {
         delegate?.onConditionSwitchValueChanged(self)
     }
     
+    public func checkValidation() {
+        if conditionSwitch.isOn {
+            state = .none
+        } else {
+            state = .error
+        }
+    }
 }

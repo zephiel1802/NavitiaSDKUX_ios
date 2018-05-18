@@ -27,7 +27,7 @@ open class BookPaymentViewController: UIViewController {
     fileprivate var _viewModel: BookPaymentViewModel! {
         didSet {
             _viewModel.returnPayment = { [weak self] in
-                self?.onInformationPressedButton()
+                self?._onInformationPressedButton()
                 self?.bookPaymentView.launchPayment()
             }
         }
@@ -36,13 +36,8 @@ open class BookPaymentViewController: UIViewController {
     override open func viewDidLoad() {
         super.viewDidLoad()
         _setupInterface()
-        scrollView.bounces = false
-        
         _viewModel = BookPaymentViewModel()
-        
-        // Gesture
-        let tap = UITapGestureRecognizer(target: self, action: #selector(BookPaymentViewController.dismissKeyboard))
-        view.addGestureRecognizer(tap)
+        _setupGesture()
     }
     
     override open func didReceiveMemoryWarning() {
@@ -67,6 +62,11 @@ open class BookPaymentViewController: UIViewController {
         _updateOriginViewScroll()
     }
     
+    private func _setupGesture() {
+        let tap = UITapGestureRecognizer(target: self, action: #selector(BookPaymentViewController.dismissKeyboard))
+        view.addGestureRecognizer(tap)
+    }
+    
     private func _displayLogin() {
         let bookPaymentProfilView = BookPaymentProfilView(frame: CGRect(x: 0, y: 0, width: 0, height: 75))
         bookPaymentProfilView.name = "Test"
@@ -86,7 +86,6 @@ open class BookPaymentViewController: UIViewController {
 
         bookPaymentView = BookPaymentView(frame: CGRect(x: 0, y: 0, width: 0, height: 140))
         bookPaymentView.delegate = self
-   //     bookPaymentView.log = _viewModel.isConnected
         bookPaymentView.launchPayment()
         _addViewInScroll(view: bookPaymentView)
         
@@ -125,21 +124,9 @@ open class BookPaymentViewController: UIViewController {
     static var identifier: String {
         return String(describing: self)
     }
-
-    private func _updateWidth(customMargin: UIEdgeInsets? = nil) -> CGFloat {
-        if let margeCustom = customMargin {
-            if #available(iOS 11.0, *) {
-                return scrollView.frame.size.width - scrollView.safeAreaInsets.left - scrollView.safeAreaInsets.right - margeCustom.left - margeCustom.right
-            }
-            return scrollView.frame.size.width - margeCustom.left - margeCustom.right
-        }
-        if #available(iOS 11.0, *) {
-            return scrollView.frame.size.width - scrollView.safeAreaInsets.left - scrollView.safeAreaInsets.right - margin.left - margin.right
-        }
-        return scrollView.frame.size.width - margin.left - margin.right
-    }
     
     private func _setupInterface() {
+        scrollView.bounces = false
         statusBarView.backgroundColor = Configuration.Color.main
         
         _setupBreadcrumbView()
@@ -158,7 +145,7 @@ open class BookPaymentViewController: UIViewController {
         NSLayoutConstraint(item: _breadcrumbView, attribute: NSLayoutAttribute.trailing, relatedBy: NSLayoutRelation.equal, toItem: breadcrumbContainerView, attribute: NSLayoutAttribute.trailing, multiplier: 1, constant: 0).isActive = true
     }
     
-    func onInformationPressedButton() {
+    private func _onInformationPressedButton() {
         let informationViewController = InformationViewController(nibName: "InformationView", bundle: NavitiaSDKUI.shared.bundle)
         informationViewController.modalTransitionStyle = .crossDissolve
         informationViewController.modalPresentationStyle = .overCurrentContext
@@ -171,6 +158,7 @@ open class BookPaymentViewController: UIViewController {
 
 }
 
+// ScrollView
 extension BookPaymentViewController {
     
     private func _addViewInScroll(view: UIView, customMargin: CGFloat? = nil) {
@@ -195,12 +183,10 @@ extension BookPaymentViewController {
     
     private func _updateOriginViewScroll() {
         for (index, view) in viewScroll.enumerated() {
-            
             view.frame.origin.x = margin.left
-            
             if index == 0 {
                 view.frame.origin.y = margin.top
-                view.frame.size.width = _updateWidth(customMargin: margin)//_updateWidth(customMargin: view.frame.origin.x)
+                view.frame.size.width = _updateWidth(customMargin: margin)
             } else {
                 view.frame.origin.y = viewScroll[index - 1].frame.origin.y + viewScroll[index - 1].frame.height + margin.bottom + margin.top
                 composentWidth = _updateWidth()
@@ -215,15 +201,31 @@ extension BookPaymentViewController {
         }
     }
     
+    private func _updateWidth(customMargin: UIEdgeInsets? = nil) -> CGFloat {
+        if let margeCustom = customMargin {
+            if #available(iOS 11.0, *) {
+                return scrollView.frame.size.width - scrollView.safeAreaInsets.left - scrollView.safeAreaInsets.right - margeCustom.left - margeCustom.right
+            }
+            return scrollView.frame.size.width - margeCustom.left - margeCustom.right
+        }
+        if #available(iOS 11.0, *) {
+            return scrollView.frame.size.width - scrollView.safeAreaInsets.left - scrollView.safeAreaInsets.right - margin.left - margin.right
+        }
+        return scrollView.frame.size.width - margin.left - margin.right
+    }
+    
+}
+
+// Keyboard
+extension BookPaymentViewController {
+    
     @objc func dismissKeyboard() {
-        //Causes the view (or one of its embedded text fields) to resign the first responder status.
         view.endEditing(true)
     }
     
+    // A REFAIRE
     @objc func adjustForKeyboard(notification: Notification) {
         let userInfo = notification.userInfo!
-
-        
         let keyboardScreenEndFrame = (userInfo[UIKeyboardFrameEndUserInfoKey] as! NSValue).cgRectValue
         let keyboardViewEndFrame = view.convert(keyboardScreenEndFrame, from: view.window)
         
@@ -235,15 +237,11 @@ extension BookPaymentViewController {
         } else {
             scrollView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: keyboardViewEndFrame.height, right: 0)
             if let bookPaymentMailFormView = bookPaymentMailFormView {
-                
-                let value = bookPaymentMailFormView.frame.origin.y - scrollView.contentInset.bottom + bookPaymentMailFormView.frame.size.height 
-        
+                let value = bookPaymentMailFormView.frame.origin.y - scrollView.contentInset.bottom + bookPaymentMailFormView.frame.size.height
                 scrollView.setContentOffset(CGPoint(x: 0, y: value), animated: true)
             }
         }
-        
         scrollView.scrollIndicatorInsets = scrollView.contentInset
-        
     }
     
 }
@@ -257,9 +255,8 @@ extension BookPaymentViewController: BreadcrumbViewProtocol {
 }
 
 extension BookPaymentViewController: BookPaymentConditionViewDelegate {
- 
     
-    
+    // A REFAIRE
     func onConditionSwitchValueChanged(_ bookPaymentConditionView: BookPaymentConditionView) {
         if !_viewModel.isConnected {
             guard let bookPaymentMailFormView = bookPaymentMailFormView else {
@@ -280,6 +277,7 @@ extension BookPaymentViewController: BookPaymentConditionViewDelegate {
             if let bookPaymentMailFormView = bookPaymentMailFormView {
                 bookPaymentMailFormView.textFieldContainerView.backgroundColor = Configuration.Color.disableGray
                 bookPaymentMailFormView.mailTextField.isEnabled = false
+                bookPaymentMailFormView.stateIndicator = .none
             }
         } else {
             bookPaymentView.enableFilter = true
@@ -303,32 +301,17 @@ extension BookPaymentViewController: BookPaymentConditionViewDelegate {
     }
     
     func onConditionSwitchClicked(_ bookPaymentConditionView: BookPaymentConditionView) {
-        if !_viewModel.isConnected {
-            guard let bookPaymentMailFormView = bookPaymentMailFormView else {
-                return
-            }
-            if !bookPaymentMailFormView.isValid {
-                bookPaymentMailFormView.stateIndicator = .error
-            }
-        }
+        bookPaymentMailFormView?.checkValidation(.error)
     }
     
     func onConditionLabelClicked(_ bookPaymentConditionView: BookPaymentConditionView) {
-        if let url = Configuration.cguURL {
-            if #available(iOS 10.0, *) {
-                UIApplication.shared.open(url, options: [:], completionHandler: { (status) in })
-
-            } else {
-                UIApplication.shared.openURL(url)
-                // Fallback on earlier versions
-            }
+        guard let url = Configuration.cguURL else {
+            return
         }
         if #available(iOS 10.0, *) {
-            if let url = Configuration.cguURL {
-                UIApplication.shared.open(url, options: [:], completionHandler: { (status) in })
-            }
+            UIApplication.shared.open(url, options: [:], completionHandler: { (status) in })
         } else {
-
+            UIApplication.shared.openURL(url)
         }
     }
     
@@ -339,24 +322,15 @@ extension BookPaymentViewController: BookPaymentViewDelegate {
     func onPaymentClicked(_ request: URLRequest, _ baseURL: String, _ bookPaymentView: BookPaymentView) {
         let viewController = storyboard?.instantiateViewController(withIdentifier: BookPaymentWebViewController.identifier) as! BookPaymentWebViewController
         viewController.request = request
-        viewController.baseURL = baseURL
         viewController.viewModel = _viewModel
         viewController.modalTransitionStyle = .crossDissolve
         viewController.modalPresentationStyle = .overCurrentContext
-        self.present(viewController, animated: true, completion: nil)
+        present(viewController, animated: true, completion: nil)
     }
     
     func onFilterClicked(_ bookPaymentView: BookPaymentView) {
-        if let bookPaymentMailFormView = bookPaymentMailFormView {
-            if !bookPaymentMailFormView.isValid {
-                bookPaymentMailFormView.stateIndicator = .error
-            }
-        }
-        if let bookPaymentConditionView = bookPaymentConditionView {
-            if !bookPaymentConditionView.conditionSwitch.isOn {
-                bookPaymentConditionView.state = .error
-            }
-        }
+        bookPaymentMailFormView?.checkValidation(.error)
+        bookPaymentConditionView?.checkValidation()
     }
 }
 
@@ -364,27 +338,12 @@ extension BookPaymentViewController: BookPaymentMailFormViewDelegate {
     
     func onReturnButtonClicked(_ bookPaymentMailFormView: BookPaymentMailFormView) {
         dismissKeyboard()
-        if let value = bookPaymentConditionView?.conditionSwitch.isOn {
-            if !value {
-                bookPaymentConditionView?.state = .error
-            }
-        } else {
-            bookPaymentConditionView?.state = .error
-        }
-        // dismiss now
+        bookPaymentConditionView?.checkValidation()
     }
     
     func valueChangedTextField(_ value: Bool, _ bookPaymentMailFormView: BookPaymentMailFormView) {
         if let bookPaymentConditionView = bookPaymentConditionView {
-            if value {
-                bookPaymentConditionView.conditionSwitch.isEnabled = true
-                bookPaymentConditionView.conditionTapView.isHidden = true
-                bookPaymentConditionView.conditionSwitch.isUserInteractionEnabled = true
-            } else {
-                bookPaymentConditionView.conditionSwitch.isEnabled = false
-                bookPaymentConditionView.conditionTapView.isHidden = false
-                bookPaymentConditionView.conditionSwitch.isUserInteractionEnabled = true
-            }
+            bookPaymentConditionView.isEnable = value
         }
     }
     

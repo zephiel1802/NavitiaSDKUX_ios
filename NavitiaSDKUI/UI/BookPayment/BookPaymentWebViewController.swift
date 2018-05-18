@@ -16,36 +16,31 @@ class BookPaymentWebViewController: UIViewController {
     
     private var _breadcrumbView: BreadcrumbView!
     var request: URLRequest?
-    var baseURL: String?
     var viewModel: BookPaymentViewModel?
     
     override open func viewDidLoad() {
         super.viewDidLoad()
-        _setupInterface()
         
-        webView.delegate = self
-        webView.scrollView.bounces = false
-        if let request = request {
-            webView.loadRequest(request)
-        }
+        _setupBreadcrumbView()
+        _setupWebView()
+        statusBarView.backgroundColor = Configuration.Color.main
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
     
-    override func viewDidLayoutSubviews() {
-
-    }
-    
     static var identifier: String {
         return String(describing: self)
     }
     
-    private func _setupInterface() {
-        statusBarView.backgroundColor = Configuration.Color.main
-        
-        _setupBreadcrumbView()
+    private func _setupWebView() {
+        webView.delegate = self
+        webView.scrollView.bounces = false
+        guard let request = request else {
+            return
+        }
+        webView.loadRequest(request)
     }
     
     private func _setupBreadcrumbView() {
