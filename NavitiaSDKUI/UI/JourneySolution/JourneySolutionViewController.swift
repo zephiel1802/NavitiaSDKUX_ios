@@ -45,6 +45,8 @@ open class JourneySolutionViewController: UIViewController {
         
         NavitiaSDKUI.shared.bundle = self.nibBundle
         
+        addBackButton(targetSelector: #selector(backButtonPressed))
+        
         title = "journeys".localized(withComment: "Journeys", bundle: NavitiaSDKUI.shared.bundle)
         
         UIFont.registerFontWithFilenameString(filenameString: "SDKIcons.ttf", bundle: NavitiaSDKUI.shared.bundle)
@@ -69,6 +71,14 @@ open class JourneySolutionViewController: UIViewController {
     override open func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         collectionView.collectionViewLayout.invalidateLayout()
+    }
+    
+    @objc func backButtonPressed() {
+        if isRootViewController() {
+            self.dismiss(animated: true, completion: nil)
+        } else {
+            self.navigationController?.popViewController(animated: true)
+        }
     }
     
     private func _registerCollectionView() {
