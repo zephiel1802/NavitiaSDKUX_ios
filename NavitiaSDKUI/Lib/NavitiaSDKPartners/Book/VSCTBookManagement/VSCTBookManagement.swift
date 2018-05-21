@@ -367,7 +367,6 @@ import Foundation
                                         "paymentMean" : [ "label" : "Carte Bancaire",
                                                           "type" : "CB",
                                                           "displayOrder" : 1 ] ]
-        print(content)
         NavitiaSDKPartnersRequestBuilder.post(stringUrl: _getUrl() + "/orders", header: _getConnectedHeader(), content: content) { (success, statusCode, data) in
             if success {
                 print("NavitiaSDKPartners/createOrder : success")
@@ -404,7 +403,6 @@ extension VSCTBookManagement {
         var array : [VSCTBookOffer] = []
         (data["array"] as! [[String: Any]]).forEach { rawOffer in
             print(NavitiaSDKPartnersExtension.getString(from:(rawOffer["legalInfos"] as! String)))
-            print(rawOffer["legalInfos"] as! String)
             let offer : VSCTBookOffer = VSCTBookOffer(id: (rawOffer["id"] as! String),
                                                       productId: (rawOffer["idProduit"] as! String),
                                                       title: (rawOffer["label"] as! String),

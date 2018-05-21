@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="BookPaymentProfilView" customModule="NavitiaSDKUI" customModuleProvider="target">
+            <connections>
+                <outlet property="iconProfilLabel" destination="hNF-RT-vea" id="V7y-UM-iLi"/>
+                <outlet property="nameLabel" destination="ZLx-NH-xzM" id="nRk-QH-9Q3"/>
+                <outlet property="view" destination="js2-In-Wwn" id="eFN-bn-A2t"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="js2-In-Wwn">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="75"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Jean Dupont" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZLx-NH-xzM">
+                    <rect key="frame" x="116.5" y="60" width="87.5" height="15"/>
+                    <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
+                    <color key="textColor" red="0.25098039220000001" green="0.58431372550000005" blue="0.5568627451" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="N" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hNF-RT-vea">
+                    <rect key="frame" x="153.5" y="10" width="13" height="35"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="35" id="jgz-Gt-arR"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstAttribute="bottom" secondItem="ZLx-NH-xzM" secondAttribute="bottom" id="568-PS-FCh"/>
+                <constraint firstItem="ZLx-NH-xzM" firstAttribute="centerX" secondItem="js2-In-Wwn" secondAttribute="centerX" id="7Yg-00-sC2"/>
+                <constraint firstItem="hNF-RT-vea" firstAttribute="centerX" secondItem="js2-In-Wwn" secondAttribute="centerX" id="7Yp-xW-kkW"/>
+                <constraint firstItem="hNF-RT-vea" firstAttribute="top" secondItem="nAs-Jj-6JM" secondAttribute="top" constant="10" id="nRE-wT-a6E"/>
+                <constraint firstItem="ZLx-NH-xzM" firstAttribute="top" secondItem="hNF-RT-vea" secondAttribute="bottom" constant="15" id="not-Yq-vzg"/>
+            </constraints>
+            <nil key="simulatedTopBarMetrics"/>
+            <nil key="simulatedBottomBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="nAs-Jj-6JM"/>
+            <point key="canvasLocation" x="-46" y="179.5"/>
+        </view>
+    </objects>
+</document>

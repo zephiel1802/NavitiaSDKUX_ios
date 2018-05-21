@@ -52,7 +52,6 @@ let iconFontCodes:[String: String] = [
     "geolocation": "\u{ea19}",
     "home": "\u{ea1a}",
     "location-pin": "\u{ea15}",
-    "line-diagram-stop": "\u{e900}",
     "metro": "\u{ea1b}",
     "notice": "\u{ea1c}",
     "origin": "\u{ea1d}",
@@ -82,6 +81,8 @@ let iconFontCodes:[String: String] = [
     "cross-circled": "\u{e908}",
     "information": "\u{e909}",
     "warning": "\u{e90a}",
+    "user-connexion": "\u{e900}",
+    "paiement-denied": "\u{e90b}"
 ]
 
 class Modes {

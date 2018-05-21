@@ -49,10 +49,38 @@ class ViewController: UIViewController, BookShopViewControllerDelegate {
         let storyboard = UIStoryboard(name: "Book", bundle: bundle)
         bookShopViewController = storyboard.instantiateInitialViewController() as? BookShopViewController
         
-        if let bookShopViewController = bookShopViewController {
-            bookShopViewController.delegate = self
-            present(bookShopViewController, animated: true, completion: nil)
-        }
+        let anonymousAction = UIAlertAction(title: "Anonymous", style: .default, handler: {
+            (alert: UIAlertAction!) -> Void in
+            if let bookShopViewController = self.bookShopViewController {
+                if let userInfo = NavitiaSDKPartners.shared.userInfo as? KeolisUserInfo {
+                    bookShopViewController.delegate = self
+                    if userInfo.accountStatus != .anonymous {
+                        NavitiaSDKPartners.shared.logOut(callbackSuccess: {
+                            self.present(bookShopViewController, animated: true, completion: nil)
+                        }, callbackError: { (_, _) in })
+                    } else {
+                        self.present(bookShopViewController, animated: true, completion: nil)
+                    }
+                }
+            }
+        })
+
+        let connectedAction = UIAlertAction(title: "Connected", style: .default, handler: {
+            (alert: UIAlertAction!) -> Void in
+            if let bookShopViewController = self.bookShopViewController {
+                NavitiaSDKPartners.shared.authenticate(username: "", password: "", callbackSuccess: {
+                    bookShopViewController.delegate = self
+                    self.present(bookShopViewController, animated: true, completion: nil)
+                }, callbackError: { (_, _) in })
+            }
+            
+        })
+        
+        let alertController = UIAlertController(title: nil, message: "Choose Option", preferredStyle: .actionSheet)
+        alertController.addAction(anonymousAction)
+        alertController.addAction(connectedAction)
+
+        present(alertController, animated: true, completion: nil)
     }
     
     func onDismissBookShopViewController() {

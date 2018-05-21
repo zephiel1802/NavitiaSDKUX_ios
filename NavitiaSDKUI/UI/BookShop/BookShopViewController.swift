@@ -250,7 +250,15 @@ extension BookShopViewController: TicketCollectionViewCellDelegate {
 
 extension BookShopViewController: ValidateBasketViewDelegate {
     
-    func onValidateButtonClicked(_ validateBasketView: ValidateBasketView) {}
+    func onValidateButtonClicked(_ validateBasketView: ValidateBasketView) {
+        let viewController = storyboard?.instantiateViewController(withIdentifier: BookPaymentViewController.identifier) as! BookPaymentViewController
+        viewController.modalTransitionStyle = .crossDissolve
+        viewController.modalPresentationStyle = .overCurrentContext
+        
+        NavitiaSDKPartners.shared.getOrderValidation(callbackSuccess: { (_) in
+            self.present(viewController, animated: true) {}
+        }) { (_, _) in }
+    }
     
 }
 
