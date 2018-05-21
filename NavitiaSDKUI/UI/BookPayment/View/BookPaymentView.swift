@@ -2,7 +2,6 @@
 //  BookPaymentView.swift
 //  NavitiaSDKUI
 //
-//  Created by Flavien Sicard on 03/05/2018.
 //  Copyright © 2018 kisio. All rights reserved.
 //
 
@@ -42,8 +41,6 @@ open class BookPaymentView: UIView {
         
         _setup()
     }
-    
-    override open func layoutSubviews() {}
     
     private func _setup() {
         UINib(nibName: "BookPaymentView", bundle: NavitiaSDKUI.shared.bundle).instantiate(withOwner: self, options: nil)
@@ -154,6 +151,7 @@ extension BookPaymentView: UIWebViewDelegate {
             return true
         }
         delegate?.onPaymentClicked(request, NavitiaSDKPartners.shared.paymentBaseUrl, self)
+        
         return false
     }
     

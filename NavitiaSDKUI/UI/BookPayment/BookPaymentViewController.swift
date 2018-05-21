@@ -17,9 +17,7 @@ open class BookPaymentViewController: UIViewController {
     var bookPaymentMailFormView: BookPaymentMailFormView?
     var bookPaymentConditionView: BookPaymentConditionView?
     var bookPaymentView: BookPaymentView!
-    
     var viewScroll = [UIView]()
-    
     var margin: UIEdgeInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
     var composentWidth: CGFloat = 0
     var display = false
@@ -150,7 +148,7 @@ open class BookPaymentViewController: UIViewController {
         let informationViewController = InformationViewController(nibName: "InformationView", bundle: NavitiaSDKUI.shared.bundle)
         informationViewController.modalTransitionStyle = .crossDissolve
         informationViewController.modalPresentationStyle = .overCurrentContext
-        informationViewController.titleButton = [String(format: "%@ !", "understand".localized(withComment: "Understand", bundle: NavitiaSDKUI.shared.bundle))]
+        informationViewController.titleButton = [String(format: "%@ !", "understood".localized(withComment: "Understood !", bundle: NavitiaSDKUI.shared.bundle))]
         informationViewController.delegate = self
         informationViewController.information =  "your_payment_has_been_refused".localized(withComment: "Your payment has been refused", bundle: NavitiaSDKUI.shared.bundle)
         informationViewController.iconName = "paiement-denied"
@@ -265,12 +263,12 @@ extension BookPaymentViewController: BookPaymentConditionViewDelegate {
             if bookPaymentConditionView.conditionSwitch.isOn {
                 if bookPaymentMailFormView.isValid {
                     bookPaymentView.email = bookPaymentMailFormView.mailTextField.text
-                    
                 }
             } else {
                 bookPaymentView.enablePaymentView = false
             }
         }
+        
         if bookPaymentConditionView.conditionSwitch.isOn {
             dismissKeyboard()
             if let userInfo = NavitiaSDKPartners.shared.userInfo as? KeolisUserInfo {
@@ -329,6 +327,7 @@ extension BookPaymentViewController: BookPaymentMailFormViewDelegate {
         if let bookPaymentConditionView = bookPaymentConditionView {
             bookPaymentConditionView.isEnable = value
         }
+        
         if bookPaymentConditionView?.conditionSwitch.isOn ?? true {
             bookPaymentConditionView?.conditionSwitch.setOn(false, animated: true)
             if !_viewModel.isConnected {

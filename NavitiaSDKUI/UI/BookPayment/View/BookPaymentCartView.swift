@@ -2,7 +2,6 @@
 //  BookPaymentCartView.swift
 //  NavitiaSDKUI
 //
-//  Created by Flavien Sicard on 02/05/2018.
 //  Copyright © 2018 kisio. All rights reserved.
 //
 

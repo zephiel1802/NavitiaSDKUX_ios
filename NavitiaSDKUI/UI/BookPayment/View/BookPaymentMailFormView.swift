@@ -2,7 +2,6 @@
 //  BookPaymentMailFormView.swift
 //  NavitiaSDKUI
 //
-//  Created by Flavien Sicard on 02/05/2018.
 //  Copyright © 2018 kisio. All rights reserved.
 //
 
@@ -82,7 +81,6 @@ open class BookPaymentMailFormView: UIView {
         UINib(nibName: "BookPaymentMailFormView", bundle: NavitiaSDKUI.shared.bundle).instantiate(withOwner: self, options: nil)
         view.frame = self.bounds
         addSubview(view)
-        
         
         titleLabel.attributedText = NSMutableAttributedString()
             .bold("to_receive_your_receipt".localized(withComment: "To receive your receipt :", bundle: NavitiaSDKUI.shared.bundle),

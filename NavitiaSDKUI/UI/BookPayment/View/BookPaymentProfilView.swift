@@ -2,7 +2,6 @@
 //  BookPaymentProfilView.swift
 //  NavitiaSDKUI
 //
-//  Created by Flavien Sicard on 02/05/2018.
 //  Copyright © 2018 kisio. All rights reserved.
 //
 
@@ -37,8 +36,6 @@ open class BookPaymentProfilView: UIView {
             }
         }
     }
-    
-    override open func layoutSubviews() {}
     
     private func _setup() {
         UINib(nibName: "BookPaymentProfilView", bundle: NavitiaSDKUI.shared.bundle).instantiate(withOwner: self, options: nil)

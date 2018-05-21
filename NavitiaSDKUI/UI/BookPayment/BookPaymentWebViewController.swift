@@ -2,7 +2,6 @@
 //  BookPaymentWebViewController.swift
 //  NavitiaSDKUI
 //
-//  Created by Flavien Sicard on 03/05/2018.
 //  Copyright © 2018 kisio. All rights reserved.
 //
 
@@ -68,21 +67,11 @@ extension BookPaymentWebViewController: BookShopViewControllerDelegate {
 
 extension BookPaymentWebViewController: UIWebViewDelegate {
     
-    func webViewDidFinishLoad(_ webView: UIWebView) {
-        let html = webView.stringByEvaluatingJavaScript(from: "document.getElementsByTagName('html')[0].innerHTML")
-        if let transactionSogenActif = html?.extractTransactionSogenActif() {
-            print("ID : \(transactionSogenActif)")
-        }
-        if let customerSogenActif = html?.extractCustomerSogenActif() {
-            print("ID : \(customerSogenActif)")
-        }
-    }
-    
     public func webView(_ webView: UIWebView, shouldStartLoadWith request: URLRequest, navigationType: UIWebViewNavigationType) -> Bool {
         if let url = request.url?.absoluteString {
             switch NavitiaSDKPartnersSogenActif.getReturnValue(url: url) {
             case .success:
-                print("Result : ✅ Success")
+                break
             case .error:
                 dismiss(animated: true) {
                     if let returnPayment = self.viewModel?.returnPayment { returnPayment() }
@@ -93,6 +82,7 @@ extension BookPaymentWebViewController: UIWebViewDelegate {
                 break
             }
         }
+        
         return true
     }
     
