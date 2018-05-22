@@ -68,7 +68,7 @@ class ViewController: UIViewController {
         let connectedAction = UIAlertAction(title: "Connected", style: .default, handler: {
             (alert: UIAlertAction!) -> Void in
             if let bookShopViewController = self.bookShopViewController {
-                NavitiaSDKPartners.shared.authenticate(username: "flavien.sicard@gmail.com", password: "toto42sh", callbackSuccess: {
+                NavitiaSDKPartners.shared.authenticate(username: "", password: "", callbackSuccess: {
                     bookShopViewController.bookTicketDelegate = self
                     self.present(bookShopViewController, animated: true, completion: nil)
                 }, callbackError: { (_, _) in })
