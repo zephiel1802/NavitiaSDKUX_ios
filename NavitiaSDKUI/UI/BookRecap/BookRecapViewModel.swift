@@ -11,15 +11,8 @@ import UIKit
 class BookRecapViewModel: NSObject {
     
     public var bookRecapViewModel: ((BookRecapViewModel) -> ())?
-   // public var returnPayment: (() -> ())?
     public private(set) var loading: Bool = true
-    
-//    var bookOffer = [[VSCTBookOffer]]() {
-//        didSet {
-//            bookRecapViewModel!(self)
-//        }
-//    }
-//
+
     var isConnected: Bool {
         get {
             if let userInfo = NavitiaSDKPartners.shared.userInfo as? KeolisUserInfo {

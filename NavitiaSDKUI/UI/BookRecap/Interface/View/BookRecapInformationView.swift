@@ -59,24 +59,24 @@ open class BookRecapInformationView: UIView {
     
     private func _setupDescription() {
         descriptionLabel.attributedText = NSMutableAttributedString()
-            .normal("Votre commande est terminée, un email de confirmation vous a été envoyé.", color: Configuration.Color.gray, size: 12.5)
+            .normal(String(format: "%@.", "your_order_is_complete".localized(withComment: "Your order is complete, a confirmation email has been sent to you.", bundle: NavitiaSDKUI.shared.bundle)), color: Configuration.Color.gray, size: 12.5)
     }
     
     func setCustomer(str: String) {
         customerLabel.attributedText = NSMutableAttributedString()
-            .bold(String(format: "%@\r", "Identifiant commerçant"), color: Configuration.Color.darkGray, size: 12)
+            .bold(String(format: "%@\r", "merchant_identifier".localized(withComment: "Merchant identifier", bundle: NavitiaSDKUI.shared.bundle)), color: Configuration.Color.darkGray, size: 12)
             .normal(str, color: Configuration.Color.darkGray, size: 12)
     }
     
     func setTransaction(str: String) {
         transactionLabel.attributedText = NSMutableAttributedString()
-            .bold(String(format: "%@\r", "Référence de la transaction"), color: Configuration.Color.darkGray, size: 12)
+            .bold(String(format: "%@\r", "transaction_reference".localized(withComment: "Transaction reference", bundle: NavitiaSDKUI.shared.bundle)), color: Configuration.Color.darkGray, size: 12)
             .normal(str, color: Configuration.Color.darkGray, size: 12)
     }
     
     func setAmount(str: String) {
         amountLabel.attributedText = NSMutableAttributedString()
-            .bold(String(format: "%@\r", "Montant de la transaction"), color: Configuration.Color.darkGray, size: 12)
+            .bold(String(format: "%@\r", "transaction_amount".localized(withComment: "Transaction amount", bundle: NavitiaSDKUI.shared.bundle)), color: Configuration.Color.darkGray, size: 12)
             .normal(str, color: Configuration.Color.darkGray, size: 12)
     }
     
