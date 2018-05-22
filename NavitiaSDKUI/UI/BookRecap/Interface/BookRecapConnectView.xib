@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="BookRecapConnectView" customModule="NavitiaSDKUI" customModuleProvider="target">
+            <connections>
+                <outlet property="connectButton" destination="yQj-kl-HSM" id="s3Y-jW-BSb"/>
+                <outlet property="descriptionButton" destination="Rfc-mA-sTw" id="Ew2-GB-RIk"/>
+                <outlet property="view" destination="iN0-l3-epB" id="jI8-QG-ifc"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="287" height="70"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pour aller encore plus vite la prochaine fois" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rfc-mA-sTw">
+                    <rect key="frame" x="0.0" y="0.0" width="287" height="20"/>
+                    <fontDescription key="fontDescription" type="boldSystem" pointSize="11"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yQj-kl-HSM">
+                    <rect key="frame" x="60" y="30" width="167" height="40"/>
+                    <color key="backgroundColor" red="0.25098039220000001" green="0.58431372550000005" blue="0.5568627451" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="40" id="Rqj-YW-ASi"/>
+                    </constraints>
+                    <state key="normal" title="Button">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </state>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                            <integer key="value" value="5"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                    <connections>
+                        <action selector="onConnectionPressedButton:" destination="-1" eventType="touchUpInside" id="ndi-op-JwK"/>
+                    </connections>
+                </button>
+            </subviews>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstItem="yQj-kl-HSM" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="60" id="1Q6-uy-ksR"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="yQj-kl-HSM" secondAttribute="trailing" constant="60" id="60q-Wx-RmJ"/>
+                <constraint firstItem="Rfc-mA-sTw" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="LeQ-vt-bnK"/>
+                <constraint firstItem="Rfc-mA-sTw" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="WyO-gm-BTt"/>
+                <constraint firstItem="yQj-kl-HSM" firstAttribute="bottom" secondItem="vUN-kp-3ea" secondAttribute="bottom" id="XGa-AS-xdz"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="Rfc-mA-sTw" secondAttribute="trailing" id="mB0-lI-XGg"/>
+                <constraint firstItem="yQj-kl-HSM" firstAttribute="top" secondItem="Rfc-mA-sTw" secondAttribute="bottom" constant="10" id="ttC-Tl-AjT"/>
+            </constraints>
+            <nil key="simulatedTopBarMetrics"/>
+            <nil key="simulatedBottomBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <point key="canvasLocation" x="17.5" y="232"/>
+        </view>
+    </objects>
+</document>

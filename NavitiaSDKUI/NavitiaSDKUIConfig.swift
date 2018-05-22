@@ -104,6 +104,7 @@ enum Configuration {
         static let red = #colorLiteral(red: 0.9568627451, green: 0.262745098, blue: 0.2117647059, alpha: 1)
         static let green = #colorLiteral(red: 0.5921568627, green: 0.7490196078, blue: 0.05098039216, alpha: 1)
         static let orange = #colorLiteral(red: 0.9725490196, green: 0.5803921569, blue: 0.02352941176, alpha: 1)
+        static var lightGray = #colorLiteral(red: 0.8, green: 0.8, blue: 0.8, alpha: 1)
         static var gray = #colorLiteral(red: 0.5019607843, green: 0.5019607843, blue: 0.5019607843, alpha: 1)
         static var darkGray = #colorLiteral(red: 0.2509803922, green: 0.2509803922, blue: 0.2509803922, alpha: 1)
     }

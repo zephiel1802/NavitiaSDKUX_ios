@@ -7,6 +7,14 @@
 
 import UIKit
 
+var testView = [UIViewController]()
+
+protocol BreadcrumbViewDelegate {
+    
+    func onDismiss()
+    
+}
+
 open class BreadcrumbView: UIView {
     
     enum State {
@@ -74,7 +82,7 @@ open class BreadcrumbView: UIView {
         }
     }
     
-    var delegate: BookShopViewControllerDelegate?
+    var delegate: BreadcrumbViewDelegate?
     var stateBreadcrumb: State? {
         didSet {
             if let stateBreadcrumb = stateBreadcrumb {
@@ -153,7 +161,7 @@ open class BreadcrumbView: UIView {
     }
     
     @IBAction func onDismissButtonClicked(_ sender: Any) {
-        delegate?.onDismissBookShopViewController()
+        delegate?.onDismiss()
     }
     
 }

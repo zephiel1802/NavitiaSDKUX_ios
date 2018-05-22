@@ -255,5 +255,54 @@
             </objects>
             <point key="canvasLocation" x="1632.8" y="84.975369458128085"/>
         </scene>
+        <!--Book Recap View Controller-->
+        <scene sceneID="g7V-es-00Q">
+            <objects>
+                <viewController storyboardIdentifier="BookRecapViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="8H9-yq-84i" customClass="BookRecapViewController" customModule="NavitiaSDKUI" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="keD-As-DkA">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fVQ-mr-umV">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                                <color key="backgroundColor" red="0.25098039220000001" green="0.58431372550000005" blue="0.5568627451" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jiu-aH-Enj">
+                                <rect key="frame" x="0.0" y="44" width="375" height="70"/>
+                                <color key="backgroundColor" red="0.25098039220000001" green="0.58431372550000005" blue="0.5568627451" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="70" id="VUk-Uc-LmV"/>
+                                </constraints>
+                            </view>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="E9a-L4-S8W">
+                                <rect key="frame" x="0.0" y="114" width="375" height="698"/>
+                            </scrollView>
+                        </subviews>
+                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="fVQ-mr-umV" firstAttribute="top" secondItem="keD-As-DkA" secondAttribute="top" id="8UA-oG-VZH"/>
+                            <constraint firstItem="jiu-aH-Enj" firstAttribute="leading" secondItem="keD-As-DkA" secondAttribute="leading" id="Brx-7c-p7I"/>
+                            <constraint firstItem="fVQ-mr-umV" firstAttribute="leading" secondItem="keD-As-DkA" secondAttribute="leading" id="FPo-24-bwJ"/>
+                            <constraint firstAttribute="bottom" secondItem="E9a-L4-S8W" secondAttribute="bottom" id="If1-Ba-ZZc"/>
+                            <constraint firstAttribute="trailing" secondItem="fVQ-mr-umV" secondAttribute="trailing" id="ZTf-i4-IYT"/>
+                            <constraint firstItem="E9a-L4-S8W" firstAttribute="top" secondItem="jiu-aH-Enj" secondAttribute="bottom" id="cY0-R2-A7Z"/>
+                            <constraint firstItem="jiu-aH-Enj" firstAttribute="top" secondItem="fVQ-mr-umV" secondAttribute="bottom" id="gDy-TE-0xz"/>
+                            <constraint firstItem="E9a-L4-S8W" firstAttribute="leading" secondItem="Qff-yn-fDs" secondAttribute="leading" id="lRZ-3X-52q"/>
+                            <constraint firstItem="Qff-yn-fDs" firstAttribute="trailing" secondItem="E9a-L4-S8W" secondAttribute="trailing" id="qEz-3R-Zpd"/>
+                            <constraint firstItem="jiu-aH-Enj" firstAttribute="top" secondItem="Qff-yn-fDs" secondAttribute="top" id="yaW-rT-6al"/>
+                            <constraint firstItem="jiu-aH-Enj" firstAttribute="trailing" secondItem="keD-As-DkA" secondAttribute="trailing" id="zS6-Li-lBo"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="Qff-yn-fDs"/>
+                    </view>
+                    <connections>
+                        <outlet property="breadcrumbContainerView" destination="jiu-aH-Enj" id="Hmr-p5-s15"/>
+                        <outlet property="scrollView" destination="E9a-L4-S8W" id="V3I-Nr-ZRl"/>
+                        <outlet property="statusBarView" destination="fVQ-mr-umV" id="Pe2-s2-PSS"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="aED-55-28b" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2398" y="85"/>
+        </scene>
     </scenes>
 </document>

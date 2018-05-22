@@ -79,17 +79,23 @@ open class BookPaymentView: UIView {
     }
     
     func launchPayment() {
-        guard let email = email else {
-            return
-        }
         enablePaymentView = true
         activityIndicator.startAnimating()
-        NavitiaSDKPartners.shared.launchPayment(email: email,
-                                                color: Configuration.Color.backgroundPayment,
-                                                callbackSuccess: { (html) in
-                                                    self.paymentWebView.loadHTMLString(html, baseURL: URL(string: NavitiaSDKPartners.shared.paymentBaseUrl))
-        }) { (statusCode, data) in
-            self.activityIndicator.stopAnimating()
+        if let email = email {
+            NavitiaSDKPartners.shared.launchPayment(email: email,
+                                                    color: Configuration.Color.backgroundPayment,
+                                                    callbackSuccess: { (html) in
+                                                        self.paymentWebView.loadHTMLString(html, baseURL: URL(string: NavitiaSDKPartners.shared.paymentBaseUrl))
+            }) { (statusCode, data) in
+                self.activityIndicator.stopAnimating()
+            }
+        } else {
+            NavitiaSDKPartners.shared.launchPayment(color: Configuration.Color.backgroundPayment,
+                                                    callbackSuccess: { (html) in
+                                                        self.paymentWebView.loadHTMLString(html, baseURL: URL(string: NavitiaSDKPartners.shared.paymentBaseUrl))
+            }) { (statusCode, data) in
+                self.activityIndicator.stopAnimating()
+            }
         }
     }
     
