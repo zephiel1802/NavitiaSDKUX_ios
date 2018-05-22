@@ -7,7 +7,7 @@
 import UIKit
 import NavitiaSDKUI
 
-class ViewController: UIViewController, BookShopViewControllerDelegate {
+class ViewController: UIViewController {
     
     var bookShopViewController: BookShopViewController?
     
@@ -53,7 +53,7 @@ class ViewController: UIViewController, BookShopViewControllerDelegate {
             (alert: UIAlertAction!) -> Void in
             if let bookShopViewController = self.bookShopViewController {
                 if let userInfo = NavitiaSDKPartners.shared.userInfo as? KeolisUserInfo {
-                    bookShopViewController.delegate = self
+                    bookShopViewController.bookTicketDelegate = self
                     if userInfo.accountStatus != .anonymous {
                         NavitiaSDKPartners.shared.logOut(callbackSuccess: {
                             self.present(bookShopViewController, animated: true, completion: nil)
@@ -68,8 +68,8 @@ class ViewController: UIViewController, BookShopViewControllerDelegate {
         let connectedAction = UIAlertAction(title: "Connected", style: .default, handler: {
             (alert: UIAlertAction!) -> Void in
             if let bookShopViewController = self.bookShopViewController {
-                NavitiaSDKPartners.shared.authenticate(username: "", password: "", callbackSuccess: {
-                    bookShopViewController.delegate = self
+                NavitiaSDKPartners.shared.authenticate(username: "flavien.sicard@gmail.com", password: "toto42sh", callbackSuccess: {
+                    bookShopViewController.bookTicketDelegate = self
                     self.present(bookShopViewController, animated: true, completion: nil)
                 }, callbackError: { (_, _) in })
             }
@@ -86,6 +86,34 @@ class ViewController: UIViewController, BookShopViewControllerDelegate {
     func onDismissBookShopViewController() {
         if let bookShopViewController = bookShopViewController {
             bookShopViewController.dismiss(animated: true, completion: nil)
+        }
+    }
+    
+}
+
+extension ViewController: BookTicketDelegate {
+    
+    func onDisplayCreateAccount() {
+        if let rootViewController = UIApplication.shared.keyWindow?.rootViewController {
+            rootViewController.dismiss(animated: true, completion: nil)
+        }
+    }
+    
+    func onDisplayConnectionAccount() {
+        if let rootViewController = UIApplication.shared.keyWindow?.rootViewController {
+            rootViewController.dismiss(animated: true, completion: nil)
+        }
+    }
+    
+    func onDisplayTicket() {
+        if let rootViewController = UIApplication.shared.keyWindow?.rootViewController {
+            rootViewController.dismiss(animated: true, completion: nil)
+        }
+    }
+    
+    func onDismissBookTicket() {
+        if let rootViewController = UIApplication.shared.keyWindow?.rootViewController {
+            rootViewController.dismiss(animated: true, completion: nil)
         }
     }
     
