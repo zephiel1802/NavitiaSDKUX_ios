@@ -37,7 +37,6 @@ open class BookRecapViewController: UIViewController {
         
         _setupInterface()
         _viewModel = BookRecapViewModel()
-
     }
     
     override open func didReceiveMemoryWarning() {
