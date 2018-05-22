@@ -83,31 +83,25 @@ class ViewController: UIViewController {
         present(alertController, animated: true, completion: nil)
     }
     
-    func onDismissBookShopViewController() {
-        if let bookShopViewController = bookShopViewController {
-            bookShopViewController.dismiss(animated: true, completion: nil)
-        }
-    }
-    
 }
 
 extension ViewController: BookTicketDelegate {
     
     func onDisplayCreateAccount() {
         if let rootViewController = UIApplication.shared.keyWindow?.rootViewController {
-            rootViewController.dismiss(animated: true, completion: nil)
+            rootViewController.dismiss(animated: false, completion: nil)
         }
     }
     
     func onDisplayConnectionAccount() {
         if let rootViewController = UIApplication.shared.keyWindow?.rootViewController {
-            rootViewController.dismiss(animated: true, completion: nil)
+            rootViewController.dismiss(animated: false, completion: nil)
         }
     }
     
     func onDisplayTicket() {
         if let rootViewController = UIApplication.shared.keyWindow?.rootViewController {
-            rootViewController.dismiss(animated: true, completion: nil)
+            rootViewController.dismiss(animated: false, completion: nil)
         }
     }
     

@@ -50,10 +50,6 @@ open class BookRecapInformationView: UIView {
         _setupIcon()
         _setupDescription()
         lineLabel.backgroundColor = Configuration.Color.lightGray
-        
-        setCustomer(str: "10101010010101")
-        setTransaction(str: "JLS512635")
-        setAmount(str: "72.00 E")
     }
     
     private func _setupIcon() {
@@ -63,7 +59,7 @@ open class BookRecapInformationView: UIView {
     
     private func _setupDescription() {
         descriptionLabel.attributedText = NSMutableAttributedString()
-            .normal("Votre commande est terminée, un email de confirmation vous à été envoyé.", color: Configuration.Color.gray, size: 12.5)
+            .normal("Votre commande est terminée, un email de confirmation vous a été envoyé.", color: Configuration.Color.gray, size: 12.5)
     }
     
     func setCustomer(str: String) {
