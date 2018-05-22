@@ -27,6 +27,7 @@ class InformationViewController: UIViewController {
     
     var delegate: InformationViewDelegate?
     var titleButton = ["OK"]
+    var titleString: String = ""
     var information: String = ""
     var iconName: String = "information"
     
@@ -53,9 +54,9 @@ class InformationViewController: UIViewController {
                   size: 12),
                                        for: .normal)
         descriptionLabel.attributedText = NSMutableAttributedString()
-            .normal(information,
-                    color: Configuration.Color.darkGray,
-                    size: 12)
+            .bold(titleString, color: Configuration.Color.main, size: 12)
+            .normal("\r\r")
+            .normal(information, color: Configuration.Color.black, size: 12)
         iconContainerView.backgroundColor = Configuration.Color.main
         iconLabel.attributedText = NSMutableAttributedString()
             .icon(iconName,
