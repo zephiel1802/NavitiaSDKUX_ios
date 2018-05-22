@@ -1694,6 +1694,7 @@
 		849E2ED920B2BDB700AEFC07 /* BookRecap */ = {
 			isa = PBXGroup;
 			children = (
+				849E2EDB20B2BDD400AEFC07 /* View */,
 				849E2EDA20B2BDD000AEFC07 /* Interface */,
 				849E2EDC20B2BDE600AEFC07 /* BookRecapViewController.swift */,
 				849E2EDE20B2BE0500AEFC07 /* BookRecapViewModel.swift */,
@@ -1704,7 +1705,6 @@
 		849E2EDA20B2BDD000AEFC07 /* Interface */ = {
 			isa = PBXGroup;
 			children = (
-				849E2EDB20B2BDD400AEFC07 /* View */,
 				849E2EE220B2C86B00AEFC07 /* BookRecapInformationView.xib */,
 				849E2EE620B2D14500AEFC07 /* BookRecapTicketView.xib */,
 				849E2EEA20B2D15B00AEFC07 /* BookRecapConnectView.xib */,
