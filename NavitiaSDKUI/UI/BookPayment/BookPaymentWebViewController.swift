@@ -16,7 +16,10 @@ class BookPaymentWebViewController: UIViewController {
     private var _breadcrumbView: BreadcrumbView!
     var request: URLRequest?
     var viewModel: BookPaymentViewModel?
-    
+    var bookTicketDelegate: BookTicketDelegate?
+    var transactionID: String = ""
+    var customerID: String = ""
+        
     override open func viewDidLoad() {
         super.viewDidLoad()
         
@@ -57,9 +60,9 @@ class BookPaymentWebViewController: UIViewController {
 
 }
 
-extension BookPaymentWebViewController: BookShopViewControllerDelegate {
+extension BookPaymentWebViewController: BreadcrumbViewDelegate {
     
-    func onDismissBookShopViewController() {
+    func onDismiss() {
         self.dismiss(animated: true, completion: nil)
     }
     
@@ -67,11 +70,30 @@ extension BookPaymentWebViewController: BookShopViewControllerDelegate {
 
 extension BookPaymentWebViewController: UIWebViewDelegate {
     
+    func webViewDidFinishLoad(_ webView: UIWebView) {
+        let html = webView.stringByEvaluatingJavaScript(from: "document.getElementsByTagName('html')[0].innerHTML")
+        
+        if let transactionSogenActif = html?.extractTransactionSogenActif() {
+            transactionID = transactionSogenActif
+        }
+        
+        if let customerSogenActif = html?.extractCustomerSogenActif() {
+            customerID = customerSogenActif
+        }
+    }
+    
     public func webView(_ webView: UIWebView, shouldStartLoadWith request: URLRequest, navigationType: UIWebViewNavigationType) -> Bool {
         if let url = request.url?.absoluteString {
             switch NavitiaSDKPartnersSogenActif.getReturnValue(url: url) {
             case .success:
-                break
+                let viewController = storyboard?.instantiateViewController(withIdentifier: BookRecapViewController.identifier) as! BookRecapViewController
+                viewController.modalTransitionStyle = .crossDissolve
+                viewController.modalPresentationStyle = .overCurrentContext
+                viewController.customerID = customerID
+                viewController.transactionID = transactionID
+                viewController.bookTicketDelegate = bookTicketDelegate
+                
+                present(viewController, animated: true, completion: nil)
             case .error:
                 dismiss(animated: true) {
                     if let returnPayment = self.viewModel?.returnPayment { returnPayment() }

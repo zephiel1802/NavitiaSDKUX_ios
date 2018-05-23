@@ -390,9 +390,18 @@
 		8476DD562088819C006CB506 /* JourneyPathOverlays.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8476DD552088819C006CB506 /* JourneyPathOverlays.swift */; };
 		8476DD5820888EE8006CB506 /* StackView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8476DD5720888EE8006CB506 /* StackView+Extension.swift */; };
 		8476DD5A208891CB006CB506 /* Collection+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8476DD59208891CB006CB506 /* Collection+Extension.swift */; };
+		84893FF820B311AE008BED15 /* BookTicketDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84893FF720B311AE008BED15 /* BookTicketDelegate.swift */; };
 		848D7C2A207B92D4002E9B1A /* PublicTransportView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 848D7C29207B92D4002E9B1A /* PublicTransportView.xib */; };
 		848D7C2C207B95B0002E9B1A /* PublicTransportView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848D7C2B207B95B0002E9B1A /* PublicTransportView.swift */; };
 		8490A6D52084D2C700F7CFA1 /* NavitiaSDKUserDefaultsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8490A6D42084D2C700F7CFA1 /* NavitiaSDKUserDefaultsManager.swift */; };
+		849E2EDD20B2BDE600AEFC07 /* BookRecapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849E2EDC20B2BDE600AEFC07 /* BookRecapViewController.swift */; };
+		849E2EDF20B2BE0500AEFC07 /* BookRecapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849E2EDE20B2BE0500AEFC07 /* BookRecapViewModel.swift */; };
+		849E2EE120B2C86100AEFC07 /* BookRecapInformationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849E2EE020B2C86100AEFC07 /* BookRecapInformationView.swift */; };
+		849E2EE320B2C86B00AEFC07 /* BookRecapInformationView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 849E2EE220B2C86B00AEFC07 /* BookRecapInformationView.xib */; };
+		849E2EE520B2D13F00AEFC07 /* BookRecapTicketView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849E2EE420B2D13F00AEFC07 /* BookRecapTicketView.swift */; };
+		849E2EE720B2D14500AEFC07 /* BookRecapTicketView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 849E2EE620B2D14500AEFC07 /* BookRecapTicketView.xib */; };
+		849E2EE920B2D15500AEFC07 /* BookRecapConnectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849E2EE820B2D15500AEFC07 /* BookRecapConnectView.swift */; };
+		849E2EEB20B2D15B00AEFC07 /* BookRecapConnectView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 849E2EEA20B2D15B00AEFC07 /* BookRecapConnectView.xib */; };
 		84BC297E207E66CC0073F198 /* StationsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84BC297D207E66CC0073F198 /* StationsView.xib */; };
 		84BC2980207E66D50073F198 /* StationsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84BC297F207E66D50073F198 /* StationsView.swift */; };
 		84E350F520776BC600E9BA46 /* TransferStepView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84E350F420776BC600E9BA46 /* TransferStepView.xib */; };
@@ -802,9 +811,18 @@
 		8476DD552088819C006CB506 /* JourneyPathOverlays.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JourneyPathOverlays.swift; sourceTree = "<group>"; };
 		8476DD5720888EE8006CB506 /* StackView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "StackView+Extension.swift"; sourceTree = "<group>"; };
 		8476DD59208891CB006CB506 /* Collection+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Collection+Extension.swift"; sourceTree = "<group>"; };
+		84893FF720B311AE008BED15 /* BookTicketDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookTicketDelegate.swift; sourceTree = "<group>"; };
 		848D7C29207B92D4002E9B1A /* PublicTransportView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PublicTransportView.xib; sourceTree = "<group>"; };
 		848D7C2B207B95B0002E9B1A /* PublicTransportView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublicTransportView.swift; sourceTree = "<group>"; };
 		8490A6D42084D2C700F7CFA1 /* NavitiaSDKUserDefaultsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavitiaSDKUserDefaultsManager.swift; sourceTree = "<group>"; };
+		849E2EDC20B2BDE600AEFC07 /* BookRecapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookRecapViewController.swift; sourceTree = "<group>"; };
+		849E2EDE20B2BE0500AEFC07 /* BookRecapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookRecapViewModel.swift; sourceTree = "<group>"; };
+		849E2EE020B2C86100AEFC07 /* BookRecapInformationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookRecapInformationView.swift; sourceTree = "<group>"; };
+		849E2EE220B2C86B00AEFC07 /* BookRecapInformationView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BookRecapInformationView.xib; sourceTree = "<group>"; };
+		849E2EE420B2D13F00AEFC07 /* BookRecapTicketView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookRecapTicketView.swift; sourceTree = "<group>"; };
+		849E2EE620B2D14500AEFC07 /* BookRecapTicketView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BookRecapTicketView.xib; sourceTree = "<group>"; };
+		849E2EE820B2D15500AEFC07 /* BookRecapConnectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookRecapConnectView.swift; sourceTree = "<group>"; };
+		849E2EEA20B2D15B00AEFC07 /* BookRecapConnectView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BookRecapConnectView.xib; sourceTree = "<group>"; };
 		84BC297D207E66CC0073F198 /* StationsView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = StationsView.xib; sourceTree = "<group>"; };
 		84BC297F207E66D50073F198 /* StationsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StationsView.swift; sourceTree = "<group>"; };
 		84E350F420776BC600E9BA46 /* TransferStepView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TransferStepView.xib; sourceTree = "<group>"; };
@@ -1187,6 +1205,8 @@
 		8451DA57206505FF00CFA1E4 /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				84893FF620B31191008BED15 /* BookTicket */,
+				849E2ED920B2BDB700AEFC07 /* BookRecap */,
 				3126558320AEF67A00D50F4B /* BookPayment */,
 				84343230208E1A9F0061F20A /* BookShop */,
 				8451DAA320650C0700CFA1E4 /* JourneySolutionRoadmap */,
@@ -1663,6 +1683,45 @@
 			path = ObjectMapper;
 			sourceTree = "<group>";
 		};
+		84893FF620B31191008BED15 /* BookTicket */ = {
+			isa = PBXGroup;
+			children = (
+				84893FF720B311AE008BED15 /* BookTicketDelegate.swift */,
+			);
+			path = BookTicket;
+			sourceTree = "<group>";
+		};
+		849E2ED920B2BDB700AEFC07 /* BookRecap */ = {
+			isa = PBXGroup;
+			children = (
+				849E2EDB20B2BDD400AEFC07 /* View */,
+				849E2EDA20B2BDD000AEFC07 /* Interface */,
+				849E2EDC20B2BDE600AEFC07 /* BookRecapViewController.swift */,
+				849E2EDE20B2BE0500AEFC07 /* BookRecapViewModel.swift */,
+			);
+			path = BookRecap;
+			sourceTree = "<group>";
+		};
+		849E2EDA20B2BDD000AEFC07 /* Interface */ = {
+			isa = PBXGroup;
+			children = (
+				849E2EE220B2C86B00AEFC07 /* BookRecapInformationView.xib */,
+				849E2EE620B2D14500AEFC07 /* BookRecapTicketView.xib */,
+				849E2EEA20B2D15B00AEFC07 /* BookRecapConnectView.xib */,
+			);
+			path = Interface;
+			sourceTree = "<group>";
+		};
+		849E2EDB20B2BDD400AEFC07 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				849E2EE020B2C86100AEFC07 /* BookRecapInformationView.swift */,
+				849E2EE420B2D13F00AEFC07 /* BookRecapTicketView.swift */,
+				849E2EE820B2D15500AEFC07 /* BookRecapConnectView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -1762,6 +1821,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				849E2EE320B2C86B00AEFC07 /* BookRecapInformationView.xib in Resources */,
 				8471D38320809EAD000C9125 /* JourneySolutionView.xib in Resources */,
 				848D7C2A207B92D4002E9B1A /* PublicTransportView.xib in Resources */,
 				8433F39C207F89C0007DBBCE /* RidesharingView.xib in Resources */,
@@ -1790,6 +1850,8 @@
 				8454D44E20692CA200C97D2F /* SDKIcons.ttf in Resources */,
 				8433F3A2207FAF23007DBBCE /* AlertView.xib in Resources */,
 				84339A7E206CC5E200F2CB65 /* JourneyEmptySolutionCollectionViewCell.xib in Resources */,
+				849E2EE720B2D14500AEFC07 /* BookRecapTicketView.xib in Resources */,
+				849E2EEB20B2D15B00AEFC07 /* BookRecapConnectView.xib in Resources */,
 				8451DA63206506ED00CFA1E4 /* Localizable.strings in Resources */,
 				3126559720AEF67A00D50F4B /* BookPaymentProfilView.xib in Resources */,
 				84208C972093656D00980762 /* TicketLoadCollectionViewCell.xib in Resources */,
@@ -1848,6 +1910,7 @@
 				8454D3982068D3A800C97D2F /* Passage.swift in Sources */,
 				8454D3732068D3A800C97D2F /* DisruptionsApi.swift in Sources */,
 				3126565420AEF9C500D50F4B /* BookManagementConfiguration.swift in Sources */,
+				849E2EE920B2D15500AEFC07 /* BookRecapConnectView.swift in Sources */,
 				8454D4122068D3A800C97D2F /* LineHeadersSchema.swift in Sources */,
 				8454D4352068D3A800C97D2F /* Map.swift in Sources */,
 				8454D43C2068D3A800C97D2F /* MapError.swift in Sources */,
@@ -1867,6 +1930,7 @@
 				8454D42D2068D3A800C97D2F /* ISO8601DateTransform.swift in Sources */,
 				8454D3932068D3A800C97D2F /* APIHelper.swift in Sources */,
 				3126564B20AEF9C500D50F4B /* NavitiaBookOffer.swift in Sources */,
+				84893FF820B311AE008BED15 /* BookTicketDelegate.swift in Sources */,
 				8454D3EE2068D3A800C97D2F /* Companie.swift in Sources */,
 				3126565620AEF9C500D50F4B /* VSCTBookManagement.swift in Sources */,
 				8454D3942068D3A800C97D2F /* AlamofireImplementations.swift in Sources */,
@@ -1879,6 +1943,7 @@
 				8454D3B22068D3A800C97D2F /* LinkSchema.swift in Sources */,
 				8454D3BA2068D3A800C97D2F /* Distances.swift in Sources */,
 				8454D3B62068D3A800C97D2F /* GraphicalIsrochoneGeojson.swift in Sources */,
+				849E2EDD20B2BDE600AEFC07 /* BookRecapViewController.swift in Sources */,
 				8454D3F22068D3A800C97D2F /* Line.swift in Sources */,
 				3126559D20AEF67A00D50F4B /* BookPaymentMailFormView.swift in Sources */,
 				8454D3A62068D3A800C97D2F /* Period.swift in Sources */,
@@ -1928,6 +1993,7 @@
 				8454D3FB2068D3A800C97D2F /* JourneyPatternPoints.swift in Sources */,
 				8422B468206A334B0097E6C9 /* JourneySummaryView.swift in Sources */,
 				3126562420AEF9C500D50F4B /* PKCS5.swift in Sources */,
+				849E2EDF20B2BE0500AEFC07 /* BookRecapViewModel.swift in Sources */,
 				8454D37A2068D3A800C97D2F /* NextDeparturesApi.swift in Sources */,
 				3126564020AEF9C500D50F4B /* PCBC.swift in Sources */,
 				3126561720AEF9C500D50F4B /* NoPadding.swift in Sources */,
@@ -1944,6 +2010,7 @@
 				8454D42B2068D3A800C97D2F /* HexColorTransform.swift in Sources */,
 				8454D39E2068D3A800C97D2F /* CoverageError.swift in Sources */,
 				3126564620AEF9C500D50F4B /* Array+Extension.swift in Sources */,
+				849E2EE120B2C86100AEFC07 /* BookRecapInformationView.swift in Sources */,
 				3126562C20AEF9C500D50F4B /* Rabbit.swift in Sources */,
 				8433B87B206BE2A900EC51F9 /* Int32+Extension.swift in Sources */,
 				8454D3BE2068D3A800C97D2F /* CO2.swift in Sources */,
@@ -2070,6 +2137,7 @@
 				8454D3D02068D3A800C97D2F /* Lines.swift in Sources */,
 				8454D3DC2068D3A800C97D2F /* Path.swift in Sources */,
 				8454D3862068D3A800C97D2F /* AddressesApi.swift in Sources */,
+				849E2EE520B2D13F00AEFC07 /* BookRecapTicketView.swift in Sources */,
 				84E37EAA2074FF7B001D61E5 /* JourneySolutionLoadCollectionViewCell.swift in Sources */,
 				8454D43A2068D3A800C97D2F /* IntegerOperators.swift in Sources */,
 				8454D3A22068D3A800C97D2F /* Coverages.swift in Sources */,

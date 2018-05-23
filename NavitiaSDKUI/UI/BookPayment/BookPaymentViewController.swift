@@ -21,6 +21,7 @@ open class BookPaymentViewController: UIViewController {
     var margin: UIEdgeInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
     var composentWidth: CGFloat = 0
     var display = false
+    var bookTicketDelegate: BookTicketDelegate?
     
     fileprivate var _viewModel: BookPaymentViewModel! {
         didSet {
@@ -245,9 +246,9 @@ extension BookPaymentViewController {
     
 }
 
-extension BookPaymentViewController: BookShopViewControllerDelegate {
+extension BookPaymentViewController: BreadcrumbViewDelegate {
     
-    public func onDismissBookShopViewController() {
+    public func onDismiss() {
         self.dismiss(animated: true, completion: nil)
     }
     
@@ -256,29 +257,25 @@ extension BookPaymentViewController: BookShopViewControllerDelegate {
 extension BookPaymentViewController: BookPaymentConditionViewDelegate {
     
     func onConditionSwitchValueChanged(_ bookPaymentConditionView: BookPaymentConditionView) {
-        if !_viewModel.isConnected {
-            guard let bookPaymentMailFormView = bookPaymentMailFormView else {
-                return
-            }
-            if bookPaymentConditionView.conditionSwitch.isOn {
-                if bookPaymentMailFormView.isValid {
-                    bookPaymentView.email = bookPaymentMailFormView.mailTextField.text
-                }
-            } else {
-                bookPaymentView.enablePaymentView = false
-            }
-        }
-        
         if bookPaymentConditionView.conditionSwitch.isOn {
             dismissKeyboard()
-            if let userInfo = NavitiaSDKPartners.shared.userInfo as? KeolisUserInfo {
-                bookPaymentView.email = userInfo.email
+            scrollView.setContentOffset(CGPoint(x: 0, y: max(0, scrollView.contentSize.height - scrollView.bounds.size.height)), animated: true)
+            if _viewModel.isConnected {
                 bookPaymentView.launchPayment()
                 bookPaymentView.enableFilter = false
+            } else {
+                guard let bookPaymentMailFormView = bookPaymentMailFormView else {
+                    return
+                }
+                if bookPaymentMailFormView.isValid {
+                    bookPaymentView.email = bookPaymentMailFormView.mailTextField.text
+                    bookPaymentView.launchPayment()
+                    bookPaymentView.enableFilter = false
+                }
             }
-            scrollView.setContentOffset(CGPoint(x: 0, y: max(0, scrollView.contentSize.height - scrollView.bounds.size.height)), animated: true)
         } else {
             bookPaymentView.enableFilter = true
+            bookPaymentView.enablePaymentView = false
         }
     }
     
@@ -307,6 +304,7 @@ extension BookPaymentViewController: BookPaymentViewDelegate {
         viewController.viewModel = _viewModel
         viewController.modalTransitionStyle = .crossDissolve
         viewController.modalPresentationStyle = .overCurrentContext
+        viewController.bookTicketDelegate = bookTicketDelegate
         present(viewController, animated: true, completion: nil)
     }
     

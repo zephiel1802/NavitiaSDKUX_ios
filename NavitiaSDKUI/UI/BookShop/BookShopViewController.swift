@@ -7,12 +7,6 @@
 
 import UIKit
 
-@objc public protocol BookShopViewControllerDelegate {
-    
-    func onDismissBookShopViewController()
-    
-}
-
 @objc open class BookShopViewController: UIViewController {
 
     @IBOutlet weak var statusBarView: UIView!
@@ -28,7 +22,7 @@ import UIKit
     private var _validateBasketView: ValidateBasketView!
     private var _breadcrumbView: BreadcrumbView!
     private var _validateBasketHeight: CGFloat = 50
-    @objc public var delegate: BookShopViewControllerDelegate?
+    @objc public var bookTicketDelegate: BookTicketDelegate?
     
     fileprivate var _viewModel: BookShopViewModel! {
         didSet {
@@ -92,7 +86,7 @@ import UIKit
     
     private func _setupBreadcrumbView() {
         _breadcrumbView = BreadcrumbView()
-        _breadcrumbView.delegate = self.delegate
+        _breadcrumbView.delegate = self
         _breadcrumbView.stateBreadcrumb = .shop
         _breadcrumbView.translatesAutoresizingMaskIntoConstraints = false
         breadcrumbContainerView.addSubview(_breadcrumbView)
@@ -162,6 +156,14 @@ import UIKit
     
 }
 
+extension BookShopViewController: BreadcrumbViewDelegate {
+    
+    func onDismiss() {
+        bookTicketDelegate?.onDismissBookTicket()
+    }
+    
+}
+
 extension BookShopViewController: UICollectionViewDataSource {
 
     public func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -226,6 +228,7 @@ extension BookShopViewController: TicketCollectionViewCellDelegate {
             informationViewController.titleString = _viewModel.bookOffer[typeSegmentedControl.selectedSegmentIndex][indexPath.row].title
             informationViewController.information = _viewModel.bookOffer[typeSegmentedControl.selectedSegmentIndex][indexPath.row].legalInfos
         }
+        
         present(informationViewController, animated: true) {}
     }
     
@@ -255,6 +258,7 @@ extension BookShopViewController: ValidateBasketViewDelegate {
         let viewController = storyboard?.instantiateViewController(withIdentifier: BookPaymentViewController.identifier) as! BookPaymentViewController
         viewController.modalTransitionStyle = .crossDissolve
         viewController.modalPresentationStyle = .overCurrentContext
+        viewController.bookTicketDelegate = bookTicketDelegate
         
         NavitiaSDKPartners.shared.getOrderValidation(callbackSuccess: { (_) in
             self.present(viewController, animated: true) {}
