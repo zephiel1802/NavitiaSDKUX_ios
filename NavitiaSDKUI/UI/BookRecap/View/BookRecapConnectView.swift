@@ -46,7 +46,7 @@ open class BookRecapConnectView: UIView {
         
         descriptionButton.attributedText = NSMutableAttributedString().bold("save_time_when_buying_tickets".localized(withComment: "Save time when buying tickets", bundle: NavitiaSDKUI.shared.bundle), color: Configuration.Color.darkGray, size: 11)
         connectButton.backgroundColor = Configuration.Color.main
-        connectButton.setAttributedTitle(NSMutableAttributedString().bold("create_my_account".localized(withComment: "Create my account", bundle: NavitiaSDKUI.shared.bundle), color: Configuration.Color.white, size: 12),
+        connectButton.setAttributedTitle(NSMutableAttributedString().bold("create_my_account".localized(withComment: "Create my account", bundle: NavitiaSDKUI.shared.bundle), color: Configuration.Color.main.contrastColor(), size: 12),
                                         for: .normal)
     }
     
