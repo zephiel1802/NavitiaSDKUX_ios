@@ -17,6 +17,7 @@
 		8451DA7F2065081600CFA1E4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8451DA7D2065081600CFA1E4 /* LaunchScreen.storyboard */; };
 		8451DA8A2065081600CFA1E4 /* NavitiaSDKUI_ExampleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8451DA892065081600CFA1E4 /* NavitiaSDKUI_ExampleTests.swift */; };
 		8451DA952065081600CFA1E4 /* NavitiaSDKUI_ExampleUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8451DA942065081600CFA1E4 /* NavitiaSDKUI_ExampleUITests.swift */; };
+		8469BF8E20B5A11B000A8922 /* SDKPartnersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8469BF8D20B5A11B000A8922 /* SDKPartnersViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +54,7 @@
 		8451DA902065081600CFA1E4 /* NavitiaSDKUI-ExampleUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "NavitiaSDKUI-ExampleUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8451DA942065081600CFA1E4 /* NavitiaSDKUI_ExampleUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavitiaSDKUI_ExampleUITests.swift; sourceTree = "<group>"; };
 		8451DA962065081600CFA1E4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8469BF8D20B5A11B000A8922 /* SDKPartnersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SDKPartnersViewController.swift; sourceTree = "<group>"; };
 		8490A6D020849B2E00F7CFA1 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Main.strings; sourceTree = "<group>"; };
 		8490A6D120849B2F00F7CFA1 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		93963EF31FC85252AD39D3CB /* Pods_NavitiaSDKUI_ExampleUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_NavitiaSDKUI_ExampleUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -141,6 +143,7 @@
 			children = (
 				8451DA742065081600CFA1E4 /* AppDelegate.swift */,
 				8451DA762065081600CFA1E4 /* ViewController.swift */,
+				8469BF8D20B5A11B000A8922 /* SDKPartnersViewController.swift */,
 				8451DA782065081600CFA1E4 /* Main.storyboard */,
 				8451DA7B2065081600CFA1E4 /* Assets.xcassets */,
 				8451DA7D2065081600CFA1E4 /* LaunchScreen.storyboard */,
@@ -468,6 +471,7 @@
 			files = (
 				8451DA772065081600CFA1E4 /* ViewController.swift in Sources */,
 				8451DA752065081600CFA1E4 /* AppDelegate.swift in Sources */,
+				8469BF8E20B5A11B000A8922 /* SDKPartnersViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
