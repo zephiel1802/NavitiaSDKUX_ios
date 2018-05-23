@@ -2,7 +2,6 @@
 //  SDKPartnersViewController.swift
 //  NavitiaSDKUI-Example
 //
-//  Created by Flavien Sicard on 23/05/2018.
 //  Copyright © 2018 kisio. All rights reserved.
 //
 
@@ -19,12 +18,10 @@ class SDKPartnersViewController: UIViewController {
         super.viewDidLoad()
 
         self._displayAccountStatus()
-        // Do any additional setup after loading the view.
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
     private func _displayAccountStatus() {
@@ -42,11 +39,13 @@ class SDKPartnersViewController: UIViewController {
             NavitiaSDKPartners.shared.authenticate(username: username, password: password, callbackSuccess: {
                 let alert = UIAlertController(title: "Connected", message: "You are well connected", preferredStyle: UIAlertControllerStyle.alert)
                 alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
+                
                 self.present(alert, animated: true, completion: nil)
                 self._displayAccountStatus()
             }, callbackError: { (statusCode, data) in
                 let alert = UIAlertController(title: String(statusCode), message: "\(String(describing: data))", preferredStyle: UIAlertControllerStyle.alert)
                 alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
+                
                 self.present(alert, animated: true, completion: nil)
                 self._displayAccountStatus()
             })
