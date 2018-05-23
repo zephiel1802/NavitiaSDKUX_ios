@@ -64,21 +64,23 @@ class ViewController: UIViewController {
                 }
             }
         })
-
+        
         let connectedAction = UIAlertAction(title: "Connected", style: .default, handler: {
             (alert: UIAlertAction!) -> Void in
             if let bookShopViewController = self.bookShopViewController {
-                NavitiaSDKPartners.shared.authenticate(username: "", password: "", callbackSuccess: {
-                    bookShopViewController.bookTicketDelegate = self
-                    self.present(bookShopViewController, animated: true, completion: nil)
-                }, callbackError: { (_, _) in })
+                bookShopViewController.bookTicketDelegate = self
+                self.present(bookShopViewController, animated: true, completion: nil)
             }
             
         })
         
         let alertController = UIAlertController(title: nil, message: "Choose Option", preferredStyle: .actionSheet)
         alertController.addAction(anonymousAction)
-        alertController.addAction(connectedAction)
+        if let userInfo = NavitiaSDKPartners.shared.userInfo as? KeolisUserInfo {
+            if userInfo.accountStatus != .anonymous {
+                alertController.addAction(connectedAction)
+            }
+        }
 
         present(alertController, animated: true, completion: nil)
     }
