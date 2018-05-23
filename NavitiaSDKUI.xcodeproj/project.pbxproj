@@ -113,6 +113,8 @@
 		3126566120AEF9C500D50F4B /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3126560820AEF9C500D50F4B /* Info.plist */; };
 		84208C972093656D00980762 /* TicketLoadCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84208C962093656D00980762 /* TicketLoadCollectionViewCell.xib */; };
 		84208C992093657500980762 /* TicketLoadCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84208C982093657500980762 /* TicketLoadCollectionViewCell.swift */; };
+		3126566520B2FA0A00D50F4B /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3126566420B2FA0A00D50F4B /* UIColor+Extension.swift */; };
+		3126566920B3008800D50F4B /* UIViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3126566820B3008700D50F4B /* UIViewController+Extension.swift */; };
 		8422B459206A24230097E6C9 /* JourneyHeaderCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8422B458206A24230097E6C9 /* JourneyHeaderCollectionReusableView.swift */; };
 		8422B45B206A242D0097E6C9 /* JourneyHeaderCollectionReusableView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8422B45A206A242D0097E6C9 /* JourneyHeaderCollectionReusableView.xib */; };
 		8422B45D206A2AE00097E6C9 /* RidesharingInformationCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8422B45C206A2AE00097E6C9 /* RidesharingInformationCollectionViewCell.xib */; };
@@ -530,6 +532,8 @@
 		3126560820AEF9C500D50F4B /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		84208C962093656D00980762 /* TicketLoadCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TicketLoadCollectionViewCell.xib; sourceTree = "<group>"; };
 		84208C982093657500980762 /* TicketLoadCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicketLoadCollectionViewCell.swift; sourceTree = "<group>"; };
+		3126566420B2FA0A00D50F4B /* UIColor+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
+		3126566820B3008700D50F4B /* UIViewController+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extension.swift"; sourceTree = "<group>"; };
 		8422B458206A24230097E6C9 /* JourneyHeaderCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JourneyHeaderCollectionReusableView.swift; sourceTree = "<group>"; };
 		8422B45A206A242D0097E6C9 /* JourneyHeaderCollectionReusableView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = JourneyHeaderCollectionReusableView.xib; sourceTree = "<group>"; };
 		8422B45C206A2AE00097E6C9 /* RidesharingInformationCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RidesharingInformationCollectionViewCell.xib; sourceTree = "<group>"; };
@@ -1239,15 +1243,17 @@
 		8451DA5B2065062300CFA1E4 /* Extension */ = {
 			isa = PBXGroup;
 			children = (
-				8454D44F2069429500C97D2F /* String+Extension.swift */,
-				84FABE132074CB2300BDDE9D /* UIFont+Extension.swift */,
 				8454D451206942B800C97D2F /* Date+Extension.swift */,
 				8433B87A206BE2A900EC51F9 /* Int32+Extension.swift */,
 				84339A81206CC6D900F2CB65 /* NSMutableAttributedString+Extension.swift */,
+				8454D44F2069429500C97D2F /* String+Extension.swift */,
+				3126566420B2FA0A00D50F4B /* UIColor+Extension.swift */,
+				84FABE132074CB2300BDDE9D /* UIFont+Extension.swift */,
 				84737E9C2087995B002D3748 /* UIImageView+Extension.swift */,
 				84737E9E20879A3C002D3748 /* UIView+Extension.swift */,
 				8476DD59208891CB006CB506 /* Collection+Extension.swift */,
 				8476DD5720888EE8006CB506 /* StackView+Extension.swift */,
+				3126566820B3008700D50F4B /* UIViewController+Extension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -1982,6 +1988,7 @@
 				8454D3F02068D3A800C97D2F /* JourneyPatterns.swift in Sources */,
 				8454D38F2068D3A800C97D2F /* TripsApi.swift in Sources */,
 				8454D3CD2068D3A800C97D2F /* PoiType.swift in Sources */,
+				3126566920B3008800D50F4B /* UIViewController+Extension.swift in Sources */,
 				8454D4372068D3A800C97D2F /* DictionaryTransform.swift in Sources */,
 				8454D37F2068D3A800C97D2F /* HeatMapApi.swift in Sources */,
 				8454D4312068D3A800C97D2F /* EnumOperators.swift in Sources */,
@@ -2118,6 +2125,7 @@
 				3126565720AEF9C500D50F4B /* VSCTBookOffer.swift in Sources */,
 				3126562A20AEF9C500D50F4B /* SHA3.swift in Sources */,
 				8454D3952068D3A800C97D2F /* APIs.swift in Sources */,
+				3126566520B2FA0A00D50F4B /* UIColor+Extension.swift in Sources */,
 				8454D3AC2068D3A800C97D2F /* Address.swift in Sources */,
 				3126565A20AEF9C500D50F4B /* KeolisUserInfo.swift in Sources */,
 				3126562520AEF9C500D50F4B /* PBKDF2.swift in Sources */,

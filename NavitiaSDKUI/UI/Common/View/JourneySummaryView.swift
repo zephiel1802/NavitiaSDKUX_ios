@@ -45,9 +45,9 @@ class JourneySummaryView: UIView {
                         continue
                     }
                     let journeySummaryPartView = JourneySummaryPartView()
+                    journeySummaryPartView.color = section.displayInformations?.color?.toUIColor() ?? UIColor.black
                     journeySummaryPartView.name = section.displayInformations?.label
                     journeySummaryPartView.icon = Modes().getModeIcon(section: section)
-                    journeySummaryPartView.color = section.displayInformations?.color?.toUIColor() ?? UIColor.black
                     journeySummaryPartView.width = widthJourneySummaryPartView(sectionCount: sectionCount,
                                                                                allDurationSections: allDurationSections,
                                                                                duration: duration,

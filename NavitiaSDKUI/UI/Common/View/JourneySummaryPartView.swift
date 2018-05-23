@@ -77,8 +77,9 @@ extension JourneySummaryPartView {
         }
         set {
             if let newValue = newValue {
+                let tagBackgroundColor = _tagTransportView.backgroundColor ?? .black
                 _tagTransportLabel.attributedText = NSMutableAttributedString()
-                    .bold(newValue, color: Configuration.Color.white, size: 9)
+                    .bold(newValue, color: tagBackgroundColor.contrastColor(), size: 9)
             }
         }
     }
