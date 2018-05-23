@@ -91,8 +91,8 @@ extension BookPaymentWebViewController: UIWebViewDelegate {
                 viewController.modalPresentationStyle = .overCurrentContext
                 viewController.customerID = customerID
                 viewController.transactionID = transactionID
-                viewController.amount = "101"
                 viewController.bookTicketDelegate = bookTicketDelegate
+                
                 present(viewController, animated: true, completion: nil)
             case .error:
                 dismiss(animated: true) {

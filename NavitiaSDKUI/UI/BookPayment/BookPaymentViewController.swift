@@ -305,7 +305,6 @@ extension BookPaymentViewController: BookPaymentViewDelegate {
         viewController.modalTransitionStyle = .crossDissolve
         viewController.modalPresentationStyle = .overCurrentContext
         viewController.bookTicketDelegate = bookTicketDelegate
-        testView.append(viewController)
         present(viewController, animated: true, completion: nil)
     }
     

@@ -36,7 +36,6 @@ import UIKit
     override open func viewDidLoad() {
         super.viewDidLoad()
         
-        testView.append(self)
         NavitiaSDKUI.shared.bundle = self.nibBundle
         UIFont.registerFontWithFilenameString(filenameString: "SDKIcons.ttf", bundle: NavitiaSDKUI.shared.bundle)
         
@@ -261,7 +260,6 @@ extension BookShopViewController: ValidateBasketViewDelegate {
         viewController.bookTicketDelegate = bookTicketDelegate
         
         NavitiaSDKPartners.shared.getOrderValidation(callbackSuccess: { (_) in
-            testView.append(viewController)
             self.present(viewController, animated: true) {}
         }) { (_, _) in }
     }

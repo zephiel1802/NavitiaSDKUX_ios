@@ -17,7 +17,6 @@ open class BookRecapViewController: UIViewController {
     
     var transactionID: String = ""
     var customerID: String = ""
-    var amount: String = ""
     var viewScroll = [UIView]()
     var margin: UIEdgeInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
     var composentWidth: CGFloat = 0
@@ -41,10 +40,6 @@ open class BookRecapViewController: UIViewController {
     
     override open func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-    }
-    
-    override open func viewWillLayoutSubviews() {
-        super.viewWillLayoutSubviews()
     }
     
     override open func viewDidLayoutSubviews() {
@@ -136,6 +131,7 @@ extension BookRecapViewController {
         } else {
             view.frame.origin.x = margin.left
         }
+        
         if viewScroll.isEmpty {
             view.frame.origin.y = 0
         } else {
@@ -144,6 +140,7 @@ extension BookRecapViewController {
             }
         }
         viewScroll.append(view)
+        
         if let last = viewScroll.last {
             scrollView.contentSize.height = last.frame.origin.y + last.frame.height
         }
@@ -162,6 +159,7 @@ extension BookRecapViewController {
                 view.frame.size.width = _updateWidth()
             }
         }
+        
         if let last = viewScroll.last {
             scrollView.contentSize.height = last.frame.origin.y + last.frame.height + margin.bottom
             if (last is BookRecapTicketView || last is BookRecapConnectView) && scrollView.contentSize.height < scrollView.frame.size.height {
