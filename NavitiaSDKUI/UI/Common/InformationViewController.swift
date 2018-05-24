@@ -53,10 +53,15 @@ class InformationViewController: UIViewController {
                   color: Configuration.Color.main,
                   size: 12),
                                        for: .normal)
-        descriptionLabel.attributedText = NSMutableAttributedString()
-            .bold(titleString, color: Configuration.Color.main, size: 12)
-            .normal("\r\r")
-            .normal(information, color: Configuration.Color.black, size: 12)
+        if titleString == "" {
+            descriptionLabel.attributedText = NSMutableAttributedString()
+                .normal(information, color: Configuration.Color.black, size: 12)
+        } else {
+            descriptionLabel.attributedText = NSMutableAttributedString()
+                .bold(titleString, color: Configuration.Color.main, size: 12)
+                .normal("\r\r")
+                .normal(information, color: Configuration.Color.black, size: 12)
+        }
         iconContainerView.backgroundColor = Configuration.Color.main
         iconLabel.attributedText = NSMutableAttributedString()
             .icon(iconName,
