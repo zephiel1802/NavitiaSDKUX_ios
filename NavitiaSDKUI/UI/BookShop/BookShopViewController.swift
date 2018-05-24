@@ -222,7 +222,7 @@ extension BookShopViewController: TicketCollectionViewCellDelegate {
         let informationViewController = InformationViewController(nibName: "InformationView", bundle: NavitiaSDKUI.shared.bundle)
         informationViewController.modalTransitionStyle = .crossDissolve
         informationViewController.modalPresentationStyle = .overCurrentContext
-        informationViewController.titleButton = [String(format: "%@ !", "understand".localized(withComment: "Understand", bundle: NavitiaSDKUI.shared.bundle))]
+        informationViewController.titleButton = [String(format: "%@ !", "understood".localized(withComment: "Understood", bundle: NavitiaSDKUI.shared.bundle))]
         informationViewController.delegate = self
         if let indexPath = ticketCollectionViewCell.indexPath {
             informationViewController.titleString = _viewModel.bookOffer[typeSegmentedControl.selectedSegmentIndex][indexPath.row].title
