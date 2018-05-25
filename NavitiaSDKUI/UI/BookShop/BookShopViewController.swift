@@ -278,7 +278,9 @@ extension BookShopViewController: TicketCollectionViewCellDelegate {
             NavitiaSDKPartners.shared.removeOffer(offerId: id, callbackSuccess: {
                 ticketCollectionViewCell.quantity -= 1
                 self._reloadCart()
-            }) { (codeStatus, data) in }
+            }) { (statusCode, data) in
+                self.displayError(delegate: self, title: "Erreur \(statusCode)", description: "Une erreur est survenue, veuillez réessayer plus tard \(data)")
+            }
         }
     }
     
@@ -287,7 +289,9 @@ extension BookShopViewController: TicketCollectionViewCellDelegate {
             NavitiaSDKPartners.shared.addOffer(offerId: id, callbackSuccess: {
                 ticketCollectionViewCell.quantity += 1
                 self._reloadCart()
-            }) { (codeStatus, data) in }
+            }) { (statusCode, data) in
+                self.displayError(delegate: self, title: "Erreur \(statusCode)", description: "Une erreur est survenue, veuillez réessayer plus tard \(data)")
+            }
         }
     }
 
@@ -304,7 +308,7 @@ extension BookShopViewController: ValidateBasketViewDelegate {
         NavitiaSDKPartners.shared.getOrderValidation(callbackSuccess: { (_) in
             self.present(viewController, animated: true) {}
         }) { (statusCode, data) in
-            print(statusCode, data)
+            self.displayError(delegate: self, title: "Erreur \(statusCode)", description: "Une erreur est survenue, veuillez réessayer plus tard \(data)")
         }
     }
     

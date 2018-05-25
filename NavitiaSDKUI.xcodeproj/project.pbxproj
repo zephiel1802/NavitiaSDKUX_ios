@@ -111,10 +111,10 @@
 		3126565F20AEF9C500D50F4B /* AccountManagementType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3126560620AEF9C500D50F4B /* AccountManagementType.swift */; };
 		3126566020AEF9C500D50F4B /* AccountManagementConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3126560720AEF9C500D50F4B /* AccountManagementConfiguration.swift */; };
 		3126566120AEF9C500D50F4B /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3126560820AEF9C500D50F4B /* Info.plist */; };
-		84208C972093656D00980762 /* TicketLoadCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84208C962093656D00980762 /* TicketLoadCollectionViewCell.xib */; };
-		84208C992093657500980762 /* TicketLoadCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84208C982093657500980762 /* TicketLoadCollectionViewCell.swift */; };
 		3126566520B2FA0A00D50F4B /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3126566420B2FA0A00D50F4B /* UIColor+Extension.swift */; };
 		3126566920B3008800D50F4B /* UIViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3126566820B3008700D50F4B /* UIViewController+Extension.swift */; };
+		84208C972093656D00980762 /* TicketLoadCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84208C962093656D00980762 /* TicketLoadCollectionViewCell.xib */; };
+		84208C992093657500980762 /* TicketLoadCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84208C982093657500980762 /* TicketLoadCollectionViewCell.swift */; };
 		8422B459206A24230097E6C9 /* JourneyHeaderCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8422B458206A24230097E6C9 /* JourneyHeaderCollectionReusableView.swift */; };
 		8422B45B206A242D0097E6C9 /* JourneyHeaderCollectionReusableView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8422B45A206A242D0097E6C9 /* JourneyHeaderCollectionReusableView.xib */; };
 		8422B45D206A2AE00097E6C9 /* RidesharingInformationCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8422B45C206A2AE00097E6C9 /* RidesharingInformationCollectionViewCell.xib */; };
@@ -410,6 +410,8 @@
 		84E350F920776F1100E9BA46 /* DisruptionStepView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84E350F820776F1100E9BA46 /* DisruptionStepView.xib */; };
 		84E37EAA2074FF7B001D61E5 /* JourneySolutionLoadCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E37EA92074FF7B001D61E5 /* JourneySolutionLoadCollectionViewCell.swift */; };
 		84EBF8CB207CF86500053E61 /* TransferStepView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84EBF8CA207CF86500053E61 /* TransferStepView.swift */; };
+		84EED93F20B8120700189E88 /* MessageCVView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84EED93E20B8120700189E88 /* MessageCVView.xib */; };
+		84EED94120B8120E00189E88 /* MessageCVView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84EED94020B8120E00189E88 /* MessageCVView.swift */; };
 		84FABE122074C7FC00BDDE9D /* Icons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84FABE112074C7FC00BDDE9D /* Icons.swift */; };
 		84FABE142074CB2300BDDE9D /* UIFont+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84FABE132074CB2300BDDE9D /* UIFont+Extension.swift */; };
 		84FABE162074F76600BDDE9D /* JourneySolutionLoadCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84FABE152074F76600BDDE9D /* JourneySolutionLoadCollectionViewCell.xib */; };
@@ -530,10 +532,10 @@
 		3126560620AEF9C500D50F4B /* AccountManagementType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountManagementType.swift; sourceTree = "<group>"; };
 		3126560720AEF9C500D50F4B /* AccountManagementConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountManagementConfiguration.swift; sourceTree = "<group>"; };
 		3126560820AEF9C500D50F4B /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		84208C962093656D00980762 /* TicketLoadCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TicketLoadCollectionViewCell.xib; sourceTree = "<group>"; };
-		84208C982093657500980762 /* TicketLoadCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicketLoadCollectionViewCell.swift; sourceTree = "<group>"; };
 		3126566420B2FA0A00D50F4B /* UIColor+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
 		3126566820B3008700D50F4B /* UIViewController+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extension.swift"; sourceTree = "<group>"; };
+		84208C962093656D00980762 /* TicketLoadCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TicketLoadCollectionViewCell.xib; sourceTree = "<group>"; };
+		84208C982093657500980762 /* TicketLoadCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicketLoadCollectionViewCell.swift; sourceTree = "<group>"; };
 		8422B458206A24230097E6C9 /* JourneyHeaderCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JourneyHeaderCollectionReusableView.swift; sourceTree = "<group>"; };
 		8422B45A206A242D0097E6C9 /* JourneyHeaderCollectionReusableView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = JourneyHeaderCollectionReusableView.xib; sourceTree = "<group>"; };
 		8422B45C206A2AE00097E6C9 /* RidesharingInformationCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RidesharingInformationCollectionViewCell.xib; sourceTree = "<group>"; };
@@ -833,6 +835,8 @@
 		84E350F820776F1100E9BA46 /* DisruptionStepView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DisruptionStepView.xib; sourceTree = "<group>"; };
 		84E37EA92074FF7B001D61E5 /* JourneySolutionLoadCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JourneySolutionLoadCollectionViewCell.swift; sourceTree = "<group>"; };
 		84EBF8CA207CF86500053E61 /* TransferStepView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransferStepView.swift; sourceTree = "<group>"; };
+		84EED93E20B8120700189E88 /* MessageCVView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MessageCVView.xib; sourceTree = "<group>"; };
+		84EED94020B8120E00189E88 /* MessageCVView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageCVView.swift; sourceTree = "<group>"; };
 		84FABE112074C7FC00BDDE9D /* Icons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Icons.swift; sourceTree = "<group>"; };
 		84FABE132074CB2300BDDE9D /* UIFont+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+Extension.swift"; sourceTree = "<group>"; };
 		84FABE152074F76600BDDE9D /* JourneySolutionLoadCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = JourneySolutionLoadCollectionViewCell.xib; sourceTree = "<group>"; };
@@ -1121,6 +1125,7 @@
 				84208C982093657500980762 /* TicketLoadCollectionViewCell.swift */,
 				84343239208E1E5F0061F20A /* TicketCollectionViewCell.swift */,
 				845ACC412090A81300AB24B9 /* ValidateBasketView.swift */,
+				84EED94020B8120E00189E88 /* MessageCVView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1131,6 +1136,7 @@
 				84208C962093656D00980762 /* TicketLoadCollectionViewCell.xib */,
 				84343237208E1E500061F20A /* TicketCollectionViewCell.xib */,
 				845ACC432090A81B00AB24B9 /* ValidateBasketView.xib */,
+				84EED93E20B8120700189E88 /* MessageCVView.xib */,
 			);
 			path = Interface;
 			sourceTree = "<group>";
@@ -1828,6 +1834,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				849E2EE320B2C86B00AEFC07 /* BookRecapInformationView.xib in Resources */,
+				84EED93F20B8120700189E88 /* MessageCVView.xib in Resources */,
 				8471D38320809EAD000C9125 /* JourneySolutionView.xib in Resources */,
 				848D7C2A207B92D4002E9B1A /* PublicTransportView.xib in Resources */,
 				8433F39C207F89C0007DBBCE /* RidesharingView.xib in Resources */,
@@ -1931,6 +1938,7 @@
 				3126564C20AEF9C500D50F4B /* NavitiaSDKPartnersParameterCode.swift in Sources */,
 				3126563C20AEF9C500D50F4B /* CFB.swift in Sources */,
 				8454D39F2068D3A800C97D2F /* VJDisplayInformation.swift in Sources */,
+				84EED94120B8120E00189E88 /* MessageCVView.swift in Sources */,
 				8454D3CE2068D3A800C97D2F /* BetaEndpoints.swift in Sources */,
 				3126562220AEF9C500D50F4B /* MD5.swift in Sources */,
 				8454D42D2068D3A800C97D2F /* ISO8601DateTransform.swift in Sources */,
