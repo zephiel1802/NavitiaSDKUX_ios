@@ -51,6 +51,7 @@ open class BookRecapViewController: UIViewController {
             } else {
                 _displayLogout()
             }
+            NavitiaSDKPartners.shared.resetCart(callbackSuccess: {}, callbackError: { (_, _) in })
         }
         
         _updateOriginViewScroll()
