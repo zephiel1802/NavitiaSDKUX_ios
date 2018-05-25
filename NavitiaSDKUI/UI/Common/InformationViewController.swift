@@ -16,7 +16,7 @@ import UIKit
 
 class InformationViewController: UIViewController {
  
-    @IBOutlet weak var backgroundView: UIView!
+    @IBOutlet weak var backgroundButton: UIButton!
     @IBOutlet weak var iconContainerView: UIView!
     @IBOutlet weak var iconLabel: UILabel!
     @IBOutlet weak var descriptionLabel: UILabel!
@@ -26,6 +26,7 @@ class InformationViewController: UIViewController {
     @IBOutlet var secondButton: UIButton!
     
     var delegate: InformationViewDelegate?
+    var tagName: String = "unowned"
     var titleButton = ["OK"]
     var titleString: String = ""
     var information: String = ""
@@ -37,7 +38,6 @@ class InformationViewController: UIViewController {
         view.backgroundColor = UIColor.clear
         view.isOpaque = false
 
-        backgroundView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self._dismissView)))
         if titleButton.count > 1 {
             secondButton.setAttributedTitle(NSMutableAttributedString()
                 .normal(titleButton[1],
@@ -89,7 +89,7 @@ class InformationViewController: UIViewController {
         }
     }
     
-    @objc private func _dismissView() {
+    @IBAction func onBackgroundButtonCliked(_ sender: Any) {
         dismiss(animated: true, completion: nil)
     }
 

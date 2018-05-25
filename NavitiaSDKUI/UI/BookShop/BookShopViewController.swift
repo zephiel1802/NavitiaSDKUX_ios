@@ -151,7 +151,26 @@ import UIKit
     }
 
     @IBAction func onTypePressedSegmentControl(_ sender: UISegmentedControl) {
-        self._viewModel.bookShopDidChange!(self._viewModel)
+        if sender.selectedSegmentIndex == 1 && !_viewModel.isConnected {
+            sender.selectedSegmentIndex = 0
+            _onInformationPressedButton()
+        } else {
+            self._viewModel.bookShopDidChange!(self._viewModel)
+        }
+    }
+    
+    private func _onInformationPressedButton() {
+        let informationViewController = InformationViewController(nibName: "InformationView", bundle: NavitiaSDKUI.shared.bundle)
+        informationViewController.tagName = "connection"
+        informationViewController.modalTransitionStyle = .crossDissolve
+        informationViewController.modalPresentationStyle = .overCurrentContext
+        //        informationViewController.titleButton = [String(format: "%@ !", "understood".localized(withComment: "Understood !", bundle: NavitiaSDKUI.shared.bundle))]
+        informationViewController.titleButton = ["Me connecter", "Créer mon compte"]
+        informationViewController.delegate = self
+//        informationViewController.information =  "your_payment_has_been_refused".localized(withComment: "Your payment has been refused", bundle: NavitiaSDKUI.shared.bundle)
+        informationViewController.information =  "Vous devez être connecté pour visualiser les abonnements"
+        informationViewController.iconName = "user-connexion"
+        present(informationViewController, animated: true) {}
     }
     
 }
@@ -270,7 +289,19 @@ extension BookShopViewController: ValidateBasketViewDelegate {
 extension BookShopViewController: InformationViewDelegate {
     
     func onFirstButtonClicked(_ informationViewController: InformationViewController) {
-        informationViewController.dismiss(animated: true) {}
+        if informationViewController.tagName == "connection" {
+            bookTicketDelegate?.onDisplayConnectionAccount()
+        } else {
+            informationViewController.dismiss(animated: true) {}
+        }
+    }
+    
+    func onSecondButtonClicked(_ informationViewController: InformationViewController) {
+        if informationViewController.tagName == "connection" {
+            bookTicketDelegate?.onDisplayCreateAccount()
+        } else {
+            informationViewController.dismiss(animated: true) {}
+        }
     }
     
 }
