@@ -19,6 +19,8 @@ class JourneySolutionCollectionViewCell: UICollectionViewCell {
     @IBOutlet var durationBottomContraint: NSLayoutConstraint!
     @IBOutlet var durationLeadingContraint: NSLayoutConstraint!
     
+    var disruptions: [Disruption]!
+    
     func setup(_ journey: Journey) {
         _setupArrowIcon()
         addShadow()
@@ -39,6 +41,7 @@ class JourneySolutionCollectionViewCell: UICollectionViewCell {
             }
         }
         if let sections = journey.sections {
+            journeySummaryView.disruption = disruptions
             journeySummaryView.addSections(sections)
         }
     }

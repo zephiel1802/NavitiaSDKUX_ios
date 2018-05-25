@@ -162,6 +162,7 @@ extension JourneySolutionViewController: UICollectionViewDataSource {
             }
             // Result
             if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: JourneySolutionCollectionViewCell.identifier, for: indexPath) as? JourneySolutionCollectionViewCell {
+                cell.disruptions = _viewModel.disruptions
                 cell.setup(self._viewModel.journeys[indexPath.row])
                 return cell
             }
@@ -217,10 +218,12 @@ extension JourneySolutionViewController: UICollectionViewDelegate {
         if !_viewModel.loading {
             if indexPath.section == 0 && _viewModel.journeys.count > indexPath.row {
                 let viewController = storyboard?.instantiateViewController(withIdentifier: JourneySolutionRoadmapViewController.identifier) as! JourneySolutionRoadmapViewController
+                viewController.disruptions = _viewModel.disruptions
                 viewController.journey = _viewModel.journeys[indexPath.row]
                 self.navigationController?.pushViewController(viewController, animated: true)
             } else if indexPath.section == 1 && indexPath.row != 0 {
                 let viewController = storyboard?.instantiateViewController(withIdentifier: JourneySolutionRidesharingViewController.identifier) as! JourneySolutionRidesharingViewController
+                viewController.disruptions = _viewModel.disruptions
                 viewController.journey = _viewModel.journeysRidesharing[indexPath.row - 1]
                 self.navigationController?.pushViewController(viewController, animated: true)
             }

@@ -59,6 +59,7 @@ enum Configuration {
     
     // Format
     static let date = "yyyyMMdd'T'HHmmss"
+    static let dateInterval = "dd/MM/yy"
     static let time = "HH:mm"
     static let timeJourneySolution = "EEE dd MMM - HH:mm"
     static let timeRidesharing = "HH'h'mm"

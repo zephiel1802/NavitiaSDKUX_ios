@@ -12,6 +12,7 @@ open class JourneySolutionRidesharingViewController: UIViewController {
     @IBOutlet weak var journeySolutionRoadmap: JourneySolutionView!
     @IBOutlet weak var collectionView: UICollectionView!
     
+    var disruptions: [Disruption]!
     var journey: Journey? {
         get {
             return _viewModel.journey

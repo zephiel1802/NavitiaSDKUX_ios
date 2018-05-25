@@ -12,6 +12,8 @@ class JourneySummaryView: UIView {
     @IBOutlet weak var _view: UIView!
     @IBOutlet weak var _stackView: UIStackView!
     
+    var disruption: [Disruption]?
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
     }
@@ -52,7 +54,22 @@ class JourneySummaryView: UIView {
                                                                                allDurationSections: allDurationSections,
                                                                                duration: duration,
                                                                                journeySummaryPartView: journeySummaryPartView)
+                    if let links = section.displayInformations?.links {
+                        for link in links {
+                            if let type = link.type, let id = link.id, let disruption = disruption {
+                                if type == "disruption" {
+                                    for i in disruption {
+                                        if i.id == id {
+                                            journeySummaryPartView.displayDisruption(Disruption.getIconName(of: i.level), color: i.severity?.color)
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+           
                     
+
                     _stackView.addArrangedSubview(journeySummaryPartView)
                 }
             }
