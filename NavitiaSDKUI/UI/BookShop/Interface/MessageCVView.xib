@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MessageCVView" customModule="NavitiaSDKUI" customModuleProvider="target">
+            <connections>
+                <outlet property="descriptionLabel" destination="Yo7-2a-b4K" id="bxu-Eg-JuS"/>
+                <outlet property="imageView" destination="fv9-d3-mIx" id="o6D-bI-96S"/>
+                <outlet property="titleLabel" destination="f2f-Gk-5Cz" id="rnk-ZX-mxa"/>
+                <outlet property="view" destination="iN0-l3-epB" id="bKD-uE-ypE"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="274" height="200"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="fv9-d3-mIx">
+                    <rect key="frame" x="107" y="10" width="60" height="60"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="60" id="Fae-xA-Gdw"/>
+                        <constraint firstAttribute="width" constant="60" id="KgR-mS-FpI"/>
+                    </constraints>
+                </imageView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Oups" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="f2f-Gk-5Cz">
+                    <rect key="frame" x="116" y="80" width="42.5" height="20.5"/>
+                    <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
+                    <color key="textColor" red="0.5607843137254902" green="0.52549019607843139" blue="0.52549019607843139" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="il n'y a pas d'abonnement accessible en M-Ticket" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Yo7-2a-b4K">
+                    <rect key="frame" x="40" y="110.5" width="194" height="29"/>
+                    <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="12"/>
+                    <color key="textColor" red="0.52549019607843139" green="0.52549019607843139" blue="0.52549019607843139" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstItem="f2f-Gk-5Cz" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="3lx-Xe-XpX"/>
+                <constraint firstItem="Yo7-2a-b4K" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="EeK-WO-hap"/>
+                <constraint firstItem="Yo7-2a-b4K" firstAttribute="top" secondItem="f2f-Gk-5Cz" secondAttribute="bottom" constant="10" id="KcK-Ik-XFI"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="Yo7-2a-b4K" secondAttribute="trailing" constant="40" id="gW1-ag-5ef"/>
+                <constraint firstItem="Yo7-2a-b4K" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="40" id="hHf-d4-B7D"/>
+                <constraint firstItem="fv9-d3-mIx" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="owv-FM-LUo"/>
+                <constraint firstItem="f2f-Gk-5Cz" firstAttribute="top" secondItem="fv9-d3-mIx" secondAttribute="bottom" constant="10" id="yXu-0o-CQY"/>
+                <constraint firstItem="fv9-d3-mIx" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="10" id="zt3-nH-Dee"/>
+            </constraints>
+            <nil key="simulatedTopBarMetrics"/>
+            <nil key="simulatedBottomBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <point key="canvasLocation" x="-26" y="139.5"/>
+        </view>
+    </objects>
+</document>

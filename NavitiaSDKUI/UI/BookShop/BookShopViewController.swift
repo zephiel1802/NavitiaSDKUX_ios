@@ -28,6 +28,7 @@ import UIKit
         didSet {
             self._viewModel.bookShopDidChange = { [weak self] bookShopViewModel in
                 self?.collectionView.reloadData()
+                self?.collectionViewDisplayBackground()
                 self?._reloadCart()
             }
         }
@@ -45,6 +46,7 @@ import UIKit
         
         _setupInterface()
         _registerCollectionView()
+        _setupBackgroundCollectionView()
         _viewModel = BookShopViewModel()
         _viewModel.request()
     }
@@ -68,6 +70,12 @@ import UIKit
         collectionView.register(UINib(nibName: TicketCollectionViewCell.identifier, bundle: self.nibBundle), forCellWithReuseIdentifier: TicketCollectionViewCell.identifier)
         collectionView.register(UINib(nibName: TicketCollectionViewCell.identifier, bundle: self.nibBundle), forCellWithReuseIdentifier: TicketCollectionViewCell.identifier)
         collectionView.register(UINib(nibName: TicketLoadCollectionViewCell.identifier, bundle: self.nibBundle), forCellWithReuseIdentifier: TicketLoadCollectionViewCell.identifier)
+    }
+    
+    private func _setupBackgroundCollectionView() {
+        let messageCVView = MessageCVView(frame: CGRect(x: 0, y: 0, width: collectionView.bounds.size.width, height: collectionView.bounds.size.height))
+        collectionView.backgroundView = messageCVView
+        collectionView?.backgroundView?.isHidden = true
     }
     
     private func _setupInterface() {
@@ -172,6 +180,20 @@ import UIKit
         informationViewController.iconName = "user-connexion"
         present(informationViewController, animated: true) {}
     }
+    
+    func collectionViewDisplayBackground() {
+        if _viewModel.loading {
+            collectionView?.backgroundView?.isHidden = false
+        }
+        if _viewModel.bookOffer.count > typeSegmentedControl.selectedSegmentIndex {
+            if _viewModel.bookOffer[typeSegmentedControl.selectedSegmentIndex].count == 0 {
+                collectionView?.backgroundView?.isHidden = false
+            } else {
+                collectionView?.backgroundView?.isHidden = true
+            }
+        }
+    }
+
     
 }
 
@@ -281,7 +303,9 @@ extension BookShopViewController: ValidateBasketViewDelegate {
         
         NavitiaSDKPartners.shared.getOrderValidation(callbackSuccess: { (_) in
             self.present(viewController, animated: true) {}
-        }) { (_, _) in }
+        }) { (statusCode, data) in
+            print(statusCode, data)
+        }
     }
     
 }
