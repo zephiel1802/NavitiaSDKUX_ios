@@ -63,11 +63,9 @@ class BookPaymentWebViewController: UIViewController {
 extension BookPaymentWebViewController: BreadcrumbViewDelegate {
     
     func onDismiss() {
-        if let url = webView.request?.url?.absoluteString {
-            if url.range(of: "cryptogramme_fac") != nil {
-                webView.goBack()
-                return
-            }
+        if webView.canGoBack {
+            webView.goBack()
+            return
         }
         self.dismiss(animated: true, completion: nil)
     }
