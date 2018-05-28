@@ -231,8 +231,10 @@ open class JourneySolutionRoadmapViewController: UIViewController {
                                     publicTransportView.disruptionInformation = message
                                 }
                                 if let begin = disruption.applicationPeriods?.first?.begin?.toDate(format: Configuration.date), let end = disruption.applicationPeriods?.first?.end?.toDate(format: Configuration.date) {
-                                    publicTransportView.disruptionDate = String(format: "Du %@ au %@",
+                                    publicTransportView.disruptionDate = String(format: "%@ %@ %@ %@",
+                                                                                "from".localized(withComment: "Back", bundle: NavitiaSDKUI.shared.bundle),
                                                                                 begin.toString(format: Configuration.dateInterval),
+                                                                                "to_period".localized(withComment: "Back", bundle: NavitiaSDKUI.shared.bundle),
                                                                                 end.toString(format: Configuration.dateInterval))
         
                                 }

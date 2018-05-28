@@ -1,5 +1,5 @@
 PODS:
-  - NavitiaSDKUI (1.2.0)
+  - NavitiaSDKUI (1.2.1)
 
 DEPENDENCIES:
   - NavitiaSDKUI (from `../`)
