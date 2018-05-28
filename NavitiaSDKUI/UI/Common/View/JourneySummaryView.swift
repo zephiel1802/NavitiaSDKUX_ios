@@ -67,8 +67,6 @@ class JourneySummaryView: UIView {
                             }
                         }
                     }
-           
-                    
 
                     _stackView.addArrangedSubview(journeySummaryPartView)
                 }
