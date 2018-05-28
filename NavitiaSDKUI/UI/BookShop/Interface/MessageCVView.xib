@@ -13,7 +13,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MessageCVView" customModule="NavitiaSDKUI" customModuleProvider="target">
             <connections>
                 <outlet property="descriptionLabel" destination="Yo7-2a-b4K" id="bxu-Eg-JuS"/>
-                <outlet property="imageView" destination="fv9-d3-mIx" id="o6D-bI-96S"/>
+                <outlet property="logoLabel" destination="l0a-Ee-hac" id="jWO-L8-ZTI"/>
                 <outlet property="titleLabel" destination="f2f-Gk-5Cz" id="rnk-ZX-mxa"/>
                 <outlet property="view" destination="iN0-l3-epB" id="bKD-uE-ypE"/>
             </connections>
@@ -23,23 +23,26 @@
             <rect key="frame" x="0.0" y="0.0" width="274" height="200"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="fv9-d3-mIx">
-                    <rect key="frame" x="107" y="10" width="60" height="60"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="60" id="Fae-xA-Gdw"/>
-                        <constraint firstAttribute="width" constant="60" id="KgR-mS-FpI"/>
-                    </constraints>
-                </imageView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Oups" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="f2f-Gk-5Cz">
-                    <rect key="frame" x="116" y="80" width="42.5" height="20.5"/>
+                    <rect key="frame" x="116" y="120" width="42.5" height="20.5"/>
                     <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
                     <color key="textColor" red="0.5607843137254902" green="0.52549019607843139" blue="0.52549019607843139" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="il n'y a pas d'abonnement accessible en M-Ticket" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Yo7-2a-b4K">
-                    <rect key="frame" x="40" y="110.5" width="194" height="29"/>
+                    <rect key="frame" x="40" y="150.5" width="194" height="29"/>
                     <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="12"/>
                     <color key="textColor" red="0.52549019607843139" green="0.52549019607843139" blue="0.52549019607843139" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="W" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="l0a-Ee-hac">
+                    <rect key="frame" x="87" y="10" width="100" height="100"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="100" id="GYQ-bg-ZdY"/>
+                        <constraint firstAttribute="height" constant="100" id="LJq-iO-FNS"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="75"/>
+                    <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
             </subviews>
@@ -47,12 +50,12 @@
             <constraints>
                 <constraint firstItem="f2f-Gk-5Cz" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="3lx-Xe-XpX"/>
                 <constraint firstItem="Yo7-2a-b4K" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="EeK-WO-hap"/>
+                <constraint firstItem="l0a-Ee-hac" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="JCK-xn-AIN"/>
                 <constraint firstItem="Yo7-2a-b4K" firstAttribute="top" secondItem="f2f-Gk-5Cz" secondAttribute="bottom" constant="10" id="KcK-Ik-XFI"/>
+                <constraint firstItem="l0a-Ee-hac" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="10" id="Zq9-Uc-0iq"/>
+                <constraint firstItem="f2f-Gk-5Cz" firstAttribute="top" secondItem="l0a-Ee-hac" secondAttribute="bottom" constant="10" id="duD-CH-1pl"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="Yo7-2a-b4K" secondAttribute="trailing" constant="40" id="gW1-ag-5ef"/>
                 <constraint firstItem="Yo7-2a-b4K" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="40" id="hHf-d4-B7D"/>
-                <constraint firstItem="fv9-d3-mIx" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="owv-FM-LUo"/>
-                <constraint firstItem="f2f-Gk-5Cz" firstAttribute="top" secondItem="fv9-d3-mIx" secondAttribute="bottom" constant="10" id="yXu-0o-CQY"/>
-                <constraint firstItem="fv9-d3-mIx" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="10" id="zt3-nH-Dee"/>
             </constraints>
             <nil key="simulatedTopBarMetrics"/>
             <nil key="simulatedBottomBarMetrics"/>

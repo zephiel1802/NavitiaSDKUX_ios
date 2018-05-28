@@ -10,7 +10,7 @@ import UIKit
 open class MessageCVView: UIView {
     
     @IBOutlet var view: UIView!
-    @IBOutlet weak var imageView: UIImageView!
+    @IBOutlet weak var logoLabel: UILabel!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var descriptionLabel: UILabel!
     
@@ -42,6 +42,9 @@ open class MessageCVView: UIView {
         UINib(nibName: "MessageCVView", bundle: NavitiaSDKUI.shared.bundle).instantiate(withOwner: self, options: nil)
         view.frame = self.bounds
         addSubview(view)
+        
+        logoLabel.attributedText = NSMutableAttributedString()
+            .icon("warning", color: Configuration.Color.lightGray, size: 75)
     }
     
 }
