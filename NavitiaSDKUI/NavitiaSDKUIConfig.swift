@@ -60,7 +60,17 @@ import Foundation
                 Configuration.cguURL = URL(string: newValue)
             }
         }
-        
+    }
+    
+    @objc open var font: String? {
+        get {
+            return Configuration.cguURL?.absoluteString
+        }
+        set {
+            if let newValue = newValue {
+                Configuration.cguURL = URL(string: newValue)
+            }
+        }
     }
     
 }

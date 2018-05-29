@@ -79,7 +79,7 @@ class TicketCollectionViewCell: UICollectionViewCell {
             .icon("add",
                   color: Configuration.Color.main,
                   size: 12)
-            .bold(String(format: "  %@", "add_to_cart".localized(withComment: "ADD TO CART", bundle: NavitiaSDKUI.shared.bundle).uppercased()),
+            .bold(String(format: "  %@", "add_to_cart".localized(withComment: "Add to cart", bundle: NavitiaSDKUI.shared.bundle)),
                   color: Configuration.Color.main,
                   size: 12),
                                            for: .normal)

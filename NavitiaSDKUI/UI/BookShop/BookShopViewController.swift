@@ -279,7 +279,7 @@ extension BookShopViewController: TicketCollectionViewCellDelegate {
                 ticketCollectionViewCell.quantity -= 1
                 self._reloadCart()
             }) { (statusCode, data) in
-                self.displayError(delegate: self, title: "Erreur \(statusCode)", description: "Une erreur est survenue, veuillez réessayer plus tard \(data)")
+                self.displayError(delegate: self, title: "Erreur \(statusCode)", description: "Une erreur est survenue, veuillez réessayer plus tard \(String(describing: data))")
             }
         }
     }
@@ -290,7 +290,7 @@ extension BookShopViewController: TicketCollectionViewCellDelegate {
                 ticketCollectionViewCell.quantity += 1
                 self._reloadCart()
             }) { (statusCode, data) in
-                self.displayError(delegate: self, title: "Erreur \(statusCode)", description: "Une erreur est survenue, veuillez réessayer plus tard \(data)")
+                self.displayError(delegate: self, title: "Erreur \(statusCode)", description: "Une erreur est survenue, veuillez réessayer plus tard \(String(describing: data))")
             }
         }
     }

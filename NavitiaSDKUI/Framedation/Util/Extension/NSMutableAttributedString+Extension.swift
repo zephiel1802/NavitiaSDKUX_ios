@@ -15,7 +15,7 @@ extension NSMutableAttributedString {
                                                             .foregroundColor: color])
         append(normal)
         if underline {
-            addAttribute(.underlineStyle, value: NSUnderlineStyle.styleSingle.rawValue, range: NSRange(location: 0, length: text.characters.count))
+            addAttribute(.underlineStyle, value: NSUnderlineStyle.styleSingle.rawValue, range: NSRange(location: 0, length: text.count))
         }
         return self
     }
@@ -26,7 +26,7 @@ extension NSMutableAttributedString {
                                                             .foregroundColor: color])
         append(normal)
         if underline {
-            addAttribute(.underlineStyle, value: NSUnderlineStyle.styleSingle.rawValue, range: NSRange(location: 0, length: text.characters.count))
+            addAttribute(.underlineStyle, value: NSUnderlineStyle.styleSingle.rawValue, range: NSRange(location: 0, length: text.count))
         }
         return self
     }
@@ -37,7 +37,7 @@ extension NSMutableAttributedString {
                                                                 .foregroundColor: color])
         append(boldString)
         if underline {
-            addAttribute(.underlineStyle, value: NSUnderlineStyle.styleSingle.rawValue, range: NSRange(location: 0, length: text.characters.count))
+            addAttribute(.underlineStyle, value: NSUnderlineStyle.styleSingle.rawValue, range: NSRange(location: 0, length: text.count))
         }
         return self
     }
