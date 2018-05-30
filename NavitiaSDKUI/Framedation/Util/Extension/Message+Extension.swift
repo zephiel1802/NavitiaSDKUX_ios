@@ -14,6 +14,7 @@ extension Message {
             return ""
         }
         text = text.replacingOccurrences(of: "<[^>]+>", with: "", options: .regularExpression, range: nil)
+        
         return text.replacingOccurrences(of: "\n", with: "")
     }
     

@@ -207,7 +207,7 @@ extension PublicTransportView {
         set {
             if let newValue = newValue {
                 transportLabel.attributedText = NSMutableAttributedString()
-                    .bold(newValue, color: UIColor.white, size: 9)
+                    .bold(newValue, color: transportColor?.contrastColor() ?? Configuration.Color.white, size: 9)
             }
         }
     }

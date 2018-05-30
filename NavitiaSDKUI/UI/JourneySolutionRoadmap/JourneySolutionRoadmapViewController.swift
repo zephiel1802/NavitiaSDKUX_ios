@@ -25,7 +25,7 @@ open class JourneySolutionRoadmapViewController: UIViewController {
     var ridesharingIndex = 0
     var timeRidesharing: Int32?
     var display = false
-    var disruptions: [Disruption]!
+    var disruptions: [Disruption]?
     
     override open func viewDidLoad() {
         super.viewDidLoad()

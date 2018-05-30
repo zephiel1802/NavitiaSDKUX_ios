@@ -17,7 +17,7 @@ class JourneySolutionView: UIView {
     @IBOutlet weak var journeySummaryView: JourneySummaryView!
     @IBOutlet weak var durationWalkerLabel: UILabel!
 
-    var disruptions: [Disruption]!
+    var disruptions: [Disruption]?
     
     override init(frame: CGRect) {
         super.init(frame: frame)

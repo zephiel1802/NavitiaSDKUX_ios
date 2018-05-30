@@ -46,6 +46,12 @@ class TransferStepView: UIView {
         timeLabel.frame.origin.y = directionLabel.frame.origin.y + directionLabel.frame.size.height
         frame.size.height = timeLabel.frame.size.height + timeLabel.frame.origin.y + 10
     }
+    
+    private func _setHeight() {
+        let directionLabelSize = directionLabel.attributedText?.boundingRect(with: CGSize(width: frame.size.width - 60, height: 9990), options: .usesLineFragmentOrigin, context: nil)
+        let timeLabelSize = timeLabel.attributedText?.boundingRect(with: CGSize(width: frame.size.width - 60, height: 9990), options: .usesLineFragmentOrigin, context: nil)
+        frame.size.height = (directionLabelSize?.height)! + (timeLabelSize?.height)! + 20
+    }
 
     private func _setup() {
         UINib(nibName: "TransferStepView", bundle: NavitiaSDKUI.shared.bundle).instantiate(withOwner: self, options: nil)
@@ -93,6 +99,7 @@ extension TransferStepView {
                     .normal(" ", size: 15)
                     .bold(newValue, size: 15)
                 directionLabel.attributedText = formattedString
+                _setHeight()
             }
         }
     }
@@ -132,6 +139,7 @@ extension TransferStepView {
                     .normal(String(format: template, duration), size: 15)
                 timeLabel.attributedText = formattedString
             }
+            _setHeight()
         }
     }
     
