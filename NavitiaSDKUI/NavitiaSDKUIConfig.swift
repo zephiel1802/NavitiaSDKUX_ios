@@ -6,12 +6,13 @@
 //
 
 import Foundation
+import JustRideSDK
 
 @objc open class NavitiaSDKUI: NSObject {
     
     @objc open static let shared = NavitiaSDKUI()
+    @objc open var bundle: Bundle!
     
-    open var bundle: Bundle!
     open var navitiaSDK: NavitiaSDK!
     
     private var token: String! {
@@ -61,6 +62,23 @@ import Foundation
             }
         }
         
+    }
+    
+    @objc open func masabiTicketManagementConfiguration(data: Data) -> MasabiTicketManagementConfiguration {
+        let masabiTicketManagementConfiguration = MasabiTicketManagementConfiguration(data: data)
+        
+        masabiTicketManagementConfiguration.UIConfiguration?.ticket.ticketButtonBackgroundColour = Configuration.Color.main
+        masabiTicketManagementConfiguration.UIConfiguration?.ticket.ticketButtonTextColour = Configuration.Color.main.contrastColor()
+        masabiTicketManagementConfiguration.UIConfiguration?.ticket.activationDisclaimerBackgroundColour = Configuration.Color.main
+        masabiTicketManagementConfiguration.UIConfiguration?.ticket.activationDisclaimerTextColour = Configuration.Color.main.contrastColor()
+        masabiTicketManagementConfiguration.UIConfiguration?.ticket.activationDisclaimerAcceptButtonTextColour = Configuration.Color.main
+        masabiTicketManagementConfiguration.UIConfiguration?.ticket.activateButtonBackgroundColour = Configuration.Color.main
+        masabiTicketManagementConfiguration.UIConfiguration?.ticket.activateButtonTextColour = Configuration.Color.main.contrastColor()
+        
+        masabiTicketManagementConfiguration.UIConfiguration?.ticketInfo.inactiveTabBackgroundColour = Configuration.Color.main
+        
+        masabiTicketManagementConfiguration.UIConfiguration?.wallet.backgroundColour = Configuration.Color.main
+        return masabiTicketManagementConfiguration
     }
     
 }

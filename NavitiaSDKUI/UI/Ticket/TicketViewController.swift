@@ -1,5 +1,5 @@
 //
-//  TicketMasabi.swift
+//  TicketViewController.swift
 //  NavitiaSDKUI
 //
 //  Copyright © 2018 kisio. All rights reserved.
@@ -57,8 +57,7 @@ import JustRideSDK
             walletViewController.navigationController?.navigationBar.tintColor = Configuration.Color.main
             walletViewController.navigationController?.navigationBar.barTintColor = Configuration.Color.white
             walletViewController.navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor : Configuration.Color.black]
-            walletViewController.view.backgroundColor = Configuration.Color.main
-            
+
             self.add(asChildViewController: navigationController)
         }) { (_, _) in }
     }
