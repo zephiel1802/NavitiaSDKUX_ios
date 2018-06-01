@@ -18,8 +18,6 @@ import JustRideSDK
     
     @objc public var delegate: TicketViewDelegate?
     
-    var pop: UIViewController?
-    
     override open func viewDidLoad() {
         super.viewDidLoad()
         
@@ -28,14 +26,15 @@ import JustRideSDK
         (NavitiaSDKPartners.shared.getTicketManagement() as! MasabiTicketManagement).syncWalletWithErrorOnDeviceChange(callbackSuccess: {
             self._showTicketMasabi()
         }, callbackError: { (statusCode, data) in
-            print(statusCode, data)
             switch statusCode {
             case NavitiaSDKPartnersReturnCode.masabiNoDeviceChangeCredit.getCode():
-                self.add(asChildViewController: self._setupInformationViewController(titleButton: ["OK"], information: "Je suis un appel service client"))
+                self.add(asChildViewController: self._setupInformationViewController(information: "you_have_reached_the_allowed_number_of_device_switches".localized(bundle: NavitiaSDKUI.shared.bundle)))
             case NavitiaSDKPartnersReturnCode.masabiDeviceChangeError.getCode():
-                self.add(asChildViewController: self._setupInformationViewController(titleButton: ["Je sync", "OK"], information: "Je suis un swicth"))
+                self.add(asChildViewController: self._setupInformationViewController(titleButton: ["yes".localized(bundle: NavitiaSDKUI.shared.bundle),
+                                                                                                   "cancel".localized(bundle: NavitiaSDKUI.shared.bundle)],
+                                                                                     information: "your_wallet_is_bound_to_another_device".localized(bundle: NavitiaSDKUI.shared.bundle)))
             default:
-                self.add(asChildViewController: self._setupInformationViewController(titleButton: ["OK"], information: "Je suis une erreur"))
+                self.add(asChildViewController: self._setupInformationViewController(information: "an_error_occurred".localized(bundle: NavitiaSDKUI.shared.bundle)))
             }
         })
     }
@@ -49,27 +48,23 @@ import JustRideSDK
             guard let walletViewController = walletViewController as? MJRWalletViewController else {
                 return
             }
-            let viewController2 = UINavigationController(rootViewController: walletViewController)
-            walletViewController.navigationItem.setLeftBarButton(UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.stop, target: self.delegate, action: #selector(self.delegate?.onDismissTicket)), animated: false)
+            walletViewController.navigationItem.setLeftBarButton(UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.stop,
+                                                                                 target: self.delegate,
+                                                                                 action: #selector(self.delegate?.onDismissTicket)),
+                                                                 animated: false)
             walletViewController.navigationController?.navigationBar.tintColor = Configuration.Color.main
             walletViewController.navigationController?.navigationBar.barTintColor = Configuration.Color.white
             walletViewController.navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor : Configuration.Color.black]
             walletViewController.view.backgroundColor = Configuration.Color.main
-            self.add(asChildViewController: viewController2)
-        }) { (statusCode, data) in }
-    }
-    
-    private func add(asChildViewController viewController: UIViewController) {
-        addChildViewController(viewController)
-        view.addSubview(viewController.view)
-        
-        viewController.view.frame = view.bounds
-        viewController.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        viewController.didMove(toParentViewController: self)
+            
+            self.add(asChildViewController: UINavigationController(rootViewController: walletViewController))
+        }) { (_, _) in }
     }
 
-    private func _setupInformationViewController(titleButton: [String], information: String, iconName: String = "warning") -> UIViewController {
-        let informationViewController = InformationViewController(nibName: "InformationView", bundle: self.nibBundle)
+    private func _setupInformationViewController(titleButton: [String] = ["close".localized(bundle: NavitiaSDKUI.shared.bundle)],
+                                                 information: String,
+                                                 iconName: String = "warning") -> UIViewController {
+        let informationViewController = InformationViewController(nibName: "InformationView", bundle: NavitiaSDKUI.shared.bundle)
         informationViewController.modalTransitionStyle = .crossDissolve
         informationViewController.modalPresentationStyle = .overCurrentContext
         informationViewController.titleButton = titleButton
@@ -89,7 +84,7 @@ extension TicketViewController: InformationViewDelegate {
         } else {
             (NavitiaSDKPartners.shared.getTicketManagement() as! MasabiTicketManagement).syncWallet(callbackSuccess: {
                 self._showTicketMasabi()
-            }) { (statusCode, data) in }
+            }) { (_, _) in }
         }
     }
     
