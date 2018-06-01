@@ -8,46 +8,36 @@
 import UIKit
 import JustRideSDK
 
-@objc public protocol TicketMasabiDelegate {
+@objc public protocol TicketViewDelegate {
     
     func onDismissTicket()
     
 }
 
-@objc open class TicketMasabi: UIViewController {
+@objc open class TicketViewController: UIViewController {
     
-    @objc public var delegate: TicketMasabiDelegate?
+    @objc public var delegate: TicketViewDelegate?
     
     var pop: UIViewController?
     
     override open func viewDidLoad() {
         super.viewDidLoad()
         
-        self.modalPresentationStyle = .overCurrentContext
-        
-       // NavitiaSDKUI.shared.bundle = self.nibBundle
         UIFont.registerFontWithFilenameString(filenameString: "SDKIcons.ttf", bundle: NavitiaSDKUI.shared.bundle)
         
         (NavitiaSDKPartners.shared.getTicketManagement() as! MasabiTicketManagement).syncWalletWithErrorOnDeviceChange(callbackSuccess: {
-            print("Success syncWalletWithErrorOnDeviceChange")
             self._showTicketMasabi()
         }, callbackError: { (statusCode, data) in
-            self.pop = self.popInT()
-            self.add(asChildViewController: self.pop!)
-            print("Error syncWalletWithErrorOnDeviceChange \(statusCode, data)")
+            print(statusCode, data)
+            switch statusCode {
+            case NavitiaSDKPartnersReturnCode.masabiNoDeviceChangeCredit.getCode():
+                self.add(asChildViewController: self._setupInformationViewController(titleButton: ["OK"], information: "Je suis un appel service client"))
+            case NavitiaSDKPartnersReturnCode.masabiDeviceChangeError.getCode():
+                self.add(asChildViewController: self._setupInformationViewController(titleButton: ["Je sync", "OK"], information: "Je suis un swicth"))
+            default:
+                self.add(asChildViewController: self._setupInformationViewController(titleButton: ["OK"], information: "Je suis une erreur"))
+            }
         })
-        
-        (NavitiaSDKPartners.shared.getTicketManagement() as! MasabiTicketManagement).syncWallet(callbackSuccess: {
-            print("Success syncWalletWithErrorOnDeviceChange")
-            self._showTicketMasabi()
-        }, callbackError: { (statusCode, data) in
-            self.pop = self.popInT()
-            self.add(asChildViewController: self.pop!)
-            print("Error syncWalletWithErrorOnDeviceChange \(statusCode, data)")
-        })
-//
-//        view.backgroundColor = UIColor.clear
-//        view.isOpaque = true
     }
     
     override open func didReceiveMemoryWarning() {
@@ -66,52 +56,40 @@ import JustRideSDK
             walletViewController.navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor : Configuration.Color.black]
             walletViewController.view.backgroundColor = Configuration.Color.main
             self.add(asChildViewController: viewController2)
-        }) { (statusCode, data) in
-            print("voillllal MASABI \(statusCode) \(data!)")
-            self.pop = self.popInT()
-            self.add(asChildViewController: self.pop!)
-        }
-
-       // return viewController
+        }) { (statusCode, data) in }
     }
     
     private func add(asChildViewController viewController: UIViewController) {
-        // Add Child View Controller
         addChildViewController(viewController)
-        
-        // Add Child View as Subview
         view.addSubview(viewController.view)
         
-        // Configure Child View
         viewController.view.frame = view.bounds
         viewController.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        
-        // Notify Child View Controller
         viewController.didMove(toParentViewController: self)
     }
 
-    open func popInT() -> UIViewController {
-        
-        let informationViewController = InformationViewController(nibName: "InformationView", bundle: NavitiaSDKUI.shared.bundle)
+    private func _setupInformationViewController(titleButton: [String], information: String, iconName: String = "warning") -> UIViewController {
+        let informationViewController = InformationViewController(nibName: "InformationView", bundle: self.nibBundle)
         informationViewController.modalTransitionStyle = .crossDissolve
         informationViewController.modalPresentationStyle = .overCurrentContext
-        informationViewController.titleButton = ["understood", "jjj"]
+        informationViewController.titleButton = titleButton
         informationViewController.delegate = self
-        informationViewController.information =  "your_payment_has_been_refused"
-        informationViewController.iconName = "paiement-denied"
+        informationViewController.information = information
+        informationViewController.iconName = iconName
         return informationViewController
     }
     
-    
 }
 
-extension TicketMasabi: InformationViewDelegate {
+extension TicketViewController: InformationViewDelegate {
     
     func onFirstButtonClicked(_ informationViewController: InformationViewController) {
         if informationViewController.titleButton.count == 1 {
             delegate?.onDismissTicket()
         } else {
-            
+            (NavitiaSDKPartners.shared.getTicketManagement() as! MasabiTicketManagement).syncWallet(callbackSuccess: {
+                self._showTicketMasabi()
+            }) { (statusCode, data) in }
         }
     }
     

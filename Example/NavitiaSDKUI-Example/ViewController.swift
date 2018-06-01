@@ -87,23 +87,21 @@ class ViewController: UIViewController {
     
     // Ticket
     @IBAction func onSDKTicketMasabiButtonClicked() {
-//        if let viewController = TicketMasabi().showTicketMasabi(delegate: self) {
-//            present(viewController, animated: true, completion: nil)
-//        }
         NavitiaSDKUI.shared.bundle = Bundle(identifier: "org.cocoapods.NavitiaSDKUI")
-        let ticketMasabi = TicketMasabi()
-        ticketMasabi.delegate = self
-        ticketMasabi.modalPresentationStyle = .overCurrentContext
-        present(ticketMasabi, animated: true, completion: nil)
+        
+        let ticketMasabiViewController = TicketViewController()
+        ticketMasabiViewController.delegate = self
+        ticketMasabiViewController.modalPresentationStyle = .overCurrentContext
+        present(ticketMasabiViewController, animated: false, completion: nil)
     }
     
 }
 
-extension ViewController: TicketMasabiDelegate {
+extension ViewController: TicketViewDelegate {
 
     func onDismissTicket() {
         if let rootViewController = UIApplication.shared.keyWindow?.rootViewController {
-            rootViewController.dismiss(animated: true, completion: nil)
+            rootViewController.dismiss(animated: false, completion: nil)
         }
     }
     
