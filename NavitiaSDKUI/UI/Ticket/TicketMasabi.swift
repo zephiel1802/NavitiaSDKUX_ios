@@ -48,6 +48,8 @@ import JustRideSDK
             guard let walletViewController = walletViewController as? MJRWalletViewController else {
                 return
             }
+            let navigationController = UINavigationController(rootViewController: walletViewController)
+            
             walletViewController.navigationItem.setLeftBarButton(UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.stop,
                                                                                  target: self.delegate,
                                                                                  action: #selector(self.delegate?.onDismissTicket)),
@@ -57,7 +59,7 @@ import JustRideSDK
             walletViewController.navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor : Configuration.Color.black]
             walletViewController.view.backgroundColor = Configuration.Color.main
             
-            self.add(asChildViewController: UINavigationController(rootViewController: walletViewController))
+            self.add(asChildViewController: navigationController)
         }) { (_, _) in }
     }
 
