@@ -15,11 +15,6 @@ import Foundation
     
     public private(set) var orderId : String = ""
     public private(set) var cart: [NavitiaBookCartItem] = []
-    public var paymentBaseUrl : String {
-        get {
-            return (_vsctConfiguration?.baseUrl)!
-        }
-    }
     
     public var cartTotalPrice : NavitiaSDKPartnersPrice {
         get {
@@ -98,6 +93,12 @@ import Foundation
         return _vsctConfiguration!.url + _vsctConfiguration!.network
     }
     
+    public var paymentBaseUrl : String {
+        get {
+            return (_vsctConfiguration?.baseUrl)!
+        }
+    }
+    
     internal func openSession(callbackSuccess: @escaping () -> Void, callbackError: @escaping (Int, [String: Any]?) -> Void) {
         NavitiaSDKPartnersRequestBuilder.post(stringUrl: "\(_getUrl())/sessions?mticket=true&authToken=\((NavitiaSDKPartners.shared.accountManagement as! KeolisAccountManagement)._accessToken)&hideMyAccount=true", header: _getHeader()) { (success, statusCode, data) in
             
@@ -129,7 +130,6 @@ import Foundation
     
     public func getOffers(callbackSuccess : @escaping ([NavitiaBookOffer]) -> Void, callbackError : @escaping (Int, [String: Any]?) -> Void) {
         if NavitiaSDKPartners.shared.isConnected {
-            NavitiaSDKPartners.shared.refreshToken(callbackSuccess: {
                 self.openSession(callbackSuccess: {
                     NavitiaSDKPartnersRequestBuilder.get(returnArray: true, stringUrl: "\(self._getUrl())/offers?", header: self._getConnectedHeader()) { (success, statusCode, data) in
                         
@@ -143,14 +143,25 @@ import Foundation
                         }
                     }
                 }, callbackError: { (statusCode, data) in
-                    print("NavitiaSDKPartners/getOffers : error")
-                    callbackError(statusCode, data)
+                    NavitiaSDKPartners.shared.refreshToken(callbackSuccess: {
+                        self.openSession(callbackSuccess: {
+                            NavitiaSDKPartnersRequestBuilder.get(returnArray: true, stringUrl: "\(self._getUrl())/offers?", header: self._getConnectedHeader()) { (success, statusCode, data) in
+                                if success {
+                                    print("NavitiaSDKPartners/getOffers : success")
+                                    self.stockedOffers = self.parseOffers(data: data!)
+                                    callbackSuccess(self.stockedOffers)
+                                } else {
+                                    print("NavitiaSDKPartners/getOffers : error")
+                                    callbackError(statusCode, data)
+                                }
+                            }
+                        }, callbackError: { (statusCode, data) in
+                            callbackError(statusCode, data)
+                        })
+                    }, callbackError: { (statusCode, data) in
+                        callbackError(statusCode, data)
+                    })
                 })
-            }, callbackError: { (statusCode, data) in
-                print("NavitiaSDKPartners/getOffers : error")
-                callbackError(statusCode, data)
-            })
-
         } else {
             NavitiaSDKPartners.shared.createAccount(callbackSuccess: {
                 self.openSession(callbackSuccess: {
@@ -275,7 +286,7 @@ import Foundation
             let error = NavitiaSDKPartnersReturnCode.wrongOfferId
             callbackError(error.getCode(), error.getError())
             return
-        } else if offerItem!.saleable == false && offerItem!.maxQuantity != 0 {
+        } else if offerItem!.saleable == false || offerItem!.maxQuantity == 0 {
             print("NavitiaSDKPartners/setOfferQuantity : error")
             let error = NavitiaSDKPartnersReturnCode.offerNotSaleable
             callbackError(error.getCode(), error.getError())
@@ -363,7 +374,11 @@ import Foundation
                                         "deliveryMode" : ["type": "M_TICKET_CB2D",
                                                           "label": "M-Ticket",
                                                           "displayOrder": 1,
-                                                          "productCode": "ABC"],
+                                                          "active" : 1,
+                                                          "tva" : 0,
+                                                          "rate" : 0,
+                                                          "delay" : 0,
+                                                          "productCode": "0"],
                                         "paymentMean" : [ "label" : "Carte Bancaire",
                                                           "type" : "CB",
                                                           "displayOrder" : 1 ] ]
@@ -390,6 +405,10 @@ import Foundation
                     returnData["details"] = (data!["array"] as! [[String: Any]])[0]
                     callbackError(error.getCode(), returnData)
                     return
+                } else if statusCode == 401 {
+                    let error = NavitiaSDKPartnersReturnCode.paymentTimeOut
+                    callbackError(error.getCode(), error.getError())
+                    return
                 }
                 callbackError(statusCode, data)
             }
@@ -402,7 +421,6 @@ extension VSCTBookManagement {
         
         var array : [VSCTBookOffer] = []
         (data["array"] as! [[String: Any]]).forEach { rawOffer in
-            print(NavitiaSDKPartnersExtension.getString(from:(rawOffer["legalInfos"] as! String)))
             let offer : VSCTBookOffer = VSCTBookOffer(id: (rawOffer["id"] as! String),
                                                       productId: (rawOffer["idProduit"] as! String),
                                                       title: (rawOffer["label"] as! String),

@@ -9,19 +9,14 @@ import Foundation
 
 @objc(AccountManagement) public protocol AccountManagement {
     
-    var accountConfiguration : AccountManagementConfiguration? { get set }
-    
-    var accessToken : String { get }
-    
-    var userInfo : NavitiaUserInfo { get }
-    
-    var isConnected : Bool { get }
-    
-    var isAnonymous : Bool { get }
-    
     func getAccountManagementName() -> String
-    
     func getAccountManagementType() -> AccountManagementType
+    
+    var accountConfiguration : AccountManagementConfiguration? { get set }
+    var accessToken : String { get }
+    var userInfo : NavitiaUserInfo { get }
+    var isConnected : Bool { get }
+    var isAnonymous : Bool { get }
     
     func authenticate( username : String, password : String,
                        callbackSuccess : @escaping () -> Void,
@@ -52,7 +47,7 @@ import Foundation
     func getUserInfo(  callbackSuccess : @escaping (NavitiaUserInfo) -> Void,
                        callbackError : @escaping (Int, [String: Any]?) -> Void)
     
-    func transformAccount( firstName : String, lastName : String, email : String, birthdate : Date?, password : String, courtesy : NavitiaSDKPartnersCourtesy,
+    func transformAccount(  firstName : String, lastName : String, email : String, birthdate : Date?, password : String, courtesy : NavitiaSDKPartnersCourtesy,
                             callbackSuccess: @escaping () -> Void,
                             callbackError: @escaping (Int, [String: Any]?) -> Void)
     
@@ -67,18 +62,3 @@ import Foundation
     func refreshToken( callbackSuccess: @escaping () -> Void,
                        callbackError: @escaping (Int, [String: Any]?) -> Void)
 }
-
-extension AccountManagement {
-    
-    func updateInfo( firstName : String = "", lastName : String = "", email : String = "", birthdate : Date? = nil, courtesy : NavitiaSDKPartnersCourtesy = .Unknown,
-                     callbackSuccess: @escaping () -> Void,
-                     callbackError: @escaping (Int, [String: Any]?) -> Void) {
-        
-        updateInfo(firstName: firstName, lastName: lastName, email: email, birthdate: birthdate, courtesy: courtesy, callbackSuccess: callbackSuccess, callbackError: callbackError)
-        
-    }
-    
-}
-
-
-

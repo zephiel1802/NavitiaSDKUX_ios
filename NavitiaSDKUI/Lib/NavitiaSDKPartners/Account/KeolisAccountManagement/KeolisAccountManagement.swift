@@ -1,15 +1,16 @@
 //
-//  AccountMonCompte.swift
+//  KeolisAccountManagement.swift
 //
 //  Created by Valentin COUSIEN on 07/03/2018.
 //  Copyright © 2018 Valentin COUSIEN. All rights reserved.
 //
 
 import Foundation
+import JustRideSDK
 
 @objc(KeolisAccountManagement) public class KeolisAccountManagement : NSObject, AccountManagement {
 
-    internal var _accessToken : String {
+    internal var _accessToken : String { // get and set access token directly in phone data
         get {
             return UserDefaults.standard.string(forKey: "__NavitiaSDKPartners_KeolisAccountManagement_accessToken") ?? ""
         }
@@ -19,7 +20,7 @@ import Foundation
         }
     }
 
-    internal var _refreshToken : String {
+    internal var _refreshToken : String { // get and set refresh token directly in phone data
         get {
             return UserDefaults.standard.string(forKey: "__NavitiaSDKPartners_KeolisAccountManagement_refreshToken") ?? ""
         }
@@ -29,23 +30,23 @@ import Foundation
         }
     }
 
-    internal var _anonymousEmail : String {
+    internal var _stockedEmail : String { // get and set email directly in phone data, in order to authenticate automatically in case of refreshToken expired
         get {
-            return UserDefaults.standard.string(forKey: "__NavitiaSDKPartners_KeolisAccountManagement_anonymousEmail") ?? ""
+            return UserDefaults.standard.string(forKey: "__NavitiaSDKPartners_KeolisAccountManagement__stockedEmail") ?? ""
         }
 
         set {
-            UserDefaults.standard.set(newValue, forKey: "__NavitiaSDKPartners_KeolisAccountManagement_anonymousEmail")
+            UserDefaults.standard.set(newValue, forKey: "__NavitiaSDKPartners_KeolisAccountManagement__stockedEmail")
         }
     }
 
-    internal var _anonymousPassword : String {
+    internal var _stockedPassword : String { // get and set password directly in phone data, in order to authenticate automatically in case of refreshToken expired
         get {
-            return UserDefaults.standard.string(forKey: "__NavitiaSDKPartners_KeolisAccountManagement_anonymousPassword") ?? ""
+            return UserDefaults.standard.string(forKey: "__NavitiaSDKPartners_KeolisAccountManagement__stockedPassword") ?? ""
         }
 
         set {
-            UserDefaults.standard.set(newValue, forKey: "__NavitiaSDKPartners_KeolisAccountManagement_anonymousPassword")
+            UserDefaults.standard.set(newValue, forKey: "__NavitiaSDKPartners_KeolisAccountManagement__stockedPassword")
         }
     }
 
@@ -72,7 +73,7 @@ import Foundation
 
     internal var _keolisConfiguration : KeolisAccountManagementConfiguration? = nil
 
-    public private(set) var userInfo : NavitiaUserInfo {
+    public private(set) var userInfo : NavitiaUserInfo { // get and set userInfo directly in phone data
         get {
             let decoded = UserDefaults.standard.object(forKey: "__NavitiaSDKPartners_KeolisAccountManagement_userInfo") as? Data
             if decoded == nil {
@@ -124,7 +125,7 @@ import Foundation
         }
     }
 
-    internal func updatePassword(oldPassword : String, newPassword: String, tryAccess : Bool = true, completion : @escaping (Bool, Int, [String: Any]?) -> Void) {
+    internal func updatePassword(oldPassword : String, newPassword: String, tryAccess : Bool = true, completion : @escaping (Bool, Int, [String: Any]?) -> Void) { // update password with auto refresh in case access token exprired
 
         if oldPassword.isEmpty || newPassword.isEmpty {
             var details : [String: Any] = [ : ]
@@ -175,7 +176,7 @@ import Foundation
         }
     }
 
-    internal func updateInfo(tryAccess : Bool = true, firstName: String, lastName: String, birthdate: Date?, courtesy: NavitiaSDKPartnersCourtesy, completion : @escaping (Bool, Int, [String : Any]?) -> Void ) {
+    internal func updateInfo(tryAccess : Bool = true, firstName: String, lastName: String, birthdate: Date?, courtesy: NavitiaSDKPartnersCourtesy, completion : @escaping (Bool, Int, [String : Any]?) -> Void ) { // update info with auto refresh in case access token exprired
 
         if firstName.isEmpty && lastName.isEmpty && firstName.isEmpty && lastName.isEmpty && birthdate == nil && courtesy == .Unknown {
             return
@@ -210,7 +211,7 @@ import Foundation
         })
     }
 
-    internal func updateEmail(tryAccess : Bool = true, email : String, completion : @escaping (Bool, Int, [String : Any]?) -> Void ) {
+    internal func updateEmail(tryAccess : Bool = true, email : String, completion : @escaping (Bool, Int, [String : Any]?) -> Void ) { // update email with auto refresh in case access token exprired
 
         if !(email.isEmpty) && !(NavitiaSDKPartnersExtension.isValidEmail(str: email)) {
             var data = NavitiaSDKPartnersReturnCode.badParameter.getError()
@@ -250,7 +251,7 @@ import Foundation
         }
     }
 
-    internal func refreshToken(completion : @escaping (Bool, Int, [String : Any]?) -> Void) {
+    internal func refreshToken(completion : @escaping (Bool, Int, [String : Any]?) -> Void) { // refresh token, in case refresh token expired, authenticate again with stocked credentials
 
         if _refreshToken.isEmpty {
             
@@ -270,7 +271,7 @@ import Foundation
             } else {
 
                 print("NavitiaSDKPartners/refreshToken : error")
-                self.authenticate(username: self._anonymousEmail, password: self._anonymousPassword, callbackSuccess: {
+                self.authenticate(username: self._stockedEmail, password: self._stockedPassword, callbackSuccess: {
 
                     completion(true, 200, nil)
                 }, callbackError: { (statusCode, data) in
@@ -340,13 +341,12 @@ extension KeolisAccountManagement {
         }
 
         let encryptPassword = password.encrypt(key: (_keolisConfiguration!).hmacKey)
-        print("\((accountConfiguration as! KeolisAccountManagementConfiguration).url)/oauth2/\((accountConfiguration as! KeolisAccountManagementConfiguration).network)/token?grant_type=password&password=\((encryptPassword!.encodeURIComponent())!)&username=\((username.encodeURIComponent())!)")
         NavitiaSDKPartnersRequestBuilder.post(stringUrl: "\((accountConfiguration as! KeolisAccountManagementConfiguration).url)/oauth2/\((accountConfiguration as! KeolisAccountManagementConfiguration).network)/token?grant_type=password&password=\((encryptPassword!.encodeURIComponent())!)&username=\((username.encodeURIComponent())!)", header: _getKeolisHeader()) { ( success, statusCode, data) in
 
             if success && data != nil && statusCode < 300 {
 
-                self._anonymousEmail = username
-                self._anonymousPassword = password
+                self._stockedEmail = username
+                self._stockedPassword = password
 
                 print("NavitiaSDKPartners/authenticate: success")
                 self._accessToken = data!["access_token"] as! String
@@ -356,6 +356,23 @@ extension KeolisAccountManagement {
                 }
 
                 self.getUserInfo( callbackSuccess: { (userInfo) in
+                    if  NavitiaSDKPartners.shared.ticketManagement != nil {
+                        switch NavitiaSDKPartners.shared.ticketManagement!.getTicketManagementType() {
+                        case .Masabi :
+                            (NavitiaSDKPartners.shared.getTicketManagement() as! MasabiTicketManagement).MasabiLogOut(callbackSuccess: {
+                                (NavitiaSDKPartners.shared.getTicketManagement() as! MasabiTicketManagement).syncWalletWithErrorOnDeviceChange(callbackSuccess: {
+                                }, callbackError: { (statusCode, data) in
+                                })
+                            }, callbackError: { (_, _) in
+                                (NavitiaSDKPartners.shared.getTicketManagement() as! MasabiTicketManagement).syncWalletWithErrorOnDeviceChange(callbackSuccess: {
+                                }, callbackError: { (statusCode, data) in
+                                })
+                            })
+                            break
+                        case .undefined:
+                            break
+                        }
+                    }
                     callbackSuccess()
                 }, callbackError: { (statusCode, data) in
                     callbackError(statusCode, data)
@@ -364,12 +381,12 @@ extension KeolisAccountManagement {
 
                 if data != nil && data!["error"] != nil &&
                     statusCode == 400 && (data!["error"] as! String) == "invalid_grant" {
-                    print("NavitiaSDKPartners/authenticate: error : \(NavitiaSDKPartnersReturnCode.invalidGrant.getError())")
+                    print("NavitiaSDKPartners/authenticate: error invalid grant")
                     callbackError(NavitiaSDKPartnersReturnCode.invalidGrant.getCode(), NavitiaSDKPartnersReturnCode.invalidGrant.getError())
                     return
                 }
 
-                print("NavitiaSDKPartners/authenticate: error : \(data ?? [:])")
+                print("NavitiaSDKPartners/authenticate: error")
                 callbackError(statusCode, data)
                 return
             }
@@ -382,14 +399,25 @@ extension KeolisAccountManagement {
 
                 if success && statusCode < 300 {
 
-                    print("NavitiaSDKPartners/logOut : success ")
+                    print("NavitiaSDKPartners/logOut : success ") // in case of success, clear credentials, tokens, cart, and log out from other APIs
                     NavitiaSDKPartners.shared.resetCart(callbackSuccess: {
                     }, callbackError: { (_, _) in
                     })
                     self._accessToken = ""
                     self._refreshToken = ""
-                    self._anonymousEmail = ""
-                    self._anonymousPassword = ""
+                    self._stockedEmail = ""
+                    self._stockedPassword = ""
+                    switch NavitiaSDKPartners.shared.ticketManagement?.getTicketManagementType() {
+                    case .Masabi? :
+                        MJRSDK.sharedInstance()?.accountUseCases.accountLogout(completionHandler: { (error) in
+                            print("NavitiaSDKPartners/masabiLogOut : error")
+                        })
+                        break
+                    case .none:
+                        break
+                    case .some(.undefined):
+                        break
+                    }
                     callbackSuccess()
                 } else {
 
@@ -400,7 +428,7 @@ extension KeolisAccountManagement {
     }
 
     public func createAccount( callbackSuccess: @escaping () -> Void,
-                               callbackError: @escaping (Int, [String : Any]?) -> Void) {
+                               callbackError: @escaping (Int, [String : Any]?) -> Void) { // anonymous account creation + authenticate
 
         let password = NavitiaSDKPartnersExtension.randomString(length: 8)
         NavitiaSDKPartnersRequestBuilder.soapPost(stringUrl: "\((accountConfiguration as! KeolisAccountManagementConfiguration).url)/socle/\((accountConfiguration as! KeolisAccountManagementConfiguration).network)/CreateAccount/V1.0/", header: _getKeolisHeaderWS(), soapMessage: createAccountAnonymousXML(password: password.encrypt(key: (_keolisConfiguration?.hmacKey)!))) { success, statusCode, data in
@@ -409,7 +437,7 @@ extension KeolisAccountManagement {
 
                 let email : String = data!["reponse"]["compteRendu"]["compteInternet"]["email"].element?.text ?? ""
                 print("NavitiaSDKPartners/createAccount: success")
-                self.authenticate(username: email, password: password, callbackSuccess: {
+                self.authenticate(username: email, password: password, callbackSuccess: { // automatic authenticate
 
                     callbackSuccess()
                 }, callbackError: { (status, data) in
@@ -439,8 +467,13 @@ extension KeolisAccountManagement {
                                callbackSuccess: @escaping () -> Void,
                                callbackError: @escaping (Int, [String: Any]?) -> Void ) {
 
-
+        if isAnonymous && isConnected {
+            transformAccount(firstName: firstName, lastName: lastName, email: email, birthdate: birthdate, password: password, courtesy: courtesy, callbackSuccess: callbackSuccess, callbackError: callbackError)
+            return 
+        }
+        
         if firstName.isEmpty || lastName.isEmpty || !(NavitiaSDKPartnersExtension.isValidEmail(str: email)) || email.isEmpty || password.isEmpty {
+            
             var data = NavitiaSDKPartnersReturnCode.badParameter.getError()
             var details : [String: Any] = [:]
             if firstName.isEmpty {
@@ -468,7 +501,11 @@ extension KeolisAccountManagement {
             if success {
 
                 print("NavitiaSDKPartners/createAccount: success")
-                callbackSuccess()
+                self.authenticate(username: email, password: password, callbackSuccess: {
+                    callbackSuccess()
+                }, callbackError: { (statusCode, data) in
+                    callbackError(statusCode, data)
+                })
             } else {
 
                 print("NavitiaSDKPartners/createAccount: error")
@@ -639,6 +676,7 @@ extension KeolisAccountManagement {
 
             if success {
                 print("NavitiaSDKPartners/updatePassword: success")
+                self._stockedPassword = newPassword
                 callbackSuccess()
             } else {
                 print("NavitiaSDKPartners/updatePassword: error")
@@ -692,6 +730,7 @@ extension KeolisAccountManagement {
                     if !(email.isEmpty) {
                         self.updateEmail(email: email, completion: { (success, statusCode, data) in
                             if success {
+                                self._stockedEmail = email
                                 print("NavitiaSDKPartners/updateInfo : success")
                                 callbackSuccess()
                             } else {
@@ -706,7 +745,8 @@ extension KeolisAccountManagement {
             if !(email.isEmpty) {
                 updateEmail(email: email, completion: { (success, statusCode, data) in
                     if success {
-
+                        print(data)
+                        self._stockedEmail = email
                         print("NavitiaSDKPartners/updateInfo : success")
                         callbackSuccess()
                     } else {
@@ -813,7 +853,26 @@ extension KeolisAccountManagement {
 
     internal func createAccountAnonymousXML(password : String) -> String {
         let numeroFlux : String = "INTWSV0019"
-        return "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\" ?>\n<question xmlns=\"http://www.keoliscrm.fr/CreerCompteInternetV2/V2.0\">\n <entete>\n  <idTransaction>\(getIdTransaction(numeroFlux: numeroFlux))</idTransaction>\n<numeroFlux>\(numeroFlux)</numeroFlux>\n  <siEmetteur>\(_keolisConfiguration?.network ?? "")</siEmetteur>\n  <casUsage>TECH</casUsage>\n<ssaEmetteur>VAD</ssaEmetteur>\n<versionFlux>02.00</versionFlux>\n<dateOrigineFlux>\(getFormattedDate())</dateOrigineFlux>\n  <ssaRecepteur>\(_keolisConfiguration?.ssaRecepteur ?? "" )</ssaRecepteur>\n<dateTraitementFlux>\(getFormattedDate())</dateTraitementFlux>\n<typeFlux>\(_keolisConfiguration?.typeFlux ?? "")</typeFlux>\n </entete>\n <compteAnonyme>\n  <motDePasse>\(password)</motDePasse>\n </compteAnonyme>\n</question>"
+        return """
+        <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+        <question xmlns="http://www.keoliscrm.fr/CreerCompteInternetV2/V2.0">
+        <entete>
+            <idTransaction>\(getIdTransaction(numeroFlux: numeroFlux))</idTransaction>
+            <numeroFlux>\(numeroFlux)</numeroFlux>
+            <siEmetteur>\(_keolisConfiguration?.network ?? "")</siEmetteur>
+            <casUsage>TECH</casUsage>
+            <ssaEmetteur>VAD</ssaEmetteur>
+            <versionFlux>02.00</versionFlux>
+            <dateOrigineFlux>\(getFormattedDate())</dateOrigineFlux>
+            <ssaRecepteur>\(_keolisConfiguration?.ssaRecepteur ?? "" )</ssaRecepteur>
+            <dateTraitementFlux>\(getFormattedDate())</dateTraitementFlux>
+            <typeFlux>\(_keolisConfiguration?.typeFlux ?? "")</typeFlux>
+        </entete>
+        <compteAnonyme>
+            <motDePasse>\(password)</motDePasse>
+        </compteAnonyme>
+        </question>
+        """
     }
 
     internal func activateAccountXML(internetAccountId : String, token : String) -> String {
@@ -842,35 +901,35 @@ extension KeolisAccountManagement {
         <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
         <question xmlns="http://www.keoliscrm.fr/CreerCompteInternetV2/V2.0">
         <entete>
-        <idTransaction>\(getIdTransaction(numeroFlux:numeroFlux))</idTransaction>
-        <numeroFlux>\(numeroFlux)</numeroFlux>
-        <siEmetteur>\(_keolisConfiguration?.network ?? "")</siEmetteur>
-        <casUsage>CU02</casUsage>
-        <ssaEmetteur>VAD</ssaEmetteur>
-        <versionFlux>02.00</versionFlux>
-        <dateOrigineFlux>\(getFormattedDate())</dateOrigineFlux>
-        <ssaRecepteur>\(_keolisConfiguration?.ssaRecepteur ?? "")</ssaRecepteur>
-        <dateTraitementFlux>\(getFormattedDate())</dateTraitementFlux>
-        <typeFlux>\(_keolisConfiguration?.typeFlux ?? "")</typeFlux>
+            <idTransaction>\(getIdTransaction(numeroFlux:numeroFlux))</idTransaction>
+            <numeroFlux>\(numeroFlux)</numeroFlux>
+            <siEmetteur>\(_keolisConfiguration?.network ?? "")</siEmetteur>
+            <casUsage>CU02</casUsage>
+            <ssaEmetteur>VAD</ssaEmetteur>
+            <versionFlux>02.00</versionFlux>
+            <dateOrigineFlux>\(getFormattedDate())</dateOrigineFlux>
+            <ssaRecepteur>\(_keolisConfiguration?.ssaRecepteur ?? "")</ssaRecepteur>
+            <dateTraitementFlux>\(getFormattedDate())</dateTraitementFlux>
+            <typeFlux>\(_keolisConfiguration?.typeFlux ?? "")</typeFlux>
         </entete>
         <compteInternet>
-        <email>\(email)</email>
-        <motDePasse>\(password)</motDePasse>
-        <proprietaireCompteInternet>
-        <personnePhysique>
-        <canalModification>3</canalModification>
-        \(courtesy.isEmpty ? "" : "<civilite>\(courtesy)</civilite>")
-        <nom>\(lastName)</nom>
-        <prenom>\(firstName)</prenom>
-        \(birthdate == nil ? "" : "<dateNaissance>\(getFormattedDate(date: birthdate!))</dateNaissance>")
-        <optinSms>0</optinSms>
-        <optinEmailCompteWeb>1</optinEmailCompteWeb>
-        </personnePhysique>
-        </proprietaireCompteInternet>
+            <email>\(email)</email>
+            <motDePasse>\(password)</motDePasse>
+            <proprietaireCompteInternet>
+                <personnePhysique>
+                    <canalModification>3</canalModification>
+                    \(courtesy.isEmpty ? "" : "<civilite>\(courtesy)</civilite>")
+                    <nom>\(lastName)</nom>
+                    <prenom>\(firstName)</prenom>
+                    \(birthdate == nil ? "" : "<dateNaissance>\(getFormattedDate(date: birthdate!))</dateNaissance>")
+                    <optinSms>0</optinSms>
+                    <optinEmailCompteWeb>1</optinEmailCompteWeb>
+                </personnePhysique>
+            </proprietaireCompteInternet>
         </compteInternet>
         <compteAnonyme>
-        <email>\(_anonymousEmail)</email>
-        <motDePasse>\(_anonymousPassword.encrypt(key: (_keolisConfiguration?.hmacKey)!)!)</motDePasse>
+            <email>\(_stockedEmail)</email>
+            <motDePasse>\(_stockedPassword.encrypt(key: (_keolisConfiguration?.hmacKey)!)!)</motDePasse>
         </compteAnonyme>
         </question>
         """
@@ -882,21 +941,21 @@ extension KeolisAccountManagement {
         <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
         <question xmlns="http://www.keoliscrm.fr/ModifierCompteInternetV2/V2.0">
         <entete>
-        <idTransaction>\(getIdTransaction(numeroFlux:numeroFlux))</idTransaction>
-        <numeroFlux>\(numeroFlux)</numeroFlux>
-        <siEmetteur>\(_keolisConfiguration?.network ?? "")</siEmetteur>
-        <casUsage>CU01</casUsage>
-        <ssaEmetteur>VAD</ssaEmetteur>
-        <versionFlux>02.10</versionFlux>
-        <dateOrigineFlux>\(getFormattedDate())</dateOrigineFlux>
-        <ssaRecepteur>\(_keolisConfiguration?.ssaRecepteur ?? "")</ssaRecepteur>
-        <dateTraitementFlux>\(getFormattedDate())</dateTraitementFlux>
-        <typeFlux>\(_keolisConfiguration?.typeFlux ?? "")</typeFlux>
+            <idTransaction>\(getIdTransaction(numeroFlux:numeroFlux))</idTransaction>
+            <numeroFlux>\(numeroFlux)</numeroFlux>
+            <siEmetteur>\(_keolisConfiguration?.network ?? "")</siEmetteur>
+            <casUsage>CU01</casUsage>
+            <ssaEmetteur>VAD</ssaEmetteur>
+            <versionFlux>02.10</versionFlux>
+            <dateOrigineFlux>\(getFormattedDate())</dateOrigineFlux>
+            <ssaRecepteur>\(_keolisConfiguration?.ssaRecepteur ?? "")</ssaRecepteur>
+            <dateTraitementFlux>\(getFormattedDate())</dateTraitementFlux>
+            <typeFlux>\(_keolisConfiguration?.typeFlux ?? "")</typeFlux>
         </entete>
         <compteInternet>
-        <idCompteInternet>\((userInfo as! KeolisUserInfo).id)</idCompteInternet>
-        <nouvelEmail>\(email)</nouvelEmail>
-        <motDePasse>\(_anonymousPassword.encrypt(key: (_keolisConfiguration?.hmacKey)!)!)</motDePasse>
+            <idCompteInternet>\((userInfo as! KeolisUserInfo).id)</idCompteInternet>
+            <nouvelEmail>\(email)</nouvelEmail>
+            <motDePasse>\(_stockedPassword.encrypt(key: (_keolisConfiguration?.hmacKey)!)!)</motDePasse>
         </compteInternet>
         </question>
         """

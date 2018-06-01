@@ -19,14 +19,14 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="n7A-Pb-Kbc">
-                                <rect key="frame" x="113.66666666666669" y="305" width="149" height="30"/>
+                                <rect key="frame" x="113.66666666666669" y="297" width="149" height="30"/>
                                 <state key="normal" title="Open SDK UI Journey"/>
                                 <connections>
                                     <action selector="onSDKJourneyButtonClicked:" destination="BYZ-38-t0r" eventType="touchUpInside" id="awj-ji-rVF"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="T6T-aE-byG">
-                                <rect key="frame" x="123" y="367" width="129" height="30"/>
+                                <rect key="frame" x="123" y="347" width="129" height="30"/>
                                 <state key="normal" title="Open SDK UI Book"/>
                                 <connections>
                                     <action selector="onSDKBookButtonClicked:" destination="BYZ-38-t0r" eventType="touchUpInside" id="OU7-zA-cxA"/>
@@ -39,15 +39,24 @@
                                     <segue destination="mTF-Ci-r6d" kind="show" id="YST-n9-i8q"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0na-f8-z0P">
+                                <rect key="frame" x="116" y="397" width="143" height="30"/>
+                                <state key="normal" title="Open SDK UI Masabi"/>
+                                <connections>
+                                    <action selector="onSDKTicketMasabiButtonClicked" destination="BYZ-38-t0r" eventType="touchUpInside" id="EPx-Vf-SNh"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="n7A-Pb-Kbc" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" constant="-25" id="3xv-br-haa"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="sR1-3M-f87" secondAttribute="bottom" constant="10" id="9Vs-vE-Djr"/>
                             <constraint firstItem="T6T-aE-byG" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="EWQ-Vl-HSG"/>
+                            <constraint firstItem="T6T-aE-byG" firstAttribute="top" secondItem="n7A-Pb-Kbc" secondAttribute="bottom" constant="20" id="Tcu-fN-TDm"/>
+                            <constraint firstItem="0na-f8-z0P" firstAttribute="top" secondItem="T6T-aE-byG" secondAttribute="bottom" constant="20" id="WCC-4E-d4m"/>
                             <constraint firstItem="sR1-3M-f87" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="eNB-mE-cLN"/>
                             <constraint firstItem="n7A-Pb-Kbc" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="f9l-cx-jz9"/>
-                            <constraint firstItem="T6T-aE-byG" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" constant="20" id="nwx-nY-PCv"/>
+                            <constraint firstItem="T6T-aE-byG" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="nwx-nY-PCv"/>
+                            <constraint firstItem="0na-f8-z0P" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="xu6-3B-rib"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>

@@ -10,22 +10,42 @@ import Foundation
 
 @objc(BookManagement) public protocol BookManagement {
 
-    var bookConfiguration : BookManagementConfiguration? { get set }
-    var cart : [NavitiaBookCartItem] { get }
-    var orderId : String { get }
-    var paymentBaseUrl : String { get }
-    var cartTotalPrice : NavitiaSDKPartnersPrice { get }
-    var cartTotalVAT : NavitiaSDKPartnersPrice { get }
-    
     func getBookManagementName() -> String
     func getBookManagementType() -> BookManagementType
     
-    func getOffers(callbackSuccess : @escaping ([NavitiaBookOffer]) -> Void, callbackError : @escaping (Int, [String: Any]?) -> Void)
-    func getOffers(offerType: NavitiaBookOfferType, callbackSuccess: @escaping ([NavitiaBookOffer]) -> Void, callbackError: @escaping (Int, [String: Any]?) -> Void)
-    func addOffer(offerId: String, callbackSuccess: @escaping () -> Void, callbackError : @escaping (Int, [String: Any]?) -> Void)
-    func removeOffer(offerId: String, callbackSuccess: @escaping () -> Void, callbackError: @escaping (Int, [String: Any]?) -> Void)
-    func setOfferQuantity(offerId: String, quantity: Int, callbackSuccess: @escaping () -> Void, callbackError: @escaping (Int, [String: Any]?) -> Void)
-    func getOrderValidation(callbackSuccess : @escaping ([NavitiaBookCartItem]) -> Void, callbackError : @escaping (Int, [String: Any]?) -> Void)
-    func resetCart(callbackSuccess: @escaping () -> Void, callbackError : @escaping (Int, [String: Any]?) -> Void)
-    func launchPayment(email : String, color : UIColor, callbackSuccess : @escaping (String) -> Void, callbackError: @escaping (Int, [String: Any]?) -> Void)
+    var bookConfiguration : BookManagementConfiguration? { get set }
+    var paymentBaseUrl : String { get }
+    var cart : [NavitiaBookCartItem] { get } // Real time updated
+    var orderId : String { get } // Order id 
+    var cartTotalPrice : NavitiaSDKPartnersPrice { get }
+    var cartTotalVAT : NavitiaSDKPartnersPrice { get }
+    
+    func getOffers( callbackSuccess : @escaping ([NavitiaBookOffer]) -> Void,
+                    callbackError : @escaping (Int, [String: Any]?) -> Void)
+    
+    func getOffers( offerType: NavitiaBookOfferType,
+                    callbackSuccess: @escaping ([NavitiaBookOffer]) -> Void,
+                    callbackError: @escaping (Int, [String: Any]?) -> Void)
+    
+    func addOffer(  offerId: String,
+                    callbackSuccess: @escaping () -> Void,
+                    callbackError : @escaping (Int, [String: Any]?) -> Void)
+    
+    func removeOffer(   offerId: String,
+                        callbackSuccess: @escaping () -> Void,
+                        callbackError: @escaping (Int, [String: Any]?) -> Void)
+    
+    func setOfferQuantity(  offerId: String, quantity: Int,
+                            callbackSuccess: @escaping () -> Void,
+                            callbackError: @escaping (Int, [String: Any]?) -> Void)
+    
+    func getOrderValidation(    callbackSuccess : @escaping ([NavitiaBookCartItem]) -> Void,
+                                callbackError : @escaping (Int, [String: Any]?) -> Void)
+    
+    func resetCart( callbackSuccess: @escaping () -> Void,
+                    callbackError : @escaping (Int, [String: Any]?) -> Void)
+    
+    func launchPayment( email : String, color : UIColor,
+                        callbackSuccess : @escaping (String) -> Void,
+                        callbackError: @escaping (Int, [String: Any]?) -> Void)
 }

@@ -20,11 +20,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         NavitiaSDKUI.shared.destinationColor = UIColor(red: 176.0/255, green: 3.0/255, blue: 83.0/255, alpha: 1)
         NavitiaSDKUI.shared.cguURL = "http://www.kisio.org/"
         
-        let accountConfig = KeolisAccountManagementConfiguration(network: "",
-                                                                 encodedSecretClient64Oauth: "",
-                                                                 encodedSecretClient64WS: "")
-        let bookConfig = VSCTBookManagementConfiguration(network: "")
-        NavitiaSDKPartners.shared.initialize(accountConfiguration: accountConfig, bookConfiguration: bookConfig)
+        do {
+            let accountConfig = KeolisAccountManagementConfiguration(network: "",
+                                                                     encodedSecretClient64Oauth: "",
+                                                                     encodedSecretClient64WS: "")
+            let bookConfig = VSCTBookManagementConfiguration(network: "")
+            let url = Bundle(for: type(of: self)).url(forResource: "", withExtension: "")
+            let data = try Data(contentsOf : url!)
+            let ticketConfig = MasabiTicketManagementConfiguration(data: data)
+            
+            NavitiaSDKPartners.shared.initialize(accountConfiguration: accountConfig, bookConfiguration: bookConfig, ticketConfiguration: ticketConfig)
+        } catch {
+            print("Wrong path config file")
+        }
+        
+      //  NavitiaSDKPartners.shared.initialize(accountConfiguration: accountConfig, bookConfiguration: bookConfig)
         
         UIApplication.shared.statusBarStyle = UIStatusBarStyle.lightContent
         
