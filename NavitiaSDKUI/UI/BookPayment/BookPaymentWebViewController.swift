@@ -63,6 +63,11 @@ class BookPaymentWebViewController: UIViewController {
 extension BookPaymentWebViewController: BreadcrumbViewDelegate {
     
     func onDismiss() {
+        if webView.canGoBack {
+            webView.goBack()
+            return
+        }
+        
         self.dismiss(animated: true, completion: nil)
     }
     
