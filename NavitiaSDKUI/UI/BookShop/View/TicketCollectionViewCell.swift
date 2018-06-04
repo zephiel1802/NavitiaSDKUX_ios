@@ -76,10 +76,10 @@ class TicketCollectionViewCell: UICollectionViewCell {
         amountView.isHidden = true
         
         let lessTapViewGesture = UITapGestureRecognizer(target: self,
-                                                        action: #selector(TicketCollectionViewCell.onLessAmountPressedButton))
+                                                        action: #selector(TicketCollectionViewCell.onLessAmountButtonPressed))
         lessAmountView.addGestureRecognizer(lessTapViewGesture)
         let moreTapViewGesture = UITapGestureRecognizer(target: self,
-                                                        action: #selector(TicketCollectionViewCell.onMoreAmountPressendButton))
+                                                        action: #selector(TicketCollectionViewCell.onMoreAmountButtonPressed))
         moreAmountView.addGestureRecognizer(moreTapViewGesture)
     }
     
@@ -108,11 +108,11 @@ class TicketCollectionViewCell: UICollectionViewCell {
                   size: 25)
     }
     
-    @objc func onLessAmountPressedButton() {
+    @objc func onLessAmountButtonPressed() {
         delegate?.onLessAmountPressedButton(self)
     }
     
-    @objc func onMoreAmountPressendButton() {
+    @objc func onMoreAmountButtonPressed() {
         delegate?.onMoreAmountPressendButton(self)
     }
     
