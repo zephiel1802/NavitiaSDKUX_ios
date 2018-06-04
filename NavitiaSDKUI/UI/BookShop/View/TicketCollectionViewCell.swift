@@ -25,8 +25,10 @@ class TicketCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var addBasketButton: UIButton!
     @IBOutlet weak var amountView: UIView!
     @IBOutlet weak var amountLabel: UILabel!
-    @IBOutlet weak var lessAmountButton: UIButton!
-    @IBOutlet weak var moreAmountButton: UIButton!
+    @IBOutlet weak var lessAmountView: UIView!
+    @IBOutlet weak var lessAmountLabel: UILabel!
+    @IBOutlet weak var moreAmountView: UIView!
+    @IBOutlet weak var moreAmountLabel: UILabel!
     
     var delegate: TicketCollectionViewCellDelegate?
     var indexPath: IndexPath?
@@ -72,6 +74,13 @@ class TicketCollectionViewCell: UICollectionViewCell {
     private func _setup() {
         _setupIcon()
         amountView.isHidden = true
+        
+        let lessTapViewGesture = UITapGestureRecognizer(target: self,
+                                                        action: #selector(TicketCollectionViewCell.onLessAmountButtonPressed))
+        lessAmountView.addGestureRecognizer(lessTapViewGesture)
+        let moreTapViewGesture = UITapGestureRecognizer(target: self,
+                                                        action: #selector(TicketCollectionViewCell.onMoreAmountButtonPressed))
+        moreAmountView.addGestureRecognizer(moreTapViewGesture)
     }
     
     private func _setupIcon() {
@@ -88,16 +97,23 @@ class TicketCollectionViewCell: UICollectionViewCell {
                   color: Configuration.Color.main,
                   size: 13),
                                              for: .normal)
-        lessAmountButton.setAttributedTitle(NSMutableAttributedString()
+        lessAmountLabel.attributedText = NSMutableAttributedString()
             .icon("less",
                   color: Configuration.Color.main,
-                  size: 25),
-                                            for: .normal)
-        moreAmountButton.setAttributedTitle(NSMutableAttributedString()
-            .icon("more",
+                  size: 25)
+        
+        moreAmountLabel.attributedText = NSMutableAttributedString()
+            .icon("less",
                   color: Configuration.Color.main,
-                  size: 25),
-                                            for: .normal)
+                  size: 25)
+    }
+    
+    @objc func onLessAmountButtonPressed() {
+        delegate?.onLessAmountPressedButton(self)
+    }
+    
+    @objc func onMoreAmountButtonPressed() {
+        delegate?.onMoreAmountPressendButton(self)
     }
     
     @IBAction func onInformationPressedButton(_ sender: Any) {
@@ -105,14 +121,6 @@ class TicketCollectionViewCell: UICollectionViewCell {
     }
     
     @IBAction func onAddBasketPressedButton(_ sender: Any) {
-        delegate?.onMoreAmountPressendButton(self)
-    }
-    
-    @IBAction func onLessAmountPressedButton(_ sender: Any) {
-        delegate?.onLessAmountPressedButton(self)
-    }
-    
-    @IBAction func onMoreAmountPressendButton(_ sender: Any) {
         delegate?.onMoreAmountPressendButton(self)
     }
     
@@ -132,11 +140,10 @@ class TicketCollectionViewCell: UICollectionViewCell {
     }
     
     private func _moreAmountButtonSetColor(color: UIColor = Configuration.Color.main) {
-        moreAmountButton.setAttributedTitle(NSMutableAttributedString()
+        moreAmountLabel.attributedText = NSMutableAttributedString()
             .icon("more",
                   color: color,
-                  size: 25),
-                                            for: .normal)
+                  size: 25)
     }
     
 }
