@@ -87,6 +87,7 @@ open class BookPaymentView: UIView {
                                                     callbackSuccess: { (html) in
                                                         self.paymentWebView.loadHTMLString(html, baseURL: URL(string: NavitiaSDKPartners.shared.paymentBaseUrl))
             }) { (statusCode, data) in
+                print(statusCode, data)
                 self.activityIndicator.stopAnimating()
             }
         } else {
@@ -94,6 +95,7 @@ open class BookPaymentView: UIView {
                                                     callbackSuccess: { (html) in
                                                         self.paymentWebView.loadHTMLString(html, baseURL: URL(string: NavitiaSDKPartners.shared.paymentBaseUrl))
             }) { (statusCode, data) in
+                print(statusCode, data)
                 self.activityIndicator.stopAnimating()
             }
         }

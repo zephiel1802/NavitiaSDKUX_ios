@@ -44,7 +44,7 @@ open class MessageCVView: UIView {
         addSubview(view)
         
         logoLabel.attributedText = NSMutableAttributedString()
-            .icon("warning", color: Configuration.Color.lightGray, size: 75)
+            .icon("warning", color: Configuration.Color.lightGray, size: 80)
     }
     
 }

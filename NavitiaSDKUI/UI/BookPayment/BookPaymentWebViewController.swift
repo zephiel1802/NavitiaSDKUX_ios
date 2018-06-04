@@ -23,6 +23,7 @@ class BookPaymentWebViewController: UIViewController {
     override open func viewDidLoad() {
         super.viewDidLoad()
         
+        view.customActivityIndicatory(startAnimate: true)
         _setupBreadcrumbView()
         _setupWebView()
         statusBarView.backgroundColor = Configuration.Color.main
@@ -71,6 +72,7 @@ extension BookPaymentWebViewController: BreadcrumbViewDelegate {
 extension BookPaymentWebViewController: UIWebViewDelegate {
     
     func webViewDidFinishLoad(_ webView: UIWebView) {
+        view.customActivityIndicatory(startAnimate: false)
         let html = webView.stringByEvaluatingJavaScript(from: "document.getElementsByTagName('html')[0].innerHTML")
         
         if let transactionSogenActif = html?.extractTransactionSogenActif() {

@@ -305,9 +305,12 @@ extension BookShopViewController: ValidateBasketViewDelegate {
         viewController.modalPresentationStyle = .overCurrentContext
         viewController.bookTicketDelegate = bookTicketDelegate
         
+        view.customActivityIndicatory(startAnimate: true)
         NavitiaSDKPartners.shared.getOrderValidation(callbackSuccess: { (_) in
+            self.view.customActivityIndicatory(startAnimate: false)
             self.present(viewController, animated: true) {}
         }) { (statusCode, data) in
+            self.view.customActivityIndicatory(startAnimate: false)
             self.displayError(delegate: self, title: "Erreur \(statusCode)", description: "Une erreur est survenue, veuillez réessayer plus tard \(data)")
         }
     }
