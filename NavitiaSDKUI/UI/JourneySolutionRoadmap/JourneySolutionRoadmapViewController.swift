@@ -25,6 +25,7 @@ open class JourneySolutionRoadmapViewController: UIViewController {
     var ridesharingIndex = 0
     var timeRidesharing: Int32?
     var display = false
+    var disruptions: [Disruption]?
     
     override open func viewDidLoad() {
         super.viewDidLoad()
@@ -83,6 +84,7 @@ open class JourneySolutionRoadmapViewController: UIViewController {
     
     private func _displayHeader(_ journey: Journey) {
         let journeySolutionView = JourneySolutionView(frame: CGRect(x: 0, y: 0, width: 0, height: 60))
+        journeySolutionView.disruptions = disruptions
         journeySolutionView.setData(journey)
         
         _addViewInScroll(view: journeySolutionView, customMargin: 0)
@@ -196,7 +198,7 @@ open class JourneySolutionRoadmapViewController: UIViewController {
         publicTransportView.directionTransit = section.displayInformations?.direction ?? ""
         publicTransportView.destination = section.to?.name ?? ""
         publicTransportView.endTime = section.arrivalDateTime?.toDate(format: Configuration.date)?.toString(format: Configuration.time) ?? ""
-        
+
         var stopDate: [String] = []
         if let stopDateTimes = section.stopDateTimes {
             for (index, stop) in stopDateTimes.enumerated() {
@@ -212,6 +214,33 @@ open class JourneySolutionRoadmapViewController: UIViewController {
             if waiting.type == TypeTransport.waiting.rawValue {
                 if let durationWaiting = waiting.duration?.minuteToString() {
                     publicTransportView.waitTime = durationWaiting
+                }
+            }
+        }
+        
+        if let links = section.displayInformations?.links {
+            for link in links {
+                if let type = link.type, let id = link.id, let disruptions = disruptions {
+                    if type == "disruption" {
+                        for disruption in disruptions {
+                            if disruption.id == id {
+                                publicTransportView.setDisruptionType(disruption)
+                                publicTransportView.disruptionTitle = disruption.severity?.name
+  
+                                if let message = disruption.messages?.first?.escapedText {
+                                    publicTransportView.disruptionInformation = message
+                                }
+                                if let begin = disruption.applicationPeriods?.first?.begin?.toDate(format: Configuration.date), let end = disruption.applicationPeriods?.first?.end?.toDate(format: Configuration.date) {
+                                    publicTransportView.disruptionDate = String(format: "%@ %@ %@ %@",
+                                                                                "from".localized(withComment: "Back", bundle: NavitiaSDKUI.shared.bundle),
+                                                                                begin.toString(format: Configuration.dateInterval),
+                                                                                "to_period".localized(withComment: "Back", bundle: NavitiaSDKUI.shared.bundle),
+                                                                                end.toString(format: Configuration.dateInterval))
+        
+                                }
+                            }
+                        }
+                    }
                 }
             }
         }

@@ -12,6 +12,7 @@ class JourneySolutionViewModel: NSObject {
     var journeySolutionDidChange: ((JourneySolutionViewModel) -> ())?
     var journeys = [Journey]()
     var journeysRidesharing = [Journey]()
+    var disruptions = [Disruption]()
     var loading: Bool = true
     
     func request(with parameters: JourneySolutionViewController.InParameters) {
@@ -50,8 +51,8 @@ class JourneySolutionViewModel: NSObject {
             }
             self.loading = true
             journeyRequestBuilder.get { (result, error) in
-                if let journeys = result?.journeys {
-                    self.parseNavitia(journeys: journeys)
+                if let result = result {
+                    self.parseNavitia(result: result)
                 }
                 self.loading = false
                 self.journeySolutionDidChange?(self)
@@ -59,15 +60,20 @@ class JourneySolutionViewModel: NSObject {
         }
     }
     
-    func parseNavitia(journeys: [Journey]) {
-        for journey in journeys {
-            if let redisharingDistance = journey.distances?.ridesharing {
-                if redisharingDistance > 0 {
-                    self.journeysRidesharing.append(journey)
-                } else {
-                    self.journeys.append(journey)
+    func parseNavitia(result: Journeys) {
+        if let journeys = result.journeys {
+            for journey in journeys {
+                if let redisharingDistance = journey.distances?.ridesharing {
+                    if redisharingDistance > 0 {
+                        self.journeysRidesharing.append(journey)
+                    } else {
+                        self.journeys.append(journey)
+                    }
                 }
             }
+        }
+        if let disruptions = result.disruptions {
+            self.disruptions = disruptions
         }
     }
     

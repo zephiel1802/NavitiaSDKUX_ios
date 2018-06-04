@@ -12,6 +12,8 @@ class JourneySummaryView: UIView {
     @IBOutlet weak var _view: UIView!
     @IBOutlet weak var _stackView: UIStackView!
     
+    var disruption: [Disruption]?
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
     }
@@ -48,6 +50,19 @@ class JourneySummaryView: UIView {
                     journeySummaryPartView.color = section.displayInformations?.color?.toUIColor() ?? UIColor.black
                     journeySummaryPartView.name = section.displayInformations?.label
                     journeySummaryPartView.icon = Modes().getModeIcon(section: section)
+                    if let links = section.displayInformations?.links {
+                        for link in links {
+                            if let type = link.type, let id = link.id, let disruption = disruption {
+                                if type == "disruption" {
+                                    for i in disruption {
+                                        if i.id == id {
+                                            journeySummaryPartView.displayDisruption(Disruption.getIconName(of: i.level), color: i.severity?.color)
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
                     journeySummaryPartView.width = widthJourneySummaryPartView(sectionCount: sectionCount,
                                                                                allDurationSections: allDurationSections,
                                                                                duration: duration,
@@ -83,7 +98,10 @@ class JourneySummaryView: UIView {
     private func widthJourneySummaryPartView(sectionCount: Double, allDurationSections: Int32, duration: Int32, journeySummaryPartView: JourneySummaryPartView) -> Double {
         var priority = 65.0
         var minValue = 50.0
-        if let widthPart = journeySummaryPartView._tagTransportLabel.attributedText?.boundingRect(with: CGSize(width: frame.size.width - 60, height: 0), options: .usesLineFragmentOrigin, context: nil).width {
+        if var widthPart = journeySummaryPartView._tagTransportLabel.attributedText?.boundingRect(with: CGSize(width: frame.size.width - 60, height: 0), options: .usesLineFragmentOrigin, context: nil).width {
+            if !journeySummaryPartView._circleLabel.isHidden {
+                widthPart += 14
+            }
             if !journeySummaryPartView._tagTransportView.isHidden {
                 minValue = Double(widthPart + 25)
                 priority = 100

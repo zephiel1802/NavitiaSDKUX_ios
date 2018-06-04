@@ -19,6 +19,8 @@ class JourneySolutionCollectionViewCell: UICollectionViewCell {
     @IBOutlet var durationBottomContraint: NSLayoutConstraint!
     @IBOutlet var durationLeadingContraint: NSLayoutConstraint!
     
+    var disruptions: [Disruption]!
+    
     func setup(_ journey: Journey) {
         _setupArrowIcon()
         addShadow()
@@ -30,15 +32,25 @@ class JourneySolutionCollectionViewCell: UICollectionViewCell {
         if let durationInt = journey.duration {
             formattedDuration(durationInt)
         }
-        if let durationWalkingStr = journey.durations?.walking?.toStringTime(),
-            let distanceWalking = journey.distances?.walking {
-            if distanceWalking > 999 {
-                formattedDurationWalker(durationWalkingStr, distanceWalking.toString(format: "%.01f"), "units_km".localized(withComment: "units_km", bundle: NavitiaSDKUI.shared.bundle))
+        if let walkingDuration = journey.durations?.walking {
+            if walkingDuration > 0 {
+                let durationWalkingStr = walkingDuration.toStringTime()
+                if let distanceWalking = journey.distances?.walking {
+                    if distanceWalking > 999 {
+                        formattedDurationWalker(walkingDuration, durationWalkingStr, distanceWalking.toString(format: "%.01f"), "units_km".localized(withComment: "units_km", bundle: NavitiaSDKUI.shared.bundle))
+                    } else {
+                        formattedDurationWalker(walkingDuration, durationWalkingStr, distanceWalking.toString())
+                    }
+                }
             } else {
-                formattedDurationWalker(durationWalkingStr, distanceWalking.toString())
+                durationWalkerLabel.isHidden = true
+                durationTopContraint.isActive = false
+                durationBottomContraint.isActive = false
+                durationLeadingContraint.isActive = false
             }
         }
         if let sections = journey.sections {
+            journeySummaryView.disruption = disruptions
             journeySummaryView.addSections(sections)
         }
     }
@@ -86,20 +98,39 @@ class JourneySolutionCollectionViewCell: UICollectionViewCell {
         self.duration = formattedStringDuration
     }
     
-    private func formattedDurationWalker(_ durationWalking: String,
+    private func formattedDurationWalker(_ duration: Int32,
+                                         _ durationWalking: String,
                                          _ distanceWalking: String,
                                          _ unitDistance: String = "units_meters".localized(withComment: "meters", bundle: NavitiaSDKUI.shared.bundle)) {
+        durationWalkerLabel.isHidden = false
+        durationTopContraint.isActive = true
+        durationBottomContraint.isActive = true
+        durationLeadingContraint.isActive = true
         
-        durationWalker = NSMutableAttributedString()
-            .normal(String(format: "%@ ",
-                           "with".localized(withComment: "with", bundle: NavitiaSDKUI.shared.bundle)),
-                    color: Configuration.Color.gray)
-            .bold(durationWalking, color: Configuration.Color.gray)
-            .normal(String(format: " %@ (%@ %@)",
-                           "walking".localized(withComment: "walking", bundle: NavitiaSDKUI.shared.bundle),
-                           distanceWalking,
-                           unitDistance),
-                    color: Configuration.Color.gray)
+        if duration < 60 {
+            durationWalker = NSMutableAttributedString()
+                .normal(String(format: "%@ %@",
+                               "less_than_a".localized(withComment: "less than a", bundle: NavitiaSDKUI.shared.bundle),
+                               "units_minute".localized(withComment: "minute", bundle: NavitiaSDKUI.shared.bundle)),
+                        color: Configuration.Color.gray)
+                .bold(durationWalking, color: Configuration.Color.gray)
+                .normal(String(format: " %@ (%@ %@)",
+                               "walking".localized(withComment: "walking", bundle: NavitiaSDKUI.shared.bundle),
+                               distanceWalking,
+                               unitDistance),
+                        color: Configuration.Color.gray)
+        } else {
+            durationWalker = NSMutableAttributedString()
+                .normal(String(format: "%@ ",
+                               "with".localized(withComment: "with", bundle: NavitiaSDKUI.shared.bundle)),
+                        color: Configuration.Color.gray)
+                .bold(durationWalking, color: Configuration.Color.gray)
+                .normal(String(format: " %@ (%@ %@)",
+                               "walking".localized(withComment: "walking", bundle: NavitiaSDKUI.shared.bundle),
+                               distanceWalking,
+                               unitDistance),
+                        color: Configuration.Color.gray)
+        }
     }
     
     override func awakeFromNib() {

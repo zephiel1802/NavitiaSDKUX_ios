@@ -48,10 +48,10 @@ class JourneySummaryPartView: UIView {
         _disruptionLabel.isHidden = true
     }
     
-    func displayDisruption(_ iconName: String) {
+    func displayDisruption(_ iconName: String, color: String?) {
         _disruptionLabel.attributedText = NSMutableAttributedString()
             .icon(iconName,
-                  color: UIColor.red,
+                  color: color?.toUIColor() ?? Configuration.Color.red,
                   size: 14)
         _disruptionLabel.isHidden = false
         _circleLabel.isHidden = false

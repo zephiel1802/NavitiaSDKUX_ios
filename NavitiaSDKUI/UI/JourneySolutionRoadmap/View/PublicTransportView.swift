@@ -207,7 +207,7 @@ extension PublicTransportView {
         set {
             if let newValue = newValue {
                 transportLabel.attributedText = NSMutableAttributedString()
-                    .bold(newValue, color: UIColor.white, size: 9)
+                    .bold(newValue, color: transportColor?.contrastColor() ?? Configuration.Color.white, size: 9)
             }
         }
     }
@@ -261,6 +261,36 @@ extension PublicTransportView {
                     .icon("disruption-" + newValue.rawValue, size: 14)
                 disruptionIconTransportLabel.textColor = UIColor.red
                 disruptionIconTransportLabel.isHidden = false
+            }
+        }
+    }
+    
+    func setDisruptionType(_ disruption: Disruption) {
+        disruptionIsHidden = false
+        
+        disruptionIconLabel.attributedText = NSMutableAttributedString()
+            .icon(Disruption.getIconName(of: disruption.level), size: 15)
+        disruptionIconLabel.textColor = disruption.severity?.color?.toUIColor() ?? UIColor.red
+        
+        disruptionCircleLabel.attributedText = NSMutableAttributedString()
+            .icon("circle-filled", size: 15)
+        disruptionCircleLabel.textColor = UIColor.white
+        disruptionCircleLabel.isHidden = false
+        
+        disruptionIconTransportLabel.attributedText = NSMutableAttributedString()
+            .icon(Disruption.getIconName(of: disruption.level), size: 14)
+        disruptionIconTransportLabel.textColor = disruption.severity?.color?.toUIColor() ?? UIColor.red
+        disruptionIconTransportLabel.isHidden = false
+    }
+
+    var disruptionTitle: String? {
+        get {
+            return disruptionTitleLabel.text
+        }
+        set {
+            if let newValue = newValue {
+                disruptionTitleLabel.attributedText = NSMutableAttributedString()
+                    .normal(newValue, size: 12)
             }
         }
     }
