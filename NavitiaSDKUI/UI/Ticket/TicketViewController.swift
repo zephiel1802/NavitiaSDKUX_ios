@@ -28,13 +28,13 @@ import JustRideSDK
         }, callbackError: { (statusCode, data) in
             switch statusCode {
             case NavitiaSDKPartnersReturnCode.masabiNoDeviceChangeCredit.getCode():
-                self.add(asChildViewController: self._setupInformationViewController(information: "you_have_reached_the_allowed_number_of_device_switches".localized(bundle: NavitiaSDKUI.shared.bundle)))
+                self.addChildView(childViewController: self._setupInformationViewController(information: "you_have_reached_the_allowed_number_of_device_switches".localized(bundle: NavitiaSDKUI.shared.bundle)))
             case NavitiaSDKPartnersReturnCode.masabiDeviceChangeError.getCode():
-                self.add(asChildViewController: self._setupInformationViewController(titleButton: ["yes".localized(bundle: NavitiaSDKUI.shared.bundle),
+                self.addChildView(childViewController: self._setupInformationViewController(titleButton: ["yes".localized(bundle: NavitiaSDKUI.shared.bundle),
                                                                                                    "cancel".localized(bundle: NavitiaSDKUI.shared.bundle)],
                                                                                      information: "your_wallet_is_bound_to_another_device".localized(bundle: NavitiaSDKUI.shared.bundle)))
             default:
-                self.add(asChildViewController: self._setupInformationViewController(information: "an_error_occurred".localized(bundle: NavitiaSDKUI.shared.bundle)))
+                self.addChildView(childViewController: self._setupInformationViewController(information: "an_error_occurred".localized(bundle: NavitiaSDKUI.shared.bundle)))
             }
         })
     }
@@ -58,7 +58,7 @@ import JustRideSDK
             walletViewController.navigationController?.navigationBar.barTintColor = Configuration.Color.white
             walletViewController.navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor : Configuration.Color.black]
 
-            self.add(asChildViewController: navigationController)
+            self.addChildView(childViewController: navigationController)
         }) { (_, _) in }
     }
 
@@ -72,6 +72,7 @@ import JustRideSDK
         informationViewController.delegate = self
         informationViewController.information = information
         informationViewController.iconName = iconName
+        
         return informationViewController
     }
     

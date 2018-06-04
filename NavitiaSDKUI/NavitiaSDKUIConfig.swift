@@ -66,7 +66,6 @@ import JustRideSDK
     
     @objc open func masabiTicketManagementConfiguration(data: Data) -> MasabiTicketManagementConfiguration {
         let masabiTicketManagementConfiguration = MasabiTicketManagementConfiguration(data: data)
-        
         masabiTicketManagementConfiguration.UIConfiguration?.ticket.ticketButtonBackgroundColour = Configuration.Color.main
         masabiTicketManagementConfiguration.UIConfiguration?.ticket.ticketButtonTextColour = Configuration.Color.main.contrastColor()
         masabiTicketManagementConfiguration.UIConfiguration?.ticket.activationDisclaimerBackgroundColour = Configuration.Color.main
@@ -74,10 +73,9 @@ import JustRideSDK
         masabiTicketManagementConfiguration.UIConfiguration?.ticket.activationDisclaimerAcceptButtonTextColour = Configuration.Color.main
         masabiTicketManagementConfiguration.UIConfiguration?.ticket.activateButtonBackgroundColour = Configuration.Color.main
         masabiTicketManagementConfiguration.UIConfiguration?.ticket.activateButtonTextColour = Configuration.Color.main.contrastColor()
-        
         masabiTicketManagementConfiguration.UIConfiguration?.ticketInfo.inactiveTabBackgroundColour = Configuration.Color.main
-        
         masabiTicketManagementConfiguration.UIConfiguration?.wallet.backgroundColour = Configuration.Color.main
+        
         return masabiTicketManagementConfiguration
     }
     

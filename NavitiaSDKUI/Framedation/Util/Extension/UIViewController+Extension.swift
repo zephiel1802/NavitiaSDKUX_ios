@@ -34,13 +34,13 @@ extension UIViewController {
         return true
     }
     
-    func add(asChildViewController viewController: UIViewController) {
-        addChildViewController(viewController)
-        view.addSubview(viewController.view)
+    func addChildView(childViewController: UIViewController) {
+        addChildViewController(childViewController)
+        view.addSubview(childViewController.view)
         
-        viewController.view.frame = view.bounds
-        viewController.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        viewController.didMove(toParentViewController: self)
+        childViewController.view.frame = view.bounds
+        childViewController.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        childViewController.didMove(toParentViewController: self)
     }
     
 }
