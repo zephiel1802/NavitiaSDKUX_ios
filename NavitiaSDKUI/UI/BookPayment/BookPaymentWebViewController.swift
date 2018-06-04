@@ -67,6 +67,7 @@ extension BookPaymentWebViewController: BreadcrumbViewDelegate {
             webView.goBack()
             return
         }
+        
         self.dismiss(animated: true, completion: nil)
     }
     
