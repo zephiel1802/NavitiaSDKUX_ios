@@ -1,5 +1,7 @@
 platform :ios, '10.0'
 
+source 'https://github.com/Masabi/Podspecs.git'
+
 target 'NavitiaSDKUI-Example' do
   use_frameworks!
 

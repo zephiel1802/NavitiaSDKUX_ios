@@ -386,7 +386,7 @@
 		84686B2220C02CD900EF7A4A /* AccountManagementType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84686AC120C02CD900EF7A4A /* AccountManagementType.swift */; };
 		84686B2320C02CD900EF7A4A /* AccountManagementConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84686AC220C02CD900EF7A4A /* AccountManagementConfiguration.swift */; };
 		84686B2420C02CD900EF7A4A /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 84686AC320C02CD900EF7A4A /* Info.plist */; };
-		84686B2920C032EE00EF7A4A /* TicketMasabi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84686B2820C032EE00EF7A4A /* TicketMasabi.swift */; };
+		84686B2920C032EE00EF7A4A /* TicketViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84686B2820C032EE00EF7A4A /* TicketViewController.swift */; };
 		846B185120775479005D4A9B /* DepartureArrivalStepView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 846B185020775479005D4A9B /* DepartureArrivalStepView.xib */; };
 		8471D38320809EAD000C9125 /* JourneySolutionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8471D38220809EAD000C9125 /* JourneySolutionView.xib */; };
 		8471D38520809EC7000C9125 /* JourneySolutionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8471D38420809EC7000C9125 /* JourneySolutionView.swift */; };
@@ -823,7 +823,7 @@
 		84686AC120C02CD900EF7A4A /* AccountManagementType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountManagementType.swift; sourceTree = "<group>"; };
 		84686AC220C02CD900EF7A4A /* AccountManagementConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountManagementConfiguration.swift; sourceTree = "<group>"; };
 		84686AC320C02CD900EF7A4A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		84686B2820C032EE00EF7A4A /* TicketMasabi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicketMasabi.swift; sourceTree = "<group>"; };
+		84686B2820C032EE00EF7A4A /* TicketViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicketViewController.swift; sourceTree = "<group>"; };
 		846B185020775479005D4A9B /* DepartureArrivalStepView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DepartureArrivalStepView.xib; sourceTree = "<group>"; };
 		8471D38220809EAD000C9125 /* JourneySolutionView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = JourneySolutionView.xib; sourceTree = "<group>"; };
 		8471D38420809EC7000C9125 /* JourneySolutionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JourneySolutionView.swift; sourceTree = "<group>"; };
@@ -1755,7 +1755,7 @@
 		84686B2720C032CF00EF7A4A /* Ticket */ = {
 			isa = PBXGroup;
 			children = (
-				84686B2820C032EE00EF7A4A /* TicketMasabi.swift */,
+				84686B2820C032EE00EF7A4A /* TicketViewController.swift */,
 			);
 			path = Ticket;
 			sourceTree = "<group>";
@@ -2130,7 +2130,7 @@
 				849E2EDD20B2BDE600AEFC07 /* BookRecapViewController.swift in Sources */,
 				8454D3F22068D3A800C97D2F /* Line.swift in Sources */,
 				3126559D20AEF67A00D50F4B /* BookPaymentMailFormView.swift in Sources */,
-				84686B2920C032EE00EF7A4A /* TicketMasabi.swift in Sources */,
+				84686B2920C032EE00EF7A4A /* TicketViewController.swift in Sources */,
 				8454D3A62068D3A800C97D2F /* Period.swift in Sources */,
 				84686B1820C02CD900EF7A4A /* MasabiTicketManagement.swift in Sources */,
 				8454D3712068D3A800C97D2F /* GraphicalIsochroneApi.swift in Sources */,
