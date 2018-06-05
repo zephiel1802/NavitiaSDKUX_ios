@@ -28,7 +28,6 @@ open class BookPaymentViewController: UIViewController {
             _viewModel.returnPayment = { [weak self] in
                 self?._onInformationPressedButton()
                 self?.launchPayment()
-           //     self?.bookPaymentView.launchPayment()
             }
         }
     }
@@ -298,16 +297,13 @@ extension BookPaymentViewController: BookPaymentConditionViewDelegate {
             scrollView.setContentOffset(CGPoint(x: 0, y: max(0, scrollView.contentSize.height - scrollView.bounds.size.height)), animated: true)
             if _viewModel.isConnected {
                 launchPayment()
-               // bookPaymentView.launchPayment()
                 bookPaymentView.enableFilter = false
             } else {
                 guard let bookPaymentMailFormView = bookPaymentMailFormView else {
                     return
                 }
                 if bookPaymentMailFormView.isValid {
-                 //   bookPaymentView.email = bookPaymentMailFormView.mailTextField.text
                     launchPayment()
-                   // bookPaymentView.launchPayment()
                     bookPaymentView.enableFilter = false
                 }
             }

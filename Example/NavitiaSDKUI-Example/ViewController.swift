@@ -90,28 +90,24 @@ class ViewController: UIViewController {
 extension ViewController: BookTicketDelegate {
     
     func onDisplayCreateAccount() {
-        print("[BookTicketDelegate] - onDisplayCreateAccount")
         if let rootViewController = UIApplication.shared.keyWindow?.rootViewController {
             rootViewController.dismiss(animated: false, completion: nil)
         }
     }
     
     func onDisplayConnectionAccount() {
-        print("[BookTicketDelegate] - onDisplayConnectionAccount")
         if let rootViewController = UIApplication.shared.keyWindow?.rootViewController {
             rootViewController.dismiss(animated: false, completion: nil)
         }
     }
     
     func onDisplayTicket() {
-        print("[BookTicketDelegate] - onDisplayTicket")
         if let rootViewController = UIApplication.shared.keyWindow?.rootViewController {
             rootViewController.dismiss(animated: false, completion: nil)
         }
     }
     
     func onDismissBookTicket() {
-        print("[BookTicketDelegate] - onDismissBookTicket")
         if let rootViewController = UIApplication.shared.keyWindow?.rootViewController {
             rootViewController.dismiss(animated: true, completion: nil)
         }

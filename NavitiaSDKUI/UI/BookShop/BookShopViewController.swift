@@ -172,11 +172,10 @@ import UIKit
         informationViewController.tagName = "connection"
         informationViewController.modalTransitionStyle = .crossDissolve
         informationViewController.modalPresentationStyle = .overCurrentContext
-        //        informationViewController.titleButton = [String(format: "%@ !", "understood".localized(withComment: "Understood !", bundle: NavitiaSDKUI.shared.bundle))]
-        informationViewController.titleButton = ["Me connecter", "Créer mon compte"]
+        informationViewController.titleButton = ["log_in".localized(bundle: NavitiaSDKUI.shared.bundle),
+                                                 "create_my_account".localized(bundle: NavitiaSDKUI.shared.bundle)]
         informationViewController.delegate = self
-//        informationViewController.information =  "your_payment_has_been_refused".localized(withComment: "Your payment has been refused", bundle: NavitiaSDKUI.shared.bundle)
-        informationViewController.information =  "Vous devez être connecté pour visualiser les abonnements"
+        informationViewController.information = "you_must_be_logged_in_to_view_subscriptions".localized(bundle: NavitiaSDKUI.shared.bundle)
         informationViewController.iconName = "user-connexion"
         present(informationViewController, animated: true) {}
     }
@@ -193,7 +192,6 @@ import UIKit
             }
         }
     }
-
     
 }
 
@@ -279,7 +277,9 @@ extension BookShopViewController: TicketCollectionViewCellDelegate {
                 ticketCollectionViewCell.quantity -= 1
                 self._reloadCart()
             }) { (statusCode, data) in
-                self.displayError(delegate: self, title: "Erreur \(statusCode)", description: "Une erreur est survenue, veuillez réessayer plus tard \(String(describing: data))")
+                let informationViewController = self.informationViewController(information: "an_error_occurred".localized(bundle: NavitiaSDKUI.shared.bundle))
+                informationViewController.delegate = self
+                self.present(informationViewController, animated: true, completion: nil)
             }
         }
     }
@@ -290,7 +290,9 @@ extension BookShopViewController: TicketCollectionViewCellDelegate {
                 ticketCollectionViewCell.quantity += 1
                 self._reloadCart()
             }) { (statusCode, data) in
-                self.displayError(delegate: self, title: "Erreur \(statusCode)", description: "Une erreur est survenue, veuillez réessayer plus tard \(String(describing: data))")
+                let informationViewController = self.informationViewController(information: "an_error_occurred".localized(bundle: NavitiaSDKUI.shared.bundle))
+                informationViewController.delegate = self
+                self.present(informationViewController, animated: true, completion: nil)
             }
         }
     }
