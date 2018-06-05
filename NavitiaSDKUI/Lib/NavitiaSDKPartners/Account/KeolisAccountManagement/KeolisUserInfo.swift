@@ -32,15 +32,15 @@ import Foundation
     }
     
     public required init?(coder aDecoder: NSCoder) {
-        self.firstName = aDecoder.decodeObject(forKey: "firstName") as! String
-        self.lastName = aDecoder.decodeObject(forKey: "lastName") as! String
-        self.network = aDecoder.decodeObject(forKey: "network") as! String
-        self.id = aDecoder.decodeObject(forKey: "id") as! String
-        self.idTechPortalPerson = aDecoder.decodeObject(forKey: "idTechPortalPerson") as! String
-        self.accountStatus = KeolisAccountStatus(rawValue: Int(aDecoder.decodeObject(forKey: "accountStatus") as! String)!)!
-        self.email = aDecoder.decodeObject(forKey: "email") as! String
-        self.courtesy = NavitiaSDKPartnersCourtesy.fromKeolis(str: aDecoder.decodeObject(forKey: "courtesy") as! String)
-        self.country = aDecoder.decodeObject(forKey: "country") as! String
+        self.firstName = aDecoder.decodeObject(forKey: "firstName") as? String ?? ""
+        self.lastName = aDecoder.decodeObject(forKey: "lastName") as? String ?? ""
+        self.network = aDecoder.decodeObject(forKey: "network") as? String ?? ""
+        self.id = aDecoder.decodeObject(forKey: "id") as? String ?? ""
+        self.idTechPortalPerson = aDecoder.decodeObject(forKey: "idTechPortalPerson") as? String ?? ""
+        self.accountStatus = KeolisAccountStatus(rawValue: Int(aDecoder.decodeObject(forKey: "accountStatus") as? String ?? "")!)!
+        self.email = aDecoder.decodeObject(forKey: "email") as? String ?? ""
+        self.courtesy = NavitiaSDKPartnersCourtesy.fromKeolis(str: aDecoder.decodeObject(forKey: "courtesy") as? String ?? "")
+        self.country = aDecoder.decodeObject(forKey: "country") as? String ?? ""
     }
     
     public override init() {

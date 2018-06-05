@@ -36,8 +36,8 @@ internal class NavitiaSDKPartnersRequestBuilder {
         
         let config = URLSessionConfiguration.default
         config.httpAdditionalHeaders = header
-        config.timeoutIntervalForRequest = 20
-        config.timeoutIntervalForResource = 20
+        config.timeoutIntervalForRequest = 10
+        config.timeoutIntervalForResource = 10
         let session = URLSession(configuration: config)
         
         session.dataTask(with: url) { (data, response, error) in
@@ -140,7 +140,7 @@ internal class NavitiaSDKPartnersRequestBuilder {
             return
         }
         
-        var urlRequest = URLRequest(url: url, timeoutInterval: 20)
+        var urlRequest = URLRequest(url: url, timeoutInterval: 10)
         
         for (key, value) in header {
             urlRequest.addValue(value, forHTTPHeaderField: key)
@@ -157,7 +157,8 @@ internal class NavitiaSDKPartnersRequestBuilder {
         } catch {
             print("NavitiaSDKPartners : error on urlRequest Body")
             DispatchQueue.main.async {
-                completion(false, NavitiaSDKPartnersReturnCode.internalError.rawValue, nil)
+                let error = NavitiaSDKPartnersReturnCode.internalError
+                completion(false, error.getCode(), error.getError())
             }
             return
         }
@@ -178,7 +179,8 @@ internal class NavitiaSDKPartnersRequestBuilder {
                     }
                 } else {
                     DispatchQueue.main.async {
-                        completion(false, NavitiaSDKPartnersReturnCode.internalError.getCode(), NavitiaSDKPartnersReturnCode.internalError.getError())
+                        let error = NavitiaSDKPartnersReturnCode.internalError
+                        completion(false, error.getCode(), error.getError())
                     }
                 }
                 return
@@ -265,7 +267,7 @@ internal class NavitiaSDKPartnersRequestBuilder {
         
         let urlRequest = NSMutableURLRequest(url: NSURL(string: stringUrl)! as URL,
                                              cachePolicy: .useProtocolCachePolicy,
-                                             timeoutInterval: 20)
+                                             timeoutInterval: 10)
         for (key, value) in header {
             urlRequest.addValue(value, forHTTPHeaderField: key)
         }
@@ -279,12 +281,14 @@ internal class NavitiaSDKPartnersRequestBuilder {
                 if (error! as NSError).code == -1001 {
                     
                     DispatchQueue.main.async {
-                        completion(false, NavitiaSDKPartnersReturnCode.timeOut.getCode(), nil)
+                        let error = NavitiaSDKPartnersReturnCode.timeOut
+                        completion(false, error.getCode(), nil)
                     }
                 } else {
                     
                     DispatchQueue.main.async {
-                        completion(false, NavitiaSDKPartnersReturnCode.internalError.getCode(), nil)
+                        let error = NavitiaSDKPartnersReturnCode.internalError
+                        completion(false, error.getCode(), nil)
                     }
                 }
             } else {

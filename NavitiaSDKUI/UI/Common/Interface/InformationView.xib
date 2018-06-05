@@ -33,7 +33,7 @@
                     <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="doZ-wr-sWf">
-                    <rect key="frame" x="266" y="92" width="280" height="191"/>
+                    <rect key="frame" x="266" y="69" width="280" height="237"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Zty-MN-Tg2">
                             <rect key="frame" x="115" y="15" width="50" height="50"/>
@@ -136,12 +136,6 @@
                             <integer key="value" value="5"/>
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
-                    <variation key="default">
-                        <mask key="subviews">
-                            <exclude reference="0Eq-30-uGh"/>
-                            <exclude reference="o3I-HP-oYl"/>
-                        </mask>
-                    </variation>
                 </view>
             </subviews>
             <constraints>

@@ -85,6 +85,26 @@ class ViewController: UIViewController {
         present(alertController, animated: true, completion: nil)
     }
     
+    // Ticket
+    @IBAction func onSDKTicketMasabiButtonClicked() {
+        NavitiaSDKUI.shared.bundle = Bundle(identifier: "org.cocoapods.NavitiaSDKUI")
+        
+        let ticketMasabiViewController = TicketViewController()
+        ticketMasabiViewController.delegate = self
+        ticketMasabiViewController.modalPresentationStyle = .overCurrentContext
+        present(ticketMasabiViewController, animated: false, completion: nil)
+    }
+    
+}
+
+extension ViewController: TicketViewDelegate {
+
+    func onDismissTicket() {
+        if let rootViewController = UIApplication.shared.keyWindow?.rootViewController {
+            rootViewController.dismiss(animated: false, completion: nil)
+        }
+    }
+    
 }
 
 extension ViewController: BookTicketDelegate {
@@ -103,7 +123,9 @@ extension ViewController: BookTicketDelegate {
     
     func onDisplayTicket() {
         if let rootViewController = UIApplication.shared.keyWindow?.rootViewController {
-            rootViewController.dismiss(animated: false, completion: nil)
+            rootViewController.dismiss(animated: false) {
+                self.onSDKTicketMasabiButtonClicked()
+            }
         }
     }
     

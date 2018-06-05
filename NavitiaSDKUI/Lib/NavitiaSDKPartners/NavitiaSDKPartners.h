@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <JustRideSDK/JustRideSDK.h>
 
 //! Project version number for NavitiaSDKPartners.
 FOUNDATION_EXPORT double NavitiaSDKPartnersVersionNumber;

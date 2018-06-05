@@ -28,6 +28,7 @@
     case masabiDeviceChangeError = 9018 // masabi error on sync wallet, warn user device change credit will be used
     case masabiNoDeviceChangeCredit = 9019 // masabi error on sync wallet, user don't any device change token left
     case passwordInvalid = 9020 // on update password, old password is not matching current password
+    case paymentTimeOut = 9021 // if you take too much time between validation and payment
 
     public static let all: [String: Int] = [
         "notLogged" : notLogged.rawValue,
@@ -49,7 +50,8 @@
         "cartEmpty" : cartEmpty.rawValue,
         "ticketManagementNotInit" : ticketManagementNotInit.rawValue,
         "masabiDeviceChangeError" : masabiDeviceChangeError.rawValue,
-        "masabiNoDeviceChangeCredit" : masabiNoDeviceChangeCredit.rawValue
+        "masabiNoDeviceChangeCredit" : masabiNoDeviceChangeCredit.rawValue,
+        "paymentTimeOut" : paymentTimeOut.rawValue
     ]
     
     func getError() -> [String: Any] {
@@ -114,6 +116,8 @@
             break
         case .masabiNoDeviceChangeCredit:
             error["error"] = "Masabi/Error : No device change credit"
+        case .paymentTimeOut:
+            error["error"] = "Payment Timed Out"
         }
         return error
     }

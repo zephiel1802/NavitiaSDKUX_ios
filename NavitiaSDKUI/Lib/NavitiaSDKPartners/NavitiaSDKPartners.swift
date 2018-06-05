@@ -12,8 +12,9 @@ import Foundation
     private override init() { }
     internal var accountManagement : AccountManagement? = nil
     internal var bookManagement : BookManagement? = nil
+    internal var ticketManagement : TicketManagement? = nil
     
-    @objc public static let shared = NavitiaSDKPartners()
+    @objc public static let shared = NavitiaSDKPartners() // Entry point of SDK (singleton : NavitiaSDKPartners.shared)
     
     @objc public func getAccountManagement() -> AccountManagement? {
         
@@ -25,8 +26,15 @@ import Foundation
         return bookManagement
     }
     
+    @objc public func getTicketManagement() -> TicketManagement? {
+        
+        return ticketManagement
+    }
+    
+    // Initialization of the whole SDK
     @objc public func initialize( accountConfiguration : AccountManagementConfiguration? = nil,
-                                  bookConfiguration : BookManagementConfiguration? = nil) {
+                                  bookConfiguration : BookManagementConfiguration? = nil,
+                                  ticketConfiguration : TicketManagementConfiguration? = nil) {
 
         if accountConfiguration != nil {
             setAccountManagement(for: (accountConfiguration?.type)!)?.accountConfiguration = accountConfiguration
@@ -36,6 +44,9 @@ import Foundation
             setBookManagement(for: (bookConfiguration?.type)!)?.bookConfiguration = bookConfiguration
         }
         
+        if ticketConfiguration != nil {
+            setTicketManagement(for: (ticketConfiguration?.type)!)?.ticketConfiguration = ticketConfiguration
+        }
     }
     
     func setAccountManagement(for type : AccountManagementType) -> AccountManagement? {
@@ -63,19 +74,32 @@ import Foundation
         return bookManagement
     }
     
+    func setTicketManagement(for type: TicketManagementType) -> TicketManagement? {
+        switch type {
+        case .Masabi:
+            ticketManagement = MasabiTicketManagement()
+        default:
+            ticketManagement = nil
+        }
+        
+        print("NavitiaSDKPartners : Ticket system set to \(ticketManagement?.getTicketManagementName() ?? "undefined")")
+        return ticketManagement
+    }
 }
 
-extension NavitiaSDKPartners : AccountManagement {
+extension NavitiaSDKPartners : AccountManagement { // Implementation of AccountManagement protocol, allow to call protocol directly from shared instance (singleton)
     
-    public func refreshToken(callbackSuccess: @escaping () -> Void, callbackError: @escaping (Int, [String : Any]?) -> Void) {
-        if accountManagement == nil {
-            callbackError(NavitiaSDKPartnersReturnCode.accountManagementNotInit.rawValue, ["error" : "accountManagement not initialized"])
-            return
-        }
-        accountManagement?.refreshToken(callbackSuccess: callbackSuccess, callbackError: callbackError)
+    public func getAccountManagementName() -> String {
+        
+        return (accountManagement?.getAccountManagementName())!
     }
     
-    public var accessToken : String {
+    public func getAccountManagementType() -> AccountManagementType {
+        
+        return (accountManagement?.getAccountManagementType())!
+    }
+    
+    public var accessToken : String { // Need to be gettable due to Masabi Log In using it
         get {
             if accountManagement == nil {
                 return ""
@@ -84,7 +108,7 @@ extension NavitiaSDKPartners : AccountManagement {
         }
     }
     
-    public var isConnected : Bool {
+    public var isConnected : Bool { // Return true if user is logged in
         get {
             if accountManagement == nil {
                 return false
@@ -93,7 +117,7 @@ extension NavitiaSDKPartners : AccountManagement {
         }
     }
     
-    public var isAnonymous : Bool {
+    public var isAnonymous : Bool { // Return true if user is connected and using an anonymous account
         get {
             if accountManagement == nil {
                 return false
@@ -124,7 +148,8 @@ extension NavitiaSDKPartners : AccountManagement {
                                callbackError: @escaping (Int, [String : Any]?) -> Void) {
         
         if accountManagement == nil {
-            callbackError(NavitiaSDKPartnersReturnCode.accountManagementNotInit.rawValue, ["error" : "accountManagement not initialized"])
+            let error = NavitiaSDKPartnersReturnCode.accountManagementNotInit
+            callbackError(error.getCode(), error.getError())
             return
         }
         accountManagement?.createAccount(callbackSuccess: callbackSuccess, callbackError: callbackError)
@@ -135,7 +160,8 @@ extension NavitiaSDKPartners : AccountManagement {
                                callbackError: @escaping (Int, [String : Any]?) -> Void) {
         
         if accountManagement == nil {
-            callbackError(NavitiaSDKPartnersReturnCode.accountManagementNotInit.rawValue, ["error" : "accountManagement not initialized"])
+            let error = NavitiaSDKPartnersReturnCode.accountManagementNotInit
+            callbackError(error.getCode(), error.getError())
             return
         }
         accountManagement?.createAccount(firstName: firstName, lastName: lastName, email: email, birthdate: birthdate, password: password, courtesy : courtesy, callbackSuccess: callbackSuccess, callbackError: callbackError)
@@ -144,7 +170,8 @@ extension NavitiaSDKPartners : AccountManagement {
     public func transformAccount(firstName: String, lastName: String, email: String, birthdate: Date?, password: String, courtesy : NavitiaSDKPartnersCourtesy, callbackSuccess: @escaping () -> Void, callbackError: @escaping (Int, [String : Any]?) -> Void) {
         
         if accountManagement == nil {
-            callbackError(NavitiaSDKPartnersReturnCode.accountManagementNotInit.rawValue, ["error" : "accountManagement not initialized"])
+            let error = NavitiaSDKPartnersReturnCode.accountManagementNotInit
+            callbackError(error.getCode(), error.getError())
             return
         }
         accountManagement?.transformAccount(firstName: firstName, lastName: lastName, email: email, birthdate: birthdate, password: password, courtesy : courtesy, callbackSuccess: callbackSuccess, callbackError: callbackError)
@@ -154,7 +181,8 @@ extension NavitiaSDKPartners : AccountManagement {
                                  callbackSuccess: @escaping () -> Void,
                                  callbackError: @escaping (Int, [String : Any]?) -> Void) {
         if accountManagement == nil {
-            callbackError(NavitiaSDKPartnersReturnCode.accountManagementNotInit.rawValue, ["error" : "accountManagement not initialized"])
+            let error = NavitiaSDKPartnersReturnCode.accountManagementNotInit
+            callbackError(error.getCode(), error.getError())
             return
         }
         accountManagement?.activateAccount(internetAccountId: internetAccountId, token: token, callbackSuccess: callbackSuccess, callbackError: callbackError)
@@ -164,7 +192,8 @@ extension NavitiaSDKPartners : AccountManagement {
                               callbackSuccess : @escaping () -> Void,
                               callbackError : @escaping (Int, [String: Any]?) -> Void) {
         if accountManagement == nil {
-            callbackError(NavitiaSDKPartnersReturnCode.accountManagementNotInit.rawValue, ["error" : "accountManagement not initialized"])
+            let error = NavitiaSDKPartnersReturnCode.accountManagementNotInit
+            callbackError(error.getCode(), error.getError())
             return
         }
         accountManagement?.authenticate( username: username, password: password,
@@ -172,10 +201,20 @@ extension NavitiaSDKPartners : AccountManagement {
                                          callbackError: callbackError)
     }
     
+    public func refreshToken(callbackSuccess: @escaping () -> Void, callbackError: @escaping (Int, [String : Any]?) -> Void) {
+        if accountManagement == nil {
+            let error = NavitiaSDKPartnersReturnCode.accountManagementNotInit
+            callbackError(error.getCode(), error.getError())
+            return
+        }
+        accountManagement?.refreshToken(callbackSuccess: callbackSuccess, callbackError: callbackError)
+    }
+    
     public func logOut( callbackSuccess : @escaping () -> Void,
                         callbackError : @escaping (Int, [String: Any]?) -> Void) {
         if accountManagement == nil {
-            callbackError(NavitiaSDKPartnersReturnCode.accountManagementNotInit.rawValue, ["error" : "accountManagement not initialized"])
+            let error = NavitiaSDKPartnersReturnCode.accountManagementNotInit
+            callbackError(error.getCode(), error.getError())
             return
         }
         accountManagement?.logOut(callbackSuccess: callbackSuccess, callbackError: callbackError)
@@ -185,7 +224,8 @@ extension NavitiaSDKPartners : AccountManagement {
                                callbackSuccess: @escaping () -> Void,
                                callbackError: @escaping (Int, [String : Any]?) -> Void) {
         if accountManagement == nil {
-            callbackError(NavitiaSDKPartnersReturnCode.accountManagementNotInit.rawValue, ["error" : "accountManagement not initialized"])
+            let error = NavitiaSDKPartnersReturnCode.accountManagementNotInit
+            callbackError(error.getCode(), error.getError())
             return
         }
         accountManagement?.resetPassword(email: email, callbackSuccess: callbackSuccess, callbackError: callbackError)
@@ -195,35 +235,30 @@ extension NavitiaSDKPartners : AccountManagement {
                                 callbackSuccess: @escaping () -> Void,
                                 callbackError: @escaping (Int, [String : Any]?) -> Void) {
         if accountManagement == nil {
-            callbackError(NavitiaSDKPartnersReturnCode.accountManagementNotInit.rawValue, ["error" : "accountManagement not initialized"])
+            let error = NavitiaSDKPartnersReturnCode.accountManagementNotInit
+            callbackError(error.getCode(), error.getError())
             return
         }
         accountManagement?.updatePassword(oldPassword : oldPassword, newPassword: newPassword, callbackSuccess: callbackSuccess, callbackError: callbackError)
     }
     
-    public func getAccountManagementName() -> String {
-        
-        return (accountManagement?.getAccountManagementName())!
-    }
-    
-    public func getAccountManagementType() -> AccountManagementType {
-        
-        return (accountManagement?.getAccountManagementType())!
-    }
-    
     public func getUserInfo( callbackSuccess : @escaping (NavitiaUserInfo) -> Void,
                              callbackError : @escaping (Int, [String: Any]?) -> Void) {
         if accountManagement == nil {
-            callbackError(NavitiaSDKPartnersReturnCode.accountManagementNotInit.rawValue, ["error" : "accountManagement not initialized"])
+            let error = NavitiaSDKPartnersReturnCode.accountManagementNotInit
+            callbackError(error.getCode(), error.getError())
             return
         }
         accountManagement?.getUserInfo(callbackSuccess: callbackSuccess, callbackError: callbackError)
     }
     
-    public func updateInfo(firstName: String = "", lastName: String = "", email: String = "", birthdate: Date? = nil, courtesy: NavitiaSDKPartnersCourtesy = .Unknown, callbackSuccess: @escaping () -> Void, callbackError: @escaping (Int, [String : Any]?) -> Void) {
+    public func updateInfo( firstName : String = "", lastName : String = "", email : String = "", birthdate : Date? = nil, courtesy : NavitiaSDKPartnersCourtesy = .Unknown,
+                            callbackSuccess: @escaping () -> Void,
+                            callbackError: @escaping (Int, [String : Any]?) -> Void) {
         
         if accountManagement == nil {
-            callbackError(NavitiaSDKPartnersReturnCode.accountManagementNotInit.rawValue, ["error" : "accountManagement not initialized"])
+            let error = NavitiaSDKPartnersReturnCode.accountManagementNotInit
+            callbackError(error.getCode(), error.getError())
             return
         }
         accountManagement?.updateInfo(firstName: firstName, lastName: lastName, email: email, birthdate: birthdate, courtesy: courtesy, callbackSuccess: callbackSuccess, callbackError: callbackError)
@@ -232,7 +267,8 @@ extension NavitiaSDKPartners : AccountManagement {
     public func sendActivationEmail(callbackSuccess: @escaping () -> Void, callbackError: @escaping (Int, [String : Any]?) -> Void) {
         
         if accountManagement == nil {
-            callbackError(NavitiaSDKPartnersReturnCode.accountManagementNotInit.rawValue, ["error" : "accountManagement not initialized"])
+            let error = NavitiaSDKPartnersReturnCode.accountManagementNotInit
+            callbackError(error.getCode(), error.getError())
             return
         }
         accountManagement?.sendActivationEmail(callbackSuccess: callbackSuccess, callbackError: callbackError)
@@ -241,21 +277,35 @@ extension NavitiaSDKPartners : AccountManagement {
 
 extension NavitiaSDKPartners : BookManagement {
     
+    public var paymentBaseUrl: String {
+        if bookManagement == nil {
+            return ""
+        }
+        return bookManagement!.paymentBaseUrl
+    }
+    
+    public func getBookManagementName() -> String {
+        
+        if bookManagement == nil {
+            return "undefined"
+        }
+        return (bookManagement?.getBookManagementName())!
+    }
+    
+    public func getBookManagementType() -> BookManagementType {
+        
+        if bookManagement == nil {
+            return .undefined
+        }
+        return (bookManagement?.getBookManagementType())!
+    }
+    
     public var orderId: String {
         get {
             if bookManagement == nil {
                 return ""
             }
             return bookManagement!.orderId
-        }
-    }
-    
-    public var paymentBaseUrl: String {
-        get {
-            if bookManagement == nil {
-                return ""
-            }
-            return bookManagement!.paymentBaseUrl
         }
     }
     
@@ -293,22 +343,6 @@ extension NavitiaSDKPartners : BookManagement {
         set {
             bookManagement?.bookConfiguration = newValue
         }
-    }
-    
-    public func getBookManagementName() -> String {
-        
-        if bookManagement == nil {
-            return "undefined"
-        }
-        return (bookManagement?.getBookManagementName())!
-    }
-    
-    public func getBookManagementType() -> BookManagementType {
-        
-        if bookManagement == nil {
-            return .undefined
-        }
-        return (bookManagement?.getBookManagementType())!
     }
     
     public func getOffers(callbackSuccess: @escaping ([NavitiaBookOffer]) -> Void, callbackError: @escaping (Int, [String : Any]?) -> Void) {
@@ -389,4 +423,63 @@ extension NavitiaSDKPartners : BookManagement {
         }
         bookManagement?.launchPayment(email : email, color : color, callbackSuccess: callbackSuccess, callbackError: callbackError)
     }
+}
+
+extension NavitiaSDKPartners : TicketManagement {
+    
+    public var hasValidTickets: Bool {
+        
+        if ticketManagement == nil {
+            return false
+        }
+        return true
+    }
+    
+    public func getTicketManagementName() -> String {
+        
+        if ticketManagement == nil {
+            return ""
+        }
+        return (ticketManagement?.getTicketManagementName())!
+    }
+    
+    public func getTicketManagementType() -> TicketManagementType {
+        
+        if ticketManagement == nil {
+            return .undefined
+        }
+        return (ticketManagement?.getTicketManagementType())!
+    }
+   
+    public var ticketConfiguration: TicketManagementConfiguration? {
+        get {
+            return (ticketManagement?.ticketConfiguration)
+        }
+        set {
+            ticketManagement?.ticketConfiguration = newValue
+        }
+    }
+    
+    public func syncWallet(callbackSuccess: @escaping () -> Void, callbackError: @escaping (Int, [String : Any]?) -> Void) {
+        
+        if ticketManagement == nil {
+            let error = NavitiaSDKPartnersReturnCode.ticketManagementNotInit
+            callbackError(error.getCode(), error.getError())
+            return
+        }
+        ticketManagement?.syncWallet(callbackSuccess: callbackSuccess, callbackError: callbackError)
+    }
+    
+    public func showWallet(callbackSuccess: @escaping (UIViewController) -> Void, callbackError: @escaping (Int, [String : Any]?) -> Void) {
+        
+        if ticketManagement == nil {
+            let error = NavitiaSDKPartnersReturnCode.ticketManagementNotInit
+            callbackError(error.getCode(), error.getError())
+            return
+        }
+        ticketManagement?.showWallet(callbackSuccess: callbackSuccess, callbackError: callbackError)
+    }
+    
+    
+    
 }

@@ -34,4 +34,13 @@ extension UIViewController {
         return true
     }
     
+    func addChildView(childViewController: UIViewController) {
+        addChildViewController(childViewController)
+        view.addSubview(childViewController.view)
+        
+        childViewController.view.frame = view.bounds
+        childViewController.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        childViewController.didMove(toParentViewController: self)
+    }
+    
 }
