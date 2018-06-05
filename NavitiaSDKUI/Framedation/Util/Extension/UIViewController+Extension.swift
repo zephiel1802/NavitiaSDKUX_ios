@@ -34,7 +34,7 @@ extension UIViewController {
         return true
     }
     
-    func informationViewController(titleButton: [String] = ["close".localized(bundle: NavitiaSDKUI.shared.bundle)],
+    func informationViewController(titleButton: [String] = ["ok".localized(bundle: NavitiaSDKUI.shared.bundle)],
                                    information: String,
                                    iconName: String = "warning") -> InformationViewController {
         let informationViewController = InformationViewController(nibName: "InformationView", bundle: NavitiaSDKUI.shared.bundle)
