@@ -311,7 +311,9 @@ extension BookShopViewController: ValidateBasketViewDelegate {
             self.present(viewController, animated: true) {}
         }) { (statusCode, data) in
             self.view.customActivityIndicatory(startAnimate: false)
-            self.displayError(delegate: self, title: "Erreur \(statusCode)", description: "Une erreur est survenue, veuillez réessayer plus tard \(data)")
+            let informationViewController = self.informationViewController(information: "an_error_occurred".localized(bundle: NavitiaSDKUI.shared.bundle))
+            informationViewController.delegate = self
+            self.present(informationViewController, animated: true, completion: nil)
         }
     }
     

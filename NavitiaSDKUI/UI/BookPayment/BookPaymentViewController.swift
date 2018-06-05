@@ -27,7 +27,8 @@ open class BookPaymentViewController: UIViewController {
         didSet {
             _viewModel.returnPayment = { [weak self] in
                 self?._onInformationPressedButton()
-                self?.bookPaymentView.launchPayment()
+                self?.launchPayment()
+           //     self?.bookPaymentView.launchPayment()
             }
         }
     }
@@ -155,6 +156,41 @@ open class BookPaymentViewController: UIViewController {
         informationViewController.iconName = "paiement-denied"
         present(informationViewController, animated: true) {}
     }
+    
+    private func launchPayment() {
+        self.bookPaymentView.enablePaymentView = true
+        self.bookPaymentView.activityIndicator.startAnimating()
+        if let email = bookPaymentMailFormView?.mailTextField.text {
+            NavitiaSDKPartners.shared.launchPayment(email: email,
+                                                    color: Configuration.Color.backgroundPayment,
+                                                    callbackSuccess: { (html) in
+                                                        self.bookPaymentView.paymentWebView.loadHTMLString(html, baseURL: URL(string: NavitiaSDKPartners.shared.paymentBaseUrl))
+            }) { (statusCode, data) in
+                if let bookPaymentConditionView = self.bookPaymentConditionView {
+                    bookPaymentConditionView.conditionSwitch.setOn(false, animated: true)
+                    self.onConditionSwitchValueChanged(bookPaymentConditionView)
+                }
+                self.bookPaymentView.activityIndicator.stopAnimating()
+                let informationViewController = self.informationViewController(information: "an_error_occurred".localized(bundle: NavitiaSDKUI.shared.bundle))
+                informationViewController.delegate = self
+                self.present(informationViewController, animated: true, completion: nil)
+            }
+        } else {
+            NavitiaSDKPartners.shared.launchPayment(color: Configuration.Color.backgroundPayment,
+                                                    callbackSuccess: { (html) in
+                                                        self.bookPaymentView.paymentWebView.loadHTMLString(html, baseURL: URL(string: NavitiaSDKPartners.shared.paymentBaseUrl))
+            }) { (statusCode, data) in
+                if let bookPaymentConditionView = self.bookPaymentConditionView {
+                    bookPaymentConditionView.conditionSwitch.setOn(false, animated: true)
+                    self.onConditionSwitchValueChanged(bookPaymentConditionView)
+                }
+                self.bookPaymentView.activityIndicator.stopAnimating()
+                let informationViewController = self.informationViewController(information: "an_error_occurred".localized(bundle: NavitiaSDKUI.shared.bundle))
+                informationViewController.delegate = self
+                self.present(informationViewController, animated: true, completion: nil)
+            }
+        }
+    }
 
 }
 
@@ -261,15 +297,17 @@ extension BookPaymentViewController: BookPaymentConditionViewDelegate {
             dismissKeyboard()
             scrollView.setContentOffset(CGPoint(x: 0, y: max(0, scrollView.contentSize.height - scrollView.bounds.size.height)), animated: true)
             if _viewModel.isConnected {
-                bookPaymentView.launchPayment()
+                launchPayment()
+               // bookPaymentView.launchPayment()
                 bookPaymentView.enableFilter = false
             } else {
                 guard let bookPaymentMailFormView = bookPaymentMailFormView else {
                     return
                 }
                 if bookPaymentMailFormView.isValid {
-                    bookPaymentView.email = bookPaymentMailFormView.mailTextField.text
-                    bookPaymentView.launchPayment()
+                 //   bookPaymentView.email = bookPaymentMailFormView.mailTextField.text
+                    launchPayment()
+                   // bookPaymentView.launchPayment()
                     bookPaymentView.enableFilter = false
                 }
             }

@@ -44,4 +44,18 @@ extension UIViewController {
         informationViewController.information = description
         present(informationViewController, animated: true) {}
     }
+    
+    func informationViewController(titleButton: [String] = ["close".localized(bundle: NavitiaSDKUI.shared.bundle)],
+                                   information: String,
+                                   iconName: String = "warning") -> InformationViewController {
+        let informationViewController = InformationViewController(nibName: "InformationView", bundle: NavitiaSDKUI.shared.bundle)
+        informationViewController.modalTransitionStyle = .crossDissolve
+        informationViewController.modalPresentationStyle = .overCurrentContext
+        informationViewController.titleButton = titleButton
+        informationViewController.information = information
+        informationViewController.iconName = iconName
+        
+        return informationViewController
+    }
+    
 }
