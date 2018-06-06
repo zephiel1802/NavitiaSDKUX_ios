@@ -37,21 +37,21 @@ open class BookPaymentConditionView: UIView {
                 acceptLabel.attributedText = NSMutableAttributedString()
                     .normal(String(format: "%@ ", "i_accept_the".localized(withComment: "I accept the", bundle: NavitiaSDKUI.shared.bundle)),
                               color: Configuration.Color.red,
-                              size: 10.5)
+                              size: 12)
                 cguLabel.attributedText = NSMutableAttributedString()
                     .semiBold(String(format: "%@.", "terms_and_conditions".localized(withComment: "Terms and Conditions", bundle: NavitiaSDKUI.shared.bundle)),
                           color: Configuration.Color.red,
-                          size: 11,
+                          size: 12,
                           underline: true)
             case .none:
                 acceptLabel.attributedText = NSMutableAttributedString()
                     .normal(String(format: "%@ ", "i_accept_the".localized(withComment: "I accept the", bundle: NavitiaSDKUI.shared.bundle)),
                             color: Configuration.Color.gray,
-                            size: 10.5)
+                            size: 12)
                 cguLabel.attributedText = NSMutableAttributedString()
                     .semiBold(String(format: "%@.", "terms_and_conditions".localized(withComment: "Terms and Conditions", bundle: NavitiaSDKUI.shared.bundle)),
                               color: Configuration.Color.gray,
-                              size: 11,
+                              size: 12,
                               underline: true)
             }
         }

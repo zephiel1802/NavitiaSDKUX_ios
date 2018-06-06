@@ -63,7 +63,7 @@ open class ValidateBasketView: UIView {
         iconTitleLabel.attributedText = NSMutableAttributedString()
             .icon("basket", color: Configuration.Color.white, size: 22)
         titleLabel.attributedText = NSMutableAttributedString()
-            .bold(String(format: "  %@","proceed_to_checkout".localized(withComment: "proceed_to_checkout", bundle: NavitiaSDKUI.shared.bundle)), color: Configuration.Color.white, size: 15)
+            .bold(String(format: "  %@","proceed_to_checkout".localized(withComment: "proceed_to_checkout", bundle: NavitiaSDKUI.shared.bundle)), color: Configuration.Color.white, size: 14)
         iconAmoutLabel.attributedText = NSMutableAttributedString()
             .icon("arrow-right", color: Configuration.Color.white, size: 15)
     }

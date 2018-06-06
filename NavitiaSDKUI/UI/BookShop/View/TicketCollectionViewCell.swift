@@ -157,7 +157,7 @@ extension TicketCollectionViewCell {
         set {
             if let newValue = newValue {
                 titleLabel.attributedText = NSMutableAttributedString()
-                    .bold(newValue, color: Configuration.Color.darkGray, size: 12)
+                    .bold(newValue, color: Configuration.Color.darkGray, size: 13) // SIZEEE +1
             }
         }
     }
@@ -169,7 +169,7 @@ extension TicketCollectionViewCell {
         set {
             if let newValue = newValue {
                 descriptionLabel.attributedText = NSMutableAttributedString()
-                    .bold(newValue, color: Configuration.Color.gray, size: 10)
+                    .bold(newValue, color: Configuration.Color.gray, size: 11) // SIZEEE +1
             }
         }
     }

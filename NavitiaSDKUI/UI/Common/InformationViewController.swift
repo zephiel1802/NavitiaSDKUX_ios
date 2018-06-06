@@ -55,12 +55,12 @@ class InformationViewController: UIViewController {
                                        for: .normal)
         if titleString == "" {
             descriptionLabel.attributedText = NSMutableAttributedString()
-                .normal(information, color: Configuration.Color.black, size: 12)
+                .normal(information, color: Configuration.Color.black, size: 11)
         } else {
             descriptionLabel.attributedText = NSMutableAttributedString()
                 .bold(titleString, color: Configuration.Color.main, size: 12)
-                .normal("\r\r")
-                .normal(information, color: Configuration.Color.black, size: 12)
+                .normal("\r")
+                .normal(information, color: Configuration.Color.black, size: 11)
         }
         iconContainerView.backgroundColor = Configuration.Color.main
         iconLabel.attributedText = NSMutableAttributedString()
