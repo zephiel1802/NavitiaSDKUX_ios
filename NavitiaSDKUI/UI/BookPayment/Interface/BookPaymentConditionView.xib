@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -16,55 +16,67 @@
                 <outlet property="cguLabel" destination="faw-4t-nAq" id="ePf-bI-HfX"/>
                 <outlet property="conditionSwitch" destination="lbE-fu-C3X" id="lGD-xH-G5A"/>
                 <outlet property="conditionTapView" destination="k1p-9i-V1J" id="2La-ei-xsU"/>
+                <outlet property="indicatorLabel" destination="j9r-lH-Vib" id="iek-v5-fb1"/>
                 <outlet property="view" destination="GgS-0D-NFP" id="pJ2-R6-b8r"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view contentMode="scaleToFill" id="GgS-0D-NFP">
-            <rect key="frame" x="0.0" y="0.0" width="320" height="31"/>
+            <rect key="frame" x="0.0" y="0.0" width="320" height="35"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
                 <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="lbE-fu-C3X">
-                    <rect key="frame" x="266" y="0.0" width="51" height="31"/>
+                    <rect key="frame" x="266" y="2.5" width="51" height="31"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="31" id="yqA-8p-2Zv"/>
+                    </constraints>
                     <connections>
                         <action selector="onConditionSwitchValueChanged:" destination="-1" eventType="valueChanged" id="3HV-Ys-oPl"/>
                     </connections>
                 </switch>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="J'accepte les" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dNs-0C-6ad">
-                    <rect key="frame" x="5" y="9.5" width="64" height="12"/>
+                    <rect key="frame" x="5" y="12" width="64" height="12"/>
                     <fontDescription key="fontDescription" type="system" pointSize="10"/>
                     <color key="textColor" red="0.50196078431372548" green="0.50196078431372548" blue="0.50196078431372548" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="k1p-9i-V1J">
-                    <rect key="frame" x="264" y="0.0" width="51" height="31"/>
+                    <rect key="frame" x="264" y="2.5" width="51" height="31"/>
                     <constraints>
+                        <constraint firstAttribute="height" constant="31" id="54a-oi-AcJ"/>
                         <constraint firstAttribute="width" constant="51" id="cau-mZ-Q4m"/>
                     </constraints>
                 </view>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" Conditions Générales." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="faw-4t-nAq">
-                    <rect key="frame" x="69" y="9" width="110" height="12"/>
+                    <rect key="frame" x="69" y="12" width="110" height="12"/>
                     <fontDescription key="fontDescription" type="system" pointSize="10"/>
                     <color key="textColor" red="0.50196078430000002" green="0.50196078430000002" blue="0.50196078430000002" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Vous devez accepter les Conditions Générales de Vente" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="j9r-lH-Vib">
+                    <rect key="frame" x="5" y="26" width="254" height="10"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="8"/>
+                    <color key="textColor" red="0.56078431370000004" green="0.52549019610000003" blue="0.52549019610000003" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
             </subviews>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
                 <constraint firstItem="dNs-0C-6ad" firstAttribute="leading" secondItem="5TA-sT-Kfi" secondAttribute="leading" constant="5" id="0B5-CO-JEB"/>
-                <constraint firstItem="lbE-fu-C3X" firstAttribute="top" secondItem="5TA-sT-Kfi" secondAttribute="top" id="Az1-3c-Qo3"/>
                 <constraint firstItem="faw-4t-nAq" firstAttribute="leading" secondItem="dNs-0C-6ad" secondAttribute="trailing" id="BvV-KG-RlN"/>
-                <constraint firstItem="k1p-9i-V1J" firstAttribute="top" secondItem="5TA-sT-Kfi" secondAttribute="top" id="Gus-Cj-Cf6"/>
-                <constraint firstItem="k1p-9i-V1J" firstAttribute="bottom" secondItem="5TA-sT-Kfi" secondAttribute="bottom" id="LxP-1R-xlF"/>
-                <constraint firstItem="lbE-fu-C3X" firstAttribute="bottom" secondItem="5TA-sT-Kfi" secondAttribute="bottom" id="QMV-dd-2Iz"/>
+                <constraint firstItem="j9r-lH-Vib" firstAttribute="top" secondItem="faw-4t-nAq" secondAttribute="bottom" constant="2" id="HOO-Fl-G1e"/>
+                <constraint firstItem="k1p-9i-V1J" firstAttribute="centerY" secondItem="GgS-0D-NFP" secondAttribute="centerY" id="YBn-Bl-uaB"/>
                 <constraint firstItem="5TA-sT-Kfi" firstAttribute="trailing" secondItem="k1p-9i-V1J" secondAttribute="trailing" constant="5" id="YWu-1U-3cS"/>
                 <constraint firstItem="faw-4t-nAq" firstAttribute="centerY" secondItem="GgS-0D-NFP" secondAttribute="centerY" id="gvc-U4-H3r"/>
+                <constraint firstItem="lbE-fu-C3X" firstAttribute="centerY" secondItem="GgS-0D-NFP" secondAttribute="centerY" id="rJ6-Yl-Ceu"/>
                 <constraint firstItem="dNs-0C-6ad" firstAttribute="centerY" secondItem="GgS-0D-NFP" secondAttribute="centerY" id="sdn-Zp-jgh"/>
                 <constraint firstAttribute="trailing" secondItem="lbE-fu-C3X" secondAttribute="trailing" constant="5" id="uj7-fN-jbo"/>
+                <constraint firstItem="j9r-lH-Vib" firstAttribute="leading" secondItem="5TA-sT-Kfi" secondAttribute="leading" constant="5" id="wos-Ou-ZpT"/>
+                <constraint firstItem="k1p-9i-V1J" firstAttribute="leading" secondItem="j9r-lH-Vib" secondAttribute="trailing" constant="5" id="zWj-98-s69"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <viewLayoutGuide key="safeArea" id="5TA-sT-Kfi"/>
-            <point key="canvasLocation" x="-45" y="-87.5"/>
+            <point key="canvasLocation" x="-45" y="-87"/>
         </view>
     </objects>
 </document>

@@ -20,13 +20,15 @@ open class BookPaymentMailFormView: UIView {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var textFieldContainerView: UIView!
     @IBOutlet weak var mailTextField: UITextField!
-    @IBOutlet weak var indicatorIconLabel: UILabel!
+    @IBOutlet weak var indicatorButton: UIButton!
+    @IBOutlet weak var indicatorLabel: UILabel!
     @IBOutlet weak var indicatorView: UIView!
     
     public enum State {
         case valid
         case invalid
         case error
+        case clear
         case none
     }
     
@@ -35,20 +37,34 @@ open class BookPaymentMailFormView: UIView {
         didSet {
             switch stateIndicator {
             case .valid:
-                indicatorIconLabel.attributedText = NSMutableAttributedString()
-                    .icon("check-circled", color: Configuration.Color.green, size: 15)
+                indicatorButton.setAttributedTitle(NSMutableAttributedString()
+                    .icon("cross-circled", color: Configuration.Color.lightGray, size: 15),
+                                                   for: .normal)
                 indicatorView.backgroundColor = UIColor.clear
+                indicatorLabel.text = ""
             case .invalid:
-                indicatorIconLabel.attributedText = NSMutableAttributedString()
-                    .icon("cross-circled", color: Configuration.Color.red, size: 15)
+                indicatorButton.setAttributedTitle(NSMutableAttributedString()
+                    .icon("cross-circled", color: Configuration.Color.red, size: 15),
+                                                   for: .normal)
                 indicatorView.backgroundColor = UIColor.clear
+                indicatorLabel.text = ""
             case .error:
-                indicatorIconLabel.attributedText = NSMutableAttributedString()
-                    .icon("cross-circled", color: Configuration.Color.red, size: 15)
+                indicatorButton.setAttributedTitle(NSMutableAttributedString()
+                    .icon("cross-circled", color: Configuration.Color.red, size: 15),
+                                                   for: .normal)
                 indicatorView.backgroundColor = UIColor.red
-            case .none:
-                indicatorIconLabel.text = ""
+                indicatorLabel.attributedText = NSMutableAttributedString()
+                    .normal("not_a_valid_email_address".localized(bundle: NavitiaSDKUI.shared.bundle), color: Configuration.Color.gray, size: 8)
+            case .clear:
+                indicatorButton.setAttributedTitle(NSMutableAttributedString()
+                    .icon("cross-circled", color: Configuration.Color.lightGray, size: 15),
+                                                   for: .normal)
                 indicatorView.backgroundColor = UIColor.clear
+                indicatorLabel.text = ""
+            case .none:
+                indicatorButton.setTitle("", for: .normal)
+                indicatorView.backgroundColor = UIColor.clear
+                indicatorLabel.text = ""
             }
         }
     }
@@ -99,7 +115,7 @@ open class BookPaymentMailFormView: UIView {
                 stateIndicator = .valid
                 delegate?.valueChangedTextField(true, self)
             } else {
-                stateIndicator = .invalid
+                stateIndicator = .clear
                 delegate?.valueChangedTextField(false, self)
             }
         }
@@ -115,7 +131,15 @@ open class BookPaymentMailFormView: UIView {
             }
         }
     }
-
+    
+    @IBAction func clearButton(_ sender: Any) {
+        if stateIndicator == .clear || stateIndicator == .valid {
+            mailTextField.text = ""
+            stateIndicator = .clear
+            delegate?.valueChangedTextField(false, self)
+        }
+    }
+    
     public func checkValidation(_ invalidType: State = .invalid) {
         if isEmpty || !isValid {
             stateIndicator = invalidType

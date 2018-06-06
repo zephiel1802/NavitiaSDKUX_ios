@@ -81,7 +81,7 @@ open class BookPaymentViewController: UIViewController {
             bookPaymentCartView.addOffer(cartItem)
         }
         
-        bookPaymentConditionView = BookPaymentConditionView(frame: CGRect(x: 0, y: 0, width: 0, height: 31))
+        bookPaymentConditionView = BookPaymentConditionView(frame: CGRect(x: 0, y: 0, width: 0, height: 35))
         bookPaymentConditionView!.delegate = self
         bookPaymentConditionView!.isEnable = true
         _addViewInScroll(view: bookPaymentConditionView!)
@@ -106,7 +106,7 @@ open class BookPaymentViewController: UIViewController {
         bookPaymentMailFormView?.delegate = self
         _addViewInScroll(view: bookPaymentMailFormView!)
         
-        bookPaymentConditionView = BookPaymentConditionView(frame: CGRect(x: 0, y: 0, width: 0, height: 31))
+        bookPaymentConditionView = BookPaymentConditionView(frame: CGRect(x: 0, y: 0, width: 0, height: 35))
         bookPaymentConditionView!.delegate = self
         _addViewInScroll(view: bookPaymentConditionView!)
         

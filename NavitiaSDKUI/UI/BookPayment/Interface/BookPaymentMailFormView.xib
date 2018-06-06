@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -12,7 +12,8 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="BookPaymentMailFormView" customModule="NavitiaSDKUI" customModuleProvider="target">
             <connections>
-                <outlet property="indicatorIconLabel" destination="Kgu-md-gVN" id="1FJ-IE-nbD"/>
+                <outlet property="indicatorButton" destination="ZVv-Qm-mg3" id="idJ-Op-qdJ"/>
+                <outlet property="indicatorLabel" destination="e6F-O2-Yjb" id="VY2-FH-CRJ"/>
                 <outlet property="indicatorView" destination="fMe-Gs-uub" id="9Jl-2W-N7p"/>
                 <outlet property="mailTextField" destination="DgE-j5-owU" id="LNL-0C-KoN"/>
                 <outlet property="textFieldContainerView" destination="Dcx-aB-v3s" id="Wl2-6M-O7C"/>
@@ -42,7 +43,7 @@
                             </constraints>
                         </view>
                         <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Adresse email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="DgE-j5-owU">
-                            <rect key="frame" x="10" y="0.0" width="277" height="40"/>
+                            <rect key="frame" x="10" y="0.0" width="272" height="40"/>
                             <nil key="textColor"/>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                             <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" returnKeyType="continue" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no"/>
@@ -51,23 +52,39 @@
                                 <action selector="mailTextFieldPrimaryAction:" destination="-1" eventType="primaryActionTriggered" id="cre-BF-lra"/>
                             </connections>
                         </textField>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="O" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Kgu-md-gVN">
-                            <rect key="frame" x="297" y="9.5" width="13" height="21"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                            <nil key="textColor"/>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Vous devez accepter les Conditions Générales de Vente" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="e6F-O2-Yjb">
+                            <rect key="frame" x="10" y="27" width="272" height="10"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="8"/>
+                            <color key="textColor" red="0.56078431370000004" green="0.52549019610000003" blue="0.52549019610000003" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZVv-Qm-mg3">
+                            <rect key="frame" x="282" y="0.0" width="38" height="38"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="38" id="vsm-lU-N9V"/>
+                            </constraints>
+                            <state key="normal" title="O">
+                                <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                            </state>
+                            <connections>
+                                <action selector="clearButton:" destination="-1" eventType="touchUpInside" id="3J0-KQ-nVy"/>
+                            </connections>
+                        </button>
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
-                        <constraint firstAttribute="trailing" secondItem="Kgu-md-gVN" secondAttribute="trailing" constant="10" id="3wb-Nf-Dlz"/>
                         <constraint firstAttribute="bottom" secondItem="DgE-j5-owU" secondAttribute="bottom" id="9qR-up-Lt2"/>
                         <constraint firstAttribute="height" constant="40" id="CJO-hH-nbP"/>
+                        <constraint firstItem="fMe-Gs-uub" firstAttribute="top" secondItem="e6F-O2-Yjb" secondAttribute="bottom" constant="1" id="F39-bq-9by"/>
+                        <constraint firstItem="ZVv-Qm-mg3" firstAttribute="top" secondItem="Dcx-aB-v3s" secondAttribute="top" id="HMa-kD-gMG"/>
                         <constraint firstItem="DgE-j5-owU" firstAttribute="top" secondItem="Dcx-aB-v3s" secondAttribute="top" id="MIm-Z8-ISU"/>
-                        <constraint firstItem="Kgu-md-gVN" firstAttribute="centerY" secondItem="Dcx-aB-v3s" secondAttribute="centerY" id="OvY-JF-bmq"/>
+                        <constraint firstItem="e6F-O2-Yjb" firstAttribute="leading" secondItem="Dcx-aB-v3s" secondAttribute="leading" constant="10" id="OZJ-4r-ibR"/>
                         <constraint firstAttribute="trailing" secondItem="fMe-Gs-uub" secondAttribute="trailing" id="RYN-L6-OIP"/>
-                        <constraint firstItem="Kgu-md-gVN" firstAttribute="leading" secondItem="DgE-j5-owU" secondAttribute="trailing" constant="10" id="Ytc-kj-5S6"/>
+                        <constraint firstItem="ZVv-Qm-mg3" firstAttribute="leading" secondItem="DgE-j5-owU" secondAttribute="trailing" id="cIQ-Qw-qai"/>
+                        <constraint firstItem="fMe-Gs-uub" firstAttribute="top" secondItem="ZVv-Qm-mg3" secondAttribute="bottom" id="dAz-Mp-ufT"/>
                         <constraint firstItem="fMe-Gs-uub" firstAttribute="leading" secondItem="Dcx-aB-v3s" secondAttribute="leading" id="iDy-Mz-O3R"/>
+                        <constraint firstAttribute="trailing" secondItem="ZVv-Qm-mg3" secondAttribute="trailing" id="qqv-6J-COJ"/>
+                        <constraint firstItem="ZVv-Qm-mg3" firstAttribute="leading" secondItem="e6F-O2-Yjb" secondAttribute="trailing" id="rgw-Yg-kWf"/>
                         <constraint firstAttribute="bottom" secondItem="fMe-Gs-uub" secondAttribute="bottom" id="uhZ-8c-dG6"/>
                         <constraint firstItem="DgE-j5-owU" firstAttribute="leading" secondItem="Dcx-aB-v3s" secondAttribute="leading" constant="10" id="y3l-Rc-Uo7"/>
                     </constraints>

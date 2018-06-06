@@ -23,6 +23,7 @@ open class BookPaymentConditionView: UIView {
     @IBOutlet weak var conditionButton: UIButton!
     @IBOutlet weak var conditionSwitch: UISwitch!
     @IBOutlet weak var conditionTapView: UIView!
+    @IBOutlet weak var indicatorLabel: UILabel!
     
     enum State {
         case error
@@ -43,6 +44,8 @@ open class BookPaymentConditionView: UIView {
                           color: Configuration.Color.red,
                           size: 12,
                           underline: true)
+                indicatorLabel.attributedText = NSMutableAttributedString()
+                    .normal("you_need_to_accept_terms".localized(bundle: NavitiaSDKUI.shared.bundle), color: Configuration.Color.gray, size: 8)
             case .none:
                 acceptLabel.attributedText = NSMutableAttributedString()
                     .normal(String(format: "%@ ", "i_accept_the".localized(withComment: "I accept the", bundle: NavitiaSDKUI.shared.bundle)),
@@ -53,6 +56,7 @@ open class BookPaymentConditionView: UIView {
                               color: Configuration.Color.gray,
                               size: 12,
                               underline: true)
+                indicatorLabel.text = ""
             }
         }
     }
