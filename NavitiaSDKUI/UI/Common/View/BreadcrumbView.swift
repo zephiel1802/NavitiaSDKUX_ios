@@ -103,7 +103,6 @@ open class BreadcrumbView: UIView {
                     case .title:
                         breadcumbView.isHidden = true
                         titleLabel.isHidden = false
-                    
                 }
             }
         }
