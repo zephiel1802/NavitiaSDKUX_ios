@@ -135,7 +135,7 @@ open class BookPaymentViewController: UIViewController {
     private func _setupBreadcrumbView() {
         _breadcrumbView = BreadcrumbView()
         _breadcrumbView.delegate = self
-        _breadcrumbView.stateBreadcrumb = .payment
+        _breadcrumbView.stateBreadcrumb = .basket
         _breadcrumbView.translatesAutoresizingMaskIntoConstraints = false
         breadcrumbContainerView.addSubview(_breadcrumbView)
         
@@ -152,7 +152,7 @@ open class BookPaymentViewController: UIViewController {
         informationViewController.titleButton = [String(format: "%@ !", "understood".localized(withComment: "Understood !", bundle: NavitiaSDKUI.shared.bundle))]
         informationViewController.delegate = self
         informationViewController.information =  "your_payment_has_been_refused".localized(withComment: "Your payment has been refused", bundle: NavitiaSDKUI.shared.bundle)
-        informationViewController.iconName = "paiement-denied"
+        informationViewController.iconName = "payment-denied"
         present(informationViewController, animated: true) {}
     }
 

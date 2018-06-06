@@ -16,13 +16,16 @@ protocol BreadcrumbViewDelegate {
 open class BreadcrumbView: UIView {
     
     enum State {
-        case shop
+        case basket
         case payment
         case tickets
+        case title
     }
 
     @IBOutlet var _view: UIView!
     @IBOutlet weak var returnButton: UIButton!
+    @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var breadcumbView: UIView!
     @IBOutlet weak var firstIconLabel: UILabel!
     @IBOutlet weak var firstLabel: UILabel!
     @IBOutlet weak var secondIconLabel: UILabel!
@@ -85,12 +88,22 @@ open class BreadcrumbView: UIView {
         didSet {
             if let stateBreadcrumb = stateBreadcrumb {
                 switch stateBreadcrumb {
-                    case .shop:
+                    case .basket:
                         _activeFirstIcon = true
+                        breadcumbView.isHidden = false
+                        titleLabel.isHidden = true
                     case .payment:
                         _activeSecondIcon = true
+                        breadcumbView.isHidden = false
+                        titleLabel.isHidden = true
                     case .tickets:
                         _activeThirdIcon = true
+                        breadcumbView.isHidden = false
+                        titleLabel.isHidden = true
+                    case .title:
+                        breadcumbView.isHidden = true
+                        titleLabel.isHidden = false
+                    
                 }
             }
         }
@@ -134,19 +147,19 @@ open class BreadcrumbView: UIView {
         _view.backgroundColor = Configuration.Color.main
         addSubview(_view)
 
-        firstIconLabel.attributedText = NSMutableAttributedString().icon("tickets",
+        firstIconLabel.attributedText = NSMutableAttributedString().icon("basket",
                                                                          color: Configuration.Color.white,
                                                                          size: 22)
-        firstLabel.attributedText = NSMutableAttributedString().bold("shop".localized(withComment: "SHOP", bundle: NavitiaSDKUI.shared.bundle).uppercased(),
+        firstLabel.attributedText = NSMutableAttributedString().bold("basket".localized(withComment: "BASKET", bundle: NavitiaSDKUI.shared.bundle).uppercased(),
                                                                      color: Configuration.Color.white,
                                                                      size: 9)
-        secondIconLabel.attributedText = NSMutableAttributedString().icon("basket",
+        secondIconLabel.attributedText = NSMutableAttributedString().icon("payment",
                                                                           color: Configuration.Color.white,
                                                                           size: 22)
         secondLabel.attributedText = NSMutableAttributedString().bold("payment".localized(withComment: "PAYMENT", bundle: NavitiaSDKUI.shared.bundle).uppercased(),
                                                                       color: Configuration.Color.white,
                                                                       size: 9)
-        thirdIconLabel.attributedText = NSMutableAttributedString().icon("ticket",
+        thirdIconLabel.attributedText = NSMutableAttributedString().icon("tickets",
                                                                          color: Configuration.Color.white,
                                                                          size: 22)
         thirdLabel.attributedText = NSMutableAttributedString().bold("tickets".localized(withComment: "TICKETS",bundle: NavitiaSDKUI.shared.bundle).uppercased(),

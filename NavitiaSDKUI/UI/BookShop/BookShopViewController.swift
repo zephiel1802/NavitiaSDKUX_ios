@@ -87,8 +87,11 @@ import UIKit
     private func _setupBreadcrumbView() {
         _breadcrumbView = BreadcrumbView()
         _breadcrumbView.delegate = self
-        _breadcrumbView.stateBreadcrumb = .shop
+        _breadcrumbView.stateBreadcrumb = .title
         _breadcrumbView.translatesAutoresizingMaskIntoConstraints = false
+        _breadcrumbView.titleLabel.attributedText = NSMutableAttributedString().semiBold("shop".localized(withComment: "SHOP", bundle: NavitiaSDKUI.shared.bundle),
+                                                          color: Configuration.Color.main.contrastColor(),
+                                                          size: 17)
         breadcrumbContainerView.addSubview(_breadcrumbView)
         
         NSLayoutConstraint(item: _breadcrumbView, attribute: NSLayoutAttribute.top, relatedBy: NSLayoutRelation.equal, toItem: breadcrumbContainerView, attribute: NSLayoutAttribute.top, multiplier: 1, constant: 0).isActive = true
