@@ -172,7 +172,7 @@ import UIKit
     }
 
     @objc open func refresh() {
-        _viewModel.request()
+        _viewModel?.request()
     }
     
     @IBAction func onTypePressedSegmentControl(_ sender: UISegmentedControl) {
