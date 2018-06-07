@@ -209,7 +209,7 @@ extension BookRecapViewController: BookRecapTicketViewDelegate {
 extension BookRecapViewController: BookRecapConnectViewDelegate {
     
     func onConnectionPressedButton(_ bookRecapConnectView: BookRecapConnectView) {
-        bookTicketDelegate?.onDisplayConnectionAccount()
+        bookTicketDelegate?.onDisplayCreateAccount()
     }
     
 }
