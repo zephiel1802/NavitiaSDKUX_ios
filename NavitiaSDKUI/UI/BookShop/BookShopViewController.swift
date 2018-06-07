@@ -23,6 +23,7 @@ import UIKit
     private var _breadcrumbView: BreadcrumbView!
     private var _validateBasketHeight: CGFloat = 50
     @objc public var bookTicketDelegate: BookTicketDelegate?
+    @objc public var backButtonIsHidden: Bool = false
     
     fileprivate var _viewModel: BookShopViewModel! {
         didSet {
@@ -38,7 +39,7 @@ import UIKit
         
         NavitiaSDKUI.shared.bundle = self.nibBundle
         UIFont.registerFontWithFilenameString(filenameString: "SDKIcons.ttf", bundle: NavitiaSDKUI.shared.bundle)
-                
+        
         if #available(iOS 11.0, *) {
             collectionView?.contentInsetAdjustmentBehavior = .always
         }
@@ -62,12 +63,6 @@ import UIKit
         super.viewWillAppear(animated)
         
         self.navigationController?.setNavigationBarHidden(true, animated: animated)
-    }
-    
-    override open func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        
-        self.navigationController?.setNavigationBarHidden(false, animated: animated)
     }
     
     override open func viewDidLayoutSubviews() {
@@ -104,6 +99,7 @@ import UIKit
         _breadcrumbView.titleLabel.attributedText = NSMutableAttributedString().semiBold("shop".localized(withComment: "SHOP", bundle: NavitiaSDKUI.shared.bundle),
                                                           color: Configuration.Color.main.contrastColor(),
                                                           size: 17)
+        _breadcrumbView.returnButton.isHidden = backButtonIsHidden
         breadcrumbContainerView.addSubview(_breadcrumbView)
         
         NSLayoutConstraint(item: _breadcrumbView, attribute: NSLayoutAttribute.top, relatedBy: NSLayoutRelation.equal, toItem: breadcrumbContainerView, attribute: NSLayoutAttribute.top, multiplier: 1, constant: 0).isActive = true
@@ -165,6 +161,10 @@ import UIKit
         }
     }
 
+    @objc open func refresh() {
+        _viewModel.request()
+    }
+    
     @IBAction func onTypePressedSegmentControl(_ sender: UISegmentedControl) {
         self._viewModel.bookShopDidChange!(self._viewModel)
     }
@@ -174,6 +174,7 @@ import UIKit
 extension BookShopViewController: BreadcrumbViewDelegate {
     
     func onDismiss() {
+        navigationController?.setNavigationBarHidden(false, animated: true)
         bookTicketDelegate?.onDismissBookTicket()
     }
     

@@ -20,12 +20,6 @@ class BookPaymentWebViewController: UIViewController {
     var transactionID: String = ""
     var customerID: String = ""
     
-    override open func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-        self.navigationController?.setNavigationBarHidden(true, animated: false)
-    }
-    
     override open func viewDidLoad() {
         super.viewDidLoad()
         

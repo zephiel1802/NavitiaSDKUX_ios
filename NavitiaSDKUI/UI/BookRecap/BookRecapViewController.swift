@@ -25,12 +25,6 @@ open class BookRecapViewController: UIViewController {
     
     fileprivate var _viewModel: BookRecapViewModel!
     
-    override open func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-        self.navigationController?.setNavigationBarHidden(true, animated: false)
-    }
-    
     override open func viewDidLoad() {
         super.viewDidLoad()
         NavitiaSDKUI.shared.bundle = self.nibBundle
@@ -201,6 +195,7 @@ extension BookRecapViewController: BreadcrumbViewDelegate {
 extension BookRecapViewController: BookRecapTicketViewDelegate {
     
     func onDisplayTicketsPressedButton(_ bookRecapTicketView: BookRecapTicketView) {
+        navigationController?.setNavigationBarHidden(false, animated: false)
         bookTicketDelegate?.onDisplayTicket()
     }
     
@@ -209,6 +204,7 @@ extension BookRecapViewController: BookRecapTicketViewDelegate {
 extension BookRecapViewController: BookRecapConnectViewDelegate {
     
     func onConnectionPressedButton(_ bookRecapConnectView: BookRecapConnectView) {
+        navigationController?.setNavigationBarHidden(false, animated: false)
         bookTicketDelegate?.onDisplayCreateAccount()
     }
     
