@@ -22,6 +22,7 @@ import UIKit
     private var _validateBasketView: ValidateBasketView!
     private var _breadcrumbView: BreadcrumbView!
     private var _validateBasketHeight: CGFloat = 50
+    private var _dismissDelegate: Bool = false
     @objc public var bookTicketDelegate: BookTicketDelegate?
     @objc public var backButtonIsHidden: Bool = false
     
@@ -63,6 +64,15 @@ import UIKit
         super.viewWillAppear(animated)
         
         self.navigationController?.setNavigationBarHidden(true, animated: animated)
+    }
+    
+    override open func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        if _dismissDelegate {
+            _dismissDelegate = false
+            self.navigationController?.setNavigationBarHidden(false, animated: animated)
+        }
     }
     
     override open func viewDidLayoutSubviews() {
@@ -174,7 +184,9 @@ import UIKit
 extension BookShopViewController: BreadcrumbViewDelegate {
     
     func onDismiss() {
-        navigationController?.setNavigationBarHidden(false, animated: true)
+        if !isRootViewController() {
+            _dismissDelegate = true
+        }
         bookTicketDelegate?.onDismissBookTicket()
     }
     

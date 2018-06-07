@@ -23,7 +23,18 @@ open class BookRecapViewController: UIViewController {
     var display = false
     var bookTicketDelegate: BookTicketDelegate?
     
+    private var _dismissDelegate: Bool = false
+    
     fileprivate var _viewModel: BookRecapViewModel!
+    
+    override open func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        if _dismissDelegate && !isRootViewController() {
+            _dismissDelegate = false
+            self.navigationController?.setNavigationBarHidden(false, animated: animated)
+        }
+    }
     
     override open func viewDidLoad() {
         super.viewDidLoad()
@@ -108,7 +119,6 @@ open class BookRecapViewController: UIViewController {
     
     private func _setupBreadcrumbView() {
         _breadcrumbView = BreadcrumbView()
-        _breadcrumbView.delegate = self
         _breadcrumbView.stateBreadcrumb = .tickets
         _breadcrumbView.translatesAutoresizingMaskIntoConstraints = false
         breadcrumbContainerView.addSubview(_breadcrumbView)
@@ -184,18 +194,12 @@ extension BookRecapViewController {
     
 }
 
-extension BookRecapViewController: BreadcrumbViewDelegate {
-    
-    public func onDismiss() {
-        self.dismiss(animated: true, completion: nil)
-    }
-    
-}
-
 extension BookRecapViewController: BookRecapTicketViewDelegate {
     
     func onDisplayTicketsPressedButton(_ bookRecapTicketView: BookRecapTicketView) {
-        navigationController?.setNavigationBarHidden(false, animated: false)
+        if !isRootViewController() {
+            _dismissDelegate = true
+        }
         bookTicketDelegate?.onDisplayTicket()
     }
     
@@ -204,7 +208,9 @@ extension BookRecapViewController: BookRecapTicketViewDelegate {
 extension BookRecapViewController: BookRecapConnectViewDelegate {
     
     func onConnectionPressedButton(_ bookRecapConnectView: BookRecapConnectView) {
-        navigationController?.setNavigationBarHidden(false, animated: false)
+        if !isRootViewController() {
+            _dismissDelegate = true
+        }
         bookTicketDelegate?.onDisplayCreateAccount()
     }
     
