@@ -32,6 +32,12 @@ open class BookPaymentViewController: UIViewController {
         }
     }
     
+    override open func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        self.navigationController?.setNavigationBarHidden(true, animated: false)
+    }
+    
     override open func viewDidLoad() {
         super.viewDidLoad()
         _setupInterface()
@@ -249,7 +255,8 @@ extension BookPaymentViewController {
 extension BookPaymentViewController: BreadcrumbViewDelegate {
     
     public func onDismiss() {
-        self.dismiss(animated: true, completion: nil)
+        navigationController?.popViewController(animated: true)
+    //    self.dismiss(animated: true, completion: nil)
     }
     
 }
@@ -302,10 +309,8 @@ extension BookPaymentViewController: BookPaymentViewDelegate {
         let viewController = storyboard?.instantiateViewController(withIdentifier: BookPaymentWebViewController.identifier) as! BookPaymentWebViewController
         viewController.request = request
         viewController.viewModel = _viewModel
-        viewController.modalTransitionStyle = .crossDissolve
-        viewController.modalPresentationStyle = .overCurrentContext
         viewController.bookTicketDelegate = bookTicketDelegate
-        present(viewController, animated: true, completion: nil)
+        self.navigationController?.pushViewController(viewController, animated: true)
     }
     
     func onFilterClicked(_ bookPaymentView: BookPaymentView) {

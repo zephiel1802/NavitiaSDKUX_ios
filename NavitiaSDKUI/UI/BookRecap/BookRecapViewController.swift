@@ -25,6 +25,12 @@ open class BookRecapViewController: UIViewController {
     
     fileprivate var _viewModel: BookRecapViewModel!
     
+    override open func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        self.navigationController?.setNavigationBarHidden(true, animated: false)
+    }
+    
     override open func viewDidLoad() {
         super.viewDidLoad()
         NavitiaSDKUI.shared.bundle = self.nibBundle

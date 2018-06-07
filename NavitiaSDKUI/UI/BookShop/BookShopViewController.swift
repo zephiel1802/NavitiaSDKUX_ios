@@ -38,7 +38,7 @@ import UIKit
         
         NavitiaSDKUI.shared.bundle = self.nibBundle
         UIFont.registerFontWithFilenameString(filenameString: "SDKIcons.ttf", bundle: NavitiaSDKUI.shared.bundle)
-        
+                
         if #available(iOS 11.0, *) {
             collectionView?.contentInsetAdjustmentBehavior = .always
         }
@@ -56,6 +56,18 @@ import UIKit
     override open func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         collectionView.collectionViewLayout.invalidateLayout()
+    }
+    
+    override open func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        self.navigationController?.setNavigationBarHidden(true, animated: animated)
+    }
+    
+    override open func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        self.navigationController?.setNavigationBarHidden(false, animated: animated)
     }
     
     override open func viewDidLayoutSubviews() {
@@ -259,12 +271,10 @@ extension BookShopViewController: ValidateBasketViewDelegate {
     
     func onValidateButtonClicked(_ validateBasketView: ValidateBasketView) {
         let viewController = storyboard?.instantiateViewController(withIdentifier: BookPaymentViewController.identifier) as! BookPaymentViewController
-        viewController.modalTransitionStyle = .crossDissolve
-        viewController.modalPresentationStyle = .overCurrentContext
         viewController.bookTicketDelegate = bookTicketDelegate
         
         NavitiaSDKPartners.shared.getOrderValidation(callbackSuccess: { (_) in
-            self.present(viewController, animated: true) {}
+            self.navigationController?.pushViewController(viewController, animated: true)
         }) { (_, _) in }
     }
     

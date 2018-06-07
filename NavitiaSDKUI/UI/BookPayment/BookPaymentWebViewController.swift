@@ -19,7 +19,13 @@ class BookPaymentWebViewController: UIViewController {
     var bookTicketDelegate: BookTicketDelegate?
     var transactionID: String = ""
     var customerID: String = ""
+    
+    override open func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         
+        self.navigationController?.setNavigationBarHidden(true, animated: false)
+    }
+    
     override open func viewDidLoad() {
         super.viewDidLoad()
         
@@ -68,7 +74,8 @@ extension BookPaymentWebViewController: BreadcrumbViewDelegate {
             return
         }
         
-        self.dismiss(animated: true, completion: nil)
+        navigationController?.popViewController(animated: true)
+      //  self.dismiss(animated: true, completion: nil)
     }
     
 }
@@ -92,13 +99,11 @@ extension BookPaymentWebViewController: UIWebViewDelegate {
             switch NavitiaSDKPartnersSogenActif.getReturnValue(url: url) {
             case .success:
                 let viewController = storyboard?.instantiateViewController(withIdentifier: BookRecapViewController.identifier) as! BookRecapViewController
-                viewController.modalTransitionStyle = .crossDissolve
-                viewController.modalPresentationStyle = .overCurrentContext
                 viewController.customerID = customerID
                 viewController.transactionID = transactionID
                 viewController.bookTicketDelegate = bookTicketDelegate
                 
-                present(viewController, animated: true, completion: nil)
+                navigationController?.pushViewController(viewController, animated: true)
             case .error:
                 dismiss(animated: true) {
                     if let returnPayment = self.viewModel?.returnPayment { returnPayment() }

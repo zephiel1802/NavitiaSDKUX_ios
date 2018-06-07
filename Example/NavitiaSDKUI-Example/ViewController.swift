@@ -56,10 +56,12 @@ class ViewController: UIViewController {
                     bookShopViewController.bookTicketDelegate = self
                     if userInfo.accountStatus != .anonymous {
                         NavitiaSDKPartners.shared.logOut(callbackSuccess: {
-                            self.present(bookShopViewController, animated: true, completion: nil)
+                            self.navigationController?.pushViewController(bookShopViewController, animated: true)
+                           // self.present(bookShopViewController, animated: true, completion: nil)
                         }, callbackError: { (_, _) in })
                     } else {
-                        self.present(bookShopViewController, animated: true, completion: nil)
+                        self.navigationController?.pushViewController(bookShopViewController, animated: true)
+                       // self.present(bookShopViewController, animated: true, completion: nil)
                     }
                 }
             }
@@ -69,7 +71,8 @@ class ViewController: UIViewController {
             (alert: UIAlertAction!) -> Void in
             if let bookShopViewController = self.bookShopViewController {
                 bookShopViewController.bookTicketDelegate = self
-                self.present(bookShopViewController, animated: true, completion: nil)
+                self.navigationController?.pushViewController(bookShopViewController, animated: true)
+                //self.present(bookShopViewController, animated: true, completion: nil)
             }
             
         })
@@ -111,7 +114,7 @@ extension ViewController: BookTicketDelegate {
     
     func onDisplayCreateAccount() {
         if let rootViewController = UIApplication.shared.keyWindow?.rootViewController {
-            rootViewController.dismiss(animated: false, completion: nil)
+            rootViewController.navigationController?.popViewController(animated: true)
         }
     }
     
@@ -123,16 +126,13 @@ extension ViewController: BookTicketDelegate {
     
     func onDisplayTicket() {
         if let rootViewController = UIApplication.shared.keyWindow?.rootViewController {
-            rootViewController.dismiss(animated: false) {
-                self.onSDKTicketMasabiButtonClicked()
-            }
+            rootViewController.navigationController?.popViewController(animated: false)
+            self.onSDKTicketMasabiButtonClicked()
         }
     }
     
     func onDismissBookTicket() {
-        if let rootViewController = UIApplication.shared.keyWindow?.rootViewController {
-            rootViewController.dismiss(animated: true, completion: nil)
-        }
+        self.navigationController?.popViewController(animated: true)
     }
     
 }
