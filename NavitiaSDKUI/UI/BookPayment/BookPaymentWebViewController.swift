@@ -92,7 +92,6 @@ extension BookPaymentWebViewController: UIWebViewDelegate {
         if let url = request.url?.absoluteString {
             switch NavitiaSDKPartnersSogenActif.getReturnValue(url: url) {
             case .success:
-                NavitiaSDKPartners.shared.cart = []
                 let viewController = storyboard?.instantiateViewController(withIdentifier: BookRecapViewController.identifier) as! BookRecapViewController
                 viewController.customerID = customerID
                 viewController.transactionID = transactionID
