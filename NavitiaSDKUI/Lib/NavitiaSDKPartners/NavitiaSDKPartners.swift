@@ -432,7 +432,7 @@ extension NavitiaSDKPartners : TicketManagement {
         if ticketManagement == nil {
             return false
         }
-        return true
+        return ticketManagement!.hasValidTickets
     }
     
     public func getTicketManagementName() -> String {
@@ -479,7 +479,5 @@ extension NavitiaSDKPartners : TicketManagement {
         }
         ticketManagement?.showWallet(callbackSuccess: callbackSuccess, callbackError: callbackError)
     }
-    
-    
     
 }

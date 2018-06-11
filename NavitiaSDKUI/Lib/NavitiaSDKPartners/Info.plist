@@ -2,6 +2,12 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>vsctBaseUrl</key>
+	<string>$(vsctBaseUrl)</string>
+	<key>vsctUrl</key>
+	<string>$(vsctUrl)</string>
+	<key>keolisUrl</key>
+	<string>$(keolisUrl)</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleExecutable</key>

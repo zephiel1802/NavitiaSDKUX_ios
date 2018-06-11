@@ -125,7 +125,7 @@ import JustRideSDK
         }
     }
 
-    internal func updatePassword(oldPassword : String, newPassword: String, tryAccess : Bool = true, completion : @escaping (Bool, Int, [String: Any]?) -> Void) { // update password with auto refresh in case access token exprired
+    internal func updatePassword(isMigration : Bool = false, oldPassword : String, newPassword: String, tryAccess : Bool = true, completion : @escaping (Bool, Int, [String: Any]?) -> Void) { // update password with auto refresh in case access token exprired
 
         if oldPassword.isEmpty || newPassword.isEmpty {
             var details : [String: Any] = [ : ]
@@ -140,7 +140,7 @@ import JustRideSDK
             completion(false, NavitiaSDKPartnersReturnCode.badParameter.getCode(), data)
         }
 
-        NavitiaSDKPartnersRequestBuilder.soapPost(stringUrl: "\((accountConfiguration as! KeolisAccountManagementConfiguration).url)/socle/\((accountConfiguration as! KeolisAccountManagementConfiguration).network)/UpdateAccount/V1.0/", header: _getKeolisConnectedHeaderWS(), soapMessage: updatePasswordXML(oldPassword: oldPassword, newPassword: newPassword)) { (success, statusCode, data) in
+        NavitiaSDKPartnersRequestBuilder.soapPost(stringUrl: "\((accountConfiguration as! KeolisAccountManagementConfiguration).url)/socle/\((accountConfiguration as! KeolisAccountManagementConfiguration).network)/UpdateAccount/V1.0/", header: _getKeolisConnectedHeaderWS(), soapMessage: updatePasswordXML(isMigration: isMigration, oldPassword: oldPassword, newPassword: newPassword)) { (success, statusCode, data) in
 
             if statusCode == 401 && tryAccess == true {
                 self.refreshToken() { success, statusCode, data in
@@ -361,19 +361,25 @@ extension KeolisAccountManagement {
                         case .Masabi :
                             (NavitiaSDKPartners.shared.getTicketManagement() as! MasabiTicketManagement).MasabiLogOut(callbackSuccess: {
                                 (NavitiaSDKPartners.shared.getTicketManagement() as! MasabiTicketManagement).syncWalletWithErrorOnDeviceChange(callbackSuccess: {
+                                    callbackSuccess()
                                 }, callbackError: { (statusCode, data) in
+                                    callbackSuccess()
                                 })
                             }, callbackError: { (_, _) in
                                 (NavitiaSDKPartners.shared.getTicketManagement() as! MasabiTicketManagement).syncWalletWithErrorOnDeviceChange(callbackSuccess: {
+                                    callbackSuccess()
                                 }, callbackError: { (statusCode, data) in
+                                    callbackSuccess()
                                 })
                             })
                             break
                         case .undefined:
+                            callbackSuccess()
                             break
                         }
+                    } else {
+                        callbackSuccess()
                     }
-                    callbackSuccess()
                 }, callbackError: { (statusCode, data) in
                     callbackError(statusCode, data)
                 })
@@ -410,7 +416,11 @@ extension KeolisAccountManagement {
                     switch NavitiaSDKPartners.shared.ticketManagement?.getTicketManagementType() {
                     case .Masabi? :
                         MJRSDK.sharedInstance()?.accountUseCases.accountLogout(completionHandler: { (error) in
-                            print("NavitiaSDKPartners/masabiLogOut : error")
+                            if error != nil {
+                                print("NavitiaSDKPartners/masabiLogOut : error")
+                            } else {
+                                print("NavitiaSDKPartners/masabiLogOut : success")
+                            }
                         })
                         break
                     case .none:
@@ -434,7 +444,7 @@ extension KeolisAccountManagement {
         NavitiaSDKPartnersRequestBuilder.soapPost(stringUrl: "\((accountConfiguration as! KeolisAccountManagementConfiguration).url)/socle/\((accountConfiguration as! KeolisAccountManagementConfiguration).network)/CreateAccount/V1.0/", header: _getKeolisHeaderWS(), soapMessage: createAccountAnonymousXML(password: password.encrypt(key: (_keolisConfiguration?.hmacKey)!))) { success, statusCode, data in
 
             if success {
-
+                print(password)
                 let email : String = data!["reponse"]["compteRendu"]["compteInternet"]["email"].element?.text ?? ""
                 print("NavitiaSDKPartners/createAccount: success")
                 self.authenticate(username: email, password: password, callbackSuccess: { // automatic authenticate
@@ -745,7 +755,6 @@ extension KeolisAccountManagement {
             if !(email.isEmpty) {
                 updateEmail(email: email, completion: { (success, statusCode, data) in
                     if success {
-                        print(data)
                         self._stockedEmail = email
                         print("NavitiaSDKPartners/updateInfo : success")
                         callbackSuccess()
@@ -780,6 +789,148 @@ extension KeolisAccountManagement {
 
                     callbackError(statusCode, nil)
                 }
+            }
+        }
+    }
+    
+    public func migrate( username: String, password: String,
+                         callbackSuccess : @escaping () -> Void, callbackError : @escaping (Int, [String : Any]?) -> Void) {
+    
+        
+        if password.isEmpty || username.isEmpty || !(NavitiaSDKPartnersExtension.isValidEmail(str: username)) {
+            
+            var data = NavitiaSDKPartnersReturnCode.badParameter.getError()
+            var details : [String: Any] = [:]
+            
+            if password.isEmpty {
+                details["password"] = NavitiaSDKPartnersParameterCode.empty
+            }
+            if username.isEmpty {
+                details["username"] = NavitiaSDKPartnersParameterCode.empty
+            } else if !(NavitiaSDKPartnersExtension.isValidEmail(str: username)) {
+                details["username"] = NavitiaSDKPartnersParameterCode.invalid
+            }
+            data["details"] = details
+            callbackError(NavitiaSDKPartnersReturnCode.badParameter.getCode(), data)
+            return
+        }
+        
+        NavitiaSDKPartnersRequestBuilder.post(stringUrl: "\((accountConfiguration as! KeolisAccountManagementConfiguration).url)/oauth2/\((accountConfiguration as! KeolisAccountManagementConfiguration).network)/token?grant_type=password&password=\((password.encodeURIComponent())!)&username=\((username.encodeURIComponent())!)", header: _getKeolisHeader()) { ( success, statusCode, data) in
+            
+            if success && data != nil && statusCode < 300 {
+                
+                self._stockedEmail = username
+                self._stockedPassword = password
+                
+                print("NavitiaSDKPartners/authenticate: success")
+                self._accessToken = data!["access_token"] as! String
+                let refresh : String = (data!["refresh_token"] as? String == nil ? "" : data!["refresh_token"] as! String)
+                if !(refresh.isEmpty) {
+                    self._refreshToken = refresh
+                }
+                
+                let oldPassword : String = password
+                let newPassword : String = NavitiaSDKPartnersExtension.randomString(length: 8)
+                self.getUserInfo( callbackSuccess: { (userInfo) in
+                    if  NavitiaSDKPartners.shared.ticketManagement != nil {
+                        switch NavitiaSDKPartners.shared.ticketManagement!.getTicketManagementType() {
+                        case .Masabi :
+                            (NavitiaSDKPartners.shared.getTicketManagement() as! MasabiTicketManagement).MasabiLogOut(callbackSuccess: {
+                                (NavitiaSDKPartners.shared.getTicketManagement() as! MasabiTicketManagement).syncWalletWithErrorOnDeviceChange(callbackSuccess: {
+                                    self.updatePassword(isMigration : true, oldPassword : oldPassword, newPassword : newPassword) { (success, statusCode, data) in
+                                        
+                                        if success {
+                                            print("NavitiaSDKPartners/updatePassword: success")
+                                            self._stockedPassword = newPassword
+                                            callbackSuccess()
+                                        } else {
+                                            print("NavitiaSDKPartners/updatePassword: error")
+                                            callbackError( statusCode, data )
+                                        }
+                                    }
+                                }, callbackError: { (statusCode, data) in
+                                    self.updatePassword(isMigration : true, oldPassword : oldPassword, newPassword : newPassword) { (success, statusCode, data) in
+                                        
+                                        if success {
+                                            print("NavitiaSDKPartners/updatePassword: success")
+                                            self._stockedPassword = newPassword
+                                            callbackSuccess()
+                                        } else {
+                                            print("NavitiaSDKPartners/updatePassword: error")
+                                            callbackError( statusCode, data )
+                                        }
+                                    }
+                                })
+                            }, callbackError: { (_, _) in
+                                (NavitiaSDKPartners.shared.getTicketManagement() as! MasabiTicketManagement).syncWalletWithErrorOnDeviceChange(callbackSuccess: {
+                                    self.updatePassword(isMigration : true, oldPassword : oldPassword, newPassword : newPassword) { (success, statusCode, data) in
+                                        
+                                        if success {
+                                            print("NavitiaSDKPartners/updatePassword: success")
+                                            self._stockedPassword = newPassword
+                                            callbackSuccess()
+                                        } else {
+                                            print("NavitiaSDKPartners/updatePassword: error")
+                                            callbackError( statusCode, data )
+                                        }
+                                    }
+                                }, callbackError: { (statusCode, data) in
+                                    self.updatePassword(isMigration : true, oldPassword : oldPassword, newPassword : newPassword) { (success, statusCode, data) in
+                                        
+                                        if success {
+                                            print("NavitiaSDKPartners/updatePassword: success")
+                                            self._stockedPassword = newPassword
+                                            callbackSuccess()
+                                        } else {
+                                            print("NavitiaSDKPartners/updatePassword: error")
+                                            callbackError( statusCode, data )
+                                        }
+                                    }
+                                })
+                            })
+                            break
+                        case .undefined:
+                            self.updatePassword(isMigration : true, oldPassword : oldPassword, newPassword : newPassword) { (success, statusCode, data) in
+                                
+                                if success {
+                                    print("NavitiaSDKPartners/updatePassword: success")
+                                    self._stockedPassword = newPassword
+                                    callbackSuccess()
+                                } else {
+                                    print("NavitiaSDKPartners/updatePassword: error")
+                                    callbackError( statusCode, data )
+                                }
+                            }
+                            break
+                        }
+                    } else {
+                        self.updatePassword(isMigration : true, oldPassword : oldPassword, newPassword : newPassword) { (success, statusCode, data) in
+                            
+                            if success {
+                                print("NavitiaSDKPartners/updatePassword: success")
+                                self._stockedPassword = newPassword
+                                callbackSuccess()
+                            } else {
+                                print("NavitiaSDKPartners/updatePassword: error")
+                                callbackError( statusCode, data )
+                            }
+                        }
+                    }
+                }, callbackError: { (statusCode, data) in
+                    callbackError(statusCode, data)
+                })
+            } else {
+                
+                if data != nil && data!["error"] != nil &&
+                    statusCode == 400 && (data!["error"] as! String) == "invalid_grant" {
+                    print("NavitiaSDKPartners/authenticate: error invalid grant")
+                    callbackError(NavitiaSDKPartnersReturnCode.invalidGrant.getCode(), NavitiaSDKPartnersReturnCode.invalidGrant.getError())
+                    return
+                }
+                
+                print("NavitiaSDKPartners/authenticate: error")
+                callbackError(statusCode, data)
+                return
             }
         }
     }
@@ -885,9 +1036,29 @@ extension KeolisAccountManagement {
         return "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\" ?>\n<question xmlns=\"http://www.keoliscrm.fr/ReinitialiserMotDePasse/V1.0\">\n<entete>\n<idTransaction>\(getIdTransaction(numeroFlux:numeroFlux))</idTransaction>\n<numeroFlux>\(numeroFlux)</numeroFlux>\n<siEmetteur>\(_keolisConfiguration?.network ?? "")</siEmetteur>\n<casUsage>CU01</casUsage>\n<ssaEmetteur>VAD</ssaEmetteur>\n<versionFlux>01.00</versionFlux>\n<dateOrigineFlux>\(getFormattedDate())</dateOrigineFlux>\n<ssaRecepteur>\(_keolisConfiguration?.ssaRecepteur ?? "")</ssaRecepteur>\n<dateTraitementFlux>\(getFormattedDate())</dateTraitementFlux>\n<typeFlux>\(_keolisConfiguration?.typeFlux ?? "")</typeFlux>\n</entete>\n<compteInternet>\n<email>\(email)</email>\n</compteInternet>\n</question>"
     }
 
-    func updatePasswordXML(oldPassword : String, newPassword : String) -> String {
+    internal func updatePasswordXML(isMigration : Bool = false, oldPassword : String, newPassword : String) -> String {
         let numeroFlux : String = "INTWSV0024"
-        return "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\" ?>\n<question xmlns=\"http://www.keoliscrm.fr/ModifierCompteInternetV2/V2.0\">\n<entete>\n<idTransaction>\(getIdTransaction(numeroFlux:numeroFlux))</idTransaction>\n<numeroFlux>\(numeroFlux)</numeroFlux>\n<siEmetteur>\(_keolisConfiguration?.network ?? "")</siEmetteur>\n<casUsage>CU02</casUsage>\n<ssaEmetteur>VAD</ssaEmetteur>\n<versionFlux>02.10</versionFlux>\n<dateOrigineFlux>\(getFormattedDate())</dateOrigineFlux>\n<ssaRecepteur>\(_keolisConfiguration?.ssaRecepteur ?? "")</ssaRecepteur>\n<dateTraitementFlux>\(getFormattedDate())</dateTraitementFlux>\n<typeFlux>\(_keolisConfiguration?.typeFlux ?? "")</typeFlux>\n</entete>\n<compteInternet>\n<idCompteInternet>\((userInfo as! KeolisUserInfo).id)</idCompteInternet>\n<motDePasse>\((oldPassword.encrypt(key: (_keolisConfiguration!).hmacKey))!)</motDePasse>\n<nouveauMotDePasse>\((newPassword.encrypt(key: (_keolisConfiguration!).hmacKey))!)</nouveauMotDePasse>\n</compteInternet>\n</question>"
+        return """
+        <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+        <question xmlns="http://www.keoliscrm.fr/ModifierCompteInternetV2/V2.0">
+        <entete>
+            <idTransaction>\(getIdTransaction(numeroFlux:numeroFlux))</idTransaction>
+            <numeroFlux>\(numeroFlux)</numeroFlux>
+            <siEmetteur>\(_keolisConfiguration?.network ?? "")</siEmetteur>
+            <casUsage>CU02</casUsage>\n<ssaEmetteur>VAD</ssaEmetteur>
+            <versionFlux>02.10</versionFlux>
+            <dateOrigineFlux>\(getFormattedDate())</dateOrigineFlux>
+            <ssaRecepteur>\(_keolisConfiguration?.ssaRecepteur ?? "")</ssaRecepteur>
+            <dateTraitementFlux>\(getFormattedDate())</dateTraitementFlux>
+            <typeFlux>\(_keolisConfiguration?.typeFlux ?? "")</typeFlux>
+        </entete>
+        <compteInternet>
+            <idCompteInternet>\((userInfo as! KeolisUserInfo).id)</idCompteInternet>
+            <motDePasse>\(( isMigration ? oldPassword : (oldPassword.encrypt(key: (_keolisConfiguration!).hmacKey))! ))</motDePasse>
+            <nouveauMotDePasse>\( (newPassword.encrypt(key: (_keolisConfiguration!).hmacKey))! )</nouveauMotDePasse>
+        </compteInternet>
+        </question>
+        """
     }
 
     internal func getAccountInfoXML() -> String {

@@ -58,7 +58,6 @@ import Foundation
     func sendActivationEmail( callbackSuccess: @escaping () -> Void,
                               callbackError: @escaping (Int, [String: Any]?) -> Void)
     
-    
     func refreshToken( callbackSuccess: @escaping () -> Void,
                        callbackError: @escaping (Int, [String: Any]?) -> Void)
 }

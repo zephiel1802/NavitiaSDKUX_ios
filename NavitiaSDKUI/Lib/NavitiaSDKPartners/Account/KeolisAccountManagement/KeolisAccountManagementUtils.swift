@@ -9,8 +9,8 @@
 import Foundation
 
 extension String {
+    
     func encrypt(key: String) -> String! {
-        
         return String(utf8String: self.cString(using: .utf8)!)!.hmac(key: key).hexadecimal()?.base64EncodedString()
     }
 }

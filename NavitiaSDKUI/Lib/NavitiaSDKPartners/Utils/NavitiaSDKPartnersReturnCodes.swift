@@ -29,6 +29,7 @@
     case masabiNoDeviceChangeCredit = 9019 // masabi error on sync wallet, user don't any device change token left
     case passwordInvalid = 9020 // on update password, old password is not matching current password
     case paymentTimeOut = 9021 // if you take too much time between validation and payment
+    case maximumAmountReached = 9022 // Cart total is too big at validation time
 
     public static let all: [String: Int] = [
         "notLogged" : notLogged.rawValue,
@@ -116,8 +117,13 @@
             break
         case .masabiNoDeviceChangeCredit:
             error["error"] = "Masabi/Error : No device change credit"
+            break
         case .paymentTimeOut:
             error["error"] = "Payment Timed Out"
+            break
+        case .maximumAmountReached:
+            error["error"] = "Maximum Amount Reached"
+            break
         }
         return error
     }
