@@ -25,8 +25,11 @@ open class BookPaymentViewController: UIViewController {
     
     fileprivate var _viewModel: BookPaymentViewModel! {
         didSet {
-            _viewModel.returnPayment = { [weak self] in
+            _viewModel.returnPayment = { [weak self] paymentReturnValue in
                 self?._onInformationPressedButton()
+                if paymentReturnValue == .error {
+                    self?._onInformationPressedButton()
+                }
                 self?.bookPaymentView.launchPayment()
             }
         }

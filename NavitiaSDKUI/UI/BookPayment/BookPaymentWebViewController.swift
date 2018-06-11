@@ -69,7 +69,7 @@ extension BookPaymentWebViewController: BreadcrumbViewDelegate {
         }
         
         navigationController?.popViewController(animated: true)
-      //  self.dismiss(animated: true, completion: nil)
+        if let returnPayment = self.viewModel?.returnPayment { returnPayment(.cancel) }
     }
     
 }
@@ -99,11 +99,11 @@ extension BookPaymentWebViewController: UIWebViewDelegate {
                 
                 navigationController?.pushViewController(viewController, animated: true)
             case .error:
-                dismiss(animated: true) {
-                    if let returnPayment = self.viewModel?.returnPayment { returnPayment() }
-                }
+                navigationController?.popViewController(animated: true)
+                if let returnPayment = self.viewModel?.returnPayment { returnPayment(.error) }
             case .cancel:
-                dismiss(animated: true) {}
+                navigationController?.popViewController(animated: true)
+                if let returnPayment = self.viewModel?.returnPayment { returnPayment(.error) }
             case .unknown:
                 break
             }
