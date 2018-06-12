@@ -42,6 +42,10 @@ open class BookPaymentViewController: UIViewController {
         _setupGesture()
     }
     
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
+    
     override open func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
