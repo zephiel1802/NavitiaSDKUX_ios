@@ -1,5 +1,5 @@
 //
-//  CustomAnnotation.swift
+//  PinAnnotation.swift
 //  NavitiaSDKUI
 //
 //  Copyright © 2018 kisio. All rights reserved.
@@ -8,15 +8,16 @@
 import UIKit
 import MapKit
 
-class CustomAnnotation: MKPointAnnotation {
+class PinAnnotation: MKPointAnnotation {
     
     enum AnnotationType {
         case PlaceAnnotation
         case RidesharingAnnotation
     }
-    enum PlaceType {
-        case Departure
-        case Arrival
+    
+    enum PlaceType: String {
+        case Departure = "departure"
+        case Arrival = "arrival"
         case Other
     }
     
@@ -24,10 +25,9 @@ class CustomAnnotation: MKPointAnnotation {
     var placeType: PlaceType?
     var identifier = "annotationViewIdentifier"
     
-    init(coordinate: CLLocationCoordinate2D, title: String = "", annotationType: AnnotationType = .PlaceAnnotation, placeType: PlaceType = .Departure) {
+    init(coordinate: CLLocationCoordinate2D, annotationType: AnnotationType = .PlaceAnnotation, placeType: PlaceType = .Other) {
         super.init()
         self.coordinate = coordinate
-        self.title = title
         self.annotationType = annotationType
         self.placeType = placeType
         self.identifier = "\(annotationType.hashValue + placeType.hashValue)"
@@ -43,7 +43,7 @@ class CustomAnnotation: MKPointAnnotation {
             annotationLabel.layer.masksToBounds = true
             annotationLabel.layer.cornerRadius = 4.0
             annotationLabel.textColor = .white
-            annotationLabel.text = self.title!
+            annotationLabel.text = placeType?.rawValue.localized(bundle: NavitiaSDKUI.shared.bundle)
             annotationLabel.font = UIFont(descriptor: annotationLabel.font.fontDescriptor, size: 14)
             annotationLabel.textAlignment = NSTextAlignment.center
             annotationLabel.alpha = 1

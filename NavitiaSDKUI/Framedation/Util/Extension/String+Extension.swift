@@ -22,7 +22,10 @@ extension String {
         return dateFormatter.date(from: self)
     }
     
-    func toUIColor() -> UIColor {
+    func toUIColor(defaultColor: UIColor = UIColor.gray) -> UIColor {
+        if self == nil {
+            return defaultColor
+        }
         var cString:String = self.trimmingCharacters(in: .whitespacesAndNewlines).uppercased()
         
         if (cString.hasPrefix("#")) {
@@ -30,7 +33,7 @@ extension String {
         }
         
         if ((cString.count) != 6) {
-            return UIColor.gray
+            return defaultColor
         }
         
         var rgbValue:UInt32 = 0

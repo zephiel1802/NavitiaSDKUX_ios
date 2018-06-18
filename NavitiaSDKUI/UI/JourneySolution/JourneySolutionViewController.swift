@@ -250,7 +250,6 @@ extension JourneySolutionViewController: UICollectionViewDelegateFlowLayout {
                 return CGSize(width: self.collectionView.frame.size.width - safeAreaWidth, height: 35)
             }
             // Result
-            let lol = _viewModel.journeys[indexPath.row]
             if let walkingDuration = _viewModel.journeys[indexPath.row].durations?.walking {
                 if walkingDuration <= 0 {
                     return CGSize(width: self.collectionView.frame.size.width - safeAreaWidth, height: 97)
