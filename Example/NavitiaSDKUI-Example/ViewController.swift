@@ -19,7 +19,6 @@ class ViewController: UIViewController {
         super.didReceiveMemoryWarning()
     }
     
-    // Journey
     @IBAction func onSDKJourneyButtonClicked(_ sender: Any) {
         let journeySolutionViewController = getJourneySolutionViewController()
         navigationController?.pushViewController(journeySolutionViewController, animated: true)
@@ -43,7 +42,6 @@ class ViewController: UIViewController {
         return journeyResultsViewController
     }
     
-    // Book
     @IBAction func onSDKBookButtonClicked(_ sender: Any) {
         let bundle = Bundle(identifier: "org.cocoapods.NavitiaSDKUI")
         let storyboard = UIStoryboard(name: "Book", bundle: bundle)
@@ -57,11 +55,9 @@ class ViewController: UIViewController {
                     if userInfo.accountStatus != .anonymous {
                         NavitiaSDKPartners.shared.logOut(callbackSuccess: {
                             self.navigationController?.pushViewController(bookShopViewController, animated: true)
-                           // self.present(bookShopViewController, animated: true, completion: nil)
                         }, callbackError: { (_, _) in })
                     } else {
                         self.navigationController?.pushViewController(bookShopViewController, animated: true)
-                       // self.present(bookShopViewController, animated: true, completion: nil)
                     }
                 }
             }
@@ -72,7 +68,6 @@ class ViewController: UIViewController {
             if let bookShopViewController = self.bookShopViewController {
                 bookShopViewController.bookTicketDelegate = self
                 self.navigationController?.pushViewController(bookShopViewController, animated: true)
-                //self.present(bookShopViewController, animated: true, completion: nil)
             }
             
         })
@@ -88,7 +83,6 @@ class ViewController: UIViewController {
         present(alertController, animated: true, completion: nil)
     }
     
-    // Ticket
     @IBAction func onSDKTicketMasabiButtonClicked() {
         NavitiaSDKUI.shared.bundle = Bundle(identifier: "org.cocoapods.NavitiaSDKUI")
         
