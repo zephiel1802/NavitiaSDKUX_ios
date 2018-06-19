@@ -18,7 +18,7 @@ open class BookPaymentViewController: UIViewController {
     var bookPaymentConditionView: BookPaymentConditionView?
     var bookPaymentView: BookPaymentView!
     var viewScroll = [UIView]()
-    var margin: UIEdgeInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
+    var margin: UIEdgeInsets = UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8)
     var composentWidth: CGFloat = 0
     var display = false
     var bookTicketDelegate: BookTicketDelegate?
@@ -81,7 +81,7 @@ open class BookPaymentViewController: UIViewController {
             bookPaymentCartView.addOffer(cartItem)
         }
         
-        bookPaymentConditionView = BookPaymentConditionView(frame: CGRect(x: 0, y: 0, width: 0, height: 31))
+        bookPaymentConditionView = BookPaymentConditionView(frame: CGRect(x: 0, y: 0, width: 0, height: 35))
         bookPaymentConditionView!.delegate = self
         bookPaymentConditionView!.isEnable = true
         _addViewInScroll(view: bookPaymentConditionView!)
@@ -106,7 +106,7 @@ open class BookPaymentViewController: UIViewController {
         bookPaymentMailFormView?.delegate = self
         _addViewInScroll(view: bookPaymentMailFormView!)
         
-        bookPaymentConditionView = BookPaymentConditionView(frame: CGRect(x: 0, y: 0, width: 0, height: 31))
+        bookPaymentConditionView = BookPaymentConditionView(frame: CGRect(x: 0, y: 0, width: 0, height: 35))
         bookPaymentConditionView!.delegate = self
         _addViewInScroll(view: bookPaymentConditionView!)
         

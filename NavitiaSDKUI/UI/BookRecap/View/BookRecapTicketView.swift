@@ -44,7 +44,7 @@ open class BookRecapTicketView: UIView {
         addSubview(view)
         
         ticketButton.backgroundColor = Configuration.Color.main
-        ticketButton.setAttributedTitle(NSMutableAttributedString().bold("see_my_tickets".localized(withComment: "See my tickets", bundle: NavitiaSDKUI.shared.bundle), color: Configuration.Color.main.contrastColor(), size: 12),
+        ticketButton.setAttributedTitle(NSMutableAttributedString().bold("see_my_tickets".localized(withComment: "See my tickets", bundle: NavitiaSDKUI.shared.bundle), color: Configuration.Color.main.contrastColor(), size: 14),
                                         for: .normal)
     }
     
