@@ -50,8 +50,6 @@ open class BookRecapConnectView: UIView {
         connectButton.backgroundColor = UIColor.clear
         connectButton.layer.borderWidth = 1
         connectButton.layer.borderColor = Configuration.Color.main.cgColor
-        
-        
         connectIconLabel.attributedText = NSMutableAttributedString().icon("user", color: Configuration.Color.main, size: 17)
         connectTitleLabel.attributedText = NSMutableAttributedString().bold(String(format: "   %@", "create_my_account".localized(withComment: "Create my account", bundle: NavitiaSDKUI.shared.bundle)), color: Configuration.Color.main, size: 12)
     }

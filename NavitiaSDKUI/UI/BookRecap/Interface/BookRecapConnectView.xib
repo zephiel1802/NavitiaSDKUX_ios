@@ -31,22 +31,22 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yjL-8V-EkO">
-                    <rect key="frame" x="52" y="36" width="184" height="40"/>
+                    <rect key="frame" x="44.5" y="36" width="199" height="40"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="L" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Uv0-wS-ri1">
-                            <rect key="frame" x="20" y="9" width="10" height="21"/>
+                            <rect key="frame" x="30" y="9" width="10" height="21"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Creer un compte" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DqP-3H-mIs">
-                            <rect key="frame" x="35" y="9" width="129" height="21"/>
+                            <rect key="frame" x="40" y="9" width="129" height="21"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yQj-kl-HSM">
-                            <rect key="frame" x="0.0" y="0.0" width="184" height="40"/>
+                            <rect key="frame" x="0.0" y="0.0" width="199" height="40"/>
                             <state key="normal">
                                 <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </state>
@@ -62,13 +62,13 @@
                     </subviews>
                     <constraints>
                         <constraint firstAttribute="bottom" secondItem="yQj-kl-HSM" secondAttribute="bottom" id="2ER-0O-ZRl"/>
-                        <constraint firstItem="Uv0-wS-ri1" firstAttribute="leading" secondItem="yjL-8V-EkO" secondAttribute="leading" constant="20" id="7Ab-sx-hSQ"/>
-                        <constraint firstItem="DqP-3H-mIs" firstAttribute="leading" secondItem="Uv0-wS-ri1" secondAttribute="trailing" constant="5" id="7Xy-hO-JU9"/>
+                        <constraint firstItem="Uv0-wS-ri1" firstAttribute="leading" secondItem="yjL-8V-EkO" secondAttribute="leading" constant="30" id="7Ab-sx-hSQ"/>
+                        <constraint firstItem="DqP-3H-mIs" firstAttribute="leading" secondItem="Uv0-wS-ri1" secondAttribute="trailing" id="7Xy-hO-JU9"/>
                         <constraint firstItem="yQj-kl-HSM" firstAttribute="leading" secondItem="yjL-8V-EkO" secondAttribute="leading" id="CND-zy-7FH"/>
                         <constraint firstAttribute="trailing" secondItem="yQj-kl-HSM" secondAttribute="trailing" id="O15-FQ-yN6"/>
                         <constraint firstItem="DqP-3H-mIs" firstAttribute="centerY" secondItem="yjL-8V-EkO" secondAttribute="centerY" id="PWo-Gf-bA4"/>
                         <constraint firstAttribute="height" constant="40" id="XcP-SS-oDK"/>
-                        <constraint firstAttribute="trailing" secondItem="DqP-3H-mIs" secondAttribute="trailing" constant="20" id="Y4c-m1-HZf"/>
+                        <constraint firstAttribute="trailing" secondItem="DqP-3H-mIs" secondAttribute="trailing" constant="30" id="Y4c-m1-HZf"/>
                         <constraint firstItem="yQj-kl-HSM" firstAttribute="top" secondItem="yjL-8V-EkO" secondAttribute="top" id="rhh-hw-wZk"/>
                         <constraint firstItem="Uv0-wS-ri1" firstAttribute="centerY" secondItem="yjL-8V-EkO" secondAttribute="centerY" id="rsM-vG-sXu"/>
                     </constraints>
