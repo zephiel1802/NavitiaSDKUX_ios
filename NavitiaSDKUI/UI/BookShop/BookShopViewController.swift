@@ -207,7 +207,7 @@ import UIKit
     
     func collectionViewDisplayBackground() {
         if _viewModel.loading {
-            collectionView?.backgroundView?.isHidden = false
+            collectionView?.backgroundView?.isHidden = true
         }
         
         if _viewModel.bookOffer.count > typeSegmentedControl.selectedSegmentIndex {
