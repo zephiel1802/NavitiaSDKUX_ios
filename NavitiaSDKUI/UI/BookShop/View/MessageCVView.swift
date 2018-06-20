@@ -49,8 +49,6 @@ open class MessageCVView: UIView {
             .semiBold(String(format: "%@ ...", "oops".localized(bundle: NavitiaSDKUI.shared.bundle)), color: Configuration.Color.gray, size: 17)
         descriptionLabel.attributedText = NSMutableAttributedString()
             .semiBold("there_is_no_subcription_available_in_m_ticket".localized(bundle: NavitiaSDKUI.shared.bundle), color: Configuration.Color.gray, size: 12)
-            
-        
     }
     
 }

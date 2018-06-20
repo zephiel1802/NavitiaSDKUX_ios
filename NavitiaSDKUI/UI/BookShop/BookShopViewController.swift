@@ -184,12 +184,9 @@ import UIKit
         if _viewModel.loading {
             collectionView?.backgroundView?.isHidden = false
         }
+        
         if _viewModel.bookOffer.count > typeSegmentedControl.selectedSegmentIndex {
-            if _viewModel.bookOffer[typeSegmentedControl.selectedSegmentIndex].count == 0 {
-                collectionView?.backgroundView?.isHidden = false
-            } else {
-                collectionView?.backgroundView?.isHidden = true
-            }
+            collectionView?.backgroundView?.isHidden = (_viewModel.bookOffer[typeSegmentedControl.selectedSegmentIndex].count != 0)
         }
     }
     
@@ -314,9 +311,11 @@ extension BookShopViewController: ValidateBasketViewDelegate {
         view.customActivityIndicatory(startAnimate: true)
         NavitiaSDKPartners.shared.getOrderValidation(callbackSuccess: { (_) in
             self.view.customActivityIndicatory(startAnimate: false)
+            
             self.present(viewController, animated: true) {}
         }) { (statusCode, data) in
             self.view.customActivityIndicatory(startAnimate: false)
+            
             let informationViewController = self.informationViewController(information: "an_error_occurred".localized(bundle: NavitiaSDKUI.shared.bundle))
             informationViewController.delegate = self
             self.present(informationViewController, animated: true, completion: nil)

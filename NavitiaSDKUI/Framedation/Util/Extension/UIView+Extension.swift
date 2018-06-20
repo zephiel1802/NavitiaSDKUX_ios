@@ -28,7 +28,7 @@ extension UIView {
         layer.shadowRadius = 0
     }
     
-    public func customActivityIndicatory(startAnimate:Bool? = true) {
+    public func customActivityIndicatory(startAnimate:Bool = true) {
         let mainContainer: UIView = UIView(frame: frame)
         mainContainer.center = self.center
         mainContainer.backgroundColor = UIColor.clear
@@ -48,7 +48,7 @@ extension UIView {
         activityIndicatorView.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.whiteLarge
         activityIndicatorView.center = CGPoint(x: viewBackgroundLoading.frame.size.width / 2, y: viewBackgroundLoading.frame.size.height / 2)
         
-        if startAnimate! {
+        if startAnimate {
             viewBackgroundLoading.addSubview(activityIndicatorView)
             mainContainer.addSubview(viewBackgroundLoading)
             self.addSubview(mainContainer)

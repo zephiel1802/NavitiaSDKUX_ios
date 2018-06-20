@@ -159,6 +159,7 @@ open class BookPaymentViewController: UIViewController {
     private func launchPayment() {
         self.bookPaymentView.enablePaymentView = true
         self.bookPaymentView.activityIndicator.startAnimating()
+        
         if let email = bookPaymentMailFormView?.mailTextField.text {
             NavitiaSDKPartners.shared.launchPayment(email: email,
                                                     color: Configuration.Color.backgroundPayment,
@@ -183,6 +184,7 @@ open class BookPaymentViewController: UIViewController {
                     bookPaymentConditionView.conditionSwitch.setOn(false, animated: true)
                     self.onConditionSwitchValueChanged(bookPaymentConditionView)
                 }
+                
                 self.bookPaymentView.activityIndicator.stopAnimating()
                 let informationViewController = self.informationViewController(information: "an_error_occurred".localized(bundle: NavitiaSDKUI.shared.bundle))
                 informationViewController.delegate = self

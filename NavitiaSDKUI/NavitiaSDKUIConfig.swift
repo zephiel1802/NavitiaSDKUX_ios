@@ -62,17 +62,6 @@ import Foundation
         }
     }
     
-    @objc open var font: String? {
-        get {
-            return Configuration.cguURL?.absoluteString
-        }
-        set {
-            if let newValue = newValue {
-                Configuration.cguURL = URL(string: newValue)
-            }
-        }
-    }
-    
 }
 
 enum Configuration {

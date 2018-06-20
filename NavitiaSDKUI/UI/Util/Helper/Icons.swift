@@ -108,7 +108,10 @@ class Modes {
     func getPhysicalMode(section: Section?) -> String {
         let id = getPhysicalModeId(section: section)
         var modeData = id.split(separator: ":").map(String.init)
-        return modeData[1]
+        if modeData.count > 1 {
+            return modeData[1]
+        }
+        return modeData[0]
     }
     
     private func getStreetNetworkMode(section: Section?) -> String {

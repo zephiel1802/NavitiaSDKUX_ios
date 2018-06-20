@@ -73,6 +73,7 @@ extension BookPaymentWebViewController: UIWebViewDelegate {
     
     public func webView(_ webView: UIWebView, didFailLoadWithError error: Error) {
         view.customActivityIndicatory(startAnimate: false)
+        
         let informationViewController = self.informationViewController(information: "an_error_occurred".localized(bundle: NavitiaSDKUI.shared.bundle))
         informationViewController.delegate = self
         self.present(informationViewController, animated: true, completion: nil)

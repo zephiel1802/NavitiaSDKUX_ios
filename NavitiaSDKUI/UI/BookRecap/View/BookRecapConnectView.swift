@@ -18,6 +18,8 @@ open class BookRecapConnectView: UIView {
     @IBOutlet var view: UIView!
     @IBOutlet weak var descriptionButton: UILabel!
     @IBOutlet weak var connectButton: UIButton!
+    @IBOutlet weak var connectIconLabel: UILabel!
+    @IBOutlet weak var connectTitleLabel: UILabel!
     
     var delegate: BookRecapConnectViewDelegate?
     
@@ -48,10 +50,10 @@ open class BookRecapConnectView: UIView {
         connectButton.backgroundColor = UIColor.clear
         connectButton.layer.borderWidth = 1
         connectButton.layer.borderColor = Configuration.Color.main.cgColor
-        connectButton.setAttributedTitle(NSMutableAttributedString()
-            .icon("user", color: Configuration.Color.main, size: 17)
-            .bold(String(format: "   %@", "create_my_account".localized(withComment: "Create my account", bundle: NavitiaSDKUI.shared.bundle)), color: Configuration.Color.main, size: 12),
-                                        for: .normal)
+        
+        
+        connectIconLabel.attributedText = NSMutableAttributedString().icon("user", color: Configuration.Color.main, size: 17)
+        connectTitleLabel.attributedText = NSMutableAttributedString().bold(String(format: "   %@", "create_my_account".localized(withComment: "Create my account", bundle: NavitiaSDKUI.shared.bundle)), color: Configuration.Color.main, size: 12)
     }
     
     @IBAction func onConnectionPressedButton(_ sender: Any) {
