@@ -403,8 +403,6 @@ extension KeolisAccountManagement {
 
         NavitiaSDKPartnersRequestBuilder.post(stringUrl: "\((accountConfiguration as! KeolisAccountManagementConfiguration).url)/oauth2/\((accountConfiguration as! KeolisAccountManagementConfiguration).network)/revoke?token=\(_accessToken.encodeURIComponent()!)&token_type_hint=access_token&revoke?token=\(self._refreshToken.encodeURIComponent()!)&token_type_hint=refresh", header: self._getKeolisHeader()) { (success, statusCode, data) in
 
-                if success && statusCode < 300 {
-
                     print("NavitiaSDKPartners/logOut : success ") // in case of success, clear credentials, tokens, cart, and log out from other APIs
                     NavitiaSDKPartners.shared.resetCart(callbackSuccess: {
                     }, callbackError: { (_, _) in
@@ -429,11 +427,6 @@ extension KeolisAccountManagement {
                         break
                     }
                     callbackSuccess()
-                } else {
-
-                    print("NavitiaSDKPartners/logOut : error")
-                    callbackError(statusCode, data)
-                }
             }
     }
 

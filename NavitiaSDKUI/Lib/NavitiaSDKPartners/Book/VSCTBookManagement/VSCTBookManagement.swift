@@ -390,7 +390,7 @@ import Foundation
                                                           "lastName": (NavitiaSDKPartners.shared.isAnonymous ? "Monsieur" :
                                                             NavitiaSDKPartners.shared.userInfo.lastName),
                                                           "email": email,
-                                                          "emailconfirmation": email],
+                                                          "emailconfirmation": email ],
                                         "deliveryMode" : ["type": "M_TICKET_CB2D",
                                                           "label": "M-Ticket",
                                                           "displayOrder": 1,

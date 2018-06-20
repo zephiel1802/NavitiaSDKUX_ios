@@ -32,7 +32,6 @@ import JustRideSDK
     
     private func authenticate(force : Bool, doRefreshIfInternalError : Bool = true, callbackSuccess : @escaping () -> Void, callbackError : @escaping (Int, [String: Any]?) -> Void) {
         
-        
         if Reachability.isConnectedToNetwork() == false {
             print("NavitiaSDKPartners : no internet connection")
             let error = NavitiaSDKPartnersReturnCode.notConnected
@@ -51,7 +50,6 @@ import JustRideSDK
                 MJRSDK.sharedInstance()?.accountUseCases.accountLogin(withDeviceChange: force, username: NavitiaSDKPartners.shared.userInfo.id, password: NavitiaSDKPartners.shared.accessToken, completionHandler: { (loginResponse, error) in
                     DispatchQueue.main.async {
                         if (error != nil) {
-                            print(error?.errorDescription)
                             print("NavitiaSDKPartners/masabiAuthenticate : error")
                             callbackError(NavitiaSDKPartnersReturnCode.internalError.getCode(), NavitiaSDKPartnersReturnCode.internalError.getError())
                             return;
