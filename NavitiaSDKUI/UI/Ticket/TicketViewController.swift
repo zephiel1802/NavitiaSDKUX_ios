@@ -64,7 +64,7 @@ import JustRideSDK
 
     private func _setupInformationViewController(titleButton: [String] = ["close".localized(bundle: NavitiaSDKUI.shared.bundle)],
                                                  information: String,
-                                                 iconName: String = "warning") -> UIViewController {
+                                                 iconName: String = "warning-circled") -> UIViewController {
         let informationViewController = InformationViewController(nibName: "InformationView", bundle: NavitiaSDKUI.shared.bundle)
         informationViewController.modalTransitionStyle = .crossDissolve
         informationViewController.modalPresentationStyle = .overCurrentContext

@@ -113,7 +113,7 @@ extension BookPaymentWebViewController: UIWebViewDelegate {
                 if let returnPayment = self.viewModel?.returnPayment { returnPayment(.error) }
             case .cancel:
                 navigationController?.popViewController(animated: true)
-                if let returnPayment = self.viewModel?.returnPayment { returnPayment(.error) }
+                if let returnPayment = self.viewModel?.returnPayment { returnPayment(.cancel) }
             case .unknown:
                 break
             }

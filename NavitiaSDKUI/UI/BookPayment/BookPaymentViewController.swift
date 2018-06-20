@@ -26,7 +26,6 @@ open class BookPaymentViewController: UIViewController {
     fileprivate var _viewModel: BookPaymentViewModel! {
         didSet {
             _viewModel.returnPayment = { [weak self] paymentReturnValue in
-                self?._onInformationPressedButton()
                 if paymentReturnValue == .error {
                     self?._onInformationPressedButton()
                 }
@@ -159,7 +158,7 @@ open class BookPaymentViewController: UIViewController {
         informationViewController.titleButton = [String(format: "%@ !", "understood".localized(withComment: "Understood !", bundle: NavitiaSDKUI.shared.bundle))]
         informationViewController.delegate = self
         informationViewController.information =  "your_payment_has_been_refused".localized(withComment: "Your payment has been refused", bundle: NavitiaSDKUI.shared.bundle)
-        informationViewController.iconName = "payment-denied"
+        informationViewController.iconName = "payment-denied-circled"
         present(informationViewController, animated: true) {}
     }
     
