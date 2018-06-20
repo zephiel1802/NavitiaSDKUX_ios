@@ -186,9 +186,11 @@ extension BookRecapViewController {
             }
             return scrollView.frame.size.width - margeCustom.left - margeCustom.right
         }
+        
         if #available(iOS 11.0, *) {
             return scrollView.frame.size.width - scrollView.safeAreaInsets.left - scrollView.safeAreaInsets.right - margin.left - margin.right
         }
+        
         return scrollView.frame.size.width - margin.left - margin.right
     }
     
@@ -200,6 +202,7 @@ extension BookRecapViewController: BookRecapTicketViewDelegate {
         if !isRootViewController() {
             _dismissDelegate = true
         }
+        
         bookTicketDelegate?.onDisplayTicket()
     }
     
@@ -211,6 +214,7 @@ extension BookRecapViewController: BookRecapConnectViewDelegate {
         if !isRootViewController() {
             _dismissDelegate = true
         }
+    
         bookTicketDelegate?.onDisplayCreateAccount()
     }
     
