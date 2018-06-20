@@ -62,11 +62,10 @@ class InformationViewController: UIViewController {
                 .normal("\r")
                 .normal(information, color: Configuration.Color.black, size: 11)
         }
-        iconContainerView.backgroundColor = Configuration.Color.main
         iconLabel.attributedText = NSMutableAttributedString()
             .icon(iconName,
-                    color: Configuration.Color.white,
-                    size: 20)
+                    color: Configuration.Color.main,
+                    size: 50)
         // Do any additional setup after loading the view.
     }
     

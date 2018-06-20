@@ -201,7 +201,7 @@ import UIKit
                                                  "create_my_account".localized(bundle: NavitiaSDKUI.shared.bundle)]
         informationViewController.delegate = self
         informationViewController.information = "you_must_be_logged_in_to_view_subscriptions".localized(bundle: NavitiaSDKUI.shared.bundle)
-        informationViewController.iconName = "user-connexion"
+        informationViewController.iconName = "user-connection-circled"
         present(informationViewController, animated: true) {}
     }
     
@@ -291,6 +291,7 @@ extension BookShopViewController: TicketCollectionViewCellDelegate {
         informationViewController.modalPresentationStyle = .overCurrentContext
         informationViewController.titleButton = ["close".localized(withComment: "Close", bundle: NavitiaSDKUI.shared.bundle)]
         informationViewController.delegate = self
+        informationViewController.iconName = "information-circled"
         if let indexPath = ticketCollectionViewCell.indexPath {
             informationViewController.titleString = _viewModel.bookOffer[typeSegmentedControl.selectedSegmentIndex][indexPath.row].title
             informationViewController.information = _viewModel.bookOffer[typeSegmentedControl.selectedSegmentIndex][indexPath.row].legalInfos

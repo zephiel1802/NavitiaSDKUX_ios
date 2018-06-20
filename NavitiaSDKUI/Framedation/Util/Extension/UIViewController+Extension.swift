@@ -45,7 +45,7 @@ extension UIViewController {
 
     func informationViewController(titleButton: [String] = ["ok".localized(bundle: NavitiaSDKUI.shared.bundle)],
                                    information: String,
-                                   iconName: String = "warning") -> InformationViewController {
+                                   iconName: String = "warning-circled") -> InformationViewController {
         let informationViewController = InformationViewController(nibName: "InformationView", bundle: NavitiaSDKUI.shared.bundle)
         informationViewController.modalTransitionStyle = .crossDissolve
         informationViewController.modalPresentationStyle = .overCurrentContext
