@@ -22,7 +22,9 @@ import UIKit
     private var _validateBasketView: ValidateBasketView!
     private var _breadcrumbView: BreadcrumbView!
     private var _validateBasketHeight: CGFloat = 50
+    private var _dismissDelegate: Bool = false
     @objc public var bookTicketDelegate: BookTicketDelegate?
+    @objc public var backButtonIsHidden: Bool = false
     
     fileprivate var _viewModel: BookShopViewModel! {
         didSet {
@@ -58,6 +60,21 @@ import UIKit
         collectionView.collectionViewLayout.invalidateLayout()
     }
     
+    override open func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        self.navigationController?.setNavigationBarHidden(true, animated: animated)
+    }
+    
+    override open func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        if _dismissDelegate {
+            _dismissDelegate = false
+            self.navigationController?.setNavigationBarHidden(false, animated: animated)
+        }
+    }
+    
     override open func viewDidLayoutSubviews() {
         if #available(iOS 11.0, *) {
             validateBasketContainerHeightContraint.constant = _validateBasketHeight + view.safeAreaInsets.bottom
@@ -87,8 +104,12 @@ import UIKit
     private func _setupBreadcrumbView() {
         _breadcrumbView = BreadcrumbView()
         _breadcrumbView.delegate = self
-        _breadcrumbView.stateBreadcrumb = .shop
+        _breadcrumbView.stateBreadcrumb = .title
         _breadcrumbView.translatesAutoresizingMaskIntoConstraints = false
+        _breadcrumbView.titleLabel.attributedText = NSMutableAttributedString().semiBold("shop".localized(withComment: "SHOP", bundle: NavitiaSDKUI.shared.bundle),
+                                                          color: Configuration.Color.main.contrastColor(),
+                                                          size: 17)
+        _breadcrumbView.returnButton.isHidden = backButtonIsHidden
         breadcrumbContainerView.addSubview(_breadcrumbView)
         
         NSLayoutConstraint(item: _breadcrumbView, attribute: NSLayoutAttribute.top, relatedBy: NSLayoutRelation.equal, toItem: breadcrumbContainerView, attribute: NSLayoutAttribute.top, multiplier: 1, constant: 0).isActive = true
@@ -150,6 +171,10 @@ import UIKit
         }
     }
 
+    @objc open func refresh() {
+        _viewModel?.request()
+    }
+    
     @IBAction func onTypePressedSegmentControl(_ sender: UISegmentedControl) {
         self._viewModel.bookShopDidChange!(self._viewModel)
     }
@@ -159,6 +184,9 @@ import UIKit
 extension BookShopViewController: BreadcrumbViewDelegate {
     
     func onDismiss() {
+        if !isRootViewController() {
+            _dismissDelegate = true
+        }
         bookTicketDelegate?.onDismissBookTicket()
     }
     
@@ -188,16 +216,19 @@ extension BookShopViewController: UICollectionViewDataSource {
         }
 
         if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TicketCollectionViewCell.identifier, for: indexPath) as? TicketCollectionViewCell {
-            cell.delegate = self
-            cell.indexPath = indexPath
-            cell.title = _viewModel.bookOffer[typeSegmentedControl.selectedSegmentIndex][indexPath.row].title
-            cell.descript = _viewModel.bookOffer[typeSegmentedControl.selectedSegmentIndex][indexPath.row].shortDescription
-            cell.id = _viewModel.bookOffer[typeSegmentedControl.selectedSegmentIndex][indexPath.row].id
-            cell.maxQuantity = _viewModel.bookOffer[typeSegmentedControl.selectedSegmentIndex][indexPath.row].maxQuantity
-            cell.quantity = NavitiaSDKPartners.shared.cart.filter({ $0.bookOffer.id == cell.id }).first?.quantity ?? 0
-            cell.setPrice(_viewModel.bookOffer[typeSegmentedControl.selectedSegmentIndex][indexPath.row].price,
-                          currency: _viewModel.bookOffer[typeSegmentedControl.selectedSegmentIndex][indexPath.row].currency)
-            return cell
+            if _viewModel.bookOffer.count > typeSegmentedControl.selectedSegmentIndex &&
+                _viewModel.bookOffer[typeSegmentedControl.selectedSegmentIndex].count > indexPath.row {
+                cell.delegate = self
+                cell.indexPath = indexPath
+                cell.title = _viewModel.bookOffer[typeSegmentedControl.selectedSegmentIndex][indexPath.row].title
+                cell.descript = _viewModel.bookOffer[typeSegmentedControl.selectedSegmentIndex][indexPath.row].shortDescription
+                cell.id = _viewModel.bookOffer[typeSegmentedControl.selectedSegmentIndex][indexPath.row].id
+                cell.maxQuantity = _viewModel.bookOffer[typeSegmentedControl.selectedSegmentIndex][indexPath.row].maxQuantity
+                cell.quantity = NavitiaSDKPartners.shared.cart.filter({ $0.bookOffer.id == cell.id }).first?.quantity ?? 0
+                cell.setPrice(_viewModel.bookOffer[typeSegmentedControl.selectedSegmentIndex][indexPath.row].price,
+                              currency: _viewModel.bookOffer[typeSegmentedControl.selectedSegmentIndex][indexPath.row].currency)
+                return cell
+            }
         }
         return UICollectionViewCell()
     }
@@ -256,12 +287,10 @@ extension BookShopViewController: ValidateBasketViewDelegate {
     
     func onValidateButtonClicked(_ validateBasketView: ValidateBasketView) {
         let viewController = storyboard?.instantiateViewController(withIdentifier: BookPaymentViewController.identifier) as! BookPaymentViewController
-        viewController.modalTransitionStyle = .crossDissolve
-        viewController.modalPresentationStyle = .overCurrentContext
         viewController.bookTicketDelegate = bookTicketDelegate
         
         NavitiaSDKPartners.shared.getOrderValidation(callbackSuccess: { (_) in
-            self.present(viewController, animated: true) {}
+            self.navigationController?.pushViewController(viewController, animated: true)
         }) { (_, _) in }
     }
     

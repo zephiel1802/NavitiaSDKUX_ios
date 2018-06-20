@@ -25,8 +25,11 @@ open class BookPaymentViewController: UIViewController {
     
     fileprivate var _viewModel: BookPaymentViewModel! {
         didSet {
-            _viewModel.returnPayment = { [weak self] in
+            _viewModel.returnPayment = { [weak self] paymentReturnValue in
                 self?._onInformationPressedButton()
+                if paymentReturnValue == .error {
+                    self?._onInformationPressedButton()
+                }
                 self?.bookPaymentView.launchPayment()
             }
         }
@@ -37,6 +40,10 @@ open class BookPaymentViewController: UIViewController {
         _setupInterface()
         _viewModel = BookPaymentViewModel()
         _setupGesture()
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
     }
     
     override open func didReceiveMemoryWarning() {
@@ -135,7 +142,7 @@ open class BookPaymentViewController: UIViewController {
     private func _setupBreadcrumbView() {
         _breadcrumbView = BreadcrumbView()
         _breadcrumbView.delegate = self
-        _breadcrumbView.stateBreadcrumb = .payment
+        _breadcrumbView.stateBreadcrumb = .basket
         _breadcrumbView.translatesAutoresizingMaskIntoConstraints = false
         breadcrumbContainerView.addSubview(_breadcrumbView)
         
@@ -152,7 +159,7 @@ open class BookPaymentViewController: UIViewController {
         informationViewController.titleButton = [String(format: "%@ !", "understood".localized(withComment: "Understood !", bundle: NavitiaSDKUI.shared.bundle))]
         informationViewController.delegate = self
         informationViewController.information =  "your_payment_has_been_refused".localized(withComment: "Your payment has been refused", bundle: NavitiaSDKUI.shared.bundle)
-        informationViewController.iconName = "paiement-denied"
+        informationViewController.iconName = "payment-denied"
         present(informationViewController, animated: true) {}
     }
 
@@ -249,7 +256,7 @@ extension BookPaymentViewController {
 extension BookPaymentViewController: BreadcrumbViewDelegate {
     
     public func onDismiss() {
-        self.dismiss(animated: true, completion: nil)
+        navigationController?.popViewController(animated: true)
     }
     
 }
@@ -302,10 +309,8 @@ extension BookPaymentViewController: BookPaymentViewDelegate {
         let viewController = storyboard?.instantiateViewController(withIdentifier: BookPaymentWebViewController.identifier) as! BookPaymentWebViewController
         viewController.request = request
         viewController.viewModel = _viewModel
-        viewController.modalTransitionStyle = .crossDissolve
-        viewController.modalPresentationStyle = .overCurrentContext
         viewController.bookTicketDelegate = bookTicketDelegate
-        present(viewController, animated: true, completion: nil)
+        self.navigationController?.pushViewController(viewController, animated: true)
     }
     
     func onFilterClicked(_ bookPaymentView: BookPaymentView) {

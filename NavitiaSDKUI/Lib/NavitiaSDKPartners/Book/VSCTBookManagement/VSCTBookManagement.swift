@@ -298,7 +298,11 @@ import Foundation
         })
         
         if cartItem == nil {
-            cart.append(NavitiaBookCartItem(bookOffer: offerItem!, quantity: quantity))
+            if quantity > offerItem!.maxQuantity {
+                cart.append(NavitiaBookCartItem(bookOffer: offerItem!, quantity: offerItem!.maxQuantity))
+            } else {
+                cart.append(NavitiaBookCartItem(bookOffer: offerItem!, quantity: quantity))
+            }
         } else if quantity < (cartItem!.bookOffer as! VSCTBookOffer).maxQuantity {
             cartItem!.setQuantity(q: quantity)
         } else {
@@ -316,35 +320,51 @@ import Foundation
         
         if cart.isEmpty {
             print("NavitiaSDKPartners/getOrderValidation : error")
-            callbackError(NavitiaSDKPartnersReturnCode.cartEmpty.getCode(), NavitiaSDKPartnersReturnCode.cartEmpty.getError())
+            let error = NavitiaSDKPartnersReturnCode.cartEmpty
+            callbackError(error.getCode(), error.getError())
             return
         }
         
-        NavitiaSDKPartnersRequestBuilder.post(stringUrl: "\(_getUrl())/baskets", header: _getConnectedHeader()) { (success, statusCode, data) in
-            if success && data != nil {
-                print("NavitiaSDKPartners/createBasket : success")
-                self.cartId = data!["id"] as! String
-                self.addItemsInAPI(callbackSuccess: {
-                    
-                    print("NavitiaSDKPartners/addToBasket : success")
-                    NavitiaSDKPartnersRequestBuilder.get(stringUrl: "\(self._getUrl())/baskets/\(self.cartId)/validation", header: self._getConnectedHeader(), completion: { (success, statusCode, data) in
-                        if success {
-                            callbackSuccess(self.cart)
-                        } else {
-                            callbackError(statusCode, data)
-                        }
-                    })
-                }, callbackError: {(statusCode, data) in
-                    
-                    print("NavitiaSDKPartners/addToBasket : error")
-                    callbackError(statusCode, data)
-                })
-            } else {
-                
-                print("NavitiaSDKPartners/createBasket : error")
+        NavitiaSDKPartners.shared.refreshToken(callbackSuccess: {
+            self.openSession(callbackSuccess: {
+                NavitiaSDKPartnersRequestBuilder.post(stringUrl: "\(self._getUrl())/baskets", header: self._getConnectedHeader()) { (success, statusCode, data) in
+                    if success && data != nil {
+                        print("NavitiaSDKPartners/createBasket : success")
+                        self.cartId = data!["id"] as! String
+                        self.addItemsInAPI(callbackSuccess: {
+                            
+                            print("NavitiaSDKPartners/addToBasket : success")
+                            NavitiaSDKPartnersRequestBuilder.get(stringUrl: "\(self._getUrl())/baskets/\(self.cartId)/validation", header: self._getConnectedHeader(), completion: { (success, statusCode, data) in
+                                if success {
+                                    callbackSuccess(self.cart)
+                                } else {
+                                    callbackError(statusCode, data)
+                                }
+                            })
+                        }, callbackError: {(statusCode, data) in
+                            
+                            print("NavitiaSDKPartners/addToBasket : error")
+                            var error : NavitiaSDKPartnersReturnCode
+                            if statusCode == 400 && ((data!["array"] as! [[String: Any]])[0]["code"] as! Int) == 2002 {
+                                error = NavitiaSDKPartnersReturnCode.maximumAmountReached
+                                callbackError(error.getCode(), error.getError())
+                            } else {
+                                callbackError(statusCode, data)
+                            }
+                        })
+                    } else {
+                        
+                        print("NavitiaSDKPartners/createBasket : error")
+                        callbackError(statusCode, data)
+                    }
+                }
+            }, callbackError: { (statusCode, data) in
                 callbackError(statusCode, data)
-            }
-        }
+            })
+        }, callbackError: { (statusCode, data) in
+            callbackError(statusCode, data)
+        })
+
     }
     
     public func resetCart(callbackSuccess : @escaping () -> Void, callbackError : @escaping (Int, [String: Any]?) -> Void) {
@@ -370,7 +390,7 @@ import Foundation
                                                           "lastName": (NavitiaSDKPartners.shared.isAnonymous ? "Monsieur" :
                                                             NavitiaSDKPartners.shared.userInfo.lastName),
                                                           "email": email,
-                                                          "emailconfirmation": email ],
+                                                          "emailconfirmation": email],
                                         "deliveryMode" : ["type": "M_TICKET_CB2D",
                                                           "label": "M-Ticket",
                                                           "displayOrder": 1,
@@ -399,7 +419,7 @@ import Foundation
                 })
             } else {
                 print("NavitiaSDKPartners/createOrder : error")
-                if statusCode == 400 && data != nil && ((data!["array"] as! [[String: Any]])[0]["code"] as! Int) == 2000 {
+                if statusCode == 400 && data != nil && ((data!["array"] as! [[String: Any]])[0]["code"] as? Int) == 2000 {
                     let error = NavitiaSDKPartnersReturnCode.cartNotValidated
                     var returnData = error.getError()
                     returnData["details"] = (data!["array"] as! [[String: Any]])[0]

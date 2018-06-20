@@ -11,6 +11,7 @@ import Foundation
 @objc(VSCTBookManagementConfiguration) public class VSCTBookManagementConfiguration : NSObject, BookManagementConfiguration {
     
     public let type: BookManagementType = .VSCT
+    
     public let url: String = "https://preprod1.vad.vad.keolis.vsct.fr/api/rs/"
     public let baseUrl : String = "https://preprod1.vad.vad.keolis.vsct.fr"
     

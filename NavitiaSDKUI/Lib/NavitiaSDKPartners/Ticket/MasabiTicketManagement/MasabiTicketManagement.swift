@@ -31,12 +31,28 @@ import JustRideSDK
     }
     
     private func authenticate(force : Bool, doRefreshIfInternalError : Bool = true, callbackSuccess : @escaping () -> Void, callbackError : @escaping (Int, [String: Any]?) -> Void) {
+        
+        
+        if Reachability.isConnectedToNetwork() == false {
+            print("NavitiaSDKPartners : no internet connection")
+            let error = NavitiaSDKPartnersReturnCode.notConnected
+            callbackError(error.getCode(), error.getError())
+            return
+        }
         MJRSDK.sharedInstance()?.accountUseCases.getLoginStatus(completionHandler: { (loginStatus, error) in
-            if error == nil && loginStatus?.isLoggedIn == false {
+            
+            if error != nil {
                 print("NavitiaSDKPartners/getLoginStatus : success")
+            }
+            
+            if error == nil && loginStatus?.isLoggedIn == false {
+                print(NavitiaSDKPartners.shared.userInfo.id)
+                print(NavitiaSDKPartners.shared.accessToken)
                 MJRSDK.sharedInstance()?.accountUseCases.accountLogin(withDeviceChange: force, username: NavitiaSDKPartners.shared.userInfo.id, password: NavitiaSDKPartners.shared.accessToken, completionHandler: { (loginResponse, error) in
                     DispatchQueue.main.async {
                         if (error != nil) {
+                            print(error?.errorDescription)
+                            print("NavitiaSDKPartners/masabiAuthenticate : error")
                             callbackError(NavitiaSDKPartnersReturnCode.internalError.getCode(), NavitiaSDKPartnersReturnCode.internalError.getError())
                             return;
                         }
@@ -59,6 +75,7 @@ import JustRideSDK
                                 }
                             }
                             
+                            print("NavitiaSDKPartners/masabiAuthenticate : error")
                             callbackError( error.getCode(),
                                            data)
                             break;
@@ -67,10 +84,16 @@ import JustRideSDK
                                 NavitiaSDKPartners.shared.refreshToken(callbackSuccess: {
                                     self.authenticate(force: force, doRefreshIfInternalError: false, callbackSuccess: callbackSuccess, callbackError: callbackError)
                                 }, callbackError: { (statusCode, data) in
+                                    
+                                    print(loginResponse!.loginResult.rawValue)
+                                    print("NavitiaSDKPartners/masabiAuthenticate : error")
                                     callbackError(NavitiaSDKPartnersReturnCode.internalError.getCode(), NavitiaSDKPartnersReturnCode.internalError.getError())
                                     
                                 })
                             } else {
+                                
+                                print("NavitiaSDKPartners/masabiAuthenticate : error")
+                                print(loginResponse!.loginResult.rawValue)
                                 callbackError(NavitiaSDKPartnersReturnCode.internalError.getCode(), NavitiaSDKPartnersReturnCode.internalError.getError())
                             }
                             break
@@ -117,6 +140,12 @@ import JustRideSDK
     public func MasabiLogOut(callbackSuccess : @escaping () -> Void,
                              callbackError : @escaping (Int, [String: Any]?) -> Void) {
         
+        if Reachability.isConnectedToNetwork() == false {
+            print("NavitiaSDKPartners : no internet connection")
+            let error = NavitiaSDKPartnersReturnCode.notConnected
+            callbackError(error.getCode(), error.getError())
+            return
+        }
         MJRSDK.sharedInstance()?.accountUseCases.accountLogout(completionHandler: { (error) in
             if error == nil {
                 callbackSuccess()
@@ -130,6 +159,12 @@ import JustRideSDK
     public func syncWalletWithErrorOnDeviceChange( callbackSuccess : @escaping () -> Void,
                                                    callbackError : @escaping (Int, [String: Any]?) -> Void) {
         
+        if Reachability.isConnectedToNetwork() == false {
+            print("NavitiaSDKPartners : no internet connection")
+            let error = NavitiaSDKPartnersReturnCode.notConnected
+            callbackError(error.getCode(), error.getError())
+            return
+        }
         setHasValidTickets()
         if NavitiaSDKPartners.shared.isConnected {
             authenticate(force : false, callbackSuccess: { () in
@@ -150,11 +185,9 @@ import JustRideSDK
                 self.authenticate(force : false, callbackSuccess: { () in
                     self.syncWallet(completion: { (success, statusCode, data) in
                         if success {
-                            
                             print("NavitiaSDKPartners/syncWallet : success")
                             callbackSuccess()
                         } else {
-                            
                             print("NavitiaSDKPartners/syncWallet : error")
                             callbackError(statusCode, data)
                         }
@@ -170,6 +203,13 @@ import JustRideSDK
     
     public func syncWallet( callbackSuccess : @escaping () -> Void,
                            callbackError : @escaping (Int, [String: Any]?) -> Void) {
+        
+        if Reachability.isConnectedToNetwork() == false {
+            print("NavitiaSDKPartners : no internet connection")
+            let error = NavitiaSDKPartnersReturnCode.notConnected
+            callbackError(error.getCode(), error.getError())
+            return
+        }
         setHasValidTickets()
         if NavitiaSDKPartners.shared.isConnected {
             authenticate(force: true, callbackSuccess: { () in
@@ -226,6 +266,7 @@ extension MasabiTicketManagement {
             if error != nil {
                 self.privateHasValidTickets = false
             }
+            print((summary?.count ?? 0))
             self.privateHasValidTickets = ( (summary?.count ?? 0) > 0 ? true : false )
         })
     }

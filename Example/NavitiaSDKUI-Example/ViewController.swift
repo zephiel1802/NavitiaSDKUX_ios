@@ -19,7 +19,6 @@ class ViewController: UIViewController {
         super.didReceiveMemoryWarning()
     }
     
-    // Journey
     @IBAction func onSDKJourneyButtonClicked(_ sender: Any) {
         let journeySolutionViewController = getJourneySolutionViewController()
         navigationController?.pushViewController(journeySolutionViewController, animated: true)
@@ -43,7 +42,6 @@ class ViewController: UIViewController {
         return journeyResultsViewController
     }
     
-    // Book
     @IBAction func onSDKBookButtonClicked(_ sender: Any) {
         let bundle = Bundle(identifier: "org.cocoapods.NavitiaSDKUI")
         let storyboard = UIStoryboard(name: "Book", bundle: bundle)
@@ -56,10 +54,10 @@ class ViewController: UIViewController {
                     bookShopViewController.bookTicketDelegate = self
                     if userInfo.accountStatus != .anonymous {
                         NavitiaSDKPartners.shared.logOut(callbackSuccess: {
-                            self.present(bookShopViewController, animated: true, completion: nil)
+                            self.navigationController?.pushViewController(bookShopViewController, animated: true)
                         }, callbackError: { (_, _) in })
                     } else {
-                        self.present(bookShopViewController, animated: true, completion: nil)
+                        self.navigationController?.pushViewController(bookShopViewController, animated: true)
                     }
                 }
             }
@@ -69,7 +67,7 @@ class ViewController: UIViewController {
             (alert: UIAlertAction!) -> Void in
             if let bookShopViewController = self.bookShopViewController {
                 bookShopViewController.bookTicketDelegate = self
-                self.present(bookShopViewController, animated: true, completion: nil)
+                self.navigationController?.pushViewController(bookShopViewController, animated: true)
             }
             
         })
@@ -85,7 +83,6 @@ class ViewController: UIViewController {
         present(alertController, animated: true, completion: nil)
     }
     
-    // Ticket
     @IBAction func onSDKTicketMasabiButtonClicked() {
         NavitiaSDKUI.shared.bundle = Bundle(identifier: "org.cocoapods.NavitiaSDKUI")
         
@@ -111,7 +108,7 @@ extension ViewController: BookTicketDelegate {
     
     func onDisplayCreateAccount() {
         if let rootViewController = UIApplication.shared.keyWindow?.rootViewController {
-            rootViewController.dismiss(animated: false, completion: nil)
+            rootViewController.navigationController?.popViewController(animated: true)
         }
     }
     
@@ -123,16 +120,13 @@ extension ViewController: BookTicketDelegate {
     
     func onDisplayTicket() {
         if let rootViewController = UIApplication.shared.keyWindow?.rootViewController {
-            rootViewController.dismiss(animated: false) {
-                self.onSDKTicketMasabiButtonClicked()
-            }
+            rootViewController.navigationController?.popViewController(animated: false)
+            self.onSDKTicketMasabiButtonClicked()
         }
     }
     
     func onDismissBookTicket() {
-        if let rootViewController = UIApplication.shared.keyWindow?.rootViewController {
-            rootViewController.dismiss(animated: true, completion: nil)
-        }
+        self.navigationController?.popViewController(animated: true)
     }
     
 }

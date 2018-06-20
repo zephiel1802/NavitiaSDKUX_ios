@@ -51,7 +51,7 @@ internal class NavitiaSDKPartnersRequestBuilder {
                     return
                 }
                 
-                print("NavitiaSDKPartners : error on task")
+                print("NavitiaSDKPartners : error on task (\((error! as NSError).code))")
                 DispatchQueue.main.async {
                     completion(false, NavitiaSDKPartnersReturnCode.internalError.getCode(), NavitiaSDKPartnersReturnCode.internalError.getError())
                 }
@@ -178,6 +178,12 @@ internal class NavitiaSDKPartnersRequestBuilder {
                         completion(true, (response as! HTTPURLResponse).statusCode, nil)
                     }
                 } else {
+                    if (error! as NSError).code == -1001 {
+                        DispatchQueue.main.async {
+                            completion(false, NavitiaSDKPartnersReturnCode.timeOut.getCode(), NavitiaSDKPartnersReturnCode.timeOut.getError())
+                        }
+                        return
+                    }
                     DispatchQueue.main.async {
                         let error = NavitiaSDKPartnersReturnCode.internalError
                         completion(false, error.getCode(), error.getError())
