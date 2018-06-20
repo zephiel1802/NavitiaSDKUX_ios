@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina5_9" orientation="landscape">
+    <device id="retina5_9" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
@@ -12,7 +12,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="InformationViewController" customModule="NavitiaSDKUI" customModuleProvider="target">
             <connections>
-                <outlet property="backgroundView" destination="omQ-IP-gJc" id="0dd-85-axb"/>
+                <outlet property="backgroundButton" destination="DMk-jx-0Oc" id="8Rw-q3-ZsP"/>
                 <outlet property="descriptionLabel" destination="ell-ka-9BC" id="YWN-l5-RGU"/>
                 <outlet property="firstButton" destination="ss7-Ld-YQF" id="3K0-AP-JDp"/>
                 <outlet property="firstLineView" destination="S4d-Pl-HMn" id="Ydw-Ka-DBW"/>
@@ -25,13 +25,19 @@
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view contentMode="scaleToFill" id="iN0-l3-epB">
-            <rect key="frame" x="0.0" y="0.0" width="812" height="375"/>
+            <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <view alpha="0.40000000000000002" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="omQ-IP-gJc">
-                    <rect key="frame" x="0.0" y="0.0" width="812" height="375"/>
+                <button opaque="NO" alpha="0.40000000000000002" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DMk-jx-0Oc">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                     <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                </view>
+                    <state key="normal">
+                        <color key="titleColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </state>
+                    <connections>
+                        <action selector="onBackgroundButtonCliked:" destination="-1" eventType="touchUpInside" id="2xO-Nv-DfO"/>
+                    </connections>
+                </button>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="doZ-wr-sWf">
                     <rect key="frame" x="266" y="69" width="280" height="237"/>
                     <subviews>
@@ -139,21 +145,21 @@
                 </view>
             </subviews>
             <constraints>
-                <constraint firstItem="omQ-IP-gJc" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="3MA-xx-9bk"/>
-                <constraint firstAttribute="trailing" secondItem="omQ-IP-gJc" secondAttribute="trailing" id="7AV-FF-NG6"/>
-                <constraint firstItem="omQ-IP-gJc" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="TVQ-fa-n6M"/>
-                <constraint firstAttribute="bottom" secondItem="omQ-IP-gJc" secondAttribute="bottom" id="XSv-sL-ZaH"/>
+                <constraint firstAttribute="bottom" secondItem="DMk-jx-0Oc" secondAttribute="bottom" id="5RE-bL-Xv8"/>
                 <constraint firstItem="doZ-wr-sWf" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="gxN-cU-aqj"/>
                 <constraint firstItem="doZ-wr-sWf" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="mA1-tW-EZg"/>
+                <constraint firstAttribute="trailing" secondItem="DMk-jx-0Oc" secondAttribute="trailing" id="nEm-bP-eo9"/>
+                <constraint firstItem="DMk-jx-0Oc" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="sNB-II-mgB"/>
+                <constraint firstItem="DMk-jx-0Oc" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="xxa-NW-kFE"/>
             </constraints>
             <nil key="simulatedTopBarMetrics"/>
             <nil key="simulatedBottomBarMetrics"/>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
-            <point key="canvasLocation" x="24.5" y="51.5"/>
+            <point key="canvasLocation" x="24" y="51.5"/>
         </view>
         <viewController id="e6d-9m-Yot">
             <view key="view" contentMode="scaleToFill" id="7g9-3U-1ie">
-                <rect key="frame" x="0.0" y="0.0" width="812" height="375"/>
+                <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 <viewLayoutGuide key="safeArea" id="xy2-ah-84y"/>

@@ -30,6 +30,7 @@ import UIKit
         didSet {
             self._viewModel.bookShopDidChange = { [weak self] bookShopViewModel in
                 self?.collectionView.reloadData()
+                self?.collectionViewDisplayBackground()
                 self?._reloadCart()
             }
         }
@@ -47,6 +48,7 @@ import UIKit
         
         _setupInterface()
         _registerCollectionView()
+        _setupBackgroundCollectionView()
         _viewModel = BookShopViewModel()
         _viewModel.request()
     }
@@ -85,6 +87,12 @@ import UIKit
         collectionView.register(UINib(nibName: TicketCollectionViewCell.identifier, bundle: self.nibBundle), forCellWithReuseIdentifier: TicketCollectionViewCell.identifier)
         collectionView.register(UINib(nibName: TicketCollectionViewCell.identifier, bundle: self.nibBundle), forCellWithReuseIdentifier: TicketCollectionViewCell.identifier)
         collectionView.register(UINib(nibName: TicketLoadCollectionViewCell.identifier, bundle: self.nibBundle), forCellWithReuseIdentifier: TicketLoadCollectionViewCell.identifier)
+    }
+    
+    private func _setupBackgroundCollectionView() {
+        let messageCVView = MessageCVView(frame: CGRect(x: 0, y: 0, width: collectionView.bounds.size.width, height: collectionView.bounds.size.height))
+        collectionView.backgroundView = messageCVView
+        collectionView?.backgroundView?.isHidden = true
     }
     
     private func _setupInterface() {
@@ -176,7 +184,35 @@ import UIKit
     }
     
     @IBAction func onTypePressedSegmentControl(_ sender: UISegmentedControl) {
-        self._viewModel.bookShopDidChange!(self._viewModel)
+        if sender.selectedSegmentIndex == 1 && !_viewModel.isConnected {
+            sender.selectedSegmentIndex = 0
+            _onInformationPressedButton()
+        } else {
+            self._viewModel.bookShopDidChange!(self._viewModel)
+        }
+    }
+    
+    private func _onInformationPressedButton() {
+        let informationViewController = InformationViewController(nibName: "InformationView", bundle: NavitiaSDKUI.shared.bundle)
+        informationViewController.tagName = "connection"
+        informationViewController.modalTransitionStyle = .crossDissolve
+        informationViewController.modalPresentationStyle = .overCurrentContext
+        informationViewController.titleButton = ["log_in".localized(bundle: NavitiaSDKUI.shared.bundle),
+                                                 "create_my_account".localized(bundle: NavitiaSDKUI.shared.bundle)]
+        informationViewController.delegate = self
+        informationViewController.information = "you_must_be_logged_in_to_view_subscriptions".localized(bundle: NavitiaSDKUI.shared.bundle)
+        informationViewController.iconName = "user-connexion"
+        present(informationViewController, animated: true) {}
+    }
+    
+    func collectionViewDisplayBackground() {
+        if _viewModel.loading {
+            collectionView?.backgroundView?.isHidden = false
+        }
+        
+        if _viewModel.bookOffer.count > typeSegmentedControl.selectedSegmentIndex {
+            collectionView?.backgroundView?.isHidden = (_viewModel.bookOffer[typeSegmentedControl.selectedSegmentIndex].count != 0)
+        }
     }
     
 }
@@ -253,7 +289,7 @@ extension BookShopViewController: TicketCollectionViewCellDelegate {
         let informationViewController = InformationViewController(nibName: "InformationView", bundle: NavitiaSDKUI.shared.bundle)
         informationViewController.modalTransitionStyle = .crossDissolve
         informationViewController.modalPresentationStyle = .overCurrentContext
-        informationViewController.titleButton = [String(format: "%@ !", "understood".localized(withComment: "Understood", bundle: NavitiaSDKUI.shared.bundle))]
+        informationViewController.titleButton = ["close".localized(withComment: "Close", bundle: NavitiaSDKUI.shared.bundle)]
         informationViewController.delegate = self
         if let indexPath = ticketCollectionViewCell.indexPath {
             informationViewController.titleString = _viewModel.bookOffer[typeSegmentedControl.selectedSegmentIndex][indexPath.row].title
@@ -268,7 +304,11 @@ extension BookShopViewController: TicketCollectionViewCellDelegate {
             NavitiaSDKPartners.shared.removeOffer(offerId: id, callbackSuccess: {
                 ticketCollectionViewCell.quantity -= 1
                 self._reloadCart()
-            }) { (codeStatus, data) in }
+            }) { (statusCode, data) in
+                let informationViewController = self.informationViewController(information: "an_error_occurred".localized(bundle: NavitiaSDKUI.shared.bundle))
+                informationViewController.delegate = self
+                self.present(informationViewController, animated: true, completion: nil)
+            }
         }
     }
     
@@ -277,7 +317,11 @@ extension BookShopViewController: TicketCollectionViewCellDelegate {
             NavitiaSDKPartners.shared.addOffer(offerId: id, callbackSuccess: {
                 ticketCollectionViewCell.quantity += 1
                 self._reloadCart()
-            }) { (codeStatus, data) in }
+            }) { (statusCode, data) in
+                let informationViewController = self.informationViewController(information: "an_error_occurred".localized(bundle: NavitiaSDKUI.shared.bundle))
+                informationViewController.delegate = self
+                self.present(informationViewController, animated: true, completion: nil)
+            }
         }
     }
 
@@ -289,9 +333,18 @@ extension BookShopViewController: ValidateBasketViewDelegate {
         let viewController = storyboard?.instantiateViewController(withIdentifier: BookPaymentViewController.identifier) as! BookPaymentViewController
         viewController.bookTicketDelegate = bookTicketDelegate
         
+        view.customActivityIndicatory(startAnimate: true)
         NavitiaSDKPartners.shared.getOrderValidation(callbackSuccess: { (_) in
+            self.view.customActivityIndicatory(startAnimate: false)
+            
             self.navigationController?.pushViewController(viewController, animated: true)
-        }) { (_, _) in }
+        }) { (statusCode, data) in
+            self.view.customActivityIndicatory(startAnimate: false)
+            
+            let informationViewController = self.informationViewController(information: "an_error_occurred".localized(bundle: NavitiaSDKUI.shared.bundle))
+            informationViewController.delegate = self
+            self.present(informationViewController, animated: true, completion: nil)
+        }
     }
     
 }
@@ -299,7 +352,19 @@ extension BookShopViewController: ValidateBasketViewDelegate {
 extension BookShopViewController: InformationViewDelegate {
     
     func onFirstButtonClicked(_ informationViewController: InformationViewController) {
-        informationViewController.dismiss(animated: true) {}
+        if informationViewController.tagName == "connection" {
+            bookTicketDelegate?.onDisplayConnectionAccount()
+        } else {
+            informationViewController.dismiss(animated: true) {}
+        }
+    }
+    
+    func onSecondButtonClicked(_ informationViewController: InformationViewController) {
+        if informationViewController.tagName == "connection" {
+            bookTicketDelegate?.onDisplayCreateAccount()
+        } else {
+            informationViewController.dismiss(animated: true) {}
+        }
     }
     
 }

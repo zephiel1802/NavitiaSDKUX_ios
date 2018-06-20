@@ -61,7 +61,6 @@ import JustRideSDK
                 Configuration.cguURL = URL(string: newValue)
             }
         }
-        
     }
     
     @objc open func masabiTicketManagementConfiguration(data: Data) -> MasabiTicketManagementConfiguration {

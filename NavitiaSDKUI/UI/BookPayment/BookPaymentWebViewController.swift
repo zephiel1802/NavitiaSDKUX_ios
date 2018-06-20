@@ -26,6 +26,7 @@ class BookPaymentWebViewController: UIViewController {
         _setupBreadcrumbView()
         _setupWebView()
         statusBarView.backgroundColor = Configuration.Color.main
+        view.customActivityIndicatory(startAnimate: true)
     }
 
     override func didReceiveMemoryWarning() {
@@ -76,7 +77,16 @@ extension BookPaymentWebViewController: BreadcrumbViewDelegate {
 
 extension BookPaymentWebViewController: UIWebViewDelegate {
     
-    func webViewDidFinishLoad(_ webView: UIWebView) {
+    public func webView(_ webView: UIWebView, didFailLoadWithError error: Error) {
+        view.customActivityIndicatory(startAnimate: false)
+        
+        let informationViewController = self.informationViewController(information: "an_error_occurred".localized(bundle: NavitiaSDKUI.shared.bundle))
+        informationViewController.delegate = self
+        self.present(informationViewController, animated: true, completion: nil)
+    }
+    
+    public func webViewDidFinishLoad(_ webView: UIWebView) {
+        view.customActivityIndicatory(startAnimate: false)
         let html = webView.stringByEvaluatingJavaScript(from: "document.getElementsByTagName('html')[0].innerHTML")
         
         if let transactionSogenActif = html?.extractTransactionSogenActif() {
@@ -114,3 +124,12 @@ extension BookPaymentWebViewController: UIWebViewDelegate {
     
 }
 
+extension BookPaymentWebViewController: InformationViewDelegate {
+    
+    func onFirstButtonClicked(_ informationViewController: InformationViewController) {
+        informationViewController.dismiss(animated: true) {
+            self.dismiss(animated: true, completion: nil)
+        }
+    }
+    
+}
