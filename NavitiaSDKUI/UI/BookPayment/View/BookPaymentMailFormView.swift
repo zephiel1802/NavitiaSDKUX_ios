@@ -62,7 +62,7 @@ open class BookPaymentMailFormView: UIView {
                 indicatorView.backgroundColor = UIColor.clear
                 indicatorLabel.text = ""
             case .none:
-                indicatorButton.setTitle("", for: .normal)
+                indicatorButton.setAttributedTitle(NSMutableAttributedString().normal(""), for: .normal)
                 indicatorView.backgroundColor = UIColor.clear
                 indicatorLabel.text = ""
             }
@@ -104,6 +104,7 @@ open class BookPaymentMailFormView: UIView {
         mailTextField.placeholder = "e_mail_address".localized(withComment: "e-mail address", bundle: NavitiaSDKUI.shared.bundle)
         textFieldContainerView.layer.masksToBounds = true
         stateIndicator = .none
+        
     }
     
     @IBAction func mailTextFieldEditingChanged(_ sender: UITextField) {
@@ -135,8 +136,8 @@ open class BookPaymentMailFormView: UIView {
     @IBAction func clearButton(_ sender: Any) {
         if stateIndicator == .clear || stateIndicator == .valid {
             mailTextField.text = ""
-            stateIndicator = .clear
             delegate?.valueChangedTextField(false, self)
+            stateIndicator = .none
         }
     }
     

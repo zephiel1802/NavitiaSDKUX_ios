@@ -44,6 +44,14 @@ open class BookRecapInformationView: UIView {
         }
     }
     
+    override open func layoutSubviews() {
+        setHeight()
+    }
+    
+    private func setHeight() {
+        frame.size.height = amountLabel.frame.height + amountLabel.frame.origin.y + 30
+    }
+    
     private func _setup() {
         UINib(nibName: "BookRecapInformationView", bundle: NavitiaSDKUI.shared.bundle).instantiate(withOwner: self, options: nil)
         view.frame = self.bounds
