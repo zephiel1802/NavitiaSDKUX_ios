@@ -17,22 +17,32 @@ import JustRideSDK
 @objc open class TicketViewController: UIViewController {
     
     @objc public var delegate: TicketViewDelegate?
+    private var masabiViewController: UIViewController!
     
     override open func viewDidLoad() {
         super.viewDidLoad()
         
         UIFont.registerFontWithFilenameString(filenameString: "SDKIcons.ttf", bundle: NavitiaSDKUI.shared.bundle)
-        
+    }
+    
+    override open func viewDidDisappear(_ animated: Bool) {
+        view.viewWithTag(999)?.removeFromSuperview()
+        masabiViewController.removeFromParentViewController()
+    }
+    
+    override open func viewWillAppear(_ animated: Bool) {
         (NavitiaSDKPartners.shared.getTicketManagement() as! MasabiTicketManagement).syncWalletWithErrorOnDeviceChange(callbackSuccess: {
             self._showTicketMasabi()
+            self.masabiViewController.view.tag = 999
+            self.addChildView(childViewController: self.masabiViewController)
         }, callbackError: { (statusCode, data) in
             switch statusCode {
             case NavitiaSDKPartnersReturnCode.masabiNoDeviceChangeCredit.getCode():
                 self.addChildView(childViewController: self._setupInformationViewController(information: "you_have_reached_the_allowed_number_of_device_switches".localized(bundle: NavitiaSDKUI.shared.bundle)))
             case NavitiaSDKPartnersReturnCode.masabiDeviceChangeError.getCode():
                 self.addChildView(childViewController: self._setupInformationViewController(titleButton: ["yes".localized(bundle: NavitiaSDKUI.shared.bundle),
-                                                                                                   "cancel".localized(bundle: NavitiaSDKUI.shared.bundle)],
-                                                                                     information: "your_wallet_is_bound_to_another_device".localized(bundle: NavitiaSDKUI.shared.bundle)))
+                                                                                                          "cancel".localized(bundle: NavitiaSDKUI.shared.bundle)],
+                                                                                            information: "your_wallet_is_bound_to_another_device".localized(bundle: NavitiaSDKUI.shared.bundle)))
             default:
                 self.addChildView(childViewController: self._setupInformationViewController(information: "an_error_occurred".localized(bundle: NavitiaSDKUI.shared.bundle)))
             }
@@ -48,7 +58,7 @@ import JustRideSDK
             guard let walletViewController = walletViewController as? MJRWalletViewController else {
                 return
             }
-            let navigationController = UINavigationController(rootViewController: walletViewController)
+            self.masabiViewController = UINavigationController(rootViewController: walletViewController)
             
             walletViewController.navigationItem.setLeftBarButton(UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.stop,
                                                                                  target: self.delegate,
@@ -57,8 +67,6 @@ import JustRideSDK
             walletViewController.navigationController?.navigationBar.tintColor = Configuration.Color.main
             walletViewController.navigationController?.navigationBar.barTintColor = Configuration.Color.white
             walletViewController.navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor : Configuration.Color.black]
-
-            self.addChildView(childViewController: navigationController)
         }) { (_, _) in }
     }
 
