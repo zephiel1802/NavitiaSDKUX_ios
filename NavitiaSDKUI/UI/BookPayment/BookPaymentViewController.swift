@@ -29,6 +29,7 @@ open class BookPaymentViewController: UIViewController {
                 if paymentReturnValue == .error {
                     self?._onInformationPressedButton()
                 }
+                self?.bookPaymentView.paymentWebView.stringByEvaluatingJavaScript(from: "document.open();document.close()")
                 self?.bookPaymentView.launchPayment()
             }
         }

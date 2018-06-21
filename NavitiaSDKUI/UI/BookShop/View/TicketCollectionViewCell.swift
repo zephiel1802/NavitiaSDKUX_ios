@@ -93,7 +93,7 @@ class TicketCollectionViewCell: UICollectionViewCell {
                   size: 12),
                                            for: .normal)
         informationButton.setAttributedTitle(NSMutableAttributedString()
-            .icon("disruption-information",
+            .icon("information-circled",
                   color: Configuration.Color.main,
                   size: 13),
                                              for: .normal)

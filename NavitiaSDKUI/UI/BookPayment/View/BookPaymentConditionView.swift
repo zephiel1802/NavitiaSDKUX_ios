@@ -40,7 +40,7 @@ open class BookPaymentConditionView: UIView {
                               color: Configuration.Color.red,
                               size: 12)
                 cguLabel.attributedText = NSMutableAttributedString()
-                    .semiBold(String(format: "%@.", "terms_and_conditions".localized(withComment: "Terms and Conditions", bundle: NavitiaSDKUI.shared.bundle)),
+                    .semiBold(String(format: "%@", "terms_and_conditions".localized(withComment: "Terms and Conditions", bundle: NavitiaSDKUI.shared.bundle)),
                           color: Configuration.Color.red,
                           size: 12,
                           underline: true)
@@ -52,7 +52,7 @@ open class BookPaymentConditionView: UIView {
                             color: Configuration.Color.gray,
                             size: 12)
                 cguLabel.attributedText = NSMutableAttributedString()
-                    .semiBold(String(format: "%@.", "terms_and_conditions".localized(withComment: "Terms and Conditions", bundle: NavitiaSDKUI.shared.bundle)),
+                    .semiBold(String(format: "%@", "terms_and_conditions".localized(withComment: "Terms and Conditions", bundle: NavitiaSDKUI.shared.bundle)),
                               color: Configuration.Color.gray,
                               size: 12,
                               underline: true)

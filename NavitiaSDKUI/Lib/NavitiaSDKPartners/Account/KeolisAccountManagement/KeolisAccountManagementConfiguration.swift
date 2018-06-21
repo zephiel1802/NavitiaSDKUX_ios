@@ -15,11 +15,7 @@ import Foundation
     public var encodedSecretClient64WS : String
     
     public let type : AccountManagementType = .Keolis
-    #if DEBUG
-        public let url : String = "https://preprod-moncompte.keolis.com"
-    #else
-        public let url : String = "https://moncompte.keolis.com"
-    #endif
+    public let url : String = "https://preprod-moncompte.keolis.com"
     public let typeFlux : String = "QU"
     public let ssaEmeteur : String = "WEB"
     public let ssaRecepteur : String = "CRM"
