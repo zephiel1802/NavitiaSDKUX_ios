@@ -12,13 +12,8 @@ import Foundation
     
     public let type: BookManagementType = .VSCT
     
-    #if DEBUG
-        public let url: String = "https://preprod1.vad.vad.keolis.vsct.fr/api/rs/"
-        public let baseUrl : String = "https://preprod1.vad.vad.keolis.vsct.fr"
-    #else
-        public let url: String = "https://vad.keolis.com/api/rs/"
-        public let baseUrl : String = "https://vad.keolis.com"
-    #endif
+    public let url: String = "https://preprod1.vad.vad.keolis.vsct.fr/api/rs/"
+    public let baseUrl : String = "https://preprod1.vad.vad.keolis.vsct.fr"
     
     public var network: String
     
