@@ -39,18 +39,23 @@ import JustRideSDK
             self._showTicketMasabi()
             self._displayMasabiViewController()
         }, callbackError: { (statusCode, data) in
+            self.view.customActivityIndicatory(startAnimate: false)
             switch statusCode {
             case NavitiaSDKPartnersReturnCode.masabiNoDeviceChangeCredit.getCode():
                 self._informationViewController = self._setupInformationViewController(information: "you_have_reached_the_allowed_number_of_device_switches".localized(bundle: NavitiaSDKUI.shared.bundle))
+                self._displayInformationViewController()
             case NavitiaSDKPartnersReturnCode.masabiDeviceChangeError.getCode():
                 self._informationViewController = self._setupInformationViewController(titleButton: ["yes".localized(bundle: NavitiaSDKUI.shared.bundle),
                                                                                                "cancel".localized(bundle: NavitiaSDKUI.shared.bundle)],
                                                                                  information: "your_wallet_is_bound_to_another_device".localized(bundle: NavitiaSDKUI.shared.bundle))
+                self._displayInformationViewController()
+            case NavitiaSDKPartnersReturnCode.notConnected.getCode():
+                self._showTicketMasabi()
+                self._displayMasabiViewController()
             default:
                 self._informationViewController = self._setupInformationViewController(information: "an_error_occurred".localized(bundle: NavitiaSDKUI.shared.bundle))
+                self._displayInformationViewController()
             }
-            self.view.customActivityIndicatory(startAnimate: false)
-            self._displayInformationViewController()
         })
     }
     
