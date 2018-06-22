@@ -129,6 +129,8 @@ extension TicketViewController: InformationViewDelegate {
                 self._displayMasabiViewController()
             }) { (_, _) in
                 self.view.customActivityIndicatory(startAnimate: false)
+                self._informationViewController = self._setupInformationViewController(information: "an_error_occurred".localized(bundle: NavitiaSDKUI.shared.bundle))
+                self._displayInformationViewController()
             }
         }
     }
