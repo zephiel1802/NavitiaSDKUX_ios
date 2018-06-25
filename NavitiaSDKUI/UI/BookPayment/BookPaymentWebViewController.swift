@@ -128,8 +128,12 @@ extension BookPaymentWebViewController: InformationViewDelegate {
     
     func onFirstButtonClicked(_ informationViewController: InformationViewController) {
         informationViewController.dismiss(animated: true) {
-            self.dismiss(animated: true, completion: nil)
+            self.onDismiss()
         }
+    }
+    
+    func onBackgroundButtonClicked(_ informationViewController: InformationViewController) {
+        self.onDismiss()
     }
     
 }

@@ -11,6 +11,7 @@ import UIKit
     
     func onFirstButtonClicked(_ informationViewController: InformationViewController)
     @objc optional func onSecondButtonClicked(_ informationViewController: InformationViewController)
+    @objc optional func onBackgroundButtonClicked(_ informationViewController: InformationViewController)
     
 }
 
@@ -89,7 +90,9 @@ class InformationViewController: UIViewController {
     }
     
     @IBAction func onBackgroundButtonCliked(_ sender: Any) {
-        dismiss(animated: true, completion: nil)
+        dismiss(animated: true) {
+            self.delegate?.onBackgroundButtonClicked?(self)
+        }
     }
 
 }
