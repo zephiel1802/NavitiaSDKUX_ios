@@ -185,7 +185,7 @@ import UIKit
     }
     
     @IBAction func onTypePressedSegmentControl(_ sender: UISegmentedControl) {
-        if sender.selectedSegmentIndex == 1 && !_viewModel.isConnected {
+        if sender.selectedSegmentIndex == 1 && !_viewModel.isConnected && !_viewModel.notConnected {
             sender.selectedSegmentIndex = 0
             _onInformationPressedButton()
         } else {

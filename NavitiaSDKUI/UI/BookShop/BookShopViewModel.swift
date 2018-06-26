@@ -11,6 +11,7 @@ class BookShopViewModel: NSObject {
     
     public var bookShopDidChange: ((BookShopViewModel) -> ())?
     public private(set) var loading: Bool = true
+    public private(set) var notConnected: Bool = false
     
     var bookOffer = [[VSCTBookOffer]]() {
         didSet {
@@ -25,8 +26,11 @@ class BookShopViewModel: NSObject {
             self.bookOffer.append(offersArray.filter { ($0 as! VSCTBookOffer).type == .Ticket } as! [VSCTBookOffer])
             self.bookOffer.append(offersArray.filter { ($0 as! VSCTBookOffer).type == .Membership } as! [VSCTBookOffer])
             self.loading = false
-        }) {(statusCode, data) in
+            self.notConnected = false
+        }) { (statusCode, data) in
+            self.notConnected = true
             self.loading = false
+            self.bookOffer = []
         }
     }
     
