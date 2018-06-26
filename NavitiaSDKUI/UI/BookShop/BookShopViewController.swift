@@ -180,6 +180,7 @@ import UIKit
     }
 
     @objc open func refresh() {
+        typeSegmentedControl.selectedSegmentIndex = 0
         _viewModel?.request()
     }
     
