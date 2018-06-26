@@ -70,8 +70,8 @@ import JustRideSDK
             self._masabiViewController = UINavigationController(rootViewController: walletViewController)
             
             walletViewController.navigationItem.setLeftBarButton(UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.stop,
-                                                                                 target: self.delegate,
-                                                                                 action: #selector(self.delegate?.onDismissTicket)),
+                                                                                 target: self,
+                                                                                 action: #selector(self.dismissView)),
                                                                  animated: false)
             walletViewController.navigationController?.navigationBar.tintColor = Configuration.Color.main
             walletViewController.navigationController?.navigationBar.barTintColor = Configuration.Color.white
