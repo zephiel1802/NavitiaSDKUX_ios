@@ -25,13 +25,14 @@ import UIKit
     private var _dismissDelegate: Bool = false
     @objc public var bookTicketDelegate: BookTicketDelegate?
     @objc public var backButtonIsHidden: Bool = false
+    weak var timer: Timer?
     
     fileprivate var _viewModel: BookShopViewModel! {
         didSet {
             self._viewModel.bookShopDidChange = { [weak self] bookShopViewModel in
                 self?.collectionView.reloadData()
                 self?.collectionViewDisplayBackground()
-                self?._reloadCart()
+                self?._reloadCartDebouncer()
                 if let typeSegmentedControl = self?.typeSegmentedControl {
                     typeSegmentedControl.selectedSegmentIndex = 0
                 }
@@ -152,7 +153,7 @@ import UIKit
     private func _animationValidateBasket(animated: Bool, hidden: Bool) {
         var duration = 0.0
         if animated {
-            duration = 0.4
+            duration = 0.3
         }
         if hidden {
             self.collectionViewBottomContraint.constant = 0
@@ -173,7 +174,13 @@ import UIKit
         }
     }
     
-    private func _reloadCart() {
+    private func _reloadCartDebouncer() {
+        timer?.invalidate()
+        let nextTimer = Timer.scheduledTimer(timeInterval: 0.30, target: self, selector: #selector(self._reloadCart), userInfo: nil, repeats: false)
+        timer = nextTimer
+    }
+    
+    @objc private func _reloadCart() {
         if NavitiaSDKPartners.shared.cart.isEmpty {
             _animationValidateBasket(animated: true, hidden: true)
         } else {
@@ -307,7 +314,7 @@ extension BookShopViewController: TicketCollectionViewCellDelegate {
         if let id = ticketCollectionViewCell.id {
             NavitiaSDKPartners.shared.removeOffer(offerId: id, callbackSuccess: {
                 ticketCollectionViewCell.quantity -= 1
-                self._reloadCart()
+                self._reloadCartDebouncer()
             }) { (statusCode, data) in
                 let informationViewController = self.informationViewController(information: "an_error_occurred".localized(bundle: NavitiaSDKUI.shared.bundle))
                 informationViewController.delegate = self
