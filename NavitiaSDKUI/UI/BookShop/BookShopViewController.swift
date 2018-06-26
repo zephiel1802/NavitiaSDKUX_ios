@@ -32,6 +32,9 @@ import UIKit
                 self?.collectionView.reloadData()
                 self?.collectionViewDisplayBackground()
                 self?._reloadCart()
+                if let typeSegmentedControl = self?.typeSegmentedControl {
+                    typeSegmentedControl.selectedSegmentIndex = 0
+                }
             }
         }
     }
@@ -180,7 +183,6 @@ import UIKit
     }
 
     @objc open func refresh() {
-        typeSegmentedControl.selectedSegmentIndex = 0
         _viewModel?.request()
     }
     
