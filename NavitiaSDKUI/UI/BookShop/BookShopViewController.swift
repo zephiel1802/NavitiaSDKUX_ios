@@ -354,7 +354,9 @@ extension BookShopViewController: InformationViewDelegate {
     
     func onFirstButtonClicked(_ informationViewController: InformationViewController) {
         if informationViewController.tagName == "connection" {
-            bookTicketDelegate?.onDisplayConnectionAccount()
+            informationViewController.dismiss(animated: true) {
+                self.bookTicketDelegate?.onDisplayConnectionAccount()
+            }
         } else {
             informationViewController.dismiss(animated: true) {}
         }
@@ -362,7 +364,9 @@ extension BookShopViewController: InformationViewDelegate {
     
     func onSecondButtonClicked(_ informationViewController: InformationViewController) {
         if informationViewController.tagName == "connection" {
-            bookTicketDelegate?.onDisplayCreateAccount()
+            informationViewController.dismiss(animated: true) {
+                self.bookTicketDelegate?.onDisplayCreateAccount()
+            }
         } else {
             informationViewController.dismiss(animated: true) {}
         }
