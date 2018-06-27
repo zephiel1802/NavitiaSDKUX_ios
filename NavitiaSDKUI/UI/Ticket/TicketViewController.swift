@@ -20,6 +20,7 @@ import JustRideSDK
     
     private var _masabiViewController: UIViewController!
     private var _informationViewController: UIViewController!
+    private var _isDisplayed = false
     
     override open func viewDidLoad() {
         super.viewDidLoad()
@@ -27,36 +28,37 @@ import JustRideSDK
         UIFont.registerFontWithFilenameString(filenameString: "SDKIcons.ttf", bundle: NavitiaSDKUI.shared.bundle)
     }
     
-    override open func viewDidDisappear(_ animated: Bool) {
-        _removeMasabiViewControler()
-        _removeInformationViewControler()
-    }
-    
     override open func viewWillAppear(_ animated: Bool) {
-        view.customActivityIndicatory(startAnimate: true)
-        (NavitiaSDKPartners.shared.getTicketManagement() as! MasabiTicketManagement).syncWalletWithErrorOnDeviceChange(callbackSuccess: {
-            self.view.customActivityIndicatory(startAnimate: false)
-            self._showTicketMasabi()
-            self._displayMasabiViewController()
-        }, callbackError: { (statusCode, data) in
-            self.view.customActivityIndicatory(startAnimate: false)
-            switch statusCode {
-            case NavitiaSDKPartnersReturnCode.masabiNoDeviceChangeCredit.getCode():
-                self._informationViewController = self._setupInformationViewController(information: "you_have_reached_the_allowed_number_of_device_switches".localized(bundle: NavitiaSDKUI.shared.bundle))
-                self._displayInformationViewController()
-            case NavitiaSDKPartnersReturnCode.masabiDeviceChangeError.getCode():
-                self._informationViewController = self._setupInformationViewController(titleButton: ["yes".localized(bundle: NavitiaSDKUI.shared.bundle),
-                                                                                               "cancel".localized(bundle: NavitiaSDKUI.shared.bundle)],
-                                                                                 information: "your_wallet_is_bound_to_another_device".localized(bundle: NavitiaSDKUI.shared.bundle))
-                self._displayInformationViewController()
-            case NavitiaSDKPartnersReturnCode.notConnected.getCode():
+        if !_isDisplayed {
+            _isDisplayed = true
+            
+            view.customActivityIndicatory(startAnimate: true)
+            
+            (NavitiaSDKPartners.shared.getTicketManagement() as! MasabiTicketManagement).syncWalletWithErrorOnDeviceChange(callbackSuccess: {
+                self.view.customActivityIndicatory(startAnimate: false)
                 self._showTicketMasabi()
                 self._displayMasabiViewController()
-            default:
-                self._informationViewController = self._setupInformationViewController(information: "an_error_occurred".localized(bundle: NavitiaSDKUI.shared.bundle))
-                self._displayInformationViewController()
-            }
-        })
+            }, callbackError: { (statusCode, data) in
+                self.view.customActivityIndicatory(startAnimate: false)
+                
+                switch statusCode {
+                case NavitiaSDKPartnersReturnCode.masabiNoDeviceChangeCredit.getCode():
+                    self._informationViewController = self._setupInformationViewController(information: "you_have_reached_the_allowed_number_of_device_switches".localized(bundle: NavitiaSDKUI.shared.bundle))
+                    self._displayInformationViewController()
+                case NavitiaSDKPartnersReturnCode.masabiDeviceChangeError.getCode():
+                    self._informationViewController = self._setupInformationViewController(titleButton: ["yes".localized(bundle: NavitiaSDKUI.shared.bundle),
+                                                                                                         "cancel".localized(bundle: NavitiaSDKUI.shared.bundle)],
+                                                                                           information: "your_wallet_is_bound_to_another_device".localized(bundle: NavitiaSDKUI.shared.bundle))
+                    self._displayInformationViewController()
+                case NavitiaSDKPartnersReturnCode.notConnected.getCode():
+                    self._showTicketMasabi()
+                    self._displayMasabiViewController()
+                default:
+                    self._informationViewController = self._setupInformationViewController(information: "an_error_occurred".localized(bundle: NavitiaSDKUI.shared.bundle))
+                    self._displayInformationViewController()
+                }
+            })
+        }
     }
     
     override open func didReceiveMemoryWarning() {
@@ -71,8 +73,8 @@ import JustRideSDK
             self._masabiViewController = UINavigationController(rootViewController: walletViewController)
             
             walletViewController.navigationItem.setLeftBarButton(UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.stop,
-                                                                                 target: self.delegate,
-                                                                                 action: #selector(self.delegate?.onDismissTicket)),
+                                                                                 target: self,
+                                                                                 action: #selector(self.dismissView)),
                                                                  animated: false)
             walletViewController.navigationController?.navigationBar.tintColor = Configuration.Color.main
             walletViewController.navigationController?.navigationBar.barTintColor = Configuration.Color.white
@@ -116,6 +118,13 @@ import JustRideSDK
         if let informationViewController = _informationViewController {
             informationViewController.removeFromParentViewController()
         }
+    }
+    
+    @objc func dismissView() {
+        _removeMasabiViewControler()
+        _removeInformationViewControler()
+        _isDisplayed = false
+        delegate?.onDismissTicket()
     }
     
 }

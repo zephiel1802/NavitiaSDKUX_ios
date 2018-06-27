@@ -11,6 +11,7 @@ class BookShopViewModel: NSObject {
     
     public var bookShopDidChange: ((BookShopViewModel) -> ())?
     public private(set) var loading: Bool = true
+    public private(set) var offersRetrieved: Bool = true
     
     var bookOffer = [[VSCTBookOffer]]() {
         didSet {
@@ -20,13 +21,17 @@ class BookShopViewModel: NSObject {
     
     func request() {
         loading = true
-        self.bookOffer = []
+        bookOffer = []
+        
         NavitiaSDKPartners.shared.getOffers(callbackSuccess: { (offersArray) in
             self.bookOffer.append(offersArray.filter { ($0 as! VSCTBookOffer).type == .Ticket } as! [VSCTBookOffer])
             self.bookOffer.append(offersArray.filter { ($0 as! VSCTBookOffer).type == .Membership } as! [VSCTBookOffer])
             self.loading = false
-        }) {(statusCode, data) in
+            self.offersRetrieved = true
+        }) { (statusCode, data) in
+            self.offersRetrieved = false
             self.loading = false
+            self.bookShopDidChange!(self)
         }
     }
     

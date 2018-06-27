@@ -25,13 +25,14 @@ import UIKit
     private var _dismissDelegate: Bool = false
     @objc public var bookTicketDelegate: BookTicketDelegate?
     @objc public var backButtonIsHidden: Bool = false
+    weak var timer: Timer?
     
     fileprivate var _viewModel: BookShopViewModel! {
         didSet {
             self._viewModel.bookShopDidChange = { [weak self] bookShopViewModel in
                 self?.collectionView.reloadData()
                 self?.collectionViewDisplayBackground()
-                self?._reloadCart()
+                self?._reloadCartDebouncer()
             }
         }
     }
@@ -149,7 +150,7 @@ import UIKit
     private func _animationValidateBasket(animated: Bool, hidden: Bool) {
         var duration = 0.0
         if animated {
-            duration = 0.4
+            duration = 0.3
         }
         if hidden {
             self.collectionViewBottomContraint.constant = 0
@@ -170,7 +171,12 @@ import UIKit
         }
     }
     
-    private func _reloadCart() {
+    private func _reloadCartDebouncer() {
+        timer?.invalidate()
+        timer = Timer.scheduledTimer(timeInterval: 0.30, target: self, selector: #selector(self._reloadCart), userInfo: nil, repeats: false)
+    }
+    
+    @objc private func _reloadCart() {
         if NavitiaSDKPartners.shared.cart.isEmpty {
             _animationValidateBasket(animated: true, hidden: true)
         } else {
@@ -184,7 +190,7 @@ import UIKit
     }
     
     @IBAction func onTypePressedSegmentControl(_ sender: UISegmentedControl) {
-        if sender.selectedSegmentIndex == 1 && !_viewModel.isConnected {
+        if sender.selectedSegmentIndex == 1 && !_viewModel.isConnected && _viewModel.offersRetrieved {
             sender.selectedSegmentIndex = 0
             _onInformationPressedButton()
         } else {
@@ -304,7 +310,7 @@ extension BookShopViewController: TicketCollectionViewCellDelegate {
         if let id = ticketCollectionViewCell.id {
             NavitiaSDKPartners.shared.removeOffer(offerId: id, callbackSuccess: {
                 ticketCollectionViewCell.quantity -= 1
-                self._reloadCart()
+                self._reloadCartDebouncer()
             }) { (statusCode, data) in
                 let informationViewController = self.informationViewController(information: "an_error_occurred".localized(bundle: NavitiaSDKUI.shared.bundle))
                 informationViewController.delegate = self
@@ -354,7 +360,9 @@ extension BookShopViewController: InformationViewDelegate {
     
     func onFirstButtonClicked(_ informationViewController: InformationViewController) {
         if informationViewController.tagName == "connection" {
-            bookTicketDelegate?.onDisplayConnectionAccount()
+            informationViewController.dismiss(animated: true) {
+                self.bookTicketDelegate?.onDisplayConnectionAccount()
+            }
         } else {
             informationViewController.dismiss(animated: true) {}
         }
@@ -362,7 +370,9 @@ extension BookShopViewController: InformationViewDelegate {
     
     func onSecondButtonClicked(_ informationViewController: InformationViewController) {
         if informationViewController.tagName == "connection" {
-            bookTicketDelegate?.onDisplayCreateAccount()
+            informationViewController.dismiss(animated: true) {
+                self.bookTicketDelegate?.onDisplayCreateAccount()
+            }
         } else {
             informationViewController.dismiss(animated: true) {}
         }
