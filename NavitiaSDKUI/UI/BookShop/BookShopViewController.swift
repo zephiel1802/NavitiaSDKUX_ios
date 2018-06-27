@@ -33,9 +33,6 @@ import UIKit
                 self?.collectionView.reloadData()
                 self?.collectionViewDisplayBackground()
                 self?._reloadCartDebouncer()
-                if let typeSegmentedControl = self?.typeSegmentedControl {
-                    typeSegmentedControl.selectedSegmentIndex = 0
-                }
             }
         }
     }
