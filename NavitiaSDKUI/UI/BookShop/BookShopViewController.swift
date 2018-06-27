@@ -173,8 +173,7 @@ import UIKit
     
     private func _reloadCartDebouncer() {
         timer?.invalidate()
-        let nextTimer = Timer.scheduledTimer(timeInterval: 0.30, target: self, selector: #selector(self._reloadCart), userInfo: nil, repeats: false)
-        timer = nextTimer
+        timer = Timer.scheduledTimer(timeInterval: 0.30, target: self, selector: #selector(self._reloadCart), userInfo: nil, repeats: false)
     }
     
     @objc private func _reloadCart() {
@@ -191,7 +190,7 @@ import UIKit
     }
     
     @IBAction func onTypePressedSegmentControl(_ sender: UISegmentedControl) {
-        if sender.selectedSegmentIndex == 1 && !_viewModel.isConnected && !_viewModel.notConnected {
+        if sender.selectedSegmentIndex == 1 && !_viewModel.isConnected && _viewModel.offersRetrieved {
             sender.selectedSegmentIndex = 0
             _onInformationPressedButton()
         } else {

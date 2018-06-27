@@ -20,7 +20,7 @@ import JustRideSDK
     
     private var _masabiViewController: UIViewController!
     private var _informationViewController: UIViewController!
-    private var _isDisplay = false
+    private var _isDisplayed = false
     
     override open func viewDidLoad() {
         super.viewDidLoad()
@@ -29,15 +29,18 @@ import JustRideSDK
     }
     
     override open func viewWillAppear(_ animated: Bool) {
-        if !_isDisplay {
-            _isDisplay = true
+        if !_isDisplayed {
+            _isDisplayed = true
+            
             view.customActivityIndicatory(startAnimate: true)
+            
             (NavitiaSDKPartners.shared.getTicketManagement() as! MasabiTicketManagement).syncWalletWithErrorOnDeviceChange(callbackSuccess: {
                 self.view.customActivityIndicatory(startAnimate: false)
                 self._showTicketMasabi()
                 self._displayMasabiViewController()
             }, callbackError: { (statusCode, data) in
                 self.view.customActivityIndicatory(startAnimate: false)
+                
                 switch statusCode {
                 case NavitiaSDKPartnersReturnCode.masabiNoDeviceChangeCredit.getCode():
                     self._informationViewController = self._setupInformationViewController(information: "you_have_reached_the_allowed_number_of_device_switches".localized(bundle: NavitiaSDKUI.shared.bundle))
@@ -120,7 +123,7 @@ import JustRideSDK
     @objc func dismissView() {
         _removeMasabiViewControler()
         _removeInformationViewControler()
-        _isDisplay = false
+        _isDisplayed = false
         delegate?.onDismissTicket()
     }
     

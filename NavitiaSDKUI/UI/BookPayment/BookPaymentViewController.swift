@@ -75,7 +75,6 @@ open class BookPaymentViewController: UIViewController {
     
     private func _displayLogin() {
         let bookPaymentProfilView = BookPaymentProfilView(frame: CGRect(x: 0, y: 0, width: 0, height: 75))
-        bookPaymentProfilView.name = ""
         NavitiaSDKPartners.shared.getUserInfo(callbackSuccess: { (userInfo) in
             if let userInfo = userInfo as? KeolisUserInfo {
                bookPaymentProfilView.name = String(format: "%@ %@", userInfo.firstName, userInfo.lastName)
