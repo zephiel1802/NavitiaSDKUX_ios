@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0066E0653BD484BEB0B4EED9 /* Pods_NavitiaSDKUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F45D8CB91F7D5B8EFBCA467D /* Pods_NavitiaSDKUITests.framework */; };
 		3126559520AEF67A00D50F4B /* BookPaymentOfferView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3126558520AEF67A00D50F4B /* BookPaymentOfferView.xib */; };
 		3126559620AEF67A00D50F4B /* BookPaymentCartView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3126558620AEF67A00D50F4B /* BookPaymentCartView.xib */; };
 		3126559720AEF67A00D50F4B /* BookPaymentProfilView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3126558720AEF67A00D50F4B /* BookPaymentProfilView.xib */; };
@@ -22,95 +23,6 @@
 		312655A120AEF67A00D50F4B /* BookPaymentConditionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3126559220AEF67A00D50F4B /* BookPaymentConditionView.swift */; };
 		312655A220AEF67A00D50F4B /* BookPaymentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3126559320AEF67A00D50F4B /* BookPaymentViewModel.swift */; };
 		312655A320AEF67A00D50F4B /* BookPaymentWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3126559420AEF67A00D50F4B /* BookPaymentWebViewController.swift */; };
-		3126560920AEF9C500D50F4B /* NavitiaSDKPartnersRequestBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312655A620AEF9C500D50F4B /* NavitiaSDKPartnersRequestBuilder.swift */; };
-		3126560A20AEF9C500D50F4B /* NavitiaSDKPartnersCourtesyEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312655A720AEF9C500D50F4B /* NavitiaSDKPartnersCourtesyEnum.swift */; };
-		3126560B20AEF9C500D50F4B /* NavitiaSDKPartnersReturnCodes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312655A820AEF9C500D50F4B /* NavitiaSDKPartnersReturnCodes.swift */; };
-		3126560C20AEF9C500D50F4B /* NavitiaBookCartItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312655A920AEF9C500D50F4B /* NavitiaBookCartItem.swift */; };
-		3126560D20AEF9C500D50F4B /* AES.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312655AB20AEF9C500D50F4B /* AES.swift */; };
-		3126560E20AEF9C500D50F4B /* UInt64+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312655AC20AEF9C500D50F4B /* UInt64+Extension.swift */; };
-		3126560F20AEF9C500D50F4B /* Cryptors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312655AD20AEF9C500D50F4B /* Cryptors.swift */; };
-		3126561020AEF9C500D50F4B /* Cipher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312655AE20AEF9C500D50F4B /* Cipher.swift */; };
-		3126561120AEF9C500D50F4B /* Int+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312655AF20AEF9C500D50F4B /* Int+Extension.swift */; };
-		3126561220AEF9C500D50F4B /* Bit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312655B020AEF9C500D50F4B /* Bit.swift */; };
-		3126561320AEF9C500D50F4B /* HMAC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312655B120AEF9C500D50F4B /* HMAC.swift */; };
-		3126561420AEF9C500D50F4B /* UInt16+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312655B220AEF9C500D50F4B /* UInt16+Extension.swift */; };
-		3126561520AEF9C500D50F4B /* UInt32+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312655B320AEF9C500D50F4B /* UInt32+Extension.swift */; };
-		3126561620AEF9C500D50F4B /* Digest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312655B420AEF9C500D50F4B /* Digest.swift */; };
-		3126561720AEF9C500D50F4B /* NoPadding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312655B520AEF9C500D50F4B /* NoPadding.swift */; };
-		3126561820AEF9C500D50F4B /* CSArrayType+Foundation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312655B720AEF9C500D50F4B /* CSArrayType+Foundation.swift */; };
-		3126561920AEF9C500D50F4B /* String+FoundationExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312655B820AEF9C500D50F4B /* String+FoundationExtension.swift */; };
-		3126561A20AEF9C500D50F4B /* Blowfish+Foundation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312655B920AEF9C500D50F4B /* Blowfish+Foundation.swift */; };
-		3126561B20AEF9C500D50F4B /* Utils+Foundation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312655BA20AEF9C500D50F4B /* Utils+Foundation.swift */; };
-		3126561C20AEF9C500D50F4B /* HMAC+Foundation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312655BB20AEF9C500D50F4B /* HMAC+Foundation.swift */; };
-		3126561D20AEF9C500D50F4B /* Data+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312655BC20AEF9C500D50F4B /* Data+Extension.swift */; };
-		3126561E20AEF9C500D50F4B /* ChaCha20+Foundation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312655BD20AEF9C500D50F4B /* ChaCha20+Foundation.swift */; };
-		3126561F20AEF9C500D50F4B /* AES+Foundation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312655BE20AEF9C500D50F4B /* AES+Foundation.swift */; };
-		3126562020AEF9C500D50F4B /* Rabbit+Foundation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312655BF20AEF9C500D50F4B /* Rabbit+Foundation.swift */; };
-		3126562120AEF9C500D50F4B /* UInt8+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312655C020AEF9C500D50F4B /* UInt8+Extension.swift */; };
-		3126562220AEF9C500D50F4B /* MD5.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312655C120AEF9C500D50F4B /* MD5.swift */; };
-		3126562320AEF9C500D50F4B /* BatchedCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312655C220AEF9C500D50F4B /* BatchedCollection.swift */; };
-		3126562420AEF9C500D50F4B /* PKCS5.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312655C420AEF9C500D50F4B /* PKCS5.swift */; };
-		3126562520AEF9C500D50F4B /* PBKDF2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312655C520AEF9C500D50F4B /* PBKDF2.swift */; };
-		3126562620AEF9C500D50F4B /* PBKDF1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312655C620AEF9C500D50F4B /* PBKDF1.swift */; };
-		3126562720AEF9C500D50F4B /* SecureBytes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312655C720AEF9C500D50F4B /* SecureBytes.swift */; };
-		3126562820AEF9C500D50F4B /* ZeroPadding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312655C820AEF9C500D50F4B /* ZeroPadding.swift */; };
-		3126562920AEF9C500D50F4B /* Authenticator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312655C920AEF9C500D50F4B /* Authenticator.swift */; };
-		3126562A20AEF9C500D50F4B /* SHA3.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312655CA20AEF9C500D50F4B /* SHA3.swift */; };
-		3126562B20AEF9C500D50F4B /* RandomBytesSequence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312655CB20AEF9C500D50F4B /* RandomBytesSequence.swift */; };
-		3126562C20AEF9C500D50F4B /* Rabbit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312655CC20AEF9C500D50F4B /* Rabbit.swift */; };
-		3126562D20AEF9C500D50F4B /* PKCS7.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312655CD20AEF9C500D50F4B /* PKCS7.swift */; };
-		3126562E20AEF9C500D50F4B /* SHA1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312655CE20AEF9C500D50F4B /* SHA1.swift */; };
-		3126562F20AEF9C500D50F4B /* Poly1305.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312655CF20AEF9C500D50F4B /* Poly1305.swift */; };
-		3126563020AEF9C500D50F4B /* BlockCipher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312655D020AEF9C500D50F4B /* BlockCipher.swift */; };
-		3126563120AEF9C500D50F4B /* Updatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312655D120AEF9C500D50F4B /* Updatable.swift */; };
-		3126563220AEF9C500D50F4B /* Blowfish.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312655D220AEF9C500D50F4B /* Blowfish.swift */; };
-		3126563320AEF9C500D50F4B /* DigestType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312655D320AEF9C500D50F4B /* DigestType.swift */; };
-		3126563420AEF9C500D50F4B /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312655D420AEF9C500D50F4B /* Utils.swift */; };
-		3126563520AEF9C500D50F4B /* Generics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312655D520AEF9C500D50F4B /* Generics.swift */; };
-		3126563620AEF9C500D50F4B /* Checksum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312655D620AEF9C500D50F4B /* Checksum.swift */; };
-		3126563720AEF9C500D50F4B /* RandomAccessCryptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312655D720AEF9C500D50F4B /* RandomAccessCryptor.swift */; };
-		3126563820AEF9C500D50F4B /* SHA2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312655D820AEF9C500D50F4B /* SHA2.swift */; };
-		3126563920AEF9C500D50F4B /* Padding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312655D920AEF9C500D50F4B /* Padding.swift */; };
-		3126563A20AEF9C500D50F4B /* CSArrayType+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312655DA20AEF9C500D50F4B /* CSArrayType+Extensions.swift */; };
-		3126563B20AEF9C500D50F4B /* BlockModeOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312655DC20AEF9C500D50F4B /* BlockModeOptions.swift */; };
-		3126563C20AEF9C500D50F4B /* CFB.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312655DD20AEF9C500D50F4B /* CFB.swift */; };
-		3126563D20AEF9C500D50F4B /* CBC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312655DE20AEF9C500D50F4B /* CBC.swift */; };
-		3126563E20AEF9C500D50F4B /* RandomAccessBlockModeWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312655DF20AEF9C500D50F4B /* RandomAccessBlockModeWorker.swift */; };
-		3126563F20AEF9C500D50F4B /* ECB.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312655E020AEF9C500D50F4B /* ECB.swift */; };
-		3126564020AEF9C500D50F4B /* PCBC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312655E120AEF9C500D50F4B /* PCBC.swift */; };
-		3126564120AEF9C500D50F4B /* BlockModeWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312655E220AEF9C500D50F4B /* BlockModeWorker.swift */; };
-		3126564220AEF9C500D50F4B /* BlockMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312655E320AEF9C500D50F4B /* BlockMode.swift */; };
-		3126564320AEF9C500D50F4B /* CTR.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312655E420AEF9C500D50F4B /* CTR.swift */; };
-		3126564420AEF9C500D50F4B /* OFB.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312655E520AEF9C500D50F4B /* OFB.swift */; };
-		3126564520AEF9C500D50F4B /* ChaCha20.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312655E620AEF9C500D50F4B /* ChaCha20.swift */; };
-		3126564620AEF9C500D50F4B /* Array+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312655E720AEF9C500D50F4B /* Array+Extension.swift */; };
-		3126564720AEF9C500D50F4B /* NavitiaBookOfferType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312655E820AEF9C500D50F4B /* NavitiaBookOfferType.swift */; };
-		3126564820AEF9C500D50F4B /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312655E920AEF9C500D50F4B /* Reachability.swift */; };
-		3126564920AEF9C500D50F4B /* NavitiaUserInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312655EA20AEF9C500D50F4B /* NavitiaUserInfo.swift */; };
-		3126564A20AEF9C500D50F4B /* NavitiaSDKPartnersPrice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312655EB20AEF9C500D50F4B /* NavitiaSDKPartnersPrice.swift */; };
-		3126564B20AEF9C500D50F4B /* NavitiaBookOffer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312655EC20AEF9C500D50F4B /* NavitiaBookOffer.swift */; };
-		3126564C20AEF9C500D50F4B /* NavitiaSDKPartnersParameterCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312655ED20AEF9C500D50F4B /* NavitiaSDKPartnersParameterCode.swift */; };
-		3126564D20AEF9C500D50F4B /* SWXMLHash.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312655EF20AEF9C500D50F4B /* SWXMLHash.swift */; };
-		3126564E20AEF9C500D50F4B /* SWXMLHash+TypeConversion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312655F020AEF9C500D50F4B /* SWXMLHash+TypeConversion.swift */; };
-		3126564F20AEF9C500D50F4B /* NavitiaSDKPartnersExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312655F120AEF9C500D50F4B /* NavitiaSDKPartnersExtension.swift */; };
-		3126565020AEF9C500D50F4B /* NavitiaSDKPartners.h in Headers */ = {isa = PBXBuildFile; fileRef = 312655F220AEF9C500D50F4B /* NavitiaSDKPartners.h */; };
-		3126565120AEF9C500D50F4B /* NavitiaSDKPartners.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312655F320AEF9C500D50F4B /* NavitiaSDKPartners.swift */; };
-		3126565220AEF9C500D50F4B /* BookManagement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312655F520AEF9C500D50F4B /* BookManagement.swift */; };
-		3126565320AEF9C500D50F4B /* BookManagementType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312655F620AEF9C500D50F4B /* BookManagementType.swift */; };
-		3126565420AEF9C500D50F4B /* BookManagementConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312655F720AEF9C500D50F4B /* BookManagementConfiguration.swift */; };
-		3126565520AEF9C500D50F4B /* NavitiaSDKPartnersSogenActif.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312655F920AEF9C500D50F4B /* NavitiaSDKPartnersSogenActif.swift */; };
-		3126565620AEF9C500D50F4B /* VSCTBookManagement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312655FB20AEF9C500D50F4B /* VSCTBookManagement.swift */; };
-		3126565720AEF9C500D50F4B /* VSCTBookOffer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312655FC20AEF9C500D50F4B /* VSCTBookOffer.swift */; };
-		3126565820AEF9C500D50F4B /* VSCTBookManagementConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312655FD20AEF9C500D50F4B /* VSCTBookManagementConfiguration.swift */; };
-		3126565920AEF9C500D50F4B /* AccountManagement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312655FF20AEF9C500D50F4B /* AccountManagement.swift */; };
-		3126565A20AEF9C500D50F4B /* KeolisUserInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3126560120AEF9C500D50F4B /* KeolisUserInfo.swift */; };
-		3126565B20AEF9C500D50F4B /* KeolisAccountManagementConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3126560220AEF9C500D50F4B /* KeolisAccountManagementConfiguration.swift */; };
-		3126565C20AEF9C500D50F4B /* KeolisAccountManagement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3126560320AEF9C500D50F4B /* KeolisAccountManagement.swift */; };
-		3126565D20AEF9C500D50F4B /* KeolisAccountStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3126560420AEF9C500D50F4B /* KeolisAccountStatus.swift */; };
-		3126565E20AEF9C500D50F4B /* KeolisAccountManagementUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3126560520AEF9C500D50F4B /* KeolisAccountManagementUtils.swift */; };
-		3126565F20AEF9C500D50F4B /* AccountManagementType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3126560620AEF9C500D50F4B /* AccountManagementType.swift */; };
-		3126566020AEF9C500D50F4B /* AccountManagementConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3126560720AEF9C500D50F4B /* AccountManagementConfiguration.swift */; };
-		3126566120AEF9C500D50F4B /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3126560820AEF9C500D50F4B /* Info.plist */; };
 		3126566520B2FA0A00D50F4B /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3126566420B2FA0A00D50F4B /* UIColor+Extension.swift */; };
 		3126566920B3008800D50F4B /* UIViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3126566820B3008700D50F4B /* UIViewController+Extension.swift */; };
 		84208C972093656D00980762 /* TicketLoadCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84208C962093656D00980762 /* TicketLoadCollectionViewCell.xib */; };
@@ -142,6 +54,100 @@
 		84343236208E1AE60061F20A /* BookShopViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84343235208E1AE60061F20A /* BookShopViewModel.swift */; };
 		84343238208E1E500061F20A /* TicketCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84343237208E1E500061F20A /* TicketCollectionViewCell.xib */; };
 		8434323A208E1E5F0061F20A /* TicketCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84343239208E1E5F0061F20A /* TicketCollectionViewCell.swift */; };
+		84484D3620E3D3C3005A513B /* NavitiaSDKPartnersRequestBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84484CC920E3D3C2005A513B /* NavitiaSDKPartnersRequestBuilder.swift */; };
+		84484D3720E3D3C3005A513B /* NavitiaSDKPartnersCourtesyEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84484CCA20E3D3C2005A513B /* NavitiaSDKPartnersCourtesyEnum.swift */; };
+		84484D3820E3D3C3005A513B /* NavitiaSDKPartnersReturnCodes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84484CCB20E3D3C2005A513B /* NavitiaSDKPartnersReturnCodes.swift */; };
+		84484D3920E3D3C3005A513B /* NavitiaBookCartItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84484CCC20E3D3C2005A513B /* NavitiaBookCartItem.swift */; };
+		84484D3A20E3D3C3005A513B /* AES.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84484CCE20E3D3C2005A513B /* AES.swift */; };
+		84484D3B20E3D3C3005A513B /* UInt64+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84484CCF20E3D3C2005A513B /* UInt64+Extension.swift */; };
+		84484D3C20E3D3C3005A513B /* Cryptors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84484CD020E3D3C2005A513B /* Cryptors.swift */; };
+		84484D3D20E3D3C3005A513B /* Cipher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84484CD120E3D3C2005A513B /* Cipher.swift */; };
+		84484D3E20E3D3C3005A513B /* Int+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84484CD220E3D3C2005A513B /* Int+Extension.swift */; };
+		84484D3F20E3D3C3005A513B /* Bit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84484CD320E3D3C2005A513B /* Bit.swift */; };
+		84484D4020E3D3C3005A513B /* HMAC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84484CD420E3D3C2005A513B /* HMAC.swift */; };
+		84484D4120E3D3C3005A513B /* UInt16+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84484CD520E3D3C2005A513B /* UInt16+Extension.swift */; };
+		84484D4320E3D3C3005A513B /* UInt32+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84484CD720E3D3C2005A513B /* UInt32+Extension.swift */; };
+		84484D4420E3D3C3005A513B /* Digest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84484CD820E3D3C2005A513B /* Digest.swift */; };
+		84484D4520E3D3C3005A513B /* NoPadding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84484CD920E3D3C2005A513B /* NoPadding.swift */; };
+		84484D4620E3D3C3005A513B /* CSArrayType+Foundation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84484CDB20E3D3C2005A513B /* CSArrayType+Foundation.swift */; };
+		84484D4720E3D3C3005A513B /* String+FoundationExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84484CDC20E3D3C2005A513B /* String+FoundationExtension.swift */; };
+		84484D4820E3D3C3005A513B /* Blowfish+Foundation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84484CDD20E3D3C2005A513B /* Blowfish+Foundation.swift */; };
+		84484D4920E3D3C3005A513B /* Utils+Foundation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84484CDE20E3D3C2005A513B /* Utils+Foundation.swift */; };
+		84484D4A20E3D3C3005A513B /* HMAC+Foundation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84484CDF20E3D3C2005A513B /* HMAC+Foundation.swift */; };
+		84484D4B20E3D3C3005A513B /* Data+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84484CE020E3D3C2005A513B /* Data+Extension.swift */; };
+		84484D4C20E3D3C3005A513B /* ChaCha20+Foundation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84484CE120E3D3C2005A513B /* ChaCha20+Foundation.swift */; };
+		84484D4D20E3D3C3005A513B /* AES+Foundation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84484CE220E3D3C2005A513B /* AES+Foundation.swift */; };
+		84484D4E20E3D3C3005A513B /* Rabbit+Foundation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84484CE320E3D3C2005A513B /* Rabbit+Foundation.swift */; };
+		84484D4F20E3D3C3005A513B /* UInt8+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84484CE420E3D3C2005A513B /* UInt8+Extension.swift */; };
+		84484D5020E3D3C3005A513B /* MD5.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84484CE520E3D3C2005A513B /* MD5.swift */; };
+		84484D5120E3D3C3005A513B /* BatchedCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84484CE620E3D3C2005A513B /* BatchedCollection.swift */; };
+		84484D5220E3D3C3005A513B /* PKCS5.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84484CE820E3D3C2005A513B /* PKCS5.swift */; };
+		84484D5320E3D3C3005A513B /* PBKDF2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84484CE920E3D3C2005A513B /* PBKDF2.swift */; };
+		84484D5420E3D3C3005A513B /* PBKDF1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84484CEA20E3D3C2005A513B /* PBKDF1.swift */; };
+		84484D5520E3D3C3005A513B /* SecureBytes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84484CEB20E3D3C2005A513B /* SecureBytes.swift */; };
+		84484D5620E3D3C3005A513B /* ZeroPadding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84484CEC20E3D3C2005A513B /* ZeroPadding.swift */; };
+		84484D5820E3D3C3005A513B /* Authenticator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84484CEE20E3D3C2005A513B /* Authenticator.swift */; };
+		84484D5920E3D3C3005A513B /* SHA3.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84484CEF20E3D3C2005A513B /* SHA3.swift */; };
+		84484D5B20E3D3C3005A513B /* RandomBytesSequence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84484CF120E3D3C2005A513B /* RandomBytesSequence.swift */; };
+		84484D5C20E3D3C3005A513B /* Rabbit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84484CF220E3D3C2005A513B /* Rabbit.swift */; };
+		84484D5D20E3D3C3005A513B /* PKCS7.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84484CF320E3D3C2005A513B /* PKCS7.swift */; };
+		84484D5E20E3D3C3005A513B /* SHA1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84484CF420E3D3C2005A513B /* SHA1.swift */; };
+		84484D5F20E3D3C3005A513B /* Poly1305.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84484CF520E3D3C2005A513B /* Poly1305.swift */; };
+		84484D6020E3D3C3005A513B /* BlockCipher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84484CF620E3D3C2005A513B /* BlockCipher.swift */; };
+		84484D6120E3D3C3005A513B /* Updatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84484CF720E3D3C2005A513B /* Updatable.swift */; };
+		84484D6220E3D3C3005A513B /* Blowfish.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84484CF820E3D3C2005A513B /* Blowfish.swift */; };
+		84484D6320E3D3C3005A513B /* DigestType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84484CF920E3D3C2005A513B /* DigestType.swift */; };
+		84484D6420E3D3C3005A513B /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84484CFA20E3D3C2005A513B /* Utils.swift */; };
+		84484D6520E3D3C3005A513B /* Generics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84484CFB20E3D3C2005A513B /* Generics.swift */; };
+		84484D6620E3D3C3005A513B /* Checksum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84484CFC20E3D3C2005A513B /* Checksum.swift */; };
+		84484D6720E3D3C3005A513B /* RandomAccessCryptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84484CFD20E3D3C2005A513B /* RandomAccessCryptor.swift */; };
+		84484D6820E3D3C3005A513B /* SHA2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84484CFE20E3D3C2005A513B /* SHA2.swift */; };
+		84484D6920E3D3C3005A513B /* Padding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84484CFF20E3D3C2005A513B /* Padding.swift */; };
+		84484D6A20E3D3C3005A513B /* CSArrayType+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84484D0020E3D3C2005A513B /* CSArrayType+Extensions.swift */; };
+		84484D6B20E3D3C3005A513B /* BlockModeOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84484D0220E3D3C2005A513B /* BlockModeOptions.swift */; };
+		84484D6C20E3D3C3005A513B /* CFB.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84484D0320E3D3C2005A513B /* CFB.swift */; };
+		84484D6D20E3D3C3005A513B /* CBC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84484D0420E3D3C2005A513B /* CBC.swift */; };
+		84484D6E20E3D3C3005A513B /* RandomAccessBlockModeWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84484D0520E3D3C2005A513B /* RandomAccessBlockModeWorker.swift */; };
+		84484D6F20E3D3C3005A513B /* ECB.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84484D0620E3D3C2005A513B /* ECB.swift */; };
+		84484D7020E3D3C3005A513B /* PCBC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84484D0720E3D3C2005A513B /* PCBC.swift */; };
+		84484D7120E3D3C3005A513B /* BlockModeWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84484D0820E3D3C2005A513B /* BlockModeWorker.swift */; };
+		84484D7220E3D3C3005A513B /* BlockMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84484D0920E3D3C2005A513B /* BlockMode.swift */; };
+		84484D7320E3D3C3005A513B /* CTR.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84484D0A20E3D3C3005A513B /* CTR.swift */; };
+		84484D7420E3D3C3005A513B /* OFB.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84484D0B20E3D3C3005A513B /* OFB.swift */; };
+		84484D7520E3D3C3005A513B /* ChaCha20.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84484D0C20E3D3C3005A513B /* ChaCha20.swift */; };
+		84484D7620E3D3C3005A513B /* Array+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84484D0D20E3D3C3005A513B /* Array+Extension.swift */; };
+		84484D7720E3D3C3005A513B /* NavitiaBookOfferType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84484D0E20E3D3C3005A513B /* NavitiaBookOfferType.swift */; };
+		84484D7820E3D3C3005A513B /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84484D0F20E3D3C3005A513B /* Reachability.swift */; };
+		84484D7920E3D3C3005A513B /* NavitiaUserInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84484D1020E3D3C3005A513B /* NavitiaUserInfo.swift */; };
+		84484D7A20E3D3C3005A513B /* NavitiaSDKPartnersPrice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84484D1120E3D3C3005A513B /* NavitiaSDKPartnersPrice.swift */; };
+		84484D7B20E3D3C3005A513B /* NavitiaBookOffer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84484D1220E3D3C3005A513B /* NavitiaBookOffer.swift */; };
+		84484D7C20E3D3C3005A513B /* NavitiaSDKPartnersParameterCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84484D1320E3D3C3005A513B /* NavitiaSDKPartnersParameterCode.swift */; };
+		84484D7D20E3D3C3005A513B /* SWXMLHash.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84484D1520E3D3C3005A513B /* SWXMLHash.swift */; };
+		84484D7E20E3D3C3005A513B /* SWXMLHash+TypeConversion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84484D1620E3D3C3005A513B /* SWXMLHash+TypeConversion.swift */; };
+		84484D7F20E3D3C3005A513B /* NavitiaSDKPartnersExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84484D1720E3D3C3005A513B /* NavitiaSDKPartnersExtension.swift */; };
+		84484D8020E3D3C3005A513B /* NavitiaSDKPartners.h in Headers */ = {isa = PBXBuildFile; fileRef = 84484D1820E3D3C3005A513B /* NavitiaSDKPartners.h */; };
+		84484D8120E3D3C3005A513B /* NavitiaSDKPartners.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84484D1920E3D3C3005A513B /* NavitiaSDKPartners.swift */; };
+		84484D8220E3D3C3005A513B /* BookManagement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84484D1B20E3D3C3005A513B /* BookManagement.swift */; };
+		84484D8320E3D3C3005A513B /* BookManagementType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84484D1C20E3D3C3005A513B /* BookManagementType.swift */; };
+		84484D8420E3D3C3005A513B /* BookManagementConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84484D1D20E3D3C3005A513B /* BookManagementConfiguration.swift */; };
+		84484D8520E3D3C3005A513B /* NavitiaSDKPartnersSogenActif.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84484D1F20E3D3C3005A513B /* NavitiaSDKPartnersSogenActif.swift */; };
+		84484D8620E3D3C3005A513B /* VSCTBookManagement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84484D2120E3D3C3005A513B /* VSCTBookManagement.swift */; };
+		84484D8720E3D3C3005A513B /* VSCTBookOffer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84484D2220E3D3C3005A513B /* VSCTBookOffer.swift */; };
+		84484D8820E3D3C3005A513B /* VSCTBookManagementConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84484D2320E3D3C3005A513B /* VSCTBookManagementConfiguration.swift */; };
+		84484D8920E3D3C3005A513B /* TicketManagementType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84484D2520E3D3C3005A513B /* TicketManagementType.swift */; };
+		84484D8A20E3D3C3005A513B /* MasabiTicketManagement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84484D2720E3D3C3005A513B /* MasabiTicketManagement.swift */; };
+		84484D8B20E3D3C3005A513B /* MasabiTicketManagementConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84484D2820E3D3C3005A513B /* MasabiTicketManagementConfiguration.swift */; };
+		84484D8C20E3D3C3005A513B /* TicketManagement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84484D2920E3D3C3005A513B /* TicketManagement.swift */; };
+		84484D8D20E3D3C3005A513B /* TicketManagementConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84484D2A20E3D3C3005A513B /* TicketManagementConfiguration.swift */; };
+		84484D8E20E3D3C3005A513B /* AccountManagement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84484D2C20E3D3C3005A513B /* AccountManagement.swift */; };
+		84484D8F20E3D3C3005A513B /* KeolisUserInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84484D2E20E3D3C3005A513B /* KeolisUserInfo.swift */; };
+		84484D9020E3D3C3005A513B /* KeolisAccountManagementConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84484D2F20E3D3C3005A513B /* KeolisAccountManagementConfiguration.swift */; };
+		84484D9120E3D3C3005A513B /* KeolisAccountManagement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84484D3020E3D3C3005A513B /* KeolisAccountManagement.swift */; };
+		84484D9220E3D3C3005A513B /* KeolisAccountStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84484D3120E3D3C3005A513B /* KeolisAccountStatus.swift */; };
+		84484D9320E3D3C3005A513B /* KeolisAccountManagementUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84484D3220E3D3C3005A513B /* KeolisAccountManagementUtils.swift */; };
+		84484D9420E3D3C3005A513B /* AccountManagementType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84484D3320E3D3C3005A513B /* AccountManagementType.swift */; };
+		84484D9520E3D3C3005A513B /* AccountManagementConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84484D3420E3D3C3005A513B /* AccountManagementConfiguration.swift */; };
+		84484D9620E3D3C3005A513B /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 84484D3520E3D3C3005A513B /* Info.plist */; };
 		844CA2E22080F15A00C6B259 /* JourneyRidesharingCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 844CA2E12080F15A00C6B259 /* JourneyRidesharingCollectionViewCell.xib */; };
 		844CA2E42080F16E00C6B259 /* JourneyRidesharingCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 844CA2E32080F16E00C6B259 /* JourneyRidesharingCollectionViewCell.swift */; };
 		84506C28209C4FE7006BF393 /* RidesharingStepView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84506C27209C4FE7006BF393 /* RidesharingStepView.swift */; };
@@ -381,100 +387,6 @@
 		845721A7209753F600C933B8 /* InformationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845721A6209753F600C933B8 /* InformationViewController.swift */; };
 		845ACC422090A81300AB24B9 /* ValidateBasketView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845ACC412090A81300AB24B9 /* ValidateBasketView.swift */; };
 		845ACC442090A81B00AB24B9 /* ValidateBasketView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 845ACC432090A81B00AB24B9 /* ValidateBasketView.xib */; };
-		84686AC420C02CD900EF7A4A /* NavitiaSDKPartnersRequestBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84686A5720C02CD900EF7A4A /* NavitiaSDKPartnersRequestBuilder.swift */; };
-		84686AC520C02CD900EF7A4A /* NavitiaSDKPartnersCourtesyEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84686A5820C02CD900EF7A4A /* NavitiaSDKPartnersCourtesyEnum.swift */; };
-		84686AC620C02CD900EF7A4A /* NavitiaSDKPartnersReturnCodes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84686A5920C02CD900EF7A4A /* NavitiaSDKPartnersReturnCodes.swift */; };
-		84686AC720C02CD900EF7A4A /* NavitiaBookCartItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84686A5A20C02CD900EF7A4A /* NavitiaBookCartItem.swift */; };
-		84686AC820C02CD900EF7A4A /* AES.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84686A5C20C02CD900EF7A4A /* AES.swift */; };
-		84686AC920C02CD900EF7A4A /* UInt64+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84686A5D20C02CD900EF7A4A /* UInt64+Extension.swift */; };
-		84686ACA20C02CD900EF7A4A /* Cryptors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84686A5E20C02CD900EF7A4A /* Cryptors.swift */; };
-		84686ACB20C02CD900EF7A4A /* Cipher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84686A5F20C02CD900EF7A4A /* Cipher.swift */; };
-		84686ACC20C02CD900EF7A4A /* Int+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84686A6020C02CD900EF7A4A /* Int+Extension.swift */; };
-		84686ACD20C02CD900EF7A4A /* Bit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84686A6120C02CD900EF7A4A /* Bit.swift */; };
-		84686ACE20C02CD900EF7A4A /* HMAC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84686A6220C02CD900EF7A4A /* HMAC.swift */; };
-		84686ACF20C02CD900EF7A4A /* UInt16+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84686A6320C02CD900EF7A4A /* UInt16+Extension.swift */; };
-		84686AD120C02CD900EF7A4A /* UInt32+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84686A6520C02CD900EF7A4A /* UInt32+Extension.swift */; };
-		84686AD220C02CD900EF7A4A /* Digest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84686A6620C02CD900EF7A4A /* Digest.swift */; };
-		84686AD320C02CD900EF7A4A /* NoPadding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84686A6720C02CD900EF7A4A /* NoPadding.swift */; };
-		84686AD420C02CD900EF7A4A /* CSArrayType+Foundation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84686A6920C02CD900EF7A4A /* CSArrayType+Foundation.swift */; };
-		84686AD520C02CD900EF7A4A /* String+FoundationExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84686A6A20C02CD900EF7A4A /* String+FoundationExtension.swift */; };
-		84686AD620C02CD900EF7A4A /* Blowfish+Foundation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84686A6B20C02CD900EF7A4A /* Blowfish+Foundation.swift */; };
-		84686AD720C02CD900EF7A4A /* Utils+Foundation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84686A6C20C02CD900EF7A4A /* Utils+Foundation.swift */; };
-		84686AD820C02CD900EF7A4A /* HMAC+Foundation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84686A6D20C02CD900EF7A4A /* HMAC+Foundation.swift */; };
-		84686AD920C02CD900EF7A4A /* Data+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84686A6E20C02CD900EF7A4A /* Data+Extension.swift */; };
-		84686ADA20C02CD900EF7A4A /* ChaCha20+Foundation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84686A6F20C02CD900EF7A4A /* ChaCha20+Foundation.swift */; };
-		84686ADB20C02CD900EF7A4A /* AES+Foundation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84686A7020C02CD900EF7A4A /* AES+Foundation.swift */; };
-		84686ADC20C02CD900EF7A4A /* Rabbit+Foundation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84686A7120C02CD900EF7A4A /* Rabbit+Foundation.swift */; };
-		84686ADD20C02CD900EF7A4A /* UInt8+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84686A7220C02CD900EF7A4A /* UInt8+Extension.swift */; };
-		84686ADE20C02CD900EF7A4A /* MD5.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84686A7320C02CD900EF7A4A /* MD5.swift */; };
-		84686ADF20C02CD900EF7A4A /* BatchedCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84686A7420C02CD900EF7A4A /* BatchedCollection.swift */; };
-		84686AE020C02CD900EF7A4A /* PKCS5.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84686A7620C02CD900EF7A4A /* PKCS5.swift */; };
-		84686AE120C02CD900EF7A4A /* PBKDF2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84686A7720C02CD900EF7A4A /* PBKDF2.swift */; };
-		84686AE220C02CD900EF7A4A /* PBKDF1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84686A7820C02CD900EF7A4A /* PBKDF1.swift */; };
-		84686AE320C02CD900EF7A4A /* SecureBytes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84686A7920C02CD900EF7A4A /* SecureBytes.swift */; };
-		84686AE420C02CD900EF7A4A /* ZeroPadding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84686A7A20C02CD900EF7A4A /* ZeroPadding.swift */; };
-		84686AE620C02CD900EF7A4A /* Authenticator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84686A7C20C02CD900EF7A4A /* Authenticator.swift */; };
-		84686AE720C02CD900EF7A4A /* SHA3.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84686A7D20C02CD900EF7A4A /* SHA3.swift */; };
-		84686AE920C02CD900EF7A4A /* RandomBytesSequence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84686A7F20C02CD900EF7A4A /* RandomBytesSequence.swift */; };
-		84686AEA20C02CD900EF7A4A /* Rabbit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84686A8020C02CD900EF7A4A /* Rabbit.swift */; };
-		84686AEB20C02CD900EF7A4A /* PKCS7.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84686A8120C02CD900EF7A4A /* PKCS7.swift */; };
-		84686AEC20C02CD900EF7A4A /* SHA1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84686A8220C02CD900EF7A4A /* SHA1.swift */; };
-		84686AED20C02CD900EF7A4A /* Poly1305.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84686A8320C02CD900EF7A4A /* Poly1305.swift */; };
-		84686AEE20C02CD900EF7A4A /* BlockCipher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84686A8420C02CD900EF7A4A /* BlockCipher.swift */; };
-		84686AEF20C02CD900EF7A4A /* Updatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84686A8520C02CD900EF7A4A /* Updatable.swift */; };
-		84686AF020C02CD900EF7A4A /* Blowfish.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84686A8620C02CD900EF7A4A /* Blowfish.swift */; };
-		84686AF120C02CD900EF7A4A /* DigestType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84686A8720C02CD900EF7A4A /* DigestType.swift */; };
-		84686AF220C02CD900EF7A4A /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84686A8820C02CD900EF7A4A /* Utils.swift */; };
-		84686AF320C02CD900EF7A4A /* Generics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84686A8920C02CD900EF7A4A /* Generics.swift */; };
-		84686AF420C02CD900EF7A4A /* Checksum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84686A8A20C02CD900EF7A4A /* Checksum.swift */; };
-		84686AF520C02CD900EF7A4A /* RandomAccessCryptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84686A8B20C02CD900EF7A4A /* RandomAccessCryptor.swift */; };
-		84686AF620C02CD900EF7A4A /* SHA2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84686A8C20C02CD900EF7A4A /* SHA2.swift */; };
-		84686AF720C02CD900EF7A4A /* Padding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84686A8D20C02CD900EF7A4A /* Padding.swift */; };
-		84686AF820C02CD900EF7A4A /* CSArrayType+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84686A8E20C02CD900EF7A4A /* CSArrayType+Extensions.swift */; };
-		84686AF920C02CD900EF7A4A /* BlockModeOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84686A9020C02CD900EF7A4A /* BlockModeOptions.swift */; };
-		84686AFA20C02CD900EF7A4A /* CFB.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84686A9120C02CD900EF7A4A /* CFB.swift */; };
-		84686AFB20C02CD900EF7A4A /* CBC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84686A9220C02CD900EF7A4A /* CBC.swift */; };
-		84686AFC20C02CD900EF7A4A /* RandomAccessBlockModeWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84686A9320C02CD900EF7A4A /* RandomAccessBlockModeWorker.swift */; };
-		84686AFD20C02CD900EF7A4A /* ECB.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84686A9420C02CD900EF7A4A /* ECB.swift */; };
-		84686AFE20C02CD900EF7A4A /* PCBC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84686A9520C02CD900EF7A4A /* PCBC.swift */; };
-		84686AFF20C02CD900EF7A4A /* BlockModeWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84686A9620C02CD900EF7A4A /* BlockModeWorker.swift */; };
-		84686B0020C02CD900EF7A4A /* BlockMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84686A9720C02CD900EF7A4A /* BlockMode.swift */; };
-		84686B0120C02CD900EF7A4A /* CTR.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84686A9820C02CD900EF7A4A /* CTR.swift */; };
-		84686B0220C02CD900EF7A4A /* OFB.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84686A9920C02CD900EF7A4A /* OFB.swift */; };
-		84686B0320C02CD900EF7A4A /* ChaCha20.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84686A9A20C02CD900EF7A4A /* ChaCha20.swift */; };
-		84686B0420C02CD900EF7A4A /* Array+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84686A9B20C02CD900EF7A4A /* Array+Extension.swift */; };
-		84686B0520C02CD900EF7A4A /* NavitiaBookOfferType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84686A9C20C02CD900EF7A4A /* NavitiaBookOfferType.swift */; };
-		84686B0620C02CD900EF7A4A /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84686A9D20C02CD900EF7A4A /* Reachability.swift */; };
-		84686B0720C02CD900EF7A4A /* NavitiaUserInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84686A9E20C02CD900EF7A4A /* NavitiaUserInfo.swift */; };
-		84686B0820C02CD900EF7A4A /* NavitiaSDKPartnersPrice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84686A9F20C02CD900EF7A4A /* NavitiaSDKPartnersPrice.swift */; };
-		84686B0920C02CD900EF7A4A /* NavitiaBookOffer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84686AA020C02CD900EF7A4A /* NavitiaBookOffer.swift */; };
-		84686B0A20C02CD900EF7A4A /* NavitiaSDKPartnersParameterCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84686AA120C02CD900EF7A4A /* NavitiaSDKPartnersParameterCode.swift */; };
-		84686B0B20C02CD900EF7A4A /* SWXMLHash.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84686AA320C02CD900EF7A4A /* SWXMLHash.swift */; };
-		84686B0C20C02CD900EF7A4A /* SWXMLHash+TypeConversion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84686AA420C02CD900EF7A4A /* SWXMLHash+TypeConversion.swift */; };
-		84686B0D20C02CD900EF7A4A /* NavitiaSDKPartnersExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84686AA520C02CD900EF7A4A /* NavitiaSDKPartnersExtension.swift */; };
-		84686B0E20C02CD900EF7A4A /* NavitiaSDKPartners.h in Headers */ = {isa = PBXBuildFile; fileRef = 84686AA620C02CD900EF7A4A /* NavitiaSDKPartners.h */; };
-		84686B0F20C02CD900EF7A4A /* NavitiaSDKPartners.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84686AA720C02CD900EF7A4A /* NavitiaSDKPartners.swift */; };
-		84686B1020C02CD900EF7A4A /* BookManagement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84686AA920C02CD900EF7A4A /* BookManagement.swift */; };
-		84686B1120C02CD900EF7A4A /* BookManagementType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84686AAA20C02CD900EF7A4A /* BookManagementType.swift */; };
-		84686B1220C02CD900EF7A4A /* BookManagementConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84686AAB20C02CD900EF7A4A /* BookManagementConfiguration.swift */; };
-		84686B1320C02CD900EF7A4A /* NavitiaSDKPartnersSogenActif.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84686AAD20C02CD900EF7A4A /* NavitiaSDKPartnersSogenActif.swift */; };
-		84686B1420C02CD900EF7A4A /* VSCTBookManagement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84686AAF20C02CD900EF7A4A /* VSCTBookManagement.swift */; };
-		84686B1520C02CD900EF7A4A /* VSCTBookOffer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84686AB020C02CD900EF7A4A /* VSCTBookOffer.swift */; };
-		84686B1620C02CD900EF7A4A /* VSCTBookManagementConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84686AB120C02CD900EF7A4A /* VSCTBookManagementConfiguration.swift */; };
-		84686B1720C02CD900EF7A4A /* TicketManagementType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84686AB320C02CD900EF7A4A /* TicketManagementType.swift */; };
-		84686B1820C02CD900EF7A4A /* MasabiTicketManagement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84686AB520C02CD900EF7A4A /* MasabiTicketManagement.swift */; };
-		84686B1920C02CD900EF7A4A /* MasabiTicketManagementConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84686AB620C02CD900EF7A4A /* MasabiTicketManagementConfiguration.swift */; };
-		84686B1A20C02CD900EF7A4A /* TicketManagement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84686AB720C02CD900EF7A4A /* TicketManagement.swift */; };
-		84686B1B20C02CD900EF7A4A /* TicketManagementConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84686AB820C02CD900EF7A4A /* TicketManagementConfiguration.swift */; };
-		84686B1C20C02CD900EF7A4A /* AccountManagement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84686ABA20C02CD900EF7A4A /* AccountManagement.swift */; };
-		84686B1D20C02CD900EF7A4A /* KeolisUserInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84686ABC20C02CD900EF7A4A /* KeolisUserInfo.swift */; };
-		84686B1E20C02CD900EF7A4A /* KeolisAccountManagementConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84686ABD20C02CD900EF7A4A /* KeolisAccountManagementConfiguration.swift */; };
-		84686B1F20C02CD900EF7A4A /* KeolisAccountManagement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84686ABE20C02CD900EF7A4A /* KeolisAccountManagement.swift */; };
-		84686B2020C02CD900EF7A4A /* KeolisAccountStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84686ABF20C02CD900EF7A4A /* KeolisAccountStatus.swift */; };
-		84686B2120C02CD900EF7A4A /* KeolisAccountManagementUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84686AC020C02CD900EF7A4A /* KeolisAccountManagementUtils.swift */; };
-		84686B2220C02CD900EF7A4A /* AccountManagementType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84686AC120C02CD900EF7A4A /* AccountManagementType.swift */; };
-		84686B2320C02CD900EF7A4A /* AccountManagementConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84686AC220C02CD900EF7A4A /* AccountManagementConfiguration.swift */; };
-		84686B2420C02CD900EF7A4A /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 84686AC320C02CD900EF7A4A /* Info.plist */; };
 		84686B2920C032EE00EF7A4A /* TicketViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84686B2820C032EE00EF7A4A /* TicketViewController.swift */; };
 		846B185120775479005D4A9B /* DepartureArrivalStepView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 846B185020775479005D4A9B /* DepartureArrivalStepView.xib */; };
 		8471D38320809EAD000C9125 /* JourneySolutionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8471D38220809EAD000C9125 /* JourneySolutionView.xib */; };
@@ -510,8 +422,7 @@
 		84FABE122074C7FC00BDDE9D /* Icons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84FABE112074C7FC00BDDE9D /* Icons.swift */; };
 		84FABE142074CB2300BDDE9D /* UIFont+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84FABE132074CB2300BDDE9D /* UIFont+Extension.swift */; };
 		84FABE162074F76600BDDE9D /* JourneySolutionLoadCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84FABE152074F76600BDDE9D /* JourneySolutionLoadCollectionViewCell.xib */; };
-		DDEC1DF71D453CC2C2004BD4 /* Pods_NavitiaSDKUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 517F3E3E820DC0A2FC25FA68 /* Pods_NavitiaSDKUITests.framework */; };
-		FA99EE9E427438EC62976B59 /* Pods_NavitiaSDKUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B91C5E1BC126A11D3C2AECB4 /* Pods_NavitiaSDKUI.framework */; };
+		FFB89AB89AEB3C38AF8081A6 /* Pods_NavitiaSDKUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AC2C556987A527C2254C581A /* Pods_NavitiaSDKUI.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -525,7 +436,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		116DDD25B038E3F030D68119 /* Pods-NavitiaSDKUI.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NavitiaSDKUI.release.xcconfig"; path = "Pods/Target Support Files/Pods-NavitiaSDKUI/Pods-NavitiaSDKUI.release.xcconfig"; sourceTree = "<group>"; };
 		3126558520AEF67A00D50F4B /* BookPaymentOfferView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BookPaymentOfferView.xib; sourceTree = "<group>"; };
 		3126558620AEF67A00D50F4B /* BookPaymentCartView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BookPaymentCartView.xib; sourceTree = "<group>"; };
 		3126558720AEF67A00D50F4B /* BookPaymentProfilView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BookPaymentProfilView.xib; sourceTree = "<group>"; };
@@ -543,99 +453,9 @@
 		3126559420AEF67A00D50F4B /* BookPaymentWebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookPaymentWebViewController.swift; sourceTree = "<group>"; };
 		3126566420B2FA0A00D50F4B /* UIColor+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
 		3126566820B3008700D50F4B /* UIViewController+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extension.swift"; sourceTree = "<group>"; };
-		517F3E3E820DC0A2FC25FA68 /* Pods_NavitiaSDKUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_NavitiaSDKUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		5C81C2882E6381915F69A4AC /* Pods-NavitiaSDKUI.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NavitiaSDKUI.debug.xcconfig"; path = "Pods/Target Support Files/Pods-NavitiaSDKUI/Pods-NavitiaSDKUI.debug.xcconfig"; sourceTree = "<group>"; };
-		312655A620AEF9C500D50F4B /* NavitiaSDKPartnersRequestBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavitiaSDKPartnersRequestBuilder.swift; sourceTree = "<group>"; };
-		312655A720AEF9C500D50F4B /* NavitiaSDKPartnersCourtesyEnum.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavitiaSDKPartnersCourtesyEnum.swift; sourceTree = "<group>"; };
-		312655A820AEF9C500D50F4B /* NavitiaSDKPartnersReturnCodes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavitiaSDKPartnersReturnCodes.swift; sourceTree = "<group>"; };
-		312655A920AEF9C500D50F4B /* NavitiaBookCartItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavitiaBookCartItem.swift; sourceTree = "<group>"; };
-		312655AB20AEF9C500D50F4B /* AES.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AES.swift; sourceTree = "<group>"; };
-		312655AC20AEF9C500D50F4B /* UInt64+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UInt64+Extension.swift"; sourceTree = "<group>"; };
-		312655AD20AEF9C500D50F4B /* Cryptors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Cryptors.swift; sourceTree = "<group>"; };
-		312655AE20AEF9C500D50F4B /* Cipher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Cipher.swift; sourceTree = "<group>"; };
-		312655AF20AEF9C500D50F4B /* Int+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Int+Extension.swift"; sourceTree = "<group>"; };
-		312655B020AEF9C500D50F4B /* Bit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Bit.swift; sourceTree = "<group>"; };
-		312655B120AEF9C500D50F4B /* HMAC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HMAC.swift; sourceTree = "<group>"; };
-		312655B220AEF9C500D50F4B /* UInt16+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UInt16+Extension.swift"; sourceTree = "<group>"; };
-		312655B320AEF9C500D50F4B /* UInt32+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UInt32+Extension.swift"; sourceTree = "<group>"; };
-		312655B420AEF9C500D50F4B /* Digest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Digest.swift; sourceTree = "<group>"; };
-		312655B520AEF9C500D50F4B /* NoPadding.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoPadding.swift; sourceTree = "<group>"; };
-		312655B720AEF9C500D50F4B /* CSArrayType+Foundation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CSArrayType+Foundation.swift"; sourceTree = "<group>"; };
-		312655B820AEF9C500D50F4B /* String+FoundationExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+FoundationExtension.swift"; sourceTree = "<group>"; };
-		312655B920AEF9C500D50F4B /* Blowfish+Foundation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Blowfish+Foundation.swift"; sourceTree = "<group>"; };
-		312655BA20AEF9C500D50F4B /* Utils+Foundation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Utils+Foundation.swift"; sourceTree = "<group>"; };
-		312655BB20AEF9C500D50F4B /* HMAC+Foundation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "HMAC+Foundation.swift"; sourceTree = "<group>"; };
-		312655BC20AEF9C500D50F4B /* Data+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Data+Extension.swift"; sourceTree = "<group>"; };
-		312655BD20AEF9C500D50F4B /* ChaCha20+Foundation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ChaCha20+Foundation.swift"; sourceTree = "<group>"; };
-		312655BE20AEF9C500D50F4B /* AES+Foundation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AES+Foundation.swift"; sourceTree = "<group>"; };
-		312655BF20AEF9C500D50F4B /* Rabbit+Foundation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Rabbit+Foundation.swift"; sourceTree = "<group>"; };
-		312655C020AEF9C500D50F4B /* UInt8+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UInt8+Extension.swift"; sourceTree = "<group>"; };
-		312655C120AEF9C500D50F4B /* MD5.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MD5.swift; sourceTree = "<group>"; };
-		312655C220AEF9C500D50F4B /* BatchedCollection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BatchedCollection.swift; sourceTree = "<group>"; };
-		312655C420AEF9C500D50F4B /* PKCS5.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PKCS5.swift; sourceTree = "<group>"; };
-		312655C520AEF9C500D50F4B /* PBKDF2.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PBKDF2.swift; sourceTree = "<group>"; };
-		312655C620AEF9C500D50F4B /* PBKDF1.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PBKDF1.swift; sourceTree = "<group>"; };
-		312655C720AEF9C500D50F4B /* SecureBytes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SecureBytes.swift; sourceTree = "<group>"; };
-		312655C820AEF9C500D50F4B /* ZeroPadding.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZeroPadding.swift; sourceTree = "<group>"; };
-		312655C920AEF9C500D50F4B /* Authenticator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Authenticator.swift; sourceTree = "<group>"; };
-		312655CA20AEF9C500D50F4B /* SHA3.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SHA3.swift; sourceTree = "<group>"; };
-		312655CB20AEF9C500D50F4B /* RandomBytesSequence.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RandomBytesSequence.swift; sourceTree = "<group>"; };
-		312655CC20AEF9C500D50F4B /* Rabbit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Rabbit.swift; sourceTree = "<group>"; };
-		312655CD20AEF9C500D50F4B /* PKCS7.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PKCS7.swift; sourceTree = "<group>"; };
-		312655CE20AEF9C500D50F4B /* SHA1.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SHA1.swift; sourceTree = "<group>"; };
-		312655CF20AEF9C500D50F4B /* Poly1305.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Poly1305.swift; sourceTree = "<group>"; };
-		312655D020AEF9C500D50F4B /* BlockCipher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlockCipher.swift; sourceTree = "<group>"; };
-		312655D120AEF9C500D50F4B /* Updatable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Updatable.swift; sourceTree = "<group>"; };
-		312655D220AEF9C500D50F4B /* Blowfish.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Blowfish.swift; sourceTree = "<group>"; };
-		312655D320AEF9C500D50F4B /* DigestType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DigestType.swift; sourceTree = "<group>"; };
-		312655D420AEF9C500D50F4B /* Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
-		312655D520AEF9C500D50F4B /* Generics.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Generics.swift; sourceTree = "<group>"; };
-		312655D620AEF9C500D50F4B /* Checksum.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Checksum.swift; sourceTree = "<group>"; };
-		312655D720AEF9C500D50F4B /* RandomAccessCryptor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RandomAccessCryptor.swift; sourceTree = "<group>"; };
-		312655D820AEF9C500D50F4B /* SHA2.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SHA2.swift; sourceTree = "<group>"; };
-		312655D920AEF9C500D50F4B /* Padding.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Padding.swift; sourceTree = "<group>"; };
-		312655DA20AEF9C500D50F4B /* CSArrayType+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CSArrayType+Extensions.swift"; sourceTree = "<group>"; };
-		312655DC20AEF9C500D50F4B /* BlockModeOptions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlockModeOptions.swift; sourceTree = "<group>"; };
-		312655DD20AEF9C500D50F4B /* CFB.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CFB.swift; sourceTree = "<group>"; };
-		312655DE20AEF9C500D50F4B /* CBC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CBC.swift; sourceTree = "<group>"; };
-		312655DF20AEF9C500D50F4B /* RandomAccessBlockModeWorker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RandomAccessBlockModeWorker.swift; sourceTree = "<group>"; };
-		312655E020AEF9C500D50F4B /* ECB.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ECB.swift; sourceTree = "<group>"; };
-		312655E120AEF9C500D50F4B /* PCBC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PCBC.swift; sourceTree = "<group>"; };
-		312655E220AEF9C500D50F4B /* BlockModeWorker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlockModeWorker.swift; sourceTree = "<group>"; };
-		312655E320AEF9C500D50F4B /* BlockMode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlockMode.swift; sourceTree = "<group>"; };
-		312655E420AEF9C500D50F4B /* CTR.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CTR.swift; sourceTree = "<group>"; };
-		312655E520AEF9C500D50F4B /* OFB.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OFB.swift; sourceTree = "<group>"; };
-		312655E620AEF9C500D50F4B /* ChaCha20.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChaCha20.swift; sourceTree = "<group>"; };
-		312655E720AEF9C500D50F4B /* Array+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Array+Extension.swift"; sourceTree = "<group>"; };
-		312655E820AEF9C500D50F4B /* NavitiaBookOfferType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavitiaBookOfferType.swift; sourceTree = "<group>"; };
-		312655E920AEF9C500D50F4B /* Reachability.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = "<group>"; };
-		312655EA20AEF9C500D50F4B /* NavitiaUserInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavitiaUserInfo.swift; sourceTree = "<group>"; };
-		312655EB20AEF9C500D50F4B /* NavitiaSDKPartnersPrice.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavitiaSDKPartnersPrice.swift; sourceTree = "<group>"; };
-		312655EC20AEF9C500D50F4B /* NavitiaBookOffer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavitiaBookOffer.swift; sourceTree = "<group>"; };
-		312655ED20AEF9C500D50F4B /* NavitiaSDKPartnersParameterCode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavitiaSDKPartnersParameterCode.swift; sourceTree = "<group>"; };
-		312655EF20AEF9C500D50F4B /* SWXMLHash.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SWXMLHash.swift; sourceTree = "<group>"; };
-		312655F020AEF9C500D50F4B /* SWXMLHash+TypeConversion.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SWXMLHash+TypeConversion.swift"; sourceTree = "<group>"; };
-		312655F120AEF9C500D50F4B /* NavitiaSDKPartnersExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavitiaSDKPartnersExtension.swift; sourceTree = "<group>"; };
-		312655F220AEF9C500D50F4B /* NavitiaSDKPartners.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NavitiaSDKPartners.h; sourceTree = "<group>"; };
-		312655F320AEF9C500D50F4B /* NavitiaSDKPartners.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavitiaSDKPartners.swift; sourceTree = "<group>"; };
-		312655F520AEF9C500D50F4B /* BookManagement.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookManagement.swift; sourceTree = "<group>"; };
-		312655F620AEF9C500D50F4B /* BookManagementType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookManagementType.swift; sourceTree = "<group>"; };
-		312655F720AEF9C500D50F4B /* BookManagementConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookManagementConfiguration.swift; sourceTree = "<group>"; };
-		312655F920AEF9C500D50F4B /* NavitiaSDKPartnersSogenActif.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavitiaSDKPartnersSogenActif.swift; sourceTree = "<group>"; };
-		312655FB20AEF9C500D50F4B /* VSCTBookManagement.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VSCTBookManagement.swift; sourceTree = "<group>"; };
-		312655FC20AEF9C500D50F4B /* VSCTBookOffer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VSCTBookOffer.swift; sourceTree = "<group>"; };
-		312655FD20AEF9C500D50F4B /* VSCTBookManagementConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VSCTBookManagementConfiguration.swift; sourceTree = "<group>"; };
-		312655FF20AEF9C500D50F4B /* AccountManagement.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountManagement.swift; sourceTree = "<group>"; };
-		3126560120AEF9C500D50F4B /* KeolisUserInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeolisUserInfo.swift; sourceTree = "<group>"; };
-		3126560220AEF9C500D50F4B /* KeolisAccountManagementConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeolisAccountManagementConfiguration.swift; sourceTree = "<group>"; };
-		3126560320AEF9C500D50F4B /* KeolisAccountManagement.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeolisAccountManagement.swift; sourceTree = "<group>"; };
-		3126560420AEF9C500D50F4B /* KeolisAccountStatus.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeolisAccountStatus.swift; sourceTree = "<group>"; };
-		3126560520AEF9C500D50F4B /* KeolisAccountManagementUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeolisAccountManagementUtils.swift; sourceTree = "<group>"; };
-		3126560620AEF9C500D50F4B /* AccountManagementType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountManagementType.swift; sourceTree = "<group>"; };
-		3126560720AEF9C500D50F4B /* AccountManagementConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountManagementConfiguration.swift; sourceTree = "<group>"; };
-		3126560820AEF9C500D50F4B /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		3126566420B2FA0A00D50F4B /* UIColor+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
-		3126566820B3008700D50F4B /* UIViewController+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extension.swift"; sourceTree = "<group>"; };
+		4A998A0ED7A2263304497A28 /* Pods-NavitiaSDKUI.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NavitiaSDKUI.release.xcconfig"; path = "Pods/Target Support Files/Pods-NavitiaSDKUI/Pods-NavitiaSDKUI.release.xcconfig"; sourceTree = "<group>"; };
+		5C3E69B800B46E9EA0BA0A72 /* Pods-NavitiaSDKUI.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NavitiaSDKUI.debug.xcconfig"; path = "Pods/Target Support Files/Pods-NavitiaSDKUI/Pods-NavitiaSDKUI.debug.xcconfig"; sourceTree = "<group>"; };
+		631F07737F3E0C7C5DB0AF1F /* Pods-NavitiaSDKUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NavitiaSDKUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-NavitiaSDKUITests/Pods-NavitiaSDKUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		84208C962093656D00980762 /* TicketLoadCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TicketLoadCollectionViewCell.xib; sourceTree = "<group>"; };
 		84208C982093657500980762 /* TicketLoadCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicketLoadCollectionViewCell.swift; sourceTree = "<group>"; };
 		8422B458206A24230097E6C9 /* JourneyHeaderCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JourneyHeaderCollectionReusableView.swift; sourceTree = "<group>"; };
@@ -665,6 +485,103 @@
 		84343235208E1AE60061F20A /* BookShopViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookShopViewModel.swift; sourceTree = "<group>"; };
 		84343237208E1E500061F20A /* TicketCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TicketCollectionViewCell.xib; sourceTree = "<group>"; };
 		84343239208E1E5F0061F20A /* TicketCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicketCollectionViewCell.swift; sourceTree = "<group>"; };
+		84484CC920E3D3C2005A513B /* NavitiaSDKPartnersRequestBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavitiaSDKPartnersRequestBuilder.swift; sourceTree = "<group>"; };
+		84484CCA20E3D3C2005A513B /* NavitiaSDKPartnersCourtesyEnum.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavitiaSDKPartnersCourtesyEnum.swift; sourceTree = "<group>"; };
+		84484CCB20E3D3C2005A513B /* NavitiaSDKPartnersReturnCodes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavitiaSDKPartnersReturnCodes.swift; sourceTree = "<group>"; };
+		84484CCC20E3D3C2005A513B /* NavitiaBookCartItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavitiaBookCartItem.swift; sourceTree = "<group>"; };
+		84484CCE20E3D3C2005A513B /* AES.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AES.swift; sourceTree = "<group>"; };
+		84484CCF20E3D3C2005A513B /* UInt64+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UInt64+Extension.swift"; sourceTree = "<group>"; };
+		84484CD020E3D3C2005A513B /* Cryptors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Cryptors.swift; sourceTree = "<group>"; };
+		84484CD120E3D3C2005A513B /* Cipher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Cipher.swift; sourceTree = "<group>"; };
+		84484CD220E3D3C2005A513B /* Int+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Int+Extension.swift"; sourceTree = "<group>"; };
+		84484CD320E3D3C2005A513B /* Bit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Bit.swift; sourceTree = "<group>"; };
+		84484CD420E3D3C2005A513B /* HMAC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HMAC.swift; sourceTree = "<group>"; };
+		84484CD520E3D3C2005A513B /* UInt16+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UInt16+Extension.swift"; sourceTree = "<group>"; };
+		84484CD620E3D3C2005A513B /* Collection+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Collection+Extension.swift"; sourceTree = "<group>"; };
+		84484CD720E3D3C2005A513B /* UInt32+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UInt32+Extension.swift"; sourceTree = "<group>"; };
+		84484CD820E3D3C2005A513B /* Digest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Digest.swift; sourceTree = "<group>"; };
+		84484CD920E3D3C2005A513B /* NoPadding.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoPadding.swift; sourceTree = "<group>"; };
+		84484CDB20E3D3C2005A513B /* CSArrayType+Foundation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CSArrayType+Foundation.swift"; sourceTree = "<group>"; };
+		84484CDC20E3D3C2005A513B /* String+FoundationExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+FoundationExtension.swift"; sourceTree = "<group>"; };
+		84484CDD20E3D3C2005A513B /* Blowfish+Foundation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Blowfish+Foundation.swift"; sourceTree = "<group>"; };
+		84484CDE20E3D3C2005A513B /* Utils+Foundation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Utils+Foundation.swift"; sourceTree = "<group>"; };
+		84484CDF20E3D3C2005A513B /* HMAC+Foundation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "HMAC+Foundation.swift"; sourceTree = "<group>"; };
+		84484CE020E3D3C2005A513B /* Data+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Data+Extension.swift"; sourceTree = "<group>"; };
+		84484CE120E3D3C2005A513B /* ChaCha20+Foundation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ChaCha20+Foundation.swift"; sourceTree = "<group>"; };
+		84484CE220E3D3C2005A513B /* AES+Foundation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AES+Foundation.swift"; sourceTree = "<group>"; };
+		84484CE320E3D3C2005A513B /* Rabbit+Foundation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Rabbit+Foundation.swift"; sourceTree = "<group>"; };
+		84484CE420E3D3C2005A513B /* UInt8+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UInt8+Extension.swift"; sourceTree = "<group>"; };
+		84484CE520E3D3C2005A513B /* MD5.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MD5.swift; sourceTree = "<group>"; };
+		84484CE620E3D3C2005A513B /* BatchedCollection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BatchedCollection.swift; sourceTree = "<group>"; };
+		84484CE820E3D3C2005A513B /* PKCS5.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PKCS5.swift; sourceTree = "<group>"; };
+		84484CE920E3D3C2005A513B /* PBKDF2.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PBKDF2.swift; sourceTree = "<group>"; };
+		84484CEA20E3D3C2005A513B /* PBKDF1.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PBKDF1.swift; sourceTree = "<group>"; };
+		84484CEB20E3D3C2005A513B /* SecureBytes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SecureBytes.swift; sourceTree = "<group>"; };
+		84484CEC20E3D3C2005A513B /* ZeroPadding.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZeroPadding.swift; sourceTree = "<group>"; };
+		84484CED20E3D3C2005A513B /* String+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
+		84484CEE20E3D3C2005A513B /* Authenticator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Authenticator.swift; sourceTree = "<group>"; };
+		84484CEF20E3D3C2005A513B /* SHA3.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SHA3.swift; sourceTree = "<group>"; };
+		84484CF020E3D3C2005A513B /* Operators.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Operators.swift; sourceTree = "<group>"; };
+		84484CF120E3D3C2005A513B /* RandomBytesSequence.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RandomBytesSequence.swift; sourceTree = "<group>"; };
+		84484CF220E3D3C2005A513B /* Rabbit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Rabbit.swift; sourceTree = "<group>"; };
+		84484CF320E3D3C2005A513B /* PKCS7.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PKCS7.swift; sourceTree = "<group>"; };
+		84484CF420E3D3C2005A513B /* SHA1.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SHA1.swift; sourceTree = "<group>"; };
+		84484CF520E3D3C2005A513B /* Poly1305.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Poly1305.swift; sourceTree = "<group>"; };
+		84484CF620E3D3C2005A513B /* BlockCipher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlockCipher.swift; sourceTree = "<group>"; };
+		84484CF720E3D3C2005A513B /* Updatable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Updatable.swift; sourceTree = "<group>"; };
+		84484CF820E3D3C2005A513B /* Blowfish.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Blowfish.swift; sourceTree = "<group>"; };
+		84484CF920E3D3C2005A513B /* DigestType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DigestType.swift; sourceTree = "<group>"; };
+		84484CFA20E3D3C2005A513B /* Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
+		84484CFB20E3D3C2005A513B /* Generics.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Generics.swift; sourceTree = "<group>"; };
+		84484CFC20E3D3C2005A513B /* Checksum.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Checksum.swift; sourceTree = "<group>"; };
+		84484CFD20E3D3C2005A513B /* RandomAccessCryptor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RandomAccessCryptor.swift; sourceTree = "<group>"; };
+		84484CFE20E3D3C2005A513B /* SHA2.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SHA2.swift; sourceTree = "<group>"; };
+		84484CFF20E3D3C2005A513B /* Padding.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Padding.swift; sourceTree = "<group>"; };
+		84484D0020E3D3C2005A513B /* CSArrayType+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CSArrayType+Extensions.swift"; sourceTree = "<group>"; };
+		84484D0220E3D3C2005A513B /* BlockModeOptions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlockModeOptions.swift; sourceTree = "<group>"; };
+		84484D0320E3D3C2005A513B /* CFB.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CFB.swift; sourceTree = "<group>"; };
+		84484D0420E3D3C2005A513B /* CBC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CBC.swift; sourceTree = "<group>"; };
+		84484D0520E3D3C2005A513B /* RandomAccessBlockModeWorker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RandomAccessBlockModeWorker.swift; sourceTree = "<group>"; };
+		84484D0620E3D3C2005A513B /* ECB.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ECB.swift; sourceTree = "<group>"; };
+		84484D0720E3D3C2005A513B /* PCBC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PCBC.swift; sourceTree = "<group>"; };
+		84484D0820E3D3C2005A513B /* BlockModeWorker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlockModeWorker.swift; sourceTree = "<group>"; };
+		84484D0920E3D3C2005A513B /* BlockMode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlockMode.swift; sourceTree = "<group>"; };
+		84484D0A20E3D3C3005A513B /* CTR.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CTR.swift; sourceTree = "<group>"; };
+		84484D0B20E3D3C3005A513B /* OFB.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OFB.swift; sourceTree = "<group>"; };
+		84484D0C20E3D3C3005A513B /* ChaCha20.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChaCha20.swift; sourceTree = "<group>"; };
+		84484D0D20E3D3C3005A513B /* Array+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Array+Extension.swift"; sourceTree = "<group>"; };
+		84484D0E20E3D3C3005A513B /* NavitiaBookOfferType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavitiaBookOfferType.swift; sourceTree = "<group>"; };
+		84484D0F20E3D3C3005A513B /* Reachability.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = "<group>"; };
+		84484D1020E3D3C3005A513B /* NavitiaUserInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavitiaUserInfo.swift; sourceTree = "<group>"; };
+		84484D1120E3D3C3005A513B /* NavitiaSDKPartnersPrice.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavitiaSDKPartnersPrice.swift; sourceTree = "<group>"; };
+		84484D1220E3D3C3005A513B /* NavitiaBookOffer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavitiaBookOffer.swift; sourceTree = "<group>"; };
+		84484D1320E3D3C3005A513B /* NavitiaSDKPartnersParameterCode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavitiaSDKPartnersParameterCode.swift; sourceTree = "<group>"; };
+		84484D1520E3D3C3005A513B /* SWXMLHash.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SWXMLHash.swift; sourceTree = "<group>"; };
+		84484D1620E3D3C3005A513B /* SWXMLHash+TypeConversion.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SWXMLHash+TypeConversion.swift"; sourceTree = "<group>"; };
+		84484D1720E3D3C3005A513B /* NavitiaSDKPartnersExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavitiaSDKPartnersExtension.swift; sourceTree = "<group>"; };
+		84484D1820E3D3C3005A513B /* NavitiaSDKPartners.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NavitiaSDKPartners.h; sourceTree = "<group>"; };
+		84484D1920E3D3C3005A513B /* NavitiaSDKPartners.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavitiaSDKPartners.swift; sourceTree = "<group>"; };
+		84484D1B20E3D3C3005A513B /* BookManagement.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookManagement.swift; sourceTree = "<group>"; };
+		84484D1C20E3D3C3005A513B /* BookManagementType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookManagementType.swift; sourceTree = "<group>"; };
+		84484D1D20E3D3C3005A513B /* BookManagementConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookManagementConfiguration.swift; sourceTree = "<group>"; };
+		84484D1F20E3D3C3005A513B /* NavitiaSDKPartnersSogenActif.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavitiaSDKPartnersSogenActif.swift; sourceTree = "<group>"; };
+		84484D2120E3D3C3005A513B /* VSCTBookManagement.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VSCTBookManagement.swift; sourceTree = "<group>"; };
+		84484D2220E3D3C3005A513B /* VSCTBookOffer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VSCTBookOffer.swift; sourceTree = "<group>"; };
+		84484D2320E3D3C3005A513B /* VSCTBookManagementConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VSCTBookManagementConfiguration.swift; sourceTree = "<group>"; };
+		84484D2520E3D3C3005A513B /* TicketManagementType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TicketManagementType.swift; sourceTree = "<group>"; };
+		84484D2720E3D3C3005A513B /* MasabiTicketManagement.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MasabiTicketManagement.swift; sourceTree = "<group>"; };
+		84484D2820E3D3C3005A513B /* MasabiTicketManagementConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MasabiTicketManagementConfiguration.swift; sourceTree = "<group>"; };
+		84484D2920E3D3C3005A513B /* TicketManagement.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TicketManagement.swift; sourceTree = "<group>"; };
+		84484D2A20E3D3C3005A513B /* TicketManagementConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TicketManagementConfiguration.swift; sourceTree = "<group>"; };
+		84484D2C20E3D3C3005A513B /* AccountManagement.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountManagement.swift; sourceTree = "<group>"; };
+		84484D2E20E3D3C3005A513B /* KeolisUserInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeolisUserInfo.swift; sourceTree = "<group>"; };
+		84484D2F20E3D3C3005A513B /* KeolisAccountManagementConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeolisAccountManagementConfiguration.swift; sourceTree = "<group>"; };
+		84484D3020E3D3C3005A513B /* KeolisAccountManagement.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeolisAccountManagement.swift; sourceTree = "<group>"; };
+		84484D3120E3D3C3005A513B /* KeolisAccountStatus.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeolisAccountStatus.swift; sourceTree = "<group>"; };
+		84484D3220E3D3C3005A513B /* KeolisAccountManagementUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeolisAccountManagementUtils.swift; sourceTree = "<group>"; };
+		84484D3320E3D3C3005A513B /* AccountManagementType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountManagementType.swift; sourceTree = "<group>"; };
+		84484D3420E3D3C3005A513B /* AccountManagementConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountManagementConfiguration.swift; sourceTree = "<group>"; };
+		84484D3520E3D3C3005A513B /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		844CA2E12080F15A00C6B259 /* JourneyRidesharingCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = JourneyRidesharingCollectionViewCell.xib; sourceTree = "<group>"; };
 		844CA2E32080F16E00C6B259 /* JourneyRidesharingCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JourneyRidesharingCollectionViewCell.swift; sourceTree = "<group>"; };
 		84506C27209C4FE7006BF393 /* RidesharingStepView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RidesharingStepView.swift; sourceTree = "<group>"; };
@@ -908,103 +825,6 @@
 		845721A6209753F600C933B8 /* InformationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InformationViewController.swift; sourceTree = "<group>"; };
 		845ACC412090A81300AB24B9 /* ValidateBasketView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidateBasketView.swift; sourceTree = "<group>"; };
 		845ACC432090A81B00AB24B9 /* ValidateBasketView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ValidateBasketView.xib; sourceTree = "<group>"; };
-		84686A5720C02CD900EF7A4A /* NavitiaSDKPartnersRequestBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavitiaSDKPartnersRequestBuilder.swift; sourceTree = "<group>"; };
-		84686A5820C02CD900EF7A4A /* NavitiaSDKPartnersCourtesyEnum.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavitiaSDKPartnersCourtesyEnum.swift; sourceTree = "<group>"; };
-		84686A5920C02CD900EF7A4A /* NavitiaSDKPartnersReturnCodes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavitiaSDKPartnersReturnCodes.swift; sourceTree = "<group>"; };
-		84686A5A20C02CD900EF7A4A /* NavitiaBookCartItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavitiaBookCartItem.swift; sourceTree = "<group>"; };
-		84686A5C20C02CD900EF7A4A /* AES.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AES.swift; sourceTree = "<group>"; };
-		84686A5D20C02CD900EF7A4A /* UInt64+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UInt64+Extension.swift"; sourceTree = "<group>"; };
-		84686A5E20C02CD900EF7A4A /* Cryptors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Cryptors.swift; sourceTree = "<group>"; };
-		84686A5F20C02CD900EF7A4A /* Cipher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Cipher.swift; sourceTree = "<group>"; };
-		84686A6020C02CD900EF7A4A /* Int+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Int+Extension.swift"; sourceTree = "<group>"; };
-		84686A6120C02CD900EF7A4A /* Bit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Bit.swift; sourceTree = "<group>"; };
-		84686A6220C02CD900EF7A4A /* HMAC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HMAC.swift; sourceTree = "<group>"; };
-		84686A6320C02CD900EF7A4A /* UInt16+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UInt16+Extension.swift"; sourceTree = "<group>"; };
-		84686A6420C02CD900EF7A4A /* Collection+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Collection+Extension.swift"; sourceTree = "<group>"; };
-		84686A6520C02CD900EF7A4A /* UInt32+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UInt32+Extension.swift"; sourceTree = "<group>"; };
-		84686A6620C02CD900EF7A4A /* Digest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Digest.swift; sourceTree = "<group>"; };
-		84686A6720C02CD900EF7A4A /* NoPadding.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoPadding.swift; sourceTree = "<group>"; };
-		84686A6920C02CD900EF7A4A /* CSArrayType+Foundation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CSArrayType+Foundation.swift"; sourceTree = "<group>"; };
-		84686A6A20C02CD900EF7A4A /* String+FoundationExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+FoundationExtension.swift"; sourceTree = "<group>"; };
-		84686A6B20C02CD900EF7A4A /* Blowfish+Foundation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Blowfish+Foundation.swift"; sourceTree = "<group>"; };
-		84686A6C20C02CD900EF7A4A /* Utils+Foundation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Utils+Foundation.swift"; sourceTree = "<group>"; };
-		84686A6D20C02CD900EF7A4A /* HMAC+Foundation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "HMAC+Foundation.swift"; sourceTree = "<group>"; };
-		84686A6E20C02CD900EF7A4A /* Data+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Data+Extension.swift"; sourceTree = "<group>"; };
-		84686A6F20C02CD900EF7A4A /* ChaCha20+Foundation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ChaCha20+Foundation.swift"; sourceTree = "<group>"; };
-		84686A7020C02CD900EF7A4A /* AES+Foundation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AES+Foundation.swift"; sourceTree = "<group>"; };
-		84686A7120C02CD900EF7A4A /* Rabbit+Foundation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Rabbit+Foundation.swift"; sourceTree = "<group>"; };
-		84686A7220C02CD900EF7A4A /* UInt8+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UInt8+Extension.swift"; sourceTree = "<group>"; };
-		84686A7320C02CD900EF7A4A /* MD5.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MD5.swift; sourceTree = "<group>"; };
-		84686A7420C02CD900EF7A4A /* BatchedCollection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BatchedCollection.swift; sourceTree = "<group>"; };
-		84686A7620C02CD900EF7A4A /* PKCS5.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PKCS5.swift; sourceTree = "<group>"; };
-		84686A7720C02CD900EF7A4A /* PBKDF2.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PBKDF2.swift; sourceTree = "<group>"; };
-		84686A7820C02CD900EF7A4A /* PBKDF1.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PBKDF1.swift; sourceTree = "<group>"; };
-		84686A7920C02CD900EF7A4A /* SecureBytes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SecureBytes.swift; sourceTree = "<group>"; };
-		84686A7A20C02CD900EF7A4A /* ZeroPadding.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZeroPadding.swift; sourceTree = "<group>"; };
-		84686A7B20C02CD900EF7A4A /* String+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
-		84686A7C20C02CD900EF7A4A /* Authenticator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Authenticator.swift; sourceTree = "<group>"; };
-		84686A7D20C02CD900EF7A4A /* SHA3.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SHA3.swift; sourceTree = "<group>"; };
-		84686A7E20C02CD900EF7A4A /* Operators.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Operators.swift; sourceTree = "<group>"; };
-		84686A7F20C02CD900EF7A4A /* RandomBytesSequence.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RandomBytesSequence.swift; sourceTree = "<group>"; };
-		84686A8020C02CD900EF7A4A /* Rabbit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Rabbit.swift; sourceTree = "<group>"; };
-		84686A8120C02CD900EF7A4A /* PKCS7.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PKCS7.swift; sourceTree = "<group>"; };
-		84686A8220C02CD900EF7A4A /* SHA1.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SHA1.swift; sourceTree = "<group>"; };
-		84686A8320C02CD900EF7A4A /* Poly1305.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Poly1305.swift; sourceTree = "<group>"; };
-		84686A8420C02CD900EF7A4A /* BlockCipher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlockCipher.swift; sourceTree = "<group>"; };
-		84686A8520C02CD900EF7A4A /* Updatable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Updatable.swift; sourceTree = "<group>"; };
-		84686A8620C02CD900EF7A4A /* Blowfish.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Blowfish.swift; sourceTree = "<group>"; };
-		84686A8720C02CD900EF7A4A /* DigestType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DigestType.swift; sourceTree = "<group>"; };
-		84686A8820C02CD900EF7A4A /* Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
-		84686A8920C02CD900EF7A4A /* Generics.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Generics.swift; sourceTree = "<group>"; };
-		84686A8A20C02CD900EF7A4A /* Checksum.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Checksum.swift; sourceTree = "<group>"; };
-		84686A8B20C02CD900EF7A4A /* RandomAccessCryptor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RandomAccessCryptor.swift; sourceTree = "<group>"; };
-		84686A8C20C02CD900EF7A4A /* SHA2.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SHA2.swift; sourceTree = "<group>"; };
-		84686A8D20C02CD900EF7A4A /* Padding.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Padding.swift; sourceTree = "<group>"; };
-		84686A8E20C02CD900EF7A4A /* CSArrayType+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CSArrayType+Extensions.swift"; sourceTree = "<group>"; };
-		84686A9020C02CD900EF7A4A /* BlockModeOptions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlockModeOptions.swift; sourceTree = "<group>"; };
-		84686A9120C02CD900EF7A4A /* CFB.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CFB.swift; sourceTree = "<group>"; };
-		84686A9220C02CD900EF7A4A /* CBC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CBC.swift; sourceTree = "<group>"; };
-		84686A9320C02CD900EF7A4A /* RandomAccessBlockModeWorker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RandomAccessBlockModeWorker.swift; sourceTree = "<group>"; };
-		84686A9420C02CD900EF7A4A /* ECB.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ECB.swift; sourceTree = "<group>"; };
-		84686A9520C02CD900EF7A4A /* PCBC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PCBC.swift; sourceTree = "<group>"; };
-		84686A9620C02CD900EF7A4A /* BlockModeWorker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlockModeWorker.swift; sourceTree = "<group>"; };
-		84686A9720C02CD900EF7A4A /* BlockMode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlockMode.swift; sourceTree = "<group>"; };
-		84686A9820C02CD900EF7A4A /* CTR.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CTR.swift; sourceTree = "<group>"; };
-		84686A9920C02CD900EF7A4A /* OFB.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OFB.swift; sourceTree = "<group>"; };
-		84686A9A20C02CD900EF7A4A /* ChaCha20.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChaCha20.swift; sourceTree = "<group>"; };
-		84686A9B20C02CD900EF7A4A /* Array+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Array+Extension.swift"; sourceTree = "<group>"; };
-		84686A9C20C02CD900EF7A4A /* NavitiaBookOfferType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavitiaBookOfferType.swift; sourceTree = "<group>"; };
-		84686A9D20C02CD900EF7A4A /* Reachability.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = "<group>"; };
-		84686A9E20C02CD900EF7A4A /* NavitiaUserInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavitiaUserInfo.swift; sourceTree = "<group>"; };
-		84686A9F20C02CD900EF7A4A /* NavitiaSDKPartnersPrice.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavitiaSDKPartnersPrice.swift; sourceTree = "<group>"; };
-		84686AA020C02CD900EF7A4A /* NavitiaBookOffer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavitiaBookOffer.swift; sourceTree = "<group>"; };
-		84686AA120C02CD900EF7A4A /* NavitiaSDKPartnersParameterCode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavitiaSDKPartnersParameterCode.swift; sourceTree = "<group>"; };
-		84686AA320C02CD900EF7A4A /* SWXMLHash.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SWXMLHash.swift; sourceTree = "<group>"; };
-		84686AA420C02CD900EF7A4A /* SWXMLHash+TypeConversion.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SWXMLHash+TypeConversion.swift"; sourceTree = "<group>"; };
-		84686AA520C02CD900EF7A4A /* NavitiaSDKPartnersExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavitiaSDKPartnersExtension.swift; sourceTree = "<group>"; };
-		84686AA620C02CD900EF7A4A /* NavitiaSDKPartners.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NavitiaSDKPartners.h; sourceTree = "<group>"; };
-		84686AA720C02CD900EF7A4A /* NavitiaSDKPartners.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavitiaSDKPartners.swift; sourceTree = "<group>"; };
-		84686AA920C02CD900EF7A4A /* BookManagement.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookManagement.swift; sourceTree = "<group>"; };
-		84686AAA20C02CD900EF7A4A /* BookManagementType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookManagementType.swift; sourceTree = "<group>"; };
-		84686AAB20C02CD900EF7A4A /* BookManagementConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookManagementConfiguration.swift; sourceTree = "<group>"; };
-		84686AAD20C02CD900EF7A4A /* NavitiaSDKPartnersSogenActif.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavitiaSDKPartnersSogenActif.swift; sourceTree = "<group>"; };
-		84686AAF20C02CD900EF7A4A /* VSCTBookManagement.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VSCTBookManagement.swift; sourceTree = "<group>"; };
-		84686AB020C02CD900EF7A4A /* VSCTBookOffer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VSCTBookOffer.swift; sourceTree = "<group>"; };
-		84686AB120C02CD900EF7A4A /* VSCTBookManagementConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VSCTBookManagementConfiguration.swift; sourceTree = "<group>"; };
-		84686AB320C02CD900EF7A4A /* TicketManagementType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TicketManagementType.swift; sourceTree = "<group>"; };
-		84686AB520C02CD900EF7A4A /* MasabiTicketManagement.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MasabiTicketManagement.swift; sourceTree = "<group>"; };
-		84686AB620C02CD900EF7A4A /* MasabiTicketManagementConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MasabiTicketManagementConfiguration.swift; sourceTree = "<group>"; };
-		84686AB720C02CD900EF7A4A /* TicketManagement.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TicketManagement.swift; sourceTree = "<group>"; };
-		84686AB820C02CD900EF7A4A /* TicketManagementConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TicketManagementConfiguration.swift; sourceTree = "<group>"; };
-		84686ABA20C02CD900EF7A4A /* AccountManagement.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountManagement.swift; sourceTree = "<group>"; };
-		84686ABC20C02CD900EF7A4A /* KeolisUserInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeolisUserInfo.swift; sourceTree = "<group>"; };
-		84686ABD20C02CD900EF7A4A /* KeolisAccountManagementConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeolisAccountManagementConfiguration.swift; sourceTree = "<group>"; };
-		84686ABE20C02CD900EF7A4A /* KeolisAccountManagement.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeolisAccountManagement.swift; sourceTree = "<group>"; };
-		84686ABF20C02CD900EF7A4A /* KeolisAccountStatus.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeolisAccountStatus.swift; sourceTree = "<group>"; };
-		84686AC020C02CD900EF7A4A /* KeolisAccountManagementUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeolisAccountManagementUtils.swift; sourceTree = "<group>"; };
-		84686AC120C02CD900EF7A4A /* AccountManagementType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountManagementType.swift; sourceTree = "<group>"; };
-		84686AC220C02CD900EF7A4A /* AccountManagementConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountManagementConfiguration.swift; sourceTree = "<group>"; };
-		84686AC320C02CD900EF7A4A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		84686B2820C032EE00EF7A4A /* TicketViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicketViewController.swift; sourceTree = "<group>"; };
 		846B185020775479005D4A9B /* DepartureArrivalStepView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DepartureArrivalStepView.xib; sourceTree = "<group>"; };
 		8471D38220809EAD000C9125 /* JourneySolutionView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = JourneySolutionView.xib; sourceTree = "<group>"; };
@@ -1040,9 +860,9 @@
 		84FABE112074C7FC00BDDE9D /* Icons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Icons.swift; sourceTree = "<group>"; };
 		84FABE132074CB2300BDDE9D /* UIFont+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+Extension.swift"; sourceTree = "<group>"; };
 		84FABE152074F76600BDDE9D /* JourneySolutionLoadCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = JourneySolutionLoadCollectionViewCell.xib; sourceTree = "<group>"; };
-		92F09825270EEC219A7443A5 /* Pods-NavitiaSDKUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NavitiaSDKUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-NavitiaSDKUITests/Pods-NavitiaSDKUITests.debug.xcconfig"; sourceTree = "<group>"; };
-		B91C5E1BC126A11D3C2AECB4 /* Pods_NavitiaSDKUI.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_NavitiaSDKUI.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		BB3B74A27A2FB8D7ED9C6408 /* Pods-NavitiaSDKUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NavitiaSDKUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-NavitiaSDKUITests/Pods-NavitiaSDKUITests.release.xcconfig"; sourceTree = "<group>"; };
+		AC2C556987A527C2254C581A /* Pods_NavitiaSDKUI.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_NavitiaSDKUI.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C28AEC57444EBC3D040A7991 /* Pods-NavitiaSDKUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NavitiaSDKUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-NavitiaSDKUITests/Pods-NavitiaSDKUITests.release.xcconfig"; sourceTree = "<group>"; };
+		F45D8CB91F7D5B8EFBCA467D /* Pods_NavitiaSDKUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_NavitiaSDKUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1050,7 +870,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FA99EE9E427438EC62976B59 /* Pods_NavitiaSDKUI.framework in Frameworks */,
+				FFB89AB89AEB3C38AF8081A6 /* Pods_NavitiaSDKUI.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1059,13 +879,24 @@
 			buildActionMask = 2147483647;
 			files = (
 				8451DA44206503F100CFA1E4 /* NavitiaSDKUI.framework in Frameworks */,
-				DDEC1DF71D453CC2C2004BD4 /* Pods_NavitiaSDKUITests.framework in Frameworks */,
+				0066E0653BD484BEB0B4EED9 /* Pods_NavitiaSDKUITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0CB9A839372A2A24A8B48958 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				5C3E69B800B46E9EA0BA0A72 /* Pods-NavitiaSDKUI.debug.xcconfig */,
+				4A998A0ED7A2263304497A28 /* Pods-NavitiaSDKUI.release.xcconfig */,
+				631F07737F3E0C7C5DB0AF1F /* Pods-NavitiaSDKUITests.debug.xcconfig */,
+				C28AEC57444EBC3D040A7991 /* Pods-NavitiaSDKUITests.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		3126558320AEF67A00D50F4B /* BookPayment */ = {
 			isa = PBXGroup;
 			children = (
@@ -1102,17 +933,6 @@
 				3126559220AEF67A00D50F4B /* BookPaymentConditionView.swift */,
 			);
 			path = View;
-			sourceTree = "<group>";
-		};
-		3F3C17141D5163069C728D83 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				5C81C2882E6381915F69A4AC /* Pods-NavitiaSDKUI.debug.xcconfig */,
-				116DDD25B038E3F030D68119 /* Pods-NavitiaSDKUI.release.xcconfig */,
-				92F09825270EEC219A7443A5 /* Pods-NavitiaSDKUITests.debug.xcconfig */,
-				BB3B74A27A2FB8D7ED9C6408 /* Pods-NavitiaSDKUITests.release.xcconfig */,
-			);
-			name = Pods;
 			sourceTree = "<group>";
 		};
 		8422B461206A30180097E6C9 /* View */ = {
@@ -1173,14 +993,222 @@
 			path = Interface;
 			sourceTree = "<group>";
 		};
+		84484CC720E3D3C2005A513B /* NavitiaSDKPartners */ = {
+			isa = PBXGroup;
+			children = (
+				84484CC820E3D3C2005A513B /* Utils */,
+				84484D1820E3D3C3005A513B /* NavitiaSDKPartners.h */,
+				84484D1920E3D3C3005A513B /* NavitiaSDKPartners.swift */,
+				84484D1A20E3D3C3005A513B /* Book */,
+				84484D2420E3D3C3005A513B /* Ticket */,
+				84484D2B20E3D3C3005A513B /* Account */,
+				84484D3520E3D3C3005A513B /* Info.plist */,
+			);
+			path = NavitiaSDKPartners;
+			sourceTree = "<group>";
+		};
+		84484CC820E3D3C2005A513B /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				84484CC920E3D3C2005A513B /* NavitiaSDKPartnersRequestBuilder.swift */,
+				84484CCA20E3D3C2005A513B /* NavitiaSDKPartnersCourtesyEnum.swift */,
+				84484CCB20E3D3C2005A513B /* NavitiaSDKPartnersReturnCodes.swift */,
+				84484CCC20E3D3C2005A513B /* NavitiaBookCartItem.swift */,
+				84484CCD20E3D3C2005A513B /* CryptoSwift */,
+				84484D0E20E3D3C3005A513B /* NavitiaBookOfferType.swift */,
+				84484D0F20E3D3C3005A513B /* Reachability.swift */,
+				84484D1020E3D3C3005A513B /* NavitiaUserInfo.swift */,
+				84484D1120E3D3C3005A513B /* NavitiaSDKPartnersPrice.swift */,
+				84484D1220E3D3C3005A513B /* NavitiaBookOffer.swift */,
+				84484D1320E3D3C3005A513B /* NavitiaSDKPartnersParameterCode.swift */,
+				84484D1420E3D3C3005A513B /* SWXML */,
+				84484D1720E3D3C3005A513B /* NavitiaSDKPartnersExtension.swift */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
+		84484CCD20E3D3C2005A513B /* CryptoSwift */ = {
+			isa = PBXGroup;
+			children = (
+				84484CCE20E3D3C2005A513B /* AES.swift */,
+				84484CCF20E3D3C2005A513B /* UInt64+Extension.swift */,
+				84484CD020E3D3C2005A513B /* Cryptors.swift */,
+				84484CD120E3D3C2005A513B /* Cipher.swift */,
+				84484CD220E3D3C2005A513B /* Int+Extension.swift */,
+				84484CD320E3D3C2005A513B /* Bit.swift */,
+				84484CD420E3D3C2005A513B /* HMAC.swift */,
+				84484CD520E3D3C2005A513B /* UInt16+Extension.swift */,
+				84484CD620E3D3C2005A513B /* Collection+Extension.swift */,
+				84484CD720E3D3C2005A513B /* UInt32+Extension.swift */,
+				84484CD820E3D3C2005A513B /* Digest.swift */,
+				84484CD920E3D3C2005A513B /* NoPadding.swift */,
+				84484CDA20E3D3C2005A513B /* Foundation */,
+				84484CE420E3D3C2005A513B /* UInt8+Extension.swift */,
+				84484CE520E3D3C2005A513B /* MD5.swift */,
+				84484CE620E3D3C2005A513B /* BatchedCollection.swift */,
+				84484CE720E3D3C2005A513B /* PKCS5 */,
+				84484CEB20E3D3C2005A513B /* SecureBytes.swift */,
+				84484CEC20E3D3C2005A513B /* ZeroPadding.swift */,
+				84484CED20E3D3C2005A513B /* String+Extension.swift */,
+				84484CEE20E3D3C2005A513B /* Authenticator.swift */,
+				84484CEF20E3D3C2005A513B /* SHA3.swift */,
+				84484CF020E3D3C2005A513B /* Operators.swift */,
+				84484CF120E3D3C2005A513B /* RandomBytesSequence.swift */,
+				84484CF220E3D3C2005A513B /* Rabbit.swift */,
+				84484CF320E3D3C2005A513B /* PKCS7.swift */,
+				84484CF420E3D3C2005A513B /* SHA1.swift */,
+				84484CF520E3D3C2005A513B /* Poly1305.swift */,
+				84484CF620E3D3C2005A513B /* BlockCipher.swift */,
+				84484CF720E3D3C2005A513B /* Updatable.swift */,
+				84484CF820E3D3C2005A513B /* Blowfish.swift */,
+				84484CF920E3D3C2005A513B /* DigestType.swift */,
+				84484CFA20E3D3C2005A513B /* Utils.swift */,
+				84484CFB20E3D3C2005A513B /* Generics.swift */,
+				84484CFC20E3D3C2005A513B /* Checksum.swift */,
+				84484CFD20E3D3C2005A513B /* RandomAccessCryptor.swift */,
+				84484CFE20E3D3C2005A513B /* SHA2.swift */,
+				84484CFF20E3D3C2005A513B /* Padding.swift */,
+				84484D0020E3D3C2005A513B /* CSArrayType+Extensions.swift */,
+				84484D0120E3D3C2005A513B /* BlockMode */,
+				84484D0C20E3D3C3005A513B /* ChaCha20.swift */,
+				84484D0D20E3D3C3005A513B /* Array+Extension.swift */,
+			);
+			path = CryptoSwift;
+			sourceTree = "<group>";
+		};
+		84484CDA20E3D3C2005A513B /* Foundation */ = {
+			isa = PBXGroup;
+			children = (
+				84484CDB20E3D3C2005A513B /* CSArrayType+Foundation.swift */,
+				84484CDC20E3D3C2005A513B /* String+FoundationExtension.swift */,
+				84484CDD20E3D3C2005A513B /* Blowfish+Foundation.swift */,
+				84484CDE20E3D3C2005A513B /* Utils+Foundation.swift */,
+				84484CDF20E3D3C2005A513B /* HMAC+Foundation.swift */,
+				84484CE020E3D3C2005A513B /* Data+Extension.swift */,
+				84484CE120E3D3C2005A513B /* ChaCha20+Foundation.swift */,
+				84484CE220E3D3C2005A513B /* AES+Foundation.swift */,
+				84484CE320E3D3C2005A513B /* Rabbit+Foundation.swift */,
+			);
+			path = Foundation;
+			sourceTree = "<group>";
+		};
+		84484CE720E3D3C2005A513B /* PKCS5 */ = {
+			isa = PBXGroup;
+			children = (
+				84484CE820E3D3C2005A513B /* PKCS5.swift */,
+				84484CE920E3D3C2005A513B /* PBKDF2.swift */,
+				84484CEA20E3D3C2005A513B /* PBKDF1.swift */,
+			);
+			path = PKCS5;
+			sourceTree = "<group>";
+		};
+		84484D0120E3D3C2005A513B /* BlockMode */ = {
+			isa = PBXGroup;
+			children = (
+				84484D0220E3D3C2005A513B /* BlockModeOptions.swift */,
+				84484D0320E3D3C2005A513B /* CFB.swift */,
+				84484D0420E3D3C2005A513B /* CBC.swift */,
+				84484D0520E3D3C2005A513B /* RandomAccessBlockModeWorker.swift */,
+				84484D0620E3D3C2005A513B /* ECB.swift */,
+				84484D0720E3D3C2005A513B /* PCBC.swift */,
+				84484D0820E3D3C2005A513B /* BlockModeWorker.swift */,
+				84484D0920E3D3C2005A513B /* BlockMode.swift */,
+				84484D0A20E3D3C3005A513B /* CTR.swift */,
+				84484D0B20E3D3C3005A513B /* OFB.swift */,
+			);
+			path = BlockMode;
+			sourceTree = "<group>";
+		};
+		84484D1420E3D3C3005A513B /* SWXML */ = {
+			isa = PBXGroup;
+			children = (
+				84484D1520E3D3C3005A513B /* SWXMLHash.swift */,
+				84484D1620E3D3C3005A513B /* SWXMLHash+TypeConversion.swift */,
+			);
+			path = SWXML;
+			sourceTree = "<group>";
+		};
+		84484D1A20E3D3C3005A513B /* Book */ = {
+			isa = PBXGroup;
+			children = (
+				84484D1B20E3D3C3005A513B /* BookManagement.swift */,
+				84484D1C20E3D3C3005A513B /* BookManagementType.swift */,
+				84484D1D20E3D3C3005A513B /* BookManagementConfiguration.swift */,
+				84484D1E20E3D3C3005A513B /* SogenActif */,
+				84484D2020E3D3C3005A513B /* VSCTBookManagement */,
+			);
+			path = Book;
+			sourceTree = "<group>";
+		};
+		84484D1E20E3D3C3005A513B /* SogenActif */ = {
+			isa = PBXGroup;
+			children = (
+				84484D1F20E3D3C3005A513B /* NavitiaSDKPartnersSogenActif.swift */,
+			);
+			path = SogenActif;
+			sourceTree = "<group>";
+		};
+		84484D2020E3D3C3005A513B /* VSCTBookManagement */ = {
+			isa = PBXGroup;
+			children = (
+				84484D2120E3D3C3005A513B /* VSCTBookManagement.swift */,
+				84484D2220E3D3C3005A513B /* VSCTBookOffer.swift */,
+				84484D2320E3D3C3005A513B /* VSCTBookManagementConfiguration.swift */,
+			);
+			path = VSCTBookManagement;
+			sourceTree = "<group>";
+		};
+		84484D2420E3D3C3005A513B /* Ticket */ = {
+			isa = PBXGroup;
+			children = (
+				84484D2520E3D3C3005A513B /* TicketManagementType.swift */,
+				84484D2620E3D3C3005A513B /* MasabiTicketManagement */,
+				84484D2920E3D3C3005A513B /* TicketManagement.swift */,
+				84484D2A20E3D3C3005A513B /* TicketManagementConfiguration.swift */,
+			);
+			path = Ticket;
+			sourceTree = "<group>";
+		};
+		84484D2620E3D3C3005A513B /* MasabiTicketManagement */ = {
+			isa = PBXGroup;
+			children = (
+				84484D2720E3D3C3005A513B /* MasabiTicketManagement.swift */,
+				84484D2820E3D3C3005A513B /* MasabiTicketManagementConfiguration.swift */,
+			);
+			path = MasabiTicketManagement;
+			sourceTree = "<group>";
+		};
+		84484D2B20E3D3C3005A513B /* Account */ = {
+			isa = PBXGroup;
+			children = (
+				84484D2C20E3D3C3005A513B /* AccountManagement.swift */,
+				84484D2D20E3D3C3005A513B /* KeolisAccountManagement */,
+				84484D3320E3D3C3005A513B /* AccountManagementType.swift */,
+				84484D3420E3D3C3005A513B /* AccountManagementConfiguration.swift */,
+			);
+			path = Account;
+			sourceTree = "<group>";
+		};
+		84484D2D20E3D3C3005A513B /* KeolisAccountManagement */ = {
+			isa = PBXGroup;
+			children = (
+				84484D2E20E3D3C3005A513B /* KeolisUserInfo.swift */,
+				84484D2F20E3D3C3005A513B /* KeolisAccountManagementConfiguration.swift */,
+				84484D3020E3D3C3005A513B /* KeolisAccountManagement.swift */,
+				84484D3120E3D3C3005A513B /* KeolisAccountStatus.swift */,
+				84484D3220E3D3C3005A513B /* KeolisAccountManagementUtils.swift */,
+			);
+			path = KeolisAccountManagement;
+			sourceTree = "<group>";
+		};
 		8451DA30206503F100CFA1E4 = {
 			isa = PBXGroup;
 			children = (
 				8451DA3C206503F100CFA1E4 /* NavitiaSDKUI */,
 				8451DA47206503F100CFA1E4 /* NavitiaSDKUITests */,
 				8451DA3B206503F100CFA1E4 /* Products */,
-				3F3C17141D5163069C728D83 /* Pods */,
-				9B092BFCA76A87BCE4A56C19 /* Frameworks */,
+				0CB9A839372A2A24A8B48958 /* Pods */,
+				E3221367B7AADE27AA5D6196 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -1229,7 +1257,7 @@
 		8451DA55206505F200CFA1E4 /* Lib */ = {
 			isa = PBXGroup;
 			children = (
-				84686A5520C02CD900EF7A4A /* NavitiaSDKPartners */,
+				84484CC720E3D3C2005A513B /* NavitiaSDKPartners */,
 				8454D2922068D3A700C97D2F /* NavitiaSDK */,
 				8471D3862080A0DC000C9125 /* Checkbox.swift */,
 				84737E9A2087731A002D3748 /* FloatRatingView.swift */,
@@ -1730,214 +1758,6 @@
 			path = ObjectMapper;
 			sourceTree = "<group>";
 		};
-		84686A5520C02CD900EF7A4A /* NavitiaSDKPartners */ = {
-			isa = PBXGroup;
-			children = (
-				84686A5620C02CD900EF7A4A /* Utils */,
-				84686AA620C02CD900EF7A4A /* NavitiaSDKPartners.h */,
-				84686AA720C02CD900EF7A4A /* NavitiaSDKPartners.swift */,
-				84686AA820C02CD900EF7A4A /* Book */,
-				84686AB220C02CD900EF7A4A /* Ticket */,
-				84686AB920C02CD900EF7A4A /* Account */,
-				84686AC320C02CD900EF7A4A /* Info.plist */,
-			);
-			path = NavitiaSDKPartners;
-			sourceTree = "<group>";
-		};
-		84686A5620C02CD900EF7A4A /* Utils */ = {
-			isa = PBXGroup;
-			children = (
-				84686A5720C02CD900EF7A4A /* NavitiaSDKPartnersRequestBuilder.swift */,
-				84686A5820C02CD900EF7A4A /* NavitiaSDKPartnersCourtesyEnum.swift */,
-				84686A5920C02CD900EF7A4A /* NavitiaSDKPartnersReturnCodes.swift */,
-				84686A5A20C02CD900EF7A4A /* NavitiaBookCartItem.swift */,
-				84686A5B20C02CD900EF7A4A /* CryptoSwift */,
-				84686A9C20C02CD900EF7A4A /* NavitiaBookOfferType.swift */,
-				84686A9D20C02CD900EF7A4A /* Reachability.swift */,
-				84686A9E20C02CD900EF7A4A /* NavitiaUserInfo.swift */,
-				84686A9F20C02CD900EF7A4A /* NavitiaSDKPartnersPrice.swift */,
-				84686AA020C02CD900EF7A4A /* NavitiaBookOffer.swift */,
-				84686AA120C02CD900EF7A4A /* NavitiaSDKPartnersParameterCode.swift */,
-				84686AA220C02CD900EF7A4A /* SWXML */,
-				84686AA520C02CD900EF7A4A /* NavitiaSDKPartnersExtension.swift */,
-			);
-			path = Utils;
-			sourceTree = "<group>";
-		};
-		84686A5B20C02CD900EF7A4A /* CryptoSwift */ = {
-			isa = PBXGroup;
-			children = (
-				84686A5C20C02CD900EF7A4A /* AES.swift */,
-				84686A5D20C02CD900EF7A4A /* UInt64+Extension.swift */,
-				84686A5E20C02CD900EF7A4A /* Cryptors.swift */,
-				84686A5F20C02CD900EF7A4A /* Cipher.swift */,
-				84686A6020C02CD900EF7A4A /* Int+Extension.swift */,
-				84686A6120C02CD900EF7A4A /* Bit.swift */,
-				84686A6220C02CD900EF7A4A /* HMAC.swift */,
-				84686A6320C02CD900EF7A4A /* UInt16+Extension.swift */,
-				84686A6420C02CD900EF7A4A /* Collection+Extension.swift */,
-				84686A6520C02CD900EF7A4A /* UInt32+Extension.swift */,
-				84686A6620C02CD900EF7A4A /* Digest.swift */,
-				84686A6720C02CD900EF7A4A /* NoPadding.swift */,
-				84686A6820C02CD900EF7A4A /* Foundation */,
-				84686A7220C02CD900EF7A4A /* UInt8+Extension.swift */,
-				84686A7320C02CD900EF7A4A /* MD5.swift */,
-				84686A7420C02CD900EF7A4A /* BatchedCollection.swift */,
-				84686A7520C02CD900EF7A4A /* PKCS5 */,
-				84686A7920C02CD900EF7A4A /* SecureBytes.swift */,
-				84686A7A20C02CD900EF7A4A /* ZeroPadding.swift */,
-				84686A7B20C02CD900EF7A4A /* String+Extension.swift */,
-				84686A7C20C02CD900EF7A4A /* Authenticator.swift */,
-				84686A7D20C02CD900EF7A4A /* SHA3.swift */,
-				84686A7E20C02CD900EF7A4A /* Operators.swift */,
-				84686A7F20C02CD900EF7A4A /* RandomBytesSequence.swift */,
-				84686A8020C02CD900EF7A4A /* Rabbit.swift */,
-				84686A8120C02CD900EF7A4A /* PKCS7.swift */,
-				84686A8220C02CD900EF7A4A /* SHA1.swift */,
-				84686A8320C02CD900EF7A4A /* Poly1305.swift */,
-				84686A8420C02CD900EF7A4A /* BlockCipher.swift */,
-				84686A8520C02CD900EF7A4A /* Updatable.swift */,
-				84686A8620C02CD900EF7A4A /* Blowfish.swift */,
-				84686A8720C02CD900EF7A4A /* DigestType.swift */,
-				84686A8820C02CD900EF7A4A /* Utils.swift */,
-				84686A8920C02CD900EF7A4A /* Generics.swift */,
-				84686A8A20C02CD900EF7A4A /* Checksum.swift */,
-				84686A8B20C02CD900EF7A4A /* RandomAccessCryptor.swift */,
-				84686A8C20C02CD900EF7A4A /* SHA2.swift */,
-				84686A8D20C02CD900EF7A4A /* Padding.swift */,
-				84686A8E20C02CD900EF7A4A /* CSArrayType+Extensions.swift */,
-				84686A8F20C02CD900EF7A4A /* BlockMode */,
-				84686A9A20C02CD900EF7A4A /* ChaCha20.swift */,
-				84686A9B20C02CD900EF7A4A /* Array+Extension.swift */,
-			);
-			path = CryptoSwift;
-			sourceTree = "<group>";
-		};
-		84686A6820C02CD900EF7A4A /* Foundation */ = {
-			isa = PBXGroup;
-			children = (
-				84686A6920C02CD900EF7A4A /* CSArrayType+Foundation.swift */,
-				84686A6A20C02CD900EF7A4A /* String+FoundationExtension.swift */,
-				84686A6B20C02CD900EF7A4A /* Blowfish+Foundation.swift */,
-				84686A6C20C02CD900EF7A4A /* Utils+Foundation.swift */,
-				84686A6D20C02CD900EF7A4A /* HMAC+Foundation.swift */,
-				84686A6E20C02CD900EF7A4A /* Data+Extension.swift */,
-				84686A6F20C02CD900EF7A4A /* ChaCha20+Foundation.swift */,
-				84686A7020C02CD900EF7A4A /* AES+Foundation.swift */,
-				84686A7120C02CD900EF7A4A /* Rabbit+Foundation.swift */,
-			);
-			path = Foundation;
-			sourceTree = "<group>";
-		};
-		84686A7520C02CD900EF7A4A /* PKCS5 */ = {
-			isa = PBXGroup;
-			children = (
-				84686A7620C02CD900EF7A4A /* PKCS5.swift */,
-				84686A7720C02CD900EF7A4A /* PBKDF2.swift */,
-				84686A7820C02CD900EF7A4A /* PBKDF1.swift */,
-			);
-			path = PKCS5;
-			sourceTree = "<group>";
-		};
-		84686A8F20C02CD900EF7A4A /* BlockMode */ = {
-			isa = PBXGroup;
-			children = (
-				84686A9020C02CD900EF7A4A /* BlockModeOptions.swift */,
-				84686A9120C02CD900EF7A4A /* CFB.swift */,
-				84686A9220C02CD900EF7A4A /* CBC.swift */,
-				84686A9320C02CD900EF7A4A /* RandomAccessBlockModeWorker.swift */,
-				84686A9420C02CD900EF7A4A /* ECB.swift */,
-				84686A9520C02CD900EF7A4A /* PCBC.swift */,
-				84686A9620C02CD900EF7A4A /* BlockModeWorker.swift */,
-				84686A9720C02CD900EF7A4A /* BlockMode.swift */,
-				84686A9820C02CD900EF7A4A /* CTR.swift */,
-				84686A9920C02CD900EF7A4A /* OFB.swift */,
-			);
-			path = BlockMode;
-			sourceTree = "<group>";
-		};
-		84686AA220C02CD900EF7A4A /* SWXML */ = {
-			isa = PBXGroup;
-			children = (
-				84686AA320C02CD900EF7A4A /* SWXMLHash.swift */,
-				84686AA420C02CD900EF7A4A /* SWXMLHash+TypeConversion.swift */,
-			);
-			path = SWXML;
-			sourceTree = "<group>";
-		};
-		84686AA820C02CD900EF7A4A /* Book */ = {
-			isa = PBXGroup;
-			children = (
-				84686AA920C02CD900EF7A4A /* BookManagement.swift */,
-				84686AAA20C02CD900EF7A4A /* BookManagementType.swift */,
-				84686AAB20C02CD900EF7A4A /* BookManagementConfiguration.swift */,
-				84686AAC20C02CD900EF7A4A /* SogenActif */,
-				84686AAE20C02CD900EF7A4A /* VSCTBookManagement */,
-			);
-			path = Book;
-			sourceTree = "<group>";
-		};
-		84686AAC20C02CD900EF7A4A /* SogenActif */ = {
-			isa = PBXGroup;
-			children = (
-				84686AAD20C02CD900EF7A4A /* NavitiaSDKPartnersSogenActif.swift */,
-			);
-			path = SogenActif;
-			sourceTree = "<group>";
-		};
-		84686AAE20C02CD900EF7A4A /* VSCTBookManagement */ = {
-			isa = PBXGroup;
-			children = (
-				84686AAF20C02CD900EF7A4A /* VSCTBookManagement.swift */,
-				84686AB020C02CD900EF7A4A /* VSCTBookOffer.swift */,
-				84686AB120C02CD900EF7A4A /* VSCTBookManagementConfiguration.swift */,
-			);
-			path = VSCTBookManagement;
-			sourceTree = "<group>";
-		};
-		84686AB220C02CD900EF7A4A /* Ticket */ = {
-			isa = PBXGroup;
-			children = (
-				84686AB320C02CD900EF7A4A /* TicketManagementType.swift */,
-				84686AB420C02CD900EF7A4A /* MasabiTicketManagement */,
-				84686AB720C02CD900EF7A4A /* TicketManagement.swift */,
-				84686AB820C02CD900EF7A4A /* TicketManagementConfiguration.swift */,
-			);
-			path = Ticket;
-			sourceTree = "<group>";
-		};
-		84686AB420C02CD900EF7A4A /* MasabiTicketManagement */ = {
-			isa = PBXGroup;
-			children = (
-				84686AB520C02CD900EF7A4A /* MasabiTicketManagement.swift */,
-				84686AB620C02CD900EF7A4A /* MasabiTicketManagementConfiguration.swift */,
-			);
-			path = MasabiTicketManagement;
-			sourceTree = "<group>";
-		};
-		84686AB920C02CD900EF7A4A /* Account */ = {
-			isa = PBXGroup;
-			children = (
-				84686ABA20C02CD900EF7A4A /* AccountManagement.swift */,
-				84686ABB20C02CD900EF7A4A /* KeolisAccountManagement */,
-				84686AC120C02CD900EF7A4A /* AccountManagementType.swift */,
-				84686AC220C02CD900EF7A4A /* AccountManagementConfiguration.swift */,
-			);
-			path = Account;
-			sourceTree = "<group>";
-		};
-		84686ABB20C02CD900EF7A4A /* KeolisAccountManagement */ = {
-			isa = PBXGroup;
-			children = (
-				84686ABC20C02CD900EF7A4A /* KeolisUserInfo.swift */,
-				84686ABD20C02CD900EF7A4A /* KeolisAccountManagementConfiguration.swift */,
-				84686ABE20C02CD900EF7A4A /* KeolisAccountManagement.swift */,
-				84686ABF20C02CD900EF7A4A /* KeolisAccountStatus.swift */,
-				84686AC020C02CD900EF7A4A /* KeolisAccountManagementUtils.swift */,
-			);
-			path = KeolisAccountManagement;
-			sourceTree = "<group>";
-		};
 		84686B2720C032CF00EF7A4A /* Ticket */ = {
 			isa = PBXGroup;
 			children = (
@@ -1985,11 +1805,11 @@
 			path = View;
 			sourceTree = "<group>";
 		};
-		9B092BFCA76A87BCE4A56C19 /* Frameworks */ = {
+		E3221367B7AADE27AA5D6196 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				B91C5E1BC126A11D3C2AECB4 /* Pods_NavitiaSDKUI.framework */,
-				517F3E3E820DC0A2FC25FA68 /* Pods_NavitiaSDKUITests.framework */,
+				AC2C556987A527C2254C581A /* Pods_NavitiaSDKUI.framework */,
+				F45D8CB91F7D5B8EFBCA467D /* Pods_NavitiaSDKUITests.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -2004,7 +1824,7 @@
 				8454D42C2068D3A800C97D2F /* ObjectMapper.h in Headers */,
 				8451DA4B206503F100CFA1E4 /* NavitiaSDKUI.h in Headers */,
 				8454D4282068D3A800C97D2F /* AlamofireObjectMapper.h in Headers */,
-				84686B0E20C02CD900EF7A4A /* NavitiaSDKPartners.h in Headers */,
+				84484D8020E3D3C3005A513B /* NavitiaSDKPartners.h in Headers */,
 				8454D4242068D3A800C97D2F /* Alamofire.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2016,12 +1836,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 8451DA4E206503F100CFA1E4 /* Build configuration list for PBXNativeTarget "NavitiaSDKUI" */;
 			buildPhases = (
-				EDD669623793D2467CDA396A /* [CP] Check Pods Manifest.lock */,
+				3C2D14CE72CA9B5C18D3B785 /* [CP] Check Pods Manifest.lock */,
 				8451DA35206503F100CFA1E4 /* Sources */,
 				8451DA36206503F100CFA1E4 /* Frameworks */,
 				8451DA37206503F100CFA1E4 /* Headers */,
 				8451DA38206503F100CFA1E4 /* Resources */,
-				A54FA49C0C1FF98E40E60567 /* [CP] Copy Pods Resources */,
+				B30BCA41ECAE278A14EC4801 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -2036,12 +1856,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 8451DA51206503F100CFA1E4 /* Build configuration list for PBXNativeTarget "NavitiaSDKUITests" */;
 			buildPhases = (
-				38C9213366A4172D6B30D6C3 /* [CP] Check Pods Manifest.lock */,
+				EBA7AFEAA93DBB608517F9EC /* [CP] Check Pods Manifest.lock */,
 				8451DA3F206503F100CFA1E4 /* Sources */,
 				8451DA40206503F100CFA1E4 /* Frameworks */,
 				8451DA41206503F100CFA1E4 /* Resources */,
-				CE80586C4956F7C29B82ABB5 /* [CP] Embed Pods Frameworks */,
-				AEC9791E2FDD36CB792B56FC /* [CP] Copy Pods Resources */,
+				1536C7038A2174E4CAC7AE9D /* [CP] Embed Pods Frameworks */,
+				C0BAABF2BC255EB3ED75B54C /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -2127,7 +1947,6 @@
 				8454D44E20692CA200C97D2F /* SDKIcons.ttf in Resources */,
 				8433F3A2207FAF23007DBBCE /* AlertView.xib in Resources */,
 				84339A7E206CC5E200F2CB65 /* JourneyEmptySolutionCollectionViewCell.xib in Resources */,
-				84686B2420C02CD900EF7A4A /* Info.plist in Resources */,
 				849E2EE720B2D14500AEFC07 /* BookRecapTicketView.xib in Resources */,
 				849E2EEB20B2D15B00AEFC07 /* BookRecapConnectView.xib in Resources */,
 				8451DA63206506ED00CFA1E4 /* Localizable.strings in Resources */,
@@ -2137,6 +1956,7 @@
 				844CA2E22080F15A00C6B259 /* JourneyRidesharingCollectionViewCell.xib in Resources */,
 				84E350F520776BC600E9BA46 /* TransferStepView.xib in Resources */,
 				84506C2A209C5007006BF393 /* RidesharingStepView.xib in Resources */,
+				84484D9620E3D3C3005A513B /* Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2150,55 +1970,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		38C9213366A4172D6B30D6C3 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-NavitiaSDKUITests-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		A54FA49C0C1FF98E40E60567 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-NavitiaSDKUI/Pods-NavitiaSDKUI-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		AEC9791E2FDD36CB792B56FC /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-NavitiaSDKUITests/Pods-NavitiaSDKUITests-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		CE80586C4956F7C29B82ABB5 /* [CP] Embed Pods Frameworks */ = {
+		1536C7038A2174E4CAC7AE9D /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -2216,7 +1988,7 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-NavitiaSDKUITests/Pods-NavitiaSDKUITests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		EDD669623793D2467CDA396A /* [CP] Check Pods Manifest.lock */ = {
+		3C2D14CE72CA9B5C18D3B785 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -2234,6 +2006,54 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
+		B30BCA41ECAE278A14EC4801 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-NavitiaSDKUI/Pods-NavitiaSDKUI-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		C0BAABF2BC255EB3ED75B54C /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-NavitiaSDKUITests/Pods-NavitiaSDKUITests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		EBA7AFEAA93DBB608517F9EC /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-NavitiaSDKUITests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -2241,207 +2061,211 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				84686AF620C02CD900EF7A4A /* SHA2.swift in Sources */,
+				84484D4120E3D3C3005A513B /* UInt16+Extension.swift in Sources */,
+				84484D3E20E3D3C3005A513B /* Int+Extension.swift in Sources */,
 				8454D3F42068D3A800C97D2F /* HeatMatrixSchema.swift in Sources */,
 				8454D40D2068D3A800C97D2F /* Routes.swift in Sources */,
-				84686B0420C02CD900EF7A4A /* Array+Extension.swift in Sources */,
+				84484D6D20E3D3C3005A513B /* CBC.swift in Sources */,
 				8454D3FC2068D3A800C97D2F /* GraphicalIsrochone1.swift in Sources */,
 				8476DD5420888154006CB506 /* CustomAnnotation.swift in Sources */,
 				84EBF8CB207CF86500053E61 /* TransferStepView.swift in Sources */,
-				84686AE920C02CD900EF7A4A /* RandomBytesSequence.swift in Sources */,
 				8454D3A92068D3A800C97D2F /* JourneyDebug.swift in Sources */,
 				8454D40B2068D3A800C97D2F /* Route.swift in Sources */,
 				8454D41E2068D3A800C97D2F /* Notifications.swift in Sources */,
-				84686B0F20C02CD900EF7A4A /* NavitiaSDKPartners.swift in Sources */,
 				312655A220AEF67A00D50F4B /* BookPaymentViewModel.swift in Sources */,
+				84484D9220E3D3C3005A513B /* KeolisAccountStatus.swift in Sources */,
+				84484D7A20E3D3C3005A513B /* NavitiaSDKPartnersPrice.swift in Sources */,
 				8454D4042068D3A800C97D2F /* Fare.swift in Sources */,
-				84686B1920C02CD900EF7A4A /* MasabiTicketManagementConfiguration.swift in Sources */,
+				84484D6A20E3D3C3005A513B /* CSArrayType+Extensions.swift in Sources */,
 				8454D3C52068D3A800C97D2F /* Channel.swift in Sources */,
+				84484D8420E3D3C3005A513B /* BookManagementConfiguration.swift in Sources */,
 				8454D3E92068D3A800C97D2F /* WeekPattern.swift in Sources */,
 				8454D3B42068D3A800C97D2F /* Places.swift in Sources */,
-				84686B1720C02CD900EF7A4A /* TicketManagementType.swift in Sources */,
 				84339A80206CC5ED00F2CB65 /* JourneyEmptySolutionCollectionViewCell.swift in Sources */,
 				84737E9F20879A3C002D3748 /* UIView+Extension.swift in Sources */,
-				84686B0620C02CD900EF7A4A /* Reachability.swift in Sources */,
 				84FABE122074C7FC00BDDE9D /* Icons.swift in Sources */,
-				84686AE120C02CD900EF7A4A /* PBKDF2.swift in Sources */,
 				8422B460206A2AFF0097E6C9 /* RidesharingInformationCollectionViewCell.swift in Sources */,
 				312655A120AEF67A00D50F4B /* BookPaymentConditionView.swift in Sources */,
 				8454D3C92068D3A800C97D2F /* Admin.swift in Sources */,
 				8454D42F2068D3A800C97D2F /* NSDecimalNumberTransform.swift in Sources */,
 				8451DAB0206512C100CFA1E4 /* JourneySolutionViewModel.swift in Sources */,
 				8454D3DE2068D3A800C97D2F /* Header.swift in Sources */,
+				84484D9520E3D3C3005A513B /* AccountManagementConfiguration.swift in Sources */,
+				84484D7120E3D3C3005A513B /* BlockModeWorker.swift in Sources */,
 				8454D4192068D3A800C97D2F /* DispatchQueue+Alamofire.swift in Sources */,
+				84484D5120E3D3C3005A513B /* BatchedCollection.swift in Sources */,
 				8454D4092068D3A800C97D2F /* Networks.swift in Sources */,
 				8454D4082068D3A800C97D2F /* GeoStatus.swift in Sources */,
 				8454D3982068D3A800C97D2F /* Passage.swift in Sources */,
 				8454D3732068D3A800C97D2F /* DisruptionsApi.swift in Sources */,
-				84686B1420C02CD900EF7A4A /* VSCTBookManagement.swift in Sources */,
-				84686AC520C02CD900EF7A4A /* NavitiaSDKPartnersCourtesyEnum.swift in Sources */,
 				849E2EE920B2D15500AEFC07 /* BookRecapConnectView.swift in Sources */,
-				84686AF020C02CD900EF7A4A /* Blowfish.swift in Sources */,
+				84484D6220E3D3C3005A513B /* Blowfish.swift in Sources */,
+				84484D8A20E3D3C3005A513B /* MasabiTicketManagement.swift in Sources */,
 				8454D4122068D3A800C97D2F /* LineHeadersSchema.swift in Sources */,
 				8454D4352068D3A800C97D2F /* Map.swift in Sources */,
 				8454D43C2068D3A800C97D2F /* MapError.swift in Sources */,
-				84686AF220C02CD900EF7A4A /* Utils.swift in Sources */,
+				84484D7020E3D3C3005A513B /* PCBC.swift in Sources */,
 				8454D4362068D3A800C97D2F /* FromJSON.swift in Sources */,
+				84484D6620E3D3C3005A513B /* Checksum.swift in Sources */,
 				8454D3842068D3A800C97D2F /* ContributorsApi.swift in Sources */,
-				84686AC420C02CD900EF7A4A /* NavitiaSDKPartnersRequestBuilder.swift in Sources */,
 				84339A82206CC6D900F2CB65 /* NSMutableAttributedString+Extension.swift in Sources */,
 				84FABE142074CB2300BDDE9D /* UIFont+Extension.swift in Sources */,
-				84686AF420C02CD900EF7A4A /* Checksum.swift in Sources */,
 				8454D37C2068D3A800C97D2F /* GeoStatusApi.swift in Sources */,
 				8454D43B2068D3A800C97D2F /* TransformType.swift in Sources */,
+				84484D3720E3D3C3005A513B /* NavitiaSDKPartnersCourtesyEnum.swift in Sources */,
 				8454D39F2068D3A800C97D2F /* VJDisplayInformation.swift in Sources */,
-				84686ADD20C02CD900EF7A4A /* UInt8+Extension.swift in Sources */,
 				84EED94120B8120E00189E88 /* MessageCVView.swift in Sources */,
 				8454D3CE2068D3A800C97D2F /* BetaEndpoints.swift in Sources */,
 				8454D42D2068D3A800C97D2F /* ISO8601DateTransform.swift in Sources */,
-				84686B1220C02CD900EF7A4A /* BookManagementConfiguration.swift in Sources */,
 				8454D3932068D3A800C97D2F /* APIHelper.swift in Sources */,
 				84893FF820B311AE008BED15 /* BookTicketDelegate.swift in Sources */,
 				8454D3EE2068D3A800C97D2F /* Companie.swift in Sources */,
 				8454D3942068D3A800C97D2F /* AlamofireImplementations.swift in Sources */,
 				8454D3802068D3A800C97D2F /* StopPointsApi.swift in Sources */,
-				84686B1F20C02CD900EF7A4A /* KeolisAccountManagement.swift in Sources */,
 				8454D3DF2068D3A800C97D2F /* IndividualRating.swift in Sources */,
 				8454D3B02068D3A800C97D2F /* Comment.swift in Sources */,
-				84686B0D20C02CD900EF7A4A /* NavitiaSDKPartnersExtension.swift in Sources */,
+				84484D9020E3D3C3005A513B /* KeolisAccountManagementConfiguration.swift in Sources */,
+				84484D3C20E3D3C3005A513B /* Cryptors.swift in Sources */,
 				8454D3E02068D3A800C97D2F /* Note.swift in Sources */,
-				84686AE020C02CD900EF7A4A /* PKCS5.swift in Sources */,
+				84484D5E20E3D3C3005A513B /* SHA1.swift in Sources */,
 				8454D39A2068D3A800C97D2F /* DisruptionProperty.swift in Sources */,
 				8454D3B22068D3A800C97D2F /* LinkSchema.swift in Sources */,
 				8454D3BA2068D3A800C97D2F /* Distances.swift in Sources */,
-				84686AC620C02CD900EF7A4A /* NavitiaSDKPartnersReturnCodes.swift in Sources */,
 				8454D3B62068D3A800C97D2F /* GraphicalIsrochoneGeojson.swift in Sources */,
-				84686AE320C02CD900EF7A4A /* SecureBytes.swift in Sources */,
+				84484D8520E3D3C3005A513B /* NavitiaSDKPartnersSogenActif.swift in Sources */,
 				849E2EDD20B2BDE600AEFC07 /* BookRecapViewController.swift in Sources */,
 				8454D3F22068D3A800C97D2F /* Line.swift in Sources */,
+				84484D5420E3D3C3005A513B /* PBKDF1.swift in Sources */,
 				3126559D20AEF67A00D50F4B /* BookPaymentMailFormView.swift in Sources */,
 				84686B2920C032EE00EF7A4A /* TicketViewController.swift in Sources */,
 				8454D3A62068D3A800C97D2F /* Period.swift in Sources */,
-				84686B1820C02CD900EF7A4A /* MasabiTicketManagement.swift in Sources */,
 				8454D3712068D3A800C97D2F /* GraphicalIsochroneApi.swift in Sources */,
 				8454D42E2068D3A800C97D2F /* URLTransform.swift in Sources */,
 				8454D3852068D3A800C97D2F /* RoutesApi.swift in Sources */,
 				8454D452206942B800C97D2F /* Date+Extension.swift in Sources */,
 				8454D4302068D3A800C97D2F /* Operators.swift in Sources */,
+				84484D7820E3D3C3005A513B /* Reachability.swift in Sources */,
 				8454D3A02068D3A800C97D2F /* LineGroup.swift in Sources */,
+				84484D7420E3D3C3005A513B /* OFB.swift in Sources */,
+				84484D7520E3D3C3005A513B /* ChaCha20.swift in Sources */,
 				8434323A208E1E5F0061F20A /* TicketCollectionViewCell.swift in Sources */,
+				84484D9120E3D3C3005A513B /* KeolisAccountManagement.swift in Sources */,
 				8454D4332068D3A800C97D2F /* DataTransform.swift in Sources */,
-				84686AC920C02CD900EF7A4A /* UInt64+Extension.swift in Sources */,
 				8454D44A2068FC9F00C97D2F /* JourneySolutionCollectionViewCell.swift in Sources */,
+				84484D3620E3D3C3005A513B /* NavitiaSDKPartnersRequestBuilder.swift in Sources */,
 				8476DD5820888EE8006CB506 /* StackView+Extension.swift in Sources */,
 				8454D3AD2068D3A800C97D2F /* PhysicalMode.swift in Sources */,
+				84484D5020E3D3C3005A513B /* MD5.swift in Sources */,
 				8454D4172068D3A800C97D2F /* NetworkReachabilityManager.swift in Sources */,
 				8454D4012068D3A800C97D2F /* StopAreas.swift in Sources */,
 				8454D38E2068D3A800C97D2F /* JourneysApi.swift in Sources */,
 				8454D3F52068D3A800C97D2F /* CommercialMode.swift in Sources */,
-				84686AD420C02CD900EF7A4A /* CSArrayType+Foundation.swift in Sources */,
 				8454D3762068D3A800C97D2F /* CoordsApi.swift in Sources */,
+				84484D8820E3D3C3005A513B /* VSCTBookManagementConfiguration.swift in Sources */,
 				8454D4052068D3A800C97D2F /* IndividualInformation.swift in Sources */,
-				84686ADC20C02CD900EF7A4A /* Rabbit+Foundation.swift in Sources */,
 				3126559B20AEF67A00D50F4B /* BookPaymentViewController.swift in Sources */,
 				8454D3DB2068D3A800C97D2F /* Dataset.swift in Sources */,
 				84737E9D2087995B002D3748 /* UIImageView+Extension.swift in Sources */,
-				84686B0020C02CD900EF7A4A /* BlockMode.swift in Sources */,
 				8454D4072068D3A800C97D2F /* Coord.swift in Sources */,
+				84484D6020E3D3C3005A513B /* BlockCipher.swift in Sources */,
 				8454D40F2068D3A800C97D2F /* Departures.swift in Sources */,
 				8454D3F02068D3A800C97D2F /* JourneyPatterns.swift in Sources */,
 				8454D38F2068D3A800C97D2F /* TripsApi.swift in Sources */,
 				8454D3CD2068D3A800C97D2F /* PoiType.swift in Sources */,
+				84484D7620E3D3C3005A513B /* Array+Extension.swift in Sources */,
 				3126566920B3008800D50F4B /* UIViewController+Extension.swift in Sources */,
 				8454D4372068D3A800C97D2F /* DictionaryTransform.swift in Sources */,
-				84686AEC20C02CD900EF7A4A /* SHA1.swift in Sources */,
 				8454D37F2068D3A800C97D2F /* HeatMapApi.swift in Sources */,
+				84484D8720E3D3C3005A513B /* VSCTBookOffer.swift in Sources */,
+				84484D5520E3D3C3005A513B /* SecureBytes.swift in Sources */,
 				8454D4312068D3A800C97D2F /* EnumOperators.swift in Sources */,
 				8454D3BD2068D3A800C97D2F /* HeatMap1.swift in Sources */,
 				8454D3C62068D3A800C97D2F /* Network.swift in Sources */,
-				84686ACA20C02CD900EF7A4A /* Cryptors.swift in Sources */,
 				8454D3D62068D3A800C97D2F /* Trips.swift in Sources */,
-				84686AFD20C02CD900EF7A4A /* ECB.swift in Sources */,
 				8454D3E72068D3A800C97D2F /* LineReports.swift in Sources */,
 				8454D3FB2068D3A800C97D2F /* JourneyPatternPoints.swift in Sources */,
 				8422B468206A334B0097E6C9 /* JourneySummaryView.swift in Sources */,
 				849E2EDF20B2BE0500AEFC07 /* BookRecapViewModel.swift in Sources */,
+				84484D6F20E3D3C3005A513B /* ECB.swift in Sources */,
+				84484D7220E3D3C3005A513B /* BlockMode.swift in Sources */,
 				8454D37A2068D3A800C97D2F /* NextDeparturesApi.swift in Sources */,
 				8454D3B92068D3A800C97D2F /* ImpactedStop.swift in Sources */,
+				84484D5620E3D3C3005A513B /* ZeroPadding.swift in Sources */,
+				84484D8F20E3D3C3005A513B /* KeolisUserInfo.swift in Sources */,
 				8454D3AE2068D3A800C97D2F /* ValidityPattern.swift in Sources */,
 				8454D3742068D3A800C97D2F /* PoisApi.swift in Sources */,
 				8454D36F2068D3A800C97D2F /* TrafficReportApi.swift in Sources */,
 				8454D3D22068D3A800C97D2F /* GraphicalIsrochone.swift in Sources */,
 				8454D3A32068D3A800C97D2F /* SeatsDescription.swift in Sources */,
-				84686AD920C02CD900EF7A4A /* Data+Extension.swift in Sources */,
 				8454D42B2068D3A800C97D2F /* HexColorTransform.swift in Sources */,
 				8454D39E2068D3A800C97D2F /* CoverageError.swift in Sources */,
 				849E2EE120B2C86100AEFC07 /* BookRecapInformationView.swift in Sources */,
+				84484D8120E3D3C3005A513B /* NavitiaSDKPartners.swift in Sources */,
 				8433B87B206BE2A900EC51F9 /* Int32+Extension.swift in Sources */,
 				8454D3BE2068D3A800C97D2F /* CO2.swift in Sources */,
 				8454D43D2068D3A800C97D2F /* DateTransform.swift in Sources */,
-				84686B1D20C02CD900EF7A4A /* KeolisUserInfo.swift in Sources */,
 				3126559E20AEF67A00D50F4B /* BookPaymentView.swift in Sources */,
 				8454D4062068D3A800C97D2F /* LineGroups.swift in Sources */,
-				84686AEE20C02CD900EF7A4A /* BlockCipher.swift in Sources */,
-				84686ACF20C02CD900EF7A4A /* UInt16+Extension.swift in Sources */,
 				8454D3782068D3A800C97D2F /* NetworksApi.swift in Sources */,
 				8454D3902068D3A800C97D2F /* PhysicalModesApi.swift in Sources */,
 				848D7C2C207B95B0002E9B1A /* PublicTransportView.swift in Sources */,
-				84686ACD20C02CD900EF7A4A /* Bit.swift in Sources */,
 				8454D3A12068D3A800C97D2F /* Journey.swift in Sources */,
 				8454D3F92068D3A800C97D2F /* StopArea.swift in Sources */,
+				84484D3920E3D3C3005A513B /* NavitiaBookCartItem.swift in Sources */,
 				8454D4232068D3A800C97D2F /* ResponseSerialization.swift in Sources */,
 				8454D3B82068D3A800C97D2F /* Trip.swift in Sources */,
 				8454D4392068D3A800C97D2F /* ImmutableMappable.swift in Sources */,
 				8454D3992068D3A800C97D2F /* Impacted.swift in Sources */,
+				84484D8320E3D3C3005A513B /* BookManagementType.swift in Sources */,
+				84484D9320E3D3C3005A513B /* KeolisAccountManagementUtils.swift in Sources */,
 				8433F398207F47E0007DBBCE /* BikeStepView.swift in Sources */,
+				84484D5F20E3D3C3005A513B /* Poly1305.swift in Sources */,
 				8454D3BF2068D3A800C97D2F /* ImpactedSection.swift in Sources */,
 				8454D4132068D3A800C97D2F /* Calendars.swift in Sources */,
 				8454D38A2068D3A800C97D2F /* PlacesApi.swift in Sources */,
-				84686B0920C02CD900EF7A4A /* NavitiaBookOffer.swift in Sources */,
 				8454D3AF2068D3A800C97D2F /* StopTime.swift in Sources */,
-				84686AD320C02CD900EF7A4A /* NoPadding.swift in Sources */,
-				84686B2320C02CD900EF7A4A /* AccountManagementConfiguration.swift in Sources */,
 				3126559F20AEF67A00D50F4B /* BookPaymentProfilView.swift in Sources */,
 				8454D4032068D3A800C97D2F /* VehicleJourneys.swift in Sources */,
 				8454D3F62068D3A800C97D2F /* StopPoint.swift in Sources */,
+				84484D4020E3D3C3005A513B /* HMAC.swift in Sources */,
 				8454D3912068D3A800C97D2F /* CompaniesApi.swift in Sources */,
+				84484D4D20E3D3C3005A513B /* AES+Foundation.swift in Sources */,
 				84BC2980207E66D50073F198 /* StationsView.swift in Sources */,
 				8454D41F2068D3A800C97D2F /* Response.swift in Sources */,
 				8454D38C2068D3A800C97D2F /* LineReportsApi.swift in Sources */,
+				84484D4F20E3D3C3005A513B /* UInt8+Extension.swift in Sources */,
 				8454D3BB2068D3A800C97D2F /* Disruptions.swift in Sources */,
-				84686ADF20C02CD900EF7A4A /* BatchedCollection.swift in Sources */,
-				84686AD520C02CD900EF7A4A /* String+FoundationExtension.swift in Sources */,
+				84484D5D20E3D3C3005A513B /* PKCS7.swift in Sources */,
 				84208C992093657500980762 /* TicketLoadCollectionViewCell.swift in Sources */,
+				84484D7F20E3D3C3005A513B /* NavitiaSDKPartnersExtension.swift in Sources */,
 				8454D3D32068D3A800C97D2F /* RouteSchedules.swift in Sources */,
 				8454D3F12068D3A800C97D2F /* ModelError.swift in Sources */,
+				84484D3B20E3D3C3005A513B /* UInt64+Extension.swift in Sources */,
 				8454D36E2068D3A800C97D2F /* LinesApi.swift in Sources */,
+				84484D7920E3D3C3005A513B /* NavitiaUserInfo.swift in Sources */,
 				8454D3E82068D3A800C97D2F /* DateTimeType.swift in Sources */,
-				84686ACC20C02CD900EF7A4A /* Int+Extension.swift in Sources */,
-				84686AEF20C02CD900EF7A4A /* Updatable.swift in Sources */,
+				84484D5220E3D3C3005A513B /* PKCS5.swift in Sources */,
 				8454D3C72068D3A800C97D2F /* LineReport.swift in Sources */,
+				84484D8B20E3D3C3005A513B /* MasabiTicketManagementConfiguration.swift in Sources */,
+				84484D3820E3D3C3005A513B /* NavitiaSDKPartnersReturnCodes.swift in Sources */,
 				8454D3C82068D3A800C97D2F /* GeoStatus1.swift in Sources */,
 				8454D3F32068D3A800C97D2F /* FeedPublisher.swift in Sources */,
+				84484D5C20E3D3C3005A513B /* Rabbit.swift in Sources */,
 				8454D3E52068D3A800C97D2F /* Section.swift in Sources */,
+				84484D4420E3D3C3005A513B /* Digest.swift in Sources */,
+				84484D4720E3D3C3005A513B /* String+FoundationExtension.swift in Sources */,
 				8454D3892068D3A800C97D2F /* PlacesNearbyApi.swift in Sources */,
-				84686AC820C02CD900EF7A4A /* AES.swift in Sources */,
-				84686ADB20C02CD900EF7A4A /* AES+Foundation.swift in Sources */,
-				84686B0B20C02CD900EF7A4A /* SWXMLHash.swift in Sources */,
 				8454D3B52068D3A800C97D2F /* HeatMap.swift in Sources */,
-				84686AE220C02CD900EF7A4A /* PBKDF1.swift in Sources */,
-				84686B0C20C02CD900EF7A4A /* SWXMLHash+TypeConversion.swift in Sources */,
+				84484D8920E3D3C3005A513B /* TicketManagementType.swift in Sources */,
 				8451DAAE206512B200CFA1E4 /* JourneySolutionRidesharingViewModel.swift in Sources */,
 				8454D3EA2068D3A800C97D2F /* Durations.swift in Sources */,
 				8454D4212068D3A800C97D2F /* Request.swift in Sources */,
-				84686B1620C02CD900EF7A4A /* VSCTBookManagementConfiguration.swift in Sources */,
 				8454D3A42068D3A800C97D2F /* JourneyPatternPoint.swift in Sources */,
 				8454D4382068D3A800C97D2F /* TransformOperators.swift in Sources */,
-				84686AD820C02CD900EF7A4A /* HMAC+Foundation.swift in Sources */,
 				8433F3A0207FAECF007DBBCE /* AlertViewController.swift in Sources */,
 				312655A020AEF67A00D50F4B /* BookPaymentOfferView.swift in Sources */,
 				8454D3C22068D3A800C97D2F /* Message.swift in Sources */,
-				84686AF320C02CD900EF7A4A /* Generics.swift in Sources */,
 				8454D4022068D3A800C97D2F /* RouteSchedule.swift in Sources */,
-				84686AD620C02CD900EF7A4A /* Blowfish+Foundation.swift in Sources */,
 				8454D41B2068D3A800C97D2F /* ParameterEncoding.swift in Sources */,
 				8454D37D2068D3A800C97D2F /* VehicleJourneysApi.swift in Sources */,
 				8454D3C32068D3A800C97D2F /* Place.swift in Sources */,
@@ -2452,50 +2276,48 @@
 				8454D3DA2068D3A800C97D2F /* Stands.swift in Sources */,
 				8454D4102068D3A800C97D2F /* Cost.swift in Sources */,
 				8454D3792068D3A800C97D2F /* CoverageApi.swift in Sources */,
-				84686AC720C02CD900EF7A4A /* NavitiaBookCartItem.swift in Sources */,
 				845721A7209753F600C933B8 /* InformationViewController.swift in Sources */,
 				8451DAA620650C6900CFA1E4 /* JourneySolutionViewController.swift in Sources */,
 				8454D4262068D3A800C97D2F /* SessionDelegate.swift in Sources */,
 				8454D3BC2068D3A800C97D2F /* StopPoints.swift in Sources */,
 				8454D3832068D3A800C97D2F /* JourneyPatternPointsApi.swift in Sources */,
 				8454D40C2068D3A800C97D2F /* StopSchedules.swift in Sources */,
+				84484D8E20E3D3C3005A513B /* AccountManagement.swift in Sources */,
 				8454D4152068D3A800C97D2F /* TaskDelegate.swift in Sources */,
-				84686AE720C02CD900EF7A4A /* SHA3.swift in Sources */,
 				8454D3722068D3A800C97D2F /* NextArrivalsApi.swift in Sources */,
 				8454D3772068D3A800C97D2F /* PoiTypesApi.swift in Sources */,
 				8454D3FF2068D3A800C97D2F /* TrafficReport.swift in Sources */,
 				8454D4162068D3A800C97D2F /* MultipartFormData.swift in Sources */,
 				8454D4412068D3A800C97D2F /* NavitiaSDK.swift in Sources */,
-				84686B1E20C02CD900EF7A4A /* KeolisAccountManagementConfiguration.swift in Sources */,
 				8454D42A2068D3A800C97D2F /* CustomDateFormatTransform.swift in Sources */,
 				8454D3FE2068D3A800C97D2F /* CalendarException.swift in Sources */,
-				84686B2220C02CD900EF7A4A /* AccountManagementType.swift in Sources */,
-				84686AD220C02CD900EF7A4A /* Digest.swift in Sources */,
-				84686B0520C02CD900EF7A4A /* NavitiaBookOfferType.swift in Sources */,
 				84343234208E1AD80061F20A /* BookShopViewController.swift in Sources */,
 				8454D3F82068D3A800C97D2F /* Poi.swift in Sources */,
 				845ACC422090A81300AB24B9 /* ValidateBasketView.swift in Sources */,
 				8454D3CC2068D3A800C97D2F /* Table.swift in Sources */,
 				8454D4272068D3A800C97D2F /* AlamofireObjectMapper.swift in Sources */,
+				84484D4620E3D3C3005A513B /* CSArrayType+Foundation.swift in Sources */,
+				84484D5820E3D3C3005A513B /* Authenticator.swift in Sources */,
 				8454D4182068D3A800C97D2F /* Timeline.swift in Sources */,
 				8454D3C42068D3A800C97D2F /* Contributor.swift in Sources */,
 				8454D38D2068D3A800C97D2F /* CommercialModesApi.swift in Sources */,
 				8454D3882068D3A800C97D2F /* StopAreasApi.swift in Sources */,
 				8454D39C2068D3A800C97D2F /* CommercialModes.swift in Sources */,
+				84484D8620E3D3C3005A513B /* VSCTBookManagement.swift in Sources */,
+				84484D4A20E3D3C3005A513B /* HMAC+Foundation.swift in Sources */,
 				8454D3752068D3A800C97D2F /* JourneyPatternsApi.swift in Sources */,
 				8454D44C20692C4D00C97D2F /* JourneySolutionModel.swift in Sources */,
 				8454D3952068D3A800C97D2F /* APIs.swift in Sources */,
+				84484D7C20E3D3C3005A513B /* NavitiaSDKPartnersParameterCode.swift in Sources */,
 				3126566520B2FA0A00D50F4B /* UIColor+Extension.swift in Sources */,
+				84484D5920E3D3C3005A513B /* SHA3.swift in Sources */,
 				8454D3AC2068D3A800C97D2F /* Address.swift in Sources */,
-				84686AFE20C02CD900EF7A4A /* PCBC.swift in Sources */,
-				84686B0320C02CD900EF7A4A /* ChaCha20.swift in Sources */,
+				84484D4820E3D3C3005A513B /* Blowfish+Foundation.swift in Sources */,
 				8454D3922068D3A800C97D2F /* CalendarsApi.swift in Sources */,
-				84686B0820C02CD900EF7A4A /* NavitiaSDKPartnersPrice.swift in Sources */,
-				84686AED20C02CD900EF7A4A /* Poly1305.swift in Sources */,
 				8476DD562088819C006CB506 /* JourneyPathOverlays.swift in Sources */,
 				8454D4292068D3A800C97D2F /* Mappable.swift in Sources */,
-				84686AE420C02CD900EF7A4A /* ZeroPadding.swift in Sources */,
 				8454D3FA2068D3A800C97D2F /* Row.swift in Sources */,
+				84484D8C20E3D3C3005A513B /* TicketManagement.swift in Sources */,
 				8422B466206A303D0097E6C9 /* JourneySummaryPartView.swift in Sources */,
 				8454D4252068D3A800C97D2F /* ServerTrustPolicy.swift in Sources */,
 				8454D43F2068D3A800C97D2F /* ToJSON.swift in Sources */,
@@ -2503,16 +2325,13 @@
 				8422B459206A24230097E6C9 /* JourneyHeaderCollectionReusableView.swift in Sources */,
 				8454D3D02068D3A800C97D2F /* Lines.swift in Sources */,
 				8454D3DC2068D3A800C97D2F /* Path.swift in Sources */,
-				84686AFC20C02CD900EF7A4A /* RandomAccessBlockModeWorker.swift in Sources */,
 				8454D3862068D3A800C97D2F /* AddressesApi.swift in Sources */,
-				84686AFA20C02CD900EF7A4A /* CFB.swift in Sources */,
 				849E2EE520B2D13F00AEFC07 /* BookRecapTicketView.swift in Sources */,
-				84686AD720C02CD900EF7A4A /* Utils+Foundation.swift in Sources */,
+				84484D4B20E3D3C3005A513B /* Data+Extension.swift in Sources */,
 				84E37EAA2074FF7B001D61E5 /* JourneySolutionLoadCollectionViewCell.swift in Sources */,
-				84686AF120C02CD900EF7A4A /* DigestType.swift in Sources */,
 				8454D43A2068D3A800C97D2F /* IntegerOperators.swift in Sources */,
-				84686ACB20C02CD900EF7A4A /* Cipher.swift in Sources */,
 				8454D3A22068D3A800C97D2F /* Coverages.swift in Sources */,
+				84484D7320E3D3C3005A513B /* CTR.swift in Sources */,
 				8451DAC62065374F00CFA1E4 /* NavitiaSDKUIConfig.swift in Sources */,
 				8451DAAC2065129E00CFA1E4 /* JourneySolutionRoadmapViewModel.swift in Sources */,
 				8454D41A2068D3A800C97D2F /* Result.swift in Sources */,
@@ -2520,95 +2339,96 @@
 				8454D3E12068D3A800C97D2F /* Pagination.swift in Sources */,
 				8454D4402068D3A800C97D2F /* TransformOf.swift in Sources */,
 				8454D3EF2068D3A800C97D2F /* Contributors.swift in Sources */,
-				84686AD120C02CD900EF7A4A /* UInt32+Extension.swift in Sources */,
-				84686B2020C02CD900EF7A4A /* KeolisAccountStatus.swift in Sources */,
-				84686ACE20C02CD900EF7A4A /* HMAC.swift in Sources */,
 				8454D3E32068D3A800C97D2F /* Disruption.swift in Sources */,
-				84686B1020C02CD900EF7A4A /* BookManagement.swift in Sources */,
-				84686B0220C02CD900EF7A4A /* OFB.swift in Sources */,
 				8433F39E207F8E14007DBBCE /* RidesharingView.swift in Sources */,
+				84484D9420E3D3C3005A513B /* AccountManagementType.swift in Sources */,
+				84484D6820E3D3C3005A513B /* SHA2.swift in Sources */,
 				8454D3A72068D3A800C97D2F /* Severity.swift in Sources */,
 				8454D4112068D3A800C97D2F /* Pois.swift in Sources */,
 				8451DAAA20650C9200CFA1E4 /* JourneySolutionRoadmapViewController.swift in Sources */,
+				84484D4C20E3D3C3005A513B /* ChaCha20+Foundation.swift in Sources */,
 				8454D4222068D3A800C97D2F /* SessionManager.swift in Sources */,
-				84686B1120C02CD900EF7A4A /* BookManagementType.swift in Sources */,
-				84686B1B20C02CD900EF7A4A /* TicketManagementConfiguration.swift in Sources */,
 				8454D4142068D3A800C97D2F /* NavitiaConfiguration.swift in Sources */,
-				84686AFF20C02CD900EF7A4A /* BlockModeWorker.swift in Sources */,
+				84484D6920E3D3C3005A513B /* Padding.swift in Sources */,
+				84484D6120E3D3C3005A513B /* Updatable.swift in Sources */,
+				84484D3D20E3D3C3005A513B /* Cipher.swift in Sources */,
+				84484D6720E3D3C3005A513B /* RandomAccessCryptor.swift in Sources */,
 				8454D37B2068D3A800C97D2F /* StopSchedulesApi.swift in Sources */,
-				84686B0120C02CD900EF7A4A /* CTR.swift in Sources */,
+				84484D4E20E3D3C3005A513B /* Rabbit+Foundation.swift in Sources */,
 				8454D3DD2068D3A800C97D2F /* Context.swift in Sources */,
 				8454D3CF2068D3A800C97D2F /* TrafficReports.swift in Sources */,
+				84484D3F20E3D3C3005A513B /* Bit.swift in Sources */,
 				8454D4002068D3A800C97D2F /* PhysicalModes.swift in Sources */,
 				8454D3FD2068D3A800C97D2F /* StopDateTime.swift in Sources */,
-				84686B1520C02CD900EF7A4A /* VSCTBookOffer.swift in Sources */,
+				84484D6E20E3D3C3005A513B /* RandomAccessBlockModeWorker.swift in Sources */,
+				84484D6420E3D3C3005A513B /* Utils.swift in Sources */,
 				8454D3B32068D3A800C97D2F /* Journeys.swift in Sources */,
 				8454D41D2068D3A800C97D2F /* Validation.swift in Sources */,
-				84686B0720C02CD900EF7A4A /* NavitiaUserInfo.swift in Sources */,
 				8454D3B72068D3A800C97D2F /* SectionGeoJsonSchema.swift in Sources */,
 				84737E9B2087731A002D3748 /* FloatRatingView.swift in Sources */,
+				84484D6C20E3D3C3005A513B /* CFB.swift in Sources */,
 				8454D3E22068D3A800C97D2F /* CalendarPeriod.swift in Sources */,
 				8476DD5A208891CB006CB506 /* Collection+Extension.swift in Sources */,
+				84484D7B20E3D3C3005A513B /* NavitiaBookOffer.swift in Sources */,
 				8454D41C2068D3A800C97D2F /* AFError.swift in Sources */,
-				84686AF820C02CD900EF7A4A /* CSArrayType+Extensions.swift in Sources */,
-				84686ADA20C02CD900EF7A4A /* ChaCha20+Foundation.swift in Sources */,
 				8454D3D72068D3A800C97D2F /* DictAddresses.swift in Sources */,
+				84484D5320E3D3C3005A513B /* PBKDF2.swift in Sources */,
 				8490A6D52084D2C700F7CFA1 /* NavitiaSDKUserDefaultsManager.swift in Sources */,
 				8454D3B12068D3A800C97D2F /* Companies.swift in Sources */,
 				8454D4502069429500C97D2F /* String+Extension.swift in Sources */,
-				84686ADE20C02CD900EF7A4A /* MD5.swift in Sources */,
-				84686AEB20C02CD900EF7A4A /* PKCS7.swift in Sources */,
 				8454D38B2068D3A800C97D2F /* DatasetsApi.swift in Sources */,
 				8454D3822068D3A800C97D2F /* RouteSchedulesApi.swift in Sources */,
 				8451DAA820650C7C00CFA1E4 /* JourneySolutionRidesharingViewController.swift in Sources */,
 				8454D3D12068D3A800C97D2F /* Exception.swift in Sources */,
-				84686AFB20C02CD900EF7A4A /* CBC.swift in Sources */,
 				8454D3ED2068D3A800C97D2F /* Ticket.swift in Sources */,
 				8454D3D52068D3A800C97D2F /* Code.swift in Sources */,
 				8433F39A207F47F0007DBBCE /* DepartureArrivalStepView.swift in Sources */,
-				84686AE620C02CD900EF7A4A /* Authenticator.swift in Sources */,
+				84484D6320E3D3C3005A513B /* DigestType.swift in Sources */,
 				84506C28209C4FE7006BF393 /* RidesharingStepView.swift in Sources */,
 				8454D43E2068D3A800C97D2F /* DateFormatterTransform.swift in Sources */,
 				8454D3A52068D3A800C97D2F /* LinesSchema.swift in Sources */,
 				8454D3D82068D3A800C97D2F /* RidesharingInformation.swift in Sources */,
 				8454D3CA2068D3A800C97D2F /* PlacesNearby.swift in Sources */,
+				84484D7720E3D3C3005A513B /* NavitiaBookOfferType.swift in Sources */,
 				8454D3C02068D3A800C97D2F /* PoiTypes.swift in Sources */,
+				84484D7D20E3D3C3005A513B /* SWXMLHash.swift in Sources */,
 				8454D3C12068D3A800C97D2F /* Coverage.swift in Sources */,
-				84686AF720C02CD900EF7A4A /* Padding.swift in Sources */,
+				84484D4320E3D3C3005A513B /* UInt32+Extension.swift in Sources */,
+				84484D7E20E3D3C3005A513B /* SWXMLHash+TypeConversion.swift in Sources */,
 				8454D3D42068D3A800C97D2F /* MultiLineStringSchema.swift in Sources */,
-				84686B0A20C02CD900EF7A4A /* NavitiaSDKPartnersParameterCode.swift in Sources */,
+				84484D6B20E3D3C3005A513B /* BlockModeOptions.swift in Sources */,
 				8454D3AA2068D3A800C97D2F /* Property.swift in Sources */,
 				84343236208E1AE60061F20A /* BookShopViewModel.swift in Sources */,
+				84484D5B20E3D3C3005A513B /* RandomBytesSequence.swift in Sources */,
 				8454D39B2068D3A800C97D2F /* Amount.swift in Sources */,
 				8454D3E62068D3A800C97D2F /* CellLatSchema.swift in Sources */,
 				312655A320AEF67A00D50F4B /* BookPaymentWebViewController.swift in Sources */,
 				8454D3872068D3A800C97D2F /* LineGroupsApi.swift in Sources */,
 				8454D40E2068D3A800C97D2F /* Datasets.swift in Sources */,
-				84686B2120C02CD900EF7A4A /* KeolisAccountManagementUtils.swift in Sources */,
 				8471D3872080A0DD000C9125 /* Checkbox.swift in Sources */,
+				84484D4920E3D3C3005A513B /* Utils+Foundation.swift in Sources */,
 				8454D40A2068D3A800C97D2F /* Calendar.swift in Sources */,
-				84686AF520C02CD900EF7A4A /* RandomAccessCryptor.swift in Sources */,
+				84484D4520E3D3C3005A513B /* NoPadding.swift in Sources */,
 				8454D3F72068D3A800C97D2F /* PtObjects.swift in Sources */,
 				8454D3812068D3A800C97D2F /* PtobjectsApi.swift in Sources */,
 				8454D3EC2068D3A800C97D2F /* StopSchedule.swift in Sources */,
+				84484D6520E3D3C3005A513B /* Generics.swift in Sources */,
 				8454D37E2068D3A800C97D2F /* CoordApi.swift in Sources */,
 				8454D3AB2068D3A800C97D2F /* RouteDisplayInformation.swift in Sources */,
 				8454D3702068D3A800C97D2F /* PlaceUriApi.swift in Sources */,
-				84686B1A20C02CD900EF7A4A /* TicketManagement.swift in Sources */,
 				8422B46C206A37610097E6C9 /* TransportHelper.swift in Sources */,
+				84484D8D20E3D3C3005A513B /* TicketManagementConfiguration.swift in Sources */,
 				3126559C20AEF67A00D50F4B /* BookPaymentCartView.swift in Sources */,
-				84686B1C20C02CD900EF7A4A /* AccountManagement.swift in Sources */,
-				84686B1320C02CD900EF7A4A /* NavitiaSDKPartnersSogenActif.swift in Sources */,
 				8471D38520809EC7000C9125 /* JourneySolutionView.swift in Sources */,
+				84484D8220E3D3C3005A513B /* BookManagement.swift in Sources */,
 				8454D3962068D3A800C97D2F /* Extensions.swift in Sources */,
 				84286837208F2B14009EA360 /* BreadcrumbView.swift in Sources */,
-				84686AEA20C02CD900EF7A4A /* Rabbit.swift in Sources */,
 				8454D3972068D3A800C97D2F /* Models.swift in Sources */,
 				8454D4202068D3A800C97D2F /* Alamofire.swift in Sources */,
 				8454D4322068D3A800C97D2F /* EnumTransform.swift in Sources */,
-				84686AF920C02CD900EF7A4A /* BlockModeOptions.swift in Sources */,
 				8454D3A82068D3A800C97D2F /* CellLonSchema.swift in Sources */,
 				8454D3EB2068D3A800C97D2F /* VehicleJourney.swift in Sources */,
+				84484D3A20E3D3C3005A513B /* AES.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2764,7 +2584,7 @@
 		};
 		8451DA4F206503F100CFA1E4 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 5C81C2882E6381915F69A4AC /* Pods-NavitiaSDKUI.debug.xcconfig */;
+			baseConfigurationReference = 5C3E69B800B46E9EA0BA0A72 /* Pods-NavitiaSDKUI.debug.xcconfig */;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
@@ -2792,7 +2612,7 @@
 		};
 		8451DA50206503F100CFA1E4 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 116DDD25B038E3F030D68119 /* Pods-NavitiaSDKUI.release.xcconfig */;
+			baseConfigurationReference = 4A998A0ED7A2263304497A28 /* Pods-NavitiaSDKUI.release.xcconfig */;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
@@ -2819,7 +2639,7 @@
 		};
 		8451DA52206503F100CFA1E4 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 92F09825270EEC219A7443A5 /* Pods-NavitiaSDKUITests.debug.xcconfig */;
+			baseConfigurationReference = 631F07737F3E0C7C5DB0AF1F /* Pods-NavitiaSDKUITests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
@@ -2834,7 +2654,7 @@
 		};
 		8451DA53206503F100CFA1E4 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = BB3B74A27A2FB8D7ED9C6408 /* Pods-NavitiaSDKUITests.release.xcconfig */;
+			baseConfigurationReference = C28AEC57444EBC3D040A7991 /* Pods-NavitiaSDKUITests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;

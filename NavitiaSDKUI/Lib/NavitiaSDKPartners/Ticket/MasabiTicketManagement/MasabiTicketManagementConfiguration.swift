@@ -12,11 +12,12 @@ import JustRideSDK
 @objc(MasabiTicketManagementConfiguration) public class MasabiTicketManagementConfiguration : NSObject, TicketManagementConfiguration {
     
     public let type: TicketManagementType = .Masabi
-    public let UIConfiguration : MJRUIConfiguration? 
+    public let UIConfiguration : MJRUIConfiguration?
     
     public init( data : Data ) {
         MJRSDK.activate(withConfiguration: data)
         UIConfiguration = MJRSDK.sharedInstance()?.uiConfiguration
+        UIConfiguration?.ticket.visualValidationTextFormatLine1 = MJRVisualValidationFormat.time24Hour
     }
     
 }

@@ -1,5 +1,5 @@
 //
-//  NavitiaSDKPartnersParameterCode
+//  NavitiaSDKPartnersParameterCode.swift
 //  NavitiaSDKPartners
 //
 //  Created by Vincent CATILLON on 24/04/2018.

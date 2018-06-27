@@ -724,6 +724,7 @@ extension KeolisAccountManagement {
                 if (email.isEmpty) {
                     if success {
                         print("NavitiaSDKPartners/updateInfo : success")
+                        NavitiaSDKPartners.shared.getUserInfo(callbackSuccess: { (info) in }, callbackError: { (_,_) in })
                         callbackSuccess()
                     } else {
                         print("NavitiaSDKPartners/updateInfo : error")
@@ -735,6 +736,7 @@ extension KeolisAccountManagement {
                             if success {
                                 self._stockedEmail = email
                                 print("NavitiaSDKPartners/updateInfo : success")
+                                NavitiaSDKPartners.shared.getUserInfo(callbackSuccess: { (info) in }, callbackError: { (_,_) in })
                                 callbackSuccess()
                             } else {
                                 print("NavitiaSDKPartners/updateInfo : error")
@@ -750,6 +752,7 @@ extension KeolisAccountManagement {
                     if success {
                         self._stockedEmail = email
                         print("NavitiaSDKPartners/updateInfo : success")
+                        NavitiaSDKPartners.shared.getUserInfo(callbackSuccess: { (info) in }, callbackError: { (_,_) in })
                         callbackSuccess()
                     } else {
 

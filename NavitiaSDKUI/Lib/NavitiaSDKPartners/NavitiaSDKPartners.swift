@@ -7,14 +7,24 @@
 
 import Foundation
 
+@objc public enum Environnement : Int {
+    case Preprod
+    case Prod
+}
+
 @objc(NavitiaSDKPartners) open class NavitiaSDKPartners : NSObject {
     
     private override init() { }
+    
+    public var environnement : Environnement = .Preprod
+    
     internal var accountManagement : AccountManagement? = nil
     internal var bookManagement : BookManagement? = nil
     internal var ticketManagement : TicketManagement? = nil
     
+    
     @objc public static let shared = NavitiaSDKPartners() // Entry point of SDK (singleton : NavitiaSDKPartners.shared)
+
     
     @objc public func getAccountManagement() -> AccountManagement? {
         
