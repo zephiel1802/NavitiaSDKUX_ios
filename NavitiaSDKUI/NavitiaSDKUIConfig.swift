@@ -91,7 +91,7 @@ import JustRideSDK
                                                                                                                                     </html>
                                                                                                                                     """,
                                                                                                                              baseURL: Bundle.main.bundleURL,
-                                                                                                                             height: 150.0)
+                                                                                                                             height: pictureHeight)
         masabiTicketManagementConfiguration.UIConfiguration?.ticketInfo.inactiveTabBackgroundColour = Configuration.Color.main
         masabiTicketManagementConfiguration.UIConfiguration?.wallet.backgroundColour = Configuration.Color.main
         masabiTicketManagementConfiguration.UIConfiguration?.wallet.ticketCornerRadius = 5
