@@ -16,7 +16,7 @@ import Foundation
     
     private override init() { }
     
-    public var environnement : Environnement = .Preprod
+    public var environnement : Environnement = .Prod
     
     internal var accountManagement : AccountManagement? = nil
     internal var bookManagement : BookManagement? = nil
