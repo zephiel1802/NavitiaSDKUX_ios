@@ -186,6 +186,9 @@ import UIKit
     }
 
     @objc open func refresh() {
+        if let typeSegmentedControl = typeSegmentedControl {
+            typeSegmentedControl.selectedSegmentIndex = 0
+        }
         _viewModel?.request()
     }
     
