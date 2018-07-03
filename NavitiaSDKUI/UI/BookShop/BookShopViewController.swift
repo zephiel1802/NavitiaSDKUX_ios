@@ -186,6 +186,7 @@ import UIKit
     }
 
     @objc open func refresh() {
+        navigationController?.popToRootViewController(animated: false)
         if let typeSegmentedControl = typeSegmentedControl {
             typeSegmentedControl.selectedSegmentIndex = 0
         }
