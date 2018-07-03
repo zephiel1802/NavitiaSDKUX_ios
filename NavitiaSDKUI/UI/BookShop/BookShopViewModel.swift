@@ -10,6 +10,7 @@ import UIKit
 class BookShopViewModel: NSObject {
     
     public var bookShopDidChange: ((BookShopViewModel) -> ())?
+    public var bookShopDisplayError: ((BookShopViewModel, Int) -> ())?
     public private(set) var loading: Bool = true
     public private(set) var offersRetrieved: Bool = true
     
@@ -32,6 +33,7 @@ class BookShopViewModel: NSObject {
             self.offersRetrieved = false
             self.loading = false
             self.bookShopDidChange!(self)
+            self.bookShopDisplayError!(self, statusCode)            
         }
     }
     
