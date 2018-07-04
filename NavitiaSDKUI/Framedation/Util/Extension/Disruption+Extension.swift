@@ -24,11 +24,11 @@ extension Disruption {
             return DisruptionLevel.none
         }
         switch self.severity!.effect! {
-        case "NO_SERVICE":
+        case .noService:
             return DisruptionLevel.blocking
-        case "REDUCED_SERVICE", "STOP_MOVED", "DETOUR", "SIGNIFICANT_DELAYS", "ADDITIONAL_SERVICE", "MODIFIED_SERVICE":
+        case .reducedService, .stopMoved, .detour, .significantDelays, .additionalService, .modifiedService:
             return DisruptionLevel.nonblocking
-        case "OTHER_EFFECT", "UNKNOWN_EFFECT":
+        case .otherEffect, .unknownEffect:
             return DisruptionLevel.information
         default:
             return DisruptionLevel.none

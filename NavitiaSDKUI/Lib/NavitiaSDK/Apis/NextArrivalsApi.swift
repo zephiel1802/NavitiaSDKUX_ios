@@ -163,7 +163,7 @@ open class CoverageLonLatArrivalsRequestBuilder: NSObject {
         if (self.lon == nil) {
             completion(nil, ErrorResponse.Error(500, nil, NSError(domain: "localhost", code: 500, userInfo: ["reason": "Missing mandatory argument : lon"])))
         }
-        
+
         request(self.makeUrl())
             .authenticate(user: currentApi.token, password: "")
             .validate()

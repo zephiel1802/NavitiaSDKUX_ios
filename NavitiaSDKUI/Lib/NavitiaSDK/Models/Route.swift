@@ -9,13 +9,16 @@ import Foundation
 
 open class Route: JSONEncodable, Mappable {
 
+    public enum IsFrequence: String { 
+        case _false = "False"
+    }
     public var direction: Place?
     public var codes: [Code]?
     /** Name of the object */
     public var name: String?
     public var links: [LinkSchema]?
     public var physicalModes: [PhysicalMode]?
-    public var isFrequence: String?
+    public var isFrequence: IsFrequence?
     public var comments: [Comment]?
     public var directionType: String?
     public var geojson: MultiLineStringSchema?
@@ -53,7 +56,7 @@ open class Route: JSONEncodable, Mappable {
         nillableDictionary["name"] = self.name
         nillableDictionary["links"] = self.links?.encodeToJSON()
         nillableDictionary["physical_modes"] = self.physicalModes?.encodeToJSON()
-        nillableDictionary["is_frequence"] = self.isFrequence
+        nillableDictionary["is_frequence"] = self.isFrequence?.rawValue
         nillableDictionary["comments"] = self.comments?.encodeToJSON()
         nillableDictionary["direction_type"] = self.directionType
         nillableDictionary["geojson"] = self.geojson?.encodeToJSON()

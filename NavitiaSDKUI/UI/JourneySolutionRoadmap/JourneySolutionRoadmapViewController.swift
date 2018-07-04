@@ -103,25 +103,25 @@ open class JourneySolutionRoadmapViewController: UIViewController {
             for (index, section) in sections.enumerated() {
                 if let type = section.type {
                     switch type {
-                        case TypeTransport.publicTransport.rawValue:
+                        case .publicTransport:
                             if index == 0 {
                                 _displayPublicTransport(section)
                             }
                             _displayPublicTransport(section, waiting: sections[index - 1])
                             break
-                        case TypeTransport.transfer.rawValue:
+                        case .transfer:
                             _displayTransferStep(section)
                             break
-                        case TypeTransport.streetNetwork.rawValue:
+                        case .streetNetwork:
                             if let mode = section.mode {
                                 switch mode {
-                                    case ModeTransport.walking.rawValue:
+                                    case .walking:
                                         _displayTransferStep(section)
                                         break
-                                    case ModeTransport.car.rawValue:
+                                    case .car:
                                         _displayTransferStep(section)
                                         break
-                                    case ModeTransport.ridesharing.rawValue:
+                                    case .ridesharing:
                                         _updateRidesharingView(section)
                                         _displayRidesharingStep(section)
                                         break
@@ -211,7 +211,7 @@ open class JourneySolutionRoadmapViewController: UIViewController {
         }
         publicTransportView.stations = stopDate
         if let waiting = waiting {
-            if waiting.type == TypeTransport.waiting.rawValue {
+            if waiting.type == .waiting {
                 if let durationWaiting = waiting.duration?.minuteToString() {
                     publicTransportView.waitTime = durationWaiting
                 }
@@ -257,7 +257,7 @@ open class JourneySolutionRoadmapViewController: UIViewController {
                 ridesharingView.title = sectionRidesharing.ridesharingInformations?.network ?? ""
                 ridesharingView.startDate = sectionRidesharing.departureDateTime?.toDate(format: Configuration.date)?.toString(format: Configuration.timeRidesharing) ?? ""
                 ridesharingView.login = sectionRidesharing.ridesharingInformations?.driver?.alias ?? ""
-                ridesharingView.gender = sectionRidesharing.ridesharingInformations?.driver?.gender ?? ""
+                ridesharingView.gender = sectionRidesharing.ridesharingInformations?.driver?.gender?.rawValue ?? ""
                 ridesharingView.addressFrom = sectionRidesharing.from?.name ?? ""
                 ridesharingView.addressTo = sectionRidesharing.to?.name ?? ""
                 ridesharingView.seatCount(sectionRidesharing.ridesharingInformations?.seats?.available)
@@ -353,7 +353,7 @@ extension JourneySolutionRoadmapViewController: MKMapViewDelegate {
     
     func getJourneyDepartureCoordinates() -> CLLocationCoordinate2D {
         for (_, section) in (self.journey?.sections?.enumerated())! {
-            if section.type != TypeTransport.crowFly.rawValue && section.geojson != nil {
+            if section.type != .crowFly && section.geojson != nil {
                 return CLLocationCoordinate2DMake(Double((section.geojson?.coordinates![0][1])!), Double((section.geojson?.coordinates![0][0])!))
             }
         }
@@ -363,7 +363,7 @@ extension JourneySolutionRoadmapViewController: MKMapViewDelegate {
     
     func getJourneyArrivalCoordinates() -> CLLocationCoordinate2D {
         for section in (self.journey?.sections?.reversed())! {
-            if section.type != TypeTransport.crowFly.rawValue && section.geojson != nil {
+            if section.type != .crowFly && section.geojson != nil {
                 let coordinatesLength = section.geojson!.coordinates!.count
                 return CLLocationCoordinate2DMake(Double((section.geojson?.coordinates![coordinatesLength - 1][1])!), Double((section.geojson?.coordinates![coordinatesLength - 1][0])!))
             }
@@ -375,7 +375,7 @@ extension JourneySolutionRoadmapViewController: MKMapViewDelegate {
     func getRidesharingJourneyCoordinates(journey: Journey) -> [CLLocationCoordinate2D] {
         var ridesharingJourneyCoordinates = [CLLocationCoordinate2D]()
         for (_ , section) in journey.sections!.enumerated() {
-            if section.type == TypeTransport.streetNetwork.rawValue && section.mode != nil && section.mode == ModeTransport.ridesharing.rawValue {
+            if section.type == .streetNetwork && section.mode != nil && section.mode == .ridesharing {
                 let coordinatesLength = section.geojson!.coordinates!.count
                 ridesharingJourneyCoordinates.append(CLLocationCoordinate2DMake(Double((section.geojson?.coordinates![0][1])!), Double((section.geojson?.coordinates![0][0])!)))
                 ridesharingJourneyCoordinates.append(CLLocationCoordinate2DMake(Double((section.geojson?.coordinates![coordinatesLength - 1][1])!), Double((section.geojson?.coordinates![coordinatesLength - 1][0])!)))
@@ -388,10 +388,10 @@ extension JourneySolutionRoadmapViewController: MKMapViewDelegate {
     func getRidesharingJourneyIndex(journey: Journey) -> Int {
         var ridesharingIndex: Int = 0
         while ridesharingIndex < journey.sections!.count {
-            if (journey.sections![ridesharingIndex].type == TypeTransport.streetNetwork.rawValue &&
-                journey.sections![ridesharingIndex].mode == ModeTransport.ridesharing.rawValue) {
+            if (journey.sections![ridesharingIndex].type == .streetNetwork &&
+                journey.sections![ridesharingIndex].mode == .ridesharing) {
                 return ridesharingIndex
-            } else if (journey.sections![ridesharingIndex].type != TypeTransport.crowFly.rawValue) {
+            } else if (journey.sections![ridesharingIndex].type != .crowFly) {
                 ridesharingIndex += 1
             }
         }

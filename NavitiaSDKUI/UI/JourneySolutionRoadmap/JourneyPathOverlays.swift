@@ -19,10 +19,10 @@ class JourneyPathOverlays {
         self.sectionsPolylines = [MKPolyline]()
         self.intermediatesPointsCircles = [MKCircle]()
         for (_ , section) in journey.sections!.enumerated() {
-            if section.type != TypeTransport.crowFly.rawValue && section.geojson != nil {
+            if section.type != .crowFly && section.geojson != nil {
                 var sectionPolylineCoordinates = [CLLocationCoordinate2D]()
                 let sectionGeoJSONCoordinates = section.geojson!.coordinates
-                if section.type == TypeTransport.streetNetwork.rawValue && section.mode != nil && section.mode == ModeTransport.ridesharing.rawValue {
+                if section.type == .streetNetwork && section.mode != nil && section.mode == .ridesharing {
                     let sectionPolyline = SectionPolyline(coordinates: ridesharingJourneyCoordinates, count: ridesharingJourneyCoordinates.count)
                     sectionPolyline.sectionLineWidth = 4
                     sectionPolyline.sectionStrokeColor = UIColor.black
@@ -35,13 +35,13 @@ class JourneyPathOverlays {
                     }
                     
                     let sectionPolyline = SectionPolyline(coordinates: sectionPolylineCoordinates, count: sectionPolylineCoordinates.count)
-                    if section.type == TypeTransport.publicTransport.rawValue && section.displayInformations?.color != nil {
+                    if section.type == .publicTransport && section.displayInformations?.color != nil {
                         sectionPolyline.sectionLineWidth = 5
                         sectionPolyline.sectionStrokeColor = section.displayInformations?.color?.toUIColor()
-                    } else if section.type == TypeTransport.streetNetwork.rawValue || section.type == TypeTransport.transfer.rawValue {
+                    } else if section.type == .streetNetwork || section.type == .transfer {
                         sectionPolyline.sectionLineWidth = 4
                         sectionPolyline.sectionStrokeColor = Configuration.Color.gray
-                        if section.mode == ModeTransport.walking.rawValue {
+                        if section.mode == .walking {
                             sectionPolyline.sectionLineDashPattern = [0.01, NSNumber(value: Float(2 * sectionPolyline.sectionLineWidth))]
                             sectionPolyline.sectionLineCap = CGLineCap.round
                         }

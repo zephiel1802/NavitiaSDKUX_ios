@@ -7,114 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		3126559520AEF67A00D50F4B /* BookPaymentOfferView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3126558520AEF67A00D50F4B /* BookPaymentOfferView.xib */; };
-		3126559620AEF67A00D50F4B /* BookPaymentCartView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3126558620AEF67A00D50F4B /* BookPaymentCartView.xib */; };
-		3126559720AEF67A00D50F4B /* BookPaymentProfilView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3126558720AEF67A00D50F4B /* BookPaymentProfilView.xib */; };
-		3126559820AEF67A00D50F4B /* BookPaymentConditionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3126558820AEF67A00D50F4B /* BookPaymentConditionView.xib */; };
-		3126559920AEF67A00D50F4B /* BookPaymentMailFormView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3126558920AEF67A00D50F4B /* BookPaymentMailFormView.xib */; };
-		3126559A20AEF67A00D50F4B /* BookPaymentView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3126558A20AEF67A00D50F4B /* BookPaymentView.xib */; };
-		3126559B20AEF67A00D50F4B /* BookPaymentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3126558B20AEF67A00D50F4B /* BookPaymentViewController.swift */; };
-		3126559C20AEF67A00D50F4B /* BookPaymentCartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3126558D20AEF67A00D50F4B /* BookPaymentCartView.swift */; };
-		3126559D20AEF67A00D50F4B /* BookPaymentMailFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3126558E20AEF67A00D50F4B /* BookPaymentMailFormView.swift */; };
-		3126559E20AEF67A00D50F4B /* BookPaymentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3126558F20AEF67A00D50F4B /* BookPaymentView.swift */; };
-		3126559F20AEF67A00D50F4B /* BookPaymentProfilView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3126559020AEF67A00D50F4B /* BookPaymentProfilView.swift */; };
-		312655A020AEF67A00D50F4B /* BookPaymentOfferView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3126559120AEF67A00D50F4B /* BookPaymentOfferView.swift */; };
-		312655A120AEF67A00D50F4B /* BookPaymentConditionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3126559220AEF67A00D50F4B /* BookPaymentConditionView.swift */; };
-		312655A220AEF67A00D50F4B /* BookPaymentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3126559320AEF67A00D50F4B /* BookPaymentViewModel.swift */; };
-		312655A320AEF67A00D50F4B /* BookPaymentWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3126559420AEF67A00D50F4B /* BookPaymentWebViewController.swift */; };
-		3126560920AEF9C500D50F4B /* NavitiaSDKPartnersRequestBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312655A620AEF9C500D50F4B /* NavitiaSDKPartnersRequestBuilder.swift */; };
-		3126560A20AEF9C500D50F4B /* NavitiaSDKPartnersCourtesyEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312655A720AEF9C500D50F4B /* NavitiaSDKPartnersCourtesyEnum.swift */; };
-		3126560B20AEF9C500D50F4B /* NavitiaSDKPartnersReturnCodes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312655A820AEF9C500D50F4B /* NavitiaSDKPartnersReturnCodes.swift */; };
-		3126560C20AEF9C500D50F4B /* NavitiaBookCartItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312655A920AEF9C500D50F4B /* NavitiaBookCartItem.swift */; };
-		3126560D20AEF9C500D50F4B /* AES.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312655AB20AEF9C500D50F4B /* AES.swift */; };
-		3126560E20AEF9C500D50F4B /* UInt64+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312655AC20AEF9C500D50F4B /* UInt64+Extension.swift */; };
-		3126560F20AEF9C500D50F4B /* Cryptors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312655AD20AEF9C500D50F4B /* Cryptors.swift */; };
-		3126561020AEF9C500D50F4B /* Cipher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312655AE20AEF9C500D50F4B /* Cipher.swift */; };
-		3126561120AEF9C500D50F4B /* Int+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312655AF20AEF9C500D50F4B /* Int+Extension.swift */; };
-		3126561220AEF9C500D50F4B /* Bit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312655B020AEF9C500D50F4B /* Bit.swift */; };
-		3126561320AEF9C500D50F4B /* HMAC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312655B120AEF9C500D50F4B /* HMAC.swift */; };
-		3126561420AEF9C500D50F4B /* UInt16+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312655B220AEF9C500D50F4B /* UInt16+Extension.swift */; };
-		3126561520AEF9C500D50F4B /* UInt32+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312655B320AEF9C500D50F4B /* UInt32+Extension.swift */; };
-		3126561620AEF9C500D50F4B /* Digest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312655B420AEF9C500D50F4B /* Digest.swift */; };
-		3126561720AEF9C500D50F4B /* NoPadding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312655B520AEF9C500D50F4B /* NoPadding.swift */; };
-		3126561820AEF9C500D50F4B /* CSArrayType+Foundation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312655B720AEF9C500D50F4B /* CSArrayType+Foundation.swift */; };
-		3126561920AEF9C500D50F4B /* String+FoundationExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312655B820AEF9C500D50F4B /* String+FoundationExtension.swift */; };
-		3126561A20AEF9C500D50F4B /* Blowfish+Foundation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312655B920AEF9C500D50F4B /* Blowfish+Foundation.swift */; };
-		3126561B20AEF9C500D50F4B /* Utils+Foundation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312655BA20AEF9C500D50F4B /* Utils+Foundation.swift */; };
-		3126561C20AEF9C500D50F4B /* HMAC+Foundation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312655BB20AEF9C500D50F4B /* HMAC+Foundation.swift */; };
-		3126561D20AEF9C500D50F4B /* Data+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312655BC20AEF9C500D50F4B /* Data+Extension.swift */; };
-		3126561E20AEF9C500D50F4B /* ChaCha20+Foundation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312655BD20AEF9C500D50F4B /* ChaCha20+Foundation.swift */; };
-		3126561F20AEF9C500D50F4B /* AES+Foundation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312655BE20AEF9C500D50F4B /* AES+Foundation.swift */; };
-		3126562020AEF9C500D50F4B /* Rabbit+Foundation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312655BF20AEF9C500D50F4B /* Rabbit+Foundation.swift */; };
-		3126562120AEF9C500D50F4B /* UInt8+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312655C020AEF9C500D50F4B /* UInt8+Extension.swift */; };
-		3126562220AEF9C500D50F4B /* MD5.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312655C120AEF9C500D50F4B /* MD5.swift */; };
-		3126562320AEF9C500D50F4B /* BatchedCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312655C220AEF9C500D50F4B /* BatchedCollection.swift */; };
-		3126562420AEF9C500D50F4B /* PKCS5.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312655C420AEF9C500D50F4B /* PKCS5.swift */; };
-		3126562520AEF9C500D50F4B /* PBKDF2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312655C520AEF9C500D50F4B /* PBKDF2.swift */; };
-		3126562620AEF9C500D50F4B /* PBKDF1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312655C620AEF9C500D50F4B /* PBKDF1.swift */; };
-		3126562720AEF9C500D50F4B /* SecureBytes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312655C720AEF9C500D50F4B /* SecureBytes.swift */; };
-		3126562820AEF9C500D50F4B /* ZeroPadding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312655C820AEF9C500D50F4B /* ZeroPadding.swift */; };
-		3126562920AEF9C500D50F4B /* Authenticator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312655C920AEF9C500D50F4B /* Authenticator.swift */; };
-		3126562A20AEF9C500D50F4B /* SHA3.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312655CA20AEF9C500D50F4B /* SHA3.swift */; };
-		3126562B20AEF9C500D50F4B /* RandomBytesSequence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312655CB20AEF9C500D50F4B /* RandomBytesSequence.swift */; };
-		3126562C20AEF9C500D50F4B /* Rabbit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312655CC20AEF9C500D50F4B /* Rabbit.swift */; };
-		3126562D20AEF9C500D50F4B /* PKCS7.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312655CD20AEF9C500D50F4B /* PKCS7.swift */; };
-		3126562E20AEF9C500D50F4B /* SHA1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312655CE20AEF9C500D50F4B /* SHA1.swift */; };
-		3126562F20AEF9C500D50F4B /* Poly1305.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312655CF20AEF9C500D50F4B /* Poly1305.swift */; };
-		3126563020AEF9C500D50F4B /* BlockCipher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312655D020AEF9C500D50F4B /* BlockCipher.swift */; };
-		3126563120AEF9C500D50F4B /* Updatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312655D120AEF9C500D50F4B /* Updatable.swift */; };
-		3126563220AEF9C500D50F4B /* Blowfish.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312655D220AEF9C500D50F4B /* Blowfish.swift */; };
-		3126563320AEF9C500D50F4B /* DigestType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312655D320AEF9C500D50F4B /* DigestType.swift */; };
-		3126563420AEF9C500D50F4B /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312655D420AEF9C500D50F4B /* Utils.swift */; };
-		3126563520AEF9C500D50F4B /* Generics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312655D520AEF9C500D50F4B /* Generics.swift */; };
-		3126563620AEF9C500D50F4B /* Checksum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312655D620AEF9C500D50F4B /* Checksum.swift */; };
-		3126563720AEF9C500D50F4B /* RandomAccessCryptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312655D720AEF9C500D50F4B /* RandomAccessCryptor.swift */; };
-		3126563820AEF9C500D50F4B /* SHA2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312655D820AEF9C500D50F4B /* SHA2.swift */; };
-		3126563920AEF9C500D50F4B /* Padding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312655D920AEF9C500D50F4B /* Padding.swift */; };
-		3126563A20AEF9C500D50F4B /* CSArrayType+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312655DA20AEF9C500D50F4B /* CSArrayType+Extensions.swift */; };
-		3126563B20AEF9C500D50F4B /* BlockModeOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312655DC20AEF9C500D50F4B /* BlockModeOptions.swift */; };
-		3126563C20AEF9C500D50F4B /* CFB.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312655DD20AEF9C500D50F4B /* CFB.swift */; };
-		3126563D20AEF9C500D50F4B /* CBC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312655DE20AEF9C500D50F4B /* CBC.swift */; };
-		3126563E20AEF9C500D50F4B /* RandomAccessBlockModeWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312655DF20AEF9C500D50F4B /* RandomAccessBlockModeWorker.swift */; };
-		3126563F20AEF9C500D50F4B /* ECB.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312655E020AEF9C500D50F4B /* ECB.swift */; };
-		3126564020AEF9C500D50F4B /* PCBC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312655E120AEF9C500D50F4B /* PCBC.swift */; };
-		3126564120AEF9C500D50F4B /* BlockModeWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312655E220AEF9C500D50F4B /* BlockModeWorker.swift */; };
-		3126564220AEF9C500D50F4B /* BlockMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312655E320AEF9C500D50F4B /* BlockMode.swift */; };
-		3126564320AEF9C500D50F4B /* CTR.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312655E420AEF9C500D50F4B /* CTR.swift */; };
-		3126564420AEF9C500D50F4B /* OFB.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312655E520AEF9C500D50F4B /* OFB.swift */; };
-		3126564520AEF9C500D50F4B /* ChaCha20.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312655E620AEF9C500D50F4B /* ChaCha20.swift */; };
-		3126564620AEF9C500D50F4B /* Array+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312655E720AEF9C500D50F4B /* Array+Extension.swift */; };
-		3126564720AEF9C500D50F4B /* NavitiaBookOfferType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312655E820AEF9C500D50F4B /* NavitiaBookOfferType.swift */; };
-		3126564820AEF9C500D50F4B /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312655E920AEF9C500D50F4B /* Reachability.swift */; };
-		3126564920AEF9C500D50F4B /* NavitiaUserInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312655EA20AEF9C500D50F4B /* NavitiaUserInfo.swift */; };
-		3126564A20AEF9C500D50F4B /* NavitiaSDKPartnersPrice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312655EB20AEF9C500D50F4B /* NavitiaSDKPartnersPrice.swift */; };
-		3126564B20AEF9C500D50F4B /* NavitiaBookOffer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312655EC20AEF9C500D50F4B /* NavitiaBookOffer.swift */; };
-		3126564C20AEF9C500D50F4B /* NavitiaSDKPartnersParameterCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312655ED20AEF9C500D50F4B /* NavitiaSDKPartnersParameterCode.swift */; };
-		3126564D20AEF9C500D50F4B /* SWXMLHash.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312655EF20AEF9C500D50F4B /* SWXMLHash.swift */; };
-		3126564E20AEF9C500D50F4B /* SWXMLHash+TypeConversion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312655F020AEF9C500D50F4B /* SWXMLHash+TypeConversion.swift */; };
-		3126564F20AEF9C500D50F4B /* NavitiaSDKPartnersExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312655F120AEF9C500D50F4B /* NavitiaSDKPartnersExtension.swift */; };
-		3126565020AEF9C500D50F4B /* NavitiaSDKPartners.h in Headers */ = {isa = PBXBuildFile; fileRef = 312655F220AEF9C500D50F4B /* NavitiaSDKPartners.h */; };
-		3126565120AEF9C500D50F4B /* NavitiaSDKPartners.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312655F320AEF9C500D50F4B /* NavitiaSDKPartners.swift */; };
-		3126565220AEF9C500D50F4B /* BookManagement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312655F520AEF9C500D50F4B /* BookManagement.swift */; };
-		3126565320AEF9C500D50F4B /* BookManagementType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312655F620AEF9C500D50F4B /* BookManagementType.swift */; };
-		3126565420AEF9C500D50F4B /* BookManagementConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312655F720AEF9C500D50F4B /* BookManagementConfiguration.swift */; };
-		3126565520AEF9C500D50F4B /* NavitiaSDKPartnersSogenActif.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312655F920AEF9C500D50F4B /* NavitiaSDKPartnersSogenActif.swift */; };
-		3126565620AEF9C500D50F4B /* VSCTBookManagement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312655FB20AEF9C500D50F4B /* VSCTBookManagement.swift */; };
-		3126565720AEF9C500D50F4B /* VSCTBookOffer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312655FC20AEF9C500D50F4B /* VSCTBookOffer.swift */; };
-		3126565820AEF9C500D50F4B /* VSCTBookManagementConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312655FD20AEF9C500D50F4B /* VSCTBookManagementConfiguration.swift */; };
-		3126565920AEF9C500D50F4B /* AccountManagement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312655FF20AEF9C500D50F4B /* AccountManagement.swift */; };
-		3126565A20AEF9C500D50F4B /* KeolisUserInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3126560120AEF9C500D50F4B /* KeolisUserInfo.swift */; };
-		3126565B20AEF9C500D50F4B /* KeolisAccountManagementConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3126560220AEF9C500D50F4B /* KeolisAccountManagementConfiguration.swift */; };
-		3126565C20AEF9C500D50F4B /* KeolisAccountManagement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3126560320AEF9C500D50F4B /* KeolisAccountManagement.swift */; };
-		3126565D20AEF9C500D50F4B /* KeolisAccountStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3126560420AEF9C500D50F4B /* KeolisAccountStatus.swift */; };
-		3126565E20AEF9C500D50F4B /* KeolisAccountManagementUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3126560520AEF9C500D50F4B /* KeolisAccountManagementUtils.swift */; };
-		3126565F20AEF9C500D50F4B /* AccountManagementType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3126560620AEF9C500D50F4B /* AccountManagementType.swift */; };
-		3126566020AEF9C500D50F4B /* AccountManagementConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3126560720AEF9C500D50F4B /* AccountManagementConfiguration.swift */; };
-		3126566120AEF9C500D50F4B /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3126560820AEF9C500D50F4B /* Info.plist */; };
 		3126566520B2FA0A00D50F4B /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3126566420B2FA0A00D50F4B /* UIColor+Extension.swift */; };
 		3126566920B3008800D50F4B /* UIViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3126566820B3008700D50F4B /* UIViewController+Extension.swift */; };
-		84208C972093656D00980762 /* TicketLoadCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84208C962093656D00980762 /* TicketLoadCollectionViewCell.xib */; };
-		84208C992093657500980762 /* TicketLoadCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84208C982093657500980762 /* TicketLoadCollectionViewCell.swift */; };
 		8422B459206A24230097E6C9 /* JourneyHeaderCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8422B458206A24230097E6C9 /* JourneyHeaderCollectionReusableView.swift */; };
 		8422B45B206A242D0097E6C9 /* JourneyHeaderCollectionReusableView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8422B45A206A242D0097E6C9 /* JourneyHeaderCollectionReusableView.xib */; };
 		8422B45D206A2AE00097E6C9 /* RidesharingInformationCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8422B45C206A2AE00097E6C9 /* RidesharingInformationCollectionViewCell.xib */; };
@@ -124,8 +18,6 @@
 		8422B468206A334B0097E6C9 /* JourneySummaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8422B467206A334B0097E6C9 /* JourneySummaryView.swift */; };
 		8422B46A206A33540097E6C9 /* JourneySummaryView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8422B469206A33540097E6C9 /* JourneySummaryView.xib */; };
 		8422B46C206A37610097E6C9 /* TransportHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8422B46B206A37610097E6C9 /* TransportHelper.swift */; };
-		84286837208F2B14009EA360 /* BreadcrumbView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84286836208F2B14009EA360 /* BreadcrumbView.swift */; };
-		84286839208F2B1A009EA360 /* BreadcrumbView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84286838208F2B1A009EA360 /* BreadcrumbView.xib */; };
 		8430274F20BBE70E005AD743 /* Message+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8430274E20BBE70E005AD743 /* Message+Extension.swift */; };
 		8430275120BBE72B005AD743 /* Disruption+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8430275020BBE72B005AD743 /* Disruption+Extension.swift */; };
 		84339A7E206CC5E200F2CB65 /* JourneyEmptySolutionCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84339A7D206CC5E200F2CB65 /* JourneyEmptySolutionCollectionViewCell.xib */; };
@@ -410,114 +302,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		3126558520AEF67A00D50F4B /* BookPaymentOfferView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BookPaymentOfferView.xib; sourceTree = "<group>"; };
-		3126558620AEF67A00D50F4B /* BookPaymentCartView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BookPaymentCartView.xib; sourceTree = "<group>"; };
-		3126558720AEF67A00D50F4B /* BookPaymentProfilView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BookPaymentProfilView.xib; sourceTree = "<group>"; };
-		3126558820AEF67A00D50F4B /* BookPaymentConditionView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BookPaymentConditionView.xib; sourceTree = "<group>"; };
-		3126558920AEF67A00D50F4B /* BookPaymentMailFormView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BookPaymentMailFormView.xib; sourceTree = "<group>"; };
-		3126558A20AEF67A00D50F4B /* BookPaymentView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BookPaymentView.xib; sourceTree = "<group>"; };
-		3126558B20AEF67A00D50F4B /* BookPaymentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookPaymentViewController.swift; sourceTree = "<group>"; };
-		3126558D20AEF67A00D50F4B /* BookPaymentCartView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookPaymentCartView.swift; sourceTree = "<group>"; };
-		3126558E20AEF67A00D50F4B /* BookPaymentMailFormView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookPaymentMailFormView.swift; sourceTree = "<group>"; };
-		3126558F20AEF67A00D50F4B /* BookPaymentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookPaymentView.swift; sourceTree = "<group>"; };
-		3126559020AEF67A00D50F4B /* BookPaymentProfilView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookPaymentProfilView.swift; sourceTree = "<group>"; };
-		3126559120AEF67A00D50F4B /* BookPaymentOfferView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookPaymentOfferView.swift; sourceTree = "<group>"; };
-		3126559220AEF67A00D50F4B /* BookPaymentConditionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookPaymentConditionView.swift; sourceTree = "<group>"; };
-		3126559320AEF67A00D50F4B /* BookPaymentViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookPaymentViewModel.swift; sourceTree = "<group>"; };
-		3126559420AEF67A00D50F4B /* BookPaymentWebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookPaymentWebViewController.swift; sourceTree = "<group>"; };
-		312655A620AEF9C500D50F4B /* NavitiaSDKPartnersRequestBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavitiaSDKPartnersRequestBuilder.swift; sourceTree = "<group>"; };
-		312655A720AEF9C500D50F4B /* NavitiaSDKPartnersCourtesyEnum.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavitiaSDKPartnersCourtesyEnum.swift; sourceTree = "<group>"; };
-		312655A820AEF9C500D50F4B /* NavitiaSDKPartnersReturnCodes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavitiaSDKPartnersReturnCodes.swift; sourceTree = "<group>"; };
-		312655A920AEF9C500D50F4B /* NavitiaBookCartItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavitiaBookCartItem.swift; sourceTree = "<group>"; };
-		312655AB20AEF9C500D50F4B /* AES.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AES.swift; sourceTree = "<group>"; };
-		312655AC20AEF9C500D50F4B /* UInt64+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UInt64+Extension.swift"; sourceTree = "<group>"; };
-		312655AD20AEF9C500D50F4B /* Cryptors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Cryptors.swift; sourceTree = "<group>"; };
-		312655AE20AEF9C500D50F4B /* Cipher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Cipher.swift; sourceTree = "<group>"; };
-		312655AF20AEF9C500D50F4B /* Int+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Int+Extension.swift"; sourceTree = "<group>"; };
-		312655B020AEF9C500D50F4B /* Bit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Bit.swift; sourceTree = "<group>"; };
-		312655B120AEF9C500D50F4B /* HMAC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HMAC.swift; sourceTree = "<group>"; };
-		312655B220AEF9C500D50F4B /* UInt16+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UInt16+Extension.swift"; sourceTree = "<group>"; };
-		312655B320AEF9C500D50F4B /* UInt32+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UInt32+Extension.swift"; sourceTree = "<group>"; };
-		312655B420AEF9C500D50F4B /* Digest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Digest.swift; sourceTree = "<group>"; };
-		312655B520AEF9C500D50F4B /* NoPadding.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoPadding.swift; sourceTree = "<group>"; };
-		312655B720AEF9C500D50F4B /* CSArrayType+Foundation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CSArrayType+Foundation.swift"; sourceTree = "<group>"; };
-		312655B820AEF9C500D50F4B /* String+FoundationExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+FoundationExtension.swift"; sourceTree = "<group>"; };
-		312655B920AEF9C500D50F4B /* Blowfish+Foundation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Blowfish+Foundation.swift"; sourceTree = "<group>"; };
-		312655BA20AEF9C500D50F4B /* Utils+Foundation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Utils+Foundation.swift"; sourceTree = "<group>"; };
-		312655BB20AEF9C500D50F4B /* HMAC+Foundation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "HMAC+Foundation.swift"; sourceTree = "<group>"; };
-		312655BC20AEF9C500D50F4B /* Data+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Data+Extension.swift"; sourceTree = "<group>"; };
-		312655BD20AEF9C500D50F4B /* ChaCha20+Foundation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ChaCha20+Foundation.swift"; sourceTree = "<group>"; };
-		312655BE20AEF9C500D50F4B /* AES+Foundation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AES+Foundation.swift"; sourceTree = "<group>"; };
-		312655BF20AEF9C500D50F4B /* Rabbit+Foundation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Rabbit+Foundation.swift"; sourceTree = "<group>"; };
-		312655C020AEF9C500D50F4B /* UInt8+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UInt8+Extension.swift"; sourceTree = "<group>"; };
-		312655C120AEF9C500D50F4B /* MD5.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MD5.swift; sourceTree = "<group>"; };
-		312655C220AEF9C500D50F4B /* BatchedCollection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BatchedCollection.swift; sourceTree = "<group>"; };
-		312655C420AEF9C500D50F4B /* PKCS5.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PKCS5.swift; sourceTree = "<group>"; };
-		312655C520AEF9C500D50F4B /* PBKDF2.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PBKDF2.swift; sourceTree = "<group>"; };
-		312655C620AEF9C500D50F4B /* PBKDF1.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PBKDF1.swift; sourceTree = "<group>"; };
-		312655C720AEF9C500D50F4B /* SecureBytes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SecureBytes.swift; sourceTree = "<group>"; };
-		312655C820AEF9C500D50F4B /* ZeroPadding.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZeroPadding.swift; sourceTree = "<group>"; };
-		312655C920AEF9C500D50F4B /* Authenticator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Authenticator.swift; sourceTree = "<group>"; };
-		312655CA20AEF9C500D50F4B /* SHA3.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SHA3.swift; sourceTree = "<group>"; };
-		312655CB20AEF9C500D50F4B /* RandomBytesSequence.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RandomBytesSequence.swift; sourceTree = "<group>"; };
-		312655CC20AEF9C500D50F4B /* Rabbit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Rabbit.swift; sourceTree = "<group>"; };
-		312655CD20AEF9C500D50F4B /* PKCS7.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PKCS7.swift; sourceTree = "<group>"; };
-		312655CE20AEF9C500D50F4B /* SHA1.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SHA1.swift; sourceTree = "<group>"; };
-		312655CF20AEF9C500D50F4B /* Poly1305.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Poly1305.swift; sourceTree = "<group>"; };
-		312655D020AEF9C500D50F4B /* BlockCipher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlockCipher.swift; sourceTree = "<group>"; };
-		312655D120AEF9C500D50F4B /* Updatable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Updatable.swift; sourceTree = "<group>"; };
-		312655D220AEF9C500D50F4B /* Blowfish.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Blowfish.swift; sourceTree = "<group>"; };
-		312655D320AEF9C500D50F4B /* DigestType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DigestType.swift; sourceTree = "<group>"; };
-		312655D420AEF9C500D50F4B /* Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
-		312655D520AEF9C500D50F4B /* Generics.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Generics.swift; sourceTree = "<group>"; };
-		312655D620AEF9C500D50F4B /* Checksum.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Checksum.swift; sourceTree = "<group>"; };
-		312655D720AEF9C500D50F4B /* RandomAccessCryptor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RandomAccessCryptor.swift; sourceTree = "<group>"; };
-		312655D820AEF9C500D50F4B /* SHA2.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SHA2.swift; sourceTree = "<group>"; };
-		312655D920AEF9C500D50F4B /* Padding.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Padding.swift; sourceTree = "<group>"; };
-		312655DA20AEF9C500D50F4B /* CSArrayType+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CSArrayType+Extensions.swift"; sourceTree = "<group>"; };
-		312655DC20AEF9C500D50F4B /* BlockModeOptions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlockModeOptions.swift; sourceTree = "<group>"; };
-		312655DD20AEF9C500D50F4B /* CFB.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CFB.swift; sourceTree = "<group>"; };
-		312655DE20AEF9C500D50F4B /* CBC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CBC.swift; sourceTree = "<group>"; };
-		312655DF20AEF9C500D50F4B /* RandomAccessBlockModeWorker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RandomAccessBlockModeWorker.swift; sourceTree = "<group>"; };
-		312655E020AEF9C500D50F4B /* ECB.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ECB.swift; sourceTree = "<group>"; };
-		312655E120AEF9C500D50F4B /* PCBC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PCBC.swift; sourceTree = "<group>"; };
-		312655E220AEF9C500D50F4B /* BlockModeWorker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlockModeWorker.swift; sourceTree = "<group>"; };
-		312655E320AEF9C500D50F4B /* BlockMode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlockMode.swift; sourceTree = "<group>"; };
-		312655E420AEF9C500D50F4B /* CTR.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CTR.swift; sourceTree = "<group>"; };
-		312655E520AEF9C500D50F4B /* OFB.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OFB.swift; sourceTree = "<group>"; };
-		312655E620AEF9C500D50F4B /* ChaCha20.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChaCha20.swift; sourceTree = "<group>"; };
-		312655E720AEF9C500D50F4B /* Array+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Array+Extension.swift"; sourceTree = "<group>"; };
-		312655E820AEF9C500D50F4B /* NavitiaBookOfferType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavitiaBookOfferType.swift; sourceTree = "<group>"; };
-		312655E920AEF9C500D50F4B /* Reachability.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = "<group>"; };
-		312655EA20AEF9C500D50F4B /* NavitiaUserInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavitiaUserInfo.swift; sourceTree = "<group>"; };
-		312655EB20AEF9C500D50F4B /* NavitiaSDKPartnersPrice.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavitiaSDKPartnersPrice.swift; sourceTree = "<group>"; };
-		312655EC20AEF9C500D50F4B /* NavitiaBookOffer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavitiaBookOffer.swift; sourceTree = "<group>"; };
-		312655ED20AEF9C500D50F4B /* NavitiaSDKPartnersParameterCode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavitiaSDKPartnersParameterCode.swift; sourceTree = "<group>"; };
-		312655EF20AEF9C500D50F4B /* SWXMLHash.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SWXMLHash.swift; sourceTree = "<group>"; };
-		312655F020AEF9C500D50F4B /* SWXMLHash+TypeConversion.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SWXMLHash+TypeConversion.swift"; sourceTree = "<group>"; };
-		312655F120AEF9C500D50F4B /* NavitiaSDKPartnersExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavitiaSDKPartnersExtension.swift; sourceTree = "<group>"; };
-		312655F220AEF9C500D50F4B /* NavitiaSDKPartners.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NavitiaSDKPartners.h; sourceTree = "<group>"; };
-		312655F320AEF9C500D50F4B /* NavitiaSDKPartners.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavitiaSDKPartners.swift; sourceTree = "<group>"; };
-		312655F520AEF9C500D50F4B /* BookManagement.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookManagement.swift; sourceTree = "<group>"; };
-		312655F620AEF9C500D50F4B /* BookManagementType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookManagementType.swift; sourceTree = "<group>"; };
-		312655F720AEF9C500D50F4B /* BookManagementConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookManagementConfiguration.swift; sourceTree = "<group>"; };
-		312655F920AEF9C500D50F4B /* NavitiaSDKPartnersSogenActif.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavitiaSDKPartnersSogenActif.swift; sourceTree = "<group>"; };
-		312655FB20AEF9C500D50F4B /* VSCTBookManagement.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VSCTBookManagement.swift; sourceTree = "<group>"; };
-		312655FC20AEF9C500D50F4B /* VSCTBookOffer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VSCTBookOffer.swift; sourceTree = "<group>"; };
-		312655FD20AEF9C500D50F4B /* VSCTBookManagementConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VSCTBookManagementConfiguration.swift; sourceTree = "<group>"; };
-		312655FF20AEF9C500D50F4B /* AccountManagement.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountManagement.swift; sourceTree = "<group>"; };
-		3126560120AEF9C500D50F4B /* KeolisUserInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeolisUserInfo.swift; sourceTree = "<group>"; };
-		3126560220AEF9C500D50F4B /* KeolisAccountManagementConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeolisAccountManagementConfiguration.swift; sourceTree = "<group>"; };
-		3126560320AEF9C500D50F4B /* KeolisAccountManagement.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeolisAccountManagement.swift; sourceTree = "<group>"; };
-		3126560420AEF9C500D50F4B /* KeolisAccountStatus.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeolisAccountStatus.swift; sourceTree = "<group>"; };
 		3126560520AEF9C500D50F4B /* KeolisAccountManagementUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeolisAccountManagementUtils.swift; sourceTree = "<group>"; };
-		3126560620AEF9C500D50F4B /* AccountManagementType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountManagementType.swift; sourceTree = "<group>"; };
-		3126560720AEF9C500D50F4B /* AccountManagementConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountManagementConfiguration.swift; sourceTree = "<group>"; };
-		3126560820AEF9C500D50F4B /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3126566420B2FA0A00D50F4B /* UIColor+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
 		3126566820B3008700D50F4B /* UIViewController+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extension.swift"; sourceTree = "<group>"; };
-		84208C962093656D00980762 /* TicketLoadCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TicketLoadCollectionViewCell.xib; sourceTree = "<group>"; };
-		84208C982093657500980762 /* TicketLoadCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicketLoadCollectionViewCell.swift; sourceTree = "<group>"; };
 		8422B458206A24230097E6C9 /* JourneyHeaderCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JourneyHeaderCollectionReusableView.swift; sourceTree = "<group>"; };
 		8422B45A206A242D0097E6C9 /* JourneyHeaderCollectionReusableView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = JourneyHeaderCollectionReusableView.xib; sourceTree = "<group>"; };
 		8422B45C206A2AE00097E6C9 /* RidesharingInformationCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RidesharingInformationCollectionViewCell.xib; sourceTree = "<group>"; };
@@ -527,8 +314,6 @@
 		8422B467206A334B0097E6C9 /* JourneySummaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JourneySummaryView.swift; sourceTree = "<group>"; };
 		8422B469206A33540097E6C9 /* JourneySummaryView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = JourneySummaryView.xib; sourceTree = "<group>"; };
 		8422B46B206A37610097E6C9 /* TransportHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransportHelper.swift; sourceTree = "<group>"; };
-		84286836208F2B14009EA360 /* BreadcrumbView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BreadcrumbView.swift; sourceTree = "<group>"; };
-		84286838208F2B1A009EA360 /* BreadcrumbView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BreadcrumbView.xib; sourceTree = "<group>"; };
 		8430274E20BBE70E005AD743 /* Message+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Message+Extension.swift"; sourceTree = "<group>"; };
 		8430275020BBE72B005AD743 /* Disruption+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Disruption+Extension.swift"; sourceTree = "<group>"; };
 		84339A7D206CC5E200F2CB65 /* JourneyEmptySolutionCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = JourneyEmptySolutionCollectionViewCell.xib; sourceTree = "<group>"; };
@@ -847,12 +632,21 @@
 			path = Interface;
 			sourceTree = "<group>";
 		};
+		84250D9420ECD11600F27953 /* Recovered References */ = {
+			isa = PBXGroup;
+			children = (
+				3126560520AEF9C500D50F4B /* KeolisAccountManagementUtils.swift */,
+			);
+			name = "Recovered References";
+			sourceTree = "<group>";
+		};
 		8451DA30206503F100CFA1E4 = {
 			isa = PBXGroup;
 			children = (
 				8451DA3C206503F100CFA1E4 /* NavitiaSDKUI */,
 				8451DA47206503F100CFA1E4 /* NavitiaSDKUITests */,
 				8451DA3B206503F100CFA1E4 /* Products */,
+				84250D9420ECD11600F27953 /* Recovered References */,
 			);
 			sourceTree = "<group>";
 		};
@@ -1584,7 +1378,6 @@
 				8454D3F22068D3A800C97D2F /* Line.swift in Sources */,
 				8454D3A62068D3A800C97D2F /* Period.swift in Sources */,
 				8430275120BBE72B005AD743 /* Disruption+Extension.swift in Sources */,
-				3126565E20AEF9C500D50F4B /* KeolisAccountManagementUtils.swift in Sources */,
 				8454D3712068D3A800C97D2F /* GraphicalIsochroneApi.swift in Sources */,
 				8454D42E2068D3A800C97D2F /* URLTransform.swift in Sources */,
 				8454D3852068D3A800C97D2F /* RoutesApi.swift in Sources */,

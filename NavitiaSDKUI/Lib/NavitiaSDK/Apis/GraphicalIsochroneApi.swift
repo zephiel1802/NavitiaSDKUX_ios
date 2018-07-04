@@ -94,6 +94,8 @@ open class CoverageLonLatIsochronesRequestBuilder: NSObject {
     var wheelchair:Bool? = nil
     var travelerType: TravelerType? = nil
     var directPath: DirectPath? = nil
+    var freeRadiusFrom:Int32? = nil
+    var freeRadiusTo:Int32? = nil
     var minDuration:Int32? = nil
     var boundaryDuration:[Int32]? = nil
 
@@ -217,6 +219,14 @@ open class CoverageLonLatIsochronesRequestBuilder: NSObject {
         self.directPath = directPath
         return self
     }
+    open func withFreeRadiusFrom(_ freeRadiusFrom: Int32) -> CoverageLonLatIsochronesRequestBuilder {
+        self.freeRadiusFrom = freeRadiusFrom
+        return self
+    }
+    open func withFreeRadiusTo(_ freeRadiusTo: Int32) -> CoverageLonLatIsochronesRequestBuilder {
+        self.freeRadiusTo = freeRadiusTo
+        return self
+    }
     open func withMinDuration(_ minDuration: Int32) -> CoverageLonLatIsochronesRequestBuilder {
         self.minDuration = minDuration
         return self
@@ -272,6 +282,8 @@ open class CoverageLonLatIsochronesRequestBuilder: NSObject {
             "wheelchair": self.wheelchair, 
             "traveler_type": self.travelerType?.rawValue, 
             "direct_path": self.directPath?.rawValue, 
+            "free_radius_from": self.freeRadiusFrom?.encodeToJSON(), 
+            "free_radius_to": self.freeRadiusTo?.encodeToJSON(), 
             "min_duration": self.minDuration?.encodeToJSON(), 
             "boundary_duration[]": self.boundaryDuration
         ]
@@ -410,6 +422,8 @@ open class CoverageRegionIsochronesRequestBuilder: NSObject {
     var wheelchair:Bool? = nil
     var travelerType: TravelerType? = nil
     var directPath: DirectPath? = nil
+    var freeRadiusFrom:Int32? = nil
+    var freeRadiusTo:Int32? = nil
     var minDuration:Int32? = nil
     var boundaryDuration:[Int32]? = nil
 
@@ -529,6 +543,14 @@ open class CoverageRegionIsochronesRequestBuilder: NSObject {
         self.directPath = directPath
         return self
     }
+    open func withFreeRadiusFrom(_ freeRadiusFrom: Int32) -> CoverageRegionIsochronesRequestBuilder {
+        self.freeRadiusFrom = freeRadiusFrom
+        return self
+    }
+    open func withFreeRadiusTo(_ freeRadiusTo: Int32) -> CoverageRegionIsochronesRequestBuilder {
+        self.freeRadiusTo = freeRadiusTo
+        return self
+    }
     open func withMinDuration(_ minDuration: Int32) -> CoverageRegionIsochronesRequestBuilder {
         self.minDuration = minDuration
         return self
@@ -578,6 +600,8 @@ open class CoverageRegionIsochronesRequestBuilder: NSObject {
             "wheelchair": self.wheelchair, 
             "traveler_type": self.travelerType?.rawValue, 
             "direct_path": self.directPath?.rawValue, 
+            "free_radius_from": self.freeRadiusFrom?.encodeToJSON(), 
+            "free_radius_to": self.freeRadiusTo?.encodeToJSON(), 
             "min_duration": self.minDuration?.encodeToJSON(), 
             "boundary_duration[]": self.boundaryDuration
         ]

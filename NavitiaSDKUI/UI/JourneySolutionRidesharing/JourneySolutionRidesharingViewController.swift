@@ -70,7 +70,7 @@ open class JourneySolutionRidesharingViewController: UIViewController {
     func getRidesharingCount() -> Int {
         if let sections =  _viewModel.journey?.sections {
             for section in sections {
-                if let mode = section.mode, mode == ModeTransport.ridesharing.rawValue {
+                if let mode = section.mode, mode == .ridesharing {
                     _viewModel.ridesharingJourneys = section.ridesharingJourneys
                     return section.ridesharingJourneys?.count ?? 0
                 }
@@ -99,7 +99,7 @@ extension JourneySolutionRidesharingViewController: UICollectionViewDataSource {
                     cell.title = sectionRidesharing.ridesharingInformations?.network ?? ""
                     cell.startDate = sectionRidesharing.departureDateTime?.toDate(format: Configuration.date)?.toString(format: Configuration.timeRidesharing) ?? ""
                     cell.login = sectionRidesharing.ridesharingInformations?.driver?.alias ?? ""
-                    cell.gender = sectionRidesharing.ridesharingInformations?.driver?.gender ?? ""
+                    cell.gender = sectionRidesharing.ridesharingInformations?.driver?.gender?.rawValue ?? ""
                     cell.seatCount(sectionRidesharing.ridesharingInformations?.seats?.available)
                     cell.setPicture(url: sectionRidesharing.ridesharingInformations?.driver?.image)
                     cell.setNotation(sectionRidesharing.ridesharingInformations?.driver?.rating?.count)
