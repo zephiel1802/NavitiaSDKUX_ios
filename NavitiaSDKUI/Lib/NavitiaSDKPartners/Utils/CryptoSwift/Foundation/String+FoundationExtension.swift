@@ -1,8 +1,7 @@
 //
-//  String+Extension.swift
 //  CryptoSwift
 //
-//  Copyright (C) 2014-2017 Krzyżanowski <marcin@krzyzanowskim.com>
+//  Copyright (C) 2014-2017 Marcin Krzyżanowski <marcin@krzyzanowskim.com>
 //  This software is provided 'as-is', without any express or implied warranty.
 //
 //  In no event will the authors be held liable for any damages arising from the use of this software.
@@ -17,9 +16,8 @@
 import Foundation
 
 extension String {
-
     /// Return Base64 back to String
-      func decryptBase64ToString(cipher: Cipher) throws -> String {
+    public func decryptBase64ToString(cipher: Cipher) throws -> String {
         guard let decodedData = Data(base64Encoded: self, options: []) else {
             throw CipherError.decrypt
         }
@@ -33,7 +31,7 @@ extension String {
         throw CipherError.decrypt
     }
 
-      func decryptBase64(cipher: Cipher) throws -> Array<UInt8> {
+    public func decryptBase64(cipher: Cipher) throws -> Array<UInt8> {
         guard let decodedData = Data(base64Encoded: self, options: []) else {
             throw CipherError.decrypt
         }

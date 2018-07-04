@@ -30,6 +30,7 @@
     case passwordInvalid = 9020 // on update password, old password is not matching current password
     case paymentTimeOut = 9021 // if you take too much time between validation and payment
     case maximumAmountReached = 9022 // Cart total is too big at validation time
+    case masabiAuthenticateError = 9023 // Masabi authenticate error
 
     public static let all: [String: Int] = [
         "notLogged" : notLogged.rawValue,
@@ -52,7 +53,8 @@
         "ticketManagementNotInit" : ticketManagementNotInit.rawValue,
         "masabiDeviceChangeError" : masabiDeviceChangeError.rawValue,
         "masabiNoDeviceChangeCredit" : masabiNoDeviceChangeCredit.rawValue,
-        "paymentTimeOut" : paymentTimeOut.rawValue
+        "paymentTimeOut" : paymentTimeOut.rawValue,
+        "masabiAuthenticateError" : masabiAuthenticateError.rawValue
     ]
     
     func getError() -> [String: Any] {
@@ -123,6 +125,9 @@
             break
         case .maximumAmountReached:
             error["error"] = "Maximum Amount Reached"
+            break
+        case .masabiAuthenticateError:
+            error["error"] = "Masabi Authenticate Error"
             break
         }
         return error

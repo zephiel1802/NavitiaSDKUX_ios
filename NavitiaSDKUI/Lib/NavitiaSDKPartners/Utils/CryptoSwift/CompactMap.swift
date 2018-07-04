@@ -1,8 +1,6 @@
+////  CryptoSwift
 //
-//  CSArrayType+Foundation.swift
-//  CryptoSwift
-//
-//  Copyright (C) 2014-2017 Krzyżanowski <marcin@krzyzanowskim.com>
+//  Copyright (C) 2014-__YEAR__ Marcin Krzyżanowski <marcin@krzyzanowskim.com>
 //  This software is provided 'as-is', without any express or implied warranty.
 //
 //  In no event will the authors be held liable for any damages arising from the use of this software.
@@ -14,25 +12,12 @@
 //  - This notice may not be removed or altered from any source or binary distribution.
 //
 
-import Foundation
-
-  extension CSArrayType where Iterator.Element == UInt8 {
-
-      func toBase64() -> String? {
-        guard let bytesArray = self as? Array<UInt8> else {
-            return nil
+#if swift(>=4.1)
+    // TODO: remove this file when Xcode 9.2 is no longer used
+#else
+    extension Sequence {
+        public func compactMap<ElementOfResult>(_ transform: (Element) throws -> ElementOfResult?) rethrows -> [ElementOfResult] {
+            return try flatMap(transform)
         }
-
-        return Data(bytes: bytesArray).base64EncodedString()
     }
-
-      init(base64: String) {
-        self.init()
-
-        guard let decodedData = Data(base64Encoded: base64) else {
-            return
-        }
-
-        self.append(contentsOf: decodedData.bytes)
-    }
-}
+#endif

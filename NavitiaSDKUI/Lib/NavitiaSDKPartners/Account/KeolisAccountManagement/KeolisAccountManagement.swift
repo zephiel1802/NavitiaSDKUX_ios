@@ -306,9 +306,6 @@ import JustRideSDK
         return ["Content-Type" : "application/xml",
                 "Authorization" : "Bearer \(_accessToken)"]
     }
-}
-
-extension KeolisAccountManagement {
 
     public func getAccountManagementName() -> String {
 
@@ -413,7 +410,7 @@ extension KeolisAccountManagement {
                     self._stockedPassword = ""
                     switch NavitiaSDKPartners.shared.ticketManagement?.getTicketManagementType() {
                     case .Masabi? :
-                        MJRSDK.sharedInstance()?.accountUseCases.accountLogout(completionHandler: { (error) in
+                        (NavitiaSDKPartners.shared.ticketConfiguration as! MasabiTicketManagementConfiguration).MasabiSharedInstance.accountUseCases.accountLogout(completionHandler: { (error) in
                             if error != nil {
                                 print("NavitiaSDKPartners/masabiLogOut : error")
                             } else {

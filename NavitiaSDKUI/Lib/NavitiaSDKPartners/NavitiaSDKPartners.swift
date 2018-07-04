@@ -7,7 +7,7 @@
 
 import Foundation
 
-@objc public enum Environnement : Int {
+@objc public enum Environment : Int {
     case Preprod
     case Prod
 }
@@ -16,7 +16,7 @@ import Foundation
     
     private override init() { }
     
-    public var environnement : Environnement = .Prod
+    public var environment : Environment = .Preprod
     
     internal var accountManagement : AccountManagement? = nil
     internal var bookManagement : BookManagement? = nil

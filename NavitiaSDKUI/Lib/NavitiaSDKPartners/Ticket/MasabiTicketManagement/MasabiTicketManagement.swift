@@ -38,20 +38,20 @@ import JustRideSDK
             callbackError(error.getCode(), error.getError())
             return
         }
-        MJRSDK.sharedInstance()?.accountUseCases.getLoginStatus(completionHandler: { (loginStatus, error) in
+        (ticketConfiguration as! MasabiTicketManagementConfiguration).MasabiSharedInstance.accountUseCases.getLoginStatus(completionHandler: { (loginStatus, error) in
             
             if error != nil {
-                print("NavitiaSDKPartners/getLoginStatus : success")
+                print("NavitiaSDKPartners/getLoginStatus : error")
             }
             
             if error == nil && loginStatus?.isLoggedIn == false {
                 print(NavitiaSDKPartners.shared.userInfo.id)
                 print(NavitiaSDKPartners.shared.accessToken)
-                MJRSDK.sharedInstance()?.accountUseCases.accountLogin(withDeviceChange: force, username: NavitiaSDKPartners.shared.userInfo.id, password: NavitiaSDKPartners.shared.accessToken, completionHandler: { (loginResponse, error) in
+                (self.ticketConfiguration as! MasabiTicketManagementConfiguration).MasabiSharedInstance.accountUseCases.accountLogin(withDeviceChange: force, username: NavitiaSDKPartners.shared.userInfo.id, password: NavitiaSDKPartners.shared.accessToken, completionHandler: { (loginResponse, error) in
                     DispatchQueue.main.async {
                         if (error != nil) {
                             print("NavitiaSDKPartners/masabiAuthenticate : error")
-                            callbackError(NavitiaSDKPartnersReturnCode.internalError.getCode(), NavitiaSDKPartnersReturnCode.internalError.getError())
+                            callbackError(NavitiaSDKPartnersReturnCode.masabiAuthenticateError.getCode(), NavitiaSDKPartnersReturnCode.masabiAuthenticateError.getError())
                             return;
                         }
                         
@@ -74,8 +74,7 @@ import JustRideSDK
                             }
                             
                             print("NavitiaSDKPartners/masabiAuthenticate : error")
-                            callbackError( error.getCode(),
-                                           data)
+                            callbackError(NavitiaSDKPartnersReturnCode.masabiAuthenticateError.getCode(), NavitiaSDKPartnersReturnCode.masabiAuthenticateError.getError())
                             break;
                         default:
                             if doRefreshIfInternalError == true {
@@ -85,14 +84,14 @@ import JustRideSDK
                                     
                                     print(loginResponse!.loginResult.rawValue)
                                     print("NavitiaSDKPartners/masabiAuthenticate : error")
-                                    callbackError(NavitiaSDKPartnersReturnCode.internalError.getCode(), NavitiaSDKPartnersReturnCode.internalError.getError())
+                                    callbackError(NavitiaSDKPartnersReturnCode.masabiAuthenticateError.getCode(), NavitiaSDKPartnersReturnCode.masabiAuthenticateError.getError())
                                     
                                 })
                             } else {
                                 
                                 print("NavitiaSDKPartners/masabiAuthenticate : error")
                                 print(loginResponse!.loginResult.rawValue)
-                                callbackError(NavitiaSDKPartnersReturnCode.internalError.getCode(), NavitiaSDKPartnersReturnCode.internalError.getError())
+                                callbackError(NavitiaSDKPartnersReturnCode.masabiAuthenticateError.getCode(), NavitiaSDKPartnersReturnCode.masabiAuthenticateError.getError())
                             }
                             break
                         }
@@ -110,11 +109,11 @@ import JustRideSDK
                         NavitiaSDKPartners.shared.refreshToken(callbackSuccess: {
                             self.authenticate(force: force, doRefreshIfInternalError: false, callbackSuccess: callbackSuccess, callbackError: callbackError)
                         }, callbackError: { (statusCode, data) in
-                            callbackError(NavitiaSDKPartnersReturnCode.internalError.getCode(), NavitiaSDKPartnersReturnCode.internalError.getError())
+                            callbackError(NavitiaSDKPartnersReturnCode.masabiAuthenticateError.getCode(), NavitiaSDKPartnersReturnCode.masabiAuthenticateError.getError())
                             
                         })
                     } else {
-                        callbackError(NavitiaSDKPartnersReturnCode.internalError.getCode(), NavitiaSDKPartnersReturnCode.internalError.getError())
+                        callbackError(NavitiaSDKPartnersReturnCode.masabiAuthenticateError.getCode(), NavitiaSDKPartnersReturnCode.masabiAuthenticateError.getError())
                     }
                 }
             }
@@ -122,7 +121,7 @@ import JustRideSDK
     }
     
     private func syncWallet( completion : @escaping (Bool, Int, [String: Any]?) -> Void) {
-        MJRSDK.sharedInstance()?.walletUseCases.syncWallet(completionHandler: { (walletStatus, error) in
+        (self.ticketConfiguration as! MasabiTicketManagementConfiguration).MasabiSharedInstance.walletUseCases.syncWallet(completionHandler: { (walletStatus, error) in
             if error == nil {
                 DispatchQueue.main.async {
                    completion(true, 200, nil)
@@ -144,7 +143,7 @@ import JustRideSDK
             callbackError(error.getCode(), error.getError())
             return
         }
-        MJRSDK.sharedInstance()?.accountUseCases.accountLogout(completionHandler: { (error) in
+        (self.ticketConfiguration as! MasabiTicketManagementConfiguration).MasabiSharedInstance.accountUseCases.accountLogout(completionHandler: { (error) in
             if error == nil {
                 callbackSuccess()
                 return
@@ -172,7 +171,7 @@ import JustRideSDK
                         callbackSuccess()
                     } else {
                         print("NavitiaSDKPartners/syncWallet : error")
-                        callbackError(statusCode, data)
+                        callbackError(NavitiaSDKPartnersReturnCode.masabiAuthenticateError.getCode(), NavitiaSDKPartnersReturnCode.masabiAuthenticateError.getError())
                     }
                 })
             }, callbackError: { (statusCode, data) in
@@ -187,7 +186,7 @@ import JustRideSDK
                             callbackSuccess()
                         } else {
                             print("NavitiaSDKPartners/syncWallet : error")
-                            callbackError(statusCode, data)
+                            callbackError(NavitiaSDKPartnersReturnCode.masabiAuthenticateError.getCode(), NavitiaSDKPartnersReturnCode.masabiAuthenticateError.getError())
                         }
                     })
                 }, callbackError: { (statusCode, data) in
@@ -219,7 +218,7 @@ import JustRideSDK
                                     } else {
                                         
                                         print("NavitiaSDKPartners/syncWallet : error")
-                                        callbackError(statusCode, data)
+                                        callbackError(NavitiaSDKPartnersReturnCode.masabiAuthenticateError.getCode(), NavitiaSDKPartnersReturnCode.masabiAuthenticateError.getError())
                                     }
                                 })
             }, callbackError: { (statusCode, data) in
@@ -235,8 +234,8 @@ import JustRideSDK
                             callbackSuccess()
                         } else {
                             
-                            print("NavitiaSDKPartners/syncWallet : false")
-                            callbackError(statusCode, data)
+                            print("NavitiaSDKPartners/syncWallet : error")
+                            callbackError(NavitiaSDKPartnersReturnCode.masabiAuthenticateError.getCode(), NavitiaSDKPartnersReturnCode.masabiAuthenticateError.getError())
                         }
                     })
                 }, callbackError: { (statusCode, data) in
@@ -253,14 +252,14 @@ import JustRideSDK
         
         setHasValidTickets()
         print("NavitiaSDKPartners/showWallet : success")
-        callbackSuccess(MJRWalletViewController())
+        callbackSuccess(MJRWalletViewController.init(justrideSDK: (self.ticketConfiguration as! MasabiTicketManagementConfiguration).MasabiSharedInstance))
     }
     
 }
 
 extension MasabiTicketManagement {
-    private func setHasValidTickets() {
-        MJRSDK.sharedInstance()?.walletUseCases.getAvailableTickets(with: MJRAvailableTicketsSortOrder.recentlyPurchased, completionHandler: { (summary, error) in
+    func setHasValidTickets() {
+        (self.ticketConfiguration as! MasabiTicketManagementConfiguration).MasabiSharedInstance.walletUseCases.getAvailableTickets(with: MJRAvailableTicketsSortOrder.recentlyPurchased, completionHandler: { (summary, error) in
             if error != nil {
                 self.privateHasValidTickets = false
             }

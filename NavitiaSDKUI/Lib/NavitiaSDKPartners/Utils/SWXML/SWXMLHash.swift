@@ -574,7 +574,7 @@ class FullXMLParser: NSObject, SimpleXmlParser, XMLParserDelegate {
 
     private var childElements: [XMLElement] {
         var list = [XMLElement]()
-        for elem in all.flatMap({ $0.element }) {
+        for elem in all.compactMap({ $0.element }) {
             for elem in elem.xmlChildren {
                 list.append(elem)
             }
@@ -890,7 +890,7 @@ extension IndexingError: CustomStringConvertible {
     let options: SWXMLHashOptions
 
     var xmlChildren: [XMLElement] {
-        return children.flatMap { $0 as? XMLElement }
+        return children.compactMap { $0 as? XMLElement }
     }
 
     /**

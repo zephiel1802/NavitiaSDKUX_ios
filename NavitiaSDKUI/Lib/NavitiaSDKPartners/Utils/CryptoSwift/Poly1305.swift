@@ -1,8 +1,7 @@
 //
-//  Poly1305.swift
 //  CryptoSwift
 //
-//  Copyright (C) 2014-2017 Krzyżanowski <marcin@krzyzanowskim.com>
+//  Copyright (C) 2014-2017 Marcin Krzyżanowski <marcin@krzyzanowskim.com>
 //  This software is provided 'as-is', without any express or implied warranty.
 //
 //  In no event will the authors be held liable for any damages arising from the use of this software.
@@ -20,18 +19,17 @@
 ///  Poly1305 takes a 32-byte, one-time key and a message and produces a 16-byte tag that authenticates the
 ///  message such that an attacker has a negligible chance of producing a valid tag for an inauthentic message.
 
-  final class Poly1305: Authenticator {
-
-      enum Error: Swift.Error {
+public final class Poly1305: Authenticator {
+    public enum Error: Swift.Error {
         case authenticateError
     }
 
-      static let blockSize: Int = 16
+    public static let blockSize: Int = 16
 
     private let key: SecureBytes
 
     /// - parameter key: 32-byte key
-      init(key: Array<UInt8>) {
+    public init(key: Array<UInt8>) {
         self.key = SecureBytes(bytes: key)
     }
 
@@ -83,7 +81,7 @@
             hr[i] = u
         }
         h = hr
-        self.squeeze(h: &h)
+        squeeze(h: &h)
     }
 
     private func freeze(h: inout Array<UInt32>) {
@@ -120,7 +118,6 @@
         r[15] = UInt32(k[15] & 15)
         r[16] = 0
 
-
         var inlen = input.count
         var inpos = 0
         while inlen > 0 {
@@ -135,11 +132,11 @@
             c[maxj] = 1
             inpos = inpos + maxj
             inlen = inlen - maxj
-            self.add(h: &h, c: c)
-            self.mulmod(h: &h, r: r)
+            add(h: &h, c: c)
+            mulmod(h: &h, r: r)
         }
 
-        self.freeze(h: &h)
+        freeze(h: &h)
 
         for j in 0..<16 {
             c[j] = UInt32(k[j + 16])
@@ -148,7 +145,7 @@
         add(h: &h, c: c)
 
         return h[0..<16].map {
-            UInt8($0 & 0xFF)
+            UInt8($0 & 0xff)
         }
     }
 
@@ -162,7 +159,7 @@
 
      - returns: 16-byte tag that authenticates the message
      */
-      func authenticate(_ bytes: Array<UInt8>) throws -> Array<UInt8> {
-        return onetimeauth(message: bytes, key: Array(self.key))
+    public func authenticate(_ bytes: Array<UInt8>) throws -> Array<UInt8> {
+        return onetimeauth(message: bytes, key: Array(key))
     }
 }

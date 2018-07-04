@@ -1,8 +1,7 @@
 //
-//  HMAC.swift
 //  CryptoSwift
 //
-//  Copyright (C) 2014-2017 Krzyżanowski <marcin@krzyzanowskim.com>
+//  Copyright (C) 2014-2017 Marcin Krzyżanowski <marcin@krzyzanowskim.com>
 //  This software is provided 'as-is', without any express or implied warranty.
 //
 //  In no event will the authors be held liable for any damages arising from the use of this software.
@@ -14,18 +13,17 @@
 //  - This notice may not be removed or altered from any source or binary distribution.
 //
 
-  final class HMAC: Authenticator {
-
-      enum Error: Swift.Error {
+public final class HMAC: Authenticator {
+    public enum Error: Swift.Error {
         case authenticateError
         case invalidInput
     }
 
-      enum Variant {
+    public enum Variant {
         case sha1, sha256, sha384, sha512, md5
 
         var digestLength: Int {
-            switch (self) {
+            switch self {
             case .sha1:
                 return SHA1.digestLength
             case .sha256:
@@ -40,7 +38,7 @@
         }
 
         func calculateHash(_ bytes: Array<UInt8>) -> Array<UInt8>? {
-            switch (self) {
+            switch self {
             case .sha1:
                 return Digest.sha1(bytes)
             case .sha256:
@@ -69,7 +67,7 @@
     var key: Array<UInt8>
     let variant: Variant
 
-      init(key: Array<UInt8>, variant: HMAC.Variant = .md5) {
+    public init(key: Array<UInt8>, variant: HMAC.Variant = .md5) {
         self.variant = variant
         self.key = key
 
@@ -86,7 +84,7 @@
 
     // MARK: Authenticator
 
-      func authenticate(_ bytes: Array<UInt8>) throws -> Array<UInt8> {
+    public func authenticate(_ bytes: Array<UInt8>) throws -> Array<UInt8> {
         var opad = Array<UInt8>(repeating: 0x5c, count: variant.blockSize())
         for idx in key.indices {
             opad[idx] = key[idx] ^ opad[idx]

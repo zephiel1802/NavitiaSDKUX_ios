@@ -1,8 +1,7 @@
 //
-//  Hash.swift
 //  CryptoSwift
 //
-//  Copyright (C) 2014-2017 Krzyżanowski <marcin@krzyzanowskim.com>
+//  Copyright (C) 2014-2017 Marcin Krzyżanowski <marcin@krzyzanowskim.com>
 //  This software is provided 'as-is', without any express or implied warranty.
 //
 //  In no event will the authors be held liable for any damages arising from the use of this software.
@@ -15,50 +14,49 @@
 //
 
 @available(*, deprecated: 0.6.0, renamed: "Digest")
-  typealias Hash = Digest
+public typealias Hash = Digest
 
 /// Hash functions to calculate Digest.
-  struct Digest {
-
+public struct Digest {
     /// Calculate MD5 Digest
     /// - parameter bytes: input message
     /// - returns: Digest bytes
-      static func md5(_ bytes: Array<UInt8>) -> Array<UInt8> {
+    public static func md5(_ bytes: Array<UInt8>) -> Array<UInt8> {
         return MD5().calculate(for: bytes)
     }
 
     /// Calculate SHA1 Digest
     /// - parameter bytes: input message
     /// - returns: Digest bytes
-      static func sha1(_ bytes: Array<UInt8>) -> Array<UInt8> {
+    public static func sha1(_ bytes: Array<UInt8>) -> Array<UInt8> {
         return SHA1().calculate(for: bytes)
     }
 
     /// Calculate SHA2-224 Digest
     /// - parameter bytes: input message
     /// - returns: Digest bytes
-      static func sha224(_ bytes: Array<UInt8>) -> Array<UInt8> {
+    public static func sha224(_ bytes: Array<UInt8>) -> Array<UInt8> {
         return sha2(bytes, variant: .sha224)
     }
 
     /// Calculate SHA2-256 Digest
     /// - parameter bytes: input message
     /// - returns: Digest bytes
-      static func sha256(_ bytes: Array<UInt8>) -> Array<UInt8> {
+    public static func sha256(_ bytes: Array<UInt8>) -> Array<UInt8> {
         return sha2(bytes, variant: .sha256)
     }
 
     /// Calculate SHA2-384 Digest
     /// - parameter bytes: input message
     /// - returns: Digest bytes
-      static func sha384(_ bytes: Array<UInt8>) -> Array<UInt8> {
+    public static func sha384(_ bytes: Array<UInt8>) -> Array<UInt8> {
         return sha2(bytes, variant: .sha384)
     }
 
     /// Calculate SHA2-512 Digest
     /// - parameter bytes: input message
     /// - returns: Digest bytes
-      static func sha512(_ bytes: Array<UInt8>) -> Array<UInt8> {
+    public static func sha512(_ bytes: Array<UInt8>) -> Array<UInt8> {
         return sha2(bytes, variant: .sha512)
     }
 
@@ -66,16 +64,15 @@
     /// - parameter bytes: input message
     /// - parameter variant: SHA-2 variant
     /// - returns: Digest bytes
-      static func sha2(_ bytes: Array<UInt8>, variant: SHA2.Variant) -> Array<UInt8> {
+    public static func sha2(_ bytes: Array<UInt8>, variant: SHA2.Variant) -> Array<UInt8> {
         return SHA2(variant: variant).calculate(for: bytes)
     }
-
 
     /// Calculate SHA3 Digest
     /// - parameter bytes: input message
     /// - parameter variant: SHA-3 variant
     /// - returns: Digest bytes
-      static func sha3(_ bytes: Array<UInt8>, variant: SHA3.Variant) -> Array<UInt8> {
+    public static func sha3(_ bytes: Array<UInt8>, variant: SHA3.Variant) -> Array<UInt8> {
         return SHA3(variant: variant).calculate(for: bytes)
     }
 }
