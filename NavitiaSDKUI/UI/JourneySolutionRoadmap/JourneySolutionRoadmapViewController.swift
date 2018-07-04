@@ -223,13 +223,10 @@ open class JourneySolutionRoadmapViewController: UIViewController {
                 if let type = link.type, let id = link.id, let disruptions = disruptions {
                     if type == "disruption" {
                         for disruption in disruptions {
-                            if disruption.id == id {
+                            if disruption.id == id, let message = Disruption.getMessage(disruption: disruption) {
                                 publicTransportView.setDisruptionType(disruption)
                                 publicTransportView.disruptionTitle = disruption.severity?.name
-  
-                                if let message = disruption.messages?.first?.escapedText {
-                                    publicTransportView.disruptionInformation = message
-                                }
+                                publicTransportView.disruptionInformation = message.escapedText
                                 if let begin = disruption.applicationPeriods?.first?.begin?.toDate(format: Configuration.date), let end = disruption.applicationPeriods?.first?.end?.toDate(format: Configuration.date) {
                                     publicTransportView.disruptionDate = String(format: "%@ %@ %@ %@",
                                                                                 "from".localized(withComment: "Back", bundle: NavitiaSDKUI.shared.bundle),

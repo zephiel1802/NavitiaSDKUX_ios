@@ -12,7 +12,7 @@ class JourneySummaryView: UIView {
     @IBOutlet weak var _view: UIView!
     @IBOutlet weak var _stackView: UIStackView!
     
-    var disruption: [Disruption]?
+    var disruptions: [Disruption]?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -52,11 +52,11 @@ class JourneySummaryView: UIView {
                     journeySummaryPartView.icon = Modes().getModeIcon(section: section)
                     if let links = section.displayInformations?.links {
                         for link in links {
-                            if let type = link.type, let id = link.id, let disruption = disruption {
+                            if let type = link.type, let id = link.id, let disruptions = disruptions {
                                 if type == "disruption" {
-                                    for i in disruption {
-                                        if i.id == id {
-                                            journeySummaryPartView.displayDisruption(Disruption.getIconName(of: i.level), color: i.severity?.color)
+                                    for disruption in disruptions {
+                                        if disruption.id == id && Disruption.getMessage(disruption: disruption) != nil {
+                                            journeySummaryPartView.displayDisruption(Disruption.getIconName(of: disruption.level), color: disruption.severity?.color)
                                         }
                                     }
                                 }

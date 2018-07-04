@@ -58,4 +58,32 @@ extension Disruption {
         }
     }
     
+    public static func getMessage(disruption: Disruption) -> Message? {
+        guard let messages = disruption.messages else {
+            return nil
+        }
+        for message in messages {
+            if let types = message.channel?.types {
+                if types.count == 1 && types.contains(.mobile) {
+                    return message
+                }
+            }
+        }
+        for message in messages {
+            if let types = message.channel?.types {
+                if types.count > 1 && types.contains(.mobile) {
+                    return message
+                }
+            }
+        }
+        for message in messages {
+            if let types = message.channel?.types {
+                if types.count == 1 && types.contains(.web) {
+                    return message
+                }
+            }
+        }
+        return nil
+    }
+    
 }
