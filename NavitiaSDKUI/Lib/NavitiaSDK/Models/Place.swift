@@ -9,7 +9,31 @@ import Foundation
 
 open class Place: JSONEncodable, Mappable {
 
-    public var embeddedType: String?
+    public enum EmbeddedType: String { 
+        case line = "line"
+        case journeyPattern = "journey_pattern"
+        case vehicleJourney = "vehicle_journey"
+        case stopPoint = "stop_point"
+        case stopArea = "stop_area"
+        case network = "network"
+        case physicalMode = "physical_mode"
+        case commercialMode = "commercial_mode"
+        case connection = "connection"
+        case journeyPatternPoint = "journey_pattern_point"
+        case company = "company"
+        case route = "route"
+        case poi = "poi"
+        case contributor = "contributor"
+        case address = "address"
+        case poitype = "poitype"
+        case administrativeRegion = "administrative_region"
+        case calendar = "calendar"
+        case lineGroup = "line_group"
+        case impact = "impact"
+        case dataset = "dataset"
+        case trip = "trip"
+    }
+    public var embeddedType: EmbeddedType?
     public var stopPoint: StopPoint?
     public var administrativeRegion: Admin?
     /** Name of the object */
@@ -42,7 +66,7 @@ open class Place: JSONEncodable, Mappable {
     // MARK: JSONEncodable
     open func encodeToJSON() -> Any {
         var nillableDictionary = [String:Any?]()
-        nillableDictionary["embedded_type"] = self.embeddedType
+        nillableDictionary["embedded_type"] = self.embeddedType?.rawValue
         nillableDictionary["stop_point"] = self.stopPoint?.encodeToJSON()
         nillableDictionary["administrative_region"] = self.administrativeRegion?.encodeToJSON()
         nillableDictionary["name"] = self.name

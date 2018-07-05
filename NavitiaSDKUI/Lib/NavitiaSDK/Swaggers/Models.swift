@@ -1036,7 +1036,7 @@ class Decoders {
             let sourceDictionary = source as! [AnyHashable: Any]
             let result = instance == nil ? ImpactedSection() : instance as! ImpactedSection
             
-            result.routes = Decoders.decodeOptional(clazz: Route.self, source: sourceDictionary["routes"] as AnyObject?)
+            result.routes = Decoders.decodeOptional(clazz: Array.self, source: sourceDictionary["routes"] as AnyObject?)
             result.to = Decoders.decodeOptional(clazz: PtObject.self, source: sourceDictionary["to"] as AnyObject?)
             result.from = Decoders.decodeOptional(clazz: PtObject.self, source: sourceDictionary["from"] as AnyObject?)
             return result
@@ -1054,7 +1054,10 @@ class Decoders {
             
             result.amendedArrivalTime = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["amended_arrival_time"] as AnyObject?)
             result.stopPoint = Decoders.decodeOptional(clazz: StopPoint.self, source: sourceDictionary["stop_point"] as AnyObject?)
-            result.stopTimeEffect = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["stop_time_effect"] as AnyObject?)
+            if let stopTimeEffect = sourceDictionary["stop_time_effect"] as? String { 
+                result.stopTimeEffect = ImpactedStop.StopTimeEffect(rawValue: (stopTimeEffect))
+            }
+            
             result.departureStatus = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["departure_status"] as AnyObject?)
             result.amendedDepartureTime = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["amended_departure_time"] as AnyObject?)
             result.baseArrivalTime = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["base_arrival_time"] as AnyObject?)
@@ -1076,7 +1079,10 @@ class Decoders {
             
             result.alias = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["alias"] as AnyObject?)
             result.image = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["image"] as AnyObject?)
-            result.gender = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["gender"] as AnyObject?)
+            if let gender = sourceDictionary["gender"] as? String { 
+                result.gender = IndividualInformation.Gender(rawValue: (gender))
+            }
+            
             result.rating = Decoders.decodeOptional(clazz: IndividualRating.self, source: sourceDictionary["rating"] as AnyObject?)
             return result
         }
@@ -1629,7 +1635,10 @@ class Decoders {
             let sourceDictionary = source as! [AnyHashable: Any]
             let result = instance == nil ? Place() : instance as! Place
             
-            result.embeddedType = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["embedded_type"] as AnyObject?)
+            if let embeddedType = sourceDictionary["embedded_type"] as? String { 
+                result.embeddedType = Place.EmbeddedType(rawValue: (embeddedType))
+            }
+            
             result.stopPoint = Decoders.decodeOptional(clazz: StopPoint.self, source: sourceDictionary["stop_point"] as AnyObject?)
             result.administrativeRegion = Decoders.decodeOptional(clazz: Admin.self, source: sourceDictionary["administrative_region"] as AnyObject?)
             result.name = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["name"] as AnyObject?)
@@ -1651,7 +1660,10 @@ class Decoders {
             let sourceDictionary = source as! [AnyHashable: Any]
             let result = instance == nil ? PlaceNearby() : instance as! PlaceNearby
             
-            result.embeddedType = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["embedded_type"] as AnyObject?)
+            if let embeddedType = sourceDictionary["embedded_type"] as? String { 
+                result.embeddedType = PlaceNearby.EmbeddedType(rawValue: (embeddedType))
+            }
+            
             result.stopPoint = Decoders.decodeOptional(clazz: StopPoint.self, source: sourceDictionary["stop_point"] as AnyObject?)
             result.administrativeRegion = Decoders.decodeOptional(clazz: Admin.self, source: sourceDictionary["administrative_region"] as AnyObject?)
             result.name = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["name"] as AnyObject?)
@@ -1804,7 +1816,10 @@ class Decoders {
             let sourceDictionary = source as! [AnyHashable: Any]
             let result = instance == nil ? PtObject() : instance as! PtObject
             
-            result.embeddedType = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["embedded_type"] as AnyObject?)
+            if let embeddedType = sourceDictionary["embedded_type"] as? String { 
+                result.embeddedType = PtObject.EmbeddedType(rawValue: (embeddedType))
+            }
+            
             result.stopPoint = Decoders.decodeOptional(clazz: StopPoint.self, source: sourceDictionary["stop_point"] as AnyObject?)
             result.name = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["name"] as AnyObject?)
             result.route = Decoders.decodeOptional(clazz: Route.self, source: sourceDictionary["route"] as AnyObject?)
@@ -1868,7 +1883,10 @@ class Decoders {
             result.name = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["name"] as AnyObject?)
             result.links = Decoders.decodeOptional(clazz: Array.self, source: sourceDictionary["links"] as AnyObject?)
             result.physicalModes = Decoders.decodeOptional(clazz: Array.self, source: sourceDictionary["physical_modes"] as AnyObject?)
-            result.isFrequence = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["is_frequence"] as AnyObject?)
+            if let isFrequence = sourceDictionary["is_frequence"] as? String { 
+                result.isFrequence = Route.IsFrequence(rawValue: (isFrequence))
+            }
+            
             result.comments = Decoders.decodeOptional(clazz: Array.self, source: sourceDictionary["comments"] as AnyObject?)
             result.directionType = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["direction_type"] as AnyObject?)
             result.geojson = Decoders.decodeOptional(clazz: MultiLineStringSchema.self, source: sourceDictionary["geojson"] as AnyObject?)
@@ -2001,7 +2019,10 @@ class Decoders {
             result.displayInformations = Decoders.decodeOptional(clazz: VJDisplayInformation.self, source: sourceDictionary["display_informations"] as AnyObject?)
             result.from = Decoders.decodeOptional(clazz: Place.self, source: sourceDictionary["from"] as AnyObject?)
             result.links = Decoders.decodeOptional(clazz: Array.self, source: sourceDictionary["links"] as AnyObject?)
-            result.transferType = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["transfer_type"] as AnyObject?)
+            if let transferType = sourceDictionary["transfer_type"] as? String { 
+                result.transferType = Section.TransferType(rawValue: (transferType))
+            }
+            
             result.arrivalDateTime = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["arrival_date_time"] as AnyObject?)
             if let additionalInformations = sourceDictionary["additional_informations"] as? [String] { 
                 result.additionalInformations  = additionalInformations.map ({ Section.AdditionalInformations(rawValue: $0)! })
@@ -2018,10 +2039,19 @@ class Decoders {
             result.duration = Decoders.decodeOptional(clazz: Int32.self, source: sourceDictionary["duration"] as AnyObject?)
             result.path = Decoders.decodeOptional(clazz: Array.self, source: sourceDictionary["path"] as AnyObject?)
             result.stopDateTimes = Decoders.decodeOptional(clazz: Array.self, source: sourceDictionary["stop_date_times"] as AnyObject?)
-            result.type = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["type"] as AnyObject?)
+            if let type = sourceDictionary["type"] as? String { 
+                result.type = Section.ModelType(rawValue: (type))
+            }
+            
             result.id = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["id"] as AnyObject?)
-            result.dataFreshness = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["data_freshness"] as AnyObject?)
-            result.mode = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["mode"] as AnyObject?)
+            if let dataFreshness = sourceDictionary["data_freshness"] as? String { 
+                result.dataFreshness = Section.DataFreshness(rawValue: (dataFreshness))
+            }
+            
+            if let mode = sourceDictionary["mode"] as? String { 
+                result.mode = Section.Mode(rawValue: (mode))
+            }
+            
             return result
         }
 
@@ -2054,7 +2084,10 @@ class Decoders {
             result.color = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["color"] as AnyObject?)
             result.priority = Decoders.decodeOptional(clazz: Int32.self, source: sourceDictionary["priority"] as AnyObject?)
             result.name = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["name"] as AnyObject?)
-            result.effect = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["effect"] as AnyObject?)
+            if let effect = sourceDictionary["effect"] as? String { 
+                result.effect = Severity.Effect(rawValue: (effect))
+            }
+            
             return result
         }
 

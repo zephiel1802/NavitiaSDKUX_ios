@@ -9,9 +9,13 @@ import Foundation
 
 open class IndividualInformation: JSONEncodable, Mappable {
 
+    public enum Gender: String { 
+        case female = "female"
+        case male = "male"
+    }
     public var alias: String?
     public var image: String?
-    public var gender: String?
+    public var gender: Gender?
     public var rating: IndividualRating?
 
     public init() {}
@@ -32,7 +36,7 @@ open class IndividualInformation: JSONEncodable, Mappable {
         var nillableDictionary = [String:Any?]()
         nillableDictionary["alias"] = self.alias
         nillableDictionary["image"] = self.image
-        nillableDictionary["gender"] = self.gender
+        nillableDictionary["gender"] = self.gender?.rawValue
         nillableDictionary["rating"] = self.rating?.encodeToJSON()
 
         let dictionary: [String:Any] = APIHelper.rejectNil(nillableDictionary) ?? [:]

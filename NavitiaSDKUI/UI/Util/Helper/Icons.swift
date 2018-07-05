@@ -76,36 +76,36 @@ let iconFontCodes:[String: String] = [
 class Modes {
     func getModeIcon(section: Section?) -> String {
         switch section!.type! {
-            case "public_transport":
+            case .publicTransport:
                 return getPhysicalMode(section: section).lowercased()
-            case "transfer":
-                return section!.transferType!
-            case "waiting":
-                return section!.type!
-            case "street_network":
+            case .transfer:
+                return section?.transferType?.rawValue ?? ""
+            case .waiting:
+                return section?.type?.rawValue ?? ""
+            case .streetNetwork:
                 return getStreetNetworkMode(section: section).lowercased()
-            case "bss_rent":
+            case .bssRent:
                 return "bss"
-            case "bss_put_back":
+            case .bssPutBack:
                 return "bss"
             default:
-                return section!.mode!
+                return section?.mode?.rawValue ?? ""
         }
     }
     
     func getPhysicalMode(section: Section?) -> String {
         let id = getPhysicalModeId(section: section)
-        var modeData = id.characters.split(separator: ":").map(String.init)
+        var modeData = id.split(separator: ":").map(String.init)
         return modeData[1]
     }
     
     private func getStreetNetworkMode(section: Section?) -> String {
-        if section?.mode == "bike" {
+        if section?.mode == .bike {
             if ((section?.from?.poi?.properties!["network"]) != nil) {
                 return "bss"
             }
         }
-        return section!.mode!
+        return section?.mode?.rawValue ?? ""
     }
     
     private func getPhysicalModeId(section: Section?) -> String {

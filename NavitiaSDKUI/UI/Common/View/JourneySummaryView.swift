@@ -43,7 +43,7 @@ class JourneySummaryView: UIView {
         for section in sections {
             if validDisplaySection(section) {
                 if let duration = section.duration {
-                    if section.mode == ModeTransport.walking.rawValue && duration <= 180 {
+                    if section.mode == .walking && duration <= 180 {
                         continue
                     }
                     let journeySummaryPartView = JourneySummaryPartView()
@@ -84,12 +84,12 @@ class JourneySummaryView: UIView {
     }
     
     private func validDisplaySection(_ section: Section) -> Bool {
-        if (section.type == TypeTransport.streetNetwork.rawValue && section.mode == ModeTransport.walking.rawValue) ||
-           (section.type != TypeTransport.transfer.rawValue &&
-            section.type != TypeTransport.waiting.rawValue &&
-            section.type != TypeTransport.leaveParking.rawValue &&
-            section.type != TypeTransport.bssRent.rawValue &&
-            section.type != TypeTransport.bssPutBack.rawValue) {
+        if (section.type == .streetNetwork && section.mode == .walking) ||
+           (section.type != .transfer &&
+            section.type != .waiting &&
+            section.type != .leaveParking &&
+            section.type != .bssRent &&
+            section.type != .bssPutBack) {
             return true
         }
         return false

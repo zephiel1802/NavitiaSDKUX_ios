@@ -102,6 +102,8 @@ open class CoverageLonLatJourneysRequestBuilder: NSObject {
     var wheelchair:Bool? = nil
     var travelerType: TravelerType? = nil
     var directPath: DirectPath? = nil
+    var freeRadiusFrom:Int32? = nil
+    var freeRadiusTo:Int32? = nil
     var count:Int32? = nil
     var isJourneySchedules:Bool? = nil
     var minNbJourneys:Int32? = nil
@@ -229,6 +231,14 @@ open class CoverageLonLatJourneysRequestBuilder: NSObject {
         self.directPath = directPath
         return self
     }
+    open func withFreeRadiusFrom(_ freeRadiusFrom: Int32) -> CoverageLonLatJourneysRequestBuilder {
+        self.freeRadiusFrom = freeRadiusFrom
+        return self
+    }
+    open func withFreeRadiusTo(_ freeRadiusTo: Int32) -> CoverageLonLatJourneysRequestBuilder {
+        self.freeRadiusTo = freeRadiusTo
+        return self
+    }
     open func withCount(_ count: Int32) -> CoverageLonLatJourneysRequestBuilder {
         self.count = count
         return self
@@ -300,6 +310,8 @@ open class CoverageLonLatJourneysRequestBuilder: NSObject {
             "wheelchair": self.wheelchair, 
             "traveler_type": self.travelerType?.rawValue, 
             "direct_path": self.directPath?.rawValue, 
+            "free_radius_from": self.freeRadiusFrom?.encodeToJSON(), 
+            "free_radius_to": self.freeRadiusTo?.encodeToJSON(), 
             "count": self.count?.encodeToJSON(), 
             "is_journey_schedules": self.isJourneySchedules, 
             "min_nb_journeys": self.minNbJourneys?.encodeToJSON(), 
@@ -450,6 +462,8 @@ open class CoverageRegionJourneysRequestBuilder: NSObject {
     var wheelchair:Bool? = nil
     var travelerType: TravelerType? = nil
     var directPath: DirectPath? = nil
+    var freeRadiusFrom:Int32? = nil
+    var freeRadiusTo:Int32? = nil
     var count:Int32? = nil
     var isJourneySchedules:Bool? = nil
     var minNbJourneys:Int32? = nil
@@ -573,6 +587,14 @@ open class CoverageRegionJourneysRequestBuilder: NSObject {
         self.directPath = directPath
         return self
     }
+    open func withFreeRadiusFrom(_ freeRadiusFrom: Int32) -> CoverageRegionJourneysRequestBuilder {
+        self.freeRadiusFrom = freeRadiusFrom
+        return self
+    }
+    open func withFreeRadiusTo(_ freeRadiusTo: Int32) -> CoverageRegionJourneysRequestBuilder {
+        self.freeRadiusTo = freeRadiusTo
+        return self
+    }
     open func withCount(_ count: Int32) -> CoverageRegionJourneysRequestBuilder {
         self.count = count
         return self
@@ -638,6 +660,8 @@ open class CoverageRegionJourneysRequestBuilder: NSObject {
             "wheelchair": self.wheelchair, 
             "traveler_type": self.travelerType?.rawValue, 
             "direct_path": self.directPath?.rawValue, 
+            "free_radius_from": self.freeRadiusFrom?.encodeToJSON(), 
+            "free_radius_to": self.freeRadiusTo?.encodeToJSON(), 
             "count": self.count?.encodeToJSON(), 
             "is_journey_schedules": self.isJourneySchedules, 
             "min_nb_journeys": self.minNbJourneys?.encodeToJSON(), 
@@ -781,6 +805,8 @@ open class JourneysRequestBuilder: NSObject {
     var wheelchair:Bool? = nil
     var travelerType: TravelerType? = nil
     var directPath: DirectPath? = nil
+    var freeRadiusFrom:Int32? = nil
+    var freeRadiusTo:Int32? = nil
     var count:Int32? = nil
     var isJourneySchedules:Bool? = nil
     var minNbJourneys:Int32? = nil
@@ -900,6 +926,14 @@ open class JourneysRequestBuilder: NSObject {
         self.directPath = directPath
         return self
     }
+    open func withFreeRadiusFrom(_ freeRadiusFrom: Int32) -> JourneysRequestBuilder {
+        self.freeRadiusFrom = freeRadiusFrom
+        return self
+    }
+    open func withFreeRadiusTo(_ freeRadiusTo: Int32) -> JourneysRequestBuilder {
+        self.freeRadiusTo = freeRadiusTo
+        return self
+    }
     open func withCount(_ count: Int32) -> JourneysRequestBuilder {
         self.count = count
         return self
@@ -959,6 +993,8 @@ open class JourneysRequestBuilder: NSObject {
             "wheelchair": self.wheelchair, 
             "traveler_type": self.travelerType?.rawValue, 
             "direct_path": self.directPath?.rawValue, 
+            "free_radius_from": self.freeRadiusFrom?.encodeToJSON(), 
+            "free_radius_to": self.freeRadiusTo?.encodeToJSON(), 
             "count": self.count?.encodeToJSON(), 
             "is_journey_schedules": self.isJourneySchedules, 
             "min_nb_journeys": self.minNbJourneys?.encodeToJSON(), 
