@@ -38,7 +38,7 @@ import UIKit
                 guard let viewController = self else {
                     return
                 }
-                if statusCode == 9002 || statusCode == 500 {
+                if statusCode == NavitiaSDKPartnersReturnCode.notConnected.getCode() || statusCode == NavitiaSDKPartnersReturnCode.internalError.getCode() {
                     guard let backgroundView = viewController.collectionView?.backgroundView as? MessageCVView else {
                         return
                     }
