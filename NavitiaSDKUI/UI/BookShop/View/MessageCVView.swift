@@ -43,12 +43,22 @@ open class MessageCVView: UIView {
         view.frame = self.bounds
         addSubview(view)
         
+        setIcon()
+    }
+    
+    public func setIcon(_ str: String = "warning") {
         logoLabel.attributedText = NSMutableAttributedString()
-            .icon("warning", color: Configuration.Color.lightGray, size: 80)
+            .icon(str, color: Configuration.Color.lightGray, size: 80)
+    }
+    
+    public func setTitle(_ str: String) {
         titleLabel.attributedText = NSMutableAttributedString()
-            .semiBold(String(format: "%@ ...", "oops".localized(bundle: NavitiaSDKUI.shared.bundle)), color: Configuration.Color.gray, size: 17)
+            .semiBold(str, color: Configuration.Color.gray, size: 17)
+    }
+    
+    public func setDescription(_ str: String) {
         descriptionLabel.attributedText = NSMutableAttributedString()
-            .semiBold("there_is_no_subcription_available_in_m_ticket".localized(bundle: NavitiaSDKUI.shared.bundle), color: Configuration.Color.gray, size: 12)
+            .semiBold(str, color: Configuration.Color.gray, size: 12)
     }
     
 }

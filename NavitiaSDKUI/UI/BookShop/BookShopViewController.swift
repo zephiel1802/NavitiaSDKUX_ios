@@ -34,6 +34,23 @@ import UIKit
                 self?.collectionViewDisplayBackground()
                 self?._reloadCartDebouncer()
             }
+            self._viewModel.bookShopDisplayError = { [weak self] bookShopViewModel, statusCode in
+                guard let viewController = self else {
+                    return
+                }
+                if statusCode == NavitiaSDKPartnersReturnCode.notConnected.getCode() || statusCode == NavitiaSDKPartnersReturnCode.internalError.getCode() {
+                    guard let backgroundView = viewController.collectionView?.backgroundView as? MessageCVView else {
+                        return
+                    }
+                    backgroundView.setDescription("it_seems_that_there_is_a_network_issue".localized(bundle: NavitiaSDKUI.shared.bundle))
+                    backgroundView.setTitle("")
+                    backgroundView.isHidden = false
+                } else {
+                    let informationViewController = viewController.informationViewController(information: "an_error_occurred".localized(bundle: NavitiaSDKUI.shared.bundle))
+                    informationViewController.delegate = viewController
+                    viewController.present(informationViewController, animated: true, completion: nil)
+                }
+            }
         }
     }
     
@@ -92,6 +109,8 @@ import UIKit
     
     private func _setupBackgroundCollectionView() {
         let messageCVView = MessageCVView(frame: CGRect(x: 0, y: 0, width: collectionView.bounds.size.width, height: collectionView.bounds.size.height))
+        messageCVView.setTitle(String(format: "%@ ...", "oops".localized(bundle: NavitiaSDKUI.shared.bundle)))
+        messageCVView.setDescription("there_is_no_subcription_available_in_m_ticket".localized(bundle: NavitiaSDKUI.shared.bundle))
         collectionView.backgroundView = messageCVView
         collectionView?.backgroundView?.isHidden = true
     }
@@ -224,7 +243,7 @@ import UIKit
             collectionView?.backgroundView?.isHidden = (_viewModel.bookOffer[typeSegmentedControl.selectedSegmentIndex].count != 0)
         }
     }
-    
+
 }
 
 extension BookShopViewController: BreadcrumbViewDelegate {
