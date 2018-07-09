@@ -17,30 +17,36 @@ extension Collection {
 
 // CryptoSwift
 extension Collection where Self.Element == UInt8, Self.Index == Int {
-    // Big endian order
     func toUInt32Array() -> Array<UInt32> {
-        if isEmpty {
-            return []
-        }
-        
-        var result = Array<UInt32>(reserveCapacity: 16)
-        for idx in stride(from: startIndex, to: endIndex, by: 4) {
-            let val = UInt32(bytes: self, fromIndex: idx).bigEndian
+        let count = self.count
+        var result = Array<UInt32>()
+        result.reserveCapacity(16)
+        for idx in stride(from: self.startIndex, to: self.endIndex, by: 4) {
+            var val: UInt32 = 0
+            val |= count > 3 ? UInt32(self[idx.advanced(by: 3)]) << 24 : 0
+            val |= count > 2 ? UInt32(self[idx.advanced(by: 2)]) << 16 : 0
+            val |= count > 1 ? UInt32(self[idx.advanced(by: 1)]) << 8 : 0
+            val |= count > 0 ? UInt32(self[idx]) : 0
             result.append(val)
         }
         
         return result
     }
     
-    // Big endian order
     func toUInt64Array() -> Array<UInt64> {
-        if isEmpty {
-            return []
-        }
-        
-        var result = Array<UInt64>(reserveCapacity: 32)
-        for idx in stride(from: startIndex, to: endIndex, by: 8) {
-            let val = UInt64(bytes: self, fromIndex: idx).bigEndian
+        let count = self.count
+        var result = Array<UInt64>()
+        result.reserveCapacity(32)
+        for idx in stride(from: self.startIndex, to: self.endIndex, by: 8) {
+            var val: UInt64 = 0
+            val |= count > 7 ? UInt64(self[idx.advanced(by: 7)]) << 56 : 0
+            val |= count > 6 ? UInt64(self[idx.advanced(by: 6)]) << 48 : 0
+            val |= count > 5 ? UInt64(self[idx.advanced(by: 5)]) << 40 : 0
+            val |= count > 4 ? UInt64(self[idx.advanced(by: 4)]) << 32 : 0
+            val |= count > 3 ? UInt64(self[idx.advanced(by: 3)]) << 24 : 0
+            val |= count > 2 ? UInt64(self[idx.advanced(by: 2)]) << 16 : 0
+            val |= count > 1 ? UInt64(self[idx.advanced(by: 1)]) << 8 : 0
+            val |= count > 0 ? UInt64(self[idx.advanced(by: 0)]) << 0 : 0
             result.append(val)
         }
         

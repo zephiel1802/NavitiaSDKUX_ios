@@ -31,6 +31,7 @@
     case paymentTimeOut = 9021 // if you take too much time between validation and payment
     case maximumAmountReached = 9022 // Cart total is too big at validation time
     case masabiAuthenticateError = 9023 // Masabi authenticate error
+    case failedToMigrate = 9024 // fail on migration
 
     public static let all: [String: Int] = [
         "notLogged" : notLogged.rawValue,
@@ -54,7 +55,9 @@
         "masabiDeviceChangeError" : masabiDeviceChangeError.rawValue,
         "masabiNoDeviceChangeCredit" : masabiNoDeviceChangeCredit.rawValue,
         "paymentTimeOut" : paymentTimeOut.rawValue,
-        "masabiAuthenticateError" : masabiAuthenticateError.rawValue
+        "masabiAuthenticateError" : masabiAuthenticateError.rawValue,
+        "failedToMigrate" : failedToMigrate.rawValue,
+        "maximumAmountReached" : maximumAmountReached.rawValue
     ]
     
     func getError() -> [String: Any] {
@@ -121,13 +124,16 @@
             error["error"] = "Masabi/Error : No device change credit"
             break
         case .paymentTimeOut:
-            error["error"] = "Payment Timed Out"
+            error["error"] = "Payment timed out"
             break
         case .maximumAmountReached:
-            error["error"] = "Maximum Amount Reached"
+            error["error"] = "Maximum amount reached"
             break
         case .masabiAuthenticateError:
-            error["error"] = "Masabi Authenticate Error"
+            error["error"] = "Masabi authenticate error"
+            break
+        case .failedToMigrate:
+            error["error"] = "Failed to migrate"
             break
         }
         return error

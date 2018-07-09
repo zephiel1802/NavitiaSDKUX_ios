@@ -1,7 +1,8 @@
 //
+//  Rabbit+Foundation.swift
 //  CryptoSwift
 //
-//  Copyright (C) 2014-2017 Marcin Krzyżanowski <marcin@krzyzanowskim.com>
+//  Copyright (C) 2014-2017 Krzyżanowski <marcin@krzyzanowskim.com>
 //  This software is provided 'as-is', without any express or implied warranty.
 //
 //  In no event will the authors be held liable for any damages arising from the use of this software.
@@ -16,11 +17,21 @@
 import Foundation
 
 extension Rabbit {
+
     public convenience init(key: String) throws {
-        try self.init(key: key.bytes)
+        guard let kkey = key.data(using: String.Encoding.utf8, allowLossyConversion: false)?.bytes else {
+            throw Error.invalidKeyOrInitializationVector
+        }
+        try self.init(key: kkey)
     }
 
     public convenience init(key: String, iv: String) throws {
-        try self.init(key: key.bytes, iv: iv.bytes)
+        guard let kkey = key.data(using: String.Encoding.utf8, allowLossyConversion: false)?.bytes,
+            let iiv = iv.data(using: String.Encoding.utf8, allowLossyConversion: false)?.bytes
+        else {
+            throw Error.invalidKeyOrInitializationVector
+        }
+
+        try self.init(key: kkey, iv: iiv)
     }
 }

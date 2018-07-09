@@ -1,7 +1,8 @@
 //
+//  Cipher.swift
 //  CryptoSwift
 //
-//  Copyright (C) 2014-2017 Marcin Krzyżanowski <marcin@krzyzanowskim.com>
+//  Copyright (C) 2014-2017 Krzyżanowski <marcin@krzyzanowskim.com>
 //  This software is provided 'as-is', without any express or implied warranty.
 //
 //  In no event will the authors be held liable for any damages arising from the use of this software.
@@ -19,29 +20,15 @@ public enum CipherError: Error {
 }
 
 public protocol Cipher: class {
-    var keySize: Int { get }
-
     /// Encrypt given bytes at once
     ///
     /// - parameter bytes: Plaintext data
     /// - returns: Encrypted data
-    func encrypt(_ bytes: ArraySlice<UInt8>) throws -> Array<UInt8>
-    func encrypt(_ bytes: Array<UInt8>) throws -> Array<UInt8>
+    func encrypt<C: Collection>(_ bytes: C) throws -> Array<UInt8> where C.Element == UInt8, C.IndexDistance == Int, C.Index == Int, C.SubSequence: Collection, C.SubSequence.IndexDistance == C.IndexDistance
 
     /// Decrypt given bytes at once
     ///
     /// - parameter bytes: Ciphertext data
     /// - returns: Plaintext data
-    func decrypt(_ bytes: ArraySlice<UInt8>) throws -> Array<UInt8>
-    func decrypt(_ bytes: Array<UInt8>) throws -> Array<UInt8>
-}
-
-extension Cipher {
-    public func encrypt(_ bytes: Array<UInt8>) throws -> Array<UInt8> {
-        return try encrypt(bytes.slice)
-    }
-
-    public func decrypt(_ bytes: Array<UInt8>) throws -> Array<UInt8> {
-        return try decrypt(bytes.slice)
-    }
+    func decrypt<C: Collection>(_ bytes: C) throws -> Array<UInt8> where C.Element == UInt8, C.IndexDistance == Int, C.Index == Int, C.SubSequence: Collection, C.SubSequence.IndexDistance == C.IndexDistance
 }

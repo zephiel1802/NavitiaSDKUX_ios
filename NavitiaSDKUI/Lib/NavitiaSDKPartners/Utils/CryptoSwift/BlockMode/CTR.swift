@@ -1,7 +1,8 @@
 //
+//  CTR.swift
 //  CryptoSwift
 //
-//  Copyright (C) 2014-2017 Marcin Krzyżanowski <marcin@krzyzanowskim.com>
+//  Copyright (C) 2014-2017 Krzyżanowski <marcin@krzyzanowskim.com>
 //  This software is provided 'as-is', without any express or implied warranty.
 //
 //  In no event will the authors be held liable for any damages arising from the use of this software.
@@ -16,61 +17,38 @@
 //  Counter (CTR)
 //
 
-public struct CTR: BlockMode {
-    public enum Error: Swift.Error {
-        /// Invalid IV
-        case invalidInitializationVector
-    }
-
-    public let options: BlockModeOption = [.initializationVectorRequired, .useEncryptToDecrypt]
-    private let iv: Array<UInt8>
-
-    public init(iv: Array<UInt8>) {
-        self.iv = iv
-    }
-
-    public func worker(blockSize: Int, cipherOperation: @escaping CipherOperationOnBlock) throws -> BlockModeWorker {
-        if iv.count != blockSize {
-            throw Error.invalidInitializationVector
-        }
-
-        return CTRModeWorker(blockSize: blockSize, iv: iv.slice, cipherOperation: cipherOperation)
-    }
-}
-
 struct CTRModeWorker: RandomAccessBlockModeWorker {
+    typealias Element = Array<UInt8>
+
     let cipherOperation: CipherOperationOnBlock
-    let blockSize: Int
-    let additionalBufferSize: Int = 0
-    private let iv: ArraySlice<UInt8>
+    private let iv: Element
     var counter: UInt = 0
 
-    init(blockSize: Int, iv: ArraySlice<UInt8>, cipherOperation: @escaping CipherOperationOnBlock) {
-        self.blockSize = blockSize
+    init(iv: Array<UInt8>, cipherOperation: @escaping CipherOperationOnBlock) {
         self.iv = iv
         self.cipherOperation = cipherOperation
     }
 
-    mutating func encrypt(block plaintext: ArraySlice<UInt8>) -> Array<UInt8> {
+    mutating func encrypt(_ plaintext: ArraySlice<UInt8>) -> Array<UInt8> {
         let nonce = buildNonce(iv, counter: UInt64(counter))
         counter = counter + 1
 
-        guard let ciphertext = cipherOperation(nonce.slice) else {
+        guard let ciphertext = cipherOperation(nonce) else {
             return Array(plaintext)
         }
 
         return xor(plaintext, ciphertext)
     }
 
-    mutating func decrypt(block ciphertext: ArraySlice<UInt8>) -> Array<UInt8> {
-        return encrypt(block: ciphertext)
+    mutating func decrypt(_ ciphertext: ArraySlice<UInt8>) -> Array<UInt8> {
+        return encrypt(ciphertext)
     }
 }
 
-private func buildNonce(_ iv: ArraySlice<UInt8>, counter: UInt64) -> Array<UInt8> {
-    let noncePartLen = iv.count / 2
-    let noncePrefix = iv[iv.startIndex..<iv.startIndex.advanced(by: noncePartLen)]
-    let nonceSuffix = iv[iv.startIndex.advanced(by: noncePartLen)..<iv.startIndex.advanced(by: iv.count)]
+private func buildNonce(_ iv: Array<UInt8>, counter: UInt64) -> Array<UInt8> {
+    let noncePartLen = AES.blockSize / 2
+    let noncePrefix = Array(iv[0 ..< noncePartLen])
+    let nonceSuffix = Array(iv[noncePartLen ..< iv.count])
     let c = UInt64(bytes: nonceSuffix) + counter
     return noncePrefix + c.bytes()
 }

@@ -30,7 +30,7 @@ open class BookPaymentViewController: UIViewController {
                     self?._onInformationPressedButton()
                 }
                 self?.bookPaymentView.paymentWebView.stringByEvaluatingJavaScript(from: "document.open();document.close()")
-                self?.bookPaymentView.launchPayment()
+                self?.launchPayment()
             }
         }
     }

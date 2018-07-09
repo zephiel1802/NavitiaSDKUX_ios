@@ -1,7 +1,8 @@
 //
+//  RandomBytesSequence.swift
 //  CryptoSwift
 //
-//  Copyright (C) 2014-2017 Marcin Krzyżanowski <marcin@krzyzanowskim.com>
+//  Copyright (C) 2014-2017 Krzyżanowski <marcin@krzyzanowskim.com>
 //  This software is provided 'as-is', without any express or implied warranty.
 //
 //  In no event will the authors be held liable for any damages arising from the use of this software.
@@ -13,10 +14,10 @@
 //  - This notice may not be removed or altered from any source or binary distribution.
 //
 
-#if canImport(Darwin)
-    import Darwin
-#else
+#if os(Linux) || os(Android) || os(FreeBSD)
     import Glibc
+#else
+    import Darwin
 #endif
 
 struct RandomBytesSequence: Sequence {
@@ -24,8 +25,8 @@ struct RandomBytesSequence: Sequence {
 
     func makeIterator() -> AnyIterator<UInt8> {
         var count = 0
-        return AnyIterator<UInt8>.init { () -> UInt8? in
-            guard count < self.size else {
+        return AnyIterator<UInt8>.init({ () -> UInt8? in
+            if count >= self.size {
                 return nil
             }
             count = count + 1
@@ -45,6 +46,6 @@ struct RandomBytesSequence: Sequence {
             #else
                 return UInt8(arc4random_uniform(UInt32(UInt8.max) + 1))
             #endif
-        }
+        })
     }
 }

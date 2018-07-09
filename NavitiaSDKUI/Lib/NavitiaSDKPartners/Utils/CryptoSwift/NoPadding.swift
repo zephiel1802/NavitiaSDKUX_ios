@@ -1,7 +1,8 @@
 //
+//  NoPadding.swift
 //  CryptoSwift
 //
-//  Copyright (C) 2014-2017 Marcin Krzyżanowski <marcin@krzyzanowskim.com>
+//  Copyright (C) 2014-2017 Krzyżanowski <marcin@krzyzanowskim.com>
 //  This software is provided 'as-is', without any express or implied warranty.
 //
 //  In no event will the authors be held liable for any damages arising from the use of this software.
@@ -13,15 +14,16 @@
 //  - This notice may not be removed or altered from any source or binary distribution.
 //
 
-struct NoPadding: PaddingProtocol {
-    init() {
+public struct NoPadding: Padding {
+
+    public init() {
     }
 
-    func add(to data: Array<UInt8>, blockSize _: Int) -> Array<UInt8> {
+    public func add(to data: Array<UInt8>, blockSize: Int) -> Array<UInt8> {
         return data
     }
 
-    func remove(from data: Array<UInt8>, blockSize _: Int?) -> Array<UInt8> {
+    public func remove(from data: Array<UInt8>, blockSize: Int?) -> Array<UInt8> {
         return data
     }
 }

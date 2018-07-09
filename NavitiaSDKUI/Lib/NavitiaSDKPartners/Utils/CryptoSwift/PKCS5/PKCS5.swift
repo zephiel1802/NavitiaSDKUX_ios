@@ -1,7 +1,8 @@
 //
+//  PKCS.swift
 //  CryptoSwift
 //
-//  Copyright (C) 2014-2017 Marcin Krzyżanowski <marcin@krzyzanowskim.com>
+//  Copyright (C) 2014-2017 Krzyżanowski <marcin@krzyzanowskim.com>
 //  This software is provided 'as-is', without any express or implied warranty.
 //
 //  In no event will the authors be held liable for any damages arising from the use of this software.
@@ -13,20 +14,10 @@
 //  - This notice may not be removed or altered from any source or binary distribution.
 //
 
-import Foundation
+//  PKCS is a group of public-key cryptography standards devised
+//  and published by RSA Security Inc, starting in the early 1990s.
+//
 
-public extension Array where Element == UInt8 {
-    public func toBase64() -> String? {
-        return Data(bytes: self).base64EncodedString()
-    }
-
-    public init(base64: String) {
-        self.init()
-
-        guard let decodedData = Data(base64Encoded: base64) else {
-            return
-        }
-
-        append(contentsOf: decodedData.bytes)
-    }
+public enum PKCS5 {
+    //  PKCS#5 http://tools.ietf.org/html/rfc2898
 }
