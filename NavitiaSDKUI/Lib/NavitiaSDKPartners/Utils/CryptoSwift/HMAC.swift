@@ -14,14 +14,14 @@
 //  - This notice may not be removed or altered from any source or binary distribution.
 //
 
-  final class HMAC: Authenticator {
+public final class HMAC: Authenticator {
 
-      enum Error: Swift.Error {
+    public enum Error: Swift.Error {
         case authenticateError
         case invalidInput
     }
 
-      enum Variant {
+    public enum Variant {
         case sha1, sha256, sha384, sha512, md5
 
         var digestLength: Int {
@@ -69,7 +69,7 @@
     var key: Array<UInt8>
     let variant: Variant
 
-      init(key: Array<UInt8>, variant: HMAC.Variant = .md5) {
+    public init(key: Array<UInt8>, variant: HMAC.Variant = .md5) {
         self.variant = variant
         self.key = key
 
@@ -86,7 +86,7 @@
 
     // MARK: Authenticator
 
-      func authenticate(_ bytes: Array<UInt8>) throws -> Array<UInt8> {
+    public func authenticate(_ bytes: Array<UInt8>) throws -> Array<UInt8> {
         var opad = Array<UInt8>(repeating: 0x5c, count: variant.blockSize())
         for idx in key.indices {
             opad[idx] = key[idx] ^ opad[idx]

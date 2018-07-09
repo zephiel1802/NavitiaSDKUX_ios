@@ -14,10 +14,10 @@
 //  - This notice may not be removed or altered from any source or binary distribution.
 //
 
-//  PKCS is a group of  -key cryptography standards devised
+//  PKCS is a group of public-key cryptography standards devised
 //  and published by RSA Security Inc, starting in the early 1990s.
 //
 
-  enum PKCS5 {
+public enum PKCS5 {
     //  PKCS#5 http://tools.ietf.org/html/rfc2898
 }

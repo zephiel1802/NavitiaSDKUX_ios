@@ -14,20 +14,20 @@
 //  - This notice may not be removed or altered from any source or binary distribution.
 //
 
-//  PKCS is a group of  -key cryptography standards devised
+//  PKCS is a group of public-key cryptography standards devised
 //  and published by RSA Security Inc, starting in the early 1990s.
 //
 
-  struct PKCS7: Padding {
+public struct PKCS7: Padding {
 
-      enum Error: Swift.Error {
+    public enum Error: Swift.Error {
         case invalidPaddingValue
     }
 
-      init() {
+    public init() {
     }
 
-      func add(to bytes: Array<UInt8>, blockSize: Int) -> Array<UInt8> {
+    public func add(to bytes: Array<UInt8>, blockSize: Int) -> Array<UInt8> {
         let padding = UInt8(blockSize - (bytes.count % blockSize))
         var withPadding = bytes
         if (padding == 0) {
@@ -44,7 +44,7 @@
         return withPadding
     }
 
-      func remove(from bytes: Array<UInt8>, blockSize: Int?) -> Array<UInt8> {
+    public func remove(from bytes: Array<UInt8>, blockSize: Int?) -> Array<UInt8> {
         guard !bytes.isEmpty, let lastByte = bytes.last else {
             return bytes
         }

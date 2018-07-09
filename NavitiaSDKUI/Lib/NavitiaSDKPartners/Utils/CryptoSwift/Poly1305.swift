@@ -20,18 +20,18 @@
 ///  Poly1305 takes a 32-byte, one-time key and a message and produces a 16-byte tag that authenticates the
 ///  message such that an attacker has a negligible chance of producing a valid tag for an inauthentic message.
 
-  final class Poly1305: Authenticator {
+public final class Poly1305: Authenticator {
 
-      enum Error: Swift.Error {
+    public enum Error: Swift.Error {
         case authenticateError
     }
 
-      static let blockSize: Int = 16
+    public static let blockSize: Int = 16
 
     private let key: SecureBytes
 
     /// - parameter key: 32-byte key
-      init(key: Array<UInt8>) {
+    public init(key: Array<UInt8>) {
         self.key = SecureBytes(bytes: key)
     }
 
@@ -162,7 +162,7 @@
 
      - returns: 16-byte tag that authenticates the message
      */
-      func authenticate(_ bytes: Array<UInt8>) throws -> Array<UInt8> {
+    public func authenticate(_ bytes: Array<UInt8>) throws -> Array<UInt8> {
         return onetimeauth(message: bytes, key: Array(self.key))
     }
 }

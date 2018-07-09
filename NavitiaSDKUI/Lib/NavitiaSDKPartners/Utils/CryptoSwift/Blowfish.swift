@@ -18,9 +18,9 @@
 //  Based on Paul Kocher implementation
 //
 
-  final class Blowfish {
+public final class Blowfish {
 
-      enum Error: Swift.Error {
+    public enum Error: Swift.Error {
         /// Data padding is required
         case dataPaddingRequired
         /// Invalid key or IV
@@ -29,7 +29,7 @@
         case invalidInitializationVector
     }
 
-      static let blockSize: Int = 8 // 64 bit
+    public static let blockSize: Int = 8 // 64 bit
     fileprivate let iv: Array<UInt8>
     fileprivate let blockMode: BlockMode
     fileprivate let padding: Padding
@@ -312,7 +312,7 @@
          0xB74E6132, 0xCE77E25B, 0x578FDFE3, 0x3AC372E6]
     ]
 
-      init(key: Array<UInt8>, iv: Array<UInt8>? = nil, blockMode: BlockMode = .CBC, padding: Padding) throws {
+    public init(key: Array<UInt8>, iv: Array<UInt8>? = nil, blockMode: BlockMode = .CBC, padding: Padding) throws {
         precondition(key.count >= 8 && key.count <= 56)
 
         self.blockMode = blockMode
@@ -478,7 +478,7 @@ extension Blowfish: Cipher {
     ///
     /// - Parameter bytes: Plaintext data
     /// - Returns: Encrypted data
-      func encrypt<C: Collection>(_ bytes: C) throws -> Array<UInt8> where C.Element == UInt8, C.IndexDistance == Int, C.Index == Int {
+    public func encrypt<C: Collection>(_ bytes: C) throws -> Array<UInt8> where C.Element == UInt8, C.IndexDistance == Int, C.Index == Int {
 
         let bytes = padding.add(to: Array(bytes), blockSize: Blowfish.blockSize) //FIXME: Array(bytes) copies
 
@@ -501,7 +501,7 @@ extension Blowfish: Cipher {
     ///
     /// - Parameter bytes: Ciphertext data
     /// - Returns: Plaintext data
-      func decrypt<C: Collection>(_ bytes: C) throws -> Array<UInt8> where C.Element == UInt8, C.IndexDistance == Int, C.Index == Int {
+    public func decrypt<C: Collection>(_ bytes: C) throws -> Array<UInt8> where C.Element == UInt8, C.IndexDistance == Int, C.Index == Int {
 
         if blockMode.options.contains(.PaddingRequired) && (bytes.count % Blowfish.blockSize != 0) {
             throw Error.dataPaddingRequired

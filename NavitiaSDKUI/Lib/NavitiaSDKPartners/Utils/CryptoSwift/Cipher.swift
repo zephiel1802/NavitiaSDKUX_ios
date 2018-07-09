@@ -14,12 +14,12 @@
 //  - This notice may not be removed or altered from any source or binary distribution.
 //
 
-  enum CipherError: Error {
+public enum CipherError: Error {
     case encrypt
     case decrypt
 }
 
-  protocol Cipher: class {
+public protocol Cipher: class {
     /// Encrypt given bytes at once
     ///
     /// - parameter bytes: Plaintext data

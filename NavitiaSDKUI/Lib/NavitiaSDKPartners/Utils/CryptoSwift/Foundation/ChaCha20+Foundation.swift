@@ -18,7 +18,7 @@ import Foundation
 
 extension ChaCha20 {
 
-      convenience init(key: String, iv: String) throws {
+    public convenience init(key: String, iv: String) throws {
         guard let kkey = key.data(using: String.Encoding.utf8, allowLossyConversion: false)?.bytes, let iiv = iv.data(using: String.Encoding.utf8, allowLossyConversion: false)?.bytes else {
             throw Error.invalidKeyOrInitializationVector
         }

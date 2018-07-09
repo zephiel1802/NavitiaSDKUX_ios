@@ -23,15 +23,15 @@
     import Darwin
 #endif
 
-  extension PKCS5 {
+public extension PKCS5 {
 
     /// A key derivation function.
     ///
     /// PBKDF2 - Password-Based Key Derivation Function 2. Key stretching technique.
     ///          DK = PBKDF2(PRF, Password, Salt, c, dkLen)
-      struct PBKDF2 {
+    public struct PBKDF2 {
 
-          enum Error: Swift.Error {
+        public enum Error: Swift.Error {
             case invalidInput
             case derivedKeyTooLong
         }
@@ -47,7 +47,7 @@
         ///   - variant: hash variant
         ///   - iterations: iteration count, a positive integer
         ///   - keyLength: intended length of derived key
-          init(password: Array<UInt8>, salt: Array<UInt8>, iterations: Int = 4096 /* c */ , keyLength: Int? = nil /* dkLen */ , variant: HMAC.Variant = .sha256) throws {
+        public init(password: Array<UInt8>, salt: Array<UInt8>, iterations: Int = 4096 /* c */ , keyLength: Int? = nil /* dkLen */ , variant: HMAC.Variant = .sha256) throws {
             precondition(iterations > 0)
 
             let prf = HMAC(key: password, variant: variant)
@@ -70,7 +70,7 @@
             self.numBlocks = Int(ceil(Double(keyLengthFinal) / hLen)) // l = ceil(keyLength / hLen)
         }
 
-          func calculate() throws -> Array<UInt8> {
+        public func calculate() throws -> Array<UInt8> {
             var ret = Array<UInt8>()
             ret.reserveCapacity(self.numBlocks * self.prf.variant.digestLength)
             for i in 1 ... self.numBlocks {

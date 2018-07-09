@@ -16,9 +16,7 @@ extension Collection {
 }
 
 // CryptoSwift
-
-extension Collection where Self.Iterator.Element == UInt8, Self.Index == Int {
-    
+extension Collection where Self.Element == UInt8, Self.Index == Int {
     func toUInt32Array() -> Array<UInt32> {
         let count = self.count
         var result = Array<UInt32>()
@@ -54,31 +52,5 @@ extension Collection where Self.Iterator.Element == UInt8, Self.Index == Int {
         
         return result
     }
-    
-    /// Initialize integer from array of bytes. Caution: may be slow!
-    @available(*, deprecated: 0.6.0, message: "Dont use it. Too generic to be fast")
-    func toInteger<T>() -> T where T: FixedWidthInteger {
-        if self.count == 0 {
-            return 0
-        }
-        
-        let size = MemoryLayout<T>.size
-        var bytes = self.reversed() // FIXME: check it this is equivalent of Array(...)
-        if bytes.count < size {
-            let paddingCount = size - bytes.count
-            if (paddingCount > 0) {
-                bytes += Array<UInt8>(repeating: 0, count: paddingCount)
-            }
-        }
-        
-        if size == 1 {
-            return T(truncatingIfNeeded: UInt64(bytes[0]))
-        }
-        
-        var result: T = 0
-        for byte in bytes.reversed() {
-            result = result << 8 | T(byte)
-        }
-        return result
-    }
 }
+

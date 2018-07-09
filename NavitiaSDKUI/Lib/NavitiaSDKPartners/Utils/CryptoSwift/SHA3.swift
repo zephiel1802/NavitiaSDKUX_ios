@@ -24,7 +24,7 @@
     import Darwin
 #endif
 
-  final class SHA3: DigestType {
+public final class SHA3: DigestType {
     let round_constants: Array<UInt64> = [0x0000000000000001, 0x0000000000008082, 0x800000000000808A, 0x8000000080008000,
                                           0x000000000000808B, 0x0000000080000001, 0x8000000080008081, 0x8000000000008009,
                                           0x000000000000008A, 0x0000000000000088, 0x0000000080008009, 0x000000008000000A,
@@ -32,14 +32,14 @@
                                           0x8000000000008002, 0x8000000000000080, 0x000000000000800A, 0x800000008000000A,
                                           0x8000000080008081, 0x8000000000008080, 0x0000000080000001, 0x8000000080008008]
 
-      let blockSize: Int
-      let digestLength: Int
+    public let blockSize: Int
+    public let digestLength: Int
 
     fileprivate var accumulated = Array<UInt8>()
     fileprivate var processedBytesTotalCount: Int = 0
     fileprivate var accumulatedHash: Array<UInt64>
 
-      enum Variant: RawRepresentable {
+    public enum Variant: RawRepresentable {
         case sha224, sha256, sha384, sha512
 
         var digestLength: Int {
@@ -50,8 +50,8 @@
             return (1600 - self.rawValue * 2) / 8
         }
 
-          typealias RawValue = Int
-          var rawValue: RawValue {
+        public typealias RawValue = Int
+        public var rawValue: RawValue {
             switch self {
             case .sha224:
                 return 224
@@ -64,7 +64,7 @@
             }
         }
 
-          init?(rawValue: RawValue) {
+        public init?(rawValue: RawValue) {
             switch (rawValue) {
             case 224:
                 self = .sha224
@@ -84,13 +84,13 @@
         }
     }
 
-      init(variant: SHA3.Variant) {
+    public init(variant: SHA3.Variant) {
         self.blockSize = variant.blockSize
         self.digestLength = variant.digestLength
         self.accumulatedHash = Array<UInt64>(repeating: 0, count: self.digestLength)
     }
 
-      func calculate(for bytes: Array<UInt8>) -> Array<UInt8> {
+    public func calculate(for bytes: Array<UInt8>) -> Array<UInt8> {
         do {
             return try self.update(withBytes: bytes, isLast: true)
         } catch {
@@ -249,7 +249,7 @@
 
 extension SHA3: Updatable {
 
-      func update<T: Collection>(withBytes bytes: T, isLast: Bool = false) throws -> Array<UInt8> where T.Iterator.Element == UInt8 {
+    public func update<T: Collection>(withBytes bytes: T, isLast: Bool = false) throws -> Array<UInt8> where T.Iterator.Element == UInt8 {
         self.accumulated += bytes
 
         if isLast {

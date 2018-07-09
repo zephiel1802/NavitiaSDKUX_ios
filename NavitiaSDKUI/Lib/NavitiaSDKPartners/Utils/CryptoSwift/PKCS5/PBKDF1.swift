@@ -14,21 +14,21 @@
 //  - This notice may not be removed or altered from any source or binary distribution.
 //
 
-  extension PKCS5 {
+public extension PKCS5 {
 
     /// A key derivation function.
     ///
     /// PBKDF1 is recommended only for compatibility with existing
     /// applications since the keys it produces may not be large enough for
     /// some applications.
-      struct PBKDF1 {
+    public struct PBKDF1 {
 
-          enum Error: Swift.Error {
+        public enum Error: Swift.Error {
             case invalidInput
             case derivedKeyTooLong
         }
 
-          enum Variant {
+        public enum Variant {
             case md5, sha1
 
             var size: Int {
@@ -60,7 +60,7 @@
         ///   - variant: hash variant
         ///   - iterations: iteration count, a positive integer
         ///   - keyLength: intended length of derived key
-          init(password: Array<UInt8>, salt: Array<UInt8>, variant: Variant = .sha1, iterations: Int = 4096 /* c */ , keyLength: Int? = nil /* dkLen */ ) throws {
+        public init(password: Array<UInt8>, salt: Array<UInt8>, variant: Variant = .sha1, iterations: Int = 4096 /* c */ , keyLength: Int? = nil /* dkLen */ ) throws {
             precondition(iterations > 0)
             precondition(salt.count == 8)
 
@@ -81,7 +81,7 @@
         }
 
         /// Apply the underlying hash function Hash for c iterations
-          func calculate() -> Array<UInt8> {
+        public func calculate() -> Array<UInt8> {
             var t = t1
             for _ in 2 ... self.iterations {
                 t = self.variant.calculateHash(t)!

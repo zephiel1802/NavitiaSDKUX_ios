@@ -1,0 +1,11 @@
+//
+//  Preprod.xcconfig
+//  NavitiaSDKPartners
+//
+//  Created by Valentin COUSIEN on 06/06/2018.
+//  Copyright © 2018 Kisio. All rights reserved.
+//
+
+keolisUrl   =   "https://preprod-moncompte.keolis.com"
+vsctUrl     =   "https://preprod1.vad.vad.keolis.vsct.fr/api/rs/"
+vsctBaseUrl =   "https://preprod1.vad.vad.keolis.vsct.fr"

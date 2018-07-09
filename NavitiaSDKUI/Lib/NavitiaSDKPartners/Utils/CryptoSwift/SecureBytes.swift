@@ -70,7 +70,7 @@ extension SecureBytes: Collection {
 }
 
 extension SecureBytes: ExpressibleByArrayLiteral {
-      convenience init(arrayLiteral elements: UInt8...) {
+    public convenience init(arrayLiteral elements: UInt8...) {
         self.init(bytes: elements)
     }
 }

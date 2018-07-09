@@ -14,9 +14,11 @@ import JustRideSDK
     public let type: TicketManagementType = .Masabi
     public let UIConfiguration : MJRUIConfiguration?
     
+    var MasabiSharedInstance : MJRSDK = MJRSDK()
+    
     public init( data : Data ) {
-        MJRSDK.activate(withConfiguration: data)
-        UIConfiguration = MJRSDK.sharedInstance()?.uiConfiguration
+        MasabiSharedInstance = MJRSDK.init(configuration: data)
+        UIConfiguration = MasabiSharedInstance.uiConfiguration
         UIConfiguration?.ticket.visualValidationTextFormatLine1 = MJRVisualValidationFormat.time24Hour
     }
     

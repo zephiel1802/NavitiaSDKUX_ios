@@ -16,20 +16,20 @@
 
 private typealias Key = SecureBytes
 
-  final class Rabbit: BlockCipher {
+public final class Rabbit: BlockCipher {
 
-      enum Error: Swift.Error {
+    public enum Error: Swift.Error {
         case invalidKeyOrInitializationVector
     }
 
     /// Size of IV in bytes
-      static let ivSize = 64 / 8
+    public static let ivSize = 64 / 8
 
     /// Size of key in bytes
-      static let keySize = 128 / 8
+    public static let keySize = 128 / 8
 
     /// Size of block in bytes
-      static let blockSize = 128 / 8
+    public static let blockSize = 128 / 8
 
     /// Key
     private let key: Key
@@ -59,11 +59,11 @@ private typealias Key = SecureBytes
     ]
 
     // MARK: - Initializers
-      convenience init(key: Array<UInt8>) throws {
+    public convenience init(key: Array<UInt8>) throws {
         try self.init(key: key, iv: nil)
     }
 
-      init(key: Array<UInt8>, iv: Array<UInt8>?) throws {
+    public init(key: Array<UInt8>, iv: Array<UInt8>?) throws {
         self.key = Key(bytes: key)
         self.iv = iv
 
@@ -188,7 +188,7 @@ private typealias Key = SecureBytes
 // MARK: Cipher
 extension Rabbit: Cipher {
 
-      func encrypt<C: Collection>(_ bytes: C) -> Array<UInt8> where C.Element == UInt8, C.IndexDistance == Int, C.Index == Int {
+    public func encrypt<C: Collection>(_ bytes: C) -> Array<UInt8> where C.Element == UInt8, C.IndexDistance == Int, C.Index == Int {
         setup()
 
         var result = Array<UInt8>(repeating: 0, count: bytes.count)
@@ -209,7 +209,7 @@ extension Rabbit: Cipher {
         return result
     }
 
-      func decrypt<C: Collection>(_ bytes: C) -> Array<UInt8> where C.Element == UInt8, C.IndexDistance == Int, C.Index == Int {
+    public func decrypt<C: Collection>(_ bytes: C) -> Array<UInt8> where C.Element == UInt8, C.IndexDistance == Int, C.Index == Int {
         return encrypt(bytes)
     }
 }

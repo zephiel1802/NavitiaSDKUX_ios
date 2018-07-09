@@ -16,7 +16,7 @@
 
 /// A type that supports incremental updates. For example Digest or Cipher may be updatable
 /// and calculate result incerementally.
-  protocol Updatable {
+public protocol Updatable {
     /// Update given bytes in chunks.
     ///
     /// - parameter bytes: Bytes to process.
@@ -47,29 +47,29 @@
 
 extension Updatable {
 
-    mutating   func update<T: Collection>(withBytes bytes: T, isLast: Bool = false, output: (_ bytes: Array<UInt8>) -> Void) throws where T.Iterator.Element == UInt8 {
+    mutating public func update<T: Collection>(withBytes bytes: T, isLast: Bool = false, output: (_ bytes: Array<UInt8>) -> Void) throws where T.Iterator.Element == UInt8 {
         let processed = try self.update(withBytes: bytes, isLast: isLast)
         if (!processed.isEmpty) {
             output(processed)
         }
     }
 
-    mutating   func finish<T: Collection>(withBytes bytes: T) throws -> Array<UInt8> where T.Iterator.Element == UInt8 {
+    mutating public func finish<T: Collection>(withBytes bytes: T) throws -> Array<UInt8> where T.Iterator.Element == UInt8 {
         return try self.update(withBytes: bytes, isLast: true)
     }
 
-    mutating   func finish() throws -> Array<UInt8> {
+    mutating public func finish() throws -> Array<UInt8> {
         return try self.update(withBytes: [], isLast: true)
     }
 
-    mutating   func finish<T: Collection>(withBytes bytes: T, output: (_ bytes: Array<UInt8>) -> Void) throws where T.Iterator.Element == UInt8 {
+    mutating public func finish<T: Collection>(withBytes bytes: T, output: (_ bytes: Array<UInt8>) -> Void) throws where T.Iterator.Element == UInt8 {
         let processed = try self.update(withBytes: bytes, isLast: true)
         if (!processed.isEmpty) {
             output(processed)
         }
     }
 
-    mutating   func finish(output: (Array<UInt8>) -> Void) throws {
+    mutating public func finish(output: (Array<UInt8>) -> Void) throws {
         try self.finish(withBytes: [], output: output)
     }
 }

@@ -14,7 +14,7 @@
 //  - This notice may not be removed or altered from any source or binary distribution.
 //
 
-  final class MD5: DigestType {
+public final class MD5: DigestType {
     static let blockSize: Int = 64
     static let digestLength: Int = 16 // 128 / 8
     fileprivate static let hashInitialValue: Array<UInt32> = [0x67452301, 0xefcdab89, 0x98badcfe, 0x10325476]
@@ -47,10 +47,10 @@
                                     0x6fa87e4f, 0xfe2ce6e0, 0xa3014314, 0x4e0811a1,
                                     0xf7537e82, 0xbd3af235, 0x2ad7d2bb, 0xeb86d391]
 
-      init() {
+    public init() {
     }
 
-      func calculate(for bytes: Array<UInt8>) -> Array<UInt8> {
+    public func calculate(for bytes: Array<UInt8>) -> Array<UInt8> {
         do {
             return try self.update(withBytes: bytes, isLast: true)
         } catch {
@@ -120,7 +120,7 @@
 
 extension MD5: Updatable {
 
-      func update<T: Collection>(withBytes bytes: T, isLast: Bool = false) throws -> Array<UInt8> where T.Iterator.Element == UInt8 {
+    public func update<T: Collection>(withBytes bytes: T, isLast: Bool = false) throws -> Array<UInt8> where T.Iterator.Element == UInt8 {
         self.accumulated += bytes
 
         if isLast {

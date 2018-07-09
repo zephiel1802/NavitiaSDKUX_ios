@@ -20,9 +20,9 @@
 private typealias Key = SecureBytes
 
 /// The Advanced Encryption Standard (AES)
-  final class AES: BlockCipher {
+public final class AES: BlockCipher {
 
-      enum Error: Swift.Error {
+    public enum Error: Swift.Error {
         /// Data padding is required
         case dataPaddingRequired
         /// Invalid key or IV
@@ -33,7 +33,7 @@ private typealias Key = SecureBytes
         case invalidData
     }
 
-      enum Variant: Int {
+    public enum Variant: Int {
         case aes128 = 1, aes192, aes256
 
         var Nk: Int { // Nk words
@@ -50,9 +50,9 @@ private typealias Key = SecureBytes
     }
 
     fileprivate let blockMode: BlockMode
-      static let blockSize: Int = 16 // 128 /8
+    public static let blockSize: Int = 16 // 128 /8
 
-      var variant: Variant {
+    public var variant: Variant {
         switch (self.key.count * 8) {
         case 128:
             return .aes128
@@ -119,7 +119,7 @@ private typealias Key = SecureBytes
     /// - throws: AES.Error
     ///
     /// - returns: Instance
-      init(key: Array<UInt8>, iv: Array<UInt8>? = nil, blockMode: BlockMode = .CBC, padding: Padding = PKCS7()) throws {
+    public init(key: Array<UInt8>, iv: Array<UInt8>? = nil, blockMode: BlockMode = .CBC, padding: Padding = PKCS7()) throws {
         self.key = Key(bytes: key)
         self.blockMode = blockMode
         self.padding = padding
@@ -436,7 +436,7 @@ fileprivate extension AES {
 // MARK: Encryptor
 extension AES {
 
-      struct Encryptor: Updatable {
+    public struct Encryptor: Updatable {
         private var worker: BlockModeWorker
         private let padding: Padding
         private var accumulated = Array<UInt8>()
@@ -449,7 +449,7 @@ extension AES {
             self.paddingRequired = aes.blockMode.options.contains(.PaddingRequired)
         }
 
-        mutating   func update<T: Collection>(withBytes bytes: T, isLast: Bool = false) throws -> Array<UInt8> where T.Iterator.Element == UInt8 {
+        mutating public func update<T: Collection>(withBytes bytes: T, isLast: Bool = false) throws -> Array<UInt8> where T.Iterator.Element == UInt8 {
             self.accumulated += bytes
 
             if isLast {
@@ -475,7 +475,7 @@ extension AES {
 // MARK: Decryptor
 extension AES {
 
-      struct Decryptor: RandomAccessCryptor {
+    public struct Decryptor: RandomAccessCryptor {
         private var worker: BlockModeWorker
         private let padding: Padding
         private var accumulated = Array<UInt8>()
@@ -499,7 +499,7 @@ extension AES {
             self.paddingRequired = aes.blockMode.options.contains(.PaddingRequired)
         }
 
-        mutating   func update<T: Collection>(withBytes bytes: T, isLast: Bool = false) throws -> Array<UInt8> where T.Iterator.Element == UInt8 {
+        mutating public func update<T: Collection>(withBytes bytes: T, isLast: Bool = false) throws -> Array<UInt8> where T.Iterator.Element == UInt8 {
             // prepend "offset" number of bytes at the begining
             if self.offset > 0 {
                 self.accumulated += Array<UInt8>(repeating: 0, count: offset) + bytes
@@ -535,7 +535,7 @@ extension AES {
             return plaintext
         }
 
-        @discardableResult mutating   func seek(to position: Int) -> Bool {
+        @discardableResult mutating public func seek(to position: Int) -> Bool {
             guard var worker = self.worker as? RandomAccessBlockModeWorker else {
                 return false
             }
@@ -555,11 +555,11 @@ extension AES {
 // MARK: Cryptors
 extension AES: Cryptors {
 
-      func makeEncryptor() -> AES.Encryptor {
+    public func makeEncryptor() -> AES.Encryptor {
         return Encryptor(aes: self)
     }
 
-      func makeDecryptor() -> AES.Decryptor {
+    public func makeDecryptor() -> AES.Decryptor {
         return Decryptor(aes: self)
     }
 }
@@ -567,7 +567,7 @@ extension AES: Cryptors {
 // MARK: Cipher
 extension AES: Cipher {
 
-      func encrypt<C: Collection>(_ bytes: C) throws -> Array<UInt8> where C.Element == UInt8, C.IndexDistance == Int, C.Index == Int, C.SubSequence: Collection {
+    public func encrypt<C: Collection>(_ bytes: C) throws -> Array<UInt8> where C.Element == UInt8, C.IndexDistance == Int, C.Index == Int, C.SubSequence: Collection {
         let chunks = bytes.batched(by: AES.blockSize)
 
         var oneTimeCryptor = self.makeEncryptor()
@@ -586,7 +586,7 @@ extension AES: Cipher {
         return out
     }
 
-      func decrypt<C: Collection>(_ bytes: C) throws -> Array<UInt8> where C.Element == UInt8, C.IndexDistance == Int, C.Index == Int, C.SubSequence: Collection {
+    public func decrypt<C: Collection>(_ bytes: C) throws -> Array<UInt8> where C.Element == UInt8, C.IndexDistance == Int, C.Index == Int, C.SubSequence: Collection {
         if blockMode.options.contains(.PaddingRequired) && (bytes.count % AES.blockSize != 0) {
             throw Error.dataPaddingRequired
         }

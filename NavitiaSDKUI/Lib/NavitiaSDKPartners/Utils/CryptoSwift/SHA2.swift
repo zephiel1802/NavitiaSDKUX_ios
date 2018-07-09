@@ -17,7 +17,7 @@
 //  TODO: generic for process32/64 (UInt32/UInt64)
 //
 
-  final class SHA2: DigestType {
+public final class SHA2: DigestType {
     let variant: Variant
     let size: Int
     let blockSize: Int
@@ -29,14 +29,14 @@
     fileprivate var accumulatedHash32 = Array<UInt32>()
     fileprivate var accumulatedHash64 = Array<UInt64>()
 
-      enum Variant: RawRepresentable {
+    public enum Variant: RawRepresentable {
         case sha224, sha256, sha384, sha512
 
-          var digestLength: Int {
+        public var digestLength: Int {
             return self.rawValue / 8
         }
 
-          var blockSize: Int {
+        public var blockSize: Int {
             switch self {
             case .sha224, .sha256:
                 return 64
@@ -45,8 +45,8 @@
             }
         }
 
-          typealias RawValue = Int
-          var rawValue: RawValue {
+        public typealias RawValue = Int
+        public var rawValue: RawValue {
             switch self {
             case .sha224:
                 return 224
@@ -59,7 +59,7 @@
             }
         }
 
-          init?(rawValue: RawValue) {
+        public init?(rawValue: RawValue) {
             switch (rawValue) {
             case 224:
                 self = .sha224
@@ -103,7 +103,7 @@
         }
     }
 
-      init(variant: SHA2.Variant) {
+    public init(variant: SHA2.Variant) {
         self.variant = variant
         switch self.variant {
         case .sha224, .sha256:
@@ -143,7 +143,7 @@
         }
     }
 
-      func calculate(for bytes: Array<UInt8>) -> Array<UInt8> {
+    public func calculate(for bytes: Array<UInt8>) -> Array<UInt8> {
         do {
             return try self.update(withBytes: bytes, isLast: true)
         } catch {
@@ -267,7 +267,7 @@
 
 extension SHA2: Updatable {
 
-      func update<T: Collection>(withBytes bytes: T, isLast: Bool = false) throws -> Array<UInt8> where T.Iterator.Element == UInt8 {
+    public func update<T: Collection>(withBytes bytes: T, isLast: Bool = false) throws -> Array<UInt8> where T.Iterator.Element == UInt8 {
         self.accumulated += bytes
 
         if isLast {

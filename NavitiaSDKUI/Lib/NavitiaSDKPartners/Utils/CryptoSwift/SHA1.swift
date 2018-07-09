@@ -14,7 +14,7 @@
 //  - This notice may not be removed or altered from any source or binary distribution.
 //
 
-  final class SHA1: DigestType {
+public final class SHA1: DigestType {
     static let digestLength: Int = 20 // 160 / 8
     static let blockSize: Int = 64
     fileprivate static let hashInitialValue: ContiguousArray<UInt32> = [0x67452301, 0xEFCDAB89, 0x98BADCFE, 0x10325476, 0xC3D2E1F0]
@@ -23,10 +23,10 @@
     fileprivate var processedBytesTotalCount: Int = 0
     fileprivate var accumulatedHash: ContiguousArray<UInt32> = SHA1.hashInitialValue
 
-      init() {
+    public init() {
     }
 
-      func calculate(for bytes: Array<UInt8>) -> Array<UInt8> {
+    public func calculate(for bytes: Array<UInt8>) -> Array<UInt8> {
         do {
             return try self.update(withBytes: bytes, isLast: true)
         } catch {
@@ -100,7 +100,7 @@
 
 extension SHA1: Updatable {
 
-      func update<T: Collection>(withBytes bytes: T, isLast: Bool = false) throws -> Array<UInt8> where T.Iterator.Element == UInt8 {
+    public func update<T: Collection>(withBytes bytes: T, isLast: Bool = false) throws -> Array<UInt8> where T.Iterator.Element == UInt8 {
         self.accumulated += bytes
 
         if isLast {

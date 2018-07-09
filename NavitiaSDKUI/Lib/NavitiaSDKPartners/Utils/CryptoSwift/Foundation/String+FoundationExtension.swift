@@ -19,7 +19,7 @@ import Foundation
 extension String {
 
     /// Return Base64 back to String
-      func decryptBase64ToString(cipher: Cipher) throws -> String {
+    public func decryptBase64ToString(cipher: Cipher) throws -> String {
         guard let decodedData = Data(base64Encoded: self, options: []) else {
             throw CipherError.decrypt
         }
@@ -33,7 +33,7 @@ extension String {
         throw CipherError.decrypt
     }
 
-      func decryptBase64(cipher: Cipher) throws -> Array<UInt8> {
+    public func decryptBase64(cipher: Cipher) throws -> Array<UInt8> {
         guard let decodedData = Data(base64Encoded: self, options: []) else {
             throw CipherError.decrypt
         }

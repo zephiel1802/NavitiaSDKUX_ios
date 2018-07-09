@@ -18,7 +18,7 @@ import Foundation
 
 extension AES {
 
-      convenience init(key: String, iv: String, blockMode: BlockMode = .CBC, padding: Padding = PKCS7()) throws {
+    public convenience init(key: String, iv: String, blockMode: BlockMode = .CBC, padding: Padding = PKCS7()) throws {
         guard let kkey = key.data(using: String.Encoding.utf8, allowLossyConversion: false)?.bytes, let iiv = iv.data(using: String.Encoding.utf8, allowLossyConversion: false)?.bytes else {
             throw Error.invalidKeyOrInitializationVector
         }

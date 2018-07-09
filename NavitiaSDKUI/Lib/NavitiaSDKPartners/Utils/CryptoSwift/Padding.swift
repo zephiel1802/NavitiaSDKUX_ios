@@ -14,7 +14,7 @@
 //  - This notice may not be removed or altered from any source or binary distribution.
 //
 
-  protocol Padding {
+public protocol Padding {
     func add(to: Array<UInt8>, blockSize: Int) -> Array<UInt8>
     func remove(from: Array<UInt8>, blockSize: Int?) -> Array<UInt8>
 }

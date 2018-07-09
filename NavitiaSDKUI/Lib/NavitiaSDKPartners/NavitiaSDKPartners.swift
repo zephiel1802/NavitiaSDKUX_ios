@@ -7,7 +7,7 @@
 
 import Foundation
 
-@objc public enum Environnement : Int {
+@objc public enum Environment : Int {
     case Preprod
     case Prod
 }
@@ -16,7 +16,7 @@ import Foundation
     
     private override init() { }
     
-    public var environnement : Environnement = .Prod
+    public var environment : Environment = .Preprod
     
     internal var accountManagement : AccountManagement? = nil
     internal var bookManagement : BookManagement? = nil
@@ -97,7 +97,18 @@ import Foundation
     }
 }
 
-extension NavitiaSDKPartners : AccountManagement { // Implementation of AccountManagement protocol, allow to call protocol directly from shared instance (singleton)
+extension NavitiaSDKPartners : AccountManagement {
+
+    // Implementation of AccountManagement protocol, allow to call protocol directly from shared instance (singleton)
+    
+    public func forceClearOldAccount() {
+        accountManagement?.forceClearOldAccount()
+    }
+    
+    public func setOldAccount(oldLogin: String, oldEncryptedPassword: String) {
+        
+        accountManagement?.setOldAccount(oldLogin: oldLogin, oldEncryptedPassword: oldEncryptedPassword)
+    }
     
     public func getAccountManagementName() -> String {
         

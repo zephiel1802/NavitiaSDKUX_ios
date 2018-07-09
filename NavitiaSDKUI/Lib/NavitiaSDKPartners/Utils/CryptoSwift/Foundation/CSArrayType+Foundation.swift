@@ -16,9 +16,9 @@
 
 import Foundation
 
-  extension CSArrayType where Iterator.Element == UInt8 {
+public extension CSArrayType where Iterator.Element == UInt8 {
 
-      func toBase64() -> String? {
+    public func toBase64() -> String? {
         guard let bytesArray = self as? Array<UInt8> else {
             return nil
         }
@@ -26,7 +26,7 @@ import Foundation
         return Data(bytes: bytesArray).base64EncodedString()
     }
 
-      init(base64: String) {
+    public init(base64: String) {
         self.init()
 
         guard let decodedData = Data(base64Encoded: base64) else {

@@ -12,8 +12,8 @@ import Foundation
     
     public let type: BookManagementType = .VSCT
     
-    public let url: String = ( NavitiaSDKPartners.shared.environnement == .Preprod ? "https://preprod1.vad.vad.keolis.vsct.fr/api/rs/" : "https://vad.keolis.com/api/rs/" )
-    public let baseUrl : String = ( NavitiaSDKPartners.shared.environnement == .Preprod ? "https://preprod1.vad.vad.keolis.vsct.fr" : "https://vad.keolis.com" )
+    public let url: String = ( NavitiaSDKPartners.shared.environment == .Preprod ? "https://preprod1.vad.vad.keolis.vsct.fr/api/rs/" : "https://vad.keolis.com/api/rs/" )
+    public let baseUrl : String = ( NavitiaSDKPartners.shared.environment == .Preprod ? "https://preprod1.vad.vad.keolis.vsct.fr" : "https://vad.keolis.com" )
     
     public var network: String
     

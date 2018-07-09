@@ -15,7 +15,7 @@ import Foundation
     public var encodedSecretClient64WS : String
     
     public let type : AccountManagementType = .Keolis
-    public let url : String = (NavitiaSDKPartners.shared.environnement == .Preprod ? "https://preprod-moncompte.keolis.com" : "https://moncompte.keolis.com")
+    public let url : String = (NavitiaSDKPartners.shared.environment == .Preprod ? "https://preprod-moncompte.keolis.com" : "https://moncompte.keolis.com")
     public let typeFlux : String = "QU"
     public let ssaEmeteur : String = "WEB"
     public let ssaRecepteur : String = "CRM"

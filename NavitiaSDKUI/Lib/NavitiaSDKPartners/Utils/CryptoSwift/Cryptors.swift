@@ -21,7 +21,7 @@
 #endif
 
 /// Worker cryptor/decryptor of `Updatable` types
-  protocol Cryptors: class {
+public protocol Cryptors: class {
     associatedtype EncryptorType: Updatable
     associatedtype DecryptorType: Updatable
 
@@ -37,7 +37,7 @@
 
 extension Cryptors {
 
-      static func randomIV(_ blockSize: Int) -> Array<UInt8> {
+    public static func randomIV(_ blockSize: Int) -> Array<UInt8> {
         var randomIV: Array<UInt8> = Array<UInt8>()
         randomIV.reserveCapacity(blockSize)
         for randomByte in RandomBytesSequence(size: blockSize) {

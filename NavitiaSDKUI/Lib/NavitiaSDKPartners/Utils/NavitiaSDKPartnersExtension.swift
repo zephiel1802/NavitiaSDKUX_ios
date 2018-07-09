@@ -40,7 +40,11 @@ public class NavitiaSDKPartnersExtension {
             return nil
         }
         
-        guard let attributedString = try? NSAttributedString(data: data, options: [.documentType: NSAttributedString.DocumentType.html, .characterEncoding: String.Encoding.utf8.rawValue], documentAttributes: nil) else {
+        guard let attributedString = try? NSAttributedString(data: data,
+                                                             options: [ .documentType: NSAttributedString.DocumentType.html,
+                                                                        .characterEncoding: String.Encoding.utf8.rawValue],
+                                                             documentAttributes: nil)
+        else {
             return nil
         }
         
@@ -106,7 +110,7 @@ extension String {
         
         return (range(of: from)?.upperBound).flatMap { substringFrom in
             (range(of: to, range: substringFrom..<endIndex)?.lowerBound).map { substringTo in
-                substring(with: substringFrom..<substringTo)
+                String(self[substringFrom..<substringTo])
             }
         }
     }

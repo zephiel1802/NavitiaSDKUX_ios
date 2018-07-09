@@ -60,4 +60,8 @@ import Foundation
     
     func refreshToken( callbackSuccess: @escaping () -> Void,
                        callbackError: @escaping (Int, [String: Any]?) -> Void)
+    
+    func setOldAccount( oldLogin : String, oldEncryptedPassword : String)
+    
+    func forceClearOldAccount()
 }
