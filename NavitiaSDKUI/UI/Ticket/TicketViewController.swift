@@ -52,7 +52,7 @@ import JustRideSDK
             case NavitiaSDKPartnersReturnCode.masabiAuthenticateError.getCode():
                 self._informationViewController = self._setupInformationViewController(information:
                     String(format: "%@\n\n%@ 200\nUnderlying network error\n",
-                           "please_contact_the_customer_service_with_the_folowing_information".localized(bundle: NavitiaSDKUI.shared.bundle),
+                           "please_contact_the_customer_service_with_the_following_information".localized(bundle: NavitiaSDKUI.shared.bundle),
                            "code".localized(bundle: NavitiaSDKUI.shared.bundle)))
                 self._displayInformationViewController()
             default:
