@@ -20,7 +20,6 @@ import JustRideSDK
     
     private var _masabiViewController: UIViewController!
     private var _informationViewController: UIViewController!
-    private var _isDisplayed = false
     
     override open func viewDidLoad() {
         super.viewDidLoad()
@@ -29,42 +28,38 @@ import JustRideSDK
     }
     
     override open func viewWillAppear(_ animated: Bool) {
-        if !_isDisplayed {
-            _isDisplayed = true
+        view.customActivityIndicatory(startAnimate: true)
+        
+        (NavitiaSDKPartners.shared.getTicketManagement() as! MasabiTicketManagement).syncWalletWithErrorOnDeviceChange(callbackSuccess: {
+            self.view.customActivityIndicatory(startAnimate: false)
+            self._showTicketMasabi()
+            self._displayMasabiViewController()
+        }, callbackError: { (statusCode, data) in
+            self.view.customActivityIndicatory(startAnimate: false)
             
-            view.customActivityIndicatory(startAnimate: true)
-            
-            (NavitiaSDKPartners.shared.getTicketManagement() as! MasabiTicketManagement).syncWalletWithErrorOnDeviceChange(callbackSuccess: {
-                self.view.customActivityIndicatory(startAnimate: false)
+            switch statusCode {
+            case NavitiaSDKPartnersReturnCode.masabiNoDeviceChangeCredit.getCode():
+                self._informationViewController = self._setupInformationViewController(information: "you_have_reached_the_allowed_number_of_device_switches".localized(bundle: NavitiaSDKUI.shared.bundle))
+                self._displayInformationViewController()
+            case NavitiaSDKPartnersReturnCode.masabiDeviceChangeError.getCode():
+                self._informationViewController = self._setupInformationViewController(titleButton: ["yes".localized(bundle: NavitiaSDKUI.shared.bundle),
+                                                                                                     "cancel".localized(bundle: NavitiaSDKUI.shared.bundle)],
+                                                                                       information: "your_wallet_is_bound_to_another_device".localized(bundle: NavitiaSDKUI.shared.bundle))
+                self._displayInformationViewController()
+            case NavitiaSDKPartnersReturnCode.notConnected.getCode():
                 self._showTicketMasabi()
                 self._displayMasabiViewController()
-            }, callbackError: { (statusCode, data) in
-                self.view.customActivityIndicatory(startAnimate: false)
-                
-                switch statusCode {
-                case NavitiaSDKPartnersReturnCode.masabiNoDeviceChangeCredit.getCode():
-                    self._informationViewController = self._setupInformationViewController(information: "you_have_reached_the_allowed_number_of_device_switches".localized(bundle: NavitiaSDKUI.shared.bundle))
-                    self._displayInformationViewController()
-                case NavitiaSDKPartnersReturnCode.masabiDeviceChangeError.getCode():
-                    self._informationViewController = self._setupInformationViewController(titleButton: ["yes".localized(bundle: NavitiaSDKUI.shared.bundle),
-                                                                                                         "cancel".localized(bundle: NavitiaSDKUI.shared.bundle)],
-                                                                                           information: "your_wallet_is_bound_to_another_device".localized(bundle: NavitiaSDKUI.shared.bundle))
-                    self._displayInformationViewController()
-                case NavitiaSDKPartnersReturnCode.notConnected.getCode():
-                    self._showTicketMasabi()
-                    self._displayMasabiViewController()
-                case NavitiaSDKPartnersReturnCode.masabiAuthenticateError.getCode():
-                    self._informationViewController = self._setupInformationViewController(information:
-                        String(format: "%@\n\n%@ 200\nUnderlying network error\n",
-                               "please_contact_the_customer_service_with_the_folowing_information".localized(bundle: NavitiaSDKUI.shared.bundle),
-                               "code".localized(bundle: NavitiaSDKUI.shared.bundle)))
-                    self._displayInformationViewController()
-                default:
-                    self._informationViewController = self._setupInformationViewController(information: "an_error_occurred".localized(bundle: NavitiaSDKUI.shared.bundle))
-                    self._displayInformationViewController()
-                }
-            })
-        }
+            case NavitiaSDKPartnersReturnCode.masabiAuthenticateError.getCode():
+                self._informationViewController = self._setupInformationViewController(information:
+                    String(format: "%@\n\n%@ 200\nUnderlying network error\n",
+                           "please_contact_the_customer_service_with_the_folowing_information".localized(bundle: NavitiaSDKUI.shared.bundle),
+                           "code".localized(bundle: NavitiaSDKUI.shared.bundle)))
+                self._displayInformationViewController()
+            default:
+                self._informationViewController = self._setupInformationViewController(information: "an_error_occurred".localized(bundle: NavitiaSDKUI.shared.bundle))
+                self._displayInformationViewController()
+            }
+        })
     }
     
     override open func didReceiveMemoryWarning() {
@@ -129,7 +124,6 @@ import JustRideSDK
     @objc func dismissView() {
         _removeMasabiViewControler()
         _removeInformationViewControler()
-        _isDisplayed = false
         delegate?.onDismissTicket()
     }
     
