@@ -23,15 +23,15 @@ open class JourneySolutionViewController: UIViewController {
         didSet {
             self._viewModel.journeySolutionDidChange = { [weak self] journeySolutionViewModel in
                 self?.collectionView.reloadData()
-                if !journeySolutionViewModel.journeys.isEmpty {
+                if !journeySolutionViewModel.journeys.isEmpty || !journeySolutionViewModel.journeysRidesharing.isEmpty {
                     if self?.inParameters.originLabel == nil {
-                        self?.fromLabel.text = journeySolutionViewModel.journeys[0].sections?[0].from?.name
+                        self?.fromLabel.text = !journeySolutionViewModel.journeys.isEmpty ? journeySolutionViewModel.journeys[0].sections?[0].from?.name : journeySolutionViewModel.journeysRidesharing[0].sections?[0].from?.name
                     }
                     if self?.inParameters.destinationLabel == nil {
-                        self?.toLabel.text = journeySolutionViewModel.journeys[0].sections?[(journeySolutionViewModel.journeys[0].sections?.count)! - 1].to?.name
+                        self?.toLabel.text = !journeySolutionViewModel.journeys.isEmpty ? journeySolutionViewModel.journeys[0].sections?[(journeySolutionViewModel.journeys[0].sections?.count)! - 1].to?.name : journeySolutionViewModel.journeysRidesharing[0].sections?[(journeySolutionViewModel.journeysRidesharing[0].sections?.count)! - 1].to?.name
                     }
                     if self?.inParameters.datetime == nil {
-                        if let dateTime = journeySolutionViewModel.journeys[0].departureDateTime?.toDate(format: Configuration.date) {
+                        if let dateTime = !journeySolutionViewModel.journeys.isEmpty ? journeySolutionViewModel.journeys[0].departureDateTime?.toDate(format: Configuration.date) : journeySolutionViewModel.journeysRidesharing[0].departureDateTime?.toDate(format: Configuration.date) {
                             self?.dateTime = dateTime.toString(format: Configuration.timeJourneySolution)
                         }
                     }
@@ -134,7 +134,7 @@ extension JourneySolutionViewController: UICollectionViewDataSource {
             return 2
         }
         // Journey : Empty
-        if self._viewModel.journeys.count == 0 {
+        if section == 0 && self._viewModel.journeys.count == 0 {
             return 1
         }
         // Carsharing : Header + Solution
