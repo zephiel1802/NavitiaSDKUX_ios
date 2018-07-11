@@ -27,6 +27,7 @@ open class JourneySolutionRoadmapViewController: UIViewController {
     var timeRidesharing: Int32?
     var display = false
     var disruptions: [Disruption]?
+    var sectionsPolylines = [SectionPolyline]()
     
     override open func viewDidLoad() {
         super.viewDidLoad()
@@ -348,16 +349,16 @@ extension JourneySolutionRoadmapViewController {
         return false
     }
     
-    private func _drawPinAnnotation(coordinates: [Double]?, annotationType: PinAnnotation.AnnotationType, placeType: PinAnnotation.PlaceType) {
+    private func _drawPinAnnotation(coordinates: [Double]?, annotationType: CustomAnnotation.AnnotationType, placeType: CustomAnnotation.PlaceType) {
         guard let coordinates = coordinates else {
             return
         }
         
         if coordinates.count > 1 {
-            let pinAnnotation = PinAnnotation(coordinate: CLLocationCoordinate2DMake(coordinates[1], coordinates[0]),
+            let customAnnotation = CustomAnnotation(coordinate: CLLocationCoordinate2DMake(coordinates[1], coordinates[0]),
                                               annotationType: annotationType,
                                               placeType: placeType)
-            mapView.addAnnotation(pinAnnotation)
+            mapView.addAnnotation(customAnnotation)
             _getCircle(coordinates: coordinates)
         }
     }
@@ -384,6 +385,7 @@ extension JourneySolutionRoadmapViewController {
             sectionPolyline.sectionLineWidth = 4
         }
         
+        sectionsPolylines.append(sectionPolyline)
         mapView.add(sectionPolyline)
     }
     
@@ -494,7 +496,7 @@ extension JourneySolutionRoadmapViewController: MKMapViewDelegate {
     }
     
     public func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
-        if let customAnnotation = annotation as? PinAnnotation {
+        if let customAnnotation = annotation as? CustomAnnotation {
             var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: customAnnotation.identifier)
             if annotationView == nil {
                 annotationView = customAnnotation.getAnnotationView(annotationIdentifier: customAnnotation.identifier, bundle: NavitiaSDKUI.shared.bundle)
