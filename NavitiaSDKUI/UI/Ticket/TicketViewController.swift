@@ -20,6 +20,7 @@ import JustRideSDK
     
     private var _masabiViewController: UIViewController!
     private var _informationViewController: UIViewController!
+    private var _display: Bool = false
     
     override open func viewDidLoad() {
         super.viewDidLoad()
@@ -28,38 +29,42 @@ import JustRideSDK
     }
     
     override open func viewWillAppear(_ animated: Bool) {
-        view.customActivityIndicatory(startAnimate: true)
-        
-        (NavitiaSDKPartners.shared.getTicketManagement() as! MasabiTicketManagement).syncWalletWithErrorOnDeviceChange(callbackSuccess: {
-            self.view.customActivityIndicatory(startAnimate: false)
-            self._showTicketMasabi()
-            self._displayMasabiViewController()
-        }, callbackError: { (statusCode, data) in
-            self.view.customActivityIndicatory(startAnimate: false)
+        if !_display {
+            _display = true
             
-            switch statusCode {
-            case NavitiaSDKPartnersReturnCode.masabiNoDeviceChangeCredit.getCode():
-                self._informationViewController = self._setupInformationViewController(information: "you_have_reached_the_allowed_number_of_device_switches".localized(bundle: NavitiaSDKUI.shared.bundle))
-                self._displayInformationViewController()
-            case NavitiaSDKPartnersReturnCode.masabiDeviceChangeError.getCode():
-                self._informationViewController = self._setupInformationViewController(titleButton: ["yes".localized(bundle: NavitiaSDKUI.shared.bundle),
-                                                                                                     "cancel".localized(bundle: NavitiaSDKUI.shared.bundle)],
-                                                                                       information: "your_wallet_is_bound_to_another_device".localized(bundle: NavitiaSDKUI.shared.bundle))
-                self._displayInformationViewController()
-            case NavitiaSDKPartnersReturnCode.notConnected.getCode():
+            view.customActivityIndicatory(startAnimate: true)
+            
+            (NavitiaSDKPartners.shared.getTicketManagement() as! MasabiTicketManagement).syncWalletWithErrorOnDeviceChange(callbackSuccess: {
+                self.view.customActivityIndicatory(startAnimate: false)
                 self._showTicketMasabi()
                 self._displayMasabiViewController()
-            case NavitiaSDKPartnersReturnCode.masabiAuthenticateError.getCode():
-                self._informationViewController = self._setupInformationViewController(information:
-                    String(format: "%@\n\n%@ 200\nUnderlying network error\n",
-                           "please_contact_the_customer_service_with_the_following_information".localized(bundle: NavitiaSDKUI.shared.bundle),
-                           "code".localized(bundle: NavitiaSDKUI.shared.bundle)))
-                self._displayInformationViewController()
-            default:
-                self._informationViewController = self._setupInformationViewController(information: "an_error_occurred".localized(bundle: NavitiaSDKUI.shared.bundle))
-                self._displayInformationViewController()
-            }
-        })
+            }, callbackError: { (statusCode, data) in
+                self.view.customActivityIndicatory(startAnimate: false)
+                
+                switch statusCode {
+                case NavitiaSDKPartnersReturnCode.masabiNoDeviceChangeCredit.getCode():
+                    self._informationViewController = self._setupInformationViewController(information: "you_have_reached_the_allowed_number_of_device_switches".localized(bundle: NavitiaSDKUI.shared.bundle))
+                    self._displayInformationViewController()
+                case NavitiaSDKPartnersReturnCode.masabiDeviceChangeError.getCode():
+                    self._informationViewController = self._setupInformationViewController(titleButton: ["yes".localized(bundle: NavitiaSDKUI.shared.bundle),
+                                                                                                         "cancel".localized(bundle: NavitiaSDKUI.shared.bundle)],
+                                                                                           information: "your_wallet_is_bound_to_another_device".localized(bundle: NavitiaSDKUI.shared.bundle))
+                    self._displayInformationViewController()
+                case NavitiaSDKPartnersReturnCode.notConnected.getCode():
+                    self._showTicketMasabi()
+                    self._displayMasabiViewController()
+                case NavitiaSDKPartnersReturnCode.masabiAuthenticateError.getCode():
+                    self._informationViewController = self._setupInformationViewController(information:
+                        String(format: "%@\n\n%@ 200\nUnderlying network error\n",
+                               "please_contact_the_customer_service_with_the_following_information".localized(bundle: NavitiaSDKUI.shared.bundle),
+                               "code".localized(bundle: NavitiaSDKUI.shared.bundle)))
+                    self._displayInformationViewController()
+                default:
+                    self._informationViewController = self._setupInformationViewController(information: "an_error_occurred".localized(bundle: NavitiaSDKUI.shared.bundle))
+                    self._displayInformationViewController()
+                }
+            })
+        }
     }
     
     override open func didReceiveMemoryWarning() {
@@ -124,6 +129,7 @@ import JustRideSDK
     @objc func dismissView() {
         _removeMasabiViewControler()
         _removeInformationViewControler()
+        _display = false
         delegate?.onDismissTicket()
     }
     
@@ -133,7 +139,7 @@ extension TicketViewController: InformationViewDelegate {
     
     func onFirstButtonClicked(_ informationViewController: InformationViewController) {
         if informationViewController.titleButton.count == 1 {
-            delegate?.onDismissTicket()
+            self.dismissView()
         } else {
             self._removeInformationViewControler()
             self.view.customActivityIndicatory(startAnimate: true)
@@ -150,7 +156,7 @@ extension TicketViewController: InformationViewDelegate {
     }
     
     func onSecondButtonClicked(_ informationViewController: InformationViewController) {
-        delegate?.onDismissTicket()
+        self.dismissView()
     }
     
 }
