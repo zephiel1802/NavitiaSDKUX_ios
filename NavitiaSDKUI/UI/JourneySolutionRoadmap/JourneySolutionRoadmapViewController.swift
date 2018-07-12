@@ -311,7 +311,7 @@ extension JourneySolutionRoadmapViewController {
             _drawPinAnnotation(coordinates: journey?.sections?.first?.geojson?.coordinates?.first, annotationType: .PlaceAnnotation, placeType: .Departure)
         }
         
-        if journey?.sections?.last?.type == Section.ModelType.crowFly, let arrivalCrowflyCoords = _getCrowFlyCoordinates(targetPlace: journey?.sections?.last?.from) {
+        if journey?.sections?.last?.type == Section.ModelType.crowFly, let arrivalCrowflyCoords = _getCrowFlyCoordinates(targetPlace: journey?.sections?.last?.to) {
             if let latitude = arrivalCrowflyCoords.lat, let lat = Double(latitude), let longitude = arrivalCrowflyCoords.lon, let lon = Double(longitude) {
                 _drawPinAnnotation(coordinates: [lon, lat], annotationType: .PlaceAnnotation, placeType: .Arrival)
             }
@@ -335,7 +335,15 @@ extension JourneySolutionRoadmapViewController {
             }
             
             var sectionPolylineCoordinates = [CLLocationCoordinate2D]()
-            if let coordinates = section.geojson?.coordinates {
+            if section.type == .crowFly {
+                if let departureCrowflyCoords = _getCrowFlyCoordinates(targetPlace: section.from), let latitude = departureCrowflyCoords.lat, let lat = Double(latitude), let longitude = departureCrowflyCoords.lon, let lon = Double(longitude) {
+                    sectionPolylineCoordinates.append(CLLocationCoordinate2DMake(lat, lon))
+                }
+                
+                if let arrivalCrowflyCoords = _getCrowFlyCoordinates(targetPlace: section.to), let latitude = arrivalCrowflyCoords.lat, let lat = Double(latitude), let longitude = arrivalCrowflyCoords.lon, let lon = Double(longitude) {
+                    sectionPolylineCoordinates.append(CLLocationCoordinate2DMake(lat, lon))
+                }
+            } else if let coordinates = section.geojson?.coordinates {
                 for (_, coordinate) in coordinates.enumerated() {
                     if coordinate.count > 1 {
                         sectionPolylineCoordinates.append(CLLocationCoordinate2DMake(Double(coordinate[1]), Double(coordinate[0])))
@@ -433,16 +441,16 @@ extension JourneySolutionRoadmapViewController {
             return nil;
         }
         
-        switch targetPlace.embeddedType?.rawValue {
-        case Place.EmbeddedType.stopPoint.rawValue?:
+        switch targetPlace.embeddedType {
+        case .stopPoint?:
             return targetPlace.stopPoint?.coord
-        case Place.EmbeddedType.stopArea.rawValue?:
+        case .stopArea?:
             return targetPlace.stopArea?.coord
-        case Place.EmbeddedType.poi.rawValue?:
+        case .poi?:
             return targetPlace.poi?.coord
-        case Place.EmbeddedType.address.rawValue?:
+        case .address?:
             return targetPlace.address?.coord
-        case Place.EmbeddedType.administrativeRegion.rawValue?:
+        case .administrativeRegion?:
             return targetPlace.administrativeRegion?.coord
         default:
             return nil
