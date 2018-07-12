@@ -112,9 +112,6 @@ open class JourneySolutionRoadmapViewController: UIViewController {
                         case .transfer:
                             _displayTransferStep(section)
                             break
-                        case .crowFly:
-                            _displayCrowFlyStep(section)
-                            break
                         case .ridesharing:
                             _updateRidesharingView(section)
                             _displayRidesharingStep(section)
@@ -303,17 +300,25 @@ extension JourneySolutionRoadmapViewController {
     private func _setupMapView() {
         _drawSections(journey: journey)
         
-        if journey?.sections?.first?.type == Section.ModelType.crowFly, let departureCrowflyCoords = _getCrowFlyCoordinates(targetPlace: journey?.sections?.first?.from) {
-            if let latitude = departureCrowflyCoords.lat, let lat = Double(latitude), let longitude = departureCrowflyCoords.lon, let lon = Double(longitude) {
-               _drawPinAnnotation(coordinates: [lon, lat], annotationType: .PlaceAnnotation, placeType: .Departure)
+        if journey?.sections?.first?.type == Section.ModelType.crowFly {
+            if (journey?.sections?.count)! - 1 >= 1 {
+                if journey?.sections![1].type == .ridesharing, let departureCrowflyCoords = _getCrowFlyCoordinates(targetPlace: journey?.sections?.first?.from), let latitude = departureCrowflyCoords.lat, let lat = Double(latitude), let longitude = departureCrowflyCoords.lon, let lon = Double(longitude) {
+                   _drawPinAnnotation(coordinates: [lon, lat], annotationType: .PlaceAnnotation, placeType: .Departure)
+                } else {
+                    _drawPinAnnotation(coordinates: journey?.sections?[1].geojson?.coordinates?.first, annotationType: .PlaceAnnotation, placeType: .Departure)
+                }
             }
         } else {
             _drawPinAnnotation(coordinates: journey?.sections?.first?.geojson?.coordinates?.first, annotationType: .PlaceAnnotation, placeType: .Departure)
         }
         
-        if journey?.sections?.last?.type == Section.ModelType.crowFly, let arrivalCrowflyCoords = _getCrowFlyCoordinates(targetPlace: journey?.sections?.last?.to) {
-            if let latitude = arrivalCrowflyCoords.lat, let lat = Double(latitude), let longitude = arrivalCrowflyCoords.lon, let lon = Double(longitude) {
-                _drawPinAnnotation(coordinates: [lon, lat], annotationType: .PlaceAnnotation, placeType: .Arrival)
+        if journey?.sections?.last?.type == Section.ModelType.crowFly {
+            if ((journey?.sections?.count)! - 1 > 1) {
+                if journey?.sections![(journey?.sections?.count)! - 2].type == .ridesharing, let arrivalCrowflyCoords = _getCrowFlyCoordinates(targetPlace: journey?.sections?.last?.to), let latitude = arrivalCrowflyCoords.lat, let lat = Double(latitude), let longitude = arrivalCrowflyCoords.lon, let lon = Double(longitude) {
+                    _drawPinAnnotation(coordinates: [lon, lat], annotationType: .PlaceAnnotation, placeType: .Arrival)
+                } else {
+                    _drawPinAnnotation(coordinates: journey?.sections?[(journey?.sections?.count)! - 2].geojson?.coordinates?.last, annotationType: .PlaceAnnotation, placeType: .Arrival)
+                }
             }
         } else {
             _drawPinAnnotation(coordinates: journey?.sections?.last?.geojson?.coordinates?.last, annotationType: .PlaceAnnotation, placeType: .Arrival)
@@ -328,13 +333,13 @@ extension JourneySolutionRoadmapViewController {
             return
         }
         
-        for (index, section) in sections.enumerated() {
+        for (index , section) in sections.enumerated() {
             if _drawRidesharingSection(section: section) {
                 break
             }
             
             var sectionPolylineCoordinates = [CLLocationCoordinate2D]()
-            if section.type == .crowFly {
+            if section.type == .crowFly && ((index - 1 >= 0 && sections[index-1].type == .ridesharing) || (index + 1 < sections.count - 1 && sections[index+1].type == .ridesharing)) {
                 if let departureCrowflyCoords = _getCrowFlyCoordinates(targetPlace: section.from), let latitude = departureCrowflyCoords.lat, let lat = Double(latitude), let longitude = departureCrowflyCoords.lon, let lon = Double(longitude) {
                     sectionPolylineCoordinates.append(CLLocationCoordinate2DMake(lat, lon))
                 }
@@ -350,7 +355,7 @@ extension JourneySolutionRoadmapViewController {
                 }
             }
             
-            _addSectionCircle(section: section, isFirstSection: index == 0, isLastSection: index == sections.count - 1)
+            _addSectionCircle(section: section)
             _addSectionPolyline(sectionPolylineCoordinates: sectionPolylineCoordinates, section: section)
         }
     }
@@ -378,6 +383,7 @@ extension JourneySolutionRoadmapViewController {
             mapView.addAnnotation(CustomAnnotation(coordinate: CLLocationCoordinate2DMake(coordinates[1], coordinates[0]),
                                                    annotationType: annotationType,
                                                    placeType: placeType))
+            _getCircle(coordinates: coordinates)
         }
     }
     
@@ -468,20 +474,15 @@ extension JourneySolutionRoadmapViewController {
         }
     }
     
-    private func _addSectionCircle(section: Section, isFirstSection: Bool, isLastSection: Bool) {
+    private func _addSectionCircle(section: Section) {
         if let coordinates = section.geojson?.coordinates {
             var backgroundColor = section.displayInformations?.color?.toUIColor()
             if section.type == .ridesharing {
                 backgroundColor = Configuration.Color.black
             }
             
-            if (!isFirstSection) {
-                _getCircle(coordinates: coordinates.first, backgroundColor: backgroundColor)
-            }
-            
-            if (!isLastSection) {
-                _getCircle(coordinates: coordinates.last, backgroundColor: backgroundColor)
-            }
+            _getCircle(coordinates: coordinates.first, backgroundColor: backgroundColor)
+            _getCircle(coordinates: coordinates.last, backgroundColor: backgroundColor)
         }
     }
     
