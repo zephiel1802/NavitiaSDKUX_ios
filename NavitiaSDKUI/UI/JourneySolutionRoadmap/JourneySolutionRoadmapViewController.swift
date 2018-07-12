@@ -303,8 +303,21 @@ extension JourneySolutionRoadmapViewController {
     private func _setupMapView() {
         _drawSections(journey: journey)
         
-        _drawPinAnnotation(coordinates: journey?.sections?.first?.geojson?.coordinates?.first, annotationType: .PlaceAnnotation, placeType: .Departure)
-        _drawPinAnnotation(coordinates: journey?.sections?.last?.geojson?.coordinates?.last, annotationType: .PlaceAnnotation, placeType: .Arrival)
+        if journey?.sections?.first?.type == Section.ModelType.crowFly, let departureCrowflyCoords = _getCrowFlyCoordinates(targetPlace: journey?.sections?.first?.from) {
+            if let latitude = departureCrowflyCoords.lat, let lat = Double(latitude), let longitude = departureCrowflyCoords.lon, let lon = Double(longitude) {
+               _drawPinAnnotation(coordinates: [lon, lat], annotationType: .PlaceAnnotation, placeType: .Departure)
+            }
+        } else {
+            _drawPinAnnotation(coordinates: journey?.sections?.first?.geojson?.coordinates?.first, annotationType: .PlaceAnnotation, placeType: .Departure)
+        }
+        
+        if journey?.sections?.last?.type == Section.ModelType.crowFly, let arrivalCrowflyCoords = _getCrowFlyCoordinates(targetPlace: journey?.sections?.last?.from) {
+            if let latitude = arrivalCrowflyCoords.lat, let lat = Double(latitude), let longitude = arrivalCrowflyCoords.lon, let lon = Double(longitude) {
+                _drawPinAnnotation(coordinates: [lon, lat], annotationType: .PlaceAnnotation, placeType: .Arrival)
+            }
+        } else {
+            _drawPinAnnotation(coordinates: journey?.sections?.last?.geojson?.coordinates?.last, annotationType: .PlaceAnnotation, placeType: .Arrival)
+        }
         
         mapView.setVisibleMapRect(MKPolyline(coordinates: journeyPolyline, count: journeyPolyline.count).boundingMapRect,
                                   edgePadding: UIEdgeInsetsMake(60, 40, 10, 40),
@@ -412,6 +425,27 @@ extension JourneySolutionRoadmapViewController {
             sectionPolyline.sectionLineCap = CGLineCap.round
         default:
             break
+        }
+    }
+    
+    private func _getCrowFlyCoordinates(targetPlace: Place?) -> Coord? {
+        guard let targetPlace = targetPlace else {
+            return nil;
+        }
+        
+        switch targetPlace.embeddedType?.rawValue {
+        case Place.EmbeddedType.stopPoint.rawValue?:
+            return targetPlace.stopPoint?.coord
+        case Place.EmbeddedType.stopArea.rawValue?:
+            return targetPlace.stopArea?.coord
+        case Place.EmbeddedType.poi.rawValue?:
+            return targetPlace.poi?.coord
+        case Place.EmbeddedType.address.rawValue?:
+            return targetPlace.address?.coord
+        case Place.EmbeddedType.administrativeRegion.rawValue?:
+            return targetPlace.administrativeRegion?.coord
+        default:
+            return nil
         }
     }
     
