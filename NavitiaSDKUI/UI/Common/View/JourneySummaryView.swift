@@ -84,12 +84,14 @@ class JourneySummaryView: UIView {
     }
     
     private func validDisplaySection(_ section: Section) -> Bool {
-        if (section.type == .streetNetwork && section.mode == .walking) ||
+        if (section.type == .streetNetwork && (section.mode == .walking || section.mode == .car || section.mode == .bike)) ||
            (section.type != .transfer &&
             section.type != .waiting &&
             section.type != .leaveParking &&
             section.type != .bssRent &&
-            section.type != .bssPutBack) {
+            section.type != .bssPutBack &&
+            section.type != .park &&
+            section.type != .alighting) {
             return true
         }
         return false
