@@ -319,6 +319,7 @@ extension JourneySolutionRoadmapViewController {
             _drawPinAnnotation(coordinates: journey?.sections?.last?.geojson?.coordinates?.last, annotationType: .PlaceAnnotation, placeType: .Arrival)
         }
         
+        _redrawIntermediatePointCircles(mapView: mapView, cameraAltitude: mapView.camera.altitude)
         _zoomOverPolyline(targetPolyline: MKPolyline(coordinates: journeyPolylineCoordinates, count: journeyPolylineCoordinates.count))
     }
     
