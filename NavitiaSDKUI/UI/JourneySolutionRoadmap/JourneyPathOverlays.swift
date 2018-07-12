@@ -10,7 +10,7 @@ import MapKit
 
 class SectionPolyline: MKPolyline {
     
-    var sectionLineWidth: CGFloat = 0
+    var sectionLineWidth: CGFloat = 4
     var sectionStrokeColor: UIColor?
     var sectionLineDashPattern: [NSNumber]?
     var sectionLineCap: CGLineCap?

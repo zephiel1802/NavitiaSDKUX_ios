@@ -19,7 +19,7 @@ open class JourneySolutionRoadmapViewController: UIViewController {
     var journey: Journey?
     var ridesharingJourney: Journey?
     var intermediatePointsCircles = [SectionCircle]()
-    var journeyPolyline = [CLLocationCoordinate2D]()
+    var journeyPolylineCoordinates = [CLLocationCoordinate2D]()
     var ridesharing: Bool = false
     var ridesharingView: RidesharingView!
     var ridesharingDeepLink: String?
@@ -319,9 +319,7 @@ extension JourneySolutionRoadmapViewController {
             _drawPinAnnotation(coordinates: journey?.sections?.last?.geojson?.coordinates?.last, annotationType: .PlaceAnnotation, placeType: .Arrival)
         }
         
-        mapView.setVisibleMapRect(MKPolyline(coordinates: journeyPolyline, count: journeyPolyline.count).boundingMapRect,
-                                  edgePadding: UIEdgeInsetsMake(60, 40, 10, 40),
-                                  animated: true)
+        _zoomOverPolyline(targetPolyline: MKPolyline(coordinates: journeyPolylineCoordinates, count: journeyPolylineCoordinates.count))
     }
     
     private func _drawSections(journey: Journey?) {
@@ -329,7 +327,7 @@ extension JourneySolutionRoadmapViewController {
             return
         }
         
-        for (_, section) in sections.enumerated() {
+        for (index, section) in sections.enumerated() {
             if _drawRidesharingSection(section: section) {
                 break
             }
@@ -351,7 +349,7 @@ extension JourneySolutionRoadmapViewController {
                 }
             }
             
-            _addSectionCircle(section: section)
+            _addSectionCircle(section: section, isFirstSection: index == 0, isLastSection: index == sections.count - 1)
             _addSectionPolyline(sectionPolylineCoordinates: sectionPolylineCoordinates, section: section)
         }
     }
@@ -376,11 +374,9 @@ extension JourneySolutionRoadmapViewController {
         }
         
         if coordinates.count > 1 {
-            let customAnnotation = CustomAnnotation(coordinate: CLLocationCoordinate2DMake(coordinates[1], coordinates[0]),
-                                              annotationType: annotationType,
-                                              placeType: placeType)
-            mapView.addAnnotation(customAnnotation)
-            _getCircle(coordinates: coordinates)
+            mapView.addAnnotation(CustomAnnotation(coordinate: CLLocationCoordinate2DMake(coordinates[1], coordinates[0]),
+                                                   annotationType: annotationType,
+                                                   placeType: placeType))
         }
     }
     
@@ -407,6 +403,7 @@ extension JourneySolutionRoadmapViewController {
         }
         
         sectionsPolylines.append(sectionPolyline)
+        journeyPolylineCoordinates.append(contentsOf: sectionPolylineCoordinates)
         mapView.add(sectionPolyline)
     }
     
@@ -466,20 +463,24 @@ extension JourneySolutionRoadmapViewController {
             let sectionCircle = SectionCircle(center: CLLocationCoordinate2DMake(coordinates[1], coordinates[0]),
                                               radius: _getCircleRadiusDependingOnCurrentCameraAltitude(cameraAltitude: mapView.camera.altitude))
             sectionCircle.sectionBackgroundColor = backgroundColor
-            journeyPolyline.append(sectionCircle.coordinate)
             intermediatePointsCircles.append(sectionCircle)
         }
     }
     
-    private func _addSectionCircle(section: Section) {
+    private func _addSectionCircle(section: Section, isFirstSection: Bool, isLastSection: Bool) {
         if let coordinates = section.geojson?.coordinates {
             var backgroundColor = section.displayInformations?.color?.toUIColor()
             if section.type == .ridesharing {
                 backgroundColor = Configuration.Color.black
             }
             
-            _getCircle(coordinates: coordinates.first, backgroundColor: backgroundColor)
-            _getCircle(coordinates: coordinates.last, backgroundColor: backgroundColor)
+            if (!isFirstSection) {
+                _getCircle(coordinates: coordinates.first, backgroundColor: backgroundColor)
+            }
+            
+            if (!isLastSection) {
+                _getCircle(coordinates: coordinates.last, backgroundColor: backgroundColor)
+            }
         }
     }
     
@@ -502,6 +503,12 @@ extension JourneySolutionRoadmapViewController {
         intermediatePointsCircles = updatedIntermediatePointsCircles
         
         mapView.addOverlays(intermediatePointsCircles)
+    }
+    
+    private func _zoomOverPolyline(targetPolyline: MKPolyline) {
+        mapView.setVisibleMapRect(targetPolyline.boundingMapRect,
+                                  edgePadding: UIEdgeInsetsMake(60, 40, 10, 40),
+                                  animated: true)
     }
     
 }
