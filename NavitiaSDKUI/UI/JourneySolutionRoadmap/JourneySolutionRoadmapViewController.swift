@@ -462,8 +462,13 @@ extension JourneySolutionRoadmapViewController {
     }
     
     private func _getCircle(coordinates: [Double]?, backgroundColor: UIColor? = Configuration.Color.black) {
-        guard let coordinates = coordinates, let backgroundColor = backgroundColor else {
+        guard let coordinates = coordinates else {
             return
+        }
+        
+        var backgroundColor = backgroundColor
+        if backgroundColor == nil {
+            backgroundColor = Configuration.Color.black
         }
         
         if coordinates.count > 1 {
