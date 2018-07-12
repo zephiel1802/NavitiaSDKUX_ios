@@ -633,6 +633,7 @@
 			sourceTree = "<group>";
 		};
 		84250D9420ECD11600F27953 /* Recovered References */ = {
+		84382E2D20DA449D0082B32E /* Recovered References */ = {
 			isa = PBXGroup;
 			children = (
 				3126560520AEF9C500D50F4B /* KeolisAccountManagementUtils.swift */,
@@ -647,6 +648,7 @@
 				8451DA47206503F100CFA1E4 /* NavitiaSDKUITests */,
 				8451DA3B206503F100CFA1E4 /* Products */,
 				84250D9420ECD11600F27953 /* Recovered References */,
+				84382E2D20DA449D0082B32E /* Recovered References */,
 			);
 			sourceTree = "<group>";
 		};

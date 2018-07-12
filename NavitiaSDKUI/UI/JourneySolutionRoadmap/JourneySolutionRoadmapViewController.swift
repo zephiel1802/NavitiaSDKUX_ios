@@ -18,7 +18,8 @@ open class JourneySolutionRoadmapViewController: UIViewController {
     var composentWidth: CGFloat = 0
     var journey: Journey?
     var ridesharingJourney: Journey?
-    var intermediatePointsCircles = [MKCircle]()
+    var intermediatePointsCircles = [SectionCircle]()
+    var journeyPolylineCoordinates = [CLLocationCoordinate2D]()
     var ridesharing: Bool = false
     var ridesharingView: RidesharingView!
     var ridesharingDeepLink: String?
@@ -26,6 +27,7 @@ open class JourneySolutionRoadmapViewController: UIViewController {
     var timeRidesharing: Int32?
     var display = false
     var disruptions: [Disruption]?
+    var sectionsPolylines = [SectionPolyline]()
     
     override open func viewDidLoad() {
         super.viewDidLoad()
@@ -37,8 +39,6 @@ open class JourneySolutionRoadmapViewController: UIViewController {
         
         _setupMapView()
     }
-    
-    
     
     override open func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -112,6 +112,10 @@ open class JourneySolutionRoadmapViewController: UIViewController {
                         case .transfer:
                             _displayTransferStep(section)
                             break
+                        case .ridesharing:
+                            _updateRidesharingView(section)
+                            _displayRidesharingStep(section)
+                            break
                         case .streetNetwork:
                             if let mode = section.mode {
                                 switch mode {
@@ -123,8 +127,9 @@ open class JourneySolutionRoadmapViewController: UIViewController {
                                         break
                                     case .ridesharing:
                                         _updateRidesharingView(section)
-                                        _displayRidesharingStep(section)
-                                        break
+                                        if let ridesharingJourneys = section.ridesharingJourneys {
+                                            _displayStep(ridesharingJourneys[ridesharingIndex])
+                                        }
                                     default:
                                         _displayBikeStep(section)
                                         break
@@ -166,8 +171,16 @@ open class JourneySolutionRoadmapViewController: UIViewController {
         _addViewInScroll(view: view)
     }
     
+    private func _displayCrowFlyStep(_ section: Section) {
+        let view = TransferStepView(frame: CGRect(x: 0, y: 0, width: composentWidth, height: 50))
+        view.modeString = Modes().getModeIcon(section: section)
+        view.time = ""
+        view.direction = section.to?.name ?? ""
+        
+        _addViewInScroll(view: view)
+    }
+    
     private func _displayBikeStep(_ section: Section) {
-
         let view = BikeStepView(frame: CGRect(x: 0, y: 0, width: composentWidth, height: 50))
         view.modeString = Modes().getModeIcon(section: section)
         view.origin = section.from?.name ?? ""
@@ -284,6 +297,282 @@ open class JourneySolutionRoadmapViewController: UIViewController {
 
 extension JourneySolutionRoadmapViewController {
     
+    private func _setupMapView() {
+        _drawSections(journey: journey)
+        
+        if journey?.sections?.first?.type == Section.ModelType.crowFly {
+            if (journey?.sections?.count)! - 1 >= 1 {
+                if journey?.sections![1].type == .ridesharing, let departureCrowflyCoords = _getCrowFlyCoordinates(targetPlace: journey?.sections?.first?.from), let latitude = departureCrowflyCoords.lat, let lat = Double(latitude), let longitude = departureCrowflyCoords.lon, let lon = Double(longitude) {
+                   _drawPinAnnotation(coordinates: [lon, lat], annotationType: .PlaceAnnotation, placeType: .Departure)
+                } else {
+                    _drawPinAnnotation(coordinates: journey?.sections?[1].geojson?.coordinates?.first, annotationType: .PlaceAnnotation, placeType: .Departure)
+                }
+            }
+        } else {
+            _drawPinAnnotation(coordinates: journey?.sections?.first?.geojson?.coordinates?.first, annotationType: .PlaceAnnotation, placeType: .Departure)
+        }
+        
+        if journey?.sections?.last?.type == Section.ModelType.crowFly {
+            if ((journey?.sections?.count)! - 1 > 1) {
+                if journey?.sections![(journey?.sections?.count)! - 2].type == .ridesharing, let arrivalCrowflyCoords = _getCrowFlyCoordinates(targetPlace: journey?.sections?.last?.to), let latitude = arrivalCrowflyCoords.lat, let lat = Double(latitude), let longitude = arrivalCrowflyCoords.lon, let lon = Double(longitude) {
+                    _drawPinAnnotation(coordinates: [lon, lat], annotationType: .PlaceAnnotation, placeType: .Arrival)
+                } else {
+                    _drawPinAnnotation(coordinates: journey?.sections?[(journey?.sections?.count)! - 2].geojson?.coordinates?.last, annotationType: .PlaceAnnotation, placeType: .Arrival)
+                }
+            }
+        } else {
+            _drawPinAnnotation(coordinates: journey?.sections?.last?.geojson?.coordinates?.last, annotationType: .PlaceAnnotation, placeType: .Arrival)
+        }
+        
+        _redrawIntermediatePointCircles(mapView: mapView, cameraAltitude: mapView.camera.altitude)
+        _zoomOverPolyline(targetPolyline: MKPolyline(coordinates: journeyPolylineCoordinates, count: journeyPolylineCoordinates.count))
+    }
+    
+    private func _drawSections(journey: Journey?) {
+        guard let sections = journey?.sections else {
+            return
+        }
+        
+        for (index , section) in sections.enumerated() {
+            if _drawRidesharingSection(section: section) {
+                break
+            }
+            
+            var sectionPolylineCoordinates = [CLLocationCoordinate2D]()
+            if section.type == .crowFly && ((index - 1 >= 0 && sections[index-1].type == .ridesharing) || (index + 1 < sections.count - 1 && sections[index+1].type == .ridesharing)) {
+                if let departureCrowflyCoords = _getCrowFlyCoordinates(targetPlace: section.from), let latitude = departureCrowflyCoords.lat, let lat = Double(latitude), let longitude = departureCrowflyCoords.lon, let lon = Double(longitude) {
+                    sectionPolylineCoordinates.append(CLLocationCoordinate2DMake(lat, lon))
+                }
+                
+                if let arrivalCrowflyCoords = _getCrowFlyCoordinates(targetPlace: section.to), let latitude = arrivalCrowflyCoords.lat, let lat = Double(latitude), let longitude = arrivalCrowflyCoords.lon, let lon = Double(longitude) {
+                    sectionPolylineCoordinates.append(CLLocationCoordinate2DMake(lat, lon))
+                }
+            } else if let coordinates = section.geojson?.coordinates {
+                for (_, coordinate) in coordinates.enumerated() {
+                    if coordinate.count > 1 {
+                        sectionPolylineCoordinates.append(CLLocationCoordinate2DMake(Double(coordinate[1]), Double(coordinate[0])))
+                    }
+                }
+            }
+            
+            _addSectionCircle(section: section)
+            _addSectionPolyline(sectionPolylineCoordinates: sectionPolylineCoordinates, section: section)
+        }
+    }
+    
+    private func _drawRidesharingSection(section: Section) -> Bool {
+        if let ridesharingJourneys = section.ridesharingJourneys {
+            _drawSections(journey: ridesharingJourneys[ridesharingIndex])
+            return true
+        }
+        
+        if section.type == .ridesharing {
+            _drawPinAnnotation(coordinates: section.geojson?.coordinates?.first, annotationType: .RidesharingAnnotation, placeType: .Other)
+            _drawPinAnnotation(coordinates: section.geojson?.coordinates?.last, annotationType: .RidesharingAnnotation, placeType: .Other)
+        }
+        
+        return false
+    }
+    
+    private func _drawPinAnnotation(coordinates: [Double]?, annotationType: CustomAnnotation.AnnotationType, placeType: CustomAnnotation.PlaceType) {
+        guard let coordinates = coordinates else {
+            return
+        }
+        
+        if coordinates.count > 1 {
+            mapView.addAnnotation(CustomAnnotation(coordinate: CLLocationCoordinate2DMake(coordinates[1], coordinates[0]),
+                                                   annotationType: annotationType,
+                                                   placeType: placeType))
+            _getCircle(coordinates: coordinates)
+        }
+    }
+    
+    private func _addSectionPolyline(sectionPolylineCoordinates: [CLLocationCoordinate2D], section: Section) {
+        var sectionPolyline = SectionPolyline(coordinates: sectionPolylineCoordinates, count: sectionPolylineCoordinates.count)
+
+        switch section.type {
+        case .streetNetwork?:
+            _streetNetworkPolyline(mode: section.mode, sectionPolyline: &sectionPolyline)
+        case .crowFly?:
+            _crowFlyPolyline(mode: section.mode, sectionPolyline: &sectionPolyline)
+        case .publicTransport?:
+            sectionPolyline.sectionStrokeColor = section.displayInformations?.color?.toUIColor()
+            sectionPolyline.sectionLineWidth = 5
+        case .transfer?:
+            sectionPolyline.sectionStrokeColor = Configuration.Color.gray
+            sectionPolyline.sectionLineWidth = 4
+        case .ridesharing?:
+            sectionPolyline.sectionStrokeColor = UIColor.black
+            sectionPolyline.sectionLineWidth = 4
+        default:
+            sectionPolyline.sectionStrokeColor = UIColor.black
+            sectionPolyline.sectionLineWidth = 4
+        }
+        
+        sectionsPolylines.append(sectionPolyline)
+        journeyPolylineCoordinates.append(contentsOf: sectionPolylineCoordinates)
+        mapView.add(sectionPolyline)
+    }
+    
+    private func _streetNetworkPolyline(mode: Section.Mode?, sectionPolyline: inout SectionPolyline) {
+        sectionPolyline.sectionStrokeColor = Configuration.Color.gray
+        sectionPolyline.sectionLineWidth = 4
+        
+        switch mode {
+        case .walking?:
+            sectionPolyline.sectionLineDashPattern = [0.01, NSNumber(value: Float(2 * sectionPolyline.sectionLineWidth))]
+            sectionPolyline.sectionLineCap = CGLineCap.round
+        default:
+            break
+        }
+    }
+    
+    private func _crowFlyPolyline(mode: Section.Mode?, sectionPolyline: inout SectionPolyline) {
+        sectionPolyline.sectionStrokeColor = Configuration.Color.gray
+        sectionPolyline.sectionLineWidth = 4
+        
+        switch mode {
+        case .walking?:
+            sectionPolyline.sectionLineDashPattern = [0.01, NSNumber(value: Float(2 * sectionPolyline.sectionLineWidth))]
+            sectionPolyline.sectionLineCap = CGLineCap.round
+        default:
+            break
+        }
+    }
+    
+    private func _getCrowFlyCoordinates(targetPlace: Place?) -> Coord? {
+        guard let targetPlace = targetPlace else {
+            return nil;
+        }
+        
+        switch targetPlace.embeddedType {
+        case .stopPoint?:
+            return targetPlace.stopPoint?.coord
+        case .stopArea?:
+            return targetPlace.stopArea?.coord
+        case .poi?:
+            return targetPlace.poi?.coord
+        case .address?:
+            return targetPlace.address?.coord
+        case .administrativeRegion?:
+            return targetPlace.administrativeRegion?.coord
+        default:
+            return nil
+        }
+    }
+    
+    private func _getCircle(coordinates: [Double]?, backgroundColor: UIColor? = Configuration.Color.black) {
+        guard let coordinates = coordinates else {
+            return
+        }
+        
+        var backgroundColor = backgroundColor
+        if backgroundColor == nil {
+            backgroundColor = Configuration.Color.black
+        }
+        
+        if coordinates.count > 1 {
+            let sectionCircle = SectionCircle(center: CLLocationCoordinate2DMake(coordinates[1], coordinates[0]),
+                                              radius: _getCircleRadiusDependingOnCurrentCameraAltitude(cameraAltitude: mapView.camera.altitude))
+            sectionCircle.sectionBackgroundColor = backgroundColor
+            intermediatePointsCircles.append(sectionCircle)
+        }
+    }
+    
+    private func _addSectionCircle(section: Section) {
+        if let coordinates = section.geojson?.coordinates {
+            var backgroundColor = section.displayInformations?.color?.toUIColor()
+            if section.type == .ridesharing {
+                backgroundColor = Configuration.Color.black
+            }
+            
+            _getCircle(coordinates: coordinates.first, backgroundColor: backgroundColor)
+            _getCircle(coordinates: coordinates.last, backgroundColor: backgroundColor)
+        }
+    }
+    
+    private func _getCircleRadiusDependingOnCurrentCameraAltitude(cameraAltitude: CLLocationDistance) -> CLLocationDistance {
+        let altitudeReferenceValue = 10000.0
+        let circleMaxmimumRadius = 100.0
+        return cameraAltitude/altitudeReferenceValue * circleMaxmimumRadius
+    }
+    
+    private func _redrawIntermediatePointCircles(mapView: MKMapView, cameraAltitude: CLLocationDistance) {
+        mapView.removeOverlays(intermediatePointsCircles)
+        
+        var updatedIntermediatePointsCircles = [SectionCircle]()
+        for (_, drawnCircle) in intermediatePointsCircles.enumerated() {
+            let updatedCircleView = SectionCircle(center: drawnCircle.coordinate,
+                                                  radius: _getCircleRadiusDependingOnCurrentCameraAltitude(cameraAltitude: cameraAltitude))
+            updatedCircleView.sectionBackgroundColor = drawnCircle.sectionBackgroundColor
+            updatedIntermediatePointsCircles.append(updatedCircleView)
+        }
+        intermediatePointsCircles = updatedIntermediatePointsCircles
+        
+        mapView.addOverlays(intermediatePointsCircles)
+    }
+    
+    private func _zoomOverPolyline(targetPolyline: MKPolyline) {
+        mapView.setVisibleMapRect(targetPolyline.boundingMapRect,
+                                  edgePadding: UIEdgeInsetsMake(60, 40, 10, 40),
+                                  animated: true)
+    }
+    
+}
+
+extension JourneySolutionRoadmapViewController: MKMapViewDelegate {
+    
+    public func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
+        _redrawIntermediatePointCircles(mapView: mapView, cameraAltitude: mapView.camera.altitude)
+    }
+    
+    public func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
+        if let sectionPolyline = overlay as? SectionPolyline {
+            let polylineRenderer = MKPolylineRenderer(polyline: sectionPolyline)
+            polylineRenderer.lineWidth = sectionPolyline.sectionLineWidth
+            polylineRenderer.strokeColor = sectionPolyline.sectionStrokeColor
+            if let sectionLineDashPattern = sectionPolyline.sectionLineDashPattern {
+                polylineRenderer.lineDashPattern = sectionLineDashPattern
+            }
+            if let sectionLineCap = sectionPolyline.sectionLineCap {
+                polylineRenderer.lineCap = sectionLineCap
+            }
+            
+            return polylineRenderer
+        } else if let circle = overlay as? SectionCircle {
+            let circleRenderer = MKCircleRenderer(circle: circle)
+            circleRenderer.lineWidth = 1.5
+            circleRenderer.strokeColor = circle.sectionBackgroundColor
+            circleRenderer.fillColor = UIColor.white
+            
+            return circleRenderer
+        }
+        
+        return MKOverlayRenderer()
+    }
+    
+    public func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+        if let customAnnotation = annotation as? CustomAnnotation {
+            var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: customAnnotation.identifier)
+            if annotationView == nil {
+                annotationView = customAnnotation.getAnnotationView(annotationIdentifier: customAnnotation.identifier, bundle: NavitiaSDKUI.shared.bundle)
+            } else {
+                annotationView?.annotation = annotation
+            }
+            
+            return annotationView
+        } else {
+            let annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: "annotationViewIdentifier")
+            annotationView?.annotation = annotation
+            
+            return annotationView
+        }
+    }
+    
+}
+
+extension JourneySolutionRoadmapViewController {
+    
     private func _addViewInScroll(view: UIView, customMargin: CGFloat? = nil) {
         if let margeCustom = customMargin {
             view.frame.origin.x = margeCustom
@@ -331,200 +620,6 @@ extension JourneySolutionRoadmapViewController: AlertViewControllerProtocol {
     func onPositiveButtonClicked(_ alertViewController: AlertViewController) {
         openDeepLink()
         alertViewController.dismiss(animated: false, completion: nil)
-    }
-    
-}
-
-extension JourneySolutionRoadmapViewController: MKMapViewDelegate {
-    
-    private func _setupMapView() {
-        
-        let ridesharingJourneyCoordinates = getRidesharingJourneyCoordinates(journey: self.journey!)
-        
-        let journeyPathOverlays = JourneyPathOverlays(journey: self.journey!, ridesharingJourneyCoordinates: ridesharingJourneyCoordinates, intermediatePointCircleRadius: self.getCircleRadiusDependingOnCurrentCameraAltitude(cameraAltitude: self.mapView.camera.altitude))
-        self.mapView.addOverlays(journeyPathOverlays.sectionsPolylines)
-        self.intermediatePointsCircles = journeyPathOverlays.intermediatesPointsCircles
-        self.mapView.addOverlays(self.intermediatePointsCircles)
-        
-        self.drawJourneyAnnotations(ridesharingJourneyCoordinates: ridesharingJourneyCoordinates, drawnPathsCount: journeyPathOverlays.sectionsPolylines.count)
-        
-        self.zoomToPolyline(targetPolyline: journeyPathOverlays.journeyPolyline, animated: false)
-    }
-    
-    func getJourneyDepartureCoordinates() -> CLLocationCoordinate2D {
-        for (_, section) in (self.journey?.sections?.enumerated())! {
-            if section.type != .crowFly && section.geojson != nil {
-                return CLLocationCoordinate2DMake(Double((section.geojson?.coordinates![0][1])!), Double((section.geojson?.coordinates![0][0])!))
-            }
-        }
-        
-        return CLLocationCoordinate2DMake(0, 0)
-    }
-    
-    func getJourneyArrivalCoordinates() -> CLLocationCoordinate2D {
-        for section in (self.journey?.sections?.reversed())! {
-            if section.type != .crowFly && section.geojson != nil {
-                let coordinatesLength = section.geojson!.coordinates!.count
-                return CLLocationCoordinate2DMake(Double((section.geojson?.coordinates![coordinatesLength - 1][1])!), Double((section.geojson?.coordinates![coordinatesLength - 1][0])!))
-            }
-        }
-        
-        return CLLocationCoordinate2DMake(0, 0)
-    }
-    
-    func getRidesharingJourneyCoordinates(journey: Journey) -> [CLLocationCoordinate2D] {
-        var ridesharingJourneyCoordinates = [CLLocationCoordinate2D]()
-        for (_ , section) in journey.sections!.enumerated() {
-            if section.type == .streetNetwork && section.mode != nil && section.mode == .ridesharing {
-                let coordinatesLength = section.geojson!.coordinates!.count
-                ridesharingJourneyCoordinates.append(CLLocationCoordinate2DMake(Double((section.geojson?.coordinates![0][1])!), Double((section.geojson?.coordinates![0][0])!)))
-                ridesharingJourneyCoordinates.append(CLLocationCoordinate2DMake(Double((section.geojson?.coordinates![coordinatesLength - 1][1])!), Double((section.geojson?.coordinates![coordinatesLength - 1][0])!)))
-            }
-        }
-        
-        return ridesharingJourneyCoordinates
-    }
-    
-    func getRidesharingJourneyIndex(journey: Journey) -> Int {
-        var ridesharingIndex: Int = 0
-        while ridesharingIndex < journey.sections!.count {
-            if (journey.sections![ridesharingIndex].type == .streetNetwork &&
-                journey.sections![ridesharingIndex].mode == .ridesharing) {
-                return ridesharingIndex
-            } else if (journey.sections![ridesharingIndex].type != .crowFly) {
-                ridesharingIndex += 1
-            }
-        }
-        
-        return 0
-    }
-    
-    func drawJourneyAnnotations(ridesharingJourneyCoordinates: [CLLocationCoordinate2D], drawnPathsCount: Int) {
-        if ridesharingJourneyCoordinates.count == 2 {
-            let ridesharingJourneyIndex = self.getRidesharingJourneyIndex(journey: self.journey!)
-            
-            if ridesharingJourneyIndex == 0 {
-                self.mapView.addAnnotation(CustomAnnotation(coordinate: self.getJourneyDepartureCoordinates(),
-                                                            title: "departure".localized(withComment: "Departure annotation", bundle: NavitiaSDKUI.shared.bundle),
-                                                            annotationType: .RidesharingAnnotation,
-                                                            placeType: .Departure))
-                if drawnPathsCount == 1 {
-                    self.mapView.addAnnotation(CustomAnnotation(coordinate: self.getJourneyArrivalCoordinates(),
-                                                                title: "arrival".localized(withComment: "Arrival annotation", bundle: NavitiaSDKUI.shared.bundle),
-                                                                annotationType: .RidesharingAnnotation,
-                                                                placeType: .Arrival))
-                } else {
-                    self.mapView.addAnnotation(CustomAnnotation(coordinate: ridesharingJourneyCoordinates[1], annotationType: .RidesharingAnnotation, placeType: .Other))
-                    self.mapView.addAnnotation(CustomAnnotation(coordinate: self.getJourneyArrivalCoordinates(),
-                                                                title: "arrival".localized(withComment: "Arrival annotation", bundle: NavitiaSDKUI.shared.bundle),
-                                                                annotationType: .PlaceAnnotation,
-                                                                placeType: .Arrival))
-                }
-            } else if ridesharingJourneyIndex == drawnPathsCount - 1 {
-                self.mapView.addAnnotation(CustomAnnotation(coordinate: self.getJourneyDepartureCoordinates(),
-                                                            title: "departure".localized(withComment: "Departure annotation", bundle: NavitiaSDKUI.shared.bundle),
-                                                            annotationType: .PlaceAnnotation,
-                                                            placeType: .Departure))
-                self.mapView.addAnnotation(CustomAnnotation(coordinate: ridesharingJourneyCoordinates[0],
-                                                            annotationType: .RidesharingAnnotation,
-                                                            placeType: .Other))
-                self.mapView.addAnnotation(CustomAnnotation(coordinate: self.getJourneyArrivalCoordinates(),
-                                                            title: "arrival".localized(withComment: "Arrival annotation", bundle: NavitiaSDKUI.shared.bundle),
-                                                            annotationType: .RidesharingAnnotation,
-                                                            placeType: .Arrival))
-            } else {
-                self.mapView.addAnnotation(CustomAnnotation(coordinate: self.getJourneyDepartureCoordinates(),
-                                                            title: "departure".localized(withComment: "Departure annotation", bundle: NavitiaSDKUI.shared.bundle),
-                                                            annotationType: .PlaceAnnotation,
-                                                            placeType: .Departure))
-                self.mapView.addAnnotation(CustomAnnotation(coordinate: ridesharingJourneyCoordinates[0],
-                                                            annotationType: .RidesharingAnnotation,
-                                                            placeType: .Other))
-                self.mapView.addAnnotation(CustomAnnotation(coordinate: ridesharingJourneyCoordinates[1],
-                                                            annotationType: .RidesharingAnnotation,
-                                                            placeType: .Other))
-                self.mapView.addAnnotation(CustomAnnotation(coordinate: self.getJourneyArrivalCoordinates(),
-                                                            title: "arrival".localized(withComment: "Arrival annotation", bundle: NavitiaSDKUI.shared.bundle),
-                                                            annotationType: .PlaceAnnotation,
-                                                            placeType: .Arrival))
-            }
-        } else {
-            self.mapView.addAnnotation(CustomAnnotation(coordinate: self.getJourneyDepartureCoordinates(),
-                                                        title: "departure".localized(withComment: "Departure annotation", bundle: NavitiaSDKUI.shared.bundle),
-                                                        annotationType: .PlaceAnnotation,
-                                                        placeType: .Departure))
-            self.mapView.addAnnotation(CustomAnnotation(coordinate: self.getJourneyArrivalCoordinates(),
-                                                        title: "arrival".localized(withComment: "Arrival annotation", bundle: NavitiaSDKUI.shared.bundle), annotationType: .PlaceAnnotation,
-                                                        placeType: .Arrival))
-        }
-    }
-    
-    func zoomToPolyline(targetPolyline: MKPolyline, animated: Bool) {
-        self.mapView.setVisibleMapRect(targetPolyline.boundingMapRect, edgePadding: UIEdgeInsetsMake(60, 40, 10, 40), animated: animated)
-    }
-    
-    func getCircleRadiusDependingOnCurrentCameraAltitude(cameraAltitude: CLLocationDistance) -> CLLocationDistance {
-        let altitudeReferenceValue = 10000.0
-        let circleMaxmimumRadius = 100.0
-        return cameraAltitude/altitudeReferenceValue * circleMaxmimumRadius
-    }
-    
-    func redrawIntermediatePointCircles(mapView: MKMapView, cameraAltitude: CLLocationDistance) {
-        mapView.removeOverlays(self.intermediatePointsCircles)
-        var updatedIntermediatePointsCircles = [MKCircle]()
-        for drawnCircle in self.intermediatePointsCircles {
-            let updatedCircleView = MKCircle(center: drawnCircle.coordinate, radius: getCircleRadiusDependingOnCurrentCameraAltitude(cameraAltitude: cameraAltitude))
-            updatedIntermediatePointsCircles.append(updatedCircleView)
-        }
-        self.intermediatePointsCircles = updatedIntermediatePointsCircles
-        
-        mapView.addOverlays(self.intermediatePointsCircles)
-    }
-    
-    public func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
-        redrawIntermediatePointCircles(mapView: mapView, cameraAltitude: mapView.camera.altitude)
-    }
-    
-    public func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
-        if let sectionPolyline = overlay as? SectionPolyline {
-            let polylineRenderer = MKPolylineRenderer(polyline: sectionPolyline)
-            polylineRenderer.lineWidth = sectionPolyline.sectionLineWidth
-            polylineRenderer.strokeColor = sectionPolyline.sectionStrokeColor
-            if sectionPolyline.sectionLineDashPattern != nil {
-                polylineRenderer.lineDashPattern = sectionPolyline.sectionLineDashPattern!
-            }
-            if sectionPolyline.sectionLineCap != nil {
-                polylineRenderer.lineCap = sectionPolyline.sectionLineCap!
-            }
-            return polylineRenderer
-        } else if let circle = overlay as? MKCircle {
-            let circleRenderer = MKCircleRenderer(circle: circle)
-            circleRenderer.lineWidth = 1.5
-            circleRenderer.strokeColor = UIColor.black
-            circleRenderer.fillColor = UIColor.white
-            
-            return circleRenderer
-        }
-        
-        return MKOverlayRenderer()
-    }
-    
-    public func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
-        if let customAnnotation = annotation as? CustomAnnotation {
-            var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: customAnnotation.identifier)
-            if annotationView == nil {
-                annotationView = customAnnotation.getAnnotationView(annotationIdentifier: customAnnotation.identifier, bundle: NavitiaSDKUI.shared.bundle)
-            } else {
-                annotationView?.annotation = annotation
-            }
-            
-            return annotationView
-        } else {
-            let annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: "annotationViewIdentifier")
-            annotationView?.annotation = annotation
-            
-            return annotationView
-        }
     }
     
 }

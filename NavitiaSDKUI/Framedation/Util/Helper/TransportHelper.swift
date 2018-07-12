@@ -27,6 +27,7 @@ enum TypeTransport: String {
     case publicTransport = "public_transport"
     case transfer = "transfer"
     case streetNetwork = "street_network"
+    case ridesharing = "ridesharing"
     case waiting = "waiting"
     case crowFly = "crow_fly"
     case leaveParking = "leave_parking"

@@ -14,23 +14,24 @@ class CustomAnnotation: MKPointAnnotation {
         case PlaceAnnotation
         case RidesharingAnnotation
     }
-    enum PlaceType {
-        case Departure
-        case Arrival
-        case Other
+    
+    enum PlaceType: String {
+        case Departure = "departure"
+        case Arrival = "arrival"
+        case Other = "other"
     }
     
     var annotationType: AnnotationType?
     var placeType: PlaceType?
     var identifier = "annotationViewIdentifier"
     
-    init(coordinate: CLLocationCoordinate2D, title: String = "", annotationType: AnnotationType = .PlaceAnnotation, placeType: PlaceType = .Departure) {
+    init(coordinate: CLLocationCoordinate2D, title: String = "", annotationType: AnnotationType = .PlaceAnnotation, placeType: PlaceType = .Other) {
         super.init()
         self.coordinate = coordinate
-        self.title = title
         self.annotationType = annotationType
         self.placeType = placeType
         self.identifier = "\(annotationType.hashValue + placeType.hashValue)"
+        self.title = title
     }
     
     func getAnnotationView(annotationIdentifier: String, bundle: Bundle) -> MKAnnotationView {
@@ -43,10 +44,14 @@ class CustomAnnotation: MKPointAnnotation {
             annotationLabel.layer.masksToBounds = true
             annotationLabel.layer.cornerRadius = 4.0
             annotationLabel.textColor = .white
-            annotationLabel.text = self.title!
             annotationLabel.font = UIFont(descriptor: annotationLabel.font.fontDescriptor, size: 14)
             annotationLabel.textAlignment = NSTextAlignment.center
             annotationLabel.alpha = 1
+            if let title = title, !title.isEmpty {
+                annotationLabel.text = title
+            } else {
+                annotationLabel.text = placeType?.rawValue.localized(bundle: NavitiaSDKUI.shared.bundle)
+            }
             
             if annotationType == .RidesharingAnnotation {
                 let annotationImage = UIImageView(frame: CGRect(x: 30, y: 27, width: 20, height: 30))
