@@ -40,24 +40,24 @@ class JourneySummaryView: UIView {
                 }
             }
         }
+        
         for section in sections {
             if validDisplaySection(section) {
                 if let duration = section.duration {
                     if section.mode == ModeTransport.walking.rawValue && duration <= 180 {
                         continue
                     }
+                    
                     let journeySummaryPartView = JourneySummaryPartView()
                     journeySummaryPartView.color = section.displayInformations?.color?.toUIColor() ?? UIColor.black
                     journeySummaryPartView.name = section.displayInformations?.label
                     journeySummaryPartView.icon = Modes().getModeIcon(section: section)
                     if let links = section.displayInformations?.links {
                         for link in links {
-                            if let type = link.type, let id = link.id, let disruptions = disruptions {
-                                if type == "disruption" {
-                                    for disruption in disruptions {
-                                        if disruption.id == id && Disruption.getMessage(disruption: disruption) != nil {
-                                            journeySummaryPartView.displayDisruption(Disruption.getIconName(of: disruption.level), color: disruption.severity?.color)
-                                        }
+                            if let type = link.type, type == "disruption", let id = link.id, let disruptions = disruptions {
+                                for disruption in section.disruptions(disruptions: disruptions) {
+                                    if disruption.id == id && Disruption.getMessage(disruption: disruption) != nil {
+                                        journeySummaryPartView.displayDisruption(Disruption.getIconName(of: disruption.level), color: disruption.severity?.color)
                                     }
                                 }
                             }
@@ -107,6 +107,7 @@ class JourneySummaryView: UIView {
                 priority = 100
             }
         }
+        
         return max(minValue, Double(duration) * sectionCount * priority / Double(allDurationSections))
     }
 

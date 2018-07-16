@@ -10,38 +10,49 @@ import Foundation
 extension Disruption {
     
     public enum DisruptionLevel: Int {
-        case none
-        case information
-        case nonblocking
-        case blocking
+        case none = 100
+        case information = 101
+        case nonblocking = 102
+        case blocking = 103
+    }
+    
+    public enum DisruptionEffect: String {
+        case noService = "NO_SERVICE"
+        case reducedService = "REDUCED_SERVICE"
+        case stopMoved = "STOP_MOVED"
+        case detour = "DETOUR"
+        case significantDelays = "SIGNIFICANT_DELAYS"
+        case additionalService = "ADDITIONAL_SERVICE"
+        case modifiedService = "MODIFIED_SERVICE"
+        case otherEffect = "OTHER_EFFECT"
+        case unknownEffect = "UNKNOWN_EFFECT"
     }
     
     public var level: DisruptionLevel {
-        if self.severity == nil {
+        if self.severity == nil || self.severity!.effect == nil {
             return DisruptionLevel.none
         }
-        if self.severity!.effect == nil {
-            return DisruptionLevel.none
-        }
+        
         switch self.severity!.effect! {
-        case "NO_SERVICE":
+        case DisruptionEffect.noService.rawValue:
             return DisruptionLevel.blocking
-        case "REDUCED_SERVICE", "STOP_MOVED", "DETOUR", "SIGNIFICANT_DELAYS", "ADDITIONAL_SERVICE", "MODIFIED_SERVICE":
+        case DisruptionEffect.reducedService.rawValue, DisruptionEffect.stopMoved.rawValue, DisruptionEffect.detour.rawValue, DisruptionEffect.significantDelays.rawValue, DisruptionEffect.additionalService.rawValue, DisruptionEffect.modifiedService.rawValue:
             return DisruptionLevel.nonblocking
-        case "OTHER_EFFECT", "UNKNOWN_EFFECT":
+        case DisruptionEffect.otherEffect.rawValue, DisruptionEffect.unknownEffect.rawValue:
             return DisruptionLevel.information
         default:
             return DisruptionLevel.none
         }
     }
     
-    public static func getHighestLevelFrom(disruptions: [Disruption]) -> Disruption.DisruptionLevel {
-        var highestLevel: Disruption.DisruptionLevel = Disruption.DisruptionLevel.none
+    public static func highestLevel(disruptions: [Disruption]) -> Int {
+        var highestLevel = Disruption.DisruptionLevel.none.rawValue
         for disruption in disruptions {
-            if disruption.level.rawValue > highestLevel.rawValue {
-                highestLevel = disruption.level
+            if disruption.level.rawValue > highestLevel {
+                highestLevel = disruption.level.rawValue
             }
         }
+        
         return highestLevel
     }
     
@@ -49,7 +60,7 @@ extension Disruption {
         return "disruption-" + String(describing: disruptionLevel)
     }
     
-    public static func getLevelColor(of disruptionLevel: Disruption.DisruptionLevel) -> String {
+    public static func levelColor(of disruptionLevel: Disruption.DisruptionLevel) -> String {
         switch disruptionLevel {
         case .blocking: return "A94442"
         case .nonblocking: return "8A6D3B"
@@ -64,21 +75,7 @@ extension Disruption {
         }
         for message in messages {
             if let types = message.channel?.types {
-                if types.count == 1 && types.contains(.mobile) {
-                    return message
-                }
-            }
-        }
-        for message in messages {
-            if let types = message.channel?.types {
-                if types.count > 1 && types.contains(.mobile) {
-                    return message
-                }
-            }
-        }
-        for message in messages {
-            if let types = message.channel?.types {
-                if types.count == 1 && types.contains(.web) {
+                if types.count >= 1 && (types.contains(.mobile) || types.contains(.web)) {
                     return message
                 }
             }
