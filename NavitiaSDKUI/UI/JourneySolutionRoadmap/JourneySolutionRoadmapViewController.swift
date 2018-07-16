@@ -218,26 +218,19 @@ open class JourneySolutionRoadmapViewController: UIViewController {
             }
         }
         
-        if let links = section.displayInformations?.links {
-            for link in links {
-                if let type = link.type, let id = link.id, let disruptions = disruptions {
-                    if type == "disruption" {
-                        for disruption in disruptions {
-                            if disruption.id == id, let message = Disruption.message(disruption: disruption) {
-                                publicTransportView.setDisruptionType(disruption)
-                                publicTransportView.disruptionTitle = disruption.severity?.name
-                                publicTransportView.disruptionInformation = message.escapedText
-                                if let begin = disruption.applicationPeriods?.first?.begin?.toDate(format: Configuration.date), let end = disruption.applicationPeriods?.first?.end?.toDate(format: Configuration.date) {
-                                    publicTransportView.disruptionDate = String(format: "%@ %@ %@ %@",
-                                                                                "from".localized(withComment: "Back", bundle: NavitiaSDKUI.shared.bundle),
-                                                                                begin.toString(format: Configuration.dateInterval),
-                                                                                "to_period".localized(withComment: "Back", bundle: NavitiaSDKUI.shared.bundle),
-                                                                                end.toString(format: Configuration.dateInterval))
-        
-                                }
-                            }
-                        }
-                    }
+        if section.type == TypeTransport.publicTransport.rawValue, let disruptions = disruptions, disruptions.count > 0 {
+            let sectionDisruptions = section.disruptions(disruptions: disruptions)
+            if sectionDisruptions.count > 0 {
+                publicTransportView.setDisruptionType(sectionDisruptions[0])
+                publicTransportView.disruptionTitle = sectionDisruptions[0].severity?.name
+                publicTransportView.disruptionInformation = Disruption.message(disruption: sectionDisruptions[0])?.escapedText
+                if let startDate = sectionDisruptions[0].applicationPeriods?.first?.begin?.toDate(format: Configuration.date), let endDate = sectionDisruptions[0].applicationPeriods?.first?.end?.toDate(format: Configuration.date) {
+                    publicTransportView.disruptionDate = String(format: "%@ %@ %@ %@",
+                                                                "from".localized(withComment: "Back", bundle: NavitiaSDKUI.shared.bundle),
+                                                                startDate.toString(format: Configuration.dateInterval),
+                                                                "to_period".localized(withComment: "Back", bundle: NavitiaSDKUI.shared.bundle),
+                                                                endDate.toString(format: Configuration.dateInterval))
+                    
                 }
             }
         }

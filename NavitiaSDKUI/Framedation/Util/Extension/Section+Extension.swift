@@ -25,11 +25,30 @@ extension Section {
                 }
             }
             
-            return sectionDisruptions
+            return getSortedDisruptions(disruptions:sectionDisruptions)
         }
         
         return [Disruption]()
     }
+    
+    fileprivate func getSortedDisruptions(disruptions: [Disruption]) -> [Disruption] {
+        var mutatedDisruptions = disruptions
+        for (i, _) in mutatedDisruptions.enumerated() {
+            var j = i + 1
+            while (j < mutatedDisruptions.count) {
+                if mutatedDisruptions[j].level.rawValue > mutatedDisruptions[i].level.rawValue {
+                    let substituteDisruption = mutatedDisruptions[j]
+                    mutatedDisruptions[j] = mutatedDisruptions[i]
+                    mutatedDisruptions[i] = substituteDisruption
+                }
+                
+                j += 1
+            }
+        }
+        
+        return mutatedDisruptions
+    }
+    
     
     /*
      Channel Types Order :
