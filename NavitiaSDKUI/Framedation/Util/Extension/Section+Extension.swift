@@ -21,8 +21,7 @@ extension Section {
             var sectionDisruptions = [Disruption]()
             for disruption in disruptions {
                 if let disruptionId = disruption.id, disruption.applicationPeriods != nil && disruptionLinkIds.contains(disruptionId) {
-                    let sortedDisruptionMessages = getDisruptionWithSortedMessages(disruptionIn: disruption)
-                    sectionDisruptions.append(sortedDisruptionMessages)
+                    sectionDisruptions.append(getDisruptionWithSortedMessages(disruptionIn: disruption))
                 }
             }
             
@@ -67,11 +66,7 @@ extension Section {
      3- Web
      */
     fileprivate func getInsertionIndex(messages: [Message], channelType: Int) -> Int {
-        if channelType == 1 {
-            return 0
-        }
-        
-        if messages.count >= 1 {
+        if messages.count >= 1 && channelType != 1 {
             var outIndex = 0
             for (index, message) in messages.enumerated() {
                 if let channelTypes = message.channel?.types {

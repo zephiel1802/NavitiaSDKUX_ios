@@ -45,19 +45,20 @@ extension Disruption {
         }
     }
     
-    public static func highestLevel(disruptions: [Disruption]) -> Int {
-        var highestLevel = Disruption.DisruptionLevel.none.rawValue
+    public static func highestLevelDisruption(disruptions: [Disruption]) -> HighestLevelDisruption {
+        var highestLevel = Disruption.DisruptionLevel.none
+        var highestLevelColor = levelColor(of: highestLevel)
         for disruption in disruptions {
-            if disruption.level.rawValue > highestLevel {
-                highestLevel = disruption.level.rawValue
+            if disruption.level.rawValue > highestLevel.rawValue {
+                highestLevel = disruption.level
+                
+                if let severity = disruption.severity, let severityColor = severity.color {
+                    highestLevelColor = severityColor
+                }
             }
         }
         
-        return highestLevel
-    }
-    
-    public static func getIconName(of disruptionLevel: Disruption.DisruptionLevel) -> String {
-        return "disruption-" + String(describing: disruptionLevel)
+        return HighestLevelDisruption(level: highestLevel, color: highestLevelColor)
     }
     
     public static func levelColor(of disruptionLevel: Disruption.DisruptionLevel) -> String {
@@ -69,18 +70,26 @@ extension Disruption {
         }
     }
     
-    public static func getMessage(disruption: Disruption) -> Message? {
+    public static func iconName(of disruptionLevel: Disruption.DisruptionLevel) -> String {
+        return "disruption-" + String(describing: disruptionLevel)
+    }
+    
+    public static func message(disruption: Disruption) -> Message? {
         guard let messages = disruption.messages else {
             return nil
         }
-        for message in messages {
-            if let types = message.channel?.types {
-                if types.count >= 1 && (types.contains(.mobile) || types.contains(.web)) {
-                    return message
-                }
-            }
-        }
-        return nil
+        
+        return messages[0]
     }
     
+}
+
+public class HighestLevelDisruption {
+    var level: Disruption.DisruptionLevel
+    var color: String
+    
+    init(level: Disruption.DisruptionLevel = Disruption.DisruptionLevel.none, color: String = "888888") {
+        self.level = level
+        self.color = color
+    }
 }

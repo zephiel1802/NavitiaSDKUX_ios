@@ -52,15 +52,11 @@ class JourneySummaryView: UIView {
                     journeySummaryPartView.color = section.displayInformations?.color?.toUIColor() ?? UIColor.black
                     journeySummaryPartView.name = section.displayInformations?.label
                     journeySummaryPartView.icon = Modes().getModeIcon(section: section)
-                    if let links = section.displayInformations?.links {
-                        for link in links {
-                            if let type = link.type, type == "disruption", let id = link.id, let disruptions = disruptions {
-                                for disruption in section.disruptions(disruptions: disruptions) {
-                                    if disruption.id == id && Disruption.getMessage(disruption: disruption) != nil {
-                                        journeySummaryPartView.displayDisruption(Disruption.getIconName(of: disruption.level), color: disruption.severity?.color)
-                                    }
-                                }
-                            }
+                    if section.type == TypeTransport.publicTransport.rawValue, let disruptions = disruptions, disruptions.count > 0 {
+                        let sectionDisruptions = section.disruptions(disruptions: disruptions)
+                        if sectionDisruptions.count > 0 {
+                            let highestDisruption = Disruption.highestLevelDisruption(disruptions: sectionDisruptions)
+                            journeySummaryPartView.displayDisruption(Disruption.iconName(of: highestDisruption.level), color: highestDisruption.color)
                         }
                     }
                     journeySummaryPartView.width = widthJourneySummaryPartView(sectionCount: sectionCount,

@@ -269,7 +269,7 @@ extension PublicTransportView {
         disruptionIsHidden = false
         
         disruptionIconLabel.attributedText = NSMutableAttributedString()
-            .icon(Disruption.getIconName(of: disruption.level), size: 15)
+            .icon(Disruption.iconName(of: disruption.level), size: 15)
         disruptionIconLabel.textColor = disruption.severity?.color?.toUIColor() ?? UIColor.red
         
         disruptionCircleLabel.attributedText = NSMutableAttributedString()
@@ -278,7 +278,7 @@ extension PublicTransportView {
         disruptionCircleLabel.isHidden = false
         
         disruptionIconTransportLabel.attributedText = NSMutableAttributedString()
-            .icon(Disruption.getIconName(of: disruption.level), size: 14)
+            .icon(Disruption.iconName(of: disruption.level), size: 14)
         disruptionIconTransportLabel.textColor = disruption.severity?.color?.toUIColor() ?? UIColor.red
         disruptionIconTransportLabel.isHidden = false
     }

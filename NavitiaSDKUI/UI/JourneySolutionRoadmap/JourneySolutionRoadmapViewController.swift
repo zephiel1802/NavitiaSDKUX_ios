@@ -223,7 +223,7 @@ open class JourneySolutionRoadmapViewController: UIViewController {
                 if let type = link.type, let id = link.id, let disruptions = disruptions {
                     if type == "disruption" {
                         for disruption in disruptions {
-                            if disruption.id == id, let message = Disruption.getMessage(disruption: disruption) {
+                            if disruption.id == id, let message = Disruption.message(disruption: disruption) {
                                 publicTransportView.setDisruptionType(disruption)
                                 publicTransportView.disruptionTitle = disruption.severity?.name
                                 publicTransportView.disruptionInformation = message.escapedText
