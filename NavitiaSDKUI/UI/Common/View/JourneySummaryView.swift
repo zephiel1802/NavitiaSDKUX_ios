@@ -52,7 +52,7 @@ class JourneySummaryView: UIView {
                     journeySummaryPartView.color = section.displayInformations?.color?.toUIColor() ?? UIColor.black
                     journeySummaryPartView.name = section.displayInformations?.label
                     journeySummaryPartView.icon = Modes().getModeIcon(section: section)
-                    if section.type == TypeTransport.publicTransport.rawValue, let disruptions = disruptions, disruptions.count > 0 {
+                    if section.type == .publicTransport, let disruptions = disruptions, disruptions.count > 0 {
                         let sectionDisruptions = section.disruptions(disruptions: disruptions)
                         if sectionDisruptions.count > 0 {
                             let highestDisruption = Disruption.highestLevelDisruption(disruptions: sectionDisruptions)
