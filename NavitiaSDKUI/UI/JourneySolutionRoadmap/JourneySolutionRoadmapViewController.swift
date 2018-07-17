@@ -222,7 +222,7 @@ open class JourneySolutionRoadmapViewController: UIViewController {
             let sectionDisruptions = section.disruptions(disruptions: disruptions)
             if sectionDisruptions.count > 0 {
                 publicTransportView.setDisruptionType(sectionDisruptions[0])
-                publicTransportView.disruptionTitle = sectionDisruptions[0].severity?.name
+                publicTransportView.setDisruptionTitle(title: sectionDisruptions[0].severity?.name ?? "", color: sectionDisruptions[0].severity?.color?.toUIColor())
                 publicTransportView.disruptionInformation = Disruption.message(disruption: sectionDisruptions[0])?.escapedText
                 if let startDate = sectionDisruptions[0].applicationPeriods?.first?.begin?.toDate(format: Configuration.date), let endDate = sectionDisruptions[0].applicationPeriods?.first?.end?.toDate(format: Configuration.date) {
                     publicTransportView.disruptionDate = String(format: "%@ %@ %@ %@",

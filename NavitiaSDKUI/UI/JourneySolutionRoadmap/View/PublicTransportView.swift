@@ -282,17 +282,10 @@ extension PublicTransportView {
         disruptionIconTransportLabel.textColor = disruption.severity?.color?.toUIColor() ?? UIColor.red
         disruptionIconTransportLabel.isHidden = false
     }
-
-    var disruptionTitle: String? {
-        get {
-            return disruptionTitleLabel.text
-        }
-        set {
-            if let newValue = newValue {
-                disruptionTitleLabel.attributedText = NSMutableAttributedString()
-                    .normal(newValue, size: 12)
-            }
-        }
+    
+    func setDisruptionTitle(title: String, color: UIColor?) {
+        disruptionTitleLabel.attributedText = NSMutableAttributedString()
+            .bold(title, color: color ?? UIColor.black, size: 12)
     }
     
     var disruptionInformation: String? {
@@ -302,7 +295,7 @@ extension PublicTransportView {
         set {
             if let newValue = newValue {
                 disruptionInformationLabel.attributedText = NSMutableAttributedString()
-                    .normal(newValue, size: 12)
+                    .normal(newValue, color: Configuration.Color.darkerGray, size: 12)
             }
         }
     }
@@ -330,13 +323,13 @@ extension PublicTransportView {
                     unit = "units_minute".localized(withComment: "minute", bundle: NavitiaSDKUI.shared.bundle)
                 }
                 waitIconLabel.attributedText = NSMutableAttributedString()
-                    .icon("clock", color: Configuration.Color.gray, size: 15)
+                    .icon("clock", color: Configuration.Color.darkerGray, size: 15)
                 waitTimeLabel.attributedText = NSMutableAttributedString()
-                    .normal("wait".localized(withComment: "wait", bundle: NavitiaSDKUI.shared.bundle), color: Configuration.Color.gray, size: 12)
-                    .normal(" ", color: Configuration.Color.gray, size: 12)
-                    .normal(newValue, color: Configuration.Color.gray, size: 12)
-                    .normal(" ", color: Configuration.Color.gray, size: 12)
-                    .normal(unit, color: Configuration.Color.gray, size: 12)
+                    .normal("wait".localized(withComment: "wait", bundle: NavitiaSDKUI.shared.bundle), color: Configuration.Color.darkerGray, size: 12)
+                    .normal(" ", color: Configuration.Color.darkerGray, size: 12)
+                    .normal(newValue, color: Configuration.Color.darkerGray, size: 12)
+                    .normal(" ", color: Configuration.Color.darkerGray, size: 12)
+                    .normal(unit, color: Configuration.Color.darkerGray, size: 12)
                 waitIsHidden = false
             }
         }
