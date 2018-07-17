@@ -37,6 +37,9 @@ class JourneySummaryPartView: UIView {
         _view.frame = self.bounds
         addSubview(_view)
         _setupDisruption()
+        
+        _tagTransportView.isHidden = true
+        _tagTransportLabel.isHidden = true
     }
     
     private func _setupDisruption() {
@@ -77,6 +80,8 @@ extension JourneySummaryPartView {
         }
         set {
             if let newValue = newValue {
+                _tagTransportView.isHidden = false
+                _tagTransportLabel.isHidden = false
                 let tagBackgroundColor = _tagTransportView.backgroundColor ?? .black
                 _tagTransportLabel.attributedText = NSMutableAttributedString()
                     .bold(newValue, color: tagBackgroundColor.contrastColor(), size: 9)
@@ -90,13 +95,6 @@ extension JourneySummaryPartView {
         }
         set {
             if let newValue = newValue {
-                if newValue == ModeTransport.walking.rawValue ||
-                newValue == ModeTransport.bss.rawValue ||
-                newValue == ModeTransport.car.rawValue ||
-                newValue == ModeTransport.ridesharing.rawValue {
-                    _tagTransportView.isHidden = true
-                    _tagTransportLabel.isHidden = true
-                }
                 transportLabel.attributedText = NSMutableAttributedString()
                     .icon(newValue, size: 20)
             }
