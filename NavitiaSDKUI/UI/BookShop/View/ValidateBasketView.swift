@@ -75,7 +75,7 @@ open class ValidateBasketView: UIView {
     
     func setAmount(_ amout: Float, currency: String) {
         amoutLabel.attributedText = NSMutableAttributedString()
-            .bold(String(format: "%.2f %@", amout, currency),
+            .bold(String(format: "%.2f%@", amout, currency),
                   color: Configuration.Color.white,
                   size: 15)
     }
