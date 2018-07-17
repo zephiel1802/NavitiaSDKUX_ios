@@ -17,18 +17,14 @@ class PublicTransportView: UIView {
     @IBOutlet weak var transportLabel: UILabel!
     @IBOutlet weak var disruptionCircleLabel: UILabel!
     @IBOutlet weak var disruptionIconTransportLabel: UILabel!
-    @IBOutlet var disruptionView: UIView!
+    @IBOutlet weak var disruptionsStackView: UIStackView!
     @IBOutlet var waitView: UIView!
     @IBOutlet var waitHeightContraint: NSLayoutConstraint!
-    @IBOutlet var disruptionTopContraint: NSLayoutConstraint!
-    @IBOutlet var disruptionBottomWaitTopContraint: NSLayoutConstraint!
+    @IBOutlet var disruptionsStackTopContraint: NSLayoutConstraint!
+    @IBOutlet var disruptionsStackBottomWaitTopContraint: NSLayoutConstraint!
     @IBOutlet var waitBottomContraint: NSLayoutConstraint!
     @IBOutlet var waitIconLabel: UILabel!
     @IBOutlet var waitTimeLabel: UILabel!
-    @IBOutlet weak var disruptionIconLabel: UILabel!
-    @IBOutlet weak var disruptionTitleLabel: UILabel!
-    @IBOutlet weak var disruptionInformationLabel: UILabel!
-    @IBOutlet weak var disruptionDateLabel: UILabel!
     @IBOutlet weak var startTimeLabel: UILabel!
     @IBOutlet weak var originLabel: UILabel!
     @IBOutlet weak var stationButton: UIButton!
@@ -119,7 +115,7 @@ class PublicTransportView: UIView {
         
         stationsIsHidden = true
         waitIsHidden = true
-        disruptionIsHidden = true
+        disruptionsStackIsHidden = true
         disruptionIconTransportLabel.isHidden = true
         disruptionCircleLabel.isHidden = true
         stationButton.isHidden = true
@@ -239,38 +235,8 @@ extension PublicTransportView {
         }
     }
     
-    var disruptionType: TypeDisruption? {
-        get {
-            return _disruptionType
-        }
-        set {
-            if let newValue = newValue {
-                _disruptionType = newValue
-                disruptionIsHidden = false
-                disruptionIconLabel.attributedText = NSMutableAttributedString()
-                    .icon("disruption-" + newValue.rawValue, size: 15)
-                disruptionIconLabel.textColor = UIColor.red
-                disruptionTitleLabel.attributedText = NSMutableAttributedString()
-                    .normal(newValue.rawValue, size: 12)
-                disruptionCircleLabel.attributedText = NSMutableAttributedString()
-                    .icon("circle-filled", size: 15)
-                disruptionCircleLabel.textColor = UIColor.white
-                disruptionCircleLabel.isHidden = false
-                
-                disruptionIconTransportLabel.attributedText = NSMutableAttributedString()
-                    .icon("disruption-" + newValue.rawValue, size: 14)
-                disruptionIconTransportLabel.textColor = UIColor.red
-                disruptionIconTransportLabel.isHidden = false
-            }
-        }
-    }
-    
-    func setDisruptionType(_ disruption: Disruption) {
-        disruptionIsHidden = false
-        
-        disruptionIconLabel.attributedText = NSMutableAttributedString()
-            .icon(Disruption.iconName(of: disruption.level), size: 15)
-        disruptionIconLabel.textColor = disruption.severity?.color?.toUIColor() ?? UIColor.red
+    func setDisruptions(_ disruptions: [Disruption]) {
+        disruptionsStackIsHidden = false
         
         disruptionCircleLabel.attributedText = NSMutableAttributedString()
             .icon("circle-filled", size: 15)
@@ -278,37 +244,15 @@ extension PublicTransportView {
         disruptionCircleLabel.isHidden = false
         
         disruptionIconTransportLabel.attributedText = NSMutableAttributedString()
-            .icon(Disruption.iconName(of: disruption.level), size: 14)
-        disruptionIconTransportLabel.textColor = disruption.severity?.color?.toUIColor() ?? UIColor.red
+            .icon(Disruption.iconName(of: disruptions[0].level), size: 14)
+        disruptionIconTransportLabel.textColor = disruptions[0].severity?.color?.toUIColor() ?? UIColor.red
         disruptionIconTransportLabel.isHidden = false
-    }
-    
-    func setDisruptionTitle(title: String, color: UIColor?) {
-        disruptionTitleLabel.attributedText = NSMutableAttributedString()
-            .bold(title, color: color ?? UIColor.black, size: 12)
-    }
-    
-    var disruptionInformation: String? {
-        get {
-            return disruptionInformationLabel.text
-        }
-        set {
-            if let newValue = newValue {
-                disruptionInformationLabel.attributedText = NSMutableAttributedString()
-                    .normal(newValue, color: Configuration.Color.darkerGray, size: 12)
-            }
-        }
-    }
-    
-    var disruptionDate: String? {
-        get {
-            return disruptionDateLabel.text
-        }
-        set {
-            if let newValue = newValue {
-                disruptionDateLabel.attributedText = NSMutableAttributedString()
-                    .bold(newValue, size: 12)
-            }
+        
+        for disruption in disruptions {
+            let disruptionItemView = DisruptionItemView.instanceFromNib()
+            disruptionItemView.frame = disruptionsStackView.bounds
+            disruptionItemView.disruption = disruption
+            disruptionsStackView.addArrangedSubview(disruptionItemView)
         }
     }
     
@@ -371,21 +315,21 @@ extension PublicTransportView {
         }
     }
     
-    var disruptionIsHidden: Bool {
+    var disruptionsStackIsHidden: Bool {
         get {
-            return !disruptionView.isHidden
+            return !disruptionsStackView.isHidden
         }
         set {
             if newValue {
-                disruptionView.isHidden = true
-                frame.size.height -= disruptionView.frame.size.height
-                disruptionBottomWaitTopContraint.isActive = false
-                disruptionTopContraint.isActive = false
+                disruptionsStackView.isHidden = true
+                frame.size.height -= disruptionsStackView.frame.size.height
+                disruptionsStackBottomWaitTopContraint.isActive = false
+                disruptionsStackTopContraint.isActive = false
             } else {
-                disruptionView.isHidden = false
-                frame.size.height += disruptionView.frame.size.height
-                disruptionBottomWaitTopContraint.isActive = true
-                disruptionTopContraint.isActive = true
+                disruptionsStackView.isHidden = false
+                frame.size.height += disruptionsStackView.frame.size.height
+                disruptionsStackBottomWaitTopContraint.isActive = true
+                disruptionsStackTopContraint.isActive = true
             }
         }
     }
@@ -398,12 +342,12 @@ extension PublicTransportView {
             if newValue {
                 waitView.isHidden = true
                 frame.size.height -= waitView.frame.size.height
-                disruptionBottomWaitTopContraint.isActive = false
+                disruptionsStackBottomWaitTopContraint.isActive = false
                 waitBottomContraint.isActive = false
             } else {
                 waitView.isHidden = false
                 frame.size.height += waitView.frame.size.height
-                disruptionBottomWaitTopContraint.isActive = true
+                disruptionsStackBottomWaitTopContraint.isActive = true
                 waitBottomContraint.isActive = true
             }
         }

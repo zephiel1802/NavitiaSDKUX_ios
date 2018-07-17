@@ -221,17 +221,7 @@ open class JourneySolutionRoadmapViewController: UIViewController {
         if section.type == TypeTransport.publicTransport.rawValue, let disruptions = disruptions, disruptions.count > 0 {
             let sectionDisruptions = section.disruptions(disruptions: disruptions)
             if sectionDisruptions.count > 0 {
-                publicTransportView.setDisruptionType(sectionDisruptions[0])
-                publicTransportView.setDisruptionTitle(title: sectionDisruptions[0].severity?.name ?? "", color: sectionDisruptions[0].severity?.color?.toUIColor())
-                publicTransportView.disruptionInformation = Disruption.message(disruption: sectionDisruptions[0])?.escapedText
-                if let startDate = sectionDisruptions[0].applicationPeriods?.first?.begin?.toDate(format: Configuration.date), let endDate = sectionDisruptions[0].applicationPeriods?.first?.end?.toDate(format: Configuration.date) {
-                    publicTransportView.disruptionDate = String(format: "%@ %@ %@ %@",
-                                                                "from".localized(withComment: "Back", bundle: NavitiaSDKUI.shared.bundle),
-                                                                startDate.toString(format: Configuration.dateInterval),
-                                                                "to_period".localized(withComment: "Back", bundle: NavitiaSDKUI.shared.bundle),
-                                                                endDate.toString(format: Configuration.dateInterval))
-                    
-                }
+                publicTransportView.setDisruptions(sectionDisruptions)
             }
         }
         
