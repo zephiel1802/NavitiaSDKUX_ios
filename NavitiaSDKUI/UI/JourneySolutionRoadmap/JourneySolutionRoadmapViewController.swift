@@ -231,30 +231,10 @@ open class JourneySolutionRoadmapViewController: UIViewController {
             }
         }
         
-        if let links = section.displayInformations?.links {
-            for link in links {
-                if let type = link.type, let id = link.id, let disruptions = disruptions {
-                    if type == "disruption" {
-                        for disruption in disruptions {
-                            if disruption.id == id {
-                                publicTransportView.setDisruptionType(disruption)
-                                publicTransportView.disruptionTitle = disruption.severity?.name
-  
-                                if let message = disruption.messages?.first?.escapedText {
-                                    publicTransportView.disruptionInformation = message
-                                }
-                                if let begin = disruption.applicationPeriods?.first?.begin?.toDate(format: Configuration.date), let end = disruption.applicationPeriods?.first?.end?.toDate(format: Configuration.date) {
-                                    publicTransportView.disruptionDate = String(format: "%@ %@ %@ %@",
-                                                                                "from".localized(withComment: "Back", bundle: NavitiaSDKUI.shared.bundle),
-                                                                                begin.toString(format: Configuration.dateInterval),
-                                                                                "to_period".localized(withComment: "Back", bundle: NavitiaSDKUI.shared.bundle),
-                                                                                end.toString(format: Configuration.dateInterval))
-        
-                                }
-                            }
-                        }
-                    }
-                }
+        if section.type == TypeTransport.publicTransport.rawValue, let disruptions = disruptions, disruptions.count > 0 {
+            let sectionDisruptions = section.disruptions(disruptions: disruptions)
+            if sectionDisruptions.count > 0 {
+                publicTransportView.setDisruptions(sectionDisruptions)
             }
         }
         

@@ -38,7 +38,7 @@ class JourneySolutionView: UIView {
         _view.frame = self.bounds
         addSubview(_view)
         addShadow()
-        journeySummaryView.disruption = disruptions
+        journeySummaryView.disruptions = disruptions
     }
 
     func setData(_ journey: Journey) {
@@ -48,7 +48,7 @@ class JourneySolutionView: UIView {
             formattedDuration(durationInt)
         }
         if let sections = journey.sections {
-            journeySummaryView.disruption = disruptions
+            journeySummaryView.disruptions = disruptions
             journeySummaryView.addSections(sections)
         }
     }
@@ -63,7 +63,7 @@ class JourneySolutionView: UIView {
             formattedDuration(durationInt)
         }
         if let sections = journey.sections {
-            journeySummaryView.disruption = disruptions
+            journeySummaryView.disruptions = disruptions
             journeySummaryView.addSections(sections)
         }
         if durationWalkerLabel != nil {
