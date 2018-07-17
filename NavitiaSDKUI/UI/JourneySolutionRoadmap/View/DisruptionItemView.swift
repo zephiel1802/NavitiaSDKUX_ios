@@ -18,7 +18,6 @@ class DisruptionItemView: UIView {
         get {
             return self.disruption
         }
-        
         set {
             if let newValue = newValue {
                 setDisruptionType(newValue)
@@ -26,7 +25,6 @@ class DisruptionItemView: UIView {
                 disruptionInformation = Disruption.message(disruption: newValue)?.escapedText
                 if let startDate = newValue.applicationPeriods?.first?.begin?.toDate(format: Configuration.date), let endDate = newValue.applicationPeriods?.first?.end?.toDate(format: Configuration.date) {
                     disruptionDate = String(format: "%@ %@ %@ %@", "from".localized(withComment: "Back", bundle: NavitiaSDKUI.shared.bundle), startDate.toString(format: Configuration.dateInterval), "to_period".localized(withComment: "Back", bundle: NavitiaSDKUI.shared.bundle), endDate.toString(format: Configuration.dateInterval))
-                    
                 }
             }
         }
@@ -40,14 +38,12 @@ class DisruptionItemView: UIView {
 extension DisruptionItemView {
     
     func setDisruptionType(_ disruption: Disruption) {
-        disruptionIconLabel.attributedText = NSMutableAttributedString()
-         .icon(Disruption.iconName(of: disruption.level), size: 15)
-         disruptionIconLabel.textColor = disruption.severity?.color?.toUIColor() ?? UIColor.red
+        disruptionIconLabel.attributedText = NSMutableAttributedString().icon(Disruption.iconName(of: disruption.level), size: 15)
+        disruptionIconLabel.textColor = disruption.severity?.color?.toUIColor() ?? UIColor.red
     }
     
     func setDisruptionTitle(title: String, color: UIColor?) {
-        disruptionTitleLabel.attributedText = NSMutableAttributedString()
-         .bold(title, color: color ?? UIColor.black, size: 12)
+        disruptionTitleLabel.attributedText = NSMutableAttributedString().bold(title, color: color ?? UIColor.black, size: 12)
     }
     
     var disruptionInformation: String? {
@@ -56,8 +52,7 @@ extension DisruptionItemView {
         }
         set {
             if let newValue = newValue {
-             disruptionInformationLabel.attributedText = NSMutableAttributedString()
-             .normal(newValue, color: Configuration.Color.darkerGray, size: 12)
+                disruptionInformationLabel.attributedText = NSMutableAttributedString().normal(newValue, color: Configuration.Color.darkerGray, size: 12)
             }
         }
     }
@@ -68,8 +63,7 @@ extension DisruptionItemView {
         }
         set {
             if let newValue = newValue {
-             disruptionDateLabel.attributedText = NSMutableAttributedString()
-             .bold(newValue, size: 12)
+                disruptionDateLabel.attributedText = NSMutableAttributedString().bold(newValue, size: 12)
             }
         }
     }

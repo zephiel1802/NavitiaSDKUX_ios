@@ -49,7 +49,6 @@ extension Section {
         return mutatedDisruptions
     }
     
-    
     /*
      Channel Types Order :
      1- Mobile
