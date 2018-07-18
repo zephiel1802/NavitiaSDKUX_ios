@@ -89,6 +89,8 @@ class Modes {
                 return "bss"
             case .bssPutBack:
                 return "bss"
+            case .crowFly:
+                return "crow_fly"
             default:
                 return section?.mode?.rawValue ?? ""
         }
