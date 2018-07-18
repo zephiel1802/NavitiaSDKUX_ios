@@ -73,9 +73,9 @@ open class ValidateBasketView: UIView {
         view.addGestureRecognizer(gesture)
     }
     
-    func setAmount(_ amout: Float, currency: String) {
+    func setAmount(_ amount: Float, currency: String) {
         amoutLabel.attributedText = NSMutableAttributedString()
-            .bold(String(format: "%.2f%@", amout, currency),
+            .bold(String(format: "%.2f%@", amount, currency),
                   color: Configuration.Color.white,
                   size: 15)
     }
