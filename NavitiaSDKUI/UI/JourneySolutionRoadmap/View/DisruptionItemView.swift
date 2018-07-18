@@ -22,7 +22,7 @@ class DisruptionItemView: UIView {
             if let newValue = newValue {
                 setDisruptionType(newValue)
                 setDisruptionTitle(title: newValue.severity?.name ?? "", color: newValue.severity?.color?.toUIColor())
-                disruptionInformation = Disruption.message(disruption: newValue)?.escapedText
+                disruptionInformationHTML = Disruption.message(disruption: newValue)?.text ?? ""
                 if let startDate = newValue.applicationPeriods?.first?.begin?.toDate(format: Configuration.date), let endDate = newValue.applicationPeriods?.first?.end?.toDate(format: Configuration.date) {
                     disruptionDate = String(format: "%@ %@ %@ %@", "from".localized(withComment: "Back", bundle: NavitiaSDKUI.shared.bundle), startDate.toString(format: Configuration.dateInterval), "to_period".localized(withComment: "Back", bundle: NavitiaSDKUI.shared.bundle), endDate.toString(format: Configuration.dateInterval))
                 }
@@ -53,6 +53,17 @@ extension DisruptionItemView {
         set {
             if let newValue = newValue {
                 disruptionInformationLabel.attributedText = NSMutableAttributedString().normal(newValue, color: Configuration.Color.darkerGray, size: 12)
+            }
+        }
+    }
+    
+    var disruptionInformationHTML: String? {
+        get {
+            return disruptionInformationLabel.text
+        }
+        set {
+            if let newValue = newValue?.htmlToAttributedString {
+                disruptionInformationLabel.attributedText = NSMutableAttributedString().normal(newValue.string, color: Configuration.Color.darkerGray, size: 12)
             }
         }
     }
