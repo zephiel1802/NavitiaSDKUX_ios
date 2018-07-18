@@ -116,6 +116,9 @@ open class JourneySolutionRoadmapViewController: UIViewController {
                             _updateRidesharingView(section)
                             _displayRidesharingStep(section)
                             break
+                        case .crowFly:
+                            _displayCrowFlyStep(section)
+                            break
                         case .streetNetwork:
                             if let mode = section.mode {
                                 switch mode {
