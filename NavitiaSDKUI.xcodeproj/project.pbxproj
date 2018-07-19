@@ -282,6 +282,9 @@
 		8490A6D52084D2C700F7CFA1 /* NavitiaSDKUserDefaultsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8490A6D42084D2C700F7CFA1 /* NavitiaSDKUserDefaultsManager.swift */; };
 		84BC297E207E66CC0073F198 /* StationsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84BC297D207E66CC0073F198 /* StationsView.xib */; };
 		84BC2980207E66D50073F198 /* StationsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84BC297F207E66D50073F198 /* StationsView.swift */; };
+		84D0FA94210094A900EB420A /* Section+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D0FA93210094A900EB420A /* Section+Extension.swift */; };
+		84D0FA96210094B300EB420A /* DisruptionItemView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84D0FA95210094B300EB420A /* DisruptionItemView.xib */; };
+		84D0FA98210094B900EB420A /* DisruptionItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D0FA97210094B900EB420A /* DisruptionItemView.swift */; };
 		84E350F520776BC600E9BA46 /* TransferStepView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84E350F420776BC600E9BA46 /* TransferStepView.xib */; };
 		84E350F920776F1100E9BA46 /* DisruptionStepView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84E350F820776F1100E9BA46 /* DisruptionStepView.xib */; };
 		84E37EAA2074FF7B001D61E5 /* JourneySolutionLoadCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E37EA92074FF7B001D61E5 /* JourneySolutionLoadCollectionViewCell.swift */; };
@@ -582,6 +585,9 @@
 		8490A6D42084D2C700F7CFA1 /* NavitiaSDKUserDefaultsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavitiaSDKUserDefaultsManager.swift; sourceTree = "<group>"; };
 		84BC297D207E66CC0073F198 /* StationsView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = StationsView.xib; sourceTree = "<group>"; };
 		84BC297F207E66D50073F198 /* StationsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StationsView.swift; sourceTree = "<group>"; };
+		84D0FA93210094A900EB420A /* Section+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Section+Extension.swift"; sourceTree = "<group>"; };
+		84D0FA95210094B300EB420A /* DisruptionItemView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DisruptionItemView.xib; sourceTree = "<group>"; };
+		84D0FA97210094B900EB420A /* DisruptionItemView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DisruptionItemView.swift; sourceTree = "<group>"; };
 		84E350F420776BC600E9BA46 /* TransferStepView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TransferStepView.xib; sourceTree = "<group>"; };
 		84E350F820776F1100E9BA46 /* DisruptionStepView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DisruptionStepView.xib; sourceTree = "<group>"; };
 		84E37EA92074FF7B001D61E5 /* JourneySolutionLoadCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JourneySolutionLoadCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -632,7 +638,6 @@
 			path = Interface;
 			sourceTree = "<group>";
 		};
-		84250D9420ECD11600F27953 /* Recovered References */ = {
 		84382E2D20DA449D0082B32E /* Recovered References */ = {
 			isa = PBXGroup;
 			children = (
@@ -647,7 +652,6 @@
 				8451DA3C206503F100CFA1E4 /* NavitiaSDKUI */,
 				8451DA47206503F100CFA1E4 /* NavitiaSDKUITests */,
 				8451DA3B206503F100CFA1E4 /* Products */,
-				84250D9420ECD11600F27953 /* Recovered References */,
 				84382E2D20DA449D0082B32E /* Recovered References */,
 			);
 			sourceTree = "<group>";
@@ -745,6 +749,7 @@
 		8451DA5B2065062300CFA1E4 /* Extension */ = {
 			isa = PBXGroup;
 			children = (
+				84D0FA93210094A900EB420A /* Section+Extension.swift */,
 				8454D451206942B800C97D2F /* Date+Extension.swift */,
 				8433B87A206BE2A900EC51F9 /* Int32+Extension.swift */,
 				84339A81206CC6D900F2CB65 /* NSMutableAttributedString+Extension.swift */,
@@ -852,6 +857,7 @@
 		8451DAB8206516BC00CFA1E4 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				84D0FA97210094B900EB420A /* DisruptionItemView.swift */,
 				84506C27209C4FE7006BF393 /* RidesharingStepView.swift */,
 				8433F399207F47F0007DBBCE /* DepartureArrivalStepView.swift */,
 				848D7C2B207B95B0002E9B1A /* PublicTransportView.swift */,
@@ -886,6 +892,7 @@
 		8451DABB2065175000CFA1E4 /* Interface */ = {
 			isa = PBXGroup;
 			children = (
+				84D0FA95210094B300EB420A /* DisruptionItemView.xib */,
 				84506C29209C5007006BF393 /* RidesharingStepView.xib */,
 				846B185020775479005D4A9B /* DepartureArrivalStepView.xib */,
 				848D7C29207B92D4002E9B1A /* PublicTransportView.xib */,
@@ -1298,6 +1305,7 @@
 				84E350F920776F1100E9BA46 /* DisruptionStepView.xib in Resources */,
 				8422B45D206A2AE00097E6C9 /* RidesharingInformationCollectionViewCell.xib in Resources */,
 				84FABE162074F76600BDDE9D /* JourneySolutionLoadCollectionViewCell.xib in Resources */,
+				84D0FA96210094B300EB420A /* DisruptionItemView.xib in Resources */,
 				8422B464206A30300097E6C9 /* JourneySummaryPartView.xib in Resources */,
 				8451DA602065065E00CFA1E4 /* Images.xcassets in Resources */,
 				8433F396207F4608007DBBCE /* BikeStepView.xib in Resources */,
@@ -1535,6 +1543,7 @@
 				8454D3DD2068D3A800C97D2F /* Context.swift in Sources */,
 				8454D3CF2068D3A800C97D2F /* TrafficReports.swift in Sources */,
 				8454D4002068D3A800C97D2F /* PhysicalModes.swift in Sources */,
+				84D0FA98210094B900EB420A /* DisruptionItemView.swift in Sources */,
 				8454D3FD2068D3A800C97D2F /* StopDateTime.swift in Sources */,
 				8454D3B32068D3A800C97D2F /* Journeys.swift in Sources */,
 				8454D41D2068D3A800C97D2F /* Validation.swift in Sources */,
@@ -1552,6 +1561,7 @@
 				8451DAA820650C7C00CFA1E4 /* JourneySolutionRidesharingViewController.swift in Sources */,
 				8454D3D12068D3A800C97D2F /* Exception.swift in Sources */,
 				8454D3ED2068D3A800C97D2F /* Ticket.swift in Sources */,
+				84D0FA94210094A900EB420A /* Section+Extension.swift in Sources */,
 				8454D3D52068D3A800C97D2F /* Code.swift in Sources */,
 				8433F39A207F47F0007DBBCE /* DepartureArrivalStepView.swift in Sources */,
 				84506C28209C4FE7006BF393 /* RidesharingStepView.swift in Sources */,
