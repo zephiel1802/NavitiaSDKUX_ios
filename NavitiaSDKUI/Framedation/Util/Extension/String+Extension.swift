@@ -56,7 +56,6 @@ extension String {
             return NSAttributedString()
             
         }
-        
         do {
             return try NSAttributedString(data: data, options: [.documentType: NSAttributedString.DocumentType.html, .characterEncoding:String.Encoding.utf8.rawValue], documentAttributes: nil)
         } catch {
