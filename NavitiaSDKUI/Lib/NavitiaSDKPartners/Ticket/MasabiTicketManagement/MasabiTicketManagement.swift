@@ -204,7 +204,13 @@ import JustRideSDK
                     }
                 })
             }, callbackError: { (statusCode, data) in
-                callbackError(statusCode, data)
+                if NavitiaSDKPartnersReturnCode(rawValue: statusCode) != nil {
+                    
+                    callbackError(statusCode, NavitiaSDKPartnersReturnCode(rawValue: statusCode)?.getError())
+                } else {
+                    
+                    callbackError(NavitiaSDKPartnersReturnCode.internalServerError.getCode(), NavitiaSDKPartnersReturnCode.internalServerError.getError())
+                }
             })
         } else {
             NavitiaSDKPartners.shared.createAccount(callbackSuccess: {
@@ -224,10 +230,22 @@ import JustRideSDK
                         }
                     })
                 }, callbackError: { (statusCode, data) in
-                    callbackError(statusCode, data)
+                    if NavitiaSDKPartnersReturnCode(rawValue: statusCode) != nil {
+                        
+                        callbackError(statusCode, NavitiaSDKPartnersReturnCode(rawValue: statusCode)?.getError())
+                    } else {
+                        
+                        callbackError(NavitiaSDKPartnersReturnCode.internalServerError.getCode(), NavitiaSDKPartnersReturnCode.internalServerError.getError())
+                    }
                 })
             }, callbackError: { (statusCode, data) in
-                callbackError(statusCode, data)
+                if NavitiaSDKPartnersReturnCode(rawValue: statusCode) != nil {
+                    
+                    callbackError(statusCode, NavitiaSDKPartnersReturnCode(rawValue: statusCode)?.getError())
+                } else {
+                    
+                    callbackError(NavitiaSDKPartnersReturnCode.internalServerError.getCode(), NavitiaSDKPartnersReturnCode.internalServerError.getError())
+                }
             })
         }
     }
@@ -261,7 +279,13 @@ import JustRideSDK
                                     }
                                 })
             }, callbackError: { (statusCode, data) in
-                callbackError(statusCode, data)
+                if NavitiaSDKPartnersReturnCode(rawValue: statusCode) != nil {
+                    
+                    callbackError(statusCode, NavitiaSDKPartnersReturnCode(rawValue: statusCode)?.getError())
+                } else {
+                    
+                    callbackError(NavitiaSDKPartnersReturnCode.internalServerError.getCode(), NavitiaSDKPartnersReturnCode.internalServerError.getError())
+                }
             })
         } else {
             NavitiaSDKPartners.shared.createAccount(callbackSuccess: {
@@ -283,10 +307,22 @@ import JustRideSDK
                         }
                     })
                 }, callbackError: { (statusCode, data) in
-                    callbackError(statusCode, data)
+                    if NavitiaSDKPartnersReturnCode(rawValue: statusCode) != nil {
+                        
+                        callbackError(statusCode, NavitiaSDKPartnersReturnCode(rawValue: statusCode)?.getError())
+                    } else {
+                        
+                        callbackError(NavitiaSDKPartnersReturnCode.internalServerError.getCode(), NavitiaSDKPartnersReturnCode.internalServerError.getError())
+                    }
                 })
             }, callbackError: { (statusCode, data) in
-                callbackError(statusCode, data)
+                if NavitiaSDKPartnersReturnCode(rawValue: statusCode) != nil {
+                    
+                    callbackError(statusCode, NavitiaSDKPartnersReturnCode(rawValue: statusCode)?.getError())
+                } else {
+                    
+                    callbackError(NavitiaSDKPartnersReturnCode.internalServerError.getCode(), NavitiaSDKPartnersReturnCode.internalServerError.getError())
+                }
             })
         }
     }

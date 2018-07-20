@@ -32,6 +32,7 @@
     case maximumAmountReached = 9022 // Cart total is too big at validation time
     case masabiAuthenticateError = 9023 // Masabi authenticate error
     case failedToMigrate = 9024 // fail on migration
+    case internalServerError = 9025 // error on api call/not handle
 
     public static let all: [String: Int] = [
         "notLogged" : notLogged.rawValue,
@@ -57,7 +58,8 @@
         "paymentTimeOut" : paymentTimeOut.rawValue,
         "masabiAuthenticateError" : masabiAuthenticateError.rawValue,
         "failedToMigrate" : failedToMigrate.rawValue,
-        "maximumAmountReached" : maximumAmountReached.rawValue
+        "maximumAmountReached" : maximumAmountReached.rawValue,
+        "internalServerError" : internalServerError.rawValue
     ]
     
     func getError() -> [String: Any] {
@@ -134,6 +136,9 @@
             break
         case .failedToMigrate:
             error["error"] = "Failed to migrate"
+            break
+        case .internalServerError:
+            error["error"] = "Internal server error"
             break
         }
         return error

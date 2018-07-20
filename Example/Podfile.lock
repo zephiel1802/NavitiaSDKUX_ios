@@ -1,7 +1,7 @@
 PODS:
-  - JustRideSDK (0.4.3)
+  - JustRideSDK (0.4.4)
   - NavitiaSDKUI (1.2.1):
-    - JustRideSDK (= 0.4.3)
+    - JustRideSDK (= 0.4.4)
 
 DEPENDENCIES:
   - NavitiaSDKUI (from `../`)
@@ -11,8 +11,8 @@ EXTERNAL SOURCES:
     :path: ../
 
 SPEC CHECKSUMS:
-  JustRideSDK: 49fdf18ac965d06d07a289bac6a6a0ed0a394f7d
-  NavitiaSDKUI: 19f1091f9fd274fed050b3fc8aa3951d4146b327
+  JustRideSDK: 67963d9a51a1bb67f312bc9f9f0ecb1b41730133
+  NavitiaSDKUI: 4887413bf7013f31389969a3ffb85bca909bae0d
 
 PODFILE CHECKSUM: c0c5f2dc5ad3848e940d9fb0e2bc922541400aa2
 

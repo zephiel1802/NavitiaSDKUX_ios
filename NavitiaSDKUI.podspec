@@ -22,5 +22,5 @@ This SDK provides journey computation screens you can add to your application.
   s.ios.deployment_target = '9.0'
   s.source_files = 'NavitiaSDKUI/Framedation/**/*.{h,m,swift}', 'NavitiaSDKUI/UI/**/*.{h,m,swift}', 'NavitiaSDKUI/Lib/**/*.{h,m,swift}', 'NavitiaSDKUI/*.{h,m,swift}'
   s.resources = 'NavitiaSDKUI/Resources/**/*.*', 'NavitiaSDKUI/Storyboard/**/*.*', 'NavitiaSDKUI/UI/**/*.xib'
-  s.dependency 'JustRideSDK', '0.4.3'
+  s.dependency 'JustRideSDK', '0.4.4'
 end

@@ -157,7 +157,10 @@ import JustRideSDK
                             return
                         }
                     } else {
-                        
+                        if statusCode == NavitiaSDKPartnersReturnCode.notConnected.rawValue {
+                            completion(false, statusCode, data)
+                            return
+                        }
                         completion(false, NavitiaSDKPartnersReturnCode.notLogged.rawValue, nil)
                         return
                     }
@@ -197,6 +200,10 @@ import JustRideSDK
                         }
                     } else {
                         
+                        if statusCode == NavitiaSDKPartnersReturnCode.notConnected.rawValue {
+                            completion(false, statusCode, data)
+                            return
+                        }
                         completion(false, NavitiaSDKPartnersReturnCode.notLogged.getCode(), NavitiaSDKPartnersReturnCode.notLogged.getError())
                         return
                     }
@@ -236,7 +243,12 @@ import JustRideSDK
                             completion(success, statusCode, [:])
                         })
                     } else {
-                        completion(false, NavitiaSDKPartnersReturnCode.notLogged.getCode(), NavitiaSDKPartnersReturnCode.notLogged.getError())
+                        
+                        if statusCode == NavitiaSDKPartnersReturnCode.notConnected.rawValue {
+                            completion(false, statusCode, data)
+                        } else {
+                            completion(false, NavitiaSDKPartnersReturnCode.notLogged.getCode(), NavitiaSDKPartnersReturnCode.notLogged.getError())
+                        }
                     }
                 }
             } else {
@@ -276,7 +288,11 @@ import JustRideSDK
                             completion(success, statusCode, data)
                         }
                     } else {
-                        completion(false, NavitiaSDKPartnersReturnCode.notLogged.getCode(), NavitiaSDKPartnersReturnCode.notLogged.getError())
+                        if statusCode == NavitiaSDKPartnersReturnCode.notConnected.rawValue {
+                            completion(false, statusCode, data)
+                        } else {
+                            completion(false, NavitiaSDKPartnersReturnCode.notLogged.getCode(), NavitiaSDKPartnersReturnCode.notLogged.getError())
+                        }
                     }
                 }
             } else {
@@ -301,6 +317,7 @@ import JustRideSDK
         if _refreshToken.isEmpty {
             
             print("NavitiaSDKPartners/refreshToken : error")
+
             completion(false, NavitiaSDKPartnersReturnCode.notLogged.getCode(), NavitiaSDKPartnersReturnCode.notLogged.getError())
             return
         }
@@ -321,6 +338,10 @@ import JustRideSDK
                     completion(true, 200, nil)
                 }, callbackError: { (statusCode, data) in
                     
+                    if statusCode == NavitiaSDKPartnersReturnCode.notConnected.rawValue {
+                        completion(false, statusCode, data)
+                        return
+                    }
                     completion(false, NavitiaSDKPartnersReturnCode.notLogged.getCode(), NavitiaSDKPartnersReturnCode.notLogged.getError())
                     return
                 })
@@ -423,7 +444,13 @@ import JustRideSDK
                         callbackSuccess()
                     }
                 }, callbackError: { (statusCode, data) in
-                    callbackError(statusCode, data)
+                    if NavitiaSDKPartnersReturnCode(rawValue: statusCode) != nil {
+                        
+                        callbackError(statusCode, NavitiaSDKPartnersReturnCode(rawValue: statusCode)?.getError())
+                    } else {
+                        
+                        callbackError(NavitiaSDKPartnersReturnCode.internalServerError.getCode(), NavitiaSDKPartnersReturnCode.internalServerError.getError())
+                    }
                 })
             } else {
                 
@@ -435,7 +462,13 @@ import JustRideSDK
                 }
                 
                 print("NavitiaSDKPartners/authenticate: error")
-                callbackError(statusCode, data)
+                if NavitiaSDKPartnersReturnCode(rawValue: statusCode) != nil {
+                    
+                    callbackError(statusCode, NavitiaSDKPartnersReturnCode(rawValue: statusCode)?.getError())
+                } else {
+                    
+                    callbackError(NavitiaSDKPartnersReturnCode.internalServerError.getCode(), NavitiaSDKPartnersReturnCode.internalServerError.getError())
+                }
                 return
             }
         }
@@ -480,7 +513,13 @@ import JustRideSDK
                 callbackSuccess()
                 return
             }) { (statusCode, data) in
-                callbackError(statusCode, data)
+                if NavitiaSDKPartnersReturnCode(rawValue: statusCode) != nil {
+                    
+                    callbackError(statusCode, NavitiaSDKPartnersReturnCode(rawValue: statusCode)?.getError())
+                } else {
+                    
+                    callbackError(NavitiaSDKPartnersReturnCode.internalServerError.getCode(), NavitiaSDKPartnersReturnCode.internalServerError.getError())
+                }
                 return
             }
         } else {
@@ -498,22 +537,25 @@ import JustRideSDK
                         callbackSuccess()
                     }, callbackError: { (status, data) in
                         
-                        callbackError( statusCode, data)
+                        if NavitiaSDKPartnersReturnCode(rawValue: statusCode) != nil {
+                            
+                            callbackError(statusCode, NavitiaSDKPartnersReturnCode(rawValue: statusCode)?.getError())
+                        } else {
+                            
+                            callbackError(NavitiaSDKPartnersReturnCode.internalServerError.getCode(), NavitiaSDKPartnersReturnCode.internalServerError.getError())
+                        }
                     })
                 } else {
                     
                     print("NavitiaSDKPartners/createAccount: error")
                     
-                    if data != nil {
-                        
-                        callbackError(statusCode, [ "error": (data!["reponse"]["compteRendu"]["libelleRetour"].element?.text) ?? "",
-                                                    "code" : (data!["reponse"]["compteRendu"]["codeRetour"].element?.text) ?? "" ] )
-                    } else if NavitiaSDKPartnersReturnCode(rawValue: statusCode) != nil {
+                    
+                    if NavitiaSDKPartnersReturnCode(rawValue: statusCode) != nil {
                         
                         callbackError(statusCode, NavitiaSDKPartnersReturnCode(rawValue: statusCode)?.getError())
                     } else {
                         
-                        callbackError(statusCode, nil)
+                        callbackError(NavitiaSDKPartnersReturnCode.internalServerError.getCode(), NavitiaSDKPartnersReturnCode.internalServerError.getError())
                     }
                 }
             }
@@ -529,7 +571,13 @@ import JustRideSDK
                 self.createAccount(firstName: firstName, lastName: lastName, email: email, birthdate: birthdate, password: password, courtesy: courtesy, callbackSuccess: callbackSuccess, callbackError: callbackError)
                 return
             }) { (statusCode, data) in
-                callbackError(statusCode, data)
+                if NavitiaSDKPartnersReturnCode(rawValue: statusCode) != nil {
+                    
+                    callbackError(statusCode, NavitiaSDKPartnersReturnCode(rawValue: statusCode)?.getError())
+                } else {
+                    
+                    callbackError(NavitiaSDKPartnersReturnCode.internalServerError.getCode(), NavitiaSDKPartnersReturnCode.internalServerError.getError())
+                }
                 return
             }
         } else {
@@ -571,25 +619,25 @@ import JustRideSDK
                     self.authenticate(username: email, password: password, callbackSuccess: {
                         callbackSuccess()
                     }, callbackError: { (statusCode, data) in
-                        callbackError(statusCode, data)
+                        
+                        if NavitiaSDKPartnersReturnCode(rawValue: statusCode) != nil {
+                            
+                            callbackError(statusCode, NavitiaSDKPartnersReturnCode(rawValue: statusCode)?.getError())
+                        } else {
+                            
+                            callbackError(NavitiaSDKPartnersReturnCode.internalServerError.getCode(), NavitiaSDKPartnersReturnCode.internalServerError.getError())
+                        }
                     })
                 } else {
                     
                     print("NavitiaSDKPartners/createAccount: error")
                     
-                    if data != nil {
-                        if ((data!["reponse"]["compteRendu"]["codeRetour"].element?.text) ?? "") == "0003" {
-                            callbackError(NavitiaSDKPartnersReturnCode.infoAlreadyUsed.getCode(), NavitiaSDKPartnersReturnCode.infoAlreadyUsed.getError())
-                            return
-                        }
-                        callbackError(statusCode, [ "error": (data!["reponse"]["compteRendu"]["libelleRetour"].element?.text) ?? "",
-                                                    "code" : (data!["reponse"]["compteRendu"]["codeRetour"].element?.text) ?? "" ] )
+                    if data != nil && ((data!["reponse"]["compteRendu"]["codeRetour"].element?.text) ?? "") == "0003" {
+                        callbackError(NavitiaSDKPartnersReturnCode.infoAlreadyUsed.getCode(), NavitiaSDKPartnersReturnCode.infoAlreadyUsed.getError())
                     } else if NavitiaSDKPartnersReturnCode(rawValue: statusCode) != nil {
-                        
                         callbackError(statusCode, NavitiaSDKPartnersReturnCode(rawValue: statusCode)?.getError())
                     } else {
-                        
-                        callbackError(statusCode, nil)
+                        callbackError(NavitiaSDKPartnersReturnCode.internalServerError.getCode(), NavitiaSDKPartnersReturnCode.internalServerError.getError())
                     }
                 }
             }
@@ -631,16 +679,10 @@ import JustRideSDK
                 
                 print("NavitiaSDKPartners/transformAccount: error")
                 
-                if data != nil {
-                    
-                    callbackError(statusCode, [ "error": (data!["reponse"]["compteRendu"]["libelleRetour"].element?.text) ?? "",
-                                                "code" : (data!["reponse"]["compteRendu"]["codeRetour"].element?.text) ?? "" ] )
-                } else if NavitiaSDKPartnersReturnCode(rawValue: statusCode) != nil {
-                    
+                if NavitiaSDKPartnersReturnCode(rawValue: statusCode) != nil {
                     callbackError(statusCode, NavitiaSDKPartnersReturnCode(rawValue: statusCode)?.getError())
                 } else {
-                    
-                    callbackError(statusCode, nil)
+                    callbackError(NavitiaSDKPartnersReturnCode.internalServerError.getCode(), NavitiaSDKPartnersReturnCode.internalServerError.getError())
                 }
             }
         }
@@ -675,11 +717,9 @@ import JustRideSDK
                     callbackError(statusCode, [ "error": (data!["reponse"]["compteRendu"]["libelleRetour"].element?.text) ?? "",
                                                 "code" : (data!["reponse"]["compteRendu"]["codeRetour"].element?.text) ?? "" ] )
                 } else if NavitiaSDKPartnersReturnCode(rawValue: statusCode) != nil {
-                    
                     callbackError(statusCode, NavitiaSDKPartnersReturnCode(rawValue: statusCode)?.getError())
                 } else {
-                    
-                    callbackError(statusCode, nil)
+                    callbackError(NavitiaSDKPartnersReturnCode.internalServerError.getCode(), NavitiaSDKPartnersReturnCode.internalServerError.getError())
                 }
             }
         }
@@ -714,20 +754,13 @@ import JustRideSDK
                 
                 print("NavitiaSDKPartners/resetPassword: error")
                 
-                if data != nil {
-                    if ((data!["reponse"]["compteRendu"]["codeRetour"].element?.text) ?? "") == "0003" {
-                        let error = NavitiaSDKPartnersReturnCode.notMatchingAccount
-                        callbackError(error.getCode(), error.getError())
-                    } else {
-                        callbackError(statusCode, [ "error": (data!["reponse"]["compteRendu"]["libelleRetour"].element?.text) ?? "",
-                                                    "code" : (data!["reponse"]["compteRendu"]["codeRetour"].element?.text) ?? "" ] )
-                    }
+                if data != nil && ((data!["reponse"]["compteRendu"]["codeRetour"].element?.text) ?? "") == "0003" {
+                    let error = NavitiaSDKPartnersReturnCode.notMatchingAccount
+                    callbackError(error.getCode(), error.getError())
                 } else if NavitiaSDKPartnersReturnCode(rawValue: statusCode) != nil {
-                    
                     callbackError(statusCode, NavitiaSDKPartnersReturnCode(rawValue: statusCode)?.getError())
                 } else {
-                    
-                    callbackError(statusCode, nil)
+                    callbackError(NavitiaSDKPartnersReturnCode.internalServerError.getCode(), NavitiaSDKPartnersReturnCode.internalServerError.getError())
                 }
             }
         }
@@ -748,7 +781,13 @@ import JustRideSDK
                 callbackSuccess()
             } else {
                 print("NavitiaSDKPartners/updatePassword: error")
-                callbackError( statusCode, data )
+                if NavitiaSDKPartnersReturnCode(rawValue: statusCode) != nil {
+                    
+                    callbackError(statusCode, NavitiaSDKPartnersReturnCode(rawValue: statusCode)?.getError())
+                } else {
+                    
+                    callbackError(NavitiaSDKPartnersReturnCode.internalServerError.getCode(), NavitiaSDKPartnersReturnCode.internalServerError.getError())
+                }
             }
         }
     }
@@ -776,7 +815,11 @@ import JustRideSDK
                 callbackSuccess(self.userInfo)
             } else {
                 print("NavitiaSDKPartners/getUserInfo: error")
-                callbackError(statusCode, data)
+                if NavitiaSDKPartnersReturnCode(rawValue: statusCode) != nil {
+                    callbackError(statusCode, NavitiaSDKPartnersReturnCode(rawValue: statusCode)?.getError())
+                } else {
+                    callbackError(NavitiaSDKPartnersReturnCode.internalServerError.getCode(), NavitiaSDKPartnersReturnCode.internalServerError.getError())
+                }
             }
         }
     }
@@ -793,7 +836,11 @@ import JustRideSDK
                         callbackSuccess()
                     } else {
                         print("NavitiaSDKPartners/updateInfo : error")
-                        callbackError(statusCode, data)
+                        if NavitiaSDKPartnersReturnCode(rawValue: statusCode) != nil {
+                            callbackError(statusCode, NavitiaSDKPartnersReturnCode(rawValue: statusCode)?.getError())
+                        } else {
+                            callbackError(NavitiaSDKPartnersReturnCode.internalServerError.getCode(), NavitiaSDKPartnersReturnCode.internalServerError.getError())
+                        }
                     }
                 } else {
                     if !(email.isEmpty) {
@@ -805,7 +852,13 @@ import JustRideSDK
                                 callbackSuccess()
                             } else {
                                 print("NavitiaSDKPartners/updateInfo : error")
-                                callbackError(statusCode, data)
+                                if NavitiaSDKPartnersReturnCode(rawValue: statusCode) != nil {
+                                    
+                                    callbackError(statusCode, NavitiaSDKPartnersReturnCode(rawValue: statusCode)?.getError())
+                                } else {
+                                    
+                                    callbackError(NavitiaSDKPartnersReturnCode.internalServerError.getCode(), NavitiaSDKPartnersReturnCode.internalServerError.getError())
+                                }
                             }
                         })
                     }
@@ -822,7 +875,13 @@ import JustRideSDK
                     } else {
                         
                         print("NavitiaSDKPartners/updateInfo : error")
-                        callbackError(statusCode, data)
+                        if NavitiaSDKPartnersReturnCode(rawValue: statusCode) != nil {
+                            
+                            callbackError(statusCode, NavitiaSDKPartnersReturnCode(rawValue: statusCode)?.getError())
+                        } else {
+                            
+                            callbackError(NavitiaSDKPartnersReturnCode.internalServerError.getCode(), NavitiaSDKPartnersReturnCode.internalServerError.getError())
+                        }
                     }
                 })
             }
@@ -839,16 +898,12 @@ import JustRideSDK
             } else {
                 print("NavitiaSDKPartners/sendActivationEmail: error")
                 
-                if data != nil {
-                    
-                    callbackError(statusCode, [ "error": (data!["reponse"]["compteRendu"]["libelleRetour"].element?.text) ?? "",
-                                                "code" : (data!["reponse"]["compteRendu"]["codeRetour"].element?.text) ?? "" ] )
-                } else if NavitiaSDKPartnersReturnCode(rawValue: statusCode) != nil {
+                if NavitiaSDKPartnersReturnCode(rawValue: statusCode) != nil {
                     
                     callbackError(statusCode, NavitiaSDKPartnersReturnCode(rawValue: statusCode)?.getError())
                 } else {
                     
-                    callbackError(statusCode, nil)
+                    callbackError(NavitiaSDKPartnersReturnCode.internalServerError.getCode(), NavitiaSDKPartnersReturnCode.internalServerError.getError())
                 }
             }
         }

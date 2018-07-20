@@ -8,7 +8,7 @@ target 'NavitiaSDKUI' do
   use_frameworks!
 
   # Pods for NavitiaSDKUI
-  pod 'JustRideSDK', '0.4.3'
+  pod 'JustRideSDK', '0.4.4'
 
   target 'NavitiaSDKUITests' do
     inherit! :search_paths
