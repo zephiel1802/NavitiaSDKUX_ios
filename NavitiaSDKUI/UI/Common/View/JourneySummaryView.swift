@@ -87,7 +87,8 @@ class JourneySummaryView: UIView {
             section.type != .bssRent &&
             section.type != .bssPutBack &&
             section.type != .park &&
-            section.type != .alighting) {
+            section.type != .alighting &&
+            section.type != .crowFly) {
             return true
         }
         return false
