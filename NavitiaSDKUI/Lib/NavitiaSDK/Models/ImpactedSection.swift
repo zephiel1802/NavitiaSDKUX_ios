@@ -9,7 +9,7 @@ import Foundation
 
 open class ImpactedSection: JSONEncodable, Mappable {
 
-    public var routes: Route?
+    public var routes: [Route]?
     public var to: PtObject?
     public var from: PtObject?
 

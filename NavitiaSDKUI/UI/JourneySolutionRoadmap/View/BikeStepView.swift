@@ -75,7 +75,7 @@ class BikeStepView: UIView {
             .normal(" ", size: 15)
             .bold(origin, size: 15)
             .normal(" ", size: 15)
-            .normal("in_the_direction_of".localized(withComment: "in_the_direction_of", bundle: NavitiaSDKUI.shared.bundle), size: 15)
+            .normal("to".localized(withComment: "to", bundle: NavitiaSDKUI.shared.bundle), size: 15)
             .normal(" ", size: 15)
             .bold(destination, size: 15)
         setHeight()

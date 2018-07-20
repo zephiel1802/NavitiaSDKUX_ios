@@ -12,7 +12,7 @@ class JourneySummaryView: UIView {
     @IBOutlet weak var _view: UIView!
     @IBOutlet weak var _stackView: UIStackView!
     
-    var disruption: [Disruption]?
+    var disruptions: [Disruption]?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -40,27 +40,23 @@ class JourneySummaryView: UIView {
                 }
             }
         }
+        
         for section in sections {
             if validDisplaySection(section) {
                 if let duration = section.duration {
-                    if section.mode == ModeTransport.walking.rawValue && duration <= 180 {
+                    if section.mode == .walking && duration <= 180 {
                         continue
                     }
+                    
                     let journeySummaryPartView = JourneySummaryPartView()
                     journeySummaryPartView.color = section.displayInformations?.color?.toUIColor() ?? UIColor.black
                     journeySummaryPartView.name = section.displayInformations?.label
                     journeySummaryPartView.icon = Modes().getModeIcon(section: section)
-                    if let links = section.displayInformations?.links {
-                        for link in links {
-                            if let type = link.type, let id = link.id, let disruption = disruption {
-                                if type == "disruption" {
-                                    for i in disruption {
-                                        if i.id == id {
-                                            journeySummaryPartView.displayDisruption(Disruption.getIconName(of: i.level), color: i.severity?.color)
-                                        }
-                                    }
-                                }
-                            }
+                    if section.type == .publicTransport, let disruptions = disruptions, disruptions.count > 0 {
+                        let sectionDisruptions = section.disruptions(disruptions: disruptions)
+                        if sectionDisruptions.count > 0 {
+                            let highestDisruption = Disruption.highestLevelDisruption(disruptions: sectionDisruptions)
+                            journeySummaryPartView.displayDisruption(Disruption.iconName(of: highestDisruption.level), color: highestDisruption.color)
                         }
                     }
                     journeySummaryPartView.width = widthJourneySummaryPartView(sectionCount: sectionCount,
@@ -84,12 +80,15 @@ class JourneySummaryView: UIView {
     }
     
     private func validDisplaySection(_ section: Section) -> Bool {
-        if (section.type == TypeTransport.streetNetwork.rawValue && section.mode == ModeTransport.walking.rawValue) ||
-           (section.type != TypeTransport.transfer.rawValue &&
-            section.type != TypeTransport.waiting.rawValue &&
-            section.type != TypeTransport.leaveParking.rawValue &&
-            section.type != TypeTransport.bssRent.rawValue &&
-            section.type != TypeTransport.bssPutBack.rawValue) {
+        if (section.type == .streetNetwork && (section.mode == .walking || section.mode == .car || section.mode == .bike)) ||
+           (section.type != .transfer &&
+            section.type != .waiting &&
+            section.type != .leaveParking &&
+            section.type != .bssRent &&
+            section.type != .bssPutBack &&
+            section.type != .park &&
+            section.type != .alighting &&
+            section.type != .crowFly) {
             return true
         }
         return false
@@ -97,16 +96,17 @@ class JourneySummaryView: UIView {
     
     private func widthJourneySummaryPartView(sectionCount: Double, allDurationSections: Int32, duration: Int32, journeySummaryPartView: JourneySummaryPartView) -> Double {
         var priority = 65.0
-        var minValue = 50.0
+        var minValue = 75.0
         if var widthPart = journeySummaryPartView._tagTransportLabel.attributedText?.boundingRect(with: CGSize(width: frame.size.width - 60, height: 0), options: .usesLineFragmentOrigin, context: nil).width {
             if !journeySummaryPartView._circleLabel.isHidden {
                 widthPart += 14
             }
             if !journeySummaryPartView._tagTransportView.isHidden {
-                minValue = Double(widthPart + 25)
+                minValue = Double(widthPart + 75)
                 priority = 100
             }
         }
+        
         return max(minValue, Double(duration) * sectionCount * priority / Double(allDurationSections))
     }
 

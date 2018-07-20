@@ -50,7 +50,7 @@ class JourneySolutionCollectionViewCell: UICollectionViewCell {
             }
         }
         if let sections = journey.sections {
-            journeySummaryView.disruption = disruptions
+            journeySummaryView.disruptions = disruptions
             journeySummaryView.addSections(sections)
         }
     }

@@ -22,7 +22,10 @@ extension String {
         return dateFormatter.date(from: self)
     }
     
-    func toUIColor() -> UIColor {
+    func toUIColor(defaultColor: UIColor = UIColor.gray) -> UIColor {
+        if self == nil {
+            return defaultColor
+        }
         var cString:String = self.trimmingCharacters(in: .whitespacesAndNewlines).uppercased()
         
         if (cString.hasPrefix("#")) {
@@ -30,7 +33,7 @@ extension String {
         }
         
         if ((cString.count) != 6) {
-            return UIColor.gray
+            return defaultColor
         }
         
         var rgbValue:UInt32 = 0
@@ -46,6 +49,18 @@ extension String {
     
     func localized(withComment: String = "", bundle: Bundle) -> String {
         return NSLocalizedString(self, bundle: NavitiaSDKUI.shared.bundle, value: "", comment: withComment)
+    }
+    
+    var htmlToAttributedString: NSAttributedString? {
+        guard let data = data(using: .utf8) else {
+            return NSAttributedString()
+        }
+        
+        do {
+            return try NSAttributedString(data: data, options: [.documentType: NSAttributedString.DocumentType.html, .characterEncoding:String.Encoding.utf8.rawValue], documentAttributes: nil)
+        } catch {
+            return NSAttributedString()
+        }
     }
     
 }
