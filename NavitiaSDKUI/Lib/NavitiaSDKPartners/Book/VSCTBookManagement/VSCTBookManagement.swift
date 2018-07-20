@@ -108,7 +108,13 @@ import Foundation
                 callbackSuccess()
             } else {
                 print("NavitiaSDKPartners/openSession : error")
-                callbackError(statusCode, data)
+                if NavitiaSDKPartnersReturnCode(rawValue: statusCode) != nil {
+                    
+                    callbackError(statusCode, NavitiaSDKPartnersReturnCode(rawValue: statusCode)?.getError())
+                } else {
+                    
+                    callbackError(NavitiaSDKPartnersReturnCode.internalServerError.getCode(), NavitiaSDKPartnersReturnCode.internalServerError.getError())
+                }
             }
         }
     }
@@ -123,7 +129,13 @@ import Foundation
                     self.addItemsInAPI(index: index + 1, callbackSuccess: callbackSuccess, callbackError: callbackError)
                 }
             } else {
-                callbackError(statusCode, data)
+                if NavitiaSDKPartnersReturnCode(rawValue: statusCode) != nil {
+                    
+                    callbackError(statusCode, NavitiaSDKPartnersReturnCode(rawValue: statusCode)?.getError())
+                } else {
+                    
+                    callbackError(NavitiaSDKPartnersReturnCode.internalServerError.getCode(), NavitiaSDKPartnersReturnCode.internalServerError.getError())
+                }
             }
         })
     }
@@ -139,7 +151,13 @@ import Foundation
                             callbackSuccess(self.stockedOffers)
                         } else {
                             print("NavitiaSDKPartners/getOffers : error")
-                            callbackError(statusCode, data)
+                            if NavitiaSDKPartnersReturnCode(rawValue: statusCode) != nil {
+                                
+                                callbackError(statusCode, NavitiaSDKPartnersReturnCode(rawValue: statusCode)?.getError())
+                            } else {
+                                
+                                callbackError(NavitiaSDKPartnersReturnCode.internalServerError.getCode(), NavitiaSDKPartnersReturnCode.internalServerError.getError())
+                            }
                         }
                     }
                 }, callbackError: { (statusCode, data) in
@@ -152,14 +170,32 @@ import Foundation
                                     callbackSuccess(self.stockedOffers)
                                 } else {
                                     print("NavitiaSDKPartners/getOffers : error")
-                                    callbackError(statusCode, data)
+                                    if NavitiaSDKPartnersReturnCode(rawValue: statusCode) != nil {
+                                        
+                                        callbackError(statusCode, NavitiaSDKPartnersReturnCode(rawValue: statusCode)?.getError())
+                                    } else {
+                                        
+                                        callbackError(NavitiaSDKPartnersReturnCode.internalServerError.getCode(), NavitiaSDKPartnersReturnCode.internalServerError.getError())
+                                    }
                                 }
                             }
                         }, callbackError: { (statusCode, data) in
-                            callbackError(statusCode, data)
+                            if NavitiaSDKPartnersReturnCode(rawValue: statusCode) != nil {
+                                
+                                callbackError(statusCode, NavitiaSDKPartnersReturnCode(rawValue: statusCode)?.getError())
+                            } else {
+                                
+                                callbackError(NavitiaSDKPartnersReturnCode.internalServerError.getCode(), NavitiaSDKPartnersReturnCode.internalServerError.getError())
+                            }
                         })
                     }, callbackError: { (statusCode, data) in
-                        callbackError(statusCode, data)
+                        if NavitiaSDKPartnersReturnCode(rawValue: statusCode) != nil {
+                            
+                            callbackError(statusCode, NavitiaSDKPartnersReturnCode(rawValue: statusCode)?.getError())
+                        } else {
+                            
+                            callbackError(NavitiaSDKPartnersReturnCode.internalServerError.getCode(), NavitiaSDKPartnersReturnCode.internalServerError.getError())
+                        }
                     })
                 })
         } else {
@@ -173,16 +209,34 @@ import Foundation
                             callbackSuccess(self.stockedOffers)
                         } else {
                             print("NavitiaSDKPartners/getOffers : error")
-                            callbackError(statusCode, data)
+                            if NavitiaSDKPartnersReturnCode(rawValue: statusCode) != nil {
+                                
+                                callbackError(statusCode, NavitiaSDKPartnersReturnCode(rawValue: statusCode)?.getError())
+                            } else {
+                                
+                                callbackError(NavitiaSDKPartnersReturnCode.internalServerError.getCode(), NavitiaSDKPartnersReturnCode.internalServerError.getError())
+                            }
                         }
                     }
                 }, callbackError: { (statusCode, data) in
                     print("NavitiaSDKPartners/getOffers : error")
-                    callbackError(statusCode, data)
+                    if NavitiaSDKPartnersReturnCode(rawValue: statusCode) != nil {
+                        
+                        callbackError(statusCode, NavitiaSDKPartnersReturnCode(rawValue: statusCode)?.getError())
+                    } else {
+                        
+                        callbackError(NavitiaSDKPartnersReturnCode.internalServerError.getCode(), NavitiaSDKPartnersReturnCode.internalServerError.getError())
+                    }
                 })
             }, callbackError: { (statusCode, data) in
                 print("NavitiaSDKPartners/getOffers : error")
-                callbackError(statusCode, data)
+                if NavitiaSDKPartnersReturnCode(rawValue: statusCode) != nil {
+                    
+                    callbackError(statusCode, NavitiaSDKPartnersReturnCode(rawValue: statusCode)?.getError())
+                } else {
+                    
+                    callbackError(NavitiaSDKPartnersReturnCode.internalServerError.getCode(), NavitiaSDKPartnersReturnCode.internalServerError.getError())
+                }
             })
         }
     }
@@ -197,7 +251,13 @@ import Foundation
             callbackSuccess(offersArray.filter { ($0 as! VSCTBookOffer).type == offerType })
         }) { (statusCode, data) in
             
-            callbackError(statusCode, data)
+            if NavitiaSDKPartnersReturnCode(rawValue: statusCode) != nil {
+                
+                callbackError(statusCode, NavitiaSDKPartnersReturnCode(rawValue: statusCode)?.getError())
+            } else {
+                
+                callbackError(NavitiaSDKPartnersReturnCode.internalServerError.getCode(), NavitiaSDKPartnersReturnCode.internalServerError.getError())
+            }
         }
     }
     
@@ -338,7 +398,13 @@ import Foundation
                                 if success {
                                     callbackSuccess(self.cart)
                                 } else {
-                                    callbackError(statusCode, data)
+                                    if NavitiaSDKPartnersReturnCode(rawValue: statusCode) != nil {
+                                        
+                                        callbackError(statusCode, NavitiaSDKPartnersReturnCode(rawValue: statusCode)?.getError())
+                                    } else {
+                                        
+                                        callbackError(NavitiaSDKPartnersReturnCode.internalServerError.getCode(), NavitiaSDKPartnersReturnCode.internalServerError.getError())
+                                    }
                                 }
                             })
                         }, callbackError: {(statusCode, data) in
@@ -349,20 +415,45 @@ import Foundation
                                 error = NavitiaSDKPartnersReturnCode.maximumAmountReached
                                 callbackError(error.getCode(), error.getError())
                             } else {
-                                callbackError(statusCode, data)
+                                if NavitiaSDKPartnersReturnCode(rawValue: statusCode) != nil {
+                                    
+                                    callbackError(statusCode, NavitiaSDKPartnersReturnCode(rawValue: statusCode)?.getError())
+                                } else {
+                                    
+                                    callbackError(NavitiaSDKPartnersReturnCode.internalServerError.getCode(), NavitiaSDKPartnersReturnCode.internalServerError.getError())
+                                }
                             }
                         })
                     } else {
                         
                         print("NavitiaSDKPartners/createBasket : error")
-                        callbackError(statusCode, data)
+                        if NavitiaSDKPartnersReturnCode(rawValue: statusCode) != nil {
+                            
+                            callbackError(statusCode, NavitiaSDKPartnersReturnCode(rawValue: statusCode)?.getError())
+                        } else {
+                            
+                            callbackError(NavitiaSDKPartnersReturnCode.internalServerError.getCode(), NavitiaSDKPartnersReturnCode.internalServerError.getError())
+                        }
                     }
                 }
             }, callbackError: { (statusCode, data) in
-                callbackError(statusCode, data)
+                if NavitiaSDKPartnersReturnCode(rawValue: statusCode) != nil {
+                    
+                    callbackError(statusCode, NavitiaSDKPartnersReturnCode(rawValue: statusCode)?.getError())
+                } else {
+                    
+                    callbackError(NavitiaSDKPartnersReturnCode.internalServerError.getCode(), NavitiaSDKPartnersReturnCode.internalServerError.getError())
+                }
             })
         }, callbackError: { (statusCode, data) in
-            callbackError(statusCode, data)
+            
+            if NavitiaSDKPartnersReturnCode(rawValue: statusCode) != nil {
+                
+                callbackError(statusCode, NavitiaSDKPartnersReturnCode(rawValue: statusCode)?.getError())
+            } else {
+                
+                callbackError(NavitiaSDKPartnersReturnCode.internalServerError.getCode(), NavitiaSDKPartnersReturnCode.internalServerError.getError())
+            }
         })
 
     }
@@ -414,7 +505,13 @@ import Foundation
                         callbackSuccess(self.customPaymentMeanHTML(htmlCode: data!["paymentMeans"] as! String, color: color))
                     } else {
                         print("NavitiaSDKPartners/launchPayment : error")
-                        callbackError(statusCode, data)
+                        if NavitiaSDKPartnersReturnCode(rawValue: statusCode) != nil {
+                            
+                            callbackError(statusCode, NavitiaSDKPartnersReturnCode(rawValue: statusCode)?.getError())
+                        } else {
+                            
+                            callbackError(NavitiaSDKPartnersReturnCode.internalServerError.getCode(), NavitiaSDKPartnersReturnCode.internalServerError.getError())
+                        }
                     }
                 })
             } else {
@@ -430,7 +527,14 @@ import Foundation
                     callbackError(error.getCode(), error.getError())
                     return
                 }
-                callbackError(statusCode, data)
+                
+                if NavitiaSDKPartnersReturnCode(rawValue: statusCode) != nil {
+                    
+                    callbackError(statusCode, NavitiaSDKPartnersReturnCode(rawValue: statusCode)?.getError())
+                } else {
+                    
+                    callbackError(NavitiaSDKPartnersReturnCode.internalServerError.getCode(), NavitiaSDKPartnersReturnCode.internalServerError.getError())
+                }
             }
         }
     }
