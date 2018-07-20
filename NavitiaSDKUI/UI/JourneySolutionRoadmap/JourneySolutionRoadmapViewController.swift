@@ -317,29 +317,27 @@ extension JourneySolutionRoadmapViewController {
         }
         
         for (index , section) in sections.enumerated() {
-            if _drawRidesharingSection(section: section) {
-                break
-            }
-            
-            var sectionPolylineCoordinates = [CLLocationCoordinate2D]()
-            if section.type == .crowFly && ((index - 1 >= 0 && sections[index-1].type == .ridesharing) || (index + 1 < sections.count - 1 && sections[index+1].type == .ridesharing)) {
-                if let departureCrowflyCoords = _getCrowFlyCoordinates(targetPlace: section.from), let latitude = departureCrowflyCoords.lat, let lat = Double(latitude), let longitude = departureCrowflyCoords.lon, let lon = Double(longitude) {
-                    sectionPolylineCoordinates.append(CLLocationCoordinate2DMake(lat, lon))
-                }
-                
-                if let arrivalCrowflyCoords = _getCrowFlyCoordinates(targetPlace: section.to), let latitude = arrivalCrowflyCoords.lat, let lat = Double(latitude), let longitude = arrivalCrowflyCoords.lon, let lon = Double(longitude) {
-                    sectionPolylineCoordinates.append(CLLocationCoordinate2DMake(lat, lon))
-                }
-            } else if let coordinates = section.geojson?.coordinates {
-                for (_, coordinate) in coordinates.enumerated() {
-                    if coordinate.count > 1 {
-                        sectionPolylineCoordinates.append(CLLocationCoordinate2DMake(Double(coordinate[1]), Double(coordinate[0])))
+            if !_drawRidesharingSection(section: section) {
+                var sectionPolylineCoordinates = [CLLocationCoordinate2D]()
+                if section.type == .crowFly && ((index - 1 >= 0 && sections[index-1].type == .ridesharing) || (index + 1 < sections.count - 1 && sections[index+1].type == .ridesharing)) {
+                    if let departureCrowflyCoords = _getCrowFlyCoordinates(targetPlace: section.from), let latitude = departureCrowflyCoords.lat, let lat = Double(latitude), let longitude = departureCrowflyCoords.lon, let lon = Double(longitude) {
+                        sectionPolylineCoordinates.append(CLLocationCoordinate2DMake(lat, lon))
+                    }
+                    
+                    if let arrivalCrowflyCoords = _getCrowFlyCoordinates(targetPlace: section.to), let latitude = arrivalCrowflyCoords.lat, let lat = Double(latitude), let longitude = arrivalCrowflyCoords.lon, let lon = Double(longitude) {
+                        sectionPolylineCoordinates.append(CLLocationCoordinate2DMake(lat, lon))
+                    }
+                } else if let coordinates = section.geojson?.coordinates {
+                    for (_, coordinate) in coordinates.enumerated() {
+                        if coordinate.count > 1 {
+                            sectionPolylineCoordinates.append(CLLocationCoordinate2DMake(Double(coordinate[1]), Double(coordinate[0])))
+                        }
                     }
                 }
+                
+                _addSectionCircle(section: section)
+                _addSectionPolyline(sectionPolylineCoordinates: sectionPolylineCoordinates, section: section)
             }
-            
-            _addSectionCircle(section: section)
-            _addSectionPolyline(sectionPolylineCoordinates: sectionPolylineCoordinates, section: section)
         }
     }
     
