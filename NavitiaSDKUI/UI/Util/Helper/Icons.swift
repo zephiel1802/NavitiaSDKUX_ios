@@ -60,6 +60,7 @@ let iconFontCodes:[String: String] = [
     "realtime": "\u{ea1f}",
     "stop": "\u{ea21}",
     "localtrain": "\u{ea23}",
+    "train": "\u{ea23}",
     "rapidtransit": "\u{ea23}",
     "longdistancetrain": "\u{ea23}",
     "tramway": "\u{ea24}",
