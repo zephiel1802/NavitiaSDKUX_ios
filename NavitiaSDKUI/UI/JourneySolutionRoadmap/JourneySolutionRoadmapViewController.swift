@@ -166,16 +166,19 @@ open class JourneySolutionRoadmapViewController: UIViewController {
     }
     
     private func _displayTransferStep(_ section: Section) {
-        let view = TransferStepView(frame: CGRect(x: 0, y: 0, width: composentWidth, height: 50))
+        let view = GenericStepView(frame: CGRect(x: 0, y: 0, width: composentWidth, height: 50))
         view.modeString = Modes().getModeIcon(section: section)
         view.time = section.duration?.minuteToString()
         view.direction = section.to?.name ?? ""
+        if let paths = section.path {
+            view.paths = paths
+        }
         
         _addViewInScroll(view: view)
     }
     
     private func _displayCrowFlyStep(_ section: Section) {
-        let view = TransferStepView(frame: CGRect(x: 0, y: 0, width: composentWidth, height: 50))
+        let view = GenericStepView(frame: CGRect(x: 0, y: 0, width: composentWidth, height: 50))
         view.modeString = Modes().getModeIcon(section: section)
         view.time = ""
         view.direction = section.to?.name ?? ""
