@@ -30,13 +30,9 @@ class StepByStepItemView: UIView {
         }
     }
     
-    
     override func awakeFromNib() {
         super.awakeFromNib()
         _setup()
-    }
-    
-    override func layoutSubviews() {
     }
     
     private func _setup() {

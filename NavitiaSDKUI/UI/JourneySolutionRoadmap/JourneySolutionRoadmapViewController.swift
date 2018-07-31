@@ -170,9 +170,7 @@ open class JourneySolutionRoadmapViewController: UIViewController {
         view.modeString = Modes().getModeIcon(section: section)
         view.time = section.duration?.minuteToString()
         view.direction = section.to?.name ?? ""
-        if let paths = section.path {
-            view.paths = paths
-        }
+        view.paths = section.path
         
         _addViewInScroll(view: view)
     }

@@ -51,11 +51,11 @@ class GenericStepView: UIView {
         
         if !detailsButtonHidden {
             detailsButtonContainer.sizeToFit()
-            detailsButtonContainer.frame.origin.y = timeLabel.frame.origin.y + timeLabel.frame.size.height + 10
+            detailsButtonContainer.frame.origin.y = timeLabel.frame.origin.y + timeLabel.frame.size.height
         }
         
         if directionsHidden {
-            frame.size.height = detailsButtonHidden ? timeLabel.frame.origin.y + timeLabel.frame.size.height : detailsButtonContainer.frame.origin.y + detailsButtonContainer.frame.size.height
+            frame.size.height = detailsButtonHidden ? timeLabel.frame.origin.y + timeLabel.frame.size.height + 10 : detailsButtonContainer.frame.origin.y + detailsButtonContainer.frame.size.height
         } else {
             directionsContainer.sizeToFit()
             directionsContainer.frame.origin.y = detailsButtonContainer.frame.origin.y + detailsButtonContainer.frame.size.height
@@ -82,9 +82,9 @@ class GenericStepView: UIView {
         _setupDirectionsStackView()
     }
     
-    var paths: [Path] = [] {
+    var paths: [Path]? {
         didSet {
-            if paths.count > 0 {
+            if let paths = paths, paths.count > 0 {
                 detailsButtonHidden = false
                 _updateDirectionsStack()
             }
@@ -161,12 +161,11 @@ extension GenericStepView {
         }
         set {
             if let newValue = newValue {
-                let formattedString = NSMutableAttributedString()
-                formattedString
+                directionLabel.attributedText = NSMutableAttributedString()
                     .normal("to_with_uppercase".localized(withComment: "To", bundle: NavitiaSDKUI.shared.bundle), size: 15)
                     .normal(" ", size: 15)
                     .bold(newValue, size: 15)
-                directionLabel.attributedText = formattedString
+                
                 _setHeight()
             }
         }
@@ -207,6 +206,7 @@ extension GenericStepView {
                     .normal(String(format: template, duration), size: 15)
                 timeLabel.attributedText = formattedString
             }
+            
             _setHeight()
         }
     }
@@ -222,14 +222,17 @@ extension GenericStepView {
     }
     
     private func _updateDirectionsStack() {
-        directionsContainerHeightConstraint.constant = CGFloat(paths.count) * 45
-        for path in paths {
-            let view = StepByStepItemView()
-            view.pathDirection = path.direction ?? 0
-            view.pathLength = path.length ?? 0
-            view.pathInstruction = path.name ?? ""
+        if let paths = paths {
+            directionsContainerHeightConstraint.constant = CGFloat(paths.count) * 45
             
-            directionsStackView.addArrangedSubview(view)
+            for path in paths {
+                let view = StepByStepItemView()
+                view.pathDirection = path.direction ?? 0
+                view.pathLength = path.length ?? 0
+                view.pathInstruction = path.name ?? ""
+                
+                directionsStackView.addArrangedSubview(view)
+            }
         }
     }
     
