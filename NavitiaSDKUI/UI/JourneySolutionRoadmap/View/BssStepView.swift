@@ -11,25 +11,28 @@ class BssStepView: UIView {
     
     @IBOutlet var _view: UIView!
     @IBOutlet weak var iconLabel: UILabel!
-    @IBOutlet weak var takeLabel: UILabel!
+    @IBOutlet weak var informationLabel: UILabel!
+    @IBOutlet weak var realTimeContainer: UIView!
+    @IBOutlet weak var realTimeImage: UIImageView!
+    @IBOutlet weak var realTimeLabel: UILabel!
     
     var _mode: ModeTransport?
     var type: Section.ModelType?
     
     var takeName: String = "" {
         didSet {
-            _updateTakeLabel()
+            _updateInformation()
         }
     }
 
     var origin: String = "" {
         didSet {
-            _updateTakeLabel()
+            _updateInformation()
         }
     }
     var address: String = "" {
         didSet {
-            _updateTakeLabel()
+            _updateInformation()
         }
     }
 
@@ -64,24 +67,32 @@ class BssStepView: UIView {
     }
     
     func setHeight() {
-        let takeLabelSize = takeLabel.attributedText?.boundingRect(with: CGSize(width: frame.size.width - 60, height: 9990), options: .usesLineFragmentOrigin, context: nil)
+        let takeLabelSize = informationLabel.attributedText?.boundingRect(with: CGSize(width: frame.size.width - 60, height: 9990), options: .usesLineFragmentOrigin, context: nil)
         frame.size.height = (takeLabelSize?.height)! + 20
+        
+        if realTimeContainer.isHidden {
+            let takeLabelSize = informationLabel.attributedText?.boundingRect(with: CGSize(width: frame.size.width - 60, height: 9990), options: .usesLineFragmentOrigin, context: nil)
+            frame.size.height = (takeLabelSize?.height)! + 20
+        } else {
+            let takeLabelSize = informationLabel.attributedText?.boundingRect(with: CGSize(width: frame.size.width - 60, height: 9990), options: .usesLineFragmentOrigin, context: nil)
+            frame.size.height = (takeLabelSize?.height)! + realTimeContainer.frame.size.height + 30
+        }
     }
     
-    private func _updateTakeLabel() {
+    private func _updateInformation() {
         guard let type = type else {
             return
         }
         
         if type == Section.ModelType.bssRent {
-            takeLabel.attributedText = NSMutableAttributedString()
+            informationLabel.attributedText = NSMutableAttributedString()
                 .normal(String(format: "take_a_bike_at".localized(bundle: NavitiaSDKUI.shared.bundle), takeName), size: 15)
                 .normal(" ", size: 15)
                 .bold(origin, size: 15)
                 .normal("\n", size: 15)
                 .bold(address, size: 13)
         } else if type == Section.ModelType.bssPutBack {
-            takeLabel.attributedText = NSMutableAttributedString()
+            informationLabel.attributedText = NSMutableAttributedString()
                 .normal(String(format: "dock_bike_at".localized(bundle: NavitiaSDKUI.shared.bundle), takeName), size: 15)
                 .normal(" ", size: 15)
                 .bold(origin, size: 15)
@@ -89,6 +100,31 @@ class BssStepView: UIView {
                 .bold(address, size: 13)
         }
         setHeight()
+    }
+    
+    private func _updateStands(stands: Stands?) {
+        guard let type = type, let stands = stands else {
+            return
+        }
+        
+        realTimeContainer.isHidden = false
+        
+        realTimeImage.image = UIImage(named: "real_time", in: NavitiaSDKUI.shared.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
+        realTimeImage.tintColor = Configuration.Color.main
+        
+        if type == Section.ModelType.bssRent {
+            realTimeLabel.attributedText = NSMutableAttributedString()
+                .semiBold(String(format: "bss_bikes_available".localized(bundle: NavitiaSDKUI.shared.bundle), stands.availableBikes ?? ""),
+                          color: Configuration.Color.main,
+                          size: 13)
+        } else if type == Section.ModelType.bssPutBack {
+            realTimeLabel.attributedText = NSMutableAttributedString()
+                .semiBold(String(format: "bss_spaces_available".localized(bundle: NavitiaSDKUI.shared.bundle), stands.availablePlaces ?? ""),
+                          color: Configuration.Color.main,
+                          size: 13)
+        }
+        setHeight()
+        
     }
 
 }
@@ -127,7 +163,7 @@ extension BssStepView {
             takeName = newValue?.properties?["network"] ?? ""
             origin = newValue?.name ?? ""
             address = newValue?.address?.name ?? ""
-     //       print(newValue?.name, newValue?.address?.name, newValue?.properties?["network"])
+            _updateStands(stands: newValue?.stands)
         }
     }
     

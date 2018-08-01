@@ -205,11 +205,7 @@ open class JourneySolutionRoadmapViewController: UIViewController {
         view.modeString = Modes().getModeIcon(section: section)
 
         view.type = section.type
-//        view.origin = section.from?.name ?? ""
-//        view.destination = section.to?.name ?? ""
-//        view.takeName = section.from?.poi?.properties?["network"] ?? section.to?.poi?.properties?["network"] ?? ""
         view.poi = section.from?.poi ?? section.to?.poi
-        
         
         _addViewInScroll(view: view)
     }
