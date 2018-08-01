@@ -102,7 +102,7 @@ class BssStepView: UIView {
         setHeight()
     }
     
-    private func _updateStands(stands: Stands?) {
+    public func updateStands(stands: Stands?) {
         guard let type = type, let stands = stands else {
             return
         }
@@ -163,7 +163,8 @@ extension BssStepView {
             takeName = newValue?.properties?["network"] ?? ""
             origin = newValue?.name ?? ""
             address = newValue?.address?.name ?? ""
-            _updateStands(stands: newValue?.stands)
+
+            updateStands(stands: newValue?.stands)
         }
     }
     

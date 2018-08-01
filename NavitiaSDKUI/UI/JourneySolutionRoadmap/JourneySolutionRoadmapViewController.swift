@@ -29,6 +29,8 @@ open class JourneySolutionRoadmapViewController: UIViewController {
     var disruptions: [Disruption]?
     var sectionsPolylines = [SectionPolyline]()
     
+    fileprivate var _viewModel = JourneySolutionRoadmapViewModel()
+    
     override open func viewDidLoad() {
         super.viewDidLoad()
         title = "roadmap".localized(withComment: "Roadmap", bundle: NavitiaSDKUI.shared.bundle)
@@ -38,6 +40,14 @@ open class JourneySolutionRoadmapViewController: UIViewController {
         }
         
         _setupMapView()
+    }
+    
+    override open func viewDidAppear(_ animated: Bool) {
+        _viewModel.refreshStandsBike(run: true)
+    }
+    
+    override open func viewDidDisappear(_ animated: Bool) {
+        _viewModel.refreshStandsBike(run: false)
     }
     
     override open func didReceiveMemoryWarning() {
@@ -205,7 +215,10 @@ open class JourneySolutionRoadmapViewController: UIViewController {
         view.modeString = Modes().getModeIcon(section: section)
 
         view.type = section.type
-        view.poi = section.from?.poi ?? section.to?.poi
+        if let poi = section.from?.poi ?? section.to?.poi {
+            view.poi = poi
+            _viewModel.bssPois.append(poi)
+        }
         
         _addViewInScroll(view: view)
     }
