@@ -143,6 +143,7 @@ extension PublicTransportView {
         stationStackView.distribution = .fillEqually
         stationStackView.alignment = .fill
         stationStackView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        
         stationsView.addSubview(stationStackView)
     }
     
@@ -152,6 +153,7 @@ extension PublicTransportView {
             let view = StationsView(frame: CGRect(x: 0, y: 0, width: stationsView.frame.size.width, height: 20))
             view.stationColor = transportColor
             view.stationName = station
+            
             stationStackView.addArrangedSubview(view)
         }
     }

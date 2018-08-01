@@ -7,15 +7,20 @@
 
 import UIKit
 
-class TransferStepView: UIView {
+class GenericStepView: UIView {
     
     @IBOutlet var _view: UIView!
     
     @IBOutlet weak var iconLabel: UILabel!
     @IBOutlet weak var directionLabel: UILabel!
     @IBOutlet weak var timeLabel: UILabel!
+    @IBOutlet weak var detailsButtonContainer: UIView!
+    @IBOutlet weak var detailsArrowLabel: UILabel!
+    @IBOutlet weak var directionsContainer: UIView!
+    @IBOutlet weak var directionsContainerHeightConstraint: NSLayoutConstraint!
     
     var _mode: ModeTransport?
+    var directionsStackView: UIStackView!
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -33,7 +38,6 @@ class TransferStepView: UIView {
             }
         }
     }
-
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -44,7 +48,20 @@ class TransferStepView: UIView {
         directionLabel.sizeToFit()
         timeLabel.sizeToFit()
         timeLabel.frame.origin.y = directionLabel.frame.origin.y + directionLabel.frame.size.height
-        frame.size.height = timeLabel.frame.size.height + timeLabel.frame.origin.y + 10
+        
+        if !detailsButtonHidden {
+            detailsButtonContainer.sizeToFit()
+            detailsButtonContainer.frame.origin.y = timeLabel.frame.origin.y + timeLabel.frame.size.height
+        }
+        
+        if directionsHidden {
+            frame.size.height = detailsButtonHidden ? timeLabel.frame.origin.y + timeLabel.frame.size.height + 10 : detailsButtonContainer.frame.origin.y + detailsButtonContainer.frame.size.height
+        } else {
+            directionsContainer.sizeToFit()
+            directionsContainer.frame.origin.y = detailsButtonContainer.frame.origin.y + detailsButtonContainer.frame.size.height
+            
+            frame.size.height = directionsContainer.frame.origin.y + directionsContainer.frame.size.height
+        }
     }
     
     private func _setHeight() {
@@ -54,14 +71,65 @@ class TransferStepView: UIView {
     }
 
     private func _setup() {
-        UINib(nibName: "TransferStepView", bundle: NavitiaSDKUI.shared.bundle).instantiate(withOwner: self, options: nil)
+        UINib(nibName: "GenericStepView", bundle: NavitiaSDKUI.shared.bundle).instantiate(withOwner: self, options: nil)
         _view.frame = self.bounds
         addSubview(_view)
+        
+        detailsButtonHidden = true
+        detailsArrowLabel.attributedText = NSMutableAttributedString().icon("arrow-details-down", color: Configuration.Color.gray, size: 13)
+        
+        directionsHidden = true
+        _setupDirectionsStackView()
+    }
+    
+    var paths: [Path]? {
+        didSet {
+            if let paths = paths, paths.count > 0 {
+                detailsButtonHidden = false
+                _updateDirectionsStack()
+            }
+        }
+    }
+    
+    @IBAction func manageDirectionsDisplay(_ sender: Any) {
+        directionsHidden = !directionsHidden
     }
     
 }
 
-extension TransferStepView {
+extension GenericStepView {
+    
+    var detailsButtonHidden: Bool {
+        get {
+            return detailsButtonContainer.isHidden
+        }
+        set {
+            if newValue {
+                detailsButtonContainer.isHidden = true
+                frame.size.height -= detailsButtonContainer.frame.size.height
+            } else {
+                detailsButtonContainer.isHidden = false
+                frame.size.height += detailsButtonContainer.frame.size.height
+            }
+        }
+    }
+    
+    var directionsHidden: Bool {
+        get {
+            return directionsContainer.isHidden
+        }
+        set {
+            if newValue {
+                directionsContainer.isHidden = true
+                detailsArrowLabel.attributedText = NSMutableAttributedString().icon("arrow-details-down", color: Configuration.Color.gray, size: 13)
+                frame.size.height -= directionsContainer.frame.size.height
+            } else {
+                directionsContainer.isHidden = false
+                detailsArrowLabel.attributedText = NSMutableAttributedString().icon("arrow-details-up", color: Configuration.Color.gray, size: 13)
+                frame.size.height += directionsContainer.frame.size.height
+            }
+        }
+    }
     
     var modeString: String? {
         get {
@@ -93,12 +161,11 @@ extension TransferStepView {
         }
         set {
             if let newValue = newValue {
-                let formattedString = NSMutableAttributedString()
-                formattedString
+                directionLabel.attributedText = NSMutableAttributedString()
                     .normal("to_with_uppercase".localized(withComment: "To", bundle: NavitiaSDKUI.shared.bundle), size: 15)
                     .normal(" ", size: 15)
                     .bold(newValue, size: 15)
-                directionLabel.attributedText = formattedString
+                
                 _setHeight()
             }
         }
@@ -139,7 +206,33 @@ extension TransferStepView {
                     .normal(String(format: template, duration), size: 15)
                 timeLabel.attributedText = formattedString
             }
+            
             _setHeight()
+        }
+    }
+    
+    private func _setupDirectionsStackView() {
+        directionsStackView = UIStackView(frame: directionsContainer.bounds)
+        directionsStackView.axis = .vertical
+        directionsStackView.distribution = .fillEqually
+        directionsStackView.alignment = .fill
+        directionsStackView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        
+        directionsContainer.addSubview(directionsStackView)
+    }
+    
+    private func _updateDirectionsStack() {
+        if let paths = paths {
+            directionsContainerHeightConstraint.constant = CGFloat(paths.count) * 45
+            
+            for path in paths {
+                let view = StepByStepItemView()
+                view.pathDirection = path.direction ?? 0
+                view.pathLength = path.length ?? 0
+                view.pathInstruction = path.name ?? ""
+                
+                directionsStackView.addArrangedSubview(view)
+            }
         }
     }
     

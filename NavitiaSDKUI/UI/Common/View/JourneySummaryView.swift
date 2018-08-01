@@ -91,6 +91,7 @@ class JourneySummaryView: UIView {
             section.type != .crowFly) {
             return true
         }
+        
         return false
     }
     
