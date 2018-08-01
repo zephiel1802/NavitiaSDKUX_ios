@@ -329,6 +329,7 @@ extension JourneySolutionViewController {
         public var count: Int32?
         public var minNbJourneys: Int32?
         public var maxNbJourneys: Int32?
+        public var bssStands: Bool?
     }
     
 }

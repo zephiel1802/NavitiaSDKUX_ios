@@ -49,6 +49,9 @@ class JourneySolutionViewModel: NSObject {
             if let maxNbJourneys = parameters.maxNbJourneys {
                 _ = journeyRequestBuilder.withMaxNbJourneys(maxNbJourneys)
             }
+            if let bssStands = parameters.bssStands {
+                _ = journeyRequestBuilder.withBssStands(bssStands)
+            }
             self.loading = true
             journeyRequestBuilder.get { (result, error) in
                 if let result = result {
