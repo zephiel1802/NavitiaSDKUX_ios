@@ -119,6 +119,12 @@ open class JourneySolutionRoadmapViewController: UIViewController {
                         case .crowFly:
                             _displayCrowFlyStep(section)
                             break
+                        case .bssRent:
+                            _displayBssStep(section)
+                            break
+                        case .bssPutBack:
+                            _displayBssStep(section)
+                            break
                         case .streetNetwork:
                             if let mode = section.mode {
                                 switch mode {
@@ -185,15 +191,29 @@ open class JourneySolutionRoadmapViewController: UIViewController {
     }
     
     private func _displayBikeStep(_ section: Section) {
-        let view = BikeStepView(frame: CGRect(x: 0, y: 0, width: composentWidth, height: 50))
-        view.modeString = Modes().getModeIcon(section: section)
-        view.origin = section.from?.name ?? ""
-        view.destination = section.to?.name ?? ""
-        view.takeName = section.from?.poi?.properties?["network"] ?? ""
+        let view = GenericStepView(frame: CGRect(x: 0, y: 0, width: composentWidth, height: 50))
+        view.modeString = "bike"
         view.time = section.duration?.minuteToString()
+        view.direction = section.to?.name ?? ""
+        view.paths = section.path
         
         _addViewInScroll(view: view)
     }
+    
+    private func _displayBssStep(_ section: Section) {
+        let view = BssStepView(frame: CGRect(x: 0, y: 0, width: composentWidth, height: 50))
+        view.modeString = Modes().getModeIcon(section: section)
+
+        view.type = section.type
+//        view.origin = section.from?.name ?? ""
+//        view.destination = section.to?.name ?? ""
+//        view.takeName = section.from?.poi?.properties?["network"] ?? section.to?.poi?.properties?["network"] ?? ""
+        view.poi = section.from?.poi ?? section.to?.poi
+        
+        
+        _addViewInScroll(view: view)
+    }
+    
     
     private func _displayRidesharingStep(_ section: Section) {
         let view = RidesharingStepView(frame: CGRect(x: 0, y: 0, width: composentWidth, height: 100))

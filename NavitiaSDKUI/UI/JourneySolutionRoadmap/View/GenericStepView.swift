@@ -196,6 +196,9 @@ extension GenericStepView {
                         case .bike:
                             template = "a_time_ride".localized(withComment: "A time ride", bundle: NavitiaSDKUI.shared.bundle)
                             break
+                        case .bss:
+                            template = "a_time_ride".localized(withComment: "A time ride", bundle: NavitiaSDKUI.shared.bundle)
+                            break
                         default:
                             break
                     }

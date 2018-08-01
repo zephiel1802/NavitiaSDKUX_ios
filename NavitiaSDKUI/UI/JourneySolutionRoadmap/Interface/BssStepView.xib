@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -10,17 +10,16 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="BikeStepView" customModule="NavitiaSDKUI" customModuleProvider="target">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="BssStepView" customModule="NavitiaSDKUI" customModuleProvider="target">
             <connections>
                 <outlet property="_view" destination="sCO-hX-yVi" id="08s-kE-gQQ"/>
                 <outlet property="iconLabel" destination="Kgd-ks-NWB" id="Ai2-xH-gEl"/>
                 <outlet property="takeLabel" destination="axv-WW-m9W" id="rRx-O0-yRS"/>
-                <outlet property="timeLabel" destination="Gl7-Js-vYQ" id="Z0n-Nb-Rrc"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view contentMode="scaleToFill" id="sCO-hX-yVi">
-            <rect key="frame" x="0.0" y="0.0" width="300" height="112"/>
+            <rect key="frame" x="0.0" y="0.0" width="300" height="131"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="B" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Kgd-ks-NWB">
@@ -30,36 +29,31 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="Prendrdde un vélo Vélib' à Hector Malot (Paris) vers Gare de Lyon - Parvis (Paris)" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="axv-WW-m9W">
-                    <rect key="frame" x="50" y="10" width="240" height="72.5"/>
+                    <rect key="frame" x="50" y="10" width="240" height="54"/>
                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" text="2 minutes de vélo" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gl7-Js-vYQ">
-                    <rect key="frame" x="50" y="82.5" width="240" height="19.5"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                    <nil key="textColor"/>
-                    <nil key="highlightedColor"/>
-                </label>
+                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wHP-ZW-yWp">
+                    <rect key="frame" x="50" y="72" width="240" height="40"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                </view>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
-                <constraint firstItem="Gl7-Js-vYQ" firstAttribute="top" secondItem="axv-WW-m9W" secondAttribute="bottom" id="BfV-XR-alz"/>
-                <constraint firstItem="sMM-EH-t1N" firstAttribute="bottom" secondItem="Gl7-Js-vYQ" secondAttribute="bottom" constant="10" id="Hst-62-2de"/>
                 <constraint firstItem="axv-WW-m9W" firstAttribute="leading" secondItem="sMM-EH-t1N" secondAttribute="leading" constant="50" id="IuM-OU-Swb"/>
                 <constraint firstItem="Kgd-ks-NWB" firstAttribute="top" secondItem="sMM-EH-t1N" secondAttribute="top" constant="20" id="Ofg-8q-XYo"/>
                 <constraint firstItem="axv-WW-m9W" firstAttribute="top" secondItem="sMM-EH-t1N" secondAttribute="top" constant="10" id="QZ2-cs-Bhi"/>
                 <constraint firstItem="sMM-EH-t1N" firstAttribute="trailing" secondItem="axv-WW-m9W" secondAttribute="trailing" constant="10" id="Rtv-5A-5do"/>
-                <constraint firstItem="Gl7-Js-vYQ" firstAttribute="leading" secondItem="sMM-EH-t1N" secondAttribute="leading" constant="50" id="WXL-cp-gkb"/>
                 <constraint firstItem="axv-WW-m9W" firstAttribute="leading" secondItem="Kgd-ks-NWB" secondAttribute="trailing" id="gtl-Li-bqh"/>
-                <constraint firstItem="sMM-EH-t1N" firstAttribute="trailing" secondItem="Gl7-Js-vYQ" secondAttribute="trailing" constant="10" id="jd9-H9-yZJ"/>
                 <constraint firstItem="Kgd-ks-NWB" firstAttribute="leading" secondItem="sMM-EH-t1N" secondAttribute="leading" id="xiy-f6-QoS"/>
             </constraints>
             <nil key="simulatedTopBarMetrics"/>
             <nil key="simulatedBottomBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <viewLayoutGuide key="safeArea" id="sMM-EH-t1N"/>
-            <point key="canvasLocation" x="-300" y="-226"/>
+            <point key="canvasLocation" x="-300" y="-216.5"/>
         </view>
     </objects>
 </document>
