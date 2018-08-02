@@ -7,6 +7,7 @@
 
 import UIKit
 import MapKit
+import CoreLocation
 
 open class JourneySolutionRoadmapViewController: UIViewController {
 
@@ -28,6 +29,7 @@ open class JourneySolutionRoadmapViewController: UIViewController {
     var display = false
     var disruptions: [Disruption]?
     var sectionsPolylines = [SectionPolyline]()
+    let locationManager = CLLocationManager()
     
     override open func viewDidLoad() {
         super.viewDidLoad()
@@ -37,12 +39,21 @@ open class JourneySolutionRoadmapViewController: UIViewController {
             scrollView?.contentInsetAdjustmentBehavior = .always
         }
         
+        locationManager.requestWhenInUseAuthorization()
+        
         _setupMapView()
     }
     
-    override open func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    open override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        _startUpdatingUserLocation()
+    }
+    
+    open override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        _stopUpdatingUserLocation()
     }
 
     override open func viewDidLayoutSubviews() {
@@ -66,20 +77,23 @@ open class JourneySolutionRoadmapViewController: UIViewController {
             }
             return scrollView.frame.size.width - (margeCustom * 2)
         }
+        
         if #available(iOS 11.0, *) {
             return scrollView.frame.size.width - scrollView.safeAreaInsets.left - scrollView.safeAreaInsets.right - (margin * 2)
         }
+        
         return scrollView.frame.size.width - (margin * 2)
     }
     
     private func _display() {
+        display = true
+        
         if let journey = journey {
             _displayHeader(journey)
             _displayDeparture(journey)
             _displayStep(journey)
             _displayArrival(journey)
         }
-        display = true
     }
     
     private func _displayHeader(_ journey: Journey) {
@@ -282,6 +296,8 @@ open class JourneySolutionRoadmapViewController: UIViewController {
 extension JourneySolutionRoadmapViewController {
     
     private func _setupMapView() {
+        self.mapView.showsUserLocation = true
+        
         _drawSections(journey: journey)
         
         if journey?.sections?.first?.type == Section.ModelType.crowFly {
@@ -602,6 +618,30 @@ extension JourneySolutionRoadmapViewController: AlertViewControllerProtocol {
     func onPositiveButtonClicked(_ alertViewController: AlertViewController) {
         openDeepLink()
         alertViewController.dismiss(animated: false, completion: nil)
+    }
+    
+}
+
+extension JourneySolutionRoadmapViewController: CLLocationManagerDelegate {
+    
+    public func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+        if status == CLAuthorizationStatus.authorizedWhenInUse {
+            _startUpdatingUserLocation()
+        }
+    }
+    
+    private func _startUpdatingUserLocation() {
+        if CLLocationManager.locationServicesEnabled() {
+            locationManager.delegate = self
+            locationManager.desiredAccuracy = kCLLocationAccuracyBest
+            locationManager.startUpdatingLocation()
+        }
+    }
+    
+    private func _stopUpdatingUserLocation() {
+        if CLLocationManager.locationServicesEnabled() {
+            locationManager.stopUpdatingLocation()
+        }
     }
     
 }
