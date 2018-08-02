@@ -44,10 +44,12 @@ open class JourneySolutionRoadmapViewController: UIViewController {
     
     override open func viewDidAppear(_ animated: Bool) {
         _viewModel.refreshStandsBike(run: true)
+        _animateView(run: true)
     }
     
     override open func viewDidDisappear(_ animated: Bool) {
         _viewModel.refreshStandsBike(run: false)
+        _animateView(run: false)
     }
     
     override open func didReceiveMemoryWarning() {
@@ -58,6 +60,7 @@ open class JourneySolutionRoadmapViewController: UIViewController {
     override open func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         composentWidth = _updateWidth()
+        
         if !display {
             _display()
         }
@@ -213,11 +216,11 @@ open class JourneySolutionRoadmapViewController: UIViewController {
     private func _displayBssStep(_ section: Section) {
         let view = BssStepView(frame: CGRect(x: 0, y: 0, width: composentWidth, height: 50))
         view.modeString = Modes().getModeIcon(section: section)
-
         view.type = section.type
+        
         if let poi = section.from?.poi ?? section.to?.poi {
             view.poi = poi
-            _viewModel.bssPois.append(poi)
+            
             _viewModel.bss.append((poi: poi, notify: { (poi) in
                 view.poi = poi
             }))
@@ -293,6 +296,14 @@ open class JourneySolutionRoadmapViewController: UIViewController {
                 ridesharingView.setPicture(url: sectionRidesharing.ridesharingInformations?.driver?.image)
                 ridesharingView.setNotation(sectionRidesharing.ridesharingInformations?.driver?.rating?.count)
                 ridesharingView.setFullStar(sectionRidesharing.ridesharingInformations?.driver?.rating?.value)
+            }
+        }
+    }
+    
+    private func _animateView(run: Bool) {
+        for view in viewScroll {
+            if view is BssStepView {
+                (view as! BssStepView).animateRealTime(run: run)
             }
         }
     }

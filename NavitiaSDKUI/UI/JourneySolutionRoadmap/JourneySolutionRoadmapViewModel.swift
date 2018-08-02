@@ -10,13 +10,12 @@ import UIKit
 class JourneySolutionRoadmapViewModel: NSObject {
 
     var journeySolutionRoadmapDidChange: ((JourneySolutionRoadmapViewModel) -> ())?
-
     var standBikeTime: Timer!
-    var bssPois = [Poi]()
     var bss = [(poi: Poi, notify: ((Poi) -> ()))]()
     
     func refreshStandsBike(run: Bool = true) {
         if run {
+            getStandsBike()
             standBikeTime = Timer.scheduledTimer(timeInterval: Configuration.bssTimeInterval, target: self, selector: #selector(getStandsBike), userInfo: nil, repeats: true)
         } else {
             standBikeTime.invalidate()

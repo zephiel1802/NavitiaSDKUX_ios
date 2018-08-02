@@ -50,7 +50,7 @@ class BssStepView: UIView {
         didSet {
             if let _view = _view {
                 _view.frame.size = frame.size
-                
+                setHeight()
             }
         }
     }
@@ -67,8 +67,12 @@ class BssStepView: UIView {
     }
     
     func setHeight() {
+        guard let informationLabel = informationLabel, let realTimeContainer = realTimeContainer else {
+            return
+        }
+        
         let takeLabelSize = informationLabel.attributedText?.boundingRect(with: CGSize(width: frame.size.width - 60, height: 9990), options: .usesLineFragmentOrigin, context: nil)
-        frame.size.height = (takeLabelSize?.height)! + 20
+       // frame.size.height = (takeLabelSize?.height)! + 20
         
         if realTimeContainer.isHidden {
             let takeLabelSize = informationLabel.attributedText?.boundingRect(with: CGSize(width: frame.size.width - 60, height: 9990), options: .usesLineFragmentOrigin, context: nil)
@@ -127,6 +131,16 @@ class BssStepView: UIView {
         
     }
 
+    public func animateRealTime(run: Bool = true) {
+        if run {
+            UIView.animate(withDuration: 1.0, delay: 0, options: [.repeat, .autoreverse], animations: {
+                self.realTimeImage.alpha = 0
+            }, completion: nil)
+        } else {
+            realTimeImage.layer.removeAllAnimations()
+        }
+    }
+    
 }
 
 extension BssStepView {
