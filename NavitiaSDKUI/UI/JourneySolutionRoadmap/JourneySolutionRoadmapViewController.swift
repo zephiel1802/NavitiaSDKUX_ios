@@ -9,7 +9,7 @@ import UIKit
 import MapKit
 import CoreLocation
 
-open class JourneySolutionRoadmapViewController: UIViewController, CLLocationManagerDelegate {
+open class JourneySolutionRoadmapViewController: UIViewController {
 
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var scrollView: UIScrollView!
@@ -29,7 +29,6 @@ open class JourneySolutionRoadmapViewController: UIViewController, CLLocationMan
     var display = false
     var disruptions: [Disruption]?
     var sectionsPolylines = [SectionPolyline]()
-    
     let locationManager = CLLocationManager()
     
     override open func viewDidLoad() {
@@ -41,13 +40,20 @@ open class JourneySolutionRoadmapViewController: UIViewController, CLLocationMan
         }
         
         locationManager.requestWhenInUseAuthorization()
-        if CLLocationManager.locationServicesEnabled() {
-            locationManager.delegate = self
-            locationManager.desiredAccuracy = kCLLocationAccuracyBest
-            locationManager.startUpdatingLocation()
-        }
         
         _setupMapView()
+    }
+    
+    open override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        _startUpdatingUserLocation()
+    }
+    
+    open override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        _stopUpdatingUserLocation()
     }
 
     override open func viewDidLayoutSubviews() {
@@ -291,7 +297,6 @@ extension JourneySolutionRoadmapViewController {
     
     private func _setupMapView() {
         self.mapView.showsUserLocation = true
-        self.mapView.setUserTrackingMode(MKUserTrackingMode.followWithHeading, animated: false)
         
         _drawSections(journey: journey)
         
@@ -613,6 +618,30 @@ extension JourneySolutionRoadmapViewController: AlertViewControllerProtocol {
     func onPositiveButtonClicked(_ alertViewController: AlertViewController) {
         openDeepLink()
         alertViewController.dismiss(animated: false, completion: nil)
+    }
+    
+}
+
+extension JourneySolutionRoadmapViewController: CLLocationManagerDelegate {
+    
+    public func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+        if status == CLAuthorizationStatus.authorizedWhenInUse {
+            _startUpdatingUserLocation()
+        }
+    }
+    
+    private func _startUpdatingUserLocation() {
+        if CLLocationManager.locationServicesEnabled() {
+            locationManager.delegate = self
+            locationManager.desiredAccuracy = kCLLocationAccuracyBest
+            locationManager.startUpdatingLocation()
+        }
+    }
+    
+    private func _stopUpdatingUserLocation() {
+        if CLLocationManager.locationServicesEnabled() {
+            locationManager.stopUpdatingLocation()
+        }
     }
     
 }
