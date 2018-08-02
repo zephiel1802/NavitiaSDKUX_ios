@@ -50,7 +50,6 @@ class BssStepView: UIView {
         didSet {
             if let _view = _view {
                 _view.frame.size = frame.size
-                setHeight()
             }
         }
     }
@@ -72,7 +71,7 @@ class BssStepView: UIView {
         }
         
         let takeLabelSize = informationLabel.attributedText?.boundingRect(with: CGSize(width: frame.size.width - 60, height: 9990), options: .usesLineFragmentOrigin, context: nil)
-       // frame.size.height = (takeLabelSize?.height)! + 20
+        frame.size.height = (takeLabelSize?.height)! + 20
         
         if realTimeContainer.isHidden {
             let takeLabelSize = informationLabel.attributedText?.boundingRect(with: CGSize(width: frame.size.width - 60, height: 9990), options: .usesLineFragmentOrigin, context: nil)
