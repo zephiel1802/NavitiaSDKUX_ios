@@ -76,6 +76,7 @@ let iconFontCodes:[String: String] = [
 ]
 
 class Modes {
+    
     func getModeIcon(section: Section?) -> String {
         switch section!.type! {
             case .publicTransport:
@@ -107,7 +108,7 @@ class Modes {
     
     private func getStreetNetworkMode(section: Section?) -> String {
         if section?.mode == .bike {
-            if ((section?.from?.poi?.properties!["network"]) != nil) {
+            if section?.from?.poi != nil {
                 return "bss"
             }
         }
