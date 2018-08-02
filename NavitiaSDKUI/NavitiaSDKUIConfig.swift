@@ -65,7 +65,7 @@ enum Configuration {
     static let timeRidesharing = "HH'h'mm"
     
     // TimeInterval
-    static let bssTimeInterval = TimeInterval(3)
+    static let bssTimeInterval = TimeInterval(30)
     
     // Color
     enum Color {

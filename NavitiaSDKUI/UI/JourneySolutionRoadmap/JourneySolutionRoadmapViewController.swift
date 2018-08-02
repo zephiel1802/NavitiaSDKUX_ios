@@ -218,6 +218,9 @@ open class JourneySolutionRoadmapViewController: UIViewController {
         if let poi = section.from?.poi ?? section.to?.poi {
             view.poi = poi
             _viewModel.bssPois.append(poi)
+            _viewModel.bss.append((poi: poi, notify: { (poi) in
+                view.poi = poi
+            }))
         }
         
         _addViewInScroll(view: view)
