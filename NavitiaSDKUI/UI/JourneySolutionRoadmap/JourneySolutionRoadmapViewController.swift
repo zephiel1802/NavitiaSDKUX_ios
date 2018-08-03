@@ -28,6 +28,7 @@ open class JourneySolutionRoadmapViewController: UIViewController {
     var display = false
     var disruptions: [Disruption]?
     var sectionsPolylines = [SectionPolyline]()
+    var animationTimer: Timer?
     
     fileprivate var _viewModel = JourneySolutionRoadmapViewModel()
     
@@ -39,17 +40,19 @@ open class JourneySolutionRoadmapViewController: UIViewController {
             scrollView?.contentInsetAdjustmentBehavior = .always
         }
         
+        animationTimer = Timer.scheduledTimer(timeInterval: 2.0, target: self, selector: #selector(_animateView), userInfo: nil, repeats: true)
+        
         _setupMapView()
     }
     
     override open func viewDidAppear(_ animated: Bool) {
-        _viewModel.refreshStandsBike(run: true)
-        _animateView(run: true)
+        _viewModel.refreshBikeStands(run: true)
+        _animateView()
     }
     
     override open func viewDidDisappear(_ animated: Bool) {
-        _viewModel.refreshStandsBike(run: false)
-        _animateView(run: false)
+        _viewModel.refreshBikeStands(run: false)
+        _stopAnimation()
     }
     
     override open func didReceiveMemoryWarning() {
@@ -302,10 +305,23 @@ open class JourneySolutionRoadmapViewController: UIViewController {
         }
     }
     
-    private func _animateView(run: Bool) {
+    @objc private func _animateView() {
+        animationTimer?.invalidate()
+        animationTimer = Timer.scheduledTimer(timeInterval: 2.0, target: self, selector: #selector(_animateView), userInfo: nil, repeats: true)
+        
         for view in viewScroll {
-            if view is BssStepView {
-                (view as! BssStepView).animateRealTime(run: run)
+            if let bssView = view as? BssStepView {
+                bssView.animateRealTime()
+            }
+        }
+    }
+    
+    private func _stopAnimation() {
+        animationTimer?.invalidate()
+        
+        for view in viewScroll {
+            if let bssView = view as? BssStepView {
+                bssView.stopRealTimeAnimation()
             }
         }
     }

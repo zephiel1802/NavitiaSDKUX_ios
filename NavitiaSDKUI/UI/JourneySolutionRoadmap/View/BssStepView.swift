@@ -130,14 +130,16 @@ class BssStepView: UIView {
         
     }
 
-    public func animateRealTime(run: Bool = true) {
-        if run {
-            UIView.animate(withDuration: 1.0, delay: 0, options: [.repeat, .autoreverse], animations: {
-                self.realTimeImage.alpha = 0
-            }, completion: nil)
-        } else {
-            realTimeImage.layer.removeAllAnimations()
-        }
+    public func animateRealTime() {
+        realTimeImage.alpha = 1
+        UIView.animate(withDuration: 1.0, delay: 0, options: [.autoreverse], animations: {
+            self.realTimeImage.alpha = 0
+        }, completion: nil)
+    }
+    
+    public func stopRealTimeAnimation() {
+        realTimeImage.alpha = 1
+        realTimeImage.layer.removeAllAnimations()
     }
     
 }

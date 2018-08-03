@@ -10,19 +10,20 @@ import UIKit
 class JourneySolutionRoadmapViewModel: NSObject {
 
     var journeySolutionRoadmapDidChange: ((JourneySolutionRoadmapViewModel) -> ())?
-    var standBikeTime: Timer!
+    var standBikeTime: Timer?
     var bss = [(poi: Poi, notify: ((Poi) -> ()))]()
     
-    func refreshStandsBike(run: Bool = true) {
+    func refreshBikeStands(run: Bool = true) {
+        standBikeTime?.invalidate()
+        
         if run {
-            getStandsBike()
-            standBikeTime = Timer.scheduledTimer(timeInterval: Configuration.bssTimeInterval, target: self, selector: #selector(getStandsBike), userInfo: nil, repeats: true)
-        } else {
-            standBikeTime.invalidate()
+            getBikeStands()
+            
+            standBikeTime = Timer.scheduledTimer(timeInterval: Configuration.bssTimeInterval, target: self, selector: #selector(getBikeStands), userInfo: nil, repeats: true)
         }
     }
     
-    @objc func getStandsBike() {
+    @objc func getBikeStands() {
         guard let navitiaSDK = NavitiaSDKUI.shared.navitiaSDK else {
             return
         }
@@ -47,6 +48,5 @@ class JourneySolutionRoadmapViewModel: NSObject {
         }
 
     }
-    
     
 }
