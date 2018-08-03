@@ -40,8 +40,6 @@ open class JourneySolutionRoadmapViewController: UIViewController {
             scrollView?.contentInsetAdjustmentBehavior = .always
         }
         
-        animationTimer = Timer.scheduledTimer(timeInterval: 2.0, target: self, selector: #selector(_animateView), userInfo: nil, repeats: true)
-        
         _setupMapView()
     }
     

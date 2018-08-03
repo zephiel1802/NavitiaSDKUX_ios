@@ -17,9 +17,8 @@ class JourneySolutionRoadmapViewModel: NSObject {
         standBikeTime?.invalidate()
         
         if run {
-            getBikeStands()
-            
             standBikeTime = Timer.scheduledTimer(timeInterval: Configuration.bssTimeInterval, target: self, selector: #selector(getBikeStands), userInfo: nil, repeats: true)
+            standBikeTime?.fire()
         }
     }
     
