@@ -102,6 +102,7 @@ class BssStepView: UIView {
                 .normal("\n", size: 15)
                 .bold(address, size: 13)
         }
+        
         setHeight()
     }
     
@@ -126,8 +127,8 @@ class BssStepView: UIView {
                           color: Configuration.Color.main,
                           size: 13)
         }
-        setHeight()
         
+        setHeight()
     }
 
     public func animateRealTime() {
@@ -175,10 +176,6 @@ extension BssStepView {
             return self.poi
         }
         set {
-            takeName = newValue?.properties?["network"] ?? ""
-            origin = newValue?.name ?? ""
-            address = newValue?.address?.name ?? ""
-
             updateStands(stands: newValue?.stands)
         }
     }

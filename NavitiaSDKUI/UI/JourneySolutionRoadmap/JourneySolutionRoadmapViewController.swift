@@ -222,6 +222,9 @@ open class JourneySolutionRoadmapViewController: UIViewController {
         view.type = section.type
         
         if let poi = section.from?.poi ?? section.to?.poi {
+            view.takeName = poi.properties?["network"] ?? ""
+            view.origin = poi.name ?? ""
+            view.address = poi.address?.name ?? ""
             view.poi = poi
             
             if poi.stands != nil {
