@@ -30,6 +30,9 @@ open class JourneySolutionRoadmapViewController: UIViewController {
     var disruptions: [Disruption]?
     var sectionsPolylines = [SectionPolyline]()
     let locationManager = CLLocationManager()
+    var animationTimer: Timer?
+    
+    fileprivate var _viewModel = JourneySolutionRoadmapViewModel()
     
     override open func viewDidLoad() {
         super.viewDidLoad()
@@ -43,22 +46,34 @@ open class JourneySolutionRoadmapViewController: UIViewController {
         
         _setupMapView()
     }
-    
-    open override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
         
+    override open func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+
         _startUpdatingUserLocation()
+
+        _viewModel.refreshBikeStands(run: true)
+        _animateView()
     }
     
-    open override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        
+    override open func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+
         _stopUpdatingUserLocation()
+
+        _viewModel.refreshBikeStands(run: false)
+        _stopAnimation()
+    }
+    
+    override open func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
     }
 
     override open func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         composentWidth = _updateWidth()
+        
         if !display {
             _display()
         }
@@ -133,6 +148,12 @@ open class JourneySolutionRoadmapViewController: UIViewController {
                         case .crowFly:
                             _displayCrowFlyStep(section)
                             break
+                        case .bssRent:
+                            _displayBssStep(section)
+                            break
+                        case .bssPutBack:
+                            _displayBssStep(section)
+                            break
                         case .streetNetwork:
                             if let mode = section.mode {
                                 switch mode {
@@ -199,15 +220,36 @@ open class JourneySolutionRoadmapViewController: UIViewController {
     }
     
     private func _displayBikeStep(_ section: Section) {
-        let view = BikeStepView(frame: CGRect(x: 0, y: 0, width: composentWidth, height: 50))
-        view.modeString = Modes().getModeIcon(section: section)
-        view.origin = section.from?.name ?? ""
-        view.destination = section.to?.name ?? ""
-        view.takeName = section.from?.poi?.properties?["network"] ?? ""
+        let view = GenericStepView(frame: CGRect(x: 0, y: 0, width: composentWidth, height: 50))
+        view.modeString = "bike"
         view.time = section.duration?.minuteToString()
+        view.direction = section.to?.name ?? ""
+        view.paths = section.path
         
         _addViewInScroll(view: view)
     }
+    
+    private func _displayBssStep(_ section: Section) {
+        let view = BssStepView(frame: CGRect(x: 0, y: 0, width: composentWidth, height: 50))
+        view.modeString = Modes().getModeIcon(section: section)
+        view.type = section.type
+        
+        if let poi = section.from?.poi ?? section.to?.poi {
+            view.takeName = poi.properties?["network"] ?? ""
+            view.origin = poi.name ?? ""
+            view.address = poi.address?.name ?? ""
+            view.poi = poi
+            
+            if poi.stands != nil {
+                _viewModel.bss.append((poi: poi, notify: { (poi) in
+                    view.poi = poi
+                }))
+            }
+        }
+        
+        _addViewInScroll(view: view)
+    }
+    
     
     private func _displayRidesharingStep(_ section: Section) {
         let view = RidesharingStepView(frame: CGRect(x: 0, y: 0, width: composentWidth, height: 100))
@@ -279,6 +321,27 @@ open class JourneySolutionRoadmapViewController: UIViewController {
                 ridesharingView.setPicture(url: sectionRidesharing.ridesharingInformations?.driver?.image)
                 ridesharingView.setNotation(sectionRidesharing.ridesharingInformations?.driver?.rating?.count)
                 ridesharingView.setFullStar(sectionRidesharing.ridesharingInformations?.driver?.rating?.value)
+            }
+        }
+    }
+    
+    @objc private func _animateView() {
+        animationTimer?.invalidate()
+        animationTimer = Timer.scheduledTimer(timeInterval: 2.0, target: self, selector: #selector(_animateView), userInfo: nil, repeats: true)
+        
+        for view in viewScroll {
+            if let bssView = view as? BssStepView {
+                bssView.animateRealTime()
+            }
+        }
+    }
+    
+    private func _stopAnimation() {
+        animationTimer?.invalidate()
+        
+        for view in viewScroll {
+            if let bssView = view as? BssStepView {
+                bssView.stopRealTimeAnimation()
             }
         }
     }
