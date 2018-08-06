@@ -50,7 +50,11 @@ class JourneySummaryView: UIView {
                     
                     let journeySummaryPartView = JourneySummaryPartView()
                     journeySummaryPartView.color = section.displayInformations?.color?.toUIColor() ?? UIColor.black
-                    journeySummaryPartView.name = section.displayInformations?.label
+                    if let code = section.displayInformations?.code, !code.isEmpty {
+                        journeySummaryPartView.name = section.displayInformations?.code
+                    } else {
+                        journeySummaryPartView.name = section.displayInformations?.commercialMode
+                    }
                     journeySummaryPartView.icon = Modes().getModeIcon(section: section)
                     if section.type == .publicTransport, let disruptions = disruptions, disruptions.count > 0 {
                         let sectionDisruptions = section.disruptions(disruptions: disruptions)
@@ -91,6 +95,7 @@ class JourneySummaryView: UIView {
             section.type != .crowFly) {
             return true
         }
+        
         return false
     }
     

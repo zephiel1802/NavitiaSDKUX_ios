@@ -64,6 +64,9 @@ enum Configuration {
     static let timeJourneySolution = "EEE dd MMM - HH:mm"
     static let timeRidesharing = "HH'h'mm"
     
+    // TimeInterval
+    static let bssTimeInterval = TimeInterval(30)
+    
     // Color
     enum Color {
         static var main = #colorLiteral(red: 0.2509803922, green: 0.5843137255, blue: 0.5568627451, alpha: 1)
@@ -89,7 +92,7 @@ enum Configuration {
         
         static let red = #colorLiteral(red: 1, green: 0, blue: 0, alpha: 1)
         static let orange = #colorLiteral(red: 0.9725490196, green: 0.5803921569, blue: 0.02352941176, alpha: 1)
-        static let backgroud = #colorLiteral(red: 0.9411764706, green: 0.9411764706, blue: 0.9411764706, alpha: 1)
+        static let background = #colorLiteral(red: 0.9411764706, green: 0.9411764706, blue: 0.9411764706, alpha: 1)
         static let headerTitle = #colorLiteral(red: 0.2509803922, green: 0.2509803922, blue: 0.2509803922, alpha: 1)
     }
 }

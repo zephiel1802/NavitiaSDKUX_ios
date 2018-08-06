@@ -60,6 +60,7 @@ let iconFontCodes:[String: String] = [
     "realtime": "\u{ea1f}",
     "stop": "\u{ea21}",
     "localtrain": "\u{ea23}",
+    "train": "\u{ea23}",
     "rapidtransit": "\u{ea23}",
     "longdistancetrain": "\u{ea23}",
     "tramway": "\u{ea24}",
@@ -75,6 +76,7 @@ let iconFontCodes:[String: String] = [
 ]
 
 class Modes {
+    
     func getModeIcon(section: Section?) -> String {
         switch section!.type! {
             case .publicTransport:
@@ -91,6 +93,8 @@ class Modes {
                 return "bss"
             case .crowFly:
                 return "crow_fly"
+            case .onDemandTransport:
+                return "bus"
             default:
                 return section?.mode?.rawValue ?? ""
         }
@@ -104,7 +108,7 @@ class Modes {
     
     private func getStreetNetworkMode(section: Section?) -> String {
         if section?.mode == .bike {
-            if ((section?.from?.poi?.properties!["network"]) != nil) {
+            if section?.from?.poi != nil {
                 return "bss"
             }
         }
