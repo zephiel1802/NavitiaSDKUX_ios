@@ -17,7 +17,6 @@ class JourneySolutionViewModel: NSObject {
     
     func request(with parameters: JourneySolutionViewController.InParameters) {
         if NavitiaSDKUI.shared.navitiaSDK != nil {
-            
             let journeyRequestBuilder = NavitiaSDKUI.shared.navitiaSDK.journeysApi.newJourneysRequestBuilder()
             _ = journeyRequestBuilder.withFrom(parameters.originId)
             _ = journeyRequestBuilder.withTo(parameters.destinationId)
