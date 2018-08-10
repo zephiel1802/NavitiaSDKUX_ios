@@ -9,7 +9,6 @@ import UIKit
 
 class JourneySolutionRoadmapViewModel: NSObject {
 
-    var journeySolutionRoadmapDidChange: ((JourneySolutionRoadmapViewModel) -> ())?
     var standBikeTime: Timer?
     var bss = [(poi: Poi, notify: ((Poi) -> ()))]()
     
