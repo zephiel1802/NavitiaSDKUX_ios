@@ -196,10 +196,17 @@ open class JourneySolutionRoadmapViewController: UIViewController {
         viewArrival.information = journey.sections?.last?.to?.name ?? ""
         viewArrival.time = journey.arrivalDateTime?.toDate(format: Configuration.date)?.toString(format: Configuration.time) ?? ""
         viewArrival.type = .arrival
+        if let distanceWalking = journey.distances?.walking, let distanceBike = journey.distances?.bike {
+            let calorieWalking = Double(distanceWalking) * Configuration.caloriePerSecWalking
+            let calorieBike = Double(distanceBike) * Configuration.caloriePerSecBike
+            let calorie = Int((calorieWalking + calorieBike).rounded())
+            
+            viewArrival.calorie = "\(calorie)"
+        }
         
         _addViewInScroll(view: viewArrival)
     }
-    
+
     private func _displayTransferStep(_ section: Section) {
         let view = GenericStepView(frame: CGRect(x: 0, y: 0, width: composentWidth, height: 50))
         view.modeString = Modes().getModeIcon(section: section)

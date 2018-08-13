@@ -68,6 +68,10 @@ enum Configuration {
     static let bssTimeInterval = TimeInterval(30)
     static let bssApprovalTimeThreshold = TimeInterval(7200)
     
+    // Constant
+    static let caloriePerSecWalking = 0.071625714285714
+    static let caloriePerSecBike = 0.11442857142857142
+    
     // Color
     enum Color {
         static var main = #colorLiteral(red: 0.2509803922, green: 0.5843137255, blue: 0.5568627451, alpha: 1)
