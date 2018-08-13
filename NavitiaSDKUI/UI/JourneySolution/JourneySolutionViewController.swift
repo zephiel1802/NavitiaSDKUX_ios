@@ -16,12 +16,16 @@ open class JourneySolutionViewController: UIViewController {
     @IBOutlet weak var toPinLabel: UILabel!
     @IBOutlet weak var dateTimeLabel: UILabel!
     @IBOutlet weak var collectionView: UICollectionView!
+    @IBOutlet weak var switchDepartureArrivalImageView: UIImageView!
+    @IBOutlet weak var switchDepartureArrivalButton: UIButton!
     
     public var inParameters: InParameters!
     
     fileprivate var _viewModel: JourneySolutionViewModel! {
         didSet {
             self._viewModel.journeySolutionDidChange = { [weak self] journeySolutionViewModel in
+                self?.switchDepartureArrivalButton.isEnabled = true
+                
                 self?.collectionView.reloadData()
                 if !journeySolutionViewModel.journeys.isEmpty || !journeySolutionViewModel.journeysRidesharing.isEmpty {
                     if self?.inParameters.originLabel == nil {
@@ -94,6 +98,9 @@ open class JourneySolutionViewController: UIViewController {
         navigationController?.navigationBar.shadowImage = UIImage()
         navigationController?.navigationBar.barTintColor = Configuration.Color.main
         
+        switchDepartureArrivalImageView.image = UIImage(named: "switch", in: NavitiaSDKUI.shared.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
+        switchDepartureArrivalImageView.tintColor = Configuration.Color.main
+        
         fromLabel.text = inParameters.originLabel ?? inParameters.originId
         fromPinLabel.attributedText = NSMutableAttributedString()
             .icon("location-pin", color: Configuration.Color.origin, size: 22)
@@ -110,7 +117,29 @@ open class JourneySolutionViewController: UIViewController {
             self.dateTime = dateTime.toString(format: Configuration.timeJourneySolution)
         }
     }
-
+    
+    
+    @IBAction func switchDepartureArrivalCoordinates(_ sender: UIButton) {
+        switchDepartureArrivalButton.isEnabled = false
+        
+        let oldOriginLabel = self.inParameters.originLabel
+        self.inParameters.originLabel = self.inParameters.destinationLabel
+        self.inParameters.destinationLabel = oldOriginLabel
+        
+        let oldFromLabelText = self.fromLabel.text
+        self.fromLabel.text = self.toLabel.text
+        self.toLabel.text = oldFromLabelText
+        
+        _viewModel.journeys = [Journey]()
+        _viewModel.journeysRidesharing = [Journey]()
+        self.collectionView.reloadData()
+        
+        let oldOriginId = self.inParameters.originId
+        self.inParameters.originId = self.inParameters.destinationId
+        self.inParameters.destinationId = oldOriginId
+        
+        _viewModel.request(with: inParameters)
+    }
 }
 
 extension JourneySolutionViewController: UICollectionViewDataSource {
