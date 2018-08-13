@@ -14,7 +14,7 @@ open class JourneySolutionRoadmapViewController: UIViewController {
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var scrollView: UIScrollView!
     
-    var viewScroll = [UIView]()
+    var scrollSubviews = [(view: UIView, margin: UIEdgeInsets)]()
     var margin: CGFloat = 10
     var composentWidth: CGFloat = 0
     var journey: Journey?
@@ -41,6 +41,7 @@ open class JourneySolutionRoadmapViewController: UIViewController {
         if #available(iOS 11.0, *) {
             scrollView?.contentInsetAdjustmentBehavior = .always
         }
+        scrollView?.bounces = false
         
         locationManager.requestWhenInUseAuthorization()
         
@@ -108,6 +109,7 @@ open class JourneySolutionRoadmapViewController: UIViewController {
             _displayDeparture(journey)
             _displayJourneySteps(journey)
             _displayArrival(journey)
+            _displayEmission(journey)
         }
     }
     
@@ -116,14 +118,14 @@ open class JourneySolutionRoadmapViewController: UIViewController {
         journeySolutionView.disruptions = disruptions
         journeySolutionView.setData(journey)
         
-        _addViewInScroll(view: journeySolutionView, customMargin: 0)
+        _addViewInScroll(view: journeySolutionView, margin: UIEdgeInsets(top: 0, left: 0, bottom: 5, right: 0))
         
         if ridesharing {
             journeySolutionView.setDataRidesharing(journey)
             ridesharingView = RidesharingView(frame: CGRect(x: 0, y: 0, width: 0, height: 255))
             ridesharingView.parentViewController = self
             
-            _addViewInScroll(view: ridesharingView)
+            _addViewInScroll(view: ridesharingView, margin: UIEdgeInsets(top: 5, left: 10, bottom: 5, right: 10))
         }
     }
     
@@ -188,7 +190,7 @@ open class JourneySolutionRoadmapViewController: UIViewController {
         viewDeparture.time = journey.departureDateTime?.toDate(format: Configuration.date)?.toString(format: Configuration.time) ?? ""
         viewDeparture.type = .departure
         
-        _addViewInScroll(view: viewDeparture)
+        _addViewInScroll(view: viewDeparture, margin: UIEdgeInsets(top: 5, left: 10, bottom: 5, right: 10))
     }
     
     private func _displayArrival(_ journey: Journey) {
@@ -197,9 +199,20 @@ open class JourneySolutionRoadmapViewController: UIViewController {
         viewArrival.time = journey.arrivalDateTime?.toDate(format: Configuration.date)?.toString(format: Configuration.time) ?? ""
         viewArrival.type = .arrival
         
-        _addViewInScroll(view: viewArrival)
+        if let walkingDistance = journey.distances?.walking, let bikeDistance = journey.distances?.bike {
+            viewArrival.calorie = String(format: "%d", Int((Double(walkingDistance) * Configuration.caloriePerSecWalking + Double(bikeDistance) * Configuration.caloriePerSecBike).rounded()))
+        }
+        
+        _addViewInScroll(view: viewArrival, margin: UIEdgeInsets(top: 5, left: 10, bottom: 5, right: 10))
     }
     
+    private func _displayEmission(_ journey: Journey) {
+        let emissionView = EmissionView(frame: CGRect(x: 0, y: 0, width: scrollView.frame.size.width, height: 40))
+        emissionView.carbonAmount = journey.co2Emission
+        
+        _addViewInScroll(view: emissionView, margin: UIEdgeInsets(top: 20, left: 0, bottom: 0, right: 0))
+    }
+
     private func _displayTransferStep(_ section: Section) {
         let view = GenericStepView(frame: CGRect(x: 0, y: 0, width: composentWidth, height: 50))
         view.modeString = Modes().getModeIcon(section: section)
@@ -207,7 +220,7 @@ open class JourneySolutionRoadmapViewController: UIViewController {
         view.direction = section.to?.name ?? ""
         view.paths = section.path
         
-        _addViewInScroll(view: view)
+        _addViewInScroll(view: view, margin:UIEdgeInsets(top: 5, left: 10, bottom: 5, right: 10))
     }
     
     private func _displayCrowFlyStep(_ section: Section) {
@@ -216,7 +229,7 @@ open class JourneySolutionRoadmapViewController: UIViewController {
         view.time = ""
         view.direction = section.to?.name ?? ""
         
-        _addViewInScroll(view: view)
+        _addViewInScroll(view: view, margin: UIEdgeInsets(top: 5, left: 10, bottom: 5, right: 10))
     }
     
     private func _displayBikeStep(_ section: Section) {
@@ -226,7 +239,7 @@ open class JourneySolutionRoadmapViewController: UIViewController {
         view.direction = section.to?.name ?? ""
         view.paths = section.path
         
-        _addViewInScroll(view: view)
+        _addViewInScroll(view: view, margin: UIEdgeInsets(top: 5, left: 10, bottom: 5, right: 10))
     }
     
     private func _displayBssStep(_ section: Section) {
@@ -251,7 +264,7 @@ open class JourneySolutionRoadmapViewController: UIViewController {
             }
         }
         
-        _addViewInScroll(view: view)
+        _addViewInScroll(view: view, margin: UIEdgeInsets(top: 5, left: 10, bottom: 5, right: 10))
     }
     
     
@@ -261,7 +274,7 @@ open class JourneySolutionRoadmapViewController: UIViewController {
         view.destination = ridesharingView.addressTo ?? ""
         view.time = section.duration?.minuteToString()
         
-        _addViewInScroll(view: view)
+        _addViewInScroll(view: view, margin: UIEdgeInsets(top: 5, left: 10, bottom: 5, right: 10))
     }
     
     private func _displayPublicTransport(_ section: Section, waiting: Section? = nil) {
@@ -306,7 +319,7 @@ open class JourneySolutionRoadmapViewController: UIViewController {
             }
         }
         
-        _addViewInScroll(view: publicTransportView)
+        _addViewInScroll(view: publicTransportView, margin: UIEdgeInsets(top: 5, left: 10, bottom: 5, right: 10))
     }
     
     private func _updateRidesharingView(_ section: Section) {
@@ -333,8 +346,8 @@ open class JourneySolutionRoadmapViewController: UIViewController {
         animationTimer?.invalidate()
         animationTimer = Timer.scheduledTimer(timeInterval: 2.0, target: self, selector: #selector(_animateView), userInfo: nil, repeats: true)
         
-        for view in viewScroll {
-            if let bssView = view as? BssStepView {
+        for subview in scrollSubviews {
+            if let bssView = subview.view as? BssStepView {
                 bssView.animateRealTime()
             }
         }
@@ -343,8 +356,8 @@ open class JourneySolutionRoadmapViewController: UIViewController {
     private func _stopAnimation() {
         animationTimer?.invalidate()
         
-        for view in viewScroll {
-            if let bssView = view as? BssStepView {
+        for subview in scrollSubviews {
+            if let bssView = subview.view as? BssStepView {
                 bssView.stopRealTimeAnimation()
             }
         }
@@ -642,39 +655,39 @@ extension JourneySolutionRoadmapViewController: MKMapViewDelegate {
 
 extension JourneySolutionRoadmapViewController {
     
-    private func _addViewInScroll(view: UIView, customMargin: CGFloat? = nil) {
-        if let margeCustom = customMargin {
-            view.frame.origin.x = margeCustom
+    private func _addViewInScroll(view: UIView, margin: UIEdgeInsets) {
+        if scrollSubviews.isEmpty {
+            view.frame.origin.y = margin.top
         } else {
-            view.frame.origin.x = margin
-        }
-        if viewScroll.isEmpty {
-            view.frame.origin.y = 0
-        } else {
-            if let viewBefore = viewScroll.last {
-                view.frame.origin.y = viewBefore.frame.origin.y + viewBefore.frame.size.height
+            if let viewBefore = scrollSubviews.last {
+                view.frame.origin.y = viewBefore.view.frame.origin.y + viewBefore.view.frame.height + viewBefore.margin.bottom + margin.top
             }
         }
-        viewScroll.append(view)
-        if let last = viewScroll.last {
-            scrollView.contentSize.height = last.frame.origin.y + last.frame.height
+        view.frame.size.width = scrollView.frame.size.width - (margin.left + margin.right)
+        view.frame.origin.x = margin.left
+        
+        scrollSubviews.append((view, margin))
+        
+        if let last = scrollSubviews.last {
+            scrollView.contentSize.height = last.view.frame.origin.y + last.view.frame.height + last.margin.bottom
         }
         scrollView.addSubview(view)
     }
     
     private func _updateOriginViewScroll() {
-        for (index, view) in viewScroll.enumerated() {
+        for (index, view) in scrollSubviews.enumerated() {
             if index == 0 {
-                view.frame.origin.y = view.frame.origin.x
-                view.frame.size.width = _updateWidth(customMargin: view.frame.origin.x)
+                view.view.frame.origin.y = 0 + view.margin.top
             } else {
-                view.frame.origin.y = viewScroll[index - 1].frame.origin.y + viewScroll[index - 1].frame.height + margin
-                composentWidth = _updateWidth()
-                view.frame.size.width = _updateWidth()
+                let beforeView = scrollSubviews[index - 1]
+                view.view.frame.origin.y = beforeView.view.frame.origin.y + beforeView.view.frame.height + beforeView.margin.bottom + view.margin.top
             }
+            view.view.frame.size.width = scrollView.frame.size.width - (view.margin.left + view.margin.right)
+            view.view.frame.origin.x = view.margin.left
         }
-        if let last = viewScroll.last {
-            scrollView.contentSize.height = last.frame.origin.y + last.frame.height + margin
+        
+        if let last = scrollSubviews.last {
+            scrollView.contentSize.height = last.view.frame.origin.y + last.view.frame.height + last.margin.bottom
         }
     }
     

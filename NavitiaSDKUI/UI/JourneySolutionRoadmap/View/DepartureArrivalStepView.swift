@@ -15,6 +15,9 @@ class DepartureArrivalStepView: UIView {
     @IBOutlet weak var stackView: UIStackView!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var informationLabel: UILabel!
+    @IBOutlet weak var calorieContainerView: UIView!
+    @IBOutlet weak var calorieImageView: UIImageView!
+    @IBOutlet weak var calorieLabel: UILabel!
     
     var _type: TypeStep?
     
@@ -35,6 +38,17 @@ class DepartureArrivalStepView: UIView {
         }
     }
     
+    override func layoutSubviews() {
+        titleLabel.sizeToFit()
+        informationLabel.sizeToFit()
+        
+        if calorieContainerView.isHidden {
+            frame.size.height = stackView.frame.size.height + stackView.frame.origin.y + 10
+        } else {
+            frame.size.height = calorieContainerView.frame.size.height + calorieContainerView.frame.origin.y + 10
+        }
+    }
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         _setup()
@@ -46,6 +60,7 @@ class DepartureArrivalStepView: UIView {
         addSubview(_view)
         
         _setupIcon()
+
         addShadow(opacity: 0.28)
     }
     
@@ -54,6 +69,9 @@ class DepartureArrivalStepView: UIView {
             .icon("location-pin",
                   color:UIColor.white,
                   size: 22)
+        
+        calorieImageView.image = UIImage(named: "calorie", in: NavitiaSDKUI.shared.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
+        calorieImageView.tintColor = Configuration.Color.white
     }
     
 }
@@ -107,6 +125,21 @@ extension DepartureArrivalStepView {
             if let newValue = newValue {
                 hourLabel.attributedText = NSMutableAttributedString()
                     .normal(newValue, color: UIColor.white,size: 12)
+            }
+        }
+    }
+    
+    var calorie: String? {
+        get {
+            return self.calorie
+        }
+        set {
+            if let calorie = newValue {
+                calorieContainerView.isHidden = false
+                calorieLabel.attributedText = NSMutableAttributedString()
+                    .normal(String(format: "calorie_unit".localized(bundle: NavitiaSDKUI.shared.bundle), calorie),
+                            color: UIColor.white,
+                            size: 12)
             }
         }
     }
