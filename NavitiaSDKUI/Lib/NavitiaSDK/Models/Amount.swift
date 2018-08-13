@@ -9,7 +9,7 @@ import Foundation
 
 open class Amount: JSONEncodable, Mappable {
 
-    public var value: Float?
+    public var value: Double?
     public var unit: String?
 
     public init() {}
