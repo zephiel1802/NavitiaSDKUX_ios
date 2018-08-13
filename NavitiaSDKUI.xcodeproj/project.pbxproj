@@ -285,6 +285,9 @@
 		848D7C2A207B92D4002E9B1A /* PublicTransportView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 848D7C29207B92D4002E9B1A /* PublicTransportView.xib */; };
 		848D7C2C207B95B0002E9B1A /* PublicTransportView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848D7C2B207B95B0002E9B1A /* PublicTransportView.swift */; };
 		8490A6D52084D2C700F7CFA1 /* NavitiaSDKUserDefaultsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8490A6D42084D2C700F7CFA1 /* NavitiaSDKUserDefaultsManager.swift */; };
+		84A790FB2121B0E40000C82F /* EmissionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A790FA2121B0E40000C82F /* EmissionView.swift */; };
+		84A790FD2121B0E90000C82F /* EmissionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84A790FC2121B0E90000C82F /* EmissionView.xib */; };
+		84A790FF2121B0F20000C82F /* Double+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A790FE2121B0F20000C82F /* Double+Extension.swift */; };
 		84BC297E207E66CC0073F198 /* StationsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84BC297D207E66CC0073F198 /* StationsView.xib */; };
 		84BC2980207E66D50073F198 /* StationsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84BC297F207E66D50073F198 /* StationsView.swift */; };
 		84D0FA94210094A900EB420A /* Section+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D0FA93210094A900EB420A /* Section+Extension.swift */; };
@@ -590,6 +593,9 @@
 		848D7C29207B92D4002E9B1A /* PublicTransportView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PublicTransportView.xib; sourceTree = "<group>"; };
 		848D7C2B207B95B0002E9B1A /* PublicTransportView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublicTransportView.swift; sourceTree = "<group>"; };
 		8490A6D42084D2C700F7CFA1 /* NavitiaSDKUserDefaultsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavitiaSDKUserDefaultsManager.swift; sourceTree = "<group>"; };
+		84A790FA2121B0E40000C82F /* EmissionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmissionView.swift; sourceTree = "<group>"; };
+		84A790FC2121B0E90000C82F /* EmissionView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EmissionView.xib; sourceTree = "<group>"; };
+		84A790FE2121B0F20000C82F /* Double+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Double+Extension.swift"; sourceTree = "<group>"; };
 		84BC297D207E66CC0073F198 /* StationsView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = StationsView.xib; sourceTree = "<group>"; };
 		84BC297F207E66D50073F198 /* StationsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StationsView.swift; sourceTree = "<group>"; };
 		84D0FA93210094A900EB420A /* Section+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Section+Extension.swift"; sourceTree = "<group>"; };
@@ -753,6 +759,7 @@
 		8451DA5B2065062300CFA1E4 /* Extension */ = {
 			isa = PBXGroup;
 			children = (
+				84A790FE2121B0F20000C82F /* Double+Extension.swift */,
 				8476DD59208891CB006CB506 /* Collection+Extension.swift */,
 				8454D451206942B800C97D2F /* Date+Extension.swift */,
 				8430275020BBE72B005AD743 /* Disruption+Extension.swift */,
@@ -862,6 +869,7 @@
 		8451DAB8206516BC00CFA1E4 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				84A790FA2121B0E40000C82F /* EmissionView.swift */,
 				31336E002114B06B00D197E2 /* BssStepView.swift */,
 				8433F399207F47F0007DBBCE /* DepartureArrivalStepView.swift */,
 				84D0FA97210094B900EB420A /* DisruptionItemView.swift */,
@@ -898,6 +906,7 @@
 		8451DABB2065175000CFA1E4 /* Interface */ = {
 			isa = PBXGroup;
 			children = (
+				84A790FC2121B0E90000C82F /* EmissionView.xib */,
 				31336E022114B07200D197E2 /* BssStepView.xib */,
 				846B185020775479005D4A9B /* DepartureArrivalStepView.xib */,
 				84D0FA95210094B300EB420A /* DisruptionItemView.xib */,
@@ -1306,6 +1315,7 @@
 			files = (
 				8471D38320809EAD000C9125 /* JourneySolutionView.xib in Resources */,
 				848D7C2A207B92D4002E9B1A /* PublicTransportView.xib in Resources */,
+				84A790FD2121B0E90000C82F /* EmissionView.xib in Resources */,
 				8433F39C207F89C0007DBBCE /* RidesharingView.xib in Resources */,
 				84BC297E207E66CC0073F198 /* StationsView.xib in Resources */,
 				317D6C77211091CE00F36242 /* GenericStepView.xib in Resources */,
@@ -1453,6 +1463,7 @@
 				8454D4392068D3A800C97D2F /* ImmutableMappable.swift in Sources */,
 				8454D3992068D3A800C97D2F /* Impacted.swift in Sources */,
 				8430274F20BBE70E005AD743 /* Message+Extension.swift in Sources */,
+				84A790FF2121B0F20000C82F /* Double+Extension.swift in Sources */,
 				8454D3BF2068D3A800C97D2F /* ImpactedSection.swift in Sources */,
 				8454D4132068D3A800C97D2F /* Calendars.swift in Sources */,
 				8454D38A2068D3A800C97D2F /* PlacesApi.swift in Sources */,
@@ -1559,6 +1570,7 @@
 				8454D3B72068D3A800C97D2F /* SectionGeoJsonSchema.swift in Sources */,
 				84737E9B2087731A002D3748 /* FloatRatingView.swift in Sources */,
 				8454D3E22068D3A800C97D2F /* CalendarPeriod.swift in Sources */,
+				84A790FB2121B0E40000C82F /* EmissionView.swift in Sources */,
 				8476DD5A208891CB006CB506 /* Collection+Extension.swift in Sources */,
 				8454D41C2068D3A800C97D2F /* AFError.swift in Sources */,
 				8454D3D72068D3A800C97D2F /* DictAddresses.swift in Sources */,
