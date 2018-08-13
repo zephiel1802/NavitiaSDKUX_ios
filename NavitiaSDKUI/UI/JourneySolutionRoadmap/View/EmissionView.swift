@@ -17,6 +17,7 @@ class EmissionView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        
         _setup()
     }
     
@@ -34,6 +35,7 @@ class EmissionView: UIView {
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        
         _setup()
     }
     

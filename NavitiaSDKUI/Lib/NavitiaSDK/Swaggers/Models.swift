@@ -197,7 +197,7 @@ class Decoders {
             let sourceDictionary = source as! [AnyHashable: Any]
             let result = instance == nil ? Amount() : instance as! Amount
             
-            result.value = Decoders.decodeOptional(clazz: Float.self, source: sourceDictionary["value"] as AnyObject?)
+            result.value = Decoders.decodeOptional(clazz: Double.self, source: sourceDictionary["value"] as AnyObject?)
             result.unit = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["unit"] as AnyObject?)
             return result
         }
