@@ -106,7 +106,7 @@ open class JourneySolutionRoadmapViewController: UIViewController {
         if let journey = journey {
             _displayHeader(journey)
             _displayDeparture(journey)
-            _displayStep(journey)
+            _displayJourneySteps(journey)
             _displayArrival(journey)
         }
     }
@@ -127,7 +127,7 @@ open class JourneySolutionRoadmapViewController: UIViewController {
         }
     }
     
-    private func _displayStep(_ journey: Journey) {
+    private func _displayJourneySteps(_ journey: Journey) {
         if let sections = journey.sections {
             for (index, section) in sections.enumerated() {
                 if let type = section.type {
@@ -166,7 +166,7 @@ open class JourneySolutionRoadmapViewController: UIViewController {
                                     case .ridesharing:
                                         _updateRidesharingView(section)
                                         if let ridesharingJourneys = section.ridesharingJourneys {
-                                            _displayStep(ridesharingJourneys[ridesharingIndex])
+                                            _displayJourneySteps(ridesharingJourneys[ridesharingIndex])
                                         }
                                     default:
                                         _displayBikeStep(section)
@@ -239,6 +239,10 @@ open class JourneySolutionRoadmapViewController: UIViewController {
             view.origin = poi.name ?? ""
             view.address = poi.address?.name ?? ""
             view.poi = poi
+            
+            if let sectionDepartureTime = section.departureDateTime?.toDate(format: "yyyyMMdd'T'HHmmss"), let currentDateTime = Date().toLocalDate(format: "yyyyMMdd'T'HHmmss"), abs(sectionDepartureTime.timeIntervalSince(currentDateTime)) <= Configuration.bssApprovalTimeThreshold {
+                view.realTimeEnabled = true
+            }
             
             if poi.stands != nil {
                 _viewModel.bss.append((poi: poi, notify: { (poi) in

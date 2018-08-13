@@ -66,6 +66,7 @@ enum Configuration {
     
     // TimeInterval
     static let bssTimeInterval = TimeInterval(30)
+    static let bssApprovalTimeThreshold = TimeInterval(7200)
     
     // Color
     enum Color {

@@ -120,6 +120,7 @@ extension JourneySolutionViewController: UICollectionViewDataSource {
         if ridesharing && !_viewModel.loading {
             return 2
         }
+        
         // Journey
         return 1
     }

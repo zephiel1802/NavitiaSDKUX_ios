@@ -62,6 +62,10 @@ class BssStepView: UIView {
     private func _setup() {
         UINib(nibName: "BssStepView", bundle: NavitiaSDKUI.shared.bundle).instantiate(withOwner: self, options: nil)
         _view.frame = self.bounds
+        
+        realTimeImage.image = UIImage(named: "real_time", in: NavitiaSDKUI.shared.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
+        realTimeImage.tintColor = Configuration.Color.main
+        
         addSubview(_view)
     }
     
@@ -110,11 +114,6 @@ class BssStepView: UIView {
         guard let type = type, let stands = stands else {
             return
         }
-        
-        realTimeContainer.isHidden = false
-        
-        realTimeImage.image = UIImage(named: "real_time", in: NavitiaSDKUI.shared.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
-        realTimeImage.tintColor = Configuration.Color.main
         
         if type == Section.ModelType.bssRent {
             realTimeLabel.attributedText = NSMutableAttributedString()
@@ -177,6 +176,19 @@ extension BssStepView {
         }
         set {
             updateStands(stands: newValue?.stands)
+        }
+    }
+    
+    var realTimeEnabled: Bool? {
+        get {
+            return self.realTimeEnabled
+        }
+        set {
+            if let newValue = newValue {
+                realTimeContainer.isHidden = !newValue
+                
+                setHeight()
+            }
         }
     }
     

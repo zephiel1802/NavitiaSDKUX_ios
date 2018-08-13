@@ -15,6 +15,7 @@
                 <outlet property="_view" destination="SFE-8L-uze" id="W9Y-Jh-1Aj"/>
                 <outlet property="detailsArrowLabel" destination="stb-rQ-KZi" id="RqG-Vy-b89"/>
                 <outlet property="detailsButtonContainer" destination="dpT-fw-82v" id="T4B-bs-KJd"/>
+                <outlet property="detailsLabel" destination="7Ga-zj-mWU" id="gMK-pf-veN"/>
                 <outlet property="directionLabel" destination="Vxj-0O-9fg" id="MHQ-Yy-Wxo"/>
                 <outlet property="directionsContainer" destination="8Yi-qt-yZf" id="3qJ-Un-77N"/>
                 <outlet property="directionsContainerHeightConstraint" destination="XFv-ew-kuL" id="i7n-3n-Y4z"/>
@@ -54,7 +55,7 @@
                                 <action selector="manageDirectionsDisplay:" destination="-1" eventType="touchUpInside" id="Dog-Jk-3WV"/>
                             </connections>
                         </button>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Détails" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7Ga-zj-mWU" userLabel="Details Label">
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Details" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7Ga-zj-mWU" userLabel="Details Label">
                             <rect key="frame" x="0.0" y="6" width="47" height="18"/>
                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
                             <color key="textColor" red="0.50196078431372548" green="0.50196078431372548" blue="0.50196078431372548" alpha="1" colorSpace="calibratedRGB"/>
