@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="uos-wP-qKq">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="uos-wP-qKq">
     <device id="retina4_0" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -20,7 +20,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bND-g8-CMA">
-                                <rect key="frame" x="0.0" y="64" width="320" height="129"/>
+                                <rect key="frame" x="0.0" y="64" width="320" height="130"/>
                                 <color key="backgroundColor" red="0.25098039215686274" green="0.58431372549019611" blue="0.55686274509803924" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="V0r-kK-JZJ">
@@ -42,7 +42,6 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                         </subviews>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="trailing" secondItem="cft-3O-VNq" secondAttribute="trailing" constant="10" id="Kjz-py-wb4"/>
                                             <constraint firstItem="cft-3O-VNq" firstAttribute="leading" secondItem="WZS-es-G4Y" secondAttribute="trailing" id="Si8-BC-UFE"/>
@@ -75,7 +74,6 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                         </subviews>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstItem="HKB-WT-Eok" firstAttribute="leading" secondItem="F8z-pv-osl" secondAttribute="leading" constant="40" id="46w-ok-8YU"/>
                                             <constraint firstItem="5xk-kW-GgU" firstAttribute="leading" secondItem="F8z-pv-osl" secondAttribute="leading" id="7eT-i9-B63"/>
@@ -132,18 +130,23 @@
                                     <constraint firstItem="F8z-pv-osl" firstAttribute="leading" secondItem="V0r-kK-JZJ" secondAttribute="leading" id="hl8-bk-SwD"/>
                                     <constraint firstAttribute="trailing" secondItem="cuH-mI-COM" secondAttribute="trailing" constant="50" id="qfA-Hv-2yY"/>
                                 </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="5"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7s5-gx-cJB">
-                                <rect key="frame" x="10" y="167" width="300" height="13"/>
+                                <rect key="frame" x="10" y="164" width="300" height="20"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="13" id="WOB-tX-jVD"/>
+                                    <constraint firstAttribute="height" constant="20" id="WOB-tX-jVD"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="yNZ-3x-aub">
-                                <rect key="frame" x="0.0" y="193" width="320" height="375"/>
+                                <rect key="frame" x="0.0" y="194" width="320" height="374"/>
                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="mQy-EO-Msz">
                                     <size key="itemSize" width="0.0" height="0.0"/>
@@ -166,8 +169,8 @@
                             <constraint firstItem="bND-g8-CMA" firstAttribute="top" secondItem="RRu-e6-XmQ" secondAttribute="top" id="9ep-GA-h3f"/>
                             <constraint firstItem="bND-g8-CMA" firstAttribute="leading" secondItem="O1O-dz-djj" secondAttribute="leading" id="E5S-VE-BGg"/>
                             <constraint firstItem="V0r-kK-JZJ" firstAttribute="top" secondItem="RRu-e6-XmQ" secondAttribute="top" constant="10" id="MXa-97-qnn"/>
-                            <constraint firstItem="7s5-gx-cJB" firstAttribute="top" secondItem="V0r-kK-JZJ" secondAttribute="bottom" constant="13" id="UaR-fA-E4K"/>
-                            <constraint firstItem="yNZ-3x-aub" firstAttribute="top" secondItem="7s5-gx-cJB" secondAttribute="bottom" constant="13" id="YK0-z8-YbW"/>
+                            <constraint firstItem="7s5-gx-cJB" firstAttribute="top" secondItem="V0r-kK-JZJ" secondAttribute="bottom" constant="10" id="UaR-fA-E4K"/>
+                            <constraint firstItem="yNZ-3x-aub" firstAttribute="top" secondItem="7s5-gx-cJB" secondAttribute="bottom" constant="10" id="YK0-z8-YbW"/>
                             <constraint firstItem="RRu-e6-XmQ" firstAttribute="trailing" secondItem="V0r-kK-JZJ" secondAttribute="trailing" constant="10" id="git-7V-dt9"/>
                             <constraint firstItem="yNZ-3x-aub" firstAttribute="top" secondItem="bND-g8-CMA" secondAttribute="bottom" id="gnP-Gg-5sI"/>
                             <constraint firstAttribute="trailing" secondItem="yNZ-3x-aub" secondAttribute="trailing" id="h0q-6x-nY6"/>
