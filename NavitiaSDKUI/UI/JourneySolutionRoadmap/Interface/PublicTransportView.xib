@@ -30,6 +30,7 @@
                 <outlet property="stationButton" destination="g8F-1v-Alj" id="m6r-Jh-byf"/>
                 <outlet property="stationsBottomContraint" destination="eHT-5g-GfA" id="0MS-fz-jOF"/>
                 <outlet property="stationsHeightContraint" destination="PC3-qv-vvv" id="SjN-m3-2xG"/>
+                <outlet property="stationsHiddenBottomContraint" destination="7Xd-Q1-OQi" id="w1I-gb-tyl"/>
                 <outlet property="stationsTopContraint" destination="99c-hw-h1r" id="zPY-Or-JGB"/>
                 <outlet property="stationsView" destination="21v-9J-eqd" id="5T7-MN-nxl"/>
                 <outlet property="takeLabel" destination="2qA-zv-WCp" id="ZFQ-jb-NFp"/>
@@ -266,7 +267,7 @@
                 <constraint firstAttribute="trailing" secondItem="5gd-GI-iOO" secondAttribute="trailing" constant="20" id="IoN-LQ-vvA"/>
                 <constraint firstItem="BgC-wp-HFI" firstAttribute="centerY" secondItem="2qA-zv-WCp" secondAttribute="centerY" constant="-3" id="IrB-hd-Z01"/>
                 <constraint firstItem="jES-LD-53p" firstAttribute="leading" secondItem="hOc-HY-hEJ" secondAttribute="leading" id="Mpd-wT-DPb"/>
-                <constraint firstItem="Nxl-nB-2cv" firstAttribute="top" secondItem="5gd-GI-iOO" secondAttribute="bottom" priority="500" constant="60" id="Ni7-ZM-l5s"/>
+                <constraint firstItem="Nxl-nB-2cv" firstAttribute="top" secondItem="5gd-GI-iOO" secondAttribute="bottom" priority="500" constant="30" id="Ni7-ZM-l5s"/>
                 <constraint firstItem="JHv-Tt-dyM" firstAttribute="centerY" secondItem="JT4-IX-zVG" secondAttribute="centerY" id="NiX-Gh-mwp"/>
                 <constraint firstItem="JHv-Tt-dyM" firstAttribute="leading" secondItem="hOc-HY-hEJ" secondAttribute="leading" id="QS6-sl-daB"/>
                 <constraint firstItem="9yn-Us-GEt" firstAttribute="top" secondItem="RTr-Qr-qxi" secondAttribute="bottom" priority="755" constant="15" id="QZ7-9I-Odk"/>
