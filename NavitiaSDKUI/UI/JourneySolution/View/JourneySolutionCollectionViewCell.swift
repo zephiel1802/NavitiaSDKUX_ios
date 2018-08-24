@@ -55,6 +55,26 @@ class JourneySolutionCollectionViewCell: UICollectionViewCell {
         }
     }
     
+    func setup2(displayedJourney: JourneySolution.FetchJourneys.ViewModel.DisplayedJourney,
+                displayedDisruptions: JourneySolution.FetchJourneys.ViewModel.DisplayedDisruption) {
+        _setupArrowIcon()
+        addShadow()
+        
+        formattedDateTime(displayedJourney.departureDateTime, displayedJourney.arrivalDateTime)
+        formattedDuration(displayedJourney.duration)
+        if let walkingDuration = displayedJourney.walkingDuration {
+            formattedDurationWalker(0, walkingDuration, displayedJourney.walkingDistance)
+        } else {
+            durationWalkerLabel.isHidden = true
+            durationTopContraint.isActive = false
+            durationBottomContraint.isActive = false
+            durationLeadingContraint.isActive = false
+        }
+        journeySummaryView.disruptions = displayedDisruptions.disruptions
+        journeySummaryView.addSections(displayedJourney.sections)
+
+    }
+    
     func setupRidesharing(_ journey: Journey) {
         _setupArrowIcon()
         addShadow()

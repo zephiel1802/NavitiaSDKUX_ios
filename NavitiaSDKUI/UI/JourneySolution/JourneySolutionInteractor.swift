@@ -1,24 +1,47 @@
 //
-//  JourneySolutionViewModel.swift
+//  JourneySolutionInteractor.swift
 //  NavitiaSDKUI
 //
-//  Copyright © 2018 kisio. All rights reserved.
+//  Created by Flavien Sicard on 24/08/2018.
 //
 
 import UIKit
 
-class JourneySolutionViewModel: NSObject {
+protocol JourneySolutionBusinessLogic {
+    
+    func fetchJourneys(request: JourneySolution.FetchJourneys.Request)
+    
+}
 
-    var journeySolutionDidChange: ((JourneySolutionViewModel) -> ())?
-    var journeys = [Journey]()
-    var journeysRidesharing = [Journey]()
-    var disruptions = [Disruption]()
-    var loading: Bool = true
+protocol JourneySolutionDataStore {
     
-    var indexRidesharing: Int?
-    var indexJourney: Int?
+    var journeys: Journeys? { get }
     
-    func request(with parameters: JourneySolutionViewController.InParameters) {
+}
+
+class JourneySolutionInteractor: JourneySolutionBusinessLogic, JourneySolutionDataStore {
+
+    var presenter: JourneySolutionPresentationLogic?
+    //var journeyWorker = JourneyWorker()
+    
+    var journeys: Journeys?
+    
+    // MARK: - Fetch Journey
+    
+    func fetchJourneys(request: JourneySolution.FetchJourneys.Request) {
+        // // Récupération des Journeys + Stockage en local
+        workerFetchJourneys(parameters: request.inParameters) { (journeys) in
+            guard let journeys = journeys else {
+                return
+            }
+            
+            self.journeys = journeys
+            let response = JourneySolution.FetchJourneys.Response(journeys: journeys)
+            self.presenter?.presentFetchedJourneys(response: response)
+        }
+    }
+
+    func workerFetchJourneys(parameters: JourneySolutionViewController.InParameters, completionHandler: @escaping (Journeys?) -> Void) {
         if NavitiaSDKUI.shared.navitiaSDK != nil {
             let journeyRequestBuilder = NavitiaSDKUI.shared.navitiaSDK.journeysApi.newJourneysRequestBuilder()
             _ = journeyRequestBuilder.withFrom(parameters.originId)
@@ -54,31 +77,12 @@ class JourneySolutionViewModel: NSObject {
             if let bssStands = parameters.bssStands {
                 _ = journeyRequestBuilder.withBssStands(bssStands)
             }
-            self.loading = true
             journeyRequestBuilder.get { (result, error) in
                 if let result = result {
-                    self.parseNavitia(result: result)
+                    completionHandler(result)
                 }
-                self.loading = false
-                self.journeySolutionDidChange?(self)
+                completionHandler(nil)
             }
-        }
-    }
-    
-    func parseNavitia(result: Journeys) {
-        if let journeys = result.journeys {
-            for journey in journeys {
-                if let redisharingDistance = journey.distances?.ridesharing {
-                    if redisharingDistance > 0 {
-                        self.journeysRidesharing.append(journey)
-                    } else {
-                        self.journeys.append(journey)
-                    }
-                }
-            }
-        }
-        if let disruptions = result.disruptions {
-            self.disruptions = disruptions
         }
     }
     

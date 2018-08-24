@@ -7,7 +7,14 @@
 
 import UIKit
 
+protocol JourneySolutionDisplayLogic: class {
+    
+    func displayFetchedJourneys(viewModel: JourneySolution.FetchJourneys.ViewModel)
+    
+}
+
 open class JourneySolutionViewController: UIViewController {
+    
     
     @IBOutlet weak var searchView: UIView!
     @IBOutlet weak var fromLabel: UILabel!
@@ -19,9 +26,13 @@ open class JourneySolutionViewController: UIViewController {
     @IBOutlet weak var switchDepartureArrivalImageView: UIImageView!
     @IBOutlet weak var switchDepartureArrivalButton: UIButton!
     
+    var interactor: JourneySolutionBusinessLogic?
+    var router: (NSObjectProtocol & JourneySolutionViewRoutingLogic & JourneySolutionDataPassing)?
+    var displayedJourneys: [JourneySolution.FetchJourneys.ViewModel.DisplayedJourney] = []
+    
     public var inParameters: InParameters!
     
-    fileprivate var _viewModel: JourneySolutionViewModel! {
+    var _viewModel: JourneySolutionViewModel! {
         didSet {
             self._viewModel.journeySolutionDidChange = { [weak self] journeySolutionViewModel in
                 self?.switchDepartureArrivalButton.isEnabled = true
@@ -65,12 +76,35 @@ open class JourneySolutionViewController: UIViewController {
         // Request
         _viewModel = JourneySolutionViewModel()
         _viewModel.request(with: inParameters)
+        
+        
+        // Clean
+        let viewController = self
+        let interactor = JourneySolutionInteractor()
+        let presenter = JourneySolutionPresenter()
+        let router = JourneySolutionRouter()
+        
+        viewController.interactor = interactor
+        viewController.router = router
+        interactor.presenter = presenter
+        presenter.viewController = viewController
+        router.viewController = viewController
+        router.dataStore = interactor
     }
 
     override open func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
+    // MARK: - View lifecycle
+    
+    override open func viewDidAppear(_ animated: Bool)
+    {
+        super.viewDidAppear(animated)
+        fetchJourneys()
+    }
+    
     
     override open func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
@@ -140,6 +174,23 @@ open class JourneySolutionViewController: UIViewController {
         
         _viewModel.request(with: inParameters)
     }
+}
+
+extension JourneySolutionViewController: JourneySolutionDisplayLogic {
+    
+    // MARK: - Fetch journeys
+    
+    func fetchJourneys()
+    {
+        let request = JourneySolution.FetchJourneys.Request(inParameters: inParameters)
+        interactor?.fetchJourneys(request: request)
+    }
+    
+    func displayFetchedJourneys(viewModel: JourneySolution.FetchJourneys.ViewModel) {
+        displayedJourneys = viewModel.displayedJourneys
+        collectionView.reloadData()
+    }
+    
 }
 
 extension JourneySolutionViewController: UICollectionViewDataSource {
@@ -247,15 +298,17 @@ extension JourneySolutionViewController: UICollectionViewDelegate {
     public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if !_viewModel.loading {
             if indexPath.section == 0 && _viewModel.journeys.count > indexPath.row {
-                let viewController = storyboard?.instantiateViewController(withIdentifier: JourneySolutionRoadmapViewController.identifier) as! JourneySolutionRoadmapViewController
-                viewController.disruptions = _viewModel.disruptions
-                viewController.journey = _viewModel.journeys[indexPath.row]
-                self.navigationController?.pushViewController(viewController, animated: true)
+                _viewModel.indexJourney = indexPath.row
+                let selector = NSSelectorFromString("routeToJourneySolutionRoadmap")
+                if let router = router, router.responds(to: selector) {
+                    router.perform(selector)
+                }
             } else if indexPath.section == 1 && indexPath.row != 0 {
-                let viewController = storyboard?.instantiateViewController(withIdentifier: JourneySolutionRidesharingViewController.identifier) as! JourneySolutionRidesharingViewController
-                viewController.disruptions = _viewModel.disruptions
-                viewController.journey = _viewModel.journeysRidesharing[indexPath.row - 1]
-                self.navigationController?.pushViewController(viewController, animated: true)
+                _viewModel.indexRidesharing = indexPath.row - 1
+                let selector = NSSelectorFromString("routeToJourneySolutionRidesharing")
+                if let router = router, router.responds(to: selector) {
+                    router.perform(selector)
+                }
             }
         }
     }
