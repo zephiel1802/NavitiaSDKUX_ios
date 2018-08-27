@@ -28,32 +28,10 @@ open class JourneySolutionViewController: UIViewController {
     
     var interactor: JourneySolutionBusinessLogic?
     var router: (NSObjectProtocol & JourneySolutionViewRoutingLogic & JourneySolutionDataPassing)?
-    var displayedJourneys: [JourneySolution.FetchJourneys.ViewModel.DisplayedJourney] = []
+    var viewModel: JourneySolution.FetchJourneys.ViewModel?
     
     public var inParameters: InParameters!
     
-    var _viewModel: JourneySolutionViewModel! {
-        didSet {
-            self._viewModel.journeySolutionDidChange = { [weak self] journeySolutionViewModel in
-                self?.switchDepartureArrivalButton.isEnabled = true
-                
-                self?.collectionView.reloadData()
-                if !journeySolutionViewModel.journeys.isEmpty || !journeySolutionViewModel.journeysRidesharing.isEmpty {
-                    if self?.inParameters.originLabel == nil {
-                        self?.fromLabel.text = !journeySolutionViewModel.journeys.isEmpty ? journeySolutionViewModel.journeys[0].sections?[0].from?.name : journeySolutionViewModel.journeysRidesharing[0].sections?[0].from?.name
-                    }
-                    if self?.inParameters.destinationLabel == nil {
-                        self?.toLabel.text = !journeySolutionViewModel.journeys.isEmpty ? journeySolutionViewModel.journeys[0].sections?[(journeySolutionViewModel.journeys[0].sections?.count)! - 1].to?.name : journeySolutionViewModel.journeysRidesharing[0].sections?[(journeySolutionViewModel.journeysRidesharing[0].sections?.count)! - 1].to?.name
-                    }
-                    if self?.inParameters.datetime == nil {
-                        if let dateTime = !journeySolutionViewModel.journeys.isEmpty ? journeySolutionViewModel.journeys[0].departureDateTime?.toDate(format: Configuration.date) : journeySolutionViewModel.journeysRidesharing[0].departureDateTime?.toDate(format: Configuration.date) {
-                            self?.dateTime = dateTime.toString(format: Configuration.timeJourneySolution)
-                        }
-                    }
-                }
-            }
-        }
-    }
     
     override open func viewDidLoad() {
         super.viewDidLoad()
@@ -70,13 +48,7 @@ open class JourneySolutionViewController: UIViewController {
             collectionView?.contentInsetAdjustmentBehavior = .always
         }
 
-        _setupInterface()
         _registerCollectionView()
-
-        // Request
-        _viewModel = JourneySolutionViewModel()
-        _viewModel.request(with: inParameters)
-        
         
         // Clean
         let viewController = self
@@ -94,20 +66,21 @@ open class JourneySolutionViewController: UIViewController {
 
     override open func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+
     }
     
     // MARK: - View lifecycle
     
-    override open func viewDidAppear(_ animated: Bool)
-    {
-        super.viewDidAppear(animated)
-        fetchJourneys()
+    override open func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        _setupInterface()
+        _fetchJourneys()
     }
-    
     
     override open func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
+        
         collectionView.collectionViewLayout.invalidateLayout()
     }
     
@@ -135,23 +108,16 @@ open class JourneySolutionViewController: UIViewController {
         switchDepartureArrivalImageView.image = UIImage(named: "switch", in: NavitiaSDKUI.shared.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
         switchDepartureArrivalImageView.tintColor = Configuration.Color.main
         
-        fromLabel.text = inParameters.originLabel ?? inParameters.originId
         fromPinLabel.attributedText = NSMutableAttributedString()
             .icon("location-pin", color: Configuration.Color.origin, size: 22)
         
-        toLabel.text = inParameters.destinationLabel ?? inParameters.destinationId
         toPinLabel.attributedText = NSMutableAttributedString()
             .icon("location-pin", color: Configuration.Color.destination, size: 22)
         
         if let backgroundColor = navigationController?.navigationBar.barTintColor {
             searchView.backgroundColor = backgroundColor
         }
-        
-        if let dateTime = inParameters.datetime {
-            self.dateTime = dateTime.toString(format: Configuration.timeJourneySolution)
-        }
     }
-    
     
     @IBAction func switchDepartureArrivalCoordinates(_ sender: UIButton) {
         switchDepartureArrivalButton.isEnabled = false
@@ -164,30 +130,40 @@ open class JourneySolutionViewController: UIViewController {
         self.fromLabel.text = self.toLabel.text
         self.toLabel.text = oldFromLabelText
         
-        _viewModel.journeys = [Journey]()
-        _viewModel.journeysRidesharing = [Journey]()
-        self.collectionView.reloadData()
-        
         let oldOriginId = self.inParameters.originId
         self.inParameters.originId = self.inParameters.destinationId
         self.inParameters.destinationId = oldOriginId
         
-        _viewModel.request(with: inParameters)
+        _fetchJourneys()
     }
+    
 }
 
 extension JourneySolutionViewController: JourneySolutionDisplayLogic {
     
     // MARK: - Fetch journeys
     
-    func fetchJourneys()
-    {
+    private func _fetchJourneys() {
         let request = JourneySolution.FetchJourneys.Request(inParameters: inParameters)
+        
         interactor?.fetchJourneys(request: request)
     }
     
     func displayFetchedJourneys(viewModel: JourneySolution.FetchJourneys.ViewModel) {
-        displayedJourneys = viewModel.displayedJourneys
+        self.viewModel = viewModel
+        
+        guard let viewModel = self.viewModel else {
+            return
+        }
+
+        fromLabel.attributedText = viewModel.searchInformation.origin
+        toLabel.attributedText = viewModel.searchInformation.destination
+        dateTimeLabel.attributedText = viewModel.searchInformation.dateTime
+
+        if viewModel.loaded {
+            switchDepartureArrivalButton.isEnabled = true
+        }
+        
         collectionView.reloadData()
     }
     
@@ -196,8 +172,11 @@ extension JourneySolutionViewController: JourneySolutionDisplayLogic {
 extension JourneySolutionViewController: UICollectionViewDataSource {
     
     public func numberOfSections(in collectionView: UICollectionView) -> Int {
+        guard let viewModel = self.viewModel else {
+            return 0
+        }
         // Journey + Carsharing
-        if ridesharing && !_viewModel.loading {
+        if ridesharing && viewModel.loaded {
             return 2
         }
         
@@ -206,29 +185,36 @@ extension JourneySolutionViewController: UICollectionViewDataSource {
     }
     
     public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        guard let viewModel = self.viewModel else {
+            return 0
+        }
         // Loading
-        if _viewModel.loading {
+        if !viewModel.loaded {
             return 4
         }
         // Carsharing : Header + Empty
-        if section == 1 && _viewModel.journeysRidesharing.count == 0 {
+        if section == 1 && viewModel.displayedRidesharings.count == 0 {
             return 2
         }
         // Journey : Empty
-        if section == 0 && self._viewModel.journeys.count == 0 {
+        if section == 0 && viewModel.displayedJourneys.count == 0 {
             return 1
         }
         // Carsharing : Header + Solution
         if section == 1 {
-            return self._viewModel.journeysRidesharing.count + 1
+            return viewModel.displayedRidesharings.count + 1
         }
         // Journey : Solution
-        return self._viewModel.journeys.count
+        return viewModel.displayedJourneys.count
     }
     
     public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         // Loading
-        if _viewModel.loading {
+        guard let viewModel = viewModel else {
+            return UICollectionViewCell()
+        }
+        
+        if !viewModel.loaded {
             if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: JourneySolutionLoadCollectionViewCell.identifier, for: indexPath) as? JourneySolutionLoadCollectionViewCell {
                 return cell
             }
@@ -236,19 +222,19 @@ extension JourneySolutionViewController: UICollectionViewDataSource {
         // Journey
         if indexPath.section == 0 {
             // No journey
-            if self._viewModel.journeys.count == 0 {
+            if viewModel.displayedJourneys.count == 0 {
                 if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: JourneyEmptySolutionCollectionViewCell.identifier, for: indexPath) as? JourneyEmptySolutionCollectionViewCell {
                     return cell
                 }
             }
             // Result
             if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: JourneySolutionCollectionViewCell.identifier, for: indexPath) as? JourneySolutionCollectionViewCell {
-                cell.disruptions = _viewModel.disruptions
-                cell.setup(self._viewModel.journeys[indexPath.row])
+                cell.setup(displayedJourney: viewModel.displayedJourneys[indexPath.row],
+                            displayedDisruptions: viewModel.displayedDisruptions)
                 return cell
             }
         }
-        // Carsharing
+        // Carsharing A FAIRE
         if indexPath.section == 1 {
             // Header
             if indexPath.row == 0 {
@@ -257,7 +243,7 @@ extension JourneySolutionViewController: UICollectionViewDataSource {
                 }
             }
             // No journey
-            if indexPath.row == 1 && self._viewModel.journeysRidesharing.count == 0 {
+            if indexPath.row == 1 && viewModel.displayedRidesharings.count == 0 {
                 if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: JourneyEmptySolutionCollectionViewCell.identifier, for: indexPath) as? JourneyEmptySolutionCollectionViewCell {
                     cell.text = "no_carpooling_options_found".localized(withComment: "No carpooling options found", bundle: NavitiaSDKUI.shared.bundle)
                     return cell
@@ -265,7 +251,8 @@ extension JourneySolutionViewController: UICollectionViewDataSource {
             }
             // Result
             if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: JourneySolutionCollectionViewCell.identifier, for: indexPath) as? JourneySolutionCollectionViewCell {
-                cell.setupRidesharing(self._viewModel.journeysRidesharing[indexPath.row - 1])
+                cell.setup(displayedJourney: viewModel.displayedRidesharings[indexPath.row - 1],
+                            displayedDisruptions: viewModel.displayedDisruptions)
                 return cell
             }
         }
@@ -296,21 +283,21 @@ extension JourneySolutionViewController: UICollectionViewDelegate {
     }
     
     public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        if !_viewModel.loading {
-            if indexPath.section == 0 && _viewModel.journeys.count > indexPath.row {
-                _viewModel.indexJourney = indexPath.row
-                let selector = NSSelectorFromString("routeToJourneySolutionRoadmap")
-                if let router = router, router.responds(to: selector) {
-                    router.perform(selector)
-                }
-            } else if indexPath.section == 1 && indexPath.row != 0 {
-                _viewModel.indexRidesharing = indexPath.row - 1
-                let selector = NSSelectorFromString("routeToJourneySolutionRidesharing")
-                if let router = router, router.responds(to: selector) {
-                    router.perform(selector)
-                }
-            }
-        }
+//        if !_viewModel.loading {
+//            if indexPath.section == 0 && _viewModel.journeys.count > indexPath.row {
+//                _viewModel.indexJourney = indexPath.row
+//                let selector = NSSelectorFromString("routeToJourneySolutionRoadmap")
+//                if let router = router, router.responds(to: selector) {
+//                    router.perform(selector)
+//                }
+//            } else if indexPath.section == 1 && indexPath.row != 0 {
+//                _viewModel.indexRidesharing = indexPath.row - 1
+//                let selector = NSSelectorFromString("routeToJourneySolutionRidesharing")
+//                if let router = router, router.responds(to: selector) {
+//                    router.perform(selector)
+//                }
+//            }
+//        }
     }
     
 }
@@ -322,21 +309,23 @@ extension JourneySolutionViewController: UICollectionViewDelegateFlowLayout {
         if #available(iOS 11.0, *) {
             safeAreaWidth += self.collectionView.safeAreaInsets.left + self.collectionView.safeAreaInsets.right
         }
+        guard let viewModel = viewModel else {
+            return CGSize()
+        }
+        
         // Loading
-        if _viewModel.loading {
+        if !viewModel.loaded {
             return CGSize(width: self.collectionView.frame.size.width - safeAreaWidth, height: 130)
         }
         // Journey
         if indexPath.section == 0 {
             // No journey
-            if self._viewModel.journeys.count == 0 {
+            if viewModel.displayedJourneys.count == 0 {
                 return CGSize(width: self.collectionView.frame.size.width - safeAreaWidth, height: 35)
             }
             // Result
-            if let walkingDuration = _viewModel.journeys[indexPath.row].durations?.walking {
-                if walkingDuration <= 0 {
-                    return CGSize(width: self.collectionView.frame.size.width - safeAreaWidth, height: 97)
-                }
+            if viewModel.displayedJourneys[indexPath.row].walkingInformation == nil {
+                return CGSize(width: self.collectionView.frame.size.width - safeAreaWidth, height: 97)
             }
             return CGSize(width: self.collectionView.frame.size.width - safeAreaWidth, height: 130)
         }
@@ -347,7 +336,7 @@ extension JourneySolutionViewController: UICollectionViewDelegateFlowLayout {
                 return CGSize(width: self.collectionView.frame.size.width - safeAreaWidth, height: 75)
             }
             // No journey
-            if indexPath.row == 1 && self._viewModel.journeysRidesharing.count == 0 {
+            if indexPath.row == 1 && viewModel.displayedRidesharings.count == 0 {
                 return CGSize(width: self.collectionView.frame.size.width - safeAreaWidth, height: 35)
             }
             // Result
@@ -360,22 +349,6 @@ extension JourneySolutionViewController: UICollectionViewDelegateFlowLayout {
 }
 
 extension JourneySolutionViewController {
-    
-    var dateTime: String? {
-        get {
-            return dateTimeLabel.text
-        }
-        set {
-            if let newValue = newValue {
-                dateTimeLabel.attributedText = NSMutableAttributedString()
-                    .bold(String(format: "%@ : %@",
-                                 "departure".localized(withComment: "Departure : ", bundle: NavitiaSDKUI.shared.bundle),
-                                 newValue),
-                          color: UIColor.white,
-                          size: 12.5)
-            }
-        }
-    }
     
     var ridesharing: Bool {
         get {

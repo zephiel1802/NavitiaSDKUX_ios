@@ -35,7 +35,7 @@ class JourneySolutionRouter: NSObject, JourneySolutionViewRoutingLogic, JourneyS
         var destinationVC = viewController.storyboard?.instantiateViewController(withIdentifier: JourneySolutionRidesharingViewController.identifier) as! JourneySolutionRidesharingViewController
 //        var destinationDS = destinationVC.router!.dataStore
         
-        passDataToJourneySolutionRidesharing(source: viewController._viewModel, destination: &destinationVC)  // Normalement c'est le DSStore
+     //   passDataToJourneySolutionRidesharing(source: viewController._viewModel, destination: &destinationVC)  // Normalement c'est le DSStore
         navigateToJourneySolutionRidesharing(source: viewController, destination: destinationVC)
     }
     
@@ -47,7 +47,7 @@ class JourneySolutionRouter: NSObject, JourneySolutionViewRoutingLogic, JourneyS
         var destinationVC = viewController.storyboard?.instantiateViewController(withIdentifier: JourneySolutionRoadmapViewController.identifier) as! JourneySolutionRoadmapViewController
         //        var destinationDS = destinationVC.router!.dataStore
         
-        passDataToJourneySolutionRoadmap(source: viewController._viewModel, destination: &destinationVC)  // Normalement c'est le DSStore
+       // passDataToJourneySolutionRoadmap(source: viewController._viewModel, destination: &destinationVC)  // Normalement c'est le DSStore
         navigateToJourneySolutionRoadmap(source: viewController, destination: destinationVC)
     }
     

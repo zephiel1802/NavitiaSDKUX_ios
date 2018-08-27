@@ -18,24 +18,27 @@ enum JourneySolution {
         }
         
         struct Response {
-            var journeys: Journeys
+            var parameters: JourneySolutionViewController.InParameters
+            var journeys: Journeys?
         }
         
         struct ViewModel {
+            struct SearchInformation {
+                var dateTime: NSMutableAttributedString
+                var origin: NSMutableAttributedString
+                var destination: NSMutableAttributedString
+            }
             struct DisplayedJourney {
-                var departureDateTime: Date // EN STRIN?  !
-                var arrivalDateTime: Date
-                var duration: Int32 // Non Formaté - EN SECONDE
-                var walkingDuration: String? // Formaté
-                var walkingDistance: String // Formaté
+                var dateTime: NSMutableAttributedString
+                var duration: NSMutableAttributedString
+                var walkingInformation: NSMutableAttributedString?
                 var sections: [Section]
             }
-            struct DisplayedDisruption {
-                var disruptions: [Disruption]
-            }
+            var loaded: Bool
+            var searchInformation: SearchInformation
             var displayedJourneys: [DisplayedJourney]
             var displayedRidesharings: [DisplayedJourney]
-            var displayedDisruptions: [DisplayedDisruption]
+            var displayedDisruptions: [Disruption]
         }
         
     }

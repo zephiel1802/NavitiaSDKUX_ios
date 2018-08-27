@@ -30,13 +30,12 @@ class JourneySolutionInteractor: JourneySolutionBusinessLogic, JourneySolutionDa
     
     func fetchJourneys(request: JourneySolution.FetchJourneys.Request) {
         // // Récupération des Journeys + Stockage en local
+        self.presenter?.presentFetchedSeachInformation(parameters: request.inParameters)
+        
         workerFetchJourneys(parameters: request.inParameters) { (journeys) in
-            guard let journeys = journeys else {
-                return
-            }
-            
             self.journeys = journeys
-            let response = JourneySolution.FetchJourneys.Response(journeys: journeys)
+            let response = JourneySolution.FetchJourneys.Response(parameters: request.inParameters,
+                                                                  journeys: journeys)
             self.presenter?.presentFetchedJourneys(response: response)
         }
     }
@@ -80,8 +79,9 @@ class JourneySolutionInteractor: JourneySolutionBusinessLogic, JourneySolutionDa
             journeyRequestBuilder.get { (result, error) in
                 if let result = result {
                     completionHandler(result)
+                } else {
+                    completionHandler(nil)
                 }
-                completionHandler(nil)
             }
         }
     }

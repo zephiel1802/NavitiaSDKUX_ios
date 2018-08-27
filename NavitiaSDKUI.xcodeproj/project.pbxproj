@@ -25,6 +25,7 @@
 		8422B468206A334B0097E6C9 /* JourneySummaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8422B467206A334B0097E6C9 /* JourneySummaryView.swift */; };
 		8422B46A206A33540097E6C9 /* JourneySummaryView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8422B469206A33540097E6C9 /* JourneySummaryView.xib */; };
 		8422B46C206A37610097E6C9 /* TransportHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8422B46B206A37610097E6C9 /* TransportHelper.swift */; };
+		842FE531213017EF002D16BF /* JourneySolutionViewRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842FE530213017EF002D16BF /* JourneySolutionViewRouter.swift */; };
 		8430274F20BBE70E005AD743 /* Message+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8430274E20BBE70E005AD743 /* Message+Extension.swift */; };
 		8430275120BBE72B005AD743 /* Disruption+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8430275020BBE72B005AD743 /* Disruption+Extension.swift */; };
 		84339A7E206CC5E200F2CB65 /* JourneyEmptySolutionCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84339A7D206CC5E200F2CB65 /* JourneyEmptySolutionCollectionViewCell.xib */; };
@@ -287,7 +288,6 @@
 		8490A6D52084D2C700F7CFA1 /* NavitiaSDKUserDefaultsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8490A6D42084D2C700F7CFA1 /* NavitiaSDKUserDefaultsManager.swift */; };
 		84A790FB2121B0E40000C82F /* EmissionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A790FA2121B0E40000C82F /* EmissionView.swift */; };
 		84A790FD2121B0E90000C82F /* EmissionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84A790FC2121B0E90000C82F /* EmissionView.xib */; };
-		84A790FF2121B0F20000C82F /* Double+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A790FE2121B0F20000C82F /* Double+Extension.swift */; };
 		84BC297E207E66CC0073F198 /* StationsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84BC297D207E66CC0073F198 /* StationsView.xib */; };
 		84BC2980207E66D50073F198 /* StationsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84BC297F207E66D50073F198 /* StationsView.swift */; };
 		84D0FA94210094A900EB420A /* Section+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D0FA93210094A900EB420A /* Section+Extension.swift */; };
@@ -329,6 +329,7 @@
 		8422B467206A334B0097E6C9 /* JourneySummaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JourneySummaryView.swift; sourceTree = "<group>"; };
 		8422B469206A33540097E6C9 /* JourneySummaryView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = JourneySummaryView.xib; sourceTree = "<group>"; };
 		8422B46B206A37610097E6C9 /* TransportHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransportHelper.swift; sourceTree = "<group>"; };
+		842FE530213017EF002D16BF /* JourneySolutionViewRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = JourneySolutionViewRouter.swift; path = NavitiaSDKUI/UI/JourneySolution/JourneySolutionViewRouter.swift; sourceTree = SOURCE_ROOT; };
 		8430274E20BBE70E005AD743 /* Message+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Message+Extension.swift"; sourceTree = "<group>"; };
 		8430275020BBE72B005AD743 /* Disruption+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Disruption+Extension.swift"; sourceTree = "<group>"; };
 		84339A7D206CC5E200F2CB65 /* JourneyEmptySolutionCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = JourneyEmptySolutionCollectionViewCell.xib; sourceTree = "<group>"; };
@@ -813,6 +814,7 @@
 				8451DABD2065176900CFA1E4 /* Interface */,
 				8451DAA520650C6900CFA1E4 /* JourneySolutionViewController.swift */,
 				8451DAAF206512C100CFA1E4 /* JourneySolutionViewModel.swift */,
+				842FE530213017EF002D16BF /* JourneySolutionViewRouter.swift */,
 			);
 			path = JourneySolution;
 			sourceTree = "<group>";
@@ -1463,7 +1465,6 @@
 				8454D4392068D3A800C97D2F /* ImmutableMappable.swift in Sources */,
 				8454D3992068D3A800C97D2F /* Impacted.swift in Sources */,
 				8430274F20BBE70E005AD743 /* Message+Extension.swift in Sources */,
-				84A790FF2121B0F20000C82F /* Double+Extension.swift in Sources */,
 				8454D3BF2068D3A800C97D2F /* ImpactedSection.swift in Sources */,
 				8454D4132068D3A800C97D2F /* Calendars.swift in Sources */,
 				8454D38A2068D3A800C97D2F /* PlacesApi.swift in Sources */,
@@ -1607,6 +1608,7 @@
 				8454D37E2068D3A800C97D2F /* CoordApi.swift in Sources */,
 				8454D3AB2068D3A800C97D2F /* RouteDisplayInformation.swift in Sources */,
 				8454D3702068D3A800C97D2F /* PlaceUriApi.swift in Sources */,
+				842FE531213017EF002D16BF /* JourneySolutionViewRouter.swift in Sources */,
 				8422B46C206A37610097E6C9 /* TransportHelper.swift in Sources */,
 				8471D38520809EC7000C9125 /* JourneySolutionView.swift in Sources */,
 				8454D3962068D3A800C97D2F /* Extensions.swift in Sources */,
