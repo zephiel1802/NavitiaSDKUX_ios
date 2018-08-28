@@ -1,5 +1,5 @@
 //
-//  JourneyWorker.swift
+//  JourneysWorker.swift
 //  NavitiaSDKUI
 //
 //  Created by Flavien Sicard on 28/08/2018.

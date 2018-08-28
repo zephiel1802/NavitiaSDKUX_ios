@@ -19,7 +19,7 @@ class JourneySolutionCollectionViewCell: UICollectionViewCell {
     @IBOutlet var durationBottomContraint: NSLayoutConstraint!
     @IBOutlet var durationLeadingContraint: NSLayoutConstraint!
     
-    func setup(displayedJourney: JourneySolution.FetchJourneys.ViewModel.DisplayedJourney,
+    func setup(displayedJourney: ListJourneys.FetchJourneys.ViewModel.DisplayedJourney,
                 displayedDisruptions: [Disruption]) {
         
         // 1

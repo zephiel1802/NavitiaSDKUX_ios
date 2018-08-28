@@ -22,21 +22,23 @@ class ViewController: UIViewController {
         navigationController?.pushViewController(journeyResultsViewController, animated: true)
     }
     
-    private func getJourneys() -> JourneySolutionViewController {
+    private func getJourneys() -> ListJourneysViewController {
         let bundle = Bundle(identifier: "org.cocoapods.NavitiaSDKUI")
         let storyboard = UIStoryboard(name: "Journey", bundle: bundle)
-        let journeyResultsViewController = storyboard.instantiateInitialViewController() as! JourneySolutionViewController
-        var params: JourneySolutionViewController.InParameters = JourneySolutionViewController.InParameters(originId: "2.3665844;48.8465337", destinationId: "2.2979169;48.8848719")
-        params.originLabel = "Chez moi"
-        params.destinationLabel = "Au travail"
-        params.datetime = Date()
-        params.datetime!.addTimeInterval(2000)
-        params.datetimeRepresents = .departure
-        params.forbiddenUris = ["physical_mode:Bus"]
-        params.firstSectionModes = [.bss]
-        params.lastSectionModes = [.car]
-        params.count = 5
-        journeyResultsViewController.inParameters = params
+        let journeyResultsViewController = storyboard.instantiateInitialViewController() as! ListJourneysViewController
+        var journeysRequest = JourneysRequest(originId: "2.3665844;48.8465337", destinationId: "2.2979169;48.8848719")
+        
+        journeysRequest.originLabel = "Chez moi"
+        journeysRequest.destinationLabel = "Au travail"
+        journeysRequest.datetime = Date()
+        journeysRequest.datetime!.addTimeInterval(2000)
+        journeysRequest.datetimeRepresents = .departure
+        journeysRequest.forbiddenUris = ["physical_mode:Bus"]
+        journeysRequest.firstSectionModes = [.bss]
+        journeysRequest.lastSectionModes = [.car]
+        journeysRequest.count = 5
+        journeyResultsViewController.journeysRequest = journeysRequest
+        
         return journeyResultsViewController
     }
     

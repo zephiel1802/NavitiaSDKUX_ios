@@ -7,23 +7,23 @@
 
 import UIKit
 
-protocol JourneySolutionPresentationLogic {
+protocol ListJourneysPresentationLogic {
     
     func presentFetchedSeachInformation(journeysRequest: JourneysRequest)
-    func presentFetchedJourneys(response: JourneySolution.FetchJourneys.Response)
+    func presentFetchedJourneys(response: ListJourneys.FetchJourneys.Response)
     
 }
 
-internal class JourneySolutionPresenter: JourneySolutionPresentationLogic {
+internal class ListJourneysPresenter: ListJourneysPresentationLogic {
 
-    weak var viewController: JourneySolutionDisplayLogic?
+    weak var viewController: ListJourneysDisplayLogic?
     
     func presentFetchedSeachInformation(journeysRequest: JourneysRequest) {
         guard let headerInformations = _getDisplayedHeaderInformations(journeysRequest: journeysRequest) else {
             return
         }
         
-        let viewModel = JourneySolution.FetchJourneys.ViewModel(loaded: false,
+        let viewModel = ListJourneys.FetchJourneys.ViewModel(loaded: false,
                                                                 headerInformations: headerInformations,
                                                                 displayedJourneys: [],
                                                                 displayedRidesharings: [],
@@ -33,10 +33,10 @@ internal class JourneySolutionPresenter: JourneySolutionPresentationLogic {
     
     // MARK: - Fetch Journeys
     
-    func presentFetchedJourneys(response: JourneySolution.FetchJourneys.Response) {
+    func presentFetchedJourneys(response: ListJourneys.FetchJourneys.Response) {
 
-        var displayedJourneys: [JourneySolution.FetchJourneys.ViewModel.DisplayedJourney] = []
-        var displayedRidesharings: [JourneySolution.FetchJourneys.ViewModel.DisplayedJourney] = []
+        var displayedJourneys: [ListJourneys.FetchJourneys.ViewModel.DisplayedJourney] = []
+        var displayedRidesharings: [ListJourneys.FetchJourneys.ViewModel.DisplayedJourney] = []
         
         if let journeys = response.journeys.0 {
             for journey in journeys {
@@ -58,7 +58,7 @@ internal class JourneySolutionPresenter: JourneySolutionPresentationLogic {
             return
         }
         
-        let viewModel = JourneySolution.FetchJourneys.ViewModel(loaded: true,
+        let viewModel = ListJourneys.FetchJourneys.ViewModel(loaded: true,
                                                                 headerInformations: headerInformations,
                                                                 displayedJourneys: displayedJourneys,
                                                                 displayedRidesharings: displayedRidesharings,
@@ -66,13 +66,9 @@ internal class JourneySolutionPresenter: JourneySolutionPresentationLogic {
         viewController?.displayFetchedJourneys(viewModel: viewModel)
     }
     
-}
-
-// MARK: - Displayed search informations
-
-extension JourneySolutionPresenter {
+    // MARK: - Displayed Header Informations
     
-    private func _getDisplayedHeaderInformations(journeysRequest: JourneysRequest) -> JourneySolution.FetchJourneys.ViewModel.HeaderInformations? {
+    private func _getDisplayedHeaderInformations(journeysRequest: JourneysRequest) -> ListJourneys.FetchJourneys.ViewModel.HeaderInformations? {
         guard
             let origin = _getDisplayedHeaderInformationsOrigin(origin: journeysRequest.originLabel ?? journeysRequest.originId),
             let destination = _getDisplayedHeaderInformationsDestination(destination: journeysRequest.destinationLabel ?? journeysRequest.destinationId) else {
@@ -80,13 +76,13 @@ extension JourneySolutionPresenter {
         }
         let dateTime = _getDisplayedHeaderInformationsDateTime(departureDateTime: journeysRequest.datetime)
         
-        return JourneySolution.FetchJourneys.ViewModel.HeaderInformations(dateTime: dateTime,
+        return ListJourneys.FetchJourneys.ViewModel.HeaderInformations(dateTime: dateTime,
                                                                          origin: origin,
                                                                          destination: destination)
     }
     
     private func _getDisplayedHeaderInformations(journey: Journey? = nil,
-                                                 journeysRequest: JourneysRequest? = nil) -> JourneySolution.FetchJourneys.ViewModel.HeaderInformations? {
+                                                 journeysRequest: JourneysRequest? = nil) -> ListJourneys.FetchJourneys.ViewModel.HeaderInformations? {
         guard let journeysRequest = journeysRequest else {
             return nil
         }
@@ -98,7 +94,7 @@ extension JourneySolutionPresenter {
             }
             let dateTime = _getDisplayedHeaderInformationsDateTime(departureDateTime: journeysRequest.datetime ?? journey.departureDateTime?.toDate(format: Configuration.date))
             
-            return JourneySolution.FetchJourneys.ViewModel.HeaderInformations(dateTime: dateTime,
+            return ListJourneys.FetchJourneys.ViewModel.HeaderInformations(dateTime: dateTime,
                                                                              origin: origin,
                                                                              destination: destination)
         }
@@ -137,13 +133,9 @@ extension JourneySolutionPresenter {
                                                 size: 11)
     }
     
-}
-
-// MARK: - Displayed Journey
-
-extension JourneySolutionPresenter {
+    // MARK: - Displayed Journey
     
-    private func _getDisplayedJourney(journey: Journey?) -> JourneySolution.FetchJourneys.ViewModel.DisplayedJourney? {
+    private func _getDisplayedJourney(journey: Journey?) -> ListJourneys.FetchJourneys.ViewModel.DisplayedJourney? {
         guard
             let journey = journey,
             let dateTime = _getDisplayedJourneyDateTime(journey: journey),
@@ -152,7 +144,7 @@ extension JourneySolutionPresenter {
         }
         
         if journey.isRidesharing {
-            return JourneySolution.FetchJourneys.ViewModel.DisplayedJourney(dateTime: dateTime,
+            return ListJourneys.FetchJourneys.ViewModel.DisplayedJourney(dateTime: dateTime,
                                                                             duration: duration,
                                                                             walkingInformation: nil,
                                                                             sections: journey.sections ?? [])
@@ -160,7 +152,7 @@ extension JourneySolutionPresenter {
         
         let walkingInformation = _getDisplayedJourneyWalkingInformation(journey: journey)
         
-        return JourneySolution.FetchJourneys.ViewModel.DisplayedJourney(dateTime: dateTime,
+        return ListJourneys.FetchJourneys.ViewModel.DisplayedJourney(dateTime: dateTime,
                                                                         duration: duration,
                                                                         walkingInformation: walkingInformation,
                                                                         sections: journey.sections ?? [])

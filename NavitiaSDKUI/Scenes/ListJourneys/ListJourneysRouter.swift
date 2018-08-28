@@ -1,5 +1,5 @@
 //
-//  JourneySolutionViewRouter.swift
+//  ListJourneysRouter.swift
 //  NavitiaSDKUI
 //
 //  Copyright © 2018 kisio. All rights reserved.
@@ -7,23 +7,23 @@
 
 import UIKit
 
-@objc protocol JourneySolutionViewRoutingLogic {
+@objc protocol ListJourneysViewRoutingLogic {
     
     func routeToJourneySolutionRidesharing(indexPath: IndexPath)
     func routeToJourneySolutionRoadmap(indexPath: IndexPath)
     
 }
 
-protocol JourneySolutionDataPassing {
+protocol ListJourneysDataPassing {
     
-    var dataStore: JourneySolutionDataStore? { get }
+    var dataStore: ListJourneysDataStore? { get }
     
 }
 
-internal class JourneySolutionRouter: NSObject, JourneySolutionViewRoutingLogic, JourneySolutionDataPassing {
+internal class ListJourneysRouter: NSObject, ListJourneysViewRoutingLogic, ListJourneysDataPassing {
     
-    weak var viewController: JourneySolutionViewController?
-    var dataStore: JourneySolutionDataStore?
+    weak var viewController: ListJourneysViewController?
+    var dataStore: ListJourneysDataStore?
 
     // MARK: Routing
     
@@ -51,22 +51,22 @@ internal class JourneySolutionRouter: NSObject, JourneySolutionViewRoutingLogic,
     
     // MARK: Navigation
     
-    func navigateToJourneySolutionRidesharing(source: JourneySolutionViewController, destination: JourneySolutionRidesharingViewController) {
+    func navigateToJourneySolutionRidesharing(source: ListJourneysViewController, destination: JourneySolutionRidesharingViewController) {
         source.navigationController?.pushViewController(destination, animated: true)
     }
     
-    func navigateToJourneySolutionRoadmap(source: JourneySolutionViewController, destination: JourneySolutionRoadmapViewController) {
+    func navigateToJourneySolutionRoadmap(source: ListJourneysViewController, destination: JourneySolutionRoadmapViewController) {
         source.navigationController?.pushViewController(destination, animated: true)
     }
     
     // MARK: Passing Data
     
-    func passDataToJourneySolutionRidesharing(source: JourneySolutionDataStore, destination: inout JourneySolutionRidesharingViewController, index: IndexPath) {
+    func passDataToJourneySolutionRidesharing(source: ListJourneysDataStore, destination: inout JourneySolutionRidesharingViewController, index: IndexPath) {
         destination.disruptions = source.disruptions
         destination.journey = source.ridesharings?[index.row - 1]  // -1 because "Header Ridesharing"
     }
     
-    func passDataToJourneySolutionRoadmap(source: JourneySolutionDataStore, destination: inout JourneySolutionRoadmapViewController, index: IndexPath) {
+    func passDataToJourneySolutionRoadmap(source: ListJourneysDataStore, destination: inout JourneySolutionRoadmapViewController, index: IndexPath) {
         destination.disruptions = source.disruptions
         destination.journey = source.journeys?[index.row]
     }

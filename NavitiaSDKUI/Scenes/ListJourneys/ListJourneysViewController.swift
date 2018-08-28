@@ -1,5 +1,5 @@
 //
-//  JourneySolutionViewController.swift
+//  ListJourneysViewController.swift
 //  NavitiaSDKUI
 //
 //  Copyright © 2018 kisio. All rights reserved.
@@ -7,13 +7,15 @@
 
 import UIKit
 
-protocol JourneySolutionDisplayLogic: class {
+typealias JourneySolutionViewController = ListJourneysViewController
+
+protocol ListJourneysDisplayLogic: class {
     
-    func displayFetchedJourneys(viewModel: JourneySolution.FetchJourneys.ViewModel)
+    func displayFetchedJourneys(viewModel: ListJourneys.FetchJourneys.ViewModel)
     
 }
 
-open class JourneySolutionViewController: UIViewController {
+open class ListJourneysViewController: UIViewController, ListJourneysDisplayLogic {
     
     @IBOutlet weak var searchView: UIView!
     @IBOutlet weak var fromLabel: UILabel!
@@ -27,9 +29,9 @@ open class JourneySolutionViewController: UIViewController {
     
     public var journeysRequest: JourneysRequest?
     
-    private var interactor: JourneySolutionBusinessLogic?
-    private var router: (NSObjectProtocol & JourneySolutionViewRoutingLogic & JourneySolutionDataPassing)?
-    private var viewModel: JourneySolution.FetchJourneys.ViewModel?
+    private var interactor: ListJourneysBusinessLogic?
+    private var router: (NSObjectProtocol & ListJourneysViewRoutingLogic & ListJourneysDataPassing)?
+    private var viewModel: ListJourneys.FetchJourneys.ViewModel?
 
     override open func viewDidLoad() {
         super.viewDidLoad()
@@ -51,9 +53,10 @@ open class JourneySolutionViewController: UIViewController {
     
     private func _initArchitecture() {
         let viewController = self
-        let interactor = JourneySolutionInteractor()
-        let presenter = JourneySolutionPresenter()
-        let router = JourneySolutionRouter()
+        let interactor = ListJourneysInteractor()
+        let presenter = ListJourneysPresenter()
+        let router = ListJourneysRouter()
+        
         
         viewController.interactor = interactor
         viewController.router = router
@@ -119,10 +122,6 @@ open class JourneySolutionViewController: UIViewController {
         }
     }
     
-}
-
-extension JourneySolutionViewController: JourneySolutionDisplayLogic {
-    
     // MARK: - Fetch journeys
     
     private func _fetchJourneys() {
@@ -130,31 +129,28 @@ extension JourneySolutionViewController: JourneySolutionDisplayLogic {
             return
         }
 
-        let request = JourneySolution.FetchJourneys.Request(journeysRequest: journeysRequest)
+        let request = ListJourneys.FetchJourneys.Request(journeysRequest: journeysRequest)
         interactor?.fetchJourneys(request: request)
     }
     
-    func displayFetchedJourneys(viewModel: JourneySolution.FetchJourneys.ViewModel) {
+    func displayFetchedJourneys(viewModel: ListJourneys.FetchJourneys.ViewModel) {
         self.viewModel = viewModel
         
         guard let viewModel = self.viewModel else {
             return
         }
+        
+        viewModel.loaded == true ? (switchDepartureArrivalButton.isEnabled = true) : (switchDepartureArrivalButton.isEnabled = false)
 
         fromLabel.attributedText = viewModel.headerInformations.origin
         toLabel.attributedText = viewModel.headerInformations.destination
         dateTimeLabel.attributedText = viewModel.headerInformations.dateTime
-
-        if viewModel.loaded {
-            switchDepartureArrivalButton.isEnabled = true
-        }
-        
         collectionView.reloadData()
     }
     
 }
 
-extension JourneySolutionViewController: UICollectionViewDataSource {
+extension ListJourneysViewController: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     
     // MARK: - CollectionView Data Source
     
@@ -166,7 +162,6 @@ extension JourneySolutionViewController: UICollectionViewDataSource {
         if journeysRequest.ridesharingIsActive && viewModel.loaded {
             return 2
         }
-        
         // Journey
         return 1
     }
@@ -255,11 +250,7 @@ extension JourneySolutionViewController: UICollectionViewDataSource {
         }
         return UICollectionReusableView()
     }
-    
-}
 
-extension JourneySolutionViewController: UICollectionViewDelegate {
-    
     // MARK: - CollectionView Delegate
     
     public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
@@ -289,11 +280,7 @@ extension JourneySolutionViewController: UICollectionViewDelegate {
             }
         }
     }
-    
-}
 
-extension JourneySolutionViewController: UICollectionViewDelegateFlowLayout {
-    
     // MARK: - CollectionView Delegate Flow Layout
     
     public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {

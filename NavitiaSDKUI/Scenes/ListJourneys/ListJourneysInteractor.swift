@@ -1,5 +1,5 @@
 //
-//  JourneySolutionInteractor.swift
+//  ListJourneysInteractor.swift
 //  NavitiaSDKUI
 //
 //  Created by Flavien Sicard on 24/08/2018.
@@ -7,13 +7,13 @@
 
 import UIKit
 
-protocol JourneySolutionBusinessLogic {
+protocol ListJourneysBusinessLogic {
     
-    func fetchJourneys(request: JourneySolution.FetchJourneys.Request)
+    func fetchJourneys(request: ListJourneys.FetchJourneys.Request)
     
 }
 
-protocol JourneySolutionDataStore {
+protocol ListJourneysDataStore {
     
     var journeys: [Journey]? { get }
     var ridesharings: [Journey]? { get }
@@ -21,9 +21,9 @@ protocol JourneySolutionDataStore {
     
 }
 
-internal class JourneySolutionInteractor: JourneySolutionBusinessLogic, JourneySolutionDataStore {
+internal class ListJourneysInteractor: ListJourneysBusinessLogic, ListJourneysDataStore {
 
-    var presenter: JourneySolutionPresentationLogic?
+    var presenter: ListJourneysPresentationLogic?
     var journeysWorker = JourneysWorker()
     
     var journeys: [Journey]?
@@ -32,7 +32,7 @@ internal class JourneySolutionInteractor: JourneySolutionBusinessLogic, JourneyS
     
     // MARK: - Fetch Journey
     
-    func fetchJourneys(request: JourneySolution.FetchJourneys.Request) {
+    func fetchJourneys(request: ListJourneys.FetchJourneys.Request) {
         presenter?.presentFetchedSeachInformation(journeysRequest: request.journeysRequest)
         
         journeysWorker.fetchJourneys(journeysRequest: request.journeysRequest) { (journeys, ridesharings, disruptions) in
@@ -40,7 +40,7 @@ internal class JourneySolutionInteractor: JourneySolutionBusinessLogic, JourneyS
             self.ridesharings = ridesharings
             self.disruptions = disruptions
             
-            let response = JourneySolution.FetchJourneys.Response(journeysRequest: request.journeysRequest,
+            let response = ListJourneys.FetchJourneys.Response(journeysRequest: request.journeysRequest,
                                                                   journeys: (journeys, withRidesharing: ridesharings),
                                                                   disruptions: disruptions)
             

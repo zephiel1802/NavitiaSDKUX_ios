@@ -35,15 +35,11 @@ extension JourneysRequest {
     
     var ridesharingIsActive: Bool {
         get {
-            if let firstSectionModes = self.firstSectionModes {
-                if let _ = firstSectionModes.index(where: { $0 == .ridesharing }) {
-                    return true
-                }
+            if let firstSectionModes = self.firstSectionModes, let _ = firstSectionModes.index(where: { $0 == .ridesharing }) {
+                return true
             }
-            if let lastSectionModes = self.lastSectionModes {
-                if let _ = lastSectionModes.index(where: { $0 == .ridesharing }) {
-                    return true
-                }
+            if let lastSectionModes = self.lastSectionModes, let _ = lastSectionModes.index(where: { $0 == .ridesharing }) {
+                return true
             }
             return false
         }
