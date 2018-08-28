@@ -15,7 +15,6 @@ protocol JourneySolutionDisplayLogic: class {
 
 open class JourneySolutionViewController: UIViewController {
     
-    
     @IBOutlet weak var searchView: UIView!
     @IBOutlet weak var fromLabel: UILabel!
     @IBOutlet weak var fromPinLabel: UILabel!
@@ -26,31 +25,31 @@ open class JourneySolutionViewController: UIViewController {
     @IBOutlet weak var switchDepartureArrivalImageView: UIImageView!
     @IBOutlet weak var switchDepartureArrivalButton: UIButton!
     
-    var interactor: JourneySolutionBusinessLogic?
-    var router: (NSObjectProtocol & JourneySolutionViewRoutingLogic & JourneySolutionDataPassing)?
-    var viewModel: JourneySolution.FetchJourneys.ViewModel?
+    public var journeysRequest: JourneysRequest?
     
-    public var inParameters: InParameters!
-    
-    
+    private var interactor: JourneySolutionBusinessLogic?
+    private var router: (NSObjectProtocol & JourneySolutionViewRoutingLogic & JourneySolutionDataPassing)?
+    private var viewModel: JourneySolution.FetchJourneys.ViewModel?
+
     override open func viewDidLoad() {
         super.viewDidLoad()
         
+        _initSDK()
+        _initArchitecture()
+        _initHeader()
+        _initCollectionView()
+        
+        _fetchJourneys()
+    }
+    
+    // MARK: - Initialization
+    
+    private func _initSDK() {
         NavitiaSDKUI.shared.bundle = self.nibBundle
-        
-        addBackButton(targetSelector: #selector(backButtonPressed))
-        
-        title = "journeys".localized(withComment: "Journeys", bundle: NavitiaSDKUI.shared.bundle)
-        
         UIFont.registerFontWithFilenameString(filenameString: "SDKIcons.ttf", bundle: NavitiaSDKUI.shared.bundle)
-        
-        if #available(iOS 11.0, *) {
-            collectionView?.contentInsetAdjustmentBehavior = .always
-        }
-
-        _registerCollectionView()
-        
-        // Clean
+    }
+    
+    private func _initArchitecture() {
         let viewController = self
         let interactor = JourneySolutionInteractor()
         let presenter = JourneySolutionPresenter()
@@ -63,44 +62,11 @@ open class JourneySolutionViewController: UIViewController {
         router.viewController = viewController
         router.dataStore = interactor
     }
-
-    override open func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-
-    }
     
-    // MARK: - View lifecycle
-    
-    override open func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
+    private func _initHeader() {
+        title = "journeys".localized(withComment: "Journeys", bundle: NavitiaSDKUI.shared.bundle)
+        addBackButton(targetSelector: #selector(backButtonPressed))
         
-        _setupInterface()
-        _fetchJourneys()
-    }
-    
-    override open func viewWillLayoutSubviews() {
-        super.viewWillLayoutSubviews()
-        
-        collectionView.collectionViewLayout.invalidateLayout()
-    }
-    
-    @objc func backButtonPressed() {
-        if isRootViewController() {
-            self.dismiss(animated: true, completion: nil)
-        } else {
-            self.navigationController?.popViewController(animated: true)
-        }
-    }
-    
-    private func _registerCollectionView() {
-        collectionView.register(UINib(nibName: JourneySolutionCollectionViewCell.identifier, bundle: self.nibBundle), forCellWithReuseIdentifier: JourneySolutionCollectionViewCell.identifier)
-        collectionView.register(UINib(nibName: JourneySolutionLoadCollectionViewCell.identifier, bundle: self.nibBundle), forCellWithReuseIdentifier: JourneySolutionLoadCollectionViewCell.identifier)
-        collectionView.register(UINib(nibName: RidesharingInformationCollectionViewCell.identifier, bundle: self.nibBundle), forCellWithReuseIdentifier: RidesharingInformationCollectionViewCell.identifier)
-        collectionView.register(UINib(nibName: JourneyEmptySolutionCollectionViewCell.identifier, bundle: self.nibBundle), forCellWithReuseIdentifier: JourneyEmptySolutionCollectionViewCell.identifier)
-        collectionView.register(UINib(nibName: JourneyHeaderCollectionReusableView.identifier, bundle: self.nibBundle), forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: JourneyHeaderCollectionReusableView.identifier)
-    }
-    
-    private func _setupInterface() {
         navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarPosition.any, barMetrics: UIBarMetrics.default)
         navigationController?.navigationBar.shadowImage = UIImage()
         navigationController?.navigationBar.barTintColor = Configuration.Color.main
@@ -119,22 +85,38 @@ open class JourneySolutionViewController: UIViewController {
         }
     }
     
+    private func _initCollectionView() {
+        if #available(iOS 11.0, *) {
+            collectionView?.contentInsetAdjustmentBehavior = .always
+        }
+        collectionView.collectionViewLayout.invalidateLayout()
+        _registerCollectionView()
+    }
+    
+    private func _registerCollectionView() {
+        collectionView.register(UINib(nibName: JourneySolutionCollectionViewCell.identifier, bundle: self.nibBundle), forCellWithReuseIdentifier: JourneySolutionCollectionViewCell.identifier)
+        collectionView.register(UINib(nibName: JourneySolutionLoadCollectionViewCell.identifier, bundle: self.nibBundle), forCellWithReuseIdentifier: JourneySolutionLoadCollectionViewCell.identifier)
+        collectionView.register(UINib(nibName: RidesharingInformationCollectionViewCell.identifier, bundle: self.nibBundle), forCellWithReuseIdentifier: RidesharingInformationCollectionViewCell.identifier)
+        collectionView.register(UINib(nibName: JourneyEmptySolutionCollectionViewCell.identifier, bundle: self.nibBundle), forCellWithReuseIdentifier: JourneyEmptySolutionCollectionViewCell.identifier)
+        collectionView.register(UINib(nibName: JourneyHeaderCollectionReusableView.identifier, bundle: self.nibBundle), forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: JourneyHeaderCollectionReusableView.identifier)
+    }
+    
+    // MARK: - Events
+    
+    @objc func backButtonPressed() {
+        if isRootViewController() {
+            self.dismiss(animated: true, completion: nil)
+        } else {
+            self.navigationController?.popViewController(animated: true)
+        }
+    }
+    
     @IBAction func switchDepartureArrivalCoordinates(_ sender: UIButton) {
-        switchDepartureArrivalButton.isEnabled = false
-        
-        let oldOriginLabel = self.inParameters.originLabel
-        self.inParameters.originLabel = self.inParameters.destinationLabel
-        self.inParameters.destinationLabel = oldOriginLabel
-        
-        let oldFromLabelText = self.fromLabel.text
-        self.fromLabel.text = self.toLabel.text
-        self.toLabel.text = oldFromLabelText
-        
-        let oldOriginId = self.inParameters.originId
-        self.inParameters.originId = self.inParameters.destinationId
-        self.inParameters.destinationId = oldOriginId
-        
-        _fetchJourneys()
+        if journeysRequest != nil {
+            switchDepartureArrivalButton.isEnabled = false
+            journeysRequest!.switchOriginDestination()
+            _fetchJourneys()
+        }
     }
     
 }
@@ -144,8 +126,11 @@ extension JourneySolutionViewController: JourneySolutionDisplayLogic {
     // MARK: - Fetch journeys
     
     private func _fetchJourneys() {
-        let request = JourneySolution.FetchJourneys.Request(inParameters: inParameters)
-        
+        guard let journeysRequest = self.journeysRequest else {
+            return
+        }
+
+        let request = JourneySolution.FetchJourneys.Request(journeysRequest: journeysRequest)
         interactor?.fetchJourneys(request: request)
     }
     
@@ -156,9 +141,9 @@ extension JourneySolutionViewController: JourneySolutionDisplayLogic {
             return
         }
 
-        fromLabel.attributedText = viewModel.searchInformation.origin
-        toLabel.attributedText = viewModel.searchInformation.destination
-        dateTimeLabel.attributedText = viewModel.searchInformation.dateTime
+        fromLabel.attributedText = viewModel.headerInformations.origin
+        toLabel.attributedText = viewModel.headerInformations.destination
+        dateTimeLabel.attributedText = viewModel.headerInformations.dateTime
 
         if viewModel.loaded {
             switchDepartureArrivalButton.isEnabled = true
@@ -171,12 +156,14 @@ extension JourneySolutionViewController: JourneySolutionDisplayLogic {
 
 extension JourneySolutionViewController: UICollectionViewDataSource {
     
+    // MARK: - CollectionView Data Source
+    
     public func numberOfSections(in collectionView: UICollectionView) -> Int {
-        guard let viewModel = self.viewModel else {
+        guard let journeysRequest = self.journeysRequest, let viewModel = self.viewModel else {
             return 0
         }
         // Journey + Carsharing
-        if ridesharing && viewModel.loaded {
+        if journeysRequest.ridesharingIsActive && viewModel.loaded {
             return 2
         }
         
@@ -230,7 +217,7 @@ extension JourneySolutionViewController: UICollectionViewDataSource {
             // Result
             if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: JourneySolutionCollectionViewCell.identifier, for: indexPath) as? JourneySolutionCollectionViewCell {
                 cell.setup(displayedJourney: viewModel.displayedJourneys[indexPath.row],
-                            displayedDisruptions: viewModel.displayedDisruptions)
+                            displayedDisruptions: viewModel.disruptions)
                 return cell
             }
         }
@@ -252,7 +239,7 @@ extension JourneySolutionViewController: UICollectionViewDataSource {
             // Result
             if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: JourneySolutionCollectionViewCell.identifier, for: indexPath) as? JourneySolutionCollectionViewCell {
                 cell.setup(displayedJourney: viewModel.displayedRidesharings[indexPath.row - 1],
-                            displayedDisruptions: viewModel.displayedDisruptions)
+                            displayedDisruptions: viewModel.disruptions)
                 return cell
             }
         }
@@ -273,6 +260,8 @@ extension JourneySolutionViewController: UICollectionViewDataSource {
 
 extension JourneySolutionViewController: UICollectionViewDelegate {
     
+    // MARK: - CollectionView Delegate
+    
     public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
         // Carsharing : Header
         if section == 1 {
@@ -283,26 +272,29 @@ extension JourneySolutionViewController: UICollectionViewDelegate {
     }
     
     public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-//        if !_viewModel.loading {
-//            if indexPath.section == 0 && _viewModel.journeys.count > indexPath.row {
-//                _viewModel.indexJourney = indexPath.row
-//                let selector = NSSelectorFromString("routeToJourneySolutionRoadmap")
-//                if let router = router, router.responds(to: selector) {
-//                    router.perform(selector)
-//                }
-//            } else if indexPath.section == 1 && indexPath.row != 0 {
-//                _viewModel.indexRidesharing = indexPath.row - 1
-//                let selector = NSSelectorFromString("routeToJourneySolutionRidesharing")
-//                if let router = router, router.responds(to: selector) {
-//                    router.perform(selector)
-//                }
-//            }
-//        }
+        guard let viewModel = viewModel else {
+            return
+        }
+        
+        var selector: Selector!
+        
+        if viewModel.loaded {
+            if indexPath.section == 0 && viewModel.displayedJourneys.count > indexPath.row {
+                selector = NSSelectorFromString("routeToJourneySolutionRoadmapWithIndexPath:")
+            } else if indexPath.section == 1 && viewModel.displayedRidesharings.count > indexPath.row - 1 && indexPath.row != 0 {
+                selector = NSSelectorFromString("routeToJourneySolutionRidesharingWithIndexPath:")
+            }
+            if let router = router, router.responds(to: selector) {
+                router.perform(selector, with: indexPath)
+            }
+        }
     }
     
 }
 
 extension JourneySolutionViewController: UICollectionViewDelegateFlowLayout {
+    
+    // MARK: - CollectionView Delegate Flow Layout
     
     public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         var safeAreaWidth: CGFloat = 20.0
@@ -346,46 +338,4 @@ extension JourneySolutionViewController: UICollectionViewDelegateFlowLayout {
         return CGSize(width: self.collectionView.frame.size.width - safeAreaWidth, height: 130)
     }
 
-}
-
-extension JourneySolutionViewController {
-    
-    var ridesharing: Bool {
-        get {
-            if let firstSectionModes = inParameters.firstSectionModes {
-                if let _ = firstSectionModes.index(where: { $0 == .ridesharing }) {
-                    return true
-                }
-            }
-            if let lastSectionModes = inParameters.lastSectionModes {
-                if let _ = lastSectionModes.index(where: { $0 == .ridesharing }) {
-                    return true
-                }
-            }
-            return false
-        }
-    }
-    
-    public struct InParameters {
-        public init(originId: String, destinationId: String) {
-            self.originId = originId
-            self.destinationId = destinationId
-        }
-        
-        public var originId: String
-        public var originLabel: String?
-        public var destinationId: String
-        public var destinationLabel: String?
-        public var datetime: Date?
-        public var datetimeRepresents: JourneysRequestBuilder.DatetimeRepresents?
-        public var forbiddenUris: [String]?
-        public var allowedId: [String]?
-        public var firstSectionModes: [JourneysRequestBuilder.FirstSectionMode]?
-        public var lastSectionModes: [JourneysRequestBuilder.LastSectionMode]?
-        public var count: Int32?
-        public var minNbJourneys: Int32?
-        public var maxNbJourneys: Int32?
-        public var bssStands: Bool?
-    }
-    
 }

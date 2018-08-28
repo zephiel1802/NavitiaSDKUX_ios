@@ -9,45 +9,43 @@ import UIKit
 
 @objc protocol JourneySolutionViewRoutingLogic {
     
-    func routeToJourneySolutionRidesharing()
-    func routeToJourneySolutionRoadmap()
+    func routeToJourneySolutionRidesharing(indexPath: IndexPath)
+    func routeToJourneySolutionRoadmap(indexPath: IndexPath)
     
 }
 
 protocol JourneySolutionDataPassing {
     
-//    var dataStore: CreateOrderDataStore? { get }
+    var dataStore: JourneySolutionDataStore? { get }
     
 }
 
-class JourneySolutionRouter: NSObject, JourneySolutionViewRoutingLogic, JourneySolutionDataPassing {
+internal class JourneySolutionRouter: NSObject, JourneySolutionViewRoutingLogic, JourneySolutionDataPassing {
     
     weak var viewController: JourneySolutionViewController?
     var dataStore: JourneySolutionDataStore?
 
     // MARK: Routing
     
-    func routeToJourneySolutionRidesharing() {
-        guard let viewController = viewController else {
+    func routeToJourneySolutionRidesharing(indexPath: IndexPath) {
+        guard let viewController = viewController, let dataStore = dataStore else {
             return
         }
         
         var destinationVC = viewController.storyboard?.instantiateViewController(withIdentifier: JourneySolutionRidesharingViewController.identifier) as! JourneySolutionRidesharingViewController
-//        var destinationDS = destinationVC.router!.dataStore
         
-     //   passDataToJourneySolutionRidesharing(source: viewController._viewModel, destination: &destinationVC)  // Normalement c'est le DSStore
+        passDataToJourneySolutionRidesharing(source: dataStore, destination: &destinationVC, index: indexPath)
         navigateToJourneySolutionRidesharing(source: viewController, destination: destinationVC)
     }
     
-    func routeToJourneySolutionRoadmap() {
-        guard let viewController = viewController else {
+    func routeToJourneySolutionRoadmap(indexPath: IndexPath) {
+        guard let viewController = viewController, let dataStore = dataStore else {
             return
         }
         
         var destinationVC = viewController.storyboard?.instantiateViewController(withIdentifier: JourneySolutionRoadmapViewController.identifier) as! JourneySolutionRoadmapViewController
-        //        var destinationDS = destinationVC.router!.dataStore
         
-       // passDataToJourneySolutionRoadmap(source: viewController._viewModel, destination: &destinationVC)  // Normalement c'est le DSStore
+        passDataToJourneySolutionRoadmap(source: dataStore, destination: &destinationVC, index: indexPath)
         navigateToJourneySolutionRoadmap(source: viewController, destination: destinationVC)
     }
     
@@ -63,14 +61,14 @@ class JourneySolutionRouter: NSObject, JourneySolutionViewRoutingLogic, JourneyS
     
     // MARK: Passing Data
     
-    func passDataToJourneySolutionRidesharing(source: JourneySolutionViewModel, destination: inout JourneySolutionRidesharingViewController) {
+    func passDataToJourneySolutionRidesharing(source: JourneySolutionDataStore, destination: inout JourneySolutionRidesharingViewController, index: IndexPath) {
         destination.disruptions = source.disruptions
-        destination.journey = source.journeysRidesharing[source.indexRidesharing!]
+        destination.journey = source.ridesharings?[index.row - 1]  // -1 because "Header Ridesharing"
     }
     
-    func passDataToJourneySolutionRoadmap(source: JourneySolutionViewModel, destination: inout JourneySolutionRoadmapViewController) {
+    func passDataToJourneySolutionRoadmap(source: JourneySolutionDataStore, destination: inout JourneySolutionRoadmapViewController, index: IndexPath) {
         destination.disruptions = source.disruptions
-        destination.journey = source.journeys[source.indexJourney!]
+        destination.journey = source.journeys?[index.row]
     }
     
 }

@@ -15,74 +15,36 @@ protocol JourneySolutionBusinessLogic {
 
 protocol JourneySolutionDataStore {
     
-    var journeys: Journeys? { get }
+    var journeys: [Journey]? { get }
+    var ridesharings: [Journey]? { get }
+    var disruptions: [Disruption]? { get }
     
 }
 
-class JourneySolutionInteractor: JourneySolutionBusinessLogic, JourneySolutionDataStore {
+internal class JourneySolutionInteractor: JourneySolutionBusinessLogic, JourneySolutionDataStore {
 
     var presenter: JourneySolutionPresentationLogic?
-    //var journeyWorker = JourneyWorker()
+    var journeysWorker = JourneysWorker()
     
-    var journeys: Journeys?
+    var journeys: [Journey]?
+    var ridesharings: [Journey]?
+    var disruptions: [Disruption]?
     
     // MARK: - Fetch Journey
     
     func fetchJourneys(request: JourneySolution.FetchJourneys.Request) {
-        // // Récupération des Journeys + Stockage en local
-        self.presenter?.presentFetchedSeachInformation(parameters: request.inParameters)
+        presenter?.presentFetchedSeachInformation(journeysRequest: request.journeysRequest)
         
-        workerFetchJourneys(parameters: request.inParameters) { (journeys) in
+        journeysWorker.fetchJourneys(journeysRequest: request.journeysRequest) { (journeys, ridesharings, disruptions) in
             self.journeys = journeys
-            let response = JourneySolution.FetchJourneys.Response(parameters: request.inParameters,
-                                                                  journeys: journeys)
-            self.presenter?.presentFetchedJourneys(response: response)
-        }
-    }
-
-    func workerFetchJourneys(parameters: JourneySolutionViewController.InParameters, completionHandler: @escaping (Journeys?) -> Void) {
-        if NavitiaSDKUI.shared.navitiaSDK != nil {
-            let journeyRequestBuilder = NavitiaSDKUI.shared.navitiaSDK.journeysApi.newJourneysRequestBuilder()
-            _ = journeyRequestBuilder.withFrom(parameters.originId)
-            _ = journeyRequestBuilder.withTo(parameters.destinationId)
+            self.ridesharings = ridesharings
+            self.disruptions = disruptions
             
-            if let datetime = parameters.datetime {
-                _ = journeyRequestBuilder.withDatetime(datetime)
-            }
-            if let datetimeRepresents = parameters.datetimeRepresents {
-                _ = journeyRequestBuilder.withDatetimeRepresents(datetimeRepresents)
-            }
-            if let forbiddenUris = parameters.forbiddenUris {
-                _ = journeyRequestBuilder.withForbiddenUris(forbiddenUris)
-            }
-            if let allowedId = parameters.allowedId {
-                _ = journeyRequestBuilder.withAllowedId(allowedId)
-            }
-            if let firstSectionModes = parameters.firstSectionModes {
-                _ = journeyRequestBuilder.withFirstSectionMode(firstSectionModes)
-            }
-            if let lastSectionModes = parameters.lastSectionModes {
-                _ = journeyRequestBuilder.withLastSectionMode(lastSectionModes)
-            }
-            if let count = parameters.count {
-                _ = journeyRequestBuilder.withCount(count)
-            }
-            if let minNbJourneys = parameters.minNbJourneys {
-                _ = journeyRequestBuilder.withMinNbJourneys(minNbJourneys)
-            }
-            if let maxNbJourneys = parameters.maxNbJourneys {
-                _ = journeyRequestBuilder.withMaxNbJourneys(maxNbJourneys)
-            }
-            if let bssStands = parameters.bssStands {
-                _ = journeyRequestBuilder.withBssStands(bssStands)
-            }
-            journeyRequestBuilder.get { (result, error) in
-                if let result = result {
-                    completionHandler(result)
-                } else {
-                    completionHandler(nil)
-                }
-            }
+            let response = JourneySolution.FetchJourneys.Response(journeysRequest: request.journeysRequest,
+                                                                  journeys: (journeys, withRidesharing: ridesharings),
+                                                                  disruptions: disruptions)
+            
+            self.presenter?.presentFetchedJourneys(response: response)
         }
     }
     

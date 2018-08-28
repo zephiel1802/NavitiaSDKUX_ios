@@ -14,16 +14,17 @@ enum JourneySolution {
     enum FetchJourneys {
         
         struct Request {
-            var inParameters: JourneySolutionViewController.InParameters
+            var journeysRequest: JourneysRequest
         }
         
         struct Response {
-            var parameters: JourneySolutionViewController.InParameters
-            var journeys: Journeys?
+            var journeysRequest: JourneysRequest
+            var journeys: ([Journey]?, withRidesharing: [Journey]?)
+            var disruptions: [Disruption]?
         }
         
         struct ViewModel {
-            struct SearchInformation {
+            struct HeaderInformations {
                 var dateTime: NSMutableAttributedString
                 var origin: NSMutableAttributedString
                 var destination: NSMutableAttributedString
@@ -34,11 +35,12 @@ enum JourneySolution {
                 var walkingInformation: NSMutableAttributedString?
                 var sections: [Section]
             }
+            
             var loaded: Bool
-            var searchInformation: SearchInformation
+            var headerInformations: HeaderInformations
             var displayedJourneys: [DisplayedJourney]
             var displayedRidesharings: [DisplayedJourney]
-            var displayedDisruptions: [Disruption]
+            var disruptions: [Disruption] // Class: SDK Expert
         }
         
     }

@@ -37,6 +37,10 @@ class JourneySolutionCollectionViewCell: UICollectionViewCell {
         // 4
         if let walkingInformation = displayedJourney.walkingInformation {
             durationWalkerLabel.attributedText = walkingInformation
+            durationWalkerLabel.isHidden = false
+            durationTopContraint.isActive = true
+            durationBottomContraint.isActive = true
+            durationLeadingContraint.isActive = true
         } else {
             durationWalkerLabel.isHidden = true
             durationTopContraint.isActive = false
