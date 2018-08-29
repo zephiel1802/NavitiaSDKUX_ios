@@ -64,15 +64,15 @@ extension EmissionView {
             return self.carbonAmount
         }
         set {
-            if let carbonValue = newValue?.value, let carbonUnit = newValue?.unit {
+            if let carbonValue = newValue?.value {
                 if carbonValue > 1000 {
                     carbonLabel.attributedText = NSMutableAttributedString()
-                        .normal(String(format: "%.1f %@", carbonValue / 1000, "KgEc".localized(bundle: NavitiaSDKUI.shared.bundle)),
+                        .normal(String(format: "%.1f %@", carbonValue / 1000, "carbon_kgec".localized(bundle: NavitiaSDKUI.shared.bundle)),
                                 color: UIColor.white,
                                 size: 10)
                 } else {
                     carbonLabel.attributedText = NSMutableAttributedString()
-                        .normal(String(format: "%.1f %@", carbonValue, carbonUnit),
+                        .normal(String(format: "%.1f %@", carbonValue, "carbon_gec".localized(bundle: NavitiaSDKUI.shared.bundle)),
                                 color: UIColor.white,
                                 size: 10)
                 }
