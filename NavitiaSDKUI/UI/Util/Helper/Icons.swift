@@ -72,7 +72,11 @@ let iconFontCodes:[String: String] = [
     "disruption-nonblocking": "\u{ea2a}",
     "disruption-information": "\u{ea2b}",
     "ridesharing": "\u{ea2c}",
-    "crow_fly": "\u{e90d}"
+    "crow_fly": "\u{e90d}",
+    "phone-tad": "\u{e913}",
+    "bus-tad": "\u{e911}",
+    "taxi-tad": "\u{e910}",
+    "car-tad": "\u{e90e}"
 ]
 
 class Modes {

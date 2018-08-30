@@ -250,12 +250,24 @@ extension PublicTransportView {
         disruptionIconTransportLabel.textColor = disruptions[0].severity?.color?.toUIColor() ?? UIColor.red
         disruptionIconTransportLabel.isHidden = false
         
+        
         for disruption in disruptions {
             let disruptionItemView = DisruptionItemView.instanceFromNib()
             disruptionItemView.frame = disruptionsStackView.bounds
             disruptionItemView.disruption = disruption
             disruptionsStackView.addArrangedSubview(disruptionItemView)
         }
+    }
+    
+    func setOnDemandeTransport(text: String) {
+        disruptionsStackIsHidden = false
+        
+        let onDemandeItemView = OnDemandeItemView.instanceFromNib()
+        onDemandeItemView.frame = disruptionsStackView.bounds
+        onDemandeItemView.setIcon()
+        onDemandeItemView.setTitle()
+        onDemandeItemView.setInformation(text: text)
+        disruptionsStackView.addArrangedSubview(onDemandeItemView)
     }
     
     var waitTime: String? {

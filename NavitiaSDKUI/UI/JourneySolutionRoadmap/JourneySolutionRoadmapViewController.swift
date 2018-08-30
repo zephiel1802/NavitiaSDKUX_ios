@@ -28,6 +28,7 @@ open class JourneySolutionRoadmapViewController: UIViewController {
     var timeRidesharing: Int32?
     var display = false
     var disruptions: [Disruption]?
+    var notes: [Note]?
     var sectionsPolylines = [SectionPolyline]()
     let locationManager = CLLocationManager()
     var animationTimer: Timer?
@@ -135,6 +136,12 @@ open class JourneySolutionRoadmapViewController: UIViewController {
                 if let type = section.type {
                     switch type {
                         case .publicTransport:
+                            if index == 0 {
+                                _displayPublicTransport(section)
+                            }
+                            _displayPublicTransport(section, waiting: sections[index - 1])
+                            break
+                        case .onDemandTransport:
                             if index == 0 {
                                 _displayPublicTransport(section)
                             }
@@ -308,6 +315,30 @@ open class JourneySolutionRoadmapViewController: UIViewController {
             if waiting.type == .waiting {
                 if let durationWaiting = waiting.duration?.minuteToString() {
                     publicTransportView.waitTime = durationWaiting
+                }
+            }
+        }
+        
+        if section.type == .onDemandTransport {
+            for i in section.selectLinks(type: "notes") {
+                if let notes = self.notes, let id = i.id, let note = section.getNote(notes: notes, id: id) {
+                    publicTransportView.setOnDemandeTransport(text: note.value ?? "")
+                }
+            }
+            
+            
+            if let firstStopDateTimes = section.stopDateTimes?.first {
+                for i in firstStopDateTimes.selectLinks(type: "notes") {
+                    if let notes = self.notes, let id = i.id, let note = section.getNote(notes: notes, id: id) {
+                        publicTransportView.setOnDemandeTransport(text: note.value ?? "")
+                    }
+                }
+            }
+            if let laststopDateTimes = section.stopDateTimes?.last {
+                for i in laststopDateTimes.selectLinks(type: "notes") {
+                    if let notes = self.notes, let id = i.id, let note = section.getNote(notes: notes, id: id) {
+                        publicTransportView.setOnDemandeTransport(text: note.value ?? "")
+                    }
                 }
             }
         }

@@ -195,6 +195,7 @@
                 </view>
                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="RTr-Qr-qxi" userLabel="Disruptions Stack">
                     <rect key="frame" x="50" y="91.5" width="302" height="0.0"/>
+                    <color key="backgroundColor" red="0.76078431369999999" green="0.18129212619999999" blue="0.76078431369999999" alpha="1" colorSpace="calibratedRGB"/>
                 </stackView>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="21v-9J-eqd">
                     <rect key="frame" x="50" y="232" width="302" height="0.0"/>
