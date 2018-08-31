@@ -285,7 +285,7 @@ open class JourneySolutionRoadmapViewController: UIViewController {
     }
     
     private func _displayPublicTransport(_ section: Section, waiting: Section? = nil) {
-        let publicTransportView = PublicTransportView(frame: CGRect(x: 0, y: 0, width: composentWidth, height: 100))
+        var publicTransportView = PublicTransportView(frame: CGRect(x: 0, y: 0, width: composentWidth, height: 100))
         publicTransportView.modeString = Modes().getModeIcon(section: section)
         publicTransportView.take = section.displayInformations?.commercialMode ?? ""
         publicTransportView.transportColor = section.displayInformations?.color?.toUIColor() ?? UIColor.black
@@ -320,27 +320,7 @@ open class JourneySolutionRoadmapViewController: UIViewController {
         }
         
         if section.type == .onDemandTransport {
-            for i in section.selectLinks(type: "notes") {
-                if let notes = self.notes, let id = i.id, let note = section.getNote(notes: notes, id: id) {
-                    publicTransportView.setOnDemandeTransport(text: note.value ?? "")
-                }
-            }
-            
-            
-            if let firstStopDateTimes = section.stopDateTimes?.first {
-                for i in firstStopDateTimes.selectLinks(type: "notes") {
-                    if let notes = self.notes, let id = i.id, let note = section.getNote(notes: notes, id: id) {
-                        publicTransportView.setOnDemandeTransport(text: note.value ?? "")
-                    }
-                }
-            }
-            if let laststopDateTimes = section.stopDateTimes?.last {
-                for i in laststopDateTimes.selectLinks(type: "notes") {
-                    if let notes = self.notes, let id = i.id, let note = section.getNote(notes: notes, id: id) {
-                        publicTransportView.setOnDemandeTransport(text: note.value ?? "")
-                    }
-                }
-            }
+            addOnDemandeTransport(publicTransportView: &publicTransportView, section: section)
         }
         
         if section.type == .publicTransport, let disruptions = disruptions, disruptions.count > 0 {
@@ -351,6 +331,34 @@ open class JourneySolutionRoadmapViewController: UIViewController {
         }
         
         _addViewInScroll(view: publicTransportView, margin: UIEdgeInsets(top: 5, left: 10, bottom: 5, right: 10))
+    }
+    
+    func addOnDemandeTransport(publicTransportView: inout PublicTransportView, section: Section) {
+        for i in section.selectLinks(type: "notes") {
+            if let notes = self.notes, let id = i.id, let note = section.getNote(notes: notes, id: id) {
+                publicTransportView.setOnDemandeTransport(text: note.value ?? "")
+            }
+        }
+        
+        if let firstStopDateTimes = section.stopDateTimes?.first {
+            let links = firstStopDateTimes.selectLinks(type: "notes")
+            if links.count > 0 {
+                for i in links {
+                    if let notes = self.notes, let id = i.id, let note = section.getNote(notes: notes, id: id) {
+                        publicTransportView.setOnDemandeTransport(text: note.value ?? "")
+                    }
+                }
+                return
+            }
+        }
+        
+        if let laststopDateTimes = section.stopDateTimes?.last {
+            for i in laststopDateTimes.selectLinks(type: "notes") {
+                if let notes = self.notes, let id = i.id, let note = section.getNote(notes: notes, id: id) {
+                    publicTransportView.setOnDemandeTransport(text: note.value ?? "")
+                }
+            }
+        }
     }
     
     private func _updateRidesharingView(_ section: Section) {

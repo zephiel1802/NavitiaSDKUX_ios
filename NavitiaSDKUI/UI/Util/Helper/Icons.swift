@@ -98,7 +98,7 @@ class Modes {
             case .crowFly:
                 return "crow_fly"
             case .onDemandTransport:
-                return "bus"
+                return "bus-tad"
             default:
                 return section?.mode?.rawValue ?? ""
         }
