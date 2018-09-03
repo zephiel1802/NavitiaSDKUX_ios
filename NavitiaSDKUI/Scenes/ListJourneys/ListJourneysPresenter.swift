@@ -14,12 +14,12 @@ protocol ListJourneysPresentationLogic {
     
 }
 
-internal class ListJourneysPresenter: ListJourneysPresentationLogic {
+class ListJourneysPresenter: ListJourneysPresentationLogic {
 
     weak var viewController: ListJourneysDisplayLogic?
     
     func presentFetchedSeachInformation(journeysRequest: JourneysRequest) {
-        guard let headerInformations = _getDisplayedHeaderInformations(journeysRequest: journeysRequest) else {
+        guard let headerInformations = getDisplayedHeaderInformations(journeysRequest: journeysRequest) else {
             return
         }
         
@@ -54,7 +54,7 @@ internal class ListJourneysPresenter: ListJourneysPresentationLogic {
             }
         }
         
-        guard let headerInformations = _getDisplayedHeaderInformations(journey: response.journeys.0?.first ?? response.journeys.withRidesharing?.first, journeysRequest: response.journeysRequest) else {
+        guard let headerInformations = getDisplayedHeaderInformations(journey: response.journeys.0?.first ?? response.journeys.withRidesharing?.first, journeysRequest: response.journeysRequest) else {
             return
         }
         
@@ -68,7 +68,7 @@ internal class ListJourneysPresenter: ListJourneysPresentationLogic {
     
     // MARK: - Displayed Header Informations
     
-    private func _getDisplayedHeaderInformations(journeysRequest: JourneysRequest) -> ListJourneys.FetchJourneys.ViewModel.HeaderInformations? {
+    internal func getDisplayedHeaderInformations(journeysRequest: JourneysRequest) -> ListJourneys.FetchJourneys.ViewModel.HeaderInformations? {
         guard
             let origin = _getDisplayedHeaderInformationsOrigin(origin: journeysRequest.originLabel ?? journeysRequest.originId),
             let destination = _getDisplayedHeaderInformationsDestination(destination: journeysRequest.destinationLabel ?? journeysRequest.destinationId) else {
@@ -81,7 +81,7 @@ internal class ListJourneysPresenter: ListJourneysPresentationLogic {
                                                                          destination: destination)
     }
     
-    private func _getDisplayedHeaderInformations(journey: Journey? = nil,
+    internal func getDisplayedHeaderInformations(journey: Journey? = nil,
                                                  journeysRequest: JourneysRequest? = nil) -> ListJourneys.FetchJourneys.ViewModel.HeaderInformations? {
         guard let journeysRequest = journeysRequest else {
             return nil
@@ -98,7 +98,7 @@ internal class ListJourneysPresenter: ListJourneysPresentationLogic {
                                                                              origin: origin,
                                                                              destination: destination)
         }
-        return _getDisplayedHeaderInformations(journeysRequest: journeysRequest)
+        return getDisplayedHeaderInformations(journeysRequest: journeysRequest)
     }
     
     private func _getDisplayedHeaderInformationsDateTime(departureDateTime: Date?) -> NSMutableAttributedString {
@@ -109,7 +109,7 @@ internal class ListJourneysPresenter: ListJourneysPresentationLogic {
         return NSMutableAttributedString().bold(String(format: "%@ : %@",
                                                        "departure".localized(withComment: "Departure : ", bundle: NavitiaSDKUI.shared.bundle),
                                                        departureDateTime),
-                                                color: UIColor.white,
+                                                color: Configuration.Color.white,
                                                 size: 12)
     }
     

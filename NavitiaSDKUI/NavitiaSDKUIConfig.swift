@@ -7,7 +7,7 @@
 
 import Foundation
 
-@objc open class NavitiaSDKUI: NSObject {
+@objc(NavitiaSDKUI) open class NavitiaSDKUI: NSObject {
     
     @objc open static let shared = NavitiaSDKUI()
     
@@ -20,7 +20,7 @@ import Foundation
         }
     }
     
-    public func initialize(token: String) {
+    @objc public func initialize(token: String) {
         self.token = token
     }
     

@@ -16,6 +16,7 @@
 		317D6C78211091CE00F36242 /* StepByStepItemView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 317D6C76211091CE00F36242 /* StepByStepItemView.xib */; };
 		317D6C7B211091D600F36242 /* StepByStepItemVIew.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317D6C79211091D500F36242 /* StepByStepItemVIew.swift */; };
 		317D6C7C211091D600F36242 /* GenericStepView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317D6C7A211091D600F36242 /* GenericStepView.swift */; };
+		8400AE57213D7FC1000F7ED5 /* ListJourneysInteractorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8400AE56213D7FC1000F7ED5 /* ListJourneysInteractorTests.swift */; };
 		841EFD9321359F56004A313B /* ListJourneysPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841EFD8E21359F56004A313B /* ListJourneysPresenter.swift */; };
 		841EFD9421359F56004A313B /* ListJourneysModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841EFD8F21359F56004A313B /* ListJourneysModels.swift */; };
 		841EFD9521359F56004A313B /* ListJourneysInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841EFD9021359F56004A313B /* ListJourneysInteractor.swift */; };
@@ -48,8 +49,6 @@
 		844CA2E42080F16E00C6B259 /* JourneyRidesharingCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 844CA2E32080F16E00C6B259 /* JourneyRidesharingCollectionViewCell.swift */; };
 		84506C28209C4FE7006BF393 /* RidesharingStepView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84506C27209C4FE7006BF393 /* RidesharingStepView.swift */; };
 		84506C2A209C5007006BF393 /* RidesharingStepView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84506C29209C5007006BF393 /* RidesharingStepView.xib */; };
-		8451DA44206503F100CFA1E4 /* NavitiaSDKUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8451DA3A206503F100CFA1E4 /* NavitiaSDKUI.framework */; };
-		8451DA49206503F100CFA1E4 /* NavitiaSDKUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8451DA48206503F100CFA1E4 /* NavitiaSDKUITests.swift */; };
 		8451DA4B206503F100CFA1E4 /* NavitiaSDKUI.h in Headers */ = {isa = PBXBuildFile; fileRef = 8451DA3D206503F100CFA1E4 /* NavitiaSDKUI.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		8451DA602065065E00CFA1E4 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8451DA5F2065065E00CFA1E4 /* Images.xcassets */; };
 		8451DA63206506ED00CFA1E4 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 8451DA65206506ED00CFA1E4 /* Localizable.strings */; };
@@ -290,6 +289,9 @@
 		848D7C2A207B92D4002E9B1A /* PublicTransportView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 848D7C29207B92D4002E9B1A /* PublicTransportView.xib */; };
 		848D7C2C207B95B0002E9B1A /* PublicTransportView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848D7C2B207B95B0002E9B1A /* PublicTransportView.swift */; };
 		8490A6D52084D2C700F7CFA1 /* NavitiaSDKUserDefaultsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8490A6D42084D2C700F7CFA1 /* NavitiaSDKUserDefaultsManager.swift */; };
+		849794C0213D66F000F0EB5C /* NavitiaSDKUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849794BF213D66F000F0EB5C /* NavitiaSDKUITests.swift */; };
+		849794C2213D66F000F0EB5C /* NavitiaSDKUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8451DA3A206503F100CFA1E4 /* NavitiaSDKUI.framework */; };
+		849794CA213D686A00F0EB5C /* ListJourneysPresenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849794C9213D686A00F0EB5C /* ListJourneysPresenterTests.swift */; };
 		84A790FB2121B0E40000C82F /* EmissionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A790FA2121B0E40000C82F /* EmissionView.swift */; };
 		84A790FD2121B0E90000C82F /* EmissionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84A790FC2121B0E90000C82F /* EmissionView.xib */; };
 		84BC297E207E66CC0073F198 /* StationsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84BC297D207E66CC0073F198 /* StationsView.xib */; };
@@ -305,7 +307,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		8451DA45206503F100CFA1E4 /* PBXContainerItemProxy */ = {
+		849794C3213D66F000F0EB5C /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 8451DA31206503F100CFA1E4 /* Project object */;
 			proxyType = 1;
@@ -324,6 +326,7 @@
 		317D6C76211091CE00F36242 /* StepByStepItemView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StepByStepItemView.xib; sourceTree = "<group>"; };
 		317D6C79211091D500F36242 /* StepByStepItemVIew.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StepByStepItemVIew.swift; sourceTree = "<group>"; };
 		317D6C7A211091D600F36242 /* GenericStepView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GenericStepView.swift; sourceTree = "<group>"; };
+		8400AE56213D7FC1000F7ED5 /* ListJourneysInteractorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListJourneysInteractorTests.swift; sourceTree = "<group>"; };
 		841EFD8E21359F56004A313B /* ListJourneysPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListJourneysPresenter.swift; sourceTree = "<group>"; };
 		841EFD8F21359F56004A313B /* ListJourneysModels.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListJourneysModels.swift; sourceTree = "<group>"; };
 		841EFD9021359F56004A313B /* ListJourneysInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListJourneysInteractor.swift; sourceTree = "<group>"; };
@@ -359,9 +362,6 @@
 		8451DA3A206503F100CFA1E4 /* NavitiaSDKUI.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = NavitiaSDKUI.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8451DA3D206503F100CFA1E4 /* NavitiaSDKUI.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NavitiaSDKUI.h; sourceTree = "<group>"; };
 		8451DA3E206503F100CFA1E4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		8451DA43206503F100CFA1E4 /* NavitiaSDKUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NavitiaSDKUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		8451DA48206503F100CFA1E4 /* NavitiaSDKUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavitiaSDKUITests.swift; sourceTree = "<group>"; };
-		8451DA4A206503F100CFA1E4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8451DA5F2065065E00CFA1E4 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		8451DA64206506ED00CFA1E4 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		8451DA66206506FD00CFA1E4 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -602,6 +602,10 @@
 		848D7C29207B92D4002E9B1A /* PublicTransportView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PublicTransportView.xib; sourceTree = "<group>"; };
 		848D7C2B207B95B0002E9B1A /* PublicTransportView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublicTransportView.swift; sourceTree = "<group>"; };
 		8490A6D42084D2C700F7CFA1 /* NavitiaSDKUserDefaultsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavitiaSDKUserDefaultsManager.swift; sourceTree = "<group>"; };
+		849794BD213D66F000F0EB5C /* NavitiaSDKUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NavitiaSDKUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		849794BF213D66F000F0EB5C /* NavitiaSDKUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavitiaSDKUITests.swift; sourceTree = "<group>"; };
+		849794C1213D66F000F0EB5C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		849794C9213D686A00F0EB5C /* ListJourneysPresenterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListJourneysPresenterTests.swift; sourceTree = "<group>"; };
 		84A790FA2121B0E40000C82F /* EmissionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmissionView.swift; sourceTree = "<group>"; };
 		84A790FC2121B0E90000C82F /* EmissionView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EmissionView.xib; sourceTree = "<group>"; };
 		84BC297D207E66CC0073F198 /* StationsView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = StationsView.xib; sourceTree = "<group>"; };
@@ -624,11 +628,11 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		8451DA40206503F100CFA1E4 /* Frameworks */ = {
+		849794BA213D66F000F0EB5C /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8451DA44206503F100CFA1E4 /* NavitiaSDKUI.framework in Frameworks */,
+				849794C2213D66F000F0EB5C /* NavitiaSDKUI.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -676,7 +680,7 @@
 			isa = PBXGroup;
 			children = (
 				8451DA3C206503F100CFA1E4 /* NavitiaSDKUI */,
-				8451DA47206503F100CFA1E4 /* NavitiaSDKUITests */,
+				849794BE213D66F000F0EB5C /* NavitiaSDKUITests */,
 				8451DA3B206503F100CFA1E4 /* Products */,
 				84382E2D20DA449D0082B32E /* Recovered References */,
 			);
@@ -686,7 +690,7 @@
 			isa = PBXGroup;
 			children = (
 				8451DA3A206503F100CFA1E4 /* NavitiaSDKUI.framework */,
-				8451DA43206503F100CFA1E4 /* NavitiaSDKUITests.xctest */,
+				849794BD213D66F000F0EB5C /* NavitiaSDKUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -704,15 +708,6 @@
 				8451DA582065060600CFA1E4 /* Resources */,
 			);
 			path = NavitiaSDKUI;
-			sourceTree = "<group>";
-		};
-		8451DA47206503F100CFA1E4 /* NavitiaSDKUITests */ = {
-			isa = PBXGroup;
-			children = (
-				8451DA48206503F100CFA1E4 /* NavitiaSDKUITests.swift */,
-				8451DA4A206503F100CFA1E4 /* Info.plist */,
-			);
-			path = NavitiaSDKUITests;
 			sourceTree = "<group>";
 		};
 		8451DA54206505E200CFA1E4 /* Framedation */ = {
@@ -1227,6 +1222,17 @@
 			path = ObjectMapper;
 			sourceTree = "<group>";
 		};
+		849794BE213D66F000F0EB5C /* NavitiaSDKUITests */ = {
+			isa = PBXGroup;
+			children = (
+				8400AE56213D7FC1000F7ED5 /* ListJourneysInteractorTests.swift */,
+				849794BF213D66F000F0EB5C /* NavitiaSDKUITests.swift */,
+				849794C9213D686A00F0EB5C /* ListJourneysPresenterTests.swift */,
+				849794C1213D66F000F0EB5C /* Info.plist */,
+			);
+			path = NavitiaSDKUITests;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -1262,22 +1268,22 @@
 			productReference = 8451DA3A206503F100CFA1E4 /* NavitiaSDKUI.framework */;
 			productType = "com.apple.product-type.framework";
 		};
-		8451DA42206503F100CFA1E4 /* NavitiaSDKUITests */ = {
+		849794BC213D66F000F0EB5C /* NavitiaSDKUITests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 8451DA51206503F100CFA1E4 /* Build configuration list for PBXNativeTarget "NavitiaSDKUITests" */;
+			buildConfigurationList = 849794C5213D66F000F0EB5C /* Build configuration list for PBXNativeTarget "NavitiaSDKUITests" */;
 			buildPhases = (
-				8451DA3F206503F100CFA1E4 /* Sources */,
-				8451DA40206503F100CFA1E4 /* Frameworks */,
-				8451DA41206503F100CFA1E4 /* Resources */,
+				849794B9213D66F000F0EB5C /* Sources */,
+				849794BA213D66F000F0EB5C /* Frameworks */,
+				849794BB213D66F000F0EB5C /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				8451DA46206503F100CFA1E4 /* PBXTargetDependency */,
+				849794C4213D66F000F0EB5C /* PBXTargetDependency */,
 			);
 			name = NavitiaSDKUITests;
 			productName = NavitiaSDKUITests;
-			productReference = 8451DA43206503F100CFA1E4 /* NavitiaSDKUITests.xctest */;
+			productReference = 849794BD213D66F000F0EB5C /* NavitiaSDKUITests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -1286,7 +1292,7 @@
 		8451DA31206503F100CFA1E4 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 0920;
+				LastSwiftUpdateCheck = 0940;
 				LastUpgradeCheck = 0930;
 				ORGANIZATIONNAME = kisio;
 				TargetAttributes = {
@@ -1295,8 +1301,8 @@
 						LastSwiftMigration = 0920;
 						ProvisioningStyle = Automatic;
 					};
-					8451DA42206503F100CFA1E4 = {
-						CreatedOnToolsVersion = 9.2;
+					849794BC213D66F000F0EB5C = {
+						CreatedOnToolsVersion = 9.4;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -1315,7 +1321,7 @@
 			projectRoot = "";
 			targets = (
 				8451DA39206503F100CFA1E4 /* NavitiaSDKUI */,
-				8451DA42206503F100CFA1E4 /* NavitiaSDKUITests */,
+				849794BC213D66F000F0EB5C /* NavitiaSDKUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -1353,7 +1359,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		8451DA41206503F100CFA1E4 /* Resources */ = {
+		849794BB213D66F000F0EB5C /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1634,21 +1640,23 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		8451DA3F206503F100CFA1E4 /* Sources */ = {
+		849794B9213D66F000F0EB5C /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8451DA49206503F100CFA1E4 /* NavitiaSDKUITests.swift in Sources */,
+				849794CA213D686A00F0EB5C /* ListJourneysPresenterTests.swift in Sources */,
+				849794C0213D66F000F0EB5C /* NavitiaSDKUITests.swift in Sources */,
+				8400AE57213D7FC1000F7ED5 /* ListJourneysInteractorTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		8451DA46206503F100CFA1E4 /* PBXTargetDependency */ = {
+		849794C4213D66F000F0EB5C /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 8451DA39206503F100CFA1E4 /* NavitiaSDKUI */;
-			targetProxy = 8451DA45206503F100CFA1E4 /* PBXContainerItemProxy */;
+			targetProxy = 849794C3213D66F000F0EB5C /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -1829,12 +1837,14 @@
 			};
 			name = Release;
 		};
-		8451DA52206503F100CFA1E4 /* Debug */ = {
+		849794C6213D66F000F0EB5C /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = AK7DPF549M;
 				INFOPLIST_FILE = NavitiaSDKUITests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = org.kisio.NavitiaSDKUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1843,12 +1853,14 @@
 			};
 			name = Debug;
 		};
-		8451DA53206503F100CFA1E4 /* Release */ = {
+		849794C7213D66F000F0EB5C /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = AK7DPF549M;
 				INFOPLIST_FILE = NavitiaSDKUITests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = org.kisio.NavitiaSDKUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1878,11 +1890,11 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		8451DA51206503F100CFA1E4 /* Build configuration list for PBXNativeTarget "NavitiaSDKUITests" */ = {
+		849794C5213D66F000F0EB5C /* Build configuration list for PBXNativeTarget "NavitiaSDKUITests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				8451DA52206503F100CFA1E4 /* Debug */,
-				8451DA53206503F100CFA1E4 /* Release */,
+				849794C6213D66F000F0EB5C /* Debug */,
+				849794C7213D66F000F0EB5C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

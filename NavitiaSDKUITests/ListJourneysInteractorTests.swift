@@ -1,5 +1,5 @@
 //
-//  NavitiaSDKUITests.swift
+//  ListJourneysInteractorTests.swift
 //  NavitiaSDKUITests
 //
 //  Created by Flavien Sicard on 03/09/2018.
@@ -9,12 +9,15 @@
 import XCTest
 @testable import NavitiaSDKUI
 
-class NavitiaSDKUITests: XCTestCase {
+class ListJourneysInteractorTests: XCTestCase {
+    
+    let originId = "2.3665844;48.8465337"
+    let destinationId = "2.2979169;48.8848719"
     
     override func setUp() {
         super.setUp()
-
-        NavitiaSDKUI.shared.bundle = Bundle(identifier: "org.kisio.NavitiaSDKUI")
+        
+        NavitiaSDKUI.shared.initialize(token: "")
         // Put setup code here. This method is called before the invocation of each test method in the class.
     }
     
@@ -35,14 +38,11 @@ class NavitiaSDKUITests: XCTestCase {
         }
     }
     
-    func test1() {
-        var resquet = ListJourneys.FetchJourneys.Request.init(journeysRequest: JourneysRequest(originId: "12", destinationId: "13"))
-        
-        if resquet.journeysRequest.originId == "12" && resquet.journeysRequest.destinationId == "12" {
-            XCTAssert(true)
-        } else {
+    func testResquetNavitia() {
+        var request = ListJourneys.FetchJourneys.Request.init(journeysRequest: JourneysRequest(originId: originId, destinationId: destinationId))
+        JourneysWorker().fetchJourneys(journeysRequest: request.journeysRequest) { (journeys, ridesharings, disruptions) in
             XCTAssert(false)
         }
+        
     }
-    
 }
