@@ -249,11 +249,13 @@ extension JourneySolutionViewController: UICollectionViewDelegate {
             if indexPath.section == 0 && _viewModel.journeys.count > indexPath.row {
                 let viewController = storyboard?.instantiateViewController(withIdentifier: JourneySolutionRoadmapViewController.identifier) as! JourneySolutionRoadmapViewController
                 viewController.disruptions = _viewModel.disruptions
+                viewController.notes = _viewModel.notes
                 viewController.journey = _viewModel.journeys[indexPath.row]
                 self.navigationController?.pushViewController(viewController, animated: true)
             } else if indexPath.section == 1 && indexPath.row != 0 {
                 let viewController = storyboard?.instantiateViewController(withIdentifier: JourneySolutionRidesharingViewController.identifier) as! JourneySolutionRidesharingViewController
                 viewController.disruptions = _viewModel.disruptions
+                viewController.notes = _viewModel.notes
                 viewController.journey = _viewModel.journeysRidesharing[indexPath.row - 1]
                 self.navigationController?.pushViewController(viewController, animated: true)
             }

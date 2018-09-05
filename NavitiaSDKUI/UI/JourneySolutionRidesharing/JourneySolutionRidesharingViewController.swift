@@ -13,6 +13,7 @@ open class JourneySolutionRidesharingViewController: UIViewController {
     @IBOutlet weak var collectionView: UICollectionView!
     
     var disruptions: [Disruption]?
+    var notes: [Note]?
     var journey: Journey? {
         get {
             return _viewModel.journey
@@ -136,6 +137,7 @@ extension JourneySolutionRidesharingViewController: JourneyRidesharingCollection
             viewController.ridesharing = true
             viewController.ridesharingIndex = row
             viewController.disruptions = disruptions
+            viewController.notes = notes
             self.navigationController?.pushViewController(viewController, animated: true)
         }
     }

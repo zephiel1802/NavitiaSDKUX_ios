@@ -9,6 +9,16 @@ import Foundation
 
 extension Section {
     
+    public func getNote(notes: [Note], id: String) -> Note? {
+        for note in notes {
+            if note.id == id {
+                return note
+            }
+        }
+        
+        return nil
+    }
+    
     public func disruptions(disruptions: [Disruption]) -> [Disruption] {
         if disruptions.count > 0, let displayInformations = displayInformations, let displayInformationsLinks = displayInformations.links {
             var disruptionLinkIds = [String]()
@@ -100,6 +110,22 @@ extension Section {
         }
         
         return 0;
+    }
+    
+    func selectLinks(type: String) -> [LinkSchema] {
+        var selectLinks = [LinkSchema]()
+        
+        guard let links = self.links else {
+            return selectLinks
+        }
+        
+        for link in links {
+            if link.type == type {
+                selectLinks.append(link)
+            }
+        }
+        
+        return selectLinks
     }
     
 }
