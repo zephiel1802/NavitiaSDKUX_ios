@@ -77,8 +77,8 @@ class GenericStepView: UIView {
         addSubview(_view)
         
         detailsButtonHidden = true
-        detailsLabel.text = "details".localized(bundle: NavitiaSDKUI.shared.bundle)
-        detailsArrowLabel.attributedText = NSMutableAttributedString().icon("arrow-details-down", color: Configuration.Color.gray, size: 13)
+        detailsLabel.attributedText = NSMutableAttributedString().semiBold("details".localized(bundle: NavitiaSDKUI.shared.bundle), color: Configuration.Color.gray, size: 15)
+        detailsArrowLabel.attributedText = NSMutableAttributedString().icon("arrow-details-down", color: Configuration.Color.gray, size: 14)
         
         directionsHidden = true
         _setupDirectionsStackView()
