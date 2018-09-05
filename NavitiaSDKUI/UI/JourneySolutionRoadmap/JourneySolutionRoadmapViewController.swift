@@ -139,12 +139,14 @@ open class JourneySolutionRoadmapViewController: UIViewController {
                             if index == 0 {
                                 _displayPublicTransport(section)
                             }
+                            
                             _displayPublicTransport(section, waiting: sections[index - 1])
                             break
                         case .onDemandTransport:
                             if index == 0 {
                                 _displayPublicTransport(section)
                             }
+                            
                             _displayPublicTransport(section, waiting: sections[index - 1])
                             break
                         case .transfer:
@@ -289,11 +291,13 @@ open class JourneySolutionRoadmapViewController: UIViewController {
         publicTransportView.modeString = Modes().getModeIcon(section: section)
         publicTransportView.take = section.displayInformations?.commercialMode ?? ""
         publicTransportView.transportColor = section.displayInformations?.color?.toUIColor() ?? UIColor.black
+        
         if let code = section.displayInformations?.code, !code.isEmpty {
             publicTransportView.transportName = code
         } else {
             publicTransportView.transportView.isHidden = true 
         }
+        
         publicTransportView.origin = section.from?.name ?? ""
         publicTransportView.startTime = section.departureDateTime?.toDate(format: Configuration.date)?.toString(format: Configuration.time) ?? ""
         publicTransportView.directionTransit = section.displayInformations?.direction ?? ""

@@ -75,9 +75,11 @@ class JourneySolutionViewModel: NSObject {
                 }
             }
         }
+        
         if let disruptions = result.disruptions {
             self.disruptions = disruptions
         }
+        
         if let notes = result.notes {
             self.notes = notes
         }

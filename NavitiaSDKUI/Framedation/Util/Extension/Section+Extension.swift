@@ -15,6 +15,7 @@ extension Section {
                 return note
             }
         }
+        
         return nil
     }
     
@@ -123,6 +124,7 @@ extension Section {
                 selectLinks.append(link)
             }
         }
+        
         return selectLinks
     }
     

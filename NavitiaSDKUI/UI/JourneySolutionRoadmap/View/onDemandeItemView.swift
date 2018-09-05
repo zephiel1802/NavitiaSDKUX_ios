@@ -17,26 +17,24 @@ class OnDemandeItemView: UIView {
     class func instanceFromNib() -> OnDemandeItemView {
         return UINib(nibName: "OnDemandeItemView", bundle: NavitiaSDKUI.shared.bundle).instantiate(withOwner: nil, options: nil)[0] as! OnDemandeItemView
     }
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        
+        phoneIconLabel.attributedText = NSMutableAttributedString().icon("phone-tad", size: 15)
+        phoneIconLabel.textColor = Configuration.Color.main
+        
+        titleLabel.attributedText = NSMutableAttributedString().normal("mandatory_reservation".localized(bundle: NavitiaSDKUI.shared.bundle), color: Configuration.Color.main, size: 12)
+    }
 }
 
 extension OnDemandeItemView {
-    
-    
-    
-    func setIcon() {
-        phoneIconLabel.attributedText = NSMutableAttributedString().icon("phone-tad", size: 15)
-        phoneIconLabel.textColor = Configuration.Color.main
-    }
-    
-    func setTitle() {
-        titleLabel.attributedText = NSMutableAttributedString().normal("mandatory_reservation".localized(bundle: NavitiaSDKUI.shared.bundle), color: Configuration.Color.main, size: 12)
-    }
-    
+
     func setInformation(text: String) {
-        var attri = NSMutableAttributedString().normal(text, color: Configuration.Color.darkerGray, size: 11)
+        let attri = NSMutableAttributedString().normal(text, color: Configuration.Color.darkerGray, size: 11)
         
-        let types: NSTextCheckingResult.CheckingType = [.phoneNumber, .address]
         do {
+            let types: NSTextCheckingResult.CheckingType = [.phoneNumber]
             let detector = try NSDataDetector(types: types.rawValue)
             detector.enumerateMatches(in: text, options: [], range: NSMakeRange(0, text.count)) { (resul, _, _) in
                 if let range = resul?.range, let phoneNumber = resul?.phoneNumber {
@@ -52,27 +50,22 @@ extension OnDemandeItemView {
                     informationLabel.addGestureRecognizer(tap)
                 }
             }
-        } catch {
-            
-        }
-
+        } catch {}
+        
         informationLabel.attributedText = attri
     }
     
-    @objc func callNumber(sender:UITapGestureRecognizer) {
+    @objc func callNumber(gesture: UITapGestureRecognizer) {
         var phoneNumber = ""
         for item in self.phoneNumber.components(separatedBy: CharacterSet(charactersIn:"+0123456789").inverted) {
             phoneNumber += item
         }
         
-        if let phoneCallURL = URL(string: "tel://\(phoneNumber)") {
-            let application:UIApplication = UIApplication.shared
-            if (application.canOpenURL(phoneCallURL)) {
-                if #available(iOS 10.0, *) {
-                    UIApplication.shared.open(phoneCallURL, options: [:], completionHandler: nil)
-                } else {
-                    UIApplication.shared.openURL(phoneCallURL)
-                }
+        if phoneNumber != "", let phoneCallURL = URL(string: "tel://\(phoneNumber)"), UIApplication.shared.canOpenURL(phoneCallURL) {
+            if #available(iOS 10.0, *) {
+                UIApplication.shared.open(phoneCallURL, options: [:], completionHandler: nil)
+            } else {
+                UIApplication.shared.openURL(phoneCallURL)
             }
         }
     }

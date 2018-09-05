@@ -264,8 +264,6 @@ extension PublicTransportView {
         
         let onDemandeItemView = OnDemandeItemView.instanceFromNib()
         onDemandeItemView.frame = disruptionsStackView.bounds
-        onDemandeItemView.setIcon()
-        onDemandeItemView.setTitle()
         onDemandeItemView.setInformation(text: text)
         disruptionsStackView.addArrangedSubview(onDemandeItemView)
     }
