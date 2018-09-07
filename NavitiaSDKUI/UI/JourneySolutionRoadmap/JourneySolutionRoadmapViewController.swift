@@ -318,7 +318,7 @@ open class JourneySolutionRoadmapViewController: UIViewController {
         if let waiting = waiting {
             if waiting.type == .waiting {
                 if let durationWaiting = waiting.duration?.minuteToString() {
-                    publicTransportView.waitTime = durationWaiting
+                    publicTransportView.waitingTime = durationWaiting
                 }
             }
         }

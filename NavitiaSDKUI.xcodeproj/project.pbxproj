@@ -20,6 +20,8 @@
 		31EE0536213FE4DF00293B8B /* OnDemandeItemView.temp_caseinsensitive_rename.xib in Resources */ = {isa = PBXBuildFile; fileRef = 31EE0534213FE4DF00293B8B /* OnDemandeItemView.temp_caseinsensitive_rename.xib */; };
 		31EE0538213FE4F300293B8B /* StopDateTime+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31EE0537213FE4F200293B8B /* StopDateTime+Extension.swift */; };
 		31EE053A213FE50100293B8B /* OnDemandeItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31EE0539213FE50100293B8B /* OnDemandeItemView.swift */; };
+		31EE05402142863F00293B8B /* PublicTransportWaitingBlocView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31EE053F2142863F00293B8B /* PublicTransportWaitingBlocView.swift */; };
+		31EE05422142865600293B8B /* PublicTransportWaitingBlocView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 31EE05412142865600293B8B /* PublicTransportWaitingBlocView.xib */; };
 		8422B459206A24230097E6C9 /* JourneyHeaderCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8422B458206A24230097E6C9 /* JourneyHeaderCollectionReusableView.swift */; };
 		8422B45B206A242D0097E6C9 /* JourneyHeaderCollectionReusableView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8422B45A206A242D0097E6C9 /* JourneyHeaderCollectionReusableView.xib */; };
 		8422B45D206A2AE00097E6C9 /* RidesharingInformationCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8422B45C206A2AE00097E6C9 /* RidesharingInformationCollectionViewCell.xib */; };
@@ -327,6 +329,8 @@
 		31EE0534213FE4DF00293B8B /* OnDemandeItemView.temp_caseinsensitive_rename.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OnDemandeItemView.temp_caseinsensitive_rename.xib; sourceTree = "<group>"; };
 		31EE0537213FE4F200293B8B /* StopDateTime+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "StopDateTime+Extension.swift"; sourceTree = "<group>"; };
 		31EE0539213FE50100293B8B /* OnDemandeItemView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnDemandeItemView.swift; sourceTree = "<group>"; };
+		31EE053F2142863F00293B8B /* PublicTransportWaitingBlocView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PublicTransportWaitingBlocView.swift; sourceTree = "<group>"; };
+		31EE05412142865600293B8B /* PublicTransportWaitingBlocView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PublicTransportWaitingBlocView.xib; sourceTree = "<group>"; };
 		8422B458206A24230097E6C9 /* JourneyHeaderCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JourneyHeaderCollectionReusableView.swift; sourceTree = "<group>"; };
 		8422B45A206A242D0097E6C9 /* JourneyHeaderCollectionReusableView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = JourneyHeaderCollectionReusableView.xib; sourceTree = "<group>"; };
 		8422B45C206A2AE00097E6C9 /* RidesharingInformationCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RidesharingInformationCollectionViewCell.xib; sourceTree = "<group>"; };
@@ -883,6 +887,7 @@
 				8471D38420809EC7000C9125 /* JourneySolutionView.swift */,
 				31EE0539213FE50100293B8B /* OnDemandeItemView.swift */,
 				848D7C2B207B95B0002E9B1A /* PublicTransportView.swift */,
+				31EE053F2142863F00293B8B /* PublicTransportWaitingBlocView.swift */,
 				84506C27209C4FE7006BF393 /* RidesharingStepView.swift */,
 				8433F39D207F8E14007DBBCE /* RidesharingView.swift */,
 				317D6C79211091D500F36242 /* StepByStepItemVIew.swift */,
@@ -922,6 +927,7 @@
 				31EE0534213FE4DF00293B8B /* OnDemandeItemView.temp_caseinsensitive_rename.xib */,
 				31EE0533213FE4DF00293B8B /* OnDemandeItemView.xib */,
 				848D7C29207B92D4002E9B1A /* PublicTransportView.xib */,
+				31EE05412142865600293B8B /* PublicTransportWaitingBlocView.xib */,
 				84506C29209C5007006BF393 /* RidesharingStepView.xib */,
 				8433F39B207F89C0007DBBCE /* RidesharingView.xib */,
 				317D6C76211091CE00F36242 /* StepByStepItemView.xib */,
@@ -1335,6 +1341,7 @@
 				84FABE162074F76600BDDE9D /* JourneySolutionLoadCollectionViewCell.xib in Resources */,
 				84D0FA96210094B300EB420A /* DisruptionItemView.xib in Resources */,
 				8422B464206A30300097E6C9 /* JourneySummaryPartView.xib in Resources */,
+				31EE05422142865600293B8B /* PublicTransportWaitingBlocView.xib in Resources */,
 				8451DA602065065E00CFA1E4 /* Images.xcassets in Resources */,
 				846B185120775479005D4A9B /* DepartureArrivalStepView.xib in Resources */,
 				31EE0535213FE4DF00293B8B /* OnDemandeItemView.xib in Resources */,
@@ -1465,6 +1472,7 @@
 				8454D4062068D3A800C97D2F /* LineGroups.swift in Sources */,
 				8454D3782068D3A800C97D2F /* NetworksApi.swift in Sources */,
 				8454D3902068D3A800C97D2F /* PhysicalModesApi.swift in Sources */,
+				31EE05402142863F00293B8B /* PublicTransportWaitingBlocView.swift in Sources */,
 				848D7C2C207B95B0002E9B1A /* PublicTransportView.swift in Sources */,
 				8454D3A12068D3A800C97D2F /* Journey.swift in Sources */,
 				8454D3F92068D3A800C97D2F /* StopArea.swift in Sources */,
