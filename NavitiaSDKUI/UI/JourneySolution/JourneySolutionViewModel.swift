@@ -13,11 +13,11 @@ class JourneySolutionViewModel: NSObject {
     var journeys = [Journey]()
     var journeysRidesharing = [Journey]()
     var disruptions = [Disruption]()
+    var notes = [Note]()
     var loading: Bool = true
     
     func request(with parameters: JourneySolutionViewController.InParameters) {
         if NavitiaSDKUI.shared.navitiaSDK != nil {
-            
             let journeyRequestBuilder = NavitiaSDKUI.shared.navitiaSDK.journeysApi.newJourneysRequestBuilder()
             _ = journeyRequestBuilder.withFrom(parameters.originId)
             _ = journeyRequestBuilder.withTo(parameters.destinationId)
@@ -75,8 +75,13 @@ class JourneySolutionViewModel: NSObject {
                 }
             }
         }
+        
         if let disruptions = result.disruptions {
             self.disruptions = disruptions
+        }
+        
+        if let notes = result.notes {
+            self.notes = notes
         }
     }
     

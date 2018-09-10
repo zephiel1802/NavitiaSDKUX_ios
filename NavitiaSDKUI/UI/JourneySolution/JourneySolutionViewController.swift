@@ -16,12 +16,16 @@ open class JourneySolutionViewController: UIViewController {
     @IBOutlet weak var toPinLabel: UILabel!
     @IBOutlet weak var dateTimeLabel: UILabel!
     @IBOutlet weak var collectionView: UICollectionView!
+    @IBOutlet weak var switchDepartureArrivalImageView: UIImageView!
+    @IBOutlet weak var switchDepartureArrivalButton: UIButton!
     
     public var inParameters: InParameters!
     
     fileprivate var _viewModel: JourneySolutionViewModel! {
         didSet {
             self._viewModel.journeySolutionDidChange = { [weak self] journeySolutionViewModel in
+                self?.switchDepartureArrivalButton.isEnabled = true
+                
                 self?.collectionView.reloadData()
                 if !journeySolutionViewModel.journeys.isEmpty || !journeySolutionViewModel.journeysRidesharing.isEmpty {
                     if self?.inParameters.originLabel == nil {
@@ -94,6 +98,9 @@ open class JourneySolutionViewController: UIViewController {
         navigationController?.navigationBar.shadowImage = UIImage()
         navigationController?.navigationBar.barTintColor = Configuration.Color.main
         
+        switchDepartureArrivalImageView.image = UIImage(named: "switch", in: NavitiaSDKUI.shared.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
+        switchDepartureArrivalImageView.tintColor = Configuration.Color.main
+        
         fromLabel.text = inParameters.originLabel ?? inParameters.originId
         fromPinLabel.attributedText = NSMutableAttributedString()
             .icon("location-pin", color: Configuration.Color.origin, size: 22)
@@ -110,7 +117,29 @@ open class JourneySolutionViewController: UIViewController {
             self.dateTime = dateTime.toString(format: Configuration.timeJourneySolution)
         }
     }
-
+    
+    
+    @IBAction func switchDepartureArrivalCoordinates(_ sender: UIButton) {
+        switchDepartureArrivalButton.isEnabled = false
+        
+        let oldOriginLabel = self.inParameters.originLabel
+        self.inParameters.originLabel = self.inParameters.destinationLabel
+        self.inParameters.destinationLabel = oldOriginLabel
+        
+        let oldFromLabelText = self.fromLabel.text
+        self.fromLabel.text = self.toLabel.text
+        self.toLabel.text = oldFromLabelText
+        
+        _viewModel.journeys = [Journey]()
+        _viewModel.journeysRidesharing = [Journey]()
+        self.collectionView.reloadData()
+        
+        let oldOriginId = self.inParameters.originId
+        self.inParameters.originId = self.inParameters.destinationId
+        self.inParameters.destinationId = oldOriginId
+        
+        _viewModel.request(with: inParameters)
+    }
 }
 
 extension JourneySolutionViewController: UICollectionViewDataSource {
@@ -120,6 +149,7 @@ extension JourneySolutionViewController: UICollectionViewDataSource {
         if ridesharing && !_viewModel.loading {
             return 2
         }
+        
         // Journey
         return 1
     }
@@ -219,11 +249,13 @@ extension JourneySolutionViewController: UICollectionViewDelegate {
             if indexPath.section == 0 && _viewModel.journeys.count > indexPath.row {
                 let viewController = storyboard?.instantiateViewController(withIdentifier: JourneySolutionRoadmapViewController.identifier) as! JourneySolutionRoadmapViewController
                 viewController.disruptions = _viewModel.disruptions
+                viewController.notes = _viewModel.notes
                 viewController.journey = _viewModel.journeys[indexPath.row]
                 self.navigationController?.pushViewController(viewController, animated: true)
             } else if indexPath.section == 1 && indexPath.row != 0 {
                 let viewController = storyboard?.instantiateViewController(withIdentifier: JourneySolutionRidesharingViewController.identifier) as! JourneySolutionRidesharingViewController
                 viewController.disruptions = _viewModel.disruptions
+                viewController.notes = _viewModel.notes
                 viewController.journey = _viewModel.journeysRidesharing[indexPath.row - 1]
                 self.navigationController?.pushViewController(viewController, animated: true)
             }

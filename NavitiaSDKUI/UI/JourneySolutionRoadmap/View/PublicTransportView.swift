@@ -32,6 +32,7 @@ class PublicTransportView: UIView {
     @IBOutlet var stationsHeightContraint: NSLayoutConstraint!
     @IBOutlet var stationsTopContraint: NSLayoutConstraint!
     @IBOutlet var stationsBottomContraint: NSLayoutConstraint!
+    @IBOutlet var stationsHiddenBottomContraint: NSLayoutConstraint!
     @IBOutlet weak var endTimeLabel: UILabel!
     @IBOutlet weak var destinationLabel: UILabel!
     @IBOutlet weak var pinOriginView: UIView!
@@ -72,6 +73,7 @@ class PublicTransportView: UIView {
         didSet {
             if !stations.isEmpty {
                 stationButton.isHidden = false
+                stationsHiddenBottomContraint.isActive = true
             }
             stationsIsHidden = true
             updateStationStack()
@@ -119,6 +121,7 @@ class PublicTransportView: UIView {
         disruptionIconTransportLabel.isHidden = true
         disruptionCircleLabel.isHidden = true
         stationButton.isHidden = true
+        stationsHiddenBottomContraint.isActive = false
         
         setupStationStackView()
     }
@@ -250,12 +253,22 @@ extension PublicTransportView {
         disruptionIconTransportLabel.textColor = disruptions[0].severity?.color?.toUIColor() ?? UIColor.red
         disruptionIconTransportLabel.isHidden = false
         
+        
         for disruption in disruptions {
             let disruptionItemView = DisruptionItemView.instanceFromNib()
             disruptionItemView.frame = disruptionsStackView.bounds
             disruptionItemView.disruption = disruption
             disruptionsStackView.addArrangedSubview(disruptionItemView)
         }
+    }
+    
+    func setOnDemandeTransport(text: String) {
+        disruptionsStackIsHidden = false
+        
+        let onDemandeItemView = OnDemandeItemView.instanceFromNib()
+        onDemandeItemView.frame = disruptionsStackView.bounds
+        onDemandeItemView.setInformation(text: text)
+        disruptionsStackView.addArrangedSubview(onDemandeItemView)
     }
     
     var waitTime: String? {
@@ -372,6 +385,7 @@ extension PublicTransportView {
                             size: 13)
                     .icon("arrow-details-down", color: Configuration.Color.gray, size: 13)
                     ,for: .normal)
+                
                 frame.size.height -= stationsView.frame.size.height
             } else {
                 stationsView.isHidden = false

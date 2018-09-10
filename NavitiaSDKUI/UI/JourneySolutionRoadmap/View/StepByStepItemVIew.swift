@@ -44,12 +44,13 @@ class StepByStepItemView: UIView {
     var pathDirection: Int32 = 0 {
         didSet {
             directionIconImageView.image = _getDirectionIcon()
+            directionIconImageView.tintColor = UIColor(red: 64/255, green: 64/255, blue: 64/255, alpha: 1.0)
         }
     }
     
     var pathInstruction: String = "" {
         didSet {
-            directionInstructionLabel.text = _getDirectionInstruction()
+            directionInstructionLabel.attributedText = NSMutableAttributedString().normal(_getDirectionInstruction(), color: Configuration.Color.gray, size: 13)
         }
     }
     
@@ -65,11 +66,11 @@ extension StepByStepItemView {
     
     private func _getDirectionIcon() -> UIImage? {
         if pathDirection == 0 {
-            return UIImage(named: "arrow_straight", in: NavitiaSDKUI.shared.bundle, compatibleWith: nil)
+            return UIImage(named: "arrow_straight", in: NavitiaSDKUI.shared.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
         } else if pathDirection < 0 {
-            return UIImage(named: "arrow_left", in: NavitiaSDKUI.shared.bundle, compatibleWith: nil)
+            return UIImage(named: "arrow_left", in: NavitiaSDKUI.shared.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
         } else {
-            return UIImage(named: "arrow_right", in: NavitiaSDKUI.shared.bundle, compatibleWith: nil)
+            return UIImage(named: "arrow_right", in: NavitiaSDKUI.shared.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
         }
     }
     

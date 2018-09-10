@@ -15,6 +15,7 @@ class GenericStepView: UIView {
     @IBOutlet weak var directionLabel: UILabel!
     @IBOutlet weak var timeLabel: UILabel!
     @IBOutlet weak var detailsButtonContainer: UIView!
+    @IBOutlet weak var detailsLabel: UILabel!
     @IBOutlet weak var detailsArrowLabel: UILabel!
     @IBOutlet weak var directionsContainer: UIView!
     @IBOutlet weak var directionsContainerHeightConstraint: NSLayoutConstraint!
@@ -76,7 +77,8 @@ class GenericStepView: UIView {
         addSubview(_view)
         
         detailsButtonHidden = true
-        detailsArrowLabel.attributedText = NSMutableAttributedString().icon("arrow-details-down", color: Configuration.Color.gray, size: 13)
+        detailsLabel.attributedText = NSMutableAttributedString().semiBold("details".localized(bundle: NavitiaSDKUI.shared.bundle), color: Configuration.Color.gray, size: 15)
+        detailsArrowLabel.attributedText = NSMutableAttributedString().icon("arrow-details-down", color: Configuration.Color.gray, size: 14)
         
         directionsHidden = true
         _setupDirectionsStackView()

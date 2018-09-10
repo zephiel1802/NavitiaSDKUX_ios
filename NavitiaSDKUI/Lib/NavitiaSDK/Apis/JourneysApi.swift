@@ -285,7 +285,7 @@ open class CoverageLonLatJourneysRequestBuilder: NSObject {
         let paramValues: [String: Any?] = [
             "from": self.from, 
             "to": self.to, 
-            "datetime": self.datetime?.encodeToJSON(), 
+            "datetime": self.datetime?.reformatDate(),
             "datetime_represents": self.datetimeRepresents?.rawValue, 
             "max_nb_transfers": self.maxNbTransfers?.encodeToJSON(), 
             "min_nb_transfers": self.minNbTransfers?.encodeToJSON(), 
@@ -635,7 +635,7 @@ open class CoverageRegionJourneysRequestBuilder: NSObject {
         let paramValues: [String: Any?] = [
             "from": self.from, 
             "to": self.to, 
-            "datetime": self.datetime?.encodeToJSON(), 
+            "datetime": self.datetime?.reformatDate(),
             "datetime_represents": self.datetimeRepresents?.rawValue, 
             "max_nb_transfers": self.maxNbTransfers?.encodeToJSON(), 
             "min_nb_transfers": self.minNbTransfers?.encodeToJSON(), 
@@ -968,8 +968,8 @@ open class JourneysRequestBuilder: NSObject {
         let paramValues: [String: Any?] = [
             "from": self.from, 
             "to": self.to, 
-            "datetime": self.datetime?.encodeToJSON(), 
-            "datetime_represents": self.datetimeRepresents?.rawValue, 
+            "datetime": self.datetime?.reformatDate(),
+            "datetime_represents": self.datetimeRepresents?.rawValue,
             "max_nb_transfers": self.maxNbTransfers?.encodeToJSON(), 
             "min_nb_transfers": self.minNbTransfers?.encodeToJSON(), 
             "first_section_mode[]": self.firstSectionMode, 
