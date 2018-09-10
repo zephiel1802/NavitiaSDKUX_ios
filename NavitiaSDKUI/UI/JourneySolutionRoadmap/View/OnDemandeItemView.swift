@@ -24,14 +24,14 @@ class OnDemandeItemView: UIView {
         phoneIconLabel.attributedText = NSMutableAttributedString().icon("phone-tad", size: 15)
         phoneIconLabel.textColor = Configuration.Color.main
         
-        titleLabel.attributedText = NSMutableAttributedString().normal("mandatory_reservation".localized(bundle: NavitiaSDKUI.shared.bundle), color: Configuration.Color.main, size: 12)
+        titleLabel.attributedText = NSMutableAttributedString().normal("mandatory_reservation".localized(bundle: NavitiaSDKUI.shared.bundle), color: Configuration.Color.main, size: 13)
     }
 }
 
 extension OnDemandeItemView {
 
     func setInformation(text: String) {
-        let attri = NSMutableAttributedString().normal(text, color: Configuration.Color.darkerGray, size: 11)
+        let attri = NSMutableAttributedString().normal(text, color: Configuration.Color.black, size: 12)
         
         do {
             let types: NSTextCheckingResult.CheckingType = [.phoneNumber]
@@ -39,7 +39,7 @@ extension OnDemandeItemView {
             detector.enumerateMatches(in: text, options: [], range: NSMakeRange(0, text.count)) { (resul, _, _) in
                 if let range = resul?.range, let phoneNumber = resul?.phoneNumber {
                     attri.addAttributes([
-                        .font: UIFont.systemFont(ofSize: 12.0, weight: .bold),
+                        .font: UIFont.systemFont(ofSize: 13.0, weight: .bold),
                         .foregroundColor: Configuration.Color.main,
                         .underlineStyle: NSUnderlineStyle.styleSingle.rawValue
                         ], range: range)
