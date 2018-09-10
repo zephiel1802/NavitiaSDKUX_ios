@@ -324,7 +324,7 @@ open class JourneySolutionRoadmapViewController: UIViewController {
         }
         
         if section.type == .onDemandTransport {
-            addOnDemandeTransport(publicTransportView: &publicTransportView, section: section)
+            addOnDemandTransport(publicTransportView: &publicTransportView, section: section)
         }
         
         if section.type == .publicTransport, let disruptions = disruptions, disruptions.count > 0 {
@@ -337,10 +337,10 @@ open class JourneySolutionRoadmapViewController: UIViewController {
         _addViewInScroll(view: publicTransportView, margin: UIEdgeInsets(top: 5, left: 10, bottom: 5, right: 10))
     }
     
-    func addOnDemandeTransport(publicTransportView: inout PublicTransportView, section: Section) {
+    func addOnDemandTransport(publicTransportView: inout PublicTransportView, section: Section) {
         for i in section.selectLinks(type: "notes") {
             if let notes = self.notes, let id = i.id, let note = section.getNote(notes: notes, id: id) {
-                publicTransportView.setOnDemandeTransport(text: note.value ?? "")
+                publicTransportView.setOnDemandTransport(text: note.value ?? "")
             }
         }
         
@@ -349,7 +349,7 @@ open class JourneySolutionRoadmapViewController: UIViewController {
             if links.count > 0 {
                 for i in links {
                     if let notes = self.notes, let id = i.id, let note = section.getNote(notes: notes, id: id) {
-                        publicTransportView.setOnDemandeTransport(text: note.value ?? "")
+                        publicTransportView.setOnDemandTransport(text: note.value ?? "")
                     }
                 }
                 return
@@ -359,7 +359,7 @@ open class JourneySolutionRoadmapViewController: UIViewController {
         if let laststopDateTimes = section.stopDateTimes?.last {
             for i in laststopDateTimes.selectLinks(type: "notes") {
                 if let notes = self.notes, let id = i.id, let note = section.getNote(notes: notes, id: id) {
-                    publicTransportView.setOnDemandeTransport(text: note.value ?? "")
+                    publicTransportView.setOnDemandTransport(text: note.value ?? "")
                 }
             }
         }
