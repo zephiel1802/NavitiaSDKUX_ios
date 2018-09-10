@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'NavitiaSDKUI'
-  s.version          = '1.4.0'
+  s.version          = '1.5.0'
   s.summary          = 'An awesome framework to offer cool transport stuff to your users'
   s.description      = <<-DESC
 This SDK provides journey computation screens you can add to your application.
