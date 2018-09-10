@@ -17,7 +17,6 @@
 		317D6C7B211091D600F36242 /* StepByStepItemVIew.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317D6C79211091D500F36242 /* StepByStepItemVIew.swift */; };
 		317D6C7C211091D600F36242 /* GenericStepView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317D6C7A211091D600F36242 /* GenericStepView.swift */; };
 		31EE0535213FE4DF00293B8B /* OnDemandeItemView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 31EE0533213FE4DF00293B8B /* OnDemandeItemView.xib */; };
-		31EE0536213FE4DF00293B8B /* OnDemandeItemView.temp_caseinsensitive_rename.xib in Resources */ = {isa = PBXBuildFile; fileRef = 31EE0534213FE4DF00293B8B /* OnDemandeItemView.temp_caseinsensitive_rename.xib */; };
 		31EE0538213FE4F300293B8B /* StopDateTime+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31EE0537213FE4F200293B8B /* StopDateTime+Extension.swift */; };
 		31EE053A213FE50100293B8B /* OnDemandeItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31EE0539213FE50100293B8B /* OnDemandeItemView.swift */; };
 		8422B459206A24230097E6C9 /* JourneyHeaderCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8422B458206A24230097E6C9 /* JourneyHeaderCollectionReusableView.swift */; };
@@ -324,7 +323,6 @@
 		317D6C79211091D500F36242 /* StepByStepItemVIew.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StepByStepItemVIew.swift; sourceTree = "<group>"; };
 		317D6C7A211091D600F36242 /* GenericStepView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GenericStepView.swift; sourceTree = "<group>"; };
 		31EE0533213FE4DF00293B8B /* OnDemandeItemView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OnDemandeItemView.xib; sourceTree = "<group>"; };
-		31EE0534213FE4DF00293B8B /* OnDemandeItemView.temp_caseinsensitive_rename.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OnDemandeItemView.temp_caseinsensitive_rename.xib; sourceTree = "<group>"; };
 		31EE0537213FE4F200293B8B /* StopDateTime+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "StopDateTime+Extension.swift"; sourceTree = "<group>"; };
 		31EE0539213FE50100293B8B /* OnDemandeItemView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnDemandeItemView.swift; sourceTree = "<group>"; };
 		8422B458206A24230097E6C9 /* JourneyHeaderCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JourneyHeaderCollectionReusableView.swift; sourceTree = "<group>"; };
@@ -919,7 +917,6 @@
 				84A790FC2121B0E90000C82F /* EmissionView.xib */,
 				317D6C75211091CE00F36242 /* GenericStepView.xib */,
 				8471D38220809EAD000C9125 /* JourneySolutionView.xib */,
-				31EE0534213FE4DF00293B8B /* OnDemandeItemView.temp_caseinsensitive_rename.xib */,
 				31EE0533213FE4DF00293B8B /* OnDemandeItemView.xib */,
 				848D7C29207B92D4002E9B1A /* PublicTransportView.xib */,
 				84506C29209C5007006BF393 /* RidesharingStepView.xib */,
@@ -1342,7 +1339,6 @@
 				8422B46A206A33540097E6C9 /* JourneySummaryView.xib in Resources */,
 				8422B45B206A242D0097E6C9 /* JourneyHeaderCollectionReusableView.xib in Resources */,
 				8454D44E20692CA200C97D2F /* SDKIcons.ttf in Resources */,
-				31EE0536213FE4DF00293B8B /* OnDemandeItemView.temp_caseinsensitive_rename.xib in Resources */,
 				8433F3A2207FAF23007DBBCE /* AlertView.xib in Resources */,
 				84339A7E206CC5E200F2CB65 /* JourneyEmptySolutionCollectionViewCell.xib in Resources */,
 				317D6C78211091CE00F36242 /* StepByStepItemView.xib in Resources */,
