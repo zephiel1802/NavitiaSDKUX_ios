@@ -11,8 +11,13 @@ class DisruptionItemView: UIView {
     
     @IBOutlet weak var disruptionIconLabel: UILabel!
     @IBOutlet weak var disruptionTitleLabel: UILabel!
-    @IBOutlet weak var disruptionInformationLabel: UILabel!
     @IBOutlet weak var disruptionDateLabel: UILabel!
+    @IBOutlet weak var displayArrowLabel: UILabel!
+    @IBOutlet weak var disruptionInformationLabel: UILabel!
+    @IBOutlet var disruptionInformationBottomConstraint: NSLayoutConstraint!
+    @IBOutlet var disruptionDateBottomConstraint: NSLayoutConstraint!
+    
+    var publicTransportView: PublicTransportView?
     
     var disruption: Disruption? {
         get {
@@ -32,6 +37,22 @@ class DisruptionItemView: UIView {
     
     class func instanceFromNib() -> DisruptionItemView {
         return UINib(nibName: "DisruptionItemView", bundle: NavitiaSDKUI.shared.bundle).instantiate(withOwner: nil, options: nil)[0] as! DisruptionItemView
+    }
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        
+        disruptionInformationHidden = true
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        self.publicTransportView?.layoutSubviews()
+    }
+    
+    @IBAction func manageDisruptionInformationDisplay(_ sender: UIButton) {
+        disruptionInformationHidden = !disruptionInformationLabel.isHidden
     }
 }
 
@@ -63,9 +84,29 @@ extension DisruptionItemView {
         }
         set {
             if let newValue = newValue {
-                disruptionDateLabel.attributedText = NSMutableAttributedString().bold(newValue, size: 12)
+                disruptionDateLabel.attributedText = NSMutableAttributedString().bold(newValue, color: Configuration.Color.darkerGray, size: 12)
             }
         }
     }
     
+    var disruptionInformationHidden: Bool? {
+        get {
+            return disruptionInformationLabel.isHidden
+        }
+        set {
+            if let newValue = newValue, newValue {
+                displayArrowLabel.attributedText = NSMutableAttributedString().icon("arrow-details-down", color: Configuration.Color.darkerGray, size: 14)
+                
+                disruptionDateBottomConstraint.isActive = true
+                disruptionInformationBottomConstraint.isActive = false
+                disruptionInformationLabel.isHidden = true
+            } else {
+                displayArrowLabel.attributedText = NSMutableAttributedString().icon("arrow-details-up", color: Configuration.Color.darkerGray, size: 14)
+                
+                disruptionDateBottomConstraint.isActive = false
+                disruptionInformationBottomConstraint.isActive = true
+                disruptionInformationLabel.isHidden = false
+            }
+        }
+    }
 }
