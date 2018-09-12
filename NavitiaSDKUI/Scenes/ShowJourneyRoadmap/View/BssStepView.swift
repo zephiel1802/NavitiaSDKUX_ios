@@ -59,6 +59,10 @@ class BssStepView: UIView {
         _setup()
     }
     
+    override func layoutSubviews() {
+        //setHeight()
+    }
+    
     private func _setup() {
         UINib(nibName: "BssStepView", bundle: NavitiaSDKUI.shared.bundle).instantiate(withOwner: self, options: nil)
         _view.frame = self.bounds
@@ -123,6 +127,27 @@ class BssStepView: UIView {
         } else if type == Section.ModelType.bssPutBack {
             realTimeLabel.attributedText = NSMutableAttributedString()
                 .semiBold(String(format: "bss_spaces_available".localized(bundle: NavitiaSDKUI.shared.bundle), stands.availablePlaces ?? ""),
+                          color: Configuration.Color.main,
+                          size: 13)
+        }
+        
+        setHeight()
+    }
+    
+    public func updateStandsClean(poi: ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionClean.Poi, type: ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionClean.ModelType) {
+//        guard let type = type, let stands = stands else {
+//            return
+//        }
+
+     
+        if type == .bssRent, let availableBikes = poi.stands?.availableBikes {
+            realTimeLabel.attributedText = NSMutableAttributedString()
+                .semiBold(String(format: "bss_bikes_available".localized(bundle: NavitiaSDKUI.shared.bundle), availableBikes),
+                          color: Configuration.Color.main,
+                          size: 13)
+        } else if type == .bssPutBack, let availablePlaces = poi.stands?.availablePlaces {
+            realTimeLabel.attributedText = NSMutableAttributedString()
+                .semiBold(String(format: "bss_spaces_available".localized(bundle: NavitiaSDKUI.shared.bundle), availablePlaces),
                           color: Configuration.Color.main,
                           size: 13)
         }

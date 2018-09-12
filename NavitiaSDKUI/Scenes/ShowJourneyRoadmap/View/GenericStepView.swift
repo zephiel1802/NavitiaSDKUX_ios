@@ -84,7 +84,7 @@ class GenericStepView: UIView {
         _setupDirectionsStackView()
     }
     
-    var paths: [Path]? {
+    var paths: [ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionClean.Path]? {
         didSet {
             if let paths = paths, paths.count > 0 {
                 detailsButtonHidden = false
@@ -225,13 +225,13 @@ extension GenericStepView {
     
     private func _updateDirectionsStack() {
         if let paths = paths {
-            directionsContainerHeightConstraint.constant = CGFloat(paths.count) * 45
+            directionsContainerHeightConstraint.constant = CGFloat(paths.count) * 45 // Height 45px
             
             for path in paths {
                 let view = StepByStepItemView()
-                view.pathDirection = path.direction ?? 0
-                view.pathLength = path.length ?? 0
-                view.pathInstruction = path.name ?? ""
+                view.pathDirection = path.direction
+                view.pathLength = path.length
+                view.pathInstruction = path.name
                 
                 directionsStackView.addArrangedSubview(view)
             }

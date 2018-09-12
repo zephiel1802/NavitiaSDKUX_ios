@@ -44,7 +44,7 @@ internal class ListJourneysRouter: NSObject, ListJourneysViewRoutingLogic, ListJ
             return
         }
         
-        let destinationVC = viewController.storyboard?.instantiateViewController(withIdentifier: JourneyRoadmapViewController.identifier) as! JourneyRoadmapViewController
+        let destinationVC = viewController.storyboard?.instantiateViewController(withIdentifier: ShowJourneyRoadmapViewController.identifier) as! ShowJourneyRoadmapViewController
         var destinationDS = destinationVC.router!.dataStore!
         
         passDataToJourneySolutionRoadmap(source: dataStore, destination: &destinationDS, index: indexPath)
@@ -57,7 +57,7 @@ internal class ListJourneysRouter: NSObject, ListJourneysViewRoutingLogic, ListJ
         source.navigationController?.pushViewController(destination, animated: true)
     }
     
-    func navigateToJourneySolutionRoadmap(source: ListJourneysViewController, destination: JourneyRoadmapViewController) {
+    func navigateToJourneySolutionRoadmap(source: ListJourneysViewController, destination: ShowJourneyRoadmapViewController) {
         source.navigationController?.pushViewController(destination, animated: true)
     }
     
@@ -68,7 +68,7 @@ internal class ListJourneysRouter: NSObject, ListJourneysViewRoutingLogic, ListJ
         destination.journey = source.ridesharings?[index.row - 1]  // -1 because "Header Ridesharing"
     }
     
-    func passDataToJourneySolutionRoadmap(source: ListJourneysDataStore, destination: inout JourneyRoadmapDataStore, index: IndexPath) {
+    func passDataToJourneySolutionRoadmap(source: ListJourneysDataStore, destination: inout ShowJourneyRoadmapDataStore, index: IndexPath) {
         destination.journey = source.journeys?[index.row]
         destination.disruptions = source.disruptions
         destination.notes = source.notes

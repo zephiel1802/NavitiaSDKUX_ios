@@ -66,4 +66,20 @@ internal struct JourneysWorker {
         }
     }
     
+    func fetchBss(coord: (lat: Double, lon: Double), distance: Int32, id: String, completionHandler: @escaping (Poi?) -> Void) {
+        if NavitiaSDKUI.shared.navitiaSDK != nil {
+            let poisRequestBuilder = NavitiaSDKUI.shared.navitiaSDK.poisApi.newCoverageLonLatUriPoisRequestBuilder()
+                .withLat(coord.lat)
+                .withLon(coord.lon)
+                .withDistance(distance)
+                .withUri("poi_types/poi_type:amenity:bicycle_rental/coord/" + id)
+                .withBssStands(true)
+            
+            poisRequestBuilder.get { (result, error) in
+                completionHandler(result?.pois?.first)
+            }
+        }
+        
+    }
+    
 }

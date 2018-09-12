@@ -78,7 +78,7 @@ class DepartureArrivalStepView: UIView {
 
 extension DepartureArrivalStepView {
     
-    var type: JourneyRoadmap.GetRoadmap.ViewModel.DepartureArrival.Mode {
+    var type: ShowJourneyRoadmap.GetRoadmap.ViewModel.DepartureArrival.Mode {
         get {
             return self.type
         }

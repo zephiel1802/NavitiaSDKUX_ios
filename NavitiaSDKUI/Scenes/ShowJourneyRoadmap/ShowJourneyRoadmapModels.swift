@@ -1,5 +1,5 @@
 //
-//  JourneyRoadmapModels.swift
+//  ShowJourneyRoadmapModels.swift
 //  NavitiaSDKUI
 //
 //  Copyright © 2018 kisio. All rights reserved.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-enum JourneyRoadmap
+enum ShowJourneyRoadmap
 {
   // MARK: Use cases
   
@@ -29,22 +29,12 @@ enum JourneyRoadmap
                     case departure
                     case arrival
                 }
-                var mode: Mode  // departure  Arrival
-                var information: String // journey.section?.first?.from?.name // journey.sections?.last?.to?.name
-                var time: String // journey.arrivalDateTime?.toDate(format: Configuration.date)?.toString(format: Configuration.time) = journey.arrivalDateTime?.toDate(format: Configuration.date)?.toString(format: Configuration.time)
-                var calorie: String? // String(format: "%d", Int((Double(walkingDistance) * Configuration.caloriePerSecWalking + Double(bikeDistance) * Configuration.caloriePerSecBike).rounded()))
+                var mode: Mode
+                var information: String
+                var time: String
+                var calorie: String?
             }
-            
-            struct DisplayInformations {
-                var commercialMode: String?
-                var color: UIColor?
-                var directionTransit: String
-                var code: String?
-                // section.displayInformations?.direction
-                // var color // displayINforamtions?.color - optional
-                // var
-            }
-            struct Section {
+            struct SectionClean {
                 enum ModelType: String {
                     case publicTransport = "public_transport"
                     case streetNetwork = "street_network"
@@ -61,7 +51,6 @@ enum JourneyRoadmap
                     case ridesharing = "ridesharing"
                     case onDemandTransport = "on_demand_transport"
                 }
-                
                 enum Mode: String {
                     case walking = "walking"
                     case bike = "bike"
@@ -70,44 +59,63 @@ enum JourneyRoadmap
                     case ridesharing = "ridesharing"
                     case carnopark = "carnopark"
                 }
+                struct Poi {
+                    var name: String
+                    var network: String
+                    var lat: Double
+                    var lont: Double
+                    var addressName: String
+                    var addressId: String
+                    var stands: Stands?
+                }
+                struct Stands {
+                    var availablePlaces: Int32
+                    var availableBikes: Int32
+                }
+                struct Path {
+                    var direction: Int32
+                    var length: Int32
+                    var name: String
+                }
+                struct DisplayInformations {
+                    var commercialMode: String?
+                    var color: UIColor?
+                    var directionTransit: String
+                    var code: String?
+                }
                 
-                
-                var type: ModelType // section.type
+                var type: ModelType
                 var mode: Mode?
-
-                var from: String
-                var to: String // last.to.name - Optional
-                var startTime: String //section.departureDateTime?.toDate(format: Configuration.date)?.toString(format: Configuration.time) ?? ""
-                var endTime: String //section.arrivalDateTime?.toDate(format: Configuration.date)?.toString(format: Configuration.time)
-                var time: String?
-                var path: [Path]?
                 
+                var from: String
+                var to: String
+                
+                var startTime: String
+                var endTime: String
+                
+                var duration: String?
+                var path: [Path]?
                 var stopDate: [String]
-
                 var displayInformations: DisplayInformations
                 var waiting: String?
-                var disruptions: [Disruption]
+                var disruptions: [Disruption] // RECONSTRUIRE
                 var poi: Poi?
                 var icon: String
+                var bssRealTime: Bool
                 
+                // Provisoire
+                var section: Section
             }
             struct Emission {
                 var journeyValue: Double
-               
-                // var value journey
-                // var value car ?
-                // var unit
+
             }
-            // var mode: String
-            // var time: String
-            // var direction: String
-            // var path: [Path]?
-        
+
             var departure: DepartureArrival
+            var sections: [SectionClean]?
             var arrival: DepartureArrival
             var emission: Emission
             
-            var sections: [Section]?
             // Provisoire
             var disruptions: [Disruption]?
             var journey: Journey
@@ -123,6 +131,23 @@ enum JourneyRoadmap
         }
         struct ViewModel {
             var journey: Journey
+        }
+    }
+    
+    enum FetchBss {
+        struct Request {
+            var lat: Double
+            var lon: Double
+            var distance: Int32 = 10
+            var id: String
+            var notify: ((ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionClean.Poi) -> ())
+        }
+        struct Response {
+            var poi: Poi
+            var notify: ((ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionClean.Poi) -> ())
+        }
+        struct ViewModel {
+            
         }
     }
 }

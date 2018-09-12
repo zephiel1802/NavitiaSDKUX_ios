@@ -131,7 +131,7 @@ extension JourneySolutionRidesharingViewController: JourneyRidesharingCollection
     
     func onBookButtonClicked(_ journeyRidesharingCollectionViewCell: JourneyRidesharingCollectionViewCell) {
         if let row = journeyRidesharingCollectionViewCell.row {
-            let viewController = storyboard?.instantiateViewController(withIdentifier: JourneyRoadmapViewController.identifier) as! JourneyRoadmapViewController
+            let viewController = storyboard?.instantiateViewController(withIdentifier: ShowJourneyRoadmapViewController.identifier) as! ShowJourneyRoadmapViewController
            // viewController.journey = _viewModel.journey
             viewController.ridesharing = true
             viewController.ridesharingIndex = row
