@@ -131,11 +131,11 @@ extension JourneySolutionRidesharingViewController: JourneyRidesharingCollection
     
     func onBookButtonClicked(_ journeyRidesharingCollectionViewCell: JourneyRidesharingCollectionViewCell) {
         if let row = journeyRidesharingCollectionViewCell.row {
-            let viewController = storyboard?.instantiateViewController(withIdentifier: JourneySolutionRoadmapViewController.identifier) as! JourneySolutionRoadmapViewController
-            viewController.journey = _viewModel.journey
+            let viewController = storyboard?.instantiateViewController(withIdentifier: JourneyRoadmapViewController.identifier) as! JourneyRoadmapViewController
+           // viewController.journey = _viewModel.journey
             viewController.ridesharing = true
             viewController.ridesharingIndex = row
-            viewController.disruptions = disruptions
+          //  viewController.disruptions = viewModel?.disruptions
             self.navigationController?.pushViewController(viewController, animated: true)
         }
     }

@@ -78,12 +78,12 @@ class DepartureArrivalStepView: UIView {
 
 extension DepartureArrivalStepView {
     
-    var type: TypeStep? {
+    var type: JourneyRoadmap.GetRoadmap.ViewModel.DepartureArrival.Mode {
         get {
-            return _type
+            return self.type
         }
         set {
-            _type = newValue
+            //type = newValue
             if newValue == .departure {
                 self._view.backgroundColor = Configuration.Color.origin
                 title = "departure".localized(withComment: "Départure:", bundle: NavitiaSDKUI.shared.bundle) + ":"

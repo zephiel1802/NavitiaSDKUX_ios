@@ -26,7 +26,7 @@ class RidesharingView: UIView {
     @IBOutlet weak var seatCountLabel: UILabel!
     @IBOutlet weak var priceLabel: UILabel!
     
-    var parentViewController: JourneySolutionRoadmapViewController?
+    var parentViewController: JourneyRoadmapViewController?
     
     override init(frame: CGRect) {
         super.init(frame: frame)

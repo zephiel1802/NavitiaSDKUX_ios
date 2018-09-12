@@ -238,23 +238,25 @@ extension PublicTransportView {
     }
     
     func setDisruptions(_ disruptions: [Disruption]) {
-        disruptionsStackIsHidden = false
-        
-        disruptionCircleLabel.attributedText = NSMutableAttributedString()
-            .icon("circle-filled", size: 15)
-        disruptionCircleLabel.textColor = UIColor.white
-        disruptionCircleLabel.isHidden = false
-        
-        disruptionIconTransportLabel.attributedText = NSMutableAttributedString()
-            .icon(Disruption.iconName(of: disruptions[0].level), size: 14)
-        disruptionIconTransportLabel.textColor = disruptions[0].severity?.color?.toUIColor() ?? UIColor.red
-        disruptionIconTransportLabel.isHidden = false
-        
-        for disruption in disruptions {
-            let disruptionItemView = DisruptionItemView.instanceFromNib()
-            disruptionItemView.frame = disruptionsStackView.bounds
-            disruptionItemView.disruption = disruption
-            disruptionsStackView.addArrangedSubview(disruptionItemView)
+        if disruptions.count > 0 {
+            disruptionsStackIsHidden = false
+            
+            disruptionCircleLabel.attributedText = NSMutableAttributedString()
+                .icon("circle-filled", size: 15)
+            disruptionCircleLabel.textColor = UIColor.white
+            disruptionCircleLabel.isHidden = false
+            
+            disruptionIconTransportLabel.attributedText = NSMutableAttributedString()
+                .icon(Disruption.iconName(of: disruptions[0].level), size: 14)
+            disruptionIconTransportLabel.textColor = disruptions[0].severity?.color?.toUIColor() ?? UIColor.red
+            disruptionIconTransportLabel.isHidden = false
+            
+            for disruption in disruptions {
+                let disruptionItemView = DisruptionItemView.instanceFromNib()
+                disruptionItemView.frame = disruptionsStackView.bounds
+                disruptionItemView.disruption = disruption
+                disruptionsStackView.addArrangedSubview(disruptionItemView)
+            }
         }
     }
     

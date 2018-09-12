@@ -9,7 +9,7 @@ import Foundation
 
 internal struct JourneysWorker {
     
-    func fetchJourneys(journeysRequest: JourneysRequest, completionHandler: @escaping ([Journey]?, [Journey]?, [Disruption]?) -> Void) {
+    func fetchJourneys(journeysRequest: JourneysRequest, completionHandler: @escaping ([Journey]?, [Journey]?, [Disruption]?, [Note]?, Context?) -> Void) {
         if NavitiaSDKUI.shared.navitiaSDK != nil {
             let journeyRequestBuilder = NavitiaSDKUI.shared.navitiaSDK.journeysApi.newJourneysRequestBuilder()
             _ = journeyRequestBuilder.withFrom(journeysRequest.originId)
@@ -58,9 +58,9 @@ internal struct JourneysWorker {
                             }
                         }
                     }
-                    completionHandler(journeys, ridesharing, result.disruptions)
+                    completionHandler(journeys, ridesharing, result.disruptions, result.notes, result.context)
                 } else {
-                    completionHandler(nil, nil, nil)
+                    completionHandler(nil, nil, nil, nil, nil)
                 }
             }
         }

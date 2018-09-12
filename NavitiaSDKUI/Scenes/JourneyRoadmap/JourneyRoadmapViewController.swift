@@ -1,5 +1,5 @@
 //
-//  JourneySolutionRoadmapViewController.swift
+//  JourneyRoadmapViewController.swift
 //  NavitiaSDKUI
 //
 //  Copyright © 2018 kisio. All rights reserved.
@@ -9,43 +9,296 @@ import UIKit
 import MapKit
 import CoreLocation
 
-open class JourneySolutionRoadmapViewController: UIViewController {
+
+protocol JourneyRoadmapDisplayLogic: class {
+    
+    func displaySomething(viewModel: JourneyRoadmap.GetRoadmap.ViewModel)
+    func displayMap(viewModel: JourneyRoadmap.GetMap.ViewModel)
+}
+
+extension JourneyRoadmapViewController {
+    
+    private func initArchitecture() {
+        let viewController = self
+        let interactor = JourneyRoadmapInteractor()
+        let presenter = JourneyRoadmapPresenter()
+        let router = JourneyRoadmapRouter()
+        
+        viewController.interactor = interactor
+        viewController.router = router
+        interactor.presenter = presenter
+        presenter.viewController = viewController
+        router.viewController = viewController
+        router.dataStore = interactor
+    }
+    
+    private func initNavigationBar() {
+        title = "roadmap".localized(withComment: "Roadmap", bundle: NavitiaSDKUI.shared.bundle)
+    }
+    
+    private func initScrollView() {
+        if #available(iOS 11.0, *) {
+            scrollView?.contentInsetAdjustmentBehavior = .always
+        }
+        scrollView?.bounces = false
+    }
+    
+    private func initLocation() {
+        locationManager.requestWhenInUseAuthorization()
+    }
+    
+    private func initMapView() {
+        _setupMapView()
+    }
+    
+    func displaySomething(viewModel: JourneyRoadmap.GetRoadmap.ViewModel) {
+        self.viewModel = viewModel
+        
+        _updateOriginViewScroll()
+        guard let journey = self.viewModel?.journey, let sections = self.viewModel?.sections else {
+            return
+        }
+ 
+        getHeader(journey)
+        getDepartureArrival(data: viewModel.departure)
+        getStep(sections: sections)
+        getDepartureArrival(data: viewModel.arrival)
+        getEmission(emission: viewModel.emission)
+    }
+    
+    func displayMap(viewModel: JourneyRoadmap.GetMap.ViewModel) {
+        self.mapViewModel = viewModel
+        
+        initMapView()
+    }
+    
+    // MARK: - Get roadma
+    
+    private func getRoadmap() {
+        let request = JourneyRoadmap.GetRoadmap.Request()
+        self.interactor?.getRoadmap(request: request)
+    }
+    
+    private func getMap() {
+        let request = JourneyRoadmap.GetMap.Request()
+        self.interactor?.getMap(request: request)
+    }
+    
+    // MARK: Tools
+    
+    private func getHeader(_ journey: Journey) {
+        let journeySolutionView = getJourneySolutionView(journey: journey)
+        
+        _addViewInScroll(view: journeySolutionView, margin: UIEdgeInsets(top: 0, left: 0, bottom: 5, right: 0))
+        
+        if ridesharing {
+            journeySolutionView.setDataRidesharing(journey)
+            let ridesharingView = getRidesharingView()
+            
+            _addViewInScroll(view: ridesharingView, margin: UIEdgeInsets(top: 5, left: 10, bottom: 5, right: 10))
+        }
+    }
+    
+    private func getJourneySolutionView(journey: Journey) -> JourneySolutionView {
+        let journeySolutionView = JourneySolutionView(frame: CGRect(x: 0, y: 0, width: 0, height: 60))
+        journeySolutionView.disruptions = viewModel?.disruptions
+        journeySolutionView.setData(journey)
+        return journeySolutionView
+    }
+    
+    private func getRidesharingView() -> RidesharingView {
+        ridesharingView = RidesharingView(frame: CGRect(x: 0, y: 0, width: 0, height: 255))
+        ridesharingView.parentViewController = self
+        return ridesharingView
+    }
+    
+    private func getDepartureArrival(data: JourneyRoadmap.GetRoadmap.ViewModel.DepartureArrival) {
+        let view = DepartureArrivalStepView(frame: CGRect(x: 0, y: 0, width: 0, height: 70))
+        view.information = data.information
+        view.time = data.time
+        view.type = data.mode
+        view.calorie = data.calorie
+        
+        _addViewInScroll(view: view, margin: UIEdgeInsets(top: 5, left: 10, bottom: 5, right: 10))
+    }
+    
+    private func getStep(sections: [JourneyRoadmap.GetRoadmap.ViewModel.Section]) {
+        for (_, section) in sections.enumerated() {
+            let step = getSectionStep(section: section)
+            _addViewInScroll(view: step, margin: UIEdgeInsets(top: 5, left: 10, bottom: 5, right: 10))
+        }
+    }
+    
+    func getPublicTransportStep(section: JourneyRoadmap.GetRoadmap.ViewModel.Section) -> UIView {
+        let publicTransportView = PublicTransportView(frame: CGRect(x: 0, y: 0, width: 0, height: 100))
+        publicTransportView.modeString = section.icon
+        publicTransportView.take = section.displayInformations.commercialMode
+        publicTransportView.transportColor = section.displayInformations.color
+
+        if let code = section.displayInformations.code {
+            publicTransportView.transportName = code
+        } else {
+            publicTransportView.transportView.isHidden = true
+        }
+
+        publicTransportView.origin = section.from
+        publicTransportView.startTime = section.startTime
+        publicTransportView.directionTransit = section.displayInformations.directionTransit
+        publicTransportView.destination = section.to
+        publicTransportView.endTime = section.endTime
+        publicTransportView.stations = section.stopDate
+        publicTransportView.waitTime = section.waiting
+        publicTransportView.setDisruptions(section.disruptions)
+        
+        return publicTransportView
+    }
+
+    func getBssStep(section: JourneyRoadmap.GetRoadmap.ViewModel.Section) -> UIView {
+        let view = BssStepView(frame: CGRect(x: 0, y: 0, width: 0, height: 50))
+        view.modeString = section.icon
+        view.type = Section.ModelType.init(rawValue: section.type.rawValue)
+        
+        if let poi = section.poi {
+            view.takeName = poi.properties?["network"] ?? ""
+            view.origin = poi.name ?? ""
+            view.address = poi.address?.name ?? ""
+            view.poi = poi
+            
+           // if let sectionDepartureTime = section.departureDateTime?.toDate(format: "yyyyMMdd'T'HHmmss"), let currentDateTime = Date().toLocalDate(format: "yyyyMMdd'T'HHmmss"), abs(sectionDepartureTime.timeIntervalSince(currentDateTime)) <= Configuration.bssApprovalTimeThreshold {
+                view.realTimeEnabled = true
+           // }
+            
+//            if poi.stands != nil {
+//                _viewModel.bss.append((poi: poi, notify: { (poi) in  // Y'a le ridesharing
+//                    view.poi = poi
+//                }))
+//            }
+        }
+        
+        return view
+    }
+    
+    private func _displayRidesharingStep(_ section: Section) {
+        let view = RidesharingStepView(frame: CGRect(x: 0, y: 0, width: 0, height: 100))
+        view.origin = ridesharingView.addressFrom ?? ""
+        view.destination = ridesharingView.addressTo ?? ""
+        view.time = section.duration?.minuteToString()
+        
+        _addViewInScroll(view: view, margin: UIEdgeInsets(top: 5, left: 10, bottom: 5, right: 10))
+    }
+    
+    private func getRidesharingStep(section: JourneyRoadmap.GetRoadmap.ViewModel.Section) -> UIView {
+        let view = RidesharingStepView(frame: CGRect(x: 0, y: 0, width: 0, height: 100))
+        
+        view.origin = section.from
+        view.destination = section.to
+        view.time = section.time
+        return view
+    }
+    
+    func getGenericStep(section: JourneyRoadmap.GetRoadmap.ViewModel.Section) -> UIView {
+        let view = GenericStepView(frame: CGRect(x: 0, y: 0, width: 0, height: 50))
+        
+        view.modeString = section.icon
+        view.time = section.time
+        view.direction = section.to
+        view.paths = section.path
+        return view
+    }
+
+    private func getEmission(emission: JourneyRoadmap.GetRoadmap.ViewModel.Emission) {
+        let emissionView = EmissionView(frame: CGRect(x: 0, y: 0, width: scrollView.frame.size.width, height: 40))
+        
+        emissionView.carbon = emission.journeyValue
+
+        _addViewInScroll(view: emissionView, margin: UIEdgeInsets(top: 20, left: 0, bottom: 0, right: 0))
+    }
+    
+    func getSectionStep(section: JourneyRoadmap.GetRoadmap.ViewModel.Section) -> UIView {
+        switch section.type {
+        /* OK */case .publicTransport:
+            return getPublicTransportStep(section: section)
+        /* OK */case .streetNetwork:
+            return getStreetNetworkStep(section: section)
+        /* OK */case .transfer:
+            return getGenericStep(section: section)
+        /* Completer le temps réel */case .bssRent:
+            return getBssStep(section: section)
+        /* Completer le temps réel */case .bssPutBack:
+            return getBssStep(section: section)
+        /* OK */ case .crowFly:
+            return getGenericStep(section: section)
+        /* A completer */case .ridesharing:
+            // _updateRidesharingView(section)
+            return getRidesharingStep(section: section)
+        default:
+            return UIView()
+        }
+    }
+
+    func getStreetNetworkStep(section: JourneyRoadmap.GetRoadmap.ViewModel.Section) -> UIView {
+        guard let mode = section.mode else {
+            return UIView()
+        }
+        switch mode {
+        case .walking:
+            return getGenericStep(section: section)
+        case .bike:
+            return getGenericStep(section: section)
+        case .car:
+            return getGenericStep(section: section)
+        case .ridesharing:
+            // _updateRidesharingView(section)
+            return getRidesharingStep(section: section)
+        default:
+            return UIView()
+        }
+    }
+}
+
+open class JourneyRoadmapViewController: UIViewController, JourneyRoadmapDisplayLogic {
+
+    // Clean Architecture
+    internal var router: (NSObjectProtocol & JourneyRoadmapRoutingLogic & JourneyRoadmapDataPassing)?
+    private var interactor: JourneyRoadmapBusinessLogic?
+    private var viewModel: JourneyRoadmap.GetRoadmap.ViewModel?
+    private var mapViewModel: JourneyRoadmap.GetMap.ViewModel?
 
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var scrollView: UIScrollView!
     
+    // Mettre une classe qui gère le scrollView :D
     var scrollSubviews = [(view: UIView, margin: UIEdgeInsets)]()
-    var margin: CGFloat = 10
-    var composentWidth: CGFloat = 0
-    var journey: Journey?
+
+    // var journey: Journey?
     var ridesharingJourney: Journey?
-    var intermediatePointsCircles = [SectionCircle]()
-    var journeyPolylineCoordinates = [CLLocationCoordinate2D]()
     var ridesharing: Bool = false
     var ridesharingView: RidesharingView!
     var ridesharingDeepLink: String?
     var ridesharingIndex = 0
     var timeRidesharing: Int32?
-    var display = false
-    var disruptions: [Disruption]?
+    
+    // var Maps
+    var intermediatePointsCircles = [SectionCircle]()
+    var journeyPolylineCoordinates = [CLLocationCoordinate2D]()
     var sectionsPolylines = [SectionPolyline]()
     let locationManager = CLLocationManager()
+
+    // Other
+    var display = false
     var animationTimer: Timer?
     
-    fileprivate var _viewModel = JourneySolutionRoadmapViewModel()
+    required public init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        initArchitecture()
+    }
     
     override open func viewDidLoad() {
         super.viewDidLoad()
-        title = "roadmap".localized(withComment: "Roadmap", bundle: NavitiaSDKUI.shared.bundle)
         
-        if #available(iOS 11.0, *) {
-            scrollView?.contentInsetAdjustmentBehavior = .always
-        }
-        scrollView?.bounces = false
-        
-        locationManager.requestWhenInUseAuthorization()
-        
-        _setupMapView()
+        initNavigationBar()
+        initScrollView()
+        initLocation()
     }
         
     override open func viewDidAppear(_ animated: Bool) {
@@ -53,7 +306,7 @@ open class JourneySolutionRoadmapViewController: UIViewController {
 
         _startUpdatingUserLocation()
 
-        _viewModel.refreshBikeStands(run: true)
+        //_viewModel.refreshBikeStands(run: true) // Y'a le ridesharing
         _animateView()
     }
     
@@ -62,7 +315,7 @@ open class JourneySolutionRoadmapViewController: UIViewController {
 
         _stopUpdatingUserLocation()
 
-        _viewModel.refreshBikeStands(run: false)
+        //_viewModel.refreshBikeStands(run: false) // Y'a le ridesharing
         _stopAnimation()
     }
     
@@ -73,12 +326,12 @@ open class JourneySolutionRoadmapViewController: UIViewController {
 
     override open func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        composentWidth = _updateWidth()
         
         if !display {
-            _display()
+            display = true
+            getMap()
+            getRoadmap()
         }
-        
         _updateOriginViewScroll()
     }
     
@@ -86,242 +339,7 @@ open class JourneySolutionRoadmapViewController: UIViewController {
         return String(describing: self)
     }
     
-    private func _updateWidth(customMargin: CGFloat? = nil) -> CGFloat {
-        if let margeCustom = customMargin {
-            if #available(iOS 11.0, *) {
-                return scrollView.frame.size.width - scrollView.safeAreaInsets.left - scrollView.safeAreaInsets.right - (margeCustom * 2)
-            }
-            return scrollView.frame.size.width - (margeCustom * 2)
-        }
-        
-        if #available(iOS 11.0, *) {
-            return scrollView.frame.size.width - scrollView.safeAreaInsets.left - scrollView.safeAreaInsets.right - (margin * 2)
-        }
-        
-        return scrollView.frame.size.width - (margin * 2)
-    }
-    
-    private func _display() {
-        display = true
-        
-        if let journey = journey {
-            _displayHeader(journey)
-            _displayDeparture(journey)
-            _displayJourneySteps(journey)
-            _displayArrival(journey)
-            _displayEmission(journey)
-        }
-    }
-    
-    private func _displayHeader(_ journey: Journey) {
-        let journeySolutionView = JourneySolutionView(frame: CGRect(x: 0, y: 0, width: 0, height: 60))
-        journeySolutionView.disruptions = disruptions
-        journeySolutionView.setData(journey)
-        
-        _addViewInScroll(view: journeySolutionView, margin: UIEdgeInsets(top: 0, left: 0, bottom: 5, right: 0))
-        
-        if ridesharing {
-            journeySolutionView.setDataRidesharing(journey)
-            ridesharingView = RidesharingView(frame: CGRect(x: 0, y: 0, width: 0, height: 255))
-            ridesharingView.parentViewController = self
-            
-            _addViewInScroll(view: ridesharingView, margin: UIEdgeInsets(top: 5, left: 10, bottom: 5, right: 10))
-        }
-    }
-    
-    private func _displayJourneySteps(_ journey: Journey) {
-        if let sections = journey.sections {
-            for (index, section) in sections.enumerated() {
-                if let type = section.type {
-                    switch type {
-                        case .publicTransport:
-                            if index == 0 {
-                                _displayPublicTransport(section)
-                            }
-                            _displayPublicTransport(section, waiting: sections[index - 1])
-                            break
-                        case .transfer:
-                            _displayTransferStep(section)
-                            break
-                        case .ridesharing:
-                            _updateRidesharingView(section)
-                            _displayRidesharingStep(section)
-                            break
-                        case .crowFly:
-                            _displayCrowFlyStep(section)
-                            break
-                        case .bssRent:
-                            _displayBssStep(section)
-                            break
-                        case .bssPutBack:
-                            _displayBssStep(section)
-                            break
-                        case .streetNetwork:
-                            if let mode = section.mode {
-                                switch mode {
-                                    case .walking:
-                                        _displayTransferStep(section)
-                                        break
-                                    case .car:
-                                        _displayTransferStep(section)
-                                        break
-                                    case .ridesharing:
-                                        _updateRidesharingView(section)
-                                        if let ridesharingJourneys = section.ridesharingJourneys {
-                                            _displayJourneySteps(ridesharingJourneys[ridesharingIndex])
-                                        }
-                                    default:
-                                        _displayBikeStep(section)
-                                        break
-                                }
-                            }
-                            break
-                        default :
-                            continue
-                    }
-                }
-            }
-        }
-    }
-    
-    private func _displayDeparture(_ journey: Journey) {
-        let viewDeparture = DepartureArrivalStepView(frame: CGRect(x: 0, y: 0, width: composentWidth, height: 70))
-        viewDeparture.information = journey.sections?.first?.from?.name ?? ""
-        viewDeparture.time = journey.departureDateTime?.toDate(format: Configuration.date)?.toString(format: Configuration.time) ?? ""
-        viewDeparture.type = .departure
-        
-        _addViewInScroll(view: viewDeparture, margin: UIEdgeInsets(top: 5, left: 10, bottom: 5, right: 10))
-    }
-    
-    private func _displayArrival(_ journey: Journey) {
-        let viewArrival = DepartureArrivalStepView(frame: CGRect(x: 0, y: 0, width: composentWidth, height: 70))
-        viewArrival.information = journey.sections?.last?.to?.name ?? ""
-        viewArrival.time = journey.arrivalDateTime?.toDate(format: Configuration.date)?.toString(format: Configuration.time) ?? ""
-        viewArrival.type = .arrival
-        
-        if let walkingDistance = journey.distances?.walking, let bikeDistance = journey.distances?.bike {
-            viewArrival.calorie = String(format: "%d", Int((Double(walkingDistance) * Configuration.caloriePerSecWalking + Double(bikeDistance) * Configuration.caloriePerSecBike).rounded()))
-        }
-        
-        _addViewInScroll(view: viewArrival, margin: UIEdgeInsets(top: 5, left: 10, bottom: 5, right: 10))
-    }
-    
-    private func _displayEmission(_ journey: Journey) {
-        let emissionView = EmissionView(frame: CGRect(x: 0, y: 0, width: scrollView.frame.size.width, height: 40))
-        emissionView.carbonAmount = journey.co2Emission
-        
-        _addViewInScroll(view: emissionView, margin: UIEdgeInsets(top: 20, left: 0, bottom: 0, right: 0))
-    }
 
-    private func _displayTransferStep(_ section: Section) {
-        let view = GenericStepView(frame: CGRect(x: 0, y: 0, width: composentWidth, height: 50))
-        view.modeString = Modes().getModeIcon(section: section)
-        view.time = section.duration?.minuteToString()
-        view.direction = section.to?.name ?? ""
-        view.paths = section.path
-        
-        _addViewInScroll(view: view, margin:UIEdgeInsets(top: 5, left: 10, bottom: 5, right: 10))
-    }
-    
-    private func _displayCrowFlyStep(_ section: Section) {
-        let view = GenericStepView(frame: CGRect(x: 0, y: 0, width: composentWidth, height: 50))
-        view.modeString = Modes().getModeIcon(section: section)
-        view.time = ""
-        view.direction = section.to?.name ?? ""
-        
-        _addViewInScroll(view: view, margin: UIEdgeInsets(top: 5, left: 10, bottom: 5, right: 10))
-    }
-    
-    private func _displayBikeStep(_ section: Section) {
-        let view = GenericStepView(frame: CGRect(x: 0, y: 0, width: composentWidth, height: 50))
-        view.modeString = "bike"
-        view.time = section.duration?.minuteToString()
-        view.direction = section.to?.name ?? ""
-        view.paths = section.path
-        
-        _addViewInScroll(view: view, margin: UIEdgeInsets(top: 5, left: 10, bottom: 5, right: 10))
-    }
-    
-    private func _displayBssStep(_ section: Section) {
-        let view = BssStepView(frame: CGRect(x: 0, y: 0, width: composentWidth, height: 50))
-        view.modeString = Modes().getModeIcon(section: section)
-        view.type = section.type
-        
-        if let poi = section.from?.poi ?? section.to?.poi {
-            view.takeName = poi.properties?["network"] ?? ""
-            view.origin = poi.name ?? ""
-            view.address = poi.address?.name ?? ""
-            view.poi = poi
-            
-            if let sectionDepartureTime = section.departureDateTime?.toDate(format: "yyyyMMdd'T'HHmmss"), let currentDateTime = Date().toLocalDate(format: "yyyyMMdd'T'HHmmss"), abs(sectionDepartureTime.timeIntervalSince(currentDateTime)) <= Configuration.bssApprovalTimeThreshold {
-                view.realTimeEnabled = true
-            }
-            
-            if poi.stands != nil {
-                _viewModel.bss.append((poi: poi, notify: { (poi) in
-                    view.poi = poi
-                }))
-            }
-        }
-        
-        _addViewInScroll(view: view, margin: UIEdgeInsets(top: 5, left: 10, bottom: 5, right: 10))
-    }
-    
-    
-    private func _displayRidesharingStep(_ section: Section) {
-        let view = RidesharingStepView(frame: CGRect(x: 0, y: 0, width: composentWidth, height: 100))
-        view.origin = ridesharingView.addressFrom ?? ""
-        view.destination = ridesharingView.addressTo ?? ""
-        view.time = section.duration?.minuteToString()
-        
-        _addViewInScroll(view: view, margin: UIEdgeInsets(top: 5, left: 10, bottom: 5, right: 10))
-    }
-    
-    private func _displayPublicTransport(_ section: Section, waiting: Section? = nil) {
-        let publicTransportView = PublicTransportView(frame: CGRect(x: 0, y: 0, width: composentWidth, height: 100))
-        publicTransportView.modeString = Modes().getModeIcon(section: section)
-        publicTransportView.take = section.displayInformations?.commercialMode ?? ""
-        publicTransportView.transportColor = section.displayInformations?.color?.toUIColor() ?? UIColor.black
-        if let code = section.displayInformations?.code, !code.isEmpty {
-            publicTransportView.transportName = code
-        } else {
-            publicTransportView.transportView.isHidden = true 
-        }
-        publicTransportView.origin = section.from?.name ?? ""
-        publicTransportView.startTime = section.departureDateTime?.toDate(format: Configuration.date)?.toString(format: Configuration.time) ?? ""
-        publicTransportView.directionTransit = section.displayInformations?.direction ?? ""
-        publicTransportView.destination = section.to?.name ?? ""
-        publicTransportView.endTime = section.arrivalDateTime?.toDate(format: Configuration.date)?.toString(format: Configuration.time) ?? ""
-
-        var stopDate: [String] = []
-        if let stopDateTimes = section.stopDateTimes {
-            for (index, stop) in stopDateTimes.enumerated() {
-                if let name = stop.stopPoint?.name {
-                    if index != 0 && index != (stopDateTimes.count - 1) {
-                        stopDate.append(name)
-                    }
-                }
-            }
-        }
-        publicTransportView.stations = stopDate
-        if let waiting = waiting {
-            if waiting.type == .waiting {
-                if let durationWaiting = waiting.duration?.minuteToString() {
-                    publicTransportView.waitTime = durationWaiting
-                }
-            }
-        }
-        
-        if section.type == .publicTransport, let disruptions = disruptions, disruptions.count > 0 {
-            let sectionDisruptions = section.disruptions(disruptions: disruptions)
-            if sectionDisruptions.count > 0 {
-                publicTransportView.setDisruptions(sectionDisruptions)
-            }
-        }
-        
-        _addViewInScroll(view: publicTransportView, margin: UIEdgeInsets(top: 5, left: 10, bottom: 5, right: 10))
-    }
-    
     private func _updateRidesharingView(_ section: Section) {
         if let ridesharingJourneys = section.ridesharingJourneys?[safe: ridesharingIndex] {
             ridesharingView.price = section.ridesharingJourneys?[safe: ridesharingIndex]?.fare?.total?.value ?? ""
@@ -377,35 +395,35 @@ open class JourneySolutionRoadmapViewController: UIViewController {
     
 }
 
-extension JourneySolutionRoadmapViewController {
+extension JourneyRoadmapViewController {
     
     private func _setupMapView() {
         self.mapView.showsUserLocation = true
         
-        _drawSections(journey: journey)
+        _drawSections(journey: mapViewModel?.journey)
         
-        if journey?.sections?.first?.type == Section.ModelType.crowFly {
-            if (journey?.sections?.count)! - 1 >= 1 {
-                if journey?.sections![1].type == .ridesharing, let departureCrowflyCoords = _getCrowFlyCoordinates(targetPlace: journey?.sections?.first?.from), let latitude = departureCrowflyCoords.lat, let lat = Double(latitude), let longitude = departureCrowflyCoords.lon, let lon = Double(longitude) {
+        if mapViewModel?.journey.sections?.first?.type == Section.ModelType.crowFly {
+            if (mapViewModel?.journey.sections?.count)! - 1 >= 1 {
+                if mapViewModel?.journey.sections![1].type == .ridesharing, let departureCrowflyCoords = _getCrowFlyCoordinates(targetPlace: mapViewModel?.journey.sections?.first?.from), let latitude = departureCrowflyCoords.lat, let lat = Double(latitude), let longitude = departureCrowflyCoords.lon, let lon = Double(longitude) {
                    _drawPinAnnotation(coordinates: [lon, lat], annotationType: .PlaceAnnotation, placeType: .Departure)
                 } else {
-                    _drawPinAnnotation(coordinates: journey?.sections?[1].geojson?.coordinates?.first, annotationType: .PlaceAnnotation, placeType: .Departure)
+                    _drawPinAnnotation(coordinates: mapViewModel?.journey.sections?[1].geojson?.coordinates?.first, annotationType: .PlaceAnnotation, placeType: .Departure)
                 }
             }
         } else {
-            _drawPinAnnotation(coordinates: journey?.sections?.first?.geojson?.coordinates?.first, annotationType: .PlaceAnnotation, placeType: .Departure)
+            _drawPinAnnotation(coordinates: mapViewModel?.journey.sections?.first?.geojson?.coordinates?.first, annotationType: .PlaceAnnotation, placeType: .Departure)
         }
         
-        if journey?.sections?.last?.type == Section.ModelType.crowFly {
-            if ((journey?.sections?.count)! - 1 > 1) {
-                if journey?.sections![(journey?.sections?.count)! - 2].type == .ridesharing, let arrivalCrowflyCoords = _getCrowFlyCoordinates(targetPlace: journey?.sections?.last?.to), let latitude = arrivalCrowflyCoords.lat, let lat = Double(latitude), let longitude = arrivalCrowflyCoords.lon, let lon = Double(longitude) {
+        if mapViewModel?.journey.sections?.last?.type == Section.ModelType.crowFly {
+            if ((mapViewModel?.journey.sections?.count)! - 1 > 1) {
+                if mapViewModel?.journey.sections![(mapViewModel?.journey.sections?.count)! - 2].type == .ridesharing, let arrivalCrowflyCoords = _getCrowFlyCoordinates(targetPlace: mapViewModel?.journey.sections?.last?.to), let latitude = arrivalCrowflyCoords.lat, let lat = Double(latitude), let longitude = arrivalCrowflyCoords.lon, let lon = Double(longitude) {
                     _drawPinAnnotation(coordinates: [lon, lat], annotationType: .PlaceAnnotation, placeType: .Arrival)
                 } else {
-                    _drawPinAnnotation(coordinates: journey?.sections?[(journey?.sections?.count)! - 2].geojson?.coordinates?.last, annotationType: .PlaceAnnotation, placeType: .Arrival)
+                    _drawPinAnnotation(coordinates: mapViewModel?.journey.sections?[(mapViewModel?.journey.sections?.count)! - 2].geojson?.coordinates?.last, annotationType: .PlaceAnnotation, placeType: .Arrival)
                 }
             }
         } else {
-            _drawPinAnnotation(coordinates: journey?.sections?.last?.geojson?.coordinates?.last, annotationType: .PlaceAnnotation, placeType: .Arrival)
+            _drawPinAnnotation(coordinates: mapViewModel?.journey.sections?.last?.geojson?.coordinates?.last, annotationType: .PlaceAnnotation, placeType: .Arrival)
         }
         
         _redrawIntermediatePointCircles(mapView: mapView, cameraAltitude: mapView.camera.altitude)
@@ -597,12 +615,12 @@ extension JourneySolutionRoadmapViewController {
     private func _zoomOverPolyline(targetPolyline: MKPolyline) {
         mapView.setVisibleMapRect(targetPolyline.boundingMapRect,
                                   edgePadding: UIEdgeInsetsMake(60, 40, 10, 40),
-                                  animated: true)
+                                  animated: false)
     }
     
 }
 
-extension JourneySolutionRoadmapViewController: MKMapViewDelegate {
+extension JourneyRoadmapViewController: MKMapViewDelegate {
     
     public func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
         _redrawIntermediatePointCircles(mapView: mapView, cameraAltitude: mapView.camera.altitude)
@@ -653,7 +671,7 @@ extension JourneySolutionRoadmapViewController: MKMapViewDelegate {
     
 }
 
-extension JourneySolutionRoadmapViewController {
+extension JourneyRoadmapViewController {
     
     private func _addViewInScroll(view: UIView, margin: UIEdgeInsets) {
         if scrollSubviews.isEmpty {
@@ -693,7 +711,7 @@ extension JourneySolutionRoadmapViewController {
     
 }
 
-extension JourneySolutionRoadmapViewController: AlertViewControllerProtocol {
+extension JourneyRoadmapViewController: AlertViewControllerProtocol {
     
     func onNegativeButtonClicked(_ alertViewController: AlertViewController) {
         alertViewController.dismiss(animated: false, completion: nil)
@@ -706,7 +724,7 @@ extension JourneySolutionRoadmapViewController: AlertViewControllerProtocol {
     
 }
 
-extension JourneySolutionRoadmapViewController: CLLocationManagerDelegate {
+extension JourneyRoadmapViewController: CLLocationManagerDelegate {
     
     public func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
         if status == CLAuthorizationStatus.authorizedWhenInUse {

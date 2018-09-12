@@ -80,4 +80,23 @@ extension EmissionView {
         }
     }
     
+    var carbon: Double {
+        get {
+            return self.carbon
+        }
+        set {
+            if newValue > 1000 {
+                carbonLabel.attributedText = NSMutableAttributedString()
+                    .normal(String(format: "%.1f %@", newValue / 1000, "KgEc".localized(bundle: NavitiaSDKUI.shared.bundle)),
+                            color: UIColor.white,
+                            size: 10)
+            } else {
+                carbonLabel.attributedText = NSMutableAttributedString()
+                    .normal(String(format: "%.1f %@", newValue, "gEC"),
+                            color: UIColor.white,
+                            size: 10)
+            }
+        }
+    }
+    
 }
