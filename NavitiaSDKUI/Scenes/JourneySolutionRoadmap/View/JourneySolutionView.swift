@@ -53,19 +53,15 @@ class JourneySolutionView: UIView {
         }
     }
     
-    func setDataRidesharing(_ journey: Journey) {
+    func setRidesharingData(duration: Int32, sections: [Section]) {
         aboutLabel.isHidden = false
         durationCenterContraint.constant = 7
+        
         aboutLabel.attributedText = NSMutableAttributedString()
             .semiBold("about".localized(withComment: "about", bundle: NavitiaSDKUI.shared.bundle), color: Configuration.Color.main)
-        
-        if let durationInt = journey.duration {
-            formattedDuration(durationInt)
-        }
-        if let sections = journey.sections {
-            journeySummaryView.disruptions = disruptions
-            journeySummaryView.addSections(sections)
-        }
+        formattedDuration(duration)
+        journeySummaryView.disruptions = disruptions
+        journeySummaryView.addSections(sections)
         if durationWalkerLabel != nil {
             durationWalkerLabel.isHidden = true
         }

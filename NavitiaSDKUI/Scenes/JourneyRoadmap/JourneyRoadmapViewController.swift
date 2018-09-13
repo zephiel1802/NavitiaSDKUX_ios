@@ -92,7 +92,11 @@ extension JourneyRoadmapViewController {
         _addViewInScroll(view: journeySolutionView, margin: UIEdgeInsets(top: 0, left: 0, bottom: 5, right: 0))
         
         if ridesharing {
-            journeySolutionView.setDataRidesharing(journey)
+            guard let duration = journey.duration, let sections = journey.sections else {
+                return
+            }
+            
+            journeySolutionView.setRidesharingData(duration: duration, sections: sections)
             let ridesharingView = getRidesharingView()
             
             _addViewInScroll(view: ridesharingView, margin: UIEdgeInsets(top: 5, left: 10, bottom: 5, right: 10))

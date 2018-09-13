@@ -7,26 +7,25 @@
 
 import UIKit
 
-protocol JourneyRidesharingCollectionViewCellDelegate {
+protocol RidesharingOfferCollectionViewCellDelegate {
     
-    func onBookButtonClicked(_ journeyRidesharingCollectionViewCell: JourneyRidesharingCollectionViewCell)
-    
+    func onBookButtonClicked(_ ridesharingOfferCollectionViewCell: RidesharingOfferCollectionViewCell)
 }
 
-class JourneyRidesharingCollectionViewCell: UICollectionViewCell {
+class RidesharingOfferCollectionViewCell: UICollectionViewCell {
     
-    @IBOutlet weak var titleLabel: UILabel!
-    @IBOutlet weak var startLabel: UILabel!
-    @IBOutlet weak var pictureImage: UIImageView!
-    @IBOutlet weak var loginLabel: UILabel!
+    @IBOutlet weak var networkLabel: UILabel!
+    @IBOutlet weak var departureDateLabel: UILabel!
+    @IBOutlet weak var driverImageView: UIImageView!
+    @IBOutlet weak var nicknameLabel: UILabel!
     @IBOutlet weak var genderLabel: UILabel!
     @IBOutlet weak var floatRatingView: FloatRatingView!
-    @IBOutlet weak var notationLabel: UILabel!
-    @IBOutlet weak var seatCountLabel: UILabel!
+    @IBOutlet weak var ratingCountLabel: UILabel!
+    @IBOutlet weak var seatsCountLabel: UILabel!
     @IBOutlet weak var priceLabel: UILabel!
     @IBOutlet weak var roadmapButton: UIButton!
     
-    var delegate: JourneyRidesharingCollectionViewCellDelegate?
+    var delegate: RidesharingOfferCollectionViewCellDelegate?
     var row: Int?
     
     override func awakeFromNib() {
@@ -50,17 +49,17 @@ class JourneyRidesharingCollectionViewCell: UICollectionViewCell {
     
     func setPicture(url: String?) {
         if let url = url {
-            pictureImage.loadImageFromURL(urlString: url)
+            driverImageView.loadImageFromURL(urlString: url)
         }
     }
     
-    func setNotation(_ count: Int32?) {
+    func setDriverRating(_ count: Int32?) {
         if let count = count {
             var template = "rating_plural".localized(withComment: "ratings", bundle: NavitiaSDKUI.shared.bundle)
             if count == 1 {
                 template = "rating".localized(withComment: "rating", bundle: NavitiaSDKUI.shared.bundle)
             }
-            notationLabel.attributedText = NSMutableAttributedString()
+            ratingCountLabel.attributedText = NSMutableAttributedString()
                 .normal(String(format: template, count), color: Configuration.Color.gray, size: 10)
         }
     }
@@ -78,40 +77,39 @@ class JourneyRidesharingCollectionViewCell: UICollectionViewCell {
         }
     }
     
-    func seatCount(_ count: Int32?) {
+    func setSeatsCount(_ count: Int32?) {
         if let count = count {
             let template = "available_seats".localized(withComment: "Available seats: 4", bundle: NavitiaSDKUI.shared.bundle)
-            seatCountLabel.attributedText = NSMutableAttributedString()
+            seatsCountLabel.attributedText = NSMutableAttributedString()
                 .semiBold(String(format: template, count), size: 12.5)
         } else {
-            seatCountLabel.attributedText = NSMutableAttributedString()
+            seatsCountLabel.attributedText = NSMutableAttributedString()
                 .semiBold("no_available_seats".localized(withComment: "Available seats: N/A", bundle: NavitiaSDKUI.shared.bundle), size: 12.5)
         }
     }
-    
 }
 
-extension JourneyRidesharingCollectionViewCell {
+extension RidesharingOfferCollectionViewCell {
     
-    var title: String? {
+    var network: String? {
         get {
-            return titleLabel.text
+            return networkLabel.text
         }
         set {
             if let newValue = newValue {
-                titleLabel.attributedText = NSMutableAttributedString()
+                networkLabel.attributedText = NSMutableAttributedString()
                     .bold(newValue, size: 14)
             }
         }
     }
     
-    var startDate: String? {
+    var departureDate: String? {
         get {
-            return startLabel.text
+            return departureDateLabel.text
         }
         set {
             if let newValue = newValue {
-                startLabel.attributedText = NSMutableAttributedString()
+                departureDateLabel.attributedText = NSMutableAttributedString()
                     .semiBold("departure".localized(withComment: "departure: ", bundle: NavitiaSDKUI.shared.bundle), color: Configuration.Color.main, size: 8.5)
                     .semiBold(": ", color: Configuration.Color.main, size: 8.5)
                     .bold(newValue, color: Configuration.Color.main, size: 14)
@@ -119,19 +117,19 @@ extension JourneyRidesharingCollectionViewCell {
         }
     }
     
-    var login: String? {
+    var driverNickname: String? {
         get {
-            return loginLabel.text
+            return nicknameLabel.text
         }
         set {
             if let newValue = newValue {
-                loginLabel.attributedText = NSMutableAttributedString()
+                nicknameLabel.attributedText = NSMutableAttributedString()
                     .semiBold(newValue, size: 12.5)
             }
         }
     }
     
-    var gender: String? {
+    var driverGender: String? {
         get {
             return genderLabel.text
         }
@@ -166,5 +164,4 @@ extension JourneyRidesharingCollectionViewCell {
             }
         }
     }
-    
 }

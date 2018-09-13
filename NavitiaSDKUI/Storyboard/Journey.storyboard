@@ -240,10 +240,10 @@
             </objects>
             <point key="canvasLocation" x="2193" y="12"/>
         </scene>
-        <!--Journey Solution Ridesharing View Controller-->
+        <!--List Ridesharing Offers View Controller-->
         <scene sceneID="ZeW-sv-AWq">
             <objects>
-                <viewController storyboardIdentifier="JourneySolutionRidesharingViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="0w9-Hr-lVK" customClass="JourneySolutionRidesharingViewController" customModule="NavitiaSDKUI" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ListRidesharingOffersViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="0w9-Hr-lVK" customClass="ListRidesharingOffersViewController" customModule="NavitiaSDKUI" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="fhA-0v-Uex">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -293,8 +293,8 @@
                     </view>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <connections>
-                        <outlet property="collectionView" destination="i53-B1-z3B" id="cJH-Bz-s2U"/>
-                        <outlet property="journeySolutionRoadmap" destination="Uaw-W9-Vea" id="SdV-Qs-E6O"/>
+                        <outlet property="journeySummaryView" destination="Uaw-W9-Vea" id="doZ-uu-Mdy"/>
+                        <outlet property="ridesharingOffersCollectionView" destination="i53-B1-z3B" id="N1w-50-f7W"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wss-qm-pX7" userLabel="First Responder" sceneMemberID="firstResponder"/>
