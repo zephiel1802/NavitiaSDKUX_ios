@@ -98,7 +98,8 @@ enum ShowJourneyRoadmap
                 var stopDate: [String]
                 var displayInformations: DisplayInformations
                 var waiting: String?
-                var disruptions: [Disruption] // RECONSTRUIRE
+                // A reconstruire
+                var disruptions: [Disruption]
                 var poi: Poi?
                 var icon: String
                 var bssRealTime: Bool
@@ -107,8 +108,8 @@ enum ShowJourneyRoadmap
                 var section: Section
             }
             struct Emission {
-                var journeyValue: Double
-
+                var journey: Double
+                var car: Double
             }
 
             var departure: DepartureArrival

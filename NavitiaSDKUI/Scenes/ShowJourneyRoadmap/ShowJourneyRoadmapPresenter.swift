@@ -17,9 +17,34 @@ protocol ShowJourneyRoadmapPresentationLogic {
 class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
     
     weak var viewController: ShowJourneyRoadmapDisplayLogic?
-  
-    // MARK: Do something
     
+    // MARK: Presenter
+    
+    func presentRoadmap(response: ShowJourneyRoadmap.GetRoadmap.Response) {
+        guard let departure = getDepartureViewModel(journey: response.journey),
+            let sectionsClean = getSectionsClean(response: response),
+            let arrival = getArrivalViewModel(journey: response.journey),
+            let emission = getEmission(response: response) else {
+            return
+        }
+
+        let viewModel = ShowJourneyRoadmap.GetRoadmap.ViewModel(departure: departure,
+                                                                sections: sectionsClean,
+                                                                arrival: arrival,
+                                                                emission: emission,
+                                                                disruptions: response.disruptions,
+                                                                journey: response.journey)
+        
+        viewController?.displayRoadmap(viewModel: viewModel)
+    }
+    
+    // A construire
+    func presentMap(response: ShowJourneyRoadmap.GetMap.Response) {
+        let viewModel = ShowJourneyRoadmap.GetMap.ViewModel(journey: response.journey)
+        viewController?.displayMap(viewModel: viewModel)
+    }
+    
+    // A completer
     func presentBss(response: ShowJourneyRoadmap.FetchBss.Response) {
         guard let poi = getPoi(poi: response.poi) else {
             return
@@ -28,106 +53,134 @@ class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
         response.notify(poi)
     }
     
-    func presentRoadmap(response: ShowJourneyRoadmap.GetRoadmap.Response) {
-        var departure: ShowJourneyRoadmap.GetRoadmap.ViewModel.DepartureArrival
-        var arrival: ShowJourneyRoadmap.GetRoadmap.ViewModel.DepartureArrival
-        
-        departure = ShowJourneyRoadmap.GetRoadmap.ViewModel.DepartureArrival(mode: .departure,
-                                                                         information: response.journey.sections?.first?.from?.name ?? "",
-                                                                         time: response.journey.departureDateTime?.toDate(format: Configuration.date)?.toString(format: Configuration.time) ?? "",
-                                                                         calorie: nil)
-        
-        arrival = ShowJourneyRoadmap.GetRoadmap.ViewModel.DepartureArrival(mode: .arrival,
-                                                                         information: response.journey.sections?.last?.to?.name ?? "",
-                                                                         time: response.journey.arrivalDateTime?.toDate(format: Configuration.date)?.toString(format: Configuration.time) ?? "",
-                                                                         calorie: "232")
-
-        var viewModelSections: [ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionClean] = []
-        
-        
-        
-        if let sections = response.journey.sections {
-
-            for (index, section) in sections.enumerated() {
-                
-                let type = ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionClean.ModelType.init(rawValue: (section.type?.rawValue)!)!
-                
-                var mode: ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionClean.Mode?
-                if let sectionMode = section.mode?.rawValue {
-                    mode = ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionClean.Mode.init(rawValue: sectionMode)!
-                }
-                
-                var transportCode: String?
-                if let code = section.displayInformations?.code, !code.isEmpty {
-                    transportCode = code
-                }
-                
-                let from = section.from?.name ?? ""
-                
-                let to = section.to?.name ?? ""
-                
-                let startTime = section.departureDateTime?.toDate(format: Configuration.date)?.toString(format: Configuration.time) ?? ""
-                
-                let endTime = section.arrivalDateTime?.toDate(format: Configuration.date)?.toString(format: Configuration.time) ?? ""
-                
-                let time = section.duration?.minuteToString()
-                
-                let path = getPath(section: section)
-                
-                let stopDate = getStopDate(section: section)
-                
-                var waiting: String?
-                if sections[safe: index - 1]?.type == .waiting {
-                    waiting = sections[safe: index - 1]?.duration?.minuteToString()
-                }
-
-                let disruptions = getDisruption(section: section, disruptions: response.disruptions)
-                
-                let poi = getPoi(poi: section.from?.poi ?? section.to?.poi)
-  
-                let icon = Modes().getModeIcon(section: section)
-                
-                let bssRealTime = getBssRealTime(section: section)
-                
-                let displayInformations = ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionClean.DisplayInformations(commercialMode: section.displayInformations?.commercialMode ?? "",
-                                                                                                               color: section.displayInformations?.color?.toUIColor() ?? UIColor.black,
-                                                                                                               directionTransit: section.displayInformations?.direction ?? "",
-                                                                                                               code: transportCode)
-                
-                let viewModelSection = ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionClean(type: type,
-                                                                                   mode: mode,
-                                                                                   from: from,
-                                                                                   to: to,
-                                                                                   startTime: startTime,
-                                                                                   endTime: endTime,
-                                                                                   duration: time,
-                                                                                   path: path,
-                                                                                   stopDate: stopDate,
-                                                                                   displayInformations: displayInformations,
-                                                                                   waiting: waiting,
-                                                                                   disruptions: disruptions,
-                                                                                   poi: poi,
-                                                                                   icon: icon,
-                                                                                   bssRealTime: bssRealTime,
-                                                                                   section: section)
-        
-                viewModelSections.append(viewModelSection)
-            }
+    // MARK: DepartureViewModel
+    
+    private func getDepartureViewModel(journey: Journey) -> ShowJourneyRoadmap.GetRoadmap.ViewModel.DepartureArrival? {
+        if let departureName = getDepartureName(journey: journey), let departureTime = getDepartureTime(journey: journey) {
+            let departureViewModel = ShowJourneyRoadmap.GetRoadmap.ViewModel.DepartureArrival(mode: .departure,
+                                                                                              information: departureName,
+                                                                                              time: departureTime,
+                                                                                              calorie: nil)
+            
+            return departureViewModel
         }
-
-        let viewModel = ShowJourneyRoadmap.GetRoadmap.ViewModel(departure: departure,
-                                                            sections: viewModelSections,
-                                                            arrival: arrival,
-                                                            emission: ShowJourneyRoadmap.GetRoadmap.ViewModel.Emission(journeyValue: (response.journey.co2Emission?.value!)!),
-                                                            disruptions: response.disruptions,
-                                                            journey: response.journey)
         
-        viewController?.displaySomething(viewModel: viewModel)
+        return nil
     }
     
-    func presentMap(response: ShowJourneyRoadmap.GetMap.Response) {
-        let viewModel = ShowJourneyRoadmap.GetMap.ViewModel(journey: response.journey)
-        viewController?.displayMap(viewModel: viewModel)
+    private func getDepartureName(journey: Journey) -> String? {
+        return journey.sections?.first?.from?.name
+    }
+    
+    private func getDepartureTime(journey: Journey) -> String? {
+        guard let departureDate = journey.departureDateTime?.toDate(format: Configuration.date) else {
+            return nil
+        }
+        
+        return departureDate.toString(format: Configuration.time)
+    }
+    
+    // MARK: ArrivalViewModel
+    
+    private func getArrivalViewModel(journey: Journey) -> ShowJourneyRoadmap.GetRoadmap.ViewModel.DepartureArrival? {
+        if let arrivalName = getArrivalName(journey: journey),
+            let arrivalTime = getArrivalTime(journey: journey),
+            let calorie = getCalorie(journey: journey) {
+            let arrivalViewModel = ShowJourneyRoadmap.GetRoadmap.ViewModel.DepartureArrival(mode: .arrival,
+                                                                                            information: arrivalName,
+                                                                                            time: arrivalTime,
+                                                                                            calorie: calorie)
+            
+            return arrivalViewModel
+        }
+        
+        return nil
+    }
+    
+    private func getArrivalName(journey: Journey) -> String? {
+        return journey.sections?.last?.to?.name
+    }
+    
+    private func getArrivalTime(journey: Journey) -> String? {
+        guard let arrivalDate = journey.arrivalDateTime?.toDate(format: Configuration.date) else {
+            return nil
+        }
+        
+        return arrivalDate.toString(format: Configuration.time)
+    }
+    
+    private func getCalorie(journey: Journey) -> String? {
+        guard let walkingDistance = journey.distances?.walking, let bikeDistance = journey.distances?.bike else {
+            return nil
+        }
+        
+        let calorie = (Double(walkingDistance) * Configuration.caloriePerSecWalking + Double(bikeDistance) * Configuration.caloriePerSecBike).rounded()
+        
+        return String(format: "%d", calorie)
+    }
+    
+    // MARK: Section
+    
+    private func getType(section: Section) -> ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionClean.ModelType? {
+        guard let typeRawValue = section.type?.rawValue,
+            let type = ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionClean.ModelType.init(rawValue: typeRawValue) else {
+                return nil
+        }
+        
+        return type
+    }
+    
+    private func getMode(section: Section) -> ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionClean.Mode? {
+        guard let modeRawValue = section.mode?.rawValue,
+            let mode = ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionClean.Mode.init(rawValue: modeRawValue) else {
+                return nil
+        }
+        
+        return mode
+    }
+    
+    private func getFrom(section: Section) -> String {
+        return section.from?.name ?? ""
+    }
+    
+    private func getTo(section: Section) -> String {
+        return section.to?.name ?? ""
+    }
+    
+    private func getDepartureDateTime(section: Section) -> String {
+        guard let departureDate = section.departureDateTime?.toDate(format: Configuration.date) else {
+            return ""
+        }
+        
+        return departureDate.toString(format: Configuration.time)
+    }
+    
+    private func getArrivalDateTime(section: Section) -> String {
+        guard let arrivalDate = section.arrivalDateTime?.toDate(format: Configuration.date) else {
+            return ""
+        }
+        
+        return arrivalDate.toString(format: Configuration.time)
+    }
+    
+    private func getDuration(section: Section) -> String {
+        guard let duration = section.duration else {
+            return ""
+        }
+        
+        return duration.minuteToString()
+    }
+    
+    private func getWaiting(sectionBefore: Section?, section: Section) -> String? {
+        guard let sectionBefore = sectionBefore else {
+            return nil
+        }
+        
+        if sectionBefore.type == .waiting {
+            return getDuration(section: sectionBefore)
+        }
+        
+        return nil
     }
     
     func getStopDate(section: Section) -> [String] {
@@ -146,6 +199,121 @@ class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
         return stopDate
     }
     
+    func getPoi(poi: Poi?) -> ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionClean.Poi? {
+        guard let name = poi?.name,
+            let network = poi?.properties?["network"],
+            let latString = poi?.coord?.lat,
+            let lat = Double(latString),
+            let lonString = poi?.coord?.lon,
+            let lon = Double(lonString),
+            let addressName = poi?.address?.name,
+            let addressId = poi?.address?.id,
+            let availablePlaces = poi?.stands?.availablePlaces,
+            let availableBikes = poi?.stands?.availableBikes else {
+                return nil
+        }
+        
+        let standsViewModel = ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionClean.Stands(availablePlaces: availablePlaces,
+                                                                                          availableBikes: availableBikes)
+        let poiViewModel = ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionClean.Poi(name: name,
+                                                                                    network: network,
+                                                                                    lat: lat,
+                                                                                    lont: lon,
+                                                                                    addressName: addressName,
+                                                                                    addressId: addressId,
+                                                                                    stands: standsViewModel)
+        
+        return poiViewModel
+    }
+    
+    private func getSectionsClean(response: ShowJourneyRoadmap.GetRoadmap.Response) -> [ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionClean]? {
+        var sectionsClean: [ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionClean] = []
+        
+        if let sections = response.journey.sections {
+            for (index, section) in sections.enumerated() {
+                guard let type = getType(section: section) else {
+                    return nil
+                }
+                
+                let sectionClean = ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionClean(type: type,
+                                                                                            mode: getMode(section: section),
+                                                                                            from: getFrom(section: section),
+                                                                                            to: getTo(section: section),
+                                                                                            startTime: getDepartureDateTime(section: section),
+                                                                                            endTime: getArrivalDateTime(section: section),
+                                                                                            duration: getDuration(section: section),
+                                                                                            path: getPath(section: section),
+                                                                                            stopDate: getStopDate(section: section),
+                                                                                            displayInformations: getDisplayInformations(displayInformations: section.displayInformations),
+                                                                                            waiting: getWaiting(sectionBefore: sections[safe: index - 1], section: section),
+                                                                                            disruptions: getDisruption(section: section, disruptions: response.disruptions),
+                                                                                            poi: getPoi(poi: section.from?.poi ?? section.to?.poi),
+                                                                                            icon: Modes().getModeIcon(section: section),
+                                                                                            bssRealTime: getBssRealTime(section: section),
+                                                                                            section: section)
+                sectionsClean.append(sectionClean)
+            }
+        }
+        
+        return sectionsClean
+    }
+    
+    // MARK: Emission
+    
+    private func getEmission(response: ShowJourneyRoadmap.GetRoadmap.Response) -> ShowJourneyRoadmap.GetRoadmap.ViewModel.Emission? {
+        guard let journeyValue = response.journey.co2Emission?.value, let carValue = response.context.carDirectPath?.co2Emission?.value else {
+            return nil
+        }
+        
+        let emissionViewModel = ShowJourneyRoadmap.GetRoadmap.ViewModel.Emission(journey: journeyValue,
+                                                                                 car: carValue)
+        
+        return emissionViewModel
+    }
+    
+    // MARK: DisplayInformations
+    
+    private func getCommercialMode(displayInformations: VJDisplayInformation?) -> String {
+        return displayInformations?.commercialMode ?? ""
+    }
+    
+    private func getColor(displayInformations: VJDisplayInformation?) -> UIColor {
+        guard let color = displayInformations?.color else {
+            return .black
+        }
+        
+        return color.toUIColor()
+    }
+    
+    private func getDirection(displayInformations: VJDisplayInformation?) -> String {
+        return displayInformations?.direction ?? ""
+    }
+    
+    private func getTransportCode(displayInformations: VJDisplayInformation?) -> String {
+        guard let code = displayInformations?.code, !code.isEmpty else {
+            return ""
+        }
+        
+        return code
+    }
+    
+    private func getDisplayInformations(displayInformations: VJDisplayInformation?) -> ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionClean.DisplayInformations {
+        let commercialMode = getCommercialMode(displayInformations: displayInformations)
+        let color = getColor(displayInformations: displayInformations)
+        let direction = getDirection(displayInformations: displayInformations)
+        let code = getTransportCode(displayInformations: displayInformations)
+        
+        let displayInformationsClean = ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionClean.DisplayInformations(commercialMode: commercialMode,
+                                                                                                                color: color,
+                                                                                                                directionTransit: direction,
+                                                                                                                code: code)
+        
+        return displayInformationsClean
+    }
+    
+    
+    // Disruption - VERIFIER /!\
+    
     func getDisruption(section: Section, disruptions: [Disruption]?) -> [Disruption] {
         guard let disruptions = disruptions else {
             return [Disruption]()
@@ -154,7 +322,7 @@ class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
         if disruptions.count > 0, let displayInformations = section.displayInformations, let displayInformationsLinks = displayInformations.links {
             var disruptionLinkIds = [String]()
             for linkSchema in displayInformationsLinks {
-                if let schemaType = linkSchema.type, let schemaId = linkSchema.id , schemaType == "disruption" {
+                if let schemaType = linkSchema.type, let schemaId = linkSchema.id, schemaType == "disruption" {
                     disruptionLinkIds.append(schemaId)
                 }
             }
@@ -263,30 +431,6 @@ class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
                                                                                   name: path.name ?? ""))
         }
         return newPaths
-    }
-    
-    func getPoi(poi: Poi?) -> ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionClean.Poi? {
-        guard let name = poi?.name,
-            let network = poi?.properties?["network"],
-            let latString = poi?.coord?.lat,
-            let lat = Double(latString),
-            let lonString = poi?.coord?.lon,
-            let lon = Double(lonString),
-            let addressName = poi?.address?.name,
-            let addressId = poi?.address?.id,
-            let availablePlaces = poi?.stands?.availablePlaces,
-            let availableBikes = poi?.stands?.availableBikes else {
-            return nil
-        }
-
-        return ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionClean.Poi(name: name,
-                                                 network: network,
-                                                 lat: lat,
-                                                 lont: lon,
-                                                 addressName: addressName,
-                                                 addressId: addressId,
-                                                 stands: ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionClean.Stands(availablePlaces: availablePlaces,
-                                                                                                                 availableBikes: availableBikes))
     }
     
 }
