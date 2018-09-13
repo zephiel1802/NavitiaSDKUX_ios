@@ -21,25 +21,8 @@ class ListRidesharingOffersPresenter: ListRidesharingOffersPresentationLogic {
             return
         }
         
-        var displayedRidesharingOffers = [ListRidesharingOffers.GetRidesharingOffers.ViewModel.DisplayedRidesharingOffer]()
-        if let ridesharingJourneys = getRidesharingJourneys(journeySections: response.journey.sections) {
-            for journey in ridesharingJourneys {
-                if let ridesharingSection = getRidesharingSection(ridesharingJourney: journey) {
-                    let network = ridesharingSection.ridesharingInformations?.network ?? ""
-                    let departure = ridesharingSection.departureDateTime?.toDate(format: Configuration.date)?.toString(format: Configuration.timeRidesharing) ?? ""
-                    let driverPictureURL = ridesharingSection.ridesharingInformations?.driver?.image ?? ""
-                    let driverNickname = ridesharingSection.ridesharingInformations?.driver?.alias ?? ""
-                    let driverGender = ridesharingSection.ridesharingInformations?.driver?.gender?.rawValue ?? ""
-                    let rating = ridesharingSection.ridesharingInformations?.driver?.rating?.value ?? 0
-                    let ratingCount = ridesharingSection.ridesharingInformations?.driver?.rating?.count ?? 0
-                    let seatsCount = ridesharingSection.ridesharingInformations?.seats?.available
-                    let price = journey.fare?.total?.value ?? ""
-                    
-                    let ridesharingOffer = ListRidesharingOffers.GetRidesharingOffers.ViewModel.DisplayedRidesharingOffer(network: network, departure: departure, driverPictureURL: driverPictureURL, driverNickname: driverNickname, driverGender: driverGender, rating: rating, ratingCount: ratingCount, seatsCount: seatsCount, price: price)
-                    displayedRidesharingOffers.append(ridesharingOffer)
-                }
-            }
-        }
+        let ridesharingJourneys = getRidesharingJourneys(journeySections: sections)
+        let displayedRidesharingOffers = getRidesharingOffers(ridesharingJourneys: ridesharingJourneys)
         
         let journeySummary = ListRidesharingOffers.GetRidesharingOffers.ViewModel.JourneySummary(duration: duration, sections: sections)
         let viewModel = ListRidesharingOffers.GetRidesharingOffers.ViewModel(journeySummary: journeySummary, displayedRidesharingOffers: displayedRidesharingOffers)
@@ -72,5 +55,32 @@ class ListRidesharingOffersPresenter: ListRidesharingOffersPresentationLogic {
         }
         
         return nil
+    }
+    
+    private func getRidesharingOffers(ridesharingJourneys: [Journey]?) -> [ListRidesharingOffers.GetRidesharingOffers.ViewModel.DisplayedRidesharingOffer] {
+        var displayedRidesharingOffers = [ListRidesharingOffers.GetRidesharingOffers.ViewModel.DisplayedRidesharingOffer]()
+        
+        guard let ridesharingJourneys = ridesharingJourneys else {
+            return displayedRidesharingOffers
+        }
+        
+        for journey in ridesharingJourneys {
+            if let ridesharingSection = getRidesharingSection(ridesharingJourney: journey) {
+                let network = ridesharingSection.ridesharingInformations?.network ?? ""
+                let departure = ridesharingSection.departureDateTime?.toDate(format: Configuration.date)?.toString(format: Configuration.timeRidesharing) ?? ""
+                let driverPictureURL = ridesharingSection.ridesharingInformations?.driver?.image ?? ""
+                let driverNickname = ridesharingSection.ridesharingInformations?.driver?.alias ?? ""
+                let driverGender = ridesharingSection.ridesharingInformations?.driver?.gender?.rawValue ?? ""
+                let rating = ridesharingSection.ridesharingInformations?.driver?.rating?.value ?? 0
+                let ratingCount = ridesharingSection.ridesharingInformations?.driver?.rating?.count ?? 0
+                let seatsCount = ridesharingSection.ridesharingInformations?.seats?.available
+                let price = journey.fare?.total?.value ?? ""
+                
+                let ridesharingOffer = ListRidesharingOffers.GetRidesharingOffers.ViewModel.DisplayedRidesharingOffer(network: network, departure: departure, driverPictureURL: driverPictureURL, driverNickname: driverNickname, driverGender: driverGender, rating: rating, ratingCount: ratingCount, seatsCount: seatsCount, price: price)
+                displayedRidesharingOffers.append(ridesharingOffer)
+            }
+        }
+        
+        return displayedRidesharingOffers
     }
 }

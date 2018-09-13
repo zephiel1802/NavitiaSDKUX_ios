@@ -62,7 +62,7 @@ internal class ListJourneysRouter: NSObject, ListJourneysViewRoutingLogic, ListJ
     // MARK: Passing Data
     
     func passDataToListRidesharingOffers(source: ListJourneysDataStore, destination: inout ListRidesharingOffersDataStore, index: IndexPath) {
-        destination.journey = source.ridesharingJourneys?[index.row - 1]
+        destination.journey = source.ridesharingJourneys?[index.row - 1] // The first index.row refers to the ridesharing header view
         destination.disruptions = source.disruptions
         destination.notes = source.notes
         destination.context = source.context

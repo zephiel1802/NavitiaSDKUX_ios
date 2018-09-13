@@ -59,7 +59,7 @@ internal class ListRidesharingOffersViewController: UIViewController, ListRidesh
         title = "carpooling".localized(withComment: "Carpooling", bundle: NavitiaSDKUI.shared.bundle)
         ridesharingOffersCollectionView.register(UINib(nibName: RidesharingOfferCollectionViewCell.identifier, bundle: self.nibBundle), forCellWithReuseIdentifier: RidesharingOfferCollectionViewCell.identifier)
         
-        showRidesharingOffers()
+        getRidesharingOffers()
     }
     
     func displayRidesharingOffers(viewModel: ListRidesharingOffers.GetRidesharingOffers.ViewModel) {
@@ -69,7 +69,7 @@ internal class ListRidesharingOffersViewController: UIViewController, ListRidesh
         self.ridesharingOffersCollectionView.reloadData()
     }
     
-    private func showRidesharingOffers() {
+    private func getRidesharingOffers() {
         let ridesharingOffersRequest = ListRidesharingOffers.GetRidesharingOffers.Request()
         interactor?.getRidesharingOffers(request: ridesharingOffersRequest)
     }
@@ -116,6 +116,7 @@ extension ListRidesharingOffersViewController: UICollectionViewDelegateFlowLayou
         if #available(iOS 11.0, *) {
             safeAreaWidth += self.ridesharingOffersCollectionView.safeAreaInsets.left + self.ridesharingOffersCollectionView.safeAreaInsets.right
         }
+        
         return CGSize(width: self.ridesharingOffersCollectionView.frame.size.width - safeAreaWidth, height: 155)
     }
 }
