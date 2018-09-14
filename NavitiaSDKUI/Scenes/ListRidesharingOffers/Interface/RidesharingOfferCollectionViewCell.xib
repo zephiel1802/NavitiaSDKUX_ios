@@ -12,7 +12,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="JourneyRidesharingCollectionViewCell" id="FcL-GE-PfH" customClass="JourneyRidesharingCollectionViewCell" customModule="NavitiaSDKUI" customModuleProvider="target">
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="RidesharingOfferCollectionViewCell" id="FcL-GE-PfH" customClass="RidesharingOfferCollectionViewCell" customModule="NavitiaSDKUI" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="320" height="155"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
@@ -25,16 +25,8 @@
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="jhc-N0-5mS">
-                        <rect key="frame" x="10" y="36.5" width="58" height="58"/>
-                        <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <constraints>
-                            <constraint firstAttribute="width" constant="58" id="5MF-n5-a2m"/>
-                            <constraint firstAttribute="height" constant="58" id="zme-jJ-dyQ"/>
-                        </constraints>
-                    </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vWw-QA-acK">
-                        <rect key="frame" x="215" y="8.5" width="95" height="21"/>
+                        <rect key="frame" x="215" y="8" width="95" height="21"/>
                         <attributedString key="attributedText">
                             <fragment content="Departure:">
                                 <attributes>
@@ -51,10 +43,24 @@
                         </attributedString>
                         <nil key="highlightedColor"/>
                     </label>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="jhc-N0-5mS">
+                        <rect key="frame" x="10" y="36.5" width="58" height="58"/>
+                        <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="58" id="5MF-n5-a2m"/>
+                            <constraint firstAttribute="height" constant="58" id="zme-jJ-dyQ"/>
+                        </constraints>
+                    </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Gambetta20" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Nbc-Vn-Mx6">
                         <rect key="frame" x="78" y="46.5" width="70.5" height="14.5"/>
                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                         <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(male)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="U5z-EB-lxg">
+                        <rect key="frame" x="78" y="66" width="36.5" height="15"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                        <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lSG-Y7-QG2">
@@ -69,6 +75,14 @@
                         <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="1" id="qHE-nz-k0N"/>
+                        </constraints>
+                    </view>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="exo-hM-MoR" customClass="FloatRatingView" customModule="NavitiaSDKUI" customModuleProvider="target">
+                        <rect key="frame" x="218" y="49" width="88" height="16"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="16" id="Gre-Ng-l9o"/>
+                            <constraint firstAttribute="width" constant="88" id="rni-DB-Gm9"/>
                         </constraints>
                     </view>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="6 ratings" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pGa-G1-apR">
@@ -109,20 +123,6 @@
                             <action selector="actionRoadmapButton:" destination="FcL-GE-PfH" eventType="touchUpInside" id="HTY-wf-1mQ"/>
                         </connections>
                     </button>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(male)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="U5z-EB-lxg">
-                        <rect key="frame" x="78" y="66" width="36.5" height="15"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                        <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <nil key="highlightedColor"/>
-                    </label>
-                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="exo-hM-MoR" customClass="FloatRatingView" customModule="NavitiaSDKUI" customModuleProvider="target">
-                        <rect key="frame" x="218" y="49.5" width="88" height="16"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <constraints>
-                            <constraint firstAttribute="height" constant="16" id="Gre-Ng-l9o"/>
-                            <constraint firstAttribute="width" constant="88" id="rni-DB-Gm9"/>
-                        </constraints>
-                    </view>
                 </subviews>
             </view>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -162,16 +162,16 @@
                 </userDefinedRuntimeAttribute>
             </userDefinedRuntimeAttributes>
             <connections>
-                <outlet property="floatRatingView" destination="exo-hM-MoR" id="XZb-hD-0Mc"/>
-                <outlet property="genderLabel" destination="U5z-EB-lxg" id="Q36-0S-ywE"/>
-                <outlet property="loginLabel" destination="Nbc-Vn-Mx6" id="LvM-En-Yv8"/>
-                <outlet property="notationLabel" destination="pGa-G1-apR" id="Nd0-2R-tOh"/>
-                <outlet property="pictureImage" destination="jhc-N0-5mS" id="flf-Td-XXO"/>
+                <outlet property="departureDateLabel" destination="vWw-QA-acK" id="sYh-gS-BfA"/>
+                <outlet property="driverImageView" destination="jhc-N0-5mS" id="tnm-ie-YFT"/>
+                <outlet property="floatRatingView" destination="exo-hM-MoR" id="9Qo-gn-Ca6"/>
+                <outlet property="genderLabel" destination="U5z-EB-lxg" id="vv1-Ph-cI8"/>
+                <outlet property="networkLabel" destination="5Op-47-8Z1" id="48d-Lu-yHG"/>
+                <outlet property="nicknameLabel" destination="Nbc-Vn-Mx6" id="Apx-tO-jGY"/>
                 <outlet property="priceLabel" destination="6YU-3z-YBT" id="Tfz-OX-DU3"/>
+                <outlet property="ratingCountLabel" destination="pGa-G1-apR" id="YSV-Y0-17V"/>
                 <outlet property="roadmapButton" destination="TY7-Ef-A6a" id="DTX-BW-ti5"/>
-                <outlet property="seatCountLabel" destination="5Yu-lt-Lpk" id="a9v-fV-HtJ"/>
-                <outlet property="startLabel" destination="vWw-QA-acK" id="wwx-Op-AeO"/>
-                <outlet property="titleLabel" destination="5Op-47-8Z1" id="f5B-15-0hQ"/>
+                <outlet property="seatsCountLabel" destination="5Yu-lt-Lpk" id="1hA-Hf-0Ft"/>
             </connections>
             <point key="canvasLocation" x="-254" y="177.5"/>
         </collectionViewCell>

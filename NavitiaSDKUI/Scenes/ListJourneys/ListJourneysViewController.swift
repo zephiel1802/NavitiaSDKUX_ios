@@ -273,7 +273,7 @@ extension ListJourneysViewController: UICollectionViewDataSource, UICollectionVi
             if indexPath.section == 0 && viewModel.displayedJourneys.count > indexPath.row {
                 selector = NSSelectorFromString("routeToJourneySolutionRoadmapWithIndexPath:")
             } else if indexPath.section == 1 && viewModel.displayedRidesharings.count > indexPath.row - 1 && indexPath.row != 0 {
-                selector = NSSelectorFromString("routeToJourneySolutionRidesharingWithIndexPath:")
+                selector = NSSelectorFromString("routeToListRidesharingOffersWithIndexPath:")
             }
             if let router = router, router.responds(to: selector) {
                 router.perform(selector, with: indexPath)

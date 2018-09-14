@@ -192,7 +192,11 @@ open class ShowJourneyRoadmapViewController: UIViewController, ShowJourneyRoadma
         scrollView.addSubview(journeySolutionView, margin: UIEdgeInsets(top: 0, left: 0, bottom: 5, right: 0))
         
         if ridesharing {
-            journeySolutionView.setDataRidesharing(journey)
+            guard let duration = journey.duration, let sections = journey.sections else {
+                return
+            }
+            
+            journeySolutionView.setRidesharingData(duration: duration, sections: sections)
             let ridesharingView = getRidesharingView()
             
             scrollView.addSubview(ridesharingView, margin: UIEdgeInsets(top: 5, left: 10, bottom: 5, right: 10))
