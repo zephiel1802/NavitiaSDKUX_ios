@@ -16,11 +16,6 @@
 		317D6C78211091CE00F36242 /* StepByStepItemView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 317D6C76211091CE00F36242 /* StepByStepItemView.xib */; };
 		317D6C7B211091D600F36242 /* StepByStepItemVIew.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317D6C79211091D500F36242 /* StepByStepItemVIew.swift */; };
 		317D6C7C211091D600F36242 /* GenericStepView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317D6C7A211091D600F36242 /* GenericStepView.swift */; };
-		31ED8EB0214A5F7400AD0C7E /* ListRidesharingOffersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31ED8EAB214A5F7300AD0C7E /* ListRidesharingOffersViewController.swift */; };
-		31ED8EB1214A5F7400AD0C7E /* ListRidesharingOffersPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31ED8EAC214A5F7300AD0C7E /* ListRidesharingOffersPresenter.swift */; };
-		31ED8EB2214A5F7400AD0C7E /* ListRidesharingOffersInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31ED8EAD214A5F7300AD0C7E /* ListRidesharingOffersInteractor.swift */; };
-		31ED8EB3214A5F7400AD0C7E /* ListRidesharingOffersRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31ED8EAE214A5F7300AD0C7E /* ListRidesharingOffersRouter.swift */; };
-		31ED8EB4214A5F7400AD0C7E /* ListRidesharingOffersModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31ED8EAF214A5F7300AD0C7E /* ListRidesharingOffersModels.swift */; };
 		8400AE57213D7FC1000F7ED5 /* ListJourneysInteractorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8400AE56213D7FC1000F7ED5 /* ListJourneysInteractorTests.swift */; };
 		841EFD9321359F56004A313B /* ListJourneysPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841EFD8E21359F56004A313B /* ListJourneysPresenter.swift */; };
 		841EFD9421359F56004A313B /* ListJourneysModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841EFD8F21359F56004A313B /* ListJourneysModels.swift */; };
@@ -50,18 +45,12 @@
 		8433F39E207F8E14007DBBCE /* RidesharingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8433F39D207F8E14007DBBCE /* RidesharingView.swift */; };
 		8433F3A0207FAECF007DBBCE /* AlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8433F39F207FAECF007DBBCE /* AlertViewController.swift */; };
 		8433F3A2207FAF23007DBBCE /* AlertView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8433F3A1207FAF22007DBBCE /* AlertView.xib */; };
-		844CA2E22080F15A00C6B259 /* RidesharingOfferCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 844CA2E12080F15A00C6B259 /* RidesharingOfferCollectionViewCell.xib */; };
-		844CA2E42080F16E00C6B259 /* RidesharingOfferCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 844CA2E32080F16E00C6B259 /* RidesharingOfferCollectionViewCell.swift */; };
 		84506C28209C4FE7006BF393 /* RidesharingStepView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84506C27209C4FE7006BF393 /* RidesharingStepView.swift */; };
 		84506C2A209C5007006BF393 /* RidesharingStepView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84506C29209C5007006BF393 /* RidesharingStepView.xib */; };
 		8451DA4B206503F100CFA1E4 /* NavitiaSDKUI.h in Headers */ = {isa = PBXBuildFile; fileRef = 8451DA3D206503F100CFA1E4 /* NavitiaSDKUI.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		8451DA602065065E00CFA1E4 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8451DA5F2065065E00CFA1E4 /* Images.xcassets */; };
 		8451DA63206506ED00CFA1E4 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 8451DA65206506ED00CFA1E4 /* Localizable.strings */; };
-		8451DAA820650C7C00CFA1E4 /* JourneySolutionRidesharingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8451DAA720650C7C00CFA1E4 /* JourneySolutionRidesharingViewController.swift */; };
 		8451DAAA20650C9200CFA1E4 /* ShowJourneyRoadmapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8451DAA920650C9200CFA1E4 /* ShowJourneyRoadmapViewController.swift */; };
-		8451DAAE206512B200CFA1E4 /* JourneySolutionRidesharingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8451DAAD206512B200CFA1E4 /* JourneySolutionRidesharingViewModel.swift */; };
-		8451DAAA20650C9200CFA1E4 /* JourneyRoadmapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8451DAA920650C9200CFA1E4 /* JourneyRoadmapViewController.swift */; };
-		8451DAAC2065129E00CFA1E4 /* JourneySolutionRoadmapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8451DAAB2065129E00CFA1E4 /* JourneySolutionRoadmapViewModel.swift */; };
 		8451DAC32065338B00CFA1E4 /* Journey.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8451DAC22065338B00CFA1E4 /* Journey.storyboard */; };
 		8451DAC62065374F00CFA1E4 /* NavitiaSDKUIConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8451DAC52065374F00CFA1E4 /* NavitiaSDKUIConfig.swift */; };
 		8454D36E2068D3A800C97D2F /* LinesApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8454D2942068D3A700C97D2F /* LinesApi.swift */; };
@@ -292,6 +281,13 @@
 		8476DD562088819C006CB506 /* JourneyPathOverlays.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8476DD552088819C006CB506 /* JourneyPathOverlays.swift */; };
 		8476DD5820888EE8006CB506 /* StackView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8476DD5720888EE8006CB506 /* StackView+Extension.swift */; };
 		8476DD5A208891CB006CB506 /* Collection+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8476DD59208891CB006CB506 /* Collection+Extension.swift */; };
+		84827A8C214BBAA800CB9513 /* RidesharingOfferCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84827A84214BBAA800CB9513 /* RidesharingOfferCollectionViewCell.xib */; };
+		84827A8D214BBAA800CB9513 /* ListRidesharingOffersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84827A85214BBAA800CB9513 /* ListRidesharingOffersViewController.swift */; };
+		84827A8E214BBAA800CB9513 /* ListRidesharingOffersPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84827A86214BBAA800CB9513 /* ListRidesharingOffersPresenter.swift */; };
+		84827A8F214BBAA800CB9513 /* RidesharingOfferCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84827A88214BBAA800CB9513 /* RidesharingOfferCollectionViewCell.swift */; };
+		84827A90214BBAA800CB9513 /* ListRidesharingOffersInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84827A89214BBAA800CB9513 /* ListRidesharingOffersInteractor.swift */; };
+		84827A91214BBAA800CB9513 /* ListRidesharingOffersRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84827A8A214BBAA800CB9513 /* ListRidesharingOffersRouter.swift */; };
+		84827A92214BBAA800CB9513 /* ListRidesharingOffersModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84827A8B214BBAA800CB9513 /* ListRidesharingOffersModels.swift */; };
 		848D7C2A207B92D4002E9B1A /* PublicTransportView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 848D7C29207B92D4002E9B1A /* PublicTransportView.xib */; };
 		848D7C2C207B95B0002E9B1A /* PublicTransportView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848D7C2B207B95B0002E9B1A /* PublicTransportView.swift */; };
 		8490A6D52084D2C700F7CFA1 /* NavitiaSDKUserDefaultsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8490A6D42084D2C700F7CFA1 /* NavitiaSDKUserDefaultsManager.swift */; };
@@ -343,11 +339,6 @@
 		317D6C76211091CE00F36242 /* StepByStepItemView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StepByStepItemView.xib; sourceTree = "<group>"; };
 		317D6C79211091D500F36242 /* StepByStepItemVIew.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StepByStepItemVIew.swift; sourceTree = "<group>"; };
 		317D6C7A211091D600F36242 /* GenericStepView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GenericStepView.swift; sourceTree = "<group>"; };
-		31ED8EAB214A5F7300AD0C7E /* ListRidesharingOffersViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListRidesharingOffersViewController.swift; sourceTree = "<group>"; };
-		31ED8EAC214A5F7300AD0C7E /* ListRidesharingOffersPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListRidesharingOffersPresenter.swift; sourceTree = "<group>"; };
-		31ED8EAD214A5F7300AD0C7E /* ListRidesharingOffersInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListRidesharingOffersInteractor.swift; sourceTree = "<group>"; };
-		31ED8EAE214A5F7300AD0C7E /* ListRidesharingOffersRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListRidesharingOffersRouter.swift; sourceTree = "<group>"; };
-		31ED8EAF214A5F7300AD0C7E /* ListRidesharingOffersModels.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListRidesharingOffersModels.swift; sourceTree = "<group>"; };
 		8400AE56213D7FC1000F7ED5 /* ListJourneysInteractorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListJourneysInteractorTests.swift; sourceTree = "<group>"; };
 		841EFD8E21359F56004A313B /* ListJourneysPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListJourneysPresenter.swift; sourceTree = "<group>"; };
 		841EFD8F21359F56004A313B /* ListJourneysModels.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListJourneysModels.swift; sourceTree = "<group>"; };
@@ -377,8 +368,6 @@
 		8433F39D207F8E14007DBBCE /* RidesharingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RidesharingView.swift; sourceTree = "<group>"; };
 		8433F39F207FAECF007DBBCE /* AlertViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertViewController.swift; sourceTree = "<group>"; };
 		8433F3A1207FAF22007DBBCE /* AlertView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AlertView.xib; sourceTree = "<group>"; };
-		844CA2E12080F15A00C6B259 /* RidesharingOfferCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RidesharingOfferCollectionViewCell.xib; sourceTree = "<group>"; };
-		844CA2E32080F16E00C6B259 /* RidesharingOfferCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RidesharingOfferCollectionViewCell.swift; sourceTree = "<group>"; };
 		84506C27209C4FE7006BF393 /* RidesharingStepView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RidesharingStepView.swift; sourceTree = "<group>"; };
 		84506C29209C5007006BF393 /* RidesharingStepView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RidesharingStepView.xib; sourceTree = "<group>"; };
 		8451DA3A206503F100CFA1E4 /* NavitiaSDKUI.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = NavitiaSDKUI.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -387,11 +376,7 @@
 		8451DA5F2065065E00CFA1E4 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		8451DA64206506ED00CFA1E4 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		8451DA66206506FD00CFA1E4 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
-		8451DAA720650C7C00CFA1E4 /* JourneySolutionRidesharingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JourneySolutionRidesharingViewController.swift; sourceTree = "<group>"; };
 		8451DAA920650C9200CFA1E4 /* ShowJourneyRoadmapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowJourneyRoadmapViewController.swift; sourceTree = "<group>"; };
-		8451DAAD206512B200CFA1E4 /* JourneySolutionRidesharingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JourneySolutionRidesharingViewModel.swift; sourceTree = "<group>"; };
-		8451DAA920650C9200CFA1E4 /* JourneyRoadmapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JourneyRoadmapViewController.swift; sourceTree = "<group>"; };
-		8451DAAB2065129E00CFA1E4 /* JourneySolutionRoadmapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JourneySolutionRoadmapViewModel.swift; sourceTree = "<group>"; };
 		8451DAC22065338B00CFA1E4 /* Journey.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Journey.storyboard; sourceTree = "<group>"; };
 		8451DAC52065374F00CFA1E4 /* NavitiaSDKUIConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavitiaSDKUIConfig.swift; sourceTree = "<group>"; };
 		8454D2942068D3A700C97D2F /* LinesApi.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LinesApi.swift; sourceTree = "<group>"; };
@@ -622,6 +607,13 @@
 		8476DD552088819C006CB506 /* JourneyPathOverlays.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JourneyPathOverlays.swift; sourceTree = "<group>"; };
 		8476DD5720888EE8006CB506 /* StackView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "StackView+Extension.swift"; sourceTree = "<group>"; };
 		8476DD59208891CB006CB506 /* Collection+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Collection+Extension.swift"; sourceTree = "<group>"; };
+		84827A84214BBAA800CB9513 /* RidesharingOfferCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RidesharingOfferCollectionViewCell.xib; sourceTree = "<group>"; };
+		84827A85214BBAA800CB9513 /* ListRidesharingOffersViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListRidesharingOffersViewController.swift; sourceTree = "<group>"; };
+		84827A86214BBAA800CB9513 /* ListRidesharingOffersPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListRidesharingOffersPresenter.swift; sourceTree = "<group>"; };
+		84827A88214BBAA800CB9513 /* RidesharingOfferCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RidesharingOfferCollectionViewCell.swift; sourceTree = "<group>"; };
+		84827A89214BBAA800CB9513 /* ListRidesharingOffersInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListRidesharingOffersInteractor.swift; sourceTree = "<group>"; };
+		84827A8A214BBAA800CB9513 /* ListRidesharingOffersRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListRidesharingOffersRouter.swift; sourceTree = "<group>"; };
+		84827A8B214BBAA800CB9513 /* ListRidesharingOffersModels.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListRidesharingOffersModels.swift; sourceTree = "<group>"; };
 		848D7C29207B92D4002E9B1A /* PublicTransportView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PublicTransportView.xib; sourceTree = "<group>"; };
 		848D7C2B207B95B0002E9B1A /* PublicTransportView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublicTransportView.swift; sourceTree = "<group>"; };
 		8490A6D42084D2C700F7CFA1 /* NavitiaSDKUserDefaultsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavitiaSDKUserDefaultsManager.swift; sourceTree = "<group>"; };
@@ -667,20 +659,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		31ED8EAA214A5F7300AD0C7E /* ListRidesharingOffers */ = {
-			isa = PBXGroup;
-			children = (
-				31ED8EAD214A5F7300AD0C7E /* ListRidesharingOffersInteractor.swift */,
-				31ED8EAF214A5F7300AD0C7E /* ListRidesharingOffersModels.swift */,
-				31ED8EAC214A5F7300AD0C7E /* ListRidesharingOffersPresenter.swift */,
-				31ED8EAE214A5F7300AD0C7E /* ListRidesharingOffersRouter.swift */,
-				31ED8EAB214A5F7300AD0C7E /* ListRidesharingOffersViewController.swift */,
-				8451DABC2065175B00CFA1E4 /* Interface */,
-				8451DAB9206516C000CFA1E4 /* View */,
-			);
-			path = ListRidesharingOffers;
-			sourceTree = "<group>";
-		};
 		841EFD9A21359F8C004A313B /* Workers */ = {
 			isa = PBXGroup;
 			children = (
@@ -784,13 +762,10 @@
 		8451DA57206505FF00CFA1E4 /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
-				8451DAA420650C1200CFA1E4 /* JourneySolutionRidesharing */,
 				84AFDB8821417D8800858D42 /* ShowJourneyRoadmap */,
-				8451DA5D2065063800CFA1E4 /* Common */,
-				84AFDB8821417D8800858D42 /* JourneyRoadmap */,
-				8451DAA320650C0700CFA1E4 /* JourneySolutionRoadmap */,
+				84827A82214BBAA800CB9513 /* ListRidesharingOffers */,
 				8451DAA220650BF200CFA1E4 /* ListJourneys */,
-				31ED8EAA214A5F7300AD0C7E /* ListRidesharingOffers */,
+				8451DA5D2065063800CFA1E4 /* Common */,
 				8451DA5C2065063300CFA1E4 /* Util */,
 			);
 			path = Scenes;
@@ -879,26 +854,6 @@
 			path = ListJourneys;
 			sourceTree = "<group>";
 		};
-		8451DAA420650C1200CFA1E4 /* JourneySolutionRidesharing */ = {
-			isa = PBXGroup;
-			children = (
-				8451DAB9206516C000CFA1E4 /* View */,
-				8451DABC2065175B00CFA1E4 /* Interface */,
-				8451DAA720650C7C00CFA1E4 /* JourneySolutionRidesharingViewController.swift */,
-				8451DAAD206512B200CFA1E4 /* JourneySolutionRidesharingViewModel.swift */,
-			);
-			path = JourneySolutionRidesharing;
-		8451DAA320650C0700CFA1E4 /* JourneySolutionRoadmap */ = {
-			isa = PBXGroup;
-			children = (
-				8451DAB8206516BC00CFA1E4 /* View */,
-				8451DABB2065175000CFA1E4 /* Interface */,
-				8451DAAB2065129E00CFA1E4 /* JourneySolutionRoadmapViewModel.swift */,
-				8476DD552088819C006CB506 /* JourneyPathOverlays.swift */,
-			);
-			path = JourneySolutionRoadmap;
-			sourceTree = "<group>";
-		};
 		8451DAB32065157200CFA1E4 /* Helper */ = {
 			isa = PBXGroup;
 			children = (
@@ -933,14 +888,6 @@
 			path = View;
 			sourceTree = "<group>";
 		};
-		8451DAB9206516C000CFA1E4 /* View */ = {
-			isa = PBXGroup;
-			children = (
-				844CA2E32080F16E00C6B259 /* RidesharingOfferCollectionViewCell.swift */,
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
 		8451DABA206516C500CFA1E4 /* View */ = {
 			isa = PBXGroup;
 			children = (
@@ -966,14 +913,6 @@
 				84506C29209C5007006BF393 /* RidesharingStepView.xib */,
 				8433F39B207F89C0007DBBCE /* RidesharingView.xib */,
 				317D6C76211091CE00F36242 /* StepByStepItemView.xib */,
-			);
-			path = Interface;
-			sourceTree = "<group>";
-		};
-		8451DABC2065175B00CFA1E4 /* Interface */ = {
-			isa = PBXGroup;
-			children = (
-				844CA2E12080F15A00C6B259 /* RidesharingOfferCollectionViewCell.xib */,
 			);
 			path = Interface;
 			sourceTree = "<group>";
@@ -1265,6 +1204,36 @@
 			path = ObjectMapper;
 			sourceTree = "<group>";
 		};
+		84827A82214BBAA800CB9513 /* ListRidesharingOffers */ = {
+			isa = PBXGroup;
+			children = (
+				84827A87214BBAA800CB9513 /* View */,
+				84827A83214BBAA800CB9513 /* Interface */,
+				84827A85214BBAA800CB9513 /* ListRidesharingOffersViewController.swift */,
+				84827A86214BBAA800CB9513 /* ListRidesharingOffersPresenter.swift */,
+				84827A89214BBAA800CB9513 /* ListRidesharingOffersInteractor.swift */,
+				84827A8A214BBAA800CB9513 /* ListRidesharingOffersRouter.swift */,
+				84827A8B214BBAA800CB9513 /* ListRidesharingOffersModels.swift */,
+			);
+			path = ListRidesharingOffers;
+			sourceTree = "<group>";
+		};
+		84827A83214BBAA800CB9513 /* Interface */ = {
+			isa = PBXGroup;
+			children = (
+				84827A84214BBAA800CB9513 /* RidesharingOfferCollectionViewCell.xib */,
+			);
+			path = Interface;
+			sourceTree = "<group>";
+		};
+		84827A87214BBAA800CB9513 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				84827A88214BBAA800CB9513 /* RidesharingOfferCollectionViewCell.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		849794BE213D66F000F0EB5C /* NavitiaSDKUITests */ = {
 			isa = PBXGroup;
 			children = (
@@ -1389,6 +1358,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				84827A8C214BBAA800CB9513 /* RidesharingOfferCollectionViewCell.xib in Resources */,
 				8471D38320809EAD000C9125 /* JourneySolutionView.xib in Resources */,
 				848D7C2A207B92D4002E9B1A /* PublicTransportView.xib in Resources */,
 				84A790FD2121B0E90000C82F /* EmissionView.xib in Resources */,
@@ -1412,7 +1382,6 @@
 				84339A7E206CC5E200F2CB65 /* JourneyEmptySolutionCollectionViewCell.xib in Resources */,
 				317D6C78211091CE00F36242 /* StepByStepItemView.xib in Resources */,
 				8451DA63206506ED00CFA1E4 /* Localizable.strings in Resources */,
-				844CA2E22080F15A00C6B259 /* RidesharingOfferCollectionViewCell.xib in Resources */,
 				84506C2A209C5007006BF393 /* RidesharingStepView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1487,7 +1456,6 @@
 				8454D42E2068D3A800C97D2F /* URLTransform.swift in Sources */,
 				8454D3852068D3A800C97D2F /* RoutesApi.swift in Sources */,
 				8454D452206942B800C97D2F /* Date+Extension.swift in Sources */,
-				31ED8EB2214A5F7400AD0C7E /* ListRidesharingOffersInteractor.swift in Sources */,
 				8454D4302068D3A800C97D2F /* Operators.swift in Sources */,
 				8454D3A02068D3A800C97D2F /* LineGroup.swift in Sources */,
 				84AFDB9521417E6600858D42 /* ShowJourneyRoadmapModels.swift in Sources */,
@@ -1496,7 +1464,6 @@
 				8476DD5820888EE8006CB506 /* StackView+Extension.swift in Sources */,
 				8454D3AD2068D3A800C97D2F /* PhysicalMode.swift in Sources */,
 				8454D4172068D3A800C97D2F /* NetworkReachabilityManager.swift in Sources */,
-				31ED8EB3214A5F7400AD0C7E /* ListRidesharingOffersRouter.swift in Sources */,
 				8454D4012068D3A800C97D2F /* StopAreas.swift in Sources */,
 				8454D38E2068D3A800C97D2F /* JourneysApi.swift in Sources */,
 				8454D3F52068D3A800C97D2F /* CommercialMode.swift in Sources */,
@@ -1509,6 +1476,7 @@
 				8454D3F02068D3A800C97D2F /* JourneyPatterns.swift in Sources */,
 				8454D38F2068D3A800C97D2F /* TripsApi.swift in Sources */,
 				8454D3CD2068D3A800C97D2F /* PoiType.swift in Sources */,
+				84827A90214BBAA800CB9513 /* ListRidesharingOffersInteractor.swift in Sources */,
 				3126566920B3008800D50F4B /* UIViewController+Extension.swift in Sources */,
 				8454D4372068D3A800C97D2F /* DictionaryTransform.swift in Sources */,
 				8454D37F2068D3A800C97D2F /* HeatMapApi.swift in Sources */,
@@ -1517,7 +1485,6 @@
 				8454D3C62068D3A800C97D2F /* Network.swift in Sources */,
 				8454D3D62068D3A800C97D2F /* Trips.swift in Sources */,
 				8454D3E72068D3A800C97D2F /* LineReports.swift in Sources */,
-				31ED8EB0214A5F7400AD0C7E /* ListRidesharingOffersViewController.swift in Sources */,
 				8454D3FB2068D3A800C97D2F /* JourneyPatternPoints.swift in Sources */,
 				8422B468206A334B0097E6C9 /* JourneySummaryView.swift in Sources */,
 				8454D37A2068D3A800C97D2F /* NextDeparturesApi.swift in Sources */,
@@ -1529,6 +1496,7 @@
 				8454D3A32068D3A800C97D2F /* SeatsDescription.swift in Sources */,
 				8454D42B2068D3A800C97D2F /* HexColorTransform.swift in Sources */,
 				8454D39E2068D3A800C97D2F /* CoverageError.swift in Sources */,
+				84827A8D214BBAA800CB9513 /* ListRidesharingOffersViewController.swift in Sources */,
 				8433B87B206BE2A900EC51F9 /* Int32+Extension.swift in Sources */,
 				31336E17211DF06B00D197E2 /* Int+Extension.swift in Sources */,
 				8454D3BE2068D3A800C97D2F /* CO2.swift in Sources */,
@@ -1540,17 +1508,16 @@
 				8454D3A12068D3A800C97D2F /* Journey.swift in Sources */,
 				8454D3F92068D3A800C97D2F /* StopArea.swift in Sources */,
 				317D6C7C211091D600F36242 /* GenericStepView.swift in Sources */,
-				31ED8EB1214A5F7400AD0C7E /* ListRidesharingOffersPresenter.swift in Sources */,
 				8454D4232068D3A800C97D2F /* ResponseSerialization.swift in Sources */,
 				8454D3B82068D3A800C97D2F /* Trip.swift in Sources */,
 				8454D4392068D3A800C97D2F /* ImmutableMappable.swift in Sources */,
+				84827A8E214BBAA800CB9513 /* ListRidesharingOffersPresenter.swift in Sources */,
 				8454D3992068D3A800C97D2F /* Impacted.swift in Sources */,
 				8430274F20BBE70E005AD743 /* Message+Extension.swift in Sources */,
 				8454D3BF2068D3A800C97D2F /* ImpactedSection.swift in Sources */,
 				8454D4132068D3A800C97D2F /* Calendars.swift in Sources */,
 				841EFD9521359F56004A313B /* ListJourneysInteractor.swift in Sources */,
 				8454D38A2068D3A800C97D2F /* PlacesApi.swift in Sources */,
-				31ED8EB4214A5F7400AD0C7E /* ListRidesharingOffersModels.swift in Sources */,
 				8454D3AF2068D3A800C97D2F /* StopTime.swift in Sources */,
 				8454D4032068D3A800C97D2F /* VehicleJourneys.swift in Sources */,
 				317D6C7B211091D600F36242 /* StepByStepItemVIew.swift in Sources */,
@@ -1584,7 +1551,6 @@
 				8454D3C32068D3A800C97D2F /* Place.swift in Sources */,
 				8454D4342068D3A800C97D2F /* Mapper.swift in Sources */,
 				8454D39D2068D3A800C97D2F /* Arrivals.swift in Sources */,
-				844CA2E42080F16E00C6B259 /* RidesharingOfferCollectionViewCell.swift in Sources */,
 				8454D3CB2068D3A800C97D2F /* PlaceNearby.swift in Sources */,
 				8454D3DA2068D3A800C97D2F /* Stands.swift in Sources */,
 				8454D4102068D3A800C97D2F /* Cost.swift in Sources */,
@@ -1623,6 +1589,7 @@
 				8454D3D92068D3A800C97D2F /* JourneyPattern.swift in Sources */,
 				8422B459206A24230097E6C9 /* JourneyHeaderCollectionReusableView.swift in Sources */,
 				8454D3D02068D3A800C97D2F /* Lines.swift in Sources */,
+				84827A92214BBAA800CB9513 /* ListRidesharingOffersModels.swift in Sources */,
 				8454D3DC2068D3A800C97D2F /* Path.swift in Sources */,
 				8454D3862068D3A800C97D2F /* AddressesApi.swift in Sources */,
 				84E37EAA2074FF7B001D61E5 /* JourneySolutionLoadCollectionViewCell.swift in Sources */,
@@ -1675,6 +1642,7 @@
 				8454D43E2068D3A800C97D2F /* DateFormatterTransform.swift in Sources */,
 				8454D3A52068D3A800C97D2F /* LinesSchema.swift in Sources */,
 				8454D3D82068D3A800C97D2F /* RidesharingInformation.swift in Sources */,
+				84827A8F214BBAA800CB9513 /* RidesharingOfferCollectionViewCell.swift in Sources */,
 				8454D3CA2068D3A800C97D2F /* PlacesNearby.swift in Sources */,
 				8454D3C02068D3A800C97D2F /* PoiTypes.swift in Sources */,
 				8454D3C12068D3A800C97D2F /* Coverage.swift in Sources */,
@@ -1694,6 +1662,7 @@
 				8454D3AB2068D3A800C97D2F /* RouteDisplayInformation.swift in Sources */,
 				84AFDB9921417E6600858D42 /* ShowJourneyRoadmapInteractor.swift in Sources */,
 				8454D3702068D3A800C97D2F /* PlaceUriApi.swift in Sources */,
+				84827A91214BBAA800CB9513 /* ListRidesharingOffersRouter.swift in Sources */,
 				8422B46C206A37610097E6C9 /* TransportHelper.swift in Sources */,
 				8471D38520809EC7000C9125 /* JourneySolutionView.swift in Sources */,
 				8454D3962068D3A800C97D2F /* Extensions.swift in Sources */,
