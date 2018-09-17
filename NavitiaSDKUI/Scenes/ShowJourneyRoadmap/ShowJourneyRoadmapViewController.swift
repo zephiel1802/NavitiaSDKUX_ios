@@ -37,8 +37,6 @@ open class ShowJourneyRoadmapViewController: UIViewController, ShowJourneyRoadma
     var bssTest = [(poi: ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionClean.Poi,
                     notify: ((ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionClean.Poi) -> ()))]()
     
-//    var ridesharingView: RidesharingView!
-    
     // A supprimer
     var display = false
     
@@ -186,18 +184,18 @@ open class ShowJourneyRoadmapViewController: UIViewController, ShowJourneyRoadma
     private func getHeader(_ journey: Journey) {
         let journeySolutionView = getJourneySolutionView(journey: journey)
         
-        scrollView.addSubview(journeySolutionView, margin: UIEdgeInsets(top: 0, left: 0, bottom: 5, right: 0))
-        
         if let _ = viewModel?.ridesharing {
             guard let duration = journey.duration, let sections = journey.sections else {
                 return
             }
             
-            journeySolutionView.setRidesharingData(duration: duration, sections: sections)
-            
             let ridesharingView = getRidesharingView()
+            
+            journeySolutionView.setRidesharingData(duration: duration, sections: sections)
             scrollView.addSubview(ridesharingView, margin: UIEdgeInsets(top: 5, left: 10, bottom: 5, right: 10))
         }
+        
+        scrollView.addSubview(journeySolutionView, margin: UIEdgeInsets(top: 0, left: 0, bottom: 5, right: 0))
     }
     
     private func getJourneySolutionView(journey: Journey) -> JourneySolutionView {
@@ -218,20 +216,20 @@ open class ShowJourneyRoadmapViewController: UIViewController, ShowJourneyRoadma
     }
     
     private func getDepartureArrival(data: ShowJourneyRoadmap.GetRoadmap.ViewModel.DepartureArrival) {
-        let view = DepartureArrivalStepView(frame: CGRect(x: 0, y: 0, width: 0, height: 70))
+        let departureArrivalStepView = DepartureArrivalStepView(frame: CGRect(x: 0, y: 0, width: 0, height: 70))
         
-        view.information = data.information
-        view.time = data.time
-        view.type = data.mode
-        view.calorie = data.calorie
+        departureArrivalStepView.information = data.information
+        departureArrivalStepView.time = data.time
+        departureArrivalStepView.type = data.mode
+        departureArrivalStepView.calorie = data.calorie
         
-        scrollView.addSubview(view, margin: UIEdgeInsets(top: 5, left: 10, bottom: 5, right: 10))
+        scrollView.addSubview(departureArrivalStepView, margin: UIEdgeInsets(top: 5, left: 10, bottom: 5, right: 10))
     }
     
     private func getStep(sections: [ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionClean]) {
         for (_, section) in sections.enumerated() {
-            if let step = getSectionStep(section: section) {
-                scrollView.addSubview(step, margin: UIEdgeInsets(top: 5, left: 10, bottom: 5, right: 10))
+            if let sectionStep = getSectionStep(section: section) {
+                scrollView.addSubview(sectionStep, margin: UIEdgeInsets(top: 5, left: 10, bottom: 5, right: 10))
             }
         }
     }
@@ -262,23 +260,23 @@ open class ShowJourneyRoadmapViewController: UIViewController, ShowJourneyRoadma
     }
     
     private func getBssStep(section: ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionClean) -> UIView {
-        let view = BssStepView(frame: CGRect(x: 0, y: 0, width: 0, height: 50))
+        let bssStepView = BssStepView(frame: CGRect(x: 0, y: 0, width: 0, height: 50))
         
-        view.modeString = section.icon
-        view.type = Section.ModelType.init(rawValue: section.type.rawValue)
+        bssStepView.modeString = section.icon
+        bssStepView.type = Section.ModelType.init(rawValue: section.type.rawValue)
         
         if let poi = section.poi {
-            view.takeName = poi.network
-            view.origin = poi.name
-            view.address = poi.addressName
-            view.realTimeEnabled = section.bssRealTime
-            view.updateStandsClean(poi: poi, type: section.type)
+            bssStepView.takeName = poi.network
+            bssStepView.origin = poi.name
+            bssStepView.address = poi.addressName
+            bssStepView.realTimeEnabled = section.bssRealTime
+            bssStepView.updateStandsClean(poi: poi, type: section.type)
             
             refreshFetchBss(run: section.bssRealTime)
             
-            if poi.stands != nil {
+            if let _ = poi.stands {
                 bssTest.append((poi: poi, notify: { (poi) in
-                    view.updateStandsClean(poi: poi, type: section.type)
+                    bssStepView.updateStandsClean(poi: poi, type: section.type)
                 }))
             }
         }
@@ -287,24 +285,24 @@ open class ShowJourneyRoadmapViewController: UIViewController, ShowJourneyRoadma
     }
     
     private func getRidesharingStep(section: ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionClean) -> UIView {
-        let view = RidesharingStepView(frame: CGRect(x: 0, y: 0, width: 0, height: 100))
+        let ridesharingStepView = RidesharingStepView(frame: CGRect(x: 0, y: 0, width: 0, height: 100))
         
-        view.origin = section.from
-        view.destination = section.to
-        view.time = section.duration
+        ridesharingStepView.origin = section.from
+        ridesharingStepView.destination = section.to
+        ridesharingStepView.time = section.duration
         
-        return view
+        return ridesharingStepView
     }
     
     private func getGenericStep(section: ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionClean) -> UIView {
-        let view = GenericStepView(frame: CGRect(x: 0, y: 0, width: 0, height: 50))
+        let genericStepView = GenericStepView(frame: CGRect(x: 0, y: 0, width: 0, height: 50))
         
-        view.modeString = section.icon
-        view.time = section.duration
-        view.direction = section.to
-        view.paths = section.path
+        genericStepView.modeString = section.icon
+        genericStepView.time = section.duration
+        genericStepView.direction = section.to
+        genericStepView.paths = section.path
         
-        return view
+        return genericStepView
     }
     
     private func getEmission(emission: ShowJourneyRoadmap.GetRoadmap.ViewModel.Emission) {
@@ -377,20 +375,18 @@ open class ShowJourneyRoadmapViewController: UIViewController, ShowJourneyRoadma
         animationTimer?.invalidate()
         animationTimer = Timer.scheduledTimer(timeInterval: 2.0, target: self, selector: #selector(startAnimation), userInfo: nil, repeats: true)
         
-        for subview in scrollView.stackSubviews {
-            if let bssView = subview.view as? BssStepView {
-                bssView.animateRealTime()
-            }
+        let bssStepSubviews = scrollView.selectSubviews(type: BssStepView())
+        for bssStepView in bssStepSubviews {
+            bssStepView.animateRealTime()
         }
     }
     
     private func stopAnimation() {
         animationTimer?.invalidate()
         
-        for subview in scrollView.stackSubviews {
-            if let bssView = subview.view as? BssStepView {
-                bssView.stopRealTimeAnimation()
-            }
+        let bssStepSubviews = scrollView.selectSubviews(type: BssStepView())
+        for bssStepView in bssStepSubviews {
+            bssStepView.stopRealTimeAnimation()
         }
     }
     

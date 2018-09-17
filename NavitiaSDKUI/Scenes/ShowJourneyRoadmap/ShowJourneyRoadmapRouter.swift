@@ -16,9 +16,7 @@ protocol ShowJourneyRoadmapDataPassing {
 }
 
 class ShowJourneyRoadmapRouter: NSObject, ShowJourneyRoadmapRoutingLogic, ShowJourneyRoadmapDataPassing {
+    
   weak var viewController: ShowJourneyRoadmapViewController?
   var dataStore: ShowJourneyRoadmapDataStore?
-  
-  // MARK: Routing
-  
 }

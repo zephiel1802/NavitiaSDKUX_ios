@@ -90,7 +90,7 @@ extension ListRidesharingOffersViewController: UICollectionViewDataSource {
     }
     
     public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: RidesharingOfferCollectionViewCell.identifier, for: indexPath) as? RidesharingOfferCollectionViewCell , let targetRidesharingOffer = self.viewModel?.displayedRidesharingOffers[safe: indexPath.row] {
+        if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: RidesharingOfferCollectionViewCell.identifier, for: indexPath) as? RidesharingOfferCollectionViewCell, let targetRidesharingOffer = self.viewModel?.displayedRidesharingOffers[safe: indexPath.row] {
             cell.network = targetRidesharingOffer.network
             cell.departureDate = targetRidesharingOffer.departure
             cell.setPicture(url: targetRidesharingOffer.driverPictureURL)
