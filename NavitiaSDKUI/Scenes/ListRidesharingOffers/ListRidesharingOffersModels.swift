@@ -15,6 +15,7 @@ enum ListRidesharingOffers {
         struct Request {}
         struct Response {
             var journey: Journey
+            var ridesharingJourneys: [Journey]?
             var disruptions: [Disruption]?
             var notes: [Note]?
             var context: Context

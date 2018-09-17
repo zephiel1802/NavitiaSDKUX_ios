@@ -21,26 +21,11 @@ class ListRidesharingOffersPresenter: ListRidesharingOffersPresentationLogic {
             return
         }
         
-        let ridesharingJourneys = getRidesharingJourneys(journeySections: sections)
-        let displayedRidesharingOffers = getRidesharingOffers(ridesharingJourneys: ridesharingJourneys)
+        let displayedRidesharingOffers = getRidesharingOffers(ridesharingJourneys: response.ridesharingJourneys)
         
         let journeySummary = ListRidesharingOffers.GetRidesharingOffers.ViewModel.JourneySummary(duration: duration, sections: sections)
         let viewModel = ListRidesharingOffers.GetRidesharingOffers.ViewModel(journeySummary: journeySummary, displayedRidesharingOffers: displayedRidesharingOffers)
         viewController?.displayRidesharingOffers(viewModel: viewModel)
-    }
-    
-    private func getRidesharingJourneys(journeySections: [Section]?) -> [Journey]? {
-        guard let journeySections = journeySections else {
-            return nil
-        }
-        
-        for section in journeySections {
-            if let mode = section.mode, mode == .ridesharing {
-                return section.ridesharingJourneys
-            }
-        }
-        
-        return nil
     }
     
     private func getRidesharingSection(ridesharingJourney: Journey?) -> Section? {
@@ -76,7 +61,15 @@ class ListRidesharingOffersPresenter: ListRidesharingOffersPresentationLogic {
                 let seatsCount = ridesharingSection.ridesharingInformations?.seats?.available
                 let price = journey.fare?.total?.value ?? ""
                 
-                let ridesharingOffer = ListRidesharingOffers.GetRidesharingOffers.ViewModel.DisplayedRidesharingOffer(network: network, departure: departure, driverPictureURL: driverPictureURL, driverNickname: driverNickname, driverGender: driverGender, rating: rating, ratingCount: ratingCount, seatsCount: seatsCount, price: price)
+                let ridesharingOffer = ListRidesharingOffers.GetRidesharingOffers.ViewModel.DisplayedRidesharingOffer(network: network,
+                                                                                                                      departure: departure,
+                                                                                                                      driverPictureURL: driverPictureURL,
+                                                                                                                      driverNickname: driverNickname,
+                                                                                                                      driverGender: driverGender,
+                                                                                                                      rating: rating,
+                                                                                                                      ratingCount: ratingCount,
+                                                                                                                      seatsCount: seatsCount,
+                                                                                                                      price: price)
                 displayedRidesharingOffers.append(ridesharingOffer)
             }
         }

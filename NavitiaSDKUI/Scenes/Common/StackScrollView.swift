@@ -38,6 +38,20 @@ class StackScrollView: UIScrollView, StackScrollViewProtocol {
         contentSize.height = getContentSizeHeight()
     }
     
+    public func selectSubviews<T>(type: T) -> [T] {
+        var subviewsSelected = [T]()
+        
+        for (subview, _) in stackSubviews {
+            if subview is T {
+                subviewsSelected.append(subview as! T)
+            }
+        }
+        
+        return subviewsSelected
+    }
+    
+    // MARK: Frame
+    
     private func getViewOriginY(index: Int, margin: UIEdgeInsets) -> CGFloat {
         if index == 0 {
             return margin.top

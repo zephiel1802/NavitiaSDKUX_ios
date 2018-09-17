@@ -18,6 +18,7 @@ protocol ShowJourneyRoadmapBusinessLogic {
 protocol ShowJourneyRoadmapDataStore {
     
     var journey: Journey? { get set }
+    var journeyRidesharing: Journey? { get set }
     var disruptions: [Disruption]? { get set }
     var notes: [Note]? { get set }
     var context: Context? { get set }
@@ -28,6 +29,7 @@ class ShowJourneyRoadmapInteractor: ShowJourneyRoadmapBusinessLogic, ShowJourney
     var presenter: ShowJourneyRoadmapPresentationLogic?
     var journeysWorker = JourneysWorker()
     var journey: Journey?
+    var journeyRidesharing: Journey?
     var disruptions: [Disruption]?
     var notes: [Note]?
     var context: Context?
@@ -39,7 +41,7 @@ class ShowJourneyRoadmapInteractor: ShowJourneyRoadmapBusinessLogic, ShowJourney
             return
         }
         
-        let response = ShowJourneyRoadmap.GetRoadmap.Response(journey: journey, disruptions: disruptions, notes: notes, context: context)
+        let response = ShowJourneyRoadmap.GetRoadmap.Response(journey: journey, journeyRidesharing: journeyRidesharing, disruptions: disruptions, notes: notes, context: context)
         presenter?.presentRoadmap(response: response)
     }
     

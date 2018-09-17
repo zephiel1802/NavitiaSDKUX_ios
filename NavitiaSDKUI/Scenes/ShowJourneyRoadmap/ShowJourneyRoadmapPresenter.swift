@@ -19,6 +19,7 @@ class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
     weak var viewController: ShowJourneyRoadmapDisplayLogic?
     
     // MARK: Presenter
+
     
     func presentRoadmap(response: ShowJourneyRoadmap.GetRoadmap.Response) {
         guard let departure = getDepartureViewModel(journey: response.journey),
@@ -28,12 +29,14 @@ class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
             return
         }
 
-        let viewModel = ShowJourneyRoadmap.GetRoadmap.ViewModel(departure: departure,
+        let viewModel = ShowJourneyRoadmap.GetRoadmap.ViewModel(ridesharing: getRidesharing(journeyRidesharing: response.journeyRidesharing),
+                                                                departure: departure,
                                                                 sections: sectionsClean,
                                                                 arrival: arrival,
                                                                 emission: emission,
                                                                 disruptions: response.disruptions,
-                                                                journey: response.journey)
+                                                                journey: response.journey,
+                                                                ridesharingJourneys: response.journeyRidesharing)
         
         viewController?.displayRoadmap(viewModel: viewModel)
     }
@@ -51,6 +54,56 @@ class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
         }
         
         response.notify(poi)
+    }
+    
+    // MARK: Ridesharing
+    
+    private func getRidesharingSection(ridesharingJourney: Journey?) -> Section? {
+        guard let ridesharingJourney = ridesharingJourney, let ridesharingSections = ridesharingJourney.sections else {
+            return nil
+        }
+        
+        for section in ridesharingSections {
+            if section.type == .ridesharing {
+                return section
+            }
+        }
+        
+        return nil
+    }
+    
+    private func getRidesharing(journeyRidesharing: Journey?) -> ShowJourneyRoadmap.GetRoadmap.ViewModel.Ridesharing? {
+        guard let ridesharingSection = getRidesharingSection(ridesharingJourney: journeyRidesharing) else {
+            return nil
+        }
+        
+        let network = ridesharingSection.ridesharingInformations?.network ?? ""
+        let departure = ridesharingSection.departureDateTime?.toDate(format: Configuration.date)?.toString(format: Configuration.timeRidesharing) ?? ""
+        let driverPictureURL = ridesharingSection.ridesharingInformations?.driver?.image ?? ""
+        let driverNickname = ridesharingSection.ridesharingInformations?.driver?.alias ?? ""
+        let driverGender = ridesharingSection.ridesharingInformations?.driver?.gender?.rawValue ?? ""
+        let rating = ridesharingSection.ridesharingInformations?.driver?.rating?.value ?? 0
+        let ratingCount = ridesharingSection.ridesharingInformations?.driver?.rating?.count ?? 0
+        let departureAddress = ridesharingSection.from?.name ?? ""
+        let arrivalAddress = ridesharingSection.to?.name ?? ""
+        let seatsCount = ridesharingSection.ridesharingInformations?.seats?.available
+        let price = journeyRidesharing?.fare?.total?.value ?? ""
+        let deepLink = ridesharingSection.links?[safe: 0]?.href ?? ""
+        
+        let ridesharingViewModel = ShowJourneyRoadmap.GetRoadmap.ViewModel.Ridesharing(network: network,
+                                                                                       departure: departure,
+                                                                                       driverPictureURL: driverPictureURL,
+                                                                                       driverNickname: driverNickname,
+                                                                                       driverGender: driverGender,
+                                                                                       rating: rating,
+                                                                                       ratingCount: ratingCount,
+                                                                                       departureAddress: departureAddress,
+                                                                                       arrivalAddress: arrivalAddress,
+                                                                                       seatsCount: seatsCount,
+                                                                                       price: price,
+                                                                                       deepLink: deepLink)
+
+        return ridesharingViewModel
     }
     
     // MARK: DepartureViewModel

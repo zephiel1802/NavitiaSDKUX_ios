@@ -18,6 +18,7 @@ enum ShowJourneyRoadmap
         }
         struct Response {
             var journey: Journey
+            var journeyRidesharing: Journey?
             var disruptions: [Disruption]?
             var notes: [Note]?
             var context: Context
@@ -33,6 +34,20 @@ enum ShowJourneyRoadmap
                 var information: String
                 var time: String
                 var calorie: String?
+            }
+            struct Ridesharing {
+                var network: String
+                var departure: String
+                var driverPictureURL: String
+                var driverNickname: String
+                var driverGender: String
+                var rating: Float
+                var ratingCount: Int32
+                var departureAddress: String
+                var arrivalAddress: String
+                var seatsCount: Int32?
+                var price: String
+                var deepLink: String
             }
             struct SectionClean {
                 enum ModelType: String {
@@ -98,8 +113,10 @@ enum ShowJourneyRoadmap
                 var stopDate: [String]
                 var displayInformations: DisplayInformations
                 var waiting: String?
-                // A reconstruire
-                var disruptions: [Disruption]
+                
+                var disruptions: [Disruption] // A reconstruire
+                //var notes: [Note] // A Faire
+
                 var poi: Poi?
                 var icon: String
                 var bssRealTime: Bool
@@ -112,14 +129,16 @@ enum ShowJourneyRoadmap
                 var car: Double
             }
 
+            var ridesharing: Ridesharing?
             var departure: DepartureArrival
             var sections: [SectionClean]?
             var arrival: DepartureArrival
             var emission: Emission
             
             // Provisoire
-            var disruptions: [Disruption]?
-            var journey: Journey
+            var disruptions: [Disruption]? // Besoin pour la frise
+            var journey: Journey // Besoin pour la frise
+            var ridesharingJourneys: Journey? // Besoin pour la map
         }
     }
     

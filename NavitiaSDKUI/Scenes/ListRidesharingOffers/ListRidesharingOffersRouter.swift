@@ -9,7 +9,7 @@ import Foundation
 
 protocol ListRidesharingOffersRoutingLogic {
     
-    func routeToShowJourneyRoadmap()
+    func routeToShowJourneyRoadmap(row: Int)
 }
 
 protocol ListRidesharingOffersDataPassing {
@@ -24,7 +24,7 @@ class ListRidesharingOffersRouter: NSObject, ListRidesharingOffersRoutingLogic, 
     
     // MARK: Routing
     
-    func routeToShowJourneyRoadmap() {
+    func routeToShowJourneyRoadmap(row: Int) {
         guard let viewController = viewController, let dataStore = dataStore else {
             return
         }
@@ -32,7 +32,7 @@ class ListRidesharingOffersRouter: NSObject, ListRidesharingOffersRoutingLogic, 
         let destinationVC = viewController.storyboard?.instantiateViewController(withIdentifier: ShowJourneyRoadmapViewController.identifier) as! ShowJourneyRoadmapViewController
         var destinationDS = destinationVC.router!.dataStore!
         
-        passDataToShowJourneyRoadmap(source: dataStore, destination: &destinationDS)
+        passDataToShowJourneyRoadmap(source: dataStore, destination: &destinationDS, row: row)
         navigateToShowJourneyRoadmap(source: viewController, destination: destinationVC)
     }
     
@@ -44,8 +44,9 @@ class ListRidesharingOffersRouter: NSObject, ListRidesharingOffersRoutingLogic, 
     
     // MARK: Passing Data
     
-    func passDataToShowJourneyRoadmap(source: ListRidesharingOffersDataStore, destination: inout ShowJourneyRoadmapDataStore) {
+    func passDataToShowJourneyRoadmap(source: ListRidesharingOffersDataStore, destination: inout ShowJourneyRoadmapDataStore, row: Int) {
         destination.journey = source.journey
+        destination.journeyRidesharing = source.ridesharingJourneys?[safe: row]
         destination.disruptions = source.disruptions
         destination.notes = source.notes
         destination.context = source.context

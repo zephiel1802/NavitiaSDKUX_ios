@@ -100,6 +100,7 @@ extension ListRidesharingOffersViewController: UICollectionViewDataSource {
             cell.setFullStar(targetRidesharingOffer.rating)
             cell.setSeatsCount(targetRidesharingOffer.seatsCount)
             cell.price = targetRidesharingOffer.price
+            cell.row = indexPath.row
             cell.delegate = self
             
             return cell
@@ -124,6 +125,10 @@ extension ListRidesharingOffersViewController: UICollectionViewDelegateFlowLayou
 extension ListRidesharingOffersViewController: RidesharingOfferCollectionViewCellDelegate {
     
     func onBookButtonClicked(_ journeyRidesharingCollectionViewCell: RidesharingOfferCollectionViewCell) {
-        print("onBookButtonClicked CALLED")
+        guard let row = journeyRidesharingCollectionViewCell.row else {
+            return
+        }
+        
+        router?.routeToShowJourneyRoadmap(row: row)
     }
 }
