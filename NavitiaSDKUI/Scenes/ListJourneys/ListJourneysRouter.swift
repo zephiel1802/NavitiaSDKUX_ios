@@ -26,24 +26,24 @@ internal class ListJourneysRouter: NSObject, ListJourneysViewRoutingLogic, ListJ
     // MARK: Routing
     
     func routeToListRidesharingOffers(indexPath: IndexPath) {
-        guard let viewController = viewController, let dataStore = dataStore else {
+        guard let viewController = viewController,
+            let dataStore = dataStore,
+            let destinationVC = viewController.storyboard?.instantiateViewController(withIdentifier: ListRidesharingOffersViewController.identifier) as? ListRidesharingOffersViewController,
+            var destinationDS = destinationVC.router?.dataStore else {
             return
         }
-        
-        let destinationVC = viewController.storyboard?.instantiateViewController(withIdentifier: ListRidesharingOffersViewController.identifier) as! ListRidesharingOffersViewController
-        var destinationDS = destinationVC.router!.dataStore!
         
         passDataToListRidesharingOffers(source: dataStore, destination: &destinationDS, index: indexPath)
         navigateToListRidesharingOffers(source: viewController, destination: destinationVC)
     }
     
     func routeToJourneySolutionRoadmap(indexPath: IndexPath) {
-        guard let viewController = viewController, let dataStore = dataStore else {
+        guard let viewController = viewController,
+            let dataStore = dataStore,
+            let destinationVC = viewController.storyboard?.instantiateViewController(withIdentifier: ShowJourneyRoadmapViewController.identifier) as? ShowJourneyRoadmapViewController,
+            var destinationDS = destinationVC.router?.dataStore else {
             return
         }
-        
-        let destinationVC = viewController.storyboard?.instantiateViewController(withIdentifier: ShowJourneyRoadmapViewController.identifier) as! ShowJourneyRoadmapViewController
-        var destinationDS = destinationVC.router!.dataStore!
         
         passDataToJourneySolutionRoadmap(source: dataStore, destination: &destinationDS, index: indexPath)
         navigateToJourneySolutionRoadmap(source: viewController, destination: destinationVC)

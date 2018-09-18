@@ -9,15 +9,15 @@ import Foundation
 
 public struct Icon {
     
-    internal var _value: String
+    internal var value: String
     
     public init(_ value: String) {
-        _value = value
+        self.value = value
     }
     
     var iconFontCode: String {
         get {
-            if let value = iconFontCodes[_value] {
+            if let value = iconFontCodes[value] {
                 return value
             }
             return "\u{ffff}"
@@ -77,7 +77,7 @@ let iconFontCodes:[String: String] = [
 
 class Modes {
     
-    func getModeIcon(section: Section?) -> String {
+    public func getModeIcon(section: Section?) -> String {
         switch section!.type! {
             case .publicTransport:
                 return getPhysicalMode(section: section).lowercased()
@@ -100,7 +100,7 @@ class Modes {
         }
     }
     
-    func getPhysicalMode(section: Section?) -> String {
+    private func getPhysicalMode(section: Section?) -> String {
         let id = getPhysicalModeId(section: section)
         var modeData = id.split(separator: ":").map(String.init)
         return modeData[1]

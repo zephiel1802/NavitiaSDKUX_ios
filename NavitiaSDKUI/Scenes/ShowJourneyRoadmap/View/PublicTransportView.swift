@@ -68,7 +68,7 @@ class PublicTransportView: UIView {
         }
     }
     
-    var stations: [String] = [] {
+    var stations = [String]() {
         didSet {
             if !stations.isEmpty {
                 stationButton.isHidden = false

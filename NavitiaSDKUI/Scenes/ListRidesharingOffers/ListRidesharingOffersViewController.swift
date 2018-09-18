@@ -30,21 +30,25 @@ internal class ListRidesharingOffersViewController: UIViewController, ListRidesh
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         
-        _initSDK()
-        _initArchitecture()
+        initArchitecture()
     }
     
-    private func _initSDK() {
-        NavitiaSDKUI.shared.bundle = self.nibBundle
-        UIFont.registerFontWithFilenameString(filenameString: "SDKIcons.ttf", bundle: NavitiaSDKUI.shared.bundle)
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        title = "carpooling".localized(withComment: "Carpooling", bundle: NavitiaSDKUI.shared.bundle)
+        
+        registerCollectionView()
+        
+        getRidesharingOffers()
     }
     
-    private func _initArchitecture() {
+    private func initArchitecture() {
         let viewController = self
         let interactor = ListRidesharingOffersInteractor()
         let presenter = ListRidesharingOffersPresenter()
         let router = ListRidesharingOffersRouter()
-
+        
         viewController.interactor = interactor
         viewController.router = router
         interactor.presenter = presenter
@@ -53,24 +57,19 @@ internal class ListRidesharingOffersViewController: UIViewController, ListRidesh
         router.dataStore = interactor
     }
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        title = "carpooling".localized(withComment: "Carpooling", bundle: NavitiaSDKUI.shared.bundle)
+    private func registerCollectionView() {
         ridesharingOffersCollectionView.register(UINib(nibName: RidesharingOfferCollectionViewCell.identifier, bundle: self.nibBundle), forCellWithReuseIdentifier: RidesharingOfferCollectionViewCell.identifier)
-        
-        getRidesharingOffers()
     }
     
     func displayRidesharingOffers(viewModel: ListRidesharingOffers.GetRidesharingOffers.ViewModel) {
         self.viewModel = viewModel
-        
         self.journeySummaryView.setRidesharingData(duration: viewModel.journeySummary.duration, sections: viewModel.journeySummary.sections)
         self.ridesharingOffersCollectionView.reloadData()
     }
     
     private func getRidesharingOffers() {
         let ridesharingOffersRequest = ListRidesharingOffers.GetRidesharingOffers.Request()
+        
         interactor?.getRidesharingOffers(request: ridesharingOffersRequest)
     }
 }
@@ -114,6 +113,7 @@ extension ListRidesharingOffersViewController: UICollectionViewDelegateFlowLayou
     
     public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         var safeAreaWidth: CGFloat = 20.0
+        
         if #available(iOS 11.0, *) {
             safeAreaWidth += self.ridesharingOffersCollectionView.safeAreaInsets.left + self.ridesharingOffersCollectionView.safeAreaInsets.right
         }

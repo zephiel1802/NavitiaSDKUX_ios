@@ -14,27 +14,34 @@ class JourneySolutionCollectionViewCell: UICollectionViewCell {
     @IBOutlet var durationWalkerLabel: UILabel!
     @IBOutlet weak var journeySummaryView: JourneySummaryView!
     @IBOutlet weak var arrowLabel: UILabel!
-    
     @IBOutlet var durationTopContraint: NSLayoutConstraint!
     @IBOutlet var durationBottomContraint: NSLayoutConstraint!
     @IBOutlet var durationLeadingContraint: NSLayoutConstraint!
     
-    func setup(displayedJourney: ListJourneys.FetchJourneys.ViewModel.DisplayedJourney,
-                displayedDisruptions: [Disruption]) {
+    override func awakeFromNib() {
+        super.awakeFromNib()
         
-        // 1
-        arrowLabel.attributedText = NSMutableAttributedString()
-            .icon("arrow-right",
-                  color: Configuration.Color.main,
-                  size: 15)
-        // 2
         addShadow()
+    }
+    
+    static var nib:UINib {
+        return UINib(nibName: identifier, bundle: nil)
+    }
+    
+    static var identifier: String {
+        return String(describing: self)
+    }
+    
+    internal func setup(displayedJourney: ListJourneys.FetchJourneys.ViewModel.DisplayedJourney,
+                        displayedDisruptions: [Disruption]) {
+        setArrow()
         
-        // 3
-        dateTimeLabel.attributedText = displayedJourney.dateTime
+        dateTime = displayedJourney.dateTime
+        
+        //durationJourney = ""
         durationLabel.attributedText = displayedJourney.duration
         
-        // 4
+        //durationWalker = ""
         if let walkingInformation = displayedJourney.walkingInformation {
             durationWalkerLabel.attributedText = walkingInformation
             durationWalkerLabel.isHidden = false
@@ -48,21 +55,59 @@ class JourneySolutionCollectionViewCell: UICollectionViewCell {
             durationLeadingContraint.isActive = false
         }
         
-        // 5
+        setJourneySummaryView(displayedJourney: displayedJourney, displayedDisruptions: displayedDisruptions)
+    }
+    
+    private func setArrow() {
+        arrowLabel.attributedText = NSMutableAttributedString()
+            .icon("arrow-right",
+                  color: Configuration.Color.main,
+                  size: 15)
+    }
+    
+    private func setJourneySummaryView(displayedJourney: ListJourneys.FetchJourneys.ViewModel.DisplayedJourney,
+                                       displayedDisruptions: [Disruption]) {
         journeySummaryView.disruptions = displayedDisruptions
         journeySummaryView.addSections(displayedJourney.sections)
     }
     
-    override func awakeFromNib() {
-        super.awakeFromNib()
+    public var dateTime: String? {
+        didSet {
+            guard let dateTime = dateTime else {
+                return
+            }
+            
+            let attributedText = NSMutableAttributedString().bold(dateTime)
+            
+            dateTimeLabel.attributedText = attributedText
+        }
     }
     
-    static var nib:UINib {
-        return UINib(nibName: identifier, bundle: nil)
+    public var durationJourney: String? {
+        didSet {
+//            guard let durationJourney = durationJourney else {
+//                return
+//            }
+//
+//            let attributedText = NSMutableAttributedString().bold(durationJourney)
+            // durationLabel.attributedText =
+        }
     }
     
-    static var identifier: String {
-        return String(describing: self)
+    public var durationWalker: String? {
+        didSet {
+            if let durationWalker = durationWalker {
+                // durationWalkerLabel.attributedText
+                durationWalkerLabel.isHidden = false
+                durationTopContraint.isActive = true
+                durationBottomContraint.isActive = true
+                durationLeadingContraint.isActive = true
+            } else {
+                durationWalkerLabel.isHidden = true
+                durationTopContraint.isActive = false
+                durationBottomContraint.isActive = false
+                durationLeadingContraint.isActive = false
+            }
+        }
     }
-
 }

@@ -42,8 +42,8 @@ class StackScrollView: UIScrollView, StackScrollViewProtocol {
         var subviewsSelected = [T]()
         
         for (subview, _) in stackSubviews {
-            if subview is T {
-                subviewsSelected.append(subview as! T)
+            if let subview = subview as? T {
+                subviewsSelected.append(subview)
             }
         }
         

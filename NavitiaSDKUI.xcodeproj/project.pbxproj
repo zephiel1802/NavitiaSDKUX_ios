@@ -309,7 +309,6 @@
 		84D0FA94210094A900EB420A /* Section+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D0FA93210094A900EB420A /* Section+Extension.swift */; };
 		84D0FA96210094B300EB420A /* DisruptionItemView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84D0FA95210094B300EB420A /* DisruptionItemView.xib */; };
 		84D0FA98210094B900EB420A /* DisruptionItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D0FA97210094B900EB420A /* DisruptionItemView.swift */; };
-		84E350F920776F1100E9BA46 /* DisruptionStepView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84E350F820776F1100E9BA46 /* DisruptionStepView.xib */; };
 		84E37EAA2074FF7B001D61E5 /* JourneySolutionLoadCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E37EA92074FF7B001D61E5 /* JourneySolutionLoadCollectionViewCell.swift */; };
 		84EB9B6021426C7200D61E59 /* ShowJourneyRoadmapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8451DAA920650C9200CFA1E4 /* ShowJourneyRoadmapViewController.swift */; };
 		84EB9B622142A7A200D61E59 /* StackScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84EB9B612142A7A200D61E59 /* StackScrollView.swift */; };
@@ -632,7 +631,6 @@
 		84D0FA93210094A900EB420A /* Section+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Section+Extension.swift"; sourceTree = "<group>"; };
 		84D0FA95210094B300EB420A /* DisruptionItemView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DisruptionItemView.xib; sourceTree = "<group>"; };
 		84D0FA97210094B900EB420A /* DisruptionItemView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DisruptionItemView.swift; sourceTree = "<group>"; };
-		84E350F820776F1100E9BA46 /* DisruptionStepView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DisruptionStepView.xib; sourceTree = "<group>"; };
 		84E37EA92074FF7B001D61E5 /* JourneySolutionLoadCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JourneySolutionLoadCollectionViewCell.swift; sourceTree = "<group>"; };
 		84EB9B612142A7A200D61E59 /* StackScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StackScrollView.swift; sourceTree = "<group>"; };
 		84FABE112074C7FC00BDDE9D /* Icons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Icons.swift; sourceTree = "<group>"; };
@@ -683,7 +681,6 @@
 				8433F3A1207FAF22007DBBCE /* AlertView.xib */,
 				8422B469206A33540097E6C9 /* JourneySummaryView.xib */,
 				8422B463206A30300097E6C9 /* JourneySummaryPartView.xib */,
-				84E350F820776F1100E9BA46 /* DisruptionStepView.xib */,
 				84BC297D207E66CC0073F198 /* StationsView.xib */,
 			);
 			path = Interface;
@@ -792,22 +789,22 @@
 		8451DA5B2065062300CFA1E4 /* Extension */ = {
 			isa = PBXGroup;
 			children = (
-				841EFD9D2135A047004A313B /* Journey+Extension.swift */,
-				8476DD59208891CB006CB506 /* Collection+Extension.swift */,
-				8454D451206942B800C97D2F /* Date+Extension.swift */,
-				8430275020BBE72B005AD743 /* Disruption+Extension.swift */,
-				31336E16211DF06A00D197E2 /* Int+Extension.swift */,
-				8433B87A206BE2A900EC51F9 /* Int32+Extension.swift */,
-				8430274E20BBE70E005AD743 /* Message+Extension.swift */,
-				84339A81206CC6D900F2CB65 /* NSMutableAttributedString+Extension.swift */,
-				84D0FA93210094A900EB420A /* Section+Extension.swift */,
-				8476DD5720888EE8006CB506 /* StackView+Extension.swift */,
-				8454D44F2069429500C97D2F /* String+Extension.swift */,
+				3126566820B3008700D50F4B /* UIViewController+Extension.swift */,
+				84737E9E20879A3C002D3748 /* UIView+Extension.swift */,
+				84737E9C2087995B002D3748 /* UIImageView+Extension.swift */,
 				3126566420B2FA0A00D50F4B /* UIColor+Extension.swift */,
 				84FABE132074CB2300BDDE9D /* UIFont+Extension.swift */,
-				84737E9C2087995B002D3748 /* UIImageView+Extension.swift */,
-				84737E9E20879A3C002D3748 /* UIView+Extension.swift */,
-				3126566820B3008700D50F4B /* UIViewController+Extension.swift */,
+				31336E16211DF06A00D197E2 /* Int+Extension.swift */,
+				8454D44F2069429500C97D2F /* String+Extension.swift */,
+				8433B87A206BE2A900EC51F9 /* Int32+Extension.swift */,
+				8454D451206942B800C97D2F /* Date+Extension.swift */,
+				84339A81206CC6D900F2CB65 /* NSMutableAttributedString+Extension.swift */,
+				841EFD9D2135A047004A313B /* Journey+Extension.swift */,
+				8476DD59208891CB006CB506 /* Collection+Extension.swift */,
+				8430274E20BBE70E005AD743 /* Message+Extension.swift */,
+				84D0FA93210094A900EB420A /* Section+Extension.swift */,
+				8476DD5720888EE8006CB506 /* StackView+Extension.swift */,
+				8430275020BBE72B005AD743 /* Disruption+Extension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -826,8 +823,8 @@
 				8422B461206A30180097E6C9 /* View */,
 				8422B462206A30200097E6C9 /* Interface */,
 				8433F39F207FAECF007DBBCE /* AlertViewController.swift */,
-				8476DD5320888154006CB506 /* CustomAnnotation.swift */,
 				84EB9B612142A7A200D61E59 /* StackScrollView.swift */,
+				8476DD5320888154006CB506 /* CustomAnnotation.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -843,13 +840,13 @@
 		8451DAA220650BF200CFA1E4 /* ListJourneys */ = {
 			isa = PBXGroup;
 			children = (
-				841EFD9021359F56004A313B /* ListJourneysInteractor.swift */,
-				841EFD8F21359F56004A313B /* ListJourneysModels.swift */,
-				841EFD8E21359F56004A313B /* ListJourneysPresenter.swift */,
-				841EFD9221359F56004A313B /* ListJourneysRouter.swift */,
-				841EFD9121359F56004A313B /* ListJourneysViewController.swift */,
 				8451DABA206516C500CFA1E4 /* View */,
 				8451DABD2065176900CFA1E4 /* Interface */,
+				841EFD9121359F56004A313B /* ListJourneysViewController.swift */,
+				841EFD9021359F56004A313B /* ListJourneysInteractor.swift */,
+				841EFD8E21359F56004A313B /* ListJourneysPresenter.swift */,
+				841EFD8F21359F56004A313B /* ListJourneysModels.swift */,
+				841EFD9221359F56004A313B /* ListJourneysRouter.swift */,
 			);
 			path = ListJourneys;
 			sourceTree = "<group>";
@@ -1210,10 +1207,10 @@
 				84827A87214BBAA800CB9513 /* View */,
 				84827A83214BBAA800CB9513 /* Interface */,
 				84827A85214BBAA800CB9513 /* ListRidesharingOffersViewController.swift */,
-				84827A86214BBAA800CB9513 /* ListRidesharingOffersPresenter.swift */,
 				84827A89214BBAA800CB9513 /* ListRidesharingOffersInteractor.swift */,
-				84827A8A214BBAA800CB9513 /* ListRidesharingOffersRouter.swift */,
+				84827A86214BBAA800CB9513 /* ListRidesharingOffersPresenter.swift */,
 				84827A8B214BBAA800CB9513 /* ListRidesharingOffersModels.swift */,
+				84827A8A214BBAA800CB9513 /* ListRidesharingOffersRouter.swift */,
 			);
 			path = ListRidesharingOffers;
 			sourceTree = "<group>";
@@ -1248,14 +1245,14 @@
 		84AFDB8821417D8800858D42 /* ShowJourneyRoadmap */ = {
 			isa = PBXGroup;
 			children = (
+				8451DAB8206516BC00CFA1E4 /* View */,
+				8451DABB2065175000CFA1E4 /* Interface */,
+				8451DAA920650C9200CFA1E4 /* ShowJourneyRoadmapViewController.swift */,
 				84AFDB8E21417E6600858D42 /* ShowJourneyRoadmapInteractor.swift */,
 				84AFDB8921417E6600858D42 /* ShowJourneyRoadmapPresenter.swift */,
 				84AFDB8C21417E6600858D42 /* ShowJourneyRoadmapModels.swift */,
-				8451DAA920650C9200CFA1E4 /* ShowJourneyRoadmapViewController.swift */,
 				84AFDB8B21417E6600858D42 /* ShowJourneyRoadmapRouter.swift */,
 				8476DD552088819C006CB506 /* JourneyPathOverlays.swift */,
-				8451DAB8206516BC00CFA1E4 /* View */,
-				8451DABB2065175000CFA1E4 /* Interface */,
 			);
 			path = ShowJourneyRoadmap;
 			sourceTree = "<group>";
@@ -1366,7 +1363,6 @@
 				84BC297E207E66CC0073F198 /* StationsView.xib in Resources */,
 				317D6C77211091CE00F36242 /* GenericStepView.xib in Resources */,
 				8451DAC32065338B00CFA1E4 /* Journey.storyboard in Resources */,
-				84E350F920776F1100E9BA46 /* DisruptionStepView.xib in Resources */,
 				31336E032114B07200D197E2 /* BssStepView.xib in Resources */,
 				8422B45D206A2AE00097E6C9 /* RidesharingInformationCollectionViewCell.xib in Resources */,
 				84FABE162074F76600BDDE9D /* JourneySolutionLoadCollectionViewCell.xib in Resources */,

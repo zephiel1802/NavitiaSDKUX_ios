@@ -10,7 +10,6 @@ import UIKit
 protocol ListJourneysBusinessLogic {
     
     func fetchJourneys(request: ListJourneys.FetchJourneys.Request)
-    
 }
 
 protocol ListJourneysDataStore {
@@ -20,14 +19,12 @@ protocol ListJourneysDataStore {
     var disruptions: [Disruption]? { get }
     var notes: [Note]? { get }
     var context: Context? { get }
-    
 }
 
 internal class ListJourneysInteractor: ListJourneysBusinessLogic, ListJourneysDataStore {
 
     var presenter: ListJourneysPresentationLogic?
     var journeysWorker = JourneysWorker()
-    
     var journeys: [Journey]?
     var ridesharingJourneys: [Journey]?
     var disruptions: [Disruption]?
@@ -37,7 +34,7 @@ internal class ListJourneysInteractor: ListJourneysBusinessLogic, ListJourneysDa
     // MARK: - Fetch Journey
     
     func fetchJourneys(request: ListJourneys.FetchJourneys.Request) {
-        presenter?.presentFetchedSeachInformation(journeysRequest: request.journeysRequest)
+        presenter?.presentFetchedSearchInformation(journeysRequest: request.journeysRequest)
         
         journeysWorker.fetchJourneys(journeysRequest: request.journeysRequest) { (journeys, ridesharings, disruptions, notes, context) in
             self.journeys = journeys
@@ -47,11 +44,10 @@ internal class ListJourneysInteractor: ListJourneysBusinessLogic, ListJourneysDa
             self.context = context
             
             let response = ListJourneys.FetchJourneys.Response(journeysRequest: request.journeysRequest,
-                                                                  journeys: (journeys, withRidesharing: ridesharings),
-                                                                  disruptions: disruptions)
+                                                               journeys: (journeys, withRidesharing: ridesharings),
+                                                               disruptions: disruptions)
             
             self.presenter?.presentFetchedJourneys(response: response)
         }
     }
-    
 }

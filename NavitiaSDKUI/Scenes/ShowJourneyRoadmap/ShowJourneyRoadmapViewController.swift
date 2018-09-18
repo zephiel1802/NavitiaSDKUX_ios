@@ -31,13 +31,13 @@ open class ShowJourneyRoadmapViewController: UIViewController, ShowJourneyRoadma
     var sectionsPolylines = [SectionPolyline]()
     let locationManager = CLLocationManager()
 
-    // Bss Real Time - Ça marche mais à revoir
+    // Bss Real Time
     var animationTimer: Timer?
     var standBikeTime: Timer?
     var bssTest = [(poi: ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionClean.Poi,
                     notify: ((ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionClean.Poi) -> ()))]()
     
-    // A supprimer
+    // /!\ Remove
     var display = false
     
     required public init?(coder aDecoder: NSCoder) {
@@ -49,7 +49,8 @@ open class ShowJourneyRoadmapViewController: UIViewController, ShowJourneyRoadma
     override open func viewDidLoad() {
         super.viewDidLoad()
         
-        initNavigationBar()
+        title = "roadmap".localized(withComment: "Roadmap", bundle: NavitiaSDKUI.shared.bundle)
+
         initScrollView()
         initLocation()
         
@@ -107,10 +108,6 @@ open class ShowJourneyRoadmapViewController: UIViewController, ShowJourneyRoadma
         router.dataStore = interactor
     }
     
-    private func initNavigationBar() {
-        title = "roadmap".localized(withComment: "Roadmap", bundle: NavitiaSDKUI.shared.bundle)
-    }
-    
     private func initScrollView() {
         if #available(iOS 11.0, *) {
             scrollView?.contentInsetAdjustmentBehavior = .always
@@ -148,7 +145,7 @@ open class ShowJourneyRoadmapViewController: UIViewController, ShowJourneyRoadma
         initMapView()
     }
     
-    // MARK: - Get roadma
+    // MARK: - Get roadmap
     
     private func getRoadmap() {
         let request = ShowJourneyRoadmap.GetRoadmap.Request()
@@ -281,7 +278,7 @@ open class ShowJourneyRoadmapViewController: UIViewController, ShowJourneyRoadma
             }
         }
         
-        return view
+        return bssStepView
     }
     
     private func getRidesharingStep(section: ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionClean) -> UIView {
@@ -318,8 +315,6 @@ open class ShowJourneyRoadmapViewController: UIViewController, ShowJourneyRoadma
             return getPublicTransportStep(section: section)
         case .streetNetwork:
             return getStreetNetworkStep(section: section)
-        case .transfer:
-            return getGenericStep(section: section)
         case .bssRent:
             return getBssStep(section: section)
         case .bssPutBack:

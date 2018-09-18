@@ -27,7 +27,7 @@ enum ListJourneys {
                 var destination: NSMutableAttributedString
             }
             struct DisplayedJourney {
-                var dateTime: NSMutableAttributedString
+                var dateTime: String
                 var duration: NSMutableAttributedString
                 var walkingInformation: NSMutableAttributedString?
                 var sections: [Section]
@@ -38,7 +38,5 @@ enum ListJourneys {
             var displayedRidesharings: [DisplayedJourney]
             var disruptions: [Disruption] // Class: SDK Expert
         }
-        
     }
-    
 }

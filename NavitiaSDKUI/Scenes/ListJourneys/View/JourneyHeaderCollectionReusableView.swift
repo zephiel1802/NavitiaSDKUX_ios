@@ -11,12 +11,6 @@ class JourneyHeaderCollectionReusableView: UICollectionReusableView {
     
     @IBOutlet weak var titleLabel: UILabel!
     
-    public var title: String = "" {
-        didSet {
-            titleLabel.text = title.uppercased()
-        }
-    }
-    
     override func awakeFromNib() {
         super.awakeFromNib()
     }
@@ -29,4 +23,9 @@ class JourneyHeaderCollectionReusableView: UICollectionReusableView {
         return String(describing: self)
     }
     
+    public var title: String = "" {
+        didSet {
+            titleLabel.text = title.uppercased()
+        }
+    }
 }

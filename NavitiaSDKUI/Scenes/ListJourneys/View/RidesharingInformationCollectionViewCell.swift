@@ -14,7 +14,7 @@ class RidesharingInformationCollectionViewCell: UICollectionViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         
-        _setup()
+        setup()
         addShadow()
     }
     
@@ -26,8 +26,7 @@ class RidesharingInformationCollectionViewCell: UICollectionViewCell {
         return String(describing: self)
     }
     
-    private func _setup() {
+    private func setup() {
          messageLabel.text = "carpool_highlight_message".localized(withComment: "Share a car with someone going the same way.", bundle: NavitiaSDKUI.shared.bundle)
     }
-    
 }

@@ -12,7 +12,6 @@ typealias JourneySolutionViewController = ListJourneysViewController
 protocol ListJourneysDisplayLogic: class {
     
     func displayFetchedJourneys(viewModel: ListJourneys.FetchJourneys.ViewModel)
-    
 }
 
 open class ListJourneysViewController: UIViewController, ListJourneysDisplayLogic {
@@ -33,30 +32,37 @@ open class ListJourneysViewController: UIViewController, ListJourneysDisplayLogi
     private var router: (NSObjectProtocol & ListJourneysViewRoutingLogic & ListJourneysDataPassing)?
     private var viewModel: ListJourneys.FetchJourneys.ViewModel?
 
+    // MARK: - Initialization
+    
+    required public init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        
+        initSDK()
+        initArchitecture()
+    }
+    
     override open func viewDidLoad() {
         super.viewDidLoad()
         
-        _initSDK()
-        _initArchitecture()
-        _initHeader()
-        _initCollectionView()
+        title = "journeys".localized(withComment: "Journeys", bundle: NavitiaSDKUI.shared.bundle)
         
-        _fetchJourneys()
+        initNavigationBar()
+        initHeader()
+        initCollectionView()
+
+        fetchJourneys()
     }
     
-    // MARK: - Initialization
-    
-    private func _initSDK() {
+    private func initSDK() {
         NavitiaSDKUI.shared.bundle = self.nibBundle
         UIFont.registerFontWithFilenameString(filenameString: "SDKIcons.ttf", bundle: NavitiaSDKUI.shared.bundle)
     }
     
-    private func _initArchitecture() {
+    private func initArchitecture() {
         let viewController = self
         let interactor = ListJourneysInteractor()
         let presenter = ListJourneysPresenter()
         let router = ListJourneysRouter()
-        
         
         viewController.interactor = interactor
         viewController.router = router
@@ -66,14 +72,15 @@ open class ListJourneysViewController: UIViewController, ListJourneysDisplayLogi
         router.dataStore = interactor
     }
     
-    private func _initHeader() {
-        title = "journeys".localized(withComment: "Journeys", bundle: NavitiaSDKUI.shared.bundle)
+    private func initNavigationBar() {
         addBackButton(targetSelector: #selector(backButtonPressed))
         
         navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarPosition.any, barMetrics: UIBarMetrics.default)
         navigationController?.navigationBar.shadowImage = UIImage()
         navigationController?.navigationBar.barTintColor = Configuration.Color.main
-        
+    }
+    
+    private func initHeader() {
         switchDepartureArrivalImageView.image = UIImage(named: "switch", in: NavitiaSDKUI.shared.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
         switchDepartureArrivalImageView.tintColor = Configuration.Color.main
         
@@ -88,15 +95,15 @@ open class ListJourneysViewController: UIViewController, ListJourneysDisplayLogi
         }
     }
     
-    private func _initCollectionView() {
+    private func initCollectionView() {
         if #available(iOS 11.0, *) {
             collectionView?.contentInsetAdjustmentBehavior = .always
         }
         collectionView.collectionViewLayout.invalidateLayout()
-        _registerCollectionView()
+        registerCollectionView()
     }
     
-    private func _registerCollectionView() {
+    private func registerCollectionView() {
         collectionView.register(UINib(nibName: JourneySolutionCollectionViewCell.identifier, bundle: self.nibBundle), forCellWithReuseIdentifier: JourneySolutionCollectionViewCell.identifier)
         collectionView.register(UINib(nibName: JourneySolutionLoadCollectionViewCell.identifier, bundle: self.nibBundle), forCellWithReuseIdentifier: JourneySolutionLoadCollectionViewCell.identifier)
         collectionView.register(UINib(nibName: RidesharingInformationCollectionViewCell.identifier, bundle: self.nibBundle), forCellWithReuseIdentifier: RidesharingInformationCollectionViewCell.identifier)
@@ -118,18 +125,19 @@ open class ListJourneysViewController: UIViewController, ListJourneysDisplayLogi
         if journeysRequest != nil {
             switchDepartureArrivalButton.isEnabled = false
             journeysRequest!.switchOriginDestination()
-            _fetchJourneys()
+            fetchJourneys()
         }
     }
     
     // MARK: - Fetch journeys
     
-    private func _fetchJourneys() {
+    private func fetchJourneys() {
         guard let journeysRequest = self.journeysRequest else {
             return
         }
 
         let request = ListJourneys.FetchJourneys.Request(journeysRequest: journeysRequest)
+        
         interactor?.fetchJourneys(request: request)
     }
     
@@ -191,11 +199,10 @@ extension ListJourneysViewController: UICollectionViewDataSource, UICollectionVi
     }
     
     public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        // Loading
         guard let viewModel = viewModel else {
             return UICollectionViewCell()
         }
-        
+        // Loading
         if !viewModel.loaded {
             if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: JourneySolutionLoadCollectionViewCell.identifier, for: indexPath) as? JourneySolutionLoadCollectionViewCell {
                 return cell
@@ -324,5 +331,4 @@ extension ListJourneysViewController: UICollectionViewDataSource, UICollectionVi
         // Other
         return CGSize(width: self.collectionView.frame.size.width - safeAreaWidth, height: 130)
     }
-
 }

@@ -19,7 +19,6 @@ class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
     weak var viewController: ShowJourneyRoadmapDisplayLogic?
     
     // MARK: Presenter
-
     
     func presentRoadmap(response: ShowJourneyRoadmap.GetRoadmap.Response) {
         guard let departure = getDepartureViewModel(journey: response.journey),
@@ -89,7 +88,6 @@ class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
         let seatsCount = ridesharingSection.ridesharingInformations?.seats?.available
         let price = journeyRidesharing?.fare?.total?.value ?? ""
         let deepLink = ridesharingSection.links?[safe: 0]?.href ?? ""
-        
         let ridesharingViewModel = ShowJourneyRoadmap.GetRoadmap.ViewModel.Ridesharing(network: network,
                                                                                        departure: departure,
                                                                                        driverPictureURL: driverPictureURL,
@@ -237,7 +235,7 @@ class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
     }
     
     func getStopDate(section: Section) -> [String] {
-        var stopDate: [String] = []
+        var stopDate = [String]()
         
         if let stopDateTimes = section.stopDateTimes {
             for (index, stop) in stopDateTimes.enumerated() {
@@ -280,7 +278,7 @@ class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
     }
     
     private func getSectionsClean(response: ShowJourneyRoadmap.GetRoadmap.Response) -> [ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionClean]? {
-        var sectionsClean: [ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionClean] = []
+        var sectionsClean = [ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionClean]()
         
         if let sections = response.journey.sections {
             for (index, section) in sections.enumerated() {
@@ -355,7 +353,6 @@ class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
         let color = getColor(displayInformations: displayInformations)
         let direction = getDirection(displayInformations: displayInformations)
         let code = getTransportCode(displayInformations: displayInformations)
-        
         let displayInformationsClean = ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionClean.DisplayInformations(commercialMode: commercialMode,
                                                                                                                 color: color,
                                                                                                                 directionTransit: direction,
@@ -368,8 +365,10 @@ class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
     // Disruption - VERIFIER /!\
     
     func getDisruption(section: Section, disruptions: [Disruption]?) -> [Disruption] {
+        var sectionDisruptions = [Disruption]()
+        
         guard let disruptions = disruptions else {
-            return [Disruption]()
+            return sectionDisruptions
         }
         
         if disruptions.count > 0, let displayInformations = section.displayInformations, let displayInformationsLinks = displayInformations.links {
@@ -380,17 +379,18 @@ class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
                 }
             }
             
-            var sectionDisruptions = [Disruption]()
             for disruption in disruptions {
                 if let disruptionId = disruption.id, disruption.applicationPeriods != nil && disruptionLinkIds.contains(disruptionId) {
                     sectionDisruptions.append(getDisruptionWithSortedMessages(disruptionIn: disruption))
                 }
             }
             
-            return getSortedDisruptions(disruptions:sectionDisruptions)
+            let sortedDisruptions = getSortedDisruptions(disruptions:sectionDisruptions)
+            
+            return sortedDisruptions
         }
         
-        return [Disruption]()
+        return sectionDisruptions
     }
     
     fileprivate func getSortedDisruptions(disruptions: [Disruption]) -> [Disruption] {

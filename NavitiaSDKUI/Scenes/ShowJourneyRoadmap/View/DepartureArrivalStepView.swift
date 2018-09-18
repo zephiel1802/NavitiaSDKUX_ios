@@ -19,8 +19,6 @@ class DepartureArrivalStepView: UIView {
     @IBOutlet weak var calorieImageView: UIImageView!
     @IBOutlet weak var calorieLabel: UILabel!
     
-    var _type: TypeStep?
-    
     override init(frame: CGRect) {
         super.init(frame: frame)
         _setup()

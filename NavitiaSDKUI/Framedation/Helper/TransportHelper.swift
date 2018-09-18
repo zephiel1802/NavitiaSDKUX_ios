@@ -7,6 +7,7 @@
 
 import Foundation
 
+
 enum ModeTransport: String {
     case bike = "bike"
     case ferry = "ferry"
@@ -39,9 +40,4 @@ enum TypeDisruption: String {
     case blocking
     case nonblocking
     case information
-}
-
-enum TypeStep: String {
-    case departure
-    case arrival
 }

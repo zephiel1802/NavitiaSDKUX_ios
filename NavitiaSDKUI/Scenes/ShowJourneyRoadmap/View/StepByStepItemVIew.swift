@@ -43,13 +43,13 @@ class StepByStepItemView: UIView {
     
     var pathDirection: Int32 = 0 {
         didSet {
-            directionIconImageView.image = _getDirectionIcon()
+            directionIconImageView.image = getDirectionIcon()
         }
     }
     
     var pathInstruction: String = "" {
         didSet {
-            directionInstructionLabel.text = _getDirectionInstruction()
+            directionInstructionLabel.text = getDirectionInstruction()
         }
     }
     
@@ -59,11 +59,9 @@ class StepByStepItemView: UIView {
         }
     }
     
-}
-
-extension StepByStepItemView {
+    // MARK: Getter
     
-    private func _getDirectionIcon() -> UIImage? {
+    private func getDirectionIcon() -> UIImage? {
         if pathDirection == 0 {
             return UIImage(named: "arrow_straight", in: NavitiaSDKUI.shared.bundle, compatibleWith: nil)
         } else if pathDirection < 0 {
@@ -73,7 +71,7 @@ extension StepByStepItemView {
         }
     }
     
-    private func _getDirectionInstruction() -> String {
+    private func getDirectionInstruction() -> String {
         if pathDirection == 0 {
             return pathInstruction == "" ? String(format: "%@ %@", "carry_straight_on".localized(bundle: NavitiaSDKUI.shared.bundle), String(format: "for_meter".localized(bundle: NavitiaSDKUI.shared.bundle), pathLength)) : String(format: "%@ %@ %@", "continue_on".localized(bundle: NavitiaSDKUI.shared.bundle), pathInstruction, String(format: "for_meter".localized(bundle: NavitiaSDKUI.shared.bundle), pathLength))
         } else if pathDirection < 0 {

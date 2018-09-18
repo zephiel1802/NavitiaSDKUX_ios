@@ -25,13 +25,13 @@ class ListRidesharingOffersRouter: NSObject, ListRidesharingOffersRoutingLogic, 
     // MARK: Routing
     
     func routeToShowJourneyRoadmap(row: Int) {
-        guard let viewController = viewController, let dataStore = dataStore else {
+        guard let viewController = viewController,
+            let dataStore = dataStore,
+            let destinationVC = viewController.storyboard?.instantiateViewController(withIdentifier: ShowJourneyRoadmapViewController.identifier) as? ShowJourneyRoadmapViewController,
+            var destinationDS = destinationVC.router?.dataStore else {
             return
         }
-        
-        let destinationVC = viewController.storyboard?.instantiateViewController(withIdentifier: ShowJourneyRoadmapViewController.identifier) as! ShowJourneyRoadmapViewController
-        var destinationDS = destinationVC.router!.dataStore!
-        
+
         passDataToShowJourneyRoadmap(source: dataStore, destination: &destinationDS, row: row)
         navigateToShowJourneyRoadmap(source: viewController, destination: destinationVC)
     }

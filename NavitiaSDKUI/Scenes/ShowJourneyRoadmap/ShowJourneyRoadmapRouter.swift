@@ -12,11 +12,11 @@ import UIKit
 
 protocol ShowJourneyRoadmapDataPassing {
     
-  var dataStore: ShowJourneyRoadmapDataStore? { get }
+    var dataStore: ShowJourneyRoadmapDataStore? { get }
 }
 
 class ShowJourneyRoadmapRouter: NSObject, ShowJourneyRoadmapRoutingLogic, ShowJourneyRoadmapDataPassing {
     
-  weak var viewController: ShowJourneyRoadmapViewController?
-  var dataStore: ShowJourneyRoadmapDataStore?
+    weak var viewController: ShowJourneyRoadmapViewController?
+    var dataStore: ShowJourneyRoadmapDataStore?
 }

@@ -23,7 +23,7 @@ enum ListRidesharingOffers {
         struct ViewModel {
             struct JourneySummary {
                 var duration: Int32
-                var sections: [Section]
+                var sections: [Section] // Class: SDK Expert
             }
             struct DisplayedRidesharingOffer {
                 var network: String

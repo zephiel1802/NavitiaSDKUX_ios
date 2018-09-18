@@ -24,7 +24,6 @@ enum ShowJourneyRoadmap
             var context: Context
         }
         struct ViewModel {
-            
             struct DepartureArrival {
                 enum Mode {
                     case departure
@@ -136,9 +135,9 @@ enum ShowJourneyRoadmap
             var emission: Emission
             
             // Provisoire
-            var disruptions: [Disruption]? // Besoin pour la frise
-            var journey: Journey // Besoin pour la frise
-            var ridesharingJourneys: Journey? // Besoin pour la map
+            var disruptions: [Disruption]?  // Class: SDK Expert
+            var journey: Journey  // Class: SDK Expert
+            var ridesharingJourneys: Journey? // Class: SDK Expert
         }
     }
     

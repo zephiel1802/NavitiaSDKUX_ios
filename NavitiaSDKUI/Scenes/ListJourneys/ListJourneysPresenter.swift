@@ -9,60 +9,60 @@ import UIKit
 
 protocol ListJourneysPresentationLogic {
     
-    func presentFetchedSeachInformation(journeysRequest: JourneysRequest)
+    func presentFetchedSearchInformation(journeysRequest: JourneysRequest)
     func presentFetchedJourneys(response: ListJourneys.FetchJourneys.Response)
-    
 }
 
 class ListJourneysPresenter: ListJourneysPresentationLogic {
 
     weak var viewController: ListJourneysDisplayLogic?
     
-    func presentFetchedSeachInformation(journeysRequest: JourneysRequest) {
+    func presentFetchedSearchInformation(journeysRequest: JourneysRequest) {
         guard let headerInformations = getDisplayedHeaderInformations(journeysRequest: journeysRequest) else {
             return
         }
         
         let viewModel = ListJourneys.FetchJourneys.ViewModel(loaded: false,
-                                                                headerInformations: headerInformations,
-                                                                displayedJourneys: [],
-                                                                displayedRidesharings: [],
-                                                                disruptions: [])
+                                                             headerInformations: headerInformations,
+                                                             displayedJourneys: [],
+                                                             displayedRidesharings: [],
+                                                             disruptions: [])
+        
         viewController?.displayFetchedJourneys(viewModel: viewModel)
     }
     
     // MARK: - Fetch Journeys
     
+    private func appendDisplayedJourneys(journeys: [Journey]?) -> [ListJourneys.FetchJourneys.ViewModel.DisplayedJourney] {
+        var displayedJourneys = [ListJourneys.FetchJourneys.ViewModel.DisplayedJourney]()
+        
+        guard let journeys = journeys else {
+            return displayedJourneys
+        }
+        
+        for (_, journey) in journeys.enumerated() {
+            if let displayedJourney = getDisplayedJourney(journey: journey) {
+                displayedJourneys.append(displayedJourney)
+            }
+        }
+        
+        return displayedJourneys
+    }
+    
+    
     func presentFetchedJourneys(response: ListJourneys.FetchJourneys.Response) {
-
-        var displayedJourneys: [ListJourneys.FetchJourneys.ViewModel.DisplayedJourney] = []
-        var displayedRidesharings: [ListJourneys.FetchJourneys.ViewModel.DisplayedJourney] = []
-        
-        if let journeys = response.journeys.0 {
-            for journey in journeys {
-                if let displayedJourney = _getDisplayedJourney(journey: journey) {
-                    displayedJourneys.append(displayedJourney)
-                }
-            }
-
-        }
-        if let journeys = response.journeys.withRidesharing {
-            for journey in journeys {
-                if let displayedJourney = _getDisplayedJourney(journey: journey) {
-                    displayedRidesharings.append(displayedJourney)
-                }
-            }
-        }
-        
         guard let headerInformations = getDisplayedHeaderInformations(journey: response.journeys.0?.first ?? response.journeys.withRidesharing?.first, journeysRequest: response.journeysRequest) else {
             return
         }
         
+        let displayedJourneys = appendDisplayedJourneys(journeys: response.journeys.0)
+        let displayedRidesharings = appendDisplayedJourneys(journeys: response.journeys.withRidesharing)
         let viewModel = ListJourneys.FetchJourneys.ViewModel(loaded: true,
-                                                                headerInformations: headerInformations,
-                                                                displayedJourneys: displayedJourneys,
-                                                                displayedRidesharings: displayedRidesharings,
-                                                                disruptions: response.disruptions ?? [])
+                                                             headerInformations: headerInformations,
+                                                             displayedJourneys: displayedJourneys,
+                                                             displayedRidesharings: displayedRidesharings,
+                                                             disruptions: response.disruptions ?? [])
+        
         viewController?.displayFetchedJourneys(viewModel: viewModel)
     }
     
@@ -70,15 +70,17 @@ class ListJourneysPresenter: ListJourneysPresentationLogic {
     
     internal func getDisplayedHeaderInformations(journeysRequest: JourneysRequest) -> ListJourneys.FetchJourneys.ViewModel.HeaderInformations? {
         guard
-            let origin = _getDisplayedHeaderInformationsOrigin(origin: journeysRequest.originLabel ?? journeysRequest.originId),
-            let destination = _getDisplayedHeaderInformationsDestination(destination: journeysRequest.destinationLabel ?? journeysRequest.destinationId) else {
+            let origin = getDisplayedHeaderInformationsOrigin(origin: journeysRequest.originLabel ?? journeysRequest.originId),
+            let destination = getDisplayedHeaderInformationsDestination(destination: journeysRequest.destinationLabel ?? journeysRequest.destinationId) else {
                 return nil
         }
-        let dateTime = _getDisplayedHeaderInformationsDateTime(departureDateTime: journeysRequest.datetime)
         
-        return ListJourneys.FetchJourneys.ViewModel.HeaderInformations(dateTime: dateTime,
-                                                                         origin: origin,
-                                                                         destination: destination)
+        let dateTime = getDisplayedHeaderInformationsDateTime(departureDateTime: journeysRequest.datetime)
+        let headerInformations = ListJourneys.FetchJourneys.ViewModel.HeaderInformations(dateTime: dateTime,
+                                                                                         origin: origin,
+                                                                                         destination: destination)
+        
+        return headerInformations
     }
     
     internal func getDisplayedHeaderInformations(journey: Journey? = nil,
@@ -86,22 +88,26 @@ class ListJourneysPresenter: ListJourneysPresentationLogic {
         guard let journeysRequest = journeysRequest else {
             return nil
         }
+        
         if let journey = journey {
             guard
-                let origin = _getDisplayedHeaderInformationsOrigin(origin: journeysRequest.originLabel ?? journey.sections?.first?.from?.name),
-                let destination = _getDisplayedHeaderInformationsDestination(destination: journeysRequest.destinationLabel ?? journey.sections?.last?.to?.name) else {
+                let origin = getDisplayedHeaderInformationsOrigin(origin: journeysRequest.originLabel ?? journey.sections?.first?.from?.name),
+                let destination = getDisplayedHeaderInformationsDestination(destination: journeysRequest.destinationLabel ?? journey.sections?.last?.to?.name) else {
                     return nil
             }
-            let dateTime = _getDisplayedHeaderInformationsDateTime(departureDateTime: journeysRequest.datetime ?? journey.departureDateTime?.toDate(format: Configuration.date))
+            let dateTime = getDisplayedHeaderInformationsDateTime(departureDateTime: journeysRequest.datetime ?? journey.departureDateTime?.toDate(format: Configuration.date))
+            let headerInformations = ListJourneys.FetchJourneys.ViewModel.HeaderInformations(dateTime: dateTime,
+                                                                                             origin: origin,
+                                                                                             destination: destination)
             
-            return ListJourneys.FetchJourneys.ViewModel.HeaderInformations(dateTime: dateTime,
-                                                                             origin: origin,
-                                                                             destination: destination)
+            return headerInformations
         }
-        return getDisplayedHeaderInformations(journeysRequest: journeysRequest)
+        let displayedInformations = getDisplayedHeaderInformations(journeysRequest: journeysRequest)
+        
+        return displayedInformations
     }
     
-    private func _getDisplayedHeaderInformationsDateTime(departureDateTime: Date?) -> NSMutableAttributedString {
+    private func getDisplayedHeaderInformationsDateTime(departureDateTime: Date?) -> NSMutableAttributedString {
         guard let departureDateTime = departureDateTime?.toString(format: Configuration.timeJourneySolution) else {
             return NSMutableAttributedString()
         }
@@ -113,7 +119,7 @@ class ListJourneysPresenter: ListJourneysPresentationLogic {
                                                 size: 12)
     }
     
-    private func _getDisplayedHeaderInformationsOrigin(origin: String?) -> NSMutableAttributedString? {
+    private func getDisplayedHeaderInformationsOrigin(origin: String?) -> NSMutableAttributedString? {
         guard let origin = origin else {
             return nil
         }
@@ -123,7 +129,7 @@ class ListJourneysPresenter: ListJourneysPresentationLogic {
                                                 size: 11)
     }
     
-    private func _getDisplayedHeaderInformationsDestination(destination: String?) -> NSMutableAttributedString? {
+    private func getDisplayedHeaderInformationsDestination(destination: String?) -> NSMutableAttributedString? {
         guard let destination = destination else {
             return nil
         }
@@ -135,11 +141,11 @@ class ListJourneysPresenter: ListJourneysPresentationLogic {
     
     // MARK: - Displayed Journey
     
-    private func _getDisplayedJourney(journey: Journey?) -> ListJourneys.FetchJourneys.ViewModel.DisplayedJourney? {
+    private func getDisplayedJourney(journey: Journey?) -> ListJourneys.FetchJourneys.ViewModel.DisplayedJourney? {
         guard
             let journey = journey,
-            let dateTime = _getDisplayedJourneyDateTime(journey: journey),
-            let duration = _getDisplayedJourneyDuration(journey: journey) else {
+            let dateTime = getDisplayedJourneyDateTime(journey: journey),
+            let duration = getDisplayedJourneyDuration(journey: journey) else {
                 return nil
         }
         
@@ -150,7 +156,7 @@ class ListJourneysPresenter: ListJourneysPresentationLogic {
                                                                             sections: journey.sections ?? [])
         }
         
-        let walkingInformation = _getDisplayedJourneyWalkingInformation(journey: journey)
+        let walkingInformation = getDisplayedJourneyWalkingInformation(journey: journey)
         
         return ListJourneys.FetchJourneys.ViewModel.DisplayedJourney(dateTime: dateTime,
                                                                         duration: duration,
@@ -158,19 +164,17 @@ class ListJourneysPresenter: ListJourneysPresentationLogic {
                                                                         sections: journey.sections ?? [])
     }
     
-    private func _getDisplayedJourneyDateTime(journey: Journey) -> NSMutableAttributedString? {
+    private func getDisplayedJourneyDateTime(journey: Journey) -> String? {
         guard
             let departureDateTime = journey.departureDateTime?.toDate(format: Configuration.date)?.toString(format: Configuration.time),
             let arrivalDateTime = journey.arrivalDateTime?.toDate(format: Configuration.date)?.toString(format: Configuration.time) else {
             return nil
         }
         
-        return NSMutableAttributedString().bold(String(format: "%@ - %@",
-                                                       departureDateTime,
-                                                       arrivalDateTime))
+        return String(format: "%@ - %@", departureDateTime, arrivalDateTime)
     }
     
-    private func _getDisplayedJourneyDuration(journey: Journey) -> NSMutableAttributedString? {
+    private func getDisplayedJourneyDuration(journey: Journey) -> NSMutableAttributedString? {
         guard let duration = journey.duration else {
             return nil
         }
@@ -189,9 +193,9 @@ class ListJourneysPresenter: ListJourneysPresentationLogic {
     
     
     
-    private func _getDisplayedJourneyWalkingInformation(journey: Journey) -> NSMutableAttributedString? {
-        guard let duration = _getDisplayedJourneyWalkingDuration(journey: journey),
-            let distance = _getDisplayedJourneyWalkingDistance(journey: journey) else {
+    private func getDisplayedJourneyWalkingInformation(journey: Journey) -> NSMutableAttributedString? {
+        guard let duration = getDisplayedJourneyWalkingDuration(journey: journey),
+            let distance = getDisplayedJourneyWalkingDistance(journey: journey) else {
                 return nil
         }
         
@@ -219,7 +223,7 @@ class ListJourneysPresenter: ListJourneysPresentationLogic {
         }
     }
     
-    private func _getDisplayedJourneyWalkingDuration(journey: Journey) -> Int32? {
+    private func getDisplayedJourneyWalkingDuration(journey: Journey) -> Int32? {
         guard let walkingDuration = journey.durations?.walking else {
             return nil
         }
@@ -230,7 +234,7 @@ class ListJourneysPresenter: ListJourneysPresentationLogic {
         return nil
     }
     
-    private func _getDisplayedJourneyWalkingDistance(journey: Journey) -> String? {
+    private func getDisplayedJourneyWalkingDistance(journey: Journey) -> String? {
         guard let walkingDistance = journey.distances?.walking else {
             return nil
         }
@@ -240,5 +244,4 @@ class ListJourneysPresenter: ListJourneysPresentationLogic {
         }
         return String(format: "%@ %@", walkingDistance.toString(), "units_meters".localized(withComment: "meters", bundle: NavitiaSDKUI.shared.bundle))
     }
-    
 }
