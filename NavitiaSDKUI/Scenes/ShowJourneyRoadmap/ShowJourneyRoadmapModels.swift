@@ -97,6 +97,9 @@ enum ShowJourneyRoadmap
                     var directionTransit: String
                     var code: String?
                 }
+                struct Note {
+                    var content: String
+                }
                 
                 var type: ModelType
                 var mode: Mode?
@@ -114,6 +117,7 @@ enum ShowJourneyRoadmap
                 var waiting: String?
                 
                 var disruptions: [Disruption] // A reconstruire
+                var notes: [Note]
                 //var notes: [Note] // A Faire
 
                 var poi: Poi?
@@ -125,7 +129,7 @@ enum ShowJourneyRoadmap
             }
             struct Emission {
                 var journey: Double
-                var car: Double
+                var car: Double?
             }
 
             var ridesharing: Ridesharing?

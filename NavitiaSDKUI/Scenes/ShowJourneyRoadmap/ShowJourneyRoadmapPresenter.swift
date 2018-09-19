@@ -298,6 +298,7 @@ class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
                                                                                             displayInformations: getDisplayInformations(displayInformations: section.displayInformations),
                                                                                             waiting: getWaiting(sectionBefore: sections[safe: index - 1], section: section),
                                                                                             disruptions: getDisruption(section: section, disruptions: response.disruptions),
+                                                                                            notes: getNotesOnDemandTransport(section: section, notes: response.notes),
                                                                                             poi: getPoi(poi: section.from?.poi ?? section.to?.poi),
                                                                                             icon: Modes().getModeIcon(section: section),
                                                                                             bssRealTime: getBssRealTime(section: section),
@@ -312,10 +313,11 @@ class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
     // MARK: Emission
     
     private func getEmission(response: ShowJourneyRoadmap.GetRoadmap.Response) -> ShowJourneyRoadmap.GetRoadmap.ViewModel.Emission? {
-        guard let journeyValue = response.journey.co2Emission?.value, let carValue = response.context.carDirectPath?.co2Emission?.value else {
+        guard let journeyValue = response.journey.co2Emission?.value else {
             return nil
         }
         
+        let carValue = response.context.carDirectPath?.co2Emission?.value
         let emissionViewModel = ShowJourneyRoadmap.GetRoadmap.ViewModel.Emission(journey: journeyValue,
                                                                                  car: carValue)
         
@@ -361,8 +363,39 @@ class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
         return displayInformationsClean
     }
     
+    private func getNotesOnDemandTransport(section: Section, notes: [Note]?) -> [ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionClean.Note] {
+        var noteOnDemandTransport = [ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionClean.Note]()
+        
+        for note in section.selectLinks(type: "notes") {
+            if let notes = notes, let id = note.id, let note = section.getNote(notes: notes, id: id) {
+                noteOnDemandTransport.append(ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionClean.Note(content: note.value ?? ""))
+            }
+        }
+        
+        if let firstStopDateTimes = section.stopDateTimes?.first {
+            let links = firstStopDateTimes.selectLinks(type: "notes")
+            if links.count > 0 {
+                for i in links {
+                    if let notes = notes, let id = i.id, let note = section.getNote(notes: notes, id: id) {
+                        noteOnDemandTransport.append(ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionClean.Note(content: note.value ?? ""))
+                    }
+                }
+                return noteOnDemandTransport
+            }
+        }
+        
+        if let laststopDateTimes = section.stopDateTimes?.last {
+            for i in laststopDateTimes.selectLinks(type: "notes") {
+                if let notes = notes, let id = i.id, let note = section.getNote(notes: notes, id: id) {
+                    noteOnDemandTransport.append(ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionClean.Note(content: note.value ?? ""))
+                }
+            }
+        }
+        
+        return noteOnDemandTransport
+    }
     
-    // Disruption - VERIFIER /!\
+    // Disruption /!\
     
     func getDisruption(section: Section, disruptions: [Disruption]?) -> [Disruption] {
         var sectionDisruptions = [Disruption]()
@@ -488,4 +521,52 @@ class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
     
 }
 
+extension StopDateTime {
+    
+    func selectLinks(type: String) -> [LinkSchema] {
+        var selectLinks = [LinkSchema]()
+        
+        guard let links = self.links else {
+            return selectLinks
+        }
+        
+        for link in links {
+            if link.type == type {
+                selectLinks.append(link)
+            }
+        }
+        
+        return selectLinks
+    }
+    
+}
 
+extension Section {
+    
+    public func getNote(notes: [Note], id: String) -> Note? {
+        for note in notes {
+            if note.id == id {
+                return note
+            }
+        }
+        
+        return nil
+    }
+    
+    func selectLinks(type: String) -> [LinkSchema] {
+        var selectLinks = [LinkSchema]()
+        
+        guard let links = self.links else {
+            return selectLinks
+        }
+        
+        for link in links {
+            if link.type == type {
+                selectLinks.append(link)
+            }
+        }
+        
+        return selectLinks
+    }
+    
+}

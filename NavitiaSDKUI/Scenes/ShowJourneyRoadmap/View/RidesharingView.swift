@@ -40,7 +40,6 @@ class RidesharingView: UIView {
     override func awakeFromNib() {
         super.awakeFromNib()
         _setup()
-        addShadow()
     }
     
     private func _setup() {
@@ -48,7 +47,9 @@ class RidesharingView: UIView {
         _view.frame = self.bounds
         addSubview(_view)
         
-        bookButton.setTitle("book".localized(withComment: "Book", bundle: NavitiaSDKUI.shared.bundle), for: .normal)
+        addShadow()
+        
+        bookButton.setTitle("send_request".localized(bundle: NavitiaSDKUI.shared.bundle), for: .normal)
     }
     
     func setPicture(url: String?) {

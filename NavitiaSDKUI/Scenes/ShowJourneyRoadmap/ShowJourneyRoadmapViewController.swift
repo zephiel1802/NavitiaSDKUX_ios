@@ -181,6 +181,7 @@ open class ShowJourneyRoadmapViewController: UIViewController, ShowJourneyRoadma
     private func getHeader(_ journey: Journey) {
         let journeySolutionView = getJourneySolutionView(journey: journey)
         
+        scrollView.addSubview(journeySolutionView, margin: UIEdgeInsets(top: 0, left: 0, bottom: 5, right: 0))
         if let _ = viewModel?.ridesharing {
             guard let duration = journey.duration, let sections = journey.sections else {
                 return
@@ -191,8 +192,6 @@ open class ShowJourneyRoadmapViewController: UIViewController, ShowJourneyRoadma
             journeySolutionView.setRidesharingData(duration: duration, sections: sections)
             scrollView.addSubview(ridesharingView, margin: UIEdgeInsets(top: 5, left: 10, bottom: 5, right: 10))
         }
-        
-        scrollView.addSubview(journeySolutionView, margin: UIEdgeInsets(top: 0, left: 0, bottom: 5, right: 0))
     }
     
     private func getJourneySolutionView(journey: Journey) -> JourneySolutionView {
@@ -250,8 +249,11 @@ open class ShowJourneyRoadmapViewController: UIViewController, ShowJourneyRoadma
         publicTransportView.destination = section.to
         publicTransportView.endTime = section.endTime
         publicTransportView.stations = section.stopDate
-        publicTransportView.waitTime = section.waiting
+        publicTransportView.waitingTime = section.waiting
         publicTransportView.setDisruptions(section.disruptions)
+        for note in section.notes {
+            publicTransportView.setOnDemandTransport(text: note.content)
+        }
         
         return publicTransportView
     }
@@ -312,6 +314,8 @@ open class ShowJourneyRoadmapViewController: UIViewController, ShowJourneyRoadma
     private func getSectionStep(section: ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionClean) -> UIView? {
         switch section.type {
         case .publicTransport:
+            return getPublicTransportStep(section: section)
+        case .onDemandTransport:
             return getPublicTransportStep(section: section)
         case .streetNetwork:
             return getStreetNetworkStep(section: section)
