@@ -167,7 +167,7 @@ class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
         
         let calorie = (Double(walkingDistance) * Configuration.caloriePerSecWalking + Double(bikeDistance) * Configuration.caloriePerSecBike).rounded()
         
-        return String(format: "%d", calorie)
+        return String(format: "%d", Int(calorie))
     }
     
     // MARK: Section
