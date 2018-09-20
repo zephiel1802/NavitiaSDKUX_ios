@@ -292,26 +292,27 @@ open class ShowJourneyRoadmapViewController: UIViewController, ShowJourneyRoadma
     
     private func getRidesharingStep(section: ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionClean) -> UIView {
         let view = RidesharingStepView(frame: CGRect(x: 0, y: 0, width: 0, height: 100))
-        
         view.origin = section.from
         view.destination = section.to
         view.time = section.duration
+        
         return view
     }
     
     func getGenericStep(section: ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionClean) -> UIView {
         let view = GenericStepView(frame: CGRect(x: 0, y: 0, width: 0, height: 50))
-        
         view.modeString = section.icon
         view.time = section.duration
         view.direction = section.to
         view.paths = section.path
+        
         return view
     }
     
     private func getEmission(emission: ShowJourneyRoadmap.GetRoadmap.ViewModel.Emission) {
-        let emissionView = EmissionView(frame: CGRect(x: 0, y: 0, width: scrollView.frame.size.width, height: 40))
-        emissionView.carbon = emission.journey
+        let emissionView = EmissionView(frame: CGRect(x: 0, y: 0, width: scrollView.frame.size.width, height: 60))
+        emissionView.journeyCarbon = emission.journey
+        emissionView.carCarbon = emission.car
         
         scrollView.addSubview(emissionView, margin: UIEdgeInsets(top: 20, left: 0, bottom: 0, right: 0))
     }
