@@ -5,9 +5,6 @@
 //  Copyright © 2018 kisio. All rights reserved.
 //
 
-import Foundation
-import UIKit
-
 protocol UIAutoFilledLabelDelegate {
     
     func autofillDidFinish(_ target: UIAutoFilledLabel)
@@ -51,15 +48,15 @@ class UIAutoFilledLabel: UILabel {
                 screenAdaptedText.remove(at: text.index(text.startIndex, offsetBy: lastOccurenceIndex - 2))
                 self.text = screenAdaptedText
                 
-                //At this point, the label is ready and totally filled with the given pattern
+                // At this point, the label is ready and totally filled with the given pattern
                 delegate?.autofillDidFinish(self)
             } else {
-                //The pattern should be added before the autofillRightText
+                // The pattern should be added before the autofillRightText
                 let mutableText = NSMutableString(string: text)
                 mutableText.insert(String(autofillPattern), at: lastOccurenceIndex - 1)
                 self.text = String(mutableText)
                 
-                //Continue adding pattern until the label text is truncated
+                // Continue adding pattern until the label text is truncated
                 addPattern()
             }
         }

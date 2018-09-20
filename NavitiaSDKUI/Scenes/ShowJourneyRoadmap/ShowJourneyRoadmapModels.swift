@@ -108,8 +108,8 @@ enum ShowJourneyRoadmap
                 var section: Section
             }
             struct Emission {
-                var journey: Double
-                var car: Double
+                var journey: (value: Double, unit: String)
+                var car: (value: Double, unit:String)
             }
 
             var departure: DepartureArrival

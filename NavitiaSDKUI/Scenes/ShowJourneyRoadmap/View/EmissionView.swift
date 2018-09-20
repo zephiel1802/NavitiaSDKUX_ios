@@ -48,36 +48,30 @@ class EmissionView: UIView {
         addShadow(opacity: 0.28)
     }
     
-    var journeyCarbon: Double = 0.0 {
+    var journeyCarbon: (value: Double, unit: String)? {
         didSet {
-            if journeyCarbon > 1000 {
-                journeyCarbonAutoFilledLabel.autofillRightText = String(format: "%.1f %@ %@", journeyCarbon / 1000, "units_kg".localized(bundle: NavitiaSDKUI.shared.bundle), "carbon".localized(bundle: NavitiaSDKUI.shared.bundle))
-            } else {
-                journeyCarbonAutoFilledLabel.autofillRightText = String(format: "%.1f %@ %@", journeyCarbon, "units_g".localized(bundle: NavitiaSDKUI.shared.bundle), "carbon".localized(bundle: NavitiaSDKUI.shared.bundle))
+            if let journeyCarbon = journeyCarbon {
+                journeyCarbonAutoFilledLabel.autofillLeftText = "carbon_journey".localized(bundle: NavitiaSDKUI.shared.bundle)
+                journeyCarbonAutoFilledLabel.autofillRightText = String(format: "%.1f %@", journeyCarbon.value, journeyCarbon.unit)
+                journeyCarbonAutoFilledLabel.autofillPattern = "."
+                journeyCarbonAutoFilledLabel.delegate = self
             }
-            
-            journeyCarbonAutoFilledLabel.autofillLeftText = "carbon_journey".localized(bundle: NavitiaSDKUI.shared.bundle)
-            journeyCarbonAutoFilledLabel.autofillPattern = "."
-            journeyCarbonAutoFilledLabel.delegate = self
         }
     }
     
-    var carCarbon: Double = 0.0 {
+    var carCarbon: (value: Double, unit: String)? {
         didSet {
-            if carCarbon != journeyCarbon {
-                if carCarbon > 1000 {
-                    carCarbonAutoFilledLabel.autofillRightText = String(format: "%.1f %@ %@", carCarbon / 1000, "units_kg".localized(bundle: NavitiaSDKUI.shared.bundle), "carbon".localized(bundle: NavitiaSDKUI.shared.bundle))
+            if let journeyCarbon = journeyCarbon, let carCarbon = carCarbon {
+                if carCarbon.value != journeyCarbon.value {
+                    carCarbonAutoFilledLabel.autofillLeftText = "carbon_car".localized(bundle: NavitiaSDKUI.shared.bundle)
+                    carCarbonAutoFilledLabel.autofillRightText = String(format: "%.1f %@", carCarbon.value, carCarbon.unit)
+                    carCarbonAutoFilledLabel.autofillPattern = "."
+                    carCarbonAutoFilledLabel.delegate = self
                 } else {
-                    carCarbonAutoFilledLabel.autofillRightText = String(format: "%.1f %@ %@", carCarbon, "units_g".localized(bundle: NavitiaSDKUI.shared.bundle), "carbon".localized(bundle: NavitiaSDKUI.shared.bundle))
+                    self.carCarbonAutoFilledLabel.isHidden = true
+                    self.journeyLabelBottomConstraint.isActive = false
+                    self.journeyLabelCenterVerticallyConstraint.isActive = true
                 }
-                
-                carCarbonAutoFilledLabel.autofillLeftText = "carbon_car".localized(bundle: NavitiaSDKUI.shared.bundle)
-                carCarbonAutoFilledLabel.autofillPattern = "."
-                carCarbonAutoFilledLabel.delegate = self
-            } else {
-                self.carCarbonAutoFilledLabel.isHidden = true
-                self.journeyLabelBottomConstraint.isActive = false
-                self.journeyLabelCenterVerticallyConstraint.isActive = true
             }
         }
     }

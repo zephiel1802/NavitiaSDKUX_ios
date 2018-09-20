@@ -265,8 +265,23 @@ class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
             return nil
         }
         
-        let emissionViewModel = ShowJourneyRoadmap.GetRoadmap.ViewModel.Emission(journey: journeyValue,
-                                                                                 car: carValue)
+        var journeyCarbonValue = journeyValue
+        var journeyCarbonUnit = "units_g".localized(bundle: NavitiaSDKUI.shared.bundle)
+        if journeyCarbonValue >= 1000 {
+            journeyCarbonValue = journeyCarbonValue / 1000
+            journeyCarbonUnit = "units_kg".localized(bundle: NavitiaSDKUI.shared.bundle)
+        }
+        journeyCarbonUnit.append(String(format: " %@", "carbon".localized(bundle: NavitiaSDKUI.shared.bundle)))
+        
+        var carCarbonValue = carValue
+        var carCarbonUnit = "units_g".localized(bundle: NavitiaSDKUI.shared.bundle)
+        if carCarbonValue >= 1000 {
+            carCarbonValue = carCarbonValue / 1000
+            carCarbonUnit = "units_kg".localized(bundle: NavitiaSDKUI.shared.bundle)
+        }
+        carCarbonUnit.append(String(format: " %@", "carbon".localized(bundle: NavitiaSDKUI.shared.bundle)))
+        
+        let emissionViewModel = ShowJourneyRoadmap.GetRoadmap.ViewModel.Emission.init(journey: (value: journeyCarbonValue, unit: journeyCarbonUnit), car: (value: carCarbonValue, unit: carCarbonUnit))
         
         return emissionViewModel
     }
