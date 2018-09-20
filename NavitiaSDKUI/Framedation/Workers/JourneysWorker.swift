@@ -45,6 +45,7 @@ internal struct JourneysWorker {
             if let bssStands = journeysRequest.bssStands {
                 _ = journeyRequestBuilder.withBssStands(bssStands)
             }
+            
             journeyRequestBuilder.get { (result, error) in
                 if let result = result {
                     var journeys: [Journey] = []

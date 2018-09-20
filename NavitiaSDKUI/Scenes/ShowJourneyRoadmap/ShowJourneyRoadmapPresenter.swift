@@ -313,15 +313,29 @@ class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
     // MARK: Emission
     
     private func getEmission(response: ShowJourneyRoadmap.GetRoadmap.Response) -> ShowJourneyRoadmap.GetRoadmap.ViewModel.Emission? {
-        guard let journeyValue = response.journey.co2Emission?.value else {
+        guard let journeyValue = response.journey.co2Emission?.value, let journeyCarbonSummary = getFormattedEmission(emissionValue: journeyValue) else {
+            return nil
+        }
+
+        let carCarbonSummary = getFormattedEmission(emissionValue: response.context.carDirectPath?.co2Emission?.value)
+        let emissionViewModel = ShowJourneyRoadmap.GetRoadmap.ViewModel.Emission.init(journey: journeyCarbonSummary, car: carCarbonSummary)
+        
+        return emissionViewModel
+    }
+    
+    private func getFormattedEmission(emissionValue: Double?) -> (value: Double, unit: String)? {
+        guard var emissionValue = emissionValue else {
             return nil
         }
         
-        let carValue = response.context.carDirectPath?.co2Emission?.value
-        let emissionViewModel = ShowJourneyRoadmap.GetRoadmap.ViewModel.Emission(journey: journeyValue,
-                                                                                 car: carValue)
+        var carbonUnit = "units_g".localized(bundle: NavitiaSDKUI.shared.bundle)
+        if emissionValue >= 1000 {
+            emissionValue = emissionValue / 1000
+            carbonUnit = "units_kg".localized(bundle: NavitiaSDKUI.shared.bundle)
+        }
+        carbonUnit.append(String(format: " %@", "carbon".localized(bundle: NavitiaSDKUI.shared.bundle)))
         
-        return emissionViewModel
+        return (value: emissionValue, unit: carbonUnit)
     }
     
     // MARK: DisplayInformations

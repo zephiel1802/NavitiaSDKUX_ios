@@ -9,16 +9,17 @@ import UIKit
 
 class EmissionView: UIView {
     
-    @IBOutlet var _view: UIView!
-    @IBOutlet weak var containerView: UIView!
+    @IBOutlet var view: UIView!
     @IBOutlet weak var iconImageView: UIImageView!
-    @IBOutlet weak var descriptionLabel: UILabel!
-    @IBOutlet weak var carbonLabel: UILabel!
+    @IBOutlet weak var journeyCarbonAutoFilledLabel: UIAutoFilledLabel!
+    @IBOutlet weak var carCarbonAutoFilledLabel: UIAutoFilledLabel!
+    @IBOutlet weak var journeyLabelCenterVerticallyConstraint: NSLayoutConstraint!
+    @IBOutlet weak var journeyLabelBottomConstraint: NSLayoutConstraint!
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        _setup()
+        setup()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -27,8 +28,8 @@ class EmissionView: UIView {
     
     override var frame: CGRect {
         willSet {
-            if let _view = _view {
-                _view.frame.size = newValue.size
+            if let view = view {
+                view.frame.size = newValue.size
             }
         }
     }
@@ -36,67 +37,59 @@ class EmissionView: UIView {
     override func awakeFromNib() {
         super.awakeFromNib()
         
-        _setup()
+        setup()
     }
     
-    private func _setup() {
+    private func setup() {
         UINib(nibName: "EmissionView", bundle: NavitiaSDKUI.shared.bundle).instantiate(withOwner: self, options: nil)
-        _view.frame = self.bounds
-        addSubview(_view)
-        
-        _setupLabel()
+        view.frame = self.bounds
+        addSubview(view)
         
         addShadow(opacity: 0.28)
     }
     
-    private func _setupLabel() {
-        descriptionLabel.attributedText = NSMutableAttributedString().semiBold("carbon".localized(bundle: NavitiaSDKUI.shared.bundle),
-                                                                               color: Configuration.Color.white,
-                                                                               size: 10)
+    var journeyCarbon: (value: Double, unit: String)? {
+        didSet {
+            if let journeyCarbon = journeyCarbon {
+                journeyCarbonAutoFilledLabel.autofillLeftText = "carbon_journey".localized(bundle: NavitiaSDKUI.shared.bundle)
+                journeyCarbonAutoFilledLabel.autofillRightText = String(format: "%.1f %@", journeyCarbon.value, journeyCarbon.unit)
+                journeyCarbonAutoFilledLabel.autofillPattern = "."
+                journeyCarbonAutoFilledLabel.delegate = self
+            }
+        }
     }
     
+    var carCarbon: (value: Double, unit: String)? {
+        didSet {
+            if let journeyCarbon = journeyCarbon, let carCarbon = carCarbon, carCarbon.value != journeyCarbon.value {
+                carCarbonAutoFilledLabel.autofillLeftText = "carbon_car".localized(bundle: NavitiaSDKUI.shared.bundle)
+                carCarbonAutoFilledLabel.autofillRightText = String(format: "%.1f %@", carCarbon.value, carCarbon.unit)
+                carCarbonAutoFilledLabel.autofillPattern = "."
+                carCarbonAutoFilledLabel.delegate = self
+            } else {
+                self.carCarbonAutoFilledLabel.isHidden = true
+                self.journeyLabelBottomConstraint.isActive = false
+                self.journeyLabelCenterVerticallyConstraint.isActive = true
+            }
+        }
+    }
+    
+    func hideCarCarbonSummary() {
+        self.carCarbonAutoFilledLabel.isHidden = true
+        self.journeyLabelBottomConstraint.isActive = false
+        self.journeyLabelCenterVerticallyConstraint.isActive = true
+    }
 }
 
-extension EmissionView {
+extension EmissionView: UIAutoFilledLabelDelegate {
     
-    var carbonAmount: Amount? {
-        get {
-            return self.carbonAmount
+    func autofillDidFinish(_ target: UIAutoFilledLabel) {
+        guard let autofillText = target.text, autofillText.count > 0 else {
+            return
         }
-        set {
-            if let carbonValue = newValue?.value, let carbonUnit = newValue?.unit {
-                if carbonValue > 1000 {
-                    carbonLabel.attributedText = NSMutableAttributedString()
-                        .normal(String(format: "%.1f %@", carbonValue / 1000, "KgEc".localized(bundle: NavitiaSDKUI.shared.bundle)),
-                                color: UIColor.white,
-                                size: 10)
-                } else {
-                    carbonLabel.attributedText = NSMutableAttributedString()
-                        .normal(String(format: "%.1f %@", carbonValue, carbonUnit),
-                                color: UIColor.white,
-                                size: 10)
-                }
-            }
-        }
+        
+        let mutableText = NSMutableAttributedString(string: autofillText)
+        mutableText.addAttributes([.font : UIFont.systemFont(ofSize: 7.0, weight: .semibold)], range: NSMakeRange(autofillText.count - 1, 1))
+        target.attributedText = mutableText
     }
-    
-    var carbon: Double {
-        get {
-            return self.carbon
-        }
-        set {
-            if newValue > 1000 {
-                carbonLabel.attributedText = NSMutableAttributedString()
-                    .normal(String(format: "%.1f %@", newValue / 1000, "KgEc".localized(bundle: NavitiaSDKUI.shared.bundle)),
-                            color: UIColor.white,
-                            size: 10)
-            } else {
-                carbonLabel.attributedText = NSMutableAttributedString()
-                    .normal(String(format: "%.1f %@", newValue, "gEC"),
-                            color: UIColor.white,
-                            size: 10)
-            }
-        }
-    }
-    
 }

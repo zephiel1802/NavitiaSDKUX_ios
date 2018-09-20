@@ -284,29 +284,28 @@ open class ShowJourneyRoadmapViewController: UIViewController, ShowJourneyRoadma
     }
     
     private func getRidesharingStep(section: ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionClean) -> UIView {
-        let ridesharingStepView = RidesharingStepView(frame: CGRect(x: 0, y: 0, width: 0, height: 100))
+        let view = RidesharingStepView(frame: CGRect(x: 0, y: 0, width: 0, height: 100))
+        view.origin = section.from
+        view.destination = section.to
+        view.time = section.duration
         
-        ridesharingStepView.origin = section.from
-        ridesharingStepView.destination = section.to
-        ridesharingStepView.time = section.duration
-        
-        return ridesharingStepView
+        return view
     }
     
-    private func getGenericStep(section: ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionClean) -> UIView {
-        let genericStepView = GenericStepView(frame: CGRect(x: 0, y: 0, width: 0, height: 50))
+    func getGenericStep(section: ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionClean) -> UIView {
+        let view = GenericStepView(frame: CGRect(x: 0, y: 0, width: 0, height: 50))
+        view.modeString = section.icon
+        view.time = section.duration
+        view.direction = section.to
+        view.paths = section.path
         
-        genericStepView.modeString = section.icon
-        genericStepView.time = section.duration
-        genericStepView.direction = section.to
-        genericStepView.paths = section.path
-        
-        return genericStepView
+        return view
     }
     
     private func getEmission(emission: ShowJourneyRoadmap.GetRoadmap.ViewModel.Emission) {
-        let emissionView = EmissionView(frame: CGRect(x: 0, y: 0, width: scrollView.frame.size.width, height: 40))
-        emissionView.carbon = emission.journey
+        let emissionView = EmissionView(frame: CGRect(x: 0, y: 0, width: scrollView.frame.size.width, height: 60))
+        emissionView.journeyCarbon = emission.journey
+        emissionView.carCarbon = emission.car
         
         scrollView.addSubview(emissionView, margin: UIEdgeInsets(top: 10, left: 0, bottom: 0, right: 0))
     }
