@@ -61,19 +61,23 @@ class EmissionView: UIView {
     
     var carCarbon: (value: Double, unit: String)? {
         didSet {
-            if let journeyCarbon = journeyCarbon, let carCarbon = carCarbon {
-                if carCarbon.value != journeyCarbon.value {
-                    carCarbonAutoFilledLabel.autofillLeftText = "carbon_car".localized(bundle: NavitiaSDKUI.shared.bundle)
-                    carCarbonAutoFilledLabel.autofillRightText = String(format: "%.1f %@", carCarbon.value, carCarbon.unit)
-                    carCarbonAutoFilledLabel.autofillPattern = "."
-                    carCarbonAutoFilledLabel.delegate = self
-                } else {
-                    self.carCarbonAutoFilledLabel.isHidden = true
-                    self.journeyLabelBottomConstraint.isActive = false
-                    self.journeyLabelCenterVerticallyConstraint.isActive = true
-                }
+            if let journeyCarbon = journeyCarbon, let carCarbon = carCarbon, carCarbon.value != journeyCarbon.value {
+                carCarbonAutoFilledLabel.autofillLeftText = "carbon_car".localized(bundle: NavitiaSDKUI.shared.bundle)
+                carCarbonAutoFilledLabel.autofillRightText = String(format: "%.1f %@", carCarbon.value, carCarbon.unit)
+                carCarbonAutoFilledLabel.autofillPattern = "."
+                carCarbonAutoFilledLabel.delegate = self
+            } else {
+                self.carCarbonAutoFilledLabel.isHidden = true
+                self.journeyLabelBottomConstraint.isActive = false
+                self.journeyLabelCenterVerticallyConstraint.isActive = true
             }
         }
+    }
+    
+    func hideCarCarbonSummary() {
+        self.carCarbonAutoFilledLabel.isHidden = true
+        self.journeyLabelBottomConstraint.isActive = false
+        self.journeyLabelCenterVerticallyConstraint.isActive = true
     }
 }
 

@@ -261,29 +261,29 @@ class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
     // MARK: Emission
     
     private func getEmission(response: ShowJourneyRoadmap.GetRoadmap.Response) -> ShowJourneyRoadmap.GetRoadmap.ViewModel.Emission? {
-        guard let journeyValue = response.journey.co2Emission?.value, let carValue = response.context.carDirectPath?.co2Emission?.value else {
+        guard let journeyValue = response.journey.co2Emission?.value, let journeyCarbonSummary = getFormattedEmission(emissionValue: journeyValue) else {
+            return nil
+        }
+
+        let carCarbonSummary = getFormattedEmission(emissionValue: response.context.carDirectPath?.co2Emission?.value)
+        let emissionViewModel = ShowJourneyRoadmap.GetRoadmap.ViewModel.Emission.init(journey: journeyCarbonSummary, car: carCarbonSummary)
+        
+        return emissionViewModel
+    }
+    
+    private func getFormattedEmission(emissionValue: Double?) -> (value: Double, unit: String)? {
+        guard var emissionValue = emissionValue else {
             return nil
         }
         
-        var journeyCarbonValue = journeyValue
-        var journeyCarbonUnit = "units_g".localized(bundle: NavitiaSDKUI.shared.bundle)
-        if journeyCarbonValue >= 1000 {
-            journeyCarbonValue = journeyCarbonValue / 1000
-            journeyCarbonUnit = "units_kg".localized(bundle: NavitiaSDKUI.shared.bundle)
+        var carbonUnit = "units_g".localized(bundle: NavitiaSDKUI.shared.bundle)
+        if emissionValue >= 1000 {
+            emissionValue = emissionValue / 1000
+            carbonUnit = "units_kg".localized(bundle: NavitiaSDKUI.shared.bundle)
         }
-        journeyCarbonUnit.append(String(format: " %@", "carbon".localized(bundle: NavitiaSDKUI.shared.bundle)))
+        carbonUnit.append(String(format: " %@", "carbon".localized(bundle: NavitiaSDKUI.shared.bundle)))
         
-        var carCarbonValue = carValue
-        var carCarbonUnit = "units_g".localized(bundle: NavitiaSDKUI.shared.bundle)
-        if carCarbonValue >= 1000 {
-            carCarbonValue = carCarbonValue / 1000
-            carCarbonUnit = "units_kg".localized(bundle: NavitiaSDKUI.shared.bundle)
-        }
-        carCarbonUnit.append(String(format: " %@", "carbon".localized(bundle: NavitiaSDKUI.shared.bundle)))
-        
-        let emissionViewModel = ShowJourneyRoadmap.GetRoadmap.ViewModel.Emission.init(journey: (value: journeyCarbonValue, unit: journeyCarbonUnit), car: (value: carCarbonValue, unit: carCarbonUnit))
-        
-        return emissionViewModel
+        return (value: emissionValue, unit: carbonUnit)
     }
     
     // MARK: DisplayInformations
