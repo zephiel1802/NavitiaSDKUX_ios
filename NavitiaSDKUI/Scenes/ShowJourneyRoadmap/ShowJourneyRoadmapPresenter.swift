@@ -366,6 +366,10 @@ class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
     private func getNotesOnDemandTransport(section: Section, notes: [Note]?) -> [ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionClean.Note] {
         var noteOnDemandTransport = [ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionClean.Note]()
         
+        guard section.type == .onDemandTransport else {
+            return noteOnDemandTransport
+        }
+        
         for note in section.selectLinks(type: "notes") {
             if let notes = notes, let id = note.id, let note = section.getNote(notes: notes, id: id) {
                 noteOnDemandTransport.append(ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionClean.Note(content: note.value ?? ""))
