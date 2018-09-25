@@ -43,6 +43,12 @@ internal class ListRidesharingOffersViewController: UIViewController, ListRidesh
         getRidesharingOffers()
     }
     
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        
+        ridesharingOffersCollectionView.collectionViewLayout.invalidateLayout()
+    }
+    
     private func initArchitecture() {
         let viewController = self
         let interactor = ListRidesharingOffersInteractor()

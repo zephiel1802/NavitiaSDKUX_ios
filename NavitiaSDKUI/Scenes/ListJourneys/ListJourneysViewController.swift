@@ -22,7 +22,7 @@ open class ListJourneysViewController: UIViewController, ListJourneysDisplayLogi
     @IBOutlet weak var toLabel: UILabel!
     @IBOutlet weak var toPinLabel: UILabel!
     @IBOutlet weak var dateTimeLabel: UILabel!
-    @IBOutlet weak var collectionView: UICollectionView!
+    @IBOutlet weak var journeysCollectionView: UICollectionView!
     @IBOutlet weak var switchDepartureArrivalImageView: UIImageView!
     @IBOutlet weak var switchDepartureArrivalButton: UIButton!
     
@@ -51,6 +51,12 @@ open class ListJourneysViewController: UIViewController, ListJourneysDisplayLogi
         initCollectionView()
 
         fetchJourneys()
+    }
+    
+    override open func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        
+        journeysCollectionView.collectionViewLayout.invalidateLayout()
     }
     
     private func initSDK() {
@@ -97,18 +103,17 @@ open class ListJourneysViewController: UIViewController, ListJourneysDisplayLogi
     
     private func initCollectionView() {
         if #available(iOS 11.0, *) {
-            collectionView?.contentInsetAdjustmentBehavior = .always
+            journeysCollectionView?.contentInsetAdjustmentBehavior = .always
         }
-        collectionView.collectionViewLayout.invalidateLayout()
         registerCollectionView()
     }
     
     private func registerCollectionView() {
-        collectionView.register(UINib(nibName: JourneySolutionCollectionViewCell.identifier, bundle: self.nibBundle), forCellWithReuseIdentifier: JourneySolutionCollectionViewCell.identifier)
-        collectionView.register(UINib(nibName: JourneySolutionLoadCollectionViewCell.identifier, bundle: self.nibBundle), forCellWithReuseIdentifier: JourneySolutionLoadCollectionViewCell.identifier)
-        collectionView.register(UINib(nibName: RidesharingInformationCollectionViewCell.identifier, bundle: self.nibBundle), forCellWithReuseIdentifier: RidesharingInformationCollectionViewCell.identifier)
-        collectionView.register(UINib(nibName: JourneyEmptySolutionCollectionViewCell.identifier, bundle: self.nibBundle), forCellWithReuseIdentifier: JourneyEmptySolutionCollectionViewCell.identifier)
-        collectionView.register(UINib(nibName: JourneyHeaderCollectionReusableView.identifier, bundle: self.nibBundle), forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: JourneyHeaderCollectionReusableView.identifier)
+        journeysCollectionView.register(UINib(nibName: JourneySolutionCollectionViewCell.identifier, bundle: self.nibBundle), forCellWithReuseIdentifier: JourneySolutionCollectionViewCell.identifier)
+        journeysCollectionView.register(UINib(nibName: JourneySolutionLoadCollectionViewCell.identifier, bundle: self.nibBundle), forCellWithReuseIdentifier: JourneySolutionLoadCollectionViewCell.identifier)
+        journeysCollectionView.register(UINib(nibName: RidesharingInformationCollectionViewCell.identifier, bundle: self.nibBundle), forCellWithReuseIdentifier: RidesharingInformationCollectionViewCell.identifier)
+        journeysCollectionView.register(UINib(nibName: JourneyEmptySolutionCollectionViewCell.identifier, bundle: self.nibBundle), forCellWithReuseIdentifier: JourneyEmptySolutionCollectionViewCell.identifier)
+        journeysCollectionView.register(UINib(nibName: JourneyHeaderCollectionReusableView.identifier, bundle: self.nibBundle), forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: JourneyHeaderCollectionReusableView.identifier)
     }
     
     // MARK: - Events
@@ -153,7 +158,7 @@ open class ListJourneysViewController: UIViewController, ListJourneysDisplayLogi
         fromLabel.attributedText = viewModel.headerInformations.origin
         toLabel.attributedText = viewModel.headerInformations.destination
         dateTimeLabel.attributedText = viewModel.headerInformations.dateTime
-        collectionView.reloadData()
+        journeysCollectionView.reloadData()
     }
     
 }
@@ -293,7 +298,7 @@ extension ListJourneysViewController: UICollectionViewDataSource, UICollectionVi
     public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         var safeAreaWidth: CGFloat = 20.0
         if #available(iOS 11.0, *) {
-            safeAreaWidth += self.collectionView.safeAreaInsets.left + self.collectionView.safeAreaInsets.right
+            safeAreaWidth += self.journeysCollectionView.safeAreaInsets.left + self.journeysCollectionView.safeAreaInsets.right
         }
         guard let viewModel = viewModel else {
             return CGSize()
@@ -301,34 +306,34 @@ extension ListJourneysViewController: UICollectionViewDataSource, UICollectionVi
         
         // Loading
         if !viewModel.loaded {
-            return CGSize(width: self.collectionView.frame.size.width - safeAreaWidth, height: 130)
+            return CGSize(width: self.journeysCollectionView.frame.size.width - safeAreaWidth, height: 130)
         }
         // Journey
         if indexPath.section == 0 {
             // No journey
             if viewModel.displayedJourneys.count == 0 {
-                return CGSize(width: self.collectionView.frame.size.width - safeAreaWidth, height: 35)
+                return CGSize(width: self.journeysCollectionView.frame.size.width - safeAreaWidth, height: 35)
             }
             // Result
             if viewModel.displayedJourneys[indexPath.row].walkingInformation == nil {
-                return CGSize(width: self.collectionView.frame.size.width - safeAreaWidth, height: 97)
+                return CGSize(width: self.journeysCollectionView.frame.size.width - safeAreaWidth, height: 97)
             }
-            return CGSize(width: self.collectionView.frame.size.width - safeAreaWidth, height: 130)
+            return CGSize(width: self.journeysCollectionView.frame.size.width - safeAreaWidth, height: 130)
         }
         // Carsharing
         if indexPath.section == 1 {
             // Header
             if indexPath.row == 0 {
-                return CGSize(width: self.collectionView.frame.size.width - safeAreaWidth, height: 75)
+                return CGSize(width: self.journeysCollectionView.frame.size.width - safeAreaWidth, height: 75)
             }
             // No journey
             if indexPath.row == 1 && viewModel.displayedRidesharings.count == 0 {
-                return CGSize(width: self.collectionView.frame.size.width - safeAreaWidth, height: 35)
+                return CGSize(width: self.journeysCollectionView.frame.size.width - safeAreaWidth, height: 35)
             }
             // Result
-            return CGSize(width: self.collectionView.frame.size.width - safeAreaWidth, height: 97)
+            return CGSize(width: self.journeysCollectionView.frame.size.width - safeAreaWidth, height: 97)
         }
         // Other
-        return CGSize(width: self.collectionView.frame.size.width - safeAreaWidth, height: 130)
+        return CGSize(width: self.journeysCollectionView.frame.size.width - safeAreaWidth, height: 130)
     }
 }
