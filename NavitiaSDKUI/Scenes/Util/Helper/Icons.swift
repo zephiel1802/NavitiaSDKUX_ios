@@ -83,24 +83,26 @@ class Modes {
     
     public func getModeIcon(section: Section?) -> String {
         switch section!.type! {
-            case .publicTransport:
-                return getPhysicalMode(section: section).lowercased()
-            case .transfer:
-                return section?.transferType?.rawValue ?? ""
-            case .waiting:
-                return section?.type?.rawValue ?? ""
-            case .streetNetwork:
-                return getStreetNetworkMode(section: section).lowercased()
-            case .bssRent:
-                return "bss"
-            case .bssPutBack:
-                return "bss"
-            case .crowFly:
-                return "crow_fly"
-            case .onDemandTransport:
-                return "bus-tad"
-            default:
-                return section?.mode?.rawValue ?? ""
+        case .publicTransport:
+            return getPhysicalMode(section: section).lowercased()
+        case .transfer:
+            return section?.transferType?.rawValue ?? ""
+        case .waiting:
+            return section?.type?.rawValue ?? ""
+        case .streetNetwork:
+            return getStreetNetworkMode(section: section).lowercased()
+        case .bssRent:
+            return "bss"
+        case .bssPutBack:
+            return "bss"
+        case .crowFly:
+            return "crow_fly"
+        case .onDemandTransport:
+            return "bus-tad"
+        case .park:
+            return "car"
+        default:
+            return section?.mode?.rawValue ?? ""
         }
     }
     
