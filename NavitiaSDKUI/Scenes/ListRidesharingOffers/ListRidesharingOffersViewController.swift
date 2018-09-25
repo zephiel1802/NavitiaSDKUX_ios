@@ -46,6 +46,7 @@ internal class ListRidesharingOffersViewController: UIViewController, ListRidesh
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         
+        navigationController?.navigationBar.setNeedsLayout()
         ridesharingOffersCollectionView.collectionViewLayout.invalidateLayout()
     }
     
