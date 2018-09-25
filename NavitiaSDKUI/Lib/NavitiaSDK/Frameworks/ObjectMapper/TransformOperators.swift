@@ -1,6 +1,6 @@
 //
 //  TransformOperators.swift
-//  ObjectMapper
+//  
 //
 //  Created by Tristan Himmelman on 2016-09-26.
 //  Copyright © 2016 hearst. All rights reserved.

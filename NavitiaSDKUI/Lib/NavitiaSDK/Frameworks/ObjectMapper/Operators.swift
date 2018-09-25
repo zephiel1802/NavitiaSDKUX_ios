@@ -1,6 +1,6 @@
 //
 //  Operators.swift
-//  ObjectMapper
+//  
 //
 //  Created by Tristan Himmelman on 2014-10-09.
 //
@@ -28,7 +28,7 @@
 
 /**
 * This file defines a new operator which is used to create a mapping between an object and a JSON key value.
-* There is an overloaded operator definition for each type of object that is supported in ObjectMapper.
+* There is an overloaded operator definition for each type of object that is supported in .
 * This provides a way to add custom logic to handle specific types of objects
 */
 

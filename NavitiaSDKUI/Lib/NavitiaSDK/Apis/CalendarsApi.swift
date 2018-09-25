@@ -20,68 +20,86 @@ open class CoverageLonLatCalendarsRequestBuilder: NSObject {
     var forbiddenId:[String]? = nil
     var forbiddenUris:[String]? = nil
     var distance:Int32? = nil
+    var debugURL: String? = nil
 
     public init(currentApi: CalendarsApi) {
         self.currentApi = currentApi
     }
 
-    open func withLat(_ lat: Double) -> CoverageLonLatCalendarsRequestBuilder {
+    open func withLat(_ lat: Double?) -> CoverageLonLatCalendarsRequestBuilder {
         self.lat = lat
+        
         return self
     }
-    open func withLon(_ lon: Double) -> CoverageLonLatCalendarsRequestBuilder {
+    open func withLon(_ lon: Double?) -> CoverageLonLatCalendarsRequestBuilder {
         self.lon = lon
+        
         return self
     }
-    open func withDepth(_ depth: Int32) -> CoverageLonLatCalendarsRequestBuilder {
+    open func withDepth(_ depth: Int32?) -> CoverageLonLatCalendarsRequestBuilder {
         self.depth = depth
+        
         return self
     }
-    open func withCount(_ count: Int32) -> CoverageLonLatCalendarsRequestBuilder {
+    open func withCount(_ count: Int32?) -> CoverageLonLatCalendarsRequestBuilder {
         self.count = count
+        
         return self
     }
-    open func withStartPage(_ startPage: Int32) -> CoverageLonLatCalendarsRequestBuilder {
+    open func withStartPage(_ startPage: Int32?) -> CoverageLonLatCalendarsRequestBuilder {
         self.startPage = startPage
+        
         return self
     }
-    open func withStartDate(_ startDate: String) -> CoverageLonLatCalendarsRequestBuilder {
+    open func withStartDate(_ startDate: String?) -> CoverageLonLatCalendarsRequestBuilder {
         self.startDate = startDate
+        
         return self
     }
-    open func withEndDate(_ endDate: String) -> CoverageLonLatCalendarsRequestBuilder {
+    open func withEndDate(_ endDate: String?) -> CoverageLonLatCalendarsRequestBuilder {
         self.endDate = endDate
+        
         return self
     }
-    open func withForbiddenId(_ forbiddenId: [String]) -> CoverageLonLatCalendarsRequestBuilder {
+    open func withForbiddenId(_ forbiddenId: [String]?) -> CoverageLonLatCalendarsRequestBuilder {
         self.forbiddenId = forbiddenId
+        
         return self
     }
-    open func withForbiddenUris(_ forbiddenUris: [String]) -> CoverageLonLatCalendarsRequestBuilder {
+    open func withForbiddenUris(_ forbiddenUris: [String]?) -> CoverageLonLatCalendarsRequestBuilder {
         self.forbiddenUris = forbiddenUris
+        
         return self
     }
-    open func withDistance(_ distance: Int32) -> CoverageLonLatCalendarsRequestBuilder {
+    open func withDistance(_ distance: Int32?) -> CoverageLonLatCalendarsRequestBuilder {
         self.distance = distance
+        
+        return self
+    }
+
+
+
+    open func withDebugURL(_ debugURL: String?) -> CoverageLonLatCalendarsRequestBuilder {
+        self.debugURL = debugURL
         return self
     }
 
     open func makeUrl() -> String {
         var path = "/coverage/{lon};{lat}/calendars"
 
-        if (lat != nil) {
-            let latPreEscape: String = "\(lat!)"
+        if let lat = lat {
+            let latPreEscape: String = "\(lat)"
             let latPostEscape: String = latPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
             path = path.replacingOccurrences(of: "{lat}", with: latPostEscape, options: .literal, range: nil)
         }
 
-        if (lon != nil) {
-            let lonPreEscape: String = "\(lon!)"
+        if let lon = lon {
+            let lonPreEscape: String = "\(lon)"
             let lonPostEscape: String = lonPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
             path = path.replacingOccurrences(of: "{lon}", with: lonPostEscape, options: .literal, range: nil)
         }
 
-        let URLString = "https://api.navitia.io/v1" + path
+        let URLString = String(format: "%@%@", NavitiaSDKAPI.basePath, path)
         let url = NSURLComponents(string: URLString)
 
         let paramValues: [String: Any?] = [
@@ -97,7 +115,7 @@ open class CoverageLonLatCalendarsRequestBuilder: NSObject {
         url?.queryItems = APIHelper.mapValuesToQueryItems(values: paramValues)
         url?.percentEncodedQuery = url?.percentEncodedQuery?.replacingOccurrences(of: "+", with: "%2B")
 
-        return (url?.string ?? URLString)
+        return (debugURL ?? url?.string ?? URLString)
     }
 
     open func get(completion: @escaping ((_ data: Calendars?,_ error: Error?) -> Void)) {
@@ -157,78 +175,97 @@ open class CoverageLonLatCalendarsIdRequestBuilder: NSObject {
     var forbiddenId:[String]? = nil
     var forbiddenUris:[String]? = nil
     var distance:Int32? = nil
+    var debugURL: String? = nil
 
     public init(currentApi: CalendarsApi) {
         self.currentApi = currentApi
     }
 
-    open func withLat(_ lat: Double) -> CoverageLonLatCalendarsIdRequestBuilder {
+    open func withLat(_ lat: Double?) -> CoverageLonLatCalendarsIdRequestBuilder {
         self.lat = lat
+        
         return self
     }
-    open func withLon(_ lon: Double) -> CoverageLonLatCalendarsIdRequestBuilder {
+    open func withLon(_ lon: Double?) -> CoverageLonLatCalendarsIdRequestBuilder {
         self.lon = lon
+        
         return self
     }
-    open func withId(_ id: String) -> CoverageLonLatCalendarsIdRequestBuilder {
+    open func withId(_ id: String?) -> CoverageLonLatCalendarsIdRequestBuilder {
         self.id = id
+        
         return self
     }
-    open func withDepth(_ depth: Int32) -> CoverageLonLatCalendarsIdRequestBuilder {
+    open func withDepth(_ depth: Int32?) -> CoverageLonLatCalendarsIdRequestBuilder {
         self.depth = depth
+        
         return self
     }
-    open func withCount(_ count: Int32) -> CoverageLonLatCalendarsIdRequestBuilder {
+    open func withCount(_ count: Int32?) -> CoverageLonLatCalendarsIdRequestBuilder {
         self.count = count
+        
         return self
     }
-    open func withStartPage(_ startPage: Int32) -> CoverageLonLatCalendarsIdRequestBuilder {
+    open func withStartPage(_ startPage: Int32?) -> CoverageLonLatCalendarsIdRequestBuilder {
         self.startPage = startPage
+        
         return self
     }
-    open func withStartDate(_ startDate: String) -> CoverageLonLatCalendarsIdRequestBuilder {
+    open func withStartDate(_ startDate: String?) -> CoverageLonLatCalendarsIdRequestBuilder {
         self.startDate = startDate
+        
         return self
     }
-    open func withEndDate(_ endDate: String) -> CoverageLonLatCalendarsIdRequestBuilder {
+    open func withEndDate(_ endDate: String?) -> CoverageLonLatCalendarsIdRequestBuilder {
         self.endDate = endDate
+        
         return self
     }
-    open func withForbiddenId(_ forbiddenId: [String]) -> CoverageLonLatCalendarsIdRequestBuilder {
+    open func withForbiddenId(_ forbiddenId: [String]?) -> CoverageLonLatCalendarsIdRequestBuilder {
         self.forbiddenId = forbiddenId
+        
         return self
     }
-    open func withForbiddenUris(_ forbiddenUris: [String]) -> CoverageLonLatCalendarsIdRequestBuilder {
+    open func withForbiddenUris(_ forbiddenUris: [String]?) -> CoverageLonLatCalendarsIdRequestBuilder {
         self.forbiddenUris = forbiddenUris
+        
         return self
     }
-    open func withDistance(_ distance: Int32) -> CoverageLonLatCalendarsIdRequestBuilder {
+    open func withDistance(_ distance: Int32?) -> CoverageLonLatCalendarsIdRequestBuilder {
         self.distance = distance
+        
+        return self
+    }
+
+
+
+    open func withDebugURL(_ debugURL: String?) -> CoverageLonLatCalendarsIdRequestBuilder {
+        self.debugURL = debugURL
         return self
     }
 
     open func makeUrl() -> String {
         var path = "/coverage/{lon};{lat}/calendars/{id}"
 
-        if (lat != nil) {
-            let latPreEscape: String = "\(lat!)"
+        if let lat = lat {
+            let latPreEscape: String = "\(lat)"
             let latPostEscape: String = latPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
             path = path.replacingOccurrences(of: "{lat}", with: latPostEscape, options: .literal, range: nil)
         }
 
-        if (lon != nil) {
-            let lonPreEscape: String = "\(lon!)"
+        if let lon = lon {
+            let lonPreEscape: String = "\(lon)"
             let lonPostEscape: String = lonPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
             path = path.replacingOccurrences(of: "{lon}", with: lonPostEscape, options: .literal, range: nil)
         }
 
-        if (id != nil) {
-            let idPreEscape: String = "\(id!)"
+        if let id = id {
+            let idPreEscape: String = "\(id)"
             let idPostEscape: String = idPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
             path = path.replacingOccurrences(of: "{id}", with: idPostEscape, options: .literal, range: nil)
         }
 
-        let URLString = "https://api.navitia.io/v1" + path
+        let URLString = String(format: "%@%@", NavitiaSDKAPI.basePath, path)
         let url = NSURLComponents(string: URLString)
 
         let paramValues: [String: Any?] = [
@@ -244,7 +281,7 @@ open class CoverageLonLatCalendarsIdRequestBuilder: NSObject {
         url?.queryItems = APIHelper.mapValuesToQueryItems(values: paramValues)
         url?.percentEncodedQuery = url?.percentEncodedQuery?.replacingOccurrences(of: "+", with: "%2B")
 
-        return (url?.string ?? URLString)
+        return (debugURL ?? url?.string ?? URLString)
     }
 
     open func get(completion: @escaping ((_ data: Calendars?,_ error: Error?) -> Void)) {
@@ -310,78 +347,97 @@ open class CoverageLonLatUriCalendarsRequestBuilder: NSObject {
     var forbiddenId:[String]? = nil
     var forbiddenUris:[String]? = nil
     var distance:Int32? = nil
+    var debugURL: String? = nil
 
     public init(currentApi: CalendarsApi) {
         self.currentApi = currentApi
     }
 
-    open func withLat(_ lat: Double) -> CoverageLonLatUriCalendarsRequestBuilder {
+    open func withLat(_ lat: Double?) -> CoverageLonLatUriCalendarsRequestBuilder {
         self.lat = lat
+        
         return self
     }
-    open func withLon(_ lon: Double) -> CoverageLonLatUriCalendarsRequestBuilder {
+    open func withLon(_ lon: Double?) -> CoverageLonLatUriCalendarsRequestBuilder {
         self.lon = lon
+        
         return self
     }
-    open func withUri(_ uri: String) -> CoverageLonLatUriCalendarsRequestBuilder {
+    open func withUri(_ uri: String?) -> CoverageLonLatUriCalendarsRequestBuilder {
         self.uri = uri
+        
         return self
     }
-    open func withDepth(_ depth: Int32) -> CoverageLonLatUriCalendarsRequestBuilder {
+    open func withDepth(_ depth: Int32?) -> CoverageLonLatUriCalendarsRequestBuilder {
         self.depth = depth
+        
         return self
     }
-    open func withCount(_ count: Int32) -> CoverageLonLatUriCalendarsRequestBuilder {
+    open func withCount(_ count: Int32?) -> CoverageLonLatUriCalendarsRequestBuilder {
         self.count = count
+        
         return self
     }
-    open func withStartPage(_ startPage: Int32) -> CoverageLonLatUriCalendarsRequestBuilder {
+    open func withStartPage(_ startPage: Int32?) -> CoverageLonLatUriCalendarsRequestBuilder {
         self.startPage = startPage
+        
         return self
     }
-    open func withStartDate(_ startDate: String) -> CoverageLonLatUriCalendarsRequestBuilder {
+    open func withStartDate(_ startDate: String?) -> CoverageLonLatUriCalendarsRequestBuilder {
         self.startDate = startDate
+        
         return self
     }
-    open func withEndDate(_ endDate: String) -> CoverageLonLatUriCalendarsRequestBuilder {
+    open func withEndDate(_ endDate: String?) -> CoverageLonLatUriCalendarsRequestBuilder {
         self.endDate = endDate
+        
         return self
     }
-    open func withForbiddenId(_ forbiddenId: [String]) -> CoverageLonLatUriCalendarsRequestBuilder {
+    open func withForbiddenId(_ forbiddenId: [String]?) -> CoverageLonLatUriCalendarsRequestBuilder {
         self.forbiddenId = forbiddenId
+        
         return self
     }
-    open func withForbiddenUris(_ forbiddenUris: [String]) -> CoverageLonLatUriCalendarsRequestBuilder {
+    open func withForbiddenUris(_ forbiddenUris: [String]?) -> CoverageLonLatUriCalendarsRequestBuilder {
         self.forbiddenUris = forbiddenUris
+        
         return self
     }
-    open func withDistance(_ distance: Int32) -> CoverageLonLatUriCalendarsRequestBuilder {
+    open func withDistance(_ distance: Int32?) -> CoverageLonLatUriCalendarsRequestBuilder {
         self.distance = distance
+        
+        return self
+    }
+
+
+
+    open func withDebugURL(_ debugURL: String?) -> CoverageLonLatUriCalendarsRequestBuilder {
+        self.debugURL = debugURL
         return self
     }
 
     open func makeUrl() -> String {
         var path = "/coverage/{lon};{lat}/{uri}/calendars"
 
-        if (lat != nil) {
-            let latPreEscape: String = "\(lat!)"
+        if let lat = lat {
+            let latPreEscape: String = "\(lat)"
             let latPostEscape: String = latPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
             path = path.replacingOccurrences(of: "{lat}", with: latPostEscape, options: .literal, range: nil)
         }
 
-        if (lon != nil) {
-            let lonPreEscape: String = "\(lon!)"
+        if let lon = lon {
+            let lonPreEscape: String = "\(lon)"
             let lonPostEscape: String = lonPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
             path = path.replacingOccurrences(of: "{lon}", with: lonPostEscape, options: .literal, range: nil)
         }
 
-        if (uri != nil) {
-            let uriPreEscape: String = "\(uri!)"
+        if let uri = uri {
+            let uriPreEscape: String = "\(uri)"
             let uriPostEscape: String = uriPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
             path = path.replacingOccurrences(of: "{uri}", with: uriPostEscape, options: .literal, range: nil)
         }
 
-        let URLString = "https://api.navitia.io/v1" + path
+        let URLString = String(format: "%@%@", NavitiaSDKAPI.basePath, path)
         let url = NSURLComponents(string: URLString)
 
         let paramValues: [String: Any?] = [
@@ -397,7 +453,7 @@ open class CoverageLonLatUriCalendarsRequestBuilder: NSObject {
         url?.queryItems = APIHelper.mapValuesToQueryItems(values: paramValues)
         url?.percentEncodedQuery = url?.percentEncodedQuery?.replacingOccurrences(of: "+", with: "%2B")
 
-        return (url?.string ?? URLString)
+        return (debugURL ?? url?.string ?? URLString)
     }
 
     open func get(completion: @escaping ((_ data: Calendars?,_ error: Error?) -> Void)) {
@@ -461,58 +517,75 @@ open class CoverageRegionCalendarsRequestBuilder: NSObject {
     var forbiddenId:[String]? = nil
     var forbiddenUris:[String]? = nil
     var distance:Int32? = nil
+    var debugURL: String? = nil
 
     public init(currentApi: CalendarsApi) {
         self.currentApi = currentApi
     }
 
-    open func withRegion(_ region: String) -> CoverageRegionCalendarsRequestBuilder {
+    open func withRegion(_ region: String?) -> CoverageRegionCalendarsRequestBuilder {
         self.region = region
+        
         return self
     }
-    open func withDepth(_ depth: Int32) -> CoverageRegionCalendarsRequestBuilder {
+    open func withDepth(_ depth: Int32?) -> CoverageRegionCalendarsRequestBuilder {
         self.depth = depth
+        
         return self
     }
-    open func withCount(_ count: Int32) -> CoverageRegionCalendarsRequestBuilder {
+    open func withCount(_ count: Int32?) -> CoverageRegionCalendarsRequestBuilder {
         self.count = count
+        
         return self
     }
-    open func withStartPage(_ startPage: Int32) -> CoverageRegionCalendarsRequestBuilder {
+    open func withStartPage(_ startPage: Int32?) -> CoverageRegionCalendarsRequestBuilder {
         self.startPage = startPage
+        
         return self
     }
-    open func withStartDate(_ startDate: String) -> CoverageRegionCalendarsRequestBuilder {
+    open func withStartDate(_ startDate: String?) -> CoverageRegionCalendarsRequestBuilder {
         self.startDate = startDate
+        
         return self
     }
-    open func withEndDate(_ endDate: String) -> CoverageRegionCalendarsRequestBuilder {
+    open func withEndDate(_ endDate: String?) -> CoverageRegionCalendarsRequestBuilder {
         self.endDate = endDate
+        
         return self
     }
-    open func withForbiddenId(_ forbiddenId: [String]) -> CoverageRegionCalendarsRequestBuilder {
+    open func withForbiddenId(_ forbiddenId: [String]?) -> CoverageRegionCalendarsRequestBuilder {
         self.forbiddenId = forbiddenId
+        
         return self
     }
-    open func withForbiddenUris(_ forbiddenUris: [String]) -> CoverageRegionCalendarsRequestBuilder {
+    open func withForbiddenUris(_ forbiddenUris: [String]?) -> CoverageRegionCalendarsRequestBuilder {
         self.forbiddenUris = forbiddenUris
+        
         return self
     }
-    open func withDistance(_ distance: Int32) -> CoverageRegionCalendarsRequestBuilder {
+    open func withDistance(_ distance: Int32?) -> CoverageRegionCalendarsRequestBuilder {
         self.distance = distance
+        
+        return self
+    }
+
+
+
+    open func withDebugURL(_ debugURL: String?) -> CoverageRegionCalendarsRequestBuilder {
+        self.debugURL = debugURL
         return self
     }
 
     open func makeUrl() -> String {
         var path = "/coverage/{region}/calendars"
 
-        if (region != nil) {
-            let regionPreEscape: String = "\(region!)"
+        if let region = region {
+            let regionPreEscape: String = "\(region)"
             let regionPostEscape: String = regionPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
             path = path.replacingOccurrences(of: "{region}", with: regionPostEscape, options: .literal, range: nil)
         }
 
-        let URLString = "https://api.navitia.io/v1" + path
+        let URLString = String(format: "%@%@", NavitiaSDKAPI.basePath, path)
         let url = NSURLComponents(string: URLString)
 
         let paramValues: [String: Any?] = [
@@ -528,7 +601,7 @@ open class CoverageRegionCalendarsRequestBuilder: NSObject {
         url?.queryItems = APIHelper.mapValuesToQueryItems(values: paramValues)
         url?.percentEncodedQuery = url?.percentEncodedQuery?.replacingOccurrences(of: "+", with: "%2B")
 
-        return (url?.string ?? URLString)
+        return (debugURL ?? url?.string ?? URLString)
     }
 
     open func get(completion: @escaping ((_ data: Calendars?,_ error: Error?) -> Void)) {
@@ -581,68 +654,86 @@ open class CoverageRegionCalendarsIdRequestBuilder: NSObject {
     var forbiddenId:[String]? = nil
     var forbiddenUris:[String]? = nil
     var distance:Int32? = nil
+    var debugURL: String? = nil
 
     public init(currentApi: CalendarsApi) {
         self.currentApi = currentApi
     }
 
-    open func withRegion(_ region: String) -> CoverageRegionCalendarsIdRequestBuilder {
+    open func withRegion(_ region: String?) -> CoverageRegionCalendarsIdRequestBuilder {
         self.region = region
+        
         return self
     }
-    open func withId(_ id: String) -> CoverageRegionCalendarsIdRequestBuilder {
+    open func withId(_ id: String?) -> CoverageRegionCalendarsIdRequestBuilder {
         self.id = id
+        
         return self
     }
-    open func withDepth(_ depth: Int32) -> CoverageRegionCalendarsIdRequestBuilder {
+    open func withDepth(_ depth: Int32?) -> CoverageRegionCalendarsIdRequestBuilder {
         self.depth = depth
+        
         return self
     }
-    open func withCount(_ count: Int32) -> CoverageRegionCalendarsIdRequestBuilder {
+    open func withCount(_ count: Int32?) -> CoverageRegionCalendarsIdRequestBuilder {
         self.count = count
+        
         return self
     }
-    open func withStartPage(_ startPage: Int32) -> CoverageRegionCalendarsIdRequestBuilder {
+    open func withStartPage(_ startPage: Int32?) -> CoverageRegionCalendarsIdRequestBuilder {
         self.startPage = startPage
+        
         return self
     }
-    open func withStartDate(_ startDate: String) -> CoverageRegionCalendarsIdRequestBuilder {
+    open func withStartDate(_ startDate: String?) -> CoverageRegionCalendarsIdRequestBuilder {
         self.startDate = startDate
+        
         return self
     }
-    open func withEndDate(_ endDate: String) -> CoverageRegionCalendarsIdRequestBuilder {
+    open func withEndDate(_ endDate: String?) -> CoverageRegionCalendarsIdRequestBuilder {
         self.endDate = endDate
+        
         return self
     }
-    open func withForbiddenId(_ forbiddenId: [String]) -> CoverageRegionCalendarsIdRequestBuilder {
+    open func withForbiddenId(_ forbiddenId: [String]?) -> CoverageRegionCalendarsIdRequestBuilder {
         self.forbiddenId = forbiddenId
+        
         return self
     }
-    open func withForbiddenUris(_ forbiddenUris: [String]) -> CoverageRegionCalendarsIdRequestBuilder {
+    open func withForbiddenUris(_ forbiddenUris: [String]?) -> CoverageRegionCalendarsIdRequestBuilder {
         self.forbiddenUris = forbiddenUris
+        
         return self
     }
-    open func withDistance(_ distance: Int32) -> CoverageRegionCalendarsIdRequestBuilder {
+    open func withDistance(_ distance: Int32?) -> CoverageRegionCalendarsIdRequestBuilder {
         self.distance = distance
+        
+        return self
+    }
+
+
+
+    open func withDebugURL(_ debugURL: String?) -> CoverageRegionCalendarsIdRequestBuilder {
+        self.debugURL = debugURL
         return self
     }
 
     open func makeUrl() -> String {
         var path = "/coverage/{region}/calendars/{id}"
 
-        if (region != nil) {
-            let regionPreEscape: String = "\(region!)"
+        if let region = region {
+            let regionPreEscape: String = "\(region)"
             let regionPostEscape: String = regionPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
             path = path.replacingOccurrences(of: "{region}", with: regionPostEscape, options: .literal, range: nil)
         }
 
-        if (id != nil) {
-            let idPreEscape: String = "\(id!)"
+        if let id = id {
+            let idPreEscape: String = "\(id)"
             let idPostEscape: String = idPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
             path = path.replacingOccurrences(of: "{id}", with: idPostEscape, options: .literal, range: nil)
         }
 
-        let URLString = "https://api.navitia.io/v1" + path
+        let URLString = String(format: "%@%@", NavitiaSDKAPI.basePath, path)
         let url = NSURLComponents(string: URLString)
 
         let paramValues: [String: Any?] = [
@@ -658,7 +749,7 @@ open class CoverageRegionCalendarsIdRequestBuilder: NSObject {
         url?.queryItems = APIHelper.mapValuesToQueryItems(values: paramValues)
         url?.percentEncodedQuery = url?.percentEncodedQuery?.replacingOccurrences(of: "+", with: "%2B")
 
-        return (url?.string ?? URLString)
+        return (debugURL ?? url?.string ?? URLString)
     }
 
     open func get(completion: @escaping ((_ data: Calendars?,_ error: Error?) -> Void)) {
@@ -717,68 +808,86 @@ open class CoverageRegionUriCalendarsRequestBuilder: NSObject {
     var forbiddenId:[String]? = nil
     var forbiddenUris:[String]? = nil
     var distance:Int32? = nil
+    var debugURL: String? = nil
 
     public init(currentApi: CalendarsApi) {
         self.currentApi = currentApi
     }
 
-    open func withRegion(_ region: String) -> CoverageRegionUriCalendarsRequestBuilder {
+    open func withRegion(_ region: String?) -> CoverageRegionUriCalendarsRequestBuilder {
         self.region = region
+        
         return self
     }
-    open func withUri(_ uri: String) -> CoverageRegionUriCalendarsRequestBuilder {
+    open func withUri(_ uri: String?) -> CoverageRegionUriCalendarsRequestBuilder {
         self.uri = uri
+        
         return self
     }
-    open func withDepth(_ depth: Int32) -> CoverageRegionUriCalendarsRequestBuilder {
+    open func withDepth(_ depth: Int32?) -> CoverageRegionUriCalendarsRequestBuilder {
         self.depth = depth
+        
         return self
     }
-    open func withCount(_ count: Int32) -> CoverageRegionUriCalendarsRequestBuilder {
+    open func withCount(_ count: Int32?) -> CoverageRegionUriCalendarsRequestBuilder {
         self.count = count
+        
         return self
     }
-    open func withStartPage(_ startPage: Int32) -> CoverageRegionUriCalendarsRequestBuilder {
+    open func withStartPage(_ startPage: Int32?) -> CoverageRegionUriCalendarsRequestBuilder {
         self.startPage = startPage
+        
         return self
     }
-    open func withStartDate(_ startDate: String) -> CoverageRegionUriCalendarsRequestBuilder {
+    open func withStartDate(_ startDate: String?) -> CoverageRegionUriCalendarsRequestBuilder {
         self.startDate = startDate
+        
         return self
     }
-    open func withEndDate(_ endDate: String) -> CoverageRegionUriCalendarsRequestBuilder {
+    open func withEndDate(_ endDate: String?) -> CoverageRegionUriCalendarsRequestBuilder {
         self.endDate = endDate
+        
         return self
     }
-    open func withForbiddenId(_ forbiddenId: [String]) -> CoverageRegionUriCalendarsRequestBuilder {
+    open func withForbiddenId(_ forbiddenId: [String]?) -> CoverageRegionUriCalendarsRequestBuilder {
         self.forbiddenId = forbiddenId
+        
         return self
     }
-    open func withForbiddenUris(_ forbiddenUris: [String]) -> CoverageRegionUriCalendarsRequestBuilder {
+    open func withForbiddenUris(_ forbiddenUris: [String]?) -> CoverageRegionUriCalendarsRequestBuilder {
         self.forbiddenUris = forbiddenUris
+        
         return self
     }
-    open func withDistance(_ distance: Int32) -> CoverageRegionUriCalendarsRequestBuilder {
+    open func withDistance(_ distance: Int32?) -> CoverageRegionUriCalendarsRequestBuilder {
         self.distance = distance
+        
+        return self
+    }
+
+
+
+    open func withDebugURL(_ debugURL: String?) -> CoverageRegionUriCalendarsRequestBuilder {
+        self.debugURL = debugURL
         return self
     }
 
     open func makeUrl() -> String {
         var path = "/coverage/{region}/{uri}/calendars"
 
-        if (region != nil) {
-            let regionPreEscape: String = "\(region!)"
+        if let region = region {
+            let regionPreEscape: String = "\(region)"
             let regionPostEscape: String = regionPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
             path = path.replacingOccurrences(of: "{region}", with: regionPostEscape, options: .literal, range: nil)
         }
 
-        if (uri != nil) {
-            let uriPreEscape: String = "\(uri!)"
+        if let uri = uri {
+            let uriPreEscape: String = "\(uri)"
             let uriPostEscape: String = uriPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
             path = path.replacingOccurrences(of: "{uri}", with: uriPostEscape, options: .literal, range: nil)
         }
 
-        let URLString = "https://api.navitia.io/v1" + path
+        let URLString = String(format: "%@%@", NavitiaSDKAPI.basePath, path)
         let url = NSURLComponents(string: URLString)
 
         let paramValues: [String: Any?] = [
@@ -794,7 +903,7 @@ open class CoverageRegionUriCalendarsRequestBuilder: NSObject {
         url?.queryItems = APIHelper.mapValuesToQueryItems(values: paramValues)
         url?.percentEncodedQuery = url?.percentEncodedQuery?.replacingOccurrences(of: "+", with: "%2B")
 
-        return (url?.string ?? URLString)
+        return (debugURL ?? url?.string ?? URLString)
     }
 
     open func get(completion: @escaping ((_ data: Calendars?,_ error: Error?) -> Void)) {

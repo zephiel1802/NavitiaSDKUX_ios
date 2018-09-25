@@ -1,6 +1,6 @@
 //
 //  FromJSON.swift
-//  ObjectMapper
+//  
 //
 //  Created by Tristan Himmelman on 2014-10-09.
 //

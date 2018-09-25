@@ -1,6 +1,6 @@
 //
 //  DataTransform.swift
-//  ObjectMapper
+//  
 //
 //  Created by Yagrushkin, Evgeny on 8/30/16.
 //

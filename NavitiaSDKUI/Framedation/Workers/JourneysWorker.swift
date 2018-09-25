@@ -12,39 +12,20 @@ internal struct JourneysWorker {
     func fetchJourneys(journeysRequest: JourneysRequest, completionHandler: @escaping ([Journey]?, [Journey]?, [Disruption]?, [Note]?, Context?) -> Void) {
         if NavitiaSDKUI.shared.navitiaSDK != nil {
             let journeyRequestBuilder = NavitiaSDKUI.shared.navitiaSDK.journeysApi.newJourneysRequestBuilder()
-            _ = journeyRequestBuilder.withFrom(journeysRequest.originId)
-            _ = journeyRequestBuilder.withTo(journeysRequest.destinationId)
-            
-            if let datetime = journeysRequest.datetime {
-                _ = journeyRequestBuilder.withDatetime(datetime)
-            }
-            if let datetimeRepresents = journeysRequest.datetimeRepresents {
-                _ = journeyRequestBuilder.withDatetimeRepresents(datetimeRepresents)
-            }
-            if let forbiddenUris = journeysRequest.forbiddenUris {
-                _ = journeyRequestBuilder.withForbiddenUris(forbiddenUris)
-            }
-            if let allowedId = journeysRequest.allowedId {
-                _ = journeyRequestBuilder.withAllowedId(allowedId)
-            }
-            if let firstSectionModes = journeysRequest.firstSectionModes {
-                _ = journeyRequestBuilder.withFirstSectionMode(firstSectionModes)
-            }
-            if let lastSectionModes = journeysRequest.lastSectionModes {
-                _ = journeyRequestBuilder.withLastSectionMode(lastSectionModes)
-            }
-            if let count = journeysRequest.count {
-                _ = journeyRequestBuilder.withCount(count)
-            }
-            if let minNbJourneys = journeysRequest.minNbJourneys {
-                _ = journeyRequestBuilder.withMinNbJourneys(minNbJourneys)
-            }
-            if let maxNbJourneys = journeysRequest.maxNbJourneys {
-                _ = journeyRequestBuilder.withMaxNbJourneys(maxNbJourneys)
-            }
-            if let bssStands = journeysRequest.bssStands {
-                _ = journeyRequestBuilder.withBssStands(bssStands)
-            }
+                .withFrom(journeysRequest.originId)
+                .withTo(journeysRequest.destinationId)
+                .withDatetime(journeysRequest.datetime)
+                .withDatetimeRepresents(journeysRequest.datetimeRepresents)
+                .withForbiddenUris(journeysRequest.forbiddenUris)
+                .withAllowedId(journeysRequest.allowedId)
+                .withFirstSectionMode(journeysRequest.firstSectionModes)
+                .withLastSectionMode(journeysRequest.lastSectionModes)
+                .withCount(journeysRequest.count)
+                .withMinNbJourneys(journeysRequest.minNbJourneys)
+                .withMaxNbJourneys(journeysRequest.maxNbJourneys)
+                .withBssStands(journeysRequest.bssStands)
+                .withAddPoiInfos(journeysRequest.addPoiInfos)
+                .withDebugURL(journeysRequest.debugURL)
             
             journeyRequestBuilder.get { (result, error) in
                 if let result = result {

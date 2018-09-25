@@ -72,6 +72,7 @@ open class CoverageLonLatJourneysRequestBuilder: NSObject {
         case bssStands = "bss_stands"
         case carPark = "car_park"
         case empty = ""
+        case _none = "none"
     }
     var lat:Double? = nil
     var lon:Double? = nil
@@ -81,8 +82,8 @@ open class CoverageLonLatJourneysRequestBuilder: NSObject {
     var datetimeRepresents: DatetimeRepresents? = nil
     var maxNbTransfers:Int32? = nil
     var minNbTransfers:Int32? = nil
-    var firstSectionMode: [FirstSectionMode]? = nil
-    var lastSectionMode: [LastSectionMode]? = nil
+    var firstSectionMode: [String]? = nil
+    var lastSectionMode: [String]? = nil
     var maxDurationToPt:Int32? = nil
     var maxWalkingDurationToPt:Int32? = nil
     var maxBikeDurationToPt:Int32? = nil
@@ -109,183 +110,258 @@ open class CoverageLonLatJourneysRequestBuilder: NSObject {
     var minNbJourneys:Int32? = nil
     var maxNbJourneys:Int32? = nil
     var bssStands:Bool? = nil
-    var addPoiInfos: [AddPoiInfos]? = nil
+    var addPoiInfos: [String]? = nil
+    var timeframeDuration:Int32? = nil
+    var debugURL: String? = nil
 
     public init(currentApi: JourneysApi) {
         self.currentApi = currentApi
     }
 
-    open func withLat(_ lat: Double) -> CoverageLonLatJourneysRequestBuilder {
+    open func withLat(_ lat: Double?) -> CoverageLonLatJourneysRequestBuilder {
         self.lat = lat
+        
         return self
     }
-    open func withLon(_ lon: Double) -> CoverageLonLatJourneysRequestBuilder {
+    open func withLon(_ lon: Double?) -> CoverageLonLatJourneysRequestBuilder {
         self.lon = lon
+        
         return self
     }
-    open func withFrom(_ from: String) -> CoverageLonLatJourneysRequestBuilder {
+    open func withFrom(_ from: String?) -> CoverageLonLatJourneysRequestBuilder {
         self.from = from
+        
         return self
     }
-    open func withTo(_ to: String) -> CoverageLonLatJourneysRequestBuilder {
+    open func withTo(_ to: String?) -> CoverageLonLatJourneysRequestBuilder {
         self.to = to
+        
         return self
     }
-    open func withDatetime(_ datetime: Date) -> CoverageLonLatJourneysRequestBuilder {
+    open func withDatetime(_ datetime: Date?) -> CoverageLonLatJourneysRequestBuilder {
         self.datetime = datetime
+        
         return self
     }
-    open func withDatetimeRepresents(_ datetimeRepresents: DatetimeRepresents) -> CoverageLonLatJourneysRequestBuilder {
+    open func withDatetimeRepresents(_ datetimeRepresents: DatetimeRepresents?) -> CoverageLonLatJourneysRequestBuilder {
         self.datetimeRepresents = datetimeRepresents
+
         return self
     }
-    open func withMaxNbTransfers(_ maxNbTransfers: Int32) -> CoverageLonLatJourneysRequestBuilder {
+    open func withMaxNbTransfers(_ maxNbTransfers: Int32?) -> CoverageLonLatJourneysRequestBuilder {
         self.maxNbTransfers = maxNbTransfers
+        
         return self
     }
-    open func withMinNbTransfers(_ minNbTransfers: Int32) -> CoverageLonLatJourneysRequestBuilder {
+    open func withMinNbTransfers(_ minNbTransfers: Int32?) -> CoverageLonLatJourneysRequestBuilder {
         self.minNbTransfers = minNbTransfers
+        
         return self
     }
-    open func withFirstSectionMode(_ firstSectionMode: [FirstSectionMode]) -> CoverageLonLatJourneysRequestBuilder {
-        self.firstSectionMode = firstSectionMode
+    open func withFirstSectionMode(_ firstSectionMode: [FirstSectionMode]?) -> CoverageLonLatJourneysRequestBuilder {
+        guard let firstSectionMode = firstSectionMode else {
+            return self
+        }
+        
+        var items = [String]()
+        for item in firstSectionMode {
+            items.append(item.rawValue)
+        }
+        self.firstSectionMode = items
+
         return self
     }
-    open func withLastSectionMode(_ lastSectionMode: [LastSectionMode]) -> CoverageLonLatJourneysRequestBuilder {
-        self.lastSectionMode = lastSectionMode
+    open func withLastSectionMode(_ lastSectionMode: [LastSectionMode]?) -> CoverageLonLatJourneysRequestBuilder {
+        guard let lastSectionMode = lastSectionMode else {
+            return self
+        }
+        
+        var items = [String]()
+        for item in lastSectionMode {
+            items.append(item.rawValue)
+        }
+        self.lastSectionMode = items
+
         return self
     }
-    open func withMaxDurationToPt(_ maxDurationToPt: Int32) -> CoverageLonLatJourneysRequestBuilder {
+    open func withMaxDurationToPt(_ maxDurationToPt: Int32?) -> CoverageLonLatJourneysRequestBuilder {
         self.maxDurationToPt = maxDurationToPt
+        
         return self
     }
-    open func withMaxWalkingDurationToPt(_ maxWalkingDurationToPt: Int32) -> CoverageLonLatJourneysRequestBuilder {
+    open func withMaxWalkingDurationToPt(_ maxWalkingDurationToPt: Int32?) -> CoverageLonLatJourneysRequestBuilder {
         self.maxWalkingDurationToPt = maxWalkingDurationToPt
+        
         return self
     }
-    open func withMaxBikeDurationToPt(_ maxBikeDurationToPt: Int32) -> CoverageLonLatJourneysRequestBuilder {
+    open func withMaxBikeDurationToPt(_ maxBikeDurationToPt: Int32?) -> CoverageLonLatJourneysRequestBuilder {
         self.maxBikeDurationToPt = maxBikeDurationToPt
+        
         return self
     }
-    open func withMaxBssDurationToPt(_ maxBssDurationToPt: Int32) -> CoverageLonLatJourneysRequestBuilder {
+    open func withMaxBssDurationToPt(_ maxBssDurationToPt: Int32?) -> CoverageLonLatJourneysRequestBuilder {
         self.maxBssDurationToPt = maxBssDurationToPt
+        
         return self
     }
-    open func withMaxCarDurationToPt(_ maxCarDurationToPt: Int32) -> CoverageLonLatJourneysRequestBuilder {
+    open func withMaxCarDurationToPt(_ maxCarDurationToPt: Int32?) -> CoverageLonLatJourneysRequestBuilder {
         self.maxCarDurationToPt = maxCarDurationToPt
+        
         return self
     }
-    open func withMaxRidesharingDurationToPt(_ maxRidesharingDurationToPt: Int32) -> CoverageLonLatJourneysRequestBuilder {
+    open func withMaxRidesharingDurationToPt(_ maxRidesharingDurationToPt: Int32?) -> CoverageLonLatJourneysRequestBuilder {
         self.maxRidesharingDurationToPt = maxRidesharingDurationToPt
+        
         return self
     }
-    open func withWalkingSpeed(_ walkingSpeed: Float) -> CoverageLonLatJourneysRequestBuilder {
+    open func withWalkingSpeed(_ walkingSpeed: Float?) -> CoverageLonLatJourneysRequestBuilder {
         self.walkingSpeed = walkingSpeed
+        
         return self
     }
-    open func withBikeSpeed(_ bikeSpeed: Float) -> CoverageLonLatJourneysRequestBuilder {
+    open func withBikeSpeed(_ bikeSpeed: Float?) -> CoverageLonLatJourneysRequestBuilder {
         self.bikeSpeed = bikeSpeed
+        
         return self
     }
-    open func withBssSpeed(_ bssSpeed: Float) -> CoverageLonLatJourneysRequestBuilder {
+    open func withBssSpeed(_ bssSpeed: Float?) -> CoverageLonLatJourneysRequestBuilder {
         self.bssSpeed = bssSpeed
+        
         return self
     }
-    open func withCarSpeed(_ carSpeed: Float) -> CoverageLonLatJourneysRequestBuilder {
+    open func withCarSpeed(_ carSpeed: Float?) -> CoverageLonLatJourneysRequestBuilder {
         self.carSpeed = carSpeed
+        
         return self
     }
-    open func withRidesharingSpeed(_ ridesharingSpeed: Float) -> CoverageLonLatJourneysRequestBuilder {
+    open func withRidesharingSpeed(_ ridesharingSpeed: Float?) -> CoverageLonLatJourneysRequestBuilder {
         self.ridesharingSpeed = ridesharingSpeed
+        
         return self
     }
-    open func withForbiddenUris(_ forbiddenUris: [String]) -> CoverageLonLatJourneysRequestBuilder {
+    open func withForbiddenUris(_ forbiddenUris: [String]?) -> CoverageLonLatJourneysRequestBuilder {
         self.forbiddenUris = forbiddenUris
+        
         return self
     }
-    open func withAllowedId(_ allowedId: [String]) -> CoverageLonLatJourneysRequestBuilder {
+    open func withAllowedId(_ allowedId: [String]?) -> CoverageLonLatJourneysRequestBuilder {
         self.allowedId = allowedId
+        
         return self
     }
-    open func withDisruptionActive(_ disruptionActive: Bool) -> CoverageLonLatJourneysRequestBuilder {
+    open func withDisruptionActive(_ disruptionActive: Bool?) -> CoverageLonLatJourneysRequestBuilder {
         self.disruptionActive = disruptionActive
+        
         return self
     }
-    open func withDataFreshness(_ dataFreshness: DataFreshness) -> CoverageLonLatJourneysRequestBuilder {
+    open func withDataFreshness(_ dataFreshness: DataFreshness?) -> CoverageLonLatJourneysRequestBuilder {
         self.dataFreshness = dataFreshness
+
         return self
     }
-    open func withMaxDuration(_ maxDuration: Int32) -> CoverageLonLatJourneysRequestBuilder {
+    open func withMaxDuration(_ maxDuration: Int32?) -> CoverageLonLatJourneysRequestBuilder {
         self.maxDuration = maxDuration
+        
         return self
     }
-    open func withWheelchair(_ wheelchair: Bool) -> CoverageLonLatJourneysRequestBuilder {
+    open func withWheelchair(_ wheelchair: Bool?) -> CoverageLonLatJourneysRequestBuilder {
         self.wheelchair = wheelchair
+        
         return self
     }
-    open func withTravelerType(_ travelerType: TravelerType) -> CoverageLonLatJourneysRequestBuilder {
+    open func withTravelerType(_ travelerType: TravelerType?) -> CoverageLonLatJourneysRequestBuilder {
         self.travelerType = travelerType
+
         return self
     }
-    open func withDirectPath(_ directPath: DirectPath) -> CoverageLonLatJourneysRequestBuilder {
+    open func withDirectPath(_ directPath: DirectPath?) -> CoverageLonLatJourneysRequestBuilder {
         self.directPath = directPath
+
         return self
     }
-    open func withFreeRadiusFrom(_ freeRadiusFrom: Int32) -> CoverageLonLatJourneysRequestBuilder {
+    open func withFreeRadiusFrom(_ freeRadiusFrom: Int32?) -> CoverageLonLatJourneysRequestBuilder {
         self.freeRadiusFrom = freeRadiusFrom
+        
         return self
     }
-    open func withFreeRadiusTo(_ freeRadiusTo: Int32) -> CoverageLonLatJourneysRequestBuilder {
+    open func withFreeRadiusTo(_ freeRadiusTo: Int32?) -> CoverageLonLatJourneysRequestBuilder {
         self.freeRadiusTo = freeRadiusTo
+        
         return self
     }
-    open func withCount(_ count: Int32) -> CoverageLonLatJourneysRequestBuilder {
+    open func withCount(_ count: Int32?) -> CoverageLonLatJourneysRequestBuilder {
         self.count = count
+        
         return self
     }
-    open func withIsJourneySchedules(_ isJourneySchedules: Bool) -> CoverageLonLatJourneysRequestBuilder {
+    open func withIsJourneySchedules(_ isJourneySchedules: Bool?) -> CoverageLonLatJourneysRequestBuilder {
         self.isJourneySchedules = isJourneySchedules
+        
         return self
     }
-    open func withMinNbJourneys(_ minNbJourneys: Int32) -> CoverageLonLatJourneysRequestBuilder {
+    open func withMinNbJourneys(_ minNbJourneys: Int32?) -> CoverageLonLatJourneysRequestBuilder {
         self.minNbJourneys = minNbJourneys
+        
         return self
     }
-    open func withMaxNbJourneys(_ maxNbJourneys: Int32) -> CoverageLonLatJourneysRequestBuilder {
+    open func withMaxNbJourneys(_ maxNbJourneys: Int32?) -> CoverageLonLatJourneysRequestBuilder {
         self.maxNbJourneys = maxNbJourneys
+        
         return self
     }
-    open func withBssStands(_ bssStands: Bool) -> CoverageLonLatJourneysRequestBuilder {
+    open func withBssStands(_ bssStands: Bool?) -> CoverageLonLatJourneysRequestBuilder {
         self.bssStands = bssStands
+        
         return self
     }
-    open func withAddPoiInfos(_ addPoiInfos: [AddPoiInfos]) -> CoverageLonLatJourneysRequestBuilder {
-        self.addPoiInfos = addPoiInfos
+    open func withAddPoiInfos(_ addPoiInfos: [AddPoiInfos]?) -> CoverageLonLatJourneysRequestBuilder {
+        guard let addPoiInfos = addPoiInfos else {
+            return self
+        }
+        
+        var items = [String]()
+        for item in addPoiInfos {
+            items.append(item.rawValue)
+        }
+        self.addPoiInfos = items
+
+        return self
+    }
+    open func withTimeframeDuration(_ timeframeDuration: Int32?) -> CoverageLonLatJourneysRequestBuilder {
+        self.timeframeDuration = timeframeDuration
+        
+        return self
+    }
+
+
+
+    open func withDebugURL(_ debugURL: String?) -> CoverageLonLatJourneysRequestBuilder {
+        self.debugURL = debugURL
         return self
     }
 
     open func makeUrl() -> String {
         var path = "/coverage/{lon};{lat}/journeys"
 
-        if (lat != nil) {
-            let latPreEscape: String = "\(lat!)"
+        if let lat = lat {
+            let latPreEscape: String = "\(lat)"
             let latPostEscape: String = latPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
             path = path.replacingOccurrences(of: "{lat}", with: latPostEscape, options: .literal, range: nil)
         }
 
-        if (lon != nil) {
-            let lonPreEscape: String = "\(lon!)"
+        if let lon = lon {
+            let lonPreEscape: String = "\(lon)"
             let lonPostEscape: String = lonPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
             path = path.replacingOccurrences(of: "{lon}", with: lonPostEscape, options: .literal, range: nil)
         }
 
-        let URLString = "https://api.navitia.io/v1" + path
+        let URLString = String(format: "%@%@", NavitiaSDKAPI.basePath, path)
         let url = NSURLComponents(string: URLString)
 
         let paramValues: [String: Any?] = [
             "from": self.from, 
             "to": self.to, 
-            "datetime": self.datetime?.reformatDate(),
+            "datetime": self.datetime?.encodeToJSON(), 
             "datetime_represents": self.datetimeRepresents?.rawValue, 
             "max_nb_transfers": self.maxNbTransfers?.encodeToJSON(), 
             "min_nb_transfers": self.minNbTransfers?.encodeToJSON(), 
@@ -317,12 +393,13 @@ open class CoverageLonLatJourneysRequestBuilder: NSObject {
             "min_nb_journeys": self.minNbJourneys?.encodeToJSON(), 
             "max_nb_journeys": self.maxNbJourneys?.encodeToJSON(), 
             "bss_stands": self.bssStands, 
-            "add_poi_infos[]": self.addPoiInfos
+            "add_poi_infos[]": self.addPoiInfos, 
+            "timeframe_duration": self.timeframeDuration?.encodeToJSON()
         ]
         url?.queryItems = APIHelper.mapValuesToQueryItems(values: paramValues)
         url?.percentEncodedQuery = url?.percentEncodedQuery?.replacingOccurrences(of: "+", with: "%2B")
 
-        return (url?.string ?? URLString)
+        return (debugURL ?? url?.string ?? URLString)
     }
 
     open func get(completion: @escaping ((_ data: Journeys?,_ error: Error?) -> Void)) {
@@ -433,6 +510,7 @@ open class CoverageRegionJourneysRequestBuilder: NSObject {
         case bssStands = "bss_stands"
         case carPark = "car_park"
         case empty = ""
+        case _none = "none"
     }
     var region:String? = nil
     var from:String? = nil
@@ -441,8 +519,8 @@ open class CoverageRegionJourneysRequestBuilder: NSObject {
     var datetimeRepresents: DatetimeRepresents? = nil
     var maxNbTransfers:Int32? = nil
     var minNbTransfers:Int32? = nil
-    var firstSectionMode: [FirstSectionMode]? = nil
-    var lastSectionMode: [LastSectionMode]? = nil
+    var firstSectionMode: [String]? = nil
+    var lastSectionMode: [String]? = nil
     var maxDurationToPt:Int32? = nil
     var maxWalkingDurationToPt:Int32? = nil
     var maxBikeDurationToPt:Int32? = nil
@@ -469,173 +547,247 @@ open class CoverageRegionJourneysRequestBuilder: NSObject {
     var minNbJourneys:Int32? = nil
     var maxNbJourneys:Int32? = nil
     var bssStands:Bool? = nil
-    var addPoiInfos: [AddPoiInfos]? = nil
+    var addPoiInfos: [String]? = nil
+    var timeframeDuration:Int32? = nil
+    var debugURL: String? = nil
 
     public init(currentApi: JourneysApi) {
         self.currentApi = currentApi
     }
 
-    open func withRegion(_ region: String) -> CoverageRegionJourneysRequestBuilder {
+    open func withRegion(_ region: String?) -> CoverageRegionJourneysRequestBuilder {
         self.region = region
+        
         return self
     }
-    open func withFrom(_ from: String) -> CoverageRegionJourneysRequestBuilder {
+    open func withFrom(_ from: String?) -> CoverageRegionJourneysRequestBuilder {
         self.from = from
+        
         return self
     }
-    open func withTo(_ to: String) -> CoverageRegionJourneysRequestBuilder {
+    open func withTo(_ to: String?) -> CoverageRegionJourneysRequestBuilder {
         self.to = to
+        
         return self
     }
-    open func withDatetime(_ datetime: Date) -> CoverageRegionJourneysRequestBuilder {
+    open func withDatetime(_ datetime: Date?) -> CoverageRegionJourneysRequestBuilder {
         self.datetime = datetime
+        
         return self
     }
-    open func withDatetimeRepresents(_ datetimeRepresents: DatetimeRepresents) -> CoverageRegionJourneysRequestBuilder {
+    open func withDatetimeRepresents(_ datetimeRepresents: DatetimeRepresents?) -> CoverageRegionJourneysRequestBuilder {
         self.datetimeRepresents = datetimeRepresents
+
         return self
     }
-    open func withMaxNbTransfers(_ maxNbTransfers: Int32) -> CoverageRegionJourneysRequestBuilder {
+    open func withMaxNbTransfers(_ maxNbTransfers: Int32?) -> CoverageRegionJourneysRequestBuilder {
         self.maxNbTransfers = maxNbTransfers
+        
         return self
     }
-    open func withMinNbTransfers(_ minNbTransfers: Int32) -> CoverageRegionJourneysRequestBuilder {
+    open func withMinNbTransfers(_ minNbTransfers: Int32?) -> CoverageRegionJourneysRequestBuilder {
         self.minNbTransfers = minNbTransfers
+        
         return self
     }
-    open func withFirstSectionMode(_ firstSectionMode: [FirstSectionMode]) -> CoverageRegionJourneysRequestBuilder {
-        self.firstSectionMode = firstSectionMode
+    open func withFirstSectionMode(_ firstSectionMode: [FirstSectionMode]?) -> CoverageRegionJourneysRequestBuilder {
+        guard let firstSectionMode = firstSectionMode else {
+            return self
+        }
+        
+        var items = [String]()
+        for item in firstSectionMode {
+            items.append(item.rawValue)
+        }
+        self.firstSectionMode = items
+
         return self
     }
-    open func withLastSectionMode(_ lastSectionMode: [LastSectionMode]) -> CoverageRegionJourneysRequestBuilder {
-        self.lastSectionMode = lastSectionMode
+    open func withLastSectionMode(_ lastSectionMode: [LastSectionMode]?) -> CoverageRegionJourneysRequestBuilder {
+        guard let lastSectionMode = lastSectionMode else {
+            return self
+        }
+        
+        var items = [String]()
+        for item in lastSectionMode {
+            items.append(item.rawValue)
+        }
+        self.lastSectionMode = items
+
         return self
     }
-    open func withMaxDurationToPt(_ maxDurationToPt: Int32) -> CoverageRegionJourneysRequestBuilder {
+    open func withMaxDurationToPt(_ maxDurationToPt: Int32?) -> CoverageRegionJourneysRequestBuilder {
         self.maxDurationToPt = maxDurationToPt
+        
         return self
     }
-    open func withMaxWalkingDurationToPt(_ maxWalkingDurationToPt: Int32) -> CoverageRegionJourneysRequestBuilder {
+    open func withMaxWalkingDurationToPt(_ maxWalkingDurationToPt: Int32?) -> CoverageRegionJourneysRequestBuilder {
         self.maxWalkingDurationToPt = maxWalkingDurationToPt
+        
         return self
     }
-    open func withMaxBikeDurationToPt(_ maxBikeDurationToPt: Int32) -> CoverageRegionJourneysRequestBuilder {
+    open func withMaxBikeDurationToPt(_ maxBikeDurationToPt: Int32?) -> CoverageRegionJourneysRequestBuilder {
         self.maxBikeDurationToPt = maxBikeDurationToPt
+        
         return self
     }
-    open func withMaxBssDurationToPt(_ maxBssDurationToPt: Int32) -> CoverageRegionJourneysRequestBuilder {
+    open func withMaxBssDurationToPt(_ maxBssDurationToPt: Int32?) -> CoverageRegionJourneysRequestBuilder {
         self.maxBssDurationToPt = maxBssDurationToPt
+        
         return self
     }
-    open func withMaxCarDurationToPt(_ maxCarDurationToPt: Int32) -> CoverageRegionJourneysRequestBuilder {
+    open func withMaxCarDurationToPt(_ maxCarDurationToPt: Int32?) -> CoverageRegionJourneysRequestBuilder {
         self.maxCarDurationToPt = maxCarDurationToPt
+        
         return self
     }
-    open func withMaxRidesharingDurationToPt(_ maxRidesharingDurationToPt: Int32) -> CoverageRegionJourneysRequestBuilder {
+    open func withMaxRidesharingDurationToPt(_ maxRidesharingDurationToPt: Int32?) -> CoverageRegionJourneysRequestBuilder {
         self.maxRidesharingDurationToPt = maxRidesharingDurationToPt
+        
         return self
     }
-    open func withWalkingSpeed(_ walkingSpeed: Float) -> CoverageRegionJourneysRequestBuilder {
+    open func withWalkingSpeed(_ walkingSpeed: Float?) -> CoverageRegionJourneysRequestBuilder {
         self.walkingSpeed = walkingSpeed
+        
         return self
     }
-    open func withBikeSpeed(_ bikeSpeed: Float) -> CoverageRegionJourneysRequestBuilder {
+    open func withBikeSpeed(_ bikeSpeed: Float?) -> CoverageRegionJourneysRequestBuilder {
         self.bikeSpeed = bikeSpeed
+        
         return self
     }
-    open func withBssSpeed(_ bssSpeed: Float) -> CoverageRegionJourneysRequestBuilder {
+    open func withBssSpeed(_ bssSpeed: Float?) -> CoverageRegionJourneysRequestBuilder {
         self.bssSpeed = bssSpeed
+        
         return self
     }
-    open func withCarSpeed(_ carSpeed: Float) -> CoverageRegionJourneysRequestBuilder {
+    open func withCarSpeed(_ carSpeed: Float?) -> CoverageRegionJourneysRequestBuilder {
         self.carSpeed = carSpeed
+        
         return self
     }
-    open func withRidesharingSpeed(_ ridesharingSpeed: Float) -> CoverageRegionJourneysRequestBuilder {
+    open func withRidesharingSpeed(_ ridesharingSpeed: Float?) -> CoverageRegionJourneysRequestBuilder {
         self.ridesharingSpeed = ridesharingSpeed
+        
         return self
     }
-    open func withForbiddenUris(_ forbiddenUris: [String]) -> CoverageRegionJourneysRequestBuilder {
+    open func withForbiddenUris(_ forbiddenUris: [String]?) -> CoverageRegionJourneysRequestBuilder {
         self.forbiddenUris = forbiddenUris
+        
         return self
     }
-    open func withAllowedId(_ allowedId: [String]) -> CoverageRegionJourneysRequestBuilder {
+    open func withAllowedId(_ allowedId: [String]?) -> CoverageRegionJourneysRequestBuilder {
         self.allowedId = allowedId
+        
         return self
     }
-    open func withDisruptionActive(_ disruptionActive: Bool) -> CoverageRegionJourneysRequestBuilder {
+    open func withDisruptionActive(_ disruptionActive: Bool?) -> CoverageRegionJourneysRequestBuilder {
         self.disruptionActive = disruptionActive
+        
         return self
     }
-    open func withDataFreshness(_ dataFreshness: DataFreshness) -> CoverageRegionJourneysRequestBuilder {
+    open func withDataFreshness(_ dataFreshness: DataFreshness?) -> CoverageRegionJourneysRequestBuilder {
         self.dataFreshness = dataFreshness
+
         return self
     }
-    open func withMaxDuration(_ maxDuration: Int32) -> CoverageRegionJourneysRequestBuilder {
+    open func withMaxDuration(_ maxDuration: Int32?) -> CoverageRegionJourneysRequestBuilder {
         self.maxDuration = maxDuration
+        
         return self
     }
-    open func withWheelchair(_ wheelchair: Bool) -> CoverageRegionJourneysRequestBuilder {
+    open func withWheelchair(_ wheelchair: Bool?) -> CoverageRegionJourneysRequestBuilder {
         self.wheelchair = wheelchair
+        
         return self
     }
-    open func withTravelerType(_ travelerType: TravelerType) -> CoverageRegionJourneysRequestBuilder {
+    open func withTravelerType(_ travelerType: TravelerType?) -> CoverageRegionJourneysRequestBuilder {
         self.travelerType = travelerType
+
         return self
     }
-    open func withDirectPath(_ directPath: DirectPath) -> CoverageRegionJourneysRequestBuilder {
+    open func withDirectPath(_ directPath: DirectPath?) -> CoverageRegionJourneysRequestBuilder {
         self.directPath = directPath
+
         return self
     }
-    open func withFreeRadiusFrom(_ freeRadiusFrom: Int32) -> CoverageRegionJourneysRequestBuilder {
+    open func withFreeRadiusFrom(_ freeRadiusFrom: Int32?) -> CoverageRegionJourneysRequestBuilder {
         self.freeRadiusFrom = freeRadiusFrom
+        
         return self
     }
-    open func withFreeRadiusTo(_ freeRadiusTo: Int32) -> CoverageRegionJourneysRequestBuilder {
+    open func withFreeRadiusTo(_ freeRadiusTo: Int32?) -> CoverageRegionJourneysRequestBuilder {
         self.freeRadiusTo = freeRadiusTo
+        
         return self
     }
-    open func withCount(_ count: Int32) -> CoverageRegionJourneysRequestBuilder {
+    open func withCount(_ count: Int32?) -> CoverageRegionJourneysRequestBuilder {
         self.count = count
+        
         return self
     }
-    open func withIsJourneySchedules(_ isJourneySchedules: Bool) -> CoverageRegionJourneysRequestBuilder {
+    open func withIsJourneySchedules(_ isJourneySchedules: Bool?) -> CoverageRegionJourneysRequestBuilder {
         self.isJourneySchedules = isJourneySchedules
+        
         return self
     }
-    open func withMinNbJourneys(_ minNbJourneys: Int32) -> CoverageRegionJourneysRequestBuilder {
+    open func withMinNbJourneys(_ minNbJourneys: Int32?) -> CoverageRegionJourneysRequestBuilder {
         self.minNbJourneys = minNbJourneys
+        
         return self
     }
-    open func withMaxNbJourneys(_ maxNbJourneys: Int32) -> CoverageRegionJourneysRequestBuilder {
+    open func withMaxNbJourneys(_ maxNbJourneys: Int32?) -> CoverageRegionJourneysRequestBuilder {
         self.maxNbJourneys = maxNbJourneys
+        
         return self
     }
-    open func withBssStands(_ bssStands: Bool) -> CoverageRegionJourneysRequestBuilder {
+    open func withBssStands(_ bssStands: Bool?) -> CoverageRegionJourneysRequestBuilder {
         self.bssStands = bssStands
+        
         return self
     }
-    open func withAddPoiInfos(_ addPoiInfos: [AddPoiInfos]) -> CoverageRegionJourneysRequestBuilder {
-        self.addPoiInfos = addPoiInfos
+    open func withAddPoiInfos(_ addPoiInfos: [AddPoiInfos]?) -> CoverageRegionJourneysRequestBuilder {
+        guard let addPoiInfos = addPoiInfos else {
+            return self
+        }
+        
+        var items = [String]()
+        for item in addPoiInfos {
+            items.append(item.rawValue)
+        }
+        self.addPoiInfos = items
+
+        return self
+    }
+    open func withTimeframeDuration(_ timeframeDuration: Int32?) -> CoverageRegionJourneysRequestBuilder {
+        self.timeframeDuration = timeframeDuration
+        
+        return self
+    }
+
+
+
+    open func withDebugURL(_ debugURL: String?) -> CoverageRegionJourneysRequestBuilder {
+        self.debugURL = debugURL
         return self
     }
 
     open func makeUrl() -> String {
         var path = "/coverage/{region}/journeys"
 
-        if (region != nil) {
-            let regionPreEscape: String = "\(region!)"
+        if let region = region {
+            let regionPreEscape: String = "\(region)"
             let regionPostEscape: String = regionPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
             path = path.replacingOccurrences(of: "{region}", with: regionPostEscape, options: .literal, range: nil)
         }
 
-        let URLString = "https://api.navitia.io/v1" + path
+        let URLString = String(format: "%@%@", NavitiaSDKAPI.basePath, path)
         let url = NSURLComponents(string: URLString)
 
         let paramValues: [String: Any?] = [
             "from": self.from, 
             "to": self.to, 
-            "datetime": self.datetime?.reformatDate(),
+            "datetime": self.datetime?.encodeToJSON(), 
             "datetime_represents": self.datetimeRepresents?.rawValue, 
             "max_nb_transfers": self.maxNbTransfers?.encodeToJSON(), 
             "min_nb_transfers": self.minNbTransfers?.encodeToJSON(), 
@@ -667,12 +819,13 @@ open class CoverageRegionJourneysRequestBuilder: NSObject {
             "min_nb_journeys": self.minNbJourneys?.encodeToJSON(), 
             "max_nb_journeys": self.maxNbJourneys?.encodeToJSON(), 
             "bss_stands": self.bssStands, 
-            "add_poi_infos[]": self.addPoiInfos
+            "add_poi_infos[]": self.addPoiInfos, 
+            "timeframe_duration": self.timeframeDuration?.encodeToJSON()
         ]
         url?.queryItems = APIHelper.mapValuesToQueryItems(values: paramValues)
         url?.percentEncodedQuery = url?.percentEncodedQuery?.replacingOccurrences(of: "+", with: "%2B")
 
-        return (url?.string ?? URLString)
+        return (debugURL ?? url?.string ?? URLString)
     }
 
     open func get(completion: @escaping ((_ data: Journeys?,_ error: Error?) -> Void)) {
@@ -777,6 +930,7 @@ open class JourneysRequestBuilder: NSObject {
         case bssStands = "bss_stands"
         case carPark = "car_park"
         case empty = ""
+        case _none = "none"
     }
     var from:String? = nil
     var to:String? = nil
@@ -784,8 +938,8 @@ open class JourneysRequestBuilder: NSObject {
     var datetimeRepresents: DatetimeRepresents? = nil
     var maxNbTransfers:Int32? = nil
     var minNbTransfers:Int32? = nil
-    var firstSectionMode: [FirstSectionMode]? = nil
-    var lastSectionMode: [LastSectionMode]? = nil
+    var firstSectionMode: [String]? = nil
+    var lastSectionMode: [String]? = nil
     var maxDurationToPt:Int32? = nil
     var maxWalkingDurationToPt:Int32? = nil
     var maxBikeDurationToPt:Int32? = nil
@@ -812,164 +966,237 @@ open class JourneysRequestBuilder: NSObject {
     var minNbJourneys:Int32? = nil
     var maxNbJourneys:Int32? = nil
     var bssStands:Bool? = nil
-    var addPoiInfos: [AddPoiInfos]? = nil
+    var addPoiInfos: [String]? = nil
+    var timeframeDuration:Int32? = nil
+    var debugURL: String? = nil
 
     public init(currentApi: JourneysApi) {
         self.currentApi = currentApi
     }
 
-    open func withFrom(_ from: String) -> JourneysRequestBuilder {
+    open func withFrom(_ from: String?) -> JourneysRequestBuilder {
         self.from = from
+        
         return self
     }
-    open func withTo(_ to: String) -> JourneysRequestBuilder {
+    open func withTo(_ to: String?) -> JourneysRequestBuilder {
         self.to = to
+        
         return self
     }
-    open func withDatetime(_ datetime: Date) -> JourneysRequestBuilder {
+    open func withDatetime(_ datetime: Date?) -> JourneysRequestBuilder {
         self.datetime = datetime
+        
         return self
     }
-    open func withDatetimeRepresents(_ datetimeRepresents: DatetimeRepresents) -> JourneysRequestBuilder {
+    open func withDatetimeRepresents(_ datetimeRepresents: DatetimeRepresents?) -> JourneysRequestBuilder {
         self.datetimeRepresents = datetimeRepresents
+
         return self
     }
-    open func withMaxNbTransfers(_ maxNbTransfers: Int32) -> JourneysRequestBuilder {
+    open func withMaxNbTransfers(_ maxNbTransfers: Int32?) -> JourneysRequestBuilder {
         self.maxNbTransfers = maxNbTransfers
+        
         return self
     }
-    open func withMinNbTransfers(_ minNbTransfers: Int32) -> JourneysRequestBuilder {
+    open func withMinNbTransfers(_ minNbTransfers: Int32?) -> JourneysRequestBuilder {
         self.minNbTransfers = minNbTransfers
+        
         return self
     }
-    open func withFirstSectionMode(_ firstSectionMode: [FirstSectionMode]) -> JourneysRequestBuilder {
-        self.firstSectionMode = firstSectionMode
+    open func withFirstSectionMode(_ firstSectionMode: [FirstSectionMode]?) -> JourneysRequestBuilder {
+        guard let firstSectionMode = firstSectionMode else {
+            return self
+        }
+        
+        var items = [String]()
+        for item in firstSectionMode {
+            items.append(item.rawValue)
+        }
+        self.firstSectionMode = items
+
         return self
     }
-    open func withLastSectionMode(_ lastSectionMode: [LastSectionMode]) -> JourneysRequestBuilder {
-        self.lastSectionMode = lastSectionMode
+    open func withLastSectionMode(_ lastSectionMode: [LastSectionMode]?) -> JourneysRequestBuilder {
+        guard let lastSectionMode = lastSectionMode else {
+            return self
+        }
+        
+        var items = [String]()
+        for item in lastSectionMode {
+            items.append(item.rawValue)
+        }
+        self.lastSectionMode = items
+
         return self
     }
-    open func withMaxDurationToPt(_ maxDurationToPt: Int32) -> JourneysRequestBuilder {
+    open func withMaxDurationToPt(_ maxDurationToPt: Int32?) -> JourneysRequestBuilder {
         self.maxDurationToPt = maxDurationToPt
+        
         return self
     }
-    open func withMaxWalkingDurationToPt(_ maxWalkingDurationToPt: Int32) -> JourneysRequestBuilder {
+    open func withMaxWalkingDurationToPt(_ maxWalkingDurationToPt: Int32?) -> JourneysRequestBuilder {
         self.maxWalkingDurationToPt = maxWalkingDurationToPt
+        
         return self
     }
-    open func withMaxBikeDurationToPt(_ maxBikeDurationToPt: Int32) -> JourneysRequestBuilder {
+    open func withMaxBikeDurationToPt(_ maxBikeDurationToPt: Int32?) -> JourneysRequestBuilder {
         self.maxBikeDurationToPt = maxBikeDurationToPt
+        
         return self
     }
-    open func withMaxBssDurationToPt(_ maxBssDurationToPt: Int32) -> JourneysRequestBuilder {
+    open func withMaxBssDurationToPt(_ maxBssDurationToPt: Int32?) -> JourneysRequestBuilder {
         self.maxBssDurationToPt = maxBssDurationToPt
+        
         return self
     }
-    open func withMaxCarDurationToPt(_ maxCarDurationToPt: Int32) -> JourneysRequestBuilder {
+    open func withMaxCarDurationToPt(_ maxCarDurationToPt: Int32?) -> JourneysRequestBuilder {
         self.maxCarDurationToPt = maxCarDurationToPt
+        
         return self
     }
-    open func withMaxRidesharingDurationToPt(_ maxRidesharingDurationToPt: Int32) -> JourneysRequestBuilder {
+    open func withMaxRidesharingDurationToPt(_ maxRidesharingDurationToPt: Int32?) -> JourneysRequestBuilder {
         self.maxRidesharingDurationToPt = maxRidesharingDurationToPt
+        
         return self
     }
-    open func withWalkingSpeed(_ walkingSpeed: Float) -> JourneysRequestBuilder {
+    open func withWalkingSpeed(_ walkingSpeed: Float?) -> JourneysRequestBuilder {
         self.walkingSpeed = walkingSpeed
+        
         return self
     }
-    open func withBikeSpeed(_ bikeSpeed: Float) -> JourneysRequestBuilder {
+    open func withBikeSpeed(_ bikeSpeed: Float?) -> JourneysRequestBuilder {
         self.bikeSpeed = bikeSpeed
+        
         return self
     }
-    open func withBssSpeed(_ bssSpeed: Float) -> JourneysRequestBuilder {
+    open func withBssSpeed(_ bssSpeed: Float?) -> JourneysRequestBuilder {
         self.bssSpeed = bssSpeed
+        
         return self
     }
-    open func withCarSpeed(_ carSpeed: Float) -> JourneysRequestBuilder {
+    open func withCarSpeed(_ carSpeed: Float?) -> JourneysRequestBuilder {
         self.carSpeed = carSpeed
+        
         return self
     }
-    open func withRidesharingSpeed(_ ridesharingSpeed: Float) -> JourneysRequestBuilder {
+    open func withRidesharingSpeed(_ ridesharingSpeed: Float?) -> JourneysRequestBuilder {
         self.ridesharingSpeed = ridesharingSpeed
+        
         return self
     }
-    open func withForbiddenUris(_ forbiddenUris: [String]) -> JourneysRequestBuilder {
+    open func withForbiddenUris(_ forbiddenUris: [String]?) -> JourneysRequestBuilder {
         self.forbiddenUris = forbiddenUris
+        
         return self
     }
-    open func withAllowedId(_ allowedId: [String]) -> JourneysRequestBuilder {
+    open func withAllowedId(_ allowedId: [String]?) -> JourneysRequestBuilder {
         self.allowedId = allowedId
+        
         return self
     }
-    open func withDisruptionActive(_ disruptionActive: Bool) -> JourneysRequestBuilder {
+    open func withDisruptionActive(_ disruptionActive: Bool?) -> JourneysRequestBuilder {
         self.disruptionActive = disruptionActive
+        
         return self
     }
-    open func withDataFreshness(_ dataFreshness: DataFreshness) -> JourneysRequestBuilder {
+    open func withDataFreshness(_ dataFreshness: DataFreshness?) -> JourneysRequestBuilder {
         self.dataFreshness = dataFreshness
+
         return self
     }
-    open func withMaxDuration(_ maxDuration: Int32) -> JourneysRequestBuilder {
+    open func withMaxDuration(_ maxDuration: Int32?) -> JourneysRequestBuilder {
         self.maxDuration = maxDuration
+        
         return self
     }
-    open func withWheelchair(_ wheelchair: Bool) -> JourneysRequestBuilder {
+    open func withWheelchair(_ wheelchair: Bool?) -> JourneysRequestBuilder {
         self.wheelchair = wheelchair
+        
         return self
     }
-    open func withTravelerType(_ travelerType: TravelerType) -> JourneysRequestBuilder {
+    open func withTravelerType(_ travelerType: TravelerType?) -> JourneysRequestBuilder {
         self.travelerType = travelerType
+
         return self
     }
-    open func withDirectPath(_ directPath: DirectPath) -> JourneysRequestBuilder {
+    open func withDirectPath(_ directPath: DirectPath?) -> JourneysRequestBuilder {
         self.directPath = directPath
+
         return self
     }
-    open func withFreeRadiusFrom(_ freeRadiusFrom: Int32) -> JourneysRequestBuilder {
+    open func withFreeRadiusFrom(_ freeRadiusFrom: Int32?) -> JourneysRequestBuilder {
         self.freeRadiusFrom = freeRadiusFrom
+        
         return self
     }
-    open func withFreeRadiusTo(_ freeRadiusTo: Int32) -> JourneysRequestBuilder {
+    open func withFreeRadiusTo(_ freeRadiusTo: Int32?) -> JourneysRequestBuilder {
         self.freeRadiusTo = freeRadiusTo
+        
         return self
     }
-    open func withCount(_ count: Int32) -> JourneysRequestBuilder {
+    open func withCount(_ count: Int32?) -> JourneysRequestBuilder {
         self.count = count
+        
         return self
     }
-    open func withIsJourneySchedules(_ isJourneySchedules: Bool) -> JourneysRequestBuilder {
+    open func withIsJourneySchedules(_ isJourneySchedules: Bool?) -> JourneysRequestBuilder {
         self.isJourneySchedules = isJourneySchedules
+        
         return self
     }
-    open func withMinNbJourneys(_ minNbJourneys: Int32) -> JourneysRequestBuilder {
+    open func withMinNbJourneys(_ minNbJourneys: Int32?) -> JourneysRequestBuilder {
         self.minNbJourneys = minNbJourneys
+        
         return self
     }
-    open func withMaxNbJourneys(_ maxNbJourneys: Int32) -> JourneysRequestBuilder {
+    open func withMaxNbJourneys(_ maxNbJourneys: Int32?) -> JourneysRequestBuilder {
         self.maxNbJourneys = maxNbJourneys
+        
         return self
     }
-    open func withBssStands(_ bssStands: Bool) -> JourneysRequestBuilder {
+    open func withBssStands(_ bssStands: Bool?) -> JourneysRequestBuilder {
         self.bssStands = bssStands
+        
         return self
     }
-    open func withAddPoiInfos(_ addPoiInfos: [AddPoiInfos]) -> JourneysRequestBuilder {
-        self.addPoiInfos = addPoiInfos
+    open func withAddPoiInfos(_ addPoiInfos: [AddPoiInfos]?) -> JourneysRequestBuilder {
+        guard let addPoiInfos = addPoiInfos else {
+            return self
+        }
+        
+        var items = [String]()
+        for item in addPoiInfos {
+            items.append(item.rawValue)
+        }
+        self.addPoiInfos = items
+
+        return self
+    }
+    open func withTimeframeDuration(_ timeframeDuration: Int32?) -> JourneysRequestBuilder {
+        self.timeframeDuration = timeframeDuration
+        
+        return self
+    }
+
+
+
+    open func withDebugURL(_ debugURL: String?) -> JourneysRequestBuilder {
+        self.debugURL = debugURL
         return self
     }
 
     open func makeUrl() -> String {
         let path = "/journeys"
 
-        let URLString = "https://api.navitia.io/v1" + path
+        let URLString = String(format: "%@%@", NavitiaSDKAPI.basePath, path)
         let url = NSURLComponents(string: URLString)
 
         let paramValues: [String: Any?] = [
             "from": self.from, 
             "to": self.to, 
-            "datetime": self.datetime?.reformatDate(),
-            "datetime_represents": self.datetimeRepresents?.rawValue,
+            "datetime": self.datetime?.encodeToJSON(), 
+            "datetime_represents": self.datetimeRepresents?.rawValue, 
             "max_nb_transfers": self.maxNbTransfers?.encodeToJSON(), 
             "min_nb_transfers": self.minNbTransfers?.encodeToJSON(), 
             "first_section_mode[]": self.firstSectionMode, 
@@ -1000,12 +1227,13 @@ open class JourneysRequestBuilder: NSObject {
             "min_nb_journeys": self.minNbJourneys?.encodeToJSON(), 
             "max_nb_journeys": self.maxNbJourneys?.encodeToJSON(), 
             "bss_stands": self.bssStands, 
-            "add_poi_infos[]": self.addPoiInfos
+            "add_poi_infos[]": self.addPoiInfos, 
+            "timeframe_duration": self.timeframeDuration?.encodeToJSON()
         ]
         url?.queryItems = APIHelper.mapValuesToQueryItems(values: paramValues)
         url?.percentEncodedQuery = url?.percentEncodedQuery?.replacingOccurrences(of: "+", with: "%2B")
 
-        return (url?.string ?? URLString)
+        return (debugURL ?? url?.string ?? URLString)
     }
 
     open func get(completion: @escaping ((_ data: Journeys?,_ error: Error?) -> Void)) {

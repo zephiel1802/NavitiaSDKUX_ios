@@ -37,6 +37,7 @@ open class StopPoint: JSONEncodable, Mappable {
     public var comments: [Comment]?
     public var administrativeRegions: [Admin]?
     public var address: Address?
+    public var fareZone: FareZone?
     /** Identifier of the object */
     public var id: String?
     public var stopArea: StopArea?
@@ -60,6 +61,7 @@ open class StopPoint: JSONEncodable, Mappable {
         comments <- map["comments"]
         administrativeRegions <- map["administrative_regions"]
         address <- map["address"]
+        fareZone <- map["fare_zone"]
         id <- map["id"]
         stopArea <- map["stop_area"]
     }
@@ -79,6 +81,7 @@ open class StopPoint: JSONEncodable, Mappable {
         nillableDictionary["comments"] = self.comments?.encodeToJSON()
         nillableDictionary["administrative_regions"] = self.administrativeRegions?.encodeToJSON()
         nillableDictionary["address"] = self.address?.encodeToJSON()
+        nillableDictionary["fare_zone"] = self.fareZone?.encodeToJSON()
         nillableDictionary["id"] = self.id
         nillableDictionary["stop_area"] = self.stopArea?.encodeToJSON()
 
