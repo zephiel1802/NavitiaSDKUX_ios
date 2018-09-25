@@ -356,9 +356,9 @@ class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
         return displayInformations?.direction ?? ""
     }
     
-    private func getTransportCode(displayInformations: VJDisplayInformation?) -> String {
+    private func getTransportCode(displayInformations: VJDisplayInformation?) -> String? {
         guard let code = displayInformations?.code, !code.isEmpty else {
-            return ""
+            return nil
         }
         
         return code

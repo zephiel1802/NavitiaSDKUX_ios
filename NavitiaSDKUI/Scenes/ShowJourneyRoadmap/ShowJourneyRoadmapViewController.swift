@@ -15,7 +15,7 @@ protocol ShowJourneyRoadmapDisplayLogic: class {
     func displayMap(viewModel: ShowJourneyRoadmap.GetMap.ViewModel)
 }
 
-open class ShowJourneyRoadmapViewController: UIViewController, ShowJourneyRoadmapDisplayLogic {
+internal class ShowJourneyRoadmapViewController: UIViewController, ShowJourneyRoadmapDisplayLogic {
 
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var scrollView: StackScrollView!
@@ -46,7 +46,7 @@ open class ShowJourneyRoadmapViewController: UIViewController, ShowJourneyRoadma
         initArchitecture()
     }
     
-    override open func viewDidLoad() {
+    override func viewDidLoad() {
         super.viewDidLoad()
         
         title = "roadmap".localized(withComment: "Roadmap", bundle: NavitiaSDKUI.shared.bundle)
@@ -58,7 +58,7 @@ open class ShowJourneyRoadmapViewController: UIViewController, ShowJourneyRoadma
         getRoadmap()
     }
 
-    override open func viewDidAppear(_ animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
 
         startUpdatingUserLocation()
@@ -67,7 +67,7 @@ open class ShowJourneyRoadmapViewController: UIViewController, ShowJourneyRoadma
         startAnimation()
     }
     
-    override open func viewDidDisappear(_ animated: Bool) {
+    override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
 
         stopUpdatingUserLocation()
@@ -75,12 +75,8 @@ open class ShowJourneyRoadmapViewController: UIViewController, ShowJourneyRoadma
         refreshFetchBss(run: false)
         stopAnimation()
     }
-    
-    override open func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-    }
 
-    override open func viewDidLayoutSubviews() {
+    override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         
         if !display {
@@ -88,6 +84,12 @@ open class ShowJourneyRoadmapViewController: UIViewController, ShowJourneyRoadma
             zoomOverPolyline(targetPolyline: MKPolyline(coordinates: journeyPolylineCoordinates, count: journeyPolylineCoordinates.count))
         }
         scrollView.reloadStack()
+    }
+    
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        
+        navigationController?.navigationBar.setNeedsLayout()
     }
     
     static var identifier: String {
@@ -236,13 +238,7 @@ open class ShowJourneyRoadmapViewController: UIViewController, ShowJourneyRoadma
         publicTransportView.modeString = section.icon
         publicTransportView.take = section.displayInformations.commercialMode
         publicTransportView.transportColor = section.displayInformations.color
-        
-        if let code = section.displayInformations.code {
-            publicTransportView.transportName = code
-        } else {
-            publicTransportView.transportView.isHidden = true
-        }
-        
+        publicTransportView.transportName = section.displayInformations.code
         publicTransportView.origin = section.from
         publicTransportView.startTime = section.startTime
         publicTransportView.directionTransit = section.displayInformations.directionTransit

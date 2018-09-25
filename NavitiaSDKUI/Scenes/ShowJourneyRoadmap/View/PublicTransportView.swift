@@ -213,6 +213,10 @@ extension PublicTransportView {
             if let newValue = newValue {
                 transportLabel.attributedText = NSMutableAttributedString()
                     .bold(newValue, color: transportColor?.contrastColor() ?? Configuration.Color.white, size: 9)
+            } else {
+                transportView.isHidden = true
+                disruptionCircleLabel.isHidden = true
+                disruptionIconTransportLabel.isHidden = true
             }
         }
     }
