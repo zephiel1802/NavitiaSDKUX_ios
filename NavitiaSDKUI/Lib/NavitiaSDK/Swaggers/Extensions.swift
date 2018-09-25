@@ -6,7 +6,6 @@
 
 import Foundation
 
-
 extension Bool: JSONEncodable {
     func encodeToJSON() -> Any { return self as Any }
 }
@@ -67,21 +66,14 @@ extension Data: JSONEncodable {
 
 private let dateFormatter: DateFormatter = {
     let fmt = DateFormatter()
-    fmt.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
+    fmt.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZZZZZ"
     fmt.locale = Locale(identifier: "en_US_POSIX")
-    fmt.timeZone = TimeZone(secondsFromGMT: 0)
     return fmt
 }()
 
 extension Date: JSONEncodable {
     func encodeToJSON() -> Any {
         return dateFormatter.string(from: self) as Any
-    }
-    
-    func reformatDate() -> String {
-        dateFormatter.dateFormat = "yyyyMMdd'T'HHmmss"
-        
-        return dateFormatter.string(from: self)
     }
 }
 

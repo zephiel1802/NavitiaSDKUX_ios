@@ -1,6 +1,6 @@
 //
 //  IntegerOperators.swift
-//  ObjectMapper
+//  
 //
 //  Created by Suyeol Jeon on 17/02/2017.
 //  Copyright © 2017 hearst. All rights reserved.

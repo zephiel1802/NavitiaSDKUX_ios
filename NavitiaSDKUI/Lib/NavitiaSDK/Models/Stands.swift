@@ -9,6 +9,12 @@ import Foundation
 
 open class Stands: JSONEncodable, Mappable {
 
+    public enum Status: String { 
+        case unavailable = "unavailable"
+        case closed = "closed"
+        case open = "open"
+    }
+    public var status: Status?
     public var availablePlaces: Int32?
     public var availableBikes: Int32?
     public var totalStands: Int32?
@@ -20,6 +26,7 @@ open class Stands: JSONEncodable, Mappable {
 
 
     public func mapping(map: Map) {
+        status <- map["status"]
         availablePlaces <- map["available_places"]
         availableBikes <- map["available_bikes"]
         totalStands <- map["total_stands"]
@@ -28,6 +35,7 @@ open class Stands: JSONEncodable, Mappable {
     // MARK: JSONEncodable
     open func encodeToJSON() -> Any {
         var nillableDictionary = [String:Any?]()
+        nillableDictionary["status"] = self.status?.rawValue
         nillableDictionary["available_places"] = self.availablePlaces?.encodeToJSON()
         nillableDictionary["available_bikes"] = self.availableBikes?.encodeToJSON()
         nillableDictionary["total_stands"] = self.totalStands?.encodeToJSON()

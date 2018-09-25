@@ -1,6 +1,6 @@
 //
 //  MapError.swift
-//  ObjectMapper
+//  
 //
 //  Created by Tristan Himmelman on 2016-09-26.
 //

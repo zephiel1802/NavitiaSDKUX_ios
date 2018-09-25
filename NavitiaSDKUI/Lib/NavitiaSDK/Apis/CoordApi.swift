@@ -12,40 +12,50 @@ open class CoordLonLatRequestBuilder: NSObject {
 
     var lat:Double? = nil
     var lon:Double? = nil
+    var debugURL: String? = nil
 
     public init(currentApi: CoordApi) {
         self.currentApi = currentApi
     }
 
-    open func withLat(_ lat: Double) -> CoordLonLatRequestBuilder {
+    open func withLat(_ lat: Double?) -> CoordLonLatRequestBuilder {
         self.lat = lat
+        
         return self
     }
-    open func withLon(_ lon: Double) -> CoordLonLatRequestBuilder {
+    open func withLon(_ lon: Double?) -> CoordLonLatRequestBuilder {
         self.lon = lon
+        
+        return self
+    }
+
+
+
+    open func withDebugURL(_ debugURL: String?) -> CoordLonLatRequestBuilder {
+        self.debugURL = debugURL
         return self
     }
 
     open func makeUrl() -> String {
         var path = "/coord/{lon};{lat}/"
 
-        if (lat != nil) {
-            let latPreEscape: String = "\(lat!)"
+        if let lat = lat {
+            let latPreEscape: String = "\(lat)"
             let latPostEscape: String = latPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
             path = path.replacingOccurrences(of: "{lat}", with: latPostEscape, options: .literal, range: nil)
         }
 
-        if (lon != nil) {
-            let lonPreEscape: String = "\(lon!)"
+        if let lon = lon {
+            let lonPreEscape: String = "\(lon)"
             let lonPostEscape: String = lonPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
             path = path.replacingOccurrences(of: "{lon}", with: lonPostEscape, options: .literal, range: nil)
         }
 
-        let URLString = "https://api.navitia.io/v1" + path
+        let URLString = String(format: "%@%@", NavitiaSDKAPI.basePath, path)
         let url = NSURLComponents(string: URLString)
 
 
-        return (url?.string ?? URLString)
+        return (debugURL ?? url?.string ?? URLString)
     }
 
     open func get(completion: @escaping ((_ data: DictAddresses?,_ error: Error?) -> Void)) {
@@ -96,40 +106,50 @@ open class CoordsLonLatRequestBuilder: NSObject {
 
     var lat:Double? = nil
     var lon:Double? = nil
+    var debugURL: String? = nil
 
     public init(currentApi: CoordApi) {
         self.currentApi = currentApi
     }
 
-    open func withLat(_ lat: Double) -> CoordsLonLatRequestBuilder {
+    open func withLat(_ lat: Double?) -> CoordsLonLatRequestBuilder {
         self.lat = lat
+        
         return self
     }
-    open func withLon(_ lon: Double) -> CoordsLonLatRequestBuilder {
+    open func withLon(_ lon: Double?) -> CoordsLonLatRequestBuilder {
         self.lon = lon
+        
+        return self
+    }
+
+
+
+    open func withDebugURL(_ debugURL: String?) -> CoordsLonLatRequestBuilder {
+        self.debugURL = debugURL
         return self
     }
 
     open func makeUrl() -> String {
         var path = "/coords/{lon};{lat}/"
 
-        if (lat != nil) {
-            let latPreEscape: String = "\(lat!)"
+        if let lat = lat {
+            let latPreEscape: String = "\(lat)"
             let latPostEscape: String = latPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
             path = path.replacingOccurrences(of: "{lat}", with: latPostEscape, options: .literal, range: nil)
         }
 
-        if (lon != nil) {
-            let lonPreEscape: String = "\(lon!)"
+        if let lon = lon {
+            let lonPreEscape: String = "\(lon)"
             let lonPostEscape: String = lonPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
             path = path.replacingOccurrences(of: "{lon}", with: lonPostEscape, options: .literal, range: nil)
         }
 
-        let URLString = "https://api.navitia.io/v1" + path
+        let URLString = String(format: "%@%@", NavitiaSDKAPI.basePath, path)
         let url = NSURLComponents(string: URLString)
 
 
-        return (url?.string ?? URLString)
+        return (debugURL ?? url?.string ?? URLString)
     }
 
     open func get(completion: @escaping ((_ data: DictAddresses?,_ error: Error?) -> Void)) {

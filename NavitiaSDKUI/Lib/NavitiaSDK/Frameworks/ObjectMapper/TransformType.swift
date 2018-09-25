@@ -1,6 +1,6 @@
 //
 //  TransformType.swift
-//  ObjectMapper
+//  
 //
 //  Created by Syo Ikeda on 2/4/15.
 //

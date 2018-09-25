@@ -1,7 +1,7 @@
 //
 //  SessionManager.swift
 //
-//  Copyright (c) 2014-2017 Alamofire Software Foundation (http://alamofire.org/)
+//  Copyright (c) 2014-2017 Alamofire Software Foundation (http://org/)
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -64,7 +64,7 @@ open class SessionManager {
         }.joined(separator: ", ")
 
         // User-Agent Header; see https://tools.ietf.org/html/rfc7231#section-5.5.3
-        // Example: `iOS Example/1.0 (org.alamofire.iOS-Example; build:1; iOS 10.0.0) Alamofire/4.0.0`
+        // Example: `iOS Example/1.0 (org.iOS-Example; build:1; iOS 10.0.0) Alamofire/4.0.0`
         let userAgent: String = {
             if let info = Bundle.main.infoDictionary {
                 let executable = info[kCFBundleExecutableKey as String] as? String ?? "Unknown"
@@ -149,7 +149,7 @@ open class SessionManager {
     /// `nil` by default.
     open var backgroundCompletionHandler: (() -> Void)?
 
-    let queue = DispatchQueue(label: "org.alamofire.session-manager." + UUID().uuidString)
+    let queue = DispatchQueue(label: "org.session-manager." + UUID().uuidString)
 
     // MARK: - Lifecycle
 
@@ -680,7 +680,7 @@ open class SessionManager {
                 } else {
                     let fileManager = FileManager.default
                     let tempDirectoryURL = URL(fileURLWithPath: NSTemporaryDirectory())
-                    let directoryURL = tempDirectoryURL.appendingPathComponent("org.alamofire.manager/multipart.form.data")
+                    let directoryURL = tempDirectoryURL.appendingPathComponent("org.manager/multipart.form.data")
                     let fileName = UUID().uuidString
                     let fileURL = directoryURL.appendingPathComponent(fileName)
 

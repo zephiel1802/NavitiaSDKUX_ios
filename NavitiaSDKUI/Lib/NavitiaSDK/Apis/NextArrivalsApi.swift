@@ -36,100 +36,126 @@ open class CoverageLonLatArrivalsRequestBuilder: NSObject {
     var dataFreshness: DataFreshness? = nil
     var itemsPerSchedule:Int32? = nil
     var disableGeojson:Bool? = nil
+    var debugURL: String? = nil
 
     public init(currentApi: NextArrivalsApi) {
         self.currentApi = currentApi
     }
 
-    open func withLat(_ lat: Double) -> CoverageLonLatArrivalsRequestBuilder {
+    open func withLat(_ lat: Double?) -> CoverageLonLatArrivalsRequestBuilder {
         self.lat = lat
+        
         return self
     }
-    open func withLon(_ lon: Double) -> CoverageLonLatArrivalsRequestBuilder {
+    open func withLon(_ lon: Double?) -> CoverageLonLatArrivalsRequestBuilder {
         self.lon = lon
+        
         return self
     }
-    open func withFilter(_ filter: String) -> CoverageLonLatArrivalsRequestBuilder {
+    open func withFilter(_ filter: String?) -> CoverageLonLatArrivalsRequestBuilder {
         self.filter = filter
+        
         return self
     }
-    open func withFromDatetime(_ fromDatetime: Date) -> CoverageLonLatArrivalsRequestBuilder {
+    open func withFromDatetime(_ fromDatetime: Date?) -> CoverageLonLatArrivalsRequestBuilder {
         self.fromDatetime = fromDatetime
+        
         return self
     }
-    open func withUntilDatetime(_ untilDatetime: Date) -> CoverageLonLatArrivalsRequestBuilder {
+    open func withUntilDatetime(_ untilDatetime: Date?) -> CoverageLonLatArrivalsRequestBuilder {
         self.untilDatetime = untilDatetime
+        
         return self
     }
-    open func withDuration(_ duration: Int32) -> CoverageLonLatArrivalsRequestBuilder {
+    open func withDuration(_ duration: Int32?) -> CoverageLonLatArrivalsRequestBuilder {
         self.duration = duration
+        
         return self
     }
-    open func withDepth(_ depth: Int32) -> CoverageLonLatArrivalsRequestBuilder {
+    open func withDepth(_ depth: Int32?) -> CoverageLonLatArrivalsRequestBuilder {
         self.depth = depth
+        
         return self
     }
-    open func withCount(_ count: Int32) -> CoverageLonLatArrivalsRequestBuilder {
+    open func withCount(_ count: Int32?) -> CoverageLonLatArrivalsRequestBuilder {
         self.count = count
+        
         return self
     }
-    open func withStartPage(_ startPage: Int32) -> CoverageLonLatArrivalsRequestBuilder {
+    open func withStartPage(_ startPage: Int32?) -> CoverageLonLatArrivalsRequestBuilder {
         self.startPage = startPage
+        
         return self
     }
-    open func withMaxDateTimes(_ maxDateTimes: Int32) -> CoverageLonLatArrivalsRequestBuilder {
+    open func withMaxDateTimes(_ maxDateTimes: Int32?) -> CoverageLonLatArrivalsRequestBuilder {
         self.maxDateTimes = maxDateTimes
+        
         return self
     }
-    open func withForbiddenId(_ forbiddenId: [String]) -> CoverageLonLatArrivalsRequestBuilder {
+    open func withForbiddenId(_ forbiddenId: [String]?) -> CoverageLonLatArrivalsRequestBuilder {
         self.forbiddenId = forbiddenId
+        
         return self
     }
-    open func withForbiddenUris(_ forbiddenUris: [String]) -> CoverageLonLatArrivalsRequestBuilder {
+    open func withForbiddenUris(_ forbiddenUris: [String]?) -> CoverageLonLatArrivalsRequestBuilder {
         self.forbiddenUris = forbiddenUris
+        
         return self
     }
-    open func withCalendar(_ calendar: String) -> CoverageLonLatArrivalsRequestBuilder {
+    open func withCalendar(_ calendar: String?) -> CoverageLonLatArrivalsRequestBuilder {
         self.calendar = calendar
+        
         return self
     }
-    open func withDistance(_ distance: Int32) -> CoverageLonLatArrivalsRequestBuilder {
+    open func withDistance(_ distance: Int32?) -> CoverageLonLatArrivalsRequestBuilder {
         self.distance = distance
+        
         return self
     }
-    open func withShowCodes(_ showCodes: Bool) -> CoverageLonLatArrivalsRequestBuilder {
+    open func withShowCodes(_ showCodes: Bool?) -> CoverageLonLatArrivalsRequestBuilder {
         self.showCodes = showCodes
+        
         return self
     }
-    open func withDataFreshness(_ dataFreshness: DataFreshness) -> CoverageLonLatArrivalsRequestBuilder {
+    open func withDataFreshness(_ dataFreshness: DataFreshness?) -> CoverageLonLatArrivalsRequestBuilder {
         self.dataFreshness = dataFreshness
+
         return self
     }
-    open func withItemsPerSchedule(_ itemsPerSchedule: Int32) -> CoverageLonLatArrivalsRequestBuilder {
+    open func withItemsPerSchedule(_ itemsPerSchedule: Int32?) -> CoverageLonLatArrivalsRequestBuilder {
         self.itemsPerSchedule = itemsPerSchedule
+        
         return self
     }
-    open func withDisableGeojson(_ disableGeojson: Bool) -> CoverageLonLatArrivalsRequestBuilder {
+    open func withDisableGeojson(_ disableGeojson: Bool?) -> CoverageLonLatArrivalsRequestBuilder {
         self.disableGeojson = disableGeojson
+        
+        return self
+    }
+
+
+
+    open func withDebugURL(_ debugURL: String?) -> CoverageLonLatArrivalsRequestBuilder {
+        self.debugURL = debugURL
         return self
     }
 
     open func makeUrl() -> String {
         var path = "/coverage/{lon};{lat}/arrivals"
 
-        if (lat != nil) {
-            let latPreEscape: String = "\(lat!)"
+        if let lat = lat {
+            let latPreEscape: String = "\(lat)"
             let latPostEscape: String = latPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
             path = path.replacingOccurrences(of: "{lat}", with: latPostEscape, options: .literal, range: nil)
         }
 
-        if (lon != nil) {
-            let lonPreEscape: String = "\(lon!)"
+        if let lon = lon {
+            let lonPreEscape: String = "\(lon)"
             let lonPostEscape: String = lonPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
             path = path.replacingOccurrences(of: "{lon}", with: lonPostEscape, options: .literal, range: nil)
         }
 
-        let URLString = "https://api.navitia.io/v1" + path
+        let URLString = String(format: "%@%@", NavitiaSDKAPI.basePath, path)
         let url = NSURLComponents(string: URLString)
 
         let paramValues: [String: Any?] = [
@@ -153,7 +179,7 @@ open class CoverageLonLatArrivalsRequestBuilder: NSObject {
         url?.queryItems = APIHelper.mapValuesToQueryItems(values: paramValues)
         url?.percentEncodedQuery = url?.percentEncodedQuery?.replacingOccurrences(of: "+", with: "%2B")
 
-        return (url?.string ?? URLString)
+        return (debugURL ?? url?.string ?? URLString)
     }
 
     open func get(completion: @escaping ((_ data: Arrivals?,_ error: Error?) -> Void)) {
@@ -229,110 +255,137 @@ open class CoverageLonLatUriArrivalsRequestBuilder: NSObject {
     var dataFreshness: DataFreshness? = nil
     var itemsPerSchedule:Int32? = nil
     var disableGeojson:Bool? = nil
+    var debugURL: String? = nil
 
     public init(currentApi: NextArrivalsApi) {
         self.currentApi = currentApi
     }
 
-    open func withLat(_ lat: Double) -> CoverageLonLatUriArrivalsRequestBuilder {
+    open func withLat(_ lat: Double?) -> CoverageLonLatUriArrivalsRequestBuilder {
         self.lat = lat
+        
         return self
     }
-    open func withLon(_ lon: Double) -> CoverageLonLatUriArrivalsRequestBuilder {
+    open func withLon(_ lon: Double?) -> CoverageLonLatUriArrivalsRequestBuilder {
         self.lon = lon
+        
         return self
     }
-    open func withUri(_ uri: String) -> CoverageLonLatUriArrivalsRequestBuilder {
+    open func withUri(_ uri: String?) -> CoverageLonLatUriArrivalsRequestBuilder {
         self.uri = uri
+        
         return self
     }
-    open func withFilter(_ filter: String) -> CoverageLonLatUriArrivalsRequestBuilder {
+    open func withFilter(_ filter: String?) -> CoverageLonLatUriArrivalsRequestBuilder {
         self.filter = filter
+        
         return self
     }
-    open func withFromDatetime(_ fromDatetime: Date) -> CoverageLonLatUriArrivalsRequestBuilder {
+    open func withFromDatetime(_ fromDatetime: Date?) -> CoverageLonLatUriArrivalsRequestBuilder {
         self.fromDatetime = fromDatetime
+        
         return self
     }
-    open func withUntilDatetime(_ untilDatetime: Date) -> CoverageLonLatUriArrivalsRequestBuilder {
+    open func withUntilDatetime(_ untilDatetime: Date?) -> CoverageLonLatUriArrivalsRequestBuilder {
         self.untilDatetime = untilDatetime
+        
         return self
     }
-    open func withDuration(_ duration: Int32) -> CoverageLonLatUriArrivalsRequestBuilder {
+    open func withDuration(_ duration: Int32?) -> CoverageLonLatUriArrivalsRequestBuilder {
         self.duration = duration
+        
         return self
     }
-    open func withDepth(_ depth: Int32) -> CoverageLonLatUriArrivalsRequestBuilder {
+    open func withDepth(_ depth: Int32?) -> CoverageLonLatUriArrivalsRequestBuilder {
         self.depth = depth
+        
         return self
     }
-    open func withCount(_ count: Int32) -> CoverageLonLatUriArrivalsRequestBuilder {
+    open func withCount(_ count: Int32?) -> CoverageLonLatUriArrivalsRequestBuilder {
         self.count = count
+        
         return self
     }
-    open func withStartPage(_ startPage: Int32) -> CoverageLonLatUriArrivalsRequestBuilder {
+    open func withStartPage(_ startPage: Int32?) -> CoverageLonLatUriArrivalsRequestBuilder {
         self.startPage = startPage
+        
         return self
     }
-    open func withMaxDateTimes(_ maxDateTimes: Int32) -> CoverageLonLatUriArrivalsRequestBuilder {
+    open func withMaxDateTimes(_ maxDateTimes: Int32?) -> CoverageLonLatUriArrivalsRequestBuilder {
         self.maxDateTimes = maxDateTimes
+        
         return self
     }
-    open func withForbiddenId(_ forbiddenId: [String]) -> CoverageLonLatUriArrivalsRequestBuilder {
+    open func withForbiddenId(_ forbiddenId: [String]?) -> CoverageLonLatUriArrivalsRequestBuilder {
         self.forbiddenId = forbiddenId
+        
         return self
     }
-    open func withForbiddenUris(_ forbiddenUris: [String]) -> CoverageLonLatUriArrivalsRequestBuilder {
+    open func withForbiddenUris(_ forbiddenUris: [String]?) -> CoverageLonLatUriArrivalsRequestBuilder {
         self.forbiddenUris = forbiddenUris
+        
         return self
     }
-    open func withCalendar(_ calendar: String) -> CoverageLonLatUriArrivalsRequestBuilder {
+    open func withCalendar(_ calendar: String?) -> CoverageLonLatUriArrivalsRequestBuilder {
         self.calendar = calendar
+        
         return self
     }
-    open func withDistance(_ distance: Int32) -> CoverageLonLatUriArrivalsRequestBuilder {
+    open func withDistance(_ distance: Int32?) -> CoverageLonLatUriArrivalsRequestBuilder {
         self.distance = distance
+        
         return self
     }
-    open func withShowCodes(_ showCodes: Bool) -> CoverageLonLatUriArrivalsRequestBuilder {
+    open func withShowCodes(_ showCodes: Bool?) -> CoverageLonLatUriArrivalsRequestBuilder {
         self.showCodes = showCodes
+        
         return self
     }
-    open func withDataFreshness(_ dataFreshness: DataFreshness) -> CoverageLonLatUriArrivalsRequestBuilder {
+    open func withDataFreshness(_ dataFreshness: DataFreshness?) -> CoverageLonLatUriArrivalsRequestBuilder {
         self.dataFreshness = dataFreshness
+
         return self
     }
-    open func withItemsPerSchedule(_ itemsPerSchedule: Int32) -> CoverageLonLatUriArrivalsRequestBuilder {
+    open func withItemsPerSchedule(_ itemsPerSchedule: Int32?) -> CoverageLonLatUriArrivalsRequestBuilder {
         self.itemsPerSchedule = itemsPerSchedule
+        
         return self
     }
-    open func withDisableGeojson(_ disableGeojson: Bool) -> CoverageLonLatUriArrivalsRequestBuilder {
+    open func withDisableGeojson(_ disableGeojson: Bool?) -> CoverageLonLatUriArrivalsRequestBuilder {
         self.disableGeojson = disableGeojson
+        
+        return self
+    }
+
+
+
+    open func withDebugURL(_ debugURL: String?) -> CoverageLonLatUriArrivalsRequestBuilder {
+        self.debugURL = debugURL
         return self
     }
 
     open func makeUrl() -> String {
         var path = "/coverage/{lon};{lat}/{uri}/arrivals"
 
-        if (lat != nil) {
-            let latPreEscape: String = "\(lat!)"
+        if let lat = lat {
+            let latPreEscape: String = "\(lat)"
             let latPostEscape: String = latPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
             path = path.replacingOccurrences(of: "{lat}", with: latPostEscape, options: .literal, range: nil)
         }
 
-        if (lon != nil) {
-            let lonPreEscape: String = "\(lon!)"
+        if let lon = lon {
+            let lonPreEscape: String = "\(lon)"
             let lonPostEscape: String = lonPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
             path = path.replacingOccurrences(of: "{lon}", with: lonPostEscape, options: .literal, range: nil)
         }
 
-        if (uri != nil) {
-            let uriPreEscape: String = "\(uri!)"
+        if let uri = uri {
+            let uriPreEscape: String = "\(uri)"
             let uriPostEscape: String = uriPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
             path = path.replacingOccurrences(of: "{uri}", with: uriPostEscape, options: .literal, range: nil)
         }
 
-        let URLString = "https://api.navitia.io/v1" + path
+        let URLString = String(format: "%@%@", NavitiaSDKAPI.basePath, path)
         let url = NSURLComponents(string: URLString)
 
         let paramValues: [String: Any?] = [
@@ -356,7 +409,7 @@ open class CoverageLonLatUriArrivalsRequestBuilder: NSObject {
         url?.queryItems = APIHelper.mapValuesToQueryItems(values: paramValues)
         url?.percentEncodedQuery = url?.percentEncodedQuery?.replacingOccurrences(of: "+", with: "%2B")
 
-        return (url?.string ?? URLString)
+        return (debugURL ?? url?.string ?? URLString)
     }
 
     open func get(completion: @escaping ((_ data: Arrivals?,_ error: Error?) -> Void)) {
@@ -436,90 +489,115 @@ open class CoverageRegionArrivalsRequestBuilder: NSObject {
     var dataFreshness: DataFreshness? = nil
     var itemsPerSchedule:Int32? = nil
     var disableGeojson:Bool? = nil
+    var debugURL: String? = nil
 
     public init(currentApi: NextArrivalsApi) {
         self.currentApi = currentApi
     }
 
-    open func withRegion(_ region: String) -> CoverageRegionArrivalsRequestBuilder {
+    open func withRegion(_ region: String?) -> CoverageRegionArrivalsRequestBuilder {
         self.region = region
+        
         return self
     }
-    open func withFilter(_ filter: String) -> CoverageRegionArrivalsRequestBuilder {
+    open func withFilter(_ filter: String?) -> CoverageRegionArrivalsRequestBuilder {
         self.filter = filter
+        
         return self
     }
-    open func withFromDatetime(_ fromDatetime: Date) -> CoverageRegionArrivalsRequestBuilder {
+    open func withFromDatetime(_ fromDatetime: Date?) -> CoverageRegionArrivalsRequestBuilder {
         self.fromDatetime = fromDatetime
+        
         return self
     }
-    open func withUntilDatetime(_ untilDatetime: Date) -> CoverageRegionArrivalsRequestBuilder {
+    open func withUntilDatetime(_ untilDatetime: Date?) -> CoverageRegionArrivalsRequestBuilder {
         self.untilDatetime = untilDatetime
+        
         return self
     }
-    open func withDuration(_ duration: Int32) -> CoverageRegionArrivalsRequestBuilder {
+    open func withDuration(_ duration: Int32?) -> CoverageRegionArrivalsRequestBuilder {
         self.duration = duration
+        
         return self
     }
-    open func withDepth(_ depth: Int32) -> CoverageRegionArrivalsRequestBuilder {
+    open func withDepth(_ depth: Int32?) -> CoverageRegionArrivalsRequestBuilder {
         self.depth = depth
+        
         return self
     }
-    open func withCount(_ count: Int32) -> CoverageRegionArrivalsRequestBuilder {
+    open func withCount(_ count: Int32?) -> CoverageRegionArrivalsRequestBuilder {
         self.count = count
+        
         return self
     }
-    open func withStartPage(_ startPage: Int32) -> CoverageRegionArrivalsRequestBuilder {
+    open func withStartPage(_ startPage: Int32?) -> CoverageRegionArrivalsRequestBuilder {
         self.startPage = startPage
+        
         return self
     }
-    open func withMaxDateTimes(_ maxDateTimes: Int32) -> CoverageRegionArrivalsRequestBuilder {
+    open func withMaxDateTimes(_ maxDateTimes: Int32?) -> CoverageRegionArrivalsRequestBuilder {
         self.maxDateTimes = maxDateTimes
+        
         return self
     }
-    open func withForbiddenId(_ forbiddenId: [String]) -> CoverageRegionArrivalsRequestBuilder {
+    open func withForbiddenId(_ forbiddenId: [String]?) -> CoverageRegionArrivalsRequestBuilder {
         self.forbiddenId = forbiddenId
+        
         return self
     }
-    open func withForbiddenUris(_ forbiddenUris: [String]) -> CoverageRegionArrivalsRequestBuilder {
+    open func withForbiddenUris(_ forbiddenUris: [String]?) -> CoverageRegionArrivalsRequestBuilder {
         self.forbiddenUris = forbiddenUris
+        
         return self
     }
-    open func withCalendar(_ calendar: String) -> CoverageRegionArrivalsRequestBuilder {
+    open func withCalendar(_ calendar: String?) -> CoverageRegionArrivalsRequestBuilder {
         self.calendar = calendar
+        
         return self
     }
-    open func withDistance(_ distance: Int32) -> CoverageRegionArrivalsRequestBuilder {
+    open func withDistance(_ distance: Int32?) -> CoverageRegionArrivalsRequestBuilder {
         self.distance = distance
+        
         return self
     }
-    open func withShowCodes(_ showCodes: Bool) -> CoverageRegionArrivalsRequestBuilder {
+    open func withShowCodes(_ showCodes: Bool?) -> CoverageRegionArrivalsRequestBuilder {
         self.showCodes = showCodes
+        
         return self
     }
-    open func withDataFreshness(_ dataFreshness: DataFreshness) -> CoverageRegionArrivalsRequestBuilder {
+    open func withDataFreshness(_ dataFreshness: DataFreshness?) -> CoverageRegionArrivalsRequestBuilder {
         self.dataFreshness = dataFreshness
+
         return self
     }
-    open func withItemsPerSchedule(_ itemsPerSchedule: Int32) -> CoverageRegionArrivalsRequestBuilder {
+    open func withItemsPerSchedule(_ itemsPerSchedule: Int32?) -> CoverageRegionArrivalsRequestBuilder {
         self.itemsPerSchedule = itemsPerSchedule
+        
         return self
     }
-    open func withDisableGeojson(_ disableGeojson: Bool) -> CoverageRegionArrivalsRequestBuilder {
+    open func withDisableGeojson(_ disableGeojson: Bool?) -> CoverageRegionArrivalsRequestBuilder {
         self.disableGeojson = disableGeojson
+        
+        return self
+    }
+
+
+
+    open func withDebugURL(_ debugURL: String?) -> CoverageRegionArrivalsRequestBuilder {
+        self.debugURL = debugURL
         return self
     }
 
     open func makeUrl() -> String {
         var path = "/coverage/{region}/arrivals"
 
-        if (region != nil) {
-            let regionPreEscape: String = "\(region!)"
+        if let region = region {
+            let regionPreEscape: String = "\(region)"
             let regionPostEscape: String = regionPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
             path = path.replacingOccurrences(of: "{region}", with: regionPostEscape, options: .literal, range: nil)
         }
 
-        let URLString = "https://api.navitia.io/v1" + path
+        let URLString = String(format: "%@%@", NavitiaSDKAPI.basePath, path)
         let url = NSURLComponents(string: URLString)
 
         let paramValues: [String: Any?] = [
@@ -543,7 +621,7 @@ open class CoverageRegionArrivalsRequestBuilder: NSObject {
         url?.queryItems = APIHelper.mapValuesToQueryItems(values: paramValues)
         url?.percentEncodedQuery = url?.percentEncodedQuery?.replacingOccurrences(of: "+", with: "%2B")
 
-        return (url?.string ?? URLString)
+        return (debugURL ?? url?.string ?? URLString)
     }
 
     open func get(completion: @escaping ((_ data: Arrivals?,_ error: Error?) -> Void)) {
@@ -612,100 +690,126 @@ open class CoverageRegionUriArrivalsRequestBuilder: NSObject {
     var dataFreshness: DataFreshness? = nil
     var itemsPerSchedule:Int32? = nil
     var disableGeojson:Bool? = nil
+    var debugURL: String? = nil
 
     public init(currentApi: NextArrivalsApi) {
         self.currentApi = currentApi
     }
 
-    open func withRegion(_ region: String) -> CoverageRegionUriArrivalsRequestBuilder {
+    open func withRegion(_ region: String?) -> CoverageRegionUriArrivalsRequestBuilder {
         self.region = region
+        
         return self
     }
-    open func withUri(_ uri: String) -> CoverageRegionUriArrivalsRequestBuilder {
+    open func withUri(_ uri: String?) -> CoverageRegionUriArrivalsRequestBuilder {
         self.uri = uri
+        
         return self
     }
-    open func withFilter(_ filter: String) -> CoverageRegionUriArrivalsRequestBuilder {
+    open func withFilter(_ filter: String?) -> CoverageRegionUriArrivalsRequestBuilder {
         self.filter = filter
+        
         return self
     }
-    open func withFromDatetime(_ fromDatetime: Date) -> CoverageRegionUriArrivalsRequestBuilder {
+    open func withFromDatetime(_ fromDatetime: Date?) -> CoverageRegionUriArrivalsRequestBuilder {
         self.fromDatetime = fromDatetime
+        
         return self
     }
-    open func withUntilDatetime(_ untilDatetime: Date) -> CoverageRegionUriArrivalsRequestBuilder {
+    open func withUntilDatetime(_ untilDatetime: Date?) -> CoverageRegionUriArrivalsRequestBuilder {
         self.untilDatetime = untilDatetime
+        
         return self
     }
-    open func withDuration(_ duration: Int32) -> CoverageRegionUriArrivalsRequestBuilder {
+    open func withDuration(_ duration: Int32?) -> CoverageRegionUriArrivalsRequestBuilder {
         self.duration = duration
+        
         return self
     }
-    open func withDepth(_ depth: Int32) -> CoverageRegionUriArrivalsRequestBuilder {
+    open func withDepth(_ depth: Int32?) -> CoverageRegionUriArrivalsRequestBuilder {
         self.depth = depth
+        
         return self
     }
-    open func withCount(_ count: Int32) -> CoverageRegionUriArrivalsRequestBuilder {
+    open func withCount(_ count: Int32?) -> CoverageRegionUriArrivalsRequestBuilder {
         self.count = count
+        
         return self
     }
-    open func withStartPage(_ startPage: Int32) -> CoverageRegionUriArrivalsRequestBuilder {
+    open func withStartPage(_ startPage: Int32?) -> CoverageRegionUriArrivalsRequestBuilder {
         self.startPage = startPage
+        
         return self
     }
-    open func withMaxDateTimes(_ maxDateTimes: Int32) -> CoverageRegionUriArrivalsRequestBuilder {
+    open func withMaxDateTimes(_ maxDateTimes: Int32?) -> CoverageRegionUriArrivalsRequestBuilder {
         self.maxDateTimes = maxDateTimes
+        
         return self
     }
-    open func withForbiddenId(_ forbiddenId: [String]) -> CoverageRegionUriArrivalsRequestBuilder {
+    open func withForbiddenId(_ forbiddenId: [String]?) -> CoverageRegionUriArrivalsRequestBuilder {
         self.forbiddenId = forbiddenId
+        
         return self
     }
-    open func withForbiddenUris(_ forbiddenUris: [String]) -> CoverageRegionUriArrivalsRequestBuilder {
+    open func withForbiddenUris(_ forbiddenUris: [String]?) -> CoverageRegionUriArrivalsRequestBuilder {
         self.forbiddenUris = forbiddenUris
+        
         return self
     }
-    open func withCalendar(_ calendar: String) -> CoverageRegionUriArrivalsRequestBuilder {
+    open func withCalendar(_ calendar: String?) -> CoverageRegionUriArrivalsRequestBuilder {
         self.calendar = calendar
+        
         return self
     }
-    open func withDistance(_ distance: Int32) -> CoverageRegionUriArrivalsRequestBuilder {
+    open func withDistance(_ distance: Int32?) -> CoverageRegionUriArrivalsRequestBuilder {
         self.distance = distance
+        
         return self
     }
-    open func withShowCodes(_ showCodes: Bool) -> CoverageRegionUriArrivalsRequestBuilder {
+    open func withShowCodes(_ showCodes: Bool?) -> CoverageRegionUriArrivalsRequestBuilder {
         self.showCodes = showCodes
+        
         return self
     }
-    open func withDataFreshness(_ dataFreshness: DataFreshness) -> CoverageRegionUriArrivalsRequestBuilder {
+    open func withDataFreshness(_ dataFreshness: DataFreshness?) -> CoverageRegionUriArrivalsRequestBuilder {
         self.dataFreshness = dataFreshness
+
         return self
     }
-    open func withItemsPerSchedule(_ itemsPerSchedule: Int32) -> CoverageRegionUriArrivalsRequestBuilder {
+    open func withItemsPerSchedule(_ itemsPerSchedule: Int32?) -> CoverageRegionUriArrivalsRequestBuilder {
         self.itemsPerSchedule = itemsPerSchedule
+        
         return self
     }
-    open func withDisableGeojson(_ disableGeojson: Bool) -> CoverageRegionUriArrivalsRequestBuilder {
+    open func withDisableGeojson(_ disableGeojson: Bool?) -> CoverageRegionUriArrivalsRequestBuilder {
         self.disableGeojson = disableGeojson
+        
+        return self
+    }
+
+
+
+    open func withDebugURL(_ debugURL: String?) -> CoverageRegionUriArrivalsRequestBuilder {
+        self.debugURL = debugURL
         return self
     }
 
     open func makeUrl() -> String {
         var path = "/coverage/{region}/{uri}/arrivals"
 
-        if (region != nil) {
-            let regionPreEscape: String = "\(region!)"
+        if let region = region {
+            let regionPreEscape: String = "\(region)"
             let regionPostEscape: String = regionPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
             path = path.replacingOccurrences(of: "{region}", with: regionPostEscape, options: .literal, range: nil)
         }
 
-        if (uri != nil) {
-            let uriPreEscape: String = "\(uri!)"
+        if let uri = uri {
+            let uriPreEscape: String = "\(uri)"
             let uriPostEscape: String = uriPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
             path = path.replacingOccurrences(of: "{uri}", with: uriPostEscape, options: .literal, range: nil)
         }
 
-        let URLString = "https://api.navitia.io/v1" + path
+        let URLString = String(format: "%@%@", NavitiaSDKAPI.basePath, path)
         let url = NSURLComponents(string: URLString)
 
         let paramValues: [String: Any?] = [
@@ -729,7 +833,7 @@ open class CoverageRegionUriArrivalsRequestBuilder: NSObject {
         url?.queryItems = APIHelper.mapValuesToQueryItems(values: paramValues)
         url?.percentEncodedQuery = url?.percentEncodedQuery?.replacingOccurrences(of: "+", with: "%2B")
 
-        return (url?.string ?? URLString)
+        return (debugURL ?? url?.string ?? URLString)
     }
 
     open func get(completion: @escaping ((_ data: Arrivals?,_ error: Error?) -> Void)) {
