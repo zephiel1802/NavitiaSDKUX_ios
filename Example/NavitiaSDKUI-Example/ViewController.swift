@@ -17,6 +17,10 @@ class ViewController: UIViewController {
         super.didReceiveMemoryWarning()
     }
     
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return UIStatusBarStyle.lightContent
+    }
+    
     @IBAction func touch(_ sender: Any) {
         let journeyResultsViewController = getJourneys()
         navigationController?.pushViewController(journeyResultsViewController, animated: true)
