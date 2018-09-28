@@ -83,8 +83,8 @@ enum ShowJourneyRoadmap
                     var stands: Stands?
                 }
                 struct Stands {
-                    var availablePlaces: Int32
-                    var availableBikes: Int32
+                    var availability: String?
+                    var icon: String?
                 }
                 struct Path {
                     var direction: Int32
@@ -110,6 +110,7 @@ enum ShowJourneyRoadmap
                 var startTime: String
                 var endTime: String
                 
+                var actionDescription: String?
                 var duration: String?
                 var path: [Path]?
                 var stopDate: [String]
@@ -118,11 +119,12 @@ enum ShowJourneyRoadmap
                 
                 var disruptions: [Disruption] // A reconstruire
                 var notes: [Note]
-                //var notes: [Note] // A Faire
 
                 var poi: Poi?
                 var icon: String
                 var bssRealTime: Bool
+                
+                var background: Bool
                 
                 // Provisoire
                 var section: Section

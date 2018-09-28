@@ -289,10 +289,30 @@ internal class ShowJourneyRoadmapViewController: UIViewController, ShowJourneyRo
     }
     
     func getGenericStep(section: ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionClean) -> UIView {
-        let view = GenericStepView(frame: CGRect(x: 0, y: 0, width: 0, height: 50))
-        view.modeString = section.icon
-        view.time = section.duration
-        view.direction = section.to
+        let view = StepView.instanceFromNib()
+        view.frame = scrollView.bounds
+        view.whiteBackground = section.background
+        view.iconInformations = section.icon
+        
+        let informations = NSMutableAttributedString()
+        
+        if let actionDescription = section.actionDescription {
+            informations.append(NSMutableAttributedString().normal(String(format: "%@ ", actionDescription), color: Configuration.Color.black, size: 15))
+            informations.append(NSMutableAttributedString().bold(String(format: "%@", section.to), color: Configuration.Color.black, size: 15))
+        }
+        if let addressName = section.poi?.addressName {
+            informations.append(NSMutableAttributedString().bold(String(format: "\n%@", addressName), color: Configuration.Color.black, size: 13))
+        }
+        if let duration = section.duration {
+            informations.append(NSMutableAttributedString().normal(String(format: "\n%@", duration), color: Configuration.Color.black, size: 15))
+        }
+        
+        view.informationsAttributedString = informations
+        // Real Time
+        view.realTimeIcon = section.poi?.stands?.icon
+        view.realTimeValue = section.poi?.stands?.availability
+        
+        // Path Section
         view.paths = section.path
         
         return view
@@ -315,9 +335,9 @@ internal class ShowJourneyRoadmapViewController: UIViewController, ShowJourneyRo
         case .streetNetwork:
             return getStreetNetworkStep(section: section)
         case .bssRent:
-            return getBssStep(section: section)
+            return getGenericStep(section: section)//getBssStep(section: section)
         case .bssPutBack:
-            return getBssStep(section: section)
+            return getGenericStep(section: section)//getBssStep(section: section)
         case .crowFly:
             return getGenericStep(section: section)
         default:
@@ -339,7 +359,7 @@ internal class ShowJourneyRoadmapViewController: UIViewController, ShowJourneyRo
             return getGenericStep(section: section)
         case .ridesharing:
             updateRidesharingView(section.section)
-            return getRidesharingStep(section: section)
+            return getGenericStep(section: section)
         default:
             return nil
         }
@@ -369,18 +389,19 @@ internal class ShowJourneyRoadmapViewController: UIViewController, ShowJourneyRo
         animationTimer?.invalidate()
         animationTimer = Timer.scheduledTimer(timeInterval: 2.0, target: self, selector: #selector(startAnimation), userInfo: nil, repeats: true)
         
-        let bssStepSubviews = scrollView.selectSubviews(type: BssStepView())
-        for bssStepView in bssStepSubviews {
-            bssStepView.animateRealTime()
+
+        let stepSubViews = scrollView.selectSubviews(type: StepView())
+        for stepView in stepSubViews {
+            stepView.realTimeAnimation = true
         }
     }
     
     private func stopAnimation() {
         animationTimer?.invalidate()
         
-        let bssStepSubviews = scrollView.selectSubviews(type: BssStepView())
-        for bssStepView in bssStepSubviews {
-            bssStepView.stopRealTimeAnimation()
+        let stepSubViews = scrollView.selectSubviews(type: StepView())
+        for stepView in stepSubViews {
+            stepView.realTimeAnimation = false
         }
     }
     

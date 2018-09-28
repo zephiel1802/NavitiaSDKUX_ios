@@ -140,17 +140,17 @@ class BssStepView: UIView {
 //        }
 
      
-        if type == .bssRent, let availableBikes = poi.stands?.availableBikes {
-            realTimeLabel.attributedText = NSMutableAttributedString()
-                .semiBold(String(format: "bss_bikes_available".localized(bundle: NavitiaSDKUI.shared.bundle), availableBikes),
-                          color: Configuration.Color.main,
-                          size: 13)
-        } else if type == .bssPutBack, let availablePlaces = poi.stands?.availablePlaces {
-            realTimeLabel.attributedText = NSMutableAttributedString()
-                .semiBold(String(format: "bss_spaces_available".localized(bundle: NavitiaSDKUI.shared.bundle), availablePlaces),
-                          color: Configuration.Color.main,
-                          size: 13)
-        }
+//        if type == .bssRent, let availableBikes = poi.stands?.availableBikes {
+//            realTimeLabel.attributedText = NSMutableAttributedString()
+//                .semiBold(String(format: "bss_bikes_available".localized(bundle: NavitiaSDKUI.shared.bundle), availableBikes),
+//                          color: Configuration.Color.main,
+//                          size: 13)
+//        } else if type == .bssPutBack, let availablePlaces = poi.stands?.availablePlaces {
+//            realTimeLabel.attributedText = NSMutableAttributedString()
+//                .semiBold(String(format: "bss_spaces_available".localized(bundle: NavitiaSDKUI.shared.bundle), availablePlaces),
+//                          color: Configuration.Color.main,
+//                          size: 13)
+//        }
         
         setHeight()
     }

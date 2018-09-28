@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 
 class StepView: UIView {
-    
+
     @IBOutlet weak var stackView: UIStackView!
     
     @IBOutlet weak var informationsIconLabel: UILabel!
@@ -61,6 +61,20 @@ class StepView: UIView {
         frame.size.height = position + height
     }
     
+    var whiteBackground: Bool = false {
+        didSet {
+            if whiteBackground {
+                backgroundColor = Configuration.Color.white
+                layer.cornerRadius = 5
+                addShadow(opacity: 0.28)
+            } else {
+                backgroundColor = UIColor.clear
+                layer.cornerRadius = 0
+                removeShadow()
+            }
+        }
+    }
+    
     var iconInformations: String? {
         didSet {
             guard let iconInformations = iconInformations else {
@@ -99,7 +113,25 @@ class StepView: UIView {
             
             realTimeView.isHidden = false
             realTimeLabel.attributedText = NSMutableAttributedString()
-                .normal(realTimeValue, size: 15)
+                .semiBold(realTimeValue, color: Configuration.Color.main, size: 13)
+        }
+    }
+    
+    var realTimeAnimation: Bool = false {
+        didSet {
+            guard let _ = realTimeImage else {
+                return
+            }
+            
+            if realTimeAnimation {
+                realTimeImage.alpha = 1
+                UIView.animate(withDuration: 1.0, delay: 0, options: [.autoreverse], animations: {
+                    self.realTimeImage.alpha = 0
+                }, completion: nil)
+            } else {
+                realTimeImage.alpha = 1
+                realTimeImage.layer.removeAllAnimations()
+            }
         }
     }
     

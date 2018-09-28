@@ -110,6 +110,10 @@ class PublicTransportView: UIView {
         _setup()
     }
     
+    override func layoutIfNeeded() {
+        setHeight()
+    }
+    
     override func layoutSubviews() {
         setHeight()
     }
@@ -328,6 +332,7 @@ extension PublicTransportView {
                 stationsView.isHidden = true
                 stationsTopContraint.isActive = false
                 stationsBottomContraint.isActive = false
+                stationsHiddenBottomContraint.isActive = true
                 stationButton.setAttributedTitle(NSMutableAttributedString()
                     .normal(String(format: "%@ %@ ",
                                    String(stations.count + 1),
@@ -342,6 +347,7 @@ extension PublicTransportView {
                 stationsView.isHidden = false
                 stationsTopContraint.isActive = true
                 stationsBottomContraint.isActive = true
+                stationsHiddenBottomContraint.isActive = false
                 stationButton.setAttributedTitle(NSMutableAttributedString()
                     .normal(String(format: "%@ %@ ",
                                    String(stations.count + 1),

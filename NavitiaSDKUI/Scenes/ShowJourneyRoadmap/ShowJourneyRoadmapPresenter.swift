@@ -48,11 +48,11 @@ class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
     
     // A completer
     func presentBss(response: ShowJourneyRoadmap.FetchBss.Response) {
-        guard let poi = getPoi(poi: response.poi) else {
-            return
-        }
-        
-        response.notify(poi)
+//        guard let poi = getPoi(poi: response.poi) else {
+//            return
+//        }
+//
+//        response.notify(poi)
     }
     
     // MARK: Ridesharing
@@ -214,12 +214,62 @@ class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
         return arrivalDate.toString(format: Configuration.time)
     }
     
-    private func getDuration(section: Section) -> String {
-        guard let duration = section.duration else {
-            return ""
+    private func getActionDescription(section: Section) -> String? {
+        guard let type = section.type else {
+            return nil
         }
         
-        return duration.minuteToString()
+        if let network = section.from?.poi?.properties?["network"] ?? section.to?.poi?.properties?["network"] {
+            if type == .bssRent {
+                return String(format: "take_a_bike_at".localized(bundle: NavitiaSDKUI.shared.bundle), network)
+            } else if type == .bssPutBack {
+                return String(format: "take_a_bike_at".localized(bundle: NavitiaSDKUI.shared.bundle), network)
+            }
+        }
+        
+        guard let mode = section.mode else {
+            return nil
+        }
+        
+        if mode == .ridesharing {
+            return "take_the_ridesharing".localized(bundle: NavitiaSDKUI.shared.bundle)
+        } else {
+            return "to_with_uppercase".localized(bundle: NavitiaSDKUI.shared.bundle)
+        }
+    }
+    
+    private func getDuration(section: Section) -> String? {
+        guard let duration = section.duration else {
+            return nil
+        }
+        
+        if section.type != .streetNetwork {
+            return nil
+        }
+        
+        var template = ""
+        if let mode = section.mode {
+            switch mode {
+            case .walking:
+                template = "a_time_walk".localized(bundle: NavitiaSDKUI.shared.bundle)
+            case .car:
+                template = "a_time_drive".localized(bundle: NavitiaSDKUI.shared.bundle)
+            case .bike, .bss:
+                template = "a_time_ride".localized(bundle: NavitiaSDKUI.shared.bundle)
+            default:
+                return nil
+            }
+        }
+        
+        let durationString = duration.minuteToString()
+        var durationTemplate = durationString + " " + "units_minutes".localized(bundle: NavitiaSDKUI.shared.bundle)
+        if duration == 1 {
+            durationTemplate = durationString + " " + "units_minute".localized(bundle: NavitiaSDKUI.shared.bundle)
+        } else if duration == 0 {
+            durationTemplate = "less_than_a".localized(bundle: NavitiaSDKUI.shared.bundle) + " " + "units_minute".localized(bundle: NavitiaSDKUI.shared.bundle)
+        }
+        
+        return String(format: template, durationTemplate)
     }
     
     private func getWaiting(sectionBefore: Section?, section: Section) -> String? {
@@ -250,22 +300,22 @@ class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
         return stopDate
     }
     
-    func getPoi(poi: Poi?) -> ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionClean.Poi? {
-        guard let name = poi?.name,
-            let network = poi?.properties?["network"],
-            let latString = poi?.coord?.lat,
+    func getPoi(section: Section?/*poi: Poi?*/) -> ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionClean.Poi? {
+        guard let type = section?.type,
+            type != .streetNetwork,
+            let poi = section?.from?.poi ?? section?.to?.poi,
+            let name = poi.name,
+            let network = poi.properties?["network"],
+            let latString = poi.coord?.lat,
             let lat = Double(latString),
-            let lonString = poi?.coord?.lon,
+            let lonString = poi.coord?.lon,
             let lon = Double(lonString),
-            let addressName = poi?.address?.name,
-            let addressId = poi?.address?.id,
-            let availablePlaces = poi?.stands?.availablePlaces,
-            let availableBikes = poi?.stands?.availableBikes else {
+            let addressName = poi.address?.name,
+            let addressId = poi.address?.id else {
                 return nil
         }
         
-        let standsViewModel = ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionClean.Stands(availablePlaces: availablePlaces,
-                                                                                          availableBikes: availableBikes)
+        let standsViewModel = getStands(stands: poi.stands)
         let poiViewModel = ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionClean.Poi(name: name,
                                                                                     network: network,
                                                                                     lat: lat,
@@ -275,6 +325,28 @@ class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
                                                                                     stands: standsViewModel)
         
         return poiViewModel
+    }
+    
+    private func getStands(stands: Stands?) -> ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionClean.Stands? {
+        guard let stands = stands else {
+            return nil
+        }
+        
+        let standsViewModel = ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionClean.Stands(availability: "30 places disponible",
+                                                                                          icon: nil)
+        
+        return standsViewModel
+    }
+    
+    private func getBackground(section: Section) -> Bool {
+        guard let mode = section.mode else {
+            return true
+        }
+        
+        if mode == .ridesharing || mode == .carnopark {
+            return true
+        }
+        return false
     }
     
     private func getSectionsClean(response: ShowJourneyRoadmap.GetRoadmap.Response) -> [ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionClean]? {
@@ -287,22 +359,24 @@ class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
                 }
                 
                 let sectionClean = ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionClean(type: type,
-                                                                                            mode: getMode(section: section),
-                                                                                            from: getFrom(section: section),
-                                                                                            to: getTo(section: section),
-                                                                                            startTime: getDepartureDateTime(section: section),
-                                                                                            endTime: getArrivalDateTime(section: section),
-                                                                                            duration: getDuration(section: section),
-                                                                                            path: getPath(section: section),
-                                                                                            stopDate: getStopDate(section: section),
-                                                                                            displayInformations: getDisplayInformations(displayInformations: section.displayInformations),
-                                                                                            waiting: getWaiting(sectionBefore: sections[safe: index - 1], section: section),
-                                                                                            disruptions: getDisruption(section: section, disruptions: response.disruptions),
-                                                                                            notes: getNotesOnDemandTransport(section: section, notes: response.notes),
-                                                                                            poi: getPoi(poi: section.from?.poi ?? section.to?.poi),
-                                                                                            icon: Modes().getModeIcon(section: section),
-                                                                                            bssRealTime: getBssRealTime(section: section),
-                                                                                            section: section)
+                                                                                        mode: getMode(section: section),
+                                                                                        from: getFrom(section: section),
+                                                                                        to: getTo(section: section),
+                                                                                        startTime: getDepartureDateTime(section: section),
+                                                                                        endTime: getArrivalDateTime(section: section),
+                                                                                        actionDescription: getActionDescription(section: section),
+                                                                                        duration: getDuration(section: section),
+                                                                                        path: getPath(section: section),
+                                                                                        stopDate: getStopDate(section: section),
+                                                                                        displayInformations: getDisplayInformations(displayInformations: section.displayInformations),
+                                                                                        waiting: getWaiting(sectionBefore: sections[safe: index - 1], section: section),
+                                                                                        disruptions: getDisruption(section: section, disruptions: response.disruptions),
+                                                                                        notes: getNotesOnDemandTransport(section: section, notes: response.notes),
+                                                                                        poi: getPoi(section: section),
+                                                                                        icon: Modes().getModeIcon(section: section),
+                                                                                        bssRealTime: getBssRealTime(section: section),
+                                                                                        background: getBackground(section: section),
+                                                                                        section: section)
                 sectionsClean.append(sectionClean)
             }
         }
@@ -522,11 +596,15 @@ class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
         return false
     }
     
-    func getPath(section: Section) -> [ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionClean.Path] {
+    func getPath(section: Section) -> [ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionClean.Path]? {
         var newPaths = [ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionClean.Path]()
         
-        guard let paths = section.path else {
+        guard let paths = section.path, let mode = section.mode else {
             return newPaths
+        }
+        
+        if mode == .ridesharing || mode == .carnopark {
+            return nil
         }
         
         for (_, path) in paths.enumerated() {
