@@ -9,7 +9,7 @@ import UIKit
 
 class DepartureArrivalStepView: UIView {
     
-    @IBOutlet var _view: UIView!
+    @IBOutlet var view: UIView!
     @IBOutlet weak var hourLabel: UILabel!
     @IBOutlet weak var iconLabel: UILabel!
     @IBOutlet weak var stackView: UIStackView!
@@ -21,6 +21,7 @@ class DepartureArrivalStepView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        
         setup()
     }
     
@@ -30,8 +31,8 @@ class DepartureArrivalStepView: UIView {
     
     override var frame: CGRect {
         willSet {
-            if let _view = _view {
-                _view.frame.size = newValue.size
+            if let view = view {
+                view.frame.size = newValue.size
             }
         }
     }
@@ -54,8 +55,8 @@ class DepartureArrivalStepView: UIView {
     
     private func setup() {
         UINib(nibName: "DepartureArrivalStepView", bundle: NavitiaSDKUI.shared.bundle).instantiate(withOwner: self, options: nil)
-        _view.frame = self.bounds
-        addSubview(_view)
+        view.frame = self.bounds
+        addSubview(view)
         
         setupIcon()
 
@@ -83,10 +84,10 @@ extension DepartureArrivalStepView {
         set {
             //type = newValue
             if newValue == .departure {
-                self._view.backgroundColor = Configuration.Color.origin
+                self.view.backgroundColor = Configuration.Color.origin
                 title = "departure".localized(withComment: "Départure:", bundle: NavitiaSDKUI.shared.bundle) + ":"
             } else {
-                self._view.backgroundColor = Configuration.Color.destination
+                self.view.backgroundColor = Configuration.Color.destination
                 title = "arrival".localized(withComment: "Arrival:", bundle: NavitiaSDKUI.shared.bundle) + ":"
             }
         }

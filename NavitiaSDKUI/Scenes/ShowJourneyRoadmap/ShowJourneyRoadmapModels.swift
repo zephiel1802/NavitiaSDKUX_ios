@@ -102,6 +102,13 @@ enum ShowJourneyRoadmap
                 struct Note {
                     var content: String
                 }
+                struct DisruptionClean {
+                    var color: UIColor
+                    var icon: String
+                    var title: String
+                    var date: String
+                    var information: String?
+                }
                 
                 var type: ModelType
                 var mode: Mode?
@@ -120,6 +127,7 @@ enum ShowJourneyRoadmap
                 var waiting: String?
                 
                 var disruptions: [Disruption] // A reconstruire
+                var disruptionsClean: [DisruptionClean]
                 var notes: [Note]
 
                 var poi: Poi?

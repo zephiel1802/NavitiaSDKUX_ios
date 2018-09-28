@@ -84,7 +84,6 @@ internal class ShowJourneyRoadmapViewController: UIViewController, ShowJourneyRo
             display = true
             zoomOverPolyline(targetPolyline: MKPolyline(coordinates: journeyPolylineCoordinates, count: journeyPolylineCoordinates.count))
         }
-        scrollView.reloadStack()
     }
     
     override func viewWillLayoutSubviews() {
@@ -248,7 +247,7 @@ internal class ShowJourneyRoadmapViewController: UIViewController, ShowJourneyRo
         publicTransportView.endTime = section.endTime
         publicTransportView.stations = section.stopDate
         publicTransportView.waitingTime = section.waiting
-        publicTransportView.setDisruptions(section.disruptions)
+        publicTransportView.setDisruptions(disruptions: section.disruptionsClean)
         for note in section.notes {
             publicTransportView.setOnDemandTransport(text: note.content)
         }

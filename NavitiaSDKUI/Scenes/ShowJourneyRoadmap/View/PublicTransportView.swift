@@ -105,17 +105,13 @@ class PublicTransportView: UIView {
         }
     }
     
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        setup()
-    }
-    
-    override func layoutIfNeeded() {
-        setHeight()
-    }
-    
     override func layoutSubviews() {
-        setHeight()
+        super.layoutSubviews()
+        
+        frame.size.height = destinationLabel.frame.height + destinationLabel.frame.origin.y + 15
+        if let superview = superview as? StackScrollView {
+            superview.reloadStack()
+        }
     }
 
     private func setup() {
@@ -252,22 +248,26 @@ extension PublicTransportView {
         }
     }
     
-    func setDisruptions(_ disruptions: [Disruption]) {
+    func setDisruptions(disruptions: [ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionClean.DisruptionClean]) {
         if disruptions.count > 0 {
-            disruptionCircleLabel.attributedText = NSMutableAttributedString()
-                .icon("circle-filled", size: 15)
+            disruptionCircleLabel.attributedText = NSMutableAttributedString().icon("circle-filled", size: 15)
             disruptionCircleLabel.textColor = UIColor.white
             disruptionCircleLabel.isHidden = false
             
-            disruptionIconTransportLabel.attributedText = NSMutableAttributedString()
-                .icon(Disruption.iconName(of: disruptions[0].level), size: 14)
-            disruptionIconTransportLabel.textColor = disruptions[0].severity?.color?.toUIColor() ?? UIColor.red
-            disruptionIconTransportLabel.isHidden = false
+            if let firstDisruption = disruptions.first {
+                disruptionIconTransportLabel.attributedText = NSMutableAttributedString().icon(firstDisruption.icon, size: 14)
+                disruptionIconTransportLabel.textColor = firstDisruption.color
+                disruptionIconTransportLabel.isHidden = false
+            }
             
             for (index, disruption) in disruptions.enumerated() {
                 let disruptionItemView = DisruptionItemView.instanceFromNib()
+                
                 disruptionItemView.frame = informationStackView.bounds
-                disruptionItemView.disruption = disruption
+                disruptionItemView.setIcon(icon: disruption.icon, color: disruption.color)
+                disruptionItemView.setDisruptionTitle(title: disruption.title, color: disruption.color)
+                disruptionItemView.disruptionInformation = disruption.information
+                disruptionItemView.disruptionDate = disruption.date
                 disruptionItemView.publicTransportView = self
                 informationStackView.addArrangedSubview(disruptionItemView)
                 

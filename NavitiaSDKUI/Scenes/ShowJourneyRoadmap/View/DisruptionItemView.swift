@@ -19,18 +19,42 @@ class DisruptionItemView: UIView {
     
     var publicTransportView: PublicTransportView?
     
-    var disruption: Disruption? {
-        get {
-            return self.disruption
+    var disruptionInformation: String? {
+        didSet {
+            guard let disruptionInformation = disruptionInformation else {
+                return
+            }
+            
+            disruptionInformationLabel.attributedText = NSMutableAttributedString().normal(disruptionInformation, color: Configuration.Color.darkerGray, size: 12)
         }
-        set {
-            if let newValue = newValue {
-                setDisruptionType(newValue)
-                setDisruptionTitle(title: newValue.severity?.name ?? "", color: newValue.severity?.color?.toUIColor())
-                disruptionInformation = Disruption.message(disruption: newValue)?.text?.htmlToAttributedString?.string
-                if let startDate = newValue.applicationPeriods?.first?.begin?.toDate(format: Configuration.date), let endDate = newValue.applicationPeriods?.first?.end?.toDate(format: Configuration.date) {
-                    disruptionDate = String(format: "%@ %@ %@ %@", "from".localized(withComment: "Back", bundle: NavitiaSDKUI.shared.bundle), startDate.toString(format: Configuration.dateInterval), "to_period".localized(withComment: "Back", bundle: NavitiaSDKUI.shared.bundle), endDate.toString(format: Configuration.dateInterval))
-                }
+    }
+    
+    var disruptionDate: String? {
+        didSet {
+            guard let disruptionDate = disruptionDate else {
+                return
+            }
+            
+            disruptionDateLabel.attributedText = NSMutableAttributedString().bold(disruptionDate, color: Configuration.Color.darkerGray, size: 12)
+        }
+    }
+    
+    var disruptionInformationHidden: Bool? {
+        didSet {
+            guard let disruptionInformationHidden = disruptionInformationHidden, disruptionInformationHidden else {
+                return
+            }
+            
+            if disruptionInformationHidden {
+                displayArrowLabel.attributedText = NSMutableAttributedString().icon("arrow-details-down", color: Configuration.Color.darkerGray, size: 14)
+                disruptionDateBottomConstraint.isActive = true
+                disruptionInformationBottomConstraint.isActive = false
+                disruptionInformationLabel.isHidden = true
+            } else {
+                displayArrowLabel.attributedText = NSMutableAttributedString().icon("arrow-details-up", color: Configuration.Color.darkerGray, size: 14)
+                disruptionDateBottomConstraint.isActive = false
+                disruptionInformationBottomConstraint.isActive = true
+                disruptionInformationLabel.isHidden = false
             }
         }
     }
@@ -40,7 +64,7 @@ class DisruptionItemView: UIView {
     }
     
     class func instanceFromNib() -> DisruptionItemView {
-        return UINib(nibName: "DisruptionItemView", bundle: NavitiaSDKUI.shared.bundle).instantiate(withOwner: nil, options: nil)[0] as! DisruptionItemView
+        return UINib(nibName: identifier, bundle: NavitiaSDKUI.shared.bundle).instantiate(withOwner: nil, options: nil)[0] as! DisruptionItemView
     }
     
     override func awakeFromNib() {
@@ -51,66 +75,21 @@ class DisruptionItemView: UIView {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        
-        self.publicTransportView?.layoutSubviews()
+
+        publicTransportView?.layoutSubviews()
     }
     
+    func setIcon(icon: String, color: UIColor) {
+        disruptionIconLabel.attributedText = NSMutableAttributedString().icon(icon, size: 15)
+        disruptionIconLabel.textColor = color
+    }
+    
+    func setDisruptionTitle(title: String, color: UIColor) {
+        disruptionTitleLabel.attributedText = NSMutableAttributedString().bold(title, color: color, size: 12)
+    }
+
     @IBAction func manageDisruptionInformationDisplay(_ sender: UIButton) {
         disruptionInformationHidden = !disruptionInformationLabel.isHidden
     }
 }
 
-extension DisruptionItemView {
-    
-    func setDisruptionType(_ disruption: Disruption) {
-        disruptionIconLabel.attributedText = NSMutableAttributedString().icon(Disruption.iconName(of: disruption.level), size: 15)
-        disruptionIconLabel.textColor = disruption.severity?.color?.toUIColor() ?? UIColor.red
-    }
-    
-    func setDisruptionTitle(title: String, color: UIColor?) {
-        disruptionTitleLabel.attributedText = NSMutableAttributedString().bold(title, color: color ?? UIColor.black, size: 12)
-    }
-    
-    var disruptionInformation: String? {
-        get {
-            return disruptionInformationLabel.text
-        }
-        set {
-            if let newValue = newValue {
-                disruptionInformationLabel.attributedText = NSMutableAttributedString().normal(newValue, color: Configuration.Color.darkerGray, size: 12)
-            }
-        }
-    }
-    
-    var disruptionDate: String? {
-        get {
-            return disruptionDateLabel.text
-        }
-        set {
-            if let newValue = newValue {
-                disruptionDateLabel.attributedText = NSMutableAttributedString().bold(newValue, color: Configuration.Color.darkerGray, size: 12)
-            }
-        }
-    }
-    
-    var disruptionInformationHidden: Bool? {
-        get {
-            return disruptionInformationLabel.isHidden
-        }
-        set {
-            if let newValue = newValue, newValue {
-                displayArrowLabel.attributedText = NSMutableAttributedString().icon("arrow-details-down", color: Configuration.Color.darkerGray, size: 14)
-                
-                disruptionDateBottomConstraint.isActive = true
-                disruptionInformationBottomConstraint.isActive = false
-                disruptionInformationLabel.isHidden = true
-            } else {
-                displayArrowLabel.attributedText = NSMutableAttributedString().icon("arrow-details-up", color: Configuration.Color.darkerGray, size: 14)
-                
-                disruptionDateBottomConstraint.isActive = false
-                disruptionInformationBottomConstraint.isActive = true
-                disruptionInformationLabel.isHidden = false
-            }
-        }
-    }
-}

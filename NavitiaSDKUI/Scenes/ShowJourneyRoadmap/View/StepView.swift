@@ -45,6 +45,9 @@ class StepView: UIView {
         super.layoutSubviews()
 
         frame.size.height = stackView.frame.origin.y + stackView.frame.size.height
+        if let superview = superview as? StackScrollView {
+            superview.reloadStack()
+        }
     }
     
     private func initRealTime() {

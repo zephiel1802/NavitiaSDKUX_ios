@@ -12,7 +12,6 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="DepartureArrivalStepView" customModule="NavitiaSDKUI" customModuleProvider="target">
             <connections>
-                <outlet property="_view" destination="ome-kM-Vmr" id="KMz-RA-acy"/>
                 <outlet property="calorieContainerView" destination="LdS-Wg-scv" id="OSS-TI-2St"/>
                 <outlet property="calorieImageView" destination="EoU-dF-lAv" id="5c9-1c-5bQ"/>
                 <outlet property="calorieLabel" destination="0Bd-OD-6Hn" id="0XB-fw-yRp"/>
@@ -21,6 +20,7 @@
                 <outlet property="informationLabel" destination="DPc-sK-RLa" id="s8y-mY-Igc"/>
                 <outlet property="stackView" destination="cxw-N8-h6B" id="bwU-z8-TnX"/>
                 <outlet property="titleLabel" destination="7Rj-Hq-nOQ" id="ru5-Hj-WtR"/>
+                <outlet property="view" destination="ome-kM-Vmr" id="KMz-RA-acy"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>

@@ -37,8 +37,8 @@ class JourneySolutionView: UIView {
         UINib(nibName: "JourneySolutionView", bundle: NavitiaSDKUI.shared.bundle).instantiate(withOwner: self, options: nil)
         _view.frame = self.bounds
         addSubview(_view)
+        
         addShadow()
-        journeySummaryView.disruptions = disruptions
     }
 
     func setData(_ journey: Journey) {

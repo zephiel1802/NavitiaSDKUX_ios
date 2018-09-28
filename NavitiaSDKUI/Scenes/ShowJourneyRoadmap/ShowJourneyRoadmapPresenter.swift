@@ -390,6 +390,7 @@ class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
                                                                                         displayInformations: getDisplayInformations(displayInformations: section.displayInformations),
                                                                                         waiting: getWaiting(sectionBefore: sections[safe: index - 1], section: section),
                                                                                         disruptions: getDisruption(section: section, disruptions: response.disruptions),
+                                                                                        disruptionsClean: getDisruptionClean(section: section, disruptions: response.disruptions),
                                                                                         notes: getNotesOnDemandTransport(section: section, notes: response.notes),
                                                                                         poi: getPoi(section: section),
                                                                                         icon: Modes().getModeIcon(section: section),
@@ -504,6 +505,33 @@ class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
         }
         
         return noteOnDemandTransport
+    }
+    
+    func getDateDisruption(disruption: Disruption) -> String {
+        if let startDate = disruption.applicationPeriods?.first?.begin?.toDate(format: Configuration.date),
+            let endDate = disruption.applicationPeriods?.first?.end?.toDate(format: Configuration.date) {
+            return String(format: "%@ %@ %@ %@", "from".localized(bundle: NavitiaSDKUI.shared.bundle),
+                          startDate.toString(format: Configuration.dateInterval),
+                          "to_period".localized(bundle: NavitiaSDKUI.shared.bundle),
+                          endDate.toString(format: Configuration.dateInterval))
+        }
+        return ""
+    }
+    
+    func getDisruptionClean(section: Section, disruptions: [Disruption]?) -> [ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionClean.DisruptionClean] {
+        let disruptions = getDisruption(section: section, disruptions: disruptions)
+        var disruptionsClean = [ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionClean.DisruptionClean]()
+
+        for (_, disruption) in disruptions.enumerated() {
+            
+            let disruptionClean = ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionClean.DisruptionClean(color: disruption.severity?.color?.toUIColor() ?? UIColor.red,
+                                                                                                       icon: Disruption.iconName(of: disruption.level),
+                                                                                                       title: disruption.severity?.name ?? "",
+                                                                                                       date: getDateDisruption(disruption: disruption),
+                                                                                                       information: Disruption.message(disruption: disruption)?.text?.htmlToAttributedString?.string)
+            disruptionsClean.append(disruptionClean)
+        }
+        return disruptionsClean
     }
     
     // Disruption /!\

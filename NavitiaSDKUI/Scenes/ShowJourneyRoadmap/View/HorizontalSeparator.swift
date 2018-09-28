@@ -15,6 +15,6 @@ class HorizontalSeparator: UIView {
     }
     
     class func instanceFromNib() -> HorizontalSeparator {
-        return UINib(nibName: "HorizontalSeparator", bundle: NavitiaSDKUI.shared.bundle).instantiate(withOwner: nil, options: nil)[0] as! HorizontalSeparator
+        return UINib(nibName: identifier, bundle: NavitiaSDKUI.shared.bundle).instantiate(withOwner: nil, options: nil)[0] as! HorizontalSeparator
     }
 }
