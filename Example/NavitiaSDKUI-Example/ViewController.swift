@@ -30,11 +30,9 @@ class ViewController: UIViewController {
         params.originLabel = "Chez moi"
         params.destinationLabel = "Au travail"
         params.datetime = Date()
-        params.datetime!.addTimeInterval(2000)
         params.datetimeRepresents = .departure
-        params.forbiddenUris = ["physical_mode:Bus"]
-        params.firstSectionModes = [.bss]
-        params.lastSectionModes = [.car]
+        params.firstSectionModes = [.walking, .bike, .car, .bss, .ridesharing]
+        params.lastSectionModes = [.walking, .bike, .car, .bss, .ridesharing]
         params.count = 5
         journeyResultsViewController.inParameters = params
         return journeyResultsViewController
