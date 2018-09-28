@@ -102,4 +102,30 @@ extension Section {
         return 0;
     }
     
+    public func getNote(notes: [Note], id: String) -> Note? {
+        for note in notes {
+            if note.id == id {
+                return note
+            }
+        }
+        
+        return nil
+    }
+    
+    func selectLinks(type: String) -> [LinkSchema] {
+        var selectLinks = [LinkSchema]()
+        
+        guard let links = self.links else {
+            return selectLinks
+        }
+        
+        for link in links {
+            if link.type == type {
+                selectLinks.append(link)
+            }
+        }
+        
+        return selectLinks
+    }
+    
 }

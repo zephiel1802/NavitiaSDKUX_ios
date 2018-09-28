@@ -25,6 +25,7 @@ enum ListRidesharingOffers {
                 var duration: Int32
                 var sections: [Section] // Class: SDK Expert
             }
+            
             struct DisplayedRidesharingOffer {
                 var network: String
                 var departure: String
@@ -36,6 +37,7 @@ enum ListRidesharingOffers {
                 var seatsCount: Int32?
                 var price: String
             }
+            
             var journeySummary: JourneySummary
             var displayedRidesharingOffers: [DisplayedRidesharingOffer]
         }

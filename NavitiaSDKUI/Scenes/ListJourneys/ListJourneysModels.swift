@@ -26,12 +26,14 @@ enum ListJourneys {
                 var origin: NSMutableAttributedString
                 var destination: NSMutableAttributedString
             }
+            
             struct DisplayedJourney {
                 var dateTime: String
                 var duration: NSMutableAttributedString
                 var walkingInformation: NSMutableAttributedString?
                 var sections: [Section]
             }
+            
             var loaded: Bool
             var headerInformations: HeaderInformations
             var displayedJourneys: [DisplayedJourney]
