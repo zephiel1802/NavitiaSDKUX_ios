@@ -1,19 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
-    <customFonts key="customFonts">
-        <array key="HelveticaNeue.ttc">
-            <string>HelveticaNeue</string>
-        </array>
-    </customFonts>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="PublicTransportView" customModule="NavitiaSDKUI" customModuleProvider="target">
             <connections>
@@ -43,8 +38,8 @@
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view contentMode="scaleToFill" id="hOc-HY-hEJ">
-            <rect key="frame" x="0.0" y="0.0" width="372" height="293"/>
-            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" heightSizable="YES" flexibleMaxY="YES"/>
+            <rect key="frame" x="0.0" y="0.0" width="372" height="257"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" heightSizable="YES"/>
             <subviews>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Prendre le bus " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2qA-zv-WCp">
                     <rect key="frame" x="50" y="15" width="115" height="20.5"/>
@@ -166,7 +161,7 @@
                         <action selector="actionStationButton:" destination="-1" eventType="touchUpInside" id="QXZ-Mk-KVs"/>
                     </connections>
                 </button>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="21v-9J-eqd">
+                <view contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="21v-9J-eqd">
                     <rect key="frame" x="50" y="196.5" width="302" height="0.0"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
@@ -227,7 +222,7 @@
                 <constraint firstItem="N74-Tu-uV8" firstAttribute="leading" secondItem="hOc-HY-hEJ" secondAttribute="leading" constant="50" id="6iC-S5-ydM"/>
                 <constraint firstItem="Nxl-nB-2cv" firstAttribute="top" secondItem="g8F-1v-Alj" secondAttribute="bottom" priority="750" constant="20" id="7Xd-Q1-OQi"/>
                 <constraint firstItem="VBB-0W-Xqs" firstAttribute="leading" secondItem="hOc-HY-hEJ" secondAttribute="leading" constant="55" id="8KN-kG-gke"/>
-                <constraint firstItem="21v-9J-eqd" firstAttribute="top" secondItem="g8F-1v-Alj" secondAttribute="bottom" constant="20" id="99c-hw-h1r"/>
+                <constraint firstItem="21v-9J-eqd" firstAttribute="top" secondItem="g8F-1v-Alj" secondAttribute="bottom" priority="751" constant="20" id="99c-hw-h1r"/>
                 <constraint firstItem="kIl-S5-Eo8" firstAttribute="top" secondItem="4to-vY-DuA" secondAttribute="top" constant="5" id="Aeu-Jz-n1B"/>
                 <constraint firstItem="EDT-a1-wHG" firstAttribute="leading" secondItem="BgC-wp-HFI" secondAttribute="trailing" constant="-8" id="Dzq-A9-fOB"/>
                 <constraint firstAttribute="trailing" secondItem="g8F-1v-Alj" secondAttribute="trailing" constant="20" id="E4u-Aj-FQq"/>
@@ -246,7 +241,7 @@
                 <constraint firstAttribute="trailing" secondItem="IGb-Nh-S9L" secondAttribute="trailing" constant="20" id="YxT-Jc-h53"/>
                 <constraint firstItem="5gd-GI-iOO" firstAttribute="centerY" secondItem="N74-Tu-uV8" secondAttribute="centerY" id="aB7-AM-ydj"/>
                 <constraint firstItem="21v-9J-eqd" firstAttribute="leading" secondItem="hOc-HY-hEJ" secondAttribute="leading" constant="50" id="dru-05-oJd"/>
-                <constraint firstItem="Nxl-nB-2cv" firstAttribute="top" secondItem="21v-9J-eqd" secondAttribute="bottom" constant="20" id="eHT-5g-GfA"/>
+                <constraint firstItem="Nxl-nB-2cv" firstAttribute="top" secondItem="21v-9J-eqd" secondAttribute="bottom" priority="751" constant="20" id="eHT-5g-GfA"/>
                 <constraint firstItem="Nxl-nB-2cv" firstAttribute="leading" secondItem="JT4-IX-zVG" secondAttribute="trailing" constant="10" id="fIQ-PO-4BI"/>
                 <constraint firstItem="g8F-1v-Alj" firstAttribute="leading" secondItem="VBB-0W-Xqs" secondAttribute="trailing" constant="15" id="fJB-vS-M50"/>
                 <constraint firstItem="JT4-IX-zVG" firstAttribute="leading" secondItem="JHv-Tt-dyM" secondAttribute="trailing" id="fUM-Rx-tnO"/>
@@ -277,7 +272,7 @@
                     <integer key="value" value="5"/>
                 </userDefinedRuntimeAttribute>
             </userDefinedRuntimeAttributes>
-            <point key="canvasLocation" x="18" y="99.5"/>
+            <point key="canvasLocation" x="18" y="81.5"/>
         </view>
     </objects>
 </document>

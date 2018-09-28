@@ -24,7 +24,7 @@ class JourneySummaryView: UIView {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        _setup()
+        setup()
     }
     
     func addSections(_ sections: [Section]) {
@@ -74,7 +74,7 @@ class JourneySummaryView: UIView {
         }
     }
     
-    private func _setup() {
+    private func setup() {
         UINib(nibName: "JourneySummaryView", bundle: NavitiaSDKUI.shared.bundle).instantiate(withOwner: self, options: nil)
         _view.frame = self.bounds
         addSubview(_view)

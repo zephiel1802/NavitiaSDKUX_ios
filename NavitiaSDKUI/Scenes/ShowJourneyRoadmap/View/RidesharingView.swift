@@ -30,7 +30,7 @@ class RidesharingView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        _setup()
+        setup()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -39,10 +39,10 @@ class RidesharingView: UIView {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        _setup()
+        setup()
     }
     
-    private func _setup() {
+    private func setup() {
         UINib(nibName: "RidesharingView", bundle: NavitiaSDKUI.shared.bundle).instantiate(withOwner: self, options: nil)
         _view.frame = self.bounds
         addSubview(_view)
@@ -52,13 +52,13 @@ class RidesharingView: UIView {
         bookButton.setTitle("send_request".localized(bundle: NavitiaSDKUI.shared.bundle), for: .normal)
     }
     
-    func setPicture(url: String?) {
+    func setDriverPictureURL(url: String?) {
         if let url = url {
             pictureImage.loadImageFromURL(urlString: url)
         }
     }
     
-    func setNotation(_ count: Int32?) {
+    func setRatingCount(_ count: Int32?) {
         if let count = count {
             var template = "rating_plural".localized(withComment: "ratings", bundle: NavitiaSDKUI.shared.bundle)
             if count == 1 {
@@ -69,7 +69,7 @@ class RidesharingView: UIView {
         }
     }
     
-    func setFullStar(_ count: Float?) {
+    func setRating(_ count: Float?) {
         if count != nil {
             floatRatingView.backgroundColor = UIColor.clear
             floatRatingView.contentMode = UIViewContentMode.scaleAspectFit
@@ -100,7 +100,7 @@ class RidesharingView: UIView {
         }
     }
     
-    func seatCount(_ count: Int32?) {
+    func setSeatsCount(_ count: Int32?) {
         if let count = count {
             let template = "available_seats".localized(withComment: "Available seats : 3", bundle: NavitiaSDKUI.shared.bundle)
             seatCountLabel.attributedText = NSMutableAttributedString()
@@ -115,7 +115,7 @@ class RidesharingView: UIView {
 
 extension RidesharingView {
 
-    var title: String? {
+    var network: String? {
         get {
             return titleLabel.text
         }
@@ -127,7 +127,7 @@ extension RidesharingView {
         }
     }
     
-    var startDate: String? {
+    var departure: String? {
         get {
             return startLabel.text
         }
@@ -141,7 +141,7 @@ extension RidesharingView {
         }
     }
     
-    var login: String? {
+    var driverNickname: String? {
         get {
             return loginLabel.text
         }
@@ -153,7 +153,7 @@ extension RidesharingView {
         }
     }
     
-    var gender: String? {
+    var driverGender: String? {
         get {
             return genderLabel.text
         }
@@ -169,7 +169,7 @@ extension RidesharingView {
         }
     }
     
-    var addressFrom: String? {
+    var departureAddress: String? {
         get {
             return addressFromLabel.text
         }
@@ -181,7 +181,7 @@ extension RidesharingView {
         }
     }
     
-    var addressTo: String? {
+    var arrivalAddress: String? {
         get {
             return addressToLabel.text
         }

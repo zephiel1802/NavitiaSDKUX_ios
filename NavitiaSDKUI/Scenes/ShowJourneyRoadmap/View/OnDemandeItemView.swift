@@ -14,6 +14,10 @@ class OnDemandeItemView: UIView {
     @IBOutlet weak var informationLabel: UILabel!
     var phoneNumber = ""
     
+    static var identifier: String {
+        return String(describing: self)
+    }
+    
     class func instanceFromNib() -> OnDemandeItemView {
         return UINib(nibName: "OnDemandeItemView", bundle: NavitiaSDKUI.shared.bundle).instantiate(withOwner: nil, options: nil)[0] as! OnDemandeItemView
     }

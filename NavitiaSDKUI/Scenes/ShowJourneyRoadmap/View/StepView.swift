@@ -11,59 +11,62 @@ import UIKit
 class StepView: UIView {
 
     @IBOutlet weak var stackView: UIStackView!
-    
     @IBOutlet weak var informationsIconLabel: UILabel!
     @IBOutlet var informationsLabel: UILabel!
-    
     @IBOutlet var realTimeView: UIView!
     @IBOutlet weak var realTimeIconLabel: UILabel!
     @IBOutlet weak var realTimeImage: UIImageView!
     @IBOutlet weak var realTimeLabel: UILabel!
-    
     @IBOutlet weak var detailsLabel: UILabel!
     @IBOutlet weak var detailsArrowLabel: UILabel!
-    
     @IBOutlet var detailsView: UIView!
-
     @IBOutlet weak var directionsContainer: UIView!
     @IBOutlet weak var directionsContainerHeightConstraint: NSLayoutConstraint!
     
     var directionsStackView: UIStackView!
 
+    static var identifier: String {
+        return String(describing: self)
+    }
+    
     class func instanceFromNib() -> StepView {
-        return UINib(nibName: "StepView", bundle: NavitiaSDKUI.shared.bundle).instantiate(withOwner: nil, options: nil)[0] as! StepView
+        return UINib(nibName: identifier, bundle: NavitiaSDKUI.shared.bundle).instantiate(withOwner: nil, options: nil)[0] as! StepView
     }
     
     override func awakeFromNib() {
         super.awakeFromNib()
         
-        // Real Time
-        realTimeView.isHidden = true
-        realTimeIconLabel.isHidden = true
-        realTimeImage.image = UIImage(named: "real_time", in: NavitiaSDKUI.shared.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
-        realTimeImage.tintColor = Configuration.Color.main
-        
-        // Details
-        detailsView.isHidden = true
-        detailsLabel.text = "details".localized(bundle: NavitiaSDKUI.shared.bundle)
-        detailsArrowLabel.attributedText = NSMutableAttributedString().icon("arrow-details-down", color: Configuration.Color.gray, size: 13)
-        
-        // Direction Path
-        directionsHidden = true
-        // Les trucs à faire avant :)
+        initRealTime()
+        initDetails()
+        initDirection()
     }
     
     override func layoutSubviews() {
         super.layoutSubviews()
 
-        let position: CGFloat = stackView.frame.origin.y
-        let height: CGFloat = stackView.frame.size.height
-        frame.size.height = position + height
+        frame.size.height = stackView.frame.origin.y + stackView.frame.size.height
     }
     
-    var whiteBackground: Bool = false {
+    private func initRealTime() {
+        realTimeView.isHidden = true
+        realTimeIconLabel.isHidden = true
+        realTimeImage.image = UIImage(named: "real_time", in: NavitiaSDKUI.shared.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
+        realTimeImage.tintColor = Configuration.Color.main
+    }
+    
+    private func initDetails() {
+        detailsView.isHidden = true
+        detailsLabel.text = "details".localized(bundle: NavitiaSDKUI.shared.bundle)
+        detailsArrowLabel.attributedText = NSMutableAttributedString().icon("arrow-details-down", color: Configuration.Color.gray, size: 13)
+    }
+    
+    private func initDirection() {
+        directionsHidden = true
+    }
+    
+    var enableBackground: Bool = false {
         didSet {
-            if whiteBackground {
+            if enableBackground {
                 backgroundColor = Configuration.Color.white
                 layer.cornerRadius = 5
                 addShadow(opacity: 0.28)
@@ -86,7 +89,7 @@ class StepView: UIView {
         }
     }
     
-    var informationsAttributedString: NSMutableAttributedString? {
+    var informationsAttributedString: NSAttributedString? {
         didSet {
             informationsLabel.attributedText = informationsAttributedString
             informationsLabel.sizeToFit()
@@ -173,11 +176,10 @@ class StepView: UIView {
             directionsContainerHeightConstraint.constant = CGFloat(paths.count) * 45 // Height 45px
 
             for path in paths {
-                let view = StepByStepItemView()
-                view.pathDirection = path.direction
-                view.pathLength = path.length
-                view.pathInstruction = path.name
-
+                let view = StepByStepItemView.instanceFromNib()
+                
+                view.icon = path.directionIcon
+                view.instruction = path.instruction
                 directionsStackView.addArrangedSubview(view)
             }
         }

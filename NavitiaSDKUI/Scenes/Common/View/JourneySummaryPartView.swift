@@ -21,7 +21,7 @@ class JourneySummaryPartView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        _setup()
+        setup()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -32,17 +32,17 @@ class JourneySummaryPartView: UIView {
         return CGSize(width: width, height: 0.0)
     }
     
-    private func _setup() {
+    private func setup() {
         UINib(nibName: "JourneySummaryPartView", bundle: NavitiaSDKUI.shared.bundle).instantiate(withOwner: self, options: nil)
         _view.frame = self.bounds
         addSubview(_view)
-        _setupDisruption()
+        setupDisruption()
         
         _tagTransportView.isHidden = true
         _tagTransportLabel.isHidden = true
     }
     
-    private func _setupDisruption() {
+    private func setupDisruption() {
         _circleLabel.attributedText = NSMutableAttributedString()
             .icon("circle-filled",
                   color: UIColor.white,

@@ -11,15 +11,9 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="StepByStepItemView" customModule="NavitiaSDKUI" customModuleProvider="target">
-            <connections>
-                <outlet property="_view" destination="iN0-l3-epB" id="xGR-Tf-oqf"/>
-                <outlet property="directionIconImageView" destination="y7c-SG-f9I" id="mFV-rQ-LqP"/>
-                <outlet property="directionInstructionLabel" destination="Chc-x9-3JE" id="Eno-yO-aod"/>
-            </connections>
-        </placeholder>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <view contentMode="scaleToFill" id="iN0-l3-epB">
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="StepByStepItemView" customModule="NavitiaSDKUI" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
@@ -45,6 +39,10 @@
                 <constraint firstItem="Chc-x9-3JE" firstAttribute="centerY" secondItem="vUN-kp-3ea" secondAttribute="centerY" id="k8O-qf-S65"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <connections>
+                <outlet property="directionIconImageView" destination="y7c-SG-f9I" id="6B2-Yy-GAe"/>
+                <outlet property="directionInstructionLabel" destination="Chc-x9-3JE" id="mwW-TI-edZ"/>
+            </connections>
         </view>
     </objects>
 </document>

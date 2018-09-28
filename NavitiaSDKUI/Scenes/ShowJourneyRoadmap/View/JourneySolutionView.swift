@@ -21,7 +21,7 @@ class JourneySolutionView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        _setup()
+        setup()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -30,10 +30,10 @@ class JourneySolutionView: UIView {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        _setup()
+        setup()
     }
     
-    private func _setup() {
+    private func setup() {
         UINib(nibName: "JourneySolutionView", bundle: NavitiaSDKUI.shared.bundle).instantiate(withOwner: self, options: nil)
         _view.frame = self.bounds
         addSubview(_view)
@@ -44,6 +44,7 @@ class JourneySolutionView: UIView {
     func setData(_ journey: Journey) {
         aboutLabel.isHidden = true
         durationCenterContraint.constant = 0
+        
         if let durationInt = journey.duration {
             formattedDuration(durationInt)
         }

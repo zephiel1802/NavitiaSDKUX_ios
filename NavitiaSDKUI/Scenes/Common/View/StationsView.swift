@@ -15,7 +15,7 @@ class StationsView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        _setup()
+        setup()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -34,7 +34,7 @@ class StationsView: UIView {
         super.awakeFromNib()
     }
     
-    private func _setup() {
+    private func setup() {
         UINib(nibName: "StationsView", bundle: NavitiaSDKUI.shared.bundle).instantiate(withOwner: self, options: nil)
         _view.frame = self.bounds
         addSubview(_view)

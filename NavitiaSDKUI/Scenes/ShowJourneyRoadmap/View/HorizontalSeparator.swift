@@ -9,6 +9,11 @@ import Foundation
 import UIKit
 
 class HorizontalSeparator: UIView {
+    
+    static var identifier: String {
+        return String(describing: self)
+    }
+    
     class func instanceFromNib() -> HorizontalSeparator {
         return UINib(nibName: "HorizontalSeparator", bundle: NavitiaSDKUI.shared.bundle).instantiate(withOwner: nil, options: nil)[0] as! HorizontalSeparator
     }

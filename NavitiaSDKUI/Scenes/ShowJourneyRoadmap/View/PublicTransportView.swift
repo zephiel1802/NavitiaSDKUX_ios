@@ -90,7 +90,7 @@ class PublicTransportView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        _setup()
+        setup()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -107,7 +107,7 @@ class PublicTransportView: UIView {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        _setup()
+        setup()
     }
     
     override func layoutIfNeeded() {
@@ -118,7 +118,7 @@ class PublicTransportView: UIView {
         setHeight()
     }
 
-    private func _setup() {
+    private func setup() {
         UINib(nibName: "PublicTransportView", bundle: NavitiaSDKUI.shared.bundle).instantiate(withOwner: self, options: nil)
         _view.frame = self.bounds
         addSubview(_view)

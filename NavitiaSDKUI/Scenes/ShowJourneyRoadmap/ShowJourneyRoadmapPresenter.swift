@@ -243,7 +243,7 @@ class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
             return nil
         }
         
-        if section.type != .streetNetwork {
+        if section.type != .streetNetwork && section.type != .waiting {
             return nil
         }
         
@@ -264,6 +264,9 @@ class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
         }
         
         let durationString = duration.minuteToString()
+        if section.type == .waiting {
+            template = "wait".localized(bundle: NavitiaSDKUI.shared.bundle) + " %@"
+        }
         var durationTemplate = durationString + " " + "units_minutes".localized(bundle: NavitiaSDKUI.shared.bundle)
         if duration == 1 {
             durationTemplate = durationString + " " + "units_minute".localized(bundle: NavitiaSDKUI.shared.bundle)
@@ -612,6 +615,30 @@ class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
         return false
     }
     
+    private func getDirectionPath(pathDirection: Int32?) -> String {
+        guard let pathDirection = pathDirection else {
+            return "arrow_right"
+        }
+        
+        if pathDirection == 0 {
+            return "arrow_straight"
+        } else if pathDirection < 0 {
+            return "arrow_left"
+        } else {
+            return "arrow_right"
+        }
+    }
+    
+    private func getDirectionInstruction(pathDirection: Int32, pathLength: Int32, pathInstruction: String) -> String {
+        if pathDirection == 0 {
+            return pathInstruction == "" ? String(format: "%@ %@", "carry_straight_on".localized(bundle: NavitiaSDKUI.shared.bundle), String(format: "for_meter".localized(bundle: NavitiaSDKUI.shared.bundle), pathLength)) : String(format: "%@ %@ %@", "continue_on".localized(bundle: NavitiaSDKUI.shared.bundle), pathInstruction, String(format: "for_meter".localized(bundle: NavitiaSDKUI.shared.bundle), pathLength))
+        } else if pathDirection < 0 {
+            return pathInstruction == "" ? String(format: "%@ %@", "turn_left".localized(bundle: NavitiaSDKUI.shared.bundle), String(format: "in_meter".localized(bundle: NavitiaSDKUI.shared.bundle), pathLength)) : String(format: "%@ %@ %@", "turn_left_on".localized(bundle: NavitiaSDKUI.shared.bundle), pathInstruction, String(format: "in_meter".localized(bundle: NavitiaSDKUI.shared.bundle), pathLength))
+        } else {
+            return pathInstruction == "" ? String(format: "%@ %@", "turn_right".localized(bundle: NavitiaSDKUI.shared.bundle), String(format: "in_meter".localized(bundle: NavitiaSDKUI.shared.bundle), pathLength)) : String(format: "%@ %@ %@", "turn_right_on".localized(bundle: NavitiaSDKUI.shared.bundle), pathInstruction, String(format: "in_meter".localized(bundle: NavitiaSDKUI.shared.bundle), pathLength))
+        }
+    }
+    
     func getPath(section: Section) -> [ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionClean.Path]? {
         var newPaths = [ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionClean.Path]()
         
@@ -624,9 +651,11 @@ class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
         }
         
         for (_, path) in paths.enumerated() {
-            newPaths.append(ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionClean.Path(direction: path.direction ?? 0,
-                                                                                  length: path.length ?? 0,
-                                                                                  name: path.name ?? ""))
+            newPaths.append(ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionClean.Path(directionIcon: getDirectionPath(pathDirection: path.direction),
+                                                                                      instruction: getDirectionInstruction(pathDirection: path.direction ?? 0, pathLength: path.length ?? 0, pathInstruction: path.name ?? ""),
+                                                                                      direction: path.direction ?? 0,
+                                                                                      length: path.length ?? 0,
+                                                                                      name: path.name ?? ""))
         }
         return newPaths
     }

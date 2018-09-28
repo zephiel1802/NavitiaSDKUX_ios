@@ -35,6 +35,10 @@ class DisruptionItemView: UIView {
         }
     }
     
+    static var identifier: String {
+        return String(describing: self)
+    }
+    
     class func instanceFromNib() -> DisruptionItemView {
         return UINib(nibName: "DisruptionItemView", bundle: NavitiaSDKUI.shared.bundle).instantiate(withOwner: nil, options: nil)[0] as! DisruptionItemView
     }

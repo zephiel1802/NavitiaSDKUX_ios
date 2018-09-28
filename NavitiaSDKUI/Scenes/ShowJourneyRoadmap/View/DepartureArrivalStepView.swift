@@ -21,7 +21,7 @@ class DepartureArrivalStepView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        _setup()
+        setup()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -49,20 +49,20 @@ class DepartureArrivalStepView: UIView {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        _setup()
+        setup()
     }
     
-    private func _setup() {
+    private func setup() {
         UINib(nibName: "DepartureArrivalStepView", bundle: NavitiaSDKUI.shared.bundle).instantiate(withOwner: self, options: nil)
         _view.frame = self.bounds
         addSubview(_view)
         
-        _setupIcon()
+        setupIcon()
 
         addShadow(opacity: 0.28)
     }
     
-    private func _setupIcon() {
+    private func setupIcon() {
         iconLabel.attributedText = NSMutableAttributedString()
             .icon("location-pin",
                   color:UIColor.white,

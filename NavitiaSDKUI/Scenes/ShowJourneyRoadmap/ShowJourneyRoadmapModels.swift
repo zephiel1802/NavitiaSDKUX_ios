@@ -87,6 +87,8 @@ enum ShowJourneyRoadmap
                     var icon: String?
                 }
                 struct Path {
+                    var directionIcon: String
+                    var instruction: String
                     var direction: Int32
                     var length: Int32
                     var name: String
