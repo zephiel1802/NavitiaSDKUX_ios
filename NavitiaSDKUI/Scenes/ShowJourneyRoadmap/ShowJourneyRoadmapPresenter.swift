@@ -256,6 +256,8 @@ class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
                 template = "a_time_drive".localized(bundle: NavitiaSDKUI.shared.bundle)
             case .bike, .bss:
                 template = "a_time_ride".localized(bundle: NavitiaSDKUI.shared.bundle)
+            case .ridesharing:
+                template = String(format: "%@ %@", "about".localized(bundle: NavitiaSDKUI.shared.bundle), "a_time_drive".localized(bundle: NavitiaSDKUI.shared.bundle))
             default:
                 return nil
             }

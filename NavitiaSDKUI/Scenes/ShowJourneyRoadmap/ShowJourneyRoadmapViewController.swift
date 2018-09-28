@@ -279,6 +279,10 @@ internal class ShowJourneyRoadmapViewController: UIViewController, ShowJourneyRo
         return bssStepView
     }
     
+    private func updateStands(poi: ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionClean.Poi) {
+        
+    }
+    
     private func getRidesharingStep(section: ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionClean) -> UIView {
         let view = RidesharingStepView(frame: CGRect(x: 0, y: 0, width: 0, height: 100))
         view.origin = section.from
@@ -297,9 +301,17 @@ internal class ShowJourneyRoadmapViewController: UIViewController, ShowJourneyRo
         let informations = NSMutableAttributedString()
         
         if let actionDescription = section.actionDescription {
-            informations.append(NSMutableAttributedString().normal(String(format: "%@ ", actionDescription), color: Configuration.Color.black, size: 15))
-            informations.append(NSMutableAttributedString().bold(String(format: "%@", section.to), color: Configuration.Color.black, size: 15))
+            if section.mode == .ridesharing {
+                informations.append(NSMutableAttributedString().normal(String(format: "%@ ", actionDescription), color: Configuration.Color.black, size: 15))
+                informations.append(NSMutableAttributedString().bold(String(format: "%@ ", section.from), color: Configuration.Color.black, size: 15))
+                informations.append(NSMutableAttributedString().normal(String(format: "%@ ", "to".localized(bundle: NavitiaSDKUI.shared.bundle)), color: Configuration.Color.black, size: 15))
+                informations.append(NSMutableAttributedString().bold(String(format: "%@", section.to), color: Configuration.Color.black, size: 15))
+            } else {
+                informations.append(NSMutableAttributedString().normal(String(format: "%@ ", actionDescription), color: Configuration.Color.black, size: 15))
+                informations.append(NSMutableAttributedString().bold(String(format: "%@", section.to), color: Configuration.Color.black, size: 15))
+            }
         }
+    
         if let addressName = section.poi?.addressName {
             informations.append(NSMutableAttributedString().bold(String(format: "\n%@", addressName), color: Configuration.Color.black, size: 13))
         }
