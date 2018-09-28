@@ -215,8 +215,9 @@ internal class ShowJourneyRoadmapViewController: UIViewController, ShowJourneyRo
     }
     
     private func displayDepartureArrivalStep(viewModel: ShowJourneyRoadmap.GetRoadmap.ViewModel.DepartureArrival) {
-        let departureArrivalStepView = DepartureArrivalStepView(frame: CGRect(x: 0, y: 0, width: 0, height: 70))
+        let departureArrivalStepView = DepartureArrivalStepView.instanceFromNib()
         
+        departureArrivalStepView.frame = view.bounds
         departureArrivalStepView.information = viewModel.information
         departureArrivalStepView.time = viewModel.time
         departureArrivalStepView.type = viewModel.mode
@@ -305,6 +306,7 @@ internal class ShowJourneyRoadmapViewController: UIViewController, ShowJourneyRo
     
     private func displayEmission(emission: ShowJourneyRoadmap.GetRoadmap.ViewModel.Emission) {
         let emissionView = EmissionView(frame: CGRect(x: 0, y: 0, width: scrollView.frame.size.width, height: 60))
+        
         emissionView.journeyCarbon = emission.journey
         emissionView.carCarbon = emission.car
         

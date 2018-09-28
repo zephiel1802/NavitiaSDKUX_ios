@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="uos-wP-qKq">
-    <device id="retina4_7" orientation="portrait">
+    <device id="retina4_7" orientation="landscape">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
@@ -16,21 +16,21 @@
             <objects>
                 <viewController storyboardIdentifier="JourneySolutionView" useStoryboardIdentifierAsRestorationIdentifier="YES" id="uos-wP-qKq" customClass="ListJourneysViewController" customModule="NavitiaSDKUI" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="O1O-dz-djj">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="667" height="375"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bND-g8-CMA">
-                                <rect key="frame" x="0.0" y="64" width="375" height="130"/>
+                                <rect key="frame" x="0.0" y="32" width="667" height="130"/>
                                 <color key="backgroundColor" red="0.25098039215686274" green="0.58431372549019611" blue="0.55686274509803924" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="V0r-kK-JZJ">
-                                <rect key="frame" x="10" y="74" width="355" height="80"/>
+                                <rect key="frame" x="10" y="42" width="647" height="80"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cuH-mI-COM">
-                                        <rect key="frame" x="0.0" y="0.0" width="305" height="39.5"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="597" height="39.5"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="20 Rue Hector Malot 75020 Paris" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cft-3O-VNq">
-                                                <rect key="frame" x="40" y="12.5" width="255" height="14.5"/>
+                                                <rect key="frame" x="40" y="12.5" width="547" height="14.5"/>
                                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
@@ -52,17 +52,17 @@
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="A8Q-hf-wu0">
-                                        <rect key="frame" x="10" y="39.5" width="295" height="1"/>
+                                        <rect key="frame" x="10" y="39.5" width="587" height="1"/>
                                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="1" id="JUv-X7-bLP"/>
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="F8z-pv-osl">
-                                        <rect key="frame" x="0.0" y="40.5" width="305" height="39.5"/>
+                                        <rect key="frame" x="0.0" y="40.5" width="597" height="39.5"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="249" text="Ménilmontant 75020 Paris" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HKB-WT-Eok">
-                                                <rect key="frame" x="40" y="13" width="255" height="14"/>
+                                                <rect key="frame" x="40" y="13" width="547" height="14"/>
                                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
@@ -84,7 +84,7 @@
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sLF-jc-Vn4">
-                                        <rect key="frame" x="305" y="15" width="50" height="50"/>
+                                        <rect key="frame" x="597" y="15" width="50" height="50"/>
                                         <subviews>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="switch" translatesAutoresizingMaskIntoConstraints="NO" id="7TU-6g-Q9D">
                                                 <rect key="frame" x="15" y="15" width="20" height="20"/>
@@ -137,7 +137,7 @@
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7s5-gx-cJB">
-                                <rect key="frame" x="10" y="164" width="355" height="20"/>
+                                <rect key="frame" x="10" y="132" width="647" height="20"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="20" id="WOB-tX-jVD"/>
                                 </constraints>
@@ -146,7 +146,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="yNZ-3x-aub">
-                                <rect key="frame" x="0.0" y="194" width="375" height="473"/>
+                                <rect key="frame" x="0.0" y="162" width="667" height="213"/>
                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="mQy-EO-Msz">
                                     <size key="itemSize" width="0.0" height="0.0"/>
@@ -203,30 +203,30 @@
             <objects>
                 <viewController storyboardIdentifier="ShowJourneyRoadmapViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="z4Z-Pd-Lif" customClass="ShowJourneyRoadmapViewController" customModule="NavitiaSDKUI" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="jJw-gq-5GI">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="667" height="375"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="b4l-6W-DHd">
-                                <rect key="frame" x="0.0" y="64" width="375" height="301.5"/>
+                                <rect key="frame" x="0.0" y="32" width="667" height="171.5"/>
                                 <connections>
                                     <outlet property="delegate" destination="z4Z-Pd-Lif" id="ubg-bG-db4"/>
                                 </connections>
                             </mapView>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="X3m-G1-NsD" customClass="StackScrollView" customModule="NavitiaSDKUI" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="365.5" width="375" height="301.5"/>
+                                <rect key="frame" x="0.0" y="203.5" width="667" height="171.5"/>
                                 <color key="backgroundColor" red="0.93725490196078431" green="0.93725490196078431" blue="0.93725490196078431" alpha="1" colorSpace="calibratedRGB"/>
                             </scrollView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="X3m-G1-NsD" firstAttribute="leading" secondItem="jJw-gq-5GI" secondAttribute="leading" id="3PU-1x-GV0"/>
-                            <constraint firstItem="X3m-G1-NsD" firstAttribute="height" secondItem="b4l-6W-DHd" secondAttribute="height" id="4m0-hc-r0b"/>
                             <constraint firstItem="b4l-6W-DHd" firstAttribute="leading" secondItem="jJw-gq-5GI" secondAttribute="leading" id="9lG-72-fKA"/>
                             <constraint firstItem="X3m-G1-NsD" firstAttribute="bottom" secondItem="jJw-gq-5GI" secondAttribute="bottom" id="CeV-0T-ZWi"/>
                             <constraint firstItem="b4l-6W-DHd" firstAttribute="top" secondItem="HfL-JU-5ET" secondAttribute="top" id="NHL-vB-r31"/>
                             <constraint firstAttribute="trailing" secondItem="X3m-G1-NsD" secondAttribute="trailing" id="PjE-DR-yLn"/>
-                            <constraint firstItem="X3m-G1-NsD" firstAttribute="top" secondItem="b4l-6W-DHd" secondAttribute="bottom" id="cM9-NT-Wnr"/>
                             <constraint firstAttribute="trailing" secondItem="b4l-6W-DHd" secondAttribute="trailing" id="kaR-ob-xCB"/>
+                            <constraint firstItem="X3m-G1-NsD" firstAttribute="height" secondItem="b4l-6W-DHd" secondAttribute="height" id="lgg-P3-0wY"/>
+                            <constraint firstItem="X3m-G1-NsD" firstAttribute="top" secondItem="b4l-6W-DHd" secondAttribute="bottom" id="rnl-1d-6iL"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="HfL-JU-5ET"/>
                     </view>
@@ -245,22 +245,22 @@
             <objects>
                 <viewController storyboardIdentifier="ListRidesharingOffersViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="0w9-Hr-lVK" customClass="ListRidesharingOffersViewController" customModule="NavitiaSDKUI" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="fhA-0v-Uex">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="667" height="375"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Obq-V9-UMS">
-                                <rect key="frame" x="0.0" y="64" width="375" height="60"/>
+                                <rect key="frame" x="0.0" y="32" width="667" height="60"/>
                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Uaw-W9-Vea" customClass="JourneySolutionView" customModule="NavitiaSDKUI" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="64" width="375" height="60"/>
+                                <rect key="frame" x="0.0" y="32" width="667" height="60"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="60" id="osK-jC-DkT"/>
                                 </constraints>
                             </view>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="i53-B1-z3B">
-                                <rect key="frame" x="0.0" y="124" width="375" height="543"/>
+                                <rect key="frame" x="0.0" y="92" width="667" height="283"/>
                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="TGz-QI-Lon">
                                     <size key="itemSize" width="0.0" height="0.0"/>

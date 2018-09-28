@@ -108,7 +108,9 @@ class Modes {
     
     private func getPhysicalMode(section: Section?) -> String {
         let id = getPhysicalModeId(section: section)
+        
         var modeData = id.split(separator: ":").map(String.init)
+        
         return modeData[1]
     }
     
@@ -118,6 +120,7 @@ class Modes {
                 return "bss"
             }
         }
+        
         return section?.mode?.rawValue ?? ""
     }
     
@@ -127,6 +130,7 @@ class Modes {
                 return link.id!
             }
         }
+        
         return ""
     }
 }

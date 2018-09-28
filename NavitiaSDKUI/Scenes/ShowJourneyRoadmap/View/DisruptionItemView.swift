@@ -41,7 +41,7 @@ class DisruptionItemView: UIView {
     
     var disruptionInformationHidden: Bool? {
         didSet {
-            guard let disruptionInformationHidden = disruptionInformationHidden, disruptionInformationHidden else {
+            guard let disruptionInformationHidden = disruptionInformationHidden else {
                 return
             }
             

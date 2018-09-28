@@ -9,7 +9,6 @@ import UIKit
 
 class DepartureArrivalStepView: UIView {
     
-    @IBOutlet var view: UIView!
     @IBOutlet weak var hourLabel: UILabel!
     @IBOutlet weak var iconLabel: UILabel!
     @IBOutlet weak var stackView: UIStackView!
@@ -19,24 +18,74 @@ class DepartureArrivalStepView: UIView {
     @IBOutlet weak var calorieImageView: UIImageView!
     @IBOutlet weak var calorieLabel: UILabel!
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        
-        setup()
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-    }
-    
-    override var frame: CGRect {
-        willSet {
-            if let view = view {
-                view.frame.size = newValue.size
+    var type: ShowJourneyRoadmap.GetRoadmap.ViewModel.DepartureArrival.Mode = .departure {
+        didSet {
+            if type == .departure {
+                backgroundColor = Configuration.Color.origin
+                title = String(format: "%@ :", "departure".localized(bundle: NavitiaSDKUI.shared.bundle))
+            } else {
+                backgroundColor = Configuration.Color.destination
+                title = String(format: "%@ :", "arrival".localized(bundle: NavitiaSDKUI.shared.bundle))
             }
         }
     }
     
+    var title: String? {
+        didSet {
+            guard let title = title else {
+                return
+            }
+            
+            titleLabel.text = title
+        }
+    }
+    
+    var information: String? {
+        didSet {
+            guard let information = information else {
+                return
+            }
+            
+            informationLabel.text = information
+        }
+    }
+    
+    var time: String? {
+        didSet {
+            guard let time = time else {
+                return
+            }
+            
+            hourLabel.attributedText = NSMutableAttributedString().normal(time, color: UIColor.white,size: 12)
+        }
+    }
+    
+    var calorie: String? {
+        didSet {
+            guard let calorie = calorie else {
+                return
+            }
+            
+            calorieContainerView.isHidden = false
+            calorieLabel.attributedText = NSMutableAttributedString().normal(String(format: "calorie_unit".localized(bundle: NavitiaSDKUI.shared.bundle), calorie), color: UIColor.white, size: 12)
+        }
+    }
+    
+    static var identifier: String {
+        return String(describing: self)
+    }
+    
+    class func instanceFromNib() -> DepartureArrivalStepView {
+        return UINib(nibName: identifier, bundle: NavitiaSDKUI.shared.bundle).instantiate(withOwner: nil, options: nil)[0] as! DepartureArrivalStepView
+    }
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        
+        setupIcon()
+        addShadow(opacity: 0.28)
+    }
+
     override func layoutSubviews() {
         titleLabel.sizeToFit()
         informationLabel.sizeToFit()
@@ -48,99 +97,10 @@ class DepartureArrivalStepView: UIView {
         }
     }
     
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        setup()
-    }
-    
-    private func setup() {
-        UINib(nibName: "DepartureArrivalStepView", bundle: NavitiaSDKUI.shared.bundle).instantiate(withOwner: self, options: nil)
-        view.frame = self.bounds
-        addSubview(view)
-        
-        setupIcon()
-
-        addShadow(opacity: 0.28)
-    }
-    
     private func setupIcon() {
-        iconLabel.attributedText = NSMutableAttributedString()
-            .icon("location-pin",
-                  color:UIColor.white,
-                  size: 22)
+        iconLabel.attributedText = NSMutableAttributedString().icon("location-pin", color:UIColor.white, size: 22)
         
         calorieImageView.image = UIImage(named: "calorie", in: NavitiaSDKUI.shared.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
         calorieImageView.tintColor = Configuration.Color.white
     }
-    
-}
-
-extension DepartureArrivalStepView {
-    
-    var type: ShowJourneyRoadmap.GetRoadmap.ViewModel.DepartureArrival.Mode {
-        get {
-            return self.type
-        }
-        set {
-            //type = newValue
-            if newValue == .departure {
-                self.view.backgroundColor = Configuration.Color.origin
-                title = "departure".localized(withComment: "Départure:", bundle: NavitiaSDKUI.shared.bundle) + ":"
-            } else {
-                self.view.backgroundColor = Configuration.Color.destination
-                title = "arrival".localized(withComment: "Arrival:", bundle: NavitiaSDKUI.shared.bundle) + ":"
-            }
-        }
-    }
-    
-    var title: String? {
-        get {
-            return titleLabel.text
-        }
-        set {
-            if let newValue = newValue {
-                titleLabel.text = newValue
-                self.layoutIfNeeded()
-            }
-        }
-    }
-    
-    var information: String? {
-        get {
-            return informationLabel.text
-        }
-        set {
-            if let newValue = newValue {
-                informationLabel.text = newValue
-            }
-        }
-    }
-    
-    var time: String? {
-        get {
-            return hourLabel.text
-        }
-        set {
-            if let newValue = newValue {
-                hourLabel.attributedText = NSMutableAttributedString()
-                    .normal(newValue, color: UIColor.white,size: 12)
-            }
-        }
-    }
-    
-    var calorie: String? {
-        get {
-            return self.calorie
-        }
-        set {
-            if let calorie = newValue {
-                calorieContainerView.isHidden = false
-                calorieLabel.attributedText = NSMutableAttributedString()
-                    .normal(String(format: "calorie_unit".localized(bundle: NavitiaSDKUI.shared.bundle), calorie),
-                            color: UIColor.white,
-                            size: 12)
-            }
-        }
-    }
-    
 }

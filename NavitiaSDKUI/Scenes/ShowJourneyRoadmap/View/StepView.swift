@@ -2,10 +2,9 @@
 //  StepView.swift
 //  NavitiaSDKUI
 //
-//  Created by Flavien Sicard on 26/09/2018.
+//  Copyright © 2018 kisio. All rights reserved.
 //
 
-import Foundation
 import UIKit
 
 class StepView: UIView {
@@ -87,8 +86,7 @@ class StepView: UIView {
                 return
             }
             
-            informationsIconLabel.attributedText = NSMutableAttributedString()
-                .icon(iconInformations, size: 20)
+            informationsIconLabel.attributedText = NSMutableAttributedString().icon(iconInformations, size: 20)
         }
     }
     
@@ -106,8 +104,7 @@ class StepView: UIView {
             }
             
             realTimeIconLabel.isHidden = false
-            realTimeIconLabel.attributedText = NSMutableAttributedString()
-                .icon(realTimeIcon, size: 20)
+            realTimeIconLabel.attributedText = NSMutableAttributedString().icon(realTimeIcon, size: 20)
         }
     }
     
@@ -118,8 +115,7 @@ class StepView: UIView {
             }
             
             realTimeView.isHidden = false
-            realTimeLabel.attributedText = NSMutableAttributedString()
-                .semiBold(realTimeValue, color: Configuration.Color.main, size: 13)
+            realTimeLabel.attributedText = NSMutableAttributedString().semiBold(realTimeValue, color: Configuration.Color.main, size: 13)
         }
     }
     
@@ -192,12 +188,9 @@ class StepView: UIView {
         directionsHidden = !directionsHidden
     }
     
-    var directionsHidden: Bool {
-        get {
-            return directionsContainer.isHidden
-        }
-        set {
-            if newValue {
+    var directionsHidden: Bool = true {
+        didSet {
+            if directionsHidden {
                 directionsContainer.isHidden = true
                 detailsArrowLabel.attributedText = NSMutableAttributedString().icon("arrow-details-down", color: Configuration.Color.gray, size: 13)
                 frame.size.height -= directionsContainer.frame.size.height
