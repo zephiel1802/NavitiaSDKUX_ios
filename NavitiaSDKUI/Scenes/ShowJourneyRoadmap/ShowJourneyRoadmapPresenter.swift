@@ -315,7 +315,7 @@ class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
                 return nil
         }
         
-        let standsViewModel = getStands(stands: poi.stands)
+        let standsViewModel = getStands(stands: poi.stands, type: type)
         let poiViewModel = ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionClean.Poi(name: name,
                                                                                     network: network,
                                                                                     lat: lat,
@@ -327,15 +327,29 @@ class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
         return poiViewModel
     }
     
-    private func getStands(stands: Stands?) -> ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionClean.Stands? {
+    private func getStands(stands: Stands?, type: Section.ModelType) -> ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionClean.Stands? {
         guard let stands = stands else {
             return nil
         }
         
-        let standsViewModel = ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionClean.Stands(availability: "30 places disponible",
-                                                                                          icon: nil)
+        switch type {
+        case .bssRent:
+            if let availableBikes = stands.availableBikes {
+                let standsViewModel = ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionClean.Stands(availability: String(format: "bss_bikes_available".localized(bundle: NavitiaSDKUI.shared.bundle), availableBikes),
+                                                                                              icon: nil)
+                return standsViewModel
+            }
+        case .bssPutBack:
+            if let availablePlaces = stands.availablePlaces {
+                let standsViewModel = ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionClean.Stands(availability: String(format: "bss_spaces_available".localized(bundle: NavitiaSDKUI.shared.bundle), availablePlaces),
+                                                                                                                   icon: nil)
+                return standsViewModel
+            }
+        default:
+            return nil
+        }
         
-        return standsViewModel
+        return nil
     }
     
     private func getBackground(section: Section) -> Bool {
