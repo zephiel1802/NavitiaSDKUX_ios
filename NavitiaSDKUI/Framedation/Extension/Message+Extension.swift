@@ -17,5 +17,4 @@ extension Message {
         
         return text.replacingOccurrences(of: "\n", with: "")
     }
-    
 }

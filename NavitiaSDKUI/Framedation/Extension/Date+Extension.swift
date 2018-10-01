@@ -26,6 +26,5 @@ extension Date {
         
         return self
     }
-    
 }
 

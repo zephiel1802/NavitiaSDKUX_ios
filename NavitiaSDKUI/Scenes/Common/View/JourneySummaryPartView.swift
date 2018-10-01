@@ -9,13 +9,13 @@ import UIKit
 
 class JourneySummaryPartView: UIView {
     
-    @IBOutlet weak var _view: UIView!
+    @IBOutlet weak var view: UIView!
     @IBOutlet weak var transportLabel: UILabel!
-    @IBOutlet weak var _tagTransportView: UIView!
-    @IBOutlet weak var _tagTransportLabel: UILabel!
-    @IBOutlet weak var _lineTransportView: UIView!
-    @IBOutlet weak var _disruptionLabel: UILabel!
-    @IBOutlet weak var _circleLabel: UILabel!
+    @IBOutlet weak var tagTransportView: UIView!
+    @IBOutlet weak var tagTransportLabel: UILabel!
+    @IBOutlet weak var lineTransportView: UIView!
+    @IBOutlet weak var disruptionLabel: UILabel!
+    @IBOutlet weak var circleLabel: UILabel!
     
     var width = 1.0
     
@@ -34,30 +34,30 @@ class JourneySummaryPartView: UIView {
     
     private func setup() {
         UINib(nibName: "JourneySummaryPartView", bundle: NavitiaSDKUI.shared.bundle).instantiate(withOwner: self, options: nil)
-        _view.frame = self.bounds
-        addSubview(_view)
+        view.frame = self.bounds
+        addSubview(view)
         setupDisruption()
         
-        _tagTransportView.isHidden = true
-        _tagTransportLabel.isHidden = true
+        tagTransportView.isHidden = true
+        tagTransportLabel.isHidden = true
     }
     
     private func setupDisruption() {
-        _circleLabel.attributedText = NSMutableAttributedString()
+        circleLabel.attributedText = NSMutableAttributedString()
             .icon("circle-filled",
                   color: UIColor.white,
                   size: 15)
-        _circleLabel.isHidden = true
-        _disruptionLabel.isHidden = true
+        circleLabel.isHidden = true
+        disruptionLabel.isHidden = true
     }
     
     func displayDisruption(_ iconName: String, color: String?) {
-        _disruptionLabel.attributedText = NSMutableAttributedString()
+        disruptionLabel.attributedText = NSMutableAttributedString()
             .icon(iconName,
                   color: color?.toUIColor() ?? Configuration.Color.red,
                   size: 14)
-        _disruptionLabel.isHidden = false
-        _circleLabel.isHidden = false
+        disruptionLabel.isHidden = false
+        circleLabel.isHidden = false
     }
     
 }
@@ -66,24 +66,24 @@ extension JourneySummaryPartView {
     
     var color: UIColor? {
         get {
-            return _tagTransportView.backgroundColor
+            return tagTransportView.backgroundColor
         }
         set {
-            _tagTransportView.backgroundColor = newValue
-            _lineTransportView.backgroundColor = newValue
+            tagTransportView.backgroundColor = newValue
+            lineTransportView.backgroundColor = newValue
         }
     }
     
     var name: String? {
         get {
-            return _tagTransportLabel.text
+            return tagTransportLabel.text
         }
         set {
             if let newValue = newValue {
-                _tagTransportView.isHidden = false
-                _tagTransportLabel.isHidden = false
-                let tagBackgroundColor = _tagTransportView.backgroundColor ?? .black
-                _tagTransportLabel.attributedText = NSMutableAttributedString()
+                tagTransportView.isHidden = false
+                tagTransportLabel.isHidden = false
+                let tagBackgroundColor = tagTransportView.backgroundColor ?? .black
+                tagTransportLabel.attributedText = NSMutableAttributedString()
                     .bold(newValue, color: tagBackgroundColor.contrastColor(), size: 9)
             }
         }

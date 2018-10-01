@@ -9,8 +9,8 @@ import UIKit
 
 class JourneySummaryView: UIView {
 
-    @IBOutlet weak var _view: UIView!
-    @IBOutlet weak var _stackView: UIStackView!
+    @IBOutlet weak var view: UIView!
+    @IBOutlet weak var stackView: UIStackView!
     
     var disruptions: [Disruption]?
     
@@ -31,7 +31,7 @@ class JourneySummaryView: UIView {
         var allDurationSections:Int32 = 0
         var sectionCount = 0.0
         
-        _stackView.removeAllArrangedSubviews()
+        stackView.removeAllArrangedSubviews()
         for section in sections {
             if validDisplaySection(section) {
                 if let duration = section.duration {
@@ -68,7 +68,7 @@ class JourneySummaryView: UIView {
                                                                                duration: duration,
                                                                                journeySummaryPartView: journeySummaryPartView)
                     
-                    _stackView.addArrangedSubview(journeySummaryPartView)
+                    stackView.addArrangedSubview(journeySummaryPartView)
                 }
             }
         }
@@ -76,11 +76,11 @@ class JourneySummaryView: UIView {
     
     private func setup() {
         UINib(nibName: "JourneySummaryView", bundle: NavitiaSDKUI.shared.bundle).instantiate(withOwner: self, options: nil)
-        _view.frame = self.bounds
-        addSubview(_view)
+        view.frame = self.bounds
+        addSubview(view)
         
-        _stackView.distribution = .fillProportionally
-        _stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.distribution = .fillProportionally
+        stackView.translatesAutoresizingMaskIntoConstraints = false
     }
     
     private func validDisplaySection(_ section: Section) -> Bool {
@@ -102,11 +102,11 @@ class JourneySummaryView: UIView {
     private func widthJourneySummaryPartView(sectionCount: Double, allDurationSections: Int32, duration: Int32, journeySummaryPartView: JourneySummaryPartView) -> Double {
         var priority = 65.0
         var minValue = 75.0
-        if var widthPart = journeySummaryPartView._tagTransportLabel.attributedText?.boundingRect(with: CGSize(width: frame.size.width - 60, height: 0), options: .usesLineFragmentOrigin, context: nil).width {
-            if !journeySummaryPartView._circleLabel.isHidden {
+        if var widthPart = journeySummaryPartView.tagTransportLabel.attributedText?.boundingRect(with: CGSize(width: frame.size.width - 60, height: 0), options: .usesLineFragmentOrigin, context: nil).width {
+            if !journeySummaryPartView.circleLabel.isHidden {
                 widthPart += 14
             }
-            if !journeySummaryPartView._tagTransportView.isHidden {
+            if !journeySummaryPartView.tagTransportView.isHidden {
                 minValue = Double(widthPart + 75)
                 priority = 100
             }

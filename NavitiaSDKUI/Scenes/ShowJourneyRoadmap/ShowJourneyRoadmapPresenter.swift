@@ -385,7 +385,7 @@ class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
                                                                                         endTime: getArrivalDateTime(section: section),
                                                                                         actionDescription: getActionDescription(section: section),
                                                                                         duration: getDuration(section: section),
-                                                                                        path: getPath(section: section),
+                                                                                        path: getPaths(section: section),
                                                                                         stopDate: getStopDate(section: section),
                                                                                         displayInformations: getDisplayInformations(displayInformations: section.displayInformations),
                                                                                         waiting: getWaiting(sectionBefore: sections[safe: index - 1], section: section),
@@ -667,7 +667,16 @@ class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
         }
     }
     
-    func getPath(section: Section) -> [ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionClean.Path]? {
+    private func getPath(path: Path) -> ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionClean.Path {
+        let path = ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionClean.Path(directionIcon: getDirectionPath(pathDirection: path.direction),
+                                                                             instruction: getDirectionInstruction(pathDirection: path.direction ?? 0,
+                                                                                                                  pathLength: path.length ?? 0,
+                                                                                                                  pathInstruction: path.name ?? ""))
+        
+        return path
+    }
+    
+    private func getPaths(section: Section) -> [ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionClean.Path]? {
         var newPaths = [ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionClean.Path]()
         
         guard let paths = section.path, let mode = section.mode else {
@@ -679,32 +688,10 @@ class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
         }
         
         for (_, path) in paths.enumerated() {
-            newPaths.append(ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionClean.Path(directionIcon: getDirectionPath(pathDirection: path.direction),
-                                                                                      instruction: getDirectionInstruction(pathDirection: path.direction ?? 0, pathLength: path.length ?? 0, pathInstruction: path.name ?? ""),
-                                                                                      direction: path.direction ?? 0,
-                                                                                      length: path.length ?? 0,
-                                                                                      name: path.name ?? ""))
+            let path = getPath(path: path)
+            newPaths.append(path)
         }
+        
         return newPaths
     }
-}
-
-extension StopDateTime {
-    
-    func selectLinks(type: String) -> [LinkSchema] {
-        var selectLinks = [LinkSchema]()
-        
-        guard let links = self.links else {
-            return selectLinks
-        }
-        
-        for link in links {
-            if link.type == type {
-                selectLinks.append(link)
-            }
-        }
-        
-        return selectLinks
-    }
-    
 }

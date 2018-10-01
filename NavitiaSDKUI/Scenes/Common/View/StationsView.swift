@@ -9,7 +9,7 @@ import UIKit
 
 class StationsView: UIView {
     
-    @IBOutlet var _view: UIView!
+    @IBOutlet var view: UIView!
     @IBOutlet weak var stationView: UIView!
     @IBOutlet weak var stationLabel: UILabel!
     
@@ -24,8 +24,8 @@ class StationsView: UIView {
     
     override var frame: CGRect {
         willSet {
-            if let _view = _view {
-                _view.frame.size = newValue.size
+            if let view = view {
+                view.frame.size = newValue.size
             }
         }
     }
@@ -36,8 +36,8 @@ class StationsView: UIView {
     
     private func setup() {
         UINib(nibName: "StationsView", bundle: NavitiaSDKUI.shared.bundle).instantiate(withOwner: self, options: nil)
-        _view.frame = self.bounds
-        addSubview(_view)
+        view.frame = self.bounds
+        addSubview(view)
     }
 }
 

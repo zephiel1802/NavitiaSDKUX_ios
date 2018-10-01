@@ -23,7 +23,6 @@ internal class ShowJourneyRoadmapViewController: UIViewController, ShowJourneyRo
     internal var router: (NSObjectProtocol & ShowJourneyRoadmapRoutingLogic & ShowJourneyRoadmapDataPassing)?
     private var interactor: ShowJourneyRoadmapBusinessLogic?
     private var mapViewModel: ShowJourneyRoadmap.GetMap.ViewModel?
-    
     private var ridesharing: ShowJourneyRoadmap.GetRoadmap.ViewModel.Ridesharing?
     private var ridesharingJourneys: Journey?
     
@@ -284,21 +283,11 @@ internal class ShowJourneyRoadmapViewController: UIViewController, ShowJourneyRo
         let stepView = StepView.instanceFromNib()
         
         stepView.frame = scrollView.bounds
-        
-        // Set Background
         stepView.enableBackground = section.background
-        
-        // Set Icon
         stepView.iconInformations = section.icon
-        
-        // Set Information Label
         stepView.informationsAttributedString = getInformationsStepView(section: section)
-        
-        // Real Time
         stepView.realTimeIcon = section.poi?.stands?.icon
         stepView.realTimeValue = section.poi?.stands?.availability
-        
-        // Path Section
         stepView.paths = section.path
         
         return stepView
@@ -355,7 +344,6 @@ internal class ShowJourneyRoadmapViewController: UIViewController, ShowJourneyRo
     @objc private func startAnimation() {
         animationTimer?.invalidate()
         animationTimer = Timer.scheduledTimer(timeInterval: 2.0, target: self, selector: #selector(startAnimation), userInfo: nil, repeats: true)
-        
 
         let stepSubViews = scrollView.selectSubviews(type: StepView())
         for stepView in stepSubViews {
@@ -385,7 +373,6 @@ internal class ShowJourneyRoadmapViewController: UIViewController, ShowJourneyRo
             }
         }
     }
-    
 }
 
 // MARKS: Maps

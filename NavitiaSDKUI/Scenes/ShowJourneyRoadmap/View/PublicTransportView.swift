@@ -9,7 +9,7 @@ import UIKit
 
 class PublicTransportView: UIView {
     
-    @IBOutlet var _view: UIView!
+    @IBOutlet var view: UIView!
     @IBOutlet weak var iconLabel: UILabel!
     @IBOutlet weak var takeLabel: UILabel!
     @IBOutlet weak var originTransitLabel: UILabel!
@@ -32,8 +32,8 @@ class PublicTransportView: UIView {
     @IBOutlet weak var lineView: UIView!
     @IBOutlet weak var pinEndView: UIView!
     
-    var _mode: ModeTransport?
-    var _disruptionType: TypeDisruption?
+    var mode: ModeTransport?
+    var disruptionType: TypeDisruption?
     
     var origin: String = "" {
         didSet {
@@ -99,8 +99,8 @@ class PublicTransportView: UIView {
     
     override var frame: CGRect {
         willSet {
-            if let _view = _view {
-                _view.frame.size = newValue.size
+            if let view = view {
+                view.frame.size = newValue.size
             }
         }
     }
@@ -116,8 +116,8 @@ class PublicTransportView: UIView {
 
     private func setup() {
         UINib(nibName: "PublicTransportView", bundle: NavitiaSDKUI.shared.bundle).instantiate(withOwner: self, options: nil)
-        _view.frame = self.bounds
-        addSubview(_view)
+        view.frame = self.bounds
+        addSubview(view)
 
         addShadow(opacity: 0.28)
         frame.size.height = destinationLabel.frame.height + destinationLabel.frame.origin.y + 15
@@ -169,25 +169,13 @@ extension PublicTransportView {
 
 extension PublicTransportView {
     
-    var mode: ModeTransport? {
-        get {
-            return _mode
-        }
-        set {
-            if let type = newValue {
-                _mode = type
-                icon = type.rawValue
-            }
-        }
-    }
-    
     var modeString: String? {
         get {
-            return _mode?.rawValue
+            return mode?.rawValue
         }
         set {
             if let newValue = newValue {
-                _mode = ModeTransport(rawValue: newValue)
+                mode = ModeTransport(rawValue: newValue)
                 icon = newValue
             }
         }

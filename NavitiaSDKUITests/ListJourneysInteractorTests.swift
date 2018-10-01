@@ -2,7 +2,6 @@
 //  ListJourneysInteractorTests.swift
 //  NavitiaSDKUITests
 //
-//  Created by Flavien Sicard on 03/09/2018.
 //  Copyright © 2018 kisio. All rights reserved.
 //
 

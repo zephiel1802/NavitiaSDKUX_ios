@@ -61,7 +61,5 @@ internal struct JourneysWorker {
                 completionHandler(result?.pois?.first)
             }
         }
-        
     }
-    
 }

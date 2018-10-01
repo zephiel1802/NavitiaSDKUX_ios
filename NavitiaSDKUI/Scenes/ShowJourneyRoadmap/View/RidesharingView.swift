@@ -11,7 +11,7 @@ import UIKit
 
 class RidesharingView: UIView {
     
-    @IBOutlet var _view: UIView!
+    @IBOutlet var view: UIView!
     
     @IBOutlet weak var bookButton: UIButton!
     @IBOutlet weak var titleLabel: UILabel!
@@ -44,8 +44,8 @@ class RidesharingView: UIView {
     
     private func setup() {
         UINib(nibName: "RidesharingView", bundle: NavitiaSDKUI.shared.bundle).instantiate(withOwner: self, options: nil)
-        _view.frame = self.bounds
-        addSubview(_view)
+        view.frame = self.bounds
+        addSubview(view)
         
         addShadow()
         

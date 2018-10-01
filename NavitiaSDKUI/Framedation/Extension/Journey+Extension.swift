@@ -17,5 +17,4 @@ extension Journey {
             return false
         }
     }
-    
 }

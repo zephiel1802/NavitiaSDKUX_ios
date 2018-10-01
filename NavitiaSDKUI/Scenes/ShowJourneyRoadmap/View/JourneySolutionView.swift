@@ -9,8 +9,7 @@ import UIKit
 
 class JourneySolutionView: UIView {
     
-    @IBOutlet var _view: UIView!
-    
+    @IBOutlet var view: UIView!
     @IBOutlet weak var aboutLabel: UILabel!
     @IBOutlet weak var durationLabel: UILabel!
     @IBOutlet weak var durationCenterContraint: NSLayoutConstraint!
@@ -35,8 +34,8 @@ class JourneySolutionView: UIView {
     
     private func setup() {
         UINib(nibName: "JourneySolutionView", bundle: NavitiaSDKUI.shared.bundle).instantiate(withOwner: self, options: nil)
-        _view.frame = self.bounds
-        addSubview(_view)
+        view.frame = self.bounds
+        addSubview(view)
         
         addShadow()
     }

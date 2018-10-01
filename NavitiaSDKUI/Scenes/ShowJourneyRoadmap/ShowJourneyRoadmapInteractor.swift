@@ -41,7 +41,11 @@ class ShowJourneyRoadmapInteractor: ShowJourneyRoadmapBusinessLogic, ShowJourney
             return
         }
         
-        let response = ShowJourneyRoadmap.GetRoadmap.Response(journey: journey, journeyRidesharing: journeyRidesharing, disruptions: disruptions, notes: notes, context: context)
+        let response = ShowJourneyRoadmap.GetRoadmap.Response(journey: journey,
+                                                              journeyRidesharing: journeyRidesharing,
+                                                              disruptions: disruptions,
+                                                              notes: notes,
+                                                              context: context)
         presenter?.presentRoadmap(response: response)
     }
     
@@ -56,10 +60,12 @@ class ShowJourneyRoadmapInteractor: ShowJourneyRoadmapBusinessLogic, ShowJourney
         presenter?.presentMap(response: response)
     }
     
-    // MARK: FetchBss
+    // MARK: Fetch Bss
     
     func fetchBss(request: ShowJourneyRoadmap.FetchBss.Request) {
-        journeysWorker.fetchBss(coord: (lat: request.lat, lon: request.lon), distance: request.distance, id: request.id) { (poi) in
+        journeysWorker.fetchBss(coord: (lat: request.lat, lon: request.lon),
+                                distance: request.distance,
+                                id: request.id) { (poi) in
             guard let poi = poi else {
                 return
             }

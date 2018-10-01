@@ -43,5 +43,4 @@ extension Int32 {
     func minuteToString() -> String {
         return String(self / 60)
     }
-    
 }

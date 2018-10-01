@@ -127,5 +127,4 @@ extension Section {
         
         return selectLinks
     }
-    
 }

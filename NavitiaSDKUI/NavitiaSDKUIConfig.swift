@@ -50,7 +50,6 @@ import Foundation
             Configuration.Color.destination = newValue
         }
     }
-    
 }
 
 enum Configuration {
@@ -94,7 +93,6 @@ enum Configuration {
         static var black = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
         static var gray = #colorLiteral(red: 0.5019607843, green: 0.5019607843, blue: 0.5019607843, alpha: 1)
         static var darkerGray = #colorLiteral(red: 0.4, green: 0.4, blue: 0.4, alpha: 1)
-        
         static let red = #colorLiteral(red: 1, green: 0, blue: 0, alpha: 1)
         static let orange = #colorLiteral(red: 0.9725490196, green: 0.5803921569, blue: 0.02352941176, alpha: 1)
         static let background = #colorLiteral(red: 0.9411764706, green: 0.9411764706, blue: 0.9411764706, alpha: 1)
