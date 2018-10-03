@@ -215,11 +215,10 @@ internal class ShowJourneyRoadmapViewController: UIViewController, ShowJourneyRo
     
     private func displayDepartureArrivalStep(viewModel: ShowJourneyRoadmap.GetRoadmap.ViewModel.DepartureArrival) {
         let departureArrivalStepView = DepartureArrivalStepView.instanceFromNib()
-        
         departureArrivalStepView.frame = view.bounds
+        departureArrivalStepView.type = viewModel.mode
         departureArrivalStepView.information = viewModel.information
         departureArrivalStepView.time = viewModel.time
-        departureArrivalStepView.type = viewModel.mode
         departureArrivalStepView.calorie = viewModel.calorie
         
         scrollView.addSubview(departureArrivalStepView, margin: UIEdgeInsets(top: 5, left: 10, bottom: 5, right: 10))
