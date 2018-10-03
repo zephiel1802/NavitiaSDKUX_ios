@@ -10,9 +10,9 @@ import MapKit
 
 class CustomAnnotation: MKPointAnnotation {
     
-    enum AnnotationType {
-        case PlaceAnnotation
-        case RidesharingAnnotation
+    enum AnnotationType: Int {
+        case PlaceAnnotation = 0
+        case RidesharingAnnotation = 1
     }
     
     enum PlaceType: String {
@@ -30,7 +30,7 @@ class CustomAnnotation: MKPointAnnotation {
         self.coordinate = coordinate
         self.annotationType = annotationType
         self.placeType = placeType
-        self.identifier = "\(annotationType.hashValue + placeType.hashValue)"
+        self.identifier = "\(annotationType.rawValue + placeType.hashValue)"
         self.title = title
     }
     

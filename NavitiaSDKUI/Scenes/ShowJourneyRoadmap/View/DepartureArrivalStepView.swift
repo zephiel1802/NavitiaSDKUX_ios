@@ -9,34 +9,23 @@ import UIKit
 
 class DepartureArrivalStepView: UIView {
     
+    @IBOutlet weak var contentContainerView: UIView!
     @IBOutlet weak var hourLabel: UILabel!
     @IBOutlet weak var iconLabel: UILabel!
-    @IBOutlet weak var stackView: UIStackView!
-    @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var informationLabel: UILabel!
+    @IBOutlet weak var informationBottomConstraint: NSLayoutConstraint!
     @IBOutlet weak var calorieContainerView: UIView!
+    @IBOutlet weak var calorieContainerBottomConstraint: NSLayoutConstraint!
     @IBOutlet weak var calorieImageView: UIImageView!
     @IBOutlet weak var calorieLabel: UILabel!
     
     var type: ShowJourneyRoadmap.GetRoadmap.ViewModel.DepartureArrival.Mode = .departure {
         didSet {
             if type == .departure {
-                backgroundColor = Configuration.Color.origin
-                title = String(format: "%@ :", "departure".localized(bundle: NavitiaSDKUI.shared.bundle))
+                contentContainerView.backgroundColor = Configuration.Color.origin
             } else {
-                backgroundColor = Configuration.Color.destination
-                title = String(format: "%@ :", "arrival".localized(bundle: NavitiaSDKUI.shared.bundle))
+                contentContainerView.backgroundColor = Configuration.Color.destination
             }
-        }
-    }
-    
-    var title: String? {
-        didSet {
-            guard let title = title else {
-                return
-            }
-            
-            titleLabel.text = title
         }
     }
     
@@ -46,7 +35,11 @@ class DepartureArrivalStepView: UIView {
                 return
             }
             
-            informationLabel.text = information
+            if type == .departure {
+                informationLabel.attributedText = NSMutableAttributedString().bold(String(format: "%@ :\n", "departure".localized(bundle: NavitiaSDKUI.shared.bundle)), color: Configuration.Color.white, size: 15.0).normal(information, color: Configuration.Color.white, size: 15.0)
+            } else {
+                informationLabel.attributedText = NSMutableAttributedString().bold(String(format: "%@ :\n", "arrival".localized(bundle: NavitiaSDKUI.shared.bundle)), color: Configuration.Color.white, size: 15.0).normal(information, color: Configuration.Color.white, size: 15.0)
+            }
         }
     }
     
@@ -67,6 +60,8 @@ class DepartureArrivalStepView: UIView {
             }
             
             calorieContainerView.isHidden = false
+            informationBottomConstraint.isActive = false
+            calorieContainerBottomConstraint.isActive = true
             calorieLabel.attributedText = NSMutableAttributedString().normal(String(format: "calorie_unit".localized(bundle: NavitiaSDKUI.shared.bundle), calorie), color: UIColor.white, size: 12)
         }
     }
@@ -87,14 +82,7 @@ class DepartureArrivalStepView: UIView {
     }
 
     override func layoutSubviews() {
-        titleLabel.sizeToFit()
-        informationLabel.sizeToFit()
-        
-        if calorieContainerView.isHidden {
-            frame.size.height = stackView.frame.size.height + stackView.frame.origin.y + 10
-        } else {
-            frame.size.height = calorieContainerView.frame.size.height + calorieContainerView.frame.origin.y + 10
-        }
+        frame.size.height = contentContainerView.frame.size.height + 10
     }
     
     private func setupIcon() {
