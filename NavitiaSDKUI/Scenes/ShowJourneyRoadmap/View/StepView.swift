@@ -159,9 +159,10 @@ class StepView: UIView {
     }
     
     private func setupDirectionsStackView() {
-        directionsStackView = UIStackView(frame: directionsContainer.bounds)
-        directionsStackView.frame.origin.x = 50
-        directionsStackView.frame.size.width -= 50
+        directionsStackView = UIStackView(frame: CGRect(x: 50,
+                                                        y: directionsContainer.bounds.origin.y,
+                                                        width: directionsContainer.bounds.size.width - 50,
+                                                        height: directionsContainer.bounds.size.height))
         directionsStackView.axis = .vertical
         directionsStackView.distribution = .fillEqually
         directionsStackView.alignment = .fill
@@ -193,13 +194,14 @@ class StepView: UIView {
             if directionsHidden {
                 directionsContainer.isHidden = true
                 detailsArrowLabel.attributedText = NSMutableAttributedString().icon("arrow-details-down", color: Configuration.Color.gray, size: 13)
+                
                 frame.size.height -= directionsContainer.frame.size.height
             } else {
                 directionsContainer.isHidden = false
                 detailsArrowLabel.attributedText = NSMutableAttributedString().icon("arrow-details-up", color: Configuration.Color.gray, size: 13)
+                
                 frame.size.height += directionsContainer.frame.size.height
             }
         }
     }
-    
 }
