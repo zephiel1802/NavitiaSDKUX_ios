@@ -289,11 +289,9 @@
 		84827A91214BBAA800CB9513 /* ListRidesharingOffersRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84827A8A214BBAA800CB9513 /* ListRidesharingOffersRouter.swift */; };
 		84827A92214BBAA800CB9513 /* ListRidesharingOffersModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84827A8B214BBAA800CB9513 /* ListRidesharingOffersModels.swift */; };
 		848CFDE921512F520022A4F2 /* HorizontalSeparator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848CFDE821512F510022A4F2 /* HorizontalSeparator.swift */; };
-		848CFDEE21512F6B0022A4F2 /* PublicTransportWaitingBlocView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 848CFDEC21512F6B0022A4F2 /* PublicTransportWaitingBlocView.xib */; };
 		848CFDEF21512F6B0022A4F2 /* HorizontalSeparator.xib in Resources */ = {isa = PBXBuildFile; fileRef = 848CFDED21512F6B0022A4F2 /* HorizontalSeparator.xib */; };
 		848CFDF12151376C0022A4F2 /* OnDemandeItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848CFDF02151376B0022A4F2 /* OnDemandeItemView.swift */; };
 		848CFDF3215137740022A4F2 /* OnDemandeItemView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 848CFDF2215137740022A4F2 /* OnDemandeItemView.xib */; };
-		848D7C2A207B92D4002E9B1A /* PublicTransportView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 848D7C29207B92D4002E9B1A /* PublicTransportView.xib */; };
 		8490376B2161FBEF00472FD6 /* StepView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8490376A2161FBEF00472FD6 /* StepView.swift */; };
 		8490376D2161FBF400472FD6 /* StepView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8490376C2161FBF400472FD6 /* StepView.xib */; };
 		8490A6D52084D2C700F7CFA1 /* NavitiaSDKUserDefaultsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8490A6D42084D2C700F7CFA1 /* NavitiaSDKUserDefaultsManager.swift */; };
@@ -620,11 +618,9 @@
 		84827A8A214BBAA800CB9513 /* ListRidesharingOffersRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListRidesharingOffersRouter.swift; sourceTree = "<group>"; };
 		84827A8B214BBAA800CB9513 /* ListRidesharingOffersModels.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListRidesharingOffersModels.swift; sourceTree = "<group>"; };
 		848CFDE821512F510022A4F2 /* HorizontalSeparator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HorizontalSeparator.swift; sourceTree = "<group>"; };
-		848CFDEC21512F6B0022A4F2 /* PublicTransportWaitingBlocView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PublicTransportWaitingBlocView.xib; sourceTree = "<group>"; };
 		848CFDED21512F6B0022A4F2 /* HorizontalSeparator.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HorizontalSeparator.xib; sourceTree = "<group>"; };
 		848CFDF02151376B0022A4F2 /* OnDemandeItemView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnDemandeItemView.swift; sourceTree = "<group>"; };
 		848CFDF2215137740022A4F2 /* OnDemandeItemView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OnDemandeItemView.xib; sourceTree = "<group>"; };
-		848D7C29207B92D4002E9B1A /* PublicTransportView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PublicTransportView.xib; sourceTree = "<group>"; };
 		8490376A2161FBEF00472FD6 /* StepView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StepView.swift; sourceTree = "<group>"; };
 		8490376C2161FBF400472FD6 /* StepView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StepView.xib; sourceTree = "<group>"; };
 		8490A6D42084D2C700F7CFA1 /* NavitiaSDKUserDefaultsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavitiaSDKUserDefaultsManager.swift; sourceTree = "<group>"; };
@@ -1099,12 +1095,10 @@
 				8490376C2161FBF400472FD6 /* StepView.xib */,
 				848CFDF2215137740022A4F2 /* OnDemandeItemView.xib */,
 				848CFDED21512F6B0022A4F2 /* HorizontalSeparator.xib */,
-				848CFDEC21512F6B0022A4F2 /* PublicTransportWaitingBlocView.xib */,
 				84A790FC2121B0E90000C82F /* EmissionView.xib */,
 				846B185020775479005D4A9B /* DepartureArrivalStepView.xib */,
 				84D0FA95210094B300EB420A /* DisruptionItemView.xib */,
 				8471D38220809EAD000C9125 /* JourneySolutionView.xib */,
-				848D7C29207B92D4002E9B1A /* PublicTransportView.xib */,
 				8433F39B207F89C0007DBBCE /* RidesharingView.xib */,
 				317D6C76211091CE00F36242 /* StepByStepItemView.xib */,
 			);
@@ -1368,8 +1362,6 @@
 				8490376D2161FBF400472FD6 /* StepView.xib in Resources */,
 				84827A8C214BBAA800CB9513 /* RidesharingOfferCollectionViewCell.xib in Resources */,
 				8471D38320809EAD000C9125 /* JourneySolutionView.xib in Resources */,
-				848D7C2A207B92D4002E9B1A /* PublicTransportView.xib in Resources */,
-				848CFDEE21512F6B0022A4F2 /* PublicTransportWaitingBlocView.xib in Resources */,
 				84A790FD2121B0E90000C82F /* EmissionView.xib in Resources */,
 				8433F39C207F89C0007DBBCE /* RidesharingView.xib in Resources */,
 				84BC297E207E66CC0073F198 /* StationsView.xib in Resources */,

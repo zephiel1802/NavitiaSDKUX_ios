@@ -17,7 +17,7 @@
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="qh1-Nv-EMR">
-                    <rect key="frame" x="0.0" y="10" width="384" height="288"/>
+                    <rect key="frame" x="0.0" y="10" width="384" height="270"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4fw-wa-InW">
                             <rect key="frame" x="0.0" y="0.0" width="384" height="64"/>
@@ -28,7 +28,7 @@
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
                                 </label>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="à Pyramides (Paris) en direction de Place de Clichy fd f qsd fqsd f qds" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FNA-jL-VEB">
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="à Pyramides (Paris) en direction de Place de Clichy" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FNA-jL-VEB">
                                     <rect key="frame" x="50" y="28" width="324" height="36"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                     <nil key="textColor"/>
@@ -76,7 +76,7 @@
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="D" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2ZV-AM-jGb">
-                                    <rect key="frame" x="170" y="0.0" width="14" height="14"/>
+                                    <rect key="frame" x="170" y="1" width="14" height="14"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="14" id="AUk-Mk-xMh"/>
                                         <constraint firstAttribute="width" constant="14" id="kCq-iG-SJV"/>
@@ -93,7 +93,7 @@
                                 <constraint firstItem="hj8-XJ-QNd" firstAttribute="leading" secondItem="6dM-Br-ZUo" secondAttribute="trailing" id="9Y9-vL-hog"/>
                                 <constraint firstItem="0e3-rM-lkf" firstAttribute="top" secondItem="4fw-wa-InW" secondAttribute="top" id="DVa-58-scZ"/>
                                 <constraint firstItem="6dM-Br-ZUo" firstAttribute="centerY" secondItem="hj8-XJ-QNd" secondAttribute="centerY" id="KGs-fn-28S"/>
-                                <constraint firstItem="2ZV-AM-jGb" firstAttribute="top" secondItem="4fw-wa-InW" secondAttribute="top" id="LuX-dB-RzU"/>
+                                <constraint firstItem="2ZV-AM-jGb" firstAttribute="top" secondItem="4fw-wa-InW" secondAttribute="top" constant="1" id="LuX-dB-RzU"/>
                                 <constraint firstItem="FNA-jL-VEB" firstAttribute="top" secondItem="hj8-XJ-QNd" secondAttribute="bottom" id="PeJ-o6-gi4"/>
                                 <constraint firstAttribute="trailing" secondItem="FNA-jL-VEB" secondAttribute="trailing" constant="10" id="S6h-49-RGD"/>
                                 <constraint firstItem="6dM-Br-ZUo" firstAttribute="leading" secondItem="4fw-wa-InW" secondAttribute="leading" id="Saz-Ps-0kC"/>
@@ -115,7 +115,7 @@
                                         <constraint firstAttribute="height" constant="15" id="GcA-U3-5ON"/>
                                     </constraints>
                                     <attributedString key="attributedText">
-                                        <fragment content="Reseau : Star">
+                                        <fragment content="Reseau : RATP">
                                             <attributes>
                                                 <font key="NSFont" metaFont="system"/>
                                             </attributes>
@@ -164,7 +164,7 @@
                             </constraints>
                         </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dEI-6w-BO7" userLabel="Public Transport">
-                            <rect key="frame" x="0.0" y="124" width="384" height="164"/>
+                            <rect key="frame" x="0.0" y="124" width="384" height="146"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="18:45" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0gC-1e-DPe">
                                     <rect key="frame" x="0.0" y="2" width="50" height="14.5"/>
@@ -172,7 +172,7 @@
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
                                 </label>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pyramides (Paris) fdsq fd fdsq f  fsdq" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gcp-h2-p5y">
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pyramides (Paris)" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gcp-h2-p5y">
                                     <rect key="frame" x="74" y="0.0" width="300" height="18"/>
                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                     <nil key="textColor"/>
@@ -209,7 +209,7 @@
                                     </userDefinedRuntimeAttributes>
                                 </view>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PQo-4M-oDF" userLabel="Line">
-                                    <rect key="frame" x="55" y="16" width="4" height="113"/>
+                                    <rect key="frame" x="55" y="16" width="4" height="104"/>
                                     <color key="backgroundColor" red="0.94889697019999997" green="1" blue="0.52188898800000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="4" id="GHi-13-wMo"/>
@@ -261,19 +261,19 @@
                                     </constraints>
                                 </view>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="18:45" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qk2-Cb-z3h">
-                                    <rect key="frame" x="0.0" y="129" width="50" height="14.5"/>
+                                    <rect key="frame" x="0.0" y="120" width="50" height="14.5"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
                                 </label>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pyramides (Paris) f qsdxf qsd fsdq f qsd f sdqf sqd f" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hAx-qi-4p3">
-                                    <rect key="frame" x="74" y="118" width="300" height="36"/>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Châtelet (Paris)" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hAx-qi-4p3">
+                                    <rect key="frame" x="74" y="118" width="300" height="18"/>
                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xB7-bk-HPw" userLabel="Pin Bottom">
-                                    <rect key="frame" x="50" y="129" width="14" height="14"/>
+                                    <rect key="frame" x="50" y="120" width="14" height="14"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jun-m4-xq3">
                                             <rect key="frame" x="3" y="3" width="8" height="8"/>
@@ -385,7 +385,7 @@
                 <outlet property="waitingIconLabel" destination="kt3-FA-0SQ" id="fgO-xj-eIe"/>
                 <outlet property="waitingInformationsLabel" destination="dX1-Hw-sA6" id="CSn-NH-py4"/>
             </connections>
-            <point key="canvasLocation" x="-79" y="6"/>
+            <point key="canvasLocation" x="-80" y="5.3973013493253381"/>
         </view>
     </objects>
 </document>
