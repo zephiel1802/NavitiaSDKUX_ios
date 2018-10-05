@@ -233,23 +233,19 @@ internal class ShowJourneyRoadmapViewController: UIViewController, ShowJourneyRo
     }
     
     private func getPublicTransportStepView(section: ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionClean) -> UIView {
-        let publicTransportView = PublicTransportView(frame: CGRect(x: 0, y: 0, width: 0, height: 100))
+        let publicTransportView = PublicTransportStepView.instanceFromNib()
         
-        publicTransportView.modeString = section.icon
-        publicTransportView.take = section.displayInformations.commercialMode
-        publicTransportView.transportColor = section.displayInformations.color
-        publicTransportView.transportName = section.displayInformations.code
-        publicTransportView.origin = section.from
-        publicTransportView.startTime = section.startTime
-        publicTransportView.directionTransit = section.displayInformations.directionTransit
-        publicTransportView.destination = section.to
-        publicTransportView.endTime = section.endTime
-        publicTransportView.stations = section.stopDate
-        publicTransportView.waitingTime = section.waiting
-        publicTransportView.setDisruptions(disruptions: section.disruptionsClean)
-        for note in section.notes {
-            publicTransportView.setOnDemandTransport(text: note.content)
-        }
+        publicTransportView.bounds = view.bounds
+        publicTransportView.icon = section.icon
+        publicTransportView.transport = (code: section.displayInformations.code, color: section.displayInformations.color)
+        publicTransportView.commercialMode = section.displayInformations.commercialMode
+        publicTransportView.informations = (from: section.from, direction: section.displayInformations.directionTransit)
+        publicTransportView.departure = (from: section.from, time: section.startTime)
+        publicTransportView.arrival = (to: section.to, time: section.endTime)
+        publicTransportView.stopDates = section.stopDate
+        publicTransportView.notes = section.notes
+        publicTransportView.disruptions = section.disruptionsClean
+        publicTransportView.waiting = section.waiting
         
         return publicTransportView
     }
