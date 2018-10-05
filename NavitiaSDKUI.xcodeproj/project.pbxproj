@@ -190,7 +190,7 @@
 		841EFD9621359F56004A313B /* ListJourneysViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841EFD9121359F56004A313B /* ListJourneysViewController.swift */; };
 		841EFD9721359F56004A313B /* ListJourneysRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841EFD9221359F56004A313B /* ListJourneysRouter.swift */; };
 		841EFD9921359F7C004A313B /* JourneysRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841EFD9821359F7B004A313B /* JourneysRequest.swift */; };
-		841EFD9C21359FAE004A313B /* JourneysWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841EFD9B21359FAD004A313B /* JourneysWorker.swift */; };
+		841EFD9C21359FAE004A313B /* NavitiaWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841EFD9B21359FAD004A313B /* NavitiaWorker.swift */; };
 		841EFD9E2135A047004A313B /* Journey+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841EFD9D2135A047004A313B /* Journey+Extension.swift */; };
 		8422B459206A24230097E6C9 /* JourneyHeaderCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8422B458206A24230097E6C9 /* JourneyHeaderCollectionReusableView.swift */; };
 		8422B45B206A242D0097E6C9 /* JourneyHeaderCollectionReusableView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8422B45A206A242D0097E6C9 /* JourneyHeaderCollectionReusableView.xib */; };
@@ -518,7 +518,7 @@
 		841EFD9121359F56004A313B /* ListJourneysViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListJourneysViewController.swift; sourceTree = "<group>"; };
 		841EFD9221359F56004A313B /* ListJourneysRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListJourneysRouter.swift; sourceTree = "<group>"; };
 		841EFD9821359F7B004A313B /* JourneysRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JourneysRequest.swift; sourceTree = "<group>"; };
-		841EFD9B21359FAD004A313B /* JourneysWorker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JourneysWorker.swift; sourceTree = "<group>"; };
+		841EFD9B21359FAD004A313B /* NavitiaWorker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavitiaWorker.swift; sourceTree = "<group>"; };
 		841EFD9D2135A047004A313B /* Journey+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Journey+Extension.swift"; sourceTree = "<group>"; };
 		8422B458206A24230097E6C9 /* JourneyHeaderCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JourneyHeaderCollectionReusableView.swift; sourceTree = "<group>"; };
 		8422B45A206A242D0097E6C9 /* JourneyHeaderCollectionReusableView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = JourneyHeaderCollectionReusableView.xib; sourceTree = "<group>"; };
@@ -860,7 +860,7 @@
 		841EFD9A21359F8C004A313B /* Workers */ = {
 			isa = PBXGroup;
 			children = (
-				841EFD9B21359FAD004A313B /* JourneysWorker.swift */,
+				841EFD9B21359FAD004A313B /* NavitiaWorker.swift */,
 			);
 			path = Workers;
 			sourceTree = "<group>";
@@ -920,9 +920,10 @@
 				8451DA3E206503F100CFA1E4 /* Info.plist */,
 				8451DA54206505E200CFA1E4 /* Framedation */,
 				8451DA55206505F200CFA1E4 /* Lib */,
-				8451DA56206505F900CFA1E4 /* Storyboard */,
-				8451DA57206505FF00CFA1E4 /* Scenes */,
 				8451DA582065060600CFA1E4 /* Resources */,
+				8451DA57206505FF00CFA1E4 /* Scenes */,
+				8451DA56206505F900CFA1E4 /* Storyboard */,
+				841EFD9A21359F8C004A313B /* Workers */,
 			);
 			path = NavitiaSDKUI;
 			sourceTree = "<group>";
@@ -930,7 +931,6 @@
 		8451DA54206505E200CFA1E4 /* Framedation */ = {
 			isa = PBXGroup;
 			children = (
-				841EFD9A21359F8C004A313B /* Workers */,
 				8451DA592065061900CFA1E4 /* Models */,
 				8451DA5B2065062300CFA1E4 /* Extension */,
 				8451DAB32065157200CFA1E4 /* Helper */,
@@ -1661,7 +1661,7 @@
 				841A107D215A29B800F46143 /* GeoStatus1.swift in Sources */,
 				8471D3872080A0DD000C9125 /* Checkbox.swift in Sources */,
 				841A1085215A29B800F46143 /* Lines.swift in Sources */,
-				841EFD9C21359FAE004A313B /* JourneysWorker.swift in Sources */,
+				841EFD9C21359FAE004A313B /* NavitiaWorker.swift in Sources */,
 				841A105A215A29B800F46143 /* LinesSchema.swift in Sources */,
 				841A109A215A29B800F46143 /* Section.swift in Sources */,
 				84AFDB9921417E6600858D42 /* ShowJourneyRoadmapInteractor.swift in Sources */,

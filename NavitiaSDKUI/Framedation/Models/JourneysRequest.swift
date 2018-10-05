@@ -30,7 +30,6 @@ public struct JourneysRequest {
         self.originId = originId
         self.destinationId = destinationId
     }
-    
 }
 
 extension JourneysRequest {
@@ -40,9 +39,11 @@ extension JourneysRequest {
             if let firstSectionModes = self.firstSectionModes, let _ = firstSectionModes.index(where: { $0 == .ridesharing }) {
                 return true
             }
+            
             if let lastSectionModes = self.lastSectionModes, let _ = lastSectionModes.index(where: { $0 == .ridesharing }) {
                 return true
             }
+            
             return false
         }
     }
@@ -56,5 +57,4 @@ extension JourneysRequest {
         destinationId = oldOriginId
         destinationLabel = oldOriginLabel
     }
-    
 }

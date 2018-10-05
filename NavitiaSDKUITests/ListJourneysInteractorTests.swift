@@ -39,7 +39,7 @@ class ListJourneysInteractorTests: XCTestCase {
     
     func testResquetNavitia() {
         var request = ListJourneys.FetchJourneys.Request.init(journeysRequest: JourneysRequest(originId: originId, destinationId: destinationId))
-        JourneysWorker().fetchJourneys(journeysRequest: request.journeysRequest) { (journeys, ridesharings, disruptions) in
+        NavitiaWorker().fetchJourneys(journeysRequest: request.journeysRequest) { (journeys, ridesharings, disruptions) in
             XCTAssert(false)
         }
         

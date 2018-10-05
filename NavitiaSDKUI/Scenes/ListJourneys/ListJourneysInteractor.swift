@@ -24,7 +24,7 @@ protocol ListJourneysDataStore {
 internal class ListJourneysInteractor: ListJourneysBusinessLogic, ListJourneysDataStore {
 
     var presenter: ListJourneysPresentationLogic?
-    var journeysWorker = JourneysWorker()
+    var navitiaWorker = NavitiaWorker()
     var journeys: [Journey]?
     var ridesharingJourneys: [Journey]?
     var disruptions: [Disruption]?
@@ -36,7 +36,7 @@ internal class ListJourneysInteractor: ListJourneysBusinessLogic, ListJourneysDa
     func fetchJourneys(request: ListJourneys.FetchJourneys.Request) {
         presenter?.presentFetchedSearchInformation(journeysRequest: request.journeysRequest)
         
-        journeysWorker.fetchJourneys(journeysRequest: request.journeysRequest) { (journeys, ridesharings, disruptions, notes, context) in
+        navitiaWorker.fetchJourneys(journeysRequest: request.journeysRequest) { (journeys, ridesharings, disruptions, notes, context) in
             self.journeys = journeys
             self.ridesharingJourneys = ridesharings
             self.disruptions = disruptions

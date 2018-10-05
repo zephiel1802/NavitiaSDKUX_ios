@@ -1,5 +1,5 @@
 //
-//  JourneysWorker.swift
+//  NavitiaWorker.swift
 //  NavitiaSDKUI
 //
 //  Copyright © 2018 kisio. All rights reserved.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-internal struct JourneysWorker {
+internal struct NavitiaWorker {
     
     func fetchJourneys(journeysRequest: JourneysRequest, completionHandler: @escaping ([Journey]?, [Journey]?, [Disruption]?, [Note]?, Context?) -> Void) {
         if NavitiaSDKUI.shared.navitiaSDK != nil {

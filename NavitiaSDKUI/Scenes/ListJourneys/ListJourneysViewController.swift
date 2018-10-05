@@ -7,8 +7,6 @@
 
 import UIKit
 
-typealias JourneySolutionViewController = ListJourneysViewController
-
 protocol ListJourneysDisplayLogic: class {
     
     func displayFetchedJourneys(viewModel: ListJourneys.FetchJourneys.ViewModel)
@@ -27,7 +25,6 @@ open class ListJourneysViewController: UIViewController, ListJourneysDisplayLogi
     @IBOutlet weak var switchDepartureArrivalButton: UIButton!
     
     public var journeysRequest: JourneysRequest?
-    
     private var interactor: ListJourneysBusinessLogic?
     private var router: (NSObjectProtocol & ListJourneysViewRoutingLogic & ListJourneysDataPassing)?
     private var viewModel: ListJourneys.FetchJourneys.ViewModel?
@@ -105,6 +102,7 @@ open class ListJourneysViewController: UIViewController, ListJourneysDisplayLogi
         if #available(iOS 11.0, *) {
             journeysCollectionView?.contentInsetAdjustmentBehavior = .always
         }
+        
         registerCollectionView()
     }
     
@@ -160,7 +158,6 @@ open class ListJourneysViewController: UIViewController, ListJourneysDisplayLogi
         dateTimeLabel.attributedText = viewModel.headerInformations.dateTime
         journeysCollectionView.reloadData()
     }
-    
 }
 
 extension ListJourneysViewController: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
@@ -228,7 +225,7 @@ extension ListJourneysViewController: UICollectionViewDataSource, UICollectionVi
                 return cell
             }
         }
-        // Carsharing A FAIRE
+        // Carsharing
         if indexPath.section == 1 {
             // Header
             if indexPath.row == 0 {
@@ -258,8 +255,10 @@ extension ListJourneysViewController: UICollectionViewDataSource, UICollectionVi
         if kind.isEqual(UICollectionElementKindSectionHeader) {
             let cell = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: JourneyHeaderCollectionReusableView.identifier, for: indexPath) as! JourneyHeaderCollectionReusableView
             cell.title = "carpooling".localized(withComment: "Carpooling", bundle: NavitiaSDKUI.shared.bundle)
+            
             return cell
         }
+        
         return UICollectionReusableView()
     }
 
@@ -271,7 +270,7 @@ extension ListJourneysViewController: UICollectionViewDataSource, UICollectionVi
             return CGSize(width: 0, height: 30)
         }
         // Null
-        return CGSize(width: 0, height: 0)
+        return CGSize.zero
     }
     
     public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
@@ -279,7 +278,7 @@ extension ListJourneysViewController: UICollectionViewDataSource, UICollectionVi
             return
         }
         
-        var selector: Selector!
+        var selector: Selector?
         
         if viewModel.loaded {
             if indexPath.section == 0 && viewModel.displayedJourneys.count > indexPath.row {
@@ -287,6 +286,7 @@ extension ListJourneysViewController: UICollectionViewDataSource, UICollectionVi
             } else if indexPath.section == 1 && viewModel.displayedRidesharings.count > indexPath.row - 1 && indexPath.row != 0 {
                 selector = NSSelectorFromString("routeToListRidesharingOffersWithIndexPath:")
             }
+            
             if let router = router, router.responds(to: selector) {
                 router.perform(selector, with: indexPath)
             }
@@ -300,6 +300,7 @@ extension ListJourneysViewController: UICollectionViewDataSource, UICollectionVi
         if #available(iOS 11.0, *) {
             safeAreaWidth += self.journeysCollectionView.safeAreaInsets.left + self.journeysCollectionView.safeAreaInsets.right
         }
+        
         guard let viewModel = viewModel else {
             return CGSize()
         }
@@ -310,24 +311,23 @@ extension ListJourneysViewController: UICollectionViewDataSource, UICollectionVi
         }
         // Journey
         if indexPath.section == 0 {
-            // No journey
             if viewModel.displayedJourneys.count == 0 {
+                // No journey
                 return CGSize(width: self.journeysCollectionView.frame.size.width - safeAreaWidth, height: 35)
-            }
-            // Result
-            if viewModel.displayedJourneys[indexPath.row].walkingInformation == nil {
+            } else if viewModel.displayedJourneys[indexPath.row].walkingInformation == nil {
+                // Result
                 return CGSize(width: self.journeysCollectionView.frame.size.width - safeAreaWidth, height: 97)
             }
+            
             return CGSize(width: self.journeysCollectionView.frame.size.width - safeAreaWidth, height: 130)
         }
         // Carsharing
         if indexPath.section == 1 {
-            // Header
             if indexPath.row == 0 {
+                // Header
                 return CGSize(width: self.journeysCollectionView.frame.size.width - safeAreaWidth, height: 75)
-            }
-            // No journey
-            if indexPath.row == 1 && viewModel.displayedRidesharings.count == 0 {
+            } else if indexPath.row == 1 && viewModel.displayedRidesharings.count == 0 {
+                // No journey
                 return CGSize(width: self.journeysCollectionView.frame.size.width - safeAreaWidth, height: 35)
             }
             // Result

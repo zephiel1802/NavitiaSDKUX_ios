@@ -58,14 +58,14 @@ class StackScrollView: UIScrollView, StackScrollViewProtocol {
         }
         
         if (index > stackSubviews.count - 1) {
-            if let viewBefore = stackSubviews.last {
-                return viewBefore.view.frame.origin.y + viewBefore.view.frame.height + viewBefore.margin.bottom + margin.top
+            if let lastSubview = stackSubviews.last {
+                return lastSubview.view.frame.origin.y + lastSubview.view.frame.height + lastSubview.margin.bottom + margin.top
             }
         }
         
-        let beforeView = stackSubviews[index - 1]
+        let previousView = stackSubviews[index - 1]
         
-        return beforeView.view.frame.origin.y + beforeView.view.frame.height + beforeView.margin.bottom + margin.top
+        return previousView.view.frame.origin.y + previousView.view.frame.height + previousView.margin.bottom + margin.top
     }
     
     private func getViewOriginX(margin: UIEdgeInsets) -> CGFloat {

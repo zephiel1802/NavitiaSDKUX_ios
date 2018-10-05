@@ -82,7 +82,12 @@ class DepartureArrivalStepView: UIView {
     }
 
     override func layoutSubviews() {
-        frame.size.height = contentContainerView.frame.size.height + 10
+        super.layoutSubviews()
+        
+        frame.size.height = contentContainerView.frame.size.height
+        if let superview = superview as? StackScrollView {
+            superview.reloadStack()
+        }
     }
     
     private func setupIcon() {

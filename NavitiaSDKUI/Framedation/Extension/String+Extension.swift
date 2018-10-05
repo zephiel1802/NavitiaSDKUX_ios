@@ -24,7 +24,7 @@ extension String {
         return dateFormatter.date(from: self)
     }
     
-    func toUIColor(defaultColor: UIColor = UIColor.gray) -> UIColor {
+    func toUIColor(defaultColor: UIColor = Configuration.Color.gray) -> UIColor {
         if self == "" {
             return defaultColor
         }

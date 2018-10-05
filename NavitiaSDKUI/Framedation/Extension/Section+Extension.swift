@@ -115,7 +115,7 @@ extension Section {
     func selectLinks(type: String) -> [LinkSchema] {
         var selectLinks = [LinkSchema]()
         
-        guard let links = self.links else {
+        guard let links = links else {
             return selectLinks
         }
         

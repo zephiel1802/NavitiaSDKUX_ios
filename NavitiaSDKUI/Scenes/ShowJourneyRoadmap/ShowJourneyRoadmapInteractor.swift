@@ -27,7 +27,7 @@ protocol ShowJourneyRoadmapDataStore {
 class ShowJourneyRoadmapInteractor: ShowJourneyRoadmapBusinessLogic, ShowJourneyRoadmapDataStore {
     
     var presenter: ShowJourneyRoadmapPresentationLogic?
-    var journeysWorker = JourneysWorker()
+    var journeysWorker = NavitiaWorker()
     var journey: Journey?
     var journeyRidesharing: Journey?
     var disruptions: [Disruption]?

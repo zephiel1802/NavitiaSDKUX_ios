@@ -298,7 +298,7 @@ internal class ShowJourneyRoadmapViewController: UIViewController, ShowJourneyRo
         emissionView.journeyCarbon = emission.journey
         emissionView.carCarbon = emission.car
         
-        scrollView.addSubview(emissionView, margin: UIEdgeInsets(top: 10, left: 0, bottom: 0, right: 0))
+        scrollView.addSubview(emissionView, margin: UIEdgeInsets(top: 5, left: 0, bottom: 0, right: 0))
     }
     
     private func getSectionStep(section: ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionClean) -> UIView? {

@@ -40,7 +40,7 @@ class ListJourneysPresenter: ListJourneysPresentationLogic {
             return displayedJourneys
         }
         
-        for (_, journey) in journeys.enumerated() {
+        for journey in journeys {
             if let displayedJourney = getDisplayedJourney(journey: journey) {
                 displayedJourneys.append(displayedJourney)
             }
@@ -69,8 +69,7 @@ class ListJourneysPresenter: ListJourneysPresentationLogic {
     // MARK: - Displayed Header Informations
     
     internal func getDisplayedHeaderInformations(journeysRequest: JourneysRequest) -> ListJourneys.FetchJourneys.ViewModel.HeaderInformations? {
-        guard
-            let origin = getDisplayedHeaderInformationsOrigin(origin: journeysRequest.originLabel ?? journeysRequest.originId),
+        guard let origin = getDisplayedHeaderInformationsOrigin(origin: journeysRequest.originLabel ?? journeysRequest.originId),
             let destination = getDisplayedHeaderInformationsDestination(destination: journeysRequest.destinationLabel ?? journeysRequest.destinationId) else {
                 return nil
         }
@@ -90,8 +89,7 @@ class ListJourneysPresenter: ListJourneysPresentationLogic {
         }
         
         if let journey = journey {
-            guard
-                let origin = getDisplayedHeaderInformationsOrigin(origin: journeysRequest.originLabel ?? journey.sections?.first?.from?.name),
+            guard let origin = getDisplayedHeaderInformationsOrigin(origin: journeysRequest.originLabel ?? journey.sections?.first?.from?.name),
                 let destination = getDisplayedHeaderInformationsDestination(destination: journeysRequest.destinationLabel ?? journey.sections?.last?.to?.name) else {
                     return nil
             }
@@ -102,6 +100,7 @@ class ListJourneysPresenter: ListJourneysPresentationLogic {
             
             return headerInformations
         }
+        
         let displayedInformations = getDisplayedHeaderInformations(journeysRequest: journeysRequest)
         
         return displayedInformations
@@ -125,7 +124,7 @@ class ListJourneysPresenter: ListJourneysPresentationLogic {
         }
         
         return NSMutableAttributedString().bold(origin,
-                                                color: UIColor(red: 64/255, green: 64/255, blue: 64/255, alpha: 1.0),
+                                                color: Configuration.Color.headerTitle,
                                                 size: 11)
     }
     
@@ -135,15 +134,14 @@ class ListJourneysPresenter: ListJourneysPresentationLogic {
         }
         
         return NSMutableAttributedString().bold(destination,
-                                                color: UIColor(red: 64/255, green: 64/255, blue: 64/255, alpha: 1.0),
+                                                color: Configuration.Color.headerTitle,
                                                 size: 11)
     }
     
     // MARK: - Displayed Journey
     
     private func getDisplayedJourney(journey: Journey?) -> ListJourneys.FetchJourneys.ViewModel.DisplayedJourney? {
-        guard
-            let journey = journey,
+        guard let journey = journey,
             let dateTime = getDisplayedJourneyDateTime(journey: journey),
             let duration = getDisplayedJourneyDuration(journey: journey) else {
                 return nil
@@ -165,8 +163,7 @@ class ListJourneysPresenter: ListJourneysPresentationLogic {
     }
     
     private func getDisplayedJourneyDateTime(journey: Journey) -> String? {
-        guard
-            let departureDateTime = journey.departureDateTime?.toDate(format: Configuration.date)?.toString(format: Configuration.time),
+        guard let departureDateTime = journey.departureDateTime?.toDate(format: Configuration.date)?.toString(format: Configuration.time),
             let arrivalDateTime = journey.arrivalDateTime?.toDate(format: Configuration.date)?.toString(format: Configuration.time) else {
             return nil
         }
@@ -190,8 +187,6 @@ class ListJourneysPresenter: ListJourneysPresentationLogic {
         
         return durationAttributedString
     }
-    
-    
     
     private func getDisplayedJourneyWalkingInformation(journey: Journey) -> NSMutableAttributedString? {
         guard let duration = getDisplayedJourneyWalkingDuration(journey: journey),
@@ -231,6 +226,7 @@ class ListJourneysPresenter: ListJourneysPresentationLogic {
         if walkingDuration > 0 {
             return walkingDuration
         }
+        
         return nil
     }
     
@@ -242,6 +238,7 @@ class ListJourneysPresenter: ListJourneysPresentationLogic {
         if walkingDistance > 999 {
             return String(format: "%@ %@", walkingDistance.toString(format: "%.01f"), "units_km".localized(withComment: "units_km", bundle: NavitiaSDKUI.shared.bundle))
         }
+        
         return String(format: "%@ %@", walkingDistance.toString(), "units_meters".localized(withComment: "meters", bundle: NavitiaSDKUI.shared.bundle))
     }
 }

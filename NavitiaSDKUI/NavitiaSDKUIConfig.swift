@@ -7,7 +7,7 @@
 
 import Foundation
 
-@objc(NavitiaSDKUI) open class NavitiaSDKUI: NSObject {
+@objc open class NavitiaSDKUI: NSObject {
     
     @objc open static let shared = NavitiaSDKUI()
     

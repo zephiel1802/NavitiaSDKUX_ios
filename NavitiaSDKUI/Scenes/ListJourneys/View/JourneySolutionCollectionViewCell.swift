@@ -18,6 +18,15 @@ class JourneySolutionCollectionViewCell: UICollectionViewCell {
     @IBOutlet var durationBottomContraint: NSLayoutConstraint!
     @IBOutlet var durationLeadingContraint: NSLayoutConstraint!
     
+    private var walkingInformationIsHidden: Bool = false {
+        didSet {
+            durationWalkerLabel.isHidden = walkingInformationIsHidden
+            durationTopContraint.isActive = !walkingInformationIsHidden
+            durationBottomContraint.isActive = !walkingInformationIsHidden
+            durationLeadingContraint.isActive = !walkingInformationIsHidden
+        }
+    }
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         
@@ -38,21 +47,13 @@ class JourneySolutionCollectionViewCell: UICollectionViewCell {
         
         dateTime = displayedJourney.dateTime
         
-        //durationJourney = ""
         durationLabel.attributedText = displayedJourney.duration
-        
-        //durationWalker = ""
+
         if let walkingInformation = displayedJourney.walkingInformation {
             durationWalkerLabel.attributedText = walkingInformation
-            durationWalkerLabel.isHidden = false
-            durationTopContraint.isActive = true
-            durationBottomContraint.isActive = true
-            durationLeadingContraint.isActive = true
+            walkingInformationIsHidden = false
         } else {
-            durationWalkerLabel.isHidden = true
-            durationTopContraint.isActive = false
-            durationBottomContraint.isActive = false
-            durationLeadingContraint.isActive = false
+            walkingInformationIsHidden = true
         }
         
         setJourneySummaryView(displayedJourney: displayedJourney, displayedDisruptions: displayedDisruptions)
@@ -80,34 +81,6 @@ class JourneySolutionCollectionViewCell: UICollectionViewCell {
             let attributedText = NSMutableAttributedString().bold(dateTime)
             
             dateTimeLabel.attributedText = attributedText
-        }
-    }
-    
-    public var durationJourney: String? {
-        didSet {
-//            guard let durationJourney = durationJourney else {
-//                return
-//            }
-//
-//            let attributedText = NSMutableAttributedString().bold(durationJourney)
-            // durationLabel.attributedText =
-        }
-    }
-    
-    public var durationWalker: String? {
-        didSet {
-            if let durationWalker = durationWalker {
-                // durationWalkerLabel.attributedText
-                durationWalkerLabel.isHidden = false
-                durationTopContraint.isActive = true
-                durationBottomContraint.isActive = true
-                durationLeadingContraint.isActive = true
-            } else {
-                durationWalkerLabel.isHidden = true
-                durationTopContraint.isActive = false
-                durationBottomContraint.isActive = false
-                durationLeadingContraint.isActive = false
-            }
         }
     }
 }

@@ -14,6 +14,7 @@ extension Journey {
             if let ridesharingDistance = distances?.ridesharing, ridesharingDistance > 0 {
                 return true
             }
+            
             return false
         }
     }

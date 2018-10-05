@@ -28,12 +28,12 @@
 
 #import <Foundation/Foundation.h>
 
-//! Project version number for 
-FOUNDATION_EXPORT double AlamofireVersionNumber;
+//! Project version number for AlamofireObjectMapper.
+FOUNDATION_EXPORT double AlamofireObjectMapperVersionNumber;
 
-//! Project version string for 
-FOUNDATION_EXPORT const unsigned char AlamofireVersionString[];
+//! Project version string for AlamofireObjectMapper.
+FOUNDATION_EXPORT const unsigned char AlamofireObjectMapperVersionString[];
 
-// In this header, you should import all the public headers of your framework using statements like #import <Alamofire/PublicHeader.h>
+// In this header, you should import all the public headers of your framework using statements like #import <AlamofireObjectMapper/PublicHeader.h>
 
 

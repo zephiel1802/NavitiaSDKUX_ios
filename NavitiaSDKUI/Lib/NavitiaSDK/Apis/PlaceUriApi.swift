@@ -70,8 +70,6 @@ open class CoverageLonLatPlacesIdRequestBuilder: NSObject {
         return self
     }
 
-
-
     open func withDebugURL(_ debugURL: String?) -> CoverageLonLatPlacesIdRequestBuilder {
         self.debugURL = debugURL
         return self

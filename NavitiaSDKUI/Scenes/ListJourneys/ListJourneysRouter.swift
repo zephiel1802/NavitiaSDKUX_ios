@@ -74,5 +74,4 @@ internal class ListJourneysRouter: NSObject, ListJourneysViewRoutingLogic, ListJ
         destination.notes = source.notes
         destination.context = source.context
     }
-    
 }

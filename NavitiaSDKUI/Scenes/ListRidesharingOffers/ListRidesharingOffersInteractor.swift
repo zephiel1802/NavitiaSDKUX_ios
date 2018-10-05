@@ -58,5 +58,4 @@ internal class ListRidesharingOffersInteractor: ListRidesharingOffersBusinessLog
         
         return nil
     }
-    
 }

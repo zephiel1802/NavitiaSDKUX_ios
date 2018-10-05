@@ -22,9 +22,9 @@ class ListRidesharingOffersPresenter: ListRidesharingOffersPresentationLogic {
         }
         
         let displayedRidesharingOffers = getRidesharingOffers(ridesharingJourneys: response.ridesharingJourneys)
-        
         let journeySummary = ListRidesharingOffers.GetRidesharingOffers.ViewModel.JourneySummary(duration: duration, sections: sections)
         let viewModel = ListRidesharingOffers.GetRidesharingOffers.ViewModel(journeySummary: journeySummary, displayedRidesharingOffers: displayedRidesharingOffers)
+        
         viewController?.displayRidesharingOffers(viewModel: viewModel)
     }
     
