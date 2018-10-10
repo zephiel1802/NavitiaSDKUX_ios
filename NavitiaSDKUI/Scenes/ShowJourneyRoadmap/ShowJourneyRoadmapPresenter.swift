@@ -71,6 +71,10 @@ class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
         return nil
     }
     
+    private func getRidesharingAccessibility(departureAddress: String, arrivalAddress: String) -> String {
+        return String(format: "ridesharing-offer".localized(bundle: NavitiaSDKUI.shared.bundle), departureAddress, arrivalAddress)
+    }
+    
     private func getRidesharing(journeyRidesharing: Journey?) -> ShowJourneyRoadmap.GetRoadmap.ViewModel.Ridesharing? {
         guard let ridesharingSection = getRidesharingSection(ridesharingJourney: journeyRidesharing) else {
             return nil
@@ -88,6 +92,7 @@ class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
         let seatsCount = ridesharingSection.ridesharingInformations?.seats?.available
         let price = journeyRidesharing?.fare?.total?.value ?? ""
         let deepLink = ridesharingSection.links?[safe: 0]?.href ?? ""
+        let accessibility = getRidesharingAccessibility(departureAddress: departureAddress, arrivalAddress: arrivalAddress)
         let ridesharingViewModel = ShowJourneyRoadmap.GetRoadmap.ViewModel.Ridesharing(network: network,
                                                                                        departure: departure,
                                                                                        driverPictureURL: driverPictureURL,
@@ -99,7 +104,8 @@ class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
                                                                                        arrivalAddress: arrivalAddress,
                                                                                        seatsCount: seatsCount,
                                                                                        price: price,
-                                                                                       deepLink: deepLink)
+                                                                                       deepLink: deepLink,
+                                                                                       accessibility: accessibility)
 
         return ridesharingViewModel
     }
@@ -107,11 +113,15 @@ class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
     // MARK: DepartureViewModel
     
     private func getDepartureViewModel(journey: Journey) -> ShowJourneyRoadmap.GetRoadmap.ViewModel.DepartureArrival? {
-        if let departureName = getDepartureName(journey: journey), let departureTime = getDepartureTime(journey: journey) {
+        if let departureName = getDepartureName(journey: journey),
+            let departureTime = getDepartureTime(journey: journey) {
+            let accessibility = getDepartureAccessibilty(journey: journey)
             let departureViewModel = ShowJourneyRoadmap.GetRoadmap.ViewModel.DepartureArrival(mode: .departure,
                                                                                               information: departureName,
                                                                                               time: departureTime,
-                                                                                              calorie: nil)
+                                                                                              calorie: nil,
+                                                                                              accessibility: accessibility)
+            
             
             return departureViewModel
         }
@@ -131,16 +141,33 @@ class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
         return departureDate.toString(format: Configuration.time)
     }
     
+    private func getDepartureAccessibilty(journey: Journey) -> String {
+        guard let name = journey.sections?.first?.from?.name,
+            let dateTime = journey.departureDateTime?.toDate(format: Configuration.date) else {
+                return ""
+        }
+        
+        let hourComponents = Foundation.Calendar.current.dateComponents([.hour, .minute], from: dateTime)
+        
+        if let hours = DateComponentsFormatter.localizedString(from: hourComponents, unitsStyle: .spellOut) {
+            return String(format: "departure-to".localized(bundle: NavitiaSDKUI.shared.bundle), hours, name)
+        }
+        
+        return ""
+    }
+    
     // MARK: ArrivalViewModel
     
     private func getArrivalViewModel(journey: Journey) -> ShowJourneyRoadmap.GetRoadmap.ViewModel.DepartureArrival? {
         if let arrivalName = getArrivalName(journey: journey),
             let arrivalTime = getArrivalTime(journey: journey),
             let calorie = getCalorie(journey: journey) {
+            let accessibility = String(format: "you-arrived".localized(bundle: NavitiaSDKUI.shared.bundle), arrivalName)
             let arrivalViewModel = ShowJourneyRoadmap.GetRoadmap.ViewModel.DepartureArrival(mode: .arrival,
                                                                                             information: arrivalName,
                                                                                             time: arrivalTime,
-                                                                                            calorie: calorie)
+                                                                                            calorie: calorie,
+                                                                                            accessibility: accessibility)
             
             return arrivalViewModel
         }
@@ -396,7 +423,8 @@ class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
                                                                                         icon: Modes().getModeIcon(section: section),
                                                                                         bssRealTime: getBssRealTime(section: section),
                                                                                         background: getBackground(section: section),
-                                                                                        section: section)
+                                                                                        section: section,
+                                                                                        accessibility: "Bonjour je suis un test")
                 sectionsClean.append(sectionClean)
             }
         }
@@ -407,12 +435,18 @@ class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
     // MARK: Emission
     
     private func getEmission(response: ShowJourneyRoadmap.GetRoadmap.Response) -> ShowJourneyRoadmap.GetRoadmap.ViewModel.Emission? {
-        guard let journeyValue = response.journey.co2Emission?.value, let journeyCarbonSummary = getFormattedEmission(emissionValue: journeyValue) else {
+        guard let journeyValue = response.journey.co2Emission?.value,
+            let journeyCarbonSummary = getFormattedEmission(emissionValue: journeyValue) else {
             return nil
         }
 
         let carCarbonSummary = getFormattedEmission(emissionValue: response.context.carDirectPath?.co2Emission?.value)
-        let emissionViewModel = ShowJourneyRoadmap.GetRoadmap.ViewModel.Emission.init(journey: journeyCarbonSummary, car: carCarbonSummary)
+        
+        var emissionViewModel = ShowJourneyRoadmap.GetRoadmap.ViewModel.Emission.init(journey: journeyCarbonSummary,
+                                                                                      car: carCarbonSummary,
+                                                                                      accessibility: "")
+        let accessibilityLabel = getEmissionAccessibility(emissionViewModel: emissionViewModel)
+        emissionViewModel.accessibility = accessibilityLabel
         
         return emissionViewModel
     }
@@ -430,6 +464,15 @@ class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
         carbonUnit.append(String(format: " %@", "carbon".localized(bundle: NavitiaSDKUI.shared.bundle)))
         
         return (value: emissionValue, unit: carbonUnit)
+    }
+    
+    private func getEmissionAccessibility(emissionViewModel: ShowJourneyRoadmap.GetRoadmap.ViewModel.Emission) -> String {
+        var accessibilityLabel = String(format: "carbon-footprint".localized(bundle: NavitiaSDKUI.shared.bundle), emissionViewModel.journey.value, emissionViewModel.journey.unit)
+        
+        if let car = emissionViewModel.car {
+            accessibilityLabel += String(format: "carbon-comparison-car".localized(bundle: NavitiaSDKUI.shared.bundle), car.value, car.unit)
+        }
+        return accessibilityLabel
     }
     
     // MARK: DisplayInformations

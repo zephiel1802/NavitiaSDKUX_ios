@@ -13,6 +13,7 @@ class RidesharingView: UIView {
     
     @IBOutlet var view: UIView!
     
+    @IBOutlet weak var accessibilityView: UIView!
     @IBOutlet weak var bookButton: UIButton!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var startLabel: UILabel!
@@ -27,6 +28,15 @@ class RidesharingView: UIView {
     @IBOutlet weak var priceLabel: UILabel!
     
     var parentViewController: ShowJourneyRoadmapViewController?
+    var accessiblity: String? {
+        didSet {
+            guard let accessiblity = accessiblity else {
+                return
+            }
+            
+            accessibilityView.accessibilityLabel = accessiblity
+        }
+    }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -114,7 +124,7 @@ class RidesharingView: UIView {
 }
 
 extension RidesharingView {
-
+    
     var network: String? {
         get {
             return titleLabel.text

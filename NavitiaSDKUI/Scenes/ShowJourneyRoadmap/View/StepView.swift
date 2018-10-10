@@ -10,6 +10,7 @@ import UIKit
 class StepView: UIView {
 
     @IBOutlet weak var stackView: UIStackView!
+    @IBOutlet weak var informationsContainerView: UIView!
     @IBOutlet weak var informationsIconLabel: UILabel!
     @IBOutlet var informationsLabel: UILabel!
     @IBOutlet var realTimeView: UIView!

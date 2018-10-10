@@ -24,6 +24,9 @@
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qUZ-mW-zd6">
                                     <rect key="frame" x="50" y="0.0" width="315" height="41"/>
+                                    <accessibility key="accessibilityConfiguration">
+                                        <bool key="isElement" value="NO"/>
+                                    </accessibility>
                                     <attributedString key="attributedText">
                                         <fragment content="Vers Gare de Lyon (Paris) 3 minutes de marche">
                                             <attributes>
@@ -36,12 +39,18 @@
                                 </label>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="L" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="khh-zL-exG">
                                     <rect key="frame" x="0.0" y="2" width="50" height="20.5"/>
+                                    <accessibility key="accessibilityConfiguration">
+                                        <bool key="isElement" value="NO"/>
+                                    </accessibility>
                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                             </subviews>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <accessibility key="accessibilityConfiguration">
+                                <bool key="isElement" value="YES"/>
+                            </accessibility>
                             <constraints>
                                 <constraint firstItem="khh-zL-exG" firstAttribute="top" secondItem="GUb-ds-lCh" secondAttribute="top" constant="2" id="Adh-vU-Ldk"/>
                                 <constraint firstItem="qUZ-mW-zd6" firstAttribute="leading" secondItem="khh-zL-exG" secondAttribute="trailing" id="BGX-B4-Irw"/>
@@ -65,6 +74,9 @@
                                 </imageView>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2 Vélos disponible" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HPl-9W-Cs1">
                                     <rect key="frame" x="59" y="7" width="110.5" height="15"/>
+                                    <accessibility key="accessibilityConfiguration">
+                                        <bool key="isElement" value="NO"/>
+                                    </accessibility>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="15" id="HFM-kO-uW5"/>
                                     </constraints>
@@ -74,6 +86,9 @@
                                 </label>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="L" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7dJ-2L-Q5e">
                                     <rect key="frame" x="0.0" y="4.5" width="50" height="20.5"/>
+                                    <accessibility key="accessibilityConfiguration">
+                                        <bool key="isElement" value="NO"/>
+                                    </accessibility>
                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
@@ -95,18 +110,27 @@
                             <subviews>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JJT-ot-Tpz" userLabel="Details Button">
                                     <rect key="frame" x="50" y="0.0" width="59" height="23"/>
+                                    <accessibility key="accessibilityConfiguration" label="Details">
+                                        <bool key="isElement" value="YES"/>
+                                    </accessibility>
                                     <connections>
                                         <action selector="manageDirectionsDisplay:" destination="iN0-l3-epB" eventType="touchUpInside" id="uHG-bn-jCb"/>
                                     </connections>
                                 </button>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="^" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TkD-gi-FLt" userLabel="Details Arrow Label">
-                                    <rect key="frame" x="102" y="2" width="7" height="18"/>
+                                    <rect key="frame" x="102" y="2.5" width="7" height="18"/>
+                                    <accessibility key="accessibilityConfiguration">
+                                        <bool key="isElement" value="NO"/>
+                                    </accessibility>
                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                     <color key="textColor" red="0.50196078430000002" green="0.50196078430000002" blue="0.50196078430000002" alpha="1" colorSpace="calibratedRGB"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Details" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Btl-Um-b3d" userLabel="Details Label">
-                                    <rect key="frame" x="50" y="2" width="47" height="18"/>
+                                    <rect key="frame" x="50" y="2.5" width="47" height="18"/>
+                                    <accessibility key="accessibilityConfiguration">
+                                        <bool key="isElement" value="NO"/>
+                                    </accessibility>
                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                     <color key="textColor" red="0.50196078430000002" green="0.50196078430000002" blue="0.50196078430000002" alpha="1" colorSpace="calibratedRGB"/>
                                     <nil key="highlightedColor"/>
@@ -153,6 +177,7 @@
                 <outlet property="detailsView" destination="2OL-3J-Boj" id="Ng7-ZD-Kmu"/>
                 <outlet property="directionsContainer" destination="Lrh-MG-FRV" id="TQg-LM-Vpy"/>
                 <outlet property="directionsContainerHeightConstraint" destination="cDC-aJ-RVU" id="obP-Ov-Kqi"/>
+                <outlet property="informationsContainerView" destination="GUb-ds-lCh" id="38B-2o-s28"/>
                 <outlet property="informationsIconLabel" destination="khh-zL-exG" id="hYG-23-sPk"/>
                 <outlet property="informationsLabel" destination="qUZ-mW-zd6" id="Qid-MS-r5z"/>
                 <outlet property="realTimeIconLabel" destination="7dJ-2L-Q5e" id="ixC-U1-1iw"/>

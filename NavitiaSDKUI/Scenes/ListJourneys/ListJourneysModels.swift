@@ -23,8 +23,11 @@ enum ListJourneys {
         struct ViewModel {
             struct HeaderInformations {
                 var dateTime: NSMutableAttributedString
+                var dateTimeDate: Date?
                 var origin: NSMutableAttributedString
+                var originString: String
                 var destination: NSMutableAttributedString
+                var destinationString: String
             }
             
             struct DisplayedJourney {
@@ -32,10 +35,13 @@ enum ListJourneys {
                 var duration: NSMutableAttributedString
                 var walkingInformation: NSMutableAttributedString?
                 var sections: [Section]
+                var accessibility: String?
             }
             
             var loaded: Bool
             var headerInformations: HeaderInformations
+            var accessibilityHeader: String?
+            var accessibilitySwitchButton: String?
             var displayedJourneys: [DisplayedJourney]
             var displayedRidesharings: [DisplayedJourney]
             var disruptions: [Disruption] // Class: SDK Expert

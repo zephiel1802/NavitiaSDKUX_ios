@@ -156,6 +156,8 @@ open class ListJourneysViewController: UIViewController, ListJourneysDisplayLogi
         fromLabel.attributedText = viewModel.headerInformations.origin
         toLabel.attributedText = viewModel.headerInformations.destination
         dateTimeLabel.attributedText = viewModel.headerInformations.dateTime
+        searchView.accessibilityLabel = viewModel.accessibilityHeader
+        switchDepartureArrivalButton.accessibilityLabel = viewModel.accessibilitySwitchButton
         journeysCollectionView.reloadData()
     }
 }
