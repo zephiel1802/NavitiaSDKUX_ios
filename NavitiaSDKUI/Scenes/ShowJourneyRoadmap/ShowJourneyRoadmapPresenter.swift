@@ -395,6 +395,34 @@ class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
         return false
     }
     
+//    private func getAccessibilitySection(section: Section) -> String {
+//        guard let type = section.type else {
+//            return ""
+//        }
+//        switch type {
+//        case .publicTransport,
+//             .onDemandTransport:
+//
+//            // Je fais le public transport
+//            String(format: "%@ %@",
+//                   "take_the".localized(withComment: "Take tke", bundle: NavitiaSDKUI.shared.bundle),
+//                   commercialMode)
+//
+//            return ""
+//        case .streetNetwork,
+//             .bssRent,
+//             .bssPutBack,
+//             .crowFly:
+//
+//
+//
+//
+//            return ""
+//        default:
+//            return ""
+//        }
+//    }
+    
     private func getSectionsClean(response: ShowJourneyRoadmap.GetRoadmap.Response) -> [ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionClean]? {
         var sectionsClean = [ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionClean]()
         
@@ -424,7 +452,7 @@ class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
                                                                                         bssRealTime: getBssRealTime(section: section),
                                                                                         background: getBackground(section: section),
                                                                                         section: section,
-                                                                                        accessibility: "Bonjour je suis un test")
+                                                                                        accessibility: "")//getAccessibilitySection(section: section))
                 sectionsClean.append(sectionClean)
             }
         }

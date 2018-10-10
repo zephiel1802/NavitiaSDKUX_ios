@@ -73,6 +73,35 @@ class PublicTransportStepView: UIView {
         }
     }
     
+    func updateAccessibility() {
+        guard let commercialMode = commercialModeLabel.text, let informations = informationsLabel.text else {
+            return
+        }
+        
+        var accessibilityLabel = String(format: "%@ ", commercialMode)
+        if let code = transportIconLabel.text {
+            accessibilityLabel += String(format: "%@ ", code)
+        }
+        accessibilityLabel += String(format: "%@.", informations)
+        if let waiting = waitingInformationsLabel.text, !waitingContainerView.isHidden {
+            accessibilityLabel += String(format: "%@.", waiting)
+        }
+        for item in stackView.arrangedSubviews {
+            if let itemDisruption = item as? DisruptionItemView,
+                let title = itemDisruption.disruptionTitleLabel.text,
+                let date = itemDisruption.disruptionDate,
+                let information = itemDisruption.disruptionInformation {
+                accessibilityLabel += String(format: "%@ %@ : %@.", title, date, information)
+            } else if let itemOnDemandTransport = item as? OnDemandeItemView,
+                let title = itemOnDemandTransport.titleLabel.text,
+                let information = itemOnDemandTransport.informationLabel.text {
+                accessibilityLabel += String(format: "%@ : %@.", title, information)
+            }
+        }
+        
+        self.accessibilityLabel = accessibilityLabel
+    }
+    
     //MARK: Common
     var icon: String? {
         didSet {
@@ -95,7 +124,7 @@ class PublicTransportStepView: UIView {
                                "take_the".localized(withComment: "Take tke", bundle: NavitiaSDKUI.shared.bundle),
                                commercialMode),
                         size: 15)
-        }
+            }
     }
 
     var informations: (from: String, direction: String)? = nil {

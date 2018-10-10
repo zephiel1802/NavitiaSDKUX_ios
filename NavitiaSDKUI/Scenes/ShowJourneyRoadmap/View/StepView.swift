@@ -67,6 +67,18 @@ class StepView: UIView {
         directionsHidden = true
     }
     
+    private func updateAccessibility() {
+        guard let informations = informationsAttributedString?.string, let type = iconInformations else {
+            return
+        }
+        
+        if type == "ridesharing" || type == "crow_fly" {
+            informationsContainerView.accessibilityLabel = String(format: "%@.", informations)
+        } else {
+            informationsContainerView.accessibilityLabel = String(format: "%@ %@.", "\(type)-noun".localized(bundle: NavitiaSDKUI.shared.bundle), informations)
+        }
+    }
+    
     var enableBackground: Bool = false {
         didSet {
             if enableBackground {
@@ -88,6 +100,8 @@ class StepView: UIView {
             }
             
             informationsIconLabel.attributedText = NSMutableAttributedString().icon(iconInformations, size: 20)
+            
+            updateAccessibility()
         }
     }
     
@@ -95,6 +109,8 @@ class StepView: UIView {
         didSet {
             informationsLabel.attributedText = informationsAttributedString
             informationsLabel.sizeToFit()
+            
+            updateAccessibility()
         }
     }
     

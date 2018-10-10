@@ -247,7 +247,7 @@ internal class ShowJourneyRoadmapViewController: UIViewController, ShowJourneyRo
         publicTransportView.notes = section.notes
         publicTransportView.disruptions = section.disruptionsClean
         publicTransportView.waiting = section.waiting
-        publicTransportView.accessibilityLabel = section.accessibility
+        publicTransportView.updateAccessibility()
         
         return publicTransportView
     }
@@ -286,7 +286,6 @@ internal class ShowJourneyRoadmapViewController: UIViewController, ShowJourneyRo
         stepView.realTimeIcon = section.poi?.stands?.icon
         stepView.realTimeValue = section.poi?.stands?.availability
         stepView.paths = section.path
-        stepView.informationsContainerView.accessibilityLabel = section.accessibility
         
         return stepView
     }
