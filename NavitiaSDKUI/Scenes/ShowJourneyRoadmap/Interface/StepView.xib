@@ -110,9 +110,6 @@
                             <subviews>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JJT-ot-Tpz" userLabel="Details Button">
                                     <rect key="frame" x="50" y="0.0" width="59" height="23"/>
-                                    <accessibility key="accessibilityConfiguration" label="Details">
-                                        <bool key="isElement" value="YES"/>
-                                    </accessibility>
                                     <connections>
                                         <action selector="manageDirectionsDisplay:" destination="iN0-l3-epB" eventType="touchUpInside" id="uHG-bn-jCb"/>
                                     </connections>

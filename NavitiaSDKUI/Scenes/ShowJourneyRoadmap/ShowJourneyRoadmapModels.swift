@@ -136,7 +136,6 @@ enum ShowJourneyRoadmap {
                 var bssRealTime: Bool
                 var background: Bool
                 var section: Section
-                var accessibility: String
             }
             
             struct Emission {
