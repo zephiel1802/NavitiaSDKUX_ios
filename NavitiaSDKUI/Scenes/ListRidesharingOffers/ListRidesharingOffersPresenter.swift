@@ -80,24 +80,24 @@ class ListRidesharingOffersPresenter: ListRidesharingOffersPresentationLogic {
     }
     
     private func getAccessiblityLabel(ridesharingOffer: ListRidesharingOffers.GetRidesharingOffers.ViewModel.DisplayedRidesharingOffer) -> String {
-        var test = String(format: "ridesharing-departure-at".localized(bundle: NavitiaSDKUI.shared.bundle), ridesharingOffer.departure, ridesharingOffer.driverNickname)
+        var accessibilityLabel = String(format: "ridesharing-departure-at".localized(bundle: NavitiaSDKUI.shared.bundle), ridesharingOffer.departure, ridesharingOffer.driverNickname)
         
         if let seatsCount = ridesharingOffer.seatsCount {
-            test += String(format: "ridesharing-places-available".localized(bundle: NavitiaSDKUI.shared.bundle), String(seatsCount))
+            accessibilityLabel += String(format: "ridesharing-places-available".localized(bundle: NavitiaSDKUI.shared.bundle), String(seatsCount))
         }
         
         if ridesharingOffer.price == "0.0" {
-            test += String(format: "%@.", "free".localized(withComment: "Free", bundle: NavitiaSDKUI.shared.bundle))
+            accessibilityLabel += String(format: "%@.", "free".localized(withComment: "Free", bundle: NavitiaSDKUI.shared.bundle))
         } else {
-            test += String(format: "%@.", ridesharingOffer.price)
+            accessibilityLabel += String(format: "%@.", ridesharingOffer.price)
         }
         
         if ridesharingOffer.ratingCount == 0 {
-            test += "no-rating".localized(bundle: NavitiaSDKUI.shared.bundle)
+            accessibilityLabel += "no-rating".localized(bundle: NavitiaSDKUI.shared.bundle)
         } else {
-            test += String(format: "rating-out-of-five".localized(bundle: NavitiaSDKUI.shared.bundle), String(ridesharingOffer.rating))
+            accessibilityLabel += String(format: "rating-out-of-five".localized(bundle: NavitiaSDKUI.shared.bundle), String(ridesharingOffer.rating))
         }
         
-        return test
+        return accessibilityLabel
     }
 }

@@ -79,13 +79,17 @@ class PublicTransportStepView: UIView {
         }
         
         var accessibilityLabel = String(format: "%@ ", commercialMode)
+        
         if let code = transportIconLabel.text {
             accessibilityLabel += String(format: "%@ ", code)
         }
+        
         accessibilityLabel += String(format: "%@.", informations)
+        
         if let waiting = waitingInformationsLabel.text, !waitingContainerView.isHidden {
             accessibilityLabel += String(format: "%@.", waiting)
         }
+        
         for item in stackView.arrangedSubviews {
             if let itemDisruption = item as? DisruptionItemView,
                 let title = itemDisruption.disruptionTitleLabel.text,
@@ -103,6 +107,7 @@ class PublicTransportStepView: UIView {
     }
     
     //MARK: Common
+    
     var icon: String? {
         didSet {
             guard let icon = icon else {

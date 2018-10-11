@@ -336,7 +336,6 @@ internal class ShowJourneyRoadmapViewController: UIViewController, ShowJourneyRo
         ridesharingView.setRatingCount(ridesharing.ratingCount)
         ridesharingView.setRating(ridesharing.rating)
         ridesharingView.accessiblity = ridesharing.accessibility
-     //   ridesharingView.accessiblity = ridesha
     }
     
     // MARKS: Update BSS

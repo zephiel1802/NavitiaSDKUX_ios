@@ -46,13 +46,7 @@ class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
         viewController?.displayMap(viewModel: viewModel)
     }
     
-    // A completer
     func presentBss(response: ShowJourneyRoadmap.FetchBss.Response) {
-//        guard let poi = getPoi(poi: response.poi) else {
-//            return
-//        }
-//
-//        response.notify(poi)
     }
     
     // MARK: Ridesharing
@@ -445,6 +439,7 @@ class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
                                                                                       car: carCarbonSummary,
                                                                                       accessibility: "")
         let accessibilityLabel = getEmissionAccessibility(emissionViewModel: emissionViewModel)
+        
         emissionViewModel.accessibility = accessibilityLabel
         
         return emissionViewModel
@@ -471,6 +466,7 @@ class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
         if let car = emissionViewModel.car {
             accessibilityLabel += String(format: "carbon-comparison-car".localized(bundle: NavitiaSDKUI.shared.bundle), car.value, car.unit)
         }
+        
         return accessibilityLabel
     }
     

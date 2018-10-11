@@ -292,6 +292,7 @@ class ListJourneysPresenter: ListJourneysPresentationLogic {
             } else if let mode = section.mode {
                 modes += String(format: ", %@", "\(mode)-noun".localized(bundle: NavitiaSDKUI.shared.bundle))
             }
+            
             if getDisruption(section: section, disruptions: disruptions) {
                 modes += String(format: " %@", "disrupted".localized(bundle: NavitiaSDKUI.shared.bundle))
             }
@@ -312,6 +313,7 @@ class ListJourneysPresenter: ListJourneysPresentationLogic {
                 }
             }
         }
+        
         return false
     }
 }

@@ -68,7 +68,8 @@ class StepView: UIView {
     }
     
     private func updateAccessibility() {
-        guard let informations = informationsAttributedString?.string, let type = iconInformations else {
+        guard let informations = informationsAttributedString?.string,
+            let type = iconInformations else {
             return
         }
         
