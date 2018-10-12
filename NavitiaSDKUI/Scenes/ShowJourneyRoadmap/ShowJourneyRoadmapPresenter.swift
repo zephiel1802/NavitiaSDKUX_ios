@@ -368,36 +368,58 @@ class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
         return false
     }
     
-    private func getSectionsClean(response: ShowJourneyRoadmap.GetRoadmap.Response) -> [ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionClean]? {
+    private func getSectionClean(section: Section, sectionBefore: Section?, disruptions: [Disruption]?, notes: [Note]?) -> ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionClean? {
+        guard let type = getType(section: section) else {
+            return nil
+        }
+        
+        let sectionClean = ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionClean(type: type,
+                                                                                mode: getMode(section: section),
+                                                                                from: getFrom(section: section),
+                                                                                to: getTo(section: section),
+                                                                                startTime: getDepartureDateTime(section: section),
+                                                                                endTime: getArrivalDateTime(section: section),
+                                                                                actionDescription: getActionDescription(section: section),
+                                                                                duration: getDuration(section: section),
+                                                                                path: getPaths(section: section),
+                                                                                stopDate: getStopDate(section: section),
+                                                                                displayInformations: getDisplayInformations(displayInformations: section.displayInformations),
+                                                                                waiting: getWaiting(sectionBefore: sectionBefore, section: section),
+                                                                                disruptions: getDisruption(section: section, disruptions: disruptions),
+                                                                                disruptionsClean: getDisruptionClean(section: section, disruptions: disruptions),
+                                                                                notes: getNotesOnDemandTransport(section: section, notes: notes),
+                                                                                poi: getPoi(section: section),
+                                                                                icon: Modes().getModeIcon(section: section),
+                                                                                bssRealTime: getBssRealTime(section: section),
+                                                                                background: getBackground(section: section),
+                                                                                section: section)
+        
+        return sectionClean
+    }
+    
+    private func getSectionsClean(response:  ShowJourneyRoadmap.GetRoadmap.Response) -> [ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionClean]? {
         var sectionsClean = [ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionClean]()
         
         if let sections = response.journey.sections {
             for (index, section) in sections.enumerated() {
-                guard let type = getType(section: section) else {
-                    return nil
+                if section.mode == .ridesharing {
+                    if let sectionsRidesharing = response.journeyRidesharing?.sections {
+                        for (index, ridesharingSection) in sectionsRidesharing.enumerated() {
+                            if ridesharingSection.type == .ridesharing {
+                                if let sectionClean = getSectionClean(section: section, sectionBefore: sections[safe: index - 1], disruptions: response.disruptions, notes: response.notes) {
+                                    sectionsClean.append(sectionClean)
+                                }
+                            }
+                            if let sectionClean = getSectionClean(section: ridesharingSection, sectionBefore: sectionsRidesharing[safe: index - 1], disruptions: response.disruptions, notes: response.notes) {
+                                sectionsClean.append(sectionClean)
+                            }
+                        }
+                    }
+                } else {
+                    if let sectionClean = getSectionClean(section: section, sectionBefore: sections[safe: index - 1], disruptions: response.disruptions, notes: response.notes) {
+                        sectionsClean.append(sectionClean)
+                    }
                 }
-                
-                let sectionClean = ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionClean(type: type,
-                                                                                        mode: getMode(section: section),
-                                                                                        from: getFrom(section: section),
-                                                                                        to: getTo(section: section),
-                                                                                        startTime: getDepartureDateTime(section: section),
-                                                                                        endTime: getArrivalDateTime(section: section),
-                                                                                        actionDescription: getActionDescription(section: section),
-                                                                                        duration: getDuration(section: section),
-                                                                                        path: getPaths(section: section),
-                                                                                        stopDate: getStopDate(section: section),
-                                                                                        displayInformations: getDisplayInformations(displayInformations: section.displayInformations),
-                                                                                        waiting: getWaiting(sectionBefore: sections[safe: index - 1], section: section),
-                                                                                        disruptions: getDisruption(section: section, disruptions: response.disruptions),
-                                                                                        disruptionsClean: getDisruptionClean(section: section, disruptions: response.disruptions),
-                                                                                        notes: getNotesOnDemandTransport(section: section, notes: response.notes),
-                                                                                        poi: getPoi(section: section),
-                                                                                        icon: Modes().getModeIcon(section: section),
-                                                                                        bssRealTime: getBssRealTime(section: section),
-                                                                                        background: getBackground(section: section),
-                                                                                        section: section)
-                sectionsClean.append(sectionClean)
             }
         }
         
