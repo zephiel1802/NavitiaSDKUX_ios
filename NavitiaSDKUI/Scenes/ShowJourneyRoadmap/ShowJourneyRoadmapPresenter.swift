@@ -270,7 +270,7 @@ class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
         var durationTemplate = durationString + " " + "units_minutes".localized(bundle: NavitiaSDKUI.shared.bundle)
         if duration == 1 {
             durationTemplate = durationString + " " + "units_minute".localized(bundle: NavitiaSDKUI.shared.bundle)
-        } else if duration == 0 {
+        } else if duration < 60 {
             durationTemplate = "less_than_a".localized(bundle: NavitiaSDKUI.shared.bundle) + " " + "units_minute".localized(bundle: NavitiaSDKUI.shared.bundle)
         }
         
