@@ -172,18 +172,18 @@ class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
     
     // MARK: Section
     
-    private func getType(section: Section) -> ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionClean.ModelType? {
+    private func getType(section: Section) -> ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionModel.ModelType? {
         guard let typeRawValue = section.type?.rawValue,
-            let type = ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionClean.ModelType.init(rawValue: typeRawValue) else {
+            let type = ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionModel.ModelType.init(rawValue: typeRawValue) else {
                 return nil
         }
         
         return type
     }
     
-    private func getMode(section: Section) -> ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionClean.Mode? {
+    private func getMode(section: Section) -> ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionModel.Mode? {
         guard let modeRawValue = section.mode?.rawValue,
-            let mode = ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionClean.Mode.init(rawValue: modeRawValue) else {
+            let mode = ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionModel.Mode.init(rawValue: modeRawValue) else {
                 return nil
         }
         
@@ -305,7 +305,7 @@ class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
         return stopDate
     }
     
-    func getPoi(section: Section?/*poi: Poi?*/) -> ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionClean.Poi? {
+    func getPoi(section: Section?/*poi: Poi?*/) -> ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionModel.Poi? {
         guard let type = section?.type,
             type != .streetNetwork,
             let poi = section?.from?.poi ?? section?.to?.poi,
@@ -321,7 +321,7 @@ class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
         }
         
         let standsViewModel = getStands(stands: poi.stands, type: type)
-        let poiViewModel = ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionClean.Poi(name: name,
+        let poiViewModel = ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionModel.Poi(name: name,
                                                                                     network: network,
                                                                                     lat: lat,
                                                                                     lont: lon,
@@ -332,7 +332,7 @@ class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
         return poiViewModel
     }
     
-    private func getStands(stands: Stands?, type: Section.ModelType) -> ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionClean.Stands? {
+    private func getStands(stands: Stands?, type: Section.ModelType) -> ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionModel.Stands? {
         guard let stands = stands else {
             return nil
         }
@@ -340,13 +340,13 @@ class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
         switch type {
         case .bssRent:
             if let availableBikes = stands.availableBikes {
-                let standsViewModel = ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionClean.Stands(availability: String(format: "bss_bikes_available".localized(bundle: NavitiaSDKUI.shared.bundle), availableBikes),
+                let standsViewModel = ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionModel.Stands(availability: String(format: "bss_bikes_available".localized(bundle: NavitiaSDKUI.shared.bundle), availableBikes),
                                                                                               icon: nil)
                 return standsViewModel
             }
         case .bssPutBack:
             if let availablePlaces = stands.availablePlaces {
-                let standsViewModel = ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionClean.Stands(availability: String(format: "bss_spaces_available".localized(bundle: NavitiaSDKUI.shared.bundle), availablePlaces),
+                let standsViewModel = ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionModel.Stands(availability: String(format: "bss_spaces_available".localized(bundle: NavitiaSDKUI.shared.bundle), availablePlaces),
                                                                                                                    icon: nil)
                 return standsViewModel
             }
@@ -368,12 +368,12 @@ class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
         return false
     }
     
-    private func getSectionClean(section: Section, sectionBefore: Section?, disruptions: [Disruption]?, notes: [Note]?) -> ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionClean? {
+    private func getSectionClean(section: Section, sectionBefore: Section?, disruptions: [Disruption]?, notes: [Note]?) -> ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionModel? {
         guard let type = getType(section: section) else {
             return nil
         }
         
-        let sectionClean = ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionClean(type: type,
+        let sectionClean = ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionModel(type: type,
                                                                                 mode: getMode(section: section),
                                                                                 from: getFrom(section: section),
                                                                                 to: getTo(section: section),
@@ -397,8 +397,8 @@ class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
         return sectionClean
     }
     
-    private func getSectionsClean(response:  ShowJourneyRoadmap.GetRoadmap.Response) -> [ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionClean]? {
-        var sectionsClean = [ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionClean]()
+    private func getSectionsClean(response:  ShowJourneyRoadmap.GetRoadmap.Response) -> [ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionModel]? {
+        var sectionsClean = [ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionModel]()
         
         if let sections = response.journey.sections {
             for (index, section) in sections.enumerated() {
@@ -480,12 +480,12 @@ class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
         return code
     }
     
-    private func getDisplayInformations(displayInformations: VJDisplayInformation?) -> ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionClean.DisplayInformations {
+    private func getDisplayInformations(displayInformations: VJDisplayInformation?) -> ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionModel.DisplayInformations {
         let commercialMode = getCommercialMode(displayInformations: displayInformations)
         let color = getColor(displayInformations: displayInformations)
         let direction = getDirection(displayInformations: displayInformations)
         let code = getTransportCode(displayInformations: displayInformations)
-        let displayInformationsClean = ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionClean.DisplayInformations(commercialMode: commercialMode,
+        let displayInformationsClean = ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionModel.DisplayInformations(commercialMode: commercialMode,
                                                                                                                 color: color,
                                                                                                                 directionTransit: direction,
                                                                                                                 code: code)
@@ -493,8 +493,8 @@ class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
         return displayInformationsClean
     }
     
-    private func getNotesOnDemandTransport(section: Section, notes: [Note]?) -> [ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionClean.Note] {
-        var noteOnDemandTransport = [ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionClean.Note]()
+    private func getNotesOnDemandTransport(section: Section, notes: [Note]?) -> [ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionModel.Note] {
+        var noteOnDemandTransport = [ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionModel.Note]()
         
         guard section.type == .onDemandTransport else {
             return noteOnDemandTransport
@@ -502,7 +502,7 @@ class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
         
         for note in section.selectLinks(type: "notes") {
             if let notes = notes, let id = note.id, let note = section.getNote(notes: notes, id: id) {
-                noteOnDemandTransport.append(ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionClean.Note(content: note.value ?? ""))
+                noteOnDemandTransport.append(ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionModel.Note(content: note.value ?? ""))
             }
         }
         
@@ -511,7 +511,7 @@ class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
             if links.count > 0 {
                 for i in links {
                     if let notes = notes, let id = i.id, let note = section.getNote(notes: notes, id: id) {
-                        noteOnDemandTransport.append(ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionClean.Note(content: note.value ?? ""))
+                        noteOnDemandTransport.append(ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionModel.Note(content: note.value ?? ""))
                     }
                 }
                 return noteOnDemandTransport
@@ -521,7 +521,7 @@ class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
         if let laststopDateTimes = section.stopDateTimes?.last {
             for i in laststopDateTimes.selectLinks(type: "notes") {
                 if let notes = notes, let id = i.id, let note = section.getNote(notes: notes, id: id) {
-                    noteOnDemandTransport.append(ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionClean.Note(content: note.value ?? ""))
+                    noteOnDemandTransport.append(ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionModel.Note(content: note.value ?? ""))
                 }
             }
         }
@@ -540,13 +540,13 @@ class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
         return ""
     }
     
-    func getDisruptionClean(section: Section, disruptions: [Disruption]?) -> [ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionClean.DisruptionClean] {
+    func getDisruptionClean(section: Section, disruptions: [Disruption]?) -> [ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionModel.DisruptionModel] {
         let disruptions = getDisruption(section: section, disruptions: disruptions)
-        var disruptionsClean = [ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionClean.DisruptionClean]()
+        var disruptionsClean = [ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionModel.DisruptionModel]()
 
         for (_, disruption) in disruptions.enumerated() {
             
-            let disruptionClean = ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionClean.DisruptionClean(color: disruption.severity?.color?.toUIColor() ?? UIColor.red,
+            let disruptionClean = ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionModel.DisruptionModel(color: disruption.severity?.color?.toUIColor() ?? UIColor.red,
                                                                                                        icon: Disruption.iconName(of: disruption.level),
                                                                                                        title: disruption.severity?.name ?? "",
                                                                                                        date: getDateDisruption(disruption: disruption),
@@ -689,8 +689,8 @@ class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
         }
     }
     
-    private func getPath(path: Path) -> ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionClean.Path {
-        let path = ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionClean.Path(directionIcon: getDirectionPath(pathDirection: path.direction),
+    private func getPath(path: Path) -> ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionModel.Path {
+        let path = ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionModel.Path(directionIcon: getDirectionPath(pathDirection: path.direction),
                                                                              instruction: getDirectionInstruction(pathDirection: path.direction ?? 0,
                                                                                                                   pathLength: path.length ?? 0,
                                                                                                                   pathInstruction: path.name ?? ""))
@@ -698,8 +698,8 @@ class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
         return path
     }
     
-    private func getPaths(section: Section) -> [ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionClean.Path]? {
-        var newPaths = [ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionClean.Path]()
+    private func getPaths(section: Section) -> [ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionModel.Path]? {
+        var newPaths = [ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionModel.Path]()
         
         guard let paths = section.path, let mode = section.mode else {
             return newPaths

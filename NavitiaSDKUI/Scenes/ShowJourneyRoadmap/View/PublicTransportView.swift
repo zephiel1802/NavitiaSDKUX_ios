@@ -236,7 +236,7 @@ extension PublicTransportView {
         }
     }
     
-    func setDisruptions(disruptions: [ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionClean.DisruptionClean]) {
+    func setDisruptions(disruptions: [ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionModel.DisruptionModel]) {
         if disruptions.count > 0 {
             disruptionCircleLabel.attributedText = NSMutableAttributedString().icon("circle-filled", size: 15)
             disruptionCircleLabel.textColor = UIColor.white

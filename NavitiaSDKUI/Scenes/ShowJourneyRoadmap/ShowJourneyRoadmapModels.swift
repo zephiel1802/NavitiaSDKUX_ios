@@ -48,7 +48,7 @@ enum ShowJourneyRoadmap {
                 var deepLink: String
             }
             
-            struct SectionClean {
+            struct SectionModel {
                 enum ModelType: String {
                     case publicTransport = "public_transport"
                     case streetNetwork = "street_network"
@@ -106,7 +106,7 @@ enum ShowJourneyRoadmap {
                     var content: String
                 }
                 
-                struct DisruptionClean {
+                struct DisruptionModel {
                     var color: UIColor
                     var icon: String
                     var title: String
@@ -127,7 +127,7 @@ enum ShowJourneyRoadmap {
                 var displayInformations: DisplayInformations
                 var waiting: String?
                 var disruptions: [Disruption] // Class: SDK Expert
-                var disruptionsClean: [DisruptionClean]
+                var disruptionsClean: [DisruptionModel]
                 var notes: [Note]
                 var poi: Poi?
                 var icon: String
@@ -143,7 +143,7 @@ enum ShowJourneyRoadmap {
             
             var ridesharing: Ridesharing?
             var departure: DepartureArrival
-            var sections: [SectionClean]?
+            var sections: [SectionModel]?
             var arrival: DepartureArrival
             var emission: Emission
             var disruptions: [Disruption]? // Class: SDK Expert
@@ -168,11 +168,11 @@ enum ShowJourneyRoadmap {
             var lon: Double
             var distance: Int32 = 10
             var id: String
-            var notify: ((ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionClean.Poi) -> ())
+            var notify: ((ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionModel.Poi) -> ())
         }
         struct Response {
             var poi: Poi
-            var notify: ((ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionClean.Poi) -> ())
+            var notify: ((ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionModel.Poi) -> ())
         }
         struct ViewModel {}
     }

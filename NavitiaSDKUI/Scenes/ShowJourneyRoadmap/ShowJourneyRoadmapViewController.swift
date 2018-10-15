@@ -35,8 +35,8 @@ internal class ShowJourneyRoadmapViewController: UIViewController, ShowJourneyRo
     // Bss Real Time
     var animationTimer: Timer?
     var standBikeTime: Timer?
-    var bssTest = [(poi: ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionClean.Poi,
-                    notify: ((ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionClean.Poi) -> ()))]()
+    var bssTest = [(poi: ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionModel.Poi,
+                    notify: ((ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionModel.Poi) -> ()))]()
     
     var display = false
     
@@ -224,7 +224,7 @@ internal class ShowJourneyRoadmapViewController: UIViewController, ShowJourneyRo
         scrollView.addSubview(departureArrivalStepView, margin: UIEdgeInsets(top: 5, left: 10, bottom: 5, right: 10))
     }
     
-    private func displaySteps(sections: [ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionClean]) {
+    private func displaySteps(sections: [ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionModel]) {
         for (_, section) in sections.enumerated() {
             if let sectionStep = getSectionStep(section: section) {
                 scrollView.addSubview(sectionStep, margin: UIEdgeInsets(top: 5, left: 10, bottom: 5, right: 10))
@@ -232,7 +232,7 @@ internal class ShowJourneyRoadmapViewController: UIViewController, ShowJourneyRo
         }
     }
     
-    private func getPublicTransportStepView(section: ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionClean) -> UIView {
+    private func getPublicTransportStepView(section: ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionModel) -> UIView {
         let publicTransportView = PublicTransportView(frame: CGRect(x: 0, y: 0, width: 0, height: 100))
         
         publicTransportView.modeString = section.icon
@@ -254,7 +254,7 @@ internal class ShowJourneyRoadmapViewController: UIViewController, ShowJourneyRo
         return publicTransportView
     }
     
-    private func getInformationsStepView(section: ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionClean) -> NSAttributedString {
+    private func getInformationsStepView(section: ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionModel) -> NSAttributedString {
         let informations = NSMutableAttributedString()
         
         if let actionDescription = section.actionDescription {
@@ -278,7 +278,7 @@ internal class ShowJourneyRoadmapViewController: UIViewController, ShowJourneyRo
         return informations
     }
     
-    private func getStepView(section: ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionClean) -> UIView {
+    private func getStepView(section: ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionModel) -> UIView {
         let stepView = StepView.instanceFromNib()
         
         stepView.frame = scrollView.bounds
@@ -301,7 +301,7 @@ internal class ShowJourneyRoadmapViewController: UIViewController, ShowJourneyRo
         scrollView.addSubview(emissionView, margin: UIEdgeInsets(top: 5, left: 0, bottom: 0, right: 0))
     }
     
-    private func getSectionStep(section: ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionClean) -> UIView? {
+    private func getSectionStep(section: ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionModel) -> UIView? {
         if section.mode == .ridesharing {
             updateRidesharingView(section.section)
         }
