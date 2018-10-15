@@ -22,7 +22,7 @@ class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
     
     func presentRoadmap(response: ShowJourneyRoadmap.GetRoadmap.Response) {
         guard let departure = getDepartureViewModel(journey: response.journey),
-            let sectionsClean = getSectionsClean(response: response),
+            let sectionsClean = getSectionModels(response: response),
             let arrival = getArrivalViewModel(journey: response.journey),
             let emission = getEmission(response: response) else {
             return
@@ -368,7 +368,7 @@ class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
         return false
     }
     
-    private func getSectionClean(section: Section, sectionBefore: Section?, disruptions: [Disruption]?, notes: [Note]?) -> ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionModel? {
+    private func getSectionModel(section: Section, sectionBefore: Section?, disruptions: [Disruption]?, notes: [Note]?) -> ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionModel? {
         guard let type = getType(section: section) else {
             return nil
         }
@@ -397,7 +397,7 @@ class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
         return sectionClean
     }
     
-    private func getSectionsClean(response:  ShowJourneyRoadmap.GetRoadmap.Response) -> [ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionModel]? {
+    private func getSectionModels(response:  ShowJourneyRoadmap.GetRoadmap.Response) -> [ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionModel]? {
         var sectionsClean = [ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionModel]()
         
         if let sections = response.journey.sections {
@@ -406,17 +406,17 @@ class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
                     if let sectionsRidesharing = response.journeyRidesharing?.sections {
                         for (index, ridesharingSection) in sectionsRidesharing.enumerated() {
                             if ridesharingSection.type == .ridesharing {
-                                if let sectionClean = getSectionClean(section: section, sectionBefore: sections[safe: index - 1], disruptions: response.disruptions, notes: response.notes) {
+                                if let sectionClean = getSectionModel(section: section, sectionBefore: sections[safe: index - 1], disruptions: response.disruptions, notes: response.notes) {
                                     sectionsClean.append(sectionClean)
                                 }
                             }
-                            if let sectionClean = getSectionClean(section: ridesharingSection, sectionBefore: sectionsRidesharing[safe: index - 1], disruptions: response.disruptions, notes: response.notes) {
+                            if let sectionClean = getSectionModel(section: ridesharingSection, sectionBefore: sectionsRidesharing[safe: index - 1], disruptions: response.disruptions, notes: response.notes) {
                                 sectionsClean.append(sectionClean)
                             }
                         }
                     }
                 } else {
-                    if let sectionClean = getSectionClean(section: section, sectionBefore: sections[safe: index - 1], disruptions: response.disruptions, notes: response.notes) {
+                    if let sectionClean = getSectionModel(section: section, sectionBefore: sections[safe: index - 1], disruptions: response.disruptions, notes: response.notes) {
                         sectionsClean.append(sectionClean)
                     }
                 }
