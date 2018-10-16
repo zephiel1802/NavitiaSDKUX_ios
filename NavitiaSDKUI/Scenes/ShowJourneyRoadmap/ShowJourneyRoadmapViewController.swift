@@ -258,7 +258,7 @@ internal class ShowJourneyRoadmapViewController: UIViewController, ShowJourneyRo
         let informations = NSMutableAttributedString()
         
         if let actionDescription = section.actionDescription {
-            if section.mode == .ridesharing {
+            if section.type == .ridesharing {
                 informations.append(NSMutableAttributedString().normal(String(format: "%@ ", actionDescription), color: Configuration.Color.black, size: 15))
                 informations.append(NSMutableAttributedString().bold(String(format: "%@ ", section.from), color: Configuration.Color.black, size: 15))
                 informations.append(NSMutableAttributedString().normal(String(format: "%@ ", "to".localized(bundle: NavitiaSDKUI.shared.bundle)), color: Configuration.Color.black, size: 15))
@@ -302,9 +302,6 @@ internal class ShowJourneyRoadmapViewController: UIViewController, ShowJourneyRo
     }
     
     private func getSectionStep(section: ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionModel) -> UIView? {
-        if section.mode == .ridesharing {
-            updateRidesharingView(section.section)
-        }
         
         switch section.type {
         case .publicTransport,
@@ -314,6 +311,9 @@ internal class ShowJourneyRoadmapViewController: UIViewController, ShowJourneyRo
              .bssRent,
              .bssPutBack,
              .crowFly:
+            return getStepView(section: section)
+        case .ridesharing:
+            updateRidesharingView(section.section)
             return getStepView(section: section)
         default:
             return nil

@@ -101,6 +101,8 @@ class Modes {
             return "bus-tad"
         case .park:
             return "car"
+        case .ridesharing:
+            return "ridesharing"
         default:
             return section?.mode?.rawValue ?? ""
         }

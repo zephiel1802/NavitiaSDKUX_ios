@@ -227,11 +227,7 @@ class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
             }
         }
         
-        guard let mode = section.mode else {
-            return nil
-        }
-        
-        if mode == .ridesharing {
+        if type == .ridesharing {
             return "take_the_ridesharing".localized(bundle: NavitiaSDKUI.shared.bundle)
         } else {
             return "to_with_uppercase".localized(bundle: NavitiaSDKUI.shared.bundle)
@@ -243,11 +239,14 @@ class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
             return nil
         }
         
-        if section.type != .streetNetwork && section.type != .waiting {
+        var template = ""
+        
+        if section.type == .ridesharing {
+            template = getRidesharingDuration(section: section)
+        } else if section.type != .streetNetwork && section.type != .waiting {
             return nil
         }
-        
-        var template = ""
+
         if let mode = section.mode {
             switch mode {
             case .walking:
@@ -256,8 +255,6 @@ class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
                 template = "a_time_drive".localized(bundle: NavitiaSDKUI.shared.bundle)
             case .bike, .bss:
                 template = "a_time_ride".localized(bundle: NavitiaSDKUI.shared.bundle)
-            case .ridesharing:
-                template = String(format: "%@ %@", "about".localized(bundle: NavitiaSDKUI.shared.bundle), "a_time_drive".localized(bundle: NavitiaSDKUI.shared.bundle))
             default:
                 return nil
             }
@@ -275,6 +272,12 @@ class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
         }
         
         return String(format: template, durationTemplate)
+    }
+    
+    private func getRidesharingDuration(section: Section) -> String {
+        let template = String(format: "%@ %@", "about".localized(bundle: NavitiaSDKUI.shared.bundle), "a_time_drive".localized(bundle: NavitiaSDKUI.shared.bundle))
+        
+        return template
     }
     
     private func getWaiting(sectionBefore: Section?, section: Section) -> String? {
@@ -405,11 +408,6 @@ class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
                 if section.mode == .ridesharing {
                     if let sectionsRidesharing = response.journeyRidesharing?.sections {
                         for (index, ridesharingSection) in sectionsRidesharing.enumerated() {
-                            if ridesharingSection.type == .ridesharing {
-                                if let sectionClean = getSectionModel(section: section, sectionBefore: sections[safe: index - 1], disruptions: response.disruptions, notes: response.notes) {
-                                    sectionsClean.append(sectionClean)
-                                }
-                            }
                             if let sectionClean = getSectionModel(section: ridesharingSection, sectionBefore: sectionsRidesharing[safe: index - 1], disruptions: response.disruptions, notes: response.notes) {
                                 sectionsClean.append(sectionClean)
                             }
