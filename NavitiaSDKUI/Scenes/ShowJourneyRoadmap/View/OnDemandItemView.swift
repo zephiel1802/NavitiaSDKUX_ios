@@ -19,7 +19,7 @@ class OnDemandItemView: UIView {
     }
     
     class func instanceFromNib() -> OnDemandItemView {
-        return UINib(nibName: "OnDemandeItemView", bundle: NavitiaSDKUI.shared.bundle).instantiate(withOwner: nil, options: nil)[0] as! OnDemandItemView
+        return UINib(nibName: identifier, bundle: NavitiaSDKUI.shared.bundle).instantiate(withOwner: nil, options: nil)[0] as! OnDemandItemView
     }
     
     override func awakeFromNib() {
