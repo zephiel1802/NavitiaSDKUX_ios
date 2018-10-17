@@ -17,8 +17,6 @@ class DisruptionItemView: UIView {
     @IBOutlet var disruptionInformationBottomConstraint: NSLayoutConstraint!
     @IBOutlet var disruptionDateBottomConstraint: NSLayoutConstraint!
     
-    var publicTransportView: PublicTransportView?
-    
     var disruptionInformation: String? {
         didSet {
             guard let disruptionInformation = disruptionInformation else {
@@ -71,12 +69,6 @@ class DisruptionItemView: UIView {
         super.awakeFromNib()
         
         disruptionInformationHidden = true
-    }
-    
-    override func layoutSubviews() {
-        super.layoutSubviews()
-
-        publicTransportView?.layoutSubviews()
     }
     
     func setIcon(icon: String, color: UIColor) {

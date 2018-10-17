@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="uos-wP-qKq">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="uos-wP-qKq">
     <device id="retina4_7" orientation="landscape">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
-        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -68,7 +67,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="L" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5xk-kW-GgU">
-                                                <rect key="frame" x="0.0" y="9" width="40" height="20.5"/>
+                                                <rect key="frame" x="0.0" y="9.5" width="40" height="20.5"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
@@ -207,13 +206,13 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="b4l-6W-DHd">
-                                <rect key="frame" x="0.0" y="32" width="667" height="171.5"/>
+                                <rect key="frame" x="0.0" y="32" width="667" height="137"/>
                                 <connections>
                                     <outlet property="delegate" destination="z4Z-Pd-Lif" id="ubg-bG-db4"/>
                                 </connections>
                             </mapView>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="X3m-G1-NsD" customClass="StackScrollView" customModule="NavitiaSDKUI" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="203.5" width="667" height="171.5"/>
+                                <rect key="frame" x="0.0" y="169" width="667" height="206"/>
                                 <color key="backgroundColor" red="0.93725490196078431" green="0.93725490196078431" blue="0.93725490196078431" alpha="1" colorSpace="calibratedRGB"/>
                             </scrollView>
                         </subviews>
@@ -225,7 +224,7 @@
                             <constraint firstItem="b4l-6W-DHd" firstAttribute="top" secondItem="HfL-JU-5ET" secondAttribute="top" id="NHL-vB-r31"/>
                             <constraint firstAttribute="trailing" secondItem="X3m-G1-NsD" secondAttribute="trailing" id="PjE-DR-yLn"/>
                             <constraint firstAttribute="trailing" secondItem="b4l-6W-DHd" secondAttribute="trailing" id="kaR-ob-xCB"/>
-                            <constraint firstItem="X3m-G1-NsD" firstAttribute="height" secondItem="b4l-6W-DHd" secondAttribute="height" id="lgg-P3-0wY"/>
+                            <constraint firstItem="X3m-G1-NsD" firstAttribute="height" secondItem="b4l-6W-DHd" secondAttribute="height" multiplier="1.5" id="lgg-P3-0wY"/>
                             <constraint firstItem="X3m-G1-NsD" firstAttribute="top" secondItem="b4l-6W-DHd" secondAttribute="bottom" id="rnl-1d-6iL"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="HfL-JU-5ET"/>
