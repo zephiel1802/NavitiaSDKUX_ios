@@ -235,7 +235,7 @@ internal class ShowJourneyRoadmapViewController: UIViewController, ShowJourneyRo
     private func getPublicTransportStepView(section: ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionClean) -> UIView {
         let publicTransportView = PublicTransportStepView.instanceFromNib()
         
-        publicTransportView.bounds = view.bounds
+        publicTransportView.frame = view.bounds
         publicTransportView.icon = section.icon
         publicTransportView.transport = (code: section.displayInformations.code, color: section.displayInformations.color)
         publicTransportView.commercialMode = section.displayInformations.commercialMode

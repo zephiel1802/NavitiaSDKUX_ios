@@ -64,6 +64,7 @@ class PublicTransportStepView: UIView {
         initStationStackView()
         addShadow(opacity: 0.28)
     }
+    
     override func layoutSubviews() {
         super.layoutSubviews()
         
@@ -73,7 +74,8 @@ class PublicTransportStepView: UIView {
         }
     }
     
-    //MARK: Common
+    // MARK: Common
+    
     var icon: String? {
         didSet {
             guard let icon = icon else {
@@ -115,22 +117,24 @@ class PublicTransportStepView: UIView {
         }
     }
 
-    //MARK: Network
+    // MARK: Network
+    
     var network: String? = nil {
         didSet {
             guard let network = network else {
                 networkContainerView.isHidden = true
+                
                 return
             }
 
             networkContainerView.isHidden = false
             networkLabel.attributedText = NSMutableAttributedString()
-                .semiBold("Réseau : ", color: Configuration.Color.darkerGray, size: 12)
                 .semiBold(network, color: Configuration.Color.main, size: 12)
         }
     }
 
-    //MARK: OnDemandeTransport
+    // MARK: OnDemandeTransport
+    
     var notes: [ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionClean.Note]? = nil {
         didSet {
             guard let onDemandTransports = notes else {
@@ -138,15 +142,16 @@ class PublicTransportStepView: UIView {
             }
 
             for onDemandTransport in onDemandTransports {
-                let onDemandeItemView = OnDemandeItemView.instanceFromNib()
+                let onDemandItemView = OnDemandItemView.instanceFromNib()
 
-                onDemandeItemView.setInformation(text: onDemandTransport.content)
-                stackView.insertArrangedSubview(onDemandeItemView, at: 2)
+                onDemandItemView.setInformation(text: onDemandTransport.content)
+                stackView.insertArrangedSubview(onDemandItemView, at: 2)
             }
         }
     }
 
-    //MARK: Disruption
+    // MARK: Disruption
+    
     var disruptions: [ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionClean.DisruptionClean]? = nil {
         didSet {
             guard let disruptions = disruptions, disruptions.count > 0 else {
@@ -180,7 +185,7 @@ class PublicTransportStepView: UIView {
         }
     }
 
-    //MARK: Waiting
+    // MARK: Waiting
 
     var waiting: String? = nil {
         didSet {
@@ -195,8 +200,7 @@ class PublicTransportStepView: UIView {
         }
     }
 
-
-    //MARK: Public Transport
+    // MARK: Public Transport
 
     private func initStationStackView() {
         stationStackView = UIStackView(frame: publicTransportStationsStackContainerView.bounds)
@@ -235,6 +239,7 @@ class PublicTransportStepView: UIView {
         didSet {
             guard let code = transport?.code, let color = transport?.color else {
                 transportIconView.isHidden = true
+                
                 return
             }
 
@@ -245,7 +250,6 @@ class PublicTransportStepView: UIView {
             publicTransportPinFromView.backgroundColor = color
             publicTransportPinToView.backgroundColor = color
             publicTransportLineView.backgroundColor = color
-
         }
     }
 

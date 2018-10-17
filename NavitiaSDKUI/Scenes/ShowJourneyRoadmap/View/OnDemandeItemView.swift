@@ -7,7 +7,7 @@
 
 import UIKit
 
-class OnDemandeItemView: UIView {
+class OnDemandItemView: UIView {
     
     @IBOutlet weak var phoneIconLabel: UILabel!
     @IBOutlet weak var titleLabel: UILabel!
@@ -18,8 +18,8 @@ class OnDemandeItemView: UIView {
         return String(describing: self)
     }
     
-    class func instanceFromNib() -> OnDemandeItemView {
-        return UINib(nibName: "OnDemandeItemView", bundle: NavitiaSDKUI.shared.bundle).instantiate(withOwner: nil, options: nil)[0] as! OnDemandeItemView
+    class func instanceFromNib() -> OnDemandItemView {
+        return UINib(nibName: "OnDemandeItemView", bundle: NavitiaSDKUI.shared.bundle).instantiate(withOwner: nil, options: nil)[0] as! OnDemandItemView
     }
     
     override func awakeFromNib() {
@@ -32,7 +32,7 @@ class OnDemandeItemView: UIView {
     }
 }
 
-extension OnDemandeItemView {
+extension OnDemandItemView {
 
     func setInformation(text: String) {
         let attri = NSMutableAttributedString().normal(text, color: Configuration.Color.black, size: 12)
@@ -49,7 +49,7 @@ extension OnDemandeItemView {
                         ], range: range)
                     self.phoneNumber = phoneNumber
                     
-                    let tap = UITapGestureRecognizer(target: self, action: #selector(OnDemandeItemView.callNumber))
+                    let tap = UITapGestureRecognizer(target: self, action: #selector(OnDemandItemView.callNumber))
                     informationLabel.isUserInteractionEnabled = true
                     informationLabel.addGestureRecognizer(tap)
                 }

@@ -291,7 +291,6 @@
 		848CFDE921512F520022A4F2 /* HorizontalSeparator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848CFDE821512F510022A4F2 /* HorizontalSeparator.swift */; };
 		848CFDEF21512F6B0022A4F2 /* HorizontalSeparator.xib in Resources */ = {isa = PBXBuildFile; fileRef = 848CFDED21512F6B0022A4F2 /* HorizontalSeparator.xib */; };
 		848CFDF12151376C0022A4F2 /* OnDemandeItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848CFDF02151376B0022A4F2 /* OnDemandeItemView.swift */; };
-		848CFDF3215137740022A4F2 /* OnDemandeItemView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 848CFDF2215137740022A4F2 /* OnDemandeItemView.xib */; };
 		8490376B2161FBEF00472FD6 /* StepView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8490376A2161FBEF00472FD6 /* StepView.swift */; };
 		8490376D2161FBF400472FD6 /* StepView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8490376C2161FBF400472FD6 /* StepView.xib */; };
 		8490A6D52084D2C700F7CFA1 /* NavitiaSDKUserDefaultsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8490A6D42084D2C700F7CFA1 /* NavitiaSDKUserDefaultsManager.swift */; };
@@ -300,6 +299,7 @@
 		849794CA213D686A00F0EB5C /* ListJourneysPresenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849794C9213D686A00F0EB5C /* ListJourneysPresenterTests.swift */; };
 		84A790FB2121B0E40000C82F /* EmissionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A790FA2121B0E40000C82F /* EmissionView.swift */; };
 		84A790FD2121B0E90000C82F /* EmissionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84A790FC2121B0E90000C82F /* EmissionView.xib */; };
+		84AE238721775B4B00439EE0 /* OnDemandItemView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84AE238621775B4B00439EE0 /* OnDemandItemView.xib */; };
 		84AFDB8F21417E6600858D42 /* ShowJourneyRoadmapPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AFDB8921417E6600858D42 /* ShowJourneyRoadmapPresenter.swift */; };
 		84AFDB9021417E6600858D42 /* ShowJourneyRoadmapPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AFDB8921417E6600858D42 /* ShowJourneyRoadmapPresenter.swift */; };
 		84AFDB9321417E6600858D42 /* ShowJourneyRoadmapRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AFDB8B21417E6600858D42 /* ShowJourneyRoadmapRouter.swift */; };
@@ -620,7 +620,6 @@
 		848CFDE821512F510022A4F2 /* HorizontalSeparator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HorizontalSeparator.swift; sourceTree = "<group>"; };
 		848CFDED21512F6B0022A4F2 /* HorizontalSeparator.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HorizontalSeparator.xib; sourceTree = "<group>"; };
 		848CFDF02151376B0022A4F2 /* OnDemandeItemView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnDemandeItemView.swift; sourceTree = "<group>"; };
-		848CFDF2215137740022A4F2 /* OnDemandeItemView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OnDemandeItemView.xib; sourceTree = "<group>"; };
 		8490376A2161FBEF00472FD6 /* StepView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StepView.swift; sourceTree = "<group>"; };
 		8490376C2161FBF400472FD6 /* StepView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StepView.xib; sourceTree = "<group>"; };
 		8490A6D42084D2C700F7CFA1 /* NavitiaSDKUserDefaultsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavitiaSDKUserDefaultsManager.swift; sourceTree = "<group>"; };
@@ -630,6 +629,7 @@
 		849794C9213D686A00F0EB5C /* ListJourneysPresenterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListJourneysPresenterTests.swift; sourceTree = "<group>"; };
 		84A790FA2121B0E40000C82F /* EmissionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmissionView.swift; sourceTree = "<group>"; };
 		84A790FC2121B0E90000C82F /* EmissionView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EmissionView.xib; sourceTree = "<group>"; };
+		84AE238621775B4B00439EE0 /* OnDemandItemView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OnDemandItemView.xib; sourceTree = "<group>"; };
 		84AFDB8921417E6600858D42 /* ShowJourneyRoadmapPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowJourneyRoadmapPresenter.swift; sourceTree = "<group>"; };
 		84AFDB8B21417E6600858D42 /* ShowJourneyRoadmapRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowJourneyRoadmapRouter.swift; sourceTree = "<group>"; };
 		84AFDB8C21417E6600858D42 /* ShowJourneyRoadmapModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowJourneyRoadmapModels.swift; sourceTree = "<group>"; wrapsLines = 0; };
@@ -1091,9 +1091,9 @@
 		8451DABB2065175000CFA1E4 /* Interface */ = {
 			isa = PBXGroup;
 			children = (
+				84AE238621775B4B00439EE0 /* OnDemandItemView.xib */,
 				845B4EF221675DEA009CCF12 /* PublicTransportStepView.xib */,
 				8490376C2161FBF400472FD6 /* StepView.xib */,
-				848CFDF2215137740022A4F2 /* OnDemandeItemView.xib */,
 				848CFDED21512F6B0022A4F2 /* HorizontalSeparator.xib */,
 				84A790FC2121B0E90000C82F /* EmissionView.xib */,
 				846B185020775479005D4A9B /* DepartureArrivalStepView.xib */,
@@ -1364,6 +1364,7 @@
 				8471D38320809EAD000C9125 /* JourneySolutionView.xib in Resources */,
 				84A790FD2121B0E90000C82F /* EmissionView.xib in Resources */,
 				8433F39C207F89C0007DBBCE /* RidesharingView.xib in Resources */,
+				84AE238721775B4B00439EE0 /* OnDemandItemView.xib in Resources */,
 				84BC297E207E66CC0073F198 /* StationsView.xib in Resources */,
 				8451DAC32065338B00CFA1E4 /* Journey.storyboard in Resources */,
 				8422B45D206A2AE00097E6C9 /* RidesharingInformationCollectionViewCell.xib in Resources */,
@@ -1379,7 +1380,6 @@
 				848CFDEF21512F6B0022A4F2 /* HorizontalSeparator.xib in Resources */,
 				8454D44E20692CA200C97D2F /* SDKIcons.ttf in Resources */,
 				8433F3A2207FAF23007DBBCE /* AlertView.xib in Resources */,
-				848CFDF3215137740022A4F2 /* OnDemandeItemView.xib in Resources */,
 				84339A7E206CC5E200F2CB65 /* JourneyEmptySolutionCollectionViewCell.xib in Resources */,
 				317D6C78211091CE00F36242 /* StepByStepItemView.xib in Resources */,
 				8451DA63206506ED00CFA1E4 /* Localizable.strings in Resources */,
