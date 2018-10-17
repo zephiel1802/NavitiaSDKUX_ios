@@ -161,11 +161,11 @@ class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
     }
     
     private func getCalorie(journey: Journey) -> String? {
-        guard let walkingDistance = journey.distances?.walking, let bikeDistance = journey.distances?.bike else {
+        guard let walkingDuration = journey.durations?.walking, let bikeDuration = journey.durations?.bike else {
             return nil
         }
         
-        let calorie = (Double(walkingDistance) * Configuration.caloriePerSecWalking + Double(bikeDistance) * Configuration.caloriePerSecBike).rounded()
+        let calorie = (Double(walkingDuration) * Configuration.caloriePerSecWalking + Double(bikeDuration) * Configuration.caloriePerSecBike).rounded()
         
         return String(format: "%d", Int(calorie))
     }
