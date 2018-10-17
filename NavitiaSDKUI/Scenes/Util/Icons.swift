@@ -87,7 +87,7 @@ class Modes {
         case .publicTransport:
             return getPhysicalMode(section: section).lowercased()
         case .transfer:
-            return section?.transferType?.rawValue ?? ""
+            return "walking"
         case .waiting:
             return section?.type?.rawValue ?? ""
         case .streetNetwork:

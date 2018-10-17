@@ -243,6 +243,8 @@ class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
         
         if section.type == .ridesharing {
             template = String(format: "%@ %@", "about".localized(bundle: NavitiaSDKUI.shared.bundle), "a_time_drive".localized(bundle: NavitiaSDKUI.shared.bundle))
+        } else if section.type == .transfer {
+            template = "a_time_walk".localized(bundle: NavitiaSDKUI.shared.bundle)
         } else if section.type != .streetNetwork && section.type != .waiting {
             return nil
         }
@@ -356,13 +358,23 @@ class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
     }
     
     private func getBackground(section: Section) -> Bool {
-        guard let mode = section.mode else {
-            return true
+        if let mode = section.mode {
+            switch mode {
+            case .ridesharing,
+                 .carnopark:
+                return true
+            default:
+                return false
+            }
+        } else if let type = section.type {
+            switch type {
+            case .transfer:
+                return false
+            default:
+                return true
+            }
         }
         
-        if mode == .ridesharing || mode == .carnopark {
-            return true
-        }
         return false
     }
     
