@@ -143,7 +143,7 @@ class StepView: UIView {
         }
     }
     
-    var paths: [ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionClean.Path]? {
+    var paths: [ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionModel.Path]? {
         didSet {
             guard let paths = paths, paths.count > 0 else {
                 return
