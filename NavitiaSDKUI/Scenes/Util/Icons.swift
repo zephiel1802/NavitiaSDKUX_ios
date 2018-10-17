@@ -77,8 +77,7 @@ let iconFontCodes:[String: String] = [
     "bus-tad": "\u{e911}",
     "taxi-tad": "\u{e910}",
     "car-tad": "\u{e90e}",
-    "carpark": "\u{e914}",
-    
+    "carpark": "\u{e914}"
 ]
 
 class Modes {
