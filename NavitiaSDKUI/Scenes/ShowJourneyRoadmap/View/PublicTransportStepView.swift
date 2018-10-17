@@ -135,7 +135,7 @@ class PublicTransportStepView: UIView {
 
     // MARK: OnDemandeTransport
     
-    var notes: [ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionClean.Note]? = nil {
+    var notes: [ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionModel.Note]? = nil {
         didSet {
             guard let onDemandTransports = notes else {
                 return
@@ -152,7 +152,7 @@ class PublicTransportStepView: UIView {
 
     // MARK: Disruption
     
-    var disruptions: [ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionClean.DisruptionClean]? = nil {
+    var disruptions: [ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionModel.DisruptionModel]? = nil {
         didSet {
             guard let disruptions = disruptions, disruptions.count > 0 else {
                 disruptionIconLabel.isHidden = true

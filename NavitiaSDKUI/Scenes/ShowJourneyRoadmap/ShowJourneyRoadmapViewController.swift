@@ -232,7 +232,7 @@ internal class ShowJourneyRoadmapViewController: UIViewController, ShowJourneyRo
         }
     }
     
-    private func getPublicTransportStepView(section: ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionClean) -> UIView {
+    private func getPublicTransportStepView(section: ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionModel) -> UIView {
         let publicTransportView = PublicTransportStepView.instanceFromNib()
         
         publicTransportView.frame = view.bounds

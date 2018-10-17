@@ -371,7 +371,7 @@ class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
             return nil
         }
         
-        let sectionClean = ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionModel(type: type,
+        let SectionModel = ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionModel(type: type,
                                                                                 mode: getMode(section: section),
                                                                                 from: getFrom(section: section),
                                                                                 to: getTo(section: section),
@@ -384,7 +384,7 @@ class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
                                                                                 displayInformations: getDisplayInformations(displayInformations: section.displayInformations),
                                                                                 waiting: getWaiting(sectionBefore: sectionBefore, section: section),
                                                                                 disruptions: getDisruption(section: section, disruptions: disruptions),
-                                                                                disruptionsClean: getDisruptionClean(section: section, disruptions: disruptions),
+                                                                                disruptionsClean: getDisruptionModel(section: section, disruptions: disruptions),
                                                                                 notes: getNotesOnDemandTransport(section: section, notes: notes),
                                                                                 poi: getPoi(section: section),
                                                                                 icon: Modes().getModeIcon(section: section),
@@ -392,7 +392,7 @@ class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
                                                                                 background: getBackground(section: section),
                                                                                 section: section)
         
-        return sectionClean
+        return SectionModel
     }
     
     private func getSectionModels(response:  ShowJourneyRoadmap.GetRoadmap.Response) -> [ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionModel]? {
@@ -403,14 +403,14 @@ class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
                 if section.mode == .ridesharing {
                     if let sectionsRidesharing = response.journeyRidesharing?.sections {
                         for (index, ridesharingSection) in sectionsRidesharing.enumerated() {
-                            if let sectionClean = getSectionModel(section: ridesharingSection, sectionBefore: sectionsRidesharing[safe: index - 1], disruptions: response.disruptions, notes: response.notes) {
-                                sectionsClean.append(sectionClean)
+                            if let SectionModel = getSectionModel(section: ridesharingSection, sectionBefore: sectionsRidesharing[safe: index - 1], disruptions: response.disruptions, notes: response.notes) {
+                                sectionsClean.append(SectionModel)
                             }
                         }
                     }
                 } else {
-                    if let sectionClean = getSectionModel(section: section, sectionBefore: sections[safe: index - 1], disruptions: response.disruptions, notes: response.notes) {
-                        sectionsClean.append(sectionClean)
+                    if let SectionModel = getSectionModel(section: section, sectionBefore: sections[safe: index - 1], disruptions: response.disruptions, notes: response.notes) {
+                        sectionsClean.append(SectionModel)
                     }
                 }
             }
@@ -507,6 +507,7 @@ class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
                         noteOnDemandTransport.append(ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionModel.Note(content: note.value ?? ""))
                     }
                 }
+                
                 return noteOnDemandTransport
             }
         }
@@ -525,27 +526,29 @@ class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
     func getDateDisruption(disruption: Disruption) -> String {
         if let startDate = disruption.applicationPeriods?.first?.begin?.toDate(format: Configuration.date),
             let endDate = disruption.applicationPeriods?.first?.end?.toDate(format: Configuration.date) {
+            
             return String(format: "%@ %@ %@ %@", "from".localized(bundle: NavitiaSDKUI.shared.bundle),
                           startDate.toString(format: Configuration.dateInterval),
                           "to_period".localized(bundle: NavitiaSDKUI.shared.bundle),
                           endDate.toString(format: Configuration.dateInterval))
         }
+        
         return ""
     }
     
-    func getDisruptionClean(section: Section, disruptions: [Disruption]?) -> [ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionModel.DisruptionModel] {
+    func getDisruptionModel(section: Section, disruptions: [Disruption]?) -> [ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionModel.DisruptionModel] {
         let disruptions = getDisruption(section: section, disruptions: disruptions)
         var disruptionsClean = [ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionModel.DisruptionModel]()
 
         for (_, disruption) in disruptions.enumerated() {
-            
-            let disruptionClean = ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionModel.DisruptionModel(color: disruption.severity?.color?.toUIColor() ?? UIColor.red,
+            let disruptionModel = ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionModel.DisruptionModel(color: disruption.severity?.color?.toUIColor() ?? UIColor.red,
                                                                                                        icon: Disruption.iconName(of: disruption.level),
                                                                                                        title: disruption.severity?.name ?? "",
                                                                                                        date: getDateDisruption(disruption: disruption),
                                                                                                        information: Disruption.message(disruption: disruption)?.text?.htmlToAttributedString?.string)
-            disruptionsClean.append(disruptionClean)
+            disruptionsClean.append(disruptionModel)
         }
+        
         return disruptionsClean
     }
     
