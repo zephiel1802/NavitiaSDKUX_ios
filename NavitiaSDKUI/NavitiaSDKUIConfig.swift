@@ -9,7 +9,7 @@ import Foundation
 
 @objc open class NavitiaSDKUI: NSObject {
     
-    @objc open static let shared = NavitiaSDKUI()
+    @objc public static let shared = NavitiaSDKUI()
     
     open var navitiaSDK: NavitiaSDK!
     open var bundle: Bundle!
@@ -24,7 +24,7 @@ import Foundation
         self.token = token
     }
     
-    @objc open var mainColor: UIColor {
+    @objc public var mainColor: UIColor {
         get {
             return Configuration.Color.main
         }
@@ -33,7 +33,7 @@ import Foundation
         }
     }
     
-    @objc open var originColor: UIColor {
+    @objc public var originColor: UIColor {
         get {
             return Configuration.Color.origin
         }
@@ -42,12 +42,21 @@ import Foundation
         }
     }
     
-    @objc open var destinationColor: UIColor {
+    @objc public var destinationColor: UIColor {
         get {
             return Configuration.Color.destination
         }
         set {
             Configuration.Color.destination = newValue
+        }
+    }
+    
+    @objc public var multiNetwork: Bool {
+        get {
+            return Configuration.multiNetwork
+        }
+        set {
+            Configuration.multiNetwork = newValue
         }
     }
 }
@@ -70,6 +79,8 @@ enum Configuration {
     // Constant
     static let caloriePerSecWalking = 0.071625714285714
     static let caloriePerSecBike = 0.11442857142857142
+    
+    static var multiNetwork = false
     
     // Color
     enum Color {

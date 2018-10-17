@@ -100,6 +100,7 @@ enum ShowJourneyRoadmap {
                     var color: UIColor?
                     var directionTransit: String
                     var code: String?
+                    var network: String?
                 }
                 
                 struct Note {

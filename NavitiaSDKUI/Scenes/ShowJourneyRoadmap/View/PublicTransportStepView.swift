@@ -11,7 +11,7 @@ class PublicTransportStepView: UIView {
 
     @IBOutlet weak var stackView: UIStackView!
     @IBOutlet weak var publicTransportIconLabel: UILabel!
-    @IBOutlet var commercialModeLabel: UILabel!
+    @IBOutlet weak var actionDescriptionLabel: UILabel!
     @IBOutlet weak var informationsLabel: UILabel!
     @IBOutlet weak var transportIconView: UIView!
     @IBOutlet weak var transportIconLabel: UILabel!
@@ -86,17 +86,13 @@ class PublicTransportStepView: UIView {
         }
     }
 
-    var commercialMode: String? {
+    var actionDescription: String? {
         didSet {
-            guard let commercialMode = commercialMode else {
+            guard let actionDescription = actionDescription else {
                 return
             }
 
-            commercialModeLabel.attributedText = NSMutableAttributedString()
-                .normal(String(format: "%@ %@",
-                               "take_the".localized(withComment: "Take tke", bundle: NavitiaSDKUI.shared.bundle),
-                               commercialMode),
-                        size: 15)
+            actionDescriptionLabel.attributedText = NSMutableAttributedString().normal(actionDescription, size: 15)
         }
     }
 
@@ -129,6 +125,7 @@ class PublicTransportStepView: UIView {
 
             networkContainerView.isHidden = false
             networkLabel.attributedText = NSMutableAttributedString()
+                .semiBold(String(format: "%@ ", "network".localized(bundle: NavitiaSDKUI.shared.bundle)), color: Configuration.Color.darkerGray, size: 12)
                 .semiBold(network, color: Configuration.Color.main, size: 12)
         }
     }

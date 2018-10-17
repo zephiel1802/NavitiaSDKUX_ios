@@ -17,7 +17,7 @@
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="qh1-Nv-EMR">
-                    <rect key="frame" x="0.0" y="10" width="384" height="270"/>
+                    <rect key="frame" x="0.0" y="10" width="384" height="305"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4fw-wa-InW">
                             <rect key="frame" x="0.0" y="0.0" width="384" height="64"/>
@@ -107,13 +107,10 @@
                             </constraints>
                         </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bhc-V0-cyu">
-                            <rect key="frame" x="0.0" y="74" width="384" height="15"/>
+                            <rect key="frame" x="0.0" y="74" width="384" height="50"/>
                             <subviews>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fPc-x1-ABh">
-                                    <rect key="frame" x="50" y="0.0" width="324" height="15"/>
-                                    <constraints>
-                                        <constraint firstAttribute="height" constant="15" id="GcA-U3-5ON"/>
-                                    </constraints>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fPc-x1-ABh">
+                                    <rect key="frame" x="50" y="0.0" width="324" height="50"/>
                                     <attributedString key="attributedText">
                                         <fragment content="Reseau : RATP">
                                             <attributes>
@@ -133,7 +130,7 @@
                             </constraints>
                         </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SYX-Ji-Ini">
-                            <rect key="frame" x="0.0" y="99" width="384" height="15"/>
+                            <rect key="frame" x="0.0" y="134" width="384" height="15"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="I" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kt3-FA-0SQ">
                                     <rect key="frame" x="50" y="0.0" width="15" height="15"/>
@@ -164,7 +161,7 @@
                             </constraints>
                         </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dEI-6w-BO7" userLabel="Public Transport">
-                            <rect key="frame" x="0.0" y="124" width="384" height="146"/>
+                            <rect key="frame" x="0.0" y="159" width="384" height="146"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="18:45" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0gC-1e-DPe">
                                     <rect key="frame" x="0.0" y="2" width="50" height="14.5"/>
@@ -352,7 +349,7 @@
                 </userDefinedRuntimeAttribute>
             </userDefinedRuntimeAttributes>
             <connections>
-                <outlet property="commercialModeLabel" destination="hj8-XJ-QNd" id="1qB-yF-wWQ"/>
+                <outlet property="actionDescriptionLabel" destination="hj8-XJ-QNd" id="1qB-yF-wWQ"/>
                 <outlet property="disruptionCircleLabel" destination="0e3-rM-lkf" id="Jsu-23-JeD"/>
                 <outlet property="disruptionIconLabel" destination="2ZV-AM-jGb" id="8tO-ob-zc0"/>
                 <outlet property="informationsLabel" destination="FNA-jL-VEB" id="Bfc-yd-B0N"/>

@@ -229,9 +229,13 @@ class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
         
         if type == .ridesharing {
             return "take_the_ridesharing".localized(bundle: NavitiaSDKUI.shared.bundle)
-        } else {
+        } else if let mode = section.mode {
             return "to_with_uppercase".localized(bundle: NavitiaSDKUI.shared.bundle)
+        } else if let commercialMode = section.displayInformations?.commercialMode {
+            return String(format: "%@ %@", "take_the".localized(withComment: "Take tke", bundle: NavitiaSDKUI.shared.bundle), commercialMode)
         }
+
+        return nil
     }
     
     private func getDuration(section: Section) -> String? {
@@ -449,8 +453,12 @@ class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
     
     // MARK: DisplayInformations
     
-    private func getCommercialMode(displayInformations: VJDisplayInformation?) -> String {
-        return displayInformations?.commercialMode ?? ""
+    private func getCommercialMode(displayInformations: VJDisplayInformation?) -> String? {
+        guard let commercialMode = displayInformations?.commercialMode else {
+            return nil
+        }
+
+        return commercialMode
     }
     
     private func getColor(displayInformations: VJDisplayInformation?) -> UIColor {
@@ -473,6 +481,14 @@ class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
         return code
     }
     
+    private func getNetwork(displayInformations: VJDisplayInformation?) -> String? {
+        guard Configuration.multiNetwork, let network = displayInformations?.network else {
+            return nil
+        }
+        
+        return network
+    }
+    
     private func getDisplayInformations(displayInformations: VJDisplayInformation?) -> ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionModel.DisplayInformations {
         let commercialMode = getCommercialMode(displayInformations: displayInformations)
         let color = getColor(displayInformations: displayInformations)
@@ -481,7 +497,8 @@ class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
         let displayInformationsClean = ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionModel.DisplayInformations(commercialMode: commercialMode,
                                                                                                                 color: color,
                                                                                                                 directionTransit: direction,
-                                                                                                                code: code)
+                                                                                                                code: code,
+                                                                                                                network: getNetwork(displayInformations: displayInformations))
         
         return displayInformationsClean
     }
