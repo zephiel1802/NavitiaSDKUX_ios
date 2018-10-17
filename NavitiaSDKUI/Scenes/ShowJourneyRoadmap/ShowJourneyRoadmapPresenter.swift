@@ -242,7 +242,7 @@ class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
         var template = ""
         
         if section.type == .ridesharing {
-            template = getRidesharingDuration(section: section)
+            template = String(format: "%@ %@", "about".localized(bundle: NavitiaSDKUI.shared.bundle), "a_time_drive".localized(bundle: NavitiaSDKUI.shared.bundle))
         } else if section.type != .streetNetwork && section.type != .waiting {
             return nil
         }
@@ -272,12 +272,6 @@ class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
         }
         
         return String(format: template, durationTemplate)
-    }
-    
-    private func getRidesharingDuration(section: Section) -> String {
-        let template = String(format: "%@ %@", "about".localized(bundle: NavitiaSDKUI.shared.bundle), "a_time_drive".localized(bundle: NavitiaSDKUI.shared.bundle))
-        
-        return template
     }
     
     private func getWaiting(sectionBefore: Section?, section: Section) -> String? {

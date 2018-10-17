@@ -313,14 +313,14 @@ internal class ShowJourneyRoadmapViewController: UIViewController, ShowJourneyRo
              .crowFly:
             return getStepView(section: section)
         case .ridesharing:
-            updateRidesharingView(section.section)
+            updateRidesharingView()
             return getStepView(section: section)
         default:
             return nil
         }
     }
     
-    private func updateRidesharingView(_ section: Section) {
+    private func updateRidesharingView() {
         guard let ridesharing = ridesharing, let ridesharingView = scrollView.selectSubviews(type: RidesharingView()).first else {
             return
         }
