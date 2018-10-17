@@ -306,7 +306,8 @@ internal class ShowJourneyRoadmapViewController: UIViewController, ShowJourneyRo
         case .streetNetwork,
              .bssRent,
              .bssPutBack,
-             .crowFly:
+             .crowFly,
+             .transfer:
             return getStepView(section: section)
         case .ridesharing:
             updateRidesharingView()
