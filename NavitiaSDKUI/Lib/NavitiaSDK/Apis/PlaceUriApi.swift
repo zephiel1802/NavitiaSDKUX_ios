@@ -25,6 +25,7 @@ open class CoverageLonLatPlacesIdRequestBuilder: NSObject {
     var bssStands:Bool? = nil
     var addPoiInfos: [String]? = nil
     var disableGeojson:Bool? = nil
+    var disableDisruption:Bool? = nil
     var debugURL: String? = nil
 
     public init(currentApi: PlaceUriApi) {
@@ -69,6 +70,13 @@ open class CoverageLonLatPlacesIdRequestBuilder: NSObject {
         
         return self
     }
+    open func withDisableDisruption(_ disableDisruption: Bool?) -> CoverageLonLatPlacesIdRequestBuilder {
+        self.disableDisruption = disableDisruption
+        
+        return self
+    }
+
+
 
     open func withDebugURL(_ debugURL: String?) -> CoverageLonLatPlacesIdRequestBuilder {
         self.debugURL = debugURL
@@ -102,7 +110,8 @@ open class CoverageLonLatPlacesIdRequestBuilder: NSObject {
         let paramValues: [String: Any?] = [
             "bss_stands": self.bssStands, 
             "add_poi_infos[]": self.addPoiInfos, 
-            "disable_geojson": self.disableGeojson
+            "disable_geojson": self.disableGeojson, 
+            "disable_disruption": self.disableDisruption
         ]
         url?.queryItems = APIHelper.mapValuesToQueryItems(values: paramValues)
         url?.percentEncodedQuery = url?.percentEncodedQuery?.replacingOccurrences(of: "+", with: "%2B")
@@ -176,6 +185,7 @@ open class CoverageRegionPlacesIdRequestBuilder: NSObject {
     var bssStands:Bool? = nil
     var addPoiInfos: [String]? = nil
     var disableGeojson:Bool? = nil
+    var disableDisruption:Bool? = nil
     var debugURL: String? = nil
 
     public init(currentApi: PlaceUriApi) {
@@ -215,6 +225,11 @@ open class CoverageRegionPlacesIdRequestBuilder: NSObject {
         
         return self
     }
+    open func withDisableDisruption(_ disableDisruption: Bool?) -> CoverageRegionPlacesIdRequestBuilder {
+        self.disableDisruption = disableDisruption
+        
+        return self
+    }
 
 
 
@@ -244,7 +259,8 @@ open class CoverageRegionPlacesIdRequestBuilder: NSObject {
         let paramValues: [String: Any?] = [
             "bss_stands": self.bssStands, 
             "add_poi_infos[]": self.addPoiInfos, 
-            "disable_geojson": self.disableGeojson
+            "disable_geojson": self.disableGeojson, 
+            "disable_disruption": self.disableDisruption
         ]
         url?.queryItems = APIHelper.mapValuesToQueryItems(values: paramValues)
         url?.percentEncodedQuery = url?.percentEncodedQuery?.replacingOccurrences(of: "+", with: "%2B")
@@ -311,6 +327,7 @@ open class PlacesIdRequestBuilder: NSObject {
     var bssStands:Bool? = nil
     var addPoiInfos: [String]? = nil
     var disableGeojson:Bool? = nil
+    var disableDisruption:Bool? = nil
     var debugURL: String? = nil
 
     public init(currentApi: PlaceUriApi) {
@@ -345,6 +362,11 @@ open class PlacesIdRequestBuilder: NSObject {
         
         return self
     }
+    open func withDisableDisruption(_ disableDisruption: Bool?) -> PlacesIdRequestBuilder {
+        self.disableDisruption = disableDisruption
+        
+        return self
+    }
 
 
 
@@ -368,7 +390,8 @@ open class PlacesIdRequestBuilder: NSObject {
         let paramValues: [String: Any?] = [
             "bss_stands": self.bssStands, 
             "add_poi_infos[]": self.addPoiInfos, 
-            "disable_geojson": self.disableGeojson
+            "disable_geojson": self.disableGeojson, 
+            "disable_disruption": self.disableDisruption
         ]
         url?.queryItems = APIHelper.mapValuesToQueryItems(values: paramValues)
         url?.percentEncodedQuery = url?.percentEncodedQuery?.replacingOccurrences(of: "+", with: "%2B")

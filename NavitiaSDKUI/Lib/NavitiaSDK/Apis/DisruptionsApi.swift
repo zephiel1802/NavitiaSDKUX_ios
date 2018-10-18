@@ -34,6 +34,7 @@ open class CoverageLonLatDisruptionsRequestBuilder: NSObject {
     var since:Date? = nil
     var until:Date? = nil
     var disableGeojson:Bool? = nil
+    var disableDisruption:Bool? = nil
     var filter:String? = nil
     var tags:[String]? = nil
     var originalId:String? = nil
@@ -118,6 +119,11 @@ open class CoverageLonLatDisruptionsRequestBuilder: NSObject {
         
         return self
     }
+    open func withDisableDisruption(_ disableDisruption: Bool?) -> CoverageLonLatDisruptionsRequestBuilder {
+        self.disableDisruption = disableDisruption
+        
+        return self
+    }
     open func withFilter(_ filter: String?) -> CoverageLonLatDisruptionsRequestBuilder {
         self.filter = filter
         
@@ -173,6 +179,7 @@ open class CoverageLonLatDisruptionsRequestBuilder: NSObject {
             "since": self.since?.encodeToJSON(), 
             "until": self.until?.encodeToJSON(), 
             "disable_geojson": self.disableGeojson, 
+            "disable_disruption": self.disableDisruption, 
             "filter": self.filter, 
             "tags[]": self.tags, 
             "original_id": self.originalId
@@ -254,6 +261,7 @@ open class CoverageLonLatDisruptionsIdRequestBuilder: NSObject {
     var since:Date? = nil
     var until:Date? = nil
     var disableGeojson:Bool? = nil
+    var disableDisruption:Bool? = nil
     var tags:[String]? = nil
     var originalId:String? = nil
     var debugURL: String? = nil
@@ -342,6 +350,11 @@ open class CoverageLonLatDisruptionsIdRequestBuilder: NSObject {
         
         return self
     }
+    open func withDisableDisruption(_ disableDisruption: Bool?) -> CoverageLonLatDisruptionsIdRequestBuilder {
+        self.disableDisruption = disableDisruption
+        
+        return self
+    }
     open func withTags(_ tags: [String]?) -> CoverageLonLatDisruptionsIdRequestBuilder {
         self.tags = tags
         
@@ -398,6 +411,7 @@ open class CoverageLonLatDisruptionsIdRequestBuilder: NSObject {
             "since": self.since?.encodeToJSON(), 
             "until": self.until?.encodeToJSON(), 
             "disable_geojson": self.disableGeojson, 
+            "disable_disruption": self.disableDisruption, 
             "tags[]": self.tags, 
             "original_id": self.originalId
         ]
@@ -484,6 +498,7 @@ open class CoverageLonLatUriDisruptionsRequestBuilder: NSObject {
     var since:Date? = nil
     var until:Date? = nil
     var disableGeojson:Bool? = nil
+    var disableDisruption:Bool? = nil
     var filter:String? = nil
     var tags:[String]? = nil
     var originalId:String? = nil
@@ -573,6 +588,11 @@ open class CoverageLonLatUriDisruptionsRequestBuilder: NSObject {
         
         return self
     }
+    open func withDisableDisruption(_ disableDisruption: Bool?) -> CoverageLonLatUriDisruptionsRequestBuilder {
+        self.disableDisruption = disableDisruption
+        
+        return self
+    }
     open func withFilter(_ filter: String?) -> CoverageLonLatUriDisruptionsRequestBuilder {
         self.filter = filter
         
@@ -634,6 +654,7 @@ open class CoverageLonLatUriDisruptionsRequestBuilder: NSObject {
             "since": self.since?.encodeToJSON(), 
             "until": self.until?.encodeToJSON(), 
             "disable_geojson": self.disableGeojson, 
+            "disable_disruption": self.disableDisruption, 
             "filter": self.filter, 
             "tags[]": self.tags, 
             "original_id": self.originalId
@@ -722,6 +743,7 @@ open class CoverageLonLatUriDisruptionsIdRequestBuilder: NSObject {
     var since:Date? = nil
     var until:Date? = nil
     var disableGeojson:Bool? = nil
+    var disableDisruption:Bool? = nil
     var tags:[String]? = nil
     var originalId:String? = nil
     var debugURL: String? = nil
@@ -815,6 +837,11 @@ open class CoverageLonLatUriDisruptionsIdRequestBuilder: NSObject {
         
         return self
     }
+    open func withDisableDisruption(_ disableDisruption: Bool?) -> CoverageLonLatUriDisruptionsIdRequestBuilder {
+        self.disableDisruption = disableDisruption
+        
+        return self
+    }
     open func withTags(_ tags: [String]?) -> CoverageLonLatUriDisruptionsIdRequestBuilder {
         self.tags = tags
         
@@ -877,6 +904,7 @@ open class CoverageLonLatUriDisruptionsIdRequestBuilder: NSObject {
             "since": self.since?.encodeToJSON(), 
             "until": self.until?.encodeToJSON(), 
             "disable_geojson": self.disableGeojson, 
+            "disable_disruption": self.disableDisruption, 
             "tags[]": self.tags, 
             "original_id": self.originalId
         ]
@@ -967,6 +995,7 @@ open class CoverageRegionDisruptionsRequestBuilder: NSObject {
     var since:Date? = nil
     var until:Date? = nil
     var disableGeojson:Bool? = nil
+    var disableDisruption:Bool? = nil
     var filter:String? = nil
     var tags:[String]? = nil
     var originalId:String? = nil
@@ -1046,6 +1075,11 @@ open class CoverageRegionDisruptionsRequestBuilder: NSObject {
         
         return self
     }
+    open func withDisableDisruption(_ disableDisruption: Bool?) -> CoverageRegionDisruptionsRequestBuilder {
+        self.disableDisruption = disableDisruption
+        
+        return self
+    }
     open func withFilter(_ filter: String?) -> CoverageRegionDisruptionsRequestBuilder {
         self.filter = filter
         
@@ -1095,6 +1129,7 @@ open class CoverageRegionDisruptionsRequestBuilder: NSObject {
             "since": self.since?.encodeToJSON(), 
             "until": self.until?.encodeToJSON(), 
             "disable_geojson": self.disableGeojson, 
+            "disable_disruption": self.disableDisruption, 
             "filter": self.filter, 
             "tags[]": self.tags, 
             "original_id": self.originalId
@@ -1169,6 +1204,7 @@ open class CoverageRegionDisruptionsIdRequestBuilder: NSObject {
     var since:Date? = nil
     var until:Date? = nil
     var disableGeojson:Bool? = nil
+    var disableDisruption:Bool? = nil
     var tags:[String]? = nil
     var originalId:String? = nil
     var debugURL: String? = nil
@@ -1252,6 +1288,11 @@ open class CoverageRegionDisruptionsIdRequestBuilder: NSObject {
         
         return self
     }
+    open func withDisableDisruption(_ disableDisruption: Bool?) -> CoverageRegionDisruptionsIdRequestBuilder {
+        self.disableDisruption = disableDisruption
+        
+        return self
+    }
     open func withTags(_ tags: [String]?) -> CoverageRegionDisruptionsIdRequestBuilder {
         self.tags = tags
         
@@ -1302,6 +1343,7 @@ open class CoverageRegionDisruptionsIdRequestBuilder: NSObject {
             "since": self.since?.encodeToJSON(), 
             "until": self.until?.encodeToJSON(), 
             "disable_geojson": self.disableGeojson, 
+            "disable_disruption": self.disableDisruption, 
             "tags[]": self.tags, 
             "original_id": self.originalId
         ]
@@ -1381,6 +1423,7 @@ open class CoverageRegionUriDisruptionsRequestBuilder: NSObject {
     var since:Date? = nil
     var until:Date? = nil
     var disableGeojson:Bool? = nil
+    var disableDisruption:Bool? = nil
     var filter:String? = nil
     var tags:[String]? = nil
     var originalId:String? = nil
@@ -1465,6 +1508,11 @@ open class CoverageRegionUriDisruptionsRequestBuilder: NSObject {
         
         return self
     }
+    open func withDisableDisruption(_ disableDisruption: Bool?) -> CoverageRegionUriDisruptionsRequestBuilder {
+        self.disableDisruption = disableDisruption
+        
+        return self
+    }
     open func withFilter(_ filter: String?) -> CoverageRegionUriDisruptionsRequestBuilder {
         self.filter = filter
         
@@ -1520,6 +1568,7 @@ open class CoverageRegionUriDisruptionsRequestBuilder: NSObject {
             "since": self.since?.encodeToJSON(), 
             "until": self.until?.encodeToJSON(), 
             "disable_geojson": self.disableGeojson, 
+            "disable_disruption": self.disableDisruption, 
             "filter": self.filter, 
             "tags[]": self.tags, 
             "original_id": self.originalId
@@ -1601,6 +1650,7 @@ open class CoverageRegionUriDisruptionsIdRequestBuilder: NSObject {
     var since:Date? = nil
     var until:Date? = nil
     var disableGeojson:Bool? = nil
+    var disableDisruption:Bool? = nil
     var tags:[String]? = nil
     var originalId:String? = nil
     var debugURL: String? = nil
@@ -1689,6 +1739,11 @@ open class CoverageRegionUriDisruptionsIdRequestBuilder: NSObject {
         
         return self
     }
+    open func withDisableDisruption(_ disableDisruption: Bool?) -> CoverageRegionUriDisruptionsIdRequestBuilder {
+        self.disableDisruption = disableDisruption
+        
+        return self
+    }
     open func withTags(_ tags: [String]?) -> CoverageRegionUriDisruptionsIdRequestBuilder {
         self.tags = tags
         
@@ -1745,6 +1800,7 @@ open class CoverageRegionUriDisruptionsIdRequestBuilder: NSObject {
             "since": self.since?.encodeToJSON(), 
             "until": self.until?.encodeToJSON(), 
             "disable_geojson": self.disableGeojson, 
+            "disable_disruption": self.disableDisruption, 
             "tags[]": self.tags, 
             "original_id": self.originalId
         ]

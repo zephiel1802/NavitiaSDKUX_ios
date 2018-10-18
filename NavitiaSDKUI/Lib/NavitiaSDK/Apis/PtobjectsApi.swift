@@ -29,6 +29,7 @@ open class CoverageLonLatPtObjectsRequestBuilder: NSObject {
     var adminUri:[String]? = nil
     var depth:Int32? = nil
     var disableGeojson:Bool? = nil
+    var disableDisruption:Bool? = nil
     var debugURL: String? = nil
 
     public init(currentApi: PtobjectsApi) {
@@ -83,6 +84,11 @@ open class CoverageLonLatPtObjectsRequestBuilder: NSObject {
         
         return self
     }
+    open func withDisableDisruption(_ disableDisruption: Bool?) -> CoverageLonLatPtObjectsRequestBuilder {
+        self.disableDisruption = disableDisruption
+        
+        return self
+    }
 
 
 
@@ -115,7 +121,8 @@ open class CoverageLonLatPtObjectsRequestBuilder: NSObject {
             "count": self.count?.encodeToJSON(), 
             "admin_uri[]": self.adminUri, 
             "depth": self.depth?.encodeToJSON(), 
-            "disable_geojson": self.disableGeojson
+            "disable_geojson": self.disableGeojson, 
+            "disable_disruption": self.disableDisruption
         ]
         url?.queryItems = APIHelper.mapValuesToQueryItems(values: paramValues)
         url?.percentEncodedQuery = url?.percentEncodedQuery?.replacingOccurrences(of: "+", with: "%2B")
@@ -193,6 +200,7 @@ open class CoverageRegionPtObjectsRequestBuilder: NSObject {
     var adminUri:[String]? = nil
     var depth:Int32? = nil
     var disableGeojson:Bool? = nil
+    var disableDisruption:Bool? = nil
     var debugURL: String? = nil
 
     public init(currentApi: PtobjectsApi) {
@@ -242,6 +250,11 @@ open class CoverageRegionPtObjectsRequestBuilder: NSObject {
         
         return self
     }
+    open func withDisableDisruption(_ disableDisruption: Bool?) -> CoverageRegionPtObjectsRequestBuilder {
+        self.disableDisruption = disableDisruption
+        
+        return self
+    }
 
 
 
@@ -268,7 +281,8 @@ open class CoverageRegionPtObjectsRequestBuilder: NSObject {
             "count": self.count?.encodeToJSON(), 
             "admin_uri[]": self.adminUri, 
             "depth": self.depth?.encodeToJSON(), 
-            "disable_geojson": self.disableGeojson
+            "disable_geojson": self.disableGeojson, 
+            "disable_disruption": self.disableDisruption
         ]
         url?.queryItems = APIHelper.mapValuesToQueryItems(values: paramValues)
         url?.percentEncodedQuery = url?.percentEncodedQuery?.replacingOccurrences(of: "+", with: "%2B")

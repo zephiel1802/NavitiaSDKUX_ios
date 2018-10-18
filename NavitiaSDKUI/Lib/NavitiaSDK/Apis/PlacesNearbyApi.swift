@@ -40,6 +40,7 @@ open class CoordLonLatPlacesNearbyRequestBuilder: NSObject {
     var bssStands:Bool? = nil
     var addPoiInfos: [String]? = nil
     var disableGeojson:Bool? = nil
+    var disableDisruption:Bool? = nil
     var debugURL: String? = nil
 
     public init(currentApi: PlacesNearbyApi) {
@@ -117,6 +118,11 @@ open class CoordLonLatPlacesNearbyRequestBuilder: NSObject {
         
         return self
     }
+    open func withDisableDisruption(_ disableDisruption: Bool?) -> CoordLonLatPlacesNearbyRequestBuilder {
+        self.disableDisruption = disableDisruption
+        
+        return self
+    }
 
 
 
@@ -152,7 +158,8 @@ open class CoordLonLatPlacesNearbyRequestBuilder: NSObject {
             "start_page": self.startPage?.encodeToJSON(), 
             "bss_stands": self.bssStands, 
             "add_poi_infos[]": self.addPoiInfos, 
-            "disable_geojson": self.disableGeojson
+            "disable_geojson": self.disableGeojson, 
+            "disable_disruption": self.disableDisruption
         ]
         url?.queryItems = APIHelper.mapValuesToQueryItems(values: paramValues)
         url?.percentEncodedQuery = url?.percentEncodedQuery?.replacingOccurrences(of: "+", with: "%2B")
@@ -236,6 +243,7 @@ open class CoordsLonLatPlacesNearbyRequestBuilder: NSObject {
     var bssStands:Bool? = nil
     var addPoiInfos: [String]? = nil
     var disableGeojson:Bool? = nil
+    var disableDisruption:Bool? = nil
     var debugURL: String? = nil
 
     public init(currentApi: PlacesNearbyApi) {
@@ -313,6 +321,11 @@ open class CoordsLonLatPlacesNearbyRequestBuilder: NSObject {
         
         return self
     }
+    open func withDisableDisruption(_ disableDisruption: Bool?) -> CoordsLonLatPlacesNearbyRequestBuilder {
+        self.disableDisruption = disableDisruption
+        
+        return self
+    }
 
 
 
@@ -348,7 +361,8 @@ open class CoordsLonLatPlacesNearbyRequestBuilder: NSObject {
             "start_page": self.startPage?.encodeToJSON(), 
             "bss_stands": self.bssStands, 
             "add_poi_infos[]": self.addPoiInfos, 
-            "disable_geojson": self.disableGeojson
+            "disable_geojson": self.disableGeojson, 
+            "disable_disruption": self.disableDisruption
         ]
         url?.queryItems = APIHelper.mapValuesToQueryItems(values: paramValues)
         url?.percentEncodedQuery = url?.percentEncodedQuery?.replacingOccurrences(of: "+", with: "%2B")
@@ -432,6 +446,7 @@ open class CoverageLonLatPlacesNearbyRequestBuilder: NSObject {
     var bssStands:Bool? = nil
     var addPoiInfos: [String]? = nil
     var disableGeojson:Bool? = nil
+    var disableDisruption:Bool? = nil
     var debugURL: String? = nil
 
     public init(currentApi: PlacesNearbyApi) {
@@ -509,6 +524,11 @@ open class CoverageLonLatPlacesNearbyRequestBuilder: NSObject {
         
         return self
     }
+    open func withDisableDisruption(_ disableDisruption: Bool?) -> CoverageLonLatPlacesNearbyRequestBuilder {
+        self.disableDisruption = disableDisruption
+        
+        return self
+    }
 
 
 
@@ -544,7 +564,8 @@ open class CoverageLonLatPlacesNearbyRequestBuilder: NSObject {
             "start_page": self.startPage?.encodeToJSON(), 
             "bss_stands": self.bssStands, 
             "add_poi_infos[]": self.addPoiInfos, 
-            "disable_geojson": self.disableGeojson
+            "disable_geojson": self.disableGeojson, 
+            "disable_disruption": self.disableDisruption
         ]
         url?.queryItems = APIHelper.mapValuesToQueryItems(values: paramValues)
         url?.percentEncodedQuery = url?.percentEncodedQuery?.replacingOccurrences(of: "+", with: "%2B")
@@ -629,6 +650,7 @@ open class CoverageLonLatUriPlacesNearbyRequestBuilder: NSObject {
     var bssStands:Bool? = nil
     var addPoiInfos: [String]? = nil
     var disableGeojson:Bool? = nil
+    var disableDisruption:Bool? = nil
     var debugURL: String? = nil
 
     public init(currentApi: PlacesNearbyApi) {
@@ -711,6 +733,11 @@ open class CoverageLonLatUriPlacesNearbyRequestBuilder: NSObject {
         
         return self
     }
+    open func withDisableDisruption(_ disableDisruption: Bool?) -> CoverageLonLatUriPlacesNearbyRequestBuilder {
+        self.disableDisruption = disableDisruption
+        
+        return self
+    }
 
 
 
@@ -752,7 +779,8 @@ open class CoverageLonLatUriPlacesNearbyRequestBuilder: NSObject {
             "start_page": self.startPage?.encodeToJSON(), 
             "bss_stands": self.bssStands, 
             "add_poi_infos[]": self.addPoiInfos, 
-            "disable_geojson": self.disableGeojson
+            "disable_geojson": self.disableGeojson, 
+            "disable_disruption": self.disableDisruption
         ]
         url?.queryItems = APIHelper.mapValuesToQueryItems(values: paramValues)
         url?.percentEncodedQuery = url?.percentEncodedQuery?.replacingOccurrences(of: "+", with: "%2B")
@@ -841,6 +869,7 @@ open class CoverageRegionPlacesNearbyRequestBuilder: NSObject {
     var bssStands:Bool? = nil
     var addPoiInfos: [String]? = nil
     var disableGeojson:Bool? = nil
+    var disableDisruption:Bool? = nil
     var debugURL: String? = nil
 
     public init(currentApi: PlacesNearbyApi) {
@@ -913,6 +942,11 @@ open class CoverageRegionPlacesNearbyRequestBuilder: NSObject {
         
         return self
     }
+    open func withDisableDisruption(_ disableDisruption: Bool?) -> CoverageRegionPlacesNearbyRequestBuilder {
+        self.disableDisruption = disableDisruption
+        
+        return self
+    }
 
 
 
@@ -942,7 +976,8 @@ open class CoverageRegionPlacesNearbyRequestBuilder: NSObject {
             "start_page": self.startPage?.encodeToJSON(), 
             "bss_stands": self.bssStands, 
             "add_poi_infos[]": self.addPoiInfos, 
-            "disable_geojson": self.disableGeojson
+            "disable_geojson": self.disableGeojson, 
+            "disable_disruption": self.disableDisruption
         ]
         url?.queryItems = APIHelper.mapValuesToQueryItems(values: paramValues)
         url?.percentEncodedQuery = url?.percentEncodedQuery?.replacingOccurrences(of: "+", with: "%2B")
@@ -1020,6 +1055,7 @@ open class CoverageRegionUriPlacesNearbyRequestBuilder: NSObject {
     var bssStands:Bool? = nil
     var addPoiInfos: [String]? = nil
     var disableGeojson:Bool? = nil
+    var disableDisruption:Bool? = nil
     var debugURL: String? = nil
 
     public init(currentApi: PlacesNearbyApi) {
@@ -1097,6 +1133,11 @@ open class CoverageRegionUriPlacesNearbyRequestBuilder: NSObject {
         
         return self
     }
+    open func withDisableDisruption(_ disableDisruption: Bool?) -> CoverageRegionUriPlacesNearbyRequestBuilder {
+        self.disableDisruption = disableDisruption
+        
+        return self
+    }
 
 
 
@@ -1132,7 +1173,8 @@ open class CoverageRegionUriPlacesNearbyRequestBuilder: NSObject {
             "start_page": self.startPage?.encodeToJSON(), 
             "bss_stands": self.bssStands, 
             "add_poi_infos[]": self.addPoiInfos, 
-            "disable_geojson": self.disableGeojson
+            "disable_geojson": self.disableGeojson, 
+            "disable_disruption": self.disableDisruption
         ]
         url?.queryItems = APIHelper.mapValuesToQueryItems(values: paramValues)
         url?.percentEncodedQuery = url?.percentEncodedQuery?.replacingOccurrences(of: "+", with: "%2B")
