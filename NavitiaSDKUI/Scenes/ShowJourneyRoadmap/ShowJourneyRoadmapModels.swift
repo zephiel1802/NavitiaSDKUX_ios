@@ -76,12 +76,12 @@ enum ShowJourneyRoadmap {
                 }
                 
                 struct Poi {
-                    var name: String
-                    var network: String
-                    var lat: Double
-                    var lont: Double
-                    var addressName: String
-                    var addressId: String
+                    var name: String?
+                    var network: String?
+                    var lat: Double?
+                    var lont: Double?
+                    var addressName: String?
+                    var addressId: String?
                     var stands: Stands?
                 }
                 

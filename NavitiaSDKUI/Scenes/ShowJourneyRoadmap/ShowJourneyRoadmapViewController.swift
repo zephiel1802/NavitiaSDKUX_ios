@@ -161,7 +161,11 @@ internal class ShowJourneyRoadmapViewController: UIViewController, ShowJourneyRo
     
     @objc private func fetchBss() {
         for (poi, notify) in bssTest {
-            let request = ShowJourneyRoadmap.FetchBss.Request(lat: poi.lat, lon: poi.lont, distance: 10, id: poi.addressId, notify: notify)
+            guard let lat = poi.lat, let lon = poi.lont, let addressId = poi.addressId else {
+                return
+            }
+            
+            let request = ShowJourneyRoadmap.FetchBss.Request(lat: lat, lon: lon, distance: 10, id: addressId, notify: notify)
             
             self.interactor?.fetchBss(request: request)
         }
@@ -259,14 +263,21 @@ internal class ShowJourneyRoadmapViewController: UIViewController, ShowJourneyRo
                 informations.append(NSMutableAttributedString().bold(String(format: "%@ ", section.from), color: Configuration.Color.black, size: 15))
                 informations.append(NSMutableAttributedString().normal(String(format: "%@ ", "to".localized(bundle: NavitiaSDKUI.shared.bundle)), color: Configuration.Color.black, size: 15))
                 informations.append(NSMutableAttributedString().bold(String(format: "%@", section.to), color: Configuration.Color.black, size: 15))
+            } else if section.type == .bssPutBack || section.type == .bssRent || section.type == .park {
+                if let name = section.poi?.name {
+                    informations.append(NSMutableAttributedString().normal(String(format: "%@ ", actionDescription), color: Configuration.Color.black, size: 15))
+                    informations.append(NSMutableAttributedString().bold(String(format: "%@", name), color: Configuration.Color.black, size: 15))
+                }
             } else {
                 informations.append(NSMutableAttributedString().normal(String(format: "%@ ", actionDescription), color: Configuration.Color.black, size: 15))
                 informations.append(NSMutableAttributedString().bold(String(format: "%@", section.to), color: Configuration.Color.black, size: 15))
             }
         }
+        
         if let addressName = section.poi?.addressName {
             informations.append(NSMutableAttributedString().bold(String(format: "\n%@", addressName), color: Configuration.Color.black, size: 13))
         }
+        
         if let duration = section.duration {
             informations.append(NSMutableAttributedString().normal(String(format: "\n%@", duration), color: Configuration.Color.black, size: 15))
         }
@@ -306,7 +317,8 @@ internal class ShowJourneyRoadmapViewController: UIViewController, ShowJourneyRo
         case .streetNetwork,
              .bssRent,
              .bssPutBack,
-             .crowFly:
+             .crowFly,
+             .park:
             return getStepView(section: section)
         case .ridesharing:
             updateRidesharingView()
