@@ -13,6 +13,7 @@ protocol ShowJourneyRoadmapBusinessLogic {
     func getRoadmap(request: ShowJourneyRoadmap.GetRoadmap.Request)
     func getMap(request: ShowJourneyRoadmap.GetMap.Request)
     func fetchBss(request: ShowJourneyRoadmap.FetchBss.Request)
+    func fetchPark(request: ShowJourneyRoadmap.FetchPark.Request)
 }
 
 protocol ShowJourneyRoadmapDataStore {
@@ -66,12 +67,27 @@ class ShowJourneyRoadmapInteractor: ShowJourneyRoadmapBusinessLogic, ShowJourney
         journeysWorker.fetchBss(coord: (lat: request.lat, lon: request.lon),
                                 distance: request.distance,
                                 id: request.id) { (poi) in
-            guard let poi = poi else {
-                return
-            }
-            
-            let response = ShowJourneyRoadmap.FetchBss.Response(poi: poi, notify: request.notify)
-            self.presenter?.presentBss(response: response)
+                                    guard let poi = poi else {
+                                        return
+                                    }
+                                    
+                                    let response = ShowJourneyRoadmap.FetchBss.Response(poi: poi, notify: request.notify)
+                                    self.presenter?.presentBss(response: response)
+        }
+    }
+    
+    // MARK: Fetch Park
+    
+    func fetchPark(request: ShowJourneyRoadmap.FetchPark.Request) {
+        journeysWorker.fetchPark(coord: (lat: request.lat, lon: request.lon),
+                                distance: request.distance,
+                                id: request.id) { (poi) in
+                                    guard let poi = poi else {
+                                        return
+                                    }
+                                    
+                                    let response = ShowJourneyRoadmap.FetchPark.Response(poi: poi, notify: request.notify)
+                                    self.presenter?.presentPark(response: response)
         }
     }
 }

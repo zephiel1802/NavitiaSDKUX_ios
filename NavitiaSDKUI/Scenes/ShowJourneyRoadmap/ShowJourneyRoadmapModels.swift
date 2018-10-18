@@ -131,7 +131,7 @@ enum ShowJourneyRoadmap {
                 var notes: [Note]
                 var poi: Poi?
                 var icon: String
-                var bssRealTime: Bool
+                var realTime: Bool
                 var background: Bool
                 var section: Section
             }
@@ -168,11 +168,26 @@ enum ShowJourneyRoadmap {
             var lon: Double
             var distance: Int32 = 10
             var id: String
-            var notify: ((ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionModel.Poi) -> ())
+            var notify: ((ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionModel.Stands) -> ())
         }
         struct Response {
             var poi: Poi
-            var notify: ((ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionModel.Poi) -> ())
+            var notify: ((ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionModel.Stands) -> ())
+        }
+        struct ViewModel {}
+    }
+    
+    enum FetchPark {
+        struct Request {
+            var lat: Double
+            var lon: Double
+            var distance: Int32 = 10
+            var id: String
+            var notify: ((ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionModel.Stands) -> ())
+        }
+        struct Response {
+            var poi: Poi
+            var notify: ((ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionModel.Stands) -> ())
         }
         struct ViewModel {}
     }

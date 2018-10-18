@@ -64,8 +64,9 @@ enum Configuration {
     static let timeRidesharing = "HH'h'mm"
     
     // TimeInterval
+    static let parkTimeInterval = TimeInterval(30)
     static let bssTimeInterval = TimeInterval(30)
-    static let bssApprovalTimeThreshold = TimeInterval(7200)
+    static let approvalTimeThreshold = TimeInterval(7200)
     
     // Constant
     static let caloriePerSecWalking = 0.071625714285714

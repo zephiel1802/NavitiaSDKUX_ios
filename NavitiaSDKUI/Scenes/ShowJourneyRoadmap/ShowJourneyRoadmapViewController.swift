@@ -26,18 +26,15 @@ internal class ShowJourneyRoadmapViewController: UIViewController, ShowJourneyRo
     private var ridesharing: ShowJourneyRoadmap.GetRoadmap.ViewModel.Ridesharing?
     private var ridesharingJourneys: Journey?
     
-    // Maps
+    let locationManager = CLLocationManager()
     var intermediatePointsCircles = [SectionCircle]()
     var journeyPolylineCoordinates = [CLLocationCoordinate2D]()
     var sectionsPolylines = [SectionPolyline]()
-    let locationManager = CLLocationManager()
-
-    // Bss Real Time
     var animationTimer: Timer?
-    var standBikeTime: Timer?
-    var bssTest = [(poi: ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionModel.Poi,
-                    notify: ((ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionModel.Poi) -> ()))]()
-    
+    var bssRealTimer: Timer?
+    var parkRealTimer: Timer?
+    var bssTuple = [(poi: ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionModel.Poi?, view: StepView)]()
+    var parkTuple = [(poi: ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionModel.Poi?, view: StepView)]()
     var display = false
     
     required public init?(coder aDecoder: NSCoder) {
@@ -64,6 +61,7 @@ internal class ShowJourneyRoadmapViewController: UIViewController, ShowJourneyRo
         startUpdatingUserLocation()
 
         refreshFetchBss(run: true)
+        refreshFetchPark(run: true)
         startAnimation()
     }
     
@@ -73,6 +71,7 @@ internal class ShowJourneyRoadmapViewController: UIViewController, ShowJourneyRo
         stopUpdatingUserLocation()
         
         refreshFetchBss(run: false)
+        refreshFetchPark(run: false)
         stopAnimation()
     }
 
@@ -160,23 +159,48 @@ internal class ShowJourneyRoadmapViewController: UIViewController, ShowJourneyRo
     }
     
     @objc private func fetchBss() {
-        for (poi, notify) in bssTest {
-            guard let lat = poi.lat, let lon = poi.lont, let addressId = poi.addressId else {
+        for elem in bssTuple {
+            guard let lat = elem.poi?.lat, let lon = elem.poi?.lont, let addressId = elem.poi?.addressId else {
                 return
             }
             
-            let request = ShowJourneyRoadmap.FetchBss.Request(lat: lat, lon: lon, distance: 10, id: addressId, notify: notify)
+            let request = ShowJourneyRoadmap.FetchBss.Request(lat: lat, lon: lon, distance: 10, id: addressId) { (stands) in
+                elem.view.realTimeValue = stands.availability
+            }
             
             self.interactor?.fetchBss(request: request)
         }
     }
     
+    @objc private func fetchPark() {
+        for elem in parkTuple {
+            guard let lat = elem.poi?.lat, let lon = elem.poi?.lont, let addressId = elem.poi?.addressId else {
+                return
+            }
+            
+            let request = ShowJourneyRoadmap.FetchPark.Request(lat: lat, lon: lon, distance: 10, id: addressId) { (stands) in
+                elem.view.realTimeValue = stands.availability
+            }
+
+            self.interactor?.fetchPark(request: request)
+        }
+    }
+    
     private func refreshFetchBss(run: Bool = true) {
-        standBikeTime?.invalidate()
+        bssRealTimer?.invalidate()
         
-        if run {
-            standBikeTime = Timer.scheduledTimer(timeInterval: Configuration.bssTimeInterval, target: self, selector: #selector(fetchBss), userInfo: nil, repeats: true)
-            standBikeTime?.fire()
+        if !bssTuple.isEmpty && run {
+            bssRealTimer = Timer.scheduledTimer(timeInterval: Configuration.bssTimeInterval, target: self, selector: #selector(fetchBss), userInfo: nil, repeats: true)
+            bssRealTimer?.fire()
+        }
+    }
+    
+    private func refreshFetchPark(run: Bool = true) {
+        parkRealTimer?.invalidate()
+        
+        if !parkTuple.isEmpty && run {
+            parkRealTimer = Timer.scheduledTimer(timeInterval: Configuration.parkTimeInterval, target: self, selector: #selector(fetchPark), userInfo: nil, repeats: true)
+            parkRealTimer?.fire()
         }
     }
     
@@ -285,6 +309,20 @@ internal class ShowJourneyRoadmapViewController: UIViewController, ShowJourneyRo
         return informations
     }
     
+    private func getRealTime(section: ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionModel, view: StepView) {
+        if section.poi?.stands != nil && section.realTime {
+            switch section.type {
+            case .park:
+                parkTuple.append((poi: section.poi, view: view))
+            case .bssRent,
+                 .bssPutBack:
+                bssTuple.append((poi: section.poi, view: view))
+            default:
+                break
+            }
+        }
+    }
+    
     private func getStepView(section: ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionModel) -> UIView {
         let stepView = StepView.instanceFromNib()
         
@@ -296,6 +334,8 @@ internal class ShowJourneyRoadmapViewController: UIViewController, ShowJourneyRo
         stepView.realTimeValue = section.poi?.stands?.availability
         stepView.paths = section.path
         
+        getRealTime(section: section, view: stepView)
+
         return stepView
     }
     
@@ -309,7 +349,6 @@ internal class ShowJourneyRoadmapViewController: UIViewController, ShowJourneyRo
     }
     
     private func getSectionStep(section: ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionModel) -> UIView? {
-        
         switch section.type {
         case .publicTransport,
              .onDemandTransport:

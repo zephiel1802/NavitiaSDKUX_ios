@@ -82,7 +82,7 @@ let iconFontCodes:[String: String] = [
 
 class Modes {
     
-    public func getModeIcon(section: Section?) -> String {
+    public func getModeIcon(section: Section?, roadmap: Bool = false) -> String {
         switch section!.type! {
         case .publicTransport:
             return getPhysicalMode(section: section).lowercased()
@@ -91,7 +91,7 @@ class Modes {
         case .waiting:
             return section?.type?.rawValue ?? ""
         case .streetNetwork:
-            return getStreetNetworkMode(section: section).lowercased()
+            return getStreetNetworkMode(section: section, roadmap: roadmap).lowercased()
         case .bssRent:
             return "bss"
         case .bssPutBack:
@@ -117,8 +117,8 @@ class Modes {
         return modeData[1]
     }
     
-    private func getStreetNetworkMode(section: Section?) -> String {
-        if section?.mode == .bike {
+    private func getStreetNetworkMode(section: Section?, roadmap: Bool) -> String {
+        if !roadmap && section?.mode == .bike {
             if section?.from?.poi != nil {
                 return "bss"
             }

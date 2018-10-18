@@ -12,6 +12,7 @@ protocol ShowJourneyRoadmapPresentationLogic {
     func presentRoadmap(response: ShowJourneyRoadmap.GetRoadmap.Response)
     func presentMap(response: ShowJourneyRoadmap.GetMap.Response)
     func presentBss(response: ShowJourneyRoadmap.FetchBss.Response)
+    func presentPark(response: ShowJourneyRoadmap.FetchPark.Response)
 }
 
 class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
@@ -40,19 +41,25 @@ class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
         viewController?.displayRoadmap(viewModel: viewModel)
     }
     
-    // A construire
     func presentMap(response: ShowJourneyRoadmap.GetMap.Response) {
         let viewModel = ShowJourneyRoadmap.GetMap.ViewModel(journey: response.journey)
         viewController?.displayMap(viewModel: viewModel)
     }
     
-    // A completer
     func presentBss(response: ShowJourneyRoadmap.FetchBss.Response) {
-//        guard let poi = getPoi(poi: response.poi) else {
-//            return
-//        }
-//
-//        response.notify(poi)
+        guard let stands = getStands(stands: response.poi.stands, carPark: response.poi.carPark, type: .bssRent) else {
+            return
+        }
+
+        response.notify(stands)
+    }
+    
+    func presentPark(response: ShowJourneyRoadmap.FetchPark.Response) {
+        guard let stands = getStands(stands: response.poi.stands, carPark: response.poi.carPark, type: .park) else {
+            return
+        }
+        
+        response.notify(stands)
     }
     
     // MARK: Ridesharing
@@ -402,8 +409,8 @@ class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
                                                                                 disruptionsClean: getDisruptionModel(section: section, disruptions: disruptions),
                                                                                 notes: getNotesOnDemandTransport(section: section, notes: notes),
                                                                                 poi: getPoi(section: section),
-                                                                                icon: Modes().getModeIcon(section: section),
-                                                                                bssRealTime: getBssRealTime(section: section),
+                                                                                icon: Modes().getModeIcon(section: section, roadmap: true),
+                                                                                realTime: getRealTime(section: section),
                                                                                 background: getBackground(section: section),
                                                                                 section: section)
         
@@ -669,8 +676,8 @@ class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
         return 0;
     }
     
-    func getBssRealTime(section: Section) -> Bool {
-        if let sectionDepartureTime = section.departureDateTime?.toDate(format: "yyyyMMdd'T'HHmmss"), let currentDateTime = Date().toLocalDate(format: "yyyyMMdd'T'HHmmss"), abs(sectionDepartureTime.timeIntervalSince(currentDateTime)) <= Configuration.bssApprovalTimeThreshold {
+    func getRealTime(section: Section) -> Bool {
+        if let sectionDepartureTime = section.departureDateTime?.toDate(format: "yyyyMMdd'T'HHmmss"), let currentDateTime = Date().toLocalDate(format: "yyyyMMdd'T'HHmmss"), abs(sectionDepartureTime.timeIntervalSince(currentDateTime)) <= Configuration.approvalTimeThreshold {
             return true
         }
         return false
