@@ -7,7 +7,6 @@
 
 import Foundation
 
-
 enum ModeTransport: String {
     case bike = "bike"
     case ferry = "ferry"
