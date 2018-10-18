@@ -104,7 +104,7 @@ class StepView: UIView {
             }
             
             realTimeIconLabel.isHidden = false
-            realTimeIconLabel.attributedText = NSMutableAttributedString().icon(realTimeIcon, size: 20)
+            realTimeIconLabel.attributedText = NSMutableAttributedString().icon(realTimeIcon, size: 17)
         }
     }
     

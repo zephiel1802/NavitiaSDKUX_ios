@@ -73,7 +73,7 @@
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="L" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7dJ-2L-Q5e">
-                                    <rect key="frame" x="0.0" y="4.5" width="50" height="20.5"/>
+                                    <rect key="frame" x="0.0" y="1.5" width="50" height="20.5"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
@@ -87,7 +87,7 @@
                                 <constraint firstItem="HPl-9W-Cs1" firstAttribute="leading" secondItem="iOg-Gf-RCK" secondAttribute="trailing" id="gzy-6t-DC8"/>
                                 <constraint firstItem="HPl-9W-Cs1" firstAttribute="top" secondItem="iOg-Gf-RCK" secondAttribute="top" constant="7" id="iws-gk-47g"/>
                                 <constraint firstAttribute="bottom" secondItem="HPl-9W-Cs1" secondAttribute="bottom" constant="10" id="r8t-sy-PaZ"/>
-                                <constraint firstItem="7dJ-2L-Q5e" firstAttribute="centerY" secondItem="HPl-9W-Cs1" secondAttribute="centerY" id="rM3-Wy-CHy"/>
+                                <constraint firstItem="7dJ-2L-Q5e" firstAttribute="centerY" secondItem="HPl-9W-Cs1" secondAttribute="centerY" constant="-3" id="rM3-Wy-CHy"/>
                             </constraints>
                         </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2OL-3J-Boj" userLabel="Details Buttons container">
