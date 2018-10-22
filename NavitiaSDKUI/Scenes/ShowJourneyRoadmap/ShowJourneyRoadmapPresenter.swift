@@ -231,6 +231,8 @@ class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
             return "take_the_ridesharing".localized(bundle: NavitiaSDKUI.shared.bundle)
         } else if let mode = section.mode {
             return "to_with_uppercase".localized(bundle: NavitiaSDKUI.shared.bundle)
+        } else if type == .transfer {
+            return "to_with_uppercase".localized(bundle: NavitiaSDKUI.shared.bundle)
         } else if let commercialMode = section.displayInformations?.commercialMode {
             return String(format: "%@ %@", "take_the".localized(withComment: "Take tke", bundle: NavitiaSDKUI.shared.bundle), commercialMode)
         }
@@ -242,43 +244,36 @@ class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
         guard let duration = section.duration else {
             return nil
         }
+       
+        var durationString: String? = nil
+        var keyword: String = ""
         
-        var template = ""
-        
-        if section.type == .ridesharing {
-            template = String(format: "%@ %@", "about".localized(bundle: NavitiaSDKUI.shared.bundle), "a_time_drive".localized(bundle: NavitiaSDKUI.shared.bundle))
-        } else if section.type == .transfer {
-            template = "a_time_walk".localized(bundle: NavitiaSDKUI.shared.bundle)
-        } else if section.type != .streetNetwork && section.type != .waiting {
+        if duration >= 60 {
+            keyword = "a_time_"
+            durationString = String(format: "%@ %@", duration.minuteToString(), "units_minutes".localized(bundle: NavitiaSDKUI.shared.bundle))
+            
+            if section.type == .waiting, let durationString = durationString {
+                return String(format: "%@ %@", "wait".localized(bundle: NavitiaSDKUI.shared.bundle), durationString)
+            }
+        } else {
+            keyword = "less_than_a_minute_"
+        }
+
+        if (section.type == .streetNetwork && section.mode == .car) || section.type == .ridesharing {
+            keyword += "drive"
+        } else if (section.type == .streetNetwork && section.mode == .walking) || section.type == .transfer {
+            keyword += "walk"
+        } else if (section.type == .streetNetwork && section.mode == .bike) || (section.type == .streetNetwork && section.mode == .bss) {
+            keyword += "ride"
+        } else {
             return nil
         }
 
-        if let mode = section.mode {
-            switch mode {
-            case .walking:
-                template = "a_time_walk".localized(bundle: NavitiaSDKUI.shared.bundle)
-            case .car:
-                template = "a_time_drive".localized(bundle: NavitiaSDKUI.shared.bundle)
-            case .bike, .bss:
-                template = "a_time_ride".localized(bundle: NavitiaSDKUI.shared.bundle)
-            default:
-                return nil
-            }
+        if let durationString = durationString {
+            return String(format: keyword.localized(bundle: NavitiaSDKUI.shared.bundle), durationString)
         }
         
-        let durationString = duration.minuteToString()
-        if section.type == .waiting {
-            template = "wait".localized(bundle: NavitiaSDKUI.shared.bundle) + " %@"
-        }
-        
-        var durationTemplate = durationString + " " + "units_minutes".localized(bundle: NavitiaSDKUI.shared.bundle)
-        if duration < 60 {
-            durationTemplate = "less_than_a".localized(bundle: NavitiaSDKUI.shared.bundle) + " " + "units_minute".localized(bundle: NavitiaSDKUI.shared.bundle)
-        } else if duration >= 60 && duration < 120 {
-            durationTemplate = durationString + " " + "units_minute".localized(bundle: NavitiaSDKUI.shared.bundle)
-        }
-        
-        return String(format: template, durationTemplate)
+        return keyword.localized(bundle: NavitiaSDKUI.shared.bundle)
     }
     
     private func getWaiting(sectionBefore: Section?, section: Section) -> String? {

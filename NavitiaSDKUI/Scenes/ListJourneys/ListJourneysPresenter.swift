@@ -189,32 +189,14 @@ class ListJourneysPresenter: ListJourneysPresentationLogic {
     }
     
     private func getDisplayedJourneyWalkingInformation(journey: Journey) -> NSMutableAttributedString? {
-        guard let duration = getDisplayedJourneyWalkingDuration(journey: journey),
-            let distance = getDisplayedJourneyWalkingDistance(journey: journey) else {
+        guard let duration = getDisplayedJourneyWalkingDuration(journey: journey), duration >= 60 else {
                 return nil
         }
         
-        if duration < 60 {
-            return NSMutableAttributedString()
-                .normal(String(format: "%@ %@",
-                               "less_than_a".localized(withComment: "less than a", bundle: NavitiaSDKUI.shared.bundle),
-                               "units_minute".localized(withComment: "minute", bundle: NavitiaSDKUI.shared.bundle)),
-                        color: Configuration.Color.gray)
-                .normal(String(format: " %@ (%@)",
-                               "walking".localized(withComment: "walking", bundle: NavitiaSDKUI.shared.bundle),
-                               distance),
-                        color: Configuration.Color.gray)
-        } else {
-            return NSMutableAttributedString()
-                .normal(String(format: "%@ ",
-                               "with".localized(withComment: "with", bundle: NavitiaSDKUI.shared.bundle)),
-                        color: Configuration.Color.gray)
-                .bold(duration.toStringTime(), color: Configuration.Color.gray)
-                .normal(String(format: " %@ (%@)",
-                               "walking".localized(withComment: "walking", bundle: NavitiaSDKUI.shared.bundle),
-                               distance),
-                        color: Configuration.Color.gray)
-        }
+        return NSMutableAttributedString()
+            .normal(String(format: "%@ ", "with".localized(withComment: "with", bundle: NavitiaSDKUI.shared.bundle)), color: Configuration.Color.gray)
+            .bold(duration.toStringTime(), color: Configuration.Color.gray)
+            .normal(String(format: " %@", "walking".localized(withComment: "walking", bundle: NavitiaSDKUI.shared.bundle)), color: Configuration.Color.gray)
     }
     
     private func getDisplayedJourneyWalkingDuration(journey: Journey) -> Int32? {
