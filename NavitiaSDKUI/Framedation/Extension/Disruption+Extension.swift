@@ -67,7 +67,7 @@ extension Disruption {
             return nil
         }
         
-        return messages[0]
+        return messages.first
     }
     
 }
