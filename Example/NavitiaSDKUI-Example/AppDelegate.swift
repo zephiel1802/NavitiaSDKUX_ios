@@ -18,6 +18,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         NavitiaSDKUI.shared.mainColor = UIColor(red: 64.0/255, green: 149.0/255, blue: 142.0/255, alpha: 1)
         NavitiaSDKUI.shared.originColor = UIColor(red: 0, green: 187.0/255, blue: 117.0/255, alpha: 1)
         NavitiaSDKUI.shared.destinationColor = UIColor(red: 176.0/255, green: 3.0/255, blue: 83.0/255, alpha: 1)
+        NavitiaSDKUI.shared.multiNetwork = true
         
         return true
     }
