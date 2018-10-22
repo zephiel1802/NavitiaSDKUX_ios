@@ -189,8 +189,7 @@ class ListJourneysPresenter: ListJourneysPresentationLogic {
     }
     
     private func getDisplayedJourneyWalkingInformation(journey: Journey) -> NSMutableAttributedString? {
-        guard let duration = getDisplayedJourneyWalkingDuration(journey: journey),
-            duration >= 60 else {
+        guard let duration = getDisplayedJourneyWalkingDuration(journey: journey), duration >= 60 else {
                 return nil
         }
         
