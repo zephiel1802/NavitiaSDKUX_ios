@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="EmissionView" customModule="NavitiaSDKUI" customModuleProvider="target">
+            <connections>
+                <outlet property="carCarbonAutoFilledLabel" destination="Ey9-BF-Hoj" id="H3h-Ig-H4P"/>
+                <outlet property="iconImageView" destination="oFL-pE-CP8" id="swW-e3-sGC"/>
+                <outlet property="journeyCarbonAutoFilledLabel" destination="ijD-Z3-u7c" id="6jv-CD-cvm"/>
+                <outlet property="journeyLabelBottomConstraint" destination="v75-qq-eCi" id="Dwa-jR-lAX"/>
+                <outlet property="journeyLabelCenterVerticallyConstraint" destination="J4D-Jc-sqs" id="qif-wr-ZXF"/>
+                <outlet property="view" destination="iN0-l3-epB" id="eqj-nb-QAM"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="400" height="60"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" heightSizable="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="carbon" translatesAutoresizingMaskIntoConstraints="NO" id="oFL-pE-CP8">
+                    <rect key="frame" x="15" y="10" width="40" height="40"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="40" id="Zle-zk-tN7"/>
+                        <constraint firstAttribute="width" secondItem="oFL-pE-CP8" secondAttribute="height" multiplier="1:1" id="aPO-xA-LUe"/>
+                    </constraints>
+                </imageView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="253" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ijD-Z3-u7c" customClass="UIAutoFilledLabel" customModule="NavitiaSDKUI" customModuleProvider="target">
+                    <rect key="frame" x="70" y="25" width="315" height="0.0"/>
+                    <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="10"/>
+                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <nil key="highlightedColor"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="autofillPattern" value="."/>
+                        <userDefinedRuntimeAttribute type="number" keyPath="spacesBetweenSides">
+                            <integer key="value" value="2"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="253" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ey9-BF-Hoj" customClass="UIAutoFilledLabel" customModule="NavitiaSDKUI" customModuleProvider="target">
+                    <rect key="frame" x="70" y="35" width="315" height="0.0"/>
+                    <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="10"/>
+                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <nil key="highlightedColor"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="autofillPattern" value="."/>
+                        <userDefinedRuntimeAttribute type="number" keyPath="spacesBetweenSides">
+                            <integer key="value" value="2"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                </label>
+            </subviews>
+            <color key="backgroundColor" red="0.25098039220000001" green="0.58431372550000005" blue="0.5568627451" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="ijD-Z3-u7c" firstAttribute="centerY" secondItem="vUN-kp-3ea" secondAttribute="centerY" priority="750" id="J4D-Jc-sqs"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="Ey9-BF-Hoj" secondAttribute="trailing" constant="15" id="JRX-KG-cGs"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="ijD-Z3-u7c" secondAttribute="trailing" constant="15" id="d75-Sc-uVa"/>
+                <constraint firstItem="oFL-pE-CP8" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="15" id="dMD-Mn-dzd"/>
+                <constraint firstItem="ijD-Z3-u7c" firstAttribute="leading" secondItem="oFL-pE-CP8" secondAttribute="trailing" constant="15" id="gmL-ua-5mi"/>
+                <constraint firstItem="oFL-pE-CP8" firstAttribute="centerY" secondItem="vUN-kp-3ea" secondAttribute="centerY" id="n7j-ke-ukk"/>
+                <constraint firstItem="Ey9-BF-Hoj" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="centerY" constant="5" id="pr9-dk-TxR"/>
+                <constraint firstItem="Ey9-BF-Hoj" firstAttribute="leading" secondItem="oFL-pE-CP8" secondAttribute="trailing" constant="15" id="sSP-wB-LtC"/>
+                <constraint firstItem="ijD-Z3-u7c" firstAttribute="bottom" secondItem="vUN-kp-3ea" secondAttribute="centerY" constant="-5" id="v75-qq-eCi"/>
+            </constraints>
+            <nil key="simulatedTopBarMetrics"/>
+            <nil key="simulatedBottomBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <point key="canvasLocation" x="-28" y="210"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="carbon" width="42" height="42"/>
+    </resources>
+</document>

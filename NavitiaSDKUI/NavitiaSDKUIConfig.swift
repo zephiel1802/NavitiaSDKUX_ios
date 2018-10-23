@@ -9,7 +9,7 @@ import Foundation
 
 @objc open class NavitiaSDKUI: NSObject {
     
-    @objc open static let shared = NavitiaSDKUI()
+    @objc public static let shared = NavitiaSDKUI()
     
     open var navitiaSDK: NavitiaSDK!
     open var bundle: Bundle!
@@ -20,11 +20,11 @@ import Foundation
         }
     }
     
-    public func initialize(token: String) {
+    @objc public func initialize(token: String) {
         self.token = token
     }
     
-    @objc open var mainColor: UIColor {
+    @objc public var mainColor: UIColor {
         get {
             return Configuration.Color.main
         }
@@ -33,7 +33,7 @@ import Foundation
         }
     }
     
-    @objc open var originColor: UIColor {
+    @objc public var originColor: UIColor {
         get {
             return Configuration.Color.origin
         }
@@ -42,7 +42,7 @@ import Foundation
         }
     }
     
-    @objc open var destinationColor: UIColor {
+    @objc public var destinationColor: UIColor {
         get {
             return Configuration.Color.destination
         }
@@ -51,6 +51,14 @@ import Foundation
         }
     }
     
+    @objc public var multiNetwork: Bool {
+        get {
+            return Configuration.multiNetwork
+        }
+        set {
+            Configuration.multiNetwork = newValue
+        }
+    }
 }
 
 enum Configuration {
@@ -71,6 +79,8 @@ enum Configuration {
     // Constant
     static let caloriePerSecWalking = 0.071625714285714
     static let caloriePerSecBike = 0.11442857142857142
+    
+    static var multiNetwork = false
     
     // Color
     enum Color {
@@ -94,7 +104,6 @@ enum Configuration {
         static var black = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
         static var gray = #colorLiteral(red: 0.5019607843, green: 0.5019607843, blue: 0.5019607843, alpha: 1)
         static var darkerGray = #colorLiteral(red: 0.4, green: 0.4, blue: 0.4, alpha: 1)
-        
         static let red = #colorLiteral(red: 1, green: 0, blue: 0, alpha: 1)
         static let orange = #colorLiteral(red: 0.9725490196, green: 0.5803921569, blue: 0.02352941176, alpha: 1)
         static let background = #colorLiteral(red: 0.9411764706, green: 0.9411764706, blue: 0.9411764706, alpha: 1)

@@ -15,6 +15,11 @@ open class StopDateTime: JSONEncodable, Mappable {
         case onDemandTransport = "on_demand_transport"
         case dateTimeEstimated = "date_time_estimated"
     }
+    public enum DataFreshness: String { 
+        case baseSchedule = "base_schedule"
+        case adaptedSchedule = "adapted_schedule"
+        case realtime = "realtime"
+    }
     public var stopPoint: StopPoint?
     public var links: [LinkSchema]?
     public var arrivalDateTime: String?
@@ -22,7 +27,7 @@ open class StopDateTime: JSONEncodable, Mappable {
     public var departureDateTime: String?
     public var baseArrivalDateTime: String?
     public var baseDepartureDateTime: String?
-    public var dataFreshness: String?
+    public var dataFreshness: DataFreshness?
 
     public init() {}
     required public init?(map: Map) {
@@ -51,7 +56,7 @@ open class StopDateTime: JSONEncodable, Mappable {
         nillableDictionary["departure_date_time"] = self.departureDateTime
         nillableDictionary["base_arrival_date_time"] = self.baseArrivalDateTime
         nillableDictionary["base_departure_date_time"] = self.baseDepartureDateTime
-        nillableDictionary["data_freshness"] = self.dataFreshness
+        nillableDictionary["data_freshness"] = self.dataFreshness?.rawValue
 
         let dictionary: [String:Any] = APIHelper.rejectNil(nillableDictionary) ?? [:]
         return dictionary

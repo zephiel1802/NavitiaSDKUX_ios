@@ -27,84 +27,120 @@ open class CoordLonLatPlacesNearbyRequestBuilder: NSObject {
         case bssStands = "bss_stands"
         case carPark = "car_park"
         case empty = ""
+        case _none = "none"
     }
     var lat:Double? = nil
     var lon:Double? = nil
-    var type: [ModelType]? = nil
+    var type: [String]? = nil
     var filter:String? = nil
     var distance:Int32? = nil
     var count:Int32? = nil
     var depth:Int32? = nil
     var startPage:Int32? = nil
     var bssStands:Bool? = nil
-    var addPoiInfos: [AddPoiInfos]? = nil
+    var addPoiInfos: [String]? = nil
     var disableGeojson:Bool? = nil
+    var debugURL: String? = nil
 
     public init(currentApi: PlacesNearbyApi) {
         self.currentApi = currentApi
     }
 
-    open func withLat(_ lat: Double) -> CoordLonLatPlacesNearbyRequestBuilder {
+    open func withLat(_ lat: Double?) -> CoordLonLatPlacesNearbyRequestBuilder {
         self.lat = lat
+        
         return self
     }
-    open func withLon(_ lon: Double) -> CoordLonLatPlacesNearbyRequestBuilder {
+    open func withLon(_ lon: Double?) -> CoordLonLatPlacesNearbyRequestBuilder {
         self.lon = lon
+        
         return self
     }
-    open func withType(_ type: [ModelType]) -> CoordLonLatPlacesNearbyRequestBuilder {
-        self.type = type
+    open func withType(_ type: [ModelType]?) -> CoordLonLatPlacesNearbyRequestBuilder {
+        guard let type = type else {
+            return self
+        }
+        
+        var items = [String]()
+        for item in type {
+            items.append(item.rawValue)
+        }
+        self.type = items
+
         return self
     }
-    open func withFilter(_ filter: String) -> CoordLonLatPlacesNearbyRequestBuilder {
+    open func withFilter(_ filter: String?) -> CoordLonLatPlacesNearbyRequestBuilder {
         self.filter = filter
+        
         return self
     }
-    open func withDistance(_ distance: Int32) -> CoordLonLatPlacesNearbyRequestBuilder {
+    open func withDistance(_ distance: Int32?) -> CoordLonLatPlacesNearbyRequestBuilder {
         self.distance = distance
+        
         return self
     }
-    open func withCount(_ count: Int32) -> CoordLonLatPlacesNearbyRequestBuilder {
+    open func withCount(_ count: Int32?) -> CoordLonLatPlacesNearbyRequestBuilder {
         self.count = count
+        
         return self
     }
-    open func withDepth(_ depth: Int32) -> CoordLonLatPlacesNearbyRequestBuilder {
+    open func withDepth(_ depth: Int32?) -> CoordLonLatPlacesNearbyRequestBuilder {
         self.depth = depth
+        
         return self
     }
-    open func withStartPage(_ startPage: Int32) -> CoordLonLatPlacesNearbyRequestBuilder {
+    open func withStartPage(_ startPage: Int32?) -> CoordLonLatPlacesNearbyRequestBuilder {
         self.startPage = startPage
+        
         return self
     }
-    open func withBssStands(_ bssStands: Bool) -> CoordLonLatPlacesNearbyRequestBuilder {
+    open func withBssStands(_ bssStands: Bool?) -> CoordLonLatPlacesNearbyRequestBuilder {
         self.bssStands = bssStands
+        
         return self
     }
-    open func withAddPoiInfos(_ addPoiInfos: [AddPoiInfos]) -> CoordLonLatPlacesNearbyRequestBuilder {
-        self.addPoiInfos = addPoiInfos
+    open func withAddPoiInfos(_ addPoiInfos: [AddPoiInfos]?) -> CoordLonLatPlacesNearbyRequestBuilder {
+        guard let addPoiInfos = addPoiInfos else {
+            return self
+        }
+        
+        var items = [String]()
+        for item in addPoiInfos {
+            items.append(item.rawValue)
+        }
+        self.addPoiInfos = items
+
         return self
     }
-    open func withDisableGeojson(_ disableGeojson: Bool) -> CoordLonLatPlacesNearbyRequestBuilder {
+    open func withDisableGeojson(_ disableGeojson: Bool?) -> CoordLonLatPlacesNearbyRequestBuilder {
         self.disableGeojson = disableGeojson
+        
+        return self
+    }
+
+
+
+    open func withDebugURL(_ debugURL: String?) -> CoordLonLatPlacesNearbyRequestBuilder {
+        self.debugURL = debugURL
         return self
     }
 
     open func makeUrl() -> String {
         var path = "/coord/{lon};{lat}/places_nearby"
 
-        if (lat != nil) {
-            let latPreEscape: String = "\(lat!)"
+        if let lat = lat {
+            let latPreEscape: String = "\(lat)"
             let latPostEscape: String = latPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
             path = path.replacingOccurrences(of: "{lat}", with: latPostEscape, options: .literal, range: nil)
         }
 
-        if (lon != nil) {
-            let lonPreEscape: String = "\(lon!)"
+        if let lon = lon {
+            let lonPreEscape: String = "\(lon)"
             let lonPostEscape: String = lonPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
             path = path.replacingOccurrences(of: "{lon}", with: lonPostEscape, options: .literal, range: nil)
         }
 
-        let URLString = "https://api.navitia.io/v1" + path
+        let URLString = String(format: "%@%@", NavitiaSDKAPI.basePath, path)
         let url = NSURLComponents(string: URLString)
 
         let paramValues: [String: Any?] = [
@@ -121,7 +157,7 @@ open class CoordLonLatPlacesNearbyRequestBuilder: NSObject {
         url?.queryItems = APIHelper.mapValuesToQueryItems(values: paramValues)
         url?.percentEncodedQuery = url?.percentEncodedQuery?.replacingOccurrences(of: "+", with: "%2B")
 
-        return (url?.string ?? URLString)
+        return (debugURL ?? url?.string ?? URLString)
     }
 
     open func get(completion: @escaping ((_ data: PlacesNearby?,_ error: Error?) -> Void)) {
@@ -187,84 +223,120 @@ open class CoordsLonLatPlacesNearbyRequestBuilder: NSObject {
         case bssStands = "bss_stands"
         case carPark = "car_park"
         case empty = ""
+        case _none = "none"
     }
     var lat:Double? = nil
     var lon:Double? = nil
-    var type: [ModelType]? = nil
+    var type: [String]? = nil
     var filter:String? = nil
     var distance:Int32? = nil
     var count:Int32? = nil
     var depth:Int32? = nil
     var startPage:Int32? = nil
     var bssStands:Bool? = nil
-    var addPoiInfos: [AddPoiInfos]? = nil
+    var addPoiInfos: [String]? = nil
     var disableGeojson:Bool? = nil
+    var debugURL: String? = nil
 
     public init(currentApi: PlacesNearbyApi) {
         self.currentApi = currentApi
     }
 
-    open func withLat(_ lat: Double) -> CoordsLonLatPlacesNearbyRequestBuilder {
+    open func withLat(_ lat: Double?) -> CoordsLonLatPlacesNearbyRequestBuilder {
         self.lat = lat
+        
         return self
     }
-    open func withLon(_ lon: Double) -> CoordsLonLatPlacesNearbyRequestBuilder {
+    open func withLon(_ lon: Double?) -> CoordsLonLatPlacesNearbyRequestBuilder {
         self.lon = lon
+        
         return self
     }
-    open func withType(_ type: [ModelType]) -> CoordsLonLatPlacesNearbyRequestBuilder {
-        self.type = type
+    open func withType(_ type: [ModelType]?) -> CoordsLonLatPlacesNearbyRequestBuilder {
+        guard let type = type else {
+            return self
+        }
+        
+        var items = [String]()
+        for item in type {
+            items.append(item.rawValue)
+        }
+        self.type = items
+
         return self
     }
-    open func withFilter(_ filter: String) -> CoordsLonLatPlacesNearbyRequestBuilder {
+    open func withFilter(_ filter: String?) -> CoordsLonLatPlacesNearbyRequestBuilder {
         self.filter = filter
+        
         return self
     }
-    open func withDistance(_ distance: Int32) -> CoordsLonLatPlacesNearbyRequestBuilder {
+    open func withDistance(_ distance: Int32?) -> CoordsLonLatPlacesNearbyRequestBuilder {
         self.distance = distance
+        
         return self
     }
-    open func withCount(_ count: Int32) -> CoordsLonLatPlacesNearbyRequestBuilder {
+    open func withCount(_ count: Int32?) -> CoordsLonLatPlacesNearbyRequestBuilder {
         self.count = count
+        
         return self
     }
-    open func withDepth(_ depth: Int32) -> CoordsLonLatPlacesNearbyRequestBuilder {
+    open func withDepth(_ depth: Int32?) -> CoordsLonLatPlacesNearbyRequestBuilder {
         self.depth = depth
+        
         return self
     }
-    open func withStartPage(_ startPage: Int32) -> CoordsLonLatPlacesNearbyRequestBuilder {
+    open func withStartPage(_ startPage: Int32?) -> CoordsLonLatPlacesNearbyRequestBuilder {
         self.startPage = startPage
+        
         return self
     }
-    open func withBssStands(_ bssStands: Bool) -> CoordsLonLatPlacesNearbyRequestBuilder {
+    open func withBssStands(_ bssStands: Bool?) -> CoordsLonLatPlacesNearbyRequestBuilder {
         self.bssStands = bssStands
+        
         return self
     }
-    open func withAddPoiInfos(_ addPoiInfos: [AddPoiInfos]) -> CoordsLonLatPlacesNearbyRequestBuilder {
-        self.addPoiInfos = addPoiInfos
+    open func withAddPoiInfos(_ addPoiInfos: [AddPoiInfos]?) -> CoordsLonLatPlacesNearbyRequestBuilder {
+        guard let addPoiInfos = addPoiInfos else {
+            return self
+        }
+        
+        var items = [String]()
+        for item in addPoiInfos {
+            items.append(item.rawValue)
+        }
+        self.addPoiInfos = items
+
         return self
     }
-    open func withDisableGeojson(_ disableGeojson: Bool) -> CoordsLonLatPlacesNearbyRequestBuilder {
+    open func withDisableGeojson(_ disableGeojson: Bool?) -> CoordsLonLatPlacesNearbyRequestBuilder {
         self.disableGeojson = disableGeojson
+        
+        return self
+    }
+
+
+
+    open func withDebugURL(_ debugURL: String?) -> CoordsLonLatPlacesNearbyRequestBuilder {
+        self.debugURL = debugURL
         return self
     }
 
     open func makeUrl() -> String {
         var path = "/coords/{lon};{lat}/places_nearby"
 
-        if (lat != nil) {
-            let latPreEscape: String = "\(lat!)"
+        if let lat = lat {
+            let latPreEscape: String = "\(lat)"
             let latPostEscape: String = latPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
             path = path.replacingOccurrences(of: "{lat}", with: latPostEscape, options: .literal, range: nil)
         }
 
-        if (lon != nil) {
-            let lonPreEscape: String = "\(lon!)"
+        if let lon = lon {
+            let lonPreEscape: String = "\(lon)"
             let lonPostEscape: String = lonPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
             path = path.replacingOccurrences(of: "{lon}", with: lonPostEscape, options: .literal, range: nil)
         }
 
-        let URLString = "https://api.navitia.io/v1" + path
+        let URLString = String(format: "%@%@", NavitiaSDKAPI.basePath, path)
         let url = NSURLComponents(string: URLString)
 
         let paramValues: [String: Any?] = [
@@ -281,7 +353,7 @@ open class CoordsLonLatPlacesNearbyRequestBuilder: NSObject {
         url?.queryItems = APIHelper.mapValuesToQueryItems(values: paramValues)
         url?.percentEncodedQuery = url?.percentEncodedQuery?.replacingOccurrences(of: "+", with: "%2B")
 
-        return (url?.string ?? URLString)
+        return (debugURL ?? url?.string ?? URLString)
     }
 
     open func get(completion: @escaping ((_ data: PlacesNearby?,_ error: Error?) -> Void)) {
@@ -347,84 +419,120 @@ open class CoverageLonLatPlacesNearbyRequestBuilder: NSObject {
         case bssStands = "bss_stands"
         case carPark = "car_park"
         case empty = ""
+        case _none = "none"
     }
     var lat:Double? = nil
     var lon:Double? = nil
-    var type: [ModelType]? = nil
+    var type: [String]? = nil
     var filter:String? = nil
     var distance:Int32? = nil
     var count:Int32? = nil
     var depth:Int32? = nil
     var startPage:Int32? = nil
     var bssStands:Bool? = nil
-    var addPoiInfos: [AddPoiInfos]? = nil
+    var addPoiInfos: [String]? = nil
     var disableGeojson:Bool? = nil
+    var debugURL: String? = nil
 
     public init(currentApi: PlacesNearbyApi) {
         self.currentApi = currentApi
     }
 
-    open func withLat(_ lat: Double) -> CoverageLonLatPlacesNearbyRequestBuilder {
+    open func withLat(_ lat: Double?) -> CoverageLonLatPlacesNearbyRequestBuilder {
         self.lat = lat
+        
         return self
     }
-    open func withLon(_ lon: Double) -> CoverageLonLatPlacesNearbyRequestBuilder {
+    open func withLon(_ lon: Double?) -> CoverageLonLatPlacesNearbyRequestBuilder {
         self.lon = lon
+        
         return self
     }
-    open func withType(_ type: [ModelType]) -> CoverageLonLatPlacesNearbyRequestBuilder {
-        self.type = type
+    open func withType(_ type: [ModelType]?) -> CoverageLonLatPlacesNearbyRequestBuilder {
+        guard let type = type else {
+            return self
+        }
+        
+        var items = [String]()
+        for item in type {
+            items.append(item.rawValue)
+        }
+        self.type = items
+
         return self
     }
-    open func withFilter(_ filter: String) -> CoverageLonLatPlacesNearbyRequestBuilder {
+    open func withFilter(_ filter: String?) -> CoverageLonLatPlacesNearbyRequestBuilder {
         self.filter = filter
+        
         return self
     }
-    open func withDistance(_ distance: Int32) -> CoverageLonLatPlacesNearbyRequestBuilder {
+    open func withDistance(_ distance: Int32?) -> CoverageLonLatPlacesNearbyRequestBuilder {
         self.distance = distance
+        
         return self
     }
-    open func withCount(_ count: Int32) -> CoverageLonLatPlacesNearbyRequestBuilder {
+    open func withCount(_ count: Int32?) -> CoverageLonLatPlacesNearbyRequestBuilder {
         self.count = count
+        
         return self
     }
-    open func withDepth(_ depth: Int32) -> CoverageLonLatPlacesNearbyRequestBuilder {
+    open func withDepth(_ depth: Int32?) -> CoverageLonLatPlacesNearbyRequestBuilder {
         self.depth = depth
+        
         return self
     }
-    open func withStartPage(_ startPage: Int32) -> CoverageLonLatPlacesNearbyRequestBuilder {
+    open func withStartPage(_ startPage: Int32?) -> CoverageLonLatPlacesNearbyRequestBuilder {
         self.startPage = startPage
+        
         return self
     }
-    open func withBssStands(_ bssStands: Bool) -> CoverageLonLatPlacesNearbyRequestBuilder {
+    open func withBssStands(_ bssStands: Bool?) -> CoverageLonLatPlacesNearbyRequestBuilder {
         self.bssStands = bssStands
+        
         return self
     }
-    open func withAddPoiInfos(_ addPoiInfos: [AddPoiInfos]) -> CoverageLonLatPlacesNearbyRequestBuilder {
-        self.addPoiInfos = addPoiInfos
+    open func withAddPoiInfos(_ addPoiInfos: [AddPoiInfos]?) -> CoverageLonLatPlacesNearbyRequestBuilder {
+        guard let addPoiInfos = addPoiInfos else {
+            return self
+        }
+        
+        var items = [String]()
+        for item in addPoiInfos {
+            items.append(item.rawValue)
+        }
+        self.addPoiInfos = items
+
         return self
     }
-    open func withDisableGeojson(_ disableGeojson: Bool) -> CoverageLonLatPlacesNearbyRequestBuilder {
+    open func withDisableGeojson(_ disableGeojson: Bool?) -> CoverageLonLatPlacesNearbyRequestBuilder {
         self.disableGeojson = disableGeojson
+        
+        return self
+    }
+
+
+
+    open func withDebugURL(_ debugURL: String?) -> CoverageLonLatPlacesNearbyRequestBuilder {
+        self.debugURL = debugURL
         return self
     }
 
     open func makeUrl() -> String {
         var path = "/coverage/{lon};{lat}/places_nearby"
 
-        if (lat != nil) {
-            let latPreEscape: String = "\(lat!)"
+        if let lat = lat {
+            let latPreEscape: String = "\(lat)"
             let latPostEscape: String = latPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
             path = path.replacingOccurrences(of: "{lat}", with: latPostEscape, options: .literal, range: nil)
         }
 
-        if (lon != nil) {
-            let lonPreEscape: String = "\(lon!)"
+        if let lon = lon {
+            let lonPreEscape: String = "\(lon)"
             let lonPostEscape: String = lonPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
             path = path.replacingOccurrences(of: "{lon}", with: lonPostEscape, options: .literal, range: nil)
         }
 
-        let URLString = "https://api.navitia.io/v1" + path
+        let URLString = String(format: "%@%@", NavitiaSDKAPI.basePath, path)
         let url = NSURLComponents(string: URLString)
 
         let paramValues: [String: Any?] = [
@@ -441,7 +549,7 @@ open class CoverageLonLatPlacesNearbyRequestBuilder: NSObject {
         url?.queryItems = APIHelper.mapValuesToQueryItems(values: paramValues)
         url?.percentEncodedQuery = url?.percentEncodedQuery?.replacingOccurrences(of: "+", with: "%2B")
 
-        return (url?.string ?? URLString)
+        return (debugURL ?? url?.string ?? URLString)
     }
 
     open func get(completion: @escaping ((_ data: PlacesNearby?,_ error: Error?) -> Void)) {
@@ -507,95 +615,132 @@ open class CoverageLonLatUriPlacesNearbyRequestBuilder: NSObject {
         case bssStands = "bss_stands"
         case carPark = "car_park"
         case empty = ""
+        case _none = "none"
     }
     var lat:Double? = nil
     var lon:Double? = nil
     var uri:String? = nil
-    var type: [ModelType]? = nil
+    var type: [String]? = nil
     var filter:String? = nil
     var distance:Int32? = nil
     var count:Int32? = nil
     var depth:Int32? = nil
     var startPage:Int32? = nil
     var bssStands:Bool? = nil
-    var addPoiInfos: [AddPoiInfos]? = nil
+    var addPoiInfos: [String]? = nil
     var disableGeojson:Bool? = nil
+    var debugURL: String? = nil
 
     public init(currentApi: PlacesNearbyApi) {
         self.currentApi = currentApi
     }
 
-    open func withLat(_ lat: Double) -> CoverageLonLatUriPlacesNearbyRequestBuilder {
+    open func withLat(_ lat: Double?) -> CoverageLonLatUriPlacesNearbyRequestBuilder {
         self.lat = lat
+        
         return self
     }
-    open func withLon(_ lon: Double) -> CoverageLonLatUriPlacesNearbyRequestBuilder {
+    open func withLon(_ lon: Double?) -> CoverageLonLatUriPlacesNearbyRequestBuilder {
         self.lon = lon
+        
         return self
     }
-    open func withUri(_ uri: String) -> CoverageLonLatUriPlacesNearbyRequestBuilder {
+    open func withUri(_ uri: String?) -> CoverageLonLatUriPlacesNearbyRequestBuilder {
         self.uri = uri
+        
         return self
     }
-    open func withType(_ type: [ModelType]) -> CoverageLonLatUriPlacesNearbyRequestBuilder {
-        self.type = type
+    open func withType(_ type: [ModelType]?) -> CoverageLonLatUriPlacesNearbyRequestBuilder {
+        guard let type = type else {
+            return self
+        }
+        
+        var items = [String]()
+        for item in type {
+            items.append(item.rawValue)
+        }
+        self.type = items
+
         return self
     }
-    open func withFilter(_ filter: String) -> CoverageLonLatUriPlacesNearbyRequestBuilder {
+    open func withFilter(_ filter: String?) -> CoverageLonLatUriPlacesNearbyRequestBuilder {
         self.filter = filter
+        
         return self
     }
-    open func withDistance(_ distance: Int32) -> CoverageLonLatUriPlacesNearbyRequestBuilder {
+    open func withDistance(_ distance: Int32?) -> CoverageLonLatUriPlacesNearbyRequestBuilder {
         self.distance = distance
+        
         return self
     }
-    open func withCount(_ count: Int32) -> CoverageLonLatUriPlacesNearbyRequestBuilder {
+    open func withCount(_ count: Int32?) -> CoverageLonLatUriPlacesNearbyRequestBuilder {
         self.count = count
+        
         return self
     }
-    open func withDepth(_ depth: Int32) -> CoverageLonLatUriPlacesNearbyRequestBuilder {
+    open func withDepth(_ depth: Int32?) -> CoverageLonLatUriPlacesNearbyRequestBuilder {
         self.depth = depth
+        
         return self
     }
-    open func withStartPage(_ startPage: Int32) -> CoverageLonLatUriPlacesNearbyRequestBuilder {
+    open func withStartPage(_ startPage: Int32?) -> CoverageLonLatUriPlacesNearbyRequestBuilder {
         self.startPage = startPage
+        
         return self
     }
-    open func withBssStands(_ bssStands: Bool) -> CoverageLonLatUriPlacesNearbyRequestBuilder {
+    open func withBssStands(_ bssStands: Bool?) -> CoverageLonLatUriPlacesNearbyRequestBuilder {
         self.bssStands = bssStands
+        
         return self
     }
-    open func withAddPoiInfos(_ addPoiInfos: [AddPoiInfos]) -> CoverageLonLatUriPlacesNearbyRequestBuilder {
-        self.addPoiInfos = addPoiInfos
+    open func withAddPoiInfos(_ addPoiInfos: [AddPoiInfos]?) -> CoverageLonLatUriPlacesNearbyRequestBuilder {
+        guard let addPoiInfos = addPoiInfos else {
+            return self
+        }
+        
+        var items = [String]()
+        for item in addPoiInfos {
+            items.append(item.rawValue)
+        }
+        self.addPoiInfos = items
+
         return self
     }
-    open func withDisableGeojson(_ disableGeojson: Bool) -> CoverageLonLatUriPlacesNearbyRequestBuilder {
+    open func withDisableGeojson(_ disableGeojson: Bool?) -> CoverageLonLatUriPlacesNearbyRequestBuilder {
         self.disableGeojson = disableGeojson
+        
+        return self
+    }
+
+
+
+    open func withDebugURL(_ debugURL: String?) -> CoverageLonLatUriPlacesNearbyRequestBuilder {
+        self.debugURL = debugURL
         return self
     }
 
     open func makeUrl() -> String {
         var path = "/coverage/{lon};{lat}/{uri}/places_nearby"
 
-        if (lat != nil) {
-            let latPreEscape: String = "\(lat!)"
+        if let lat = lat {
+            let latPreEscape: String = "\(lat)"
             let latPostEscape: String = latPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
             path = path.replacingOccurrences(of: "{lat}", with: latPostEscape, options: .literal, range: nil)
         }
 
-        if (lon != nil) {
-            let lonPreEscape: String = "\(lon!)"
+        if let lon = lon {
+            let lonPreEscape: String = "\(lon)"
             let lonPostEscape: String = lonPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
             path = path.replacingOccurrences(of: "{lon}", with: lonPostEscape, options: .literal, range: nil)
         }
 
-        if (uri != nil) {
-            let uriPreEscape: String = "\(uri!)"
+        if let uri = uri {
+            let uriPreEscape: String = "\(uri)"
             let uriPostEscape: String = uriPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
             path = path.replacingOccurrences(of: "{uri}", with: uriPostEscape, options: .literal, range: nil)
         }
 
-        let URLString = "https://api.navitia.io/v1" + path
+        let URLString = String(format: "%@%@", NavitiaSDKAPI.basePath, path)
         let url = NSURLComponents(string: URLString)
 
         let paramValues: [String: Any?] = [
@@ -612,7 +757,7 @@ open class CoverageLonLatUriPlacesNearbyRequestBuilder: NSObject {
         url?.queryItems = APIHelper.mapValuesToQueryItems(values: paramValues)
         url?.percentEncodedQuery = url?.percentEncodedQuery?.replacingOccurrences(of: "+", with: "%2B")
 
-        return (url?.string ?? URLString)
+        return (debugURL ?? url?.string ?? URLString)
     }
 
     open func get(completion: @escaping ((_ data: PlacesNearby?,_ error: Error?) -> Void)) {
@@ -684,73 +829,108 @@ open class CoverageRegionPlacesNearbyRequestBuilder: NSObject {
         case bssStands = "bss_stands"
         case carPark = "car_park"
         case empty = ""
+        case _none = "none"
     }
     var region:String? = nil
-    var type: [ModelType]? = nil
+    var type: [String]? = nil
     var filter:String? = nil
     var distance:Int32? = nil
     var count:Int32? = nil
     var depth:Int32? = nil
     var startPage:Int32? = nil
     var bssStands:Bool? = nil
-    var addPoiInfos: [AddPoiInfos]? = nil
+    var addPoiInfos: [String]? = nil
     var disableGeojson:Bool? = nil
+    var debugURL: String? = nil
 
     public init(currentApi: PlacesNearbyApi) {
         self.currentApi = currentApi
     }
 
-    open func withRegion(_ region: String) -> CoverageRegionPlacesNearbyRequestBuilder {
+    open func withRegion(_ region: String?) -> CoverageRegionPlacesNearbyRequestBuilder {
         self.region = region
+        
         return self
     }
-    open func withType(_ type: [ModelType]) -> CoverageRegionPlacesNearbyRequestBuilder {
-        self.type = type
+    open func withType(_ type: [ModelType]?) -> CoverageRegionPlacesNearbyRequestBuilder {
+        guard let type = type else {
+            return self
+        }
+        
+        var items = [String]()
+        for item in type {
+            items.append(item.rawValue)
+        }
+        self.type = items
+
         return self
     }
-    open func withFilter(_ filter: String) -> CoverageRegionPlacesNearbyRequestBuilder {
+    open func withFilter(_ filter: String?) -> CoverageRegionPlacesNearbyRequestBuilder {
         self.filter = filter
+        
         return self
     }
-    open func withDistance(_ distance: Int32) -> CoverageRegionPlacesNearbyRequestBuilder {
+    open func withDistance(_ distance: Int32?) -> CoverageRegionPlacesNearbyRequestBuilder {
         self.distance = distance
+        
         return self
     }
-    open func withCount(_ count: Int32) -> CoverageRegionPlacesNearbyRequestBuilder {
+    open func withCount(_ count: Int32?) -> CoverageRegionPlacesNearbyRequestBuilder {
         self.count = count
+        
         return self
     }
-    open func withDepth(_ depth: Int32) -> CoverageRegionPlacesNearbyRequestBuilder {
+    open func withDepth(_ depth: Int32?) -> CoverageRegionPlacesNearbyRequestBuilder {
         self.depth = depth
+        
         return self
     }
-    open func withStartPage(_ startPage: Int32) -> CoverageRegionPlacesNearbyRequestBuilder {
+    open func withStartPage(_ startPage: Int32?) -> CoverageRegionPlacesNearbyRequestBuilder {
         self.startPage = startPage
+        
         return self
     }
-    open func withBssStands(_ bssStands: Bool) -> CoverageRegionPlacesNearbyRequestBuilder {
+    open func withBssStands(_ bssStands: Bool?) -> CoverageRegionPlacesNearbyRequestBuilder {
         self.bssStands = bssStands
+        
         return self
     }
-    open func withAddPoiInfos(_ addPoiInfos: [AddPoiInfos]) -> CoverageRegionPlacesNearbyRequestBuilder {
-        self.addPoiInfos = addPoiInfos
+    open func withAddPoiInfos(_ addPoiInfos: [AddPoiInfos]?) -> CoverageRegionPlacesNearbyRequestBuilder {
+        guard let addPoiInfos = addPoiInfos else {
+            return self
+        }
+        
+        var items = [String]()
+        for item in addPoiInfos {
+            items.append(item.rawValue)
+        }
+        self.addPoiInfos = items
+
         return self
     }
-    open func withDisableGeojson(_ disableGeojson: Bool) -> CoverageRegionPlacesNearbyRequestBuilder {
+    open func withDisableGeojson(_ disableGeojson: Bool?) -> CoverageRegionPlacesNearbyRequestBuilder {
         self.disableGeojson = disableGeojson
+        
+        return self
+    }
+
+
+
+    open func withDebugURL(_ debugURL: String?) -> CoverageRegionPlacesNearbyRequestBuilder {
+        self.debugURL = debugURL
         return self
     }
 
     open func makeUrl() -> String {
         var path = "/coverage/{region}/places_nearby"
 
-        if (region != nil) {
-            let regionPreEscape: String = "\(region!)"
+        if let region = region {
+            let regionPreEscape: String = "\(region)"
             let regionPostEscape: String = regionPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
             path = path.replacingOccurrences(of: "{region}", with: regionPostEscape, options: .literal, range: nil)
         }
 
-        let URLString = "https://api.navitia.io/v1" + path
+        let URLString = String(format: "%@%@", NavitiaSDKAPI.basePath, path)
         let url = NSURLComponents(string: URLString)
 
         let paramValues: [String: Any?] = [
@@ -767,7 +947,7 @@ open class CoverageRegionPlacesNearbyRequestBuilder: NSObject {
         url?.queryItems = APIHelper.mapValuesToQueryItems(values: paramValues)
         url?.percentEncodedQuery = url?.percentEncodedQuery?.replacingOccurrences(of: "+", with: "%2B")
 
-        return (url?.string ?? URLString)
+        return (debugURL ?? url?.string ?? URLString)
     }
 
     open func get(completion: @escaping ((_ data: PlacesNearby?,_ error: Error?) -> Void)) {
@@ -827,84 +1007,120 @@ open class CoverageRegionUriPlacesNearbyRequestBuilder: NSObject {
         case bssStands = "bss_stands"
         case carPark = "car_park"
         case empty = ""
+        case _none = "none"
     }
     var region:String? = nil
     var uri:String? = nil
-    var type: [ModelType]? = nil
+    var type: [String]? = nil
     var filter:String? = nil
     var distance:Int32? = nil
     var count:Int32? = nil
     var depth:Int32? = nil
     var startPage:Int32? = nil
     var bssStands:Bool? = nil
-    var addPoiInfos: [AddPoiInfos]? = nil
+    var addPoiInfos: [String]? = nil
     var disableGeojson:Bool? = nil
+    var debugURL: String? = nil
 
     public init(currentApi: PlacesNearbyApi) {
         self.currentApi = currentApi
     }
 
-    open func withRegion(_ region: String) -> CoverageRegionUriPlacesNearbyRequestBuilder {
+    open func withRegion(_ region: String?) -> CoverageRegionUriPlacesNearbyRequestBuilder {
         self.region = region
+        
         return self
     }
-    open func withUri(_ uri: String) -> CoverageRegionUriPlacesNearbyRequestBuilder {
+    open func withUri(_ uri: String?) -> CoverageRegionUriPlacesNearbyRequestBuilder {
         self.uri = uri
+        
         return self
     }
-    open func withType(_ type: [ModelType]) -> CoverageRegionUriPlacesNearbyRequestBuilder {
-        self.type = type
+    open func withType(_ type: [ModelType]?) -> CoverageRegionUriPlacesNearbyRequestBuilder {
+        guard let type = type else {
+            return self
+        }
+        
+        var items = [String]()
+        for item in type {
+            items.append(item.rawValue)
+        }
+        self.type = items
+
         return self
     }
-    open func withFilter(_ filter: String) -> CoverageRegionUriPlacesNearbyRequestBuilder {
+    open func withFilter(_ filter: String?) -> CoverageRegionUriPlacesNearbyRequestBuilder {
         self.filter = filter
+        
         return self
     }
-    open func withDistance(_ distance: Int32) -> CoverageRegionUriPlacesNearbyRequestBuilder {
+    open func withDistance(_ distance: Int32?) -> CoverageRegionUriPlacesNearbyRequestBuilder {
         self.distance = distance
+        
         return self
     }
-    open func withCount(_ count: Int32) -> CoverageRegionUriPlacesNearbyRequestBuilder {
+    open func withCount(_ count: Int32?) -> CoverageRegionUriPlacesNearbyRequestBuilder {
         self.count = count
+        
         return self
     }
-    open func withDepth(_ depth: Int32) -> CoverageRegionUriPlacesNearbyRequestBuilder {
+    open func withDepth(_ depth: Int32?) -> CoverageRegionUriPlacesNearbyRequestBuilder {
         self.depth = depth
+        
         return self
     }
-    open func withStartPage(_ startPage: Int32) -> CoverageRegionUriPlacesNearbyRequestBuilder {
+    open func withStartPage(_ startPage: Int32?) -> CoverageRegionUriPlacesNearbyRequestBuilder {
         self.startPage = startPage
+        
         return self
     }
-    open func withBssStands(_ bssStands: Bool) -> CoverageRegionUriPlacesNearbyRequestBuilder {
+    open func withBssStands(_ bssStands: Bool?) -> CoverageRegionUriPlacesNearbyRequestBuilder {
         self.bssStands = bssStands
+        
         return self
     }
-    open func withAddPoiInfos(_ addPoiInfos: [AddPoiInfos]) -> CoverageRegionUriPlacesNearbyRequestBuilder {
-        self.addPoiInfos = addPoiInfos
+    open func withAddPoiInfos(_ addPoiInfos: [AddPoiInfos]?) -> CoverageRegionUriPlacesNearbyRequestBuilder {
+        guard let addPoiInfos = addPoiInfos else {
+            return self
+        }
+        
+        var items = [String]()
+        for item in addPoiInfos {
+            items.append(item.rawValue)
+        }
+        self.addPoiInfos = items
+
         return self
     }
-    open func withDisableGeojson(_ disableGeojson: Bool) -> CoverageRegionUriPlacesNearbyRequestBuilder {
+    open func withDisableGeojson(_ disableGeojson: Bool?) -> CoverageRegionUriPlacesNearbyRequestBuilder {
         self.disableGeojson = disableGeojson
+        
+        return self
+    }
+
+
+
+    open func withDebugURL(_ debugURL: String?) -> CoverageRegionUriPlacesNearbyRequestBuilder {
+        self.debugURL = debugURL
         return self
     }
 
     open func makeUrl() -> String {
         var path = "/coverage/{region}/{uri}/places_nearby"
 
-        if (region != nil) {
-            let regionPreEscape: String = "\(region!)"
+        if let region = region {
+            let regionPreEscape: String = "\(region)"
             let regionPostEscape: String = regionPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
             path = path.replacingOccurrences(of: "{region}", with: regionPostEscape, options: .literal, range: nil)
         }
 
-        if (uri != nil) {
-            let uriPreEscape: String = "\(uri!)"
+        if let uri = uri {
+            let uriPreEscape: String = "\(uri)"
             let uriPostEscape: String = uriPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
             path = path.replacingOccurrences(of: "{uri}", with: uriPostEscape, options: .literal, range: nil)
         }
 
-        let URLString = "https://api.navitia.io/v1" + path
+        let URLString = String(format: "%@%@", NavitiaSDKAPI.basePath, path)
         let url = NSURLComponents(string: URLString)
 
         let paramValues: [String: Any?] = [
@@ -921,7 +1137,7 @@ open class CoverageRegionUriPlacesNearbyRequestBuilder: NSObject {
         url?.queryItems = APIHelper.mapValuesToQueryItems(values: paramValues)
         url?.percentEncodedQuery = url?.percentEncodedQuery?.replacingOccurrences(of: "+", with: "%2B")
 
-        return (url?.string ?? URLString)
+        return (debugURL ?? url?.string ?? URLString)
     }
 
     open func get(completion: @escaping ((_ data: PlacesNearby?,_ error: Error?) -> Void)) {

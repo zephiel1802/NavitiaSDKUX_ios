@@ -17,65 +17,86 @@ open class CoverageLonLatPlacesIdRequestBuilder: NSObject {
         case bssStands = "bss_stands"
         case carPark = "car_park"
         case empty = ""
+        case _none = "none"
     }
     var lat:Double? = nil
     var lon:Double? = nil
     var id:String? = nil
     var bssStands:Bool? = nil
-    var addPoiInfos: [AddPoiInfos]? = nil
+    var addPoiInfos: [String]? = nil
     var disableGeojson:Bool? = nil
+    var debugURL: String? = nil
 
     public init(currentApi: PlaceUriApi) {
         self.currentApi = currentApi
     }
 
-    open func withLat(_ lat: Double) -> CoverageLonLatPlacesIdRequestBuilder {
+    open func withLat(_ lat: Double?) -> CoverageLonLatPlacesIdRequestBuilder {
         self.lat = lat
+        
         return self
     }
-    open func withLon(_ lon: Double) -> CoverageLonLatPlacesIdRequestBuilder {
+    open func withLon(_ lon: Double?) -> CoverageLonLatPlacesIdRequestBuilder {
         self.lon = lon
+        
         return self
     }
-    open func withId(_ id: String) -> CoverageLonLatPlacesIdRequestBuilder {
+    open func withId(_ id: String?) -> CoverageLonLatPlacesIdRequestBuilder {
         self.id = id
+        
         return self
     }
-    open func withBssStands(_ bssStands: Bool) -> CoverageLonLatPlacesIdRequestBuilder {
+    open func withBssStands(_ bssStands: Bool?) -> CoverageLonLatPlacesIdRequestBuilder {
         self.bssStands = bssStands
+        
         return self
     }
-    open func withAddPoiInfos(_ addPoiInfos: [AddPoiInfos]) -> CoverageLonLatPlacesIdRequestBuilder {
-        self.addPoiInfos = addPoiInfos
+    open func withAddPoiInfos(_ addPoiInfos: [AddPoiInfos]?) -> CoverageLonLatPlacesIdRequestBuilder {
+        guard let addPoiInfos = addPoiInfos else {
+            return self
+        }
+        
+        var items = [String]()
+        for item in addPoiInfos {
+            items.append(item.rawValue)
+        }
+        self.addPoiInfos = items
+
         return self
     }
-    open func withDisableGeojson(_ disableGeojson: Bool) -> CoverageLonLatPlacesIdRequestBuilder {
+    open func withDisableGeojson(_ disableGeojson: Bool?) -> CoverageLonLatPlacesIdRequestBuilder {
         self.disableGeojson = disableGeojson
+        
+        return self
+    }
+
+    open func withDebugURL(_ debugURL: String?) -> CoverageLonLatPlacesIdRequestBuilder {
+        self.debugURL = debugURL
         return self
     }
 
     open func makeUrl() -> String {
         var path = "/coverage/{lon};{lat}/places/{id}"
 
-        if (lat != nil) {
-            let latPreEscape: String = "\(lat!)"
+        if let lat = lat {
+            let latPreEscape: String = "\(lat)"
             let latPostEscape: String = latPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
             path = path.replacingOccurrences(of: "{lat}", with: latPostEscape, options: .literal, range: nil)
         }
 
-        if (lon != nil) {
-            let lonPreEscape: String = "\(lon!)"
+        if let lon = lon {
+            let lonPreEscape: String = "\(lon)"
             let lonPostEscape: String = lonPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
             path = path.replacingOccurrences(of: "{lon}", with: lonPostEscape, options: .literal, range: nil)
         }
 
-        if (id != nil) {
-            let idPreEscape: String = "\(id!)"
+        if let id = id {
+            let idPreEscape: String = "\(id)"
             let idPostEscape: String = idPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
             path = path.replacingOccurrences(of: "{id}", with: idPostEscape, options: .literal, range: nil)
         }
 
-        let URLString = "https://api.navitia.io/v1" + path
+        let URLString = String(format: "%@%@", NavitiaSDKAPI.basePath, path)
         let url = NSURLComponents(string: URLString)
 
         let paramValues: [String: Any?] = [
@@ -86,7 +107,7 @@ open class CoverageLonLatPlacesIdRequestBuilder: NSObject {
         url?.queryItems = APIHelper.mapValuesToQueryItems(values: paramValues)
         url?.percentEncodedQuery = url?.percentEncodedQuery?.replacingOccurrences(of: "+", with: "%2B")
 
-        return (url?.string ?? URLString)
+        return (debugURL ?? url?.string ?? URLString)
     }
 
     open func get(completion: @escaping ((_ data: Places?,_ error: Error?) -> Void)) {
@@ -148,54 +169,76 @@ open class CoverageRegionPlacesIdRequestBuilder: NSObject {
         case bssStands = "bss_stands"
         case carPark = "car_park"
         case empty = ""
+        case _none = "none"
     }
     var region:String? = nil
     var id:String? = nil
     var bssStands:Bool? = nil
-    var addPoiInfos: [AddPoiInfos]? = nil
+    var addPoiInfos: [String]? = nil
     var disableGeojson:Bool? = nil
+    var debugURL: String? = nil
 
     public init(currentApi: PlaceUriApi) {
         self.currentApi = currentApi
     }
 
-    open func withRegion(_ region: String) -> CoverageRegionPlacesIdRequestBuilder {
+    open func withRegion(_ region: String?) -> CoverageRegionPlacesIdRequestBuilder {
         self.region = region
+        
         return self
     }
-    open func withId(_ id: String) -> CoverageRegionPlacesIdRequestBuilder {
+    open func withId(_ id: String?) -> CoverageRegionPlacesIdRequestBuilder {
         self.id = id
+        
         return self
     }
-    open func withBssStands(_ bssStands: Bool) -> CoverageRegionPlacesIdRequestBuilder {
+    open func withBssStands(_ bssStands: Bool?) -> CoverageRegionPlacesIdRequestBuilder {
         self.bssStands = bssStands
+        
         return self
     }
-    open func withAddPoiInfos(_ addPoiInfos: [AddPoiInfos]) -> CoverageRegionPlacesIdRequestBuilder {
-        self.addPoiInfos = addPoiInfos
+    open func withAddPoiInfos(_ addPoiInfos: [AddPoiInfos]?) -> CoverageRegionPlacesIdRequestBuilder {
+        guard let addPoiInfos = addPoiInfos else {
+            return self
+        }
+        
+        var items = [String]()
+        for item in addPoiInfos {
+            items.append(item.rawValue)
+        }
+        self.addPoiInfos = items
+
         return self
     }
-    open func withDisableGeojson(_ disableGeojson: Bool) -> CoverageRegionPlacesIdRequestBuilder {
+    open func withDisableGeojson(_ disableGeojson: Bool?) -> CoverageRegionPlacesIdRequestBuilder {
         self.disableGeojson = disableGeojson
+        
+        return self
+    }
+
+
+
+    open func withDebugURL(_ debugURL: String?) -> CoverageRegionPlacesIdRequestBuilder {
+        self.debugURL = debugURL
         return self
     }
 
     open func makeUrl() -> String {
         var path = "/coverage/{region}/places/{id}"
 
-        if (region != nil) {
-            let regionPreEscape: String = "\(region!)"
+        if let region = region {
+            let regionPreEscape: String = "\(region)"
             let regionPostEscape: String = regionPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
             path = path.replacingOccurrences(of: "{region}", with: regionPostEscape, options: .literal, range: nil)
         }
 
-        if (id != nil) {
-            let idPreEscape: String = "\(id!)"
+        if let id = id {
+            let idPreEscape: String = "\(id)"
             let idPostEscape: String = idPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
             path = path.replacingOccurrences(of: "{id}", with: idPostEscape, options: .literal, range: nil)
         }
 
-        let URLString = "https://api.navitia.io/v1" + path
+        let URLString = String(format: "%@%@", NavitiaSDKAPI.basePath, path)
         let url = NSURLComponents(string: URLString)
 
         let paramValues: [String: Any?] = [
@@ -206,7 +249,7 @@ open class CoverageRegionPlacesIdRequestBuilder: NSObject {
         url?.queryItems = APIHelper.mapValuesToQueryItems(values: paramValues)
         url?.percentEncodedQuery = url?.percentEncodedQuery?.replacingOccurrences(of: "+", with: "%2B")
 
-        return (url?.string ?? URLString)
+        return (debugURL ?? url?.string ?? URLString)
     }
 
     open func get(completion: @escaping ((_ data: Places?,_ error: Error?) -> Void)) {
@@ -262,43 +305,64 @@ open class PlacesIdRequestBuilder: NSObject {
         case bssStands = "bss_stands"
         case carPark = "car_park"
         case empty = ""
+        case _none = "none"
     }
     var id:String? = nil
     var bssStands:Bool? = nil
-    var addPoiInfos: [AddPoiInfos]? = nil
+    var addPoiInfos: [String]? = nil
     var disableGeojson:Bool? = nil
+    var debugURL: String? = nil
 
     public init(currentApi: PlaceUriApi) {
         self.currentApi = currentApi
     }
 
-    open func withId(_ id: String) -> PlacesIdRequestBuilder {
+    open func withId(_ id: String?) -> PlacesIdRequestBuilder {
         self.id = id
+        
         return self
     }
-    open func withBssStands(_ bssStands: Bool) -> PlacesIdRequestBuilder {
+    open func withBssStands(_ bssStands: Bool?) -> PlacesIdRequestBuilder {
         self.bssStands = bssStands
+        
         return self
     }
-    open func withAddPoiInfos(_ addPoiInfos: [AddPoiInfos]) -> PlacesIdRequestBuilder {
-        self.addPoiInfos = addPoiInfos
+    open func withAddPoiInfos(_ addPoiInfos: [AddPoiInfos]?) -> PlacesIdRequestBuilder {
+        guard let addPoiInfos = addPoiInfos else {
+            return self
+        }
+        
+        var items = [String]()
+        for item in addPoiInfos {
+            items.append(item.rawValue)
+        }
+        self.addPoiInfos = items
+
         return self
     }
-    open func withDisableGeojson(_ disableGeojson: Bool) -> PlacesIdRequestBuilder {
+    open func withDisableGeojson(_ disableGeojson: Bool?) -> PlacesIdRequestBuilder {
         self.disableGeojson = disableGeojson
+        
+        return self
+    }
+
+
+
+    open func withDebugURL(_ debugURL: String?) -> PlacesIdRequestBuilder {
+        self.debugURL = debugURL
         return self
     }
 
     open func makeUrl() -> String {
         var path = "/places/{id}"
 
-        if (id != nil) {
-            let idPreEscape: String = "\(id!)"
+        if let id = id {
+            let idPreEscape: String = "\(id)"
             let idPostEscape: String = idPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
             path = path.replacingOccurrences(of: "{id}", with: idPostEscape, options: .literal, range: nil)
         }
 
-        let URLString = "https://api.navitia.io/v1" + path
+        let URLString = String(format: "%@%@", NavitiaSDKAPI.basePath, path)
         let url = NSURLComponents(string: URLString)
 
         let paramValues: [String: Any?] = [
@@ -309,7 +373,7 @@ open class PlacesIdRequestBuilder: NSObject {
         url?.queryItems = APIHelper.mapValuesToQueryItems(values: paramValues)
         url?.percentEncodedQuery = url?.percentEncodedQuery?.replacingOccurrences(of: "+", with: "%2B")
 
-        return (url?.string ?? URLString)
+        return (debugURL ?? url?.string ?? URLString)
     }
 
     open func get(completion: @escaping ((_ data: Places?,_ error: Error?) -> Void)) {

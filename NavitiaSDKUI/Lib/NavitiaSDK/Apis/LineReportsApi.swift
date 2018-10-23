@@ -19,64 +19,87 @@ open class CoverageLonLatLineReportsRequestBuilder: NSObject {
     var disableGeojson:Bool? = nil
     var since:Date? = nil
     var until:Date? = nil
+    var tags:[String]? = nil
+    var debugURL: String? = nil
 
     public init(currentApi: LineReportsApi) {
         self.currentApi = currentApi
     }
 
-    open func withLat(_ lat: Double) -> CoverageLonLatLineReportsRequestBuilder {
+    open func withLat(_ lat: Double?) -> CoverageLonLatLineReportsRequestBuilder {
         self.lat = lat
+        
         return self
     }
-    open func withLon(_ lon: Double) -> CoverageLonLatLineReportsRequestBuilder {
+    open func withLon(_ lon: Double?) -> CoverageLonLatLineReportsRequestBuilder {
         self.lon = lon
+        
         return self
     }
-    open func withDepth(_ depth: Int32) -> CoverageLonLatLineReportsRequestBuilder {
+    open func withDepth(_ depth: Int32?) -> CoverageLonLatLineReportsRequestBuilder {
         self.depth = depth
+        
         return self
     }
-    open func withCount(_ count: Int32) -> CoverageLonLatLineReportsRequestBuilder {
+    open func withCount(_ count: Int32?) -> CoverageLonLatLineReportsRequestBuilder {
         self.count = count
+        
         return self
     }
-    open func withStartPage(_ startPage: Int32) -> CoverageLonLatLineReportsRequestBuilder {
+    open func withStartPage(_ startPage: Int32?) -> CoverageLonLatLineReportsRequestBuilder {
         self.startPage = startPage
+        
         return self
     }
-    open func withForbiddenUris(_ forbiddenUris: [String]) -> CoverageLonLatLineReportsRequestBuilder {
+    open func withForbiddenUris(_ forbiddenUris: [String]?) -> CoverageLonLatLineReportsRequestBuilder {
         self.forbiddenUris = forbiddenUris
+        
         return self
     }
-    open func withDisableGeojson(_ disableGeojson: Bool) -> CoverageLonLatLineReportsRequestBuilder {
+    open func withDisableGeojson(_ disableGeojson: Bool?) -> CoverageLonLatLineReportsRequestBuilder {
         self.disableGeojson = disableGeojson
+        
         return self
     }
-    open func withSince(_ since: Date) -> CoverageLonLatLineReportsRequestBuilder {
+    open func withSince(_ since: Date?) -> CoverageLonLatLineReportsRequestBuilder {
         self.since = since
+        
         return self
     }
-    open func withUntil(_ until: Date) -> CoverageLonLatLineReportsRequestBuilder {
+    open func withUntil(_ until: Date?) -> CoverageLonLatLineReportsRequestBuilder {
         self.until = until
+        
+        return self
+    }
+    open func withTags(_ tags: [String]?) -> CoverageLonLatLineReportsRequestBuilder {
+        self.tags = tags
+        
+        return self
+    }
+
+
+
+    open func withDebugURL(_ debugURL: String?) -> CoverageLonLatLineReportsRequestBuilder {
+        self.debugURL = debugURL
         return self
     }
 
     open func makeUrl() -> String {
         var path = "/coverage/{lon};{lat}/line_reports"
 
-        if (lat != nil) {
-            let latPreEscape: String = "\(lat!)"
+        if let lat = lat {
+            let latPreEscape: String = "\(lat)"
             let latPostEscape: String = latPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
             path = path.replacingOccurrences(of: "{lat}", with: latPostEscape, options: .literal, range: nil)
         }
 
-        if (lon != nil) {
-            let lonPreEscape: String = "\(lon!)"
+        if let lon = lon {
+            let lonPreEscape: String = "\(lon)"
             let lonPostEscape: String = lonPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
             path = path.replacingOccurrences(of: "{lon}", with: lonPostEscape, options: .literal, range: nil)
         }
 
-        let URLString = "https://api.navitia.io/v1" + path
+        let URLString = String(format: "%@%@", NavitiaSDKAPI.basePath, path)
         let url = NSURLComponents(string: URLString)
 
         let paramValues: [String: Any?] = [
@@ -86,12 +109,13 @@ open class CoverageLonLatLineReportsRequestBuilder: NSObject {
             "forbidden_uris[]": self.forbiddenUris, 
             "disable_geojson": self.disableGeojson, 
             "since": self.since?.encodeToJSON(), 
-            "until": self.until?.encodeToJSON()
+            "until": self.until?.encodeToJSON(), 
+            "tags[]": self.tags
         ]
         url?.queryItems = APIHelper.mapValuesToQueryItems(values: paramValues)
         url?.percentEncodedQuery = url?.percentEncodedQuery?.replacingOccurrences(of: "+", with: "%2B")
 
-        return (url?.string ?? URLString)
+        return (debugURL ?? url?.string ?? URLString)
     }
 
     open func get(completion: @escaping ((_ data: LineReports?,_ error: Error?) -> Void)) {
@@ -150,74 +174,98 @@ open class CoverageLonLatUriLineReportsRequestBuilder: NSObject {
     var disableGeojson:Bool? = nil
     var since:Date? = nil
     var until:Date? = nil
+    var tags:[String]? = nil
+    var debugURL: String? = nil
 
     public init(currentApi: LineReportsApi) {
         self.currentApi = currentApi
     }
 
-    open func withLat(_ lat: Double) -> CoverageLonLatUriLineReportsRequestBuilder {
+    open func withLat(_ lat: Double?) -> CoverageLonLatUriLineReportsRequestBuilder {
         self.lat = lat
+        
         return self
     }
-    open func withLon(_ lon: Double) -> CoverageLonLatUriLineReportsRequestBuilder {
+    open func withLon(_ lon: Double?) -> CoverageLonLatUriLineReportsRequestBuilder {
         self.lon = lon
+        
         return self
     }
-    open func withUri(_ uri: String) -> CoverageLonLatUriLineReportsRequestBuilder {
+    open func withUri(_ uri: String?) -> CoverageLonLatUriLineReportsRequestBuilder {
         self.uri = uri
+        
         return self
     }
-    open func withDepth(_ depth: Int32) -> CoverageLonLatUriLineReportsRequestBuilder {
+    open func withDepth(_ depth: Int32?) -> CoverageLonLatUriLineReportsRequestBuilder {
         self.depth = depth
+        
         return self
     }
-    open func withCount(_ count: Int32) -> CoverageLonLatUriLineReportsRequestBuilder {
+    open func withCount(_ count: Int32?) -> CoverageLonLatUriLineReportsRequestBuilder {
         self.count = count
+        
         return self
     }
-    open func withStartPage(_ startPage: Int32) -> CoverageLonLatUriLineReportsRequestBuilder {
+    open func withStartPage(_ startPage: Int32?) -> CoverageLonLatUriLineReportsRequestBuilder {
         self.startPage = startPage
+        
         return self
     }
-    open func withForbiddenUris(_ forbiddenUris: [String]) -> CoverageLonLatUriLineReportsRequestBuilder {
+    open func withForbiddenUris(_ forbiddenUris: [String]?) -> CoverageLonLatUriLineReportsRequestBuilder {
         self.forbiddenUris = forbiddenUris
+        
         return self
     }
-    open func withDisableGeojson(_ disableGeojson: Bool) -> CoverageLonLatUriLineReportsRequestBuilder {
+    open func withDisableGeojson(_ disableGeojson: Bool?) -> CoverageLonLatUriLineReportsRequestBuilder {
         self.disableGeojson = disableGeojson
+        
         return self
     }
-    open func withSince(_ since: Date) -> CoverageLonLatUriLineReportsRequestBuilder {
+    open func withSince(_ since: Date?) -> CoverageLonLatUriLineReportsRequestBuilder {
         self.since = since
+        
         return self
     }
-    open func withUntil(_ until: Date) -> CoverageLonLatUriLineReportsRequestBuilder {
+    open func withUntil(_ until: Date?) -> CoverageLonLatUriLineReportsRequestBuilder {
         self.until = until
+        
+        return self
+    }
+    open func withTags(_ tags: [String]?) -> CoverageLonLatUriLineReportsRequestBuilder {
+        self.tags = tags
+        
+        return self
+    }
+
+
+
+    open func withDebugURL(_ debugURL: String?) -> CoverageLonLatUriLineReportsRequestBuilder {
+        self.debugURL = debugURL
         return self
     }
 
     open func makeUrl() -> String {
         var path = "/coverage/{lon};{lat}/{uri}/line_reports"
 
-        if (lat != nil) {
-            let latPreEscape: String = "\(lat!)"
+        if let lat = lat {
+            let latPreEscape: String = "\(lat)"
             let latPostEscape: String = latPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
             path = path.replacingOccurrences(of: "{lat}", with: latPostEscape, options: .literal, range: nil)
         }
 
-        if (lon != nil) {
-            let lonPreEscape: String = "\(lon!)"
+        if let lon = lon {
+            let lonPreEscape: String = "\(lon)"
             let lonPostEscape: String = lonPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
             path = path.replacingOccurrences(of: "{lon}", with: lonPostEscape, options: .literal, range: nil)
         }
 
-        if (uri != nil) {
-            let uriPreEscape: String = "\(uri!)"
+        if let uri = uri {
+            let uriPreEscape: String = "\(uri)"
             let uriPostEscape: String = uriPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
             path = path.replacingOccurrences(of: "{uri}", with: uriPostEscape, options: .literal, range: nil)
         }
 
-        let URLString = "https://api.navitia.io/v1" + path
+        let URLString = String(format: "%@%@", NavitiaSDKAPI.basePath, path)
         let url = NSURLComponents(string: URLString)
 
         let paramValues: [String: Any?] = [
@@ -227,12 +275,13 @@ open class CoverageLonLatUriLineReportsRequestBuilder: NSObject {
             "forbidden_uris[]": self.forbiddenUris, 
             "disable_geojson": self.disableGeojson, 
             "since": self.since?.encodeToJSON(), 
-            "until": self.until?.encodeToJSON()
+            "until": self.until?.encodeToJSON(), 
+            "tags[]": self.tags
         ]
         url?.queryItems = APIHelper.mapValuesToQueryItems(values: paramValues)
         url?.percentEncodedQuery = url?.percentEncodedQuery?.replacingOccurrences(of: "+", with: "%2B")
 
-        return (url?.string ?? URLString)
+        return (debugURL ?? url?.string ?? URLString)
     }
 
     open func get(completion: @escaping ((_ data: LineReports?,_ error: Error?) -> Void)) {
@@ -295,54 +344,76 @@ open class CoverageRegionLineReportsRequestBuilder: NSObject {
     var disableGeojson:Bool? = nil
     var since:Date? = nil
     var until:Date? = nil
+    var tags:[String]? = nil
+    var debugURL: String? = nil
 
     public init(currentApi: LineReportsApi) {
         self.currentApi = currentApi
     }
 
-    open func withRegion(_ region: String) -> CoverageRegionLineReportsRequestBuilder {
+    open func withRegion(_ region: String?) -> CoverageRegionLineReportsRequestBuilder {
         self.region = region
+        
         return self
     }
-    open func withDepth(_ depth: Int32) -> CoverageRegionLineReportsRequestBuilder {
+    open func withDepth(_ depth: Int32?) -> CoverageRegionLineReportsRequestBuilder {
         self.depth = depth
+        
         return self
     }
-    open func withCount(_ count: Int32) -> CoverageRegionLineReportsRequestBuilder {
+    open func withCount(_ count: Int32?) -> CoverageRegionLineReportsRequestBuilder {
         self.count = count
+        
         return self
     }
-    open func withStartPage(_ startPage: Int32) -> CoverageRegionLineReportsRequestBuilder {
+    open func withStartPage(_ startPage: Int32?) -> CoverageRegionLineReportsRequestBuilder {
         self.startPage = startPage
+        
         return self
     }
-    open func withForbiddenUris(_ forbiddenUris: [String]) -> CoverageRegionLineReportsRequestBuilder {
+    open func withForbiddenUris(_ forbiddenUris: [String]?) -> CoverageRegionLineReportsRequestBuilder {
         self.forbiddenUris = forbiddenUris
+        
         return self
     }
-    open func withDisableGeojson(_ disableGeojson: Bool) -> CoverageRegionLineReportsRequestBuilder {
+    open func withDisableGeojson(_ disableGeojson: Bool?) -> CoverageRegionLineReportsRequestBuilder {
         self.disableGeojson = disableGeojson
+        
         return self
     }
-    open func withSince(_ since: Date) -> CoverageRegionLineReportsRequestBuilder {
+    open func withSince(_ since: Date?) -> CoverageRegionLineReportsRequestBuilder {
         self.since = since
+        
         return self
     }
-    open func withUntil(_ until: Date) -> CoverageRegionLineReportsRequestBuilder {
+    open func withUntil(_ until: Date?) -> CoverageRegionLineReportsRequestBuilder {
         self.until = until
+        
+        return self
+    }
+    open func withTags(_ tags: [String]?) -> CoverageRegionLineReportsRequestBuilder {
+        self.tags = tags
+        
+        return self
+    }
+
+
+
+    open func withDebugURL(_ debugURL: String?) -> CoverageRegionLineReportsRequestBuilder {
+        self.debugURL = debugURL
         return self
     }
 
     open func makeUrl() -> String {
         var path = "/coverage/{region}/line_reports"
 
-        if (region != nil) {
-            let regionPreEscape: String = "\(region!)"
+        if let region = region {
+            let regionPreEscape: String = "\(region)"
             let regionPostEscape: String = regionPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
             path = path.replacingOccurrences(of: "{region}", with: regionPostEscape, options: .literal, range: nil)
         }
 
-        let URLString = "https://api.navitia.io/v1" + path
+        let URLString = String(format: "%@%@", NavitiaSDKAPI.basePath, path)
         let url = NSURLComponents(string: URLString)
 
         let paramValues: [String: Any?] = [
@@ -352,12 +423,13 @@ open class CoverageRegionLineReportsRequestBuilder: NSObject {
             "forbidden_uris[]": self.forbiddenUris, 
             "disable_geojson": self.disableGeojson, 
             "since": self.since?.encodeToJSON(), 
-            "until": self.until?.encodeToJSON()
+            "until": self.until?.encodeToJSON(), 
+            "tags[]": self.tags
         ]
         url?.queryItems = APIHelper.mapValuesToQueryItems(values: paramValues)
         url?.percentEncodedQuery = url?.percentEncodedQuery?.replacingOccurrences(of: "+", with: "%2B")
 
-        return (url?.string ?? URLString)
+        return (debugURL ?? url?.string ?? URLString)
     }
 
     open func get(completion: @escaping ((_ data: LineReports?,_ error: Error?) -> Void)) {
@@ -409,64 +481,87 @@ open class CoverageRegionUriLineReportsRequestBuilder: NSObject {
     var disableGeojson:Bool? = nil
     var since:Date? = nil
     var until:Date? = nil
+    var tags:[String]? = nil
+    var debugURL: String? = nil
 
     public init(currentApi: LineReportsApi) {
         self.currentApi = currentApi
     }
 
-    open func withRegion(_ region: String) -> CoverageRegionUriLineReportsRequestBuilder {
+    open func withRegion(_ region: String?) -> CoverageRegionUriLineReportsRequestBuilder {
         self.region = region
+        
         return self
     }
-    open func withUri(_ uri: String) -> CoverageRegionUriLineReportsRequestBuilder {
+    open func withUri(_ uri: String?) -> CoverageRegionUriLineReportsRequestBuilder {
         self.uri = uri
+        
         return self
     }
-    open func withDepth(_ depth: Int32) -> CoverageRegionUriLineReportsRequestBuilder {
+    open func withDepth(_ depth: Int32?) -> CoverageRegionUriLineReportsRequestBuilder {
         self.depth = depth
+        
         return self
     }
-    open func withCount(_ count: Int32) -> CoverageRegionUriLineReportsRequestBuilder {
+    open func withCount(_ count: Int32?) -> CoverageRegionUriLineReportsRequestBuilder {
         self.count = count
+        
         return self
     }
-    open func withStartPage(_ startPage: Int32) -> CoverageRegionUriLineReportsRequestBuilder {
+    open func withStartPage(_ startPage: Int32?) -> CoverageRegionUriLineReportsRequestBuilder {
         self.startPage = startPage
+        
         return self
     }
-    open func withForbiddenUris(_ forbiddenUris: [String]) -> CoverageRegionUriLineReportsRequestBuilder {
+    open func withForbiddenUris(_ forbiddenUris: [String]?) -> CoverageRegionUriLineReportsRequestBuilder {
         self.forbiddenUris = forbiddenUris
+        
         return self
     }
-    open func withDisableGeojson(_ disableGeojson: Bool) -> CoverageRegionUriLineReportsRequestBuilder {
+    open func withDisableGeojson(_ disableGeojson: Bool?) -> CoverageRegionUriLineReportsRequestBuilder {
         self.disableGeojson = disableGeojson
+        
         return self
     }
-    open func withSince(_ since: Date) -> CoverageRegionUriLineReportsRequestBuilder {
+    open func withSince(_ since: Date?) -> CoverageRegionUriLineReportsRequestBuilder {
         self.since = since
+        
         return self
     }
-    open func withUntil(_ until: Date) -> CoverageRegionUriLineReportsRequestBuilder {
+    open func withUntil(_ until: Date?) -> CoverageRegionUriLineReportsRequestBuilder {
         self.until = until
+        
+        return self
+    }
+    open func withTags(_ tags: [String]?) -> CoverageRegionUriLineReportsRequestBuilder {
+        self.tags = tags
+        
+        return self
+    }
+
+
+
+    open func withDebugURL(_ debugURL: String?) -> CoverageRegionUriLineReportsRequestBuilder {
+        self.debugURL = debugURL
         return self
     }
 
     open func makeUrl() -> String {
         var path = "/coverage/{region}/{uri}/line_reports"
 
-        if (region != nil) {
-            let regionPreEscape: String = "\(region!)"
+        if let region = region {
+            let regionPreEscape: String = "\(region)"
             let regionPostEscape: String = regionPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
             path = path.replacingOccurrences(of: "{region}", with: regionPostEscape, options: .literal, range: nil)
         }
 
-        if (uri != nil) {
-            let uriPreEscape: String = "\(uri!)"
+        if let uri = uri {
+            let uriPreEscape: String = "\(uri)"
             let uriPostEscape: String = uriPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
             path = path.replacingOccurrences(of: "{uri}", with: uriPostEscape, options: .literal, range: nil)
         }
 
-        let URLString = "https://api.navitia.io/v1" + path
+        let URLString = String(format: "%@%@", NavitiaSDKAPI.basePath, path)
         let url = NSURLComponents(string: URLString)
 
         let paramValues: [String: Any?] = [
@@ -476,12 +571,13 @@ open class CoverageRegionUriLineReportsRequestBuilder: NSObject {
             "forbidden_uris[]": self.forbiddenUris, 
             "disable_geojson": self.disableGeojson, 
             "since": self.since?.encodeToJSON(), 
-            "until": self.until?.encodeToJSON()
+            "until": self.until?.encodeToJSON(), 
+            "tags[]": self.tags
         ]
         url?.queryItems = APIHelper.mapValuesToQueryItems(values: paramValues)
         url?.percentEncodedQuery = url?.percentEncodedQuery?.replacingOccurrences(of: "+", with: "%2B")
 
-        return (url?.string ?? URLString)
+        return (debugURL ?? url?.string ?? URLString)
     }
 
     open func get(completion: @escaping ((_ data: LineReports?,_ error: Error?) -> Void)) {

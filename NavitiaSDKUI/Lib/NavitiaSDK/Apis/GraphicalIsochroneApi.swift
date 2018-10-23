@@ -73,8 +73,8 @@ open class CoverageLonLatIsochronesRequestBuilder: NSObject {
     var datetimeRepresents: DatetimeRepresents? = nil
     var maxNbTransfers:Int32? = nil
     var minNbTransfers:Int32? = nil
-    var firstSectionMode: [FirstSectionMode]? = nil
-    var lastSectionMode: [LastSectionMode]? = nil
+    var firstSectionMode: [String]? = nil
+    var lastSectionMode: [String]? = nil
     var maxDurationToPt:Int32? = nil
     var maxWalkingDurationToPt:Int32? = nil
     var maxBikeDurationToPt:Int32? = nil
@@ -98,160 +98,217 @@ open class CoverageLonLatIsochronesRequestBuilder: NSObject {
     var freeRadiusTo:Int32? = nil
     var minDuration:Int32? = nil
     var boundaryDuration:[Int32]? = nil
+    var debugURL: String? = nil
 
     public init(currentApi: GraphicalIsochroneApi) {
         self.currentApi = currentApi
     }
 
-    open func withLat(_ lat: Double) -> CoverageLonLatIsochronesRequestBuilder {
+    open func withLat(_ lat: Double?) -> CoverageLonLatIsochronesRequestBuilder {
         self.lat = lat
+        
         return self
     }
-    open func withLon(_ lon: Double) -> CoverageLonLatIsochronesRequestBuilder {
+    open func withLon(_ lon: Double?) -> CoverageLonLatIsochronesRequestBuilder {
         self.lon = lon
+        
         return self
     }
-    open func withFrom(_ from: String) -> CoverageLonLatIsochronesRequestBuilder {
+    open func withFrom(_ from: String?) -> CoverageLonLatIsochronesRequestBuilder {
         self.from = from
+        
         return self
     }
-    open func withTo(_ to: String) -> CoverageLonLatIsochronesRequestBuilder {
+    open func withTo(_ to: String?) -> CoverageLonLatIsochronesRequestBuilder {
         self.to = to
+        
         return self
     }
-    open func withDatetime(_ datetime: Date) -> CoverageLonLatIsochronesRequestBuilder {
+    open func withDatetime(_ datetime: Date?) -> CoverageLonLatIsochronesRequestBuilder {
         self.datetime = datetime
+        
         return self
     }
-    open func withDatetimeRepresents(_ datetimeRepresents: DatetimeRepresents) -> CoverageLonLatIsochronesRequestBuilder {
+    open func withDatetimeRepresents(_ datetimeRepresents: DatetimeRepresents?) -> CoverageLonLatIsochronesRequestBuilder {
         self.datetimeRepresents = datetimeRepresents
+
         return self
     }
-    open func withMaxNbTransfers(_ maxNbTransfers: Int32) -> CoverageLonLatIsochronesRequestBuilder {
+    open func withMaxNbTransfers(_ maxNbTransfers: Int32?) -> CoverageLonLatIsochronesRequestBuilder {
         self.maxNbTransfers = maxNbTransfers
+        
         return self
     }
-    open func withMinNbTransfers(_ minNbTransfers: Int32) -> CoverageLonLatIsochronesRequestBuilder {
+    open func withMinNbTransfers(_ minNbTransfers: Int32?) -> CoverageLonLatIsochronesRequestBuilder {
         self.minNbTransfers = minNbTransfers
+        
         return self
     }
-    open func withFirstSectionMode(_ firstSectionMode: [FirstSectionMode]) -> CoverageLonLatIsochronesRequestBuilder {
-        self.firstSectionMode = firstSectionMode
+    open func withFirstSectionMode(_ firstSectionMode: [FirstSectionMode]?) -> CoverageLonLatIsochronesRequestBuilder {
+        guard let firstSectionMode = firstSectionMode else {
+            return self
+        }
+        
+        var items = [String]()
+        for item in firstSectionMode {
+            items.append(item.rawValue)
+        }
+        self.firstSectionMode = items
+
         return self
     }
-    open func withLastSectionMode(_ lastSectionMode: [LastSectionMode]) -> CoverageLonLatIsochronesRequestBuilder {
-        self.lastSectionMode = lastSectionMode
+    open func withLastSectionMode(_ lastSectionMode: [LastSectionMode]?) -> CoverageLonLatIsochronesRequestBuilder {
+        guard let lastSectionMode = lastSectionMode else {
+            return self
+        }
+        
+        var items = [String]()
+        for item in lastSectionMode {
+            items.append(item.rawValue)
+        }
+        self.lastSectionMode = items
+
         return self
     }
-    open func withMaxDurationToPt(_ maxDurationToPt: Int32) -> CoverageLonLatIsochronesRequestBuilder {
+    open func withMaxDurationToPt(_ maxDurationToPt: Int32?) -> CoverageLonLatIsochronesRequestBuilder {
         self.maxDurationToPt = maxDurationToPt
+        
         return self
     }
-    open func withMaxWalkingDurationToPt(_ maxWalkingDurationToPt: Int32) -> CoverageLonLatIsochronesRequestBuilder {
+    open func withMaxWalkingDurationToPt(_ maxWalkingDurationToPt: Int32?) -> CoverageLonLatIsochronesRequestBuilder {
         self.maxWalkingDurationToPt = maxWalkingDurationToPt
+        
         return self
     }
-    open func withMaxBikeDurationToPt(_ maxBikeDurationToPt: Int32) -> CoverageLonLatIsochronesRequestBuilder {
+    open func withMaxBikeDurationToPt(_ maxBikeDurationToPt: Int32?) -> CoverageLonLatIsochronesRequestBuilder {
         self.maxBikeDurationToPt = maxBikeDurationToPt
+        
         return self
     }
-    open func withMaxBssDurationToPt(_ maxBssDurationToPt: Int32) -> CoverageLonLatIsochronesRequestBuilder {
+    open func withMaxBssDurationToPt(_ maxBssDurationToPt: Int32?) -> CoverageLonLatIsochronesRequestBuilder {
         self.maxBssDurationToPt = maxBssDurationToPt
+        
         return self
     }
-    open func withMaxCarDurationToPt(_ maxCarDurationToPt: Int32) -> CoverageLonLatIsochronesRequestBuilder {
+    open func withMaxCarDurationToPt(_ maxCarDurationToPt: Int32?) -> CoverageLonLatIsochronesRequestBuilder {
         self.maxCarDurationToPt = maxCarDurationToPt
+        
         return self
     }
-    open func withMaxRidesharingDurationToPt(_ maxRidesharingDurationToPt: Int32) -> CoverageLonLatIsochronesRequestBuilder {
+    open func withMaxRidesharingDurationToPt(_ maxRidesharingDurationToPt: Int32?) -> CoverageLonLatIsochronesRequestBuilder {
         self.maxRidesharingDurationToPt = maxRidesharingDurationToPt
+        
         return self
     }
-    open func withWalkingSpeed(_ walkingSpeed: Float) -> CoverageLonLatIsochronesRequestBuilder {
+    open func withWalkingSpeed(_ walkingSpeed: Float?) -> CoverageLonLatIsochronesRequestBuilder {
         self.walkingSpeed = walkingSpeed
+        
         return self
     }
-    open func withBikeSpeed(_ bikeSpeed: Float) -> CoverageLonLatIsochronesRequestBuilder {
+    open func withBikeSpeed(_ bikeSpeed: Float?) -> CoverageLonLatIsochronesRequestBuilder {
         self.bikeSpeed = bikeSpeed
+        
         return self
     }
-    open func withBssSpeed(_ bssSpeed: Float) -> CoverageLonLatIsochronesRequestBuilder {
+    open func withBssSpeed(_ bssSpeed: Float?) -> CoverageLonLatIsochronesRequestBuilder {
         self.bssSpeed = bssSpeed
+        
         return self
     }
-    open func withCarSpeed(_ carSpeed: Float) -> CoverageLonLatIsochronesRequestBuilder {
+    open func withCarSpeed(_ carSpeed: Float?) -> CoverageLonLatIsochronesRequestBuilder {
         self.carSpeed = carSpeed
+        
         return self
     }
-    open func withRidesharingSpeed(_ ridesharingSpeed: Float) -> CoverageLonLatIsochronesRequestBuilder {
+    open func withRidesharingSpeed(_ ridesharingSpeed: Float?) -> CoverageLonLatIsochronesRequestBuilder {
         self.ridesharingSpeed = ridesharingSpeed
+        
         return self
     }
-    open func withForbiddenUris(_ forbiddenUris: [String]) -> CoverageLonLatIsochronesRequestBuilder {
+    open func withForbiddenUris(_ forbiddenUris: [String]?) -> CoverageLonLatIsochronesRequestBuilder {
         self.forbiddenUris = forbiddenUris
+        
         return self
     }
-    open func withAllowedId(_ allowedId: [String]) -> CoverageLonLatIsochronesRequestBuilder {
+    open func withAllowedId(_ allowedId: [String]?) -> CoverageLonLatIsochronesRequestBuilder {
         self.allowedId = allowedId
+        
         return self
     }
-    open func withDisruptionActive(_ disruptionActive: Bool) -> CoverageLonLatIsochronesRequestBuilder {
+    open func withDisruptionActive(_ disruptionActive: Bool?) -> CoverageLonLatIsochronesRequestBuilder {
         self.disruptionActive = disruptionActive
+        
         return self
     }
-    open func withDataFreshness(_ dataFreshness: DataFreshness) -> CoverageLonLatIsochronesRequestBuilder {
+    open func withDataFreshness(_ dataFreshness: DataFreshness?) -> CoverageLonLatIsochronesRequestBuilder {
         self.dataFreshness = dataFreshness
+
         return self
     }
-    open func withMaxDuration(_ maxDuration: Int32) -> CoverageLonLatIsochronesRequestBuilder {
+    open func withMaxDuration(_ maxDuration: Int32?) -> CoverageLonLatIsochronesRequestBuilder {
         self.maxDuration = maxDuration
+        
         return self
     }
-    open func withWheelchair(_ wheelchair: Bool) -> CoverageLonLatIsochronesRequestBuilder {
+    open func withWheelchair(_ wheelchair: Bool?) -> CoverageLonLatIsochronesRequestBuilder {
         self.wheelchair = wheelchair
+        
         return self
     }
-    open func withTravelerType(_ travelerType: TravelerType) -> CoverageLonLatIsochronesRequestBuilder {
+    open func withTravelerType(_ travelerType: TravelerType?) -> CoverageLonLatIsochronesRequestBuilder {
         self.travelerType = travelerType
+
         return self
     }
-    open func withDirectPath(_ directPath: DirectPath) -> CoverageLonLatIsochronesRequestBuilder {
+    open func withDirectPath(_ directPath: DirectPath?) -> CoverageLonLatIsochronesRequestBuilder {
         self.directPath = directPath
+
         return self
     }
-    open func withFreeRadiusFrom(_ freeRadiusFrom: Int32) -> CoverageLonLatIsochronesRequestBuilder {
+    open func withFreeRadiusFrom(_ freeRadiusFrom: Int32?) -> CoverageLonLatIsochronesRequestBuilder {
         self.freeRadiusFrom = freeRadiusFrom
+        
         return self
     }
-    open func withFreeRadiusTo(_ freeRadiusTo: Int32) -> CoverageLonLatIsochronesRequestBuilder {
+    open func withFreeRadiusTo(_ freeRadiusTo: Int32?) -> CoverageLonLatIsochronesRequestBuilder {
         self.freeRadiusTo = freeRadiusTo
+        
         return self
     }
-    open func withMinDuration(_ minDuration: Int32) -> CoverageLonLatIsochronesRequestBuilder {
+    open func withMinDuration(_ minDuration: Int32?) -> CoverageLonLatIsochronesRequestBuilder {
         self.minDuration = minDuration
+        
         return self
     }
-    open func withBoundaryDuration(_ boundaryDuration: [Int32]) -> CoverageLonLatIsochronesRequestBuilder {
+    open func withBoundaryDuration(_ boundaryDuration: [Int32]?) -> CoverageLonLatIsochronesRequestBuilder {
         self.boundaryDuration = boundaryDuration
+        
+        return self
+    }
+
+
+
+    open func withDebugURL(_ debugURL: String?) -> CoverageLonLatIsochronesRequestBuilder {
+        self.debugURL = debugURL
         return self
     }
 
     open func makeUrl() -> String {
         var path = "/coverage/{lon};{lat}/isochrones"
 
-        if (lat != nil) {
-            let latPreEscape: String = "\(lat!)"
+        if let lat = lat {
+            let latPreEscape: String = "\(lat)"
             let latPostEscape: String = latPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
             path = path.replacingOccurrences(of: "{lat}", with: latPostEscape, options: .literal, range: nil)
         }
 
-        if (lon != nil) {
-            let lonPreEscape: String = "\(lon!)"
+        if let lon = lon {
+            let lonPreEscape: String = "\(lon)"
             let lonPostEscape: String = lonPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
             path = path.replacingOccurrences(of: "{lon}", with: lonPostEscape, options: .literal, range: nil)
         }
 
-        let URLString = "https://api.navitia.io/v1" + path
+        let URLString = String(format: "%@%@", NavitiaSDKAPI.basePath, path)
         let url = NSURLComponents(string: URLString)
 
         let paramValues: [String: Any?] = [
@@ -290,7 +347,7 @@ open class CoverageLonLatIsochronesRequestBuilder: NSObject {
         url?.queryItems = APIHelper.mapValuesToQueryItems(values: paramValues)
         url?.percentEncodedQuery = url?.percentEncodedQuery?.replacingOccurrences(of: "+", with: "%2B")
 
-        return (url?.string ?? URLString)
+        return (debugURL ?? url?.string ?? URLString)
     }
 
     open func get(completion: @escaping ((_ data: GraphicalIsrochone1?,_ error: Error?) -> Void)) {
@@ -401,8 +458,8 @@ open class CoverageRegionIsochronesRequestBuilder: NSObject {
     var datetimeRepresents: DatetimeRepresents? = nil
     var maxNbTransfers:Int32? = nil
     var minNbTransfers:Int32? = nil
-    var firstSectionMode: [FirstSectionMode]? = nil
-    var lastSectionMode: [LastSectionMode]? = nil
+    var firstSectionMode: [String]? = nil
+    var lastSectionMode: [String]? = nil
     var maxDurationToPt:Int32? = nil
     var maxWalkingDurationToPt:Int32? = nil
     var maxBikeDurationToPt:Int32? = nil
@@ -426,150 +483,206 @@ open class CoverageRegionIsochronesRequestBuilder: NSObject {
     var freeRadiusTo:Int32? = nil
     var minDuration:Int32? = nil
     var boundaryDuration:[Int32]? = nil
+    var debugURL: String? = nil
 
     public init(currentApi: GraphicalIsochroneApi) {
         self.currentApi = currentApi
     }
 
-    open func withRegion(_ region: String) -> CoverageRegionIsochronesRequestBuilder {
+    open func withRegion(_ region: String?) -> CoverageRegionIsochronesRequestBuilder {
         self.region = region
+        
         return self
     }
-    open func withFrom(_ from: String) -> CoverageRegionIsochronesRequestBuilder {
+    open func withFrom(_ from: String?) -> CoverageRegionIsochronesRequestBuilder {
         self.from = from
+        
         return self
     }
-    open func withTo(_ to: String) -> CoverageRegionIsochronesRequestBuilder {
+    open func withTo(_ to: String?) -> CoverageRegionIsochronesRequestBuilder {
         self.to = to
+        
         return self
     }
-    open func withDatetime(_ datetime: Date) -> CoverageRegionIsochronesRequestBuilder {
+    open func withDatetime(_ datetime: Date?) -> CoverageRegionIsochronesRequestBuilder {
         self.datetime = datetime
+        
         return self
     }
-    open func withDatetimeRepresents(_ datetimeRepresents: DatetimeRepresents) -> CoverageRegionIsochronesRequestBuilder {
+    open func withDatetimeRepresents(_ datetimeRepresents: DatetimeRepresents?) -> CoverageRegionIsochronesRequestBuilder {
         self.datetimeRepresents = datetimeRepresents
+
         return self
     }
-    open func withMaxNbTransfers(_ maxNbTransfers: Int32) -> CoverageRegionIsochronesRequestBuilder {
+    open func withMaxNbTransfers(_ maxNbTransfers: Int32?) -> CoverageRegionIsochronesRequestBuilder {
         self.maxNbTransfers = maxNbTransfers
+        
         return self
     }
-    open func withMinNbTransfers(_ minNbTransfers: Int32) -> CoverageRegionIsochronesRequestBuilder {
+    open func withMinNbTransfers(_ minNbTransfers: Int32?) -> CoverageRegionIsochronesRequestBuilder {
         self.minNbTransfers = minNbTransfers
+        
         return self
     }
-    open func withFirstSectionMode(_ firstSectionMode: [FirstSectionMode]) -> CoverageRegionIsochronesRequestBuilder {
-        self.firstSectionMode = firstSectionMode
+    open func withFirstSectionMode(_ firstSectionMode: [FirstSectionMode]?) -> CoverageRegionIsochronesRequestBuilder {
+        guard let firstSectionMode = firstSectionMode else {
+            return self
+        }
+        
+        var items = [String]()
+        for item in firstSectionMode {
+            items.append(item.rawValue)
+        }
+        self.firstSectionMode = items
+
         return self
     }
-    open func withLastSectionMode(_ lastSectionMode: [LastSectionMode]) -> CoverageRegionIsochronesRequestBuilder {
-        self.lastSectionMode = lastSectionMode
+    open func withLastSectionMode(_ lastSectionMode: [LastSectionMode]?) -> CoverageRegionIsochronesRequestBuilder {
+        guard let lastSectionMode = lastSectionMode else {
+            return self
+        }
+        
+        var items = [String]()
+        for item in lastSectionMode {
+            items.append(item.rawValue)
+        }
+        self.lastSectionMode = items
+
         return self
     }
-    open func withMaxDurationToPt(_ maxDurationToPt: Int32) -> CoverageRegionIsochronesRequestBuilder {
+    open func withMaxDurationToPt(_ maxDurationToPt: Int32?) -> CoverageRegionIsochronesRequestBuilder {
         self.maxDurationToPt = maxDurationToPt
+        
         return self
     }
-    open func withMaxWalkingDurationToPt(_ maxWalkingDurationToPt: Int32) -> CoverageRegionIsochronesRequestBuilder {
+    open func withMaxWalkingDurationToPt(_ maxWalkingDurationToPt: Int32?) -> CoverageRegionIsochronesRequestBuilder {
         self.maxWalkingDurationToPt = maxWalkingDurationToPt
+        
         return self
     }
-    open func withMaxBikeDurationToPt(_ maxBikeDurationToPt: Int32) -> CoverageRegionIsochronesRequestBuilder {
+    open func withMaxBikeDurationToPt(_ maxBikeDurationToPt: Int32?) -> CoverageRegionIsochronesRequestBuilder {
         self.maxBikeDurationToPt = maxBikeDurationToPt
+        
         return self
     }
-    open func withMaxBssDurationToPt(_ maxBssDurationToPt: Int32) -> CoverageRegionIsochronesRequestBuilder {
+    open func withMaxBssDurationToPt(_ maxBssDurationToPt: Int32?) -> CoverageRegionIsochronesRequestBuilder {
         self.maxBssDurationToPt = maxBssDurationToPt
+        
         return self
     }
-    open func withMaxCarDurationToPt(_ maxCarDurationToPt: Int32) -> CoverageRegionIsochronesRequestBuilder {
+    open func withMaxCarDurationToPt(_ maxCarDurationToPt: Int32?) -> CoverageRegionIsochronesRequestBuilder {
         self.maxCarDurationToPt = maxCarDurationToPt
+        
         return self
     }
-    open func withMaxRidesharingDurationToPt(_ maxRidesharingDurationToPt: Int32) -> CoverageRegionIsochronesRequestBuilder {
+    open func withMaxRidesharingDurationToPt(_ maxRidesharingDurationToPt: Int32?) -> CoverageRegionIsochronesRequestBuilder {
         self.maxRidesharingDurationToPt = maxRidesharingDurationToPt
+        
         return self
     }
-    open func withWalkingSpeed(_ walkingSpeed: Float) -> CoverageRegionIsochronesRequestBuilder {
+    open func withWalkingSpeed(_ walkingSpeed: Float?) -> CoverageRegionIsochronesRequestBuilder {
         self.walkingSpeed = walkingSpeed
+        
         return self
     }
-    open func withBikeSpeed(_ bikeSpeed: Float) -> CoverageRegionIsochronesRequestBuilder {
+    open func withBikeSpeed(_ bikeSpeed: Float?) -> CoverageRegionIsochronesRequestBuilder {
         self.bikeSpeed = bikeSpeed
+        
         return self
     }
-    open func withBssSpeed(_ bssSpeed: Float) -> CoverageRegionIsochronesRequestBuilder {
+    open func withBssSpeed(_ bssSpeed: Float?) -> CoverageRegionIsochronesRequestBuilder {
         self.bssSpeed = bssSpeed
+        
         return self
     }
-    open func withCarSpeed(_ carSpeed: Float) -> CoverageRegionIsochronesRequestBuilder {
+    open func withCarSpeed(_ carSpeed: Float?) -> CoverageRegionIsochronesRequestBuilder {
         self.carSpeed = carSpeed
+        
         return self
     }
-    open func withRidesharingSpeed(_ ridesharingSpeed: Float) -> CoverageRegionIsochronesRequestBuilder {
+    open func withRidesharingSpeed(_ ridesharingSpeed: Float?) -> CoverageRegionIsochronesRequestBuilder {
         self.ridesharingSpeed = ridesharingSpeed
+        
         return self
     }
-    open func withForbiddenUris(_ forbiddenUris: [String]) -> CoverageRegionIsochronesRequestBuilder {
+    open func withForbiddenUris(_ forbiddenUris: [String]?) -> CoverageRegionIsochronesRequestBuilder {
         self.forbiddenUris = forbiddenUris
+        
         return self
     }
-    open func withAllowedId(_ allowedId: [String]) -> CoverageRegionIsochronesRequestBuilder {
+    open func withAllowedId(_ allowedId: [String]?) -> CoverageRegionIsochronesRequestBuilder {
         self.allowedId = allowedId
+        
         return self
     }
-    open func withDisruptionActive(_ disruptionActive: Bool) -> CoverageRegionIsochronesRequestBuilder {
+    open func withDisruptionActive(_ disruptionActive: Bool?) -> CoverageRegionIsochronesRequestBuilder {
         self.disruptionActive = disruptionActive
+        
         return self
     }
-    open func withDataFreshness(_ dataFreshness: DataFreshness) -> CoverageRegionIsochronesRequestBuilder {
+    open func withDataFreshness(_ dataFreshness: DataFreshness?) -> CoverageRegionIsochronesRequestBuilder {
         self.dataFreshness = dataFreshness
+
         return self
     }
-    open func withMaxDuration(_ maxDuration: Int32) -> CoverageRegionIsochronesRequestBuilder {
+    open func withMaxDuration(_ maxDuration: Int32?) -> CoverageRegionIsochronesRequestBuilder {
         self.maxDuration = maxDuration
+        
         return self
     }
-    open func withWheelchair(_ wheelchair: Bool) -> CoverageRegionIsochronesRequestBuilder {
+    open func withWheelchair(_ wheelchair: Bool?) -> CoverageRegionIsochronesRequestBuilder {
         self.wheelchair = wheelchair
+        
         return self
     }
-    open func withTravelerType(_ travelerType: TravelerType) -> CoverageRegionIsochronesRequestBuilder {
+    open func withTravelerType(_ travelerType: TravelerType?) -> CoverageRegionIsochronesRequestBuilder {
         self.travelerType = travelerType
+
         return self
     }
-    open func withDirectPath(_ directPath: DirectPath) -> CoverageRegionIsochronesRequestBuilder {
+    open func withDirectPath(_ directPath: DirectPath?) -> CoverageRegionIsochronesRequestBuilder {
         self.directPath = directPath
+
         return self
     }
-    open func withFreeRadiusFrom(_ freeRadiusFrom: Int32) -> CoverageRegionIsochronesRequestBuilder {
+    open func withFreeRadiusFrom(_ freeRadiusFrom: Int32?) -> CoverageRegionIsochronesRequestBuilder {
         self.freeRadiusFrom = freeRadiusFrom
+        
         return self
     }
-    open func withFreeRadiusTo(_ freeRadiusTo: Int32) -> CoverageRegionIsochronesRequestBuilder {
+    open func withFreeRadiusTo(_ freeRadiusTo: Int32?) -> CoverageRegionIsochronesRequestBuilder {
         self.freeRadiusTo = freeRadiusTo
+        
         return self
     }
-    open func withMinDuration(_ minDuration: Int32) -> CoverageRegionIsochronesRequestBuilder {
+    open func withMinDuration(_ minDuration: Int32?) -> CoverageRegionIsochronesRequestBuilder {
         self.minDuration = minDuration
+        
         return self
     }
-    open func withBoundaryDuration(_ boundaryDuration: [Int32]) -> CoverageRegionIsochronesRequestBuilder {
+    open func withBoundaryDuration(_ boundaryDuration: [Int32]?) -> CoverageRegionIsochronesRequestBuilder {
         self.boundaryDuration = boundaryDuration
+        
+        return self
+    }
+
+
+
+    open func withDebugURL(_ debugURL: String?) -> CoverageRegionIsochronesRequestBuilder {
+        self.debugURL = debugURL
         return self
     }
 
     open func makeUrl() -> String {
         var path = "/coverage/{region}/isochrones"
 
-        if (region != nil) {
-            let regionPreEscape: String = "\(region!)"
+        if let region = region {
+            let regionPreEscape: String = "\(region)"
             let regionPostEscape: String = regionPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
             path = path.replacingOccurrences(of: "{region}", with: regionPostEscape, options: .literal, range: nil)
         }
 
-        let URLString = "https://api.navitia.io/v1" + path
+        let URLString = String(format: "%@%@", NavitiaSDKAPI.basePath, path)
         let url = NSURLComponents(string: URLString)
 
         let paramValues: [String: Any?] = [
@@ -608,7 +721,7 @@ open class CoverageRegionIsochronesRequestBuilder: NSObject {
         url?.queryItems = APIHelper.mapValuesToQueryItems(values: paramValues)
         url?.percentEncodedQuery = url?.percentEncodedQuery?.replacingOccurrences(of: "+", with: "%2B")
 
-        return (url?.string ?? URLString)
+        return (debugURL ?? url?.string ?? URLString)
     }
 
     open func get(completion: @escaping ((_ data: GraphicalIsrochone1?,_ error: Error?) -> Void)) {
