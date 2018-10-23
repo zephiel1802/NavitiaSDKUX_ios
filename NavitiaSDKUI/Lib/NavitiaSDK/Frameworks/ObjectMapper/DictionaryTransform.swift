@@ -1,6 +1,6 @@
 //
 //  DictionaryTransform.swift
-//  ObjectMapper
+//  
 //
 //  Created by Milen Halachev on 7/20/16.
 //  Copyright © 2016 hearst. All rights reserved.

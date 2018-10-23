@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'NavitiaSDKUI'
-  s.version          = '1.5.1'
+  s.version          = '1.6.0'
   s.summary          = 'An awesome framework to offer cool transport stuff to your users'
   s.description      = <<-DESC
 This SDK provides journey computation screens you can add to your application.
@@ -20,6 +20,6 @@ This SDK provides journey computation screens you can add to your application.
   s.source           = { :git => 'https://github.com/CanalTP/NavitiaSDKUX_ios.git', :tag => s.version.to_s }
 #  s.pod_target_xcconfig = { "SWIFT_VERSION" => "4.0" }
   s.ios.deployment_target = '9.0'
-  s.source_files = 'NavitiaSDKUI/Framedation/**/*.{h,m,swift}', 'NavitiaSDKUI/UI/**/*.{h,m,swift}', 'NavitiaSDKUI/Lib/**/*.{h,m,swift}', 'NavitiaSDKUI/*.{h,m,swift}'
-  s.resources = 'NavitiaSDKUI/Resources/**/*.*', 'NavitiaSDKUI/Storyboard/**/*.*', 'NavitiaSDKUI/UI/**/*.xib'
+  s.source_files = 'NavitiaSDKUI/Workers/**/*.{h,m,swift}', 'NavitiaSDKUI/Framedation/**/*.{h,m,swift}', 'NavitiaSDKUI/Scenes/**/*.{h,m,swift}', 'NavitiaSDKUI/Lib/**/*.{h,m,swift}', 'NavitiaSDKUI/*.{h,m,swift}'
+  s.resources = 'NavitiaSDKUI/Resources/**/*.*', 'NavitiaSDKUI/Storyboard/**/*.*', 'NavitiaSDKUI/Scenes/**/*.xib'
 end

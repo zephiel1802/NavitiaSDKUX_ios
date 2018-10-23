@@ -1,6 +1,6 @@
 //
 //  Request.swift
-//  AlamofireObjectMapper
+//  Alamofire
 //
 //  Created by Tristan Himmelman on 2015-04-30.
 //
@@ -88,7 +88,7 @@ extension DataRequest {
                 return .success(parsedObject)
             }
             
-            let failureReason = "ObjectMapper failed to serialize response."
+            let failureReason = " failed to serialize response."
             let error = newError(.dataSerializationFailed, failureReason: failureReason)
             return .failure(error)
         }
@@ -108,7 +108,7 @@ extension DataRequest {
                 return .success(parsedObject)
             }
             
-            let failureReason = "ObjectMapper failed to serialize response."
+            let failureReason = " failed to serialize response."
             let error = newError(.dataSerializationFailed, failureReason: failureReason)
             return .failure(error)
         }
@@ -120,7 +120,7 @@ extension DataRequest {
      - parameter queue:             The queue on which the completion handler is dispatched.
      - parameter keyPath:           The key path where object mapping should be performed
      - parameter object:            An object to perform the mapping on to
-     - parameter completionHandler: A closure to be executed once the request has finished and the data has been mapped by ObjectMapper.
+     - parameter completionHandler: A closure to be executed once the request has finished and the data has been mapped by .
      
      - returns: The request.
      */
@@ -147,7 +147,7 @@ extension DataRequest {
                 return .success(parsedObject)
             }
             
-            let failureReason = "ObjectMapper failed to serialize response."
+            let failureReason = " failed to serialize response."
             let error = newError(.dataSerializationFailed, failureReason: failureReason)
             return .failure(error)
         }
@@ -167,7 +167,7 @@ extension DataRequest {
                 }
             }
             
-            let failureReason = "ObjectMapper failed to serialize response."
+            let failureReason = " failed to serialize response."
             let error = newError(.dataSerializationFailed, failureReason: failureReason)
             return .failure(error)
         }
@@ -178,7 +178,7 @@ extension DataRequest {
      
      - parameter queue: The queue on which the completion handler is dispatched.
      - parameter keyPath: The key path where object mapping should be performed
-     - parameter completionHandler: A closure to be executed once the request has finished and the data has been mapped by ObjectMapper.
+     - parameter completionHandler: A closure to be executed once the request has finished and the data has been mapped by .
      
      - returns: The request.
      */
@@ -192,7 +192,7 @@ extension DataRequest {
      
      - parameter queue: The queue on which the completion handler is dispatched.
      - parameter keyPath: The key path where object mapping should be performed
-     - parameter completionHandler: A closure to be executed once the request has finished and the data has been mapped by ObjectMapper.
+     - parameter completionHandler: A closure to be executed once the request has finished and the data has been mapped by .
      
      - returns: The request.
      */

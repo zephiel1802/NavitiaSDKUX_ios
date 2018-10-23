@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="JourneySolutionView" customModule="NavitiaSDKUI" customModuleProvider="target">
+            <connections>
+                <outlet property="aboutLabel" destination="Ytc-Wb-FnP" id="IkB-Tl-d7L"/>
+                <outlet property="durationCenterContraint" destination="cOu-3v-ogZ" id="qlb-5c-neV"/>
+                <outlet property="durationLabel" destination="55m-Az-mud" id="BDZ-Ur-tk2"/>
+                <outlet property="journeySummaryView" destination="GEM-rR-i2b" id="2cg-zd-oQP"/>
+                <outlet property="view" destination="iN0-l3-epB" id="WEc-2w-8G2"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="300" height="60"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Environ" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ytc-Wb-FnP">
+                    <rect key="frame" x="252" y="16.5" width="38" height="12"/>
+                    <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="10"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GEM-rR-i2b" customClass="JourneySummaryView" customModule="NavitiaSDKUI" customModuleProvider="target">
+                    <rect key="frame" x="10" y="10" width="220" height="40"/>
+                    <color key="backgroundColor" white="0.46188616069999999" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                </view>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="55m-Az-mud">
+                    <rect key="frame" x="245.5" y="28.5" width="44.5" height="17"/>
+                    <attributedString key="attributedText">
+                        <fragment content="30 min">
+                            <attributes>
+                                <font key="NSFont" size="14" name=".AppleSystemUIFont"/>
+                                <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                            </attributes>
+                        </fragment>
+                    </attributedString>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="55m-Az-mud" firstAttribute="top" secondItem="Ytc-Wb-FnP" secondAttribute="bottom" id="3Oq-l7-y3Q"/>
+                <constraint firstItem="GEM-rR-i2b" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="10" id="3ro-xL-Ina"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="Ytc-Wb-FnP" secondAttribute="trailing" constant="10" id="AnK-wa-drt"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="GEM-rR-i2b" secondAttribute="bottom" constant="10" id="QTF-mK-b0x"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="GEM-rR-i2b" secondAttribute="trailing" constant="70" id="RtK-Gu-ynq"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="55m-Az-mud" secondAttribute="trailing" constant="10" id="Y8c-Ld-koj"/>
+                <constraint firstItem="55m-Az-mud" firstAttribute="centerY" secondItem="vUN-kp-3ea" secondAttribute="centerY" constant="7" id="cOu-3v-ogZ"/>
+                <constraint firstItem="GEM-rR-i2b" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="10" id="oxv-Ih-ghc"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <point key="canvasLocation" x="-14" y="-237"/>
+        </view>
+    </objects>
+</document>

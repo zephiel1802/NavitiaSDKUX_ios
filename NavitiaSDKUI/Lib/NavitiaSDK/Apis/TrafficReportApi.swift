@@ -19,64 +19,87 @@ open class CoverageLonLatTrafficReportsRequestBuilder: NSObject {
     var forbiddenUris:[String]? = nil
     var distance:Int32? = nil
     var disableGeojson:Bool? = nil
+    var tags:[String]? = nil
+    var debugURL: String? = nil
 
     public init(currentApi: TrafficReportApi) {
         self.currentApi = currentApi
     }
 
-    open func withLat(_ lat: Double) -> CoverageLonLatTrafficReportsRequestBuilder {
+    open func withLat(_ lat: Double?) -> CoverageLonLatTrafficReportsRequestBuilder {
         self.lat = lat
+        
         return self
     }
-    open func withLon(_ lon: Double) -> CoverageLonLatTrafficReportsRequestBuilder {
+    open func withLon(_ lon: Double?) -> CoverageLonLatTrafficReportsRequestBuilder {
         self.lon = lon
+        
         return self
     }
-    open func withDepth(_ depth: Int32) -> CoverageLonLatTrafficReportsRequestBuilder {
+    open func withDepth(_ depth: Int32?) -> CoverageLonLatTrafficReportsRequestBuilder {
         self.depth = depth
+        
         return self
     }
-    open func withCount(_ count: Int32) -> CoverageLonLatTrafficReportsRequestBuilder {
+    open func withCount(_ count: Int32?) -> CoverageLonLatTrafficReportsRequestBuilder {
         self.count = count
+        
         return self
     }
-    open func withStartPage(_ startPage: Int32) -> CoverageLonLatTrafficReportsRequestBuilder {
+    open func withStartPage(_ startPage: Int32?) -> CoverageLonLatTrafficReportsRequestBuilder {
         self.startPage = startPage
+        
         return self
     }
-    open func withForbiddenId(_ forbiddenId: [String]) -> CoverageLonLatTrafficReportsRequestBuilder {
+    open func withForbiddenId(_ forbiddenId: [String]?) -> CoverageLonLatTrafficReportsRequestBuilder {
         self.forbiddenId = forbiddenId
+        
         return self
     }
-    open func withForbiddenUris(_ forbiddenUris: [String]) -> CoverageLonLatTrafficReportsRequestBuilder {
+    open func withForbiddenUris(_ forbiddenUris: [String]?) -> CoverageLonLatTrafficReportsRequestBuilder {
         self.forbiddenUris = forbiddenUris
+        
         return self
     }
-    open func withDistance(_ distance: Int32) -> CoverageLonLatTrafficReportsRequestBuilder {
+    open func withDistance(_ distance: Int32?) -> CoverageLonLatTrafficReportsRequestBuilder {
         self.distance = distance
+        
         return self
     }
-    open func withDisableGeojson(_ disableGeojson: Bool) -> CoverageLonLatTrafficReportsRequestBuilder {
+    open func withDisableGeojson(_ disableGeojson: Bool?) -> CoverageLonLatTrafficReportsRequestBuilder {
         self.disableGeojson = disableGeojson
+        
+        return self
+    }
+    open func withTags(_ tags: [String]?) -> CoverageLonLatTrafficReportsRequestBuilder {
+        self.tags = tags
+        
+        return self
+    }
+
+
+
+    open func withDebugURL(_ debugURL: String?) -> CoverageLonLatTrafficReportsRequestBuilder {
+        self.debugURL = debugURL
         return self
     }
 
     open func makeUrl() -> String {
         var path = "/coverage/{lon};{lat}/traffic_reports"
 
-        if (lat != nil) {
-            let latPreEscape: String = "\(lat!)"
+        if let lat = lat {
+            let latPreEscape: String = "\(lat)"
             let latPostEscape: String = latPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
             path = path.replacingOccurrences(of: "{lat}", with: latPostEscape, options: .literal, range: nil)
         }
 
-        if (lon != nil) {
-            let lonPreEscape: String = "\(lon!)"
+        if let lon = lon {
+            let lonPreEscape: String = "\(lon)"
             let lonPostEscape: String = lonPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
             path = path.replacingOccurrences(of: "{lon}", with: lonPostEscape, options: .literal, range: nil)
         }
 
-        let URLString = "https://api.navitia.io/v1" + path
+        let URLString = String(format: "%@%@", NavitiaSDKAPI.basePath, path)
         let url = NSURLComponents(string: URLString)
 
         let paramValues: [String: Any?] = [
@@ -86,12 +109,13 @@ open class CoverageLonLatTrafficReportsRequestBuilder: NSObject {
             "forbidden_id[]": self.forbiddenId, 
             "forbidden_uris[]": self.forbiddenUris, 
             "distance": self.distance?.encodeToJSON(), 
-            "disable_geojson": self.disableGeojson
+            "disable_geojson": self.disableGeojson, 
+            "tags[]": self.tags
         ]
         url?.queryItems = APIHelper.mapValuesToQueryItems(values: paramValues)
         url?.percentEncodedQuery = url?.percentEncodedQuery?.replacingOccurrences(of: "+", with: "%2B")
 
-        return (url?.string ?? URLString)
+        return (debugURL ?? url?.string ?? URLString)
     }
 
     open func get(completion: @escaping ((_ data: TrafficReports?,_ error: Error?) -> Void)) {
@@ -150,74 +174,98 @@ open class CoverageLonLatUriTrafficReportsRequestBuilder: NSObject {
     var forbiddenUris:[String]? = nil
     var distance:Int32? = nil
     var disableGeojson:Bool? = nil
+    var tags:[String]? = nil
+    var debugURL: String? = nil
 
     public init(currentApi: TrafficReportApi) {
         self.currentApi = currentApi
     }
 
-    open func withLat(_ lat: Double) -> CoverageLonLatUriTrafficReportsRequestBuilder {
+    open func withLat(_ lat: Double?) -> CoverageLonLatUriTrafficReportsRequestBuilder {
         self.lat = lat
+        
         return self
     }
-    open func withLon(_ lon: Double) -> CoverageLonLatUriTrafficReportsRequestBuilder {
+    open func withLon(_ lon: Double?) -> CoverageLonLatUriTrafficReportsRequestBuilder {
         self.lon = lon
+        
         return self
     }
-    open func withUri(_ uri: String) -> CoverageLonLatUriTrafficReportsRequestBuilder {
+    open func withUri(_ uri: String?) -> CoverageLonLatUriTrafficReportsRequestBuilder {
         self.uri = uri
+        
         return self
     }
-    open func withDepth(_ depth: Int32) -> CoverageLonLatUriTrafficReportsRequestBuilder {
+    open func withDepth(_ depth: Int32?) -> CoverageLonLatUriTrafficReportsRequestBuilder {
         self.depth = depth
+        
         return self
     }
-    open func withCount(_ count: Int32) -> CoverageLonLatUriTrafficReportsRequestBuilder {
+    open func withCount(_ count: Int32?) -> CoverageLonLatUriTrafficReportsRequestBuilder {
         self.count = count
+        
         return self
     }
-    open func withStartPage(_ startPage: Int32) -> CoverageLonLatUriTrafficReportsRequestBuilder {
+    open func withStartPage(_ startPage: Int32?) -> CoverageLonLatUriTrafficReportsRequestBuilder {
         self.startPage = startPage
+        
         return self
     }
-    open func withForbiddenId(_ forbiddenId: [String]) -> CoverageLonLatUriTrafficReportsRequestBuilder {
+    open func withForbiddenId(_ forbiddenId: [String]?) -> CoverageLonLatUriTrafficReportsRequestBuilder {
         self.forbiddenId = forbiddenId
+        
         return self
     }
-    open func withForbiddenUris(_ forbiddenUris: [String]) -> CoverageLonLatUriTrafficReportsRequestBuilder {
+    open func withForbiddenUris(_ forbiddenUris: [String]?) -> CoverageLonLatUriTrafficReportsRequestBuilder {
         self.forbiddenUris = forbiddenUris
+        
         return self
     }
-    open func withDistance(_ distance: Int32) -> CoverageLonLatUriTrafficReportsRequestBuilder {
+    open func withDistance(_ distance: Int32?) -> CoverageLonLatUriTrafficReportsRequestBuilder {
         self.distance = distance
+        
         return self
     }
-    open func withDisableGeojson(_ disableGeojson: Bool) -> CoverageLonLatUriTrafficReportsRequestBuilder {
+    open func withDisableGeojson(_ disableGeojson: Bool?) -> CoverageLonLatUriTrafficReportsRequestBuilder {
         self.disableGeojson = disableGeojson
+        
+        return self
+    }
+    open func withTags(_ tags: [String]?) -> CoverageLonLatUriTrafficReportsRequestBuilder {
+        self.tags = tags
+        
+        return self
+    }
+
+
+
+    open func withDebugURL(_ debugURL: String?) -> CoverageLonLatUriTrafficReportsRequestBuilder {
+        self.debugURL = debugURL
         return self
     }
 
     open func makeUrl() -> String {
         var path = "/coverage/{lon};{lat}/{uri}/traffic_reports"
 
-        if (lat != nil) {
-            let latPreEscape: String = "\(lat!)"
+        if let lat = lat {
+            let latPreEscape: String = "\(lat)"
             let latPostEscape: String = latPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
             path = path.replacingOccurrences(of: "{lat}", with: latPostEscape, options: .literal, range: nil)
         }
 
-        if (lon != nil) {
-            let lonPreEscape: String = "\(lon!)"
+        if let lon = lon {
+            let lonPreEscape: String = "\(lon)"
             let lonPostEscape: String = lonPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
             path = path.replacingOccurrences(of: "{lon}", with: lonPostEscape, options: .literal, range: nil)
         }
 
-        if (uri != nil) {
-            let uriPreEscape: String = "\(uri!)"
+        if let uri = uri {
+            let uriPreEscape: String = "\(uri)"
             let uriPostEscape: String = uriPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
             path = path.replacingOccurrences(of: "{uri}", with: uriPostEscape, options: .literal, range: nil)
         }
 
-        let URLString = "https://api.navitia.io/v1" + path
+        let URLString = String(format: "%@%@", NavitiaSDKAPI.basePath, path)
         let url = NSURLComponents(string: URLString)
 
         let paramValues: [String: Any?] = [
@@ -227,12 +275,13 @@ open class CoverageLonLatUriTrafficReportsRequestBuilder: NSObject {
             "forbidden_id[]": self.forbiddenId, 
             "forbidden_uris[]": self.forbiddenUris, 
             "distance": self.distance?.encodeToJSON(), 
-            "disable_geojson": self.disableGeojson
+            "disable_geojson": self.disableGeojson, 
+            "tags[]": self.tags
         ]
         url?.queryItems = APIHelper.mapValuesToQueryItems(values: paramValues)
         url?.percentEncodedQuery = url?.percentEncodedQuery?.replacingOccurrences(of: "+", with: "%2B")
 
-        return (url?.string ?? URLString)
+        return (debugURL ?? url?.string ?? URLString)
     }
 
     open func get(completion: @escaping ((_ data: TrafficReports?,_ error: Error?) -> Void)) {
@@ -295,54 +344,76 @@ open class CoverageRegionTrafficReportsRequestBuilder: NSObject {
     var forbiddenUris:[String]? = nil
     var distance:Int32? = nil
     var disableGeojson:Bool? = nil
+    var tags:[String]? = nil
+    var debugURL: String? = nil
 
     public init(currentApi: TrafficReportApi) {
         self.currentApi = currentApi
     }
 
-    open func withRegion(_ region: String) -> CoverageRegionTrafficReportsRequestBuilder {
+    open func withRegion(_ region: String?) -> CoverageRegionTrafficReportsRequestBuilder {
         self.region = region
+        
         return self
     }
-    open func withDepth(_ depth: Int32) -> CoverageRegionTrafficReportsRequestBuilder {
+    open func withDepth(_ depth: Int32?) -> CoverageRegionTrafficReportsRequestBuilder {
         self.depth = depth
+        
         return self
     }
-    open func withCount(_ count: Int32) -> CoverageRegionTrafficReportsRequestBuilder {
+    open func withCount(_ count: Int32?) -> CoverageRegionTrafficReportsRequestBuilder {
         self.count = count
+        
         return self
     }
-    open func withStartPage(_ startPage: Int32) -> CoverageRegionTrafficReportsRequestBuilder {
+    open func withStartPage(_ startPage: Int32?) -> CoverageRegionTrafficReportsRequestBuilder {
         self.startPage = startPage
+        
         return self
     }
-    open func withForbiddenId(_ forbiddenId: [String]) -> CoverageRegionTrafficReportsRequestBuilder {
+    open func withForbiddenId(_ forbiddenId: [String]?) -> CoverageRegionTrafficReportsRequestBuilder {
         self.forbiddenId = forbiddenId
+        
         return self
     }
-    open func withForbiddenUris(_ forbiddenUris: [String]) -> CoverageRegionTrafficReportsRequestBuilder {
+    open func withForbiddenUris(_ forbiddenUris: [String]?) -> CoverageRegionTrafficReportsRequestBuilder {
         self.forbiddenUris = forbiddenUris
+        
         return self
     }
-    open func withDistance(_ distance: Int32) -> CoverageRegionTrafficReportsRequestBuilder {
+    open func withDistance(_ distance: Int32?) -> CoverageRegionTrafficReportsRequestBuilder {
         self.distance = distance
+        
         return self
     }
-    open func withDisableGeojson(_ disableGeojson: Bool) -> CoverageRegionTrafficReportsRequestBuilder {
+    open func withDisableGeojson(_ disableGeojson: Bool?) -> CoverageRegionTrafficReportsRequestBuilder {
         self.disableGeojson = disableGeojson
+        
+        return self
+    }
+    open func withTags(_ tags: [String]?) -> CoverageRegionTrafficReportsRequestBuilder {
+        self.tags = tags
+        
+        return self
+    }
+
+
+
+    open func withDebugURL(_ debugURL: String?) -> CoverageRegionTrafficReportsRequestBuilder {
+        self.debugURL = debugURL
         return self
     }
 
     open func makeUrl() -> String {
         var path = "/coverage/{region}/traffic_reports"
 
-        if (region != nil) {
-            let regionPreEscape: String = "\(region!)"
+        if let region = region {
+            let regionPreEscape: String = "\(region)"
             let regionPostEscape: String = regionPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
             path = path.replacingOccurrences(of: "{region}", with: regionPostEscape, options: .literal, range: nil)
         }
 
-        let URLString = "https://api.navitia.io/v1" + path
+        let URLString = String(format: "%@%@", NavitiaSDKAPI.basePath, path)
         let url = NSURLComponents(string: URLString)
 
         let paramValues: [String: Any?] = [
@@ -352,12 +423,13 @@ open class CoverageRegionTrafficReportsRequestBuilder: NSObject {
             "forbidden_id[]": self.forbiddenId, 
             "forbidden_uris[]": self.forbiddenUris, 
             "distance": self.distance?.encodeToJSON(), 
-            "disable_geojson": self.disableGeojson
+            "disable_geojson": self.disableGeojson, 
+            "tags[]": self.tags
         ]
         url?.queryItems = APIHelper.mapValuesToQueryItems(values: paramValues)
         url?.percentEncodedQuery = url?.percentEncodedQuery?.replacingOccurrences(of: "+", with: "%2B")
 
-        return (url?.string ?? URLString)
+        return (debugURL ?? url?.string ?? URLString)
     }
 
     open func get(completion: @escaping ((_ data: TrafficReports?,_ error: Error?) -> Void)) {
@@ -409,64 +481,87 @@ open class CoverageRegionUriTrafficReportsRequestBuilder: NSObject {
     var forbiddenUris:[String]? = nil
     var distance:Int32? = nil
     var disableGeojson:Bool? = nil
+    var tags:[String]? = nil
+    var debugURL: String? = nil
 
     public init(currentApi: TrafficReportApi) {
         self.currentApi = currentApi
     }
 
-    open func withRegion(_ region: String) -> CoverageRegionUriTrafficReportsRequestBuilder {
+    open func withRegion(_ region: String?) -> CoverageRegionUriTrafficReportsRequestBuilder {
         self.region = region
+        
         return self
     }
-    open func withUri(_ uri: String) -> CoverageRegionUriTrafficReportsRequestBuilder {
+    open func withUri(_ uri: String?) -> CoverageRegionUriTrafficReportsRequestBuilder {
         self.uri = uri
+        
         return self
     }
-    open func withDepth(_ depth: Int32) -> CoverageRegionUriTrafficReportsRequestBuilder {
+    open func withDepth(_ depth: Int32?) -> CoverageRegionUriTrafficReportsRequestBuilder {
         self.depth = depth
+        
         return self
     }
-    open func withCount(_ count: Int32) -> CoverageRegionUriTrafficReportsRequestBuilder {
+    open func withCount(_ count: Int32?) -> CoverageRegionUriTrafficReportsRequestBuilder {
         self.count = count
+        
         return self
     }
-    open func withStartPage(_ startPage: Int32) -> CoverageRegionUriTrafficReportsRequestBuilder {
+    open func withStartPage(_ startPage: Int32?) -> CoverageRegionUriTrafficReportsRequestBuilder {
         self.startPage = startPage
+        
         return self
     }
-    open func withForbiddenId(_ forbiddenId: [String]) -> CoverageRegionUriTrafficReportsRequestBuilder {
+    open func withForbiddenId(_ forbiddenId: [String]?) -> CoverageRegionUriTrafficReportsRequestBuilder {
         self.forbiddenId = forbiddenId
+        
         return self
     }
-    open func withForbiddenUris(_ forbiddenUris: [String]) -> CoverageRegionUriTrafficReportsRequestBuilder {
+    open func withForbiddenUris(_ forbiddenUris: [String]?) -> CoverageRegionUriTrafficReportsRequestBuilder {
         self.forbiddenUris = forbiddenUris
+        
         return self
     }
-    open func withDistance(_ distance: Int32) -> CoverageRegionUriTrafficReportsRequestBuilder {
+    open func withDistance(_ distance: Int32?) -> CoverageRegionUriTrafficReportsRequestBuilder {
         self.distance = distance
+        
         return self
     }
-    open func withDisableGeojson(_ disableGeojson: Bool) -> CoverageRegionUriTrafficReportsRequestBuilder {
+    open func withDisableGeojson(_ disableGeojson: Bool?) -> CoverageRegionUriTrafficReportsRequestBuilder {
         self.disableGeojson = disableGeojson
+        
+        return self
+    }
+    open func withTags(_ tags: [String]?) -> CoverageRegionUriTrafficReportsRequestBuilder {
+        self.tags = tags
+        
+        return self
+    }
+
+
+
+    open func withDebugURL(_ debugURL: String?) -> CoverageRegionUriTrafficReportsRequestBuilder {
+        self.debugURL = debugURL
         return self
     }
 
     open func makeUrl() -> String {
         var path = "/coverage/{region}/{uri}/traffic_reports"
 
-        if (region != nil) {
-            let regionPreEscape: String = "\(region!)"
+        if let region = region {
+            let regionPreEscape: String = "\(region)"
             let regionPostEscape: String = regionPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
             path = path.replacingOccurrences(of: "{region}", with: regionPostEscape, options: .literal, range: nil)
         }
 
-        if (uri != nil) {
-            let uriPreEscape: String = "\(uri!)"
+        if let uri = uri {
+            let uriPreEscape: String = "\(uri)"
             let uriPostEscape: String = uriPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
             path = path.replacingOccurrences(of: "{uri}", with: uriPostEscape, options: .literal, range: nil)
         }
 
-        let URLString = "https://api.navitia.io/v1" + path
+        let URLString = String(format: "%@%@", NavitiaSDKAPI.basePath, path)
         let url = NSURLComponents(string: URLString)
 
         let paramValues: [String: Any?] = [
@@ -476,12 +571,13 @@ open class CoverageRegionUriTrafficReportsRequestBuilder: NSObject {
             "forbidden_id[]": self.forbiddenId, 
             "forbidden_uris[]": self.forbiddenUris, 
             "distance": self.distance?.encodeToJSON(), 
-            "disable_geojson": self.disableGeojson
+            "disable_geojson": self.disableGeojson, 
+            "tags[]": self.tags
         ]
         url?.queryItems = APIHelper.mapValuesToQueryItems(values: paramValues)
         url?.percentEncodedQuery = url?.percentEncodedQuery?.replacingOccurrences(of: "+", with: "%2B")
 
-        return (url?.string ?? URLString)
+        return (debugURL ?? url?.string ?? URLString)
     }
 
     open func get(completion: @escaping ((_ data: TrafficReports?,_ error: Error?) -> Void)) {

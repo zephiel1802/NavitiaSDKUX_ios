@@ -35,97 +35,128 @@ open class CoverageLonLatNetworksRequestBuilder: NSObject {
     var until:Date? = nil
     var disableGeojson:Bool? = nil
     var filter:String? = nil
+    var tags:[String]? = nil
     var originalId:String? = nil
+    var debugURL: String? = nil
 
     public init(currentApi: NetworksApi) {
         self.currentApi = currentApi
     }
 
-    open func withLat(_ lat: Double) -> CoverageLonLatNetworksRequestBuilder {
+    open func withLat(_ lat: Double?) -> CoverageLonLatNetworksRequestBuilder {
         self.lat = lat
+        
         return self
     }
-    open func withLon(_ lon: Double) -> CoverageLonLatNetworksRequestBuilder {
+    open func withLon(_ lon: Double?) -> CoverageLonLatNetworksRequestBuilder {
         self.lon = lon
+        
         return self
     }
-    open func withStartPage(_ startPage: Int32) -> CoverageLonLatNetworksRequestBuilder {
+    open func withStartPage(_ startPage: Int32?) -> CoverageLonLatNetworksRequestBuilder {
         self.startPage = startPage
+        
         return self
     }
-    open func withCount(_ count: Int32) -> CoverageLonLatNetworksRequestBuilder {
+    open func withCount(_ count: Int32?) -> CoverageLonLatNetworksRequestBuilder {
         self.count = count
+        
         return self
     }
-    open func withDepth(_ depth: Int32) -> CoverageLonLatNetworksRequestBuilder {
+    open func withDepth(_ depth: Int32?) -> CoverageLonLatNetworksRequestBuilder {
         self.depth = depth
+        
         return self
     }
-    open func withForbiddenId(_ forbiddenId: [String]) -> CoverageLonLatNetworksRequestBuilder {
+    open func withForbiddenId(_ forbiddenId: [String]?) -> CoverageLonLatNetworksRequestBuilder {
         self.forbiddenId = forbiddenId
+        
         return self
     }
-    open func withForbiddenUris(_ forbiddenUris: [String]) -> CoverageLonLatNetworksRequestBuilder {
+    open func withForbiddenUris(_ forbiddenUris: [String]?) -> CoverageLonLatNetworksRequestBuilder {
         self.forbiddenUris = forbiddenUris
+        
         return self
     }
-    open func withExternalCode(_ externalCode: String) -> CoverageLonLatNetworksRequestBuilder {
+    open func withExternalCode(_ externalCode: String?) -> CoverageLonLatNetworksRequestBuilder {
         self.externalCode = externalCode
+        
         return self
     }
-    open func withHeadsign(_ headsign: String) -> CoverageLonLatNetworksRequestBuilder {
+    open func withHeadsign(_ headsign: String?) -> CoverageLonLatNetworksRequestBuilder {
         self.headsign = headsign
+        
         return self
     }
-    open func withShowCodes(_ showCodes: Bool) -> CoverageLonLatNetworksRequestBuilder {
+    open func withShowCodes(_ showCodes: Bool?) -> CoverageLonLatNetworksRequestBuilder {
         self.showCodes = showCodes
+        
         return self
     }
-    open func withOdtLevel(_ odtLevel: OdtLevel) -> CoverageLonLatNetworksRequestBuilder {
+    open func withOdtLevel(_ odtLevel: OdtLevel?) -> CoverageLonLatNetworksRequestBuilder {
         self.odtLevel = odtLevel
+
         return self
     }
-    open func withDistance(_ distance: Int32) -> CoverageLonLatNetworksRequestBuilder {
+    open func withDistance(_ distance: Int32?) -> CoverageLonLatNetworksRequestBuilder {
         self.distance = distance
+        
         return self
     }
-    open func withSince(_ since: Date) -> CoverageLonLatNetworksRequestBuilder {
+    open func withSince(_ since: Date?) -> CoverageLonLatNetworksRequestBuilder {
         self.since = since
+        
         return self
     }
-    open func withUntil(_ until: Date) -> CoverageLonLatNetworksRequestBuilder {
+    open func withUntil(_ until: Date?) -> CoverageLonLatNetworksRequestBuilder {
         self.until = until
+        
         return self
     }
-    open func withDisableGeojson(_ disableGeojson: Bool) -> CoverageLonLatNetworksRequestBuilder {
+    open func withDisableGeojson(_ disableGeojson: Bool?) -> CoverageLonLatNetworksRequestBuilder {
         self.disableGeojson = disableGeojson
+        
         return self
     }
-    open func withFilter(_ filter: String) -> CoverageLonLatNetworksRequestBuilder {
+    open func withFilter(_ filter: String?) -> CoverageLonLatNetworksRequestBuilder {
         self.filter = filter
+        
         return self
     }
-    open func withOriginalId(_ originalId: String) -> CoverageLonLatNetworksRequestBuilder {
+    open func withTags(_ tags: [String]?) -> CoverageLonLatNetworksRequestBuilder {
+        self.tags = tags
+        
+        return self
+    }
+    open func withOriginalId(_ originalId: String?) -> CoverageLonLatNetworksRequestBuilder {
         self.originalId = originalId
+        
+        return self
+    }
+
+
+
+    open func withDebugURL(_ debugURL: String?) -> CoverageLonLatNetworksRequestBuilder {
+        self.debugURL = debugURL
         return self
     }
 
     open func makeUrl() -> String {
         var path = "/coverage/{lon};{lat}/networks"
 
-        if (lat != nil) {
-            let latPreEscape: String = "\(lat!)"
+        if let lat = lat {
+            let latPreEscape: String = "\(lat)"
             let latPostEscape: String = latPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
             path = path.replacingOccurrences(of: "{lat}", with: latPostEscape, options: .literal, range: nil)
         }
 
-        if (lon != nil) {
-            let lonPreEscape: String = "\(lon!)"
+        if let lon = lon {
+            let lonPreEscape: String = "\(lon)"
             let lonPostEscape: String = lonPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
             path = path.replacingOccurrences(of: "{lon}", with: lonPostEscape, options: .literal, range: nil)
         }
 
-        let URLString = "https://api.navitia.io/v1" + path
+        let URLString = String(format: "%@%@", NavitiaSDKAPI.basePath, path)
         let url = NSURLComponents(string: URLString)
 
         let paramValues: [String: Any?] = [
@@ -143,12 +174,13 @@ open class CoverageLonLatNetworksRequestBuilder: NSObject {
             "until": self.until?.encodeToJSON(), 
             "disable_geojson": self.disableGeojson, 
             "filter": self.filter, 
+            "tags[]": self.tags, 
             "original_id": self.originalId
         ]
         url?.queryItems = APIHelper.mapValuesToQueryItems(values: paramValues)
         url?.percentEncodedQuery = url?.percentEncodedQuery?.replacingOccurrences(of: "+", with: "%2B")
 
-        return (url?.string ?? URLString)
+        return (debugURL ?? url?.string ?? URLString)
     }
 
     open func get(completion: @escaping ((_ data: Networks?,_ error: Error?) -> Void)) {
@@ -222,103 +254,134 @@ open class CoverageLonLatNetworksIdRequestBuilder: NSObject {
     var since:Date? = nil
     var until:Date? = nil
     var disableGeojson:Bool? = nil
+    var tags:[String]? = nil
     var originalId:String? = nil
+    var debugURL: String? = nil
 
     public init(currentApi: NetworksApi) {
         self.currentApi = currentApi
     }
 
-    open func withLat(_ lat: Double) -> CoverageLonLatNetworksIdRequestBuilder {
+    open func withLat(_ lat: Double?) -> CoverageLonLatNetworksIdRequestBuilder {
         self.lat = lat
+        
         return self
     }
-    open func withLon(_ lon: Double) -> CoverageLonLatNetworksIdRequestBuilder {
+    open func withLon(_ lon: Double?) -> CoverageLonLatNetworksIdRequestBuilder {
         self.lon = lon
+        
         return self
     }
-    open func withId(_ id: String) -> CoverageLonLatNetworksIdRequestBuilder {
+    open func withId(_ id: String?) -> CoverageLonLatNetworksIdRequestBuilder {
         self.id = id
+        
         return self
     }
-    open func withStartPage(_ startPage: Int32) -> CoverageLonLatNetworksIdRequestBuilder {
+    open func withStartPage(_ startPage: Int32?) -> CoverageLonLatNetworksIdRequestBuilder {
         self.startPage = startPage
+        
         return self
     }
-    open func withCount(_ count: Int32) -> CoverageLonLatNetworksIdRequestBuilder {
+    open func withCount(_ count: Int32?) -> CoverageLonLatNetworksIdRequestBuilder {
         self.count = count
+        
         return self
     }
-    open func withDepth(_ depth: Int32) -> CoverageLonLatNetworksIdRequestBuilder {
+    open func withDepth(_ depth: Int32?) -> CoverageLonLatNetworksIdRequestBuilder {
         self.depth = depth
+        
         return self
     }
-    open func withForbiddenId(_ forbiddenId: [String]) -> CoverageLonLatNetworksIdRequestBuilder {
+    open func withForbiddenId(_ forbiddenId: [String]?) -> CoverageLonLatNetworksIdRequestBuilder {
         self.forbiddenId = forbiddenId
+        
         return self
     }
-    open func withForbiddenUris(_ forbiddenUris: [String]) -> CoverageLonLatNetworksIdRequestBuilder {
+    open func withForbiddenUris(_ forbiddenUris: [String]?) -> CoverageLonLatNetworksIdRequestBuilder {
         self.forbiddenUris = forbiddenUris
+        
         return self
     }
-    open func withExternalCode(_ externalCode: String) -> CoverageLonLatNetworksIdRequestBuilder {
+    open func withExternalCode(_ externalCode: String?) -> CoverageLonLatNetworksIdRequestBuilder {
         self.externalCode = externalCode
+        
         return self
     }
-    open func withHeadsign(_ headsign: String) -> CoverageLonLatNetworksIdRequestBuilder {
+    open func withHeadsign(_ headsign: String?) -> CoverageLonLatNetworksIdRequestBuilder {
         self.headsign = headsign
+        
         return self
     }
-    open func withShowCodes(_ showCodes: Bool) -> CoverageLonLatNetworksIdRequestBuilder {
+    open func withShowCodes(_ showCodes: Bool?) -> CoverageLonLatNetworksIdRequestBuilder {
         self.showCodes = showCodes
+        
         return self
     }
-    open func withOdtLevel(_ odtLevel: OdtLevel) -> CoverageLonLatNetworksIdRequestBuilder {
+    open func withOdtLevel(_ odtLevel: OdtLevel?) -> CoverageLonLatNetworksIdRequestBuilder {
         self.odtLevel = odtLevel
+
         return self
     }
-    open func withDistance(_ distance: Int32) -> CoverageLonLatNetworksIdRequestBuilder {
+    open func withDistance(_ distance: Int32?) -> CoverageLonLatNetworksIdRequestBuilder {
         self.distance = distance
+        
         return self
     }
-    open func withSince(_ since: Date) -> CoverageLonLatNetworksIdRequestBuilder {
+    open func withSince(_ since: Date?) -> CoverageLonLatNetworksIdRequestBuilder {
         self.since = since
+        
         return self
     }
-    open func withUntil(_ until: Date) -> CoverageLonLatNetworksIdRequestBuilder {
+    open func withUntil(_ until: Date?) -> CoverageLonLatNetworksIdRequestBuilder {
         self.until = until
+        
         return self
     }
-    open func withDisableGeojson(_ disableGeojson: Bool) -> CoverageLonLatNetworksIdRequestBuilder {
+    open func withDisableGeojson(_ disableGeojson: Bool?) -> CoverageLonLatNetworksIdRequestBuilder {
         self.disableGeojson = disableGeojson
+        
         return self
     }
-    open func withOriginalId(_ originalId: String) -> CoverageLonLatNetworksIdRequestBuilder {
+    open func withTags(_ tags: [String]?) -> CoverageLonLatNetworksIdRequestBuilder {
+        self.tags = tags
+        
+        return self
+    }
+    open func withOriginalId(_ originalId: String?) -> CoverageLonLatNetworksIdRequestBuilder {
         self.originalId = originalId
+        
+        return self
+    }
+
+
+
+    open func withDebugURL(_ debugURL: String?) -> CoverageLonLatNetworksIdRequestBuilder {
+        self.debugURL = debugURL
         return self
     }
 
     open func makeUrl() -> String {
         var path = "/coverage/{lon};{lat}/networks/{id}"
 
-        if (lat != nil) {
-            let latPreEscape: String = "\(lat!)"
+        if let lat = lat {
+            let latPreEscape: String = "\(lat)"
             let latPostEscape: String = latPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
             path = path.replacingOccurrences(of: "{lat}", with: latPostEscape, options: .literal, range: nil)
         }
 
-        if (lon != nil) {
-            let lonPreEscape: String = "\(lon!)"
+        if let lon = lon {
+            let lonPreEscape: String = "\(lon)"
             let lonPostEscape: String = lonPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
             path = path.replacingOccurrences(of: "{lon}", with: lonPostEscape, options: .literal, range: nil)
         }
 
-        if (id != nil) {
-            let idPreEscape: String = "\(id!)"
+        if let id = id {
+            let idPreEscape: String = "\(id)"
             let idPostEscape: String = idPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
             path = path.replacingOccurrences(of: "{id}", with: idPostEscape, options: .literal, range: nil)
         }
 
-        let URLString = "https://api.navitia.io/v1" + path
+        let URLString = String(format: "%@%@", NavitiaSDKAPI.basePath, path)
         let url = NSURLComponents(string: URLString)
 
         let paramValues: [String: Any?] = [
@@ -335,12 +398,13 @@ open class CoverageLonLatNetworksIdRequestBuilder: NSObject {
             "since": self.since?.encodeToJSON(), 
             "until": self.until?.encodeToJSON(), 
             "disable_geojson": self.disableGeojson, 
+            "tags[]": self.tags, 
             "original_id": self.originalId
         ]
         url?.queryItems = APIHelper.mapValuesToQueryItems(values: paramValues)
         url?.percentEncodedQuery = url?.percentEncodedQuery?.replacingOccurrences(of: "+", with: "%2B")
 
-        return (url?.string ?? URLString)
+        return (debugURL ?? url?.string ?? URLString)
     }
 
     open func get(completion: @escaping ((_ data: Networks?,_ error: Error?) -> Void)) {
@@ -421,107 +485,139 @@ open class CoverageLonLatUriNetworksRequestBuilder: NSObject {
     var until:Date? = nil
     var disableGeojson:Bool? = nil
     var filter:String? = nil
+    var tags:[String]? = nil
     var originalId:String? = nil
+    var debugURL: String? = nil
 
     public init(currentApi: NetworksApi) {
         self.currentApi = currentApi
     }
 
-    open func withLat(_ lat: Double) -> CoverageLonLatUriNetworksRequestBuilder {
+    open func withLat(_ lat: Double?) -> CoverageLonLatUriNetworksRequestBuilder {
         self.lat = lat
+        
         return self
     }
-    open func withLon(_ lon: Double) -> CoverageLonLatUriNetworksRequestBuilder {
+    open func withLon(_ lon: Double?) -> CoverageLonLatUriNetworksRequestBuilder {
         self.lon = lon
+        
         return self
     }
-    open func withUri(_ uri: String) -> CoverageLonLatUriNetworksRequestBuilder {
+    open func withUri(_ uri: String?) -> CoverageLonLatUriNetworksRequestBuilder {
         self.uri = uri
+        
         return self
     }
-    open func withStartPage(_ startPage: Int32) -> CoverageLonLatUriNetworksRequestBuilder {
+    open func withStartPage(_ startPage: Int32?) -> CoverageLonLatUriNetworksRequestBuilder {
         self.startPage = startPage
+        
         return self
     }
-    open func withCount(_ count: Int32) -> CoverageLonLatUriNetworksRequestBuilder {
+    open func withCount(_ count: Int32?) -> CoverageLonLatUriNetworksRequestBuilder {
         self.count = count
+        
         return self
     }
-    open func withDepth(_ depth: Int32) -> CoverageLonLatUriNetworksRequestBuilder {
+    open func withDepth(_ depth: Int32?) -> CoverageLonLatUriNetworksRequestBuilder {
         self.depth = depth
+        
         return self
     }
-    open func withForbiddenId(_ forbiddenId: [String]) -> CoverageLonLatUriNetworksRequestBuilder {
+    open func withForbiddenId(_ forbiddenId: [String]?) -> CoverageLonLatUriNetworksRequestBuilder {
         self.forbiddenId = forbiddenId
+        
         return self
     }
-    open func withForbiddenUris(_ forbiddenUris: [String]) -> CoverageLonLatUriNetworksRequestBuilder {
+    open func withForbiddenUris(_ forbiddenUris: [String]?) -> CoverageLonLatUriNetworksRequestBuilder {
         self.forbiddenUris = forbiddenUris
+        
         return self
     }
-    open func withExternalCode(_ externalCode: String) -> CoverageLonLatUriNetworksRequestBuilder {
+    open func withExternalCode(_ externalCode: String?) -> CoverageLonLatUriNetworksRequestBuilder {
         self.externalCode = externalCode
+        
         return self
     }
-    open func withHeadsign(_ headsign: String) -> CoverageLonLatUriNetworksRequestBuilder {
+    open func withHeadsign(_ headsign: String?) -> CoverageLonLatUriNetworksRequestBuilder {
         self.headsign = headsign
+        
         return self
     }
-    open func withShowCodes(_ showCodes: Bool) -> CoverageLonLatUriNetworksRequestBuilder {
+    open func withShowCodes(_ showCodes: Bool?) -> CoverageLonLatUriNetworksRequestBuilder {
         self.showCodes = showCodes
+        
         return self
     }
-    open func withOdtLevel(_ odtLevel: OdtLevel) -> CoverageLonLatUriNetworksRequestBuilder {
+    open func withOdtLevel(_ odtLevel: OdtLevel?) -> CoverageLonLatUriNetworksRequestBuilder {
         self.odtLevel = odtLevel
+
         return self
     }
-    open func withDistance(_ distance: Int32) -> CoverageLonLatUriNetworksRequestBuilder {
+    open func withDistance(_ distance: Int32?) -> CoverageLonLatUriNetworksRequestBuilder {
         self.distance = distance
+        
         return self
     }
-    open func withSince(_ since: Date) -> CoverageLonLatUriNetworksRequestBuilder {
+    open func withSince(_ since: Date?) -> CoverageLonLatUriNetworksRequestBuilder {
         self.since = since
+        
         return self
     }
-    open func withUntil(_ until: Date) -> CoverageLonLatUriNetworksRequestBuilder {
+    open func withUntil(_ until: Date?) -> CoverageLonLatUriNetworksRequestBuilder {
         self.until = until
+        
         return self
     }
-    open func withDisableGeojson(_ disableGeojson: Bool) -> CoverageLonLatUriNetworksRequestBuilder {
+    open func withDisableGeojson(_ disableGeojson: Bool?) -> CoverageLonLatUriNetworksRequestBuilder {
         self.disableGeojson = disableGeojson
+        
         return self
     }
-    open func withFilter(_ filter: String) -> CoverageLonLatUriNetworksRequestBuilder {
+    open func withFilter(_ filter: String?) -> CoverageLonLatUriNetworksRequestBuilder {
         self.filter = filter
+        
         return self
     }
-    open func withOriginalId(_ originalId: String) -> CoverageLonLatUriNetworksRequestBuilder {
+    open func withTags(_ tags: [String]?) -> CoverageLonLatUriNetworksRequestBuilder {
+        self.tags = tags
+        
+        return self
+    }
+    open func withOriginalId(_ originalId: String?) -> CoverageLonLatUriNetworksRequestBuilder {
         self.originalId = originalId
+        
+        return self
+    }
+
+
+
+    open func withDebugURL(_ debugURL: String?) -> CoverageLonLatUriNetworksRequestBuilder {
+        self.debugURL = debugURL
         return self
     }
 
     open func makeUrl() -> String {
         var path = "/coverage/{lon};{lat}/{uri}/networks"
 
-        if (lat != nil) {
-            let latPreEscape: String = "\(lat!)"
+        if let lat = lat {
+            let latPreEscape: String = "\(lat)"
             let latPostEscape: String = latPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
             path = path.replacingOccurrences(of: "{lat}", with: latPostEscape, options: .literal, range: nil)
         }
 
-        if (lon != nil) {
-            let lonPreEscape: String = "\(lon!)"
+        if let lon = lon {
+            let lonPreEscape: String = "\(lon)"
             let lonPostEscape: String = lonPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
             path = path.replacingOccurrences(of: "{lon}", with: lonPostEscape, options: .literal, range: nil)
         }
 
-        if (uri != nil) {
-            let uriPreEscape: String = "\(uri!)"
+        if let uri = uri {
+            let uriPreEscape: String = "\(uri)"
             let uriPostEscape: String = uriPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
             path = path.replacingOccurrences(of: "{uri}", with: uriPostEscape, options: .literal, range: nil)
         }
 
-        let URLString = "https://api.navitia.io/v1" + path
+        let URLString = String(format: "%@%@", NavitiaSDKAPI.basePath, path)
         let url = NSURLComponents(string: URLString)
 
         let paramValues: [String: Any?] = [
@@ -539,12 +635,13 @@ open class CoverageLonLatUriNetworksRequestBuilder: NSObject {
             "until": self.until?.encodeToJSON(), 
             "disable_geojson": self.disableGeojson, 
             "filter": self.filter, 
+            "tags[]": self.tags, 
             "original_id": self.originalId
         ]
         url?.queryItems = APIHelper.mapValuesToQueryItems(values: paramValues)
         url?.percentEncodedQuery = url?.percentEncodedQuery?.replacingOccurrences(of: "+", with: "%2B")
 
-        return (url?.string ?? URLString)
+        return (debugURL ?? url?.string ?? URLString)
     }
 
     open func get(completion: @escaping ((_ data: Networks?,_ error: Error?) -> Void)) {
@@ -625,113 +722,145 @@ open class CoverageLonLatUriNetworksIdRequestBuilder: NSObject {
     var since:Date? = nil
     var until:Date? = nil
     var disableGeojson:Bool? = nil
+    var tags:[String]? = nil
     var originalId:String? = nil
+    var debugURL: String? = nil
 
     public init(currentApi: NetworksApi) {
         self.currentApi = currentApi
     }
 
-    open func withLat(_ lat: Double) -> CoverageLonLatUriNetworksIdRequestBuilder {
+    open func withLat(_ lat: Double?) -> CoverageLonLatUriNetworksIdRequestBuilder {
         self.lat = lat
+        
         return self
     }
-    open func withLon(_ lon: Double) -> CoverageLonLatUriNetworksIdRequestBuilder {
+    open func withLon(_ lon: Double?) -> CoverageLonLatUriNetworksIdRequestBuilder {
         self.lon = lon
+        
         return self
     }
-    open func withUri(_ uri: String) -> CoverageLonLatUriNetworksIdRequestBuilder {
+    open func withUri(_ uri: String?) -> CoverageLonLatUriNetworksIdRequestBuilder {
         self.uri = uri
+        
         return self
     }
-    open func withId(_ id: String) -> CoverageLonLatUriNetworksIdRequestBuilder {
+    open func withId(_ id: String?) -> CoverageLonLatUriNetworksIdRequestBuilder {
         self.id = id
+        
         return self
     }
-    open func withStartPage(_ startPage: Int32) -> CoverageLonLatUriNetworksIdRequestBuilder {
+    open func withStartPage(_ startPage: Int32?) -> CoverageLonLatUriNetworksIdRequestBuilder {
         self.startPage = startPage
+        
         return self
     }
-    open func withCount(_ count: Int32) -> CoverageLonLatUriNetworksIdRequestBuilder {
+    open func withCount(_ count: Int32?) -> CoverageLonLatUriNetworksIdRequestBuilder {
         self.count = count
+        
         return self
     }
-    open func withDepth(_ depth: Int32) -> CoverageLonLatUriNetworksIdRequestBuilder {
+    open func withDepth(_ depth: Int32?) -> CoverageLonLatUriNetworksIdRequestBuilder {
         self.depth = depth
+        
         return self
     }
-    open func withForbiddenId(_ forbiddenId: [String]) -> CoverageLonLatUriNetworksIdRequestBuilder {
+    open func withForbiddenId(_ forbiddenId: [String]?) -> CoverageLonLatUriNetworksIdRequestBuilder {
         self.forbiddenId = forbiddenId
+        
         return self
     }
-    open func withForbiddenUris(_ forbiddenUris: [String]) -> CoverageLonLatUriNetworksIdRequestBuilder {
+    open func withForbiddenUris(_ forbiddenUris: [String]?) -> CoverageLonLatUriNetworksIdRequestBuilder {
         self.forbiddenUris = forbiddenUris
+        
         return self
     }
-    open func withExternalCode(_ externalCode: String) -> CoverageLonLatUriNetworksIdRequestBuilder {
+    open func withExternalCode(_ externalCode: String?) -> CoverageLonLatUriNetworksIdRequestBuilder {
         self.externalCode = externalCode
+        
         return self
     }
-    open func withHeadsign(_ headsign: String) -> CoverageLonLatUriNetworksIdRequestBuilder {
+    open func withHeadsign(_ headsign: String?) -> CoverageLonLatUriNetworksIdRequestBuilder {
         self.headsign = headsign
+        
         return self
     }
-    open func withShowCodes(_ showCodes: Bool) -> CoverageLonLatUriNetworksIdRequestBuilder {
+    open func withShowCodes(_ showCodes: Bool?) -> CoverageLonLatUriNetworksIdRequestBuilder {
         self.showCodes = showCodes
+        
         return self
     }
-    open func withOdtLevel(_ odtLevel: OdtLevel) -> CoverageLonLatUriNetworksIdRequestBuilder {
+    open func withOdtLevel(_ odtLevel: OdtLevel?) -> CoverageLonLatUriNetworksIdRequestBuilder {
         self.odtLevel = odtLevel
+
         return self
     }
-    open func withDistance(_ distance: Int32) -> CoverageLonLatUriNetworksIdRequestBuilder {
+    open func withDistance(_ distance: Int32?) -> CoverageLonLatUriNetworksIdRequestBuilder {
         self.distance = distance
+        
         return self
     }
-    open func withSince(_ since: Date) -> CoverageLonLatUriNetworksIdRequestBuilder {
+    open func withSince(_ since: Date?) -> CoverageLonLatUriNetworksIdRequestBuilder {
         self.since = since
+        
         return self
     }
-    open func withUntil(_ until: Date) -> CoverageLonLatUriNetworksIdRequestBuilder {
+    open func withUntil(_ until: Date?) -> CoverageLonLatUriNetworksIdRequestBuilder {
         self.until = until
+        
         return self
     }
-    open func withDisableGeojson(_ disableGeojson: Bool) -> CoverageLonLatUriNetworksIdRequestBuilder {
+    open func withDisableGeojson(_ disableGeojson: Bool?) -> CoverageLonLatUriNetworksIdRequestBuilder {
         self.disableGeojson = disableGeojson
+        
         return self
     }
-    open func withOriginalId(_ originalId: String) -> CoverageLonLatUriNetworksIdRequestBuilder {
+    open func withTags(_ tags: [String]?) -> CoverageLonLatUriNetworksIdRequestBuilder {
+        self.tags = tags
+        
+        return self
+    }
+    open func withOriginalId(_ originalId: String?) -> CoverageLonLatUriNetworksIdRequestBuilder {
         self.originalId = originalId
+        
+        return self
+    }
+
+
+
+    open func withDebugURL(_ debugURL: String?) -> CoverageLonLatUriNetworksIdRequestBuilder {
+        self.debugURL = debugURL
         return self
     }
 
     open func makeUrl() -> String {
         var path = "/coverage/{lon};{lat}/{uri}/networks/{id}"
 
-        if (lat != nil) {
-            let latPreEscape: String = "\(lat!)"
+        if let lat = lat {
+            let latPreEscape: String = "\(lat)"
             let latPostEscape: String = latPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
             path = path.replacingOccurrences(of: "{lat}", with: latPostEscape, options: .literal, range: nil)
         }
 
-        if (lon != nil) {
-            let lonPreEscape: String = "\(lon!)"
+        if let lon = lon {
+            let lonPreEscape: String = "\(lon)"
             let lonPostEscape: String = lonPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
             path = path.replacingOccurrences(of: "{lon}", with: lonPostEscape, options: .literal, range: nil)
         }
 
-        if (uri != nil) {
-            let uriPreEscape: String = "\(uri!)"
+        if let uri = uri {
+            let uriPreEscape: String = "\(uri)"
             let uriPostEscape: String = uriPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
             path = path.replacingOccurrences(of: "{uri}", with: uriPostEscape, options: .literal, range: nil)
         }
 
-        if (id != nil) {
-            let idPreEscape: String = "\(id!)"
+        if let id = id {
+            let idPreEscape: String = "\(id)"
             let idPostEscape: String = idPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
             path = path.replacingOccurrences(of: "{id}", with: idPostEscape, options: .literal, range: nil)
         }
 
-        let URLString = "https://api.navitia.io/v1" + path
+        let URLString = String(format: "%@%@", NavitiaSDKAPI.basePath, path)
         let url = NSURLComponents(string: URLString)
 
         let paramValues: [String: Any?] = [
@@ -748,12 +877,13 @@ open class CoverageLonLatUriNetworksIdRequestBuilder: NSObject {
             "since": self.since?.encodeToJSON(), 
             "until": self.until?.encodeToJSON(), 
             "disable_geojson": self.disableGeojson, 
+            "tags[]": self.tags, 
             "original_id": self.originalId
         ]
         url?.queryItems = APIHelper.mapValuesToQueryItems(values: paramValues)
         url?.percentEncodedQuery = url?.percentEncodedQuery?.replacingOccurrences(of: "+", with: "%2B")
 
-        return (url?.string ?? URLString)
+        return (debugURL ?? url?.string ?? URLString)
     }
 
     open func get(completion: @escaping ((_ data: Networks?,_ error: Error?) -> Void)) {
@@ -838,87 +968,117 @@ open class CoverageRegionNetworksRequestBuilder: NSObject {
     var until:Date? = nil
     var disableGeojson:Bool? = nil
     var filter:String? = nil
+    var tags:[String]? = nil
     var originalId:String? = nil
+    var debugURL: String? = nil
 
     public init(currentApi: NetworksApi) {
         self.currentApi = currentApi
     }
 
-    open func withRegion(_ region: String) -> CoverageRegionNetworksRequestBuilder {
+    open func withRegion(_ region: String?) -> CoverageRegionNetworksRequestBuilder {
         self.region = region
+        
         return self
     }
-    open func withStartPage(_ startPage: Int32) -> CoverageRegionNetworksRequestBuilder {
+    open func withStartPage(_ startPage: Int32?) -> CoverageRegionNetworksRequestBuilder {
         self.startPage = startPage
+        
         return self
     }
-    open func withCount(_ count: Int32) -> CoverageRegionNetworksRequestBuilder {
+    open func withCount(_ count: Int32?) -> CoverageRegionNetworksRequestBuilder {
         self.count = count
+        
         return self
     }
-    open func withDepth(_ depth: Int32) -> CoverageRegionNetworksRequestBuilder {
+    open func withDepth(_ depth: Int32?) -> CoverageRegionNetworksRequestBuilder {
         self.depth = depth
+        
         return self
     }
-    open func withForbiddenId(_ forbiddenId: [String]) -> CoverageRegionNetworksRequestBuilder {
+    open func withForbiddenId(_ forbiddenId: [String]?) -> CoverageRegionNetworksRequestBuilder {
         self.forbiddenId = forbiddenId
+        
         return self
     }
-    open func withForbiddenUris(_ forbiddenUris: [String]) -> CoverageRegionNetworksRequestBuilder {
+    open func withForbiddenUris(_ forbiddenUris: [String]?) -> CoverageRegionNetworksRequestBuilder {
         self.forbiddenUris = forbiddenUris
+        
         return self
     }
-    open func withExternalCode(_ externalCode: String) -> CoverageRegionNetworksRequestBuilder {
+    open func withExternalCode(_ externalCode: String?) -> CoverageRegionNetworksRequestBuilder {
         self.externalCode = externalCode
+        
         return self
     }
-    open func withHeadsign(_ headsign: String) -> CoverageRegionNetworksRequestBuilder {
+    open func withHeadsign(_ headsign: String?) -> CoverageRegionNetworksRequestBuilder {
         self.headsign = headsign
+        
         return self
     }
-    open func withShowCodes(_ showCodes: Bool) -> CoverageRegionNetworksRequestBuilder {
+    open func withShowCodes(_ showCodes: Bool?) -> CoverageRegionNetworksRequestBuilder {
         self.showCodes = showCodes
+        
         return self
     }
-    open func withOdtLevel(_ odtLevel: OdtLevel) -> CoverageRegionNetworksRequestBuilder {
+    open func withOdtLevel(_ odtLevel: OdtLevel?) -> CoverageRegionNetworksRequestBuilder {
         self.odtLevel = odtLevel
+
         return self
     }
-    open func withDistance(_ distance: Int32) -> CoverageRegionNetworksRequestBuilder {
+    open func withDistance(_ distance: Int32?) -> CoverageRegionNetworksRequestBuilder {
         self.distance = distance
+        
         return self
     }
-    open func withSince(_ since: Date) -> CoverageRegionNetworksRequestBuilder {
+    open func withSince(_ since: Date?) -> CoverageRegionNetworksRequestBuilder {
         self.since = since
+        
         return self
     }
-    open func withUntil(_ until: Date) -> CoverageRegionNetworksRequestBuilder {
+    open func withUntil(_ until: Date?) -> CoverageRegionNetworksRequestBuilder {
         self.until = until
+        
         return self
     }
-    open func withDisableGeojson(_ disableGeojson: Bool) -> CoverageRegionNetworksRequestBuilder {
+    open func withDisableGeojson(_ disableGeojson: Bool?) -> CoverageRegionNetworksRequestBuilder {
         self.disableGeojson = disableGeojson
+        
         return self
     }
-    open func withFilter(_ filter: String) -> CoverageRegionNetworksRequestBuilder {
+    open func withFilter(_ filter: String?) -> CoverageRegionNetworksRequestBuilder {
         self.filter = filter
+        
         return self
     }
-    open func withOriginalId(_ originalId: String) -> CoverageRegionNetworksRequestBuilder {
+    open func withTags(_ tags: [String]?) -> CoverageRegionNetworksRequestBuilder {
+        self.tags = tags
+        
+        return self
+    }
+    open func withOriginalId(_ originalId: String?) -> CoverageRegionNetworksRequestBuilder {
         self.originalId = originalId
+        
+        return self
+    }
+
+
+
+    open func withDebugURL(_ debugURL: String?) -> CoverageRegionNetworksRequestBuilder {
+        self.debugURL = debugURL
         return self
     }
 
     open func makeUrl() -> String {
         var path = "/coverage/{region}/networks"
 
-        if (region != nil) {
-            let regionPreEscape: String = "\(region!)"
+        if let region = region {
+            let regionPreEscape: String = "\(region)"
             let regionPostEscape: String = regionPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
             path = path.replacingOccurrences(of: "{region}", with: regionPostEscape, options: .literal, range: nil)
         }
 
-        let URLString = "https://api.navitia.io/v1" + path
+        let URLString = String(format: "%@%@", NavitiaSDKAPI.basePath, path)
         let url = NSURLComponents(string: URLString)
 
         let paramValues: [String: Any?] = [
@@ -936,12 +1096,13 @@ open class CoverageRegionNetworksRequestBuilder: NSObject {
             "until": self.until?.encodeToJSON(), 
             "disable_geojson": self.disableGeojson, 
             "filter": self.filter, 
+            "tags[]": self.tags, 
             "original_id": self.originalId
         ]
         url?.queryItems = APIHelper.mapValuesToQueryItems(values: paramValues)
         url?.percentEncodedQuery = url?.percentEncodedQuery?.replacingOccurrences(of: "+", with: "%2B")
 
-        return (url?.string ?? URLString)
+        return (debugURL ?? url?.string ?? URLString)
     }
 
     open func get(completion: @escaping ((_ data: Networks?,_ error: Error?) -> Void)) {
@@ -1008,93 +1169,123 @@ open class CoverageRegionNetworksIdRequestBuilder: NSObject {
     var since:Date? = nil
     var until:Date? = nil
     var disableGeojson:Bool? = nil
+    var tags:[String]? = nil
     var originalId:String? = nil
+    var debugURL: String? = nil
 
     public init(currentApi: NetworksApi) {
         self.currentApi = currentApi
     }
 
-    open func withRegion(_ region: String) -> CoverageRegionNetworksIdRequestBuilder {
+    open func withRegion(_ region: String?) -> CoverageRegionNetworksIdRequestBuilder {
         self.region = region
+        
         return self
     }
-    open func withId(_ id: String) -> CoverageRegionNetworksIdRequestBuilder {
+    open func withId(_ id: String?) -> CoverageRegionNetworksIdRequestBuilder {
         self.id = id
+        
         return self
     }
-    open func withStartPage(_ startPage: Int32) -> CoverageRegionNetworksIdRequestBuilder {
+    open func withStartPage(_ startPage: Int32?) -> CoverageRegionNetworksIdRequestBuilder {
         self.startPage = startPage
+        
         return self
     }
-    open func withCount(_ count: Int32) -> CoverageRegionNetworksIdRequestBuilder {
+    open func withCount(_ count: Int32?) -> CoverageRegionNetworksIdRequestBuilder {
         self.count = count
+        
         return self
     }
-    open func withDepth(_ depth: Int32) -> CoverageRegionNetworksIdRequestBuilder {
+    open func withDepth(_ depth: Int32?) -> CoverageRegionNetworksIdRequestBuilder {
         self.depth = depth
+        
         return self
     }
-    open func withForbiddenId(_ forbiddenId: [String]) -> CoverageRegionNetworksIdRequestBuilder {
+    open func withForbiddenId(_ forbiddenId: [String]?) -> CoverageRegionNetworksIdRequestBuilder {
         self.forbiddenId = forbiddenId
+        
         return self
     }
-    open func withForbiddenUris(_ forbiddenUris: [String]) -> CoverageRegionNetworksIdRequestBuilder {
+    open func withForbiddenUris(_ forbiddenUris: [String]?) -> CoverageRegionNetworksIdRequestBuilder {
         self.forbiddenUris = forbiddenUris
+        
         return self
     }
-    open func withExternalCode(_ externalCode: String) -> CoverageRegionNetworksIdRequestBuilder {
+    open func withExternalCode(_ externalCode: String?) -> CoverageRegionNetworksIdRequestBuilder {
         self.externalCode = externalCode
+        
         return self
     }
-    open func withHeadsign(_ headsign: String) -> CoverageRegionNetworksIdRequestBuilder {
+    open func withHeadsign(_ headsign: String?) -> CoverageRegionNetworksIdRequestBuilder {
         self.headsign = headsign
+        
         return self
     }
-    open func withShowCodes(_ showCodes: Bool) -> CoverageRegionNetworksIdRequestBuilder {
+    open func withShowCodes(_ showCodes: Bool?) -> CoverageRegionNetworksIdRequestBuilder {
         self.showCodes = showCodes
+        
         return self
     }
-    open func withOdtLevel(_ odtLevel: OdtLevel) -> CoverageRegionNetworksIdRequestBuilder {
+    open func withOdtLevel(_ odtLevel: OdtLevel?) -> CoverageRegionNetworksIdRequestBuilder {
         self.odtLevel = odtLevel
+
         return self
     }
-    open func withDistance(_ distance: Int32) -> CoverageRegionNetworksIdRequestBuilder {
+    open func withDistance(_ distance: Int32?) -> CoverageRegionNetworksIdRequestBuilder {
         self.distance = distance
+        
         return self
     }
-    open func withSince(_ since: Date) -> CoverageRegionNetworksIdRequestBuilder {
+    open func withSince(_ since: Date?) -> CoverageRegionNetworksIdRequestBuilder {
         self.since = since
+        
         return self
     }
-    open func withUntil(_ until: Date) -> CoverageRegionNetworksIdRequestBuilder {
+    open func withUntil(_ until: Date?) -> CoverageRegionNetworksIdRequestBuilder {
         self.until = until
+        
         return self
     }
-    open func withDisableGeojson(_ disableGeojson: Bool) -> CoverageRegionNetworksIdRequestBuilder {
+    open func withDisableGeojson(_ disableGeojson: Bool?) -> CoverageRegionNetworksIdRequestBuilder {
         self.disableGeojson = disableGeojson
+        
         return self
     }
-    open func withOriginalId(_ originalId: String) -> CoverageRegionNetworksIdRequestBuilder {
+    open func withTags(_ tags: [String]?) -> CoverageRegionNetworksIdRequestBuilder {
+        self.tags = tags
+        
+        return self
+    }
+    open func withOriginalId(_ originalId: String?) -> CoverageRegionNetworksIdRequestBuilder {
         self.originalId = originalId
+        
+        return self
+    }
+
+
+
+    open func withDebugURL(_ debugURL: String?) -> CoverageRegionNetworksIdRequestBuilder {
+        self.debugURL = debugURL
         return self
     }
 
     open func makeUrl() -> String {
         var path = "/coverage/{region}/networks/{id}"
 
-        if (region != nil) {
-            let regionPreEscape: String = "\(region!)"
+        if let region = region {
+            let regionPreEscape: String = "\(region)"
             let regionPostEscape: String = regionPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
             path = path.replacingOccurrences(of: "{region}", with: regionPostEscape, options: .literal, range: nil)
         }
 
-        if (id != nil) {
-            let idPreEscape: String = "\(id!)"
+        if let id = id {
+            let idPreEscape: String = "\(id)"
             let idPostEscape: String = idPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
             path = path.replacingOccurrences(of: "{id}", with: idPostEscape, options: .literal, range: nil)
         }
 
-        let URLString = "https://api.navitia.io/v1" + path
+        let URLString = String(format: "%@%@", NavitiaSDKAPI.basePath, path)
         let url = NSURLComponents(string: URLString)
 
         let paramValues: [String: Any?] = [
@@ -1111,12 +1302,13 @@ open class CoverageRegionNetworksIdRequestBuilder: NSObject {
             "since": self.since?.encodeToJSON(), 
             "until": self.until?.encodeToJSON(), 
             "disable_geojson": self.disableGeojson, 
+            "tags[]": self.tags, 
             "original_id": self.originalId
         ]
         url?.queryItems = APIHelper.mapValuesToQueryItems(values: paramValues)
         url?.percentEncodedQuery = url?.percentEncodedQuery?.replacingOccurrences(of: "+", with: "%2B")
 
-        return (url?.string ?? URLString)
+        return (debugURL ?? url?.string ?? URLString)
     }
 
     open func get(completion: @escaping ((_ data: Networks?,_ error: Error?) -> Void)) {
@@ -1190,97 +1382,128 @@ open class CoverageRegionUriNetworksRequestBuilder: NSObject {
     var until:Date? = nil
     var disableGeojson:Bool? = nil
     var filter:String? = nil
+    var tags:[String]? = nil
     var originalId:String? = nil
+    var debugURL: String? = nil
 
     public init(currentApi: NetworksApi) {
         self.currentApi = currentApi
     }
 
-    open func withRegion(_ region: String) -> CoverageRegionUriNetworksRequestBuilder {
+    open func withRegion(_ region: String?) -> CoverageRegionUriNetworksRequestBuilder {
         self.region = region
+        
         return self
     }
-    open func withUri(_ uri: String) -> CoverageRegionUriNetworksRequestBuilder {
+    open func withUri(_ uri: String?) -> CoverageRegionUriNetworksRequestBuilder {
         self.uri = uri
+        
         return self
     }
-    open func withStartPage(_ startPage: Int32) -> CoverageRegionUriNetworksRequestBuilder {
+    open func withStartPage(_ startPage: Int32?) -> CoverageRegionUriNetworksRequestBuilder {
         self.startPage = startPage
+        
         return self
     }
-    open func withCount(_ count: Int32) -> CoverageRegionUriNetworksRequestBuilder {
+    open func withCount(_ count: Int32?) -> CoverageRegionUriNetworksRequestBuilder {
         self.count = count
+        
         return self
     }
-    open func withDepth(_ depth: Int32) -> CoverageRegionUriNetworksRequestBuilder {
+    open func withDepth(_ depth: Int32?) -> CoverageRegionUriNetworksRequestBuilder {
         self.depth = depth
+        
         return self
     }
-    open func withForbiddenId(_ forbiddenId: [String]) -> CoverageRegionUriNetworksRequestBuilder {
+    open func withForbiddenId(_ forbiddenId: [String]?) -> CoverageRegionUriNetworksRequestBuilder {
         self.forbiddenId = forbiddenId
+        
         return self
     }
-    open func withForbiddenUris(_ forbiddenUris: [String]) -> CoverageRegionUriNetworksRequestBuilder {
+    open func withForbiddenUris(_ forbiddenUris: [String]?) -> CoverageRegionUriNetworksRequestBuilder {
         self.forbiddenUris = forbiddenUris
+        
         return self
     }
-    open func withExternalCode(_ externalCode: String) -> CoverageRegionUriNetworksRequestBuilder {
+    open func withExternalCode(_ externalCode: String?) -> CoverageRegionUriNetworksRequestBuilder {
         self.externalCode = externalCode
+        
         return self
     }
-    open func withHeadsign(_ headsign: String) -> CoverageRegionUriNetworksRequestBuilder {
+    open func withHeadsign(_ headsign: String?) -> CoverageRegionUriNetworksRequestBuilder {
         self.headsign = headsign
+        
         return self
     }
-    open func withShowCodes(_ showCodes: Bool) -> CoverageRegionUriNetworksRequestBuilder {
+    open func withShowCodes(_ showCodes: Bool?) -> CoverageRegionUriNetworksRequestBuilder {
         self.showCodes = showCodes
+        
         return self
     }
-    open func withOdtLevel(_ odtLevel: OdtLevel) -> CoverageRegionUriNetworksRequestBuilder {
+    open func withOdtLevel(_ odtLevel: OdtLevel?) -> CoverageRegionUriNetworksRequestBuilder {
         self.odtLevel = odtLevel
+
         return self
     }
-    open func withDistance(_ distance: Int32) -> CoverageRegionUriNetworksRequestBuilder {
+    open func withDistance(_ distance: Int32?) -> CoverageRegionUriNetworksRequestBuilder {
         self.distance = distance
+        
         return self
     }
-    open func withSince(_ since: Date) -> CoverageRegionUriNetworksRequestBuilder {
+    open func withSince(_ since: Date?) -> CoverageRegionUriNetworksRequestBuilder {
         self.since = since
+        
         return self
     }
-    open func withUntil(_ until: Date) -> CoverageRegionUriNetworksRequestBuilder {
+    open func withUntil(_ until: Date?) -> CoverageRegionUriNetworksRequestBuilder {
         self.until = until
+        
         return self
     }
-    open func withDisableGeojson(_ disableGeojson: Bool) -> CoverageRegionUriNetworksRequestBuilder {
+    open func withDisableGeojson(_ disableGeojson: Bool?) -> CoverageRegionUriNetworksRequestBuilder {
         self.disableGeojson = disableGeojson
+        
         return self
     }
-    open func withFilter(_ filter: String) -> CoverageRegionUriNetworksRequestBuilder {
+    open func withFilter(_ filter: String?) -> CoverageRegionUriNetworksRequestBuilder {
         self.filter = filter
+        
         return self
     }
-    open func withOriginalId(_ originalId: String) -> CoverageRegionUriNetworksRequestBuilder {
+    open func withTags(_ tags: [String]?) -> CoverageRegionUriNetworksRequestBuilder {
+        self.tags = tags
+        
+        return self
+    }
+    open func withOriginalId(_ originalId: String?) -> CoverageRegionUriNetworksRequestBuilder {
         self.originalId = originalId
+        
+        return self
+    }
+
+
+
+    open func withDebugURL(_ debugURL: String?) -> CoverageRegionUriNetworksRequestBuilder {
+        self.debugURL = debugURL
         return self
     }
 
     open func makeUrl() -> String {
         var path = "/coverage/{region}/{uri}/networks"
 
-        if (region != nil) {
-            let regionPreEscape: String = "\(region!)"
+        if let region = region {
+            let regionPreEscape: String = "\(region)"
             let regionPostEscape: String = regionPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
             path = path.replacingOccurrences(of: "{region}", with: regionPostEscape, options: .literal, range: nil)
         }
 
-        if (uri != nil) {
-            let uriPreEscape: String = "\(uri!)"
+        if let uri = uri {
+            let uriPreEscape: String = "\(uri)"
             let uriPostEscape: String = uriPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
             path = path.replacingOccurrences(of: "{uri}", with: uriPostEscape, options: .literal, range: nil)
         }
 
-        let URLString = "https://api.navitia.io/v1" + path
+        let URLString = String(format: "%@%@", NavitiaSDKAPI.basePath, path)
         let url = NSURLComponents(string: URLString)
 
         let paramValues: [String: Any?] = [
@@ -1298,12 +1521,13 @@ open class CoverageRegionUriNetworksRequestBuilder: NSObject {
             "until": self.until?.encodeToJSON(), 
             "disable_geojson": self.disableGeojson, 
             "filter": self.filter, 
+            "tags[]": self.tags, 
             "original_id": self.originalId
         ]
         url?.queryItems = APIHelper.mapValuesToQueryItems(values: paramValues)
         url?.percentEncodedQuery = url?.percentEncodedQuery?.replacingOccurrences(of: "+", with: "%2B")
 
-        return (url?.string ?? URLString)
+        return (debugURL ?? url?.string ?? URLString)
     }
 
     open func get(completion: @escaping ((_ data: Networks?,_ error: Error?) -> Void)) {
@@ -1377,103 +1601,134 @@ open class CoverageRegionUriNetworksIdRequestBuilder: NSObject {
     var since:Date? = nil
     var until:Date? = nil
     var disableGeojson:Bool? = nil
+    var tags:[String]? = nil
     var originalId:String? = nil
+    var debugURL: String? = nil
 
     public init(currentApi: NetworksApi) {
         self.currentApi = currentApi
     }
 
-    open func withRegion(_ region: String) -> CoverageRegionUriNetworksIdRequestBuilder {
+    open func withRegion(_ region: String?) -> CoverageRegionUriNetworksIdRequestBuilder {
         self.region = region
+        
         return self
     }
-    open func withUri(_ uri: String) -> CoverageRegionUriNetworksIdRequestBuilder {
+    open func withUri(_ uri: String?) -> CoverageRegionUriNetworksIdRequestBuilder {
         self.uri = uri
+        
         return self
     }
-    open func withId(_ id: String) -> CoverageRegionUriNetworksIdRequestBuilder {
+    open func withId(_ id: String?) -> CoverageRegionUriNetworksIdRequestBuilder {
         self.id = id
+        
         return self
     }
-    open func withStartPage(_ startPage: Int32) -> CoverageRegionUriNetworksIdRequestBuilder {
+    open func withStartPage(_ startPage: Int32?) -> CoverageRegionUriNetworksIdRequestBuilder {
         self.startPage = startPage
+        
         return self
     }
-    open func withCount(_ count: Int32) -> CoverageRegionUriNetworksIdRequestBuilder {
+    open func withCount(_ count: Int32?) -> CoverageRegionUriNetworksIdRequestBuilder {
         self.count = count
+        
         return self
     }
-    open func withDepth(_ depth: Int32) -> CoverageRegionUriNetworksIdRequestBuilder {
+    open func withDepth(_ depth: Int32?) -> CoverageRegionUriNetworksIdRequestBuilder {
         self.depth = depth
+        
         return self
     }
-    open func withForbiddenId(_ forbiddenId: [String]) -> CoverageRegionUriNetworksIdRequestBuilder {
+    open func withForbiddenId(_ forbiddenId: [String]?) -> CoverageRegionUriNetworksIdRequestBuilder {
         self.forbiddenId = forbiddenId
+        
         return self
     }
-    open func withForbiddenUris(_ forbiddenUris: [String]) -> CoverageRegionUriNetworksIdRequestBuilder {
+    open func withForbiddenUris(_ forbiddenUris: [String]?) -> CoverageRegionUriNetworksIdRequestBuilder {
         self.forbiddenUris = forbiddenUris
+        
         return self
     }
-    open func withExternalCode(_ externalCode: String) -> CoverageRegionUriNetworksIdRequestBuilder {
+    open func withExternalCode(_ externalCode: String?) -> CoverageRegionUriNetworksIdRequestBuilder {
         self.externalCode = externalCode
+        
         return self
     }
-    open func withHeadsign(_ headsign: String) -> CoverageRegionUriNetworksIdRequestBuilder {
+    open func withHeadsign(_ headsign: String?) -> CoverageRegionUriNetworksIdRequestBuilder {
         self.headsign = headsign
+        
         return self
     }
-    open func withShowCodes(_ showCodes: Bool) -> CoverageRegionUriNetworksIdRequestBuilder {
+    open func withShowCodes(_ showCodes: Bool?) -> CoverageRegionUriNetworksIdRequestBuilder {
         self.showCodes = showCodes
+        
         return self
     }
-    open func withOdtLevel(_ odtLevel: OdtLevel) -> CoverageRegionUriNetworksIdRequestBuilder {
+    open func withOdtLevel(_ odtLevel: OdtLevel?) -> CoverageRegionUriNetworksIdRequestBuilder {
         self.odtLevel = odtLevel
+
         return self
     }
-    open func withDistance(_ distance: Int32) -> CoverageRegionUriNetworksIdRequestBuilder {
+    open func withDistance(_ distance: Int32?) -> CoverageRegionUriNetworksIdRequestBuilder {
         self.distance = distance
+        
         return self
     }
-    open func withSince(_ since: Date) -> CoverageRegionUriNetworksIdRequestBuilder {
+    open func withSince(_ since: Date?) -> CoverageRegionUriNetworksIdRequestBuilder {
         self.since = since
+        
         return self
     }
-    open func withUntil(_ until: Date) -> CoverageRegionUriNetworksIdRequestBuilder {
+    open func withUntil(_ until: Date?) -> CoverageRegionUriNetworksIdRequestBuilder {
         self.until = until
+        
         return self
     }
-    open func withDisableGeojson(_ disableGeojson: Bool) -> CoverageRegionUriNetworksIdRequestBuilder {
+    open func withDisableGeojson(_ disableGeojson: Bool?) -> CoverageRegionUriNetworksIdRequestBuilder {
         self.disableGeojson = disableGeojson
+        
         return self
     }
-    open func withOriginalId(_ originalId: String) -> CoverageRegionUriNetworksIdRequestBuilder {
+    open func withTags(_ tags: [String]?) -> CoverageRegionUriNetworksIdRequestBuilder {
+        self.tags = tags
+        
+        return self
+    }
+    open func withOriginalId(_ originalId: String?) -> CoverageRegionUriNetworksIdRequestBuilder {
         self.originalId = originalId
+        
+        return self
+    }
+
+
+
+    open func withDebugURL(_ debugURL: String?) -> CoverageRegionUriNetworksIdRequestBuilder {
+        self.debugURL = debugURL
         return self
     }
 
     open func makeUrl() -> String {
         var path = "/coverage/{region}/{uri}/networks/{id}"
 
-        if (region != nil) {
-            let regionPreEscape: String = "\(region!)"
+        if let region = region {
+            let regionPreEscape: String = "\(region)"
             let regionPostEscape: String = regionPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
             path = path.replacingOccurrences(of: "{region}", with: regionPostEscape, options: .literal, range: nil)
         }
 
-        if (uri != nil) {
-            let uriPreEscape: String = "\(uri!)"
+        if let uri = uri {
+            let uriPreEscape: String = "\(uri)"
             let uriPostEscape: String = uriPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
             path = path.replacingOccurrences(of: "{uri}", with: uriPostEscape, options: .literal, range: nil)
         }
 
-        if (id != nil) {
-            let idPreEscape: String = "\(id!)"
+        if let id = id {
+            let idPreEscape: String = "\(id)"
             let idPostEscape: String = idPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
             path = path.replacingOccurrences(of: "{id}", with: idPostEscape, options: .literal, range: nil)
         }
 
-        let URLString = "https://api.navitia.io/v1" + path
+        let URLString = String(format: "%@%@", NavitiaSDKAPI.basePath, path)
         let url = NSURLComponents(string: URLString)
 
         let paramValues: [String: Any?] = [
@@ -1490,12 +1745,13 @@ open class CoverageRegionUriNetworksIdRequestBuilder: NSObject {
             "since": self.since?.encodeToJSON(), 
             "until": self.until?.encodeToJSON(), 
             "disable_geojson": self.disableGeojson, 
+            "tags[]": self.tags, 
             "original_id": self.originalId
         ]
         url?.queryItems = APIHelper.mapValuesToQueryItems(values: paramValues)
         url?.percentEncodedQuery = url?.percentEncodedQuery?.replacingOccurrences(of: "+", with: "%2B")
 
-        return (url?.string ?? URLString)
+        return (debugURL ?? url?.string ?? URLString)
     }
 
     open func get(completion: @escaping ((_ data: Networks?,_ error: Error?) -> Void)) {
@@ -1573,77 +1829,106 @@ open class NetworksRequestBuilder: NSObject {
     var until:Date? = nil
     var disableGeojson:Bool? = nil
     var filter:String? = nil
+    var tags:[String]? = nil
     var originalId:String? = nil
+    var debugURL: String? = nil
 
     public init(currentApi: NetworksApi) {
         self.currentApi = currentApi
     }
 
-    open func withExternalCode(_ externalCode: String) -> NetworksRequestBuilder {
+    open func withExternalCode(_ externalCode: String?) -> NetworksRequestBuilder {
         self.externalCode = externalCode
+        
         return self
     }
-    open func withStartPage(_ startPage: Int32) -> NetworksRequestBuilder {
+    open func withStartPage(_ startPage: Int32?) -> NetworksRequestBuilder {
         self.startPage = startPage
+        
         return self
     }
-    open func withCount(_ count: Int32) -> NetworksRequestBuilder {
+    open func withCount(_ count: Int32?) -> NetworksRequestBuilder {
         self.count = count
+        
         return self
     }
-    open func withDepth(_ depth: Int32) -> NetworksRequestBuilder {
+    open func withDepth(_ depth: Int32?) -> NetworksRequestBuilder {
         self.depth = depth
+        
         return self
     }
-    open func withForbiddenId(_ forbiddenId: [String]) -> NetworksRequestBuilder {
+    open func withForbiddenId(_ forbiddenId: [String]?) -> NetworksRequestBuilder {
         self.forbiddenId = forbiddenId
+        
         return self
     }
-    open func withForbiddenUris(_ forbiddenUris: [String]) -> NetworksRequestBuilder {
+    open func withForbiddenUris(_ forbiddenUris: [String]?) -> NetworksRequestBuilder {
         self.forbiddenUris = forbiddenUris
+        
         return self
     }
-    open func withHeadsign(_ headsign: String) -> NetworksRequestBuilder {
+    open func withHeadsign(_ headsign: String?) -> NetworksRequestBuilder {
         self.headsign = headsign
+        
         return self
     }
-    open func withShowCodes(_ showCodes: Bool) -> NetworksRequestBuilder {
+    open func withShowCodes(_ showCodes: Bool?) -> NetworksRequestBuilder {
         self.showCodes = showCodes
+        
         return self
     }
-    open func withOdtLevel(_ odtLevel: OdtLevel) -> NetworksRequestBuilder {
+    open func withOdtLevel(_ odtLevel: OdtLevel?) -> NetworksRequestBuilder {
         self.odtLevel = odtLevel
+
         return self
     }
-    open func withDistance(_ distance: Int32) -> NetworksRequestBuilder {
+    open func withDistance(_ distance: Int32?) -> NetworksRequestBuilder {
         self.distance = distance
+        
         return self
     }
-    open func withSince(_ since: Date) -> NetworksRequestBuilder {
+    open func withSince(_ since: Date?) -> NetworksRequestBuilder {
         self.since = since
+        
         return self
     }
-    open func withUntil(_ until: Date) -> NetworksRequestBuilder {
+    open func withUntil(_ until: Date?) -> NetworksRequestBuilder {
         self.until = until
+        
         return self
     }
-    open func withDisableGeojson(_ disableGeojson: Bool) -> NetworksRequestBuilder {
+    open func withDisableGeojson(_ disableGeojson: Bool?) -> NetworksRequestBuilder {
         self.disableGeojson = disableGeojson
+        
         return self
     }
-    open func withFilter(_ filter: String) -> NetworksRequestBuilder {
+    open func withFilter(_ filter: String?) -> NetworksRequestBuilder {
         self.filter = filter
+        
         return self
     }
-    open func withOriginalId(_ originalId: String) -> NetworksRequestBuilder {
+    open func withTags(_ tags: [String]?) -> NetworksRequestBuilder {
+        self.tags = tags
+        
+        return self
+    }
+    open func withOriginalId(_ originalId: String?) -> NetworksRequestBuilder {
         self.originalId = originalId
+        
+        return self
+    }
+
+
+
+    open func withDebugURL(_ debugURL: String?) -> NetworksRequestBuilder {
+        self.debugURL = debugURL
         return self
     }
 
     open func makeUrl() -> String {
         let path = "/networks"
 
-        let URLString = "https://api.navitia.io/v1" + path
+        let URLString = String(format: "%@%@", NavitiaSDKAPI.basePath, path)
         let url = NSURLComponents(string: URLString)
 
         let paramValues: [String: Any?] = [
@@ -1661,12 +1946,13 @@ open class NetworksRequestBuilder: NSObject {
             "until": self.until?.encodeToJSON(), 
             "disable_geojson": self.disableGeojson, 
             "filter": self.filter, 
+            "tags[]": self.tags, 
             "original_id": self.originalId
         ]
         url?.queryItems = APIHelper.mapValuesToQueryItems(values: paramValues)
         url?.percentEncodedQuery = url?.percentEncodedQuery?.replacingOccurrences(of: "+", with: "%2B")
 
-        return (url?.string ?? URLString)
+        return (debugURL ?? url?.string ?? URLString)
     }
 
     open func get(completion: @escaping ((_ data: Networks?,_ error: Error?) -> Void)) {

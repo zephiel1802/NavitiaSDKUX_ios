@@ -838,6 +838,20 @@ class Decoders {
         }
 
 
+        // Decoder for [FareZone]
+        Decoders.addDecoder(clazz: [FareZone].self) { (source: AnyObject, instance: AnyObject?) -> [FareZone] in
+            return Decoders.decode(clazz: [FareZone].self, source: source)
+        }
+        // Decoder for FareZone
+        Decoders.addDecoder(clazz: FareZone.self) { (source: AnyObject, instance: AnyObject?) -> FareZone in
+            let sourceDictionary = source as! [AnyHashable: Any]
+            let result = instance == nil ? FareZone() : instance as! FareZone
+            
+            result.name = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["name"] as AnyObject?)
+            return result
+        }
+
+
         // Decoder for [FeedPublisher]
         Decoders.addDecoder(clazz: [FeedPublisher].self) { (source: AnyObject, instance: AnyObject?) -> [FeedPublisher] in
             return Decoders.decode(clazz: [FeedPublisher].self, source: source)
@@ -2101,6 +2115,10 @@ class Decoders {
             let sourceDictionary = source as! [AnyHashable: Any]
             let result = instance == nil ? Stands() : instance as! Stands
             
+            if let status = sourceDictionary["status"] as? String { 
+                result.status = Stands.Status(rawValue: (status))
+            }
+            
             result.availablePlaces = Decoders.decodeOptional(clazz: Int32.self, source: sourceDictionary["available_places"] as AnyObject?)
             result.availableBikes = Decoders.decodeOptional(clazz: Int32.self, source: sourceDictionary["available_bikes"] as AnyObject?)
             result.totalStands = Decoders.decodeOptional(clazz: Int32.self, source: sourceDictionary["total_stands"] as AnyObject?)
@@ -2173,7 +2191,10 @@ class Decoders {
             result.departureDateTime = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["departure_date_time"] as AnyObject?)
             result.baseArrivalDateTime = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["base_arrival_date_time"] as AnyObject?)
             result.baseDepartureDateTime = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["base_departure_date_time"] as AnyObject?)
-            result.dataFreshness = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["data_freshness"] as AnyObject?)
+            if let dataFreshness = sourceDictionary["data_freshness"] as? String { 
+                result.dataFreshness = StopDateTime.DataFreshness(rawValue: (dataFreshness))
+            }
+            
             return result
         }
 
@@ -2202,6 +2223,7 @@ class Decoders {
             result.comments = Decoders.decodeOptional(clazz: Array.self, source: sourceDictionary["comments"] as AnyObject?)
             result.administrativeRegions = Decoders.decodeOptional(clazz: Array.self, source: sourceDictionary["administrative_regions"] as AnyObject?)
             result.address = Decoders.decodeOptional(clazz: Address.self, source: sourceDictionary["address"] as AnyObject?)
+            result.fareZone = Decoders.decodeOptional(clazz: FareZone.self, source: sourceDictionary["fare_zone"] as AnyObject?)
             result.id = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["id"] as AnyObject?)
             result.stopArea = Decoders.decodeOptional(clazz: StopArea.self, source: sourceDictionary["stop_area"] as AnyObject?)
             return result

@@ -23,75 +23,101 @@ open class CoverageLonLatPlacesRequestBuilder: NSObject {
     var q:String? = nil
     var lat:Double? = nil
     var lon:Double? = nil
-    var type: [ModelType]? = nil
+    var type: [String]? = nil
     var count:Int32? = nil
     var adminUri:[String]? = nil
     var depth:Int32? = nil
     var disableGeojson:Bool? = nil
     var from:String? = nil
     var shape:String? = nil
+    var debugURL: String? = nil
 
     public init(currentApi: PlacesApi) {
         self.currentApi = currentApi
     }
 
-    open func withQ(_ q: String) -> CoverageLonLatPlacesRequestBuilder {
+    open func withQ(_ q: String?) -> CoverageLonLatPlacesRequestBuilder {
         self.q = q
+        
         return self
     }
-    open func withLat(_ lat: Double) -> CoverageLonLatPlacesRequestBuilder {
+    open func withLat(_ lat: Double?) -> CoverageLonLatPlacesRequestBuilder {
         self.lat = lat
+        
         return self
     }
-    open func withLon(_ lon: Double) -> CoverageLonLatPlacesRequestBuilder {
+    open func withLon(_ lon: Double?) -> CoverageLonLatPlacesRequestBuilder {
         self.lon = lon
+        
         return self
     }
-    open func withType(_ type: [ModelType]) -> CoverageLonLatPlacesRequestBuilder {
-        self.type = type
+    open func withType(_ type: [ModelType]?) -> CoverageLonLatPlacesRequestBuilder {
+        guard let type = type else {
+            return self
+        }
+        
+        var items = [String]()
+        for item in type {
+            items.append(item.rawValue)
+        }
+        self.type = items
+
         return self
     }
-    open func withCount(_ count: Int32) -> CoverageLonLatPlacesRequestBuilder {
+    open func withCount(_ count: Int32?) -> CoverageLonLatPlacesRequestBuilder {
         self.count = count
+        
         return self
     }
-    open func withAdminUri(_ adminUri: [String]) -> CoverageLonLatPlacesRequestBuilder {
+    open func withAdminUri(_ adminUri: [String]?) -> CoverageLonLatPlacesRequestBuilder {
         self.adminUri = adminUri
+        
         return self
     }
-    open func withDepth(_ depth: Int32) -> CoverageLonLatPlacesRequestBuilder {
+    open func withDepth(_ depth: Int32?) -> CoverageLonLatPlacesRequestBuilder {
         self.depth = depth
+        
         return self
     }
-    open func withDisableGeojson(_ disableGeojson: Bool) -> CoverageLonLatPlacesRequestBuilder {
+    open func withDisableGeojson(_ disableGeojson: Bool?) -> CoverageLonLatPlacesRequestBuilder {
         self.disableGeojson = disableGeojson
+        
         return self
     }
-    open func withFrom(_ from: String) -> CoverageLonLatPlacesRequestBuilder {
+    open func withFrom(_ from: String?) -> CoverageLonLatPlacesRequestBuilder {
         self.from = from
+        
         return self
     }
-    open func withShape(_ shape: String) -> CoverageLonLatPlacesRequestBuilder {
+    open func withShape(_ shape: String?) -> CoverageLonLatPlacesRequestBuilder {
         self.shape = shape
+        
+        return self
+    }
+
+
+
+    open func withDebugURL(_ debugURL: String?) -> CoverageLonLatPlacesRequestBuilder {
+        self.debugURL = debugURL
         return self
     }
 
     open func makeUrl() -> String {
         var path = "/coverage/{lon};{lat}/places"
 
-        if (lat != nil) {
-            let latPreEscape: String = "\(lat!)"
+        if let lat = lat {
+            let latPreEscape: String = "\(lat)"
             let latPostEscape: String = latPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
             path = path.replacingOccurrences(of: "{lat}", with: latPostEscape, options: .literal, range: nil)
         }
 
-        if (lon != nil) {
-            let lonPreEscape: String = "\(lon!)"
+        if let lon = lon {
+            let lonPreEscape: String = "\(lon)"
             let lonPostEscape: String = lonPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
             path = path.replacingOccurrences(of: "{lon}", with: lonPostEscape, options: .literal, range: nil)
         }
 
-        let URLString = "https://api.navitia.io/v1" + path
+        let URLString = String(format: "%@%@", NavitiaSDKAPI.basePath, path)
         let url = NSURLComponents(string: URLString)
 
         let paramValues: [String: Any?] = [
@@ -107,7 +133,7 @@ open class CoverageLonLatPlacesRequestBuilder: NSObject {
         url?.queryItems = APIHelper.mapValuesToQueryItems(values: paramValues)
         url?.percentEncodedQuery = url?.percentEncodedQuery?.replacingOccurrences(of: "+", with: "%2B")
 
-        return (url?.string ?? URLString)
+        return (debugURL ?? url?.string ?? URLString)
     }
 
     open func get(completion: @escaping ((_ data: Places?,_ error: Error?) -> Void)) {
@@ -174,65 +200,90 @@ open class CoverageRegionPlacesRequestBuilder: NSObject {
     }
     var q:String? = nil
     var region:String? = nil
-    var type: [ModelType]? = nil
+    var type: [String]? = nil
     var count:Int32? = nil
     var adminUri:[String]? = nil
     var depth:Int32? = nil
     var disableGeojson:Bool? = nil
     var from:String? = nil
     var shape:String? = nil
+    var debugURL: String? = nil
 
     public init(currentApi: PlacesApi) {
         self.currentApi = currentApi
     }
 
-    open func withQ(_ q: String) -> CoverageRegionPlacesRequestBuilder {
+    open func withQ(_ q: String?) -> CoverageRegionPlacesRequestBuilder {
         self.q = q
+        
         return self
     }
-    open func withRegion(_ region: String) -> CoverageRegionPlacesRequestBuilder {
+    open func withRegion(_ region: String?) -> CoverageRegionPlacesRequestBuilder {
         self.region = region
+        
         return self
     }
-    open func withType(_ type: [ModelType]) -> CoverageRegionPlacesRequestBuilder {
-        self.type = type
+    open func withType(_ type: [ModelType]?) -> CoverageRegionPlacesRequestBuilder {
+        guard let type = type else {
+            return self
+        }
+        
+        var items = [String]()
+        for item in type {
+            items.append(item.rawValue)
+        }
+        self.type = items
+
         return self
     }
-    open func withCount(_ count: Int32) -> CoverageRegionPlacesRequestBuilder {
+    open func withCount(_ count: Int32?) -> CoverageRegionPlacesRequestBuilder {
         self.count = count
+        
         return self
     }
-    open func withAdminUri(_ adminUri: [String]) -> CoverageRegionPlacesRequestBuilder {
+    open func withAdminUri(_ adminUri: [String]?) -> CoverageRegionPlacesRequestBuilder {
         self.adminUri = adminUri
+        
         return self
     }
-    open func withDepth(_ depth: Int32) -> CoverageRegionPlacesRequestBuilder {
+    open func withDepth(_ depth: Int32?) -> CoverageRegionPlacesRequestBuilder {
         self.depth = depth
+        
         return self
     }
-    open func withDisableGeojson(_ disableGeojson: Bool) -> CoverageRegionPlacesRequestBuilder {
+    open func withDisableGeojson(_ disableGeojson: Bool?) -> CoverageRegionPlacesRequestBuilder {
         self.disableGeojson = disableGeojson
+        
         return self
     }
-    open func withFrom(_ from: String) -> CoverageRegionPlacesRequestBuilder {
+    open func withFrom(_ from: String?) -> CoverageRegionPlacesRequestBuilder {
         self.from = from
+        
         return self
     }
-    open func withShape(_ shape: String) -> CoverageRegionPlacesRequestBuilder {
+    open func withShape(_ shape: String?) -> CoverageRegionPlacesRequestBuilder {
         self.shape = shape
+        
+        return self
+    }
+
+
+
+    open func withDebugURL(_ debugURL: String?) -> CoverageRegionPlacesRequestBuilder {
+        self.debugURL = debugURL
         return self
     }
 
     open func makeUrl() -> String {
         var path = "/coverage/{region}/places"
 
-        if (region != nil) {
-            let regionPreEscape: String = "\(region!)"
+        if let region = region {
+            let regionPreEscape: String = "\(region)"
             let regionPostEscape: String = regionPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
             path = path.replacingOccurrences(of: "{region}", with: regionPostEscape, options: .literal, range: nil)
         }
 
-        let URLString = "https://api.navitia.io/v1" + path
+        let URLString = String(format: "%@%@", NavitiaSDKAPI.basePath, path)
         let url = NSURLComponents(string: URLString)
 
         let paramValues: [String: Any?] = [
@@ -248,7 +299,7 @@ open class CoverageRegionPlacesRequestBuilder: NSObject {
         url?.queryItems = APIHelper.mapValuesToQueryItems(values: paramValues)
         url?.percentEncodedQuery = url?.percentEncodedQuery?.replacingOccurrences(of: "+", with: "%2B")
 
-        return (url?.string ?? URLString)
+        return (debugURL ?? url?.string ?? URLString)
     }
 
     open func get(completion: @escaping ((_ data: Places?,_ error: Error?) -> Void)) {
@@ -308,55 +359,79 @@ open class PlacesRequestBuilder: NSObject {
         case address = "address"
     }
     var q:String? = nil
-    var type: [ModelType]? = nil
+    var type: [String]? = nil
     var count:Int32? = nil
     var adminUri:[String]? = nil
     var depth:Int32? = nil
     var disableGeojson:Bool? = nil
     var from:String? = nil
     var shape:String? = nil
+    var debugURL: String? = nil
 
     public init(currentApi: PlacesApi) {
         self.currentApi = currentApi
     }
 
-    open func withQ(_ q: String) -> PlacesRequestBuilder {
+    open func withQ(_ q: String?) -> PlacesRequestBuilder {
         self.q = q
+        
         return self
     }
-    open func withType(_ type: [ModelType]) -> PlacesRequestBuilder {
-        self.type = type
+    open func withType(_ type: [ModelType]?) -> PlacesRequestBuilder {
+        guard let type = type else {
+            return self
+        }
+        
+        var items = [String]()
+        for item in type {
+            items.append(item.rawValue)
+        }
+        self.type = items
+
         return self
     }
-    open func withCount(_ count: Int32) -> PlacesRequestBuilder {
+    open func withCount(_ count: Int32?) -> PlacesRequestBuilder {
         self.count = count
+        
         return self
     }
-    open func withAdminUri(_ adminUri: [String]) -> PlacesRequestBuilder {
+    open func withAdminUri(_ adminUri: [String]?) -> PlacesRequestBuilder {
         self.adminUri = adminUri
+        
         return self
     }
-    open func withDepth(_ depth: Int32) -> PlacesRequestBuilder {
+    open func withDepth(_ depth: Int32?) -> PlacesRequestBuilder {
         self.depth = depth
+        
         return self
     }
-    open func withDisableGeojson(_ disableGeojson: Bool) -> PlacesRequestBuilder {
+    open func withDisableGeojson(_ disableGeojson: Bool?) -> PlacesRequestBuilder {
         self.disableGeojson = disableGeojson
+        
         return self
     }
-    open func withFrom(_ from: String) -> PlacesRequestBuilder {
+    open func withFrom(_ from: String?) -> PlacesRequestBuilder {
         self.from = from
+        
         return self
     }
-    open func withShape(_ shape: String) -> PlacesRequestBuilder {
+    open func withShape(_ shape: String?) -> PlacesRequestBuilder {
         self.shape = shape
+        
+        return self
+    }
+
+
+
+    open func withDebugURL(_ debugURL: String?) -> PlacesRequestBuilder {
+        self.debugURL = debugURL
         return self
     }
 
     open func makeUrl() -> String {
         let path = "/places"
 
-        let URLString = "https://api.navitia.io/v1" + path
+        let URLString = String(format: "%@%@", NavitiaSDKAPI.basePath, path)
         let url = NSURLComponents(string: URLString)
 
         let paramValues: [String: Any?] = [
@@ -372,7 +447,7 @@ open class PlacesRequestBuilder: NSObject {
         url?.queryItems = APIHelper.mapValuesToQueryItems(values: paramValues)
         url?.percentEncodedQuery = url?.percentEncodedQuery?.replacingOccurrences(of: "+", with: "%2B")
 
-        return (url?.string ?? URLString)
+        return (debugURL ?? url?.string ?? URLString)
     }
 
     open func get(completion: @escaping ((_ data: Places?,_ error: Error?) -> Void)) {

@@ -1,5 +1,5 @@
 PODS:
-  - NavitiaSDKUI (1.4.0)
+  - NavitiaSDKUI (1.5.0)
 
 DEPENDENCIES:
   - NavitiaSDKUI (from `../`)
@@ -9,7 +9,7 @@ EXTERNAL SOURCES:
     :path: "../"
 
 SPEC CHECKSUMS:
-  NavitiaSDKUI: 37445382615ec4e24fd61d95d96296eba098cbee
+  NavitiaSDKUI: 8281db36ba7fea53c4f777531b151c8a83682097
 
 PODFILE CHECKSUM: 5084eb02cd0a2f6221a8f9b502cd004e19abc3fe
 

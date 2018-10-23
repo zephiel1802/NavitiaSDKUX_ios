@@ -1,5 +1,5 @@
 //
-//  DispatchQueue+Alamofire.swift
+//  DispatchQueue+swift
 //
 //  Copyright (c) 2014-2017 Alamofire Software Foundation (http://alamofire.org/)
 //

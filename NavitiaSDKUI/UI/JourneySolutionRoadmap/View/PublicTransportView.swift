@@ -17,14 +17,7 @@ class PublicTransportView: UIView {
     @IBOutlet weak var transportLabel: UILabel!
     @IBOutlet weak var disruptionCircleLabel: UILabel!
     @IBOutlet weak var disruptionIconTransportLabel: UILabel!
-    @IBOutlet weak var disruptionsStackView: UIStackView!
-    @IBOutlet var waitView: UIView!
-    @IBOutlet var waitHeightContraint: NSLayoutConstraint!
-    @IBOutlet var disruptionsStackTopContraint: NSLayoutConstraint!
-    @IBOutlet var disruptionsStackBottomWaitTopContraint: NSLayoutConstraint!
-    @IBOutlet var waitBottomContraint: NSLayoutConstraint!
-    @IBOutlet var waitIconLabel: UILabel!
-    @IBOutlet var waitTimeLabel: UILabel!
+    @IBOutlet weak var informationStackView: UIStackView!
     @IBOutlet weak var startTimeLabel: UILabel!
     @IBOutlet weak var originLabel: UILabel!
     @IBOutlet weak var stationButton: UIButton!
@@ -56,6 +49,7 @@ class PublicTransportView: UIView {
                 .bold(origin, size: 15)
         }
     }
+    
     var directionTransit: String = "" {
         didSet {
             originTransitLabel.attributedText = NSMutableAttributedString()
@@ -77,6 +71,14 @@ class PublicTransportView: UIView {
             }
             stationsIsHidden = true
             updateStationStack()
+        }
+    }
+    var waitingTime: String? {
+        didSet {
+            let publicTransportWaitingBlocView = PublicTransportWaitingBlocView.instanceFromNib()
+            publicTransportWaitingBlocView.frame = informationStackView.bounds
+            publicTransportWaitingBlocView.waitingTime = waitingTime
+            informationStackView.addArrangedSubview(publicTransportWaitingBlocView)
         }
     }
     var stationStackView: UIStackView!
@@ -116,8 +118,6 @@ class PublicTransportView: UIView {
         frame.size.height = destinationLabel.frame.height + destinationLabel.frame.origin.y + 15
         
         stationsIsHidden = true
-        waitIsHidden = true
-        disruptionsStackIsHidden = true
         disruptionIconTransportLabel.isHidden = true
         disruptionCircleLabel.isHidden = true
         stationButton.isHidden = true
@@ -135,7 +135,6 @@ class PublicTransportView: UIView {
     private func setHeight() {
         frame.size.height = destinationLabel.frame.height + destinationLabel.frame.origin.y + 15
     }
-
 }
 
 extension PublicTransportView {
@@ -241,8 +240,6 @@ extension PublicTransportView {
     }
     
     func setDisruptions(_ disruptions: [Disruption]) {
-        disruptionsStackIsHidden = false
-        
         disruptionCircleLabel.attributedText = NSMutableAttributedString()
             .icon("circle-filled", size: 15)
         disruptionCircleLabel.textColor = UIColor.white
@@ -253,45 +250,25 @@ extension PublicTransportView {
         disruptionIconTransportLabel.textColor = disruptions[0].severity?.color?.toUIColor() ?? UIColor.red
         disruptionIconTransportLabel.isHidden = false
         
-        
-        for disruption in disruptions {
+        for (index, disruption) in disruptions.enumerated() {
             let disruptionItemView = DisruptionItemView.instanceFromNib()
-            disruptionItemView.frame = disruptionsStackView.bounds
+            disruptionItemView.frame = informationStackView.bounds
             disruptionItemView.disruption = disruption
-            disruptionsStackView.addArrangedSubview(disruptionItemView)
-        }
-    }
-    
-    func setOnDemandeTransport(text: String) {
-        disruptionsStackIsHidden = false
-        
-        let onDemandeItemView = OnDemandeItemView.instanceFromNib()
-        onDemandeItemView.frame = disruptionsStackView.bounds
-        onDemandeItemView.setInformation(text: text)
-        disruptionsStackView.addArrangedSubview(onDemandeItemView)
-    }
-    
-    var waitTime: String? {
-        get {
-            return waitTimeLabel.text
-        }
-        set {
-            if let newValue = newValue {
-                var unit = "units_minutes".localized(withComment: "minutes", bundle: NavitiaSDKUI.shared.bundle)
-                if newValue == "1" {
-                    unit = "units_minute".localized(withComment: "minute", bundle: NavitiaSDKUI.shared.bundle)
-                }
-                waitIconLabel.attributedText = NSMutableAttributedString()
-                    .icon("clock", color: Configuration.Color.darkerGray, size: 15)
-                waitTimeLabel.attributedText = NSMutableAttributedString()
-                    .normal("wait".localized(withComment: "wait", bundle: NavitiaSDKUI.shared.bundle), color: Configuration.Color.darkerGray, size: 12)
-                    .normal(" ", color: Configuration.Color.darkerGray, size: 12)
-                    .normal(newValue, color: Configuration.Color.darkerGray, size: 12)
-                    .normal(" ", color: Configuration.Color.darkerGray, size: 12)
-                    .normal(unit, color: Configuration.Color.darkerGray, size: 12)
-                waitIsHidden = false
+            disruptionItemView.publicTransportView = self
+            informationStackView.addArrangedSubview(disruptionItemView)
+            
+            if index < disruptions.count - 1 {
+                let horizontalSeprator = HorizontalSeparator.instanceFromNib()
+                informationStackView.addArrangedSubview(horizontalSeprator)
             }
         }
+    }
+    
+    func setOnDemandTransport(text: String) {
+        let onDemandItemView = OnDemandeItemView.instanceFromNib()
+        onDemandItemView.frame = informationStackView.bounds
+        onDemandItemView.setInformation(text: text)
+        informationStackView.addArrangedSubview(onDemandItemView)
     }
     
     var startTime: String? {
@@ -326,44 +303,6 @@ extension PublicTransportView {
             if let newValue = newValue {
                 destinationLabel.attributedText = NSMutableAttributedString()
                     .bold(newValue, size: 15)
-            }
-        }
-    }
-    
-    var disruptionsStackIsHidden: Bool {
-        get {
-            return !disruptionsStackView.isHidden
-        }
-        set {
-            if newValue {
-                disruptionsStackView.isHidden = true
-                frame.size.height -= disruptionsStackView.frame.size.height
-                disruptionsStackBottomWaitTopContraint.isActive = false
-                disruptionsStackTopContraint.isActive = false
-            } else {
-                disruptionsStackView.isHidden = false
-                frame.size.height += disruptionsStackView.frame.size.height
-                disruptionsStackBottomWaitTopContraint.isActive = true
-                disruptionsStackTopContraint.isActive = true
-            }
-        }
-    }
-    
-    var waitIsHidden: Bool {
-        get {
-            return !waitView.isHidden
-        }
-        set {
-            if newValue {
-                waitView.isHidden = true
-                frame.size.height -= waitView.frame.size.height
-                disruptionsStackBottomWaitTopContraint.isActive = false
-                waitBottomContraint.isActive = false
-            } else {
-                waitView.isHidden = false
-                frame.size.height += waitView.frame.size.height
-                disruptionsStackBottomWaitTopContraint.isActive = true
-                waitBottomContraint.isActive = true
             }
         }
     }

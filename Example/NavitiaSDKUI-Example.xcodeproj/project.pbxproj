@@ -440,7 +440,7 @@
 				DEVELOPMENT_TEAM = AK7DPF549M;
 				INFOPLIST_FILE = "NavitiaSDKUI-Example/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.demo.NavitiaSDKUI-Example";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.kisio.demo.NavitiaSDKUI-Example";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -455,7 +455,7 @@
 				DEVELOPMENT_TEAM = AK7DPF549M;
 				INFOPLIST_FILE = "NavitiaSDKUI-Example/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.demo.NavitiaSDKUI-Example";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.kisio.demo.NavitiaSDKUI-Example";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

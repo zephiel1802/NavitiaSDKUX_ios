@@ -36,102 +36,133 @@ open class CoverageLonLatUriVehicleJourneysRequestBuilder: NSObject {
     var until:Date? = nil
     var disableGeojson:Bool? = nil
     var filter:String? = nil
+    var tags:[String]? = nil
+    var debugURL: String? = nil
 
     public init(currentApi: VehicleJourneysApi) {
         self.currentApi = currentApi
     }
 
-    open func withLat(_ lat: Double) -> CoverageLonLatUriVehicleJourneysRequestBuilder {
+    open func withLat(_ lat: Double?) -> CoverageLonLatUriVehicleJourneysRequestBuilder {
         self.lat = lat
+        
         return self
     }
-    open func withLon(_ lon: Double) -> CoverageLonLatUriVehicleJourneysRequestBuilder {
+    open func withLon(_ lon: Double?) -> CoverageLonLatUriVehicleJourneysRequestBuilder {
         self.lon = lon
+        
         return self
     }
-    open func withUri(_ uri: String) -> CoverageLonLatUriVehicleJourneysRequestBuilder {
+    open func withUri(_ uri: String?) -> CoverageLonLatUriVehicleJourneysRequestBuilder {
         self.uri = uri
+        
         return self
     }
-    open func withStartPage(_ startPage: Int32) -> CoverageLonLatUriVehicleJourneysRequestBuilder {
+    open func withStartPage(_ startPage: Int32?) -> CoverageLonLatUriVehicleJourneysRequestBuilder {
         self.startPage = startPage
+        
         return self
     }
-    open func withCount(_ count: Int32) -> CoverageLonLatUriVehicleJourneysRequestBuilder {
+    open func withCount(_ count: Int32?) -> CoverageLonLatUriVehicleJourneysRequestBuilder {
         self.count = count
+        
         return self
     }
-    open func withDepth(_ depth: Int32) -> CoverageLonLatUriVehicleJourneysRequestBuilder {
+    open func withDepth(_ depth: Int32?) -> CoverageLonLatUriVehicleJourneysRequestBuilder {
         self.depth = depth
+        
         return self
     }
-    open func withForbiddenId(_ forbiddenId: [String]) -> CoverageLonLatUriVehicleJourneysRequestBuilder {
+    open func withForbiddenId(_ forbiddenId: [String]?) -> CoverageLonLatUriVehicleJourneysRequestBuilder {
         self.forbiddenId = forbiddenId
+        
         return self
     }
-    open func withForbiddenUris(_ forbiddenUris: [String]) -> CoverageLonLatUriVehicleJourneysRequestBuilder {
+    open func withForbiddenUris(_ forbiddenUris: [String]?) -> CoverageLonLatUriVehicleJourneysRequestBuilder {
         self.forbiddenUris = forbiddenUris
+        
         return self
     }
-    open func withExternalCode(_ externalCode: String) -> CoverageLonLatUriVehicleJourneysRequestBuilder {
+    open func withExternalCode(_ externalCode: String?) -> CoverageLonLatUriVehicleJourneysRequestBuilder {
         self.externalCode = externalCode
+        
         return self
     }
-    open func withHeadsign(_ headsign: String) -> CoverageLonLatUriVehicleJourneysRequestBuilder {
+    open func withHeadsign(_ headsign: String?) -> CoverageLonLatUriVehicleJourneysRequestBuilder {
         self.headsign = headsign
+        
         return self
     }
-    open func withShowCodes(_ showCodes: Bool) -> CoverageLonLatUriVehicleJourneysRequestBuilder {
+    open func withShowCodes(_ showCodes: Bool?) -> CoverageLonLatUriVehicleJourneysRequestBuilder {
         self.showCodes = showCodes
+        
         return self
     }
-    open func withOdtLevel(_ odtLevel: OdtLevel) -> CoverageLonLatUriVehicleJourneysRequestBuilder {
+    open func withOdtLevel(_ odtLevel: OdtLevel?) -> CoverageLonLatUriVehicleJourneysRequestBuilder {
         self.odtLevel = odtLevel
+
         return self
     }
-    open func withDistance(_ distance: Int32) -> CoverageLonLatUriVehicleJourneysRequestBuilder {
+    open func withDistance(_ distance: Int32?) -> CoverageLonLatUriVehicleJourneysRequestBuilder {
         self.distance = distance
+        
         return self
     }
-    open func withSince(_ since: Date) -> CoverageLonLatUriVehicleJourneysRequestBuilder {
+    open func withSince(_ since: Date?) -> CoverageLonLatUriVehicleJourneysRequestBuilder {
         self.since = since
+        
         return self
     }
-    open func withUntil(_ until: Date) -> CoverageLonLatUriVehicleJourneysRequestBuilder {
+    open func withUntil(_ until: Date?) -> CoverageLonLatUriVehicleJourneysRequestBuilder {
         self.until = until
+        
         return self
     }
-    open func withDisableGeojson(_ disableGeojson: Bool) -> CoverageLonLatUriVehicleJourneysRequestBuilder {
+    open func withDisableGeojson(_ disableGeojson: Bool?) -> CoverageLonLatUriVehicleJourneysRequestBuilder {
         self.disableGeojson = disableGeojson
+        
         return self
     }
-    open func withFilter(_ filter: String) -> CoverageLonLatUriVehicleJourneysRequestBuilder {
+    open func withFilter(_ filter: String?) -> CoverageLonLatUriVehicleJourneysRequestBuilder {
         self.filter = filter
+        
+        return self
+    }
+    open func withTags(_ tags: [String]?) -> CoverageLonLatUriVehicleJourneysRequestBuilder {
+        self.tags = tags
+        
+        return self
+    }
+
+
+
+    open func withDebugURL(_ debugURL: String?) -> CoverageLonLatUriVehicleJourneysRequestBuilder {
+        self.debugURL = debugURL
         return self
     }
 
     open func makeUrl() -> String {
         var path = "/coverage/{lon};{lat}/{uri}/vehicle_journeys"
 
-        if (lat != nil) {
-            let latPreEscape: String = "\(lat!)"
+        if let lat = lat {
+            let latPreEscape: String = "\(lat)"
             let latPostEscape: String = latPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
             path = path.replacingOccurrences(of: "{lat}", with: latPostEscape, options: .literal, range: nil)
         }
 
-        if (lon != nil) {
-            let lonPreEscape: String = "\(lon!)"
+        if let lon = lon {
+            let lonPreEscape: String = "\(lon)"
             let lonPostEscape: String = lonPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
             path = path.replacingOccurrences(of: "{lon}", with: lonPostEscape, options: .literal, range: nil)
         }
 
-        if (uri != nil) {
-            let uriPreEscape: String = "\(uri!)"
+        if let uri = uri {
+            let uriPreEscape: String = "\(uri)"
             let uriPostEscape: String = uriPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
             path = path.replacingOccurrences(of: "{uri}", with: uriPostEscape, options: .literal, range: nil)
         }
 
-        let URLString = "https://api.navitia.io/v1" + path
+        let URLString = String(format: "%@%@", NavitiaSDKAPI.basePath, path)
         let url = NSURLComponents(string: URLString)
 
         let paramValues: [String: Any?] = [
@@ -148,12 +179,13 @@ open class CoverageLonLatUriVehicleJourneysRequestBuilder: NSObject {
             "since": self.since?.encodeToJSON(), 
             "until": self.until?.encodeToJSON(), 
             "disable_geojson": self.disableGeojson, 
-            "filter": self.filter
+            "filter": self.filter, 
+            "tags[]": self.tags
         ]
         url?.queryItems = APIHelper.mapValuesToQueryItems(values: paramValues)
         url?.percentEncodedQuery = url?.percentEncodedQuery?.replacingOccurrences(of: "+", with: "%2B")
 
-        return (url?.string ?? URLString)
+        return (debugURL ?? url?.string ?? URLString)
     }
 
     open func get(completion: @escaping ((_ data: VehicleJourneys?,_ error: Error?) -> Void)) {
@@ -234,108 +266,139 @@ open class CoverageLonLatUriVehicleJourneysIdRequestBuilder: NSObject {
     var since:Date? = nil
     var until:Date? = nil
     var disableGeojson:Bool? = nil
+    var tags:[String]? = nil
+    var debugURL: String? = nil
 
     public init(currentApi: VehicleJourneysApi) {
         self.currentApi = currentApi
     }
 
-    open func withLat(_ lat: Double) -> CoverageLonLatUriVehicleJourneysIdRequestBuilder {
+    open func withLat(_ lat: Double?) -> CoverageLonLatUriVehicleJourneysIdRequestBuilder {
         self.lat = lat
+        
         return self
     }
-    open func withLon(_ lon: Double) -> CoverageLonLatUriVehicleJourneysIdRequestBuilder {
+    open func withLon(_ lon: Double?) -> CoverageLonLatUriVehicleJourneysIdRequestBuilder {
         self.lon = lon
+        
         return self
     }
-    open func withUri(_ uri: String) -> CoverageLonLatUriVehicleJourneysIdRequestBuilder {
+    open func withUri(_ uri: String?) -> CoverageLonLatUriVehicleJourneysIdRequestBuilder {
         self.uri = uri
+        
         return self
     }
-    open func withId(_ id: String) -> CoverageLonLatUriVehicleJourneysIdRequestBuilder {
+    open func withId(_ id: String?) -> CoverageLonLatUriVehicleJourneysIdRequestBuilder {
         self.id = id
+        
         return self
     }
-    open func withStartPage(_ startPage: Int32) -> CoverageLonLatUriVehicleJourneysIdRequestBuilder {
+    open func withStartPage(_ startPage: Int32?) -> CoverageLonLatUriVehicleJourneysIdRequestBuilder {
         self.startPage = startPage
+        
         return self
     }
-    open func withCount(_ count: Int32) -> CoverageLonLatUriVehicleJourneysIdRequestBuilder {
+    open func withCount(_ count: Int32?) -> CoverageLonLatUriVehicleJourneysIdRequestBuilder {
         self.count = count
+        
         return self
     }
-    open func withDepth(_ depth: Int32) -> CoverageLonLatUriVehicleJourneysIdRequestBuilder {
+    open func withDepth(_ depth: Int32?) -> CoverageLonLatUriVehicleJourneysIdRequestBuilder {
         self.depth = depth
+        
         return self
     }
-    open func withForbiddenId(_ forbiddenId: [String]) -> CoverageLonLatUriVehicleJourneysIdRequestBuilder {
+    open func withForbiddenId(_ forbiddenId: [String]?) -> CoverageLonLatUriVehicleJourneysIdRequestBuilder {
         self.forbiddenId = forbiddenId
+        
         return self
     }
-    open func withForbiddenUris(_ forbiddenUris: [String]) -> CoverageLonLatUriVehicleJourneysIdRequestBuilder {
+    open func withForbiddenUris(_ forbiddenUris: [String]?) -> CoverageLonLatUriVehicleJourneysIdRequestBuilder {
         self.forbiddenUris = forbiddenUris
+        
         return self
     }
-    open func withExternalCode(_ externalCode: String) -> CoverageLonLatUriVehicleJourneysIdRequestBuilder {
+    open func withExternalCode(_ externalCode: String?) -> CoverageLonLatUriVehicleJourneysIdRequestBuilder {
         self.externalCode = externalCode
+        
         return self
     }
-    open func withHeadsign(_ headsign: String) -> CoverageLonLatUriVehicleJourneysIdRequestBuilder {
+    open func withHeadsign(_ headsign: String?) -> CoverageLonLatUriVehicleJourneysIdRequestBuilder {
         self.headsign = headsign
+        
         return self
     }
-    open func withShowCodes(_ showCodes: Bool) -> CoverageLonLatUriVehicleJourneysIdRequestBuilder {
+    open func withShowCodes(_ showCodes: Bool?) -> CoverageLonLatUriVehicleJourneysIdRequestBuilder {
         self.showCodes = showCodes
+        
         return self
     }
-    open func withOdtLevel(_ odtLevel: OdtLevel) -> CoverageLonLatUriVehicleJourneysIdRequestBuilder {
+    open func withOdtLevel(_ odtLevel: OdtLevel?) -> CoverageLonLatUriVehicleJourneysIdRequestBuilder {
         self.odtLevel = odtLevel
+
         return self
     }
-    open func withDistance(_ distance: Int32) -> CoverageLonLatUriVehicleJourneysIdRequestBuilder {
+    open func withDistance(_ distance: Int32?) -> CoverageLonLatUriVehicleJourneysIdRequestBuilder {
         self.distance = distance
+        
         return self
     }
-    open func withSince(_ since: Date) -> CoverageLonLatUriVehicleJourneysIdRequestBuilder {
+    open func withSince(_ since: Date?) -> CoverageLonLatUriVehicleJourneysIdRequestBuilder {
         self.since = since
+        
         return self
     }
-    open func withUntil(_ until: Date) -> CoverageLonLatUriVehicleJourneysIdRequestBuilder {
+    open func withUntil(_ until: Date?) -> CoverageLonLatUriVehicleJourneysIdRequestBuilder {
         self.until = until
+        
         return self
     }
-    open func withDisableGeojson(_ disableGeojson: Bool) -> CoverageLonLatUriVehicleJourneysIdRequestBuilder {
+    open func withDisableGeojson(_ disableGeojson: Bool?) -> CoverageLonLatUriVehicleJourneysIdRequestBuilder {
         self.disableGeojson = disableGeojson
+        
+        return self
+    }
+    open func withTags(_ tags: [String]?) -> CoverageLonLatUriVehicleJourneysIdRequestBuilder {
+        self.tags = tags
+        
+        return self
+    }
+
+
+
+    open func withDebugURL(_ debugURL: String?) -> CoverageLonLatUriVehicleJourneysIdRequestBuilder {
+        self.debugURL = debugURL
         return self
     }
 
     open func makeUrl() -> String {
         var path = "/coverage/{lon};{lat}/{uri}/vehicle_journeys/{id}"
 
-        if (lat != nil) {
-            let latPreEscape: String = "\(lat!)"
+        if let lat = lat {
+            let latPreEscape: String = "\(lat)"
             let latPostEscape: String = latPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
             path = path.replacingOccurrences(of: "{lat}", with: latPostEscape, options: .literal, range: nil)
         }
 
-        if (lon != nil) {
-            let lonPreEscape: String = "\(lon!)"
+        if let lon = lon {
+            let lonPreEscape: String = "\(lon)"
             let lonPostEscape: String = lonPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
             path = path.replacingOccurrences(of: "{lon}", with: lonPostEscape, options: .literal, range: nil)
         }
 
-        if (uri != nil) {
-            let uriPreEscape: String = "\(uri!)"
+        if let uri = uri {
+            let uriPreEscape: String = "\(uri)"
             let uriPostEscape: String = uriPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
             path = path.replacingOccurrences(of: "{uri}", with: uriPostEscape, options: .literal, range: nil)
         }
 
-        if (id != nil) {
-            let idPreEscape: String = "\(id!)"
+        if let id = id {
+            let idPreEscape: String = "\(id)"
             let idPostEscape: String = idPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
             path = path.replacingOccurrences(of: "{id}", with: idPostEscape, options: .literal, range: nil)
         }
 
-        let URLString = "https://api.navitia.io/v1" + path
+        let URLString = String(format: "%@%@", NavitiaSDKAPI.basePath, path)
         let url = NSURLComponents(string: URLString)
 
         let paramValues: [String: Any?] = [
@@ -351,12 +414,13 @@ open class CoverageLonLatUriVehicleJourneysIdRequestBuilder: NSObject {
             "distance": self.distance?.encodeToJSON(), 
             "since": self.since?.encodeToJSON(), 
             "until": self.until?.encodeToJSON(), 
-            "disable_geojson": self.disableGeojson
+            "disable_geojson": self.disableGeojson, 
+            "tags[]": self.tags
         ]
         url?.queryItems = APIHelper.mapValuesToQueryItems(values: paramValues)
         url?.percentEncodedQuery = url?.percentEncodedQuery?.replacingOccurrences(of: "+", with: "%2B")
 
-        return (url?.string ?? URLString)
+        return (debugURL ?? url?.string ?? URLString)
     }
 
     open func get(completion: @escaping ((_ data: VehicleJourneys?,_ error: Error?) -> Void)) {
@@ -442,92 +506,122 @@ open class CoverageLonLatVehicleJourneysRequestBuilder: NSObject {
     var until:Date? = nil
     var disableGeojson:Bool? = nil
     var filter:String? = nil
+    var tags:[String]? = nil
+    var debugURL: String? = nil
 
     public init(currentApi: VehicleJourneysApi) {
         self.currentApi = currentApi
     }
 
-    open func withLat(_ lat: Double) -> CoverageLonLatVehicleJourneysRequestBuilder {
+    open func withLat(_ lat: Double?) -> CoverageLonLatVehicleJourneysRequestBuilder {
         self.lat = lat
+        
         return self
     }
-    open func withLon(_ lon: Double) -> CoverageLonLatVehicleJourneysRequestBuilder {
+    open func withLon(_ lon: Double?) -> CoverageLonLatVehicleJourneysRequestBuilder {
         self.lon = lon
+        
         return self
     }
-    open func withStartPage(_ startPage: Int32) -> CoverageLonLatVehicleJourneysRequestBuilder {
+    open func withStartPage(_ startPage: Int32?) -> CoverageLonLatVehicleJourneysRequestBuilder {
         self.startPage = startPage
+        
         return self
     }
-    open func withCount(_ count: Int32) -> CoverageLonLatVehicleJourneysRequestBuilder {
+    open func withCount(_ count: Int32?) -> CoverageLonLatVehicleJourneysRequestBuilder {
         self.count = count
+        
         return self
     }
-    open func withDepth(_ depth: Int32) -> CoverageLonLatVehicleJourneysRequestBuilder {
+    open func withDepth(_ depth: Int32?) -> CoverageLonLatVehicleJourneysRequestBuilder {
         self.depth = depth
+        
         return self
     }
-    open func withForbiddenId(_ forbiddenId: [String]) -> CoverageLonLatVehicleJourneysRequestBuilder {
+    open func withForbiddenId(_ forbiddenId: [String]?) -> CoverageLonLatVehicleJourneysRequestBuilder {
         self.forbiddenId = forbiddenId
+        
         return self
     }
-    open func withForbiddenUris(_ forbiddenUris: [String]) -> CoverageLonLatVehicleJourneysRequestBuilder {
+    open func withForbiddenUris(_ forbiddenUris: [String]?) -> CoverageLonLatVehicleJourneysRequestBuilder {
         self.forbiddenUris = forbiddenUris
+        
         return self
     }
-    open func withExternalCode(_ externalCode: String) -> CoverageLonLatVehicleJourneysRequestBuilder {
+    open func withExternalCode(_ externalCode: String?) -> CoverageLonLatVehicleJourneysRequestBuilder {
         self.externalCode = externalCode
+        
         return self
     }
-    open func withHeadsign(_ headsign: String) -> CoverageLonLatVehicleJourneysRequestBuilder {
+    open func withHeadsign(_ headsign: String?) -> CoverageLonLatVehicleJourneysRequestBuilder {
         self.headsign = headsign
+        
         return self
     }
-    open func withShowCodes(_ showCodes: Bool) -> CoverageLonLatVehicleJourneysRequestBuilder {
+    open func withShowCodes(_ showCodes: Bool?) -> CoverageLonLatVehicleJourneysRequestBuilder {
         self.showCodes = showCodes
+        
         return self
     }
-    open func withOdtLevel(_ odtLevel: OdtLevel) -> CoverageLonLatVehicleJourneysRequestBuilder {
+    open func withOdtLevel(_ odtLevel: OdtLevel?) -> CoverageLonLatVehicleJourneysRequestBuilder {
         self.odtLevel = odtLevel
+
         return self
     }
-    open func withDistance(_ distance: Int32) -> CoverageLonLatVehicleJourneysRequestBuilder {
+    open func withDistance(_ distance: Int32?) -> CoverageLonLatVehicleJourneysRequestBuilder {
         self.distance = distance
+        
         return self
     }
-    open func withSince(_ since: Date) -> CoverageLonLatVehicleJourneysRequestBuilder {
+    open func withSince(_ since: Date?) -> CoverageLonLatVehicleJourneysRequestBuilder {
         self.since = since
+        
         return self
     }
-    open func withUntil(_ until: Date) -> CoverageLonLatVehicleJourneysRequestBuilder {
+    open func withUntil(_ until: Date?) -> CoverageLonLatVehicleJourneysRequestBuilder {
         self.until = until
+        
         return self
     }
-    open func withDisableGeojson(_ disableGeojson: Bool) -> CoverageLonLatVehicleJourneysRequestBuilder {
+    open func withDisableGeojson(_ disableGeojson: Bool?) -> CoverageLonLatVehicleJourneysRequestBuilder {
         self.disableGeojson = disableGeojson
+        
         return self
     }
-    open func withFilter(_ filter: String) -> CoverageLonLatVehicleJourneysRequestBuilder {
+    open func withFilter(_ filter: String?) -> CoverageLonLatVehicleJourneysRequestBuilder {
         self.filter = filter
+        
+        return self
+    }
+    open func withTags(_ tags: [String]?) -> CoverageLonLatVehicleJourneysRequestBuilder {
+        self.tags = tags
+        
+        return self
+    }
+
+
+
+    open func withDebugURL(_ debugURL: String?) -> CoverageLonLatVehicleJourneysRequestBuilder {
+        self.debugURL = debugURL
         return self
     }
 
     open func makeUrl() -> String {
         var path = "/coverage/{lon};{lat}/vehicle_journeys"
 
-        if (lat != nil) {
-            let latPreEscape: String = "\(lat!)"
+        if let lat = lat {
+            let latPreEscape: String = "\(lat)"
             let latPostEscape: String = latPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
             path = path.replacingOccurrences(of: "{lat}", with: latPostEscape, options: .literal, range: nil)
         }
 
-        if (lon != nil) {
-            let lonPreEscape: String = "\(lon!)"
+        if let lon = lon {
+            let lonPreEscape: String = "\(lon)"
             let lonPostEscape: String = lonPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
             path = path.replacingOccurrences(of: "{lon}", with: lonPostEscape, options: .literal, range: nil)
         }
 
-        let URLString = "https://api.navitia.io/v1" + path
+        let URLString = String(format: "%@%@", NavitiaSDKAPI.basePath, path)
         let url = NSURLComponents(string: URLString)
 
         let paramValues: [String: Any?] = [
@@ -544,12 +638,13 @@ open class CoverageLonLatVehicleJourneysRequestBuilder: NSObject {
             "since": self.since?.encodeToJSON(), 
             "until": self.until?.encodeToJSON(), 
             "disable_geojson": self.disableGeojson, 
-            "filter": self.filter
+            "filter": self.filter, 
+            "tags[]": self.tags
         ]
         url?.queryItems = APIHelper.mapValuesToQueryItems(values: paramValues)
         url?.percentEncodedQuery = url?.percentEncodedQuery?.replacingOccurrences(of: "+", with: "%2B")
 
-        return (url?.string ?? URLString)
+        return (debugURL ?? url?.string ?? URLString)
     }
 
     open func get(completion: @escaping ((_ data: VehicleJourneys?,_ error: Error?) -> Void)) {
@@ -623,98 +718,128 @@ open class CoverageLonLatVehicleJourneysIdRequestBuilder: NSObject {
     var since:Date? = nil
     var until:Date? = nil
     var disableGeojson:Bool? = nil
+    var tags:[String]? = nil
+    var debugURL: String? = nil
 
     public init(currentApi: VehicleJourneysApi) {
         self.currentApi = currentApi
     }
 
-    open func withLat(_ lat: Double) -> CoverageLonLatVehicleJourneysIdRequestBuilder {
+    open func withLat(_ lat: Double?) -> CoverageLonLatVehicleJourneysIdRequestBuilder {
         self.lat = lat
+        
         return self
     }
-    open func withLon(_ lon: Double) -> CoverageLonLatVehicleJourneysIdRequestBuilder {
+    open func withLon(_ lon: Double?) -> CoverageLonLatVehicleJourneysIdRequestBuilder {
         self.lon = lon
+        
         return self
     }
-    open func withId(_ id: String) -> CoverageLonLatVehicleJourneysIdRequestBuilder {
+    open func withId(_ id: String?) -> CoverageLonLatVehicleJourneysIdRequestBuilder {
         self.id = id
+        
         return self
     }
-    open func withStartPage(_ startPage: Int32) -> CoverageLonLatVehicleJourneysIdRequestBuilder {
+    open func withStartPage(_ startPage: Int32?) -> CoverageLonLatVehicleJourneysIdRequestBuilder {
         self.startPage = startPage
+        
         return self
     }
-    open func withCount(_ count: Int32) -> CoverageLonLatVehicleJourneysIdRequestBuilder {
+    open func withCount(_ count: Int32?) -> CoverageLonLatVehicleJourneysIdRequestBuilder {
         self.count = count
+        
         return self
     }
-    open func withDepth(_ depth: Int32) -> CoverageLonLatVehicleJourneysIdRequestBuilder {
+    open func withDepth(_ depth: Int32?) -> CoverageLonLatVehicleJourneysIdRequestBuilder {
         self.depth = depth
+        
         return self
     }
-    open func withForbiddenId(_ forbiddenId: [String]) -> CoverageLonLatVehicleJourneysIdRequestBuilder {
+    open func withForbiddenId(_ forbiddenId: [String]?) -> CoverageLonLatVehicleJourneysIdRequestBuilder {
         self.forbiddenId = forbiddenId
+        
         return self
     }
-    open func withForbiddenUris(_ forbiddenUris: [String]) -> CoverageLonLatVehicleJourneysIdRequestBuilder {
+    open func withForbiddenUris(_ forbiddenUris: [String]?) -> CoverageLonLatVehicleJourneysIdRequestBuilder {
         self.forbiddenUris = forbiddenUris
+        
         return self
     }
-    open func withExternalCode(_ externalCode: String) -> CoverageLonLatVehicleJourneysIdRequestBuilder {
+    open func withExternalCode(_ externalCode: String?) -> CoverageLonLatVehicleJourneysIdRequestBuilder {
         self.externalCode = externalCode
+        
         return self
     }
-    open func withHeadsign(_ headsign: String) -> CoverageLonLatVehicleJourneysIdRequestBuilder {
+    open func withHeadsign(_ headsign: String?) -> CoverageLonLatVehicleJourneysIdRequestBuilder {
         self.headsign = headsign
+        
         return self
     }
-    open func withShowCodes(_ showCodes: Bool) -> CoverageLonLatVehicleJourneysIdRequestBuilder {
+    open func withShowCodes(_ showCodes: Bool?) -> CoverageLonLatVehicleJourneysIdRequestBuilder {
         self.showCodes = showCodes
+        
         return self
     }
-    open func withOdtLevel(_ odtLevel: OdtLevel) -> CoverageLonLatVehicleJourneysIdRequestBuilder {
+    open func withOdtLevel(_ odtLevel: OdtLevel?) -> CoverageLonLatVehicleJourneysIdRequestBuilder {
         self.odtLevel = odtLevel
+
         return self
     }
-    open func withDistance(_ distance: Int32) -> CoverageLonLatVehicleJourneysIdRequestBuilder {
+    open func withDistance(_ distance: Int32?) -> CoverageLonLatVehicleJourneysIdRequestBuilder {
         self.distance = distance
+        
         return self
     }
-    open func withSince(_ since: Date) -> CoverageLonLatVehicleJourneysIdRequestBuilder {
+    open func withSince(_ since: Date?) -> CoverageLonLatVehicleJourneysIdRequestBuilder {
         self.since = since
+        
         return self
     }
-    open func withUntil(_ until: Date) -> CoverageLonLatVehicleJourneysIdRequestBuilder {
+    open func withUntil(_ until: Date?) -> CoverageLonLatVehicleJourneysIdRequestBuilder {
         self.until = until
+        
         return self
     }
-    open func withDisableGeojson(_ disableGeojson: Bool) -> CoverageLonLatVehicleJourneysIdRequestBuilder {
+    open func withDisableGeojson(_ disableGeojson: Bool?) -> CoverageLonLatVehicleJourneysIdRequestBuilder {
         self.disableGeojson = disableGeojson
+        
+        return self
+    }
+    open func withTags(_ tags: [String]?) -> CoverageLonLatVehicleJourneysIdRequestBuilder {
+        self.tags = tags
+        
+        return self
+    }
+
+
+
+    open func withDebugURL(_ debugURL: String?) -> CoverageLonLatVehicleJourneysIdRequestBuilder {
+        self.debugURL = debugURL
         return self
     }
 
     open func makeUrl() -> String {
         var path = "/coverage/{lon};{lat}/vehicle_journeys/{id}"
 
-        if (lat != nil) {
-            let latPreEscape: String = "\(lat!)"
+        if let lat = lat {
+            let latPreEscape: String = "\(lat)"
             let latPostEscape: String = latPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
             path = path.replacingOccurrences(of: "{lat}", with: latPostEscape, options: .literal, range: nil)
         }
 
-        if (lon != nil) {
-            let lonPreEscape: String = "\(lon!)"
+        if let lon = lon {
+            let lonPreEscape: String = "\(lon)"
             let lonPostEscape: String = lonPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
             path = path.replacingOccurrences(of: "{lon}", with: lonPostEscape, options: .literal, range: nil)
         }
 
-        if (id != nil) {
-            let idPreEscape: String = "\(id!)"
+        if let id = id {
+            let idPreEscape: String = "\(id)"
             let idPostEscape: String = idPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
             path = path.replacingOccurrences(of: "{id}", with: idPostEscape, options: .literal, range: nil)
         }
 
-        let URLString = "https://api.navitia.io/v1" + path
+        let URLString = String(format: "%@%@", NavitiaSDKAPI.basePath, path)
         let url = NSURLComponents(string: URLString)
 
         let paramValues: [String: Any?] = [
@@ -730,12 +855,13 @@ open class CoverageLonLatVehicleJourneysIdRequestBuilder: NSObject {
             "distance": self.distance?.encodeToJSON(), 
             "since": self.since?.encodeToJSON(), 
             "until": self.until?.encodeToJSON(), 
-            "disable_geojson": self.disableGeojson
+            "disable_geojson": self.disableGeojson, 
+            "tags[]": self.tags
         ]
         url?.queryItems = APIHelper.mapValuesToQueryItems(values: paramValues)
         url?.percentEncodedQuery = url?.percentEncodedQuery?.replacingOccurrences(of: "+", with: "%2B")
 
-        return (url?.string ?? URLString)
+        return (debugURL ?? url?.string ?? URLString)
     }
 
     open func get(completion: @escaping ((_ data: VehicleJourneys?,_ error: Error?) -> Void)) {
@@ -815,92 +941,122 @@ open class CoverageRegionUriVehicleJourneysRequestBuilder: NSObject {
     var until:Date? = nil
     var disableGeojson:Bool? = nil
     var filter:String? = nil
+    var tags:[String]? = nil
+    var debugURL: String? = nil
 
     public init(currentApi: VehicleJourneysApi) {
         self.currentApi = currentApi
     }
 
-    open func withRegion(_ region: String) -> CoverageRegionUriVehicleJourneysRequestBuilder {
+    open func withRegion(_ region: String?) -> CoverageRegionUriVehicleJourneysRequestBuilder {
         self.region = region
+        
         return self
     }
-    open func withUri(_ uri: String) -> CoverageRegionUriVehicleJourneysRequestBuilder {
+    open func withUri(_ uri: String?) -> CoverageRegionUriVehicleJourneysRequestBuilder {
         self.uri = uri
+        
         return self
     }
-    open func withStartPage(_ startPage: Int32) -> CoverageRegionUriVehicleJourneysRequestBuilder {
+    open func withStartPage(_ startPage: Int32?) -> CoverageRegionUriVehicleJourneysRequestBuilder {
         self.startPage = startPage
+        
         return self
     }
-    open func withCount(_ count: Int32) -> CoverageRegionUriVehicleJourneysRequestBuilder {
+    open func withCount(_ count: Int32?) -> CoverageRegionUriVehicleJourneysRequestBuilder {
         self.count = count
+        
         return self
     }
-    open func withDepth(_ depth: Int32) -> CoverageRegionUriVehicleJourneysRequestBuilder {
+    open func withDepth(_ depth: Int32?) -> CoverageRegionUriVehicleJourneysRequestBuilder {
         self.depth = depth
+        
         return self
     }
-    open func withForbiddenId(_ forbiddenId: [String]) -> CoverageRegionUriVehicleJourneysRequestBuilder {
+    open func withForbiddenId(_ forbiddenId: [String]?) -> CoverageRegionUriVehicleJourneysRequestBuilder {
         self.forbiddenId = forbiddenId
+        
         return self
     }
-    open func withForbiddenUris(_ forbiddenUris: [String]) -> CoverageRegionUriVehicleJourneysRequestBuilder {
+    open func withForbiddenUris(_ forbiddenUris: [String]?) -> CoverageRegionUriVehicleJourneysRequestBuilder {
         self.forbiddenUris = forbiddenUris
+        
         return self
     }
-    open func withExternalCode(_ externalCode: String) -> CoverageRegionUriVehicleJourneysRequestBuilder {
+    open func withExternalCode(_ externalCode: String?) -> CoverageRegionUriVehicleJourneysRequestBuilder {
         self.externalCode = externalCode
+        
         return self
     }
-    open func withHeadsign(_ headsign: String) -> CoverageRegionUriVehicleJourneysRequestBuilder {
+    open func withHeadsign(_ headsign: String?) -> CoverageRegionUriVehicleJourneysRequestBuilder {
         self.headsign = headsign
+        
         return self
     }
-    open func withShowCodes(_ showCodes: Bool) -> CoverageRegionUriVehicleJourneysRequestBuilder {
+    open func withShowCodes(_ showCodes: Bool?) -> CoverageRegionUriVehicleJourneysRequestBuilder {
         self.showCodes = showCodes
+        
         return self
     }
-    open func withOdtLevel(_ odtLevel: OdtLevel) -> CoverageRegionUriVehicleJourneysRequestBuilder {
+    open func withOdtLevel(_ odtLevel: OdtLevel?) -> CoverageRegionUriVehicleJourneysRequestBuilder {
         self.odtLevel = odtLevel
+
         return self
     }
-    open func withDistance(_ distance: Int32) -> CoverageRegionUriVehicleJourneysRequestBuilder {
+    open func withDistance(_ distance: Int32?) -> CoverageRegionUriVehicleJourneysRequestBuilder {
         self.distance = distance
+        
         return self
     }
-    open func withSince(_ since: Date) -> CoverageRegionUriVehicleJourneysRequestBuilder {
+    open func withSince(_ since: Date?) -> CoverageRegionUriVehicleJourneysRequestBuilder {
         self.since = since
+        
         return self
     }
-    open func withUntil(_ until: Date) -> CoverageRegionUriVehicleJourneysRequestBuilder {
+    open func withUntil(_ until: Date?) -> CoverageRegionUriVehicleJourneysRequestBuilder {
         self.until = until
+        
         return self
     }
-    open func withDisableGeojson(_ disableGeojson: Bool) -> CoverageRegionUriVehicleJourneysRequestBuilder {
+    open func withDisableGeojson(_ disableGeojson: Bool?) -> CoverageRegionUriVehicleJourneysRequestBuilder {
         self.disableGeojson = disableGeojson
+        
         return self
     }
-    open func withFilter(_ filter: String) -> CoverageRegionUriVehicleJourneysRequestBuilder {
+    open func withFilter(_ filter: String?) -> CoverageRegionUriVehicleJourneysRequestBuilder {
         self.filter = filter
+        
+        return self
+    }
+    open func withTags(_ tags: [String]?) -> CoverageRegionUriVehicleJourneysRequestBuilder {
+        self.tags = tags
+        
+        return self
+    }
+
+
+
+    open func withDebugURL(_ debugURL: String?) -> CoverageRegionUriVehicleJourneysRequestBuilder {
+        self.debugURL = debugURL
         return self
     }
 
     open func makeUrl() -> String {
         var path = "/coverage/{region}/{uri}/vehicle_journeys"
 
-        if (region != nil) {
-            let regionPreEscape: String = "\(region!)"
+        if let region = region {
+            let regionPreEscape: String = "\(region)"
             let regionPostEscape: String = regionPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
             path = path.replacingOccurrences(of: "{region}", with: regionPostEscape, options: .literal, range: nil)
         }
 
-        if (uri != nil) {
-            let uriPreEscape: String = "\(uri!)"
+        if let uri = uri {
+            let uriPreEscape: String = "\(uri)"
             let uriPostEscape: String = uriPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
             path = path.replacingOccurrences(of: "{uri}", with: uriPostEscape, options: .literal, range: nil)
         }
 
-        let URLString = "https://api.navitia.io/v1" + path
+        let URLString = String(format: "%@%@", NavitiaSDKAPI.basePath, path)
         let url = NSURLComponents(string: URLString)
 
         let paramValues: [String: Any?] = [
@@ -917,12 +1073,13 @@ open class CoverageRegionUriVehicleJourneysRequestBuilder: NSObject {
             "since": self.since?.encodeToJSON(), 
             "until": self.until?.encodeToJSON(), 
             "disable_geojson": self.disableGeojson, 
-            "filter": self.filter
+            "filter": self.filter, 
+            "tags[]": self.tags
         ]
         url?.queryItems = APIHelper.mapValuesToQueryItems(values: paramValues)
         url?.percentEncodedQuery = url?.percentEncodedQuery?.replacingOccurrences(of: "+", with: "%2B")
 
-        return (url?.string ?? URLString)
+        return (debugURL ?? url?.string ?? URLString)
     }
 
     open func get(completion: @escaping ((_ data: VehicleJourneys?,_ error: Error?) -> Void)) {
@@ -996,98 +1153,128 @@ open class CoverageRegionUriVehicleJourneysIdRequestBuilder: NSObject {
     var since:Date? = nil
     var until:Date? = nil
     var disableGeojson:Bool? = nil
+    var tags:[String]? = nil
+    var debugURL: String? = nil
 
     public init(currentApi: VehicleJourneysApi) {
         self.currentApi = currentApi
     }
 
-    open func withRegion(_ region: String) -> CoverageRegionUriVehicleJourneysIdRequestBuilder {
+    open func withRegion(_ region: String?) -> CoverageRegionUriVehicleJourneysIdRequestBuilder {
         self.region = region
+        
         return self
     }
-    open func withUri(_ uri: String) -> CoverageRegionUriVehicleJourneysIdRequestBuilder {
+    open func withUri(_ uri: String?) -> CoverageRegionUriVehicleJourneysIdRequestBuilder {
         self.uri = uri
+        
         return self
     }
-    open func withId(_ id: String) -> CoverageRegionUriVehicleJourneysIdRequestBuilder {
+    open func withId(_ id: String?) -> CoverageRegionUriVehicleJourneysIdRequestBuilder {
         self.id = id
+        
         return self
     }
-    open func withStartPage(_ startPage: Int32) -> CoverageRegionUriVehicleJourneysIdRequestBuilder {
+    open func withStartPage(_ startPage: Int32?) -> CoverageRegionUriVehicleJourneysIdRequestBuilder {
         self.startPage = startPage
+        
         return self
     }
-    open func withCount(_ count: Int32) -> CoverageRegionUriVehicleJourneysIdRequestBuilder {
+    open func withCount(_ count: Int32?) -> CoverageRegionUriVehicleJourneysIdRequestBuilder {
         self.count = count
+        
         return self
     }
-    open func withDepth(_ depth: Int32) -> CoverageRegionUriVehicleJourneysIdRequestBuilder {
+    open func withDepth(_ depth: Int32?) -> CoverageRegionUriVehicleJourneysIdRequestBuilder {
         self.depth = depth
+        
         return self
     }
-    open func withForbiddenId(_ forbiddenId: [String]) -> CoverageRegionUriVehicleJourneysIdRequestBuilder {
+    open func withForbiddenId(_ forbiddenId: [String]?) -> CoverageRegionUriVehicleJourneysIdRequestBuilder {
         self.forbiddenId = forbiddenId
+        
         return self
     }
-    open func withForbiddenUris(_ forbiddenUris: [String]) -> CoverageRegionUriVehicleJourneysIdRequestBuilder {
+    open func withForbiddenUris(_ forbiddenUris: [String]?) -> CoverageRegionUriVehicleJourneysIdRequestBuilder {
         self.forbiddenUris = forbiddenUris
+        
         return self
     }
-    open func withExternalCode(_ externalCode: String) -> CoverageRegionUriVehicleJourneysIdRequestBuilder {
+    open func withExternalCode(_ externalCode: String?) -> CoverageRegionUriVehicleJourneysIdRequestBuilder {
         self.externalCode = externalCode
+        
         return self
     }
-    open func withHeadsign(_ headsign: String) -> CoverageRegionUriVehicleJourneysIdRequestBuilder {
+    open func withHeadsign(_ headsign: String?) -> CoverageRegionUriVehicleJourneysIdRequestBuilder {
         self.headsign = headsign
+        
         return self
     }
-    open func withShowCodes(_ showCodes: Bool) -> CoverageRegionUriVehicleJourneysIdRequestBuilder {
+    open func withShowCodes(_ showCodes: Bool?) -> CoverageRegionUriVehicleJourneysIdRequestBuilder {
         self.showCodes = showCodes
+        
         return self
     }
-    open func withOdtLevel(_ odtLevel: OdtLevel) -> CoverageRegionUriVehicleJourneysIdRequestBuilder {
+    open func withOdtLevel(_ odtLevel: OdtLevel?) -> CoverageRegionUriVehicleJourneysIdRequestBuilder {
         self.odtLevel = odtLevel
+
         return self
     }
-    open func withDistance(_ distance: Int32) -> CoverageRegionUriVehicleJourneysIdRequestBuilder {
+    open func withDistance(_ distance: Int32?) -> CoverageRegionUriVehicleJourneysIdRequestBuilder {
         self.distance = distance
+        
         return self
     }
-    open func withSince(_ since: Date) -> CoverageRegionUriVehicleJourneysIdRequestBuilder {
+    open func withSince(_ since: Date?) -> CoverageRegionUriVehicleJourneysIdRequestBuilder {
         self.since = since
+        
         return self
     }
-    open func withUntil(_ until: Date) -> CoverageRegionUriVehicleJourneysIdRequestBuilder {
+    open func withUntil(_ until: Date?) -> CoverageRegionUriVehicleJourneysIdRequestBuilder {
         self.until = until
+        
         return self
     }
-    open func withDisableGeojson(_ disableGeojson: Bool) -> CoverageRegionUriVehicleJourneysIdRequestBuilder {
+    open func withDisableGeojson(_ disableGeojson: Bool?) -> CoverageRegionUriVehicleJourneysIdRequestBuilder {
         self.disableGeojson = disableGeojson
+        
+        return self
+    }
+    open func withTags(_ tags: [String]?) -> CoverageRegionUriVehicleJourneysIdRequestBuilder {
+        self.tags = tags
+        
+        return self
+    }
+
+
+
+    open func withDebugURL(_ debugURL: String?) -> CoverageRegionUriVehicleJourneysIdRequestBuilder {
+        self.debugURL = debugURL
         return self
     }
 
     open func makeUrl() -> String {
         var path = "/coverage/{region}/{uri}/vehicle_journeys/{id}"
 
-        if (region != nil) {
-            let regionPreEscape: String = "\(region!)"
+        if let region = region {
+            let regionPreEscape: String = "\(region)"
             let regionPostEscape: String = regionPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
             path = path.replacingOccurrences(of: "{region}", with: regionPostEscape, options: .literal, range: nil)
         }
 
-        if (uri != nil) {
-            let uriPreEscape: String = "\(uri!)"
+        if let uri = uri {
+            let uriPreEscape: String = "\(uri)"
             let uriPostEscape: String = uriPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
             path = path.replacingOccurrences(of: "{uri}", with: uriPostEscape, options: .literal, range: nil)
         }
 
-        if (id != nil) {
-            let idPreEscape: String = "\(id!)"
+        if let id = id {
+            let idPreEscape: String = "\(id)"
             let idPostEscape: String = idPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
             path = path.replacingOccurrences(of: "{id}", with: idPostEscape, options: .literal, range: nil)
         }
 
-        let URLString = "https://api.navitia.io/v1" + path
+        let URLString = String(format: "%@%@", NavitiaSDKAPI.basePath, path)
         let url = NSURLComponents(string: URLString)
 
         let paramValues: [String: Any?] = [
@@ -1103,12 +1290,13 @@ open class CoverageRegionUriVehicleJourneysIdRequestBuilder: NSObject {
             "distance": self.distance?.encodeToJSON(), 
             "since": self.since?.encodeToJSON(), 
             "until": self.until?.encodeToJSON(), 
-            "disable_geojson": self.disableGeojson
+            "disable_geojson": self.disableGeojson, 
+            "tags[]": self.tags
         ]
         url?.queryItems = APIHelper.mapValuesToQueryItems(values: paramValues)
         url?.percentEncodedQuery = url?.percentEncodedQuery?.replacingOccurrences(of: "+", with: "%2B")
 
-        return (url?.string ?? URLString)
+        return (debugURL ?? url?.string ?? URLString)
     }
 
     open func get(completion: @escaping ((_ data: VehicleJourneys?,_ error: Error?) -> Void)) {
@@ -1187,82 +1375,111 @@ open class CoverageRegionVehicleJourneysRequestBuilder: NSObject {
     var until:Date? = nil
     var disableGeojson:Bool? = nil
     var filter:String? = nil
+    var tags:[String]? = nil
+    var debugURL: String? = nil
 
     public init(currentApi: VehicleJourneysApi) {
         self.currentApi = currentApi
     }
 
-    open func withRegion(_ region: String) -> CoverageRegionVehicleJourneysRequestBuilder {
+    open func withRegion(_ region: String?) -> CoverageRegionVehicleJourneysRequestBuilder {
         self.region = region
+        
         return self
     }
-    open func withStartPage(_ startPage: Int32) -> CoverageRegionVehicleJourneysRequestBuilder {
+    open func withStartPage(_ startPage: Int32?) -> CoverageRegionVehicleJourneysRequestBuilder {
         self.startPage = startPage
+        
         return self
     }
-    open func withCount(_ count: Int32) -> CoverageRegionVehicleJourneysRequestBuilder {
+    open func withCount(_ count: Int32?) -> CoverageRegionVehicleJourneysRequestBuilder {
         self.count = count
+        
         return self
     }
-    open func withDepth(_ depth: Int32) -> CoverageRegionVehicleJourneysRequestBuilder {
+    open func withDepth(_ depth: Int32?) -> CoverageRegionVehicleJourneysRequestBuilder {
         self.depth = depth
+        
         return self
     }
-    open func withForbiddenId(_ forbiddenId: [String]) -> CoverageRegionVehicleJourneysRequestBuilder {
+    open func withForbiddenId(_ forbiddenId: [String]?) -> CoverageRegionVehicleJourneysRequestBuilder {
         self.forbiddenId = forbiddenId
+        
         return self
     }
-    open func withForbiddenUris(_ forbiddenUris: [String]) -> CoverageRegionVehicleJourneysRequestBuilder {
+    open func withForbiddenUris(_ forbiddenUris: [String]?) -> CoverageRegionVehicleJourneysRequestBuilder {
         self.forbiddenUris = forbiddenUris
+        
         return self
     }
-    open func withExternalCode(_ externalCode: String) -> CoverageRegionVehicleJourneysRequestBuilder {
+    open func withExternalCode(_ externalCode: String?) -> CoverageRegionVehicleJourneysRequestBuilder {
         self.externalCode = externalCode
+        
         return self
     }
-    open func withHeadsign(_ headsign: String) -> CoverageRegionVehicleJourneysRequestBuilder {
+    open func withHeadsign(_ headsign: String?) -> CoverageRegionVehicleJourneysRequestBuilder {
         self.headsign = headsign
+        
         return self
     }
-    open func withShowCodes(_ showCodes: Bool) -> CoverageRegionVehicleJourneysRequestBuilder {
+    open func withShowCodes(_ showCodes: Bool?) -> CoverageRegionVehicleJourneysRequestBuilder {
         self.showCodes = showCodes
+        
         return self
     }
-    open func withOdtLevel(_ odtLevel: OdtLevel) -> CoverageRegionVehicleJourneysRequestBuilder {
+    open func withOdtLevel(_ odtLevel: OdtLevel?) -> CoverageRegionVehicleJourneysRequestBuilder {
         self.odtLevel = odtLevel
+
         return self
     }
-    open func withDistance(_ distance: Int32) -> CoverageRegionVehicleJourneysRequestBuilder {
+    open func withDistance(_ distance: Int32?) -> CoverageRegionVehicleJourneysRequestBuilder {
         self.distance = distance
+        
         return self
     }
-    open func withSince(_ since: Date) -> CoverageRegionVehicleJourneysRequestBuilder {
+    open func withSince(_ since: Date?) -> CoverageRegionVehicleJourneysRequestBuilder {
         self.since = since
+        
         return self
     }
-    open func withUntil(_ until: Date) -> CoverageRegionVehicleJourneysRequestBuilder {
+    open func withUntil(_ until: Date?) -> CoverageRegionVehicleJourneysRequestBuilder {
         self.until = until
+        
         return self
     }
-    open func withDisableGeojson(_ disableGeojson: Bool) -> CoverageRegionVehicleJourneysRequestBuilder {
+    open func withDisableGeojson(_ disableGeojson: Bool?) -> CoverageRegionVehicleJourneysRequestBuilder {
         self.disableGeojson = disableGeojson
+        
         return self
     }
-    open func withFilter(_ filter: String) -> CoverageRegionVehicleJourneysRequestBuilder {
+    open func withFilter(_ filter: String?) -> CoverageRegionVehicleJourneysRequestBuilder {
         self.filter = filter
+        
+        return self
+    }
+    open func withTags(_ tags: [String]?) -> CoverageRegionVehicleJourneysRequestBuilder {
+        self.tags = tags
+        
+        return self
+    }
+
+
+
+    open func withDebugURL(_ debugURL: String?) -> CoverageRegionVehicleJourneysRequestBuilder {
+        self.debugURL = debugURL
         return self
     }
 
     open func makeUrl() -> String {
         var path = "/coverage/{region}/vehicle_journeys"
 
-        if (region != nil) {
-            let regionPreEscape: String = "\(region!)"
+        if let region = region {
+            let regionPreEscape: String = "\(region)"
             let regionPostEscape: String = regionPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
             path = path.replacingOccurrences(of: "{region}", with: regionPostEscape, options: .literal, range: nil)
         }
 
-        let URLString = "https://api.navitia.io/v1" + path
+        let URLString = String(format: "%@%@", NavitiaSDKAPI.basePath, path)
         let url = NSURLComponents(string: URLString)
 
         let paramValues: [String: Any?] = [
@@ -1279,12 +1496,13 @@ open class CoverageRegionVehicleJourneysRequestBuilder: NSObject {
             "since": self.since?.encodeToJSON(), 
             "until": self.until?.encodeToJSON(), 
             "disable_geojson": self.disableGeojson, 
-            "filter": self.filter
+            "filter": self.filter, 
+            "tags[]": self.tags
         ]
         url?.queryItems = APIHelper.mapValuesToQueryItems(values: paramValues)
         url?.percentEncodedQuery = url?.percentEncodedQuery?.replacingOccurrences(of: "+", with: "%2B")
 
-        return (url?.string ?? URLString)
+        return (debugURL ?? url?.string ?? URLString)
     }
 
     open func get(completion: @escaping ((_ data: VehicleJourneys?,_ error: Error?) -> Void)) {
@@ -1351,88 +1569,117 @@ open class CoverageRegionVehicleJourneysIdRequestBuilder: NSObject {
     var since:Date? = nil
     var until:Date? = nil
     var disableGeojson:Bool? = nil
+    var tags:[String]? = nil
+    var debugURL: String? = nil
 
     public init(currentApi: VehicleJourneysApi) {
         self.currentApi = currentApi
     }
 
-    open func withRegion(_ region: String) -> CoverageRegionVehicleJourneysIdRequestBuilder {
+    open func withRegion(_ region: String?) -> CoverageRegionVehicleJourneysIdRequestBuilder {
         self.region = region
+        
         return self
     }
-    open func withId(_ id: String) -> CoverageRegionVehicleJourneysIdRequestBuilder {
+    open func withId(_ id: String?) -> CoverageRegionVehicleJourneysIdRequestBuilder {
         self.id = id
+        
         return self
     }
-    open func withStartPage(_ startPage: Int32) -> CoverageRegionVehicleJourneysIdRequestBuilder {
+    open func withStartPage(_ startPage: Int32?) -> CoverageRegionVehicleJourneysIdRequestBuilder {
         self.startPage = startPage
+        
         return self
     }
-    open func withCount(_ count: Int32) -> CoverageRegionVehicleJourneysIdRequestBuilder {
+    open func withCount(_ count: Int32?) -> CoverageRegionVehicleJourneysIdRequestBuilder {
         self.count = count
+        
         return self
     }
-    open func withDepth(_ depth: Int32) -> CoverageRegionVehicleJourneysIdRequestBuilder {
+    open func withDepth(_ depth: Int32?) -> CoverageRegionVehicleJourneysIdRequestBuilder {
         self.depth = depth
+        
         return self
     }
-    open func withForbiddenId(_ forbiddenId: [String]) -> CoverageRegionVehicleJourneysIdRequestBuilder {
+    open func withForbiddenId(_ forbiddenId: [String]?) -> CoverageRegionVehicleJourneysIdRequestBuilder {
         self.forbiddenId = forbiddenId
+        
         return self
     }
-    open func withForbiddenUris(_ forbiddenUris: [String]) -> CoverageRegionVehicleJourneysIdRequestBuilder {
+    open func withForbiddenUris(_ forbiddenUris: [String]?) -> CoverageRegionVehicleJourneysIdRequestBuilder {
         self.forbiddenUris = forbiddenUris
+        
         return self
     }
-    open func withExternalCode(_ externalCode: String) -> CoverageRegionVehicleJourneysIdRequestBuilder {
+    open func withExternalCode(_ externalCode: String?) -> CoverageRegionVehicleJourneysIdRequestBuilder {
         self.externalCode = externalCode
+        
         return self
     }
-    open func withHeadsign(_ headsign: String) -> CoverageRegionVehicleJourneysIdRequestBuilder {
+    open func withHeadsign(_ headsign: String?) -> CoverageRegionVehicleJourneysIdRequestBuilder {
         self.headsign = headsign
+        
         return self
     }
-    open func withShowCodes(_ showCodes: Bool) -> CoverageRegionVehicleJourneysIdRequestBuilder {
+    open func withShowCodes(_ showCodes: Bool?) -> CoverageRegionVehicleJourneysIdRequestBuilder {
         self.showCodes = showCodes
+        
         return self
     }
-    open func withOdtLevel(_ odtLevel: OdtLevel) -> CoverageRegionVehicleJourneysIdRequestBuilder {
+    open func withOdtLevel(_ odtLevel: OdtLevel?) -> CoverageRegionVehicleJourneysIdRequestBuilder {
         self.odtLevel = odtLevel
+
         return self
     }
-    open func withDistance(_ distance: Int32) -> CoverageRegionVehicleJourneysIdRequestBuilder {
+    open func withDistance(_ distance: Int32?) -> CoverageRegionVehicleJourneysIdRequestBuilder {
         self.distance = distance
+        
         return self
     }
-    open func withSince(_ since: Date) -> CoverageRegionVehicleJourneysIdRequestBuilder {
+    open func withSince(_ since: Date?) -> CoverageRegionVehicleJourneysIdRequestBuilder {
         self.since = since
+        
         return self
     }
-    open func withUntil(_ until: Date) -> CoverageRegionVehicleJourneysIdRequestBuilder {
+    open func withUntil(_ until: Date?) -> CoverageRegionVehicleJourneysIdRequestBuilder {
         self.until = until
+        
         return self
     }
-    open func withDisableGeojson(_ disableGeojson: Bool) -> CoverageRegionVehicleJourneysIdRequestBuilder {
+    open func withDisableGeojson(_ disableGeojson: Bool?) -> CoverageRegionVehicleJourneysIdRequestBuilder {
         self.disableGeojson = disableGeojson
+        
+        return self
+    }
+    open func withTags(_ tags: [String]?) -> CoverageRegionVehicleJourneysIdRequestBuilder {
+        self.tags = tags
+        
+        return self
+    }
+
+
+
+    open func withDebugURL(_ debugURL: String?) -> CoverageRegionVehicleJourneysIdRequestBuilder {
+        self.debugURL = debugURL
         return self
     }
 
     open func makeUrl() -> String {
         var path = "/coverage/{region}/vehicle_journeys/{id}"
 
-        if (region != nil) {
-            let regionPreEscape: String = "\(region!)"
+        if let region = region {
+            let regionPreEscape: String = "\(region)"
             let regionPostEscape: String = regionPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
             path = path.replacingOccurrences(of: "{region}", with: regionPostEscape, options: .literal, range: nil)
         }
 
-        if (id != nil) {
-            let idPreEscape: String = "\(id!)"
+        if let id = id {
+            let idPreEscape: String = "\(id)"
             let idPostEscape: String = idPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
             path = path.replacingOccurrences(of: "{id}", with: idPostEscape, options: .literal, range: nil)
         }
 
-        let URLString = "https://api.navitia.io/v1" + path
+        let URLString = String(format: "%@%@", NavitiaSDKAPI.basePath, path)
         let url = NSURLComponents(string: URLString)
 
         let paramValues: [String: Any?] = [
@@ -1448,12 +1695,13 @@ open class CoverageRegionVehicleJourneysIdRequestBuilder: NSObject {
             "distance": self.distance?.encodeToJSON(), 
             "since": self.since?.encodeToJSON(), 
             "until": self.until?.encodeToJSON(), 
-            "disable_geojson": self.disableGeojson
+            "disable_geojson": self.disableGeojson, 
+            "tags[]": self.tags
         ]
         url?.queryItems = APIHelper.mapValuesToQueryItems(values: paramValues)
         url?.percentEncodedQuery = url?.percentEncodedQuery?.replacingOccurrences(of: "+", with: "%2B")
 
-        return (url?.string ?? URLString)
+        return (debugURL ?? url?.string ?? URLString)
     }
 
     open func get(completion: @escaping ((_ data: VehicleJourneys?,_ error: Error?) -> Void)) {
@@ -1525,72 +1773,100 @@ open class VehicleJourneysRequestBuilder: NSObject {
     var until:Date? = nil
     var disableGeojson:Bool? = nil
     var filter:String? = nil
+    var tags:[String]? = nil
+    var debugURL: String? = nil
 
     public init(currentApi: VehicleJourneysApi) {
         self.currentApi = currentApi
     }
 
-    open func withExternalCode(_ externalCode: String) -> VehicleJourneysRequestBuilder {
+    open func withExternalCode(_ externalCode: String?) -> VehicleJourneysRequestBuilder {
         self.externalCode = externalCode
+        
         return self
     }
-    open func withStartPage(_ startPage: Int32) -> VehicleJourneysRequestBuilder {
+    open func withStartPage(_ startPage: Int32?) -> VehicleJourneysRequestBuilder {
         self.startPage = startPage
+        
         return self
     }
-    open func withCount(_ count: Int32) -> VehicleJourneysRequestBuilder {
+    open func withCount(_ count: Int32?) -> VehicleJourneysRequestBuilder {
         self.count = count
+        
         return self
     }
-    open func withDepth(_ depth: Int32) -> VehicleJourneysRequestBuilder {
+    open func withDepth(_ depth: Int32?) -> VehicleJourneysRequestBuilder {
         self.depth = depth
+        
         return self
     }
-    open func withForbiddenId(_ forbiddenId: [String]) -> VehicleJourneysRequestBuilder {
+    open func withForbiddenId(_ forbiddenId: [String]?) -> VehicleJourneysRequestBuilder {
         self.forbiddenId = forbiddenId
+        
         return self
     }
-    open func withForbiddenUris(_ forbiddenUris: [String]) -> VehicleJourneysRequestBuilder {
+    open func withForbiddenUris(_ forbiddenUris: [String]?) -> VehicleJourneysRequestBuilder {
         self.forbiddenUris = forbiddenUris
+        
         return self
     }
-    open func withHeadsign(_ headsign: String) -> VehicleJourneysRequestBuilder {
+    open func withHeadsign(_ headsign: String?) -> VehicleJourneysRequestBuilder {
         self.headsign = headsign
+        
         return self
     }
-    open func withShowCodes(_ showCodes: Bool) -> VehicleJourneysRequestBuilder {
+    open func withShowCodes(_ showCodes: Bool?) -> VehicleJourneysRequestBuilder {
         self.showCodes = showCodes
+        
         return self
     }
-    open func withOdtLevel(_ odtLevel: OdtLevel) -> VehicleJourneysRequestBuilder {
+    open func withOdtLevel(_ odtLevel: OdtLevel?) -> VehicleJourneysRequestBuilder {
         self.odtLevel = odtLevel
+
         return self
     }
-    open func withDistance(_ distance: Int32) -> VehicleJourneysRequestBuilder {
+    open func withDistance(_ distance: Int32?) -> VehicleJourneysRequestBuilder {
         self.distance = distance
+        
         return self
     }
-    open func withSince(_ since: Date) -> VehicleJourneysRequestBuilder {
+    open func withSince(_ since: Date?) -> VehicleJourneysRequestBuilder {
         self.since = since
+        
         return self
     }
-    open func withUntil(_ until: Date) -> VehicleJourneysRequestBuilder {
+    open func withUntil(_ until: Date?) -> VehicleJourneysRequestBuilder {
         self.until = until
+        
         return self
     }
-    open func withDisableGeojson(_ disableGeojson: Bool) -> VehicleJourneysRequestBuilder {
+    open func withDisableGeojson(_ disableGeojson: Bool?) -> VehicleJourneysRequestBuilder {
         self.disableGeojson = disableGeojson
+        
         return self
     }
-    open func withFilter(_ filter: String) -> VehicleJourneysRequestBuilder {
+    open func withFilter(_ filter: String?) -> VehicleJourneysRequestBuilder {
         self.filter = filter
+        
+        return self
+    }
+    open func withTags(_ tags: [String]?) -> VehicleJourneysRequestBuilder {
+        self.tags = tags
+        
+        return self
+    }
+
+
+
+    open func withDebugURL(_ debugURL: String?) -> VehicleJourneysRequestBuilder {
+        self.debugURL = debugURL
         return self
     }
 
     open func makeUrl() -> String {
         let path = "/vehicle_journeys"
 
-        let URLString = "https://api.navitia.io/v1" + path
+        let URLString = String(format: "%@%@", NavitiaSDKAPI.basePath, path)
         let url = NSURLComponents(string: URLString)
 
         let paramValues: [String: Any?] = [
@@ -1607,12 +1883,13 @@ open class VehicleJourneysRequestBuilder: NSObject {
             "since": self.since?.encodeToJSON(), 
             "until": self.until?.encodeToJSON(), 
             "disable_geojson": self.disableGeojson, 
-            "filter": self.filter
+            "filter": self.filter, 
+            "tags[]": self.tags
         ]
         url?.queryItems = APIHelper.mapValuesToQueryItems(values: paramValues)
         url?.percentEncodedQuery = url?.percentEncodedQuery?.replacingOccurrences(of: "+", with: "%2B")
 
-        return (url?.string ?? URLString)
+        return (debugURL ?? url?.string ?? URLString)
     }
 
     open func get(completion: @escaping ((_ data: VehicleJourneys?,_ error: Error?) -> Void)) {
