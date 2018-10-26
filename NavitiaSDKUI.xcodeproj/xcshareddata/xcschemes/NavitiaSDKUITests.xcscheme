@@ -21,6 +21,26 @@
                BlueprintName = "NavitiaSDKUITests"
                ReferencedContainer = "container:NavitiaSDKUI.xcodeproj">
             </BuildableReference>
+            <SkippedTests>
+               <Test
+                  Identifier = "IconsTests">
+               </Test>
+               <Test
+                  Identifier = "NavitiaWorkersTests">
+               </Test>
+               <Test
+                  Identifier = "ShowJourneyRoadmapPresenterTests/testDisruption()">
+               </Test>
+               <Test
+                  Identifier = "ShowJourneyRoadmapPresenterTests/testNotes()">
+               </Test>
+               <Test
+                  Identifier = "ShowJourneyRoadmapPresenterTests/testRidesharing()">
+               </Test>
+               <Test
+                  Identifier = "ShowJourneyRoadmapPresenterTests/testRidesharingStepView()">
+               </Test>
+            </SkippedTests>
          </TestableReference>
       </Testables>
       <AdditionalOptions>

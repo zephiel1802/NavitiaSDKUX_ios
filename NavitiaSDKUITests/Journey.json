@@ -210,12 +210,6 @@
           "duration" : 508,
           "path" : [
             {
-              "duration" : 8,
-              "direction" : 0,
-              "length" : 9,
-              "name" : "rue Hector Malot"
-            },
-            {
               "duration" : 107,
               "direction" : 0,
               "length" : 125,
@@ -4092,7 +4086,7 @@
             "value" : 0,
             "unit" : ""
           },
-          "duration" : 59,
+          "duration" : 190,
           "type" : "waiting",
           "id" : "section_3_1"
         },
@@ -16864,7 +16858,7 @@
     "current_datetime" : "20181019T170550",
     "car_direct_path" : {
       "co2_emission" : {
-        "value" : 128.5214268232,
+        "value" : 2568.2,
         "unit" : "gEC"
       }
     }

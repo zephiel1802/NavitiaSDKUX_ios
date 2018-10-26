@@ -21,7 +21,7 @@ internal class ShowJourneyRoadmapViewController: UIViewController, ShowJourneyRo
     @IBOutlet weak var scrollView: StackScrollView!
     
     internal var router: (NSObjectProtocol & ShowJourneyRoadmapRoutingLogic & ShowJourneyRoadmapDataPassing)?
-    private var interactor: ShowJourneyRoadmapBusinessLogic?
+    var interactor: ShowJourneyRoadmapBusinessLogic?
     private var mapViewModel: ShowJourneyRoadmap.GetMap.ViewModel?
     private var ridesharing: ShowJourneyRoadmap.GetRoadmap.ViewModel.Ridesharing?
     private var ridesharingJourneys: Journey?

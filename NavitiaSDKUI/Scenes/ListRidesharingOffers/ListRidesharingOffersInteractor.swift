@@ -45,7 +45,7 @@ internal class ListRidesharingOffersInteractor: ListRidesharingOffersBusinessLog
         presenter?.presentRidesharingOffers(response: response)
     }
     
-    private func getRidesharingJourneys(journeySections: [Section]?) -> [Journey]? {
+    internal func getRidesharingJourneys(journeySections: [Section]?) -> [Journey]? {
         guard let journeySections = journeySections else {
             return nil
         }
