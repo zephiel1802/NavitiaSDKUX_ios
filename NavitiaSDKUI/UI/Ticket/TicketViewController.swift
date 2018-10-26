@@ -54,10 +54,10 @@ import JustRideSDK
                     self._showTicketMasabi()
                     self._displayMasabiViewController()
                 case NavitiaSDKPartnersReturnCode.masabiAuthenticateError.getCode():
-                    self._informationViewController = self._setupInformationViewController(information:
-                        String(format: "%@\n\n%@ 200\nUnderlying network error\n",
-                               "please_contact_the_customer_service_with_the_following_information".localized(bundle: NavitiaSDKUI.shared.bundle),
-                               "code".localized(bundle: NavitiaSDKUI.shared.bundle)))
+                    self._informationViewController = self._setupInformationViewController(information: self._detailsPopInMasabi(statusCode: statusCode, data: data!))
+                    self._displayInformationViewController()
+                case NavitiaSDKPartnersReturnCode.masabiNetworkError.getCode():
+                    self._informationViewController = self._setupInformationViewController(information: self._detailsPopInMasabi(statusCode: statusCode, data: data!))
                     self._displayInformationViewController()
                 default:
                     self._informationViewController = self._setupInformationViewController(information: "an_error_occurred".localized(bundle: NavitiaSDKUI.shared.bundle))
@@ -69,6 +69,24 @@ import JustRideSDK
     
     override open func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
+    }
+    
+    private func _detailsPopInMasabi(   statusCode : Int,
+                                        data : [String: Any] ) -> String {
+        var masabiDetailString : String = ""
+        
+        switch data["code"] as! Int {
+        case 103, 106, 401:
+            masabiDetailString = "\("please_contact_the_customer_service_with_the_following_information".localized(bundle: NavitiaSDKUI.shared.bundle)).\n\n\("code".localized(bundle: NavitiaSDKUI.shared.bundle)) \(data["code"] as! Int)"
+        default:
+            masabiDetailString = "\("an_error_occurred".localized(bundle: NavitiaSDKUI.shared.bundle)).\n\n\("code".localized(bundle: NavitiaSDKUI.shared.bundle)) \(data["code"] as! Int)"
+        }
+        
+        if (data["code"] as! Int) == 200 || (data["code"] as! Int) == 900 {
+            masabiDetailString = "\(masabiDetailString)\n\(data["underlying"] as! String)"
+        }
+        
+        return masabiDetailString
     }
     
     private func _showTicketMasabi() {

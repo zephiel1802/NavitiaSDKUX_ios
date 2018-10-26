@@ -1,12 +1,16 @@
 PODS:
-  - JustRideSDK (0.4.4)
+  - JustRideSDK (0.4.6)
 
 DEPENDENCIES:
-  - JustRideSDK (= 0.4.4)
+  - JustRideSDK (= 0.4.6)
+
+SPEC REPOS:
+  https://github.com/Masabi/Podspecs.git:
+    - JustRideSDK
 
 SPEC CHECKSUMS:
-  JustRideSDK: 67963d9a51a1bb67f312bc9f9f0ecb1b41730133
+  JustRideSDK: ea16e17fb33b64ac036f9529edf0a91e711e5646
 
-PODFILE CHECKSUM: b2dc5f791d16b2cf97e926d3fc9db6b063229362
+PODFILE CHECKSUM: 673e047225133d6e6ce827b751f8ed010825ffb4
 
-COCOAPODS: 1.4.0
+COCOAPODS: 1.5.3

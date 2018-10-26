@@ -101,10 +101,11 @@ import Foundation
     
     internal func openSession(callbackSuccess: @escaping () -> Void, callbackError: @escaping (Int, [String: Any]?) -> Void) {
         NavitiaSDKPartnersRequestBuilder.post(stringUrl: "\(_getUrl())/sessions?mticket=true&authToken=\((NavitiaSDKPartners.shared.accountManagement as! KeolisAccountManagement)._accessToken)&hideMyAccount=true", header: _getHeader()) { (success, statusCode, data) in
-            
+            print(data)
             if success {
                 print("NavitiaSDKPartners/openSession : success")
                 self._token = (data!["token"] as! String)
+                self.cartId = (data!["basket"] as! String)
                 callbackSuccess()
             } else {
                 print("NavitiaSDKPartners/openSession : error")
@@ -121,7 +122,7 @@ import Foundation
     
     internal func addItemsInAPI(index : Int = 0, callbackSuccess : @escaping () -> Void, callbackError : @escaping (Int, [String: Any]?) -> Void) {
         NavitiaSDKPartnersRequestBuilder.post(stringUrl: "\(self._getUrl())/baskets/\(self.cartId)/items/?simulate=false", header: self._getConnectedHeader(), content: ["offer": ["id" : self.cart[index].bookOffer.id], "quantity" : self.cart[index].quantity], completion: { (success, statusCode, data) in
-
+            
             if success {
                 if self.cart.count == index + 1 { //isLast
                     callbackSuccess()
@@ -142,52 +143,43 @@ import Foundation
     
     public func getOffers(callbackSuccess : @escaping ([NavitiaBookOffer]) -> Void, callbackError : @escaping (Int, [String: Any]?) -> Void) {
         if NavitiaSDKPartners.shared.isConnected {
-                self.openSession(callbackSuccess: {
-                    NavitiaSDKPartnersRequestBuilder.get(returnArray: true, stringUrl: "\(self._getUrl())/offers?", header: self._getConnectedHeader()) { (success, statusCode, data) in
-                        
-                        if success {
-                            print("NavitiaSDKPartners/getOffers : success")
-                            self.stockedOffers = self.parseOffers(data: data!)
-                            callbackSuccess(self.stockedOffers)
+            self.openSession(callbackSuccess: {
+                NavitiaSDKPartnersRequestBuilder.get(returnArray: true, stringUrl: "\(self._getUrl())/offers?", header: self._getConnectedHeader()) { (success, statusCode, data) in
+                    
+                    if success {
+                        print("NavitiaSDKPartners/getOffers : success")
+                        self.stockedOffers = self.parseOffers(data: data!)
+                        callbackSuccess(self.stockedOffers)
+                    } else {
+                        print("NavitiaSDKPartners/getOffers : error")
+                        if NavitiaSDKPartnersReturnCode(rawValue: statusCode) != nil {
+                            
+                            callbackError(statusCode, NavitiaSDKPartnersReturnCode(rawValue: statusCode)?.getError())
                         } else {
-                            print("NavitiaSDKPartners/getOffers : error")
-                            if NavitiaSDKPartnersReturnCode(rawValue: statusCode) != nil {
-                                
-                                callbackError(statusCode, NavitiaSDKPartnersReturnCode(rawValue: statusCode)?.getError())
-                            } else {
-                                
-                                callbackError(NavitiaSDKPartnersReturnCode.internalServerError.getCode(), NavitiaSDKPartnersReturnCode.internalServerError.getError())
-                            }
+                            
+                            callbackError(NavitiaSDKPartnersReturnCode.internalServerError.getCode(), NavitiaSDKPartnersReturnCode.internalServerError.getError())
                         }
                     }
-                }, callbackError: { (statusCode, data) in
-                    NavitiaSDKPartners.shared.refreshToken(callbackSuccess: {
-                        self.openSession(callbackSuccess: {
-                            NavitiaSDKPartnersRequestBuilder.get(returnArray: true, stringUrl: "\(self._getUrl())/offers?", header: self._getConnectedHeader()) { (success, statusCode, data) in
-                                if success {
-                                    print("NavitiaSDKPartners/getOffers : success")
-                                    self.stockedOffers = self.parseOffers(data: data!)
-                                    callbackSuccess(self.stockedOffers)
+                }
+            }, callbackError: { (statusCode, data) in
+                NavitiaSDKPartners.shared.refreshToken(callbackSuccess: {
+                    self.openSession(callbackSuccess: {
+                        NavitiaSDKPartnersRequestBuilder.get(returnArray: true, stringUrl: "\(self._getUrl())/offers?", header: self._getConnectedHeader()) { (success, statusCode, data) in
+                            if success {
+                                print("NavitiaSDKPartners/getOffers : success")
+                                self.stockedOffers = self.parseOffers(data: data!)
+                                callbackSuccess(self.stockedOffers)
+                            } else {
+                                print("NavitiaSDKPartners/getOffers : error")
+                                if NavitiaSDKPartnersReturnCode(rawValue: statusCode) != nil {
+                                    
+                                    callbackError(statusCode, NavitiaSDKPartnersReturnCode(rawValue: statusCode)?.getError())
                                 } else {
-                                    print("NavitiaSDKPartners/getOffers : error")
-                                    if NavitiaSDKPartnersReturnCode(rawValue: statusCode) != nil {
-                                        
-                                        callbackError(statusCode, NavitiaSDKPartnersReturnCode(rawValue: statusCode)?.getError())
-                                    } else {
-                                        
-                                        callbackError(NavitiaSDKPartnersReturnCode.internalServerError.getCode(), NavitiaSDKPartnersReturnCode.internalServerError.getError())
-                                    }
+                                    
+                                    callbackError(NavitiaSDKPartnersReturnCode.internalServerError.getCode(), NavitiaSDKPartnersReturnCode.internalServerError.getError())
                                 }
                             }
-                        }, callbackError: { (statusCode, data) in
-                            if NavitiaSDKPartnersReturnCode(rawValue: statusCode) != nil {
-                                
-                                callbackError(statusCode, NavitiaSDKPartnersReturnCode(rawValue: statusCode)?.getError())
-                            } else {
-                                
-                                callbackError(NavitiaSDKPartnersReturnCode.internalServerError.getCode(), NavitiaSDKPartnersReturnCode.internalServerError.getError())
-                            }
-                        })
+                        }
                     }, callbackError: { (statusCode, data) in
                         if NavitiaSDKPartnersReturnCode(rawValue: statusCode) != nil {
                             
@@ -197,7 +189,16 @@ import Foundation
                             callbackError(NavitiaSDKPartnersReturnCode.internalServerError.getCode(), NavitiaSDKPartnersReturnCode.internalServerError.getError())
                         }
                     })
+                }, callbackError: { (statusCode, data) in
+                    if NavitiaSDKPartnersReturnCode(rawValue: statusCode) != nil {
+                        
+                        callbackError(statusCode, NavitiaSDKPartnersReturnCode(rawValue: statusCode)?.getError())
+                    } else {
+                        
+                        callbackError(NavitiaSDKPartnersReturnCode.internalServerError.getCode(), NavitiaSDKPartnersReturnCode.internalServerError.getError())
+                    }
                 })
+            })
         } else {
             NavitiaSDKPartners.shared.createAccount(callbackSuccess: {
                 self.openSession(callbackSuccess: {
@@ -387,46 +388,29 @@ import Foundation
         
         NavitiaSDKPartners.shared.refreshToken(callbackSuccess: {
             self.openSession(callbackSuccess: {
-                NavitiaSDKPartnersRequestBuilder.post(stringUrl: "\(self._getUrl())/baskets", header: self._getConnectedHeader()) { (success, statusCode, data) in
-                    if success && data != nil {
-                        print("NavitiaSDKPartners/createBasket : success")
-                        self.cartId = data!["id"] as! String
-                        self.addItemsInAPI(callbackSuccess: {
-                            
-                            print("NavitiaSDKPartners/addToBasket : success")
-                            NavitiaSDKPartnersRequestBuilder.get(stringUrl: "\(self._getUrl())/baskets/\(self.cartId)/validation", header: self._getConnectedHeader(), completion: { (success, statusCode, data) in
-                                if success {
-                                    callbackSuccess(self.cart)
-                                } else {
-                                    if NavitiaSDKPartnersReturnCode(rawValue: statusCode) != nil {
-                                        
-                                        callbackError(statusCode, NavitiaSDKPartnersReturnCode(rawValue: statusCode)?.getError())
-                                    } else {
-                                        
-                                        callbackError(NavitiaSDKPartnersReturnCode.internalServerError.getCode(), NavitiaSDKPartnersReturnCode.internalServerError.getError())
-                                    }
-                                }
-                            })
-                        }, callbackError: {(statusCode, data) in
-                            
-                            print("NavitiaSDKPartners/addToBasket : error")
-                            var error : NavitiaSDKPartnersReturnCode
-                            if statusCode == 400 && ((data!["array"] as! [[String: Any]])[0]["code"] as! Int) == 2002 {
-                                error = NavitiaSDKPartnersReturnCode.maximumAmountReached
-                                callbackError(error.getCode(), error.getError())
+                self.addItemsInAPI(callbackSuccess: {
+                    print("NavitiaSDKPartners/addToBasket : success")
+                    NavitiaSDKPartnersRequestBuilder.get(stringUrl: "\(self._getUrl())/baskets/\(self.cartId)/validation", header: self._getConnectedHeader(), completion: { (success, statusCode, data) in
+                        if success {
+                            callbackSuccess(self.cart)
+                        } else {
+                            if NavitiaSDKPartnersReturnCode(rawValue: statusCode) != nil {
+                                
+                                callbackError(statusCode, NavitiaSDKPartnersReturnCode(rawValue: statusCode)?.getError())
                             } else {
-                                if NavitiaSDKPartnersReturnCode(rawValue: statusCode) != nil {
-                                    
-                                    callbackError(statusCode, NavitiaSDKPartnersReturnCode(rawValue: statusCode)?.getError())
-                                } else {
-                                    
-                                    callbackError(NavitiaSDKPartnersReturnCode.internalServerError.getCode(), NavitiaSDKPartnersReturnCode.internalServerError.getError())
-                                }
+                                
+                                callbackError(NavitiaSDKPartnersReturnCode.internalServerError.getCode(), NavitiaSDKPartnersReturnCode.internalServerError.getError())
                             }
-                        })
+                        }
+                    })
+                }, callbackError: {(statusCode, data) in
+                    
+                    print("NavitiaSDKPartners/addToBasket : error")
+                    var error : NavitiaSDKPartnersReturnCode
+                    if statusCode == 400 && ((data!["array"] as! [[String: Any]])[0]["code"] as! Int) == 2002 {
+                        error = NavitiaSDKPartnersReturnCode.maximumAmountReached
+                        callbackError(error.getCode(), error.getError())
                     } else {
-                        
-                        print("NavitiaSDKPartners/createBasket : error")
                         if NavitiaSDKPartnersReturnCode(rawValue: statusCode) != nil {
                             
                             callbackError(statusCode, NavitiaSDKPartnersReturnCode(rawValue: statusCode)?.getError())
@@ -435,7 +419,7 @@ import Foundation
                             callbackError(NavitiaSDKPartnersReturnCode.internalServerError.getCode(), NavitiaSDKPartnersReturnCode.internalServerError.getError())
                         }
                     }
-                }
+                })
             }, callbackError: { (statusCode, data) in
                 if NavitiaSDKPartnersReturnCode(rawValue: statusCode) != nil {
                     
@@ -455,7 +439,7 @@ import Foundation
                 callbackError(NavitiaSDKPartnersReturnCode.internalServerError.getCode(), NavitiaSDKPartnersReturnCode.internalServerError.getError())
             }
         })
-
+        
     }
     
     public func resetCart(callbackSuccess : @escaping () -> Void, callbackError : @escaping (Int, [String: Any]?) -> Void) {
@@ -476,9 +460,9 @@ import Foundation
             return
         }
         
-        let content : [String: Any] = [ "contactInfo" : [ "firstName": (NavitiaSDKPartners.shared.isAnonymous ? "Madame" :
-                                                            NavitiaSDKPartners.shared.userInfo.firstName),
-                                                          "lastName": (NavitiaSDKPartners.shared.isAnonymous ? "Monsieur" :
+        let content : [String: Any] = [ "contactInfo" : [ "firstName": (NavitiaSDKPartners.shared.isAnonymous ? "" :
+            NavitiaSDKPartners.shared.userInfo.firstName),
+                                                          "lastName": (NavitiaSDKPartners.shared.isAnonymous ? "" :
                                                             NavitiaSDKPartners.shared.userInfo.lastName),
                                                           "email": email,
                                                           "emailconfirmation": email ],

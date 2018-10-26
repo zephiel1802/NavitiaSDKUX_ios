@@ -678,8 +678,9 @@ import JustRideSDK
             } else {
                 
                 print("NavitiaSDKPartners/transformAccount: error")
-                
-                if NavitiaSDKPartnersReturnCode(rawValue: statusCode) != nil {
+                if data != nil && ((data!["reponse"]["compteRendu"]["codeRetour"].element?.text) ?? "") == "0003" {
+                    callbackError(NavitiaSDKPartnersReturnCode.infoAlreadyUsed.getCode(), NavitiaSDKPartnersReturnCode.infoAlreadyUsed.getError())
+                } else if NavitiaSDKPartnersReturnCode(rawValue: statusCode) != nil {
                     callbackError(statusCode, NavitiaSDKPartnersReturnCode(rawValue: statusCode)?.getError())
                 } else {
                     callbackError(NavitiaSDKPartnersReturnCode.internalServerError.getCode(), NavitiaSDKPartnersReturnCode.internalServerError.getError())

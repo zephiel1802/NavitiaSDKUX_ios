@@ -33,6 +33,7 @@
     case masabiAuthenticateError = 9023 // Masabi authenticate error
     case failedToMigrate = 9024 // fail on migration
     case internalServerError = 9025 // error on api call/not handle
+    case masabiNetworkError = 9026 //
 
     public static let all: [String: Int] = [
         "notLogged" : notLogged.rawValue,
@@ -59,7 +60,8 @@
         "masabiAuthenticateError" : masabiAuthenticateError.rawValue,
         "failedToMigrate" : failedToMigrate.rawValue,
         "maximumAmountReached" : maximumAmountReached.rawValue,
-        "internalServerError" : internalServerError.rawValue
+        "internalServerError" : internalServerError.rawValue,
+        "masabiNetworkError" : masabiNetworkError.rawValue
     ]
     
     func getError() -> [String: Any] {
@@ -139,6 +141,9 @@
             break
         case .internalServerError:
             error["error"] = "Internal server error"
+            break
+        case .masabiNetworkError:
+            error["error"] = "Masabi network error"
             break
         }
         return error
