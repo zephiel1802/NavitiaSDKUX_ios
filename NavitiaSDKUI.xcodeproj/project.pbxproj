@@ -279,6 +279,9 @@
 		84C000372180B773003C8321 /* ShowJourneyRoadmapInteractorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C000362180B773003C8321 /* ShowJourneyRoadmapInteractorTests.swift */; };
 		84C98EFB21835E4600A09F5B /* NavitiaWorkersTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C98EFA21835E4600A09F5B /* NavitiaWorkersTests.swift */; };
 		84C98EFF21835EC300A09F5B /* IconsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C98EFE21835EC300A09F5B /* IconsTests.swift */; };
+		84C98F012183638600A09F5B /* ShowJourneyRoadmapViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C98F002183638600A09F5B /* ShowJourneyRoadmapViewControllerTests.swift */; };
+		84C98F03218363A200A09F5B /* ListRidesharingOffersViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C98F02218363A200A09F5B /* ListRidesharingOffersViewControllerTests.swift */; };
+		84C98F052183645100A09F5B /* ListJourneysViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C98F042183645100A09F5B /* ListJourneysViewControllerTests.swift */; };
 		84D0FA94210094A900EB420A /* Section+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D0FA93210094A900EB420A /* Section+Extension.swift */; };
 		84D0FA96210094B300EB420A /* DisruptionItemView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84D0FA95210094B300EB420A /* DisruptionItemView.xib */; };
 		84D0FA98210094B900EB420A /* DisruptionItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D0FA97210094B900EB420A /* DisruptionItemView.swift */; };
@@ -578,6 +581,9 @@
 		84C000362180B773003C8321 /* ShowJourneyRoadmapInteractorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ShowJourneyRoadmapInteractorTests.swift; path = NavitiaSDKUITests/Scenes/ShowJourneyRoadmap/ShowJourneyRoadmapInteractorTests.swift; sourceTree = SOURCE_ROOT; };
 		84C98EFA21835E4600A09F5B /* NavitiaWorkersTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = NavitiaWorkersTests.swift; path = NavitiaSDKUITests/Workers/NavitiaWorkersTests.swift; sourceTree = SOURCE_ROOT; };
 		84C98EFE21835EC300A09F5B /* IconsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = IconsTests.swift; path = NavitiaSDKUITests/Scenes/Util/IconsTests.swift; sourceTree = SOURCE_ROOT; };
+		84C98F002183638600A09F5B /* ShowJourneyRoadmapViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowJourneyRoadmapViewControllerTests.swift; sourceTree = "<group>"; };
+		84C98F02218363A200A09F5B /* ListRidesharingOffersViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ListRidesharingOffersViewControllerTests.swift; path = NavitiaSDKUITests/Scenes/ListRidesharingOffers/ListRidesharingOffersViewControllerTests.swift; sourceTree = SOURCE_ROOT; };
+		84C98F042183645100A09F5B /* ListJourneysViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ListJourneysViewControllerTests.swift; path = NavitiaSDKUITests/Scenes/ListJourneys/ListJourneysViewControllerTests.swift; sourceTree = SOURCE_ROOT; };
 		84D0FA93210094A900EB420A /* Section+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Section+Extension.swift"; sourceTree = "<group>"; };
 		84D0FA95210094B300EB420A /* DisruptionItemView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DisruptionItemView.xib; sourceTree = "<group>"; };
 		84D0FA97210094B900EB420A /* DisruptionItemView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DisruptionItemView.swift; sourceTree = "<group>"; };
@@ -1175,8 +1181,9 @@
 		84C000272180A59E003C8321 /* ListJourneys */ = {
 			isa = PBXGroup;
 			children = (
-				8432623D2180C0E100E70971 /* ListJourneysPresenterTests.swift */,
+				84C98F042183645100A09F5B /* ListJourneysViewControllerTests.swift */,
 				84C000322180B259003C8321 /* ListJourneysInteractorTests.swift */,
+				8432623D2180C0E100E70971 /* ListJourneysPresenterTests.swift */,
 			);
 			path = ListJourneys;
 			sourceTree = "<group>";
@@ -1184,8 +1191,9 @@
 		84C0002A2180A6DA003C8321 /* ListRidesharingOffers */ = {
 			isa = PBXGroup;
 			children = (
-				8433FD6C2181C5070014A17D /* ListRidesharingOffersPresenterTests.swift */,
+				84C98F02218363A200A09F5B /* ListRidesharingOffersViewControllerTests.swift */,
 				84C000342180B5A1003C8321 /* ListRidesharingOffersInteractorTests.swift */,
+				8433FD6C2181C5070014A17D /* ListRidesharingOffersPresenterTests.swift */,
 			);
 			path = ListRidesharingOffers;
 			sourceTree = "<group>";
@@ -1193,8 +1201,9 @@
 		84C0002B2180A6E7003C8321 /* ShowJourneyRoadmap */ = {
 			isa = PBXGroup;
 			children = (
-				8433FD6E2181EE310014A17D /* ShowJourneyRoadmapPresenterTests.swift */,
+				84C98F002183638600A09F5B /* ShowJourneyRoadmapViewControllerTests.swift */,
 				84C000362180B773003C8321 /* ShowJourneyRoadmapInteractorTests.swift */,
+				8433FD6E2181EE310014A17D /* ShowJourneyRoadmapPresenterTests.swift */,
 			);
 			path = ShowJourneyRoadmap;
 			sourceTree = "<group>";
@@ -1624,10 +1633,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				84C98EFB21835E4600A09F5B /* NavitiaWorkersTests.swift in Sources */,
+				84C98F052183645100A09F5B /* ListJourneysViewControllerTests.swift in Sources */,
+				84C98F012183638600A09F5B /* ShowJourneyRoadmapViewControllerTests.swift in Sources */,
 				84C000372180B773003C8321 /* ShowJourneyRoadmapInteractorTests.swift in Sources */,
 				84C000332180B259003C8321 /* ListJourneysInteractorTests.swift in Sources */,
 				8433FD6F2181EE310014A17D /* ShowJourneyRoadmapPresenterTests.swift in Sources */,
 				8432623E2180C0E100E70971 /* ListJourneysPresenterTests.swift in Sources */,
+				84C98F03218363A200A09F5B /* ListRidesharingOffersViewControllerTests.swift in Sources */,
 				84C000352180B5A1003C8321 /* ListRidesharingOffersInteractorTests.swift in Sources */,
 				8433FD6D2181C5070014A17D /* ListRidesharingOffersPresenterTests.swift in Sources */,
 				84C98EFF21835EC300A09F5B /* IconsTests.swift in Sources */,

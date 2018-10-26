@@ -26,6 +26,12 @@
                   Identifier = "IconsTests">
                </Test>
                <Test
+                  Identifier = "ListJourneysViewControllerTests">
+               </Test>
+               <Test
+                  Identifier = "ListRidesharingOffersViewControllerTests">
+               </Test>
+               <Test
                   Identifier = "NavitiaWorkersTests">
                </Test>
                <Test
@@ -39,6 +45,9 @@
                </Test>
                <Test
                   Identifier = "ShowJourneyRoadmapPresenterTests/testRidesharingStepView()">
+               </Test>
+               <Test
+                  Identifier = "ShowJourneyRoadmapViewControllerTests">
                </Test>
             </SkippedTests>
          </TestableReference>

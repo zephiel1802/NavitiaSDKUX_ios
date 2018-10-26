@@ -2,7 +2,6 @@
 //  IconsTests.swift
 //  NavitiaSDKUITests
 //
-//  Created by Flavien Sicard on 26/10/2018.
 //  Copyright © 2018 kisio. All rights reserved.
 //
 
