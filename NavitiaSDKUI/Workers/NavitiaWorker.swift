@@ -7,9 +7,16 @@
 
 import Foundation
 
-class NavitiaWorker {
+typealias NavitiaFetchJourneysCompletionHandler = ([Journey]?, [Journey]?, [Disruption]?, [Note]?, Context?) -> Void
+
+protocol NavitiaWorkerProtocol {
     
-    func fetchJourneys(journeysRequest: JourneysRequest, completionHandler: @escaping ([Journey]?, [Journey]?, [Disruption]?, [Note]?, Context?) -> Void) {
+    func fetchJourneys(journeysRequest: JourneysRequest, completionHandler: @escaping NavitiaFetchJourneysCompletionHandler)
+}
+
+class NavitiaWorker: NavitiaWorkerProtocol {
+    
+    func fetchJourneys(journeysRequest: JourneysRequest, completionHandler: @escaping NavitiaFetchJourneysCompletionHandler) {
         if NavitiaSDKUI.shared.navitiaSDK != nil {
             let journeyRequestBuilder = NavitiaSDKUI.shared.navitiaSDK.journeysApi.newJourneysRequestBuilder()
                 .withFrom(journeysRequest.originId)
@@ -38,7 +45,7 @@ class NavitiaWorker {
         }
     }
 
-    private func parseJourneyResponse(result: Journeys) -> (journeys: [Journey]?, Ridesharing: [Journey]?, disruptions: [Disruption]?, notes: [Note]?, context: Context?) {
+    internal func parseJourneyResponse(result: Journeys) -> (journeys: [Journey]?, Ridesharing: [Journey]?, disruptions: [Disruption]?, notes: [Note]?, context: Context?) {
         var journeys: [Journey] = []
         var ridesharing: [Journey] = []
         

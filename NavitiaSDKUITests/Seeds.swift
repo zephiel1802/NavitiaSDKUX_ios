@@ -36,34 +36,17 @@ class Seeds {
             }
             
             let journeys = Mapper<Journeys>().map(JSONString: jsonString)
+            let journeyParsed = NavitiaWorker.init().parseJourneyResponse(result: journeys!)
             
-            parseJourneyResponse(result: journeys)
+            self.journeys = journeyParsed.journeys
+            self.ridesharing = journeyParsed.Ridesharing
+            self.disruptions = journeyParsed.disruptions
+            self.notes = journeyParsed.notes
+            self.context = journeyParsed.context
+            
             return journeys
         } catch {
             return nil
-        }
-    }
-    
-    private func parseJourneyResponse(result: Journeys?) {
-        if let result = result {
-            var journeys: [Journey] = []
-            var ridesharing: [Journey] = []
-            
-            if let allJourneys = result.journeys {
-                for journey in allJourneys {
-                    if journey.isRidesharing {
-                        ridesharing.append(journey)
-                    } else {
-                        journeys.append(journey)
-                    }
-                }
-            }
-            
-            self.journeys = journeys
-            self.ridesharing = ridesharing
-            self.disruptions = result.disruptions
-            self.notes = result.notes
-            self.context = result.context
         }
     }
 }
