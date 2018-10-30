@@ -19,6 +19,8 @@ class ListRidesharingOffersPresenterTests: XCTestCase {
     
     override func setUp() {
         super.setUp()
+        
+        setupNavitiaSDKUI()
         setupListRidesharingOffersPresenter()
     }
     
@@ -28,9 +30,11 @@ class ListRidesharingOffersPresenterTests: XCTestCase {
     
     // MARK: - Test setup
     
-    func setupListRidesharingOffersPresenter() {
+    func setupNavitiaSDKUI() {
         NavitiaSDKUI.shared.bundle = Bundle(identifier: "org.kisio.NavitiaSDKUI")
-        
+    }
+    
+    func setupListRidesharingOffersPresenter() {
         sut = ListRidesharingOffersPresenter()
         seeds = Seeds()
     }
@@ -67,14 +71,14 @@ class ListRidesharingOffersPresenterTests: XCTestCase {
         sut.viewController = listRidesharingOffersDisplayLogicSpy
         
         guard let response = getRidesharingOfferstResponse() else {
-            XCTFail("Error json String")
+            XCTFail("getRidesharingOfferstResponse() - Error")
             return
         }
         
         sut.presentRidesharingOffers(response: response)
         
         guard let viewModel = listRidesharingOffersDisplayLogicSpy.viewModel else {
-            XCTFail("Error json String")
+            XCTFail("Get view model for ridesharing offers - Error")
             return
         }
         
@@ -90,7 +94,6 @@ class ListRidesharingOffersPresenterTests: XCTestCase {
             XCTAssertEqual(first.ratingCount, 0)
             XCTAssertEqual(first.seatsCount, 4)
             XCTAssertEqual(first.price, "0.0")
-            print(first.price)
         }
     }
     
@@ -99,7 +102,7 @@ class ListRidesharingOffersPresenterTests: XCTestCase {
         sut.viewController = listRidesharingOffersDisplayLogicSpy
         
         guard let response = getRidesharingOfferstResponse() else {
-            XCTFail("Error json String")
+            XCTFail("getRidesharingOfferstResponse() - Error")
             return
         }
 

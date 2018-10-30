@@ -42,7 +42,7 @@ class ListRidesharingOffersInteractorTests: XCTestCase {
     
     // MARK: - Tests
     
-    func testFetchJourneysShouldAskNavitiaWorkerToFetchJourneysAndPresenterToFormatResult() {
+    func testGetRidesharingOffersAndPresenterToFormatResult() {
         let listRidesharingOffersPresentationLogicSpy = ListRidesharingOffersPresentationLogicSpy()
         sut.presenter = listRidesharingOffersPresentationLogicSpy
         sut.journey = Journey()

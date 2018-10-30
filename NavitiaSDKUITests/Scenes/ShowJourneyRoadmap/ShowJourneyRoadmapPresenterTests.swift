@@ -102,7 +102,7 @@ class ShowJourneyRoadmapPresenterTests: XCTestCase {
         sut.viewController = showJourneyRoadmapDisplayLogicSpy
         
         guard let response = getRoadmapResponse() else {
-            XCTFail("Error json String")
+            XCTFail("getRoadmapResponse() - Error")
             return nil
         }
         
@@ -113,30 +113,36 @@ class ShowJourneyRoadmapPresenterTests: XCTestCase {
     
     func testRidesharing() {}
     
-    func testDeparture() {
-        XCTAssertEqual(viewModelRoadmap.departure.time, "17:05")
-        XCTAssertEqual(viewModelRoadmap.departure.mode, .departure)
-        XCTAssertEqual(viewModelRoadmap.departure.information, "20 rue Hector Malot (Paris)")
-        XCTAssertNil(viewModelRoadmap.departure.calorie)
+    func testDepartureStep() {
+        let departureViewModel = viewModelRoadmap.departure
+        
+        XCTAssertEqual(departureViewModel.time, "17:05")
+        XCTAssertEqual(departureViewModel.mode, .departure)
+        XCTAssertEqual(departureViewModel.information, "20 rue Hector Malot (Paris)")
+        XCTAssertNil(departureViewModel.calorie)
     }
     
-    func testArrival() {
-        XCTAssertEqual(viewModelRoadmap.arrival.time, "17:14")
-        XCTAssertEqual(viewModelRoadmap.arrival.mode, .arrival)
-        XCTAssertEqual(viewModelRoadmap.arrival.information, "MAIRIE DE BEAUCOUZE (Beaucouzé)")
-        XCTAssertEqual(viewModelRoadmap.arrival.calorie, "36")
+    func testArrivalStep() {
+        let arrivalViewModel = viewModelRoadmap.arrival
+        
+        XCTAssertEqual(arrivalViewModel.time, "17:14")
+        XCTAssertEqual(arrivalViewModel.mode, .arrival)
+        XCTAssertEqual(arrivalViewModel.information, "MAIRIE DE BEAUCOUZE (Beaucouzé)")
+        XCTAssertEqual(arrivalViewModel.calorie, "36")
     }
     
-    func testEmission() {
-        XCTAssertEqual(viewModelRoadmap.emission.car?.value, 2.5682)
-        XCTAssertEqual(viewModelRoadmap.emission.car?.unit, "Kg CO2")
-        XCTAssertEqual(viewModelRoadmap.emission.journey.value, 0)
-        XCTAssertEqual(viewModelRoadmap.emission.journey.unit, "g CO2")
+    func testEmissionStep() {
+        let emissionViewModel = viewModelRoadmap.emission
+        
+        XCTAssertEqual(emissionViewModel.car?.value, 2.5682)
+        XCTAssertEqual(emissionViewModel.car?.unit, "Kg CO2")
+        XCTAssertEqual(emissionViewModel.journey.value, 0)
+        XCTAssertEqual(emissionViewModel.journey.unit, "g CO2")
     }
     
     func testPaths() {
         guard let pathViewMode = viewModelRoadmap.sections?[sectionIndex.walking].path else {
-            XCTFail("Error json String")
+            XCTFail("Get path for walking section - Error")
             return
         }
         
@@ -150,7 +156,7 @@ class ShowJourneyRoadmapPresenterTests: XCTestCase {
     
     func testStands() {
         guard let standsViewModel = viewModelRoadmap.sections?[sectionIndex.bssRentStands].poi?.stands else {
-            XCTFail("Error json String")
+            XCTFail("Get stands for bss rent section - Error")
             return
         }
         
@@ -160,7 +166,7 @@ class ShowJourneyRoadmapPresenterTests: XCTestCase {
     
     func testPoi() {
         guard let poiViewModel = viewModelRoadmap.sections?[sectionIndex.bssRentStands].poi else {
-            XCTFail("Error json String")
+            XCTFail("Get poi for bss rent section - Error")
             return
         }
         
@@ -178,22 +184,21 @@ class ShowJourneyRoadmapPresenterTests: XCTestCase {
     
     func testDisplayInformations() {
         guard let displayInformationsViewModel = viewModelRoadmap.sections?[sectionIndex.publicTransport].displayInformations else {
-            XCTFail("Error json String")
+            XCTFail("Get display informations for public transport - Error")
             return
         }
         
         XCTAssertEqual(displayInformationsViewModel.commercialMode, "Métro")
-        //XCTAssertEqual(displayInformationsViewModel.color, "Métro")
         XCTAssertEqual(displayInformationsViewModel.directionTransit, "La Défense (Grande Arche) (Puteaux)")
         XCTAssertEqual(displayInformationsViewModel.code, "1")
         XCTAssertEqual(displayInformationsViewModel.network, "METRO")
     }
     
-    func testWalkingStepView() {
+    func testWalkingStepsView() {
         guard let walkingViewModel = viewModelRoadmap.sections?[sectionIndex.walking],
             let walkingTwoViewModel = viewModelRoadmap.sections?[sectionIndex.walkingTwo],
             let walkingThreeViewModel = viewModelRoadmap.sections?[sectionIndex.walkingThree] else {
-            XCTFail("Error json String")
+            XCTFail("Get view models for walking section - Error")
             return
         }
 
@@ -211,20 +216,21 @@ class ShowJourneyRoadmapPresenterTests: XCTestCase {
         XCTAssertNil(walkingViewModel.waiting)
         XCTAssertNil(walkingViewModel.poi)
         
-        XCTAssertEqual(walkingViewModel.from, "20 rue Hector Malot (Paris)") // TODO: Set with nil
-        XCTAssertEqual(walkingViewModel.startTime, "17:05") // TODO: Set with nil
-        XCTAssertEqual(walkingViewModel.endTime, "17:14") // TODO: Set with nil
-        XCTAssertEqual(walkingViewModel.stopDate.count, 0) // TODO: Set with nil
-        XCTAssertNotNil(walkingViewModel.displayInformations) // TODO: Set with nil
-        XCTAssertEqual(walkingViewModel.disruptionsClean.count, 0) // TODO: Set with nil
-        XCTAssertEqual(walkingViewModel.notes.count, 0) // TODO: Set with nil
+        // TODO: Set with nil
+        XCTAssertEqual(walkingViewModel.from, "20 rue Hector Malot (Paris)")
+        XCTAssertEqual(walkingViewModel.startTime, "17:05")
+        XCTAssertEqual(walkingViewModel.endTime, "17:14")
+        XCTAssertEqual(walkingViewModel.stopDate.count, 0)
+        XCTAssertEqual(walkingViewModel.disruptionsClean.count, 0)
+        XCTAssertEqual(walkingViewModel.notes.count, 0)
+        XCTAssertNotNil(walkingViewModel.displayInformations)
     }
     
-    func testBikeStepView() {
+    func testBikeStepsView() {
         guard let bikeViewModel = viewModelRoadmap.sections?[sectionIndex.bike],
             let bikeTwoViewModel = viewModelRoadmap.sections?[sectionIndex.bikeTwo],
             let bikeThreeViewModel = viewModelRoadmap.sections?[sectionIndex.bikeThree] else {
-            XCTFail("Error json String")
+            XCTFail("Get view models for bike section - Error")
             return
         }
         
@@ -233,29 +239,30 @@ class ShowJourneyRoadmapPresenterTests: XCTestCase {
         XCTAssertEqual(bikeViewModel.to, "Cinema Mk2 Bastille (Paris)")
         XCTAssertEqual(bikeViewModel.actionDescription, "To")
         XCTAssertEqual(bikeViewModel.path?.count, 3)
-        XCTAssertNil(bikeViewModel.waiting)
-        XCTAssertNil(bikeViewModel.poi)
         XCTAssertEqual(bikeViewModel.icon, "bike")
         XCTAssertEqual(bikeViewModel.bssRealTime, false)
         XCTAssertEqual(bikeViewModel.background, false)
         XCTAssertEqual(bikeViewModel.duration, "A 2 minutes ride")
         XCTAssertEqual(bikeTwoViewModel.duration, "A 1 minute ride")
         XCTAssertEqual(bikeThreeViewModel.duration, "Less than a minute ride")
+        XCTAssertNil(bikeViewModel.waiting)
+        XCTAssertNil(bikeViewModel.poi)
 
-        XCTAssertEqual(bikeViewModel.disruptionsClean.count, 0) // TODO: Set with nil
-        XCTAssertEqual(bikeViewModel.notes.count, 0) // TODO: Set with nil
-        XCTAssertEqual(bikeViewModel.stopDate.count, 0) // TODO: Set with nil
-        XCTAssertNotNil(bikeViewModel.displayInformations) // TODO: Set with nil
-        XCTAssertEqual(bikeViewModel.startTime, "17:06") // TODO: Set with nil
-        XCTAssertEqual(bikeViewModel.endTime, "17:09") // TODO: Set with nil
-        XCTAssertEqual(bikeViewModel.from, "89 avenue Ledru Rollin (Paris)") // TODO: Set with nil
+        // TODO: Set with nil
+        XCTAssertEqual(bikeViewModel.disruptionsClean.count, 0)
+        XCTAssertEqual(bikeViewModel.notes.count, 0)
+        XCTAssertEqual(bikeViewModel.stopDate.count, 0)
+        XCTAssertEqual(bikeViewModel.startTime, "17:06")
+        XCTAssertEqual(bikeViewModel.endTime, "17:09")
+        XCTAssertEqual(bikeViewModel.from, "89 avenue Ledru Rollin (Paris)")
+        XCTAssertNotNil(bikeViewModel.displayInformations)
     }
     
-    func testCarStepView() {
+    func testCarStepsView() {
         guard let carViewModel = viewModelRoadmap.sections?[sectionIndex.car],
             let carTwoViewModel = viewModelRoadmap.sections?[sectionIndex.carTwo],
             let carThreeViewModel = viewModelRoadmap.sections?[sectionIndex.carThree] else {
-            XCTFail("Error json String")
+            XCTFail("Get view models for car section - Error")
             return
         }
         
@@ -264,173 +271,181 @@ class ShowJourneyRoadmapPresenterTests: XCTestCase {
         XCTAssertEqual(carViewModel.to, "Parc relais Henri Fréville")
         XCTAssertEqual(carViewModel.actionDescription, "To")
         XCTAssertEqual(carViewModel.path?.count, 17)
-        XCTAssertNil(carViewModel.waiting)
-        XCTAssertNil(carViewModel.poi)
         XCTAssertEqual(carViewModel.icon, "car")
         XCTAssertEqual(carViewModel.bssRealTime, false)
         XCTAssertEqual(carViewModel.background, false)
         XCTAssertEqual(carViewModel.duration, "A 3 minutes drive")
         XCTAssertEqual(carTwoViewModel.duration, "A 1 minute drive")
         XCTAssertEqual(carThreeViewModel.duration, "Less than a minute drive")
+        XCTAssertNil(carViewModel.waiting)
+        XCTAssertNil(carViewModel.poi)
 
-        XCTAssertEqual(carViewModel.from, "Gares (Rennes)") // TODO: Set with nil
-        XCTAssertEqual(carViewModel.stopDate.count, 0) // TODO: Set with nil
-        XCTAssertNotNil(carViewModel.displayInformations) // TODO: Set with nil
-        XCTAssertEqual(carViewModel.disruptionsClean.count, 0) // TODO: Set with nil
-        XCTAssertEqual(carViewModel.notes.count, 0) // TODO: Set with nil
-        XCTAssertEqual(carViewModel.startTime, "10:08") // TODO: Set with nil
-        XCTAssertEqual(carViewModel.endTime, "10:11") // TODO: Set with nil
+        // TODO: Set with nil
+        XCTAssertEqual(carViewModel.from, "Gares (Rennes)")
+        XCTAssertEqual(carViewModel.stopDate.count, 0)
+        XCTAssertEqual(carViewModel.disruptionsClean.count, 0)
+        XCTAssertEqual(carViewModel.notes.count, 0)
+        XCTAssertEqual(carViewModel.startTime, "10:08")
+        XCTAssertEqual(carViewModel.endTime, "10:11")
+        XCTAssertNotNil(carViewModel.displayInformations)
     }
     
     func testRidesharingStepView() {}
     
-    func testBssRentStepView() {
+    func testBssRentStepsView() {
         guard let bssRentStandsViewModel = viewModelRoadmap.sections?[sectionIndex.bssRentStands],
             let bssRentViewModel = viewModelRoadmap.sections?[sectionIndex.bssRent] else {
-            XCTFail("Error json String")
+            XCTFail("Get view models for bss rent section - Error")
             return
         }
         
         XCTAssertEqual(bssRentStandsViewModel.type, .bssRent)
-        XCTAssertNil(bssRentStandsViewModel.mode)
-        XCTAssertEqual(bssRentStandsViewModel.from, " (Dijon)")
         XCTAssertEqual(bssRentStandsViewModel.to, "Gare Dijon Ville (Dijon)")
-        XCTAssertEqual(bssRentStandsViewModel.startTime, "10:12")
-        XCTAssertEqual(bssRentStandsViewModel.endTime, "10:14")
         XCTAssertEqual(bssRentStandsViewModel.actionDescription, "Take a DiviaVélodi bike at")
-        XCTAssertEqual(bssRentStandsViewModel.path?.count, 0)
-        XCTAssertEqual(bssRentStandsViewModel.stopDate.count, 0)
-        XCTAssertNotNil(bssRentStandsViewModel.displayInformations) // TODO: Set with nil
-        XCTAssertNil(bssRentStandsViewModel.waiting)
-        XCTAssertEqual(bssRentStandsViewModel.disruptionsClean.count, 0)
-        XCTAssertEqual(bssRentStandsViewModel.notes.count, 0)
-        XCTAssertNotNil(bssRentStandsViewModel.poi)
-        XCTAssertNotNil(bssRentStandsViewModel.poi?.stands)
         XCTAssertEqual(bssRentStandsViewModel.icon, "bss")
         XCTAssertEqual(bssRentStandsViewModel.background, true)
         XCTAssertEqual(bssRentStandsViewModel.bssRealTime, false)
-        
-        XCTAssertNil(bssRentViewModel.poi?.stands)
         XCTAssertEqual(bssRentViewModel.bssRealTime, false)
+        XCTAssertNotNil(bssRentStandsViewModel.poi)
+        XCTAssertNotNil(bssRentStandsViewModel.poi?.stands)
+        XCTAssertNil(bssRentStandsViewModel.mode)
+        XCTAssertNil(bssRentStandsViewModel.waiting)
+        XCTAssertNil(bssRentViewModel.poi?.stands)
+        
+        // TODO: Set with nil
+        XCTAssertEqual(bssRentStandsViewModel.from, " (Dijon)")
+        XCTAssertEqual(bssRentStandsViewModel.startTime, "10:12")
+        XCTAssertEqual(bssRentStandsViewModel.endTime, "10:14")
+        XCTAssertEqual(bssRentStandsViewModel.path?.count, 0)
+        XCTAssertEqual(bssRentStandsViewModel.stopDate.count, 0)
+        XCTAssertEqual(bssRentStandsViewModel.disruptionsClean.count, 0)
+        XCTAssertEqual(bssRentStandsViewModel.notes.count, 0)
+        XCTAssertNotNil(bssRentStandsViewModel.displayInformations)
     }
     
-    func testBssPutBackStepView() {
+    func testBssPutBackStepsView() {
         guard let bssPutBackStandsViewModel = viewModelRoadmap.sections?[sectionIndex.bssPutBackStands],
             let bssPutBackViewModel = viewModelRoadmap.sections?[sectionIndex.bssPutBack] else {
-            XCTFail("Error json String")
+            XCTFail("Get view models for bss put back section - Error")
             return
         }
         
         XCTAssertEqual(bssPutBackStandsViewModel.type, .bssPutBack)
-        XCTAssertNil(bssPutBackStandsViewModel.mode)
-        XCTAssertEqual(bssPutBackStandsViewModel.from, "Général de Gaulle - Clinique (Dijon)")
         XCTAssertEqual(bssPutBackStandsViewModel.to, "14 Cours du Général de Gaulle (Dijon)")
-        XCTAssertEqual(bssPutBackStandsViewModel.startTime, "10:23")
-        XCTAssertEqual(bssPutBackStandsViewModel.endTime, "10:24")
         XCTAssertEqual(bssPutBackStandsViewModel.actionDescription, "Dock the DiviaVélodi bike at")
-        XCTAssertEqual(bssPutBackStandsViewModel.path?.count, 0)
-        XCTAssertEqual(bssPutBackStandsViewModel.stopDate.count, 0)
-        XCTAssertNotNil(bssPutBackStandsViewModel.displayInformations) // TODO: Set with nil
-        XCTAssertNil(bssPutBackStandsViewModel.waiting)
-        XCTAssertEqual(bssPutBackStandsViewModel.disruptionsClean.count, 0)
-        XCTAssertEqual(bssPutBackStandsViewModel.notes.count, 0)
-        XCTAssertNotNil(bssPutBackStandsViewModel.poi)
-        XCTAssertNotNil(bssPutBackStandsViewModel.poi?.stands)
-        XCTAssertNil(bssPutBackStandsViewModel.poi?.stands?.icon)
         XCTAssertEqual(bssPutBackStandsViewModel.icon, "bss")
         XCTAssertEqual(bssPutBackStandsViewModel.background, true)
         XCTAssertEqual(bssPutBackStandsViewModel.bssRealTime, false)
-        
         XCTAssertEqual(bssPutBackViewModel.bssRealTime, false)
+        XCTAssertNotNil(bssPutBackStandsViewModel.poi)
+        XCTAssertNotNil(bssPutBackStandsViewModel.poi?.stands)
         XCTAssertNil(bssPutBackViewModel.poi?.stands)
+        XCTAssertNil(bssPutBackStandsViewModel.mode)
+        XCTAssertNil(bssPutBackStandsViewModel.waiting)
+        XCTAssertNil(bssPutBackStandsViewModel.poi?.stands?.icon)
+        
+        // TODO: Set with nil
+        XCTAssertEqual(bssPutBackStandsViewModel.from, "Général de Gaulle - Clinique (Dijon)")
+        XCTAssertEqual(bssPutBackStandsViewModel.startTime, "10:23")
+        XCTAssertEqual(bssPutBackStandsViewModel.endTime, "10:24")
+        XCTAssertEqual(bssPutBackStandsViewModel.path?.count, 0)
+        XCTAssertEqual(bssPutBackStandsViewModel.stopDate.count, 0)
+        XCTAssertEqual(bssPutBackStandsViewModel.disruptionsClean.count, 0)
+        XCTAssertEqual(bssPutBackStandsViewModel.notes.count, 0)
+        XCTAssertNotNil(bssPutBackStandsViewModel.displayInformations)
     }
     
     func testTransferStepView() {
         guard let transferViewModel = viewModelRoadmap.sections?[sectionIndex.transfer] else {
-            XCTFail("Error json String")
+            XCTFail("Get view model for transfer section - Error")
             return
         }
         
         XCTAssertEqual(transferViewModel.type, .transfer)
-        XCTAssertNil(transferViewModel.mode)
-        XCTAssertEqual(transferViewModel.from, "GARE DE LA DEFENSE RER A (Puteaux)")
         XCTAssertEqual(transferViewModel.to, "La Défense (Grande Arche) (Puteaux)")
-        XCTAssertEqual(transferViewModel.startTime, "17:27")
-        XCTAssertEqual(transferViewModel.endTime, "17:31")
         XCTAssertEqual(transferViewModel.actionDescription, "To")
-        XCTAssertEqual(transferViewModel.path?.count, 0)
-        XCTAssertEqual(transferViewModel.stopDate.count, 0)
-        XCTAssertNotNil(transferViewModel.displayInformations) // TODO: Set with nil
-        XCTAssertNil(transferViewModel.waiting)
-        XCTAssertEqual(transferViewModel.disruptionsClean.count, 0)
-        XCTAssertEqual(transferViewModel.notes.count, 0)
-        XCTAssertNil(transferViewModel.poi)
         XCTAssertEqual(transferViewModel.icon, "walking")
         XCTAssertEqual(transferViewModel.bssRealTime, false)
         XCTAssertEqual(transferViewModel.background, false)
         XCTAssertEqual(transferViewModel.duration, "A 4 minutes walk")
+        XCTAssertNil(transferViewModel.mode)
+        XCTAssertNil(transferViewModel.waiting)
+        
+        // TODO: Set with nil
+        XCTAssertEqual(transferViewModel.from, "GARE DE LA DEFENSE RER A (Puteaux)")
+        XCTAssertEqual(transferViewModel.startTime, "17:27")
+        XCTAssertEqual(transferViewModel.endTime, "17:31")
+        XCTAssertEqual(transferViewModel.path?.count, 0)
+        XCTAssertEqual(transferViewModel.stopDate.count, 0)
+        XCTAssertEqual(transferViewModel.disruptionsClean.count, 0)
+        XCTAssertEqual(transferViewModel.notes.count, 0)
+        XCTAssertNotNil(transferViewModel.displayInformations)
+        XCTAssertNil(transferViewModel.poi)
     }
     
     func testCrowFlyStepView() {
         guard let crowFlyViewModel = viewModelRoadmap.sections?[sectionIndex.crowFly] else {
-            XCTFail("Error json String")
+            XCTFail("Get view model for crow fly section - Error")
             return
         }
         
         XCTAssertEqual(crowFlyViewModel.type, .crowFly)
         XCTAssertEqual(crowFlyViewModel.mode, .walking)
-        XCTAssertEqual(crowFlyViewModel.from, "Gare de Lyon (Paris)")
         XCTAssertEqual(crowFlyViewModel.to, "Gare de Lyon (Paris)")
-        XCTAssertEqual(crowFlyViewModel.startTime, "17:11")
-        XCTAssertEqual(crowFlyViewModel.endTime, "17:11")
         XCTAssertEqual(crowFlyViewModel.actionDescription, "To")
-        XCTAssertEqual(crowFlyViewModel.path?.count, 0)
-        XCTAssertEqual(crowFlyViewModel.stopDate.count, 0)
-        XCTAssertNotNil(crowFlyViewModel.displayInformations) // TODO: Set with nil
-        XCTAssertNil(crowFlyViewModel.waiting)
-        XCTAssertEqual(crowFlyViewModel.disruptionsClean.count, 0)
-        XCTAssertEqual(crowFlyViewModel.notes.count, 0)
-        XCTAssertNil(crowFlyViewModel.poi)
         XCTAssertEqual(crowFlyViewModel.icon, "crow_fly")
         XCTAssertEqual(crowFlyViewModel.bssRealTime, false)
         XCTAssertEqual(crowFlyViewModel.background, false)
+        XCTAssertNil(crowFlyViewModel.waiting)
         XCTAssertNil(crowFlyViewModel.duration)
+        XCTAssertNil(crowFlyViewModel.poi)
+        
+        // TODO: Set with nil
+        XCTAssertEqual(crowFlyViewModel.from, "Gare de Lyon (Paris)")
+        XCTAssertEqual(crowFlyViewModel.startTime, "17:11")
+        XCTAssertEqual(crowFlyViewModel.endTime, "17:11")
+        XCTAssertEqual(crowFlyViewModel.path?.count, 0)
+        XCTAssertEqual(crowFlyViewModel.stopDate.count, 0)
+        XCTAssertEqual(crowFlyViewModel.disruptionsClean.count, 0)
+        XCTAssertEqual(crowFlyViewModel.notes.count, 0)
+        XCTAssertNotNil(crowFlyViewModel.displayInformations)
     }
     
     func testPublicTransportStepView() {
         guard let publicTransportViewModel = viewModelRoadmap.sections?[sectionIndex.publicTransport] else {
-            XCTFail("Error json String")
+            XCTFail("Get view model for public transport section - Error")
             return
         }
         
         XCTAssertEqual(publicTransportViewModel.type, .publicTransport)
-        XCTAssertNil(publicTransportViewModel.mode)
         XCTAssertEqual(publicTransportViewModel.from, "Gare de Lyon (Paris)")
         XCTAssertEqual(publicTransportViewModel.to, "Esplanade de la Défense (Courbevoie)")
         XCTAssertEqual(publicTransportViewModel.startTime, "17:11")
         XCTAssertEqual(publicTransportViewModel.endTime, "17:35")
         XCTAssertEqual(publicTransportViewModel.actionDescription, "Take the Métro")
-        XCTAssertEqual(publicTransportViewModel.path?.count, 0)
         XCTAssertEqual(publicTransportViewModel.stopDate.count, 16)
-        XCTAssertNotNil(publicTransportViewModel.displayInformations)
         XCTAssertEqual(publicTransportViewModel.waiting, "Wait 3 minutes")
         XCTAssertEqual(publicTransportViewModel.disruptionsClean.count, 0)
         XCTAssertEqual(publicTransportViewModel.notes.count, 0)
-        XCTAssertNil(publicTransportViewModel.poi)
         XCTAssertEqual(publicTransportViewModel.icon, "metro")
         XCTAssertEqual(publicTransportViewModel.bssRealTime, false)
         XCTAssertEqual(publicTransportViewModel.background, true)
+        XCTAssertNotNil(publicTransportViewModel.displayInformations)
+        XCTAssertNil(publicTransportViewModel.mode)
         XCTAssertNil(publicTransportViewModel.duration)
+        XCTAssertNil(publicTransportViewModel.poi)
+        
+        // TODO: Set with nil
+        XCTAssertEqual(publicTransportViewModel.path?.count, 0)
     }
     
     func testOnDemandTransportStepView() {
         guard let onDemandTransportViewModel = viewModelRoadmap.sections?[sectionIndex.onDemandeTransport] else {
-            XCTFail("Error json String")
+            XCTFail("Get view model for on demand transport section - Error")
             return
         }
         
         XCTAssertEqual(onDemandTransportViewModel.type, .onDemandTransport)
-        XCTAssertNil(onDemandTransportViewModel.mode)
         XCTAssertEqual(onDemandTransportViewModel.from, "EGLISE DE SAINT CLEMENT (Saint-Clément-de-la-Place)")
         XCTAssertEqual(onDemandTransportViewModel.to, "MAIRIE DE BEAUCOUZE (Beaucouzé)")
         XCTAssertEqual(onDemandTransportViewModel.startTime, "18:00")
@@ -438,14 +453,18 @@ class ShowJourneyRoadmapPresenterTests: XCTestCase {
         XCTAssertEqual(onDemandTransportViewModel.actionDescription, "Take the Bus")
         XCTAssertEqual(onDemandTransportViewModel.path?.count, 0)
         XCTAssertEqual(onDemandTransportViewModel.stopDate.count, 1)
-        XCTAssertNotNil(onDemandTransportViewModel.displayInformations)
         XCTAssertEqual(onDemandTransportViewModel.waiting, "Wait 33 minutes")
         XCTAssertEqual(onDemandTransportViewModel.disruptionsClean.count, 0)
         XCTAssertEqual(onDemandTransportViewModel.notes.count, 0)
-        XCTAssertNil(onDemandTransportViewModel.poi)
         XCTAssertEqual(onDemandTransportViewModel.icon, "bus-tad")
         XCTAssertEqual(onDemandTransportViewModel.bssRealTime, false)
         XCTAssertEqual(onDemandTransportViewModel.background, true)
+        XCTAssertNotNil(onDemandTransportViewModel.displayInformations)
         XCTAssertNil(onDemandTransportViewModel.duration)
+        XCTAssertNil(onDemandTransportViewModel.mode)
+        XCTAssertNil(onDemandTransportViewModel.poi)
+        
+        // TODO: Set with nil
+        XCTAssertEqual(onDemandTransportViewModel.path?.count, 0)
     }
 }

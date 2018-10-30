@@ -61,7 +61,7 @@ class ShowJourneyRoadmapInteractorTests: XCTestCase {
         let request = ShowJourneyRoadmap.GetRoadmap.Request()
         sut.getRoadmap(request: request)
         
-        XCTAssert(showJourneyRoadmapPresentationLogicSpy.presentRoadmapCalled, "GetRidesharingOffers() should ask presenter to format journeys")
+        XCTAssert(showJourneyRoadmapPresentationLogicSpy.presentRoadmapCalled, "GetRoadmap() should ask presenter to format roadmap")
     }
     
     func testGetMap() {
@@ -73,6 +73,6 @@ class ShowJourneyRoadmapInteractorTests: XCTestCase {
         let request = ShowJourneyRoadmap.GetMap.Request()
         sut.getMap(request: request)
         
-        XCTAssert(showJourneyRoadmapPresentationLogicSpy.presentMapCalled, "GetRidesharingOffers() should ask presenter to format journeys")
+        XCTAssert(showJourneyRoadmapPresentationLogicSpy.presentMapCalled, "GetMap() should ask presenter to format map")
     }
 }

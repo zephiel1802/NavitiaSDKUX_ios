@@ -37,7 +37,6 @@ class ListJourneysViewControllerTests: XCTestCase {
     }
     
     override func tearDown() {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
         super.tearDown()
     }
     
@@ -47,18 +46,6 @@ class ListJourneysViewControllerTests: XCTestCase {
     
     func testSUT_CollectionViewIsNotNilAfterViewDidLoad() {
         XCTAssertNotNil(sut.journeysCollectionView)
-
-       // sut.viewDidLoad()
-        XCTAssertEqual(sut.journeysCollectionView.numberOfSections, 1)
-    }
-    
-    func testLoad() {
-        var journeysRequest = JourneysRequest(originId: "2.3665844;48.8465337", destinationId: "2.2979169;48.8848719")
-        journeysRequest.originLabel = "Chez moi"
-        journeysRequest.destinationLabel = "Au travail"
-        
-        sut.journeysRequest = journeysRequest
-        sut.viewDidLoad()
         XCTAssertEqual(sut.journeysCollectionView.numberOfSections, 1)
     }
     
@@ -66,53 +53,4 @@ class ListJourneysViewControllerTests: XCTestCase {
         XCTAssertEqual(sut.fromPinLabel.textColor, .blue)
         XCTAssertEqual(sut.toPinLabel.textColor, .brown)
     }
-    
-    func testHeaderSearch() {
-        XCTAssertEqual(sut.fromLabel.text, "2.3665844;48.8465337")
-        XCTAssertEqual(sut.toLabel.text, "2.2979169;48.8848719")
-        
-        var journeysRequest = JourneysRequest(originId: "2.3665844;48.8465337", destinationId: "2.2979169;48.8848719")
-        journeysRequest.originLabel = "Chez moi"
-        journeysRequest.destinationLabel = "Au travail"
-        
-        sut.journeysRequest = journeysRequest
-        sut.viewDidLoad()
-
-        XCTAssertEqual(sut.fromLabel.text, "Chez moi")
-        XCTAssertEqual(sut.toLabel.text, "Au travail")
-
-        journeysRequest.originLabel = "Chez moi2"
-        journeysRequest.destinationLabel = "Au travail2"
-        
-        sut.journeysRequest = journeysRequest
-        sut.viewDidLoad()
-
-        XCTAssertEqual(sut.fromLabel.text, "Chez moi2")
-        XCTAssertEqual(sut.toLabel.text, "Au travail2")
-    }
-    
-    func testHeaderSearch2() {
-        XCTAssertEqual(sut.fromLabel.text, "2.3665844;48.8465337")
-        XCTAssertEqual(sut.toLabel.text, "2.2979169;48.8848719")
-        
-        var journeysRequest = JourneysRequest(originId: "2.3665844;48.8465337", destinationId: "2.2979169;48.8848719")
-        journeysRequest.originLabel = "Chez moi23"
-        journeysRequest.destinationLabel = "Au travail23"
-        
-        sut.journeysRequest = journeysRequest
-        sut.viewDidLoad()
-        
-        XCTAssertEqual(sut.fromLabel.text, "Chez moi23")
-        XCTAssertEqual(sut.toLabel.text, "Au travail23")
-        
-        journeysRequest.originLabel = "Chez moi2"
-        journeysRequest.destinationLabel = "Au travail2"
-        
-        sut.journeysRequest = journeysRequest
-        sut.viewDidLoad()
-        
-        XCTAssertEqual(sut.fromLabel.text, "Chez moi2")
-        XCTAssertEqual(sut.toLabel.text, "Au travail2")
-    }
-    
 }
