@@ -24,7 +24,7 @@ pod "NavitiaSDKUI"
 | NavitiaSDKUI.shared.mainColor | String | ✗ | To set the background and the journey's duration colors  | by default :<br/>UIColor(red: 64/255, green: 149/255, blue: 142/255, alpha: 1) |
 | NavitiaSDKUI.shared.originColor | String | ✗ | To set the color of the origin icon and the roadmap departure bloc | by default :<br/>UIColor(red: 0, green: 187/255, blue: 117/255, alpha: 1) |
 | NavitiaSDKUI.shared.destinationColor | String | ✗ | To set the color of the destination icon and the roadmap arrival bloc  | by default :<br/>UIColor(red: 176/255, green: 3/255, blue: 83/255, alpha: 1) |
-| NavitiaSDKUI.shared.multiNetwork | Boolean | ✗ | To set the color of the destination icon and the roadmap arrival bloc  | by default :<br/>false |
+| NavitiaSDKUI.shared.multiNetwork | Boolean | ✗ | to set the display of the network name in the roadmap  | by default :<br/>false |
 
 #### Example
 
