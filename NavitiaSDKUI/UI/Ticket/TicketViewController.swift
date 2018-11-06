@@ -74,9 +74,9 @@ import JustRideSDK
                           "an_error_occurred".localized(bundle: NavitiaSDKUI.shared.bundle))
         }
         
-        let code: Int = (data["code"] as? Int ?? 0)
-        let domain : String = (data["domain"] as? String ?? "")
-        var masabiDetailString: String = ""
+        let code = (data["code"] as? Int ?? 0)
+        let domain = (data["domain"] as? String ?? "")
+        var masabiDetailString = ""
         
         switch code {
         case 103, 106, 401:
@@ -86,7 +86,7 @@ import JustRideSDK
                                         "code".localized(bundle: NavitiaSDKUI.shared.bundle),
                                         code)
         case 200, 900:
-            let underlying : String = (data["underlying"] as? String ?? "")
+            let underlying = (data["underlying"] as? String ?? "")
             masabiDetailString = String(format: "%@.\n%@\n%@ %d\n%@",
                                         "an_error_occurred".localized(bundle: NavitiaSDKUI.shared.bundle),
                                         domain,
@@ -117,7 +117,7 @@ import JustRideSDK
                                                                  animated: false)
             walletViewController.navigationController?.navigationBar.tintColor = Configuration.Color.main
             walletViewController.navigationController?.navigationBar.barTintColor = Configuration.Color.white
-            walletViewController.navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor : Configuration.Color.black]
+            walletViewController.navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor: Configuration.Color.black]
         }) { (_, _) in }
     }
 
