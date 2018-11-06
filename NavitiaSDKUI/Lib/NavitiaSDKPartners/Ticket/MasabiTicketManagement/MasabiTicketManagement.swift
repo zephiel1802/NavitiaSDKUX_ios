@@ -59,10 +59,7 @@ import JustRideSDK
             }
                 
             if error == nil && loginStatus?.isLoggedIn == false {
-                print(NavitiaSDKPartners.shared.userInfo.id)
-                print(NavitiaSDKPartners.shared.accessToken)
                 (self.ticketConfiguration as! MasabiTicketManagementConfiguration).MasabiSharedInstance.accountUseCases.accountLogin(withDeviceChange: force, username: NavitiaSDKPartners.shared.userInfo.id, password: NavitiaSDKPartners.shared.accessToken, completionHandler: { (loginResponse, error) in
-                    print(force)
                     DispatchQueue.main.async {
                         if (error != nil) {
                             print("NavitiaSDKPartners/masabiAuthenticate : error")
@@ -402,30 +399,36 @@ import JustRideSDK
             detailedError.details = NavitiaSDKPartnersReturnCode.masabiAuthenticateError.getError()
             detailedError.details["details"] = "Another user already logged in"
             detailedError.details["code"] = error.code
+            detailedError.details["domain"] = "Login Error"
         case 103:
             detailedError.code = NavitiaSDKPartnersReturnCode.masabiAuthenticateError.getCode()
             detailedError.details = NavitiaSDKPartnersReturnCode.masabiAuthenticateError.getError()
             detailedError.details["details"] = "Account assigned to another device"
             detailedError.details["code"] = error.code
+            detailedError.details["domain"] = "Login Error"
         case 105:
             detailedError.code = NavitiaSDKPartnersReturnCode.masabiAuthenticateError.getCode()
             detailedError.details = NavitiaSDKPartnersReturnCode.masabiAuthenticateError.getError()
             detailedError.details["details"] = "Username or password is invalid"
             detailedError.details["code"] = error.code
+            detailedError.details["domain"] = "Login Error"
         case 106:
             detailedError.code = NavitiaSDKPartnersReturnCode.masabiAuthenticateError.getCode()
             detailedError.details = NavitiaSDKPartnersReturnCode.masabiAuthenticateError.getError()
             detailedError.details["details"] = "User Blocked"
             detailedError.details["code"] = error.code
+            detailedError.details["domain"] = "Login Error"
         case 200:
             if error.domain == "account.login" {
                 
                 detailedError.code = NavitiaSDKPartnersReturnCode.masabiAuthenticateError.getCode()
                 detailedError.details = NavitiaSDKPartnersReturnCode.masabiAuthenticateError.getError()
+                detailedError.details["domain"] = "Login Error"
             } else {
                 
                 detailedError.code = NavitiaSDKPartnersReturnCode.masabiNetworkError.getCode()
                 detailedError.details = NavitiaSDKPartnersReturnCode.masabiNetworkError.getError()
+                detailedError.details["domain"] = "Network Error"
             }
             detailedError.details["details"] = "Underlying network error"
             detailedError.details["code"] = error.code
@@ -435,20 +438,24 @@ import JustRideSDK
             detailedError.details = NavitiaSDKPartnersReturnCode.masabiNetworkError.getError()
             detailedError.details["details"] = "Authentication Failure"
             detailedError.details["code"] = error.code
+            detailedError.details["domain"] = "Network Error"
         case 755:
             detailedError.code = NavitiaSDKPartnersReturnCode.masabiNetworkError.getCode()
             detailedError.details = NavitiaSDKPartnersReturnCode.masabiNetworkError.getError()
             detailedError.details["details"] = "HTTP certificate validation failure"
             detailedError.details["code"] = error.code
+            detailedError.details["domain"] = "Network Error"
         case 900:
             if error.domain == "account.login" {
             
                 detailedError.code = NavitiaSDKPartnersReturnCode.masabiAuthenticateError.getCode()
                 detailedError.details = NavitiaSDKPartnersReturnCode.masabiAuthenticateError.getError()
+                detailedError.details["domain"] = "Login Error"
             } else {
             
                 detailedError.code = NavitiaSDKPartnersReturnCode.masabiNetworkError.getCode()
                 detailedError.details = NavitiaSDKPartnersReturnCode.masabiNetworkError.getError()
+                detailedError.details["domain"] = "Network Error"
             }
             detailedError.details["details"] = "Underlying network error"
             detailedError.details["underlying"] = error.recursiveErrorDescription
@@ -458,6 +465,7 @@ import JustRideSDK
             detailedError.details = NavitiaSDKPartnersReturnCode.masabiAuthenticateError.getError()
             detailedError.details["details"] = error.errorDescription
             detailedError.details["code"] = error.code
+            detailedError.details["domain"] = "Login Error"
         }
         
         return detailedError
@@ -470,7 +478,6 @@ extension MasabiTicketManagement {
             if error != nil {
                 self.privateHasValidTickets = false
             }
-            print((summary?.count ?? 0))
             self.privateHasValidTickets = ( (summary?.count ?? 0) > 0 ? true : false )
         })
     }

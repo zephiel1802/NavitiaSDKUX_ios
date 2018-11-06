@@ -68,23 +68,16 @@ import JustRideSDK
         super.didReceiveMemoryWarning()
     }
     
-    private func _detailsPopInMasabi(statusCode : Int, data : [String: Any]? ) -> String {
+    private func _detailsPopInMasabi(statusCode: Int, data: [String: Any]?) -> String {
         guard let data = data else {
             return String(format: "%@.",
                           "an_error_occurred".localized(bundle: NavitiaSDKUI.shared.bundle))
         }
         
-        var masabiDetailString: String = ""
         let code: Int = (data["code"] as? Int ?? 0)
-        var domain : String = ""
-        switch statusCode {
-        case NavitiaSDKPartnersReturnCode.masabiAuthenticateError.getCode():
-            domain = "Login error"
-        case NavitiaSDKPartnersReturnCode.masabiNetworkError.getCode():
-            domain = "Network error"
-        default:
-            domain = "Unknown error"
-        }
+        let domain : String = (data["domain"] as? String ?? "")
+        var masabiDetailString: String = ""
+        
         switch code {
         case 103, 106, 401:
             masabiDetailString = String(format: "%@.\n%@\n%@ %d",
