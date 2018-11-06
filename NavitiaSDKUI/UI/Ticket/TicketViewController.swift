@@ -69,14 +69,13 @@ import JustRideSDK
     }
     
     private func _detailsPopInMasabi(statusCode : Int, data : [String: Any]? ) -> String {
-        
-        if data == nil {
+        guard let data = data else {
             return String(format: "%@.",
                           "an_error_occurred".localized(bundle: NavitiaSDKUI.shared.bundle))
         }
         
-        var masabiDetailString : String = ""
-        let code : Int = (data!["code"] as? Int ?? 0)
+        var masabiDetailString: String = ""
+        let code: Int = (data["code"] as? Int ?? 0)
         
         switch code {
         case 103, 106, 401:
@@ -85,7 +84,7 @@ import JustRideSDK
                                         "code".localized(bundle: NavitiaSDKUI.shared.bundle),
                                         code)
         case 200, 900:
-            let underlying : String = (data!["underlying"] as? String ?? "")
+            let underlying : String = (data["underlying"] as? String ?? "")
             masabiDetailString = String(format: "%@.\n\n%@ %d\n%@",
                                         "an_error_occurred".localized(bundle: NavitiaSDKUI.shared.bundle),
                                         "code".localized(bundle: NavitiaSDKUI.shared.bundle),
