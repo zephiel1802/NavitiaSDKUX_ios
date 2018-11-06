@@ -76,23 +76,34 @@ import JustRideSDK
         
         var masabiDetailString: String = ""
         let code: Int = (data["code"] as? Int ?? 0)
-        
+        var domain : String = ""
+        switch statusCode {
+        case NavitiaSDKPartnersReturnCode.masabiAuthenticateError.getCode():
+            domain = "Login error"
+        case NavitiaSDKPartnersReturnCode.masabiNetworkError.getCode():
+            domain = "Network error"
+        default:
+            domain = "Unknown error"
+        }
         switch code {
         case 103, 106, 401:
-            masabiDetailString = String(format: "%@.\n\n%@ %d",
+            masabiDetailString = String(format: "%@.\n%@\n%@ %d",
                                         "please_contact_the_customer_service_with_the_following_information".localized(bundle: NavitiaSDKUI.shared.bundle),
+                                        domain,
                                         "code".localized(bundle: NavitiaSDKUI.shared.bundle),
                                         code)
         case 200, 900:
             let underlying : String = (data["underlying"] as? String ?? "")
-            masabiDetailString = String(format: "%@.\n\n%@ %d\n%@",
+            masabiDetailString = String(format: "%@.\n%@\n%@ %d\n%@",
                                         "an_error_occurred".localized(bundle: NavitiaSDKUI.shared.bundle),
+                                        domain,
                                         "code".localized(bundle: NavitiaSDKUI.shared.bundle),
                                         code,
                                         underlying)
         default:
-            masabiDetailString = String(format: "%@.\n\n%@ %d",
+            masabiDetailString = String(format: "%@.\n%@\n%@ %d",
                                         "an_error_occurred".localized(bundle: NavitiaSDKUI.shared.bundle),
+                                        domain,
                                         "code".localized(bundle: NavitiaSDKUI.shared.bundle),
                                         code)
         }
