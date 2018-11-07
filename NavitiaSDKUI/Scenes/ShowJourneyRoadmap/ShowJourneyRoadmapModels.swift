@@ -166,7 +166,7 @@ enum ShowJourneyRoadmap {
         struct Request {
             var lat: Double
             var lon: Double
-            var distance: Int32 = 10
+            var distance: Int32
             var id: String
             var notify: ((ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionModel.Stands) -> ())
         }
@@ -181,7 +181,7 @@ enum ShowJourneyRoadmap {
         struct Request {
             var lat: Double
             var lon: Double
-            var distance: Int32 = 10
+            var distance: Int32
             var id: String
             var notify: ((ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionModel.Stands) -> ())
         }
