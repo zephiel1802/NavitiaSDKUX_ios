@@ -372,7 +372,7 @@ class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
                     let standsViewModel = ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionModel.Stands(availability: String(format: availabilityTemplate, availablePlaces),
                                                                                                       icon: nil)
                     return standsViewModel
-                }//_plural
+                }
             default:
                 return nil
             }
