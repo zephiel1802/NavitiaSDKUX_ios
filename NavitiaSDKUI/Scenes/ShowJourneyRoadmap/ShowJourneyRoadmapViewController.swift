@@ -165,7 +165,7 @@ internal class ShowJourneyRoadmapViewController: UIViewController, ShowJourneyRo
             }
             
             let request = ShowJourneyRoadmap.FetchBss.Request(lat: lat, lon: lon, distance: 10, id: addressId) { (stands) in
-                elem.view.realTimeValue = stands.availability
+                elem.view.stands = stands
             }
             
             self.interactor?.fetchBss(request: request)
@@ -179,7 +179,7 @@ internal class ShowJourneyRoadmapViewController: UIViewController, ShowJourneyRo
             }
             
             let request = ShowJourneyRoadmap.FetchPark.Request(lat: lat, lon: lon, distance: 10, id: addressId) { (stands) in
-                elem.view.realTimeValue = stands.availability
+                elem.view.stands = stands
             }
 
             self.interactor?.fetchPark(request: request)
@@ -331,8 +331,7 @@ internal class ShowJourneyRoadmapViewController: UIViewController, ShowJourneyRo
         stepView.enableBackground = section.background
         stepView.iconInformations = section.icon
         stepView.informationsAttributedString = getInformationsStepView(section: section)
-        stepView.realTimeIcon = section.poi?.stands?.icon
-        stepView.realTimeValue = section.poi?.stands?.availability
+        stepView.stands = section.poi?.stands
         stepView.paths = section.path
         
         getRealTime(section: section, view: stepView)

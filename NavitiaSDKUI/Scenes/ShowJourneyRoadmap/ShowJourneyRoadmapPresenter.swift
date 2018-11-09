@@ -357,7 +357,8 @@ class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
                     } else {
                         availabilityTemplate = "bss_available_bikes_plural".localized(bundle: NavitiaSDKUI.shared.bundle)
                     }
-                    let standsViewModel = ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionModel.Stands(availability: String(format: availabilityTemplate, availableBikes),
+                    
+                    let standsViewModel = ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionModel.Stands(status: getBssStationStatus(sectionType: type, stationStatus: stands.status), availability: String(format: availabilityTemplate, availableBikes),
                                                                                                       icon: nil)
                     return standsViewModel
                 }
@@ -368,7 +369,8 @@ class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
                     } else {
                         availabilityTemplate = "available_places_plural".localized(bundle: NavitiaSDKUI.shared.bundle)
                     }
-                    let standsViewModel = ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionModel.Stands(availability: String(format: availabilityTemplate, availablePlaces),
+                    
+                    let standsViewModel = ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionModel.Stands(status: getBssStationStatus(sectionType: type, stationStatus: stands.status), availability: String(format: availabilityTemplate, availablePlaces),
                                                                                                       icon: nil)
                     return standsViewModel
                 }
@@ -384,7 +386,7 @@ class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
                     } else {
                         availabilityTemplate = "available_places_plural".localized(bundle: NavitiaSDKUI.shared.bundle)
                     }
-                    let standsViewModel = ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionModel.Stands(availability: String(format: availabilityTemplate, availablePlaces),
+                    let standsViewModel = ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionModel.Stands(status: nil, availability: String(format: availabilityTemplate, availablePlaces),
                                                                                                       icon: "park")
                     return standsViewModel
                 }
@@ -394,6 +396,21 @@ class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
         }
         
         return nil
+    }
+    
+    private func getBssStationStatus(sectionType: Section.ModelType, stationStatus: Stands.Status?) -> String? {
+        guard let stationStatus = stationStatus else {
+            return nil
+        }
+        
+        switch stationStatus {
+        case .open:
+            return nil
+        case .closed:
+            return "bss_station_status_closed".localized(bundle: NavitiaSDKUI.shared.bundle)
+        case .unavailable:
+            return sectionType == .bssRent ? "bss_station_status_unavailable_pick_up".localized(bundle: NavitiaSDKUI.shared.bundle) : "bss_station_status_unavailable_drop_off".localized(bundle: NavitiaSDKUI.shared.bundle)
+        }
     }
     
     private func getBackground(section: Section) -> Bool {
