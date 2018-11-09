@@ -131,7 +131,6 @@ class ListJourneysPresenter: ListJourneysPresentationLogic {
         return accessibilityLabel
     }
     
-    
     private func getAccessibilitySwitchButton() -> String? {
         return "reverse_departure_and_arrival".localized(bundle: NavitiaSDKUI.shared.bundle)
     }
