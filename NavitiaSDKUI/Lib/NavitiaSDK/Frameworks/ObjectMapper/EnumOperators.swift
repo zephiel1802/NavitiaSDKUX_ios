@@ -8,7 +8,6 @@
 
 import Foundation
 
-
 // MARK:- Raw Representable types
 
 /// Object of Raw Representable type

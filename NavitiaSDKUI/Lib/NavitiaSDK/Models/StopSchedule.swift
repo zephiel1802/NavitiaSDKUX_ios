@@ -15,6 +15,8 @@ open class StopSchedule: JSONEncodable, Mappable {
     public var route: Route?
     public var additionalInformations: String?
     public var displayInformations: RouteDisplayInformation?
+    public var lastDatetime: DateTimeType?
+    public var firstDatetime: DateTimeType?
 
     public init() {}
     required public init?(map: Map) {
@@ -29,6 +31,8 @@ open class StopSchedule: JSONEncodable, Mappable {
         route <- map["route"]
         additionalInformations <- map["additional_informations"]
         displayInformations <- map["display_informations"]
+        lastDatetime <- map["last_datetime"]
+        firstDatetime <- map["first_datetime"]
     }
 
     // MARK: JSONEncodable
@@ -40,6 +44,8 @@ open class StopSchedule: JSONEncodable, Mappable {
         nillableDictionary["route"] = self.route?.encodeToJSON()
         nillableDictionary["additional_informations"] = self.additionalInformations
         nillableDictionary["display_informations"] = self.displayInformations?.encodeToJSON()
+        nillableDictionary["last_datetime"] = self.lastDatetime?.encodeToJSON()
+        nillableDictionary["first_datetime"] = self.firstDatetime?.encodeToJSON()
 
         let dictionary: [String:Any] = APIHelper.rejectNil(nillableDictionary) ?? [:]
         return dictionary

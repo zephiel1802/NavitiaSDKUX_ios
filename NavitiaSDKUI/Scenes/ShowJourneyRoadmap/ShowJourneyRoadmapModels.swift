@@ -76,12 +76,12 @@ enum ShowJourneyRoadmap {
                 }
                 
                 struct Poi {
-                    var name: String
-                    var network: String
-                    var lat: Double
-                    var lont: Double
-                    var addressName: String
-                    var addressId: String
+                    var name: String?
+                    var network: String?
+                    var lat: Double?
+                    var lont: Double?
+                    var addressName: String?
+                    var addressId: String?
                     var stands: Stands?
                 }
                 
@@ -132,7 +132,7 @@ enum ShowJourneyRoadmap {
                 var notes: [Note]
                 var poi: Poi?
                 var icon: String
-                var bssRealTime: Bool
+                var realTime: Bool
                 var background: Bool
                 var section: Section
             }
@@ -167,13 +167,28 @@ enum ShowJourneyRoadmap {
         struct Request {
             var lat: Double
             var lon: Double
-            var distance: Int32 = 10
+            var distance: Int32
             var id: String
-            var notify: ((ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionModel.Poi) -> ())
+            var notify: ((ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionModel.Stands) -> ())
         }
         struct Response {
             var poi: Poi
-            var notify: ((ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionModel.Poi) -> ())
+            var notify: ((ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionModel.Stands) -> ())
+        }
+        struct ViewModel {}
+    }
+    
+    enum FetchPark {
+        struct Request {
+            var lat: Double
+            var lon: Double
+            var distance: Int32
+            var id: String
+            var notify: ((ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionModel.Stands) -> ())
+        }
+        struct Response {
+            var poi: Poi
+            var notify: ((ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionModel.Stands) -> ())
         }
         struct ViewModel {}
     }
