@@ -114,6 +114,7 @@ enum ShowJourneyRoadmap {
                     var title: String
                     var date: String
                     var information: String?
+                    var accessibility: String
                 }
                 
                 var type: ModelType

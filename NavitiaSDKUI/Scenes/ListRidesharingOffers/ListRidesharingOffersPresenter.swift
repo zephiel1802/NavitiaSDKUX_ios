@@ -80,23 +80,26 @@ class ListRidesharingOffersPresenter: ListRidesharingOffersPresentationLogic {
     }
     
     private func getAccessiblityLabel(ridesharingOffer: ListRidesharingOffers.GetRidesharingOffers.ViewModel.DisplayedRidesharingOffer) -> String {
-        var accessibilityLabel = String(format: "ridesharing-departure-at".localized(bundle: NavitiaSDKUI.shared.bundle), ridesharingOffer.departure, ridesharingOffer.driverNickname)
+        var accessibilityLabel = String(format: "ridesharing_departure_at".localized(bundle: NavitiaSDKUI.shared.bundle), ridesharingOffer.departure, ridesharingOffer.driverNickname)
         
         if let seatsCount = ridesharingOffer.seatsCount {
-            accessibilityLabel += String(format: "ridesharing-places-available".localized(bundle: NavitiaSDKUI.shared.bundle), String(seatsCount))
+            accessibilityLabel.append(String(format: "ridesharing_available_places".localized(bundle: NavitiaSDKUI.shared.bundle), seatsCount))
         }
         
+        // TODO
         if ridesharingOffer.price == "0.0" {
-            accessibilityLabel += String(format: "%@.", "free".localized(withComment: "Free", bundle: NavitiaSDKUI.shared.bundle))
+            accessibilityLabel.append(String(format: "%@.", "free".localized(withComment: "Free", bundle: NavitiaSDKUI.shared.bundle)))
         } else {
-            accessibilityLabel += String(format: "%@.", ridesharingOffer.price)
+            accessibilityLabel.append(String(format: "%@.", ridesharingOffer.price))
         }
         
         if ridesharingOffer.ratingCount == 0 {
-            accessibilityLabel += "no-rating".localized(bundle: NavitiaSDKUI.shared.bundle)
+            accessibilityLabel.append("no_rating".localized(bundle: NavitiaSDKUI.shared.bundle))
         } else {
-            accessibilityLabel += String(format: "rating-out-of-five".localized(bundle: NavitiaSDKUI.shared.bundle), String(ridesharingOffer.rating))
+            accessibilityLabel.append(String(format: "rating_out_of_five".localized(bundle: NavitiaSDKUI.shared.bundle), String(ridesharingOffer.rating)))
         }
+        
+        accessibilityLabel.append("view_on_the_map".localized(bundle: NavitiaSDKUI.shared.bundle))
         
         return accessibilityLabel
     }

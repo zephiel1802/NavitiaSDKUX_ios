@@ -13,7 +13,7 @@ class RidesharingView: UIView {
     
     @IBOutlet var view: UIView!
     
-    @IBOutlet weak var accessibilityView: UIView!
+    @IBOutlet weak var accessibilityButton: UIButton!
     @IBOutlet weak var bookButton: UIButton!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var startLabel: UILabel!
@@ -34,7 +34,7 @@ class RidesharingView: UIView {
                 return
             }
             
-            accessibilityView.accessibilityLabel = accessiblity
+            accessibilityButton.accessibilityLabel = accessiblity
         }
     }
     
@@ -60,6 +60,7 @@ class RidesharingView: UIView {
         addShadow()
         
         bookButton.setTitle("send_request".localized(bundle: NavitiaSDKUI.shared.bundle), for: .normal)
+        bookButton.accessibilityElementsHidden = true
     }
     
     func setDriverPictureURL(url: String?) {
@@ -92,7 +93,7 @@ class RidesharingView: UIView {
         }
     }
     
-    @IBAction func actionBookButton(_ sender: Any) {
+    private func bookRidesharing() {
         if let parentViewController = parentViewController {
             if !UserDefaults.standard.bool(forKey: NavitiaSDKUserDefaultsManager.SHOW_REDIRECTION_DIALOG_PREF_KEY) {
                 let alertController = AlertViewController(nibName: "AlertView", bundle: NavitiaSDKUI.shared.bundle)
@@ -108,6 +109,18 @@ class RidesharingView: UIView {
                 parentViewController.openDeepLink()
             }
         }
+    }
+    
+    @IBAction func actionBookButton(_ sender: Any) {
+        bookRidesharing()
+    }
+    
+    @IBAction func actionAccessibilityButton(_ sender: Any) {
+        guard UIAccessibilityIsVoiceOverRunning() else {
+            return
+        }
+        
+        bookRidesharing()
     }
     
     func setSeatsCount(_ count: Int32?) {

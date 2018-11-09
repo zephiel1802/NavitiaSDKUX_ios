@@ -81,25 +81,25 @@ class PublicTransportStepView: UIView {
         var accessibilityLabel = String(format: "%@ ", commercialMode)
         
         if let code = transportIconLabel.text {
-            accessibilityLabel += String(format: "%@ ", code)
+            accessibilityLabel.append(String(format: "%@ ", code))
         }
         
-        accessibilityLabel += String(format: "%@.", informations)
+        accessibilityLabel.append(String(format: "%@.", informations))
         
         if let waiting = waitingInformationsLabel.text, !waitingContainerView.isHidden {
-            accessibilityLabel += String(format: "%@.", waiting)
+            accessibilityLabel.append(String(format: "%@.", waiting))
         }
+        
+        
         
         for item in stackView.arrangedSubviews {
             if let itemDisruption = item as? DisruptionItemView,
-                let title = itemDisruption.disruptionTitleLabel.text,
-                let date = itemDisruption.disruptionDate,
-                let information = itemDisruption.disruptionInformation {
-                accessibilityLabel += String(format: "%@ %@ : %@.", title, date, information)
+                let accessibility = itemDisruption.accessibility {
+                accessibilityLabel.append(accessibility)
             } else if let itemOnDemandTransport = item as? OnDemandeItemView,
                 let title = itemOnDemandTransport.titleLabel.text,
                 let information = itemOnDemandTransport.informationLabel.text {
-                accessibilityLabel += String(format: "%@ : %@.", title, information)
+                accessibilityLabel.append(String(format: "%@ : %@.", title, information))
             }
         }
         
@@ -203,6 +203,7 @@ class PublicTransportStepView: UIView {
                 disruptionItemView.setDisruptionTitle(title: disruption.title, color: disruption.color)
                 disruptionItemView.disruptionInformation = disruption.information
                 disruptionItemView.disruptionDate = disruption.date
+                disruptionItemView.accessibility = disruption.accessibility
 
                 stackView.insertArrangedSubview(disruptionItemView, at: 3)
                 

@@ -17,6 +17,7 @@ class StepView: UIView {
     @IBOutlet weak var realTimeIconLabel: UILabel!
     @IBOutlet weak var realTimeImage: UIImageView!
     @IBOutlet weak var realTimeLabel: UILabel!
+    @IBOutlet weak var detailsButton: UIButton!
     @IBOutlet weak var detailsLabel: UILabel!
     @IBOutlet weak var detailsArrowLabel: UILabel!
     @IBOutlet var detailsView: UIView!
@@ -60,6 +61,7 @@ class StepView: UIView {
     private func initDetails() {
         detailsView.isHidden = true
         detailsLabel.text = "details".localized(bundle: NavitiaSDKUI.shared.bundle)
+        detailsButton.accessibilityLabel = "details".localized(bundle: NavitiaSDKUI.shared.bundle)
         detailsArrowLabel.attributedText = NSMutableAttributedString().icon("arrow-details-down", color: Configuration.Color.gray, size: 13)
     }
     
@@ -76,7 +78,7 @@ class StepView: UIView {
         if type == "ridesharing" || type == "crow_fly" {
             informationsContainerView.accessibilityLabel = String(format: "%@.", informations)
         } else {
-            informationsContainerView.accessibilityLabel = String(format: "%@ %@.", "\(type)-noun".localized(bundle: NavitiaSDKUI.shared.bundle), informations)
+            informationsContainerView.accessibilityLabel = String(format: "%@ %@.", "\(type)_noun".localized(bundle: NavitiaSDKUI.shared.bundle), informations)
         }
     }
     

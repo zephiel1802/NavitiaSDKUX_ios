@@ -24,7 +24,7 @@ class ListJourneysPresenter: ListJourneysPresentationLogic {
         
         let viewModel = ListJourneys.FetchJourneys.ViewModel(loaded: false,
                                                              headerInformations: headerInformations,
-                                                             accessibilityHeader: "journey-research-in-progress".localized(bundle: NavitiaSDKUI.shared.bundle),
+                                                             accessibilityHeader: "journey_research_in_progress".localized(bundle: NavitiaSDKUI.shared.bundle),
                                                              accessibilitySwitchButton: nil,
                                                              displayedJourneys: [],
                                                              displayedRidesharings: [],
@@ -117,14 +117,14 @@ class ListJourneysPresenter: ListJourneysPresentationLogic {
     }
     
     private func getAccessibilityHeader(origin: String, destination: String, dateTime: Date?) -> String? {
-        var accessibilityLabel = String(format: "reminder-of-the-research".localized(bundle: NavitiaSDKUI.shared.bundle), origin, destination)
+        var accessibilityLabel = String(format: "reminder_of_the_research".localized(bundle: NavitiaSDKUI.shared.bundle), origin, destination)
          
         if let dateTime = dateTime {
             let day = DateFormatter.localizedString(from: dateTime, dateStyle: .medium, timeStyle: .none)
             let hourComponents = Foundation.Calendar.current.dateComponents([.hour, .minute], from: dateTime)
             
             if let hours = DateComponentsFormatter.localizedString(from: hourComponents, unitsStyle: .spellOut) {
-                accessibilityLabel += String(format: "departure-the".localized(bundle: NavitiaSDKUI.shared.bundle), day, hours)
+                accessibilityLabel.append(String(format: "departure_on_at".localized(bundle: NavitiaSDKUI.shared.bundle), day, hours))
             }
         }
         
@@ -133,7 +133,7 @@ class ListJourneysPresenter: ListJourneysPresentationLogic {
     
     
     private func getAccessibilitySwitchButton() -> String? {
-        return "reverse-departure-and-arrival".localized(bundle: NavitiaSDKUI.shared.bundle)
+        return "reverse_departure_and_arrival".localized(bundle: NavitiaSDKUI.shared.bundle)
     }
     
     private func getDisplayedHeaderInformationsDateTime(departureDateTime: Date?) -> NSMutableAttributedString {
@@ -280,33 +280,57 @@ class ListJourneysPresenter: ListJourneysPresentationLogic {
         guard let sections = sections else {
             return nil
         }
-        
+
+        let accessibilitySections = getAccessibilitySections(sections: sections, disruptions: disruptions)
         var modes: String = ""
         
-        for section in sections {
-            if let commercialMode = section.displayInformations?.commercialMode {
-                modes += ",\(commercialMode)"
-                if let code = section.displayInformations?.code {
-                    modes += " \(code)"
-                }
-            } else if let mode = section.mode {
-                modes += String(format: ", %@", "\(mode)-noun".localized(bundle: NavitiaSDKUI.shared.bundle))
+        for (index, accessibilitySection) in accessibilitySections.enumerated() {
+            if accessibilitySections.count == index + 1 && accessibilitySections.count > 1 {
+                modes.append(String(format: " %@.", "and".localized(bundle: NavitiaSDKUI.shared.bundle)))
             }
-            
-            if getDisruption(section: section, disruptions: disruptions) {
-                modes += String(format: " %@", "disrupted".localized(bundle: NavitiaSDKUI.shared.bundle))
-            }
+            modes.append(accessibilitySection)
         }
         
-        return duration + "," + modes
+        return String(format: "%@,%@", duration, modes)
     }
     
-    func getDisruption(section: Section, disruptions: [Disruption]?) -> Bool {
-        guard let disruptions = disruptions else {
+    private func getAccessibilitySections(sections: [Section], disruptions: [Disruption]?) -> [String] {
+        var accessibilitySections = [String]()
+        
+        for section in sections {
+            var accessibilityString = ""
+            
+            if let commercialMode = section.displayInformations?.commercialMode {
+                accessibilityString.append(String(format: " %@ ", commercialMode))
+                if let code = section.displayInformations?.code {
+                    if section.type == .onDemandTransport {
+                        accessibilityString.append(String(format: "dial_a_ride".localized(bundle: NavitiaSDKUI.shared.bundle), code))
+                    } else {
+                        accessibilityString.append(String(format: " %@ ", code))
+                    }
+                }
+            } else if let mode = section.mode, mode != .walking || sections.count == 1 {
+                accessibilityString.append(String(format: " %@", "\(mode)_noun".localized(bundle: NavitiaSDKUI.shared.bundle)))
+            } else {
+                continue
+            }
+            
+            if getDisruption(section: section, disruptionsCount: disruptions?.count) {
+                accessibilityString.append(String(format: " %@", "disrupted".localized(bundle: NavitiaSDKUI.shared.bundle)))
+            }
+            
+            accessibilitySections.append(String(format: "%@.", accessibilityString))
+        }
+        
+        return accessibilitySections
+    }
+    
+    func getDisruption(section: Section, disruptionsCount: Int?) -> Bool {
+        guard let disruptionsCount = disruptionsCount else {
             return false
         }
         
-        if disruptions.count > 0, let displayInformations = section.displayInformations, let displayInformationsLinks = displayInformations.links {
+        if disruptionsCount > 0, let displayInformations = section.displayInformations, let displayInformationsLinks = displayInformations.links {
             for linkSchema in displayInformationsLinks {
                 if let schemaType = linkSchema.type, schemaType == "disruption" {
                     return true

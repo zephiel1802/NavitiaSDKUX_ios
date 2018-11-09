@@ -170,6 +170,7 @@
             <viewLayoutGuide key="safeArea" id="kM1-GY-zAg"/>
             <connections>
                 <outlet property="detailsArrowLabel" destination="TkD-gi-FLt" id="J70-LK-Mcs"/>
+                <outlet property="detailsButton" destination="JJT-ot-Tpz" id="YTH-m1-aeE"/>
                 <outlet property="detailsLabel" destination="Btl-Um-b3d" id="a51-EQ-U9T"/>
                 <outlet property="detailsView" destination="2OL-3J-Boj" id="Ng7-ZD-Kmu"/>
                 <outlet property="directionsContainer" destination="Lrh-MG-FRV" id="TQg-LM-Vpy"/>
