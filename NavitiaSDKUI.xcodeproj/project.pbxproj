@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		142AF8C906CE572BC7D63122 /* Pods_NavitiaSDKUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C36CAD427EE91C15B758DEB7 /* Pods_NavitiaSDKUITests.framework */; };
 		3126559520AEF67A00D50F4B /* BookPaymentOfferView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3126558520AEF67A00D50F4B /* BookPaymentOfferView.xib */; };
 		3126559620AEF67A00D50F4B /* BookPaymentCartView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3126558620AEF67A00D50F4B /* BookPaymentCartView.xib */; };
 		3126559720AEF67A00D50F4B /* BookPaymentProfilView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3126558720AEF67A00D50F4B /* BookPaymentProfilView.xib */; };
@@ -424,6 +425,7 @@
 		84FABE122074C7FC00BDDE9D /* Icons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84FABE112074C7FC00BDDE9D /* Icons.swift */; };
 		84FABE142074CB2300BDDE9D /* UIFont+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84FABE132074CB2300BDDE9D /* UIFont+Extension.swift */; };
 		84FABE162074F76600BDDE9D /* JourneySolutionLoadCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84FABE152074F76600BDDE9D /* JourneySolutionLoadCollectionViewCell.xib */; };
+		AB46D5D9DB75DEB4242849E4 /* Pods_NavitiaSDKUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B990E84C02D0E04806B5F27 /* Pods_NavitiaSDKUI.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -454,6 +456,9 @@
 		3126559420AEF67A00D50F4B /* BookPaymentWebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookPaymentWebViewController.swift; sourceTree = "<group>"; };
 		3126566420B2FA0A00D50F4B /* UIColor+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
 		3126566820B3008700D50F4B /* UIViewController+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extension.swift"; sourceTree = "<group>"; };
+		322982FBEF2E1D2E8315EF38 /* Pods-NavitiaSDKUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NavitiaSDKUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-NavitiaSDKUITests/Pods-NavitiaSDKUITests.release.xcconfig"; sourceTree = "<group>"; };
+		585C660E472D800442056D13 /* Pods-NavitiaSDKUI.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NavitiaSDKUI.release.xcconfig"; path = "Pods/Target Support Files/Pods-NavitiaSDKUI/Pods-NavitiaSDKUI.release.xcconfig"; sourceTree = "<group>"; };
+		7B990E84C02D0E04806B5F27 /* Pods_NavitiaSDKUI.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_NavitiaSDKUI.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		84208C962093656D00980762 /* TicketLoadCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TicketLoadCollectionViewCell.xib; sourceTree = "<group>"; };
 		84208C982093657500980762 /* TicketLoadCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicketLoadCollectionViewCell.swift; sourceTree = "<group>"; };
 		8422B458206A24230097E6C9 /* JourneyHeaderCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JourneyHeaderCollectionReusableView.swift; sourceTree = "<group>"; };
@@ -750,7 +755,6 @@
 		84880CBE2101D1C0000CF229 /* Bit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Bit.swift; sourceTree = "<group>"; };
 		84880CBF2101D1C0000CF229 /* HMAC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HMAC.swift; sourceTree = "<group>"; };
 		84880CC02101D1C0000CF229 /* UInt16+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UInt16+Extension.swift"; sourceTree = "<group>"; };
-		84880CC12101D1C0000CF229 /* Collection+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Collection+Extension.swift"; sourceTree = "<group>"; };
 		84880CC22101D1C0000CF229 /* UInt32+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UInt32+Extension.swift"; sourceTree = "<group>"; };
 		84880CC32101D1C0000CF229 /* Digest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Digest.swift; sourceTree = "<group>"; };
 		84880CC42101D1C0000CF229 /* NoPadding.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoPadding.swift; sourceTree = "<group>"; };
@@ -771,10 +775,8 @@
 		84880CD52101D1C0000CF229 /* PBKDF1.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PBKDF1.swift; sourceTree = "<group>"; };
 		84880CD62101D1C0000CF229 /* SecureBytes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SecureBytes.swift; sourceTree = "<group>"; };
 		84880CD72101D1C0000CF229 /* ZeroPadding.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZeroPadding.swift; sourceTree = "<group>"; };
-		84880CD82101D1C0000CF229 /* String+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
 		84880CD92101D1C0000CF229 /* Authenticator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Authenticator.swift; sourceTree = "<group>"; };
 		84880CDA2101D1C0000CF229 /* SHA3.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SHA3.swift; sourceTree = "<group>"; };
-		84880CDB2101D1C0000CF229 /* Operators.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Operators.swift; sourceTree = "<group>"; };
 		84880CDC2101D1C0000CF229 /* RandomBytesSequence.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RandomBytesSequence.swift; sourceTree = "<group>"; };
 		84880CDD2101D1C0000CF229 /* Rabbit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Rabbit.swift; sourceTree = "<group>"; };
 		84880CDE2101D1C0000CF229 /* PKCS7.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PKCS7.swift; sourceTree = "<group>"; };
@@ -861,6 +863,9 @@
 		84FABE112074C7FC00BDDE9D /* Icons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Icons.swift; sourceTree = "<group>"; };
 		84FABE132074CB2300BDDE9D /* UIFont+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+Extension.swift"; sourceTree = "<group>"; };
 		84FABE152074F76600BDDE9D /* JourneySolutionLoadCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = JourneySolutionLoadCollectionViewCell.xib; sourceTree = "<group>"; };
+		AD188C5E54637C197DECB781 /* Pods-NavitiaSDKUI.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NavitiaSDKUI.debug.xcconfig"; path = "Pods/Target Support Files/Pods-NavitiaSDKUI/Pods-NavitiaSDKUI.debug.xcconfig"; sourceTree = "<group>"; };
+		C36CAD427EE91C15B758DEB7 /* Pods_NavitiaSDKUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_NavitiaSDKUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D6F61DD17930C425B6755A5A /* Pods-NavitiaSDKUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NavitiaSDKUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-NavitiaSDKUITests/Pods-NavitiaSDKUITests.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -868,6 +873,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AB46D5D9DB75DEB4242849E4 /* Pods_NavitiaSDKUI.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -876,12 +882,24 @@
 			buildActionMask = 2147483647;
 			files = (
 				8451DA44206503F100CFA1E4 /* NavitiaSDKUI.framework in Frameworks */,
+				142AF8C906CE572BC7D63122 /* Pods_NavitiaSDKUITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3046C1D0F470BB506068395E /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				AD188C5E54637C197DECB781 /* Pods-NavitiaSDKUI.debug.xcconfig */,
+				585C660E472D800442056D13 /* Pods-NavitiaSDKUI.release.xcconfig */,
+				D6F61DD17930C425B6755A5A /* Pods-NavitiaSDKUITests.debug.xcconfig */,
+				322982FBEF2E1D2E8315EF38 /* Pods-NavitiaSDKUITests.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		3126558320AEF67A00D50F4B /* BookPayment */ = {
 			isa = PBXGroup;
 			children = (
@@ -984,6 +1002,8 @@
 				8451DA3C206503F100CFA1E4 /* NavitiaSDKUI */,
 				8451DA47206503F100CFA1E4 /* NavitiaSDKUITests */,
 				8451DA3B206503F100CFA1E4 /* Products */,
+				3046C1D0F470BB506068395E /* Pods */,
+				C1D128F5707BCCE884BD539A /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -1544,14 +1564,14 @@
 		84880CB22101D1C0000CF229 /* NavitiaSDKPartners */ = {
 			isa = PBXGroup;
 			children = (
-				84880CB32101D1C0000CF229 /* Utils */,
-				84880D042101D1C0000CF229 /* NavitiaSDKPartners.h */,
-				84880D052101D1C0000CF229 /* NavitiaSDKPartners.swift */,
-				84880D062101D1C0000CF229 /* Preprod.xcconfig */,
+				84880D192101D1C0000CF229 /* Account */,
 				84880D072101D1C0000CF229 /* Book */,
 				84880D112101D1C0000CF229 /* Ticket */,
+				84880CB32101D1C0000CF229 /* Utils */,
+				84880D052101D1C0000CF229 /* NavitiaSDKPartners.swift */,
+				84880D042101D1C0000CF229 /* NavitiaSDKPartners.h */,
+				84880D062101D1C0000CF229 /* Preprod.xcconfig */,
 				84880D182101D1C0000CF229 /* Prod.xcconfig */,
-				84880D192101D1C0000CF229 /* Account */,
 				84880D232101D1C0000CF229 /* Info.plist */,
 			);
 			path = NavitiaSDKPartners;
@@ -1588,7 +1608,6 @@
 				84880CBE2101D1C0000CF229 /* Bit.swift */,
 				84880CBF2101D1C0000CF229 /* HMAC.swift */,
 				84880CC02101D1C0000CF229 /* UInt16+Extension.swift */,
-				84880CC12101D1C0000CF229 /* Collection+Extension.swift */,
 				84880CC22101D1C0000CF229 /* UInt32+Extension.swift */,
 				84880CC32101D1C0000CF229 /* Digest.swift */,
 				84880CC42101D1C0000CF229 /* NoPadding.swift */,
@@ -1599,10 +1618,8 @@
 				84880CD22101D1C0000CF229 /* PKCS5 */,
 				84880CD62101D1C0000CF229 /* SecureBytes.swift */,
 				84880CD72101D1C0000CF229 /* ZeroPadding.swift */,
-				84880CD82101D1C0000CF229 /* String+Extension.swift */,
 				84880CD92101D1C0000CF229 /* Authenticator.swift */,
 				84880CDA2101D1C0000CF229 /* SHA3.swift */,
-				84880CDB2101D1C0000CF229 /* Operators.swift */,
 				84880CDC2101D1C0000CF229 /* RandomBytesSequence.swift */,
 				84880CDD2101D1C0000CF229 /* Rabbit.swift */,
 				84880CDE2101D1C0000CF229 /* PKCS7.swift */,
@@ -1791,6 +1808,15 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+		C1D128F5707BCCE884BD539A /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				7B990E84C02D0E04806B5F27 /* Pods_NavitiaSDKUI.framework */,
+				C36CAD427EE91C15B758DEB7 /* Pods_NavitiaSDKUITests.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -1813,6 +1839,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 8451DA4E206503F100CFA1E4 /* Build configuration list for PBXNativeTarget "NavitiaSDKUI" */;
 			buildPhases = (
+				A254781ADA551143E2CAE2A6 /* [CP] Check Pods Manifest.lock */,
 				8451DA35206503F100CFA1E4 /* Sources */,
 				8451DA36206503F100CFA1E4 /* Frameworks */,
 				8451DA37206503F100CFA1E4 /* Headers */,
@@ -1831,9 +1858,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 8451DA51206503F100CFA1E4 /* Build configuration list for PBXNativeTarget "NavitiaSDKUITests" */;
 			buildPhases = (
+				1193A6DA6100EF58D8CBC5E0 /* [CP] Check Pods Manifest.lock */,
 				8451DA3F206503F100CFA1E4 /* Sources */,
 				8451DA40206503F100CFA1E4 /* Frameworks */,
 				8451DA41206503F100CFA1E4 /* Resources */,
+				C39FEB81283B93F06B7E4224 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -1943,6 +1972,63 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		1193A6DA6100EF58D8CBC5E0 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-NavitiaSDKUITests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		A254781ADA551143E2CAE2A6 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-NavitiaSDKUI-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		C39FEB81283B93F06B7E4224 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-NavitiaSDKUITests/Pods-NavitiaSDKUITests-frameworks.sh",
+				"${PODS_ROOT}/JustRideSDK/JustRideSDK.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/JustRideSDK.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-NavitiaSDKUITests/Pods-NavitiaSDKUITests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		8451DA35206503F100CFA1E4 /* Sources */ = {
@@ -2472,6 +2558,7 @@
 		};
 		8451DA4F206503F100CFA1E4 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = AD188C5E54637C197DECB781 /* Pods-NavitiaSDKUI.debug.xcconfig */;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
@@ -2499,6 +2586,7 @@
 		};
 		8451DA50206503F100CFA1E4 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 585C660E472D800442056D13 /* Pods-NavitiaSDKUI.release.xcconfig */;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
@@ -2525,6 +2613,7 @@
 		};
 		8451DA52206503F100CFA1E4 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = D6F61DD17930C425B6755A5A /* Pods-NavitiaSDKUITests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
@@ -2539,6 +2628,7 @@
 		};
 		8451DA53206503F100CFA1E4 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 322982FBEF2E1D2E8315EF38 /* Pods-NavitiaSDKUITests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;

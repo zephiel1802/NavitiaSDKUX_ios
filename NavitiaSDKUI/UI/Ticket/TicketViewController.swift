@@ -53,11 +53,8 @@ import JustRideSDK
                 case NavitiaSDKPartnersReturnCode.notConnected.getCode():
                     self._showTicketMasabi()
                     self._displayMasabiViewController()
-                case NavitiaSDKPartnersReturnCode.masabiAuthenticateError.getCode():
-                    self._informationViewController = self._setupInformationViewController(information:
-                        String(format: "%@\n\n%@ 200\nUnderlying network error\n",
-                               "please_contact_the_customer_service_with_the_following_information".localized(bundle: NavitiaSDKUI.shared.bundle),
-                               "code".localized(bundle: NavitiaSDKUI.shared.bundle)))
+                case NavitiaSDKPartnersReturnCode.masabiAuthenticateError.getCode(), NavitiaSDKPartnersReturnCode.masabiNetworkError.getCode():
+                    self._informationViewController = self._setupInformationViewController(information: self._detailsPopInMasabi(statusCode: statusCode, data: data))
                     self._displayInformationViewController()
                 default:
                     self._informationViewController = self._setupInformationViewController(information: "an_error_occurred".localized(bundle: NavitiaSDKUI.shared.bundle))
@@ -69,6 +66,42 @@ import JustRideSDK
     
     override open func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
+    }
+    
+    private func _detailsPopInMasabi(statusCode: Int, data: [String: Any]?) -> String {
+        guard let data = data else {
+            return String(format: "%@.",
+                          "an_error_occurred".localized(bundle: NavitiaSDKUI.shared.bundle))
+        }
+        
+        let code = (data["code"] as? Int ?? 0)
+        let domain = (data["domain"] as? String ?? "")
+        var masabiDetailString = ""
+        
+        switch code {
+        case 103, 106, 401:
+            masabiDetailString = String(format: "%@.\n%@\n%@ %d",
+                                        "please_contact_the_customer_service_with_the_following_information".localized(bundle: NavitiaSDKUI.shared.bundle),
+                                        domain,
+                                        "code".localized(bundle: NavitiaSDKUI.shared.bundle),
+                                        code)
+        case 200, 900:
+            let underlying = (data["underlying"] as? String ?? "")
+            masabiDetailString = String(format: "%@.\n%@\n%@ %d\n%@",
+                                        "an_error_occurred".localized(bundle: NavitiaSDKUI.shared.bundle),
+                                        domain,
+                                        "code".localized(bundle: NavitiaSDKUI.shared.bundle),
+                                        code,
+                                        underlying)
+        default:
+            masabiDetailString = String(format: "%@.\n%@\n%@ %d",
+                                        "an_error_occurred".localized(bundle: NavitiaSDKUI.shared.bundle),
+                                        domain,
+                                        "code".localized(bundle: NavitiaSDKUI.shared.bundle),
+                                        code)
+        }
+        
+        return masabiDetailString
     }
     
     private func _showTicketMasabi() {
@@ -84,7 +117,7 @@ import JustRideSDK
                                                                  animated: false)
             walletViewController.navigationController?.navigationBar.tintColor = Configuration.Color.main
             walletViewController.navigationController?.navigationBar.barTintColor = Configuration.Color.white
-            walletViewController.navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor : Configuration.Color.black]
+            walletViewController.navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor: Configuration.Color.black]
         }) { (_, _) in }
     }
 
