@@ -61,7 +61,7 @@ class ListJourneysPresenter: ListJourneysPresentationLogic {
         let displayedRidesharings = appendDisplayedJourneys(journeys: response.journeys.withRidesharing, disruptions: response.disruptions)
         let viewModel = ListJourneys.FetchJourneys.ViewModel(loaded: true,
                                                              headerInformations: headerInformations,
-                                                             accessibilityHeader: getAccessibilityHeader(origin: headerInformations.originString, destination: headerInformations.destinationString, dateTime: headerInformations.dateTimeDate),
+                                                             accessibilityHeader: getHeaderAccessibility(origin: headerInformations.originString, destination: headerInformations.destinationString, dateTime: headerInformations.dateTimeDate),
                                                              accessibilitySwitchButton: getAccessibilitySwitchButton(),
                                                              displayedJourneys: displayedJourneys,
                                                              displayedRidesharings: displayedRidesharings,
@@ -116,7 +116,7 @@ class ListJourneysPresenter: ListJourneysPresentationLogic {
         return displayedInformations
     }
     
-    private func getAccessibilityHeader(origin: String, destination: String, dateTime: Date?) -> String? {
+    private func getHeaderAccessibility(origin: String, destination: String, dateTime: Date?) -> String? {
         var accessibilityLabel = String(format: "reminder_of_the_research".localized(bundle: NavitiaSDKUI.shared.bundle), origin, destination)
          
         if let dateTime = dateTime {
@@ -176,7 +176,7 @@ class ListJourneysPresenter: ListJourneysPresentationLogic {
                 return nil
         }
         
-        let accessibility = getAccessibilityJourney(duration: duration.string, sections: journey.sections, disruptions: disruptions)
+        let accessibility = getJourneyAccessibility(duration: duration.string, sections: journey.sections, disruptions: disruptions)
         
         if journey.isRidesharing {
             return ListJourneys.FetchJourneys.ViewModel.DisplayedJourney(dateTime: dateTime,
@@ -275,7 +275,7 @@ class ListJourneysPresenter: ListJourneysPresentationLogic {
         return String(format: "%@ %@", walkingDistance.toString(), "units_meters".localized(withComment: "meters", bundle: NavitiaSDKUI.shared.bundle))
     }
     
-    private func getAccessibilityJourney(duration: String, sections: [Section]?, disruptions: [Disruption]?) -> String? {
+    private func getJourneyAccessibility(duration: String, sections: [Section]?, disruptions: [Disruption]?) -> String? {
         guard let sections = sections else {
             return nil
         }
