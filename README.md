@@ -91,24 +91,22 @@ class ViewController: UIViewController {
 
 ```swift
 var journeysRequest = JourneysRequest(originId: "2.3665844;48.8465337", destinationId: "2.2979169;48.8848719")
-journeysRequest.firstSectionModes = [.walking]
-journeysRequest.lastSectionModes = [.walking]
 ```
 
 ##### Bike
 
 ```swift
 var journeysRequest = JourneysRequest(originId: "2.3665844;48.8465337", destinationId: "2.2979169;48.8848719")
-journeysRequest.firstSectionModes = [.walking, .bike]
-journeysRequest.lastSectionModes = [.walking, .bike]
+journeysRequest.firstSectionModes = [.bike]
+journeysRequest.lastSectionModes = [.bike]
 ```
 
 ##### BSS
 
 ```swift
 var journeysRequest = JourneysRequest(originId: "2.3665844;48.8465337", destinationId: "2.2979169;48.8848719")
-journeysRequest.firstSectionModes = [.walking, .bss]
-journeysRequest.lastSectionModes = [.walking, .bss]
+journeysRequest.firstSectionModes = [.bss]
+journeysRequest.lastSectionModes = [.bss]
 journeysRequest.addPoiInfos = [.bssStands]
 ```
 
@@ -116,8 +114,7 @@ journeysRequest.addPoiInfos = [.bssStands]
 
 ```swift
 var journeysRequest = JourneysRequest(originId: "2.3665844;48.8465337", destinationId: "2.2979169;48.8848719")
-journeysRequest.firstSectionModes = [.walking, .car]
-journeysRequest.lastSectionModes = [.walking]
+journeysRequest.firstSectionModes = [.car]
 journeysRequest.addPoiInfos = [.car_park]
 ```
 
@@ -125,8 +122,8 @@ journeysRequest.addPoiInfos = [.car_park]
 
 ```swift
 var journeysRequest = JourneysRequest(originId: "2.3665844;48.8465337", destinationId: "2.2979169;48.8848719")
-journeysRequest.firstSectionModes = [.walking, .ridesharing]
-journeysRequest.lastSectionModes = [.walking, .ridesharing]
+journeysRequest.firstSectionModes = [.ridesharing]
+journeysRequest.lastSectionModes = [.ridesharing]
 ```
 
 ## Example
