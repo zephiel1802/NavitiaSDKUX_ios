@@ -234,8 +234,6 @@ class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
             return "park_in_the".localized(bundle: NavitiaSDKUI.shared.bundle)
         } else if type == .ridesharing {
             return "take_the_ridesharing".localized(bundle: NavitiaSDKUI.shared.bundle)
-        } else if let mode = section.mode {
-            return "to_with_uppercase".localized(bundle: NavitiaSDKUI.shared.bundle)
         } else if type == .transfer {
             return "to_with_uppercase".localized(bundle: NavitiaSDKUI.shared.bundle)
         } else if let commercialMode = section.displayInformations?.commercialMode {

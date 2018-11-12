@@ -542,7 +542,7 @@ extension ShowJourneyRoadmapViewController {
         
         sectionsPolylines.append(sectionPolyline)
         journeyPolylineCoordinates.append(contentsOf: sectionPolylineCoordinates)
-        mapView.add(sectionPolyline)
+        mapView.addOverlay(sectionPolyline)
     }
     
     private func streetNetworkPolyline(mode: Section.Mode?, sectionPolyline: inout SectionPolyline) {
@@ -645,7 +645,7 @@ extension ShowJourneyRoadmapViewController {
     
     private func zoomOverPolyline(targetPolyline: MKPolyline) {
         mapView.setVisibleMapRect(targetPolyline.boundingMapRect,
-                                  edgePadding: UIEdgeInsetsMake(60, 40, 10, 40),
+                                  edgePadding: UIEdgeInsets(top: 60, left: 40, bottom: 10, right: 40),
                                   animated: false)
     }
     
