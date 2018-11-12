@@ -327,7 +327,7 @@ open class JourneySolutionRoadmapViewController: UIViewController {
             addOnDemandTransport(publicTransportView: &publicTransportView, section: section)
         }
         
-        if section.type == .publicTransport, let disruptions = disruptions, disruptions.count > 0 {
+        if let disruptions = disruptions, disruptions.count > 0 {
             let sectionDisruptions = section.disruptions(disruptions: disruptions)
             if sectionDisruptions.count > 0 {
                 publicTransportView.setDisruptions(sectionDisruptions)
