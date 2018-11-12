@@ -349,6 +349,8 @@ class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
         var availabilityTemplate = ""
 
         if let stands = stands {
+            let bssStationStatus = getBssStationStatus(sectionType: type, stationStatus: stands.status)
+            
             switch type {
             case .bssRent:
                 if let availableBikes = stands.availableBikes {
@@ -358,7 +360,7 @@ class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
                         availabilityTemplate = "bss_available_bikes_plural".localized(bundle: NavitiaSDKUI.shared.bundle)
                     }
                     
-                    let standsViewModel = ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionModel.Stands(status: getBssStationStatus(sectionType: type, stationStatus: stands.status), availability: String(format: availabilityTemplate, availableBikes),
+                    let standsViewModel = ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionModel.Stands(status: bssStationStatus, availability: String(format: availabilityTemplate, availableBikes),
                                                                                                       icon: nil)
                     return standsViewModel
                 }
@@ -370,7 +372,7 @@ class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
                         availabilityTemplate = "available_places_plural".localized(bundle: NavitiaSDKUI.shared.bundle)
                     }
                     
-                    let standsViewModel = ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionModel.Stands(status: getBssStationStatus(sectionType: type, stationStatus: stands.status), availability: String(format: availabilityTemplate, availablePlaces),
+                    let standsViewModel = ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionModel.Stands(status: bssStationStatus, availability: String(format: availabilityTemplate, availablePlaces),
                                                                                                       icon: nil)
                     return standsViewModel
                 }
