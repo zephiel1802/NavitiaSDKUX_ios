@@ -7,10 +7,10 @@
 import Foundation
 
 open class NavitiaSDKAPI {
-    open static var basePath = "https://api.navitia.io/v1"
-    open static var credential: URLCredential?
-    open static var customHeaders: [String:String] = [:]
-    open static var requestBuilderFactory: RequestBuilderFactory = AlamofireRequestBuilderFactory()
+    public static var basePath = "https://api.navitia.io/v1"
+    public static var credential: URLCredential?
+    public static var customHeaders: [String:String] = [:]
+    public static var requestBuilderFactory: RequestBuilderFactory = AlamofireRequestBuilderFactory()
 }
 
 open class APIBase: NSObject {

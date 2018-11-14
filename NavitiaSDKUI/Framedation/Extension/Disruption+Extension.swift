@@ -28,8 +28,6 @@ extension Disruption {
             return DisruptionLevel.nonblocking
         case .otherEffect, .unknownEffect:
             return DisruptionLevel.information
-        default:
-            return DisruptionLevel.none
         }
     }
     

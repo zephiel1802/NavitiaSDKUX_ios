@@ -257,7 +257,6 @@
 		84827A91214BBAA800CB9513 /* ListRidesharingOffersRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84827A8A214BBAA800CB9513 /* ListRidesharingOffersRouter.swift */; };
 		84827A92214BBAA800CB9513 /* ListRidesharingOffersModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84827A8B214BBAA800CB9513 /* ListRidesharingOffersModels.swift */; };
 		848CFDE921512F520022A4F2 /* HorizontalSeparator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848CFDE821512F510022A4F2 /* HorizontalSeparator.swift */; };
-		848CFDEF21512F6B0022A4F2 /* HorizontalSeparator.xib in Resources */ = {isa = PBXBuildFile; fileRef = 848CFDED21512F6B0022A4F2 /* HorizontalSeparator.xib */; };
 		8490376B2161FBEF00472FD6 /* StepView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8490376A2161FBEF00472FD6 /* StepView.swift */; };
 		8490376D2161FBF400472FD6 /* StepView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8490376C2161FBF400472FD6 /* StepView.xib */; };
 		8490A6D52084D2C700F7CFA1 /* NavitiaSDKUserDefaultsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8490A6D42084D2C700F7CFA1 /* NavitiaSDKUserDefaultsManager.swift */; };
@@ -1227,7 +1226,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0940;
-				LastUpgradeCheck = 0930;
+				LastUpgradeCheck = 1010;
 				ORGANIZATIONNAME = kisio;
 				TargetAttributes = {
 					8451DA39206503F100CFA1E4 = {
@@ -1284,7 +1283,6 @@
 				8422B46A206A33540097E6C9 /* JourneySummaryView.xib in Resources */,
 				845B4EF321675DEA009CCF12 /* PublicTransportStepView.xib in Resources */,
 				8422B45B206A242D0097E6C9 /* JourneyHeaderCollectionReusableView.xib in Resources */,
-				848CFDEF21512F6B0022A4F2 /* HorizontalSeparator.xib in Resources */,
 				8454D44E20692CA200C97D2F /* SDKIcons.ttf in Resources */,
 				8433F3A2207FAF23007DBBCE /* AlertView.xib in Resources */,
 				84339A7E206CC5E200F2CB65 /* JourneyEmptySolutionCollectionViewCell.xib in Resources */,
@@ -1728,7 +1726,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -1750,7 +1748,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = org.kisio.NavitiaSDKUI;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
