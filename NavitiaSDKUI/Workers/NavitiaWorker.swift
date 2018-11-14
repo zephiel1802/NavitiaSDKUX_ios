@@ -25,6 +25,7 @@ internal struct NavitiaWorker {
                 .withMaxNbJourneys(journeysRequest.maxNbJourneys)
                 .withBssStands(journeysRequest.bssStands)
                 .withAddPoiInfos(journeysRequest.addPoiInfos)
+                .withDirectPath(journeysRequest.directPath)
                 .withDebugURL(journeysRequest.debugURL)
             
             journeyRequestBuilder.get { (result, error) in
