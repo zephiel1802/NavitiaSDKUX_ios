@@ -70,7 +70,7 @@ internal class ListRidesharingOffersViewController: UIViewController, ListRidesh
     
     func displayRidesharingOffers(viewModel: ListRidesharingOffers.GetRidesharingOffers.ViewModel) {
         self.viewModel = viewModel
-        self.journeySummaryView.setRidesharingData(duration: viewModel.journeySummary.duration, sections: viewModel.journeySummary.sections)
+        self.journeySummaryView.setRidesharingData(duration: viewModel.frieze.duration, friezeSection: viewModel.frieze.friezeSections)
         self.ridesharingOffersCollectionView.reloadData()
     }
     

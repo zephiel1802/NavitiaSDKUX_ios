@@ -31,14 +31,13 @@ enum ListJourneys {
                 var dateTime: String
                 var duration: NSMutableAttributedString
                 var walkingInformation: NSMutableAttributedString?
-                var sections: [Section]
+                var friezeSections: [FriezePresenter.FriezeSection]
             }
             
             var loaded: Bool
             var headerInformations: HeaderInformations
             var displayedJourneys: [DisplayedJourney]
             var displayedRidesharings: [DisplayedJourney]
-            var disruptions: [Disruption] // Class: SDK Expert
         }
     }
 }

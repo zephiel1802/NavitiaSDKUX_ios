@@ -212,13 +212,9 @@ internal class ShowJourneyRoadmapViewController: UIViewController, ShowJourneyRo
         scrollView.addSubview(journeySolutionView, margin: UIEdgeInsets(top: 0, left: 0, bottom: 5, right: 0))
         
         if viewModel.journey.isRidesharing {
-            guard let duration = viewModel.journey.duration, let sections = viewModel.journey.sections else {
-                return
-            }
-            
             let ridesharingView = displayRidesharingView()
             
-            journeySolutionView.setRidesharingData(duration: duration, sections: sections)
+            journeySolutionView.setRidesharingData(duration: viewModel.frieze.duration, friezeSection: viewModel.frieze.friezeSections)
             
             scrollView.addSubview(ridesharingView, margin: UIEdgeInsets(top: 5, left: 10, bottom: 5, right: 10))
         }
@@ -227,8 +223,8 @@ internal class ShowJourneyRoadmapViewController: UIViewController, ShowJourneyRo
     private func getJourneySolutionView(viewModel: ShowJourneyRoadmap.GetRoadmap.ViewModel) -> JourneySolutionView {
         let journeySolutionView = JourneySolutionView(frame: CGRect(x: 0, y: 0, width: 0, height: 60))
         
-        journeySolutionView.disruptions = viewModel.disruptions
-        journeySolutionView.setData(viewModel.journey)
+        journeySolutionView.setData(duration: viewModel.frieze.duration, friezeSection: viewModel.frieze.friezeSections)
+
         
         return journeySolutionView
     }
@@ -273,7 +269,7 @@ internal class ShowJourneyRoadmapViewController: UIViewController, ShowJourneyRo
         publicTransportView.arrival = (to: section.to, time: section.endTime)
         publicTransportView.stopDates = section.stopDate
         publicTransportView.notes = section.notes
-        publicTransportView.disruptions = section.disruptionsClean
+        publicTransportView.disruptions = section.disruptions
         publicTransportView.waiting = section.waiting
         
         return publicTransportView

@@ -25,16 +25,19 @@ class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
         guard let departure = getDepartureViewModel(journey: response.journey),
             let sectionsClean = getSectionModels(response: response),
             let arrival = getArrivalViewModel(journey: response.journey),
-            let emission = getEmission(response: response) else {
+            let emission = getEmission(response: response),
+            let frieze = getFrieze(journey: response.journey, disruptions: response.disruptions) else {
             return
         }
 
         let viewModel = ShowJourneyRoadmap.GetRoadmap.ViewModel(ridesharing: getRidesharing(journeyRidesharing: response.journeyRidesharing),
                                                                 departure: departure,
                                                                 sections: sectionsClean,
+//                                                                friezeSections: friezeSections,
+                                                                frieze: frieze,
                                                                 arrival: arrival,
                                                                 emission: emission,
-                                                                disruptions: response.disruptions,
+                                                              //  disruptions: response.disruptions,
                                                                 journey: response.journey,
                                                                 ridesharingJourneys: response.journeyRidesharing)
         
@@ -219,6 +222,18 @@ class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
         }
         
         return arrivalDate.toString(format: Configuration.time)
+    }
+
+    private func getFrieze(journey: Journey, disruptions: [Disruption]?) -> ShowJourneyRoadmap.GetRoadmap.ViewModel.Frieze? {
+        guard let duration = journey.duration else {
+            return nil
+        }
+        
+        let friezeSections = FriezePresenter().getDisplayedJourneySections(journey: journey, disruptions: disruptions)
+        let frieze = ShowJourneyRoadmap.GetRoadmap.ViewModel.Frieze(duration: duration,
+                                                                    friezeSections: friezeSections)
+        
+        return frieze
     }
     
     private func getActionDescription(section: Section) -> String? {
@@ -432,8 +447,7 @@ class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
                                                                                 stopDate: getStopDate(section: section),
                                                                                 displayInformations: getDisplayInformations(displayInformations: section.displayInformations),
                                                                                 waiting: getWaiting(sectionBefore: sectionBefore, section: section),
-                                                                                disruptions: getDisruption(section: section, disruptions: disruptions),
-                                                                                disruptionsClean: getDisruptionModel(section: section, disruptions: disruptions),
+                                                                                disruptions: getDisruptionModel(section: section, disruptions: disruptions),
                                                                                 notes: getNotesOnDemandTransport(section: section, notes: notes),
                                                                                 poi: getPoi(section: section),
                                                                                 icon: Modes().getModeIcon(section: section, roadmap: true),
@@ -598,16 +612,16 @@ class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
         return ""
     }
     
-    func getDisruptionModel(section: Section, disruptions: [Disruption]?) -> [ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionModel.DisruptionModel] {
+    func getDisruptionModel(section: Section, disruptions: [Disruption]?) -> [ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionModel.Disruption] {
         let disruptions = getDisruption(section: section, disruptions: disruptions)
-        var disruptionsClean = [ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionModel.DisruptionModel]()
+        var disruptionsClean = [ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionModel.Disruption]()
 
         for (_, disruption) in disruptions.enumerated() {
-            let disruptionModel = ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionModel.DisruptionModel(color: disruption.severity?.color?.toUIColor() ?? UIColor.red,
-                                                                                                       icon: Disruption.iconName(of: disruption.level),
-                                                                                                       title: disruption.severity?.name ?? "",
-                                                                                                       date: getDateDisruption(disruption: disruption),
-                                                                                                       information: Disruption.message(disruption: disruption)?.text?.htmlToAttributedString?.string)
+            let disruptionModel = ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionModel.Disruption(color: disruption.severity?.color?.toUIColor() ?? UIColor.red,
+                                                                                                  icon: Disruption.iconName(of: disruption.level),
+                                                                                                  title: disruption.severity?.name ?? "",
+                                                                                                  date: getDateDisruption(disruption: disruption),
+                                                                                                  information: Disruption.message(disruption: disruption)?.text?.htmlToAttributedString?.string)
             disruptionsClean.append(disruptionModel)
         }
         

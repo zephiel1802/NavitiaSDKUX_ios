@@ -40,32 +40,26 @@ class JourneySolutionView: UIView {
         addShadow()
     }
 
-    func setData(_ journey: Journey) {
+    func setData(duration: Int32, friezeSection: [FriezePresenter.FriezeSection]) {
         aboutLabel.isHidden = true
         durationCenterContraint.constant = 0
         
-        if let durationInt = journey.duration {
-            formattedDuration(durationInt)
-        }
-        if let sections = journey.sections {
-            journeySummaryView.disruptions = disruptions
-            journeySummaryView.addSections(sections)
-        }
+        formattedDuration(duration)
+        journeySummaryView.addSection(sectionsClean: friezeSection)
     }
     
-    func setRidesharingData(duration: Int32, sections: [Section]) {
+    func setRidesharingData(duration: Int32, friezeSection: [FriezePresenter.FriezeSection]) {
         aboutLabel.isHidden = false
         durationCenterContraint.constant = 7
         
         aboutLabel.attributedText = NSMutableAttributedString()
             .semiBold("about".localized(withComment: "about", bundle: NavitiaSDKUI.shared.bundle), color: Configuration.Color.main)
         formattedDuration(duration)
-        journeySummaryView.disruptions = disruptions
-        journeySummaryView.addSections(sections)
+        
+        journeySummaryView.addSection(sectionsClean: friezeSection)
         if durationWalkerLabel != nil {
             durationWalkerLabel.isHidden = true
         }
-
     }
     
     private func formattedDuration(prefix: String = "", _ duration: Int32) {

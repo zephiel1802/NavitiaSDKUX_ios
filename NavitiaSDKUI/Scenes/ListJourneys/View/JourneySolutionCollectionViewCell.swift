@@ -41,8 +41,7 @@ class JourneySolutionCollectionViewCell: UICollectionViewCell {
         return String(describing: self)
     }
     
-    internal func setup(displayedJourney: ListJourneys.FetchJourneys.ViewModel.DisplayedJourney,
-                        displayedDisruptions: [Disruption]) {
+    internal func setup(displayedJourney: ListJourneys.FetchJourneys.ViewModel.DisplayedJourney) {
         setArrow()
         
         dateTime = displayedJourney.dateTime
@@ -56,7 +55,7 @@ class JourneySolutionCollectionViewCell: UICollectionViewCell {
             walkingInformationIsHidden = true
         }
         
-        setJourneySummaryView(displayedJourney: displayedJourney, displayedDisruptions: displayedDisruptions)
+        setJourneySummaryView(displayedJourney: displayedJourney)
     }
     
     private func setArrow() {
@@ -66,10 +65,8 @@ class JourneySolutionCollectionViewCell: UICollectionViewCell {
                   size: 15)
     }
     
-    private func setJourneySummaryView(displayedJourney: ListJourneys.FetchJourneys.ViewModel.DisplayedJourney,
-                                       displayedDisruptions: [Disruption]) {
-        journeySummaryView.disruptions = displayedDisruptions
-        journeySummaryView.addSections(displayedJourney.sections)
+    private func setJourneySummaryView(displayedJourney: ListJourneys.FetchJourneys.ViewModel.DisplayedJourney) {
+        journeySummaryView.addSection(sectionsClean: displayedJourney.friezeSections)
     }
     
     public var dateTime: String? {

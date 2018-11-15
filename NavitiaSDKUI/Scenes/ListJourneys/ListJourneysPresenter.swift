@@ -25,15 +25,14 @@ class ListJourneysPresenter: ListJourneysPresentationLogic {
         let viewModel = ListJourneys.FetchJourneys.ViewModel(loaded: false,
                                                              headerInformations: headerInformations,
                                                              displayedJourneys: [],
-                                                             displayedRidesharings: [],
-                                                             disruptions: [])
+                                                             displayedRidesharings: [])
         
         viewController?.displayFetchedJourneys(viewModel: viewModel)
     }
     
     // MARK: - Fetch Journeys
     
-    private func appendDisplayedJourneys(journeys: [Journey]?) -> [ListJourneys.FetchJourneys.ViewModel.DisplayedJourney] {
+    private func appendDisplayedJourneys(journeys: [Journey]?, disruptions: [Disruption]?) -> [ListJourneys.FetchJourneys.ViewModel.DisplayedJourney] {
         var displayedJourneys = [ListJourneys.FetchJourneys.ViewModel.DisplayedJourney]()
         
         guard let journeys = journeys else {
@@ -41,7 +40,7 @@ class ListJourneysPresenter: ListJourneysPresentationLogic {
         }
         
         for journey in journeys {
-            if let displayedJourney = getDisplayedJourney(journey: journey) {
+            if let displayedJourney = getDisplayedJourney(journey: journey, disruptions: disruptions) {
                 displayedJourneys.append(displayedJourney)
             }
         }
@@ -55,13 +54,12 @@ class ListJourneysPresenter: ListJourneysPresentationLogic {
             return
         }
         
-        let displayedJourneys = appendDisplayedJourneys(journeys: response.journeys.0)
-        let displayedRidesharings = appendDisplayedJourneys(journeys: response.journeys.withRidesharing)
+        let displayedJourneys = appendDisplayedJourneys(journeys: response.journeys.0, disruptions: response.disruptions)
+        let displayedRidesharings = appendDisplayedJourneys(journeys: response.journeys.withRidesharing, disruptions: response.disruptions)
         let viewModel = ListJourneys.FetchJourneys.ViewModel(loaded: true,
                                                              headerInformations: headerInformations,
                                                              displayedJourneys: displayedJourneys,
-                                                             displayedRidesharings: displayedRidesharings,
-                                                             disruptions: response.disruptions ?? [])
+                                                             displayedRidesharings: displayedRidesharings)
         
         viewController?.displayFetchedJourneys(viewModel: viewModel)
     }
@@ -140,18 +138,20 @@ class ListJourneysPresenter: ListJourneysPresentationLogic {
     
     // MARK: - Displayed Journey
     
-    private func getDisplayedJourney(journey: Journey?) -> ListJourneys.FetchJourneys.ViewModel.DisplayedJourney? {
+    private func getDisplayedJourney(journey: Journey?, disruptions: [Disruption]?) -> ListJourneys.FetchJourneys.ViewModel.DisplayedJourney? {
         guard let journey = journey,
             let dateTime = getDisplayedJourneyDateTime(journey: journey),
             let duration = getDisplayedJourneyDuration(journey: journey) else {
                 return nil
         }
         
+        let friezeSections = FriezePresenter().getDisplayedJourneySections(journey: journey, disruptions: disruptions)
+        
         if journey.isRidesharing {
             return ListJourneys.FetchJourneys.ViewModel.DisplayedJourney(dateTime: dateTime,
                                                                             duration: duration,
                                                                             walkingInformation: nil,
-                                                                            sections: journey.sections ?? [])
+                                                                            friezeSections: friezeSections)
         }
         
         let walkingInformation = getDisplayedJourneyWalkingInformation(journey: journey)
@@ -159,7 +159,7 @@ class ListJourneysPresenter: ListJourneysPresentationLogic {
         return ListJourneys.FetchJourneys.ViewModel.DisplayedJourney(dateTime: dateTime,
                                                                         duration: duration,
                                                                         walkingInformation: walkingInformation,
-                                                                        sections: journey.sections ?? [])
+                                                                        friezeSections: friezeSections)
     }
     
     private func getDisplayedJourneyDateTime(journey: Journey) -> String? {

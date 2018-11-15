@@ -27,50 +27,31 @@ class JourneySummaryView: UIView {
         setup()
     }
     
-    func addSections(_ sections: [Section]) {
+    func addSection(sectionsClean: [FriezePresenter.FriezeSection]) {
         var allDurationSections:Int32 = 0
         var sectionCount = 0.0
         
         stackView.removeAllArrangedSubviews()
-        for section in sections {
-            if validDisplaySection(section) {
-                if let duration = section.duration {
-                    allDurationSections += duration
-                    sectionCount += 1
-                }
+        for section in sectionsClean {
+            if let duration = section.duration {
+                allDurationSections += duration
+                sectionCount += 1
             }
         }
         
-        for section in sections {
-            if validDisplaySection(section) {
-                if let duration = section.duration {
-                    if section.mode == .walking && duration <= 180 && sections.count > 1 {
-                        continue
-                    }
-                    
-                    let journeySummaryPartView = JourneySummaryPartView()
-                    journeySummaryPartView.color = section.displayInformations?.color?.toUIColor() ?? UIColor.black
-                    if let code = section.displayInformations?.code, !code.isEmpty {
-                        journeySummaryPartView.name = section.displayInformations?.code
-                    } else {
-                        journeySummaryPartView.name = section.displayInformations?.commercialMode
-                    }
-                    journeySummaryPartView.icon = Modes().getModeIcon(section: section)
-                    if let disruptions = disruptions, disruptions.count > 0 {
-                        let sectionDisruptions = section.disruptions(disruptions: disruptions)
-                        if sectionDisruptions.count > 0 {
-                            let highestDisruption = Disruption.highestLevelDisruption(disruptions: sectionDisruptions)
-                            journeySummaryPartView.displayDisruption(Disruption.iconName(of: highestDisruption.level), color: highestDisruption.color)
-                        }
-                    }
-                    journeySummaryPartView.width = widthJourneySummaryPartView(sectionCount: sectionCount,
-                                                                               allDurationSections: allDurationSections,
-                                                                               duration: duration,
-                                                                               journeySummaryPartView: journeySummaryPartView)
-                    
-                    stackView.addArrangedSubview(journeySummaryPartView)
-                }
-            }
+        for section in sectionsClean {
+            let journeySummaryPartView = JourneySummaryPartView()
+            journeySummaryPartView.color = section.color
+            journeySummaryPartView.name = section.name
+            journeySummaryPartView.icon = section.icon
+            journeySummaryPartView.displayDisruption(section.disruptionIcon, color: section.disruptionColor)
+            
+            journeySummaryPartView.width = widthJourneySummaryPartView(sectionCount: sectionCount,
+                                                                       allDurationSections: allDurationSections,
+                                                                       duration: section.duration ?? 0,
+                                                                       journeySummaryPartView: journeySummaryPartView)
+            
+            stackView.addArrangedSubview(journeySummaryPartView)
         }
     }
     

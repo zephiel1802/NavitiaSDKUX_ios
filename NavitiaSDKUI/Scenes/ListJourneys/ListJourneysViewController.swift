@@ -220,8 +220,7 @@ extension ListJourneysViewController: UICollectionViewDataSource, UICollectionVi
             }
             // Result
             if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: JourneySolutionCollectionViewCell.identifier, for: indexPath) as? JourneySolutionCollectionViewCell {
-                cell.setup(displayedJourney: viewModel.displayedJourneys[indexPath.row],
-                            displayedDisruptions: viewModel.disruptions)
+                cell.setup(displayedJourney: viewModel.displayedJourneys[indexPath.row])
                 return cell
             }
         }
@@ -242,8 +241,7 @@ extension ListJourneysViewController: UICollectionViewDataSource, UICollectionVi
             }
             // Result
             if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: JourneySolutionCollectionViewCell.identifier, for: indexPath) as? JourneySolutionCollectionViewCell {
-                cell.setup(displayedJourney: viewModel.displayedRidesharings[indexPath.row - 1],
-                            displayedDisruptions: viewModel.disruptions)
+                cell.setup(displayedJourney: viewModel.displayedRidesharings[indexPath.row - 1])
                 return cell
             }
         }

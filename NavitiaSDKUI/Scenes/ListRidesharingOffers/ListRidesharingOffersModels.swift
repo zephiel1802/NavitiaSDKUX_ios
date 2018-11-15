@@ -21,9 +21,9 @@ enum ListRidesharingOffers {
             var context: Context
         }
         struct ViewModel {
-            struct JourneySummary {
+            struct Frieze {
                 var duration: Int32
-                var sections: [Section] // Class: SDK Expert
+                var friezeSections: [FriezePresenter.FriezeSection]
             }
             
             struct DisplayedRidesharingOffer {
@@ -38,7 +38,7 @@ enum ListRidesharingOffers {
                 var price: String
             }
             
-            var journeySummary: JourneySummary
+            var frieze: Frieze
             var displayedRidesharingOffers: [DisplayedRidesharingOffer]
         }
     }

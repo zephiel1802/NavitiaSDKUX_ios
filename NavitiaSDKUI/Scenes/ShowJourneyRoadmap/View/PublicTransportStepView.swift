@@ -149,7 +149,7 @@ class PublicTransportStepView: UIView {
 
     // MARK: Disruption
     
-    var disruptions: [ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionModel.DisruptionModel]? = nil {
+    var disruptions: [ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionModel.Disruption]? = nil {
         didSet {
             guard let disruptions = disruptions, disruptions.count > 0 else {
                 disruptionIconLabel.isHidden = true

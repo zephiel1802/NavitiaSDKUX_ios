@@ -107,7 +107,7 @@ enum ShowJourneyRoadmap {
                     var content: String
                 }
                 
-                struct DisruptionModel {
+                struct Disruption {
                     var color: UIColor
                     var icon: String
                     var title: String
@@ -127,14 +127,18 @@ enum ShowJourneyRoadmap {
                 var stopDate: [String]
                 var displayInformations: DisplayInformations
                 var waiting: String?
-                var disruptions: [Disruption] // Class: SDK Expert
-                var disruptionsClean: [DisruptionModel]
+                var disruptions: [Disruption]
                 var notes: [Note]
                 var poi: Poi?
                 var icon: String
                 var realTime: Bool
                 var background: Bool
                 var section: Section
+            }
+            
+            struct Frieze {
+                var duration: Int32
+                var friezeSections: [FriezePresenter.FriezeSection]
             }
             
             struct Emission {
@@ -145,9 +149,9 @@ enum ShowJourneyRoadmap {
             var ridesharing: Ridesharing?
             var departure: DepartureArrival
             var sections: [SectionModel]?
+            var frieze: Frieze
             var arrival: DepartureArrival
             var emission: Emission
-            var disruptions: [Disruption]? // Class: SDK Expert
             var journey: Journey // Class: SDK Expert
             var ridesharingJourneys: Journey? // Class: SDK Expert
         }
