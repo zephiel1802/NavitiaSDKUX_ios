@@ -13,7 +13,7 @@ class JourneySolutionView: UIView {
     @IBOutlet weak var aboutLabel: UILabel!
     @IBOutlet weak var durationLabel: UILabel!
     @IBOutlet weak var durationCenterContraint: NSLayoutConstraint!
-    @IBOutlet weak var journeySummaryView: JourneySummaryView!
+    @IBOutlet weak var friezeView: FriezeView!
     @IBOutlet weak var durationWalkerLabel: UILabel!
 
     var disruptions: [Disruption]?
@@ -45,7 +45,7 @@ class JourneySolutionView: UIView {
         durationCenterContraint.constant = 0
         
         formattedDuration(duration)
-        journeySummaryView.addSection(sectionsClean: friezeSection)
+        friezeView.addSection(sectionsClean: friezeSection)
     }
     
     func setRidesharingData(duration: Int32, friezeSection: [FriezePresenter.FriezeSection]) {
@@ -56,7 +56,7 @@ class JourneySolutionView: UIView {
             .semiBold("about".localized(withComment: "about", bundle: NavitiaSDKUI.shared.bundle), color: Configuration.Color.main)
         formattedDuration(duration)
         
-        journeySummaryView.addSection(sectionsClean: friezeSection)
+        friezeView.addSection(sectionsClean: friezeSection)
         if durationWalkerLabel != nil {
             durationWalkerLabel.isHidden = true
         }

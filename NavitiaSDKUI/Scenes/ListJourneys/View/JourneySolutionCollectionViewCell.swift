@@ -12,7 +12,7 @@ class JourneySolutionCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var dateTimeLabel: UILabel!
     @IBOutlet weak var durationLabel: UILabel!
     @IBOutlet var durationWalkerLabel: UILabel!
-    @IBOutlet weak var journeySummaryView: JourneySummaryView!
+    @IBOutlet weak var friezeView: FriezeView!
     @IBOutlet weak var arrowLabel: UILabel!
     @IBOutlet var durationTopContraint: NSLayoutConstraint!
     @IBOutlet var durationBottomContraint: NSLayoutConstraint!
@@ -66,7 +66,7 @@ class JourneySolutionCollectionViewCell: UICollectionViewCell {
     }
     
     private func setJourneySummaryView(displayedJourney: ListJourneys.FetchJourneys.ViewModel.DisplayedJourney) {
-        journeySummaryView.addSection(sectionsClean: displayedJourney.friezeSections)
+        friezeView.addSection(sectionsClean: displayedJourney.friezeSections)
     }
     
     public var dateTime: String? {

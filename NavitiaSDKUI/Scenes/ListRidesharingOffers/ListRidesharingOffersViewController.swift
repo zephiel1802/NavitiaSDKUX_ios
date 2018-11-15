@@ -14,7 +14,7 @@ protocol ListRidesharingOffersDisplayLogic: class {
 
 internal class ListRidesharingOffersViewController: UIViewController, ListRidesharingOffersDisplayLogic {
     
-    @IBOutlet weak var journeySummaryView: JourneySolutionView!
+    @IBOutlet weak var journeySolutionView: JourneySolutionView!
     @IBOutlet weak var ridesharingOffersCollectionView: UICollectionView!
     
     static var identifier: String {
@@ -70,7 +70,7 @@ internal class ListRidesharingOffersViewController: UIViewController, ListRidesh
     
     func displayRidesharingOffers(viewModel: ListRidesharingOffers.GetRidesharingOffers.ViewModel) {
         self.viewModel = viewModel
-        self.journeySummaryView.setRidesharingData(duration: viewModel.frieze.duration, friezeSection: viewModel.frieze.friezeSections)
+        self.journeySolutionView.setRidesharingData(duration: viewModel.frieze.duration, friezeSection: viewModel.frieze.friezeSections)
         self.ridesharingOffersCollectionView.reloadData()
     }
     

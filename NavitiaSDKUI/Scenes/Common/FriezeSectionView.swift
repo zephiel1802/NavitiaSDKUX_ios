@@ -1,5 +1,5 @@
 //
-//  JourneyPartView.swift
+//  FriezeSectionView.swift
 //  NavitiaSDKUI
 //
 //  Copyright © 2018 kisio. All rights reserved.
@@ -7,17 +7,16 @@
 
 import UIKit
 
-class JourneySummaryPartView: UIView {
+class FriezeSectionView: UIView {
     
     @IBOutlet weak var view: UIView!
     @IBOutlet weak var transportLabel: UILabel!
     @IBOutlet weak var tagTransportView: UIView!
     @IBOutlet weak var tagTransportLabel: UILabel!
-    @IBOutlet weak var lineTransportView: UIView!
     @IBOutlet weak var disruptionLabel: UILabel!
     @IBOutlet weak var circleLabel: UILabel!
     
-    var width = 1.0
+//    var width = 1.0
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -28,9 +27,9 @@ class JourneySummaryPartView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override public var intrinsicContentSize: CGSize {
-        return CGSize(width: width, height: 0.0)
-    }
+//    override public var intrinsicContentSize: CGSize {
+//        return CGSize(width: width, height: 0.0)
+//    }
     
     private func setup() {
         UINib(nibName: "JourneySummaryPartView", bundle: NavitiaSDKUI.shared.bundle).instantiate(withOwner: self, options: nil)
@@ -66,7 +65,7 @@ class JourneySummaryPartView: UIView {
     
 }
 
-extension JourneySummaryPartView {
+extension FriezeSectionView {
     
     var color: UIColor? {
         get {
@@ -74,7 +73,6 @@ extension JourneySummaryPartView {
         }
         set {
             tagTransportView.backgroundColor = newValue
-            lineTransportView.backgroundColor = newValue
         }
     }
     

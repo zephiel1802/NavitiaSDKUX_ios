@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -32,12 +32,12 @@
                             <constraint firstAttribute="height" constant="1" id="4NV-8o-Sx6"/>
                         </constraints>
                     </view>
-                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lqf-YV-oSL" customClass="JourneySummaryView" customModule="NavitiaSDKUI" customModuleProvider="target">
-                        <rect key="frame" x="10" y="46" width="280" height="39.5"/>
-                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lqf-YV-oSL" customClass="FriezeView" customModule="NavitiaSDKUI" customModuleProvider="target">
+                        <rect key="frame" x="10" y="45.5" width="280" height="39.5"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </view>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="With 12 min walking (767 meters)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JUD-Ce-byI">
-                        <rect key="frame" x="10" y="100.5" width="189" height="15"/>
+                        <rect key="frame" x="10" y="100" width="189" height="15"/>
                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
@@ -91,7 +91,7 @@
                 <outlet property="durationLeadingContraint" destination="b5U-aA-OQr" id="7iV-0m-DF5"/>
                 <outlet property="durationTopContraint" destination="Mgd-oC-fwr" id="vnb-SC-qdz"/>
                 <outlet property="durationWalkerLabel" destination="JUD-Ce-byI" id="Rwh-J8-bok"/>
-                <outlet property="journeySummaryView" destination="lqf-YV-oSL" id="029-vs-TaP"/>
+                <outlet property="friezeView" destination="lqf-YV-oSL" id="029-vs-TaP"/>
             </connections>
             <point key="canvasLocation" x="-1970" y="59"/>
         </collectionViewCell>

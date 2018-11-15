@@ -314,10 +314,10 @@ extension ListJourneysViewController: UICollectionViewDataSource, UICollectionVi
                 return CGSize(width: self.journeysCollectionView.frame.size.width - safeAreaWidth, height: 35)
             } else if viewModel.displayedJourneys[indexPath.row].walkingInformation == nil {
                 // Result
-                return CGSize(width: self.journeysCollectionView.frame.size.width - safeAreaWidth, height: 97)
+                return CGSize(width: self.journeysCollectionView.frame.size.width - safeAreaWidth, height: 83) //97
             }
             
-            return CGSize(width: self.journeysCollectionView.frame.size.width - safeAreaWidth, height: 130)
+            return CGSize(width: self.journeysCollectionView.frame.size.width - safeAreaWidth, height: 117)
         }
         // Carsharing
         if indexPath.section == 1 {
@@ -329,9 +329,9 @@ extension ListJourneysViewController: UICollectionViewDataSource, UICollectionVi
                 return CGSize(width: self.journeysCollectionView.frame.size.width - safeAreaWidth, height: 35)
             }
             // Result
-            return CGSize(width: self.journeysCollectionView.frame.size.width - safeAreaWidth, height: 97)
+            return CGSize(width: self.journeysCollectionView.frame.size.width - safeAreaWidth, height: 83)
         }
         // Other
-        return CGSize(width: self.journeysCollectionView.frame.size.width - safeAreaWidth, height: 130)
+        return CGSize(width: self.journeysCollectionView.frame.size.width - safeAreaWidth, height: 117)
     }
 }
