@@ -85,6 +85,9 @@ class PublicTransportStepView: UIView {
         }
         
         accessibilityLabel.append(String(format: "%@.", informations))
+        if let to = publicTransportToLabel.text {
+            accessibilityLabel.append(String(format: "get_of_at".localized(bundle: NavitiaSDKUI.shared.bundle), to))
+        }
         
         if let waiting = waitingInformationsLabel.text, !waitingContainerView.isHidden {
             accessibilityLabel.append(String(format: "%@.", waiting))

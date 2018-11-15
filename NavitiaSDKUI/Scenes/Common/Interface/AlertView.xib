@@ -17,6 +17,7 @@
                 <outlet property="checkBoxMessageLabel" destination="Z5o-9Z-WSv" id="MFO-x8-ef3"/>
                 <outlet property="checkBoxTextLeadingConstraint" destination="6WM-Xe-EXA" id="G6o-YK-gfv"/>
                 <outlet property="checkbox" destination="Uz2-60-uMq" id="59r-mz-CTz"/>
+                <outlet property="checkboxButton" destination="DmF-B2-htr" id="dWH-to-etf"/>
                 <outlet property="headerView" destination="HQX-Eo-W0w" id="198-5Z-4Tg"/>
                 <outlet property="message" destination="zLG-bJ-ML5" id="vOD-ZQ-UXC"/>
                 <outlet property="negativeButton" destination="jEi-w5-J4s" id="lUH-Qm-zpo"/>
@@ -96,6 +97,9 @@
                                                 </view>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Z5o-9Z-WSv">
                                                     <rect key="frame" x="25" y="9.5" width="0.0" height="0.0"/>
+                                                    <accessibility key="accessibilityConfiguration">
+                                                        <bool key="isElement" value="NO"/>
+                                                    </accessibility>
                                                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                     <color key="textColor" red="0.50196078431372548" green="0.50196078431372548" blue="0.50196078431372548" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>

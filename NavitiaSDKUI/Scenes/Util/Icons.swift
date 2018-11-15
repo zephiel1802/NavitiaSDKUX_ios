@@ -81,7 +81,7 @@ let iconFontCodes:[String: String] = [
 
 class Modes {
     
-    public func getModeIcon(section: Section?) -> String {
+    public func getMode(section: Section?) -> String {
         switch section!.type! {
         case .publicTransport:
             return getPhysicalMode(section: section).lowercased()

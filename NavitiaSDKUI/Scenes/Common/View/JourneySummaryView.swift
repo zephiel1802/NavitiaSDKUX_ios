@@ -55,7 +55,7 @@ class JourneySummaryView: UIView {
                     } else {
                         journeySummaryPartView.name = section.displayInformations?.commercialMode
                     }
-                    journeySummaryPartView.icon = Modes().getModeIcon(section: section)
+                    journeySummaryPartView.icon = Modes().getMode(section: section)
                     if section.type == .publicTransport, let disruptions = disruptions, disruptions.count > 0 {
                         let sectionDisruptions = section.disruptions(disruptions: disruptions)
                         if sectionDisruptions.count > 0 {

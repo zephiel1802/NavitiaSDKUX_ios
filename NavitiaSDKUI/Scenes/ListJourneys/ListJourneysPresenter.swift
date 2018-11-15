@@ -309,6 +309,7 @@ class ListJourneysPresenter: ListJourneysPresentationLogic {
                     }
                 }
             } else if let mode = section.mode, mode != .walking || sections.count == 1 {
+                let mode = Modes().getMode(section: section)
                 accessibilityString.append(String(format: " %@", "\(mode)_noun".localized(bundle: NavitiaSDKUI.shared.bundle)))
             } else {
                 continue

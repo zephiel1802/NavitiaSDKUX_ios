@@ -259,7 +259,7 @@ class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
             if type == .bssRent {
                 return String(format: "take_a_bike_at".localized(bundle: NavitiaSDKUI.shared.bundle), network)
             } else if type == .bssPutBack {
-                return String(format: "take_a_bike_at".localized(bundle: NavitiaSDKUI.shared.bundle), network)
+                return String(format: "dock_bike_at".localized(bundle: NavitiaSDKUI.shared.bundle), network)
             }
         }
         
@@ -429,7 +429,7 @@ class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
                                                                                         disruptionsClean: getDisruptionClean(section: section, disruptions: response.disruptions),
                                                                                         notes: getNotesOnDemandTransport(section: section, notes: response.notes),
                                                                                         poi: getPoi(section: section),
-                                                                                        icon: Modes().getModeIcon(section: section),
+                                                                                        icon: Modes().getMode(section: section),
                                                                                         bssRealTime: getBssRealTime(section: section),
                                                                                         background: getBackground(section: section),
                                                                                         section: section)
