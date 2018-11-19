@@ -143,7 +143,8 @@ class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
         
         let hourComponents = Foundation.Calendar.current.dateComponents([.hour, .minute], from: dateTime)
         
-        if let hours = DateComponentsFormatter.localizedString(from: hourComponents, unitsStyle: .spellOut) {
+        if let hour = hourComponents.hour, let minute = hourComponents.minute {
+            let hours = String(format: "units_hour_and_minute".localized(bundle: NavitiaSDKUI.shared.bundle), hour, minute)
             return String(format: "departure_at_from".localized(bundle: NavitiaSDKUI.shared.bundle), hours, name)
         }
         
@@ -158,8 +159,9 @@ class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
         
         let hourComponents = Foundation.Calendar.current.dateComponents([.hour, .minute], from: dateTime)
         
-        if let hours = DateComponentsFormatter.localizedString(from: hourComponents, unitsStyle: .spellOut) {
-            return String(format: "arrival_at_to".localized(bundle: NavitiaSDKUI.shared.bundle), hours, name)
+        if let hour = hourComponents.hour, let minute = hourComponents.minute {
+            let hours = String(format: "units_hour_and_minute".localized(bundle: NavitiaSDKUI.shared.bundle), hour, minute)
+            return String(format: "departure_at_from".localized(bundle: NavitiaSDKUI.shared.bundle), hours, name)
         }
         
         return ""
