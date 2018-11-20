@@ -73,6 +73,7 @@ class FriezePresenter: NSObject {
                                                                  disruptionColor: disruptionColor,
                                                                  duration: section.duration)
                 sectionsClean.append(sectionClean)
+                sectionsClean.append(sectionClean)
             }
         }
         

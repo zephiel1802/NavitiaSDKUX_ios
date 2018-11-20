@@ -45,28 +45,32 @@ class FriezeView: UIView {
             if index < friezeSectionsView.count {
                 let friezeSectionView = friezeSectionsView[index]
                 
-                reuseFriezeSectionView(friezeSection: section, friezeSectionView: friezeSectionView)
+                reuseFriezeSectionView(index: index, friezeSection: section, friezeSectionView: friezeSectionView)
             } else {
                 let friezeSectionView = FriezeSectionView()
                 
-                reuseFriezeSectionView(friezeSection: section, friezeSectionView: friezeSectionView)
+                reuseFriezeSectionView(index: index, friezeSection: section, friezeSectionView: friezeSectionView)
                 friezeSectionsView.append(friezeSectionView)
                 addSubview(friezeSectionView)
             }
         }
     }
 
-    private func reuseFriezeSectionView(friezeSection: FriezePresenter.FriezeSection, friezeSectionView: FriezeSectionView) {
+    private func reuseFriezeSectionView(index: Int, friezeSection: FriezePresenter.FriezeSection, friezeSectionView: FriezeSectionView) {
         friezeSectionView.color = friezeSection.color
         friezeSectionView.name = friezeSection.name
         friezeSectionView.icon = friezeSection.icon
         friezeSectionView.displayDisruption(friezeSection.disruptionIcon, color: friezeSection.disruptionColor)
         
-        friezeSectionView.frame.size.width = friezeSectionView.witdhJourney()
+        if index == 0 {
+            friezeSectionView.separator = false
+        } else {
+            friezeSectionView.separator = true
+        }
     }
     
     private func updatePositionFriezeSectionView() {
-        let padding = UIEdgeInsets(top: 4, left: 0, bottom: 0, right: 3)
+        let padding = UIEdgeInsets(top: 4, left: 0, bottom: 0, right: 0)
         var position = CGPoint(x: 0, y: 0)
         
         for friezeSectionView in friezeSectionsView {
