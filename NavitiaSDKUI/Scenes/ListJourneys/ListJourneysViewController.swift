@@ -204,6 +204,7 @@ extension ListJourneysViewController: UICollectionViewDataSource, UICollectionVi
         guard let viewModel = viewModel else {
             return UICollectionViewCell()
         }
+        
         // Loading
         if !viewModel.loaded {
             if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: JourneySolutionLoadCollectionViewCell.identifier, for: indexPath) as? JourneySolutionLoadCollectionViewCell {

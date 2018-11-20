@@ -16,7 +16,7 @@ class FriezeSectionView: UIView {
     @IBOutlet weak var disruptionLabel: UILabel!
     @IBOutlet weak var circleLabel: UILabel!
     
-//    var width = 1.0
+    var height: CGFloat = 27
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -37,6 +37,8 @@ class FriezeSectionView: UIView {
         addSubview(view)
         setupDisruption()
         
+        frame.size.height = height
+        
         tagTransportView.isHidden = true
         tagTransportLabel.isHidden = true
     }
@@ -52,6 +54,9 @@ class FriezeSectionView: UIView {
     
     func displayDisruption(_ iconName: String?, color: String?) {
         guard let iconName = iconName else {
+            disruptionLabel.isHidden = true
+            circleLabel.isHidden = true
+            
             return
         }
         
@@ -87,6 +92,9 @@ extension FriezeSectionView {
                 let tagBackgroundColor = tagTransportView.backgroundColor ?? .black
                 tagTransportLabel.attributedText = NSMutableAttributedString()
                     .bold(newValue, color: tagBackgroundColor.contrastColor(), size: 9)
+            } else {
+                tagTransportView.isHidden = true
+                tagTransportLabel.isHidden = true
             }
         }
     }
@@ -101,6 +109,25 @@ extension FriezeSectionView {
                     .icon(newValue, size: 20)
             }
         }
+    }
+    
+    func witdhJourney() -> CGFloat {
+        let marginLeft: CGFloat = 4
+        let marginRight: CGFloat = 3
+        let sizeDisruption: CGFloat = 8
+        var width: CGFloat = 25
+        
+        if !tagTransportView.isHidden {
+            if let widthPart = tagTransportLabel.attributedText?.boundingRect(with: CGSize(width: frame.size.width - 60, height: 0), options: .usesLineFragmentOrigin, context: nil).width {
+                width += marginLeft + marginRight + widthPart
+            }
+            
+            if !circleLabel.isHidden {
+                width += sizeDisruption
+            }
+        }
+        
+        return width
     }
     
 }

@@ -45,7 +45,7 @@ class JourneySolutionView: UIView {
         durationCenterContraint.constant = 0
         
         formattedDuration(duration)
-        friezeView.addSection(sectionsClean: friezeSection)
+        friezeView.addSection(friezeSections: friezeSection)
     }
     
     func setRidesharingData(duration: Int32, friezeSection: [FriezePresenter.FriezeSection]) {
@@ -56,7 +56,7 @@ class JourneySolutionView: UIView {
             .semiBold("about".localized(withComment: "about", bundle: NavitiaSDKUI.shared.bundle), color: Configuration.Color.main)
         formattedDuration(duration)
         
-        friezeView.addSection(sectionsClean: friezeSection)
+        friezeView.addSection(friezeSections: friezeSection)
         if durationWalkerLabel != nil {
             durationWalkerLabel.isHidden = true
         }

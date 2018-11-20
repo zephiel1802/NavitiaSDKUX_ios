@@ -2,12 +2,14 @@
 //  FriezeView.swift
 //  NavitiaSDKUI
 //
-//  Created by Flavien Sicard on 15/11/2018.
+//  Copyright © 2018 kisio. All rights reserved.
 //
 
 import UIKit
 
 class FriezeView: UIView {
+
+    private var friezeSectionsView = [FriezeSectionView]()
 
     public required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -16,58 +18,66 @@ class FriezeView: UIView {
     public override init(frame: CGRect) {
         super.init(frame: frame)
     }
-
-    func addSection(sectionsClean: [FriezePresenter.FriezeSection]) {
-        for tempView in subviews {
-            if tempView.tag != 0 {
-                tempView.removeFromSuperview()
-            }
-        }
+    
+    override open func layoutSubviews() {
+        super.layoutSubviews()
         
-        let paddingRight: CGFloat = 3
-        let firstAlign: CGFloat = 0
-        var xPos:CGFloat = firstAlign
+        updatePositionFriezeSectionView()
+    }
 
-        for section in sectionsClean {
-            let journeySummaryPartView = setupJourneySummaryPartView(section: section)
-            let width = witdhJourney(journeySummaryPartView: journeySummaryPartView)
-            
-            journeySummaryPartView.frame = CGRect(x: xPos, y: 0, width: width, height: 27)
-            xPos = CGFloat(xPos) + CGFloat(width) + CGFloat(paddingRight)
-            
-            addSubview(journeySummaryPartView)
+    internal func addSection(friezeSections: [FriezePresenter.FriezeSection]) {
+        releaseUnusedSectionView(sectionsCount: friezeSections.count)
+        parseFriezeSectionView(friezeSections: friezeSections)
+        updatePositionFriezeSectionView()
+    }
+    
+    private func releaseUnusedSectionView(sectionsCount: Int) {
+        if friezeSectionsView.count > sectionsCount {
+            while friezeSectionsView.count > sectionsCount {
+                friezeSectionsView[sectionsCount].removeFromSuperview()
+                friezeSectionsView.remove(at: sectionsCount)
+            }
         }
     }
     
-    private func setupJourneySummaryPartView(section: FriezePresenter.FriezeSection) -> FriezeSectionView {
-        let journeySummaryPartView = FriezeSectionView()
-        let tag = 1
-        
-        journeySummaryPartView.color = section.color
-        journeySummaryPartView.name = section.name
-        journeySummaryPartView.icon = section.icon
-        journeySummaryPartView.displayDisruption(section.disruptionIcon, color: section.disruptionColor)
-        journeySummaryPartView.tag = tag
-        
-        return journeySummaryPartView
-    }
-    
-    private func witdhJourney(journeySummaryPartView: FriezeSectionView) -> CGFloat {
-        let marginLeft: CGFloat = 4
-        let marginRight: CGFloat = 3
-        let sizeDisruption: CGFloat = 8
-        var width: CGFloat = 25
-        
-        if !journeySummaryPartView.tagTransportView.isHidden {
-            if let widthPart = journeySummaryPartView.tagTransportLabel.attributedText?.boundingRect(with: CGSize(width: frame.size.width - 60, height: 0), options: .usesLineFragmentOrigin, context: nil).width {
-                width += marginLeft + marginRight + widthPart
-            }
-            
-            if !journeySummaryPartView.circleLabel.isHidden {
-                width += sizeDisruption
+    private func parseFriezeSectionView(friezeSections: [FriezePresenter.FriezeSection]) {
+        for (index, section) in friezeSections.enumerated() {
+            if index < friezeSectionsView.count {
+                let friezeSectionView = friezeSectionsView[index]
+                
+                reuseFriezeSectionView(friezeSection: section, friezeSectionView: friezeSectionView)
+            } else {
+                let friezeSectionView = FriezeSectionView()
+                
+                reuseFriezeSectionView(friezeSection: section, friezeSectionView: friezeSectionView)
+                friezeSectionsView.append(friezeSectionView)
+                addSubview(friezeSectionView)
             }
         }
+    }
+
+    private func reuseFriezeSectionView(friezeSection: FriezePresenter.FriezeSection, friezeSectionView: FriezeSectionView) {
+        friezeSectionView.color = friezeSection.color
+        friezeSectionView.name = friezeSection.name
+        friezeSectionView.icon = friezeSection.icon
+        friezeSectionView.displayDisruption(friezeSection.disruptionIcon, color: friezeSection.disruptionColor)
         
-        return width
+        friezeSectionView.frame.size.width = friezeSectionView.witdhJourney()
+    }
+    
+    private func updatePositionFriezeSectionView() {
+        let padding = UIEdgeInsets(top: 4, left: 0, bottom: 0, right: 3)
+        var position = CGPoint(x: 0, y: 0)
+        
+        for friezeSectionView in friezeSectionsView {
+            if position.x + CGFloat(friezeSectionView.frame.size.width) > frame.size.width {
+                position.x = 0
+                position.y = position.y + friezeSectionView.frame.size.height + padding.top
+                frame.size.height = frame.size.height + friezeSectionView.frame.size.height + padding.top
+            }
+            
+            friezeSectionView.frame.origin = position
+            position.x = position.x + CGFloat(friezeSectionView.frame.size.width) + padding.right
+        }
     }
 }

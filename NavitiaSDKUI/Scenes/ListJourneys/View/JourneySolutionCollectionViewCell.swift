@@ -66,7 +66,7 @@ class JourneySolutionCollectionViewCell: UICollectionViewCell {
     }
     
     private func setJourneySummaryView(displayedJourney: ListJourneys.FetchJourneys.ViewModel.DisplayedJourney) {
-        friezeView.addSection(sectionsClean: displayedJourney.friezeSections)
+        friezeView.addSection(friezeSections: displayedJourney.friezeSections)
     }
     
     public var dateTime: String? {
