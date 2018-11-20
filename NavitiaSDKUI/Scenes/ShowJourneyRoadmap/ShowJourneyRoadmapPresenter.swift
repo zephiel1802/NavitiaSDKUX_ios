@@ -141,11 +141,19 @@ class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
                 return ""
         }
         
-        let hourComponents = Foundation.Calendar.current.dateComponents([.hour, .minute], from: dateTime)
-        
-        if let hour = hourComponents.hour, let minute = hourComponents.minute {
-            let hours = String(format: "units_hour_and_minute".localized(bundle: NavitiaSDKUI.shared.bundle), hour, minute)
-            return String(format: "departure_at_from".localized(bundle: NavitiaSDKUI.shared.bundle), hours, name)
+        if let timeZone = TimeZone(identifier: "CET") {
+            var calendar = Foundation.Calendar(identifier: .gregorian)
+            calendar.timeZone = timeZone
+            
+            let hourComponents = calendar.dateComponents([.hour, .minute], from: dateTime)
+            
+            if var hours = DateComponentsFormatter.localizedString(from: hourComponents, unitsStyle: .spellOut) {
+                if let hour = hourComponents.hour, hour == 0 {
+                    hours = String(format: "%d %@, %@", hour, "hour".localized(bundle: NavitiaSDKUI.shared.bundle), hours)
+                }
+                
+                return String(format: "departure_at_from".localized(bundle: NavitiaSDKUI.shared.bundle), hours, name)
+            }
         }
         
         return ""
@@ -157,13 +165,21 @@ class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
                 return ""
         }
         
-        let hourComponents = Foundation.Calendar.current.dateComponents([.hour, .minute], from: dateTime)
-        
-        if let hour = hourComponents.hour, let minute = hourComponents.minute {
-            let hours = String(format: "units_hour_and_minute".localized(bundle: NavitiaSDKUI.shared.bundle), hour, minute)
-            return String(format: "departure_at_from".localized(bundle: NavitiaSDKUI.shared.bundle), hours, name)
+        if let timeZone = TimeZone(identifier: "CET") {
+            var calendar = Foundation.Calendar(identifier: .gregorian)
+            calendar.timeZone = timeZone
+            
+            let hourComponents = calendar.dateComponents([.hour, .minute], from: dateTime)
+            
+            if var hours = DateComponentsFormatter.localizedString(from: hourComponents, unitsStyle: .spellOut) {
+                if let hour = hourComponents.hour, hour == 0  {
+                    hours = String(format: "%d %@, %@", hour, "hour".localized(bundle: NavitiaSDKUI.shared.bundle), hours)
+                }
+                
+                return String(format: "arrival_at_to".localized(bundle: NavitiaSDKUI.shared.bundle), hours, name)
+            }
         }
-        
+
         return ""
     }
     
