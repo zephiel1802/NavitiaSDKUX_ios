@@ -7,16 +7,28 @@
 
 import UIKit
 
+public protocol JourneySolutionViewDelegate {
+    
+    func updateHeight(height: CGFloat)
+}
+
 class JourneySolutionView: UIView {
     
     @IBOutlet var view: UIView!
     @IBOutlet weak var aboutLabel: UILabel!
     @IBOutlet weak var durationLabel: UILabel!
     @IBOutlet weak var durationCenterContraint: NSLayoutConstraint!
-    @IBOutlet weak var friezeView: FriezeView!
-    @IBOutlet weak var durationWalkerLabel: UILabel!
 
+    var delegate: JourneySolutionViewDelegate?
+    var friezeView = FriezeView()
+    let paddingFriezeView = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 70)
     var disruptions: [Disruption]?
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        updateFriezeView()
+    }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -37,7 +49,26 @@ class JourneySolutionView: UIView {
         view.frame = self.bounds
         addSubview(view)
         
+        setupFriezeView()
         addShadow()
+    }
+    
+    private func setupFriezeView() {
+        friezeView.frame = CGRect(x: paddingFriezeView.left,
+                                  y: paddingFriezeView.top,
+                                  width: frame.size.width - paddingFriezeView.right -  paddingFriezeView.left,
+                                  height: frame.size.height - paddingFriezeView.top - paddingFriezeView.bottom)
+        
+        addSubview(friezeView)
+    }
+    
+    private func updateFriezeView() {
+        friezeView.frame.size = CGSize(width: frame.size.width - paddingFriezeView.right - paddingFriezeView.left,
+                                       height: 27)
+        friezeView.updatePositionFriezeSectionView()
+
+        frame.size.height = friezeView.frame.size.height + paddingFriezeView.top + paddingFriezeView.bottom
+        delegate?.updateHeight(height: frame.size.height)
     }
 
     func setData(duration: Int32, friezeSection: [FriezePresenter.FriezeSection]) {
@@ -57,9 +88,6 @@ class JourneySolutionView: UIView {
         formattedDuration(duration)
         
         friezeView.addSection(friezeSections: friezeSection)
-        if durationWalkerLabel != nil {
-            durationWalkerLabel.isHidden = true
-        }
     }
     
     private func formattedDuration(prefix: String = "", _ duration: Int32) {

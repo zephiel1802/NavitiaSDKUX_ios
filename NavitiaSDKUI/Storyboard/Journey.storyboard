@@ -292,6 +292,7 @@
                     </view>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <connections>
+                        <outlet property="heightJourneySolutionViewContraint" destination="osK-jC-DkT" id="riO-4b-3Gk"/>
                         <outlet property="journeySolutionView" destination="Uaw-W9-Vea" id="doZ-uu-Mdy"/>
                         <outlet property="ridesharingOffersCollectionView" destination="i53-B1-z3B" id="N1w-50-f7W"/>
                     </connections>

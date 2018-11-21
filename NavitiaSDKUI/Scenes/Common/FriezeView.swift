@@ -18,12 +18,6 @@ class FriezeView: UIView {
     public override init(frame: CGRect) {
         super.init(frame: frame)
     }
-    
-    override open func layoutSubviews() {
-        super.layoutSubviews()
-        
-        updatePositionFriezeSectionView()
-    }
 
     internal func addSection(friezeSections: [FriezePresenter.FriezeSection]) {
         releaseUnusedSectionView(sectionsCount: friezeSections.count)
@@ -69,7 +63,7 @@ class FriezeView: UIView {
         }
     }
     
-    private func updatePositionFriezeSectionView() {
+    func updatePositionFriezeSectionView() {
         let padding = UIEdgeInsets(top: 4, left: 0, bottom: 0, right: 0)
         var position = CGPoint(x: 0, y: 0)
         

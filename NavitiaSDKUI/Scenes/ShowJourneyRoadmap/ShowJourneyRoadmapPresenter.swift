@@ -249,7 +249,7 @@ class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
             return "park_in_the".localized(bundle: NavitiaSDKUI.shared.bundle)
         } else if type == .ridesharing {
             return "take_the_ridesharing".localized(bundle: NavitiaSDKUI.shared.bundle)
-        } else if type == .transfer {
+        } else if type == .transfer || section.mode != nil {
             return "to_with_uppercase".localized(bundle: NavitiaSDKUI.shared.bundle)
         } else if let commercialMode = section.displayInformations?.commercialMode {
             return String(format: "%@ %@", "take_the".localized(withComment: "Take tke", bundle: NavitiaSDKUI.shared.bundle), commercialMode)

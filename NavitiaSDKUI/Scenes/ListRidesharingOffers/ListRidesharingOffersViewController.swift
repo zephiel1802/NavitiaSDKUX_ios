@@ -15,6 +15,7 @@ protocol ListRidesharingOffersDisplayLogic: class {
 internal class ListRidesharingOffersViewController: UIViewController, ListRidesharingOffersDisplayLogic {
     
     @IBOutlet weak var journeySolutionView: JourneySolutionView!
+    @IBOutlet weak var heightJourneySolutionViewContraint: NSLayoutConstraint!
     @IBOutlet weak var ridesharingOffersCollectionView: UICollectionView!
     
     static var identifier: String {
@@ -70,14 +71,22 @@ internal class ListRidesharingOffersViewController: UIViewController, ListRidesh
     
     func displayRidesharingOffers(viewModel: ListRidesharingOffers.GetRidesharingOffers.ViewModel) {
         self.viewModel = viewModel
-        self.journeySolutionView.setRidesharingData(duration: viewModel.frieze.duration, friezeSection: viewModel.frieze.friezeSections)
-        self.ridesharingOffersCollectionView.reloadData()
+        journeySolutionView.delegate = self
+        journeySolutionView.setRidesharingData(duration: viewModel.frieze.duration, friezeSection: viewModel.frieze.friezeSections)
+        ridesharingOffersCollectionView.reloadData()
     }
     
     private func getRidesharingOffers() {
         let ridesharingOffersRequest = ListRidesharingOffers.GetRidesharingOffers.Request()
         
         interactor?.getRidesharingOffers(request: ridesharingOffersRequest)
+    }
+}
+
+extension ListRidesharingOffersViewController: JourneySolutionViewDelegate {
+    
+    func updateHeight(height: CGFloat) {
+        heightJourneySolutionViewContraint.constant = height
     }
 }
 
