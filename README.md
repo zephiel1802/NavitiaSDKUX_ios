@@ -60,7 +60,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 | minNbJourneys | Integer | ✗ | The minimum number of journeys that will be displayed | 3 |
 | maxNbJourneys | Integer | ✗ | The maximum number of journeys that will be displayed | 10 |
 | addPoiInfos | [Enum] | ✗ | Allow the display of the availability in real time for bike share and car park | [.bss\_stands, .car\_park] |
-
+| directPath | Enum | ✗ | To indicate if the journey is direct | .only |
 
 #### Example
 

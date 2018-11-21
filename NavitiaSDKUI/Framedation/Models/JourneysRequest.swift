@@ -23,6 +23,7 @@ public struct JourneysRequest {
     public var minNbJourneys: Int32?
     public var maxNbJourneys: Int32?
     public var bssStands: Bool?
+    public var directPath: JourneysRequestBuilder.DirectPath?
     public var addPoiInfos: [JourneysRequestBuilder.AddPoiInfos]?
     public var debugURL: String?
     
