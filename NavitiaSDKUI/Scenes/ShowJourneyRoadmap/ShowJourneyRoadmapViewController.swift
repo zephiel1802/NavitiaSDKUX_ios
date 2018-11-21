@@ -248,6 +248,7 @@ internal class ShowJourneyRoadmapViewController: UIViewController, ShowJourneyRo
         departureArrivalStepView.information = viewModel.information
         departureArrivalStepView.time = viewModel.time
         departureArrivalStepView.calorie = viewModel.calorie
+        departureArrivalStepView.accessibilityLabel = viewModel.accessibility
         
         scrollView.addSubview(departureArrivalStepView, margin: UIEdgeInsets(top: 5, left: 10, bottom: 5, right: 10))
     }
@@ -275,6 +276,7 @@ internal class ShowJourneyRoadmapViewController: UIViewController, ShowJourneyRo
         publicTransportView.notes = section.notes
         publicTransportView.disruptions = section.disruptionsClean
         publicTransportView.waiting = section.waiting
+        publicTransportView.updateAccessibility()
         
         return publicTransportView
     }
@@ -345,6 +347,7 @@ internal class ShowJourneyRoadmapViewController: UIViewController, ShowJourneyRo
         
         emissionView.journeyCarbon = emission.journey
         emissionView.carCarbon = emission.car
+        emissionView.view.accessibilityLabel = emission.accessibility
         
         scrollView.addSubview(emissionView, margin: UIEdgeInsets(top: 5, left: 0, bottom: 0, right: 0))
     }
@@ -385,6 +388,7 @@ internal class ShowJourneyRoadmapViewController: UIViewController, ShowJourneyRo
         ridesharingView.setDriverPictureURL(url: ridesharing.driverPictureURL)
         ridesharingView.setRatingCount(ridesharing.ratingCount)
         ridesharingView.setRating(ridesharing.rating)
+        ridesharingView.accessiblity = ridesharing.accessibility
     }
     
     // MARKS: Update BSS
@@ -428,7 +432,8 @@ internal class ShowJourneyRoadmapViewController: UIViewController, ShowJourneyRo
 extension ShowJourneyRoadmapViewController {
     
     private func setupMapView() {
-        self.mapView.showsUserLocation = true
+        mapView.showsUserLocation = true
+        mapView.accessibilityElementsHidden = true
         
         drawSections(journey: mapViewModel?.journey)
         
@@ -511,9 +516,11 @@ extension ShowJourneyRoadmapViewController {
         }
         
         if coordinates.count > 1 {
-            mapView.addAnnotation(CustomAnnotation(coordinate: CLLocationCoordinate2DMake(coordinates[1], coordinates[0]),
-                                                   annotationType: annotationType,
-                                                   placeType: placeType))
+            let customAnnotation = CustomAnnotation(coordinate: CLLocationCoordinate2DMake(coordinates[1], coordinates[0]),
+                                                    annotationType: annotationType,
+                                                    placeType: placeType)
+            
+            mapView.addAnnotation(customAnnotation)
             getCircle(coordinates: coordinates)
         }
     }
@@ -606,6 +613,7 @@ extension ShowJourneyRoadmapViewController {
             let sectionCircle = SectionCircle(center: CLLocationCoordinate2DMake(coordinates[1], coordinates[0]),
                                               radius: getCircleRadiusDependingOnCurrentCameraAltitude(cameraAltitude: mapView.camera.altitude))
             sectionCircle.sectionBackgroundColor = backgroundColor
+            sectionCircle.accessibilityElementsHidden = true
             intermediatePointsCircles.append(sectionCircle)
         }
     }

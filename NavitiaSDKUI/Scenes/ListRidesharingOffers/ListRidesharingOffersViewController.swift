@@ -108,11 +108,20 @@ extension ListRidesharingOffersViewController: UICollectionViewDataSource {
             cell.price = targetRidesharingOffer.price
             cell.row = indexPath.row
             cell.delegate = self
+            cell.accessibilityView.accessibilityLabel = targetRidesharingOffer.accessiblityLabel
             
             return cell
         }
         
         return UICollectionViewCell()
+    }
+    
+    public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard UIAccessibility.isVoiceOverRunning else {
+            return
+        }
+        
+        router?.routeToShowJourneyRoadmap(row: indexPath.row)
     }
 }
 

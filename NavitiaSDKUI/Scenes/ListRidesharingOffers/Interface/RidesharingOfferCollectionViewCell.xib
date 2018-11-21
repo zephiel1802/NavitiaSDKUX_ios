@@ -19,14 +19,28 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="155"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1fk-fD-0bd">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="155"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <accessibility key="accessibilityConfiguration">
+                            <accessibilityTraits key="traits" button="YES"/>
+                            <bool key="isElement" value="YES"/>
+                        </accessibility>
+                    </view>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Le covoit'STAR" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5Op-47-8Z1">
                         <rect key="frame" x="10" y="10" width="102.5" height="17"/>
+                        <accessibility key="accessibilityConfiguration">
+                            <bool key="isElement" value="NO"/>
+                        </accessibility>
                         <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vWw-QA-acK">
                         <rect key="frame" x="215" y="8" width="95" height="21"/>
+                        <accessibility key="accessibilityConfiguration">
+                            <bool key="isElement" value="NO"/>
+                        </accessibility>
                         <attributedString key="attributedText">
                             <fragment content="Departure:">
                                 <attributes>
@@ -53,12 +67,18 @@
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Gambetta20" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Nbc-Vn-Mx6">
                         <rect key="frame" x="78" y="46.5" width="70.5" height="14.5"/>
+                        <accessibility key="accessibilityConfiguration">
+                            <bool key="isElement" value="NO"/>
+                        </accessibility>
                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(male)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="U5z-EB-lxg">
                         <rect key="frame" x="78" y="66" width="36.5" height="15"/>
+                        <accessibility key="accessibilityConfiguration">
+                            <bool key="isElement" value="NO"/>
+                        </accessibility>
                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                         <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <nil key="highlightedColor"/>
@@ -87,18 +107,27 @@
                     </view>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="6 ratings" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pGa-G1-apR">
                         <rect key="frame" x="240.5" y="70.5" width="43" height="12"/>
+                        <accessibility key="accessibilityConfiguration">
+                            <bool key="isElement" value="NO"/>
+                        </accessibility>
                         <fontDescription key="fontDescription" type="system" pointSize="10"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Available seats: N/A" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5Yu-lt-Lpk">
                         <rect key="frame" x="10" y="115.5" width="112" height="15"/>
+                        <accessibility key="accessibilityConfiguration">
+                            <bool key="isElement" value="NO"/>
+                        </accessibility>
                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Free" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6YU-3z-YBT">
                         <rect key="frame" x="10" y="135.5" width="22" height="12"/>
+                        <accessibility key="accessibilityConfiguration">
+                            <bool key="isElement" value="NO"/>
+                        </accessibility>
                         <fontDescription key="fontDescription" type="system" weight="medium" pointSize="10"/>
                         <color key="textColor" red="0.97254901959999995" green="0.58039215690000001" blue="0.023529411760000001" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
@@ -106,6 +135,10 @@
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TY7-Ef-A6a">
                         <rect key="frame" x="200" y="115.5" width="110" height="30"/>
                         <color key="backgroundColor" red="0.97254901959999995" green="0.58039215690000001" blue="0.023529411760000001" alpha="1" colorSpace="calibratedRGB"/>
+                        <accessibility key="accessibilityConfiguration">
+                            <accessibilityTraits key="traits" none="YES"/>
+                            <bool key="isElement" value="NO"/>
+                        </accessibility>
                         <constraints>
                             <constraint firstAttribute="height" constant="30" id="gmM-ER-LmL"/>
                             <constraint firstAttribute="width" constant="110" id="sSb-7p-exC"/>
@@ -131,6 +164,7 @@
                 <constraint firstItem="6YU-3z-YBT" firstAttribute="leading" secondItem="FcL-GE-PfH" secondAttribute="leading" constant="10" id="0ap-fD-K9m"/>
                 <constraint firstItem="Nbc-Vn-Mx6" firstAttribute="leading" secondItem="jhc-N0-5mS" secondAttribute="trailing" constant="10" id="A23-Iv-q5t"/>
                 <constraint firstItem="6YU-3z-YBT" firstAttribute="top" secondItem="5Yu-lt-Lpk" secondAttribute="bottom" constant="5" id="Aya-Dg-6tX"/>
+                <constraint firstItem="1fk-fD-0bd" firstAttribute="leading" secondItem="FcL-GE-PfH" secondAttribute="leading" id="DIY-qH-cPm"/>
                 <constraint firstItem="jhc-N0-5mS" firstAttribute="top" secondItem="5Op-47-8Z1" secondAttribute="bottom" constant="10" id="DMw-Pn-a3E"/>
                 <constraint firstItem="pGa-G1-apR" firstAttribute="top" secondItem="exo-hM-MoR" secondAttribute="bottom" constant="5" id="I4H-0W-M59"/>
                 <constraint firstAttribute="trailing" secondItem="TY7-Ef-A6a" secondAttribute="trailing" constant="10" id="JZi-9x-b6l"/>
@@ -141,17 +175,20 @@
                 <constraint firstItem="lSG-Y7-QG2" firstAttribute="leading" secondItem="FcL-GE-PfH" secondAttribute="leading" constant="10" id="Uki-Mu-CaX"/>
                 <constraint firstItem="lSG-Y7-QG2" firstAttribute="top" secondItem="jhc-N0-5mS" secondAttribute="bottom" constant="10" id="VBu-Qu-NYh"/>
                 <constraint firstItem="5Op-47-8Z1" firstAttribute="top" secondItem="FcL-GE-PfH" secondAttribute="top" constant="10" id="VqX-iX-ZGb"/>
+                <constraint firstAttribute="bottom" secondItem="1fk-fD-0bd" secondAttribute="bottom" id="WcO-gg-q2P"/>
                 <constraint firstItem="U5z-EB-lxg" firstAttribute="leading" secondItem="jhc-N0-5mS" secondAttribute="trailing" constant="10" id="XUy-1X-1lj"/>
                 <constraint firstItem="5Op-47-8Z1" firstAttribute="leading" secondItem="FcL-GE-PfH" secondAttribute="leading" constant="10" id="Z2Y-Kk-VAN"/>
                 <constraint firstItem="5Op-47-8Z1" firstAttribute="centerY" secondItem="vWw-QA-acK" secondAttribute="centerY" id="bFu-sF-yL3"/>
                 <constraint firstAttribute="trailing" secondItem="vWw-QA-acK" secondAttribute="trailing" constant="10" id="fNI-Uu-l3h"/>
                 <constraint firstItem="exo-hM-MoR" firstAttribute="top" secondItem="rMc-iN-w9w" secondAttribute="top" constant="13" id="g8g-74-Ad4"/>
                 <constraint firstItem="U5z-EB-lxg" firstAttribute="top" secondItem="Nbc-Vn-Mx6" secondAttribute="bottom" constant="5" id="gDL-HI-06M"/>
+                <constraint firstAttribute="trailing" secondItem="1fk-fD-0bd" secondAttribute="trailing" id="gVy-g1-8ON"/>
                 <constraint firstItem="v82-fj-468" firstAttribute="trailing" secondItem="rMc-iN-w9w" secondAttribute="trailing" constant="115" id="hgH-th-MRv"/>
                 <constraint firstAttribute="trailing" secondItem="exo-hM-MoR" secondAttribute="trailing" constant="14" id="kTe-gi-nhT"/>
                 <constraint firstItem="TY7-Ef-A6a" firstAttribute="top" secondItem="lSG-Y7-QG2" secondAttribute="bottom" constant="10" id="kZU-Lc-L6N"/>
                 <constraint firstItem="pGa-G1-apR" firstAttribute="centerX" secondItem="exo-hM-MoR" secondAttribute="centerX" id="lY3-ov-bR8"/>
                 <constraint firstItem="rMc-iN-w9w" firstAttribute="top" secondItem="jhc-N0-5mS" secondAttribute="top" id="nF7-8t-LGl"/>
+                <constraint firstItem="1fk-fD-0bd" firstAttribute="top" secondItem="FcL-GE-PfH" secondAttribute="top" id="rMN-7Y-igg"/>
                 <constraint firstAttribute="trailing" secondItem="lSG-Y7-QG2" secondAttribute="trailing" constant="10" id="yhC-3Z-Qeb"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="v82-fj-468"/>
@@ -162,6 +199,7 @@
                 </userDefinedRuntimeAttribute>
             </userDefinedRuntimeAttributes>
             <connections>
+                <outlet property="accessibilityView" destination="1fk-fD-0bd" id="l0I-km-BYb"/>
                 <outlet property="departureDateLabel" destination="vWw-QA-acK" id="sYh-gS-BfA"/>
                 <outlet property="driverImageView" destination="jhc-N0-5mS" id="tnm-ie-YFT"/>
                 <outlet property="floatRatingView" destination="exo-hM-MoR" id="9Qo-gn-Ca6"/>

@@ -31,6 +31,7 @@ enum ShowJourneyRoadmap {
                 var information: String
                 var time: String
                 var calorie: String?
+                var accessibility: String
             }
             
             struct Ridesharing {
@@ -46,6 +47,7 @@ enum ShowJourneyRoadmap {
                 var seatsCount: Int32?
                 var price: String
                 var deepLink: String
+                var accessibility: String
             }
             
             struct SectionModel {
@@ -113,6 +115,7 @@ enum ShowJourneyRoadmap {
                     var title: String
                     var date: String
                     var information: String?
+                    var accessibility: String
                 }
                 
                 var type: ModelType
@@ -140,6 +143,7 @@ enum ShowJourneyRoadmap {
             struct Emission {
                 var journey: (value: Double, unit: String)
                 var car: (value: Double, unit: String)?
+                var accessibility: String
             }
             
             var ridesharing: Ridesharing?
