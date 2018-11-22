@@ -7,6 +7,138 @@
 
 import UIKit
 
+protocol ListJourneysLayoutDelegate: class {
+    
+    func collectionView(_ collectionView:UICollectionView, heightForPhotoAtIndexPath indexPath:IndexPath, width: CGFloat) -> CGFloat
+}
+
+class ListJourneysLayout: UICollectionViewLayout {
+
+    weak var delegate: ListJourneysLayoutDelegate!
+    
+    private var numberOfColumns = 1
+    private var cellPadding: CGFloat = 5
+    private var cache = [UICollectionViewLayoutAttributes]()
+    private var contentHeight: CGFloat = 0
+    
+    private var contentWidth: CGFloat {
+        guard let collectionView = collectionView else {
+            return 0
+        }
+        
+        let insets = collectionView.contentInset
+        let content = collectionView.bounds.width - (insets.left + insets.right)
+        
+        if #available(iOS 11.0, *) {
+            let safeAreaInsets = collectionView.safeAreaInsets
+            return content - (safeAreaInsets.left + safeAreaInsets.right)
+        }
+        
+        return content
+    }
+    
+    override var collectionViewContentSize: CGSize {
+        return CGSize(width: contentWidth, height: contentHeight)
+    }
+    
+    override func prepare() {
+        guard cache.isEmpty == true, let collectionView = collectionView else {
+            return
+        }
+
+        let columnWidth = contentWidth / CGFloat(numberOfColumns)
+        var xOffset = [CGFloat]()
+        for column in 0 ..< numberOfColumns {
+            xOffset.append(CGFloat(column) * columnWidth)
+        }
+        var column = 0
+        var yOffset = [CGFloat](repeating: 0, count: numberOfColumns)
+        
+        contentHeight = 0
+        
+        for numberOfSection in 0 ..< collectionView.numberOfSections {
+            // 3. Iterates through the list of items in the first section
+            
+            for item in 0 ..< collectionView.numberOfItems(inSection: numberOfSection) {
+                if item == 0 && numberOfSection == 1 {
+                    let height = cellPadding * 2 + 30
+                    let frame = CGRect(x: xOffset[column], y: yOffset[column], width: columnWidth, height: height)
+                    let insetFrame = frame.insetBy(dx: cellPadding, dy: cellPadding)
+                    
+                    let attributes = UICollectionViewLayoutAttributes(forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, with: IndexPath(item: 0, section: numberOfSection))
+                    attributes.frame = insetFrame
+                    cache.append(attributes)
+                    contentHeight = max(contentHeight, frame.maxY)
+                    yOffset[column] = yOffset[column] + height
+                    
+                    column = column < (numberOfColumns - 1) ? (column + 1) : 0
+                }
+                let indexPath = IndexPath(item: item, section: numberOfSection)
+                
+                // 4. Asks the delegate for the height of the picture and the annotation and calculates the cell frame.
+                
+                let photoHeight = delegate.collectionView(collectionView, heightForPhotoAtIndexPath: indexPath, width: columnWidth)
+                let height = cellPadding * 2 + photoHeight
+                let frame = CGRect(x: xOffset[column], y: yOffset[column], width: columnWidth, height: height)
+                let insetFrame = frame.insetBy(dx: cellPadding, dy: cellPadding)
+
+                let attributes = UICollectionViewLayoutAttributes(forCellWith: indexPath)
+                attributes.frame = insetFrame
+                cache.append(attributes)
+                
+                // 6. Updates the collection view content height
+                contentHeight = max(contentHeight, frame.maxY)
+                yOffset[column] = yOffset[column] + height
+                
+                column = column < (numberOfColumns - 1) ? (column + 1) : 0
+            }
+        }
+        
+
+    }
+    
+    override func layoutAttributesForElements(in rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
+        
+        var visibleLayoutAttributes = [UICollectionViewLayoutAttributes]()
+        
+        // Loop through the cache and look for items in the rect
+        for attributes in cache {
+            if attributes.frame.intersects(rect) {
+                visibleLayoutAttributes.append(attributes)
+            }
+        }
+        return visibleLayoutAttributes
+    }
+    
+    override func layoutAttributesForItem(at indexPath: IndexPath) -> UICollectionViewLayoutAttributes? {
+        return cache[indexPath.item]
+    }
+    
+    public override func layoutAttributesForSupplementaryView(ofKind elementKind: String, at indexPath: IndexPath) -> UICollectionViewLayoutAttributes? {
+        let attributes = UICollectionViewLayoutAttributes(forCellWith: indexPath)
+        attributes.frame = CGRect(x: 0, y: 0, width: 0, height: 30)
+        return attributes
+    }
+    
+    func test() {
+        cache.removeAll(keepingCapacity: false)
+        
+        guard let visibleCells = collectionView?.visibleCells else {
+            return
+        }
+        for i in visibleCells {
+            if let cell = i as? JourneySolutionCollectionViewCell {
+                cell.friezeView.updatePositionFriezeSectionView()
+            }
+        }
+    }
+    
+    override func shouldInvalidateLayout(forBoundsChange newBounds: CGRect) -> Bool {
+        return true
+    }
+    
+}
+
 protocol ListJourneysDisplayLogic: class {
     
     func displayFetchedJourneys(viewModel: ListJourneys.FetchJourneys.ViewModel)
@@ -54,6 +186,7 @@ open class ListJourneysViewController: UIViewController, ListJourneysDisplayLogi
         super.viewWillLayoutSubviews()
         
         journeysCollectionView.collectionViewLayout.invalidateLayout()
+        reloadCollectionViewLayout()
     }
     
     private func initSDK() {
@@ -104,6 +237,13 @@ open class ListJourneysViewController: UIViewController, ListJourneysDisplayLogi
         }
         
         registerCollectionView()
+        let layout = ListJourneysLayout()
+        layout.delegate = self
+        journeysCollectionView.contentInset = UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
+        journeysCollectionView.setCollectionViewLayout(layout, animated: true)
+        
+//        journeysCollectionView.setCollectionViewLayout(LiquidCollectionViewLayout(), animated: true)
+//        (journeysCollectionView.collectionViewLayout as! LiquidCollectionViewLayout).delegate = self as! LiquidLayoutDelegate
     }
     
     private func registerCollectionView() {
@@ -157,6 +297,16 @@ open class ListJourneysViewController: UIViewController, ListJourneysDisplayLogi
         toLabel.attributedText = viewModel.headerInformations.destination
         dateTimeLabel.attributedText = viewModel.headerInformations.dateTime
         journeysCollectionView.reloadData()
+        
+        reloadCollectionViewLayout()
+    }
+    
+    private func reloadCollectionViewLayout() {
+        guard let collectionViewLayout = journeysCollectionView.collectionViewLayout as? ListJourneysLayout else {
+            return
+        }
+        
+        collectionViewLayout.test()
     }
 }
 
@@ -291,48 +441,60 @@ extension ListJourneysViewController: UICollectionViewDataSource, UICollectionVi
             }
         }
     }
+}
 
-    // MARK: - CollectionView Delegate Flow Layout
-    
-    public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        var safeAreaWidth: CGFloat = 20.0
-        if #available(iOS 11.0, *) {
-            safeAreaWidth += self.journeysCollectionView.safeAreaInsets.left + self.journeysCollectionView.safeAreaInsets.right
-        }
-        
+extension ListJourneysViewController: ListJourneysLayoutDelegate {
+    func collectionView(_ collectionView: UICollectionView, heightForPhotoAtIndexPath indexPath: IndexPath, width: CGFloat) -> CGFloat {
         guard let viewModel = viewModel else {
-            return CGSize()
+            return 0
         }
         
         // Loading
         if !viewModel.loaded {
-            return CGSize(width: self.journeysCollectionView.frame.size.width - safeAreaWidth, height: 130)
+            return 130
         }
         // Journey
         if indexPath.section == 0 {
             if viewModel.displayedJourneys.count == 0 {
                 // No journey
-                return CGSize(width: self.journeysCollectionView.frame.size.width - safeAreaWidth, height: 35)
-            } else if viewModel.displayedJourneys[indexPath.row].walkingInformation == nil {
-                // Result
-                return CGSize(width: self.journeysCollectionView.frame.size.width - safeAreaWidth, height: 83) //97
+                return 35
+            }
+            var height: CGFloat = 60
+            if let _ = viewModel.displayedJourneys[safe: indexPath.row]?.walkingInformation {
+                height += 30
             }
             
-            return CGSize(width: self.journeysCollectionView.frame.size.width - safeAreaWidth, height: 117)
+            if let sections = viewModel.displayedJourneys[safe: indexPath.row]?.friezeSections {
+                
+                let frire = FriezeView(frame: CGRect(x: 0, y: 0, width: width - 20, height: 27))
+                frire.addSection(friezeSections: sections)
+                
+                return height + frire.frame.size.height
+            }
         }
         // Carsharing
         if indexPath.section == 1 {
             if indexPath.row == 0 {
                 // Header
-                return CGSize(width: self.journeysCollectionView.frame.size.width - safeAreaWidth, height: 75)
+                return 75
             } else if indexPath.row == 1 && viewModel.displayedRidesharings.count == 0 {
                 // No journey
-                return CGSize(width: self.journeysCollectionView.frame.size.width - safeAreaWidth, height: 35)
+                return 35
             }
-            // Result
-            return CGSize(width: self.journeysCollectionView.frame.size.width - safeAreaWidth, height: 83)
+            var height: CGFloat = 60
+            if let _ = viewModel.displayedJourneys[safe: indexPath.row]?.walkingInformation {
+                height += 30
+            }
+            
+            if let sections = viewModel.displayedJourneys[safe: indexPath.row]?.friezeSections {
+                
+                let frire = FriezeView(frame: CGRect(x: 0, y: 0, width: width - 20, height: 27))
+                frire.addSection(friezeSections: sections)
+                
+                return height + frire.frame.size.height
+            }
         }
         // Other
-        return CGSize(width: self.journeysCollectionView.frame.size.width - safeAreaWidth, height: 117)
+        return 117
     }
 }

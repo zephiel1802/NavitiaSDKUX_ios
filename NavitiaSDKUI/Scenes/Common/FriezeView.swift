@@ -19,6 +19,7 @@ class FriezeView: UIView {
         super.init(frame: frame)
     }
 
+
     internal func addSection(friezeSections: [FriezePresenter.FriezeSection]) {
         releaseUnusedSectionView(sectionsCount: friezeSections.count)
         parseFriezeSectionView(friezeSections: friezeSections)
@@ -66,7 +67,7 @@ class FriezeView: UIView {
     func updatePositionFriezeSectionView() {
         let padding = UIEdgeInsets(top: 4, left: 0, bottom: 0, right: 0)
         var position = CGPoint(x: 0, y: 0)
-        
+
         for friezeSectionView in friezeSectionsView {
             if position.x + CGFloat(friezeSectionView.frame.size.width) > frame.size.width {
                 position.x = 0
