@@ -28,6 +28,10 @@ class FriezeSectionView: UIView {
         }
     }
     
+    static var identifier: String {
+        return String(describing: self)
+    }
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         setup()
@@ -38,7 +42,7 @@ class FriezeSectionView: UIView {
     }
     
     private func setup() {
-        UINib(nibName: "JourneySummaryPartView", bundle: NavitiaSDKUI.shared.bundle).instantiate(withOwner: self, options: nil)
+        UINib(nibName: FriezeSectionView.identifier, bundle: NavitiaSDKUI.shared.bundle).instantiate(withOwner: self, options: nil)
         view.frame = self.bounds
         addSubview(view)
         setupDisruption()

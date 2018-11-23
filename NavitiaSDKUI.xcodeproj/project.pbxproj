@@ -164,8 +164,7 @@
 		8422B45B206A242D0097E6C9 /* JourneyHeaderCollectionReusableView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8422B45A206A242D0097E6C9 /* JourneyHeaderCollectionReusableView.xib */; };
 		8422B45D206A2AE00097E6C9 /* RidesharingInformationCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8422B45C206A2AE00097E6C9 /* RidesharingInformationCollectionViewCell.xib */; };
 		8422B460206A2AFF0097E6C9 /* RidesharingInformationCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8422B45F206A2AFF0097E6C9 /* RidesharingInformationCollectionViewCell.swift */; };
-		8422B464206A30300097E6C9 /* JourneySummaryPartView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8422B463206A30300097E6C9 /* JourneySummaryPartView.xib */; };
-		8422B46A206A33540097E6C9 /* JourneySummaryView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8422B469206A33540097E6C9 /* JourneySummaryView.xib */; };
+		8422B464206A30300097E6C9 /* FriezeSectionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8422B463206A30300097E6C9 /* FriezeSectionView.xib */; };
 		8422B46C206A37610097E6C9 /* TransportHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8422B46B206A37610097E6C9 /* TransportHelper.swift */; };
 		8430274F20BBE70E005AD743 /* Message+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8430274E20BBE70E005AD743 /* Message+Extension.swift */; };
 		8430275120BBE72B005AD743 /* Disruption+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8430275020BBE72B005AD743 /* Disruption+Extension.swift */; };
@@ -459,8 +458,7 @@
 		8422B45A206A242D0097E6C9 /* JourneyHeaderCollectionReusableView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = JourneyHeaderCollectionReusableView.xib; sourceTree = "<group>"; };
 		8422B45C206A2AE00097E6C9 /* RidesharingInformationCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RidesharingInformationCollectionViewCell.xib; sourceTree = "<group>"; };
 		8422B45F206A2AFF0097E6C9 /* RidesharingInformationCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RidesharingInformationCollectionViewCell.swift; sourceTree = "<group>"; };
-		8422B463206A30300097E6C9 /* JourneySummaryPartView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = JourneySummaryPartView.xib; sourceTree = "<group>"; };
-		8422B469206A33540097E6C9 /* JourneySummaryView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = JourneySummaryView.xib; sourceTree = "<group>"; };
+		8422B463206A30300097E6C9 /* FriezeSectionView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FriezeSectionView.xib; sourceTree = "<group>"; };
 		8422B46B206A37610097E6C9 /* TransportHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransportHelper.swift; sourceTree = "<group>"; };
 		8430274E20BBE70E005AD743 /* Message+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Message+Extension.swift"; sourceTree = "<group>"; };
 		8430275020BBE72B005AD743 /* Disruption+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Disruption+Extension.swift"; sourceTree = "<group>"; };
@@ -766,20 +764,11 @@
 			path = Workers;
 			sourceTree = "<group>";
 		};
-		8422B461206A30180097E6C9 /* View */ = {
-			isa = PBXGroup;
-			children = (
-				84BC297F207E66D50073F198 /* StationsView.swift */,
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
 		8422B462206A30200097E6C9 /* Interface */ = {
 			isa = PBXGroup;
 			children = (
+				8422B463206A30300097E6C9 /* FriezeSectionView.xib */,
 				8433F3A1207FAF22007DBBCE /* AlertView.xib */,
-				8422B469206A33540097E6C9 /* JourneySummaryView.xib */,
-				8422B463206A30300097E6C9 /* JourneySummaryPartView.xib */,
 				84BC297D207E66CC0073F198 /* StationsView.xib */,
 			);
 			path = Interface;
@@ -922,14 +911,12 @@
 		8451DA5D2065063800CFA1E4 /* Common */ = {
 			isa = PBXGroup;
 			children = (
-				849DECC2219DD6330057A584 /* FriezeSectionView.swift */,
-				84C482C1219DC30A00AA8364 /* FriezePresenter.swift */,
-				84C482C2219DC30A00AA8364 /* FriezeView.swift */,
+				848695A921A7F685009A4DFB /* Frieze */,
 				8422B462206A30200097E6C9 /* Interface */,
-				8422B461206A30180097E6C9 /* View */,
 				8433F39F207FAECF007DBBCE /* AlertViewController.swift */,
 				8476DD5320888154006CB506 /* CustomAnnotation.swift */,
 				84EB9B612142A7A200D61E59 /* StackScrollView.swift */,
+				84BC297F207E66D50073F198 /* StationsView.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -1143,6 +1130,16 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+		848695A921A7F685009A4DFB /* Frieze */ = {
+			isa = PBXGroup;
+			children = (
+				849DECC2219DD6330057A584 /* FriezeSectionView.swift */,
+				84C482C1219DC30A00AA8364 /* FriezePresenter.swift */,
+				84C482C2219DC30A00AA8364 /* FriezeView.swift */,
+			);
+			path = Frieze;
+			sourceTree = "<group>";
+		};
 		849794BE213D66F000F0EB5C /* NavitiaSDKUITests */ = {
 			isa = PBXGroup;
 			children = (
@@ -1279,11 +1276,10 @@
 				8422B45D206A2AE00097E6C9 /* RidesharingInformationCollectionViewCell.xib in Resources */,
 				84FABE162074F76600BDDE9D /* JourneySolutionLoadCollectionViewCell.xib in Resources */,
 				84D0FA96210094B300EB420A /* DisruptionItemView.xib in Resources */,
-				8422B464206A30300097E6C9 /* JourneySummaryPartView.xib in Resources */,
+				8422B464206A30300097E6C9 /* FriezeSectionView.xib in Resources */,
 				8451DA602065065E00CFA1E4 /* Images.xcassets in Resources */,
 				846B185120775479005D4A9B /* DepartureArrivalStepView.xib in Resources */,
 				8454D4482068F2BC00C97D2F /* JourneySolutionCollectionViewCell.xib in Resources */,
-				8422B46A206A33540097E6C9 /* JourneySummaryView.xib in Resources */,
 				845B4EF321675DEA009CCF12 /* PublicTransportStepView.xib in Resources */,
 				8422B45B206A242D0097E6C9 /* JourneyHeaderCollectionReusableView.xib in Resources */,
 				8454D44E20692CA200C97D2F /* SDKIcons.ttf in Resources */,
