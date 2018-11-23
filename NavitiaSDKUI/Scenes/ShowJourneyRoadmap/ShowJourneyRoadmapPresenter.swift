@@ -285,14 +285,8 @@ class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
         guard let type = section.type else {
             return nil
         }
-        
-        if let network = section.from?.poi?.properties?["network"] ?? section.to?.poi?.properties?["network"] {
-            if type == .bssRent {
-                return String(format: "take_a_bike_at".localized(bundle: NavitiaSDKUI.shared.bundle), network)
-            } else if type == .bssPutBack {
-                return String(format: "dock_bike_at".localized(bundle: NavitiaSDKUI.shared.bundle), network)
-            }
-        } else if type == .park {
+
+        if type == .park {
             return "park_in_the".localized(bundle: NavitiaSDKUI.shared.bundle)
         } else if type == .ridesharing {
             return "take_the_ridesharing".localized(bundle: NavitiaSDKUI.shared.bundle)
@@ -300,6 +294,12 @@ class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
             return "to_with_uppercase".localized(bundle: NavitiaSDKUI.shared.bundle)
         } else if let commercialMode = section.displayInformations?.commercialMode {
             return String(format: "%@ %@", "take_the".localized(withComment: "Take tke", bundle: NavitiaSDKUI.shared.bundle), commercialMode)
+        } else if let poi = section.from?.poi ?? section.to?.poi {
+            if type == .bssRent {
+                return String(format: "take_a_bike_at".localized(bundle: NavitiaSDKUI.shared.bundle), poi.properties?["network"] ?? "")
+            } else if type == .bssPutBack {
+                return String(format: "dock_bike_at".localized(bundle: NavitiaSDKUI.shared.bundle), poi.properties?["network"] ?? "")
+            }
         }
 
         return nil
