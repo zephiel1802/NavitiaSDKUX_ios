@@ -80,6 +80,7 @@ enum Configuration {
     // Constant
     static let caloriePerSecWalking = 0.071625714285714
     static let caloriePerSecBike = 0.11442857142857142
+    static let minWalkingValuFrieze = 180 
     
     static var multiNetwork = false
     

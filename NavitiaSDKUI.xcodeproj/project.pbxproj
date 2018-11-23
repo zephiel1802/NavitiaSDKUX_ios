@@ -277,6 +277,7 @@
 		84BC2980207E66D50073F198 /* StationsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84BC297F207E66D50073F198 /* StationsView.swift */; };
 		84C482C3219DC30A00AA8364 /* FriezePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C482C1219DC30A00AA8364 /* FriezePresenter.swift */; };
 		84C482C4219DC30A00AA8364 /* FriezeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C482C2219DC30A00AA8364 /* FriezeView.swift */; };
+		84C6BC5E21A813CB0035729E /* ListJourneysCollectionViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C6BC5D21A813CB0035729E /* ListJourneysCollectionViewLayout.swift */; };
 		84D0FA94210094A900EB420A /* Section+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D0FA93210094A900EB420A /* Section+Extension.swift */; };
 		84D0FA96210094B300EB420A /* DisruptionItemView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84D0FA95210094B300EB420A /* DisruptionItemView.xib */; };
 		84D0FA98210094B900EB420A /* DisruptionItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D0FA97210094B900EB420A /* DisruptionItemView.swift */; };
@@ -572,6 +573,7 @@
 		84BC297F207E66D50073F198 /* StationsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StationsView.swift; sourceTree = "<group>"; };
 		84C482C1219DC30A00AA8364 /* FriezePresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriezePresenter.swift; sourceTree = "<group>"; };
 		84C482C2219DC30A00AA8364 /* FriezeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriezeView.swift; sourceTree = "<group>"; };
+		84C6BC5D21A813CB0035729E /* ListJourneysCollectionViewLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListJourneysCollectionViewLayout.swift; sourceTree = "<group>"; };
 		84D0FA93210094A900EB420A /* Section+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Section+Extension.swift"; sourceTree = "<group>"; };
 		84D0FA95210094B300EB420A /* DisruptionItemView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DisruptionItemView.xib; sourceTree = "<group>"; };
 		84D0FA97210094B900EB420A /* DisruptionItemView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DisruptionItemView.swift; sourceTree = "<group>"; };
@@ -939,6 +941,7 @@
 				841EFD8E21359F56004A313B /* ListJourneysPresenter.swift */,
 				841EFD9221359F56004A313B /* ListJourneysRouter.swift */,
 				841EFD9121359F56004A313B /* ListJourneysViewController.swift */,
+				84C6BC5D21A813CB0035729E /* ListJourneysCollectionViewLayout.swift */,
 			);
 			path = ListJourneys;
 			sourceTree = "<group>";
@@ -1521,6 +1524,7 @@
 				841A10A6215A29B800F46143 /* ModelError.swift in Sources */,
 				841A10A7215A29B800F46143 /* Line.swift in Sources */,
 				84827A8F214BBAA800CB9513 /* RidesharingOfferCollectionViewCell.swift in Sources */,
+				84C6BC5E21A813CB0035729E /* ListJourneysCollectionViewLayout.swift in Sources */,
 				841A10BE215A29B800F46143 /* Networks.swift in Sources */,
 				841A106A215A29B800F46143 /* HeatMap.swift in Sources */,
 				841A1070215A29B800F46143 /* Disruptions.swift in Sources */,

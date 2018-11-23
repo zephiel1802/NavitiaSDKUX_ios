@@ -45,13 +45,17 @@ class FriezeSectionView: UIView {
         UINib(nibName: FriezeSectionView.identifier, bundle: NavitiaSDKUI.shared.bundle).instantiate(withOwner: self, options: nil)
         view.frame = self.bounds
         addSubview(view)
-        setupDisruption()
-        
         frame.size.height = height
         
+        setupDisruption()
+        setupTag()
+        
+        updateWitdh()
+    }
+    
+    private func setupTag() {
         tagTransportView.isHidden = true
         tagTransportLabel.isHidden = true
-        updateWitdh()
     }
     
     private func setupDisruption() {

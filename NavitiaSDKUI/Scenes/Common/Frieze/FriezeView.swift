@@ -11,14 +11,13 @@ class FriezeView: UIView {
 
     private var friezeSectionsView = [FriezeSectionView]()
 
-    public required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-    }
-    
     public override init(frame: CGRect) {
         super.init(frame: frame)
     }
-
+    
+    public required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+    }
 
     internal func addSection(friezeSections: [FriezePresenter.FriezeSection]) {
         releaseUnusedSectionView(sectionsCount: friezeSections.count)
@@ -57,14 +56,10 @@ class FriezeView: UIView {
         friezeSectionView.icon = friezeSection.icon
         friezeSectionView.displayDisruption(friezeSection.disruptionIcon, color: friezeSection.disruptionColor)
         
-        if index == 0 {
-            friezeSectionView.separator = false
-        } else {
-            friezeSectionView.separator = true
-        }
+        friezeSectionView.separator = index == 0 ? false : true
     }
     
-    func updatePositionFriezeSectionView() {
+    internal func updatePositionFriezeSectionView() {
         let padding = UIEdgeInsets(top: 4, left: 0, bottom: 0, right: 0)
         var position = CGPoint(x: 0, y: 0)
 

@@ -19,7 +19,7 @@ class FriezePresenter: NSObject {
     }
     
     private func validDisplayedJourneySections(section: Section, count: Int) -> Bool {
-        if let duration = section.duration, duration <= 180 && section.mode == .walking && count > 1 {
+        if let duration = section.duration, duration <= Configuration.minWalkingValuFrieze && section.mode == .walking && count > 1 {
             return false
         }
         
@@ -38,44 +38,64 @@ class FriezePresenter: NSObject {
         return false
     }
     
-    internal func getDisplayedJourneySections(journey: Journey, disruptions: [Disruption]?) -> [FriezeSection] {
-        guard let sections = journey.sections else {
-            return []
+    private func getName(section: Section) -> String? {
+        if let code = section.displayInformations?.code, !code.isEmpty {
+            return code
         }
         
-        var sectionsClean = [FriezeSection]()
+        return section.displayInformations?.commercialMode
+    }
+    
+    private func getColor(section: Section) -> UIColor {
+        return section.displayInformations?.color?.toUIColor() ?? .black
+    }
+    
+    private func getIcon(section: Section) -> String {
+        return Modes().getModeIcon(section: section)
+    }
+    
+    private func getDisruptionInformations(section: Section, disruptions: [Disruption]?) -> (icon: String?, color: String?) {
+        var icon: String? = nil
+        var color: String? = nil
         
-        for section in sections {
-            if validDisplayedJourneySections(section: section, count: sections.count) {
-                let icon = Modes().getModeIcon(section: section)
-                let color = section.displayInformations?.color?.toUIColor() ?? .black
-                var name = section.displayInformations?.code
-                if name?.isEmpty ?? true {
-                    name = section.displayInformations?.commercialMode
-                }
+        if let disruptions = disruptions, disruptions.count > 0 {
+            let sectionDisruptions = section.disruptions(disruptions: disruptions)
+            
+            if sectionDisruptions.count > 0 {
+                let highestDisruption = Disruption.highestLevelDisruption(disruptions: sectionDisruptions)
                 
-                var disruptionIcon: String? = nil
-                var disruptionColor: String? = nil
-                
-                if let disruptions = disruptions, disruptions.count > 0 {
-                    let sectionDisruptions = section.disruptions(disruptions: disruptions)
-                    if sectionDisruptions.count > 0 {
-                        let highestDisruption = Disruption.highestLevelDisruption(disruptions: sectionDisruptions)
-                        disruptionIcon = Disruption.iconName(of: highestDisruption.level)
-                        disruptionColor = highestDisruption.color
-                    }
-                }
-                
-                let sectionClean = FriezePresenter.FriezeSection(color: color,
-                                                                 name: name,
-                                                                 icon: icon,
-                                                                 disruptionIcon: disruptionIcon,
-                                                                 disruptionColor: disruptionColor,
-                                                                 duration: section.duration)
-                sectionsClean.append(sectionClean)
+                icon = Disruption.iconName(of: highestDisruption.level)
+                color = highestDisruption.color
             }
         }
         
-        return sectionsClean
+        return (icon: icon, color: color)
+    }
+    
+    internal func getDisplayedJourneySections(journey: Journey, disruptions: [Disruption]?) -> [FriezeSection] {
+        var friezeSections = [FriezeSection]()
+        
+        guard let sections = journey.sections else {
+            return friezeSections
+        }
+        
+        for section in sections {
+            if validDisplayedJourneySections(section: section, count: sections.count) {
+                let name = getName(section: section)
+                let color = getColor(section: section)
+                let icon = getIcon(section: section)
+                let disruptionInfo = getDisruptionInformations(section: section, disruptions: disruptions)
+                let friezeSection = FriezePresenter.FriezeSection(color: color,
+                                                                  name: name,
+                                                                  icon: icon,
+                                                                  disruptionIcon: disruptionInfo.icon,
+                                                                  disruptionColor: disruptionInfo.color,
+                                                                  duration: section.duration)
+                
+                friezeSections.append(friezeSection)
+            }
+        }
+        
+        return friezeSections
     }
 }
