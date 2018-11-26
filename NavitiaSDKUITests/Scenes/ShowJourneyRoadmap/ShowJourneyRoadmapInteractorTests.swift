@@ -33,6 +33,7 @@ class ShowJourneyRoadmapInteractorTests: XCTestCase {
     // MARK: - Test doubles
     
     class ShowJourneyRoadmapPresentationLogicSpy: ShowJourneyRoadmapPresentationLogic {
+        
         var presentRoadmapCalled = false
         var presentMapCalled = false
         var presentBssCalled = false

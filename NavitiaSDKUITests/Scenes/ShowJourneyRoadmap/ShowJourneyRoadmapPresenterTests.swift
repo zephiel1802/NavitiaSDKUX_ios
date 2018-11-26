@@ -67,6 +67,7 @@ class ShowJourneyRoadmapPresenterTests: XCTestCase {
     // MARK: - Test doubles
     
     class ShowJourneyRoadmapDisplayLogicSpy: ShowJourneyRoadmapDisplayLogic {
+        
         var displayRoadmapCalled = false
         var displayMapCalled = false
         var viewModelRoadmap: ShowJourneyRoadmap.GetRoadmap.ViewModel!
@@ -103,6 +104,7 @@ class ShowJourneyRoadmapPresenterTests: XCTestCase {
         
         guard let response = getRoadmapResponse() else {
             XCTFail("getRoadmapResponse() - Error")
+            
             return nil
         }
         
@@ -143,6 +145,7 @@ class ShowJourneyRoadmapPresenterTests: XCTestCase {
     func testPaths() {
         guard let pathViewMode = viewModelRoadmap.sections?[sectionIndex.walking].path else {
             XCTFail("Get path for walking section - Error")
+            
             return
         }
         
@@ -157,6 +160,7 @@ class ShowJourneyRoadmapPresenterTests: XCTestCase {
     func testStands() {
         guard let standsViewModel = viewModelRoadmap.sections?[sectionIndex.bssRentStands].poi?.stands else {
             XCTFail("Get stands for bss rent section - Error")
+            
             return
         }
         
@@ -167,6 +171,7 @@ class ShowJourneyRoadmapPresenterTests: XCTestCase {
     func testPoi() {
         guard let poiViewModel = viewModelRoadmap.sections?[sectionIndex.bssRentStands].poi else {
             XCTFail("Get poi for bss rent section - Error")
+            
             return
         }
         
@@ -185,6 +190,7 @@ class ShowJourneyRoadmapPresenterTests: XCTestCase {
     func testDisplayInformations() {
         guard let displayInformationsViewModel = viewModelRoadmap.sections?[sectionIndex.publicTransport].displayInformations else {
             XCTFail("Get display informations for public transport - Error")
+            
             return
         }
         
@@ -199,6 +205,7 @@ class ShowJourneyRoadmapPresenterTests: XCTestCase {
             let walkingTwoViewModel = viewModelRoadmap.sections?[sectionIndex.walkingTwo],
             let walkingThreeViewModel = viewModelRoadmap.sections?[sectionIndex.walkingThree] else {
             XCTFail("Get view models for walking section - Error")
+                
             return
         }
 
@@ -231,6 +238,7 @@ class ShowJourneyRoadmapPresenterTests: XCTestCase {
             let bikeTwoViewModel = viewModelRoadmap.sections?[sectionIndex.bikeTwo],
             let bikeThreeViewModel = viewModelRoadmap.sections?[sectionIndex.bikeThree] else {
             XCTFail("Get view models for bike section - Error")
+                
             return
         }
         
@@ -263,6 +271,7 @@ class ShowJourneyRoadmapPresenterTests: XCTestCase {
             let carTwoViewModel = viewModelRoadmap.sections?[sectionIndex.carTwo],
             let carThreeViewModel = viewModelRoadmap.sections?[sectionIndex.carThree] else {
             XCTFail("Get view models for car section - Error")
+                
             return
         }
         
@@ -296,6 +305,7 @@ class ShowJourneyRoadmapPresenterTests: XCTestCase {
         guard let bssRentStandsViewModel = viewModelRoadmap.sections?[sectionIndex.bssRentStands],
             let bssRentViewModel = viewModelRoadmap.sections?[sectionIndex.bssRent] else {
             XCTFail("Get view models for bss rent section - Error")
+                
             return
         }
         
@@ -327,6 +337,7 @@ class ShowJourneyRoadmapPresenterTests: XCTestCase {
         guard let bssPutBackStandsViewModel = viewModelRoadmap.sections?[sectionIndex.bssPutBackStands],
             let bssPutBackViewModel = viewModelRoadmap.sections?[sectionIndex.bssPutBack] else {
             XCTFail("Get view models for bss put back section - Error")
+                
             return
         }
         
@@ -358,6 +369,7 @@ class ShowJourneyRoadmapPresenterTests: XCTestCase {
     func testTransferStepView() {
         guard let transferViewModel = viewModelRoadmap.sections?[sectionIndex.transfer] else {
             XCTFail("Get view model for transfer section - Error")
+            
             return
         }
         
@@ -386,6 +398,7 @@ class ShowJourneyRoadmapPresenterTests: XCTestCase {
     func testCrowFlyStepView() {
         guard let crowFlyViewModel = viewModelRoadmap.sections?[sectionIndex.crowFly] else {
             XCTFail("Get view model for crow fly section - Error")
+            
             return
         }
         
@@ -414,6 +427,7 @@ class ShowJourneyRoadmapPresenterTests: XCTestCase {
     func testPublicTransportStepView() {
         guard let publicTransportViewModel = viewModelRoadmap.sections?[sectionIndex.publicTransport] else {
             XCTFail("Get view model for public transport section - Error")
+            
             return
         }
         
@@ -442,6 +456,7 @@ class ShowJourneyRoadmapPresenterTests: XCTestCase {
     func testOnDemandTransportStepView() {
         guard let onDemandTransportViewModel = viewModelRoadmap.sections?[sectionIndex.onDemandeTransport] else {
             XCTFail("Get view model for on demand transport section - Error")
+            
             return
         }
         

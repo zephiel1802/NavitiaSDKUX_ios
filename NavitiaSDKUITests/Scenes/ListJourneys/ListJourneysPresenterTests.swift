@@ -38,6 +38,7 @@ class ListJourneysPresenterTests: XCTestCase {
     // MARK: - Test doubles
     
     class ListJourneysDisplayLogicSpy: ListJourneysDisplayLogic {
+        
         var displayFetchedJourneysCalled = false
         var viewModel: ListJourneys.FetchJourneys.ViewModel!
         
@@ -70,6 +71,7 @@ class ListJourneysPresenterTests: XCTestCase {
         sut.presentFetchedJourneys(response: response)
         guard let viewModel = listJourneysDisplayLogicSpy.viewModel else {
             XCTFail("Error json String")
+            
             return
         }
         

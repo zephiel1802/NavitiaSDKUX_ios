@@ -33,6 +33,7 @@ class ListJourneysInteractorTests: XCTestCase {
     // MARK: - Test doubles
     
     class ListJourneysPresentationLogicSpy: ListJourneysPresentationLogic {
+        
         var presentFetchedSearchInformationCalled = false
         var presentFetchedJourneysCalled = false
         

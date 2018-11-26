@@ -31,6 +31,7 @@ class NavitiaWorkersTests: XCTestCase {
     }
     
     class NavitiaWorkerSpy: NavitiaWorker {
+        
         var fetchJourneysCalled = false
         var parseJourneyResponseCalled = false
         

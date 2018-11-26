@@ -33,6 +33,7 @@ class ListRidesharingOffersInteractorTests: XCTestCase {
     // MARK: - Test doubles
     
     class ListRidesharingOffersPresentationLogicSpy: ListRidesharingOffersPresentationLogic {
+        
         var presentRidesharingOffersCalled = false
 
         func presentRidesharingOffers(response: ListRidesharingOffers.GetRidesharingOffers.Response) {

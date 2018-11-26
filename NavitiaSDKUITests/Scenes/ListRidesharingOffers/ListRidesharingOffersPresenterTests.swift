@@ -42,6 +42,7 @@ class ListRidesharingOffersPresenterTests: XCTestCase {
     // MARK: - Test doubles
     
     class ListRidesharingOffersDisplayLogicSpy: ListRidesharingOffersDisplayLogic {
+        
         var displayRidesharingOffersCalled = false
         var viewModel: ListRidesharingOffers.GetRidesharingOffers.ViewModel!
         
@@ -72,6 +73,7 @@ class ListRidesharingOffersPresenterTests: XCTestCase {
         
         guard let response = getRidesharingOfferstResponse() else {
             XCTFail("getRidesharingOfferstResponse() - Error")
+            
             return
         }
         
@@ -79,6 +81,7 @@ class ListRidesharingOffersPresenterTests: XCTestCase {
         
         guard let viewModel = listRidesharingOffersDisplayLogicSpy.viewModel else {
             XCTFail("Get view model for ridesharing offers - Error")
+            
             return
         }
         
@@ -103,6 +106,7 @@ class ListRidesharingOffersPresenterTests: XCTestCase {
         
         guard let response = getRidesharingOfferstResponse() else {
             XCTFail("getRidesharingOfferstResponse() - Error")
+            
             return
         }
 
