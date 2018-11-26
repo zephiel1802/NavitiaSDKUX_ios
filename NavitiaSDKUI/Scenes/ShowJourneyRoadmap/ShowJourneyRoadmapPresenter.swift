@@ -33,11 +33,9 @@ class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
         let viewModel = ShowJourneyRoadmap.GetRoadmap.ViewModel(ridesharing: getRidesharing(journeyRidesharing: response.journeyRidesharing),
                                                                 departure: departure,
                                                                 sections: sectionsClean,
-//                                                                friezeSections: friezeSections,
                                                                 frieze: frieze,
                                                                 arrival: arrival,
                                                                 emission: emission,
-                                                              //  disruptions: response.disruptions,
                                                                 journey: response.journey,
                                                                 ridesharingJourneys: response.journeyRidesharing)
         
