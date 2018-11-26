@@ -88,6 +88,7 @@ enum ShowJourneyRoadmap {
                 }
                 
                 struct Stands {
+                    var status: String?
                     var availability: String?
                     var icon: String?
                 }
