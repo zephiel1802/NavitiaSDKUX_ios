@@ -74,7 +74,47 @@ class PublicTransportStepView: UIView {
         }
     }
     
-    // MARK: Common
+    func updateAccessibility() {
+        guard let commercialMode = actionDescriptionLabel.text, let informations = informationsLabel.text else {
+            return
+        }
+        
+        var accessibilityLabel = String(format: "%@ ", commercialMode)
+        
+        if let code = transportIconLabel.text {
+            accessibilityLabel.append(String(format: "%@ ", code))
+        }
+        
+        accessibilityLabel.append(String(format: "%@.", informations))
+        if let to = publicTransportToLabel.text {
+            accessibilityLabel.append(String(format: "get_of_at".localized(bundle: NavitiaSDKUI.shared.bundle), to))
+        }
+        
+        if let network = networkLabel.text {
+            accessibilityLabel.append(String(format: "%@.", network))
+        }
+        
+        if let waiting = waitingInformationsLabel.text, !waitingContainerView.isHidden {
+            accessibilityLabel.append(String(format: "%@.", waiting))
+        }
+        
+        
+        
+        for item in stackView.arrangedSubviews {
+            if let itemDisruption = item as? DisruptionItemView,
+                let accessibility = itemDisruption.accessibility {
+                accessibilityLabel.append(accessibility)
+            } else if let itemOnDemandTransport = item as? OnDemandItemView,
+                let title = itemOnDemandTransport.titleLabel.text,
+                let information = itemOnDemandTransport.informationLabel.text {
+                accessibilityLabel.append(String(format: "%@ : %@.", title, information))
+            }
+        }
+        
+        self.accessibilityLabel = accessibilityLabel
+    }
+    
+    //MARK: Common
     
     var icon: String? {
         didSet {
@@ -171,6 +211,7 @@ class PublicTransportStepView: UIView {
                 disruptionItemView.setDisruptionTitle(title: disruption.title, color: disruption.color)
                 disruptionItemView.disruptionInformation = disruption.information
                 disruptionItemView.disruptionDate = disruption.date
+                disruptionItemView.accessibility = disruption.accessibility
 
                 stackView.insertArrangedSubview(disruptionItemView, at: 3)
                 
@@ -234,19 +275,22 @@ class PublicTransportStepView: UIView {
 
     var transport: (code: String?, color: UIColor?)? {
         didSet {
-            guard let code = transport?.code, let color = transport?.color else {
+            guard let color = transport?.color else {
                 transportIconView.isHidden = true
                 
                 return
             }
-
-            transportIconView.isHidden = false
-            transportIconLabel.attributedText = NSMutableAttributedString()
-                .bold(code, color: color.contrastColor(), size: 9)
-            transportIconView.backgroundColor = color
+            
             publicTransportPinFromView.backgroundColor = color
             publicTransportPinToView.backgroundColor = color
             publicTransportLineView.backgroundColor = color
+            
+            if let code = transport?.code {
+                transportIconView.isHidden = false
+                transportIconLabel.attributedText = NSMutableAttributedString()
+                    .bold(code, color: color.contrastColor(), size: 9)
+                transportIconView.backgroundColor = color
+            }
         }
     }
 

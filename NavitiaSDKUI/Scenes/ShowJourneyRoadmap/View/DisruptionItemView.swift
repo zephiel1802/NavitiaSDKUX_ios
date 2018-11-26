@@ -17,6 +17,8 @@ class DisruptionItemView: UIView {
     @IBOutlet var disruptionInformationBottomConstraint: NSLayoutConstraint!
     @IBOutlet var disruptionDateBottomConstraint: NSLayoutConstraint!
     
+    var accessibility: String?
+    
     var disruptionInformation: String? {
         didSet {
             guard let disruptionInformation = disruptionInformation else {

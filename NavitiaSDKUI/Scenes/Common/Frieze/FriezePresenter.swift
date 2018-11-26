@@ -51,7 +51,7 @@ class FriezePresenter: NSObject {
     }
     
     private func getIcon(section: Section) -> String {
-        return Modes().getModeIcon(section: section)
+        return Modes().getMode(section: section)
     }
     
     private func getDisruptionInformations(section: Section, disruptions: [Disruption]?) -> (icon: String?, color: String?) {

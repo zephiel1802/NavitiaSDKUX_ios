@@ -10,14 +10,19 @@ import UIKit
 class StepView: UIView {
 
     @IBOutlet weak var stackView: UIStackView!
+    @IBOutlet weak var informationsContainerView: UIView!
     @IBOutlet weak var informationsIconLabel: UILabel!
     @IBOutlet var informationsLabel: UILabel!
     @IBOutlet var realTimeView: UIView!
     @IBOutlet weak var realTimeIconLabel: UILabel!
     @IBOutlet weak var realTimeImage: UIImageView!
     @IBOutlet weak var realTimeLabel: UILabel!
+    @IBOutlet weak var detailsButton: UIButton!
     @IBOutlet weak var detailsLabel: UILabel!
     @IBOutlet weak var detailsArrowLabel: UILabel!
+    @IBOutlet weak var bssStationStateView: UIView!
+    @IBOutlet weak var bssStationStateIconLabel: UILabel!
+    @IBOutlet weak var bssStationStateLabel: UILabel!
     @IBOutlet var detailsView: UIView!
     @IBOutlet weak var directionsContainer: UIView!
     @IBOutlet weak var directionsContainerHeightConstraint: NSLayoutConstraint!
@@ -35,6 +40,7 @@ class StepView: UIView {
     override func awakeFromNib() {
         super.awakeFromNib()
         
+        initBssState()
         initRealTime()
         initDetails()
         initDirection()
@@ -59,11 +65,30 @@ class StepView: UIView {
     private func initDetails() {
         detailsView.isHidden = true
         detailsLabel.text = "details".localized(bundle: NavitiaSDKUI.shared.bundle)
+        detailsButton.accessibilityLabel = "details".localized(bundle: NavitiaSDKUI.shared.bundle)
         detailsArrowLabel.attributedText = NSMutableAttributedString().icon("arrow-details-down", color: Configuration.Color.gray, size: 13)
     }
     
     private func initDirection() {
         directionsHidden = true
+    }
+    
+    private func initBssState() {
+        bssStationStateView.isHidden = true
+        bssStationStateIconLabel.attributedText = NSMutableAttributedString().icon("disruption-information", color: Configuration.Color.main, size: 17)
+    }
+    
+    private func updateAccessibility() {
+        guard let informations = informationsAttributedString?.string,
+            let type = iconInformations else {
+            return
+        }
+        
+        if type == "ridesharing" || type == "crow_fly" {
+            informationsContainerView.accessibilityLabel = String(format: "%@.", informations)
+        } else {
+            informationsContainerView.accessibilityLabel = String(format: "%@ %@.", "\(type)_noun".localized(bundle: NavitiaSDKUI.shared.bundle), informations)
+        }
     }
     
     var enableBackground: Bool = false {
@@ -87,6 +112,8 @@ class StepView: UIView {
             }
             
             informationsIconLabel.attributedText = NSMutableAttributedString().icon(iconInformations, size: 20)
+            
+            updateAccessibility()
         }
     }
     
@@ -94,28 +121,37 @@ class StepView: UIView {
         didSet {
             informationsLabel.attributedText = informationsAttributedString
             informationsLabel.sizeToFit()
+            
+            updateAccessibility()
         }
     }
     
-    var realTimeIcon: String? {
+    var stands: ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionModel.Stands? {
         didSet {
-            guard let realTimeIcon = realTimeIcon else {
+            guard let stands = stands else {
                 return
             }
-            
-            realTimeIconLabel.isHidden = false
-            realTimeIconLabel.attributedText = NSMutableAttributedString().icon(realTimeIcon, size: 17)
-        }
-    }
-    
-    var realTimeValue: String? {
-        didSet {
-            guard let realTimeValue = realTimeValue else {
-                return
+
+            if let bssStationStatus = stands.status {
+                if !realTimeView.isHidden {
+                    realTimeView.isHidden = true
+                }
+                
+                bssStationStateView.isHidden = false
+                bssStationStateLabel.attributedText = NSMutableAttributedString().bold(bssStationStatus, color: Configuration.Color.main, size: 13)
+            } else if let realTimeValue = stands.availability {
+                if !bssStationStateView.isHidden {
+                    bssStationStateView.isHidden = true
+                }
+                
+                realTimeView.isHidden = false
+                realTimeLabel.attributedText = NSMutableAttributedString().semiBold(realTimeValue, color: Configuration.Color.main, size: 13)
+                
+                if let realTimeIcon = stands.icon {
+                    realTimeIconLabel.isHidden = false
+                    realTimeIconLabel.attributedText = NSMutableAttributedString().icon(realTimeIcon, size: 17)
+                }
             }
-            
-            realTimeView.isHidden = false
-            realTimeLabel.attributedText = NSMutableAttributedString().semiBold(realTimeValue, color: Configuration.Color.main, size: 13)
         }
     }
     

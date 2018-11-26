@@ -62,7 +62,7 @@ class ListRidesharingOffersPresenter: ListRidesharingOffersPresentationLogic {
                 let seatsCount = ridesharingSection.ridesharingInformations?.seats?.available
                 let price = journey.fare?.total?.value ?? ""
                 
-                let ridesharingOffer = ListRidesharingOffers.GetRidesharingOffers.ViewModel.DisplayedRidesharingOffer(network: network,
+                var ridesharingOffer = ListRidesharingOffers.GetRidesharingOffers.ViewModel.DisplayedRidesharingOffer(network: network,
                                                                                                                       departure: departure,
                                                                                                                       driverPictureURL: driverPictureURL,
                                                                                                                       driverNickname: driverNickname,
@@ -70,11 +70,38 @@ class ListRidesharingOffersPresenter: ListRidesharingOffersPresentationLogic {
                                                                                                                       rating: rating,
                                                                                                                       ratingCount: ratingCount,
                                                                                                                       seatsCount: seatsCount,
-                                                                                                                      price: price)
+                                                                                                                      price: price,
+                                                                                                                      accessiblityLabel: "")
+                ridesharingOffer.accessiblityLabel = getAccessiblityLabel(ridesharingOffer: ridesharingOffer)
                 displayedRidesharingOffers.append(ridesharingOffer)
             }
         }
         
         return displayedRidesharingOffers
+    }
+    
+    private func getAccessiblityLabel(ridesharingOffer: ListRidesharingOffers.GetRidesharingOffers.ViewModel.DisplayedRidesharingOffer) -> String {
+        var accessibilityLabel = String(format: "ridesharing_departure_at".localized(bundle: NavitiaSDKUI.shared.bundle), ridesharingOffer.departure, ridesharingOffer.driverNickname)
+        
+        if let seatsCount = ridesharingOffer.seatsCount {
+            accessibilityLabel.append(String(format: "ridesharing_available_places".localized(bundle: NavitiaSDKUI.shared.bundle), seatsCount))
+        }
+        
+        // TODO
+        if ridesharingOffer.price == "0.0" {
+            accessibilityLabel.append(String(format: "%@.", "free".localized(withComment: "Free", bundle: NavitiaSDKUI.shared.bundle)))
+        } else {
+            accessibilityLabel.append(String(format: "%@.", ridesharingOffer.price))
+        }
+        
+        if ridesharingOffer.ratingCount == 0 {
+            accessibilityLabel.append("no_rating".localized(bundle: NavitiaSDKUI.shared.bundle))
+        } else {
+            accessibilityLabel.append(String(format: "rating_out_of_five".localized(bundle: NavitiaSDKUI.shared.bundle), String(ridesharingOffer.rating)))
+        }
+        
+        accessibilityLabel.append("view_on_the_map".localized(bundle: NavitiaSDKUI.shared.bundle))
+        
+        return accessibilityLabel
     }
 }

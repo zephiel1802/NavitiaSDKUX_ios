@@ -19,8 +19,19 @@
                 <rect key="frame" x="0.0" y="0.0" width="300" height="130"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1d3-gH-QaT">
+                        <rect key="frame" x="0.0" y="0.0" width="300" height="130"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <accessibility key="accessibilityConfiguration">
+                            <accessibilityTraits key="traits" button="YES"/>
+                            <bool key="isElement" value="YES"/>
+                        </accessibility>
+                    </view>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="19:30 - 20:06" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dhB-Xm-3aP">
                         <rect key="frame" x="10" y="10" width="78" height="14.5"/>
+                        <accessibility key="accessibilityConfiguration">
+                            <bool key="isElement" value="NO"/>
+                        </accessibility>
                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
@@ -38,18 +49,27 @@
                     </view>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="With 12 min walking (767 meters)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JUD-Ce-byI">
                         <rect key="frame" x="10" y="100" width="189" height="15"/>
+                        <accessibility key="accessibilityConfiguration">
+                            <bool key="isElement" value="NO"/>
+                        </accessibility>
                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="30 min" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qi9-Ve-v5r">
                         <rect key="frame" x="235.5" y="10" width="39" height="14.5"/>
+                        <accessibility key="accessibilityConfiguration">
+                            <bool key="isElement" value="NO"/>
+                        </accessibility>
                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="&gt;" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Yza-xI-lKm">
                         <rect key="frame" x="279.5" y="0.0" width="10.5" height="34.5"/>
+                        <accessibility key="accessibilityConfiguration">
+                            <bool key="isElement" value="NO"/>
+                        </accessibility>
                         <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
@@ -58,16 +78,20 @@
             </view>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
+                <constraint firstAttribute="bottom" secondItem="1d3-gH-QaT" secondAttribute="bottom" id="48K-ZM-9cJ"/>
                 <constraint firstItem="uiE-c6-acZ" firstAttribute="top" secondItem="Yza-xI-lKm" secondAttribute="bottom" id="8Hm-EF-cKA"/>
                 <constraint firstAttribute="trailing" secondItem="Yza-xI-lKm" secondAttribute="trailing" priority="999" constant="10" id="91O-Y0-FcZ"/>
+                <constraint firstItem="1d3-gH-QaT" firstAttribute="leading" secondItem="8iX-MJ-bAx" secondAttribute="leading" id="Br7-uO-YYw"/>
                 <constraint firstItem="Yza-xI-lKm" firstAttribute="leading" secondItem="Qi9-Ve-v5r" secondAttribute="trailing" constant="5" id="I62-2h-XUA"/>
                 <constraint firstItem="dhB-Xm-3aP" firstAttribute="top" secondItem="8iX-MJ-bAx" secondAttribute="top" constant="10" id="Ij7-WS-ciy"/>
                 <constraint firstAttribute="trailing" secondItem="lqf-YV-oSL" secondAttribute="trailing" priority="999" constant="10" id="J1i-ed-dRN"/>
                 <constraint firstItem="dhB-Xm-3aP" firstAttribute="leading" secondItem="8iX-MJ-bAx" secondAttribute="leading" constant="10" id="MKs-ls-tJk"/>
                 <constraint firstItem="JUD-Ce-byI" firstAttribute="top" secondItem="lqf-YV-oSL" secondAttribute="bottom" constant="15" id="Mgd-oC-fwr"/>
                 <constraint firstItem="lqf-YV-oSL" firstAttribute="top" secondItem="uiE-c6-acZ" secondAttribute="bottom" constant="10" id="Tb9-si-dTb"/>
+                <constraint firstAttribute="trailing" secondItem="1d3-gH-QaT" secondAttribute="trailing" id="Tm0-7k-Y7N"/>
                 <constraint firstAttribute="trailing" secondItem="uiE-c6-acZ" secondAttribute="trailing" constant="10" id="Tn6-4s-6kB"/>
                 <constraint firstItem="lqf-YV-oSL" firstAttribute="leading" secondItem="8iX-MJ-bAx" secondAttribute="leading" constant="10" id="YAs-HY-Yy3"/>
+                <constraint firstItem="1d3-gH-QaT" firstAttribute="top" secondItem="8iX-MJ-bAx" secondAttribute="top" id="amr-Ve-rNW"/>
                 <constraint firstItem="JUD-Ce-byI" firstAttribute="leading" secondItem="8iX-MJ-bAx" secondAttribute="leading" constant="10" id="b5U-aA-OQr"/>
                 <constraint firstItem="Qi9-Ve-v5r" firstAttribute="top" secondItem="8iX-MJ-bAx" secondAttribute="top" constant="10" id="hki-LY-er7"/>
                 <constraint firstItem="uiE-c6-acZ" firstAttribute="leading" secondItem="8iX-MJ-bAx" secondAttribute="leading" constant="10" id="hks-Tt-06d"/>
@@ -84,6 +108,7 @@
                 </userDefinedRuntimeAttribute>
             </userDefinedRuntimeAttributes>
             <connections>
+                <outlet property="accessiblityView" destination="1d3-gH-QaT" id="gCS-25-8xl"/>
                 <outlet property="arrowLabel" destination="Yza-xI-lKm" id="WHj-ZP-2av"/>
                 <outlet property="dateTimeLabel" destination="dhB-Xm-3aP" id="2q5-50-6I9"/>
                 <outlet property="durationBottomContraint" destination="wRi-Fv-KrL" id="eed-2z-Vwp"/>
@@ -93,7 +118,7 @@
                 <outlet property="durationWalkerLabel" destination="JUD-Ce-byI" id="Rwh-J8-bok"/>
                 <outlet property="friezeView" destination="lqf-YV-oSL" id="029-vs-TaP"/>
             </connections>
-            <point key="canvasLocation" x="-1970" y="59"/>
+            <point key="canvasLocation" x="-1971.2" y="58.47076461769116"/>
         </collectionViewCell>
     </objects>
 </document>

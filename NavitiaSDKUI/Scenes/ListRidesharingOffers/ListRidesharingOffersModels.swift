@@ -36,6 +36,7 @@ enum ListRidesharingOffers {
                 var ratingCount: Int32
                 var seatsCount: Int32?
                 var price: String
+                var accessiblityLabel: String
             }
             
             var frieze: Frieze

@@ -1,19 +1,16 @@
 //
-//  NavitiaSDKUITests.swift
+//  ListRidesharingOffersViewControllerTests.swift
 //  NavitiaSDKUITests
 //
 //  Copyright © 2018 kisio. All rights reserved.
 //
 
 import XCTest
-@testable import NavitiaSDKUI
 
-class NavitiaSDKUITests: XCTestCase {
+class ListRidesharingOffersViewControllerTests: XCTestCase {
     
     override func setUp() {
         super.setUp()
-
-        NavitiaSDKUI.shared.bundle = Bundle(identifier: "org.kisio.NavitiaSDKUI")
         // Put setup code here. This method is called before the invocation of each test method in the class.
     }
     
@@ -33,15 +30,4 @@ class NavitiaSDKUITests: XCTestCase {
             // Put the code you want to measure the time of here.
         }
     }
-    
-    func test1() {
-        var resquet = ListJourneys.FetchJourneys.Request.init(journeysRequest: JourneysRequest(originId: "12", destinationId: "13"))
-        
-        if resquet.journeysRequest.originId == "12" && resquet.journeysRequest.destinationId == "12" {
-            XCTAssert(true)
-        } else {
-            XCTAssert(false)
-        }
-    }
-    
 }

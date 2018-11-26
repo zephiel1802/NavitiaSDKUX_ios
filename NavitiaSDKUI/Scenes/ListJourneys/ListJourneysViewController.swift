@@ -25,7 +25,7 @@ open class ListJourneysViewController: UIViewController, ListJourneysDisplayLogi
     @IBOutlet weak var switchDepartureArrivalButton: UIButton!
     
     public var journeysRequest: JourneysRequest?
-    private var interactor: ListJourneysBusinessLogic?
+    internal var interactor: ListJourneysBusinessLogic?
     private var router: (NSObjectProtocol & ListJourneysViewRoutingLogic & ListJourneysDataPassing)?
     private var viewModel: ListJourneys.FetchJourneys.ViewModel?
 
@@ -163,6 +163,8 @@ open class ListJourneysViewController: UIViewController, ListJourneysDisplayLogi
         fromLabel.attributedText = viewModel.headerInformations.origin
         toLabel.attributedText = viewModel.headerInformations.destination
         dateTimeLabel.attributedText = viewModel.headerInformations.dateTime
+        searchView.accessibilityLabel = viewModel.accessibilityHeader
+        switchDepartureArrivalButton.accessibilityLabel = viewModel.accessibilitySwitchButton
         journeysCollectionView.reloadData()
         
         reloadCollectionViewLayout()
