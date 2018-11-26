@@ -13,6 +13,7 @@ class RidesharingView: UIView {
     
     @IBOutlet var view: UIView!
     
+    @IBOutlet weak var accessibilityButton: UIButton!
     @IBOutlet weak var bookButton: UIButton!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var startLabel: UILabel!
@@ -27,6 +28,15 @@ class RidesharingView: UIView {
     @IBOutlet weak var priceLabel: UILabel!
     
     var parentViewController: ShowJourneyRoadmapViewController?
+    var accessiblity: String? {
+        didSet {
+            guard let accessiblity = accessiblity else {
+                return
+            }
+            
+            accessibilityButton.accessibilityLabel = accessiblity
+        }
+    }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -50,6 +60,7 @@ class RidesharingView: UIView {
         addShadow()
         
         bookButton.setTitle("send_request".localized(bundle: NavitiaSDKUI.shared.bundle), for: .normal)
+        bookButton.accessibilityElementsHidden = true
     }
     
     func setDriverPictureURL(url: String?) {
@@ -72,7 +83,7 @@ class RidesharingView: UIView {
     func setRating(_ count: Float?) {
         if count != nil {
             floatRatingView.backgroundColor = UIColor.clear
-            floatRatingView.contentMode = UIViewContentMode.scaleAspectFit
+            floatRatingView.contentMode = UIView.ContentMode.scaleAspectFit
             floatRatingView.emptyImage = UIImage(named: "star_empty", in: NavitiaSDKUI.shared.bundle, compatibleWith: nil)
             floatRatingView.fullImage = UIImage(named: "star_full", in: NavitiaSDKUI.shared.bundle, compatibleWith: nil)
             floatRatingView.type = .floatRatings
@@ -82,7 +93,7 @@ class RidesharingView: UIView {
         }
     }
     
-    @IBAction func actionBookButton(_ sender: Any) {
+    private func bookRidesharing() {
         if let parentViewController = parentViewController {
             if !UserDefaults.standard.bool(forKey: NavitiaSDKUserDefaultsManager.SHOW_REDIRECTION_DIALOG_PREF_KEY) {
                 let alertController = AlertViewController(nibName: "AlertView", bundle: NavitiaSDKUI.shared.bundle)
@@ -100,6 +111,18 @@ class RidesharingView: UIView {
         }
     }
     
+    @IBAction func actionBookButton(_ sender: Any) {
+        bookRidesharing()
+    }
+    
+    @IBAction func actionAccessibilityButton(_ sender: Any) {
+        guard UIAccessibility.isVoiceOverRunning else {
+            return
+        }
+        
+        bookRidesharing()
+    }
+    
     func setSeatsCount(_ count: Int32?) {
         if let count = count {
             let template = "available_seats".localized(withComment: "Available seats : 3", bundle: NavitiaSDKUI.shared.bundle)
@@ -114,7 +137,7 @@ class RidesharingView: UIView {
 }
 
 extension RidesharingView {
-
+    
     var network: String? {
         get {
             return titleLabel.text

@@ -1,12 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="RidesharingView" customModule="NavitiaSDKUI" customModuleProvider="target">
             <connections>
+                <outlet property="accessibilityButton" destination="Zmk-3E-JLE" id="n5C-b4-CAV"/>
                 <outlet property="addressFromLabel" destination="IZX-JG-iIF" id="kyF-IQ-lmq"/>
                 <outlet property="addressToLabel" destination="mqE-me-jU7" id="y90-iQ-gSF"/>
                 <outlet property="bookButton" destination="vnL-Ls-CSW" id="66F-XM-QN3"/>
@@ -27,9 +32,18 @@
             <rect key="frame" x="0.0" y="0.0" width="368" height="263"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Zmk-3E-JLE">
+                    <rect key="frame" x="0.0" y="0.0" width="368" height="263"/>
+                    <connections>
+                        <action selector="actionAccessibilityButton:" destination="-1" eventType="touchUpInside" id="fzt-pi-jZ5"/>
+                    </connections>
+                </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vnL-Ls-CSW">
                     <rect key="frame" x="10" y="10" width="348" height="30"/>
                     <color key="backgroundColor" red="0.97254901959999995" green="0.58039215690000001" blue="0.023529411760000001" alpha="1" colorSpace="calibratedRGB"/>
+                    <accessibility key="accessibilityConfiguration">
+                        <bool key="isElement" value="NO"/>
+                    </accessibility>
                     <constraints>
                         <constraint firstAttribute="height" constant="30" id="vLr-l1-l13"/>
                     </constraints>
@@ -55,6 +69,9 @@
                 </view>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Le covoit'STAR" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="N2s-nZ-KYx">
                     <rect key="frame" x="10" y="61" width="102.5" height="20.5"/>
+                    <accessibility key="accessibilityConfiguration">
+                        <bool key="isElement" value="NO"/>
+                    </accessibility>
                     <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
@@ -69,6 +86,9 @@
                 </imageView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UIT-xQ-gEJ">
                     <rect key="frame" x="272.5" y="61" width="85.5" height="20.5"/>
+                    <accessibility key="accessibilityConfiguration">
+                        <bool key="isElement" value="NO"/>
+                    </accessibility>
                     <attributedString key="attributedText">
                         <fragment content="Départ :">
                             <attributes>
@@ -87,12 +107,18 @@
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Places disponibles : 1" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="D1h-Fe-f88">
                     <rect key="frame" x="10" y="238.5" width="124" height="14.5"/>
+                    <accessibility key="accessibilityConfiguration">
+                        <bool key="isElement" value="NO"/>
+                    </accessibility>
                     <fontDescription key="fontDescription" type="system" weight="medium" pointSize="12"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Gratuit" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GgO-7r-3Uz">
                     <rect key="frame" x="318" y="240" width="35" height="12"/>
+                    <accessibility key="accessibilityConfiguration">
+                        <bool key="isElement" value="NO"/>
+                    </accessibility>
                     <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="10"/>
                     <color key="textColor" red="0.97254901959999995" green="0.58039215690000001" blue="0.023529411760000001" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
@@ -119,24 +145,36 @@
                 </imageView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="20, rue Hector Malot 75012 Paris" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IZX-JG-iIF">
                     <rect key="frame" x="38.5" y="175" width="319.5" height="13.5"/>
+                    <accessibility key="accessibilityConfiguration">
+                        <bool key="isElement" value="NO"/>
+                    </accessibility>
                     <fontDescription key="fontDescription" type="system" pointSize="11"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="181, avenue Victor Hugo 75016 Paris" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mqE-me-jU7">
                     <rect key="frame" x="38.5" y="207.5" width="319.5" height="13.5"/>
+                    <accessibility key="accessibilityConfiguration">
+                        <bool key="isElement" value="NO"/>
+                    </accessibility>
                     <fontDescription key="fontDescription" type="system" pointSize="11"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Gambetta20" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RZU-Ve-T7l">
                     <rect key="frame" x="78" y="101.5" width="72.5" height="14.5"/>
+                    <accessibility key="accessibilityConfiguration">
+                        <bool key="isElement" value="NO"/>
+                    </accessibility>
                     <fontDescription key="fontDescription" type="system" weight="medium" pointSize="12"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(Homme)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NoS-Dh-FSl">
                     <rect key="frame" x="78" y="121" width="53" height="14.5"/>
+                    <accessibility key="accessibilityConfiguration">
+                        <bool key="isElement" value="NO"/>
+                    </accessibility>
                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
                     <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <nil key="highlightedColor"/>
@@ -157,6 +195,9 @@
                 </view>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="6 notes" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="exV-cn-fEE">
                     <rect key="frame" x="292.5" y="125.5" width="36.5" height="12"/>
+                    <accessibility key="accessibilityConfiguration">
+                        <bool key="isElement" value="NO"/>
+                    </accessibility>
                     <fontDescription key="fontDescription" type="system" pointSize="10"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
@@ -181,13 +222,16 @@
                 <constraint firstItem="N2s-nZ-KYx" firstAttribute="centerY" secondItem="UIT-xQ-gEJ" secondAttribute="centerY" id="5tl-W7-GxX"/>
                 <constraint firstItem="dbl-71-aPP" firstAttribute="top" secondItem="N2s-nZ-KYx" secondAttribute="bottom" constant="10" id="7Z9-4t-jLd"/>
                 <constraint firstItem="vnL-Ls-CSW" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="10" id="A2U-dI-lvz"/>
+                <constraint firstItem="Zmk-3E-JLE" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="A5U-sJ-K7C"/>
                 <constraint firstAttribute="trailing" secondItem="IZX-JG-iIF" secondAttribute="trailing" constant="10" id="BeA-L1-kHk"/>
+                <constraint firstItem="Zmk-3E-JLE" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="BpD-Dc-rNj"/>
                 <constraint firstAttribute="trailing" secondItem="dtB-Ag-70y" secondAttribute="trailing" constant="14" id="CuD-ES-v8d"/>
                 <constraint firstItem="JmL-Gw-ZYv" firstAttribute="top" secondItem="rpX-sq-h52" secondAttribute="bottom" constant="20" id="D27-g8-SLe"/>
                 <constraint firstItem="nsq-K9-tN3" firstAttribute="top" secondItem="dbl-71-aPP" secondAttribute="bottom" constant="10" id="DT6-mv-rXK"/>
                 <constraint firstAttribute="trailing" secondItem="Aw9-Qf-X8Z" secondAttribute="trailing" priority="999" constant="10" id="Drt-h1-HCH"/>
                 <constraint firstItem="IZX-JG-iIF" firstAttribute="leading" secondItem="rpX-sq-h52" secondAttribute="trailing" constant="15" id="Fcz-BQ-TlK"/>
                 <constraint firstItem="yBY-Wz-iG5" firstAttribute="top" secondItem="rpX-sq-h52" secondAttribute="bottom" constant="4" id="H1S-eT-yMa"/>
+                <constraint firstAttribute="trailing" secondItem="Zmk-3E-JLE" secondAttribute="trailing" id="Kbm-nB-1OC"/>
                 <constraint firstItem="GUC-4q-3e5" firstAttribute="bottom" secondItem="dbl-71-aPP" secondAttribute="bottom" id="MJo-zT-MG2"/>
                 <constraint firstItem="N2s-nZ-KYx" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="10" id="MeW-Pg-jXx"/>
                 <constraint firstAttribute="trailing" secondItem="UIT-xQ-gEJ" secondAttribute="trailing" constant="10" id="MiQ-Xd-CHi"/>
@@ -196,6 +240,7 @@
                 <constraint firstItem="GUC-4q-3e5" firstAttribute="top" secondItem="dbl-71-aPP" secondAttribute="top" id="SAa-0K-yHD"/>
                 <constraint firstItem="RZU-Ve-T7l" firstAttribute="top" secondItem="dbl-71-aPP" secondAttribute="top" constant="10" id="Xil-ZD-643"/>
                 <constraint firstItem="D1h-Fe-f88" firstAttribute="centerY" secondItem="GgO-7r-3Uz" secondAttribute="centerY" id="Zrp-tI-wH6"/>
+                <constraint firstAttribute="bottom" secondItem="Zmk-3E-JLE" secondAttribute="bottom" id="aZI-3H-FBv"/>
                 <constraint firstAttribute="trailing" secondItem="mqE-me-jU7" secondAttribute="trailing" constant="10" id="eIT-zi-x4f"/>
                 <constraint firstItem="vnL-Ls-CSW" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="10" id="h5T-Qo-wei"/>
                 <constraint firstItem="exV-cn-fEE" firstAttribute="top" secondItem="dtB-Ag-70y" secondAttribute="bottom" constant="5" id="hUS-Z5-Dhr"/>

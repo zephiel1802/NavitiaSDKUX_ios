@@ -11,7 +11,6 @@ protocol AlertViewControllerProtocol {
     
     func onNegativeButtonClicked(_ alertViewController: AlertViewController)
     func onPositiveButtonClicked(_ alertViewController: AlertViewController)
-    
 }
 
 class AlertViewController: UIViewController, CheckboxDelegate {
@@ -29,6 +28,7 @@ class AlertViewController: UIViewController, CheckboxDelegate {
     @IBOutlet weak var negativeButton: UIButton!
     @IBOutlet weak var positiveButton: UIButton!
     @IBOutlet weak var checkbox: Checkbox!
+    @IBOutlet weak var checkboxButton: UIButton!
     @IBOutlet weak var checkBoxMessageLabel: UILabel!
     @IBOutlet weak var checkBoxContentWidthConstraint: NSLayoutConstraint!
     @IBOutlet weak var checkBoxTextLeadingConstraint: NSLayoutConstraint!
@@ -49,9 +49,11 @@ class AlertViewController: UIViewController, CheckboxDelegate {
         
         self.message.text = self.alertMessage
         self.checkBoxMessageLabel.text = self.checkBoxText
-        self.negativeButton.setTitle(self.negativeButtonText, for: UIControlState.normal)
-        self.positiveButton.setTitle(self.positiveButtonText, for: UIControlState.normal)
-        self.positiveButton.setTitleColor(Configuration.Color.main, for: UIControlState.normal)
+        self.negativeButton.setTitle(self.negativeButtonText, for: UIControl.State.normal)
+        self.positiveButton.setTitle(self.positiveButtonText, for: UIControl.State.normal)
+        self.positiveButton.setTitleColor(Configuration.Color.main, for: UIControl.State.normal)
+        
+        checkboxButton.accessibilityLabel = checkBoxText
         
         let newCheckBoxTextSize = self.checkBoxMessageLabel.sizeThatFits(CGSize(width: self.checkBoxMessageLabel.frame.size.width, height: CGFloat.greatestFiniteMagnitude))
         self.checkBoxContentWidthConstraint.constant = self.checkBoxMessageLabel.frame.size.width + self.checkBoxTextLeadingConstraint.constant + newCheckBoxTextSize.width

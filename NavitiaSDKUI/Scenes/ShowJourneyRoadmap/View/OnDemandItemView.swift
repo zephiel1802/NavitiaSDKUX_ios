@@ -45,7 +45,7 @@ extension OnDemandItemView {
                     attri.addAttributes([
                         .font: UIFont.systemFont(ofSize: 13.0, weight: .bold),
                         .foregroundColor: Configuration.Color.main,
-                        .underlineStyle: NSUnderlineStyle.styleSingle.rawValue
+                        .underlineStyle: NSUnderlineStyle.single.rawValue
                         ], range: range)
                     self.phoneNumber = phoneNumber
                     
