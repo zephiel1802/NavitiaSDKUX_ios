@@ -25,7 +25,7 @@ open class ListJourneysViewController: UIViewController, ListJourneysDisplayLogi
     @IBOutlet weak var switchDepartureArrivalButton: UIButton!
     
     public var journeysRequest: JourneysRequest?
-    private var interactor: ListJourneysBusinessLogic?
+    internal var interactor: ListJourneysBusinessLogic?
     private var router: (NSObjectProtocol & ListJourneysViewRoutingLogic & ListJourneysDataPassing)?
     private var viewModel: ListJourneys.FetchJourneys.ViewModel?
 

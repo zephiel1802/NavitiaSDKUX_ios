@@ -306,7 +306,7 @@ class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
     }
     
     private func getDuration(section: Section) -> String? {
-        guard let duration = section.duration else {
+        guard var duration = section.duration else {
             return nil
         }
        
@@ -315,7 +315,7 @@ class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
         
         if duration >= 60 {
             keyword = "a_time_"
-            durationString = String(format: "%@ %@", duration.minuteToString(), "units_minutes".localized(bundle: NavitiaSDKUI.shared.bundle))
+            durationString = String(format: "%@ %@", duration.minuteToString(), duration == 60 ? "units_minute".localized(bundle: NavitiaSDKUI.shared.bundle) : "units_minutes".localized(bundle: NavitiaSDKUI.shared.bundle))
             
             if section.type == .waiting, let durationString = durationString {
                 return String(format: "%@ %@", "wait".localized(bundle: NavitiaSDKUI.shared.bundle), durationString)
