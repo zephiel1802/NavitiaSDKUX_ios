@@ -275,19 +275,22 @@ class PublicTransportStepView: UIView {
 
     var transport: (code: String?, color: UIColor?)? {
         didSet {
-            guard let code = transport?.code, let color = transport?.color else {
+            guard let color = transport?.color else {
                 transportIconView.isHidden = true
                 
                 return
             }
-
-            transportIconView.isHidden = false
-            transportIconLabel.attributedText = NSMutableAttributedString()
-                .bold(code, color: color.contrastColor(), size: 9)
-            transportIconView.backgroundColor = color
+            
             publicTransportPinFromView.backgroundColor = color
             publicTransportPinToView.backgroundColor = color
             publicTransportLineView.backgroundColor = color
+            
+            if let code = transport?.code {
+                transportIconView.isHidden = false
+                transportIconLabel.attributedText = NSMutableAttributedString()
+                    .bold(code, color: color.contrastColor(), size: 9)
+                transportIconView.backgroundColor = color
+            }
         }
     }
 
