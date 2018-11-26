@@ -31,6 +31,7 @@ enum ShowJourneyRoadmap {
                 var information: String
                 var time: String
                 var calorie: String?
+                var accessibility: String
             }
             
             struct Ridesharing {
@@ -46,6 +47,7 @@ enum ShowJourneyRoadmap {
                 var seatsCount: Int32?
                 var price: String
                 var deepLink: String
+                var accessibility: String
             }
             
             struct SectionModel {
@@ -76,12 +78,12 @@ enum ShowJourneyRoadmap {
                 }
                 
                 struct Poi {
-                    var name: String
-                    var network: String
-                    var lat: Double
-                    var lont: Double
-                    var addressName: String
-                    var addressId: String
+                    var name: String?
+                    var network: String?
+                    var lat: Double?
+                    var lont: Double?
+                    var addressName: String?
+                    var addressId: String?
                     var stands: Stands?
                 }
                 
@@ -113,6 +115,7 @@ enum ShowJourneyRoadmap {
                     var title: String
                     var date: String
                     var information: String?
+                    var accessibility: String
                 }
                 
                 var type: ModelType
@@ -132,7 +135,7 @@ enum ShowJourneyRoadmap {
                 var notes: [Note]
                 var poi: Poi?
                 var icon: String
-                var bssRealTime: Bool
+                var realTime: Bool
                 var background: Bool
                 var section: Section
             }
@@ -140,6 +143,7 @@ enum ShowJourneyRoadmap {
             struct Emission {
                 var journey: (value: Double, unit: String)
                 var car: (value: Double, unit: String)?
+                var accessibility: String
             }
             
             var ridesharing: Ridesharing?
@@ -167,13 +171,28 @@ enum ShowJourneyRoadmap {
         struct Request {
             var lat: Double
             var lon: Double
-            var distance: Int32 = 10
+            var distance: Int32
             var id: String
-            var notify: ((ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionModel.Poi) -> ())
+            var notify: ((ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionModel.Stands) -> ())
         }
         struct Response {
             var poi: Poi
-            var notify: ((ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionModel.Poi) -> ())
+            var notify: ((ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionModel.Stands) -> ())
+        }
+        struct ViewModel {}
+    }
+    
+    enum FetchPark {
+        struct Request {
+            var lat: Double
+            var lon: Double
+            var distance: Int32
+            var id: String
+            var notify: ((ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionModel.Stands) -> ())
+        }
+        struct Response {
+            var poi: Poi
+            var notify: ((ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionModel.Stands) -> ())
         }
         struct ViewModel {}
     }

@@ -14,6 +14,7 @@ protocol RidesharingOfferCollectionViewCellDelegate {
 
 class RidesharingOfferCollectionViewCell: UICollectionViewCell {
     
+    @IBOutlet weak var accessibilityView: UIView!
     @IBOutlet weak var networkLabel: UILabel!
     @IBOutlet weak var departureDateLabel: UILabel!
     @IBOutlet weak var driverImageView: UIImageView!
@@ -33,6 +34,7 @@ class RidesharingOfferCollectionViewCell: UICollectionViewCell {
         
         addShadow()
         roadmapButton.setTitle("view_on_the_map".localized(withComment: "View on the map", bundle: NavitiaSDKUI.shared.bundle), for: .normal)
+        roadmapButton.accessibilityElementsHidden = true
     }
     
     static var nib:UINib {
@@ -67,7 +69,7 @@ class RidesharingOfferCollectionViewCell: UICollectionViewCell {
     func setFullStar(_ count: Float?) {
         if let count = count {
             floatRatingView.backgroundColor = UIColor.clear
-            floatRatingView.contentMode = UIViewContentMode.scaleAspectFit
+            floatRatingView.contentMode = UIView.ContentMode.scaleAspectFit
             floatRatingView.emptyImage = UIImage(named: "star_empty", in: NavitiaSDKUI.shared.bundle, compatibleWith: nil)
             floatRatingView.fullImage = UIImage(named: "star_full", in: NavitiaSDKUI.shared.bundle, compatibleWith: nil)
             floatRatingView.type = .floatRatings

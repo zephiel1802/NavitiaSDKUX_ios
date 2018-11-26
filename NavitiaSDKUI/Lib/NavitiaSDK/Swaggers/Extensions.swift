@@ -66,10 +66,8 @@ extension Data: JSONEncodable {
 
 private let dateFormatter: DateFormatter = {
     let fmt = DateFormatter()
-    
     fmt.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
-    fmt.locale = Locale(identifier: "en_US_POSIX")
-    fmt.timeZone = TimeZone(secondsFromGMT: 0)
+    fmt.locale = Locale(identifier: "fr_FR")
     
     return fmt
 }()
@@ -81,6 +79,7 @@ extension Date: JSONEncodable {
     
     func reformatDate() -> String {
         dateFormatter.dateFormat = "yyyyMMdd'T'HHmmss"
+        dateFormatter.locale = Locale(identifier: "fr_FR")
         
         return dateFormatter.string(from: self)
     }

@@ -43,6 +43,7 @@ class EmissionView: UIView {
     private func setup() {
         UINib(nibName: "EmissionView", bundle: NavitiaSDKUI.shared.bundle).instantiate(withOwner: self, options: nil)
         view.frame = self.bounds
+        view.backgroundColor = Configuration.Color.main
         addSubview(view)
         
         addShadow(opacity: 0.28)

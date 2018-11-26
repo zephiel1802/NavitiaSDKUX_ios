@@ -10,12 +10,14 @@ import UIKit
 class StepView: UIView {
 
     @IBOutlet weak var stackView: UIStackView!
+    @IBOutlet weak var informationsContainerView: UIView!
     @IBOutlet weak var informationsIconLabel: UILabel!
     @IBOutlet var informationsLabel: UILabel!
     @IBOutlet var realTimeView: UIView!
     @IBOutlet weak var realTimeIconLabel: UILabel!
     @IBOutlet weak var realTimeImage: UIImageView!
     @IBOutlet weak var realTimeLabel: UILabel!
+    @IBOutlet weak var detailsButton: UIButton!
     @IBOutlet weak var detailsLabel: UILabel!
     @IBOutlet weak var detailsArrowLabel: UILabel!
     @IBOutlet var detailsView: UIView!
@@ -59,11 +61,25 @@ class StepView: UIView {
     private func initDetails() {
         detailsView.isHidden = true
         detailsLabel.text = "details".localized(bundle: NavitiaSDKUI.shared.bundle)
+        detailsButton.accessibilityLabel = "details".localized(bundle: NavitiaSDKUI.shared.bundle)
         detailsArrowLabel.attributedText = NSMutableAttributedString().icon("arrow-details-down", color: Configuration.Color.gray, size: 13)
     }
     
     private func initDirection() {
         directionsHidden = true
+    }
+    
+    private func updateAccessibility() {
+        guard let informations = informationsAttributedString?.string,
+            let type = iconInformations else {
+            return
+        }
+        
+        if type == "ridesharing" || type == "crow_fly" {
+            informationsContainerView.accessibilityLabel = String(format: "%@.", informations)
+        } else {
+            informationsContainerView.accessibilityLabel = String(format: "%@ %@.", "\(type)_noun".localized(bundle: NavitiaSDKUI.shared.bundle), informations)
+        }
     }
     
     var enableBackground: Bool = false {
@@ -87,6 +103,8 @@ class StepView: UIView {
             }
             
             informationsIconLabel.attributedText = NSMutableAttributedString().icon(iconInformations, size: 20)
+            
+            updateAccessibility()
         }
     }
     
@@ -94,6 +112,8 @@ class StepView: UIView {
         didSet {
             informationsLabel.attributedText = informationsAttributedString
             informationsLabel.sizeToFit()
+            
+            updateAccessibility()
         }
     }
     
@@ -104,7 +124,7 @@ class StepView: UIView {
             }
             
             realTimeIconLabel.isHidden = false
-            realTimeIconLabel.attributedText = NSMutableAttributedString().icon(realTimeIcon, size: 20)
+            realTimeIconLabel.attributedText = NSMutableAttributedString().icon(realTimeIcon, size: 17)
         }
     }
     

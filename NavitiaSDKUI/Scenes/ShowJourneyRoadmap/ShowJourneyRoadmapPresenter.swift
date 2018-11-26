@@ -12,6 +12,7 @@ protocol ShowJourneyRoadmapPresentationLogic {
     func presentRoadmap(response: ShowJourneyRoadmap.GetRoadmap.Response)
     func presentMap(response: ShowJourneyRoadmap.GetMap.Response)
     func presentBss(response: ShowJourneyRoadmap.FetchBss.Response)
+    func presentPark(response: ShowJourneyRoadmap.FetchPark.Response)
 }
 
 class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
@@ -45,7 +46,21 @@ class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
         viewController?.displayMap(viewModel: viewModel)
     }
     
-    func presentBss(response: ShowJourneyRoadmap.FetchBss.Response) {}
+    func presentBss(response: ShowJourneyRoadmap.FetchBss.Response) {
+        guard let stands = getStands(stands: response.poi.stands, carPark: response.poi.carPark, type: .bssRent) else {
+            return
+        }
+
+        response.notify(stands)
+    }
+    
+    func presentPark(response: ShowJourneyRoadmap.FetchPark.Response) {
+        guard let stands = getStands(stands: response.poi.stands, carPark: response.poi.carPark, type: .park) else {
+            return
+        }
+        
+        response.notify(stands)
+    }
     
     // MARK: Ridesharing
     
@@ -61,6 +76,10 @@ class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
         }
         
         return nil
+    }
+    
+    private func getRidesharingAccessibility(departureAddress: String, arrivalAddress: String) -> String {
+        return String(format: "ridesharing_offer".localized(bundle: NavitiaSDKUI.shared.bundle), departureAddress, arrivalAddress)
     }
     
     private func getRidesharing(journeyRidesharing: Journey?) -> ShowJourneyRoadmap.GetRoadmap.ViewModel.Ridesharing? {
@@ -80,6 +99,7 @@ class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
         let seatsCount = ridesharingSection.ridesharingInformations?.seats?.available
         let price = journeyRidesharing?.fare?.total?.value ?? ""
         let deepLink = ridesharingSection.links?[safe: 0]?.href ?? ""
+        let accessibility = getRidesharingAccessibility(departureAddress: departureAddress, arrivalAddress: arrivalAddress)
         let ridesharingViewModel = ShowJourneyRoadmap.GetRoadmap.ViewModel.Ridesharing(network: network,
                                                                                        departure: departure,
                                                                                        driverPictureURL: driverPictureURL,
@@ -91,7 +111,8 @@ class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
                                                                                        arrivalAddress: arrivalAddress,
                                                                                        seatsCount: seatsCount,
                                                                                        price: price,
-                                                                                       deepLink: deepLink)
+                                                                                       deepLink: deepLink,
+                                                                                       accessibility: accessibility)
 
         return ridesharingViewModel
     }
@@ -99,11 +120,15 @@ class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
     // MARK: DepartureViewModel
     
     private func getDepartureViewModel(journey: Journey) -> ShowJourneyRoadmap.GetRoadmap.ViewModel.DepartureArrival? {
-        if let departureName = getDepartureName(journey: journey), let departureTime = getDepartureTime(journey: journey) {
+        if let departureName = getDepartureName(journey: journey),
+            let departureTime = getDepartureTime(journey: journey) {
+            let accessibility = getDepartureAccessibilty(journey: journey)
             let departureViewModel = ShowJourneyRoadmap.GetRoadmap.ViewModel.DepartureArrival(mode: .departure,
                                                                                               information: departureName,
                                                                                               time: departureTime,
-                                                                                              calorie: nil)
+                                                                                              calorie: nil,
+                                                                                              accessibility: accessibility)
+            
             
             return departureViewModel
         }
@@ -123,16 +148,66 @@ class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
         return departureDate.toString(format: Configuration.time)
     }
     
+    private func getDepartureAccessibilty(journey: Journey) -> String {
+        guard let name = journey.sections?.first?.from?.name,
+            let dateTime = journey.departureDateTime?.toDate(format: Configuration.date) else {
+                return ""
+        }
+        
+        if let timeZone = TimeZone(identifier: "CET") {
+            var calendar = Foundation.Calendar(identifier: .gregorian)
+            calendar.timeZone = timeZone
+            
+            let hourComponents = calendar.dateComponents([.hour, .minute], from: dateTime)
+            
+            if var hours = DateComponentsFormatter.localizedString(from: hourComponents, unitsStyle: .spellOut) {
+                if let hour = hourComponents.hour, hour == 0 {
+                    hours = String(format: "%d %@, %@", hour, "hour".localized(bundle: NavitiaSDKUI.shared.bundle), hours)
+                }
+                
+                return String(format: "departure_at_from".localized(bundle: NavitiaSDKUI.shared.bundle), hours, name)
+            }
+        }
+        
+        return ""
+    }
+    
+    private func getArrivalAccessibilty(journey: Journey) -> String {
+        guard let name = journey.sections?.last?.to?.name,
+            let dateTime = journey.arrivalDateTime?.toDate(format: Configuration.date) else {
+                return ""
+        }
+        
+        if let timeZone = TimeZone(identifier: "CET") {
+            var calendar = Foundation.Calendar(identifier: .gregorian)
+            calendar.timeZone = timeZone
+            
+            let hourComponents = calendar.dateComponents([.hour, .minute], from: dateTime)
+            
+            if var hours = DateComponentsFormatter.localizedString(from: hourComponents, unitsStyle: .spellOut) {
+                if let hour = hourComponents.hour, hour == 0  {
+                    hours = String(format: "%d %@, %@", hour, "hour".localized(bundle: NavitiaSDKUI.shared.bundle), hours)
+                }
+                
+                return String(format: "arrival_at_to".localized(bundle: NavitiaSDKUI.shared.bundle), hours, name)
+            }
+        }
+
+        return ""
+    }
+    
     // MARK: ArrivalViewModel
     
     private func getArrivalViewModel(journey: Journey) -> ShowJourneyRoadmap.GetRoadmap.ViewModel.DepartureArrival? {
         if let arrivalName = getArrivalName(journey: journey),
             let arrivalTime = getArrivalTime(journey: journey),
             let calorie = getCalorie(journey: journey) {
+            let accessibility = getArrivalAccessibilty(journey: journey)
             let arrivalViewModel = ShowJourneyRoadmap.GetRoadmap.ViewModel.DepartureArrival(mode: .arrival,
                                                                                             information: arrivalName,
                                                                                             time: arrivalTime,
-                                                                                            calorie: calorie)
+                                                                                            calorie: calorie,
+                                                                                            accessibility: accessibility)
             
             return arrivalViewModel
         }
@@ -210,23 +285,21 @@ class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
         guard let type = section.type else {
             return nil
         }
-        
-        if let network = section.from?.poi?.properties?["network"] ?? section.to?.poi?.properties?["network"] {
-            if type == .bssRent {
-                return String(format: "take_a_bike_at".localized(bundle: NavitiaSDKUI.shared.bundle), network)
-            } else if type == .bssPutBack {
-                return String(format: "take_a_bike_at".localized(bundle: NavitiaSDKUI.shared.bundle), network)
-            }
-        }
-        
-        if type == .ridesharing {
+
+        if type == .park {
+            return "park_in_the".localized(bundle: NavitiaSDKUI.shared.bundle)
+        } else if type == .ridesharing {
             return "take_the_ridesharing".localized(bundle: NavitiaSDKUI.shared.bundle)
-        } else if let mode = section.mode {
-            return "to_with_uppercase".localized(bundle: NavitiaSDKUI.shared.bundle)
-        } else if type == .transfer {
+        } else if type == .transfer || section.mode != nil {
             return "to_with_uppercase".localized(bundle: NavitiaSDKUI.shared.bundle)
         } else if let commercialMode = section.displayInformations?.commercialMode {
             return String(format: "%@ %@", "take_the".localized(withComment: "Take tke", bundle: NavitiaSDKUI.shared.bundle), commercialMode)
+        } else if let poi = section.from?.poi ?? section.to?.poi {
+            if type == .bssRent {
+                return String(format: "take_a_bike_at".localized(bundle: NavitiaSDKUI.shared.bundle), poi.properties?["network"] ?? "")
+            } else if type == .bssPutBack {
+                return String(format: "dock_bike_at".localized(bundle: NavitiaSDKUI.shared.bundle), poi.properties?["network"] ?? "")
+            }
         }
 
         return nil
@@ -280,7 +353,7 @@ class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
         return nil
     }
     
-    func getStopDate(section: Section) -> [String] {
+    private func getStopDate(section: Section) -> [String] {
         var stopDate = [String]()
         
         if let stopDateTimes = section.stopDateTimes {
@@ -296,22 +369,31 @@ class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
         return stopDate
     }
     
-    func getPoi(section: Section?/*poi: Poi?*/) -> ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionModel.Poi? {
+    private func getPoi(section: Section?) -> ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionModel.Poi? {
         guard let type = section?.type,
-            type != .streetNetwork,
-            let poi = section?.from?.poi ?? section?.to?.poi,
-            let name = poi.name,
-            let network = poi.properties?["network"],
-            let latString = poi.coord?.lat,
-            let lat = Double(latString),
-            let lonString = poi.coord?.lon,
-            let lon = Double(lonString),
-            let addressName = poi.address?.name,
-            let addressId = poi.address?.id else {
+        let poi = section?.from?.poi ?? section?.to?.poi,
+        let latString = poi.coord?.lat,
+        let lonString = poi.coord?.lon
+        else {
                 return nil
         }
         
-        let standsViewModel = getStands(stands: poi.stands, type: type)
+        let name = poi.name
+        let addressId = poi.address?.id
+        var addressName: String? = nil
+        let network = poi.properties?["network"]
+        let lat = Double(latString)
+        let lon = Double(lonString)
+        let standsViewModel = getStands(stands: poi.stands, carPark: poi.carPark, type: type)
+        
+        if type == .bssRent || type == .bssPutBack {
+            addressName = poi.address?.name
+        } else if type == .streetNetwork && section?.mode == .car {
+            addressName = poi.address?.name
+        } else if type != .park {
+            return nil
+        }
+
         let poiViewModel = ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionModel.Poi(name: name,
                                                                                     network: network,
                                                                                     lat: lat,
@@ -323,26 +405,52 @@ class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
         return poiViewModel
     }
     
-    private func getStands(stands: Stands?, type: Section.ModelType) -> ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionModel.Stands? {
-        guard let stands = stands else {
-            return nil
-        }
-        
-        switch type {
-        case .bssRent:
-            if let availableBikes = stands.availableBikes {
-                let standsViewModel = ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionModel.Stands(availability: String(format: "bss_bikes_available".localized(bundle: NavitiaSDKUI.shared.bundle), availableBikes),
-                                                                                              icon: nil)
-                return standsViewModel
+    private func getStands(stands: Stands?, carPark: CarPark?, type: Section.ModelType) -> ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionModel.Stands? {
+        var availabilityTemplate = ""
+
+        if let stands = stands {
+            switch type {
+            case .bssRent:
+                if let availableBikes = stands.availableBikes {
+                    if availableBikes <= 1 {
+                        availabilityTemplate = "bss_available_bikes".localized(bundle: NavitiaSDKUI.shared.bundle)
+                    } else {
+                        availabilityTemplate = "bss_available_bikes_plural".localized(bundle: NavitiaSDKUI.shared.bundle)
+                    }
+                    let standsViewModel = ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionModel.Stands(availability: String(format: availabilityTemplate, availableBikes),
+                                                                                                      icon: nil)
+                    return standsViewModel
+                }
+            case .bssPutBack:
+                if let availablePlaces = stands.availablePlaces {
+                    if availablePlaces <= 1 {
+                        availabilityTemplate = "available_places".localized(bundle: NavitiaSDKUI.shared.bundle)
+                    } else {
+                        availabilityTemplate = "available_places_plural".localized(bundle: NavitiaSDKUI.shared.bundle)
+                    }
+                    let standsViewModel = ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionModel.Stands(availability: String(format: availabilityTemplate, availablePlaces),
+                                                                                                      icon: nil)
+                    return standsViewModel
+                }
+            default:
+                return nil
             }
-        case .bssPutBack:
-            if let availablePlaces = stands.availablePlaces {
-                let standsViewModel = ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionModel.Stands(availability: String(format: "bss_spaces_available".localized(bundle: NavitiaSDKUI.shared.bundle), availablePlaces),
-                                                                                                                   icon: nil)
-                return standsViewModel
+        } else if let carPark = carPark {
+            switch type {
+            case .park:
+                if let availablePlaces = carPark.available {
+                    if availablePlaces <= 1 {
+                        availabilityTemplate = "available_places".localized(bundle: NavitiaSDKUI.shared.bundle)
+                    } else {
+                        availabilityTemplate = "available_places_plural".localized(bundle: NavitiaSDKUI.shared.bundle)
+                    }
+                    let standsViewModel = ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionModel.Stands(availability: String(format: availabilityTemplate, availablePlaces),
+                                                                                                      icon: "park")
+                    return standsViewModel
+                }
+            default:
+                return nil
             }
-        default:
-            return nil
         }
         
         return nil
@@ -374,7 +482,7 @@ class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
             return nil
         }
         
-        let SectionModel = ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionModel(type: type,
+        let sectionModel = ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionModel(type: type,
                                                                                 mode: getMode(section: section),
                                                                                 from: getFrom(section: section),
                                                                                 to: getTo(section: section),
@@ -390,16 +498,16 @@ class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
                                                                                 disruptionsClean: getDisruptionModel(section: section, disruptions: disruptions),
                                                                                 notes: getNotesOnDemandTransport(section: section, notes: notes),
                                                                                 poi: getPoi(section: section),
-                                                                                icon: Modes().getModeIcon(section: section),
-                                                                                bssRealTime: getBssRealTime(section: section),
+                                                                                icon: Modes().getMode(section: section, roadmap: true),
+                                                                                realTime: getRealTime(section: section),
                                                                                 background: getBackground(section: section),
                                                                                 section: section)
         
-        return SectionModel
+        return sectionModel
     }
     
     private func getSectionModels(response:  ShowJourneyRoadmap.GetRoadmap.Response) -> [ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionModel]? {
-        var sectionsClean = [ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionModel]()
+        var sectionsModel = [ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionModel]()
         
         if let sections = response.journey.sections {
             for (index, section) in sections.enumerated() {
@@ -407,30 +515,37 @@ class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
                     if let sectionsRidesharing = response.journeyRidesharing?.sections {
                         for (index, ridesharingSection) in sectionsRidesharing.enumerated() {
                             if let SectionModel = getSectionModel(section: ridesharingSection, sectionBefore: sectionsRidesharing[safe: index - 1], disruptions: response.disruptions, notes: response.notes) {
-                                sectionsClean.append(SectionModel)
+                                sectionsModel.append(SectionModel)
                             }
                         }
                     }
                 } else {
-                    if let SectionModel = getSectionModel(section: section, sectionBefore: sections[safe: index - 1], disruptions: response.disruptions, notes: response.notes) {
-                        sectionsClean.append(SectionModel)
+                    if let sectionModel = getSectionModel(section: section, sectionBefore: sections[safe: index - 1], disruptions: response.disruptions, notes: response.notes) {
+                        sectionsModel.append(sectionModel)
                     }
                 }
             }
         }
         
-        return sectionsClean
+        return sectionsModel
     }
     
     // MARK: Emission
     
     private func getEmission(response: ShowJourneyRoadmap.GetRoadmap.Response) -> ShowJourneyRoadmap.GetRoadmap.ViewModel.Emission? {
-        guard let journeyValue = response.journey.co2Emission?.value, let journeyCarbonSummary = getFormattedEmission(emissionValue: journeyValue) else {
+        guard let journeyValue = response.journey.co2Emission?.value,
+            let journeyCarbonSummary = getFormattedEmission(emissionValue: journeyValue) else {
             return nil
         }
 
         let carCarbonSummary = getFormattedEmission(emissionValue: response.context.carDirectPath?.co2Emission?.value)
-        let emissionViewModel = ShowJourneyRoadmap.GetRoadmap.ViewModel.Emission.init(journey: journeyCarbonSummary, car: carCarbonSummary)
+        
+        var emissionViewModel = ShowJourneyRoadmap.GetRoadmap.ViewModel.Emission.init(journey: journeyCarbonSummary,
+                                                                                      car: carCarbonSummary,
+                                                                                      accessibility: "")
+        let accessibilityLabel = getEmissionAccessibility(emissionViewModel: emissionViewModel)
+        
+        emissionViewModel.accessibility = accessibilityLabel
         
         return emissionViewModel
     }
@@ -448,6 +563,25 @@ class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
         carbonUnit.append(String(format: " %@", "carbon".localized(bundle: NavitiaSDKUI.shared.bundle)))
         
         return (value: emissionValue, unit: carbonUnit)
+    }
+    
+    private func getValueEmissionAccessibility(value: Double, unit: String) -> String {
+        if unit == "g CO2" {
+            return String(format: "%.1f %@ %@. ", value, "gram".localized(bundle: NavitiaSDKUI.shared.bundle), "of_carbon_dioxide".localized(bundle: NavitiaSDKUI.shared.bundle))
+        } else if unit == "Kg CO2" {
+            return String(format: "%.1f %@ %@. ", value, "kilogram".localized(bundle: NavitiaSDKUI.shared.bundle), "of_carbon_dioxide".localized(bundle: NavitiaSDKUI.shared.bundle))
+        }
+        
+        return ""
+    }
+    
+    private func getEmissionAccessibility(emissionViewModel: ShowJourneyRoadmap.GetRoadmap.ViewModel.Emission) -> String {
+        var accessibilityLabel = String(format: "carbon_footprint".localized(bundle: NavitiaSDKUI.shared.bundle), getValueEmissionAccessibility(value: emissionViewModel.journey.value, unit: emissionViewModel.journey.unit))
+        if let car = emissionViewModel.car {
+            accessibilityLabel += String(format: "carbon_comparison_car".localized(bundle: NavitiaSDKUI.shared.bundle), getValueEmissionAccessibility(value: car.value, unit: car.unit))
+        }
+        
+        return accessibilityLabel
     }
     
     // MARK: DisplayInformations
@@ -552,6 +686,28 @@ class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
         return ""
     }
     
+    func getAccessibilityDisruption(disruption: Disruption) -> String {
+        let title = disruption.severity?.name ?? ""
+        let information = Disruption.message(disruption: disruption)?.text?.htmlToAttributedString?.string ?? ""
+        var startDate = ""
+        var endDate = ""
+        
+        if let start = disruption.applicationPeriods?.first?.begin?.toDate(format: Configuration.date) {
+            startDate = DateFormatter.localizedString(from: start, dateStyle: .medium, timeStyle: .none)
+        }
+        if let end = disruption.applicationPeriods?.first?.end?.toDate(format: Configuration.date) {
+            endDate = DateFormatter.localizedString(from: end, dateStyle: .medium, timeStyle: .none)
+        }
+
+        return String(format: "%@ %@ %@ %@ %@ : %@.",
+                      title,
+                      "from".localized(bundle: NavitiaSDKUI.shared.bundle),
+                      startDate,
+                      "to_period".localized(bundle: NavitiaSDKUI.shared.bundle),
+                      endDate,
+                      information)
+    }
+    
     func getDisruptionModel(section: Section, disruptions: [Disruption]?) -> [ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionModel.DisruptionModel] {
         let disruptions = getDisruption(section: section, disruptions: disruptions)
         var disruptionsClean = [ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionModel.DisruptionModel]()
@@ -561,7 +717,8 @@ class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
                                                                                                        icon: Disruption.iconName(of: disruption.level),
                                                                                                        title: disruption.severity?.name ?? "",
                                                                                                        date: getDateDisruption(disruption: disruption),
-                                                                                                       information: Disruption.message(disruption: disruption)?.text?.htmlToAttributedString?.string)
+                                                                                                       information: Disruption.message(disruption: disruption)?.text?.htmlToAttributedString?.string,
+                                                                                                       accessibility: getAccessibilityDisruption(disruption: disruption))
             disruptionsClean.append(disruptionModel)
         }
         
@@ -670,10 +827,11 @@ class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
         return 0;
     }
     
-    func getBssRealTime(section: Section) -> Bool {
-        if let sectionDepartureTime = section.departureDateTime?.toDate(format: "yyyyMMdd'T'HHmmss"), let currentDateTime = Date().toLocalDate(format: "yyyyMMdd'T'HHmmss"), abs(sectionDepartureTime.timeIntervalSince(currentDateTime)) <= Configuration.bssApprovalTimeThreshold {
+    func getRealTime(section: Section) -> Bool {
+        if let sectionDepartureTime = section.departureDateTime?.toDate(format: "yyyyMMdd'T'HHmmss"), let currentDateTime = Date().toLocalDate(format: "yyyyMMdd'T'HHmmss"), abs(sectionDepartureTime.timeIntervalSince(currentDateTime)) <= Configuration.approvalTimeThreshold {
             return true
         }
+        
         return false
     }
     

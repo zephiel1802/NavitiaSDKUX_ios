@@ -111,7 +111,7 @@ open class ListJourneysViewController: UIViewController, ListJourneysDisplayLogi
         journeysCollectionView.register(UINib(nibName: JourneySolutionLoadCollectionViewCell.identifier, bundle: self.nibBundle), forCellWithReuseIdentifier: JourneySolutionLoadCollectionViewCell.identifier)
         journeysCollectionView.register(UINib(nibName: RidesharingInformationCollectionViewCell.identifier, bundle: self.nibBundle), forCellWithReuseIdentifier: RidesharingInformationCollectionViewCell.identifier)
         journeysCollectionView.register(UINib(nibName: JourneyEmptySolutionCollectionViewCell.identifier, bundle: self.nibBundle), forCellWithReuseIdentifier: JourneyEmptySolutionCollectionViewCell.identifier)
-        journeysCollectionView.register(UINib(nibName: JourneyHeaderCollectionReusableView.identifier, bundle: self.nibBundle), forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: JourneyHeaderCollectionReusableView.identifier)
+        journeysCollectionView.register(UINib(nibName: JourneyHeaderCollectionReusableView.identifier, bundle: self.nibBundle), forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: JourneyHeaderCollectionReusableView.identifier)
     }
     
     // MARK: - Events
@@ -156,6 +156,8 @@ open class ListJourneysViewController: UIViewController, ListJourneysDisplayLogi
         fromLabel.attributedText = viewModel.headerInformations.origin
         toLabel.attributedText = viewModel.headerInformations.destination
         dateTimeLabel.attributedText = viewModel.headerInformations.dateTime
+        searchView.accessibilityLabel = viewModel.accessibilityHeader
+        switchDepartureArrivalButton.accessibilityLabel = viewModel.accessibilitySwitchButton
         journeysCollectionView.reloadData()
     }
 }
@@ -252,7 +254,7 @@ extension ListJourneysViewController: UICollectionViewDataSource, UICollectionVi
     }
     
     public func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        if kind.isEqual(UICollectionElementKindSectionHeader) {
+        if kind.isEqual(UICollectionView.elementKindSectionHeader) {
             let cell = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: JourneyHeaderCollectionReusableView.identifier, for: indexPath) as! JourneyHeaderCollectionReusableView
             cell.title = "carpooling".localized(withComment: "Carpooling", bundle: NavitiaSDKUI.shared.bundle)
             

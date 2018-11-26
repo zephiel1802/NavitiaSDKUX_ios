@@ -25,6 +25,7 @@ internal struct NavitiaWorker {
                 .withMaxNbJourneys(journeysRequest.maxNbJourneys)
                 .withBssStands(journeysRequest.bssStands)
                 .withAddPoiInfos(journeysRequest.addPoiInfos)
+                .withDirectPath(journeysRequest.directPath)
                 .withDebugURL(journeysRequest.debugURL)
             
             journeyRequestBuilder.get { (result, error) in
@@ -56,6 +57,21 @@ internal struct NavitiaWorker {
                 .withDistance(distance)
                 .withUri("poi_types/poi_type:amenity:bicycle_rental/coord/" + id)
                 .withBssStands(true)
+            
+            poisRequestBuilder.get { (result, error) in
+                completionHandler(result?.pois?.first)
+            }
+        }
+    }
+    
+    func fetchPark(coord: (lat: Double, lon: Double), distance: Int32, id: String, completionHandler: @escaping (Poi?) -> Void) {
+        if NavitiaSDKUI.shared.navitiaSDK != nil {
+            let poisRequestBuilder = NavitiaSDKUI.shared.navitiaSDK.poisApi.newCoverageLonLatUriPoisRequestBuilder()
+                .withLat(coord.lat)
+                .withLon(coord.lon)
+                .withDistance(distance)
+                .withUri("poi_types/poi_type:amenity:parking/coord/" + id)
+                .withAddPoiInfos([.carPark])
             
             poisRequestBuilder.get { (result, error) in
                 completionHandler(result?.pois?.first)

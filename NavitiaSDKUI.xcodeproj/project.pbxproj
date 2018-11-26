@@ -10,6 +10,8 @@
 		3126566520B2FA0A00D50F4B /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3126566420B2FA0A00D50F4B /* UIColor+Extension.swift */; };
 		3126566920B3008800D50F4B /* UIViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3126566820B3008700D50F4B /* UIViewController+Extension.swift */; };
 		31336E17211DF06B00D197E2 /* Int+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31336E16211DF06A00D197E2 /* Int+Extension.swift */; };
+		31653C9D21959AA8001593A8 /* CarPark.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31653C9B21959AA8001593A8 /* CarPark.swift */; };
+		31653C9E21959AA8001593A8 /* SectionGeoJsonSchemaProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31653C9C21959AA8001593A8 /* SectionGeoJsonSchemaProperties.swift */; };
 		317D6C78211091CE00F36242 /* StepByStepItemView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 317D6C76211091CE00F36242 /* StepByStepItemView.xib */; };
 		317D6C7B211091D600F36242 /* StepByStepItemVIew.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317D6C79211091D500F36242 /* StepByStepItemVIew.swift */; };
 		31EE0548214694BB00293B8B /* HorizontalSeparator.xib in Resources */ = {isa = PBXBuildFile; fileRef = 31EE0547214694BB00293B8B /* HorizontalSeparator.xib */; };
@@ -255,7 +257,6 @@
 		84827A91214BBAA800CB9513 /* ListRidesharingOffersRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84827A8A214BBAA800CB9513 /* ListRidesharingOffersRouter.swift */; };
 		84827A92214BBAA800CB9513 /* ListRidesharingOffersModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84827A8B214BBAA800CB9513 /* ListRidesharingOffersModels.swift */; };
 		848CFDE921512F520022A4F2 /* HorizontalSeparator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848CFDE821512F510022A4F2 /* HorizontalSeparator.swift */; };
-		848CFDEF21512F6B0022A4F2 /* HorizontalSeparator.xib in Resources */ = {isa = PBXBuildFile; fileRef = 848CFDED21512F6B0022A4F2 /* HorizontalSeparator.xib */; };
 		8490376B2161FBEF00472FD6 /* StepView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8490376A2161FBEF00472FD6 /* StepView.swift */; };
 		8490376D2161FBF400472FD6 /* StepView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8490376C2161FBF400472FD6 /* StepView.xib */; };
 		8490A6D52084D2C700F7CFA1 /* NavitiaSDKUserDefaultsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8490A6D42084D2C700F7CFA1 /* NavitiaSDKUserDefaultsManager.swift */; };
@@ -302,6 +303,8 @@
 		3126566420B2FA0A00D50F4B /* UIColor+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
 		3126566820B3008700D50F4B /* UIViewController+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extension.swift"; sourceTree = "<group>"; };
 		31336E16211DF06A00D197E2 /* Int+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Int+Extension.swift"; sourceTree = "<group>"; };
+		31653C9B21959AA8001593A8 /* CarPark.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CarPark.swift; sourceTree = "<group>"; };
+		31653C9C21959AA8001593A8 /* SectionGeoJsonSchemaProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SectionGeoJsonSchemaProperties.swift; sourceTree = "<group>"; };
 		317D6C76211091CE00F36242 /* StepByStepItemView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StepByStepItemView.xib; sourceTree = "<group>"; };
 		317D6C79211091D500F36242 /* StepByStepItemVIew.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StepByStepItemVIew.swift; sourceTree = "<group>"; };
 		31EE0547214694BB00293B8B /* HorizontalSeparator.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HorizontalSeparator.xib; sourceTree = "<group>"; };
@@ -601,8 +604,8 @@
 		841A0F74215A29B800F46143 /* Apis */ = {
 			isa = PBXGroup;
 			children = (
-				841A0F7B215A29B800F46143 /* PoisApi.swift */,
 				841A0F95215A29B800F46143 /* JourneysApi.swift */,
+				841A0F7B215A29B800F46143 /* PoisApi.swift */,
 			);
 			path = Apis;
 			sourceTree = "<group>";
@@ -610,8 +613,8 @@
 		841A0F9B215A29B800F46143 /* Swaggers */ = {
 			isa = PBXGroup;
 			children = (
-				841A0F9C215A29B800F46143 /* APIHelper.swift */,
 				841A0F9D215A29B800F46143 /* AlamofireImplementations.swift */,
+				841A0F9C215A29B800F46143 /* APIHelper.swift */,
 				841A0F9E215A29B800F46143 /* APIs.swift */,
 				841A0F9F215A29B800F46143 /* Extensions.swift */,
 				841A0FA0215A29B800F46143 /* Models.swift */,
@@ -622,131 +625,133 @@
 		841A0FA2215A29B800F46143 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				841A0FA3215A29B800F46143 /* Passage.swift */,
-				841A0FA4215A29B800F46143 /* Impacted.swift */,
-				841A0FA5215A29B800F46143 /* DisruptionProperty.swift */,
-				841A0FA6215A29B800F46143 /* Amount.swift */,
-				841A0FA7215A29B800F46143 /* CommercialModes.swift */,
-				841A0FA8215A29B800F46143 /* Arrivals.swift */,
-				841A0FA9215A29B800F46143 /* CoverageError.swift */,
-				841A0FAA215A29B800F46143 /* VJDisplayInformation.swift */,
-				841A0FAB215A29B800F46143 /* FareZone.swift */,
-				841A0FAC215A29B800F46143 /* LineGroup.swift */,
-				841A0FAD215A29B800F46143 /* Journey.swift */,
-				841A0FAE215A29B800F46143 /* Coverages.swift */,
-				841A0FAF215A29B800F46143 /* SeatsDescription.swift */,
-				841A0FB0215A29B800F46143 /* JourneyPatternPoint.swift */,
-				841A0FB1215A29B800F46143 /* LinesSchema.swift */,
-				841A0FB2215A29B800F46143 /* Period.swift */,
-				841A0FB3215A29B800F46143 /* Severity.swift */,
-				841A0FB4215A29B800F46143 /* CellLonSchema.swift */,
-				841A0FB5215A29B800F46143 /* JourneyDebug.swift */,
-				841A0FB6215A29B800F46143 /* Property.swift */,
-				841A0FB7215A29B800F46143 /* RouteDisplayInformation.swift */,
 				841A0FB8215A29B800F46143 /* Address.swift */,
-				841A0FB9215A29B800F46143 /* PhysicalMode.swift */,
-				841A0FBA215A29B800F46143 /* ValidityPattern.swift */,
-				841A0FBB215A29B800F46143 /* StopTime.swift */,
-				841A0FBC215A29B800F46143 /* Comment.swift */,
-				841A0FBD215A29B800F46143 /* Companies.swift */,
-				841A0FBE215A29B800F46143 /* LinkSchema.swift */,
-				841A0FBF215A29B800F46143 /* Journeys.swift */,
-				841A0FC0215A29B800F46143 /* Places.swift */,
-				841A0FC1215A29B800F46143 /* HeatMap.swift */,
-				841A0FC2215A29B800F46143 /* GraphicalIsrochoneGeojson.swift */,
-				841A0FC3215A29B800F46143 /* SectionGeoJsonSchema.swift */,
-				841A0FC4215A29B800F46143 /* Trip.swift */,
-				841A0FC5215A29B800F46143 /* ImpactedStop.swift */,
-				841A0FC6215A29B800F46143 /* Distances.swift */,
-				841A0FC7215A29B800F46143 /* Disruptions.swift */,
-				841A0FC8215A29B800F46143 /* StopPoints.swift */,
-				841A0FC9215A29B800F46143 /* HeatMap1.swift */,
-				841A0FCA215A29B800F46143 /* CO2.swift */,
-				841A0FCB215A29B800F46143 /* ImpactedSection.swift */,
-				841A0FCC215A29B800F46143 /* PoiTypes.swift */,
-				841A0FCD215A29B800F46143 /* Coverage.swift */,
-				841A0FCE215A29B800F46143 /* Message.swift */,
-				841A0FCF215A29B800F46143 /* Place.swift */,
-				841A0FD0215A29B800F46143 /* Contributor.swift */,
-				841A0FD1215A29B800F46143 /* Channel.swift */,
-				841A0FD2215A29B800F46143 /* Network.swift */,
-				841A0FD3215A29B800F46143 /* LineReport.swift */,
-				841A0FD4215A29B800F46143 /* GeoStatus1.swift */,
 				841A0FD5215A29B800F46143 /* Admin.swift */,
-				841A0FD6215A29B800F46143 /* PlacesNearby.swift */,
-				841A0FD7215A29B800F46143 /* PlaceNearby.swift */,
-				841A0FD8215A29B800F46143 /* Table.swift */,
-				841A0FD9215A29B800F46143 /* PoiType.swift */,
+				841A0FA6215A29B800F46143 /* Amount.swift */,
+				841A0FA8215A29B800F46143 /* Arrivals.swift */,
 				841A0FDA215A29B800F46143 /* BetaEndpoints.swift */,
-				841A0FDB215A29B800F46143 /* TrafficReports.swift */,
-				841A0FDC215A29B800F46143 /* Lines.swift */,
-				841A0FDD215A29B800F46143 /* Exception.swift */,
-				841A0FDE215A29B800F46143 /* GraphicalIsrochone.swift */,
-				841A0FDF215A29B800F46143 /* RouteSchedules.swift */,
-				841A0FE0215A29B800F46143 /* MultiLineStringSchema.swift */,
+				841A1016215A29B800F46143 /* Calendar.swift */,
+				841A100A215A29B800F46143 /* CalendarException.swift */,
+				841A0FEE215A29B800F46143 /* CalendarPeriod.swift */,
+				841A101F215A29B800F46143 /* Calendars.swift */,
+				31653C9B21959AA8001593A8 /* CarPark.swift */,
+				841A0FF2215A29B800F46143 /* CellLatSchema.swift */,
+				841A0FB4215A29B800F46143 /* CellLonSchema.swift */,
+				841A0FD1215A29B800F46143 /* Channel.swift */,
+				841A0FCA215A29B800F46143 /* CO2.swift */,
 				841A0FE1215A29B800F46143 /* Code.swift */,
-				841A0FE2215A29B800F46143 /* Trips.swift */,
-				841A0FE3215A29B800F46143 /* DictAddresses.swift */,
-				841A0FE4215A29B800F46143 /* RidesharingInformation.swift */,
-				841A0FE5215A29B800F46143 /* JourneyPattern.swift */,
-				841A0FE6215A29B800F46143 /* Stands.swift */,
-				841A0FE7215A29B800F46143 /* Dataset.swift */,
-				841A0FE8215A29B800F46143 /* Path.swift */,
+				841A0FBC215A29B800F46143 /* Comment.swift */,
+				841A1001215A29B800F46143 /* CommercialMode.swift */,
+				841A0FA7215A29B800F46143 /* CommercialModes.swift */,
+				841A0FFA215A29B800F46143 /* Companie.swift */,
+				841A0FBD215A29B800F46143 /* Companies.swift */,
 				841A0FE9215A29B800F46143 /* Context.swift */,
+				841A0FD0215A29B800F46143 /* Contributor.swift */,
+				841A0FFB215A29B800F46143 /* Contributors.swift */,
+				841A1013215A29B800F46143 /* Coord.swift */,
+				841A101C215A29B800F46143 /* Cost.swift */,
+				841A0FCD215A29B800F46143 /* Coverage.swift */,
+				841A0FA9215A29B800F46143 /* CoverageError.swift */,
+				841A0FAE215A29B800F46143 /* Coverages.swift */,
+				841A0FE7215A29B800F46143 /* Dataset.swift */,
+				841A101A215A29B800F46143 /* Datasets.swift */,
+				841A0FF4215A29B800F46143 /* DateTimeType.swift */,
+				841A101B215A29B800F46143 /* Departures.swift */,
+				841A0FE3215A29B800F46143 /* DictAddresses.swift */,
+				841A0FEF215A29B800F46143 /* Disruption.swift */,
+				841A0FA5215A29B800F46143 /* DisruptionProperty.swift */,
+				841A0FC7215A29B800F46143 /* Disruptions.swift */,
+				841A0FC6215A29B800F46143 /* Distances.swift */,
+				841A0FF6215A29B800F46143 /* Durations.swift */,
+				841A0FDD215A29B800F46143 /* Exception.swift */,
+				841A1010215A29B800F46143 /* Fare.swift */,
+				841A0FAB215A29B800F46143 /* FareZone.swift */,
+				841A0FFF215A29B800F46143 /* FeedPublisher.swift */,
+				841A1014215A29B800F46143 /* GeoStatus.swift */,
+				841A0FD4215A29B800F46143 /* GeoStatus1.swift */,
+				841A0FDE215A29B800F46143 /* GraphicalIsrochone.swift */,
+				841A1008215A29B800F46143 /* GraphicalIsrochone1.swift */,
+				841A0FC2215A29B800F46143 /* GraphicalIsrochoneGeojson.swift */,
 				841A0FEA215A29B800F46143 /* Header.swift */,
+				841A0FC1215A29B800F46143 /* HeatMap.swift */,
+				841A0FC9215A29B800F46143 /* HeatMap1.swift */,
+				841A1000215A29B800F46143 /* HeatMatrixSchema.swift */,
+				841A0FA4215A29B800F46143 /* Impacted.swift */,
+				841A0FCB215A29B800F46143 /* ImpactedSection.swift */,
+				841A0FC5215A29B800F46143 /* ImpactedStop.swift */,
+				841A1011215A29B800F46143 /* IndividualInformation.swift */,
 				841A0FEB215A29B800F46143 /* IndividualRating.swift */,
+				841A0FAD215A29B800F46143 /* Journey.swift */,
+				841A0FB5215A29B800F46143 /* JourneyDebug.swift */,
+				841A0FE5215A29B800F46143 /* JourneyPattern.swift */,
+				841A0FB0215A29B800F46143 /* JourneyPatternPoint.swift */,
+				841A1007215A29B800F46143 /* JourneyPatternPoints.swift */,
+				841A0FFC215A29B800F46143 /* JourneyPatterns.swift */,
+				841A0FBF215A29B800F46143 /* Journeys.swift */,
+				841A0FFE215A29B800F46143 /* Line.swift */,
+				841A0FAC215A29B800F46143 /* LineGroup.swift */,
+				841A1012215A29B800F46143 /* LineGroups.swift */,
+				841A101E215A29B800F46143 /* LineHeadersSchema.swift */,
+				841A0FD3215A29B800F46143 /* LineReport.swift */,
+				841A0FF3215A29B800F46143 /* LineReports.swift */,
+				841A0FDC215A29B800F46143 /* Lines.swift */,
+				841A0FB1215A29B800F46143 /* LinesSchema.swift */,
+				841A0FBE215A29B800F46143 /* LinkSchema.swift */,
+				841A0FCE215A29B800F46143 /* Message.swift */,
+				841A0FFD215A29B800F46143 /* ModelError.swift */,
+				841A0FE0215A29B800F46143 /* MultiLineStringSchema.swift */,
+				841A0FD2215A29B800F46143 /* Network.swift */,
+				841A1015215A29B800F46143 /* Networks.swift */,
 				841A0FEC215A29B800F46143 /* Note.swift */,
 				841A0FED215A29B800F46143 /* Pagination.swift */,
-				841A0FEE215A29B800F46143 /* CalendarPeriod.swift */,
-				841A0FEF215A29B800F46143 /* Disruption.swift */,
-				841A0FF0215A29B800F46143 /* PtObject.swift */,
-				841A0FF1215A29B800F46143 /* Section.swift */,
-				841A0FF2215A29B800F46143 /* CellLatSchema.swift */,
-				841A0FF3215A29B800F46143 /* LineReports.swift */,
-				841A0FF4215A29B800F46143 /* DateTimeType.swift */,
-				841A0FF5215A29B800F46143 /* WeekPattern.swift */,
-				841A0FF6215A29B800F46143 /* Durations.swift */,
-				841A0FF7215A29B800F46143 /* VehicleJourney.swift */,
-				841A0FF8215A29B800F46143 /* StopSchedule.swift */,
-				841A0FF9215A29B800F46143 /* Ticket.swift */,
-				841A0FFA215A29B800F46143 /* Companie.swift */,
-				841A0FFB215A29B800F46143 /* Contributors.swift */,
-				841A0FFC215A29B800F46143 /* JourneyPatterns.swift */,
-				841A0FFD215A29B800F46143 /* ModelError.swift */,
-				841A0FFE215A29B800F46143 /* Line.swift */,
-				841A0FFF215A29B800F46143 /* FeedPublisher.swift */,
-				841A1000215A29B800F46143 /* HeatMatrixSchema.swift */,
-				841A1001215A29B800F46143 /* CommercialMode.swift */,
-				841A1002215A29B800F46143 /* StopPoint.swift */,
-				841A1003215A29B800F46143 /* PtObjects.swift */,
-				841A1004215A29B800F46143 /* Poi.swift */,
-				841A1005215A29B800F46143 /* StopArea.swift */,
-				841A1006215A29B800F46143 /* Row.swift */,
-				841A1007215A29B800F46143 /* JourneyPatternPoints.swift */,
-				841A1008215A29B800F46143 /* GraphicalIsrochone1.swift */,
-				841A1009215A29B800F46143 /* StopDateTime.swift */,
-				841A100A215A29B800F46143 /* CalendarException.swift */,
-				841A100B215A29B800F46143 /* TrafficReport.swift */,
+				841A0FA3215A29B800F46143 /* Passage.swift */,
+				841A0FE8215A29B800F46143 /* Path.swift */,
+				841A0FB2215A29B800F46143 /* Period.swift */,
+				841A0FB9215A29B800F46143 /* PhysicalMode.swift */,
 				841A100C215A29B800F46143 /* PhysicalModes.swift */,
-				841A100D215A29B800F46143 /* StopAreas.swift */,
-				841A100E215A29B800F46143 /* RouteSchedule.swift */,
-				841A100F215A29B800F46143 /* VehicleJourneys.swift */,
-				841A1010215A29B800F46143 /* Fare.swift */,
-				841A1011215A29B800F46143 /* IndividualInformation.swift */,
-				841A1012215A29B800F46143 /* LineGroups.swift */,
-				841A1013215A29B800F46143 /* Coord.swift */,
-				841A1014215A29B800F46143 /* GeoStatus.swift */,
-				841A1015215A29B800F46143 /* Networks.swift */,
-				841A1016215A29B800F46143 /* Calendar.swift */,
-				841A1017215A29B800F46143 /* Route.swift */,
-				841A1018215A29B800F46143 /* StopSchedules.swift */,
-				841A1019215A29B800F46143 /* Routes.swift */,
-				841A101A215A29B800F46143 /* Datasets.swift */,
-				841A101B215A29B800F46143 /* Departures.swift */,
-				841A101C215A29B800F46143 /* Cost.swift */,
+				841A0FCF215A29B800F46143 /* Place.swift */,
+				841A0FD7215A29B800F46143 /* PlaceNearby.swift */,
+				841A0FC0215A29B800F46143 /* Places.swift */,
+				841A0FD6215A29B800F46143 /* PlacesNearby.swift */,
+				841A1004215A29B800F46143 /* Poi.swift */,
 				841A101D215A29B800F46143 /* Pois.swift */,
-				841A101E215A29B800F46143 /* LineHeadersSchema.swift */,
-				841A101F215A29B800F46143 /* Calendars.swift */,
+				841A0FD9215A29B800F46143 /* PoiType.swift */,
+				841A0FCC215A29B800F46143 /* PoiTypes.swift */,
+				841A0FB6215A29B800F46143 /* Property.swift */,
+				841A0FF0215A29B800F46143 /* PtObject.swift */,
+				841A1003215A29B800F46143 /* PtObjects.swift */,
+				841A0FE4215A29B800F46143 /* RidesharingInformation.swift */,
+				841A1017215A29B800F46143 /* Route.swift */,
+				841A0FB7215A29B800F46143 /* RouteDisplayInformation.swift */,
+				841A1019215A29B800F46143 /* Routes.swift */,
+				841A100E215A29B800F46143 /* RouteSchedule.swift */,
+				841A0FDF215A29B800F46143 /* RouteSchedules.swift */,
+				841A1006215A29B800F46143 /* Row.swift */,
+				841A0FAF215A29B800F46143 /* SeatsDescription.swift */,
+				841A0FF1215A29B800F46143 /* Section.swift */,
+				841A0FC3215A29B800F46143 /* SectionGeoJsonSchema.swift */,
+				31653C9C21959AA8001593A8 /* SectionGeoJsonSchemaProperties.swift */,
+				841A0FB3215A29B800F46143 /* Severity.swift */,
+				841A0FE6215A29B800F46143 /* Stands.swift */,
+				841A1005215A29B800F46143 /* StopArea.swift */,
+				841A100D215A29B800F46143 /* StopAreas.swift */,
+				841A1009215A29B800F46143 /* StopDateTime.swift */,
+				841A1002215A29B800F46143 /* StopPoint.swift */,
+				841A0FC8215A29B800F46143 /* StopPoints.swift */,
+				841A0FF8215A29B800F46143 /* StopSchedule.swift */,
+				841A1018215A29B800F46143 /* StopSchedules.swift */,
+				841A0FBB215A29B800F46143 /* StopTime.swift */,
+				841A0FD8215A29B800F46143 /* Table.swift */,
+				841A0FF9215A29B800F46143 /* Ticket.swift */,
+				841A100B215A29B800F46143 /* TrafficReport.swift */,
+				841A0FDB215A29B800F46143 /* TrafficReports.swift */,
+				841A0FC4215A29B800F46143 /* Trip.swift */,
+				841A0FE2215A29B800F46143 /* Trips.swift */,
+				841A0FBA215A29B800F46143 /* ValidityPattern.swift */,
+				841A0FF7215A29B800F46143 /* VehicleJourney.swift */,
+				841A100F215A29B800F46143 /* VehicleJourneys.swift */,
+				841A0FAA215A29B800F46143 /* VJDisplayInformation.swift */,
+				841A0FF5215A29B800F46143 /* WeekPattern.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -1043,24 +1048,24 @@
 		8454D33E2068D3A800C97D2F /* Alamofire */ = {
 			isa = PBXGroup;
 			children = (
-				8454D33F2068D3A800C97D2F /* TaskDelegate.swift */,
+				8454D3462068D3A800C97D2F /* AFError.swift */,
+				8454D34E2068D3A800C97D2F /* Alamofire.h */,
+				8454D34A2068D3A800C97D2F /* Alamofire.swift */,
+				8454D3432068D3A800C97D2F /* DispatchQueue+Alamofire.swift */,
 				8454D3402068D3A800C97D2F /* MultipartFormData.swift */,
 				8454D3412068D3A800C97D2F /* NetworkReachabilityManager.swift */,
-				8454D3422068D3A800C97D2F /* Timeline.swift */,
-				8454D3432068D3A800C97D2F /* DispatchQueue+Alamofire.swift */,
-				8454D3442068D3A800C97D2F /* Result.swift */,
-				8454D3452068D3A800C97D2F /* ParameterEncoding.swift */,
-				8454D3462068D3A800C97D2F /* AFError.swift */,
-				8454D3472068D3A800C97D2F /* Validation.swift */,
 				8454D3482068D3A800C97D2F /* Notifications.swift */,
-				8454D3492068D3A800C97D2F /* Response.swift */,
-				8454D34A2068D3A800C97D2F /* Alamofire.swift */,
+				8454D3452068D3A800C97D2F /* ParameterEncoding.swift */,
 				8454D34B2068D3A800C97D2F /* Request.swift */,
-				8454D34C2068D3A800C97D2F /* SessionManager.swift */,
+				8454D3492068D3A800C97D2F /* Response.swift */,
 				8454D34D2068D3A800C97D2F /* ResponseSerialization.swift */,
-				8454D34E2068D3A800C97D2F /* Alamofire.h */,
+				8454D3442068D3A800C97D2F /* Result.swift */,
 				8454D34F2068D3A800C97D2F /* ServerTrustPolicy.swift */,
 				8454D3502068D3A800C97D2F /* SessionDelegate.swift */,
+				8454D34C2068D3A800C97D2F /* SessionManager.swift */,
+				8454D33F2068D3A800C97D2F /* TaskDelegate.swift */,
+				8454D3422068D3A800C97D2F /* Timeline.swift */,
+				8454D3472068D3A800C97D2F /* Validation.swift */,
 			);
 			path = Alamofire;
 			sourceTree = "<group>";
@@ -1068,8 +1073,8 @@
 		8454D3512068D3A800C97D2F /* AlamofireObjectMapper */ = {
 			isa = PBXGroup;
 			children = (
-				8454D3522068D3A800C97D2F /* AlamofireObjectMapper.swift */,
 				8454D3532068D3A800C97D2F /* AlamofireObjectMapper.h */,
+				8454D3522068D3A800C97D2F /* AlamofireObjectMapper.swift */,
 			);
 			path = AlamofireObjectMapper;
 			sourceTree = "<group>";
@@ -1077,30 +1082,30 @@
 		8454D3542068D3A800C97D2F /* ObjectMapper */ = {
 			isa = PBXGroup;
 			children = (
-				8454D3552068D3A800C97D2F /* Mappable.swift */,
 				8454D3562068D3A800C97D2F /* CustomDateFormatTransform.swift */,
-				8454D3572068D3A800C97D2F /* HexColorTransform.swift */,
-				8454D3582068D3A800C97D2F /* ObjectMapper.h */,
-				8454D3592068D3A800C97D2F /* ISO8601DateTransform.swift */,
-				8454D35A2068D3A800C97D2F /* URLTransform.swift */,
-				8454D35B2068D3A800C97D2F /* NSDecimalNumberTransform.swift */,
-				8454D35C2068D3A800C97D2F /* Operators.swift */,
+				8454D35F2068D3A800C97D2F /* DataTransform.swift */,
+				8454D36A2068D3A800C97D2F /* DateFormatterTransform.swift */,
+				8454D3692068D3A800C97D2F /* DateTransform.swift */,
+				8454D3632068D3A800C97D2F /* DictionaryTransform.swift */,
 				8454D35D2068D3A800C97D2F /* EnumOperators.swift */,
 				8454D35E2068D3A800C97D2F /* EnumTransform.swift */,
-				8454D35F2068D3A800C97D2F /* DataTransform.swift */,
-				8454D3602068D3A800C97D2F /* Mapper.swift */,
-				8454D3612068D3A800C97D2F /* Map.swift */,
 				8454D3622068D3A800C97D2F /* FromJSON.swift */,
-				8454D3632068D3A800C97D2F /* DictionaryTransform.swift */,
-				8454D3642068D3A800C97D2F /* TransformOperators.swift */,
+				8454D3572068D3A800C97D2F /* HexColorTransform.swift */,
 				8454D3652068D3A800C97D2F /* ImmutableMappable.swift */,
 				8454D3662068D3A800C97D2F /* IntegerOperators.swift */,
-				8454D3672068D3A800C97D2F /* TransformType.swift */,
+				8454D3592068D3A800C97D2F /* ISO8601DateTransform.swift */,
+				8454D3612068D3A800C97D2F /* Map.swift */,
 				8454D3682068D3A800C97D2F /* MapError.swift */,
-				8454D3692068D3A800C97D2F /* DateTransform.swift */,
-				8454D36A2068D3A800C97D2F /* DateFormatterTransform.swift */,
+				8454D3552068D3A800C97D2F /* Mappable.swift */,
+				8454D3602068D3A800C97D2F /* Mapper.swift */,
+				8454D35B2068D3A800C97D2F /* NSDecimalNumberTransform.swift */,
+				8454D3582068D3A800C97D2F /* ObjectMapper.h */,
+				8454D35C2068D3A800C97D2F /* Operators.swift */,
 				8454D36B2068D3A800C97D2F /* ToJSON.swift */,
 				8454D36C2068D3A800C97D2F /* TransformOf.swift */,
+				8454D3642068D3A800C97D2F /* TransformOperators.swift */,
+				8454D3672068D3A800C97D2F /* TransformType.swift */,
+				8454D35A2068D3A800C97D2F /* URLTransform.swift */,
 			);
 			path = ObjectMapper;
 			sourceTree = "<group>";
@@ -1221,7 +1226,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0940;
-				LastUpgradeCheck = 0930;
+				LastUpgradeCheck = 1010;
 				ORGANIZATIONNAME = kisio;
 				TargetAttributes = {
 					8451DA39206503F100CFA1E4 = {
@@ -1278,7 +1283,6 @@
 				8422B46A206A33540097E6C9 /* JourneySummaryView.xib in Resources */,
 				845B4EF321675DEA009CCF12 /* PublicTransportStepView.xib in Resources */,
 				8422B45B206A242D0097E6C9 /* JourneyHeaderCollectionReusableView.xib in Resources */,
-				848CFDEF21512F6B0022A4F2 /* HorizontalSeparator.xib in Resources */,
 				8454D44E20692CA200C97D2F /* SDKIcons.ttf in Resources */,
 				8433F3A2207FAF23007DBBCE /* AlertView.xib in Resources */,
 				84339A7E206CC5E200F2CB65 /* JourneyEmptySolutionCollectionViewCell.xib in Resources */,
@@ -1358,6 +1362,7 @@
 				8476DD5820888EE8006CB506 /* StackView+Extension.swift in Sources */,
 				841A10B3215A29B800F46143 /* CalendarException.swift in Sources */,
 				8454D4172068D3A800C97D2F /* NetworkReachabilityManager.swift in Sources */,
+				31653C9D21959AA8001593A8 /* CarPark.swift in Sources */,
 				841A10AE215A29B800F46143 /* StopArea.swift in Sources */,
 				84737E9D2087995B002D3748 /* UIImageView+Extension.swift in Sources */,
 				841A107F215A29B800F46143 /* PlacesNearby.swift in Sources */,
@@ -1495,6 +1500,7 @@
 				841A104E215A29B800F46143 /* DisruptionProperty.swift in Sources */,
 				84AFDB8F21417E6600858D42 /* ShowJourneyRoadmapPresenter.swift in Sources */,
 				841A10B9215A29B800F46143 /* Fare.swift in Sources */,
+				31653C9E21959AA8001593A8 /* SectionGeoJsonSchemaProperties.swift in Sources */,
 				841A104F215A29B800F46143 /* Amount.swift in Sources */,
 				84D0FA94210094A900EB420A /* Section+Extension.swift in Sources */,
 				841A1081215A29B800F46143 /* Table.swift in Sources */,
@@ -1720,7 +1726,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -1742,7 +1748,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = org.kisio.NavitiaSDKUI;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;

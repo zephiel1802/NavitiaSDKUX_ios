@@ -10,7 +10,7 @@ import Foundation
 open class SectionGeoJsonSchema: JSONEncodable, Mappable {
 
     public var type: String?
-    public var properties: [Any]?
+    public var properties: [SectionGeoJsonSchemaProperties]?
     public var coordinates: [[Double]]?
 
     public init() {}

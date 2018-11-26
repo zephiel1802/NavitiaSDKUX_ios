@@ -9,6 +9,7 @@ import UIKit
 
 class JourneySolutionCollectionViewCell: UICollectionViewCell {
     
+    @IBOutlet weak var accessiblityView: UIView!
     @IBOutlet weak var dateTimeLabel: UILabel!
     @IBOutlet weak var durationLabel: UILabel!
     @IBOutlet var durationWalkerLabel: UILabel!
@@ -57,6 +58,7 @@ class JourneySolutionCollectionViewCell: UICollectionViewCell {
         }
         
         setJourneySummaryView(displayedJourney: displayedJourney, displayedDisruptions: displayedDisruptions)
+        accessiblityView.accessibilityLabel = displayedJourney.accessibility
     }
     
     private func setArrow() {

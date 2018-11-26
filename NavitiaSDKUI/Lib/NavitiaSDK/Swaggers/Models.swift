@@ -15,9 +15,9 @@ public enum ErrorResponse : Error {
 }
 
 open class Response<T> {
-    open let statusCode: Int
-    open let header: [String: String]
-    open let body: T?
+    public let statusCode: Int
+    public let header: [String: String]
+    public let body: T?
 
     public init(statusCode: Int, header: [String: String], body: T?) {
         self.statusCode = statusCode
@@ -317,6 +317,24 @@ class Decoders {
             result.feedPublishers = Decoders.decodeOptional(clazz: Array.self, source: sourceDictionary["feed_publishers"] as AnyObject?)
             result.context = Decoders.decodeOptional(clazz: Context.self, source: sourceDictionary["context"] as AnyObject?)
             result.error = Decoders.decodeOptional(clazz: ModelError.self, source: sourceDictionary["error"] as AnyObject?)
+            return result
+        }
+
+
+        // Decoder for [CarPark]
+        Decoders.addDecoder(clazz: [CarPark].self) { (source: AnyObject, instance: AnyObject?) -> [CarPark] in
+            return Decoders.decode(clazz: [CarPark].self, source: source)
+        }
+        // Decoder for CarPark
+        Decoders.addDecoder(clazz: CarPark.self) { (source: AnyObject, instance: AnyObject?) -> CarPark in
+            let sourceDictionary = source as! [AnyHashable: Any]
+            let result = instance == nil ? CarPark() : instance as! CarPark
+            
+            result.available = Decoders.decodeOptional(clazz: Int32.self, source: sourceDictionary["available"] as AnyObject?)
+            result.totalPlaces = Decoders.decodeOptional(clazz: Int32.self, source: sourceDictionary["total_places"] as AnyObject?)
+            result.occupiedPRM = Decoders.decodeOptional(clazz: Int32.self, source: sourceDictionary["occupied_PRM"] as AnyObject?)
+            result.occupied = Decoders.decodeOptional(clazz: Int32.self, source: sourceDictionary["occupied"] as AnyObject?)
+            result.availablePRM = Decoders.decodeOptional(clazz: Int32.self, source: sourceDictionary["available_PRM"] as AnyObject?)
             return result
         }
 
@@ -1747,6 +1765,7 @@ class Decoders {
             result.id = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["id"] as AnyObject?)
             result.properties = Decoders.decodeOptional(clazz: Dictionary.self, source: sourceDictionary["properties"] as AnyObject?)
             result.stands = Decoders.decodeOptional(clazz: Stands.self, source: sourceDictionary["stands"] as AnyObject?)
+            result.carPark = Decoders.decodeOptional(clazz: CarPark.self, source: sourceDictionary["car_park"] as AnyObject?)
             return result
         }
 
@@ -2086,6 +2105,20 @@ class Decoders {
         }
 
 
+        // Decoder for [SectionGeoJsonSchemaProperties]
+        Decoders.addDecoder(clazz: [SectionGeoJsonSchemaProperties].self) { (source: AnyObject, instance: AnyObject?) -> [SectionGeoJsonSchemaProperties] in
+            return Decoders.decode(clazz: [SectionGeoJsonSchemaProperties].self, source: source)
+        }
+        // Decoder for SectionGeoJsonSchemaProperties
+        Decoders.addDecoder(clazz: SectionGeoJsonSchemaProperties.self) { (source: AnyObject, instance: AnyObject?) -> SectionGeoJsonSchemaProperties in
+            let sourceDictionary = source as! [AnyHashable: Any]
+            let result = instance == nil ? SectionGeoJsonSchemaProperties() : instance as! SectionGeoJsonSchemaProperties
+            
+            result.length = Decoders.decodeOptional(clazz: Double.self, source: sourceDictionary["length"] as AnyObject?)
+            return result
+        }
+
+
         // Decoder for [Severity]
         Decoders.addDecoder(clazz: [Severity].self) { (source: AnyObject, instance: AnyObject?) -> [Severity] in
             return Decoders.decode(clazz: [Severity].self, source: source)
@@ -2265,6 +2298,8 @@ class Decoders {
             result.route = Decoders.decodeOptional(clazz: Route.self, source: sourceDictionary["route"] as AnyObject?)
             result.additionalInformations = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["additional_informations"] as AnyObject?)
             result.displayInformations = Decoders.decodeOptional(clazz: RouteDisplayInformation.self, source: sourceDictionary["display_informations"] as AnyObject?)
+            result.lastDatetime = Decoders.decodeOptional(clazz: DateTimeType.self, source: sourceDictionary["last_datetime"] as AnyObject?)
+            result.firstDatetime = Decoders.decodeOptional(clazz: DateTimeType.self, source: sourceDictionary["first_datetime"] as AnyObject?)
             return result
         }
 
