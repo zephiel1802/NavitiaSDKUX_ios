@@ -89,6 +89,10 @@ class StepView: UIView {
         } else {
             informationsContainerView.accessibilityLabel = String(format: "%@ %@.", "\(type)_noun".localized(), informations)
         }
+        
+        if let availabilityStands = stands?.availability {
+            informationsContainerView.accessibilityLabel?.append(availabilityStands)
+        }
     }
     
     var enableBackground: Bool = false {
@@ -152,6 +156,8 @@ class StepView: UIView {
                     realTimeIconLabel.attributedText = NSMutableAttributedString().icon(realTimeIcon, size: 17)
                 }
             }
+            
+            updateAccessibility()
         }
     }
     
