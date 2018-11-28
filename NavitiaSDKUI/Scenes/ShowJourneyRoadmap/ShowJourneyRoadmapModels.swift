@@ -28,7 +28,7 @@ enum ShowJourneyRoadmap {
                 }
                 
                 var mode: Mode
-                var information: String
+                var information: (String, String)
                 var time: String
                 var calorie: String?
                 var accessibility: String

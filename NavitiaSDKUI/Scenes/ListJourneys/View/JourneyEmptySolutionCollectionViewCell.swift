@@ -28,7 +28,7 @@ class JourneyEmptySolutionCollectionViewCell: UICollectionViewCell {
     }
     
     private func setup() {
-        noJourneyLabel.text = "no_journey_found".localized(withComment: "No journey found", bundle: NavitiaSDKUI.shared.bundle)
+        noJourneyLabel.text = "no_journey_found".localized()
         noJourneyLabel.textColor = Configuration.Color.alertInfoDarker
         noJourneyView.backgroundColor = Configuration.Color.alertView
         noJourneyView.layer.borderWidth = 1

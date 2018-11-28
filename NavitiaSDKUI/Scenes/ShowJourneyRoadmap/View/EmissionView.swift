@@ -52,7 +52,7 @@ class EmissionView: UIView {
     var journeyCarbon: (value: Double, unit: String)? {
         didSet {
             if let journeyCarbon = journeyCarbon {
-                journeyCarbonAutoFilledLabel.autofillLeftText = "carbon_journey".localized(bundle: NavitiaSDKUI.shared.bundle)
+                journeyCarbonAutoFilledLabel.autofillLeftText = "carbon_journey".localized()
                 journeyCarbonAutoFilledLabel.autofillRightText = String(format: "%.1f %@", journeyCarbon.value, journeyCarbon.unit)
                 journeyCarbonAutoFilledLabel.autofillPattern = "."
                 journeyCarbonAutoFilledLabel.delegate = self
@@ -63,7 +63,7 @@ class EmissionView: UIView {
     var carCarbon: (value: Double, unit: String)? {
         didSet {
             if let journeyCarbon = journeyCarbon, let carCarbon = carCarbon, carCarbon.value != journeyCarbon.value {
-                carCarbonAutoFilledLabel.autofillLeftText = "carbon_car".localized(bundle: NavitiaSDKUI.shared.bundle)
+                carCarbonAutoFilledLabel.autofillLeftText = "carbon_car".localized()
                 carCarbonAutoFilledLabel.autofillRightText = String(format: "%.1f %@", carCarbon.value, carCarbon.unit)
                 carCarbonAutoFilledLabel.autofillPattern = "."
                 carCarbonAutoFilledLabel.delegate = self

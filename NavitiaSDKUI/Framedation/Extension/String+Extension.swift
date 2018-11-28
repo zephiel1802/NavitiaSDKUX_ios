@@ -49,8 +49,8 @@ extension String {
         )
     }
     
-    func localized(withComment: String = "", bundle: Bundle) -> String {
-        return NSLocalizedString(self, bundle: NavitiaSDKUI.shared.bundle, value: "", comment: withComment)
+    func localized(bundle: Bundle = NavitiaSDKUI.shared.bundle, value: String = "", comment: String = "") -> String {
+        return NSLocalizedString(self, bundle: bundle, value: value, comment: comment)
     }
     
     var htmlToAttributedString: NSAttributedString? {

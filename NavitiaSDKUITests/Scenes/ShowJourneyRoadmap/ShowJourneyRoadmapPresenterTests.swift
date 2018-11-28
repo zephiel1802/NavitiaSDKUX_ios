@@ -120,7 +120,8 @@ class ShowJourneyRoadmapPresenterTests: XCTestCase {
         
         XCTAssertEqual(departureViewModel.time, "17:05")
         XCTAssertEqual(departureViewModel.mode, .departure)
-        XCTAssertEqual(departureViewModel.information, "20 rue Hector Malot (Paris)")
+        XCTAssertEqual(departureViewModel.information.0, "Departure :\n")
+        XCTAssertEqual(departureViewModel.information.1, "20 rue Hector Malot (Paris)")
         XCTAssertNil(departureViewModel.calorie)
     }
     
@@ -129,7 +130,8 @@ class ShowJourneyRoadmapPresenterTests: XCTestCase {
         
         XCTAssertEqual(arrivalViewModel.time, "17:14")
         XCTAssertEqual(arrivalViewModel.mode, .arrival)
-        XCTAssertEqual(arrivalViewModel.information, "MAIRIE DE BEAUCOUZE (Beaucouzé)")
+        XCTAssertEqual(arrivalViewModel.information.0, "Arrival :\n")
+        XCTAssertEqual(arrivalViewModel.information.1, "MAIRIE DE BEAUCOUZE (Beaucouzé)")
         XCTAssertEqual(arrivalViewModel.calorie, "36")
     }
     

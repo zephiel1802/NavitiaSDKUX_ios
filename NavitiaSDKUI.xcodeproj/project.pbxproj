@@ -165,6 +165,10 @@
 		8422B460206A2AFF0097E6C9 /* RidesharingInformationCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8422B45F206A2AFF0097E6C9 /* RidesharingInformationCollectionViewCell.swift */; };
 		8422B464206A30300097E6C9 /* FriezeSectionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8422B463206A30300097E6C9 /* FriezeSectionView.xib */; };
 		8422B46C206A37610097E6C9 /* TransportHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8422B46B206A37610097E6C9 /* TransportHelper.swift */; };
+		8422B464206A30300097E6C9 /* JourneySummaryPartView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8422B463206A30300097E6C9 /* JourneySummaryPartView.xib */; };
+		8422B466206A303D0097E6C9 /* JourneySummaryPartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8422B465206A303D0097E6C9 /* JourneySummaryPartView.swift */; };
+		8422B468206A334B0097E6C9 /* JourneySummaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8422B467206A334B0097E6C9 /* JourneySummaryView.swift */; };
+		8422B46A206A33540097E6C9 /* JourneySummaryView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8422B469206A33540097E6C9 /* JourneySummaryView.xib */; };
 		8430274F20BBE70E005AD743 /* Message+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8430274E20BBE70E005AD743 /* Message+Extension.swift */; };
 		8430275120BBE72B005AD743 /* Disruption+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8430275020BBE72B005AD743 /* Disruption+Extension.swift */; };
 		8432623E2180C0E100E70971 /* ListJourneysPresenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8432623D2180C0E100E70971 /* ListJourneysPresenterTests.swift */; };
@@ -464,6 +468,10 @@
 		8422B45F206A2AFF0097E6C9 /* RidesharingInformationCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RidesharingInformationCollectionViewCell.swift; sourceTree = "<group>"; };
 		8422B463206A30300097E6C9 /* FriezeSectionView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FriezeSectionView.xib; sourceTree = "<group>"; };
 		8422B46B206A37610097E6C9 /* TransportHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransportHelper.swift; sourceTree = "<group>"; };
+		8422B463206A30300097E6C9 /* JourneySummaryPartView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = JourneySummaryPartView.xib; sourceTree = "<group>"; };
+		8422B465206A303D0097E6C9 /* JourneySummaryPartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JourneySummaryPartView.swift; sourceTree = "<group>"; };
+		8422B467206A334B0097E6C9 /* JourneySummaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JourneySummaryView.swift; sourceTree = "<group>"; };
+		8422B469206A33540097E6C9 /* JourneySummaryView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = JourneySummaryView.xib; sourceTree = "<group>"; };
 		8430274E20BBE70E005AD743 /* Message+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Message+Extension.swift"; sourceTree = "<group>"; };
 		8430275020BBE72B005AD743 /* Disruption+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Disruption+Extension.swift"; sourceTree = "<group>"; };
 		8432623D2180C0E100E70971 /* ListJourneysPresenterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListJourneysPresenterTests.swift; sourceTree = "<group>"; };
@@ -966,7 +974,6 @@
 			isa = PBXGroup;
 			children = (
 				8490A6D42084D2C700F7CFA1 /* NavitiaSDKUserDefaultsManager.swift */,
-				8422B46B206A37610097E6C9 /* TransportHelper.swift */,
 			);
 			path = Helper;
 			sourceTree = "<group>";
@@ -1614,7 +1621,6 @@
 				841A109A215A29B800F46143 /* Section.swift in Sources */,
 				84AFDB9921417E6600858D42 /* ShowJourneyRoadmapInteractor.swift in Sources */,
 				84827A91214BBAA800CB9513 /* ListRidesharingOffersRouter.swift in Sources */,
-				8422B46C206A37610097E6C9 /* TransportHelper.swift in Sources */,
 				841A106D215A29B800F46143 /* Trip.swift in Sources */,
 				8471D38520809EC7000C9125 /* JourneySolutionView.swift in Sources */,
 				841A10C7215A29B800F46143 /* LineHeadersSchema.swift in Sources */,

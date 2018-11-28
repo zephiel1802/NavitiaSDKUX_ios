@@ -37,7 +37,7 @@ internal class ListRidesharingOffersViewController: UIViewController, ListRidesh
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        title = "carpooling".localized(withComment: "Carpooling", bundle: NavitiaSDKUI.shared.bundle)
+        title = "carpooling".localized()
         
         registerCollectionView()
         
