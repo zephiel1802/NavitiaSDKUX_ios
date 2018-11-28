@@ -50,7 +50,7 @@ class CustomAnnotation: MKPointAnnotation {
             if let title = title, !title.isEmpty {
                 annotationLabel.text = title
             } else {
-                annotationLabel.text = placeType?.rawValue.localized(bundle: NavitiaSDKUI.shared.bundle)
+                annotationLabel.text = placeType?.rawValue.localized()
             }
             
             if annotationType == .RidesharingAnnotation {

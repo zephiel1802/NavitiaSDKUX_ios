@@ -87,7 +87,7 @@ class PublicTransportStepView: UIView {
         
         accessibilityLabel.append(String(format: "%@.", informations))
         if let to = publicTransportToLabel.text {
-            accessibilityLabel.append(String(format: "get_of_at".localized(bundle: NavitiaSDKUI.shared.bundle), to))
+            accessibilityLabel.append(String(format: "get_of_at".localized(), to))
         }
         
         if let network = networkLabel.text {
@@ -143,11 +143,11 @@ class PublicTransportStepView: UIView {
             }
 
             informationsLabel.attributedText = NSMutableAttributedString()
-                .normal("at".localized(withComment: "at", bundle: NavitiaSDKUI.shared.bundle), size: 15)
+                .normal("at".localized(), size: 15)
                 .normal(" ", size: 15)
                 .bold(informations.from, size: 15)
                 .normal(" ", size: 15)
-                .normal("in_the_direction_of".localized(withComment: "in_the_direction_of", bundle: NavitiaSDKUI.shared.bundle), size: 15)
+                .normal("in_the_direction_of".localized(), size: 15)
                 .normal(" ", size: 15)
                 .bold(informations.direction, size: 15)
         }
@@ -165,7 +165,7 @@ class PublicTransportStepView: UIView {
 
             networkContainerView.isHidden = false
             networkLabel.attributedText = NSMutableAttributedString()
-                .semiBold(String(format: "%@ ", "network".localized(bundle: NavitiaSDKUI.shared.bundle)), color: Configuration.Color.darkerGray, size: 12)
+                .semiBold(String(format: "%@ ", "network".localized()), color: Configuration.Color.darkerGray, size: 12)
                 .semiBold(network, color: Configuration.Color.main, size: 12)
         }
     }

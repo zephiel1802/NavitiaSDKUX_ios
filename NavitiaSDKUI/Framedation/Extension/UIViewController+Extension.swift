@@ -15,7 +15,7 @@ extension UIViewController {
             backButton.setImage(UIImage(named: "back-icon", in: NavitiaSDKUI.shared.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate), for: .normal)
             backButton.contentEdgeInsets = UIEdgeInsets(top: 0, left: -32, bottom: 0, right: 0)
             backButton.titleEdgeInsets = UIEdgeInsets(top: 10, left: 16, bottom: 10, right: 0)
-            backButton.setTitle("back".localized(withComment: "Back", bundle: NavitiaSDKUI.shared.bundle), for: .normal)
+            backButton.setTitle("back".localized(), for: .normal)
             backButton.addTarget(self, action: targetSelector, for: .touchUpInside)
             backButton.tintColor = Configuration.Color.main.contrastColor()
             self.navigationItem.leftBarButtonItem = UIBarButtonItem(customView: backButton)
