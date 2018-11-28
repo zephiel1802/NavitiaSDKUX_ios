@@ -153,16 +153,8 @@ extension RidesharingOfferCollectionViewCell {
         }
         set {
             if let newValue = newValue {
-                if Float(newValue) == 0.0 {
-                    priceLabel.attributedText = NSMutableAttributedString()
-                        .semiBold("free".localized(), color: Configuration.Color.orange,size: 10)
-                } else {
-                    priceLabel.attributedText = NSMutableAttributedString()
-                        .semiBold(newValue, color: Configuration.Color.orange, size: 10)
-                }
-            } else {
                 priceLabel.attributedText = NSMutableAttributedString()
-                    .semiBold("price_not_available".localized(), color: Configuration.Color.orange,size: 10)
+                    .semiBold(newValue, color: Configuration.Color.orange, size: 10)
             }
         }
     }

@@ -29,17 +29,15 @@ class DepartureArrivalStepView: UIView {
         }
     }
     
-    var information: String? {
+    var information: (String, String)? {
         didSet {
             guard let information = information else {
                 return
             }
             
-            if type == .departure {
-                informationLabel.attributedText = NSMutableAttributedString().bold(String(format: "%@ :\n", "departure".localized()), color: Configuration.Color.white, size: 15.0).normal(information, color: Configuration.Color.white, size: 15.0)
-            } else {
-                informationLabel.attributedText = NSMutableAttributedString().bold(String(format: "%@ :\n", "arrival".localized()), color: Configuration.Color.white, size: 15.0).normal(information, color: Configuration.Color.white, size: 15.0)
-            }
+            informationLabel.attributedText = NSMutableAttributedString()
+                .bold(information.0, color: Configuration.Color.white, size: 15.0)
+                .normal(information.1, color: Configuration.Color.white, size: 15.0)
         }
     }
     

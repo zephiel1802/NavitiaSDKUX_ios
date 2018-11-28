@@ -42,6 +42,18 @@ class ListRidesharingOffersPresenter: ListRidesharingOffersPresentationLogic {
         return nil
     }
     
+    private func getPrice(journey: Journey) -> String {
+        guard let value = journey.fare?.total?.value, let price = Double(value) else {
+            return "price_not_available".localized()
+        }
+        
+        if price == 0.0 {
+            return String(format: "%@.", "free".localized())
+        }
+        
+        return String(format: "%.2f.", price)
+    }
+    
     private func getRidesharingOffers(ridesharingJourneys: [Journey]?) -> [ListRidesharingOffers.GetRidesharingOffers.ViewModel.DisplayedRidesharingOffer] {
         var displayedRidesharingOffers = [ListRidesharingOffers.GetRidesharingOffers.ViewModel.DisplayedRidesharingOffer]()
         
@@ -59,7 +71,7 @@ class ListRidesharingOffersPresenter: ListRidesharingOffersPresentationLogic {
                 let rating = ridesharingSection.ridesharingInformations?.driver?.rating?.value ?? 0
                 let ratingCount = ridesharingSection.ridesharingInformations?.driver?.rating?.count ?? 0
                 let seatsCount = ridesharingSection.ridesharingInformations?.seats?.available
-                let price = journey.fare?.total?.value ?? ""
+                let price = getPrice(journey: journey)
                 
                 var ridesharingOffer = ListRidesharingOffers.GetRidesharingOffers.ViewModel.DisplayedRidesharingOffer(network: network,
                                                                                                                       departure: departure,
@@ -86,12 +98,7 @@ class ListRidesharingOffersPresenter: ListRidesharingOffersPresentationLogic {
             accessibilityLabel.append(String(format: "ridesharing_available_places".localized(), seatsCount))
         }
         
-        // TODO
-        if ridesharingOffer.price == "0.0" {
-            accessibilityLabel.append(String(format: "%@.", "free".localized()))
-        } else {
-            accessibilityLabel.append(String(format: "%@.", ridesharingOffer.price))
-        }
+        accessibilityLabel.append(ridesharingOffer.price)
         
         if ridesharingOffer.ratingCount == 0 {
             accessibilityLabel.append("no_rating".localized())

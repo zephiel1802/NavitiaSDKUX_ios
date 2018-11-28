@@ -136,8 +136,12 @@ class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
         return nil
     }
     
-    private func getDepartureName(journey: Journey) -> String? {
-        return journey.sections?.first?.from?.name
+    private func getDepartureName(journey: Journey) -> (String, String)? {
+        guard let name = journey.sections?.first?.from?.name else {
+            return nil
+        }
+        
+        return (String(format: "%@ :\n", "departure".localized()), name)
     }
     
     private func getDepartureTime(journey: Journey) -> String? {
@@ -215,8 +219,12 @@ class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
         return nil
     }
     
-    private func getArrivalName(journey: Journey) -> String? {
-        return journey.sections?.last?.to?.name
+    private func getArrivalName(journey: Journey) -> (String, String)? {
+        guard let name = journey.sections?.last?.to?.name else {
+            return nil
+        }
+        
+        return (String(format: "%@ :\n", "arrival".localized()), name)
     }
     
     private func getArrivalTime(journey: Journey) -> String? {
