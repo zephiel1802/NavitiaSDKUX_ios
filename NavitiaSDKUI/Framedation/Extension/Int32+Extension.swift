@@ -16,6 +16,7 @@ extension Int32 {
         if hours > 0 {
             return String(format: "%1dh%02d", hours, minutes)
         }
+        
         return String(format: "%1d %@", minutes, "units_minutes_short".localized())
     }
     
@@ -27,6 +28,7 @@ extension Int32 {
             return NSMutableAttributedString()
                 .bold(String(format: "%1dh%02d", hours, minutes), color: Configuration.Color.main)
         }
+        
         return NSMutableAttributedString()
             .bold(String(format: "%1d", minutes), color: Configuration.Color.main, size: sizeBold)
             .normal(String(format: " %@", "units_minutes_short".localized()), color: Configuration.Color.main, size: sizeNormal)
