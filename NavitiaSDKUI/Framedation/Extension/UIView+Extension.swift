@@ -27,5 +27,4 @@ extension UIView {
         layer.shadowOpacity = 0
         layer.shadowRadius = 0
     }
-    
 }

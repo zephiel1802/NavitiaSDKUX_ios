@@ -96,7 +96,7 @@ class ListRidesharingOffersPresenterTests: XCTestCase {
             XCTAssertEqual(first.rating, 0)
             XCTAssertEqual(first.ratingCount, 0)
             XCTAssertEqual(first.seatsCount, 4)
-            XCTAssertEqual(first.price, "0.0")
+            XCTAssertEqual(first.price, "Free.")
         }
     }
     

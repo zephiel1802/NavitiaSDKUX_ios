@@ -33,7 +33,7 @@ class RidesharingOfferCollectionViewCell: UICollectionViewCell {
         super.awakeFromNib()
         
         addShadow()
-        roadmapButton.setTitle("view_on_the_map".localized(withComment: "View on the map", bundle: NavitiaSDKUI.shared.bundle), for: .normal)
+        roadmapButton.setTitle("view_on_the_map".localized(), for: .normal)
         roadmapButton.accessibilityElementsHidden = true
     }
     
@@ -57,9 +57,9 @@ class RidesharingOfferCollectionViewCell: UICollectionViewCell {
     
     func setDriverRating(_ count: Int32?) {
         if let count = count {
-            var template = "rating_plural".localized(withComment: "ratings", bundle: NavitiaSDKUI.shared.bundle)
+            var template = "rating_plural".localized()
             if count == 1 {
-                template = "rating".localized(withComment: "rating", bundle: NavitiaSDKUI.shared.bundle)
+                template = "rating".localized()
             }
             ratingCountLabel.attributedText = NSMutableAttributedString()
                 .normal(String(format: template, count), color: Configuration.Color.gray, size: 10)
@@ -81,12 +81,12 @@ class RidesharingOfferCollectionViewCell: UICollectionViewCell {
     
     func setSeatsCount(_ count: Int32?) {
         if let count = count {
-            let template = "available_seats".localized(withComment: "Available seats: 4", bundle: NavitiaSDKUI.shared.bundle)
+            let template = "available_seats".localized()
             seatsCountLabel.attributedText = NSMutableAttributedString()
                 .semiBold(String(format: template, count), size: 12.5)
         } else {
             seatsCountLabel.attributedText = NSMutableAttributedString()
-                .semiBold("no_available_seats".localized(withComment: "Available seats: N/A", bundle: NavitiaSDKUI.shared.bundle), size: 12.5)
+                .semiBold("no_available_seats".localized(), size: 12.5)
         }
     }
 }
@@ -112,7 +112,7 @@ extension RidesharingOfferCollectionViewCell {
         set {
             if let newValue = newValue {
                 departureDateLabel.attributedText = NSMutableAttributedString()
-                    .semiBold("departure".localized(withComment: "departure: ", bundle: NavitiaSDKUI.shared.bundle), color: Configuration.Color.main, size: 8.5)
+                    .semiBold("departure".localized(), color: Configuration.Color.main, size: 8.5)
                     .semiBold(": ", color: Configuration.Color.main, size: 8.5)
                     .bold(newValue, color: Configuration.Color.main, size: 14)
             }
@@ -141,7 +141,7 @@ extension RidesharingOfferCollectionViewCell {
                     genderLabel.text = ""
                 } else {
                     genderLabel.attributedText = NSMutableAttributedString()
-                        .normal(String(format: "(%@)", newValue.localized(withComment: "Gender", bundle: NavitiaSDKUI.shared.bundle)), color: Configuration.Color.gray, size: 12)
+                        .normal(String(format: "(%@)", newValue.localized()), color: Configuration.Color.gray, size: 12)
                 }
             }
         }
@@ -153,16 +153,8 @@ extension RidesharingOfferCollectionViewCell {
         }
         set {
             if let newValue = newValue {
-                if Float(newValue) == 0.0 {
-                    priceLabel.attributedText = NSMutableAttributedString()
-                        .semiBold("free".localized(withComment: "Free", bundle: NavitiaSDKUI.shared.bundle), color: Configuration.Color.orange,size: 10)
-                } else {
-                    priceLabel.attributedText = NSMutableAttributedString()
-                        .semiBold(newValue, color: Configuration.Color.orange, size: 10)
-                }
-            } else {
                 priceLabel.attributedText = NSMutableAttributedString()
-                    .semiBold("price_not_available".localized(withComment: "Price not available", bundle: NavitiaSDKUI.shared.bundle), color: Configuration.Color.orange,size: 10)
+                    .semiBold(newValue, color: Configuration.Color.orange, size: 10)
             }
         }
     }

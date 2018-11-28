@@ -41,7 +41,7 @@ open class ListJourneysViewController: UIViewController, ListJourneysDisplayLogi
     override open func viewDidLoad() {
         super.viewDidLoad()
         
-        title = "journeys".localized(withComment: "Journeys", bundle: NavitiaSDKUI.shared.bundle)
+        title = "journeys".localized()
         
         initNavigationBar()
         initHeader()
@@ -238,7 +238,7 @@ extension ListJourneysViewController: UICollectionViewDataSource, UICollectionVi
             // No journey
             if indexPath.row == 1 && viewModel.displayedRidesharings.count == 0 {
                 if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: JourneyEmptySolutionCollectionViewCell.identifier, for: indexPath) as? JourneyEmptySolutionCollectionViewCell {
-                    cell.text = "no_carpooling_options_found".localized(withComment: "No carpooling options found", bundle: NavitiaSDKUI.shared.bundle)
+                    cell.text = "no_carpooling_options_found".localized()
                     return cell
                 }
             }
@@ -256,7 +256,7 @@ extension ListJourneysViewController: UICollectionViewDataSource, UICollectionVi
     public func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         if kind.isEqual(UICollectionView.elementKindSectionHeader) {
             let cell = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: JourneyHeaderCollectionReusableView.identifier, for: indexPath) as! JourneyHeaderCollectionReusableView
-            cell.title = "carpooling".localized(withComment: "Carpooling", bundle: NavitiaSDKUI.shared.bundle)
+            cell.title = "carpooling".localized()
             
             return cell
         }

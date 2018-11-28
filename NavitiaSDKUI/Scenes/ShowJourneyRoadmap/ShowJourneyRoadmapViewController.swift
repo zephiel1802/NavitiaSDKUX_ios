@@ -46,7 +46,7 @@ internal class ShowJourneyRoadmapViewController: UIViewController, ShowJourneyRo
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        title = "roadmap".localized(withComment: "Roadmap", bundle: NavitiaSDKUI.shared.bundle)
+        title = "roadmap".localized()
 
         initScrollView()
         initLocation()
@@ -288,7 +288,7 @@ internal class ShowJourneyRoadmapViewController: UIViewController, ShowJourneyRo
             if section.type == .ridesharing {
                 informations.append(NSMutableAttributedString().normal(String(format: "%@ ", actionDescription), color: Configuration.Color.black, size: 15))
                 informations.append(NSMutableAttributedString().bold(String(format: "%@ ", section.from), color: Configuration.Color.black, size: 15))
-                informations.append(NSMutableAttributedString().normal(String(format: "%@ ", "to".localized(bundle: NavitiaSDKUI.shared.bundle)), color: Configuration.Color.black, size: 15))
+                informations.append(NSMutableAttributedString().normal(String(format: "%@ ", "to".localized()), color: Configuration.Color.black, size: 15))
                 informations.append(NSMutableAttributedString().bold(String(format: "%@", section.to), color: Configuration.Color.black, size: 15))
             } else if section.type == .bssPutBack || section.type == .bssRent || section.type == .park {
                 if let name = section.poi?.name {

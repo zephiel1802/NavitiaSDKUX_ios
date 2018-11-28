@@ -79,7 +79,7 @@ class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
     }
     
     private func getRidesharingAccessibility(departureAddress: String, arrivalAddress: String) -> String {
-        return String(format: "ridesharing_offer".localized(bundle: NavitiaSDKUI.shared.bundle), departureAddress, arrivalAddress)
+        return String(format: "ridesharing_offer".localized(), departureAddress, arrivalAddress)
     }
     
     private func getRidesharing(journeyRidesharing: Journey?) -> ShowJourneyRoadmap.GetRoadmap.ViewModel.Ridesharing? {
@@ -136,8 +136,12 @@ class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
         return nil
     }
     
-    private func getDepartureName(journey: Journey) -> String? {
-        return journey.sections?.first?.from?.name
+    private func getDepartureName(journey: Journey) -> (String, String)? {
+        guard let name = journey.sections?.first?.from?.name else {
+            return nil
+        }
+        
+        return (String(format: "%@ :\n", "departure".localized()), name)
     }
     
     private func getDepartureTime(journey: Journey) -> String? {
@@ -162,10 +166,10 @@ class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
             
             if var hours = DateComponentsFormatter.localizedString(from: hourComponents, unitsStyle: .spellOut) {
                 if let hour = hourComponents.hour, hour == 0 {
-                    hours = String(format: "%d %@, %@", hour, "hour".localized(bundle: NavitiaSDKUI.shared.bundle), hours)
+                    hours = String(format: "%d %@, %@", hour, "hour".localized(), hours)
                 }
                 
-                return String(format: "departure_at_from".localized(bundle: NavitiaSDKUI.shared.bundle), hours, name)
+                return String(format: "departure_at_from".localized(), hours, name)
             }
         }
         
@@ -186,10 +190,10 @@ class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
             
             if var hours = DateComponentsFormatter.localizedString(from: hourComponents, unitsStyle: .spellOut) {
                 if let hour = hourComponents.hour, hour == 0  {
-                    hours = String(format: "%d %@, %@", hour, "hour".localized(bundle: NavitiaSDKUI.shared.bundle), hours)
+                    hours = String(format: "%d %@, %@", hour, "hour".localized(), hours)
                 }
                 
-                return String(format: "arrival_at_to".localized(bundle: NavitiaSDKUI.shared.bundle), hours, name)
+                return String(format: "arrival_at_to".localized(), hours, name)
             }
         }
 
@@ -215,8 +219,12 @@ class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
         return nil
     }
     
-    private func getArrivalName(journey: Journey) -> String? {
-        return journey.sections?.last?.to?.name
+    private func getArrivalName(journey: Journey) -> (String, String)? {
+        guard let name = journey.sections?.last?.to?.name else {
+            return nil
+        }
+        
+        return (String(format: "%@ :\n", "arrival".localized()), name)
     }
     
     private func getArrivalTime(journey: Journey) -> String? {
@@ -287,18 +295,18 @@ class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
         }
 
         if type == .park {
-            return "park_in_the".localized(bundle: NavitiaSDKUI.shared.bundle)
+            return "park_in_the".localized()
         } else if type == .ridesharing {
-            return "take_the_ridesharing".localized(bundle: NavitiaSDKUI.shared.bundle)
+            return "take_the_ridesharing".localized()
         } else if type == .transfer || section.mode != nil {
-            return "to_with_uppercase".localized(bundle: NavitiaSDKUI.shared.bundle)
+            return "to_with_uppercase".localized()
         } else if let commercialMode = section.displayInformations?.commercialMode {
-            return String(format: "%@ %@", "take_the".localized(withComment: "Take tke", bundle: NavitiaSDKUI.shared.bundle), commercialMode)
+            return String(format: "%@ %@", "take_the".localized(), commercialMode)
         } else if let poi = section.from?.poi ?? section.to?.poi {
             if type == .bssRent {
-                return String(format: "take_a_bike_at".localized(bundle: NavitiaSDKUI.shared.bundle), poi.properties?["network"] ?? "")
+                return String(format: "take_a_bike_at".localized(), poi.properties?["network"] ?? "")
             } else if type == .bssPutBack {
-                return String(format: "dock_bike_at".localized(bundle: NavitiaSDKUI.shared.bundle), poi.properties?["network"] ?? "")
+                return String(format: "dock_bike_at".localized(), poi.properties?["network"] ?? "")
             }
         }
 
@@ -306,7 +314,7 @@ class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
     }
     
     private func getDuration(section: Section) -> String? {
-        guard var duration = section.duration else {
+        guard let duration = section.duration else {
             return nil
         }
        
@@ -315,10 +323,10 @@ class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
         
         if duration >= 60 {
             keyword = "a_time_"
-            durationString = String(format: "%@ %@", duration.minuteToString(), duration == 60 ? "units_minute".localized(bundle: NavitiaSDKUI.shared.bundle) : "units_minutes".localized(bundle: NavitiaSDKUI.shared.bundle))
+            durationString = String(format: "%@ %@", duration.minuteToString(), duration == 60 ? "units_minute".localized() : "units_minutes".localized())
             
             if section.type == .waiting, let durationString = durationString {
-                return String(format: "%@ %@", "wait".localized(bundle: NavitiaSDKUI.shared.bundle), durationString)
+                return String(format: "%@ %@", "wait".localized(), durationString)
             }
         } else {
             keyword = "less_than_a_minute_"
@@ -335,10 +343,10 @@ class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
         }
 
         if let durationString = durationString {
-            return String(format: keyword.localized(bundle: NavitiaSDKUI.shared.bundle), durationString)
+            return String(format: keyword.localized(), durationString)
         }
         
-        return keyword.localized(bundle: NavitiaSDKUI.shared.bundle)
+        return keyword.localized()
     }
     
     private func getWaiting(sectionBefore: Section?, section: Section) -> String? {
@@ -415,9 +423,9 @@ class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
             case .bssRent:
                 if let availableBikes = stands.availableBikes {
                     if availableBikes <= 1 {
-                        availabilityTemplate = "bss_available_bikes".localized(bundle: NavitiaSDKUI.shared.bundle)
+                        availabilityTemplate = "bss_available_bikes".localized()
                     } else {
-                        availabilityTemplate = "bss_available_bikes_plural".localized(bundle: NavitiaSDKUI.shared.bundle)
+                        availabilityTemplate = "bss_available_bikes_plural".localized()
                     }
                     
                     let standsViewModel = ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionModel.Stands(status: bssStationStatus, availability: String(format: availabilityTemplate, availableBikes),
@@ -427,9 +435,9 @@ class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
             case .bssPutBack:
                 if let availablePlaces = stands.availablePlaces {
                     if availablePlaces <= 1 {
-                        availabilityTemplate = "available_places".localized(bundle: NavitiaSDKUI.shared.bundle)
+                        availabilityTemplate = "available_places".localized()
                     } else {
-                        availabilityTemplate = "available_places_plural".localized(bundle: NavitiaSDKUI.shared.bundle)
+                        availabilityTemplate = "available_places_plural".localized()
                     }
                     
                     let standsViewModel = ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionModel.Stands(status: bssStationStatus, availability: String(format: availabilityTemplate, availablePlaces),
@@ -444,9 +452,9 @@ class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
             case .park:
                 if let availablePlaces = carPark.available {
                     if availablePlaces <= 1 {
-                        availabilityTemplate = "available_places".localized(bundle: NavitiaSDKUI.shared.bundle)
+                        availabilityTemplate = "available_places".localized()
                     } else {
-                        availabilityTemplate = "available_places_plural".localized(bundle: NavitiaSDKUI.shared.bundle)
+                        availabilityTemplate = "available_places_plural".localized()
                     }
                     let standsViewModel = ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionModel.Stands(status: nil, availability: String(format: availabilityTemplate, availablePlaces),
                                                                                                       icon: "park")
@@ -469,9 +477,9 @@ class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
         case .open:
             return nil
         case .closed:
-            return "bss_station_status_closed".localized(bundle: NavitiaSDKUI.shared.bundle)
+            return "bss_station_status_closed".localized()
         case .unavailable:
-            return sectionType == .bssRent ? "bss_station_status_unavailable_pick_up".localized(bundle: NavitiaSDKUI.shared.bundle) : "bss_station_status_unavailable_drop_off".localized(bundle: NavitiaSDKUI.shared.bundle)
+            return sectionType == .bssRent ? "bss_station_status_unavailable_pick_up".localized() : "bss_station_status_unavailable_drop_off".localized()
         }
     }
     
@@ -574,30 +582,30 @@ class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
             return nil
         }
         
-        var carbonUnit = "units_g".localized(bundle: NavitiaSDKUI.shared.bundle)
+        var carbonUnit = "units_g".localized()
         if emissionValue >= 1000 {
             emissionValue = emissionValue / 1000
-            carbonUnit = "units_kg".localized(bundle: NavitiaSDKUI.shared.bundle)
+            carbonUnit = "units_kg".localized()
         }
-        carbonUnit.append(String(format: " %@", "carbon".localized(bundle: NavitiaSDKUI.shared.bundle)))
+        carbonUnit.append(String(format: " %@", "carbon".localized()))
         
         return (value: emissionValue, unit: carbonUnit)
     }
     
     private func getValueEmissionAccessibility(value: Double, unit: String) -> String {
         if unit == "g CO2" {
-            return String(format: "%.1f %@ %@. ", value, "gram".localized(bundle: NavitiaSDKUI.shared.bundle), "of_carbon_dioxide".localized(bundle: NavitiaSDKUI.shared.bundle))
+            return String(format: "%.1f %@ %@. ", value, "gram".localized(), "of_carbon_dioxide".localized())
         } else if unit == "Kg CO2" {
-            return String(format: "%.1f %@ %@. ", value, "kilogram".localized(bundle: NavitiaSDKUI.shared.bundle), "of_carbon_dioxide".localized(bundle: NavitiaSDKUI.shared.bundle))
+            return String(format: "%.1f %@ %@. ", value, "kilogram".localized(), "of_carbon_dioxide".localized())
         }
         
         return ""
     }
     
     private func getEmissionAccessibility(emissionViewModel: ShowJourneyRoadmap.GetRoadmap.ViewModel.Emission) -> String {
-        var accessibilityLabel = String(format: "carbon_footprint".localized(bundle: NavitiaSDKUI.shared.bundle), getValueEmissionAccessibility(value: emissionViewModel.journey.value, unit: emissionViewModel.journey.unit))
+        var accessibilityLabel = String(format: "carbon_footprint".localized(), getValueEmissionAccessibility(value: emissionViewModel.journey.value, unit: emissionViewModel.journey.unit))
         if let car = emissionViewModel.car {
-            accessibilityLabel += String(format: "carbon_comparison_car".localized(bundle: NavitiaSDKUI.shared.bundle), getValueEmissionAccessibility(value: car.value, unit: car.unit))
+            accessibilityLabel += String(format: "carbon_comparison_car".localized(), getValueEmissionAccessibility(value: car.value, unit: car.unit))
         }
         
         return accessibilityLabel
@@ -696,9 +704,9 @@ class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
         if let startDate = disruption.applicationPeriods?.first?.begin?.toDate(format: Configuration.date),
             let endDate = disruption.applicationPeriods?.first?.end?.toDate(format: Configuration.date) {
             
-            return String(format: "%@ %@ %@ %@", "from".localized(bundle: NavitiaSDKUI.shared.bundle),
+            return String(format: "%@ %@ %@ %@", "from".localized(),
                           startDate.toString(format: Configuration.dateInterval),
-                          "to_period".localized(bundle: NavitiaSDKUI.shared.bundle),
+                          "to_period".localized(),
                           endDate.toString(format: Configuration.dateInterval))
         }
         
@@ -720,9 +728,9 @@ class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
 
         return String(format: "%@ %@ %@ %@ %@ : %@.",
                       title,
-                      "from".localized(bundle: NavitiaSDKUI.shared.bundle),
+                      "from".localized(),
                       startDate,
-                      "to_period".localized(bundle: NavitiaSDKUI.shared.bundle),
+                      "to_period".localized(),
                       endDate,
                       information)
     }
@@ -870,11 +878,11 @@ class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
     
     private func getDirectionInstruction(pathDirection: Int32, pathLength: Int32, pathInstruction: String) -> String {
         if pathDirection == 0 {
-            return pathInstruction == "" ? String(format: "%@ %@", "carry_straight_on".localized(bundle: NavitiaSDKUI.shared.bundle), String(format: "for_meter".localized(bundle: NavitiaSDKUI.shared.bundle), pathLength)) : String(format: "%@ %@ %@", "continue_on".localized(bundle: NavitiaSDKUI.shared.bundle), pathInstruction, String(format: "for_meter".localized(bundle: NavitiaSDKUI.shared.bundle), pathLength))
+            return pathInstruction == "" ? String(format: "%@ %@", "carry_straight_on".localized(), String(format: "for_meter".localized(), pathLength)) : String(format: "%@ %@ %@", "continue_on".localized(), pathInstruction, String(format: "for_meter".localized(), pathLength))
         } else if pathDirection < 0 {
-            return pathInstruction == "" ? String(format: "%@ %@", "turn_left".localized(bundle: NavitiaSDKUI.shared.bundle), String(format: "in_meter".localized(bundle: NavitiaSDKUI.shared.bundle), pathLength)) : String(format: "%@ %@ %@", "turn_left_on".localized(bundle: NavitiaSDKUI.shared.bundle), pathInstruction, String(format: "in_meter".localized(bundle: NavitiaSDKUI.shared.bundle), pathLength))
+            return pathInstruction == "" ? String(format: "%@ %@", "turn_left".localized(), String(format: "in_meter".localized(), pathLength)) : String(format: "%@ %@ %@", "turn_left_on".localized(), pathInstruction, String(format: "in_meter".localized(), pathLength))
         } else {
-            return pathInstruction == "" ? String(format: "%@ %@", "turn_right".localized(bundle: NavitiaSDKUI.shared.bundle), String(format: "in_meter".localized(bundle: NavitiaSDKUI.shared.bundle), pathLength)) : String(format: "%@ %@ %@", "turn_right_on".localized(bundle: NavitiaSDKUI.shared.bundle), pathInstruction, String(format: "in_meter".localized(bundle: NavitiaSDKUI.shared.bundle), pathLength))
+            return pathInstruction == "" ? String(format: "%@ %@", "turn_right".localized(), String(format: "in_meter".localized(), pathLength)) : String(format: "%@ %@ %@", "turn_right_on".localized(), pathInstruction, String(format: "in_meter".localized(), pathLength))
         }
     }
     

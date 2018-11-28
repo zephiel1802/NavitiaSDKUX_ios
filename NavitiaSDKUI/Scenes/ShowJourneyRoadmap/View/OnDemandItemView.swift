@@ -28,7 +28,7 @@ class OnDemandItemView: UIView {
         phoneIconLabel.attributedText = NSMutableAttributedString().icon("phone-tad", size: 15)
         phoneIconLabel.textColor = Configuration.Color.main
         
-        titleLabel.attributedText = NSMutableAttributedString().normal("mandatory_reservation".localized(bundle: NavitiaSDKUI.shared.bundle), color: Configuration.Color.main, size: 13)
+        titleLabel.attributedText = NSMutableAttributedString().normal("mandatory_reservation".localized(), color: Configuration.Color.main, size: 13)
     }
 }
 

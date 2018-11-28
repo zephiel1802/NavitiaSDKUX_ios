@@ -58,7 +58,7 @@ class JourneySolutionView: UIView {
         durationCenterContraint.constant = 7
         
         aboutLabel.attributedText = NSMutableAttributedString()
-            .semiBold("about".localized(withComment: "about", bundle: NavitiaSDKUI.shared.bundle), color: Configuration.Color.main)
+            .semiBold("about".localized(), color: Configuration.Color.main)
         formattedDuration(duration)
         journeySummaryView.disruptions = disruptions
         journeySummaryView.addSections(sections)

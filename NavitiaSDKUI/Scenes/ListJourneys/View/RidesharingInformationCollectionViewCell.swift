@@ -27,6 +27,6 @@ class RidesharingInformationCollectionViewCell: UICollectionViewCell {
     }
     
     private func setup() {
-         messageLabel.text = "carpool_highlight_message".localized(withComment: "Share a car with someone going the same way.", bundle: NavitiaSDKUI.shared.bundle)
+         messageLabel.text = "carpool_highlight_message".localized()
     }
 }

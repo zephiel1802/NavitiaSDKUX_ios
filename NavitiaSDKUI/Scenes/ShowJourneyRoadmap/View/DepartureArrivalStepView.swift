@@ -29,17 +29,15 @@ class DepartureArrivalStepView: UIView {
         }
     }
     
-    var information: String? {
+    var information: (String, String)? {
         didSet {
             guard let information = information else {
                 return
             }
             
-            if type == .departure {
-                informationLabel.attributedText = NSMutableAttributedString().bold(String(format: "%@ :\n", "departure".localized(bundle: NavitiaSDKUI.shared.bundle)), color: Configuration.Color.white, size: 15.0).normal(information, color: Configuration.Color.white, size: 15.0)
-            } else {
-                informationLabel.attributedText = NSMutableAttributedString().bold(String(format: "%@ :\n", "arrival".localized(bundle: NavitiaSDKUI.shared.bundle)), color: Configuration.Color.white, size: 15.0).normal(information, color: Configuration.Color.white, size: 15.0)
-            }
+            informationLabel.attributedText = NSMutableAttributedString()
+                .bold(information.0, color: Configuration.Color.white, size: 15.0)
+                .normal(information.1, color: Configuration.Color.white, size: 15.0)
         }
     }
     
@@ -62,7 +60,7 @@ class DepartureArrivalStepView: UIView {
             calorieContainerView.isHidden = false
             informationBottomConstraint.isActive = false
             calorieContainerBottomConstraint.isActive = true
-            calorieLabel.attributedText = NSMutableAttributedString().normal(String(format: "calorie_unit".localized(bundle: NavitiaSDKUI.shared.bundle), calorie), color: UIColor.white, size: 12)
+            calorieLabel.attributedText = NSMutableAttributedString().normal(String(format: "calorie_unit".localized(), calorie), color: UIColor.white, size: 12)
         }
     }
     

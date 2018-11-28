@@ -67,7 +67,6 @@ extension Disruption {
         
         return messages.first
     }
-    
 }
 
 public class HighestLevelDisruption {

@@ -59,7 +59,7 @@ class RidesharingView: UIView {
         
         addShadow()
         
-        bookButton.setTitle("send_request".localized(bundle: NavitiaSDKUI.shared.bundle), for: .normal)
+        bookButton.setTitle("send_request".localized(), for: .normal)
         bookButton.accessibilityElementsHidden = true
     }
     
@@ -71,9 +71,9 @@ class RidesharingView: UIView {
     
     func setRatingCount(_ count: Int32?) {
         if let count = count {
-            var template = "rating_plural".localized(withComment: "ratings", bundle: NavitiaSDKUI.shared.bundle)
+            var template = "rating_plural".localized()
             if count == 1 {
-                template = "rating".localized(withComment: "rating", bundle: NavitiaSDKUI.shared.bundle)
+                template = "rating".localized()
             }
             notationLabel.attributedText = NSMutableAttributedString()
                 .normal(String(format: template, count), color: Configuration.Color.gray, size: 10)
@@ -99,10 +99,10 @@ class RidesharingView: UIView {
                 let alertController = AlertViewController(nibName: "AlertView", bundle: NavitiaSDKUI.shared.bundle)
                 alertController.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
                 alertController.stateKey = NavitiaSDKUserDefaultsManager.SHOW_REDIRECTION_DIALOG_PREF_KEY
-                alertController.alertMessage = "redirection_message".localized(withComment: "Redirection Message", bundle: NavitiaSDKUI.shared.bundle)
-                alertController.checkBoxText = "dont_show_this_message_again".localized(withComment: "Don't show this message again", bundle: NavitiaSDKUI.shared.bundle)
-                alertController.negativeButtonText = "cancel".localized(withComment: "Cancel", bundle: NavitiaSDKUI.shared.bundle).uppercased()
-                alertController.positiveButtonText = "proceed".localized(withComment: "Continue", bundle: NavitiaSDKUI.shared.bundle).uppercased()
+                alertController.alertMessage = "redirection_message".localized()
+                alertController.checkBoxText = "dont_show_this_message_again".localized()
+                alertController.negativeButtonText = "cancel".localized().uppercased()
+                alertController.positiveButtonText = "proceed".localized().uppercased()
                 alertController.alertViewDelegate = parentViewController
                 parentViewController.navigationController?.visibleViewController?.present(alertController, animated: false, completion: nil)
             } else {
@@ -125,12 +125,12 @@ class RidesharingView: UIView {
     
     func setSeatsCount(_ count: Int32?) {
         if let count = count {
-            let template = "available_seats".localized(withComment: "Available seats : 3", bundle: NavitiaSDKUI.shared.bundle)
+            let template = "available_seats".localized()
             seatCountLabel.attributedText = NSMutableAttributedString()
                 .semiBold(String(format: template, count), size: 12.5)
         } else {
             seatCountLabel.attributedText = NSMutableAttributedString()
-                .semiBold("no_available_seats".localized(withComment: "Available seats : N/A", bundle: NavitiaSDKUI.shared.bundle), size: 12.5)
+                .semiBold("no_available_seats".localized(), size: 12.5)
         }
     }
     
@@ -157,7 +157,7 @@ extension RidesharingView {
         set {
             if let newValue = newValue {
                 startLabel.attributedText = NSMutableAttributedString()
-                    .semiBold("departure".localized(withComment: "Departure: ", bundle: NavitiaSDKUI.shared.bundle), color: Configuration.Color.main, size: 8.5)
+                    .semiBold("departure".localized(), color: Configuration.Color.main, size: 8.5)
                     .semiBold(": ", color: Configuration.Color.main, size: 8.5)
                     .bold(newValue, color: Configuration.Color.main, size: 14)
             }
@@ -186,7 +186,7 @@ extension RidesharingView {
                     genderLabel.text = ""
                 } else {
                     genderLabel.attributedText = NSMutableAttributedString()
-                        .normal(String(format: "(%@)", newValue.localized(withComment: "Gender", bundle: NavitiaSDKUI.shared.bundle)), color: Configuration.Color.gray, size: 12)
+                        .normal(String(format: "(%@)", newValue.localized()), color: Configuration.Color.gray, size: 12)
                 }
             }
         }
@@ -224,14 +224,14 @@ extension RidesharingView {
             if let newValue = newValue {
                 if newValue == "0.0" {
                     priceLabel.attributedText = NSMutableAttributedString()
-                        .semiBold("free".localized(withComment: "Free", bundle: NavitiaSDKUI.shared.bundle), color: Configuration.Color.orange,size: 10)
+                        .semiBold("free".localized(), color: Configuration.Color.orange,size: 10)
                 } else {
                     priceLabel.attributedText = NSMutableAttributedString()
                         .semiBold(newValue, color: Configuration.Color.orange, size: 10)
                 }
             } else {
                 priceLabel.attributedText = NSMutableAttributedString()
-                    .semiBold("price_not_available".localized(withComment: "Price not available", bundle: NavitiaSDKUI.shared.bundle), color: Configuration.Color.orange,size: 10)
+                    .semiBold("price_not_available".localized(), color: Configuration.Color.orange,size: 10)
             }
         }
     }
