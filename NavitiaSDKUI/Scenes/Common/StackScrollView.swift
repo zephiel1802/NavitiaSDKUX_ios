@@ -73,7 +73,13 @@ class StackScrollView: UIScrollView, StackScrollViewProtocol {
     }
     
     private func getViewSizeWidth(margin: UIEdgeInsets) -> CGFloat {
-        return frame.size.width - (margin.left + margin.right)
+        var margin = margin.left + margin.right
+        
+        if #available(iOS 11.0, *) {
+            margin = margin + safeAreaInsets.left + safeAreaInsets.right
+        }
+        
+        return frame.size.width - margin
     }
     
     private func getContentSizeHeight() -> CGFloat {
