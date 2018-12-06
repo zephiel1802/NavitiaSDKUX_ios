@@ -16,11 +16,6 @@ class FriezeView: UIView {
     }
 
     private var friezeSectionsView = [FriezeSectionView]()
-    internal var alignment: Alignment = .left {
-        didSet {
-            // Update
-        }
-    }
 
     public override init(frame: CGRect) {
         super.init(frame: frame)

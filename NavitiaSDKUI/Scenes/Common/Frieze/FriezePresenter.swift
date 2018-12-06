@@ -20,7 +20,7 @@ class FriezePresenter: NSObject {
     }
     
     private func validDisplayedJourneySections(section: Section, count: Int) -> Bool {
-        if let duration = section.duration, duration <= Configuration.minWalkingValuFrieze && section.mode == .walking && count > 1 {
+        if let duration = section.duration, duration <= Configuration.minWalkingValueFrieze && section.mode == .walking && count > 1 {
             return false
         }
         
@@ -96,7 +96,7 @@ class FriezePresenter: NSObject {
                                                                   disruptionLevel: disruptionInfo.level,
                                                                   duration: section.duration)
 
-                if level && disruptionInfo.level == 103 {
+                if level && disruptionInfo.level == Disruption.DisruptionLevel.blocking.rawValue {
                     friezeSections.append(friezeSection)
                 } else if !level {
                     friezeSections.append(friezeSection)
