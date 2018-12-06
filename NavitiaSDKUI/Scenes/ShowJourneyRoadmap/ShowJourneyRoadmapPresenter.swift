@@ -37,7 +37,7 @@ class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
                                                                 frieze: frieze,
                                                                 arrival: arrival,
                                                                 emission: emission,
-                                                                alternativeJourney: alternativeJourney,
+                                                                displayAvoidDisruption: alternativeJourney,
                                                                 journey: response.journey,
                                                                 ridesharingJourneys: response.journeyRidesharing)
         

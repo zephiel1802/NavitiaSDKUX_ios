@@ -217,7 +217,7 @@ internal class ShowJourneyRoadmapViewController: UIViewController, ShowJourneyRo
             journeySolutionView.setRidesharingData(duration: viewModel.frieze.duration, friezeSection: viewModel.frieze.friezeSections)
 
             scrollView.addSubview(ridesharingView, margin: UIEdgeInsets(top: 5, left: 10, bottom: 5, right: 10))
-        } else if viewModel.alternativeJourney {
+        } else if viewModel.displayAvoidDisruption {
             let alternativeJourneyView = displayAlternativeJourneyView()
 
             alternativeJourneyView.addFrieze(friezeSection: viewModel.frieze.friezeSectionsWithDisruption)

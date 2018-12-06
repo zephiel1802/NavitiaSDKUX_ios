@@ -166,7 +166,7 @@ enum ShowJourneyRoadmap {
             var frieze: Frieze
             var arrival: DepartureArrival
             var emission: Emission
-            var alternativeJourney: Bool
+            var displayAvoidDisruption: Bool
             var journey: Journey // Class: SDK Expert
             var ridesharingJourneys: Journey? // Class: SDK Expert
         }

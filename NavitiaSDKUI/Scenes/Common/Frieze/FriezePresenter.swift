@@ -75,7 +75,7 @@ class FriezePresenter: NSObject {
         return (icon: icon, color: color, level: level)
     }
     
-    internal func getDisplayedJourneySections(journey: Journey, disruptions: [Disruption]?, withDisruptionLevel level: Bool = false) -> [FriezeSection] {
+    internal func getDisplayedJourneySections(journey: Journey, disruptions: [Disruption]?, withDisruptionLevel isShowingLevel: Bool = false) -> [FriezeSection] {
         var friezeSections = [FriezeSection]()
         
         guard let sections = journey.sections else {
@@ -96,9 +96,9 @@ class FriezePresenter: NSObject {
                                                                   disruptionLevel: disruptionInfo.level,
                                                                   duration: section.duration)
 
-                if level && disruptionInfo.level == Disruption.DisruptionLevel.blocking.rawValue {
+                if isShowingLevel && disruptionInfo.level == Disruption.DisruptionLevel.blocking.rawValue {
                     friezeSections.append(friezeSection)
-                } else if !level {
+                } else if !isShowingLevel {
                     friezeSections.append(friezeSection)
                 }
             }
