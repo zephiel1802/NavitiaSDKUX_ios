@@ -49,10 +49,10 @@ extension Disruption {
     
     public static func levelColor(of disruptionLevel: Disruption.DisruptionLevel) -> String {
         switch disruptionLevel {
-        case .blocking: return "A94442"
-        case .nonblocking: return "8A6D3B"
-        case .information: return "31708F"
-        case .none: return "888888"
+        case .blocking: return "FF0000"
+        case .nonblocking: return "EF662F"
+        case .information: return "43B77A"
+        case .none: return "000000"
         }
     }
     

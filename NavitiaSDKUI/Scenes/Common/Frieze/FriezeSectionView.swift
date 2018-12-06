@@ -15,8 +15,9 @@ class FriezeSectionView: UIView {
     @IBOutlet weak var transportLabel: UILabel!
     @IBOutlet weak var tagTransportView: UIView!
     @IBOutlet weak var tagTransportLabel: UILabel!
-    @IBOutlet weak var disruptionLabel: UILabel!
-    @IBOutlet weak var circleLabel: UILabel!
+    @IBOutlet weak var disruptionImage: UIImageView!
+//    @IBOutlet weak var disruptionLabel: UILabel!
+//    @IBOutlet weak var circleLabel: UILabel!
     
     var height: CGFloat = 27
     
@@ -59,29 +60,29 @@ class FriezeSectionView: UIView {
     }
     
     private func setupDisruption() {
-        circleLabel.attributedText = NSMutableAttributedString()
-            .icon("circle-filled",
-                  color: UIColor.white,
-                  size: 15)
-        circleLabel.isHidden = true
-        disruptionLabel.isHidden = true
+        disruptionImage.isHidden = true
         updateWitdh()
     }
     
     func displayDisruption(_ iconName: String?, color: String?) {
         guard let iconName = iconName else {
-            disruptionLabel.isHidden = true
-            circleLabel.isHidden = true
+            disruptionImage.isHidden = true
             
             return
         }
-        
-        disruptionLabel.attributedText = NSMutableAttributedString()
-            .icon(iconName,
-                  color: color?.toUIColor() ?? Configuration.Color.red,
-                  size: 14)
-        disruptionLabel.isHidden = false
-        circleLabel.isHidden = false
+
+        switch iconName {
+        case "disruption-information":
+            disruptionImage.image = UIImage(named: "information_disruption", in: NavitiaSDKUI.shared.bundle, compatibleWith: nil)
+        case "disruption-nonblocking":
+            disruptionImage.image = UIImage(named: "non_blocking_disruption", in: NavitiaSDKUI.shared.bundle, compatibleWith: nil)
+        case "disruption-blocking":
+            disruptionImage.image = UIImage(named: "blocking_disruption", in: NavitiaSDKUI.shared.bundle, compatibleWith: nil)
+        default:
+            break
+        }
+
+        disruptionImage.isHidden = false
         updateWitdh()
     }
     
@@ -149,7 +150,7 @@ extension FriezeSectionView {
                 width = width + marginTransportTag.left + marginTransportTag.right + widthPart + paddingTransportTag.right
             }
             
-            if !circleLabel.isHidden {
+            if !disruptionImage.isHidden {
                 width = width + widthDisruption
             }
         }

@@ -783,13 +783,13 @@ class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
 
         for (_, disruption) in disruptions.enumerated() {
             let disruptionLevel = getDisruptionLevel(level: disruption.level)
-            let disruptionModel = ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionModel.Disruption(color: disruption.severity?.color?.toUIColor() ?? UIColor.red,
-                                                                                                       icon: Disruption.iconName(of: disruption.level),
-                                                                                                       title: disruption.severity?.name ?? "",
-                                                                                                       date: getDateDisruption(disruption: disruption),
-                                                                                                       information: Disruption.message(disruption: disruption)?.text?.htmlToAttributedString?.string,
-                                                                                                       level: disruptionLevel,
-                                                                                                       accessibility: getAccessibilityDisruption(disruption: disruption))
+            let disruptionModel = ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionModel.Disruption(color: Disruption.levelColor(of: disruption.level).toUIColor(),
+                                                                                                  icon: Disruption.iconName(of: disruption.level),
+                                                                                                  title: disruption.severity?.name ?? "",
+                                                                                                  date: getDateDisruption(disruption: disruption),
+                                                                                                  information: Disruption.message(disruption: disruption)?.text?.htmlToAttributedString?.string,
+                                                                                                  level: disruptionLevel,
+                                                                                                  accessibility: getAccessibilityDisruption(disruption: disruption))
             disruptionsClean.append(disruptionModel)
         }
         

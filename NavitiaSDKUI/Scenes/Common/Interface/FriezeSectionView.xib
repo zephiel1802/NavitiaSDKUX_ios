@@ -12,8 +12,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="FriezeSectionView" customModule="NavitiaSDKUI" customModuleProvider="target">
             <connections>
-                <outlet property="circleLabel" destination="6wS-SS-sCa" id="jlW-5y-hkS"/>
-                <outlet property="disruptionLabel" destination="BQW-eY-4na" id="xXH-QO-eCT"/>
+                <outlet property="disruptionImage" destination="Yul-gf-Bg7" id="Egh-1X-j4F"/>
                 <outlet property="separatorImage" destination="2eY-50-Upq" id="D3X-L8-SAH"/>
                 <outlet property="separatorTransportConstraint" destination="Vze-oH-YHC" id="aSf-sz-Pm9"/>
                 <outlet property="tagTransportLabel" destination="NVZ-2M-C6t" id="y4F-K7-nIL"/>
@@ -54,6 +53,13 @@
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                 </view>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="blocking_disruption" translatesAutoresizingMaskIntoConstraints="NO" id="Yul-gf-Bg7">
+                    <rect key="frame" x="40" y="0.0" width="12" height="12"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="12" id="OLg-D5-Bqt"/>
+                        <constraint firstAttribute="width" constant="12" id="g0L-8P-d8k"/>
+                    </constraints>
+                </imageView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="K" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IFn-6Q-vde">
                     <rect key="frame" x="6" y="7" width="25" height="20"/>
                     <accessibility key="accessibilityConfiguration">
@@ -66,32 +72,6 @@
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="C" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6wS-SS-sCa">
-                    <rect key="frame" x="38" y="0.0" width="16" height="15"/>
-                    <accessibility key="accessibilityConfiguration">
-                        <bool key="isElement" value="NO"/>
-                    </accessibility>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="15" id="Wx7-YF-jzA"/>
-                        <constraint firstAttribute="width" constant="16" id="gwK-2G-tDR"/>
-                    </constraints>
-                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                    <color key="textColor" red="0.25098039220000001" green="0.58431372550000005" blue="0.5568627451" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                    <nil key="highlightedColor"/>
-                </label>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="D" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BQW-eY-4na">
-                    <rect key="frame" x="39" y="0.0" width="14" height="14"/>
-                    <accessibility key="accessibilityConfiguration">
-                        <bool key="isElement" value="NO"/>
-                    </accessibility>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="14" id="HMr-nb-8j4"/>
-                        <constraint firstAttribute="width" constant="14" id="bIB-Ge-FRg"/>
-                    </constraints>
-                    <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
-                    <nil key="textColor"/>
-                    <nil key="highlightedColor"/>
-                </label>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="separator" translatesAutoresizingMaskIntoConstraints="NO" id="2eY-50-Upq">
                     <rect key="frame" x="0.0" y="15" width="4" height="4"/>
                     <constraints>
@@ -101,16 +81,14 @@
                 </imageView>
             </subviews>
             <constraints>
-                <constraint firstItem="6wS-SS-sCa" firstAttribute="leading" secondItem="Dhs-fv-Wij" secondAttribute="trailing" constant="-8" id="GhB-zX-TsA"/>
                 <constraint firstAttribute="bottom" secondItem="Dhs-fv-Wij" secondAttribute="bottom" id="LbG-P7-IY6"/>
+                <constraint firstItem="Yul-gf-Bg7" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="Mrn-5P-sMC"/>
                 <constraint firstItem="2eY-50-Upq" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="OxU-sL-la0"/>
-                <constraint firstItem="6wS-SS-sCa" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="Q34-Gh-uf9"/>
                 <constraint firstItem="IFn-6Q-vde" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="7" id="Qd9-TL-JZ5"/>
                 <constraint firstAttribute="bottom" secondItem="IFn-6Q-vde" secondAttribute="bottom" id="QeL-IG-QyO"/>
                 <constraint firstItem="IFn-6Q-vde" firstAttribute="leading" secondItem="2eY-50-Upq" secondAttribute="trailing" constant="2" id="Vze-oH-YHC"/>
-                <constraint firstItem="BQW-eY-4na" firstAttribute="leading" secondItem="Dhs-fv-Wij" secondAttribute="trailing" constant="-7" id="hQt-Ls-zFx"/>
+                <constraint firstItem="Yul-gf-Bg7" firstAttribute="leading" secondItem="Dhs-fv-Wij" secondAttribute="trailing" constant="-6" id="kcR-YW-Pz1"/>
                 <constraint firstItem="Dhs-fv-Wij" firstAttribute="leading" secondItem="IFn-6Q-vde" secondAttribute="trailing" id="nOU-m5-yuB"/>
-                <constraint firstItem="BQW-eY-4na" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="pQN-aa-1AN"/>
                 <constraint firstItem="2eY-50-Upq" firstAttribute="centerY" secondItem="IFn-6Q-vde" secondAttribute="centerY" id="qOJ-tL-SKy"/>
                 <constraint firstItem="Dhs-fv-Wij" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="7" id="s5P-NI-kS6"/>
                 <constraint firstItem="IFn-6Q-vde" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" priority="750" id="wao-Tc-nDW"/>
@@ -123,6 +101,7 @@
         </view>
     </objects>
     <resources>
+        <image name="blocking_disruption" width="44" height="44"/>
         <image name="separator" width="15" height="15"/>
     </resources>
 </document>

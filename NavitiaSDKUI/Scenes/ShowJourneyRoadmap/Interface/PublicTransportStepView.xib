@@ -77,50 +77,29 @@
                                         </userDefinedRuntimeAttribute>
                                     </userDefinedRuntimeAttributes>
                                 </view>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="C" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0e3-rM-lkf">
-                                    <rect key="frame" x="165" y="0.0" width="15" height="16"/>
-                                    <accessibility key="accessibilityConfiguration">
-                                        <bool key="isElement" value="NO"/>
-                                    </accessibility>
+                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="blocking_disruption" translatesAutoresizingMaskIntoConstraints="NO" id="yMW-uY-M7f">
+                                    <rect key="frame" x="167" y="0.0" width="12" height="12"/>
                                     <constraints>
-                                        <constraint firstAttribute="width" constant="15" id="CRT-J4-iAL"/>
-                                        <constraint firstAttribute="height" constant="16" id="hpD-7I-01m"/>
+                                        <constraint firstAttribute="width" constant="12" id="70k-pj-uiA"/>
+                                        <constraint firstAttribute="height" constant="12" id="9Z1-3x-Gke"/>
                                     </constraints>
-                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                    <nil key="textColor"/>
-                                    <nil key="highlightedColor"/>
-                                </label>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="D" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2ZV-AM-jGb">
-                                    <rect key="frame" x="166" y="1" width="14" height="14"/>
-                                    <accessibility key="accessibilityConfiguration">
-                                        <bool key="isElement" value="NO"/>
-                                    </accessibility>
-                                    <constraints>
-                                        <constraint firstAttribute="height" constant="14" id="AUk-Mk-xMh"/>
-                                        <constraint firstAttribute="width" constant="14" id="kCq-iG-SJV"/>
-                                    </constraints>
-                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                    <nil key="textColor"/>
-                                    <nil key="highlightedColor"/>
-                                </label>
+                                </imageView>
                             </subviews>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <constraints>
                                 <constraint firstItem="hj8-XJ-QNd" firstAttribute="leading" secondItem="4fw-wa-InW" secondAttribute="leading" constant="50" id="0x7-41-R4g"/>
                                 <constraint firstAttribute="height" relation="greaterThanOrEqual" id="8P1-il-GMn"/>
                                 <constraint firstItem="hj8-XJ-QNd" firstAttribute="leading" secondItem="6dM-Br-ZUo" secondAttribute="trailing" id="9Y9-vL-hog"/>
-                                <constraint firstItem="0e3-rM-lkf" firstAttribute="top" secondItem="4fw-wa-InW" secondAttribute="top" id="DVa-58-scZ"/>
+                                <constraint firstItem="yMW-uY-M7f" firstAttribute="top" secondItem="4fw-wa-InW" secondAttribute="top" id="GgE-zX-AFN"/>
                                 <constraint firstItem="6dM-Br-ZUo" firstAttribute="centerY" secondItem="hj8-XJ-QNd" secondAttribute="centerY" id="KGs-fn-28S"/>
-                                <constraint firstItem="2ZV-AM-jGb" firstAttribute="top" secondItem="4fw-wa-InW" secondAttribute="top" constant="1" id="LuX-dB-RzU"/>
                                 <constraint firstItem="FNA-jL-VEB" firstAttribute="top" secondItem="hj8-XJ-QNd" secondAttribute="bottom" id="PeJ-o6-gi4"/>
                                 <constraint firstAttribute="trailing" secondItem="FNA-jL-VEB" secondAttribute="trailing" constant="10" id="S6h-49-RGD"/>
                                 <constraint firstItem="6dM-Br-ZUo" firstAttribute="leading" secondItem="4fw-wa-InW" secondAttribute="leading" id="Saz-Ps-0kC"/>
                                 <constraint firstAttribute="bottom" secondItem="FNA-jL-VEB" secondAttribute="bottom" id="U41-wT-Nxd"/>
                                 <constraint firstItem="Sdt-uv-Xuj" firstAttribute="centerY" secondItem="hj8-XJ-QNd" secondAttribute="centerY" constant="-2" id="Uzn-6i-3wB"/>
                                 <constraint firstItem="Sdt-uv-Xuj" firstAttribute="leading" secondItem="hj8-XJ-QNd" secondAttribute="trailing" constant="5" id="Vho-NZ-HLf"/>
-                                <constraint firstItem="2ZV-AM-jGb" firstAttribute="leading" secondItem="Sdt-uv-Xuj" secondAttribute="trailing" constant="-7" id="d6x-hm-OYC"/>
+                                <constraint firstItem="yMW-uY-M7f" firstAttribute="leading" secondItem="Sdt-uv-Xuj" secondAttribute="trailing" constant="-6" id="h9v-Sh-C1H"/>
                                 <constraint firstItem="hj8-XJ-QNd" firstAttribute="top" secondItem="4fw-wa-InW" secondAttribute="top" constant="10" id="oGX-6q-p3C"/>
-                                <constraint firstItem="0e3-rM-lkf" firstAttribute="leading" secondItem="Sdt-uv-Xuj" secondAttribute="trailing" constant="-8" id="wLo-Ls-K86"/>
                                 <constraint firstItem="FNA-jL-VEB" firstAttribute="leading" secondItem="hj8-XJ-QNd" secondAttribute="leading" id="zyW-9R-3Cf"/>
                             </constraints>
                         </view>
@@ -401,8 +380,7 @@
             </userDefinedRuntimeAttributes>
             <connections>
                 <outlet property="actionDescriptionLabel" destination="hj8-XJ-QNd" id="1qB-yF-wWQ"/>
-                <outlet property="disruptionCircleLabel" destination="0e3-rM-lkf" id="Jsu-23-JeD"/>
-                <outlet property="disruptionIconLabel" destination="2ZV-AM-jGb" id="8tO-ob-zc0"/>
+                <outlet property="disruptionImage" destination="yMW-uY-M7f" id="sdy-pf-AbA"/>
                 <outlet property="informationsLabel" destination="FNA-jL-VEB" id="Bfc-yd-B0N"/>
                 <outlet property="networkContainerView" destination="bhc-V0-cyu" id="PI7-ef-mWz"/>
                 <outlet property="networkLabel" destination="fPc-x1-ABh" id="TSa-0x-tnc"/>
@@ -436,4 +414,7 @@
             <point key="canvasLocation" x="-80" y="5.3973013493253381"/>
         </view>
     </objects>
+    <resources>
+        <image name="blocking_disruption" width="44" height="44"/>
+    </resources>
 </document>
