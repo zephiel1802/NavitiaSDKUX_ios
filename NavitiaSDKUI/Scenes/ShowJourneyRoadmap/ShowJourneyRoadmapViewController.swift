@@ -220,7 +220,7 @@ internal class ShowJourneyRoadmapViewController: UIViewController, ShowJourneyRo
         } else if viewModel.alternativeJourney {
             let alternativeJourneyView = displayAlternativeJourneyView()
 
-            alternativeJourneyView.addFrieze(friezeSection: viewModel.frieze.friezeSections)
+            alternativeJourneyView.addFrieze(friezeSection: viewModel.frieze.friezeSectionsWithDisruption)
 
             scrollView.addSubview(alternativeJourneyView, margin: UIEdgeInsets(top: 15, left: 10, bottom: 15, right: 10))
         }

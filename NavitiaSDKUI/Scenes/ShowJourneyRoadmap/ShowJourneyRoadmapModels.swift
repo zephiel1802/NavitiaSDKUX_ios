@@ -151,6 +151,7 @@ enum ShowJourneyRoadmap {
             struct Frieze {
                 var duration: Int32
                 var friezeSections: [FriezePresenter.FriezeSection]
+                var friezeSectionsWithDisruption: [FriezePresenter.FriezeSection]
             }
             
             struct Emission {

@@ -298,8 +298,10 @@ class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
         }
         
         let friezeSections = FriezePresenter().getDisplayedJourneySections(journey: journey, disruptions: disruptions)
+        let friezeSectionsWithDisruption = FriezePresenter().getDisplayedJourneySections(journey: journey, disruptions: disruptions, withDisruptionLevel: true)
         let frieze = ShowJourneyRoadmap.GetRoadmap.ViewModel.Frieze(duration: duration,
-                                                                    friezeSections: friezeSections)
+                                                                    friezeSections: friezeSections,
+                                                                    friezeSectionsWithDisruption: friezeSectionsWithDisruption)
         
         return frieze
     }
@@ -640,7 +642,7 @@ class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
             }
         }
         
-        return true // TODO false
+        return false
     }
     
     // MARK: DisplayInformations

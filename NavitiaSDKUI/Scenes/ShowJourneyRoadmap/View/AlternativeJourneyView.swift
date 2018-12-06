@@ -15,6 +15,9 @@ protocol AlternativeJourneyDelegate: class {
 class AlternativeJourneyView: UIView {
     
     @IBOutlet weak var friezeView: FriezeView!
+    @IBOutlet weak var descriptionLabel: UILabel!
+    @IBOutlet weak var avoidDisruptionButton: UIButton!
+    @IBOutlet weak var accessibilityButton: UIButton!
     
     weak var delegate: AlternativeJourneyDelegate?
     
@@ -34,8 +37,10 @@ class AlternativeJourneyView: UIView {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        
-        //translatesAutoresizingMaskIntoConstraints = false
+
+        descriptionLabel.text = "itinerary_disruption_message".localized()
+        avoidDisruptionButton.setTitle("avoid_the_disruption".localized(), for: .normal)
+        accessibilityButton.accessibilityLabel = ""
     }
     
     internal func addFrieze(friezeSection: [FriezePresenter.FriezeSection]) {
@@ -51,7 +56,6 @@ class AlternativeJourneyView: UIView {
         friezeView.getCenter()
         
         frame.size.height = friezeView.frame.size.height + 83
-       // delegate?.updateHeight(height: frame.size.height)
     }
     
     @IBAction func avvoidJourneyButton(_ sender: UIButton) {

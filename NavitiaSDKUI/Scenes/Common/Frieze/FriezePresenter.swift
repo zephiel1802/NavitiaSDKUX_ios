@@ -15,6 +15,7 @@ class FriezePresenter: NSObject {
         var icon: String
         var disruptionIcon: String?
         var disruptionColor: String?
+        var disruptionLevel: Int?
         var duration: Int32?
     }
     
@@ -54,9 +55,10 @@ class FriezePresenter: NSObject {
         return Modes().getMode(section: section)
     }
     
-    private func getDisruptionInformations(section: Section, disruptions: [Disruption]?) -> (icon: String?, color: String?) {
+    private func getDisruptionInformations(section: Section, disruptions: [Disruption]?) -> (icon: String?, color: String?, level: Int?) {
         var icon: String? = nil
         var color: String? = nil
+        var level: Int? = nil
         
         if let disruptions = disruptions, disruptions.count > 0 {
             let sectionDisruptions = section.disruptions(disruptions: disruptions)
@@ -64,15 +66,16 @@ class FriezePresenter: NSObject {
             if sectionDisruptions.count > 0 {
                 let highestDisruption = Disruption.highestLevelDisruption(disruptions: sectionDisruptions)
                 
+                level = highestDisruption.level.rawValue
                 icon = Disruption.iconName(of: highestDisruption.level)
                 color = highestDisruption.color
             }
         }
         
-        return (icon: icon, color: color)
+        return (icon: icon, color: color, level: level)
     }
     
-    internal func getDisplayedJourneySections(journey: Journey, disruptions: [Disruption]?) -> [FriezeSection] {
+    internal func getDisplayedJourneySections(journey: Journey, disruptions: [Disruption]?, withDisruptionLevel level: Bool = false) -> [FriezeSection] {
         var friezeSections = [FriezeSection]()
         
         guard let sections = journey.sections else {
@@ -90,9 +93,14 @@ class FriezePresenter: NSObject {
                                                                   icon: icon,
                                                                   disruptionIcon: disruptionInfo.icon,
                                                                   disruptionColor: disruptionInfo.color,
+                                                                  disruptionLevel: disruptionInfo.level,
                                                                   duration: section.duration)
-                
-                friezeSections.append(friezeSection)
+
+                if level && disruptionInfo.level == 103 {
+                    friezeSections.append(friezeSection)
+                } else if !level {
+                    friezeSections.append(friezeSection)
+                }
             }
         }
         
