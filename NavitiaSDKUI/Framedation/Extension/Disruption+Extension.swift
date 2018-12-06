@@ -47,6 +47,19 @@ extension Disruption {
         return HighestLevelDisruption(level: highestLevel, color: highestLevelColor)
     }
     
+    internal func levelImage(name: String) -> UIImage? {
+        switch name {
+        case "information":
+            return UIImage(named: "information_disruption", in: NavitiaSDKUI.shared.bundle, compatibleWith: nil)
+        case "nonblocking":
+            return UIImage(named: "non_blocking_disruption", in: NavitiaSDKUI.shared.bundle, compatibleWith: nil)
+        case "blocking":
+            return UIImage(named: "blocking_disruption", in: NavitiaSDKUI.shared.bundle, compatibleWith: nil)
+        default:
+            return nil
+        }
+    }
+    
     public static func levelColor(of disruptionLevel: Disruption.DisruptionLevel) -> String {
         switch disruptionLevel {
         case .blocking: return "FF0000"
@@ -57,7 +70,7 @@ extension Disruption {
     }
     
     public static func iconName(of disruptionLevel: Disruption.DisruptionLevel) -> String {
-        return "disruption-" + String(describing: disruptionLevel)
+        return String(describing: disruptionLevel)
     }
     
     public static func message(disruption: Disruption) -> Message? {

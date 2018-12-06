@@ -74,16 +74,14 @@ class DisruptionItemView: UIView {
     }
     
     func setIcon(icon: String) {
-        switch icon {
-        case "disruption-information":
-            disruptionImage.image = UIImage(named: "information_disruption", in: NavitiaSDKUI.shared.bundle, compatibleWith: nil)
-        case "disruption-nonblocking":
-            disruptionImage.image = UIImage(named: "non_blocking_disruption", in: NavitiaSDKUI.shared.bundle, compatibleWith: nil)
-        case "disruption-blocking":
-            disruptionImage.image = UIImage(named: "blocking_disruption", in: NavitiaSDKUI.shared.bundle, compatibleWith: nil)
-        default:
-            break
+        guard let image = Disruption().levelImage(name: icon) else {
+            disruptionImage.isHidden = true
+            
+            return
         }
+        
+        disruptionImage.isHidden = false
+        disruptionImage.image = image
     }
     
     func setDisruptionTitle(title: String, color: UIColor) {

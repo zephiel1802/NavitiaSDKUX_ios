@@ -16,8 +16,6 @@ class FriezeSectionView: UIView {
     @IBOutlet weak var tagTransportView: UIView!
     @IBOutlet weak var tagTransportLabel: UILabel!
     @IBOutlet weak var disruptionImage: UIImageView!
-//    @IBOutlet weak var disruptionLabel: UILabel!
-//    @IBOutlet weak var circleLabel: UILabel!
     
     var height: CGFloat = 27
     
@@ -65,24 +63,14 @@ class FriezeSectionView: UIView {
     }
     
     func displayDisruption(_ iconName: String?, color: String?) {
-        guard let iconName = iconName else {
+        guard let name = iconName, let image = Disruption().levelImage(name: name) else {
             disruptionImage.isHidden = true
             
             return
         }
 
-        switch iconName {
-        case "disruption-information":
-            disruptionImage.image = UIImage(named: "information_disruption", in: NavitiaSDKUI.shared.bundle, compatibleWith: nil)
-        case "disruption-nonblocking":
-            disruptionImage.image = UIImage(named: "non_blocking_disruption", in: NavitiaSDKUI.shared.bundle, compatibleWith: nil)
-        case "disruption-blocking":
-            disruptionImage.image = UIImage(named: "blocking_disruption", in: NavitiaSDKUI.shared.bundle, compatibleWith: nil)
-        default:
-            break
-        }
-
         disruptionImage.isHidden = false
+        disruptionImage.image = image
         updateWitdh()
     }
     

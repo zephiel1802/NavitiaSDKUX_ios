@@ -195,19 +195,9 @@ class PublicTransportStepView: UIView {
                 return
             }
 
-            if let firstDisruption = disruptions.first, !transportIconView.isHidden {
+            if let image = Disruption().levelImage(name: disruptions.first?.icon ?? ""), !transportIconView.isHidden {
+                disruptionImage.image = image
                 disruptionImage.isHidden = false
-
-                switch firstDisruption.icon {
-                case "disruption-information":
-                    disruptionImage.image = UIImage(named: "information_disruption", in: NavitiaSDKUI.shared.bundle, compatibleWith: nil)
-                case "disruption-nonblocking":
-                    disruptionImage.image = UIImage(named: "non_blocking_disruption", in: NavitiaSDKUI.shared.bundle, compatibleWith: nil)
-                case "disruption-blocking":
-                    disruptionImage.image = UIImage(named: "blocking_disruption", in: NavitiaSDKUI.shared.bundle, compatibleWith: nil)
-                default:
-                    break
-                }
             }
 
             for (index, disruption) in disruptions.enumerated().reversed() {
