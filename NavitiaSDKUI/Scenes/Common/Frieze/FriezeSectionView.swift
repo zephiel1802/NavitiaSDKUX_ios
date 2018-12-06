@@ -15,8 +15,7 @@ class FriezeSectionView: UIView {
     @IBOutlet weak var transportLabel: UILabel!
     @IBOutlet weak var tagTransportView: UIView!
     @IBOutlet weak var tagTransportLabel: UILabel!
-    @IBOutlet weak var disruptionLabel: UILabel!
-    @IBOutlet weak var circleLabel: UILabel!
+    @IBOutlet weak var disruptionImage: UIImageView!
     
     var height: CGFloat = 27
     
@@ -59,29 +58,19 @@ class FriezeSectionView: UIView {
     }
     
     private func setupDisruption() {
-        circleLabel.attributedText = NSMutableAttributedString()
-            .icon("circle-filled",
-                  color: UIColor.white,
-                  size: 15)
-        circleLabel.isHidden = true
-        disruptionLabel.isHidden = true
+        disruptionImage.isHidden = true
         updateWitdh()
     }
     
     func displayDisruption(_ iconName: String?, color: String?) {
-        guard let iconName = iconName else {
-            disruptionLabel.isHidden = true
-            circleLabel.isHidden = true
+        guard let name = iconName, let image = Disruption().levelImage(name: name) else {
+            disruptionImage.isHidden = true
             
             return
         }
-        
-        disruptionLabel.attributedText = NSMutableAttributedString()
-            .icon(iconName,
-                  color: color?.toUIColor() ?? Configuration.Color.red,
-                  size: 14)
-        disruptionLabel.isHidden = false
-        circleLabel.isHidden = false
+
+        disruptionImage.isHidden = false
+        disruptionImage.image = image
         updateWitdh()
     }
     
@@ -149,7 +138,7 @@ extension FriezeSectionView {
                 width = width + marginTransportTag.left + marginTransportTag.right + widthPart + paddingTransportTag.right
             }
             
-            if !circleLabel.isHidden {
+            if !disruptionImage.isHidden {
                 width = width + widthDisruption
             }
         }

@@ -15,8 +15,7 @@ class PublicTransportStepView: UIView {
     @IBOutlet weak var informationsLabel: UILabel!
     @IBOutlet weak var transportIconView: UIView!
     @IBOutlet weak var transportIconLabel: UILabel!
-    @IBOutlet weak var disruptionCircleLabel: UILabel!
-    @IBOutlet weak var disruptionIconLabel: UILabel!
+    @IBOutlet weak var disruptionImage: UIImageView!
     @IBOutlet weak var networkContainerView: UIView!
     @IBOutlet weak var networkLabel: UILabel!
     @IBOutlet weak var waitingContainerView: UIView!
@@ -192,22 +191,19 @@ class PublicTransportStepView: UIView {
     var disruptions: [ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionModel.Disruption]? = nil {
         didSet {
             guard let disruptions = disruptions, disruptions.count > 0 else {
-                disruptionIconLabel.isHidden = true
-                disruptionCircleLabel.isHidden = true
+                disruptionImage.isHidden = true
                 return
             }
 
-            if let firstDisruption = disruptions.first, !transportIconView.isHidden {
-                disruptionCircleLabel.attributedText = NSMutableAttributedString().icon("circle-filled", color: Configuration.Color.white, size: 15)
-                disruptionCircleLabel.isHidden = false
-                disruptionIconLabel.attributedText = NSMutableAttributedString().icon(firstDisruption.icon, color: firstDisruption.color, size: 14)
-                disruptionIconLabel.isHidden = false
+            if let image = Disruption().levelImage(name: disruptions.first?.icon ?? ""), !transportIconView.isHidden {
+                disruptionImage.image = image
+                disruptionImage.isHidden = false
             }
 
             for (index, disruption) in disruptions.enumerated().reversed() {
                 let disruptionItemView = DisruptionItemView.instanceFromNib()
 
-                disruptionItemView.setIcon(icon: disruption.icon, color: disruption.color)
+                disruptionItemView.setIcon(icon: disruption.icon)
                 disruptionItemView.setDisruptionTitle(title: disruption.title, color: disruption.color)
                 disruptionItemView.disruptionInformation = disruption.information
                 disruptionItemView.disruptionDate = disruption.date

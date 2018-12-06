@@ -9,7 +9,7 @@ import UIKit
 
 class DisruptionItemView: UIView {
     
-    @IBOutlet weak var disruptionIconLabel: UILabel!
+    @IBOutlet weak var disruptionImage: UIImageView!
     @IBOutlet weak var disruptionTitleLabel: UILabel!
     @IBOutlet weak var disruptionDateLabel: UILabel!
     @IBOutlet weak var displayArrowLabel: UILabel!
@@ -73,9 +73,15 @@ class DisruptionItemView: UIView {
         disruptionInformationHidden = true
     }
     
-    func setIcon(icon: String, color: UIColor) {
-        disruptionIconLabel.attributedText = NSMutableAttributedString().icon(icon, size: 15)
-        disruptionIconLabel.textColor = color
+    func setIcon(icon: String) {
+        guard let image = Disruption().levelImage(name: icon) else {
+            disruptionImage.isHidden = true
+            
+            return
+        }
+        
+        disruptionImage.isHidden = false
+        disruptionImage.image = image
     }
     
     func setDisruptionTitle(title: String, color: UIColor) {
