@@ -14,25 +14,27 @@ public protocol JourneySolutionViewDelegate {
 
 class JourneySolutionView: UIView {
     
-    @IBOutlet var view: UIView!
     @IBOutlet weak var aboutLabel: UILabel!
     @IBOutlet weak var durationLabel: UILabel!
     @IBOutlet weak var durationCenterContraint: NSLayoutConstraint!
-
+    
+    let paddingFriezeView = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 70)
     var delegate: JourneySolutionViewDelegate?
     var friezeView = FriezeView()
-    let paddingFriezeView = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 70)
     var disruptions: [Disruption]?
+    
+    static var identifier: String {
+        return String(describing: self)
+    }
+    
+    class func instanceFromNib() -> JourneySolutionView {
+        return UINib(nibName: identifier, bundle: NavitiaSDKUI.shared.bundle).instantiate(withOwner: nil, options: nil)[0] as! JourneySolutionView
+    }
     
     override func layoutSubviews() {
         super.layoutSubviews()
         
         updateFriezeView()
-    }
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        setup()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -41,13 +43,6 @@ class JourneySolutionView: UIView {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        setup()
-    }
-    
-    private func setup() {
-        UINib(nibName: "JourneySolutionView", bundle: NavitiaSDKUI.shared.bundle).instantiate(withOwner: self, options: nil)
-        view.frame = self.bounds
-        addSubview(view)
         
         setupFriezeView()
         addShadow()
@@ -96,15 +91,6 @@ class JourneySolutionView: UIView {
         formattedStringDuration.append(duration.toAttributedStringTime(sizeBold: 14, sizeNormal: 10.5))
         self.duration = formattedStringDuration
     }
-    
-    static var nib:UINib {
-        return UINib(nibName: identifier, bundle: nil)
-    }
-    
-    static var identifier: String {
-        return String(describing: self)
-    }
-    
 }
 
 extension JourneySolutionView {
@@ -117,5 +103,4 @@ extension JourneySolutionView {
             durationLabel.attributedText = newValue
         }
     }
-    
 }

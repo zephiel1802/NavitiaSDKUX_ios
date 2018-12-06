@@ -26,6 +26,7 @@ class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
             let sectionsClean = getSectionModels(response: response),
             let arrival = getArrivalViewModel(journey: response.journey),
             let emission = getEmission(response: response),
+            let alternativeJourney = getAlternativeJourney(sectionsModel: sectionsClean),
             let frieze = getFrieze(journey: response.journey, disruptions: response.disruptions) else {
             return
         }
@@ -36,6 +37,7 @@ class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
                                                                 frieze: frieze,
                                                                 arrival: arrival,
                                                                 emission: emission,
+                                                                displayAvoidDisruption: alternativeJourney,
                                                                 journey: response.journey,
                                                                 ridesharingJourneys: response.journeyRidesharing)
         
@@ -296,8 +298,10 @@ class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
         }
         
         let friezeSections = FriezePresenter().getDisplayedJourneySections(journey: journey, disruptions: disruptions)
+        let friezeSectionsWithDisruption = FriezePresenter().getDisplayedJourneySections(journey: journey, disruptions: disruptions, withDisruptionLevel: true)
         let frieze = ShowJourneyRoadmap.GetRoadmap.ViewModel.Frieze(duration: duration,
-                                                                    friezeSections: friezeSections)
+                                                                    friezeSections: friezeSections,
+                                                                    friezeSectionsWithDisruption: friezeSectionsWithDisruption)
         
         return frieze
     }
@@ -623,6 +627,24 @@ class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
         return accessibilityLabel
     }
     
+    // MARK: Alternative Journey
+    
+    private func getAlternativeJourney(sectionsModel: [ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionModel]?) -> Bool? {
+        guard let sectionsModel = sectionsModel else {
+            return nil
+        }
+        
+        for sectionModel in sectionsModel {
+            for disruption in sectionModel.disruptions {
+                if disruption.level == .blocking {
+                    return true
+                }
+            }
+        }
+        
+        return false
+    }
+    
     // MARK: DisplayInformations
     
     private func getCommercialMode(displayInformations: VJDisplayInformation?) -> String? {
@@ -747,16 +769,26 @@ class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
                       information)
     }
     
+    private func getDisruptionLevel(level: Disruption.DisruptionLevel) -> ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionModel.Disruption.Level {
+        guard let level = ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionModel.Disruption.Level(rawValue: level.rawValue) else {
+            return .none
+        }
+        
+        return level
+    }
+    
     func getDisruptionModel(section: Section, disruptions: [Disruption]?) -> [ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionModel.Disruption] {
         let disruptions = getDisruption(section: section, disruptions: disruptions)
         var disruptionsClean = [ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionModel.Disruption]()
 
         for (_, disruption) in disruptions.enumerated() {
+            let disruptionLevel = getDisruptionLevel(level: disruption.level)
             let disruptionModel = ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionModel.Disruption(color: disruption.severity?.color?.toUIColor() ?? UIColor.red,
                                                                                                        icon: Disruption.iconName(of: disruption.level),
                                                                                                        title: disruption.severity?.name ?? "",
                                                                                                        date: getDateDisruption(disruption: disruption),
                                                                                                        information: Disruption.message(disruption: disruption)?.text?.htmlToAttributedString?.string,
+                                                                                                       level: disruptionLevel,
                                                                                                        accessibility: getAccessibilityDisruption(disruption: disruption))
             disruptionsClean.append(disruptionModel)
         }

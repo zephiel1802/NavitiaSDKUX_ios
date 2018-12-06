@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="AlternativeJourneyView" customModule="NavitiaSDKUI" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="280" height="141"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8TQ-MT-Mrj">
+                    <rect key="frame" x="0.0" y="0.0" width="280" height="141"/>
+                </button>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SNs-89-0bM" customClass="FriezeView" customModule="NavitiaSDKUI" customModuleProvider="target">
+                    <rect key="frame" x="0.0" y="0.0" width="280" height="58"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                </view>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="This itinerary is subject to severe disruptions." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="soC-9l-KiL">
+                    <rect key="frame" x="40" y="68" width="200" height="32"/>
+                    <accessibility key="accessibilityConfiguration">
+                        <bool key="isElement" value="NO"/>
+                    </accessibility>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="32" id="1Wq-Mk-nRw"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IOE-d4-UQz">
+                    <rect key="frame" x="57.5" y="110" width="165" height="31"/>
+                    <color key="backgroundColor" red="0.25098039220000001" green="0.58431372550000005" blue="0.5568627451" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <accessibility key="accessibilityConfiguration">
+                        <bool key="isElement" value="NO"/>
+                    </accessibility>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="31" id="JME-ks-A0x"/>
+                        <constraint firstAttribute="width" constant="165" id="M6c-kE-qGL"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
+                    <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <state key="normal" title="Avoid the disruption"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                            <integer key="value" value="5"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                    <connections>
+                        <action selector="avvoidJourneyButton:" destination="iN0-l3-epB" eventType="touchUpInside" id="dkE-cF-QzR"/>
+                    </connections>
+                </button>
+            </subviews>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstItem="8TQ-MT-Mrj" firstAttribute="bottom" secondItem="vUN-kp-3ea" secondAttribute="bottom" id="4kB-eI-XUX"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="soC-9l-KiL" secondAttribute="trailing" constant="40" id="Je5-UL-t49"/>
+                <constraint firstItem="8TQ-MT-Mrj" firstAttribute="trailing" secondItem="vUN-kp-3ea" secondAttribute="trailing" id="K3h-Zv-BPq"/>
+                <constraint firstItem="SNs-89-0bM" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="QNm-uD-ndW"/>
+                <constraint firstItem="soC-9l-KiL" firstAttribute="top" secondItem="SNs-89-0bM" secondAttribute="bottom" constant="10" id="R6p-wx-anW"/>
+                <constraint firstItem="8TQ-MT-Mrj" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="VEX-HB-484"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="SNs-89-0bM" secondAttribute="trailing" id="Wqj-FN-Lo7"/>
+                <constraint firstItem="IOE-d4-UQz" firstAttribute="bottom" secondItem="vUN-kp-3ea" secondAttribute="bottom" id="kxD-MG-KfB"/>
+                <constraint firstItem="SNs-89-0bM" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="nnL-pv-Soj"/>
+                <constraint firstItem="soC-9l-KiL" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="40" id="owO-eK-unK"/>
+                <constraint firstItem="IOE-d4-UQz" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="rwg-0n-eXB"/>
+                <constraint firstItem="8TQ-MT-Mrj" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="yTP-kH-uKv"/>
+                <constraint firstItem="IOE-d4-UQz" firstAttribute="top" secondItem="soC-9l-KiL" secondAttribute="bottom" constant="10" id="zvk-ZP-sa8"/>
+            </constraints>
+            <nil key="simulatedTopBarMetrics"/>
+            <nil key="simulatedBottomBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <connections>
+                <outlet property="accessibilityButton" destination="8TQ-MT-Mrj" id="3La-v8-QEa"/>
+                <outlet property="avoidDisruptionButton" destination="IOE-d4-UQz" id="4I1-QV-Eag"/>
+                <outlet property="descriptionLabel" destination="soC-9l-KiL" id="S9C-sf-6M6"/>
+                <outlet property="friezeView" destination="SNs-89-0bM" id="AZ4-Vj-b9u"/>
+            </connections>
+            <point key="canvasLocation" x="25.600000000000001" y="138.98050974512745"/>
+        </view>
+    </objects>
+</document>

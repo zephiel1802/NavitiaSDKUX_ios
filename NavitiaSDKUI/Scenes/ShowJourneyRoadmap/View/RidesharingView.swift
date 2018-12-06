@@ -7,8 +7,6 @@
 
 import UIKit
 
-import UIKit
-
 class RidesharingView: UIView {
     
     @IBOutlet var view: UIView!

@@ -25,6 +25,7 @@ public struct JourneysRequest {
     public var bssStands: Bool?
     public var directPath: JourneysRequestBuilder.DirectPath?
     public var addPoiInfos: [JourneysRequestBuilder.AddPoiInfos]?
+    public var dataFreshness: JourneysRequestBuilder.DataFreshness?
     public var debugURL: String?
     
     public init(originId: String, destinationId: String) {

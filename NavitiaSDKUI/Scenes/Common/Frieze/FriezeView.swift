@@ -9,6 +9,12 @@ import UIKit
 
 class FriezeView: UIView {
 
+    enum Alignment {
+        case left
+        case center
+        case right
+    }
+
     private var friezeSectionsView = [FriezeSectionView]()
 
     public override init(frame: CGRect) {
@@ -72,6 +78,29 @@ class FriezeView: UIView {
             
             friezeSectionView.frame.origin = position
             position.x = position.x + CGFloat(friezeSectionView.frame.size.width) + padding.right
+        }
+    }
+    
+    func getCenter() {
+        var indexFrieze = 0
+        for (index, view) in friezeSectionsView.enumerated() {
+            if view.frame.origin.x == 0 {
+                if index - 1 > 0 {
+                    let marge = frame.size.width - (friezeSectionsView[index - 1].frame.size.width + friezeSectionsView[index - 1].frame.origin.x)
+                    while indexFrieze < index {
+                        friezeSectionsView[indexFrieze].frame.origin.x = friezeSectionsView[indexFrieze].frame.origin.x + marge / 2
+                        indexFrieze = indexFrieze + 1
+                    }
+                }
+            }
+            
+            if index + 1 == friezeSectionsView.count {
+                let marge = frame.size.width - (friezeSectionsView[index].frame.size.width + friezeSectionsView[index].frame.origin.x)
+                while indexFrieze <= index {
+                    friezeSectionsView[indexFrieze].frame.origin.x = friezeSectionsView[indexFrieze].frame.origin.x + marge / 2
+                    indexFrieze = indexFrieze + 1
+                }
+            }
         }
     }
 }
