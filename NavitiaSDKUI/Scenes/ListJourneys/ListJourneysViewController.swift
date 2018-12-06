@@ -141,7 +141,7 @@ open class ListJourneysViewController: UIViewController, ListJourneysDisplayLogi
     
     // MARK: - Fetch journeys
     
-    private func fetchJourneys() {
+    internal func fetchJourneys() {
         guard let journeysRequest = self.journeysRequest else {
             return
         }

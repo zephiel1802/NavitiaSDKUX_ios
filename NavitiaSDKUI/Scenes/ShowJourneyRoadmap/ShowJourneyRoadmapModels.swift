@@ -109,13 +109,21 @@ enum ShowJourneyRoadmap {
                 struct Note {
                     var content: String
                 }
-                
+
                 struct Disruption {
+                    public enum Level: Int {
+                        case none = 100
+                        case information = 101
+                        case nonblocking = 102
+                        case blocking = 103
+                    }
+                    
                     var color: UIColor
                     var icon: String
                     var title: String
                     var date: String
                     var information: String?
+                    var level: Level
                     var accessibility: String
                 }
                 
@@ -157,6 +165,7 @@ enum ShowJourneyRoadmap {
             var frieze: Frieze
             var arrival: DepartureArrival
             var emission: Emission
+            var alternativeJourney: Bool
             var journey: Journey // Class: SDK Expert
             var ridesharingJourneys: Journey? // Class: SDK Expert
         }

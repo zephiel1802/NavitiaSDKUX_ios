@@ -210,13 +210,19 @@ internal class ShowJourneyRoadmapViewController: UIViewController, ShowJourneyRo
         let journeySolutionView = getJourneySolutionView(viewModel: viewModel)
 
         scrollView.addSubview(journeySolutionView, margin: UIEdgeInsets(top: 0, left: 0, bottom: 5, right: 0))
-        
+
         if viewModel.journey.isRidesharing {
             let ridesharingView = displayRidesharingView()
-            
+
             journeySolutionView.setRidesharingData(duration: viewModel.frieze.duration, friezeSection: viewModel.frieze.friezeSections)
-            
+
             scrollView.addSubview(ridesharingView, margin: UIEdgeInsets(top: 5, left: 10, bottom: 5, right: 10))
+        } else if viewModel.alternativeJourney {
+            let alternativeJourneyView = displayAlternativeJourneyView()
+
+            alternativeJourneyView.addFrieze(friezeSection: viewModel.frieze.friezeSections)
+
+            scrollView.addSubview(alternativeJourneyView, margin: UIEdgeInsets(top: 15, left: 10, bottom: 15, right: 10))
         }
     }
     
@@ -226,6 +232,15 @@ internal class ShowJourneyRoadmapViewController: UIViewController, ShowJourneyRo
         journeySolutionView.setData(duration: viewModel.frieze.duration, friezeSection: viewModel.frieze.friezeSections)
         
         return journeySolutionView
+    }
+    
+    private func displayAlternativeJourneyView() -> AlternativeJourneyView {
+        let alternativeJourneyView = AlternativeJourneyView.instanceFromNib()
+        
+        alternativeJourneyView.frame.size = CGSize(width: scrollView.frame.size.width, height: 110)
+        alternativeJourneyView.delegate = self
+        
+        return alternativeJourneyView
     }
     
     private func displayRidesharingView() -> RidesharingView {
@@ -323,14 +338,14 @@ internal class ShowJourneyRoadmapViewController: UIViewController, ShowJourneyRo
     
     private func getStepView(section: ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionModel) -> UIView {
         let stepView = StepView.instanceFromNib()
-        
-        stepView.frame = scrollView.bounds
+
+        stepView.frame = view.bounds
         stepView.enableBackground = section.background
         stepView.iconInformations = section.icon
         stepView.informationsAttributedString = getInformationsStepView(section: section)
         stepView.stands = section.poi?.stands
         stepView.paths = section.path
-        
+
         getRealTime(section: section, view: stepView)
 
         return stepView
@@ -738,5 +753,17 @@ extension ShowJourneyRoadmapViewController: CLLocationManagerDelegate {
             locationManager.stopUpdatingLocation()
         }
     }
+}
+
+extension ShowJourneyRoadmapViewController: AlternativeJourneyDelegate {
     
+    func avoidJourney() {
+        var selector: Selector?
+        
+        selector = NSSelectorFromString("routeToListJourneys")
+        
+        if let router = router, router.responds(to: selector) {
+            router.perform(selector)
+        }
+    }
 }

@@ -197,7 +197,7 @@ class PublicTransportStepView: UIView {
                 return
             }
 
-            if let firstDisruption = disruptions.first {
+            if let firstDisruption = disruptions.first, !transportIconView.isHidden {
                 disruptionCircleLabel.attributedText = NSMutableAttributedString().icon("circle-filled", color: Configuration.Color.white, size: 15)
                 disruptionCircleLabel.isHidden = false
                 disruptionIconLabel.attributedText = NSMutableAttributedString().icon(firstDisruption.icon, color: firstDisruption.color, size: 14)

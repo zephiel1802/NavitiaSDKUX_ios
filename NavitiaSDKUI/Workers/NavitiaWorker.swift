@@ -34,6 +34,7 @@ class NavitiaWorker: NavitiaWorkerProtocol {
                 .withAddPoiInfos(journeysRequest.addPoiInfos)
                 .withDirectPath(journeysRequest.directPath)
                 .withDebugURL(journeysRequest.debugURL)
+                .withDataFreshness(journeysRequest.dataFreshness)
             
             journeyRequestBuilder.get { (result, error) in
                 if let result = result {
