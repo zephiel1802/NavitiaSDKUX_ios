@@ -9,12 +9,19 @@ import UIKit
 
 class EmissionView: UIView {
     
-    @IBOutlet var view: UIView!
     @IBOutlet weak var iconImageView: UIImageView!
     @IBOutlet weak var journeyCarbonAutoFilledLabel: UIAutoFilledLabel!
     @IBOutlet weak var carCarbonAutoFilledLabel: UIAutoFilledLabel!
     @IBOutlet weak var journeyLabelCenterVerticallyConstraint: NSLayoutConstraint!
     @IBOutlet weak var journeyLabelBottomConstraint: NSLayoutConstraint!
+    
+    static var identifier: String {
+        return String(describing: self)
+    }
+    
+    class func instanceFromNib() -> EmissionView {
+        return UINib(nibName: identifier, bundle: NavitiaSDKUI.shared.bundle).instantiate(withOwner: nil, options: nil)[0] as! EmissionView
+    }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -26,14 +33,6 @@ class EmissionView: UIView {
         super.init(coder: aDecoder)
     }
     
-    override var frame: CGRect {
-        willSet {
-            if let view = view {
-                view.frame.size = newValue.size
-            }
-        }
-    }
-    
     override func awakeFromNib() {
         super.awakeFromNib()
         
@@ -41,11 +40,7 @@ class EmissionView: UIView {
     }
     
     private func setup() {
-        UINib(nibName: "EmissionView", bundle: NavitiaSDKUI.shared.bundle).instantiate(withOwner: self, options: nil)
-        view.frame = self.bounds
-        view.backgroundColor = Configuration.Color.main
-        addSubview(view)
-        
+        backgroundColor = Configuration.Color.main
         addShadow(opacity: 0.28)
     }
     

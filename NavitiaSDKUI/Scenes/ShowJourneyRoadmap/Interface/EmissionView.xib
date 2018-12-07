@@ -10,20 +10,11 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="EmissionView" customModule="NavitiaSDKUI" customModuleProvider="target">
-            <connections>
-                <outlet property="carCarbonAutoFilledLabel" destination="Ey9-BF-Hoj" id="H3h-Ig-H4P"/>
-                <outlet property="iconImageView" destination="oFL-pE-CP8" id="swW-e3-sGC"/>
-                <outlet property="journeyCarbonAutoFilledLabel" destination="ijD-Z3-u7c" id="6jv-CD-cvm"/>
-                <outlet property="journeyLabelBottomConstraint" destination="v75-qq-eCi" id="Dwa-jR-lAX"/>
-                <outlet property="journeyLabelCenterVerticallyConstraint" destination="J4D-Jc-sqs" id="qif-wr-ZXF"/>
-                <outlet property="view" destination="iN0-l3-epB" id="eqj-nb-QAM"/>
-            </connections>
-        </placeholder>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <view contentMode="scaleToFill" id="iN0-l3-epB">
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="EmissionView" customModule="NavitiaSDKUI" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="400" height="60"/>
-            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" heightSizable="YES" flexibleMaxY="YES"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="carbon" translatesAutoresizingMaskIntoConstraints="NO" id="oFL-pE-CP8">
                     <rect key="frame" x="15" y="10" width="40" height="40"/>
@@ -71,7 +62,14 @@
             <nil key="simulatedBottomBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
-            <point key="canvasLocation" x="-28" y="210"/>
+            <connections>
+                <outlet property="carCarbonAutoFilledLabel" destination="Ey9-BF-Hoj" id="zSb-GY-zKx"/>
+                <outlet property="iconImageView" destination="oFL-pE-CP8" id="E5D-Ix-BzX"/>
+                <outlet property="journeyCarbonAutoFilledLabel" destination="ijD-Z3-u7c" id="6DG-qW-IFv"/>
+                <outlet property="journeyLabelBottomConstraint" destination="v75-qq-eCi" id="Pdo-yW-ZZS"/>
+                <outlet property="journeyLabelCenterVerticallyConstraint" destination="J4D-Jc-sqs" id="jj0-lM-kEy"/>
+            </connections>
+            <point key="canvasLocation" x="-28.800000000000001" y="209.59520239880061"/>
         </view>
     </objects>
     <resources>
