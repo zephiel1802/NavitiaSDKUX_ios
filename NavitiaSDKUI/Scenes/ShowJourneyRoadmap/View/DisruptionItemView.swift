@@ -17,9 +17,9 @@ class DisruptionItemView: UIView {
     @IBOutlet var disruptionInformationBottomConstraint: NSLayoutConstraint!
     @IBOutlet var disruptionDateBottomConstraint: NSLayoutConstraint!
     
-    var accessibility: String?
+    internal var accessibility: String?
     
-    var disruptionInformation: String? {
+    internal var disruptionInformation: String? {
         didSet {
             guard let disruptionInformation = disruptionInformation else {
                 return
@@ -29,7 +29,7 @@ class DisruptionItemView: UIView {
         }
     }
     
-    var disruptionDate: String? {
+    internal var disruptionDate: String? {
         didSet {
             guard let disruptionDate = disruptionDate else {
                 return
@@ -39,7 +39,7 @@ class DisruptionItemView: UIView {
         }
     }
     
-    var disruptionInformationHidden: Bool? {
+    internal var disruptionInformationHidden: Bool? {
         didSet {
             guard let disruptionInformationHidden = disruptionInformationHidden else {
                 return
@@ -59,6 +59,8 @@ class DisruptionItemView: UIView {
         }
     }
     
+    // MARK: - UINib
+    
     static var identifier: String {
         return String(describing: self)
     }
@@ -67,13 +69,21 @@ class DisruptionItemView: UIView {
         return UINib(nibName: identifier, bundle: NavitiaSDKUI.shared.bundle).instantiate(withOwner: nil, options: nil)[0] as! DisruptionItemView
     }
     
+    // MARK: - Initialization
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         
+        setup()
+    }
+    
+    // MARK: - Function
+    
+    private func setup() {
         disruptionInformationHidden = true
     }
     
-    func setIcon(icon: String) {
+    internal func setIcon(icon: String) {
         guard let image = Disruption().levelImage(name: icon) else {
             disruptionImage.isHidden = true
             
@@ -84,10 +94,12 @@ class DisruptionItemView: UIView {
         disruptionImage.image = image
     }
     
-    func setDisruptionTitle(title: String, color: UIColor) {
+    internal func setDisruptionTitle(title: String, color: UIColor) {
         disruptionTitleLabel.attributedText = NSMutableAttributedString().bold(title, color: color, size: 12)
     }
 
+    // MARK: - Action
+    
     @IBAction func manageDisruptionInformationDisplay(_ sender: UIButton) {
         disruptionInformationHidden = !disruptionInformationLabel.isHidden
     }

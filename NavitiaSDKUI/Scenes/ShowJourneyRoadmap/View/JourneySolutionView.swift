@@ -7,7 +7,7 @@
 
 import UIKit
 
-public protocol JourneySolutionViewDelegate {
+public protocol JourneySolutionViewDelegate: class {
     
     func updateHeight(height: CGFloat)
 }
@@ -18,10 +18,12 @@ class JourneySolutionView: UIView {
     @IBOutlet weak var durationLabel: UILabel!
     @IBOutlet weak var durationCenterContraint: NSLayoutConstraint!
     
-    let paddingFriezeView = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 70)
-    var delegate: JourneySolutionViewDelegate?
-    var friezeView = FriezeView()
-    var disruptions: [Disruption]?
+    private let paddingFriezeView = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 70)
+    private var friezeView = FriezeView()
+    private var disruptions: [Disruption]?
+    internal weak var delegate: JourneySolutionViewDelegate?
+
+    // MARK: - UINib
     
     static var identifier: String {
         return String(describing: self)
@@ -31,19 +33,23 @@ class JourneySolutionView: UIView {
         return UINib(nibName: identifier, bundle: NavitiaSDKUI.shared.bundle).instantiate(withOwner: nil, options: nil)[0] as! JourneySolutionView
     }
     
+    // MARK: - Initialization
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        
+        setup()
+    }
+    
     override func layoutSubviews() {
         super.layoutSubviews()
         
         updateFriezeView()
     }
     
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-    }
+    // MARK: - Function
     
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        
+    private func setup() {
         setupFriezeView()
         addShadow()
     }
@@ -66,7 +72,14 @@ class JourneySolutionView: UIView {
         delegate?.updateHeight(height: frame.size.height)
     }
 
-    func setData(duration: Int32, friezeSection: [FriezePresenter.FriezeSection]) {
+    private func formattedDuration(prefix: String = "", _ duration: Int32) {
+        let formattedStringDuration = NSMutableAttributedString()
+            .semiBold(prefix, color: Configuration.Color.main)
+        formattedStringDuration.append(duration.toAttributedStringTime(sizeBold: 14, sizeNormal: 10.5))
+        self.duration = formattedStringDuration
+    }
+    
+    internal func setData(duration: Int32, friezeSection: [FriezePresenter.FriezeSection]) {
         aboutLabel.isHidden = true
         durationCenterContraint.constant = 0
         
@@ -74,7 +87,7 @@ class JourneySolutionView: UIView {
         friezeView.addSection(friezeSections: friezeSection)
     }
     
-    func setRidesharingData(duration: Int32, friezeSection: [FriezePresenter.FriezeSection]) {
+    internal func setRidesharingData(duration: Int32, friezeSection: [FriezePresenter.FriezeSection]) {
         aboutLabel.isHidden = false
         durationCenterContraint.constant = 7
         
@@ -83,13 +96,6 @@ class JourneySolutionView: UIView {
         formattedDuration(duration)
         
         friezeView.addSection(friezeSections: friezeSection)
-    }
-    
-    private func formattedDuration(prefix: String = "", _ duration: Int32) {
-        let formattedStringDuration = NSMutableAttributedString()
-            .semiBold(prefix, color: Configuration.Color.main)
-        formattedStringDuration.append(duration.toAttributedStringTime(sizeBold: 14, sizeNormal: 10.5))
-        self.duration = formattedStringDuration
     }
 }
 

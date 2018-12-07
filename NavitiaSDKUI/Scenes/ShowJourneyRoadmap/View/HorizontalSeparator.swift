@@ -5,10 +5,11 @@
 //  Copyright © 2018 kisio. All rights reserved.
 //
 
-import Foundation
 import UIKit
 
 class HorizontalSeparator: UIView {
+    
+    // MARK: - UINib
     
     static var identifier: String {
         return String(describing: self)

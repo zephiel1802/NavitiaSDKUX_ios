@@ -15,36 +15,7 @@ class EmissionView: UIView {
     @IBOutlet weak var journeyLabelCenterVerticallyConstraint: NSLayoutConstraint!
     @IBOutlet weak var journeyLabelBottomConstraint: NSLayoutConstraint!
     
-    static var identifier: String {
-        return String(describing: self)
-    }
-    
-    class func instanceFromNib() -> EmissionView {
-        return UINib(nibName: identifier, bundle: NavitiaSDKUI.shared.bundle).instantiate(withOwner: nil, options: nil)[0] as! EmissionView
-    }
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        
-        setup()
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-    }
-    
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        
-        setup()
-    }
-    
-    private func setup() {
-        backgroundColor = Configuration.Color.main
-        addShadow(opacity: 0.28)
-    }
-    
-    var journeyCarbon: (value: Double, unit: String)? {
+    internal var journeyCarbon: (value: Double, unit: String)? {
         didSet {
             if let journeyCarbon = journeyCarbon {
                 journeyCarbonAutoFilledLabel.autofillLeftText = "carbon_journey".localized()
@@ -55,7 +26,7 @@ class EmissionView: UIView {
         }
     }
     
-    var carCarbon: (value: Double, unit: String)? {
+    internal var carCarbon: (value: Double, unit: String)? {
         didSet {
             if let journeyCarbon = journeyCarbon, let carCarbon = carCarbon, carCarbon.value != journeyCarbon.value {
                 carCarbonAutoFilledLabel.autofillLeftText = "carbon_car".localized()
@@ -63,17 +34,40 @@ class EmissionView: UIView {
                 carCarbonAutoFilledLabel.autofillPattern = "."
                 carCarbonAutoFilledLabel.delegate = self
             } else {
-                self.carCarbonAutoFilledLabel.isHidden = true
-                self.journeyLabelBottomConstraint.isActive = false
-                self.journeyLabelCenterVerticallyConstraint.isActive = true
+                hideCarCarbonSummary()
             }
         }
     }
     
-    func hideCarCarbonSummary() {
-        self.carCarbonAutoFilledLabel.isHidden = true
-        self.journeyLabelBottomConstraint.isActive = false
-        self.journeyLabelCenterVerticallyConstraint.isActive = true
+    // MARK: - UINib
+    
+    static var identifier: String {
+        return String(describing: self)
+    }
+    
+    class func instanceFromNib() -> EmissionView {
+        return UINib(nibName: identifier, bundle: NavitiaSDKUI.shared.bundle).instantiate(withOwner: nil, options: nil)[0] as! EmissionView
+    }
+    
+    // MARK: - Initialization
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        
+        setup()
+    }
+    
+    // MARK: - Function
+    
+    private func setup() {
+        backgroundColor = Configuration.Color.main
+        addShadow(opacity: 0.28)
+    }
+    
+    private func hideCarCarbonSummary() {
+        carCarbonAutoFilledLabel.isHidden = true
+        journeyLabelBottomConstraint.isActive = false
+        journeyLabelCenterVerticallyConstraint.isActive = true
     }
 }
 

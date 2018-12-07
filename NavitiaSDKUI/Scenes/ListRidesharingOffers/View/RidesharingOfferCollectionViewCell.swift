@@ -7,7 +7,7 @@
 
 import UIKit
 
-protocol RidesharingOfferCollectionViewCellDelegate {
+protocol RidesharingOfferCollectionViewCellDelegate: class {
     
     func onBookButtonClicked(_ ridesharingOfferCollectionViewCell: RidesharingOfferCollectionViewCell)
 }
@@ -26,7 +26,7 @@ class RidesharingOfferCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var priceLabel: UILabel!
     @IBOutlet weak var roadmapButton: UIButton!
     
-    var delegate: RidesharingOfferCollectionViewCellDelegate?
+    weak var delegate: RidesharingOfferCollectionViewCellDelegate?
     var row: Int?
     
     override func awakeFromNib() {

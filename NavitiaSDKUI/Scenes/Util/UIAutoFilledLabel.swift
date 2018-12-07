@@ -5,7 +5,7 @@
 //  Copyright © 2018 kisio. All rights reserved.
 //
 
-protocol UIAutoFilledLabelDelegate {
+protocol UIAutoFilledLabelDelegate: class {
     
     func autofillDidFinish(_ target: UIAutoFilledLabel)
 }
@@ -15,7 +15,7 @@ class UIAutoFilledLabel: UILabel {
     @IBInspectable var autofillLeftText: String?
     @IBInspectable var autofillRightText: String?
     var autofillPattern: Character?
-    var delegate: UIAutoFilledLabelDelegate?
+    weak var delegate: UIAutoFilledLabelDelegate?
     
     override var bounds: CGRect {
         didSet {
