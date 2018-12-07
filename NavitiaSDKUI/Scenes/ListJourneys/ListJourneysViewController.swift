@@ -337,11 +337,10 @@ extension ListJourneysViewController: ListJourneysCollectionViewLayoutDelegate {
             }
             
             if let sections = viewModel.displayedJourneys[safe: indexPath.row]?.friezeSections {
+                let friezeView = FriezeView(frame: CGRect(x: 0, y: 0, width: width - 20, height: 27))
+                friezeView.addSection(friezeSections: sections)
                 
-                let frire = FriezeView(frame: CGRect(x: 0, y: 0, width: width - 20, height: 27))
-                frire.addSection(friezeSections: sections)
-                
-                return height + frire.frame.size.height
+                return height + friezeView.frame.size.height
             }
         }
         
@@ -355,16 +354,15 @@ extension ListJourneysViewController: ListJourneysCollectionViewLayoutDelegate {
                 return 35
             }
             var height: CGFloat = 60
-            if let _ = viewModel.displayedJourneys[safe: indexPath.row]?.walkingInformation {
+            if let _ = viewModel.displayedRidesharings[safe: indexPath.row - 1]?.walkingInformation {
                 height += 30
             }
             
-            if let sections = viewModel.displayedJourneys[safe: indexPath.row]?.friezeSections {
+            if let sections = viewModel.displayedRidesharings[safe: indexPath.row - 1]?.friezeSections {
+                let friezeView = FriezeView(frame: CGRect(x: 0, y: 0, width: width - 20, height: 27))
+                friezeView.addSection(friezeSections: sections)
                 
-                let frire = FriezeView(frame: CGRect(x: 0, y: 0, width: width - 20, height: 27))
-                frire.addSection(friezeSections: sections)
-                
-                return height + frire.frame.size.height
+                return height + friezeView.frame.size.height
             }
         }
         

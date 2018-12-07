@@ -5,7 +5,7 @@
 //  Copyright © 2018 kisio. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 protocol AlternativeJourneyDelegate: class {
     
@@ -19,13 +19,9 @@ class AlternativeJourneyView: UIView {
     @IBOutlet weak var avoidDisruptionButton: UIButton!
     @IBOutlet weak var accessibilityButton: UIButton!
     
-    weak var delegate: AlternativeJourneyDelegate?
+    internal weak var delegate: AlternativeJourneyDelegate?
     
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        
-        updateFriezeView()
-    }
+    // MARK: - UINib
     
     static var identifier: String {
         return String(describing: self)
@@ -35,9 +31,23 @@ class AlternativeJourneyView: UIView {
         return UINib(nibName: identifier, bundle: NavitiaSDKUI.shared.bundle).instantiate(withOwner: nil, options: nil)[0] as! AlternativeJourneyView
     }
     
+    // MARK: - Initialization
+    
     override func awakeFromNib() {
         super.awakeFromNib()
 
+        setup()
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        updateFriezeView()
+    }
+    
+    // MARK: - Function
+    
+    private func setup() {
         descriptionLabel.text = "itinerary_disruption_message".localized()
         avoidDisruptionButton.setTitle("avoid_the_disruption".localized(), for: .normal)
         accessibilityButton.accessibilityLabel = ""
@@ -46,19 +56,21 @@ class AlternativeJourneyView: UIView {
     internal func addFrieze(friezeSection: [FriezePresenter.FriezeSection]) {
         friezeView.addSection(friezeSections: friezeSection)
         friezeView.getCenter()
+        
         frame.size.height = friezeView.frame.size.height + 83
     }
     
     private func updateFriezeView() {
-        friezeView.frame.size = CGSize(width: frame.size.width,
-                                       height: 27)
+        friezeView.frame.size = CGSize(width: frame.size.width, height: 27)
         friezeView.updatePositionFriezeSectionView()
         friezeView.getCenter()
         
         frame.size.height = friezeView.frame.size.height + 83
     }
     
-    @IBAction func avvoidJourneyButton(_ sender: UIButton) {
+    // MARK: - Action
+    
+    @IBAction func avoidJourneyButton(_ sender: UIButton) {
         delegate?.avoidJourney()
     }
 }

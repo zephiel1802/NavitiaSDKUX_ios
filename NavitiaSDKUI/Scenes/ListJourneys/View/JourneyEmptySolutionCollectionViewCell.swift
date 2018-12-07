@@ -12,20 +12,23 @@ class JourneyEmptySolutionCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var noJourneyView: UIView!
     @IBOutlet weak var noJourneyLabel: UILabel!
     
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        
-        setup()
-        addShadow()
+    static var identifier: String {
+        return String(describing: self)
     }
     
     static var nib:UINib {
         return UINib(nibName: identifier, bundle: nil)
     }
     
-    static var identifier: String {
-        return String(describing: self)
+    // MARK: - Initialization
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        
+        setup()
     }
+    
+    // MARK: - Function
     
     private func setup() {
         noJourneyLabel.text = "no_journey_found".localized()
@@ -33,9 +36,11 @@ class JourneyEmptySolutionCollectionViewCell: UICollectionViewCell {
         noJourneyView.backgroundColor = Configuration.Color.alertView
         noJourneyView.layer.borderWidth = 1
         noJourneyView.layer.borderColor = Configuration.Color.alertInfoDarker.cgColor
+        
+        addShadow()
     }
     
-    public var text: String? {
+    internal var text: String? {
         didSet {
             noJourneyLabel.text = text
         }

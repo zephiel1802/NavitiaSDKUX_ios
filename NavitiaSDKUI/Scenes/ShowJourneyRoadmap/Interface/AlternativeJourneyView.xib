@@ -54,7 +54,7 @@
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                     <connections>
-                        <action selector="avvoidJourneyButton:" destination="iN0-l3-epB" eventType="touchUpInside" id="dkE-cF-QzR"/>
+                        <action selector="avoidJourneyButton:" destination="iN0-l3-epB" eventType="touchUpInside" id="dkE-cF-QzR"/>
                     </connections>
                 </button>
             </subviews>
