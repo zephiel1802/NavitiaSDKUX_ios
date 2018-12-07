@@ -20,22 +20,27 @@ internal class ShowJourneyRoadmapViewController: UIViewController, ShowJourneyRo
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var scrollView: StackScrollView!
     
-    internal var router: (NSObjectProtocol & ShowJourneyRoadmapRoutingLogic & ShowJourneyRoadmapDataPassing)?
-    var interactor: ShowJourneyRoadmapBusinessLogic?
     private var mapViewModel: ShowJourneyRoadmap.GetMap.ViewModel?
     private var ridesharing: ShowJourneyRoadmap.GetRoadmap.ViewModel.Ridesharing?
     private var ridesharingJourneys: Journey?
+    private let locationManager = CLLocationManager()
+    private var intermediatePointsCircles = [SectionCircle]()
+    private var journeyPolylineCoordinates = [CLLocationCoordinate2D]()
+    private var sectionsPolylines = [SectionPolyline]()
+    private var animationTimer: Timer?
+    private var bssRealTimer: Timer?
+    private var parkRealTimer: Timer?
+    private var bssTuple = [(poi: ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionModel.Poi?, view: StepView)]()
+    private var parkTuple = [(poi: ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionModel.Poi?, view: StepView)]()
+    private var display = false
+    internal var router: (NSObjectProtocol & ShowJourneyRoadmapRoutingLogic & ShowJourneyRoadmapDataPassing)?
+    internal var interactor: ShowJourneyRoadmapBusinessLogic?
+
+    static var identifier: String {
+        return String(describing: self)
+    }
     
-    let locationManager = CLLocationManager()
-    var intermediatePointsCircles = [SectionCircle]()
-    var journeyPolylineCoordinates = [CLLocationCoordinate2D]()
-    var sectionsPolylines = [SectionPolyline]()
-    var animationTimer: Timer?
-    var bssRealTimer: Timer?
-    var parkRealTimer: Timer?
-    var bssTuple = [(poi: ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionModel.Poi?, view: StepView)]()
-    var parkTuple = [(poi: ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionModel.Poi?, view: StepView)]()
-    var display = false
+    // MARK: - Initialization
     
     required public init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -55,6 +60,15 @@ internal class ShowJourneyRoadmapViewController: UIViewController, ShowJourneyRo
         getMap()
     }
 
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        
+        if !display {
+            display = true
+            zoomOverPolyline(targetPolyline: MKPolyline(coordinates: journeyPolylineCoordinates, count: journeyPolylineCoordinates.count))
+        }
+    }
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
 
@@ -74,15 +88,6 @@ internal class ShowJourneyRoadmapViewController: UIViewController, ShowJourneyRo
         refreshFetchPark(run: false)
         stopAnimation()
     }
-
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        
-        if !display {
-            display = true
-            zoomOverPolyline(targetPolyline: MKPolyline(coordinates: journeyPolylineCoordinates, count: journeyPolylineCoordinates.count))
-        }
-    }
     
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
@@ -90,9 +95,7 @@ internal class ShowJourneyRoadmapViewController: UIViewController, ShowJourneyRo
         navigationController?.navigationBar.setNeedsLayout()
     }
     
-    static var identifier: String {
-        return String(describing: self)
-    }
+    // MARK: - Function
     
     private func initArchitecture() {
         let viewController = self

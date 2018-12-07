@@ -10,7 +10,6 @@ import UIKit
 class RidesharingView: UIView {
     
     @IBOutlet var view: UIView!
-    
     @IBOutlet weak var accessibilityButton: UIButton!
     @IBOutlet weak var bookButton: UIButton!
     @IBOutlet weak var titleLabel: UILabel!

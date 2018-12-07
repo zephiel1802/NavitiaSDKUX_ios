@@ -26,28 +26,33 @@ class RidesharingOfferCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var priceLabel: UILabel!
     @IBOutlet weak var roadmapButton: UIButton!
     
-    weak var delegate: RidesharingOfferCollectionViewCellDelegate?
-    var row: Int?
+    internal weak var delegate: RidesharingOfferCollectionViewCellDelegate?
+    internal var row: Int?
     
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        
-        addShadow()
-        roadmapButton.setTitle("view_on_the_map".localized(), for: .normal)
-        roadmapButton.accessibilityElementsHidden = true
+    static var identifier: String {
+        return String(describing: self)
     }
     
     static var nib:UINib {
         return UINib(nibName: identifier, bundle: nil)
     }
     
-    static var identifier: String {
-        return String(describing: self)
+    // MARK: - Initialization
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        
+        setup()
     }
     
-    @IBAction func actionRoadmapButton(_ sender: Any) {
-        delegate?.onBookButtonClicked(self)
+    private func setup() {
+        roadmapButton.setTitle("view_on_the_map".localized(), for: .normal)
+        roadmapButton.accessibilityElementsHidden = true
+        
+        addShadow()
     }
+    
+    // MARK: - Function
     
     func setPicture(url: String?) {
         if let url = url {
@@ -88,6 +93,12 @@ class RidesharingOfferCollectionViewCell: UICollectionViewCell {
             seatsCountLabel.attributedText = NSMutableAttributedString()
                 .semiBold("no_available_seats".localized(), size: 12.5)
         }
+    }
+    
+    // MARK: - Action
+    
+    @IBAction func actionRoadmapButton(_ sender: Any) {
+        delegate?.onBookButtonClicked(self)
     }
 }
 

@@ -28,18 +28,37 @@ class JourneySolutionCollectionViewCell: UICollectionViewCell {
         }
     }
     
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        
-        addShadow()
+    static var identifier: String {
+        return String(describing: self)
     }
     
     static var nib:UINib {
         return UINib(nibName: identifier, bundle: nil)
     }
     
-    static var identifier: String {
-        return String(describing: self)
+    // MARK: - Initialization
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        
+        setup()
+    }
+    
+    // MARK: - Function
+    
+    private func setup() {
+        addShadow()
+    }
+    
+    private func setArrow() {
+        arrowLabel.attributedText = NSMutableAttributedString()
+            .icon("arrow-right",
+                  color: Configuration.Color.main,
+                  size: 15)
+    }
+    
+    private func setJourneySummaryView(displayedJourney: ListJourneys.FetchJourneys.ViewModel.DisplayedJourney) {
+        friezeView.addSection(friezeSections: displayedJourney.friezeSections)
     }
     
     internal func setup(displayedJourney: ListJourneys.FetchJourneys.ViewModel.DisplayedJourney) {
@@ -60,18 +79,7 @@ class JourneySolutionCollectionViewCell: UICollectionViewCell {
         accessiblityView.accessibilityLabel = displayedJourney.accessibility
     }
     
-    private func setArrow() {
-        arrowLabel.attributedText = NSMutableAttributedString()
-            .icon("arrow-right",
-                  color: Configuration.Color.main,
-                  size: 15)
-    }
-    
-    private func setJourneySummaryView(displayedJourney: ListJourneys.FetchJourneys.ViewModel.DisplayedJourney) {
-        friezeView.addSection(friezeSections: displayedJourney.friezeSections)
-    }
-    
-    public var dateTime: String? {
+    internal var dateTime: String? {
         didSet {
             guard let dateTime = dateTime else {
                 return

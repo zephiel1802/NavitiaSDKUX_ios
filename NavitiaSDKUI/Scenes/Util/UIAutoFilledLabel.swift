@@ -14,14 +14,17 @@ class UIAutoFilledLabel: UILabel {
     
     @IBInspectable var autofillLeftText: String?
     @IBInspectable var autofillRightText: String?
-    var autofillPattern: Character?
-    weak var delegate: UIAutoFilledLabelDelegate?
+    
+    internal weak var delegate: UIAutoFilledLabelDelegate?
+    internal var autofillPattern: Character?
     
     override var bounds: CGRect {
         didSet {
             autoFill()
         }
     }
+    
+    // MARK: - Function
     
     private func autoFill() {
         guard numberOfLines > 0, text != nil, autofillPattern != nil, let autofillLeftText = autofillLeftText, let autofillRightText = autofillRightText else {
