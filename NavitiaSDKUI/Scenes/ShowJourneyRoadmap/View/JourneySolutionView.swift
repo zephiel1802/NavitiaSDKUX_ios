@@ -34,11 +34,24 @@ class JourneySolutionView: UIView {
     }
     
     // MARK: - Initialization
-    
+
     override func awakeFromNib() {
         super.awakeFromNib()
         
         setup()
+    }
+    
+    override func awakeAfter(using aDecoder: NSCoder) -> Any? {
+        guard subviews.isEmpty else {
+            return self
+        }
+        
+        let journeySolutionView = JourneySolutionView.instanceFromNib()
+        
+        journeySolutionView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        journeySolutionView.frame = self.bounds
+        
+        return journeySolutionView
     }
     
     override func layoutSubviews() {

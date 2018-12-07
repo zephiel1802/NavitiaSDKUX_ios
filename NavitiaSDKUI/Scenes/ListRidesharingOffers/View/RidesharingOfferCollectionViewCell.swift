@@ -45,6 +45,8 @@ class RidesharingOfferCollectionViewCell: UICollectionViewCell {
         setup()
     }
     
+    // MARK: - Function
+    
     private func setup() {
         roadmapButton.setTitle("view_on_the_map".localized(), for: .normal)
         roadmapButton.accessibilityElementsHidden = true
@@ -52,15 +54,13 @@ class RidesharingOfferCollectionViewCell: UICollectionViewCell {
         addShadow()
     }
     
-    // MARK: - Function
-    
-    func setPicture(url: String?) {
+    internal func setPicture(url: String?) {
         if let url = url {
             driverImageView.loadImageFromURL(urlString: url)
         }
     }
     
-    func setDriverRating(_ count: Int32?) {
+    internal func setDriverRating(_ count: Int32?) {
         if let count = count {
             var template = "rating_plural".localized()
             if count == 1 {
@@ -71,7 +71,7 @@ class RidesharingOfferCollectionViewCell: UICollectionViewCell {
         }
     }
     
-    func setFullStar(_ count: Float?) {
+    internal func setFullStar(_ count: Float?) {
         if let count = count {
             floatRatingView.backgroundColor = UIColor.clear
             floatRatingView.contentMode = UIView.ContentMode.scaleAspectFit
@@ -84,7 +84,7 @@ class RidesharingOfferCollectionViewCell: UICollectionViewCell {
         }
     }
     
-    func setSeatsCount(_ count: Int32?) {
+    internal func setSeatsCount(_ count: Int32?) {
         if let count = count {
             let template = "available_seats".localized()
             seatsCountLabel.attributedText = NSMutableAttributedString()
