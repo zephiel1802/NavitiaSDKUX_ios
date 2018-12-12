@@ -14,6 +14,8 @@
 		31653C9E21959AA8001593A8 /* SectionGeoJsonSchemaProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31653C9C21959AA8001593A8 /* SectionGeoJsonSchemaProperties.swift */; };
 		317D6C78211091CE00F36242 /* StepByStepItemView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 317D6C76211091CE00F36242 /* StepByStepItemView.xib */; };
 		317D6C7B211091D600F36242 /* StepByStepItemVIew.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317D6C79211091D500F36242 /* StepByStepItemVIew.swift */; };
+		31B3A82721C15FFB002EFF91 /* AlternativeJourneyView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 31B3A82621C15FFB002EFF91 /* AlternativeJourneyView.xib */; };
+		31B3A82921C16008002EFF91 /* AlternativeJourneyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31B3A82821C16008002EFF91 /* AlternativeJourneyView.swift */; };
 		31EE0548214694BB00293B8B /* HorizontalSeparator.xib in Resources */ = {isa = PBXBuildFile; fileRef = 31EE0547214694BB00293B8B /* HorizontalSeparator.xib */; };
 		31EF7C5C2153D3C300200AE0 /* UIAutoFilledLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31EF7C5B2153D3C300200AE0 /* UIAutoFilledLabel.swift */; };
 		31EF7C5E2153D3D100200AE0 /* UILabel+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31EF7C5D2153D3D100200AE0 /* UILabel+Extension.swift */; };
@@ -163,12 +165,6 @@
 		8422B45B206A242D0097E6C9 /* JourneyHeaderCollectionReusableView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8422B45A206A242D0097E6C9 /* JourneyHeaderCollectionReusableView.xib */; };
 		8422B45D206A2AE00097E6C9 /* RidesharingInformationCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8422B45C206A2AE00097E6C9 /* RidesharingInformationCollectionViewCell.xib */; };
 		8422B460206A2AFF0097E6C9 /* RidesharingInformationCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8422B45F206A2AFF0097E6C9 /* RidesharingInformationCollectionViewCell.swift */; };
-		8422B464206A30300097E6C9 /* FriezeSectionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8422B463206A30300097E6C9 /* FriezeSectionView.xib */; };
-		8422B46C206A37610097E6C9 /* TransportHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8422B46B206A37610097E6C9 /* TransportHelper.swift */; };
-		8422B464206A30300097E6C9 /* JourneySummaryPartView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8422B463206A30300097E6C9 /* JourneySummaryPartView.xib */; };
-		8422B466206A303D0097E6C9 /* JourneySummaryPartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8422B465206A303D0097E6C9 /* JourneySummaryPartView.swift */; };
-		8422B468206A334B0097E6C9 /* JourneySummaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8422B467206A334B0097E6C9 /* JourneySummaryView.swift */; };
-		8422B46A206A33540097E6C9 /* JourneySummaryView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8422B469206A33540097E6C9 /* JourneySummaryView.xib */; };
 		8430274F20BBE70E005AD743 /* Message+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8430274E20BBE70E005AD743 /* Message+Extension.swift */; };
 		8430275120BBE72B005AD743 /* Disruption+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8430275020BBE72B005AD743 /* Disruption+Extension.swift */; };
 		8432623E2180C0E100E70971 /* ListJourneysPresenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8432623D2180C0E100E70971 /* ListJourneysPresenterTests.swift */; };
@@ -316,6 +312,8 @@
 		31653C9C21959AA8001593A8 /* SectionGeoJsonSchemaProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SectionGeoJsonSchemaProperties.swift; sourceTree = "<group>"; };
 		317D6C76211091CE00F36242 /* StepByStepItemView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StepByStepItemView.xib; sourceTree = "<group>"; };
 		317D6C79211091D500F36242 /* StepByStepItemVIew.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StepByStepItemVIew.swift; sourceTree = "<group>"; };
+		31B3A82621C15FFB002EFF91 /* AlternativeJourneyView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AlternativeJourneyView.xib; sourceTree = "<group>"; };
+		31B3A82821C16008002EFF91 /* AlternativeJourneyView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlternativeJourneyView.swift; sourceTree = "<group>"; };
 		31EE0547214694BB00293B8B /* HorizontalSeparator.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HorizontalSeparator.xib; sourceTree = "<group>"; };
 		31EE0549214694CB00293B8B /* HorizontalSeparator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HorizontalSeparator.swift; sourceTree = "<group>"; };
 		31EF7C5B2153D3C300200AE0 /* UIAutoFilledLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIAutoFilledLabel.swift; sourceTree = "<group>"; };
@@ -466,12 +464,7 @@
 		8422B45A206A242D0097E6C9 /* JourneyHeaderCollectionReusableView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = JourneyHeaderCollectionReusableView.xib; sourceTree = "<group>"; };
 		8422B45C206A2AE00097E6C9 /* RidesharingInformationCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RidesharingInformationCollectionViewCell.xib; sourceTree = "<group>"; };
 		8422B45F206A2AFF0097E6C9 /* RidesharingInformationCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RidesharingInformationCollectionViewCell.swift; sourceTree = "<group>"; };
-		8422B463206A30300097E6C9 /* FriezeSectionView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FriezeSectionView.xib; sourceTree = "<group>"; };
-		8422B46B206A37610097E6C9 /* TransportHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransportHelper.swift; sourceTree = "<group>"; };
 		8422B463206A30300097E6C9 /* JourneySummaryPartView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = JourneySummaryPartView.xib; sourceTree = "<group>"; };
-		8422B465206A303D0097E6C9 /* JourneySummaryPartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JourneySummaryPartView.swift; sourceTree = "<group>"; };
-		8422B467206A334B0097E6C9 /* JourneySummaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JourneySummaryView.swift; sourceTree = "<group>"; };
-		8422B469206A33540097E6C9 /* JourneySummaryView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = JourneySummaryView.xib; sourceTree = "<group>"; };
 		8430274E20BBE70E005AD743 /* Message+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Message+Extension.swift"; sourceTree = "<group>"; };
 		8430275020BBE72B005AD743 /* Disruption+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Disruption+Extension.swift"; sourceTree = "<group>"; };
 		8432623D2180C0E100E70971 /* ListJourneysPresenterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListJourneysPresenterTests.swift; sourceTree = "<group>"; };
@@ -792,7 +785,7 @@
 		8422B462206A30200097E6C9 /* Interface */ = {
 			isa = PBXGroup;
 			children = (
-				8422B463206A30300097E6C9 /* FriezeSectionView.xib */,
+				8422B463206A30300097E6C9 /* JourneySummaryPartView.xib */,
 				8433F3A1207FAF22007DBBCE /* AlertView.xib */,
 				84BC297D207E66CC0073F198 /* StationsView.xib */,
 			);
@@ -981,17 +974,18 @@
 		8451DAB8206516BC00CFA1E4 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				31EE0549214694CB00293B8B /* HorizontalSeparator.swift */,
-				84AE238821775E0E00439EE0 /* OnDemandItemView.swift */,
-				845B4EF021675DE3009CCF12 /* PublicTransportStepView.swift */,
-				8490376A2161FBEF00472FD6 /* StepView.swift */,
-				848CFDE821512F510022A4F2 /* HorizontalSeparator.swift */,
-				84A790FA2121B0E40000C82F /* EmissionView.swift */,
+				31B3A82821C16008002EFF91 /* AlternativeJourneyView.swift */,
 				8433F399207F47F0007DBBCE /* DepartureArrivalStepView.swift */,
 				84D0FA97210094B900EB420A /* DisruptionItemView.swift */,
+				84A790FA2121B0E40000C82F /* EmissionView.swift */,
+				31EE0549214694CB00293B8B /* HorizontalSeparator.swift */,
 				8471D38420809EC7000C9125 /* JourneySolutionView.swift */,
+				84AE238821775E0E00439EE0 /* OnDemandItemView.swift */,
+				845B4EF021675DE3009CCF12 /* PublicTransportStepView.swift */,
 				8433F39D207F8E14007DBBCE /* RidesharingView.swift */,
 				317D6C79211091D500F36242 /* StepByStepItemVIew.swift */,
+				8490376A2161FBEF00472FD6 /* StepView.swift */,
+				848CFDE821512F510022A4F2 /* HorizontalSeparator.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1011,17 +1005,18 @@
 		8451DABB2065175000CFA1E4 /* Interface */ = {
 			isa = PBXGroup;
 			children = (
-				31EE0547214694BB00293B8B /* HorizontalSeparator.xib */,
-				84AE238621775B4B00439EE0 /* OnDemandItemView.xib */,
-				845B4EF221675DEA009CCF12 /* PublicTransportStepView.xib */,
-				8490376C2161FBF400472FD6 /* StepView.xib */,
-				848CFDED21512F6B0022A4F2 /* HorizontalSeparator.xib */,
-				84A790FC2121B0E90000C82F /* EmissionView.xib */,
+				31B3A82621C15FFB002EFF91 /* AlternativeJourneyView.xib */,
 				846B185020775479005D4A9B /* DepartureArrivalStepView.xib */,
 				84D0FA95210094B300EB420A /* DisruptionItemView.xib */,
+				84A790FC2121B0E90000C82F /* EmissionView.xib */,
+				31EE0547214694BB00293B8B /* HorizontalSeparator.xib */,
 				8471D38220809EAD000C9125 /* JourneySolutionView.xib */,
+				84AE238621775B4B00439EE0 /* OnDemandItemView.xib */,
+				845B4EF221675DEA009CCF12 /* PublicTransportStepView.xib */,
 				8433F39B207F89C0007DBBCE /* RidesharingView.xib */,
 				317D6C76211091CE00F36242 /* StepByStepItemView.xib */,
+				8490376C2161FBF400472FD6 /* StepView.xib */,
+				848CFDED21512F6B0022A4F2 /* HorizontalSeparator.xib */,
 			);
 			path = Interface;
 			sourceTree = "<group>";
@@ -1350,6 +1345,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8490376D2161FBF400472FD6 /* StepView.xib in Resources */,
+				31B3A82721C15FFB002EFF91 /* AlternativeJourneyView.xib in Resources */,
 				84827A8C214BBAA800CB9513 /* RidesharingOfferCollectionViewCell.xib in Resources */,
 				8471D38320809EAD000C9125 /* JourneySolutionView.xib in Resources */,
 				84A790FD2121B0E90000C82F /* EmissionView.xib in Resources */,
@@ -1361,7 +1357,6 @@
 				8422B45D206A2AE00097E6C9 /* RidesharingInformationCollectionViewCell.xib in Resources */,
 				84FABE162074F76600BDDE9D /* JourneySolutionLoadCollectionViewCell.xib in Resources */,
 				84D0FA96210094B300EB420A /* DisruptionItemView.xib in Resources */,
-				8422B464206A30300097E6C9 /* FriezeSectionView.xib in Resources */,
 				8451DA602065065E00CFA1E4 /* Images.xcassets in Resources */,
 				846B185120775479005D4A9B /* DepartureArrivalStepView.xib in Resources */,
 				8454D4482068F2BC00C97D2F /* JourneySolutionCollectionViewCell.xib in Resources */,
@@ -1467,6 +1462,7 @@
 				841A106B215A29B800F46143 /* GraphicalIsrochoneGeojson.swift in Sources */,
 				841A108C215A29B800F46143 /* DictAddresses.swift in Sources */,
 				8454D42B2068D3A800C97D2F /* HexColorTransform.swift in Sources */,
+				31B3A82921C16008002EFF91 /* AlternativeJourneyView.swift in Sources */,
 				84827A8D214BBAA800CB9513 /* ListRidesharingOffersViewController.swift in Sources */,
 				841A1067215A29B800F46143 /* LinkSchema.swift in Sources */,
 				8433B87B206BE2A900EC51F9 /* Int32+Extension.swift in Sources */,
