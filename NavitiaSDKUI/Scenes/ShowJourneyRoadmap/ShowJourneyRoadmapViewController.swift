@@ -484,7 +484,15 @@ extension ShowJourneyRoadmapViewController {
         redrawIntermediatePointCircles(mapView: mapView, cameraAltitude: mapView.camera.altitude)
         zoomOverPolyline(targetPolyline: MKPolyline(coordinates: journeyPolylineCoordinates, count: journeyPolylineCoordinates.count))
         
+        setupCenterMapButton()
+    }
+    
+    private func setupCenterMapButton() {
         centerMapButton.setImage(UIImage(named: "non_blocking_disruption", in: NavitiaSDKUI.shared.bundle, compatibleWith: nil), for: .normal)
+        centerMapButton.addShadow(color: Configuration.Color.shadow.cgColor,
+                                  offset: CGSize(width: -1, height: -1),
+                                  opacity: 1,
+                                  radius: 2)
     }
     
     private func drawSections(journey: Journey?) {
