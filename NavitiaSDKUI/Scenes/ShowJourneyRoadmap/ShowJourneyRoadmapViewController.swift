@@ -18,6 +18,7 @@ protocol ShowJourneyRoadmapDisplayLogic: class {
 internal class ShowJourneyRoadmapViewController: UIViewController, ShowJourneyRoadmapDisplayLogic {
 
     @IBOutlet weak var mapView: MKMapView!
+    @IBOutlet weak var centerMapButton: UIButton!
     @IBOutlet weak var scrollView: StackScrollView!
     
     private var mapViewModel: ShowJourneyRoadmap.GetMap.ViewModel?
@@ -440,6 +441,10 @@ internal class ShowJourneyRoadmapViewController: UIViewController, ShowJourneyRo
             }
         }
     }
+    
+    @IBAction func actionCenterMap(_ sender: Any) {
+        zoomOverPolyline(targetPolyline: MKPolyline(coordinates: journeyPolylineCoordinates, count: journeyPolylineCoordinates.count), animated: true)
+    }
 }
 
 // MARKS: Maps
@@ -478,6 +483,8 @@ extension ShowJourneyRoadmapViewController {
         
         redrawIntermediatePointCircles(mapView: mapView, cameraAltitude: mapView.camera.altitude)
         zoomOverPolyline(targetPolyline: MKPolyline(coordinates: journeyPolylineCoordinates, count: journeyPolylineCoordinates.count))
+        
+        centerMapButton.setImage(UIImage(named: "non_blocking_disruption", in: NavitiaSDKUI.shared.bundle, compatibleWith: nil), for: .normal)
     }
     
     private func drawSections(journey: Journey?) {
@@ -666,10 +673,10 @@ extension ShowJourneyRoadmapViewController {
         mapView.addOverlays(intermediatePointsCircles)
     }
     
-    private func zoomOverPolyline(targetPolyline: MKPolyline) {
+    private func zoomOverPolyline(targetPolyline: MKPolyline, animated: Bool = false) {
         mapView.setVisibleMapRect(targetPolyline.boundingMapRect,
                                   edgePadding: UIEdgeInsets(top: 60, left: 40, bottom: 10, right: 40),
-                                  animated: false)
+                                  animated: animated)
     }
     
 }
