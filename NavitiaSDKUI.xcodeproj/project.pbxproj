@@ -14,6 +14,7 @@
 		31653C9E21959AA8001593A8 /* SectionGeoJsonSchemaProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31653C9C21959AA8001593A8 /* SectionGeoJsonSchemaProperties.swift */; };
 		317D6C78211091CE00F36242 /* StepByStepItemView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 317D6C76211091CE00F36242 /* StepByStepItemView.xib */; };
 		317D6C7B211091D600F36242 /* StepByStepItemVIew.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317D6C79211091D500F36242 /* StepByStepItemVIew.swift */; };
+		3192556321C7FED700CB11DD /* FriezeSectionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3192556221C7FED700CB11DD /* FriezeSectionView.xib */; };
 		31B3A82721C15FFB002EFF91 /* AlternativeJourneyView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 31B3A82621C15FFB002EFF91 /* AlternativeJourneyView.xib */; };
 		31B3A82921C16008002EFF91 /* AlternativeJourneyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31B3A82821C16008002EFF91 /* AlternativeJourneyView.swift */; };
 		31EE0548214694BB00293B8B /* HorizontalSeparator.xib in Resources */ = {isa = PBXBuildFile; fileRef = 31EE0547214694BB00293B8B /* HorizontalSeparator.xib */; };
@@ -312,6 +313,7 @@
 		31653C9C21959AA8001593A8 /* SectionGeoJsonSchemaProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SectionGeoJsonSchemaProperties.swift; sourceTree = "<group>"; };
 		317D6C76211091CE00F36242 /* StepByStepItemView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StepByStepItemView.xib; sourceTree = "<group>"; };
 		317D6C79211091D500F36242 /* StepByStepItemVIew.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StepByStepItemVIew.swift; sourceTree = "<group>"; };
+		3192556221C7FED700CB11DD /* FriezeSectionView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FriezeSectionView.xib; sourceTree = "<group>"; };
 		31B3A82621C15FFB002EFF91 /* AlternativeJourneyView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AlternativeJourneyView.xib; sourceTree = "<group>"; };
 		31B3A82821C16008002EFF91 /* AlternativeJourneyView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlternativeJourneyView.swift; sourceTree = "<group>"; };
 		31EE0547214694BB00293B8B /* HorizontalSeparator.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HorizontalSeparator.xib; sourceTree = "<group>"; };
@@ -464,7 +466,6 @@
 		8422B45A206A242D0097E6C9 /* JourneyHeaderCollectionReusableView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = JourneyHeaderCollectionReusableView.xib; sourceTree = "<group>"; };
 		8422B45C206A2AE00097E6C9 /* RidesharingInformationCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RidesharingInformationCollectionViewCell.xib; sourceTree = "<group>"; };
 		8422B45F206A2AFF0097E6C9 /* RidesharingInformationCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RidesharingInformationCollectionViewCell.swift; sourceTree = "<group>"; };
-		8422B463206A30300097E6C9 /* JourneySummaryPartView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = JourneySummaryPartView.xib; sourceTree = "<group>"; };
 		8430274E20BBE70E005AD743 /* Message+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Message+Extension.swift"; sourceTree = "<group>"; };
 		8430275020BBE72B005AD743 /* Disruption+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Disruption+Extension.swift"; sourceTree = "<group>"; };
 		8432623D2180C0E100E70971 /* ListJourneysPresenterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListJourneysPresenterTests.swift; sourceTree = "<group>"; };
@@ -785,7 +786,7 @@
 		8422B462206A30200097E6C9 /* Interface */ = {
 			isa = PBXGroup;
 			children = (
-				8422B463206A30300097E6C9 /* JourneySummaryPartView.xib */,
+				3192556221C7FED700CB11DD /* FriezeSectionView.xib */,
 				8433F3A1207FAF22007DBBCE /* AlertView.xib */,
 				84BC297D207E66CC0073F198 /* StationsView.xib */,
 			);
@@ -1347,6 +1348,7 @@
 				8490376D2161FBF400472FD6 /* StepView.xib in Resources */,
 				31B3A82721C15FFB002EFF91 /* AlternativeJourneyView.xib in Resources */,
 				84827A8C214BBAA800CB9513 /* RidesharingOfferCollectionViewCell.xib in Resources */,
+				3192556321C7FED700CB11DD /* FriezeSectionView.xib in Resources */,
 				8471D38320809EAD000C9125 /* JourneySolutionView.xib in Resources */,
 				84A790FD2121B0E90000C82F /* EmissionView.xib in Resources */,
 				8433F39C207F89C0007DBBCE /* RidesharingView.xib in Resources */,
