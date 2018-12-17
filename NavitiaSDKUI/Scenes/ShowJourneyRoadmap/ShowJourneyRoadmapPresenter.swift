@@ -664,36 +664,45 @@ class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
     }
     
     private func getNotesOnDemandTransport(section: Section, notes: [Note]?) -> [ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionModel.Note] {
-        var noteOnDemandTransport = [ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionModel.Note]()
+        var notesOnDemandTransport = [ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionModel.Note]()
+        var noteIds = [String]()
         
         guard section.type == .onDemandTransport else {
-            return noteOnDemandTransport
+            return notesOnDemandTransport
         }
         
-        for note in section.selectLinks(type: "notes") {
-            if let notes = notes, let id = note.id, let note = section.getNote(notes: notes, id: id) {
-                noteOnDemandTransport.append(ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionModel.Note(content: note.value ?? ""))
+        noteIds.append(contentsOf: getNoteIds(links: section.selectLinks(type: "notes")))
+        noteIds.append(contentsOf: getNoteIds(links: section.stopDateTimes?.first?.selectLinks(type: "notes")))
+        noteIds.append(contentsOf: getNoteIds(links: section.stopDateTimes?.last?.selectLinks(type: "notes")))
+        noteIds = Array(Set(noteIds))
+        
+        notesOnDemandTransport = getNotes(section: section, notes: notes, ids: noteIds)
+
+        return notesOnDemandTransport
+    }
+    
+    private func getNoteIds(links: [LinkSchema]?) -> [String] {
+        var ids = [String]()
+        
+        guard let links = links else {
+            return ids
+        }
+        
+        for link in links {
+            if let id = link.id {
+                ids.append(id)
             }
         }
         
-        if let firstStopDateTimes = section.stopDateTimes?.first {
-            let links = firstStopDateTimes.selectLinks(type: "notes")
-            if links.count > 0 {
-                for i in links {
-                    if let notes = notes, let id = i.id, let note = section.getNote(notes: notes, id: id) {
-                        noteOnDemandTransport.append(ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionModel.Note(content: note.value ?? ""))
-                    }
-                }
-                
-                return noteOnDemandTransport
-            }
-        }
+        return ids
+    }
+    
+    private func getNotes(section: Section, notes: [Note]?, ids: [String]) -> [ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionModel.Note] {
+        var noteOnDemandTransport = [ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionModel.Note]()
         
-        if let laststopDateTimes = section.stopDateTimes?.last {
-            for i in laststopDateTimes.selectLinks(type: "notes") {
-                if let notes = notes, let id = i.id, let note = section.getNote(notes: notes, id: id) {
-                    noteOnDemandTransport.append(ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionModel.Note(content: note.value ?? ""))
-                }
+        for id in ids {
+            if let notes = notes, let note = section.getNote(notes: notes, id: id), let value = note.value {
+                noteOnDemandTransport.append(ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionModel.Note(content: value))
             }
         }
         
