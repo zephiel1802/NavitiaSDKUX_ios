@@ -489,6 +489,7 @@ extension ShowJourneyRoadmapViewController {
     
     private func setupCenterMapButton() {
         centerMapButton.setImage(UIImage(named: "non_blocking_disruption", in: NavitiaSDKUI.shared.bundle, compatibleWith: nil), for: .normal)
+        centerMapButton.imageEdgeInsets = UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
         centerMapButton.addShadow(color: Configuration.Color.shadow.cgColor,
                                   offset: CGSize(width: -1, height: -1),
                                   opacity: 1,
