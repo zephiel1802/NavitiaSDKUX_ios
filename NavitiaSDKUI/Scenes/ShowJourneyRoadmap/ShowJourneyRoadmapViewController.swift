@@ -105,6 +105,21 @@ internal class ShowJourneyRoadmapViewController: UIViewController, ShowJourneyRo
         
         if recognizer.state == .ended {
             _originSlideY = viewScroll.frame.origin.y
+            
+            let pourcent = viewScroll.frame.origin.y / view.frame.size.height
+            
+            if pourcent < 0.3 {
+                translationView(translationY: 0, duration: 0.3)
+                _originSlideY = 0
+            } else if pourcent < 0.8 {
+                translationView(translationY: view.frame.size.height * 0.4, duration: 0.3)
+                _originSlideY = view.frame.size.height * 0.4
+            } else {
+                translationView(translationY: view.frame.size.height - 60, duration: 0.3)
+                _originSlideY = view.frame.size.height - 60
+            }
+            
+            
         }
     }
     
