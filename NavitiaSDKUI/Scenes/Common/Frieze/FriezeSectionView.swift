@@ -126,8 +126,7 @@ extension FriezeSectionView {
         let marginSeparator = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 2)
         let marginTransportTag = UIEdgeInsets(top: 0, left: 4, bottom: 0, right: 4)
         let paddingTransportTag = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 5)
-        let widthDisruption: CGFloat = 6
-        var width: CGFloat = 25
+        var width: CGFloat = 27
         
         if !separatorImage.isHidden {
             width = width + separatorImage.frame.size.width + marginSeparator.right
@@ -136,10 +135,6 @@ extension FriezeSectionView {
         if !tagTransportView.isHidden {
             if let widthPart = tagTransportLabel.attributedText?.boundingRect(with: CGSize(width: 0, height: 0), options: .usesLineFragmentOrigin, context: nil).width {
                 width = width + marginTransportTag.left + marginTransportTag.right + widthPart + paddingTransportTag.right
-            }
-            
-            if !disruptionImage.isHidden {
-                width = width + widthDisruption
             }
         }
         
