@@ -111,19 +111,32 @@ internal class ShowJourneyRoadmapViewController: UIViewController, ShowJourneyRo
             if pourcent < 0.3 {
                 translationView(translationY: 0, duration: 0.3)
                 _originSlideY = 0
+                scrollView.frame.size.height = view.frame.size.height - 60 - _originSlideY
             } else if pourcent < 0.8 {
+                
+                zoomOverPolyline(targetPolyline: MKPolyline(coordinates: journeyPolylineCoordinates, count: journeyPolylineCoordinates.count),
+                                 edgePadding: UIEdgeInsets(top: 60, left: 40, bottom: view.frame.size.height * 0.6 - 60 + 10, right: 40),
+                                 animated: true)
+                // 60 -> bottom marge + 10 base
                 translationView(translationY: view.frame.size.height * 0.4, duration: 0.3)
                 _originSlideY = view.frame.size.height * 0.4
+                
+                scrollView.frame.size.height = view.frame.size.height - 60 - _originSlideY
             } else {
+                
+                zoomOverPolyline(targetPolyline: MKPolyline(coordinates: journeyPolylineCoordinates, count: journeyPolylineCoordinates.count),
+                                 edgePadding: UIEdgeInsets(top: 60, left: 40, bottom: 10, right: 40),
+                                 animated: true)
+                
                 translationView(translationY: view.frame.size.height - 60, duration: 0.3)
                 _originSlideY = view.frame.size.height - 60
+                
             }
-            
             
         }
     }
     
-    public func translationView(translationY: CGFloat, duration: TimeInterval = 0.5) {
+    public func translationView(translationY: CGFloat, duration: TimeInterval = 0.5, completion: (() -> Void)? = nil) {
         var duration = duration
         var translationY = translationY
         
@@ -137,7 +150,10 @@ internal class ShowJourneyRoadmapViewController: UIViewController, ShowJourneyRo
         if let viewScroll = viewScroll {
             UIView.animate(withDuration: duration, delay: 0, options: .curveEaseOut, animations: {
                 viewScroll.frame.origin.y = translationY
-            }, completion: { (_) in })
+            }, completion: { (_) in
+                completion?()
+            })
+            
         }
     }
     
@@ -754,9 +770,11 @@ extension ShowJourneyRoadmapViewController {
         mapView.addOverlays(intermediatePointsCircles)
     }
     
-    private func zoomOverPolyline(targetPolyline: MKPolyline, animated: Bool = false) {
+    private func zoomOverPolyline(targetPolyline: MKPolyline,
+                                  edgePadding: UIEdgeInsets = UIEdgeInsets(top: 60, left: 40, bottom: 10, right: 40),
+                                  animated: Bool = false) {
         mapView.setVisibleMapRect(targetPolyline.boundingMapRect,
-                                  edgePadding: UIEdgeInsets(top: 60, left: 40, bottom: 10, right: 40),
+                                  edgePadding: edgePadding,
                                   animated: animated)
     }
     
