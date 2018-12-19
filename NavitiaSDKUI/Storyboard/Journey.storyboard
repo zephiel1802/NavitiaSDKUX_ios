@@ -224,13 +224,13 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" pitchEnabled="NO" translatesAutoresizingMaskIntoConstraints="NO" id="b4l-6W-DHd">
-                                <rect key="frame" x="0.0" y="32" width="667" height="137"/>
+                                <rect key="frame" x="0.0" y="32" width="667" height="283"/>
                                 <connections>
                                     <outlet property="delegate" destination="z4Z-Pd-Lif" id="ubg-bG-db4"/>
                                 </connections>
                             </mapView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zis-0N-UC9">
-                                <rect key="frame" x="632" y="134" width="30" height="30"/>
+                                <rect key="frame" x="632" y="280" width="30" height="30"/>
                                 <color key="backgroundColor" red="0.25098039220000001" green="0.58431372550000005" blue="0.5568627451" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="LvN-Kw-gWa"/>
@@ -246,22 +246,14 @@
                                     <action selector="actionCenterMap:" destination="z4Z-Pd-Lif" eventType="touchUpInside" id="1ll-CO-RyW"/>
                                 </connections>
                             </button>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="X3m-G1-NsD" customClass="StackScrollView" customModule="NavitiaSDKUI" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="169" width="667" height="206"/>
-                                <color key="backgroundColor" red="0.93725490196078431" green="0.93725490196078431" blue="0.93725490196078431" alpha="1" colorSpace="calibratedRGB"/>
-                            </scrollView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="X3m-G1-NsD" firstAttribute="leading" secondItem="jJw-gq-5GI" secondAttribute="leading" id="3PU-1x-GV0"/>
                             <constraint firstItem="b4l-6W-DHd" firstAttribute="leading" secondItem="jJw-gq-5GI" secondAttribute="leading" id="9lG-72-fKA"/>
-                            <constraint firstItem="X3m-G1-NsD" firstAttribute="bottom" secondItem="jJw-gq-5GI" secondAttribute="bottom" id="CeV-0T-ZWi"/>
-                            <constraint firstItem="X3m-G1-NsD" firstAttribute="top" secondItem="zis-0N-UC9" secondAttribute="bottom" constant="5" id="EYN-o0-2PV"/>
+                            <constraint firstItem="HfL-JU-5ET" firstAttribute="bottom" secondItem="b4l-6W-DHd" secondAttribute="bottom" constant="60" id="EAF-Lg-vi9"/>
                             <constraint firstItem="b4l-6W-DHd" firstAttribute="top" secondItem="HfL-JU-5ET" secondAttribute="top" id="NHL-vB-r31"/>
-                            <constraint firstAttribute="trailing" secondItem="X3m-G1-NsD" secondAttribute="trailing" id="PjE-DR-yLn"/>
+                            <constraint firstItem="zis-0N-UC9" firstAttribute="bottom" secondItem="b4l-6W-DHd" secondAttribute="bottom" constant="-5" id="UMY-qa-8Ig"/>
                             <constraint firstAttribute="trailing" secondItem="b4l-6W-DHd" secondAttribute="trailing" id="kaR-ob-xCB"/>
-                            <constraint firstItem="X3m-G1-NsD" firstAttribute="height" secondItem="b4l-6W-DHd" secondAttribute="height" multiplier="1.5" id="lgg-P3-0wY"/>
-                            <constraint firstItem="X3m-G1-NsD" firstAttribute="top" secondItem="b4l-6W-DHd" secondAttribute="bottom" id="rnl-1d-6iL"/>
                             <constraint firstItem="HfL-JU-5ET" firstAttribute="trailing" secondItem="zis-0N-UC9" secondAttribute="trailing" constant="5" id="ye5-0W-jUU"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="HfL-JU-5ET"/>
@@ -270,7 +262,6 @@
                     <connections>
                         <outlet property="centerMapButton" destination="zis-0N-UC9" id="ubB-LR-l3U"/>
                         <outlet property="mapView" destination="b4l-6W-DHd" id="yLp-tq-9a7"/>
-                        <outlet property="scrollView" destination="X3m-G1-NsD" id="cTH-Tn-yRu"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JTY-AV-86e" userLabel="First Responder" sceneMemberID="firstResponder"/>

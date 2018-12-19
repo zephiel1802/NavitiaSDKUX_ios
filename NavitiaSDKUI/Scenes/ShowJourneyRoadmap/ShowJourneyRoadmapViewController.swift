@@ -19,7 +19,7 @@ internal class ShowJourneyRoadmapViewController: UIViewController, ShowJourneyRo
 
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var centerMapButton: UIButton!
-    @IBOutlet weak var scrollView: StackScrollView!
+   // @IBOutlet weak var scrollView: StackScrollView!
     
     private var mapViewModel: ShowJourneyRoadmap.GetMap.ViewModel?
     private var ridesharing: ShowJourneyRoadmap.GetRoadmap.ViewModel.Ridesharing?
@@ -54,10 +54,10 @@ internal class ShowJourneyRoadmapViewController: UIViewController, ShowJourneyRo
         
         title = "roadmap".localized()
 
-        initScrollView()
+//        initScrollView()
         initLocation()
 
-        getRoadmap()
+      //  getRoadmap()
         getMap()
     }
 
@@ -67,6 +67,62 @@ internal class ShowJourneyRoadmapViewController: UIViewController, ShowJourneyRo
         if !display {
             display = true
             zoomOverPolyline(targetPolyline: MKPolyline(coordinates: journeyPolylineCoordinates, count: journeyPolylineCoordinates.count))
+            
+            let panRecognizer = UIPanGestureRecognizer(target: self, action: #selector(detectPan(_:)))
+            
+            _originSlideY = view.frame.size.height - 60
+            
+            viewScroll = UIView(frame: self.view.bounds)
+            
+            viewScroll.gestureRecognizers = [panRecognizer]
+            viewScroll.frame.origin = CGPoint(x: 0, y: view.frame.size.height - 60)
+            viewScroll.backgroundColor = Configuration.Color.white
+            
+            
+            scrollView = StackScrollView(frame: CGRect(x: 0, y: 60, width: viewScroll.frame.size.width, height: viewScroll.frame.size.height - 60))
+            scrollView.backgroundColor = Configuration.Color.background
+            viewScroll.addSubview(scrollView)
+            initScrollView()
+            getRoadmap()
+            
+            
+            view.addSubview(viewScroll)
+        }
+    }
+    
+    var marginTop: CGFloat = 0
+    var headerHeight: CGFloat = 0
+    private var _originSlideY: CGFloat = 0
+    var viewScroll: UIView!
+    var scrollView: StackScrollView = StackScrollView()
+    
+    @objc func detectPan(_ recognizer:UIPanGestureRecognizer) {
+        let translation = _originSlideY + recognizer.translation(in: view).y
+        let duration = TimeInterval(min(max(0.05, recognizer.translation(in: view).y / recognizer.velocity(in: view).y), 0.5))
+        let translationY = min(max(self.marginTop, translation), view.frame.size.height - self.headerHeight + self.marginTop)
+        
+        translationView(translationY: translationY, duration: duration)
+        
+        if recognizer.state == .ended {
+            _originSlideY = viewScroll.frame.origin.y
+        }
+    }
+    
+    public func translationView(translationY: CGFloat, duration: TimeInterval = 0.5) {
+        var duration = duration
+        var translationY = translationY
+        
+        if translationY < self.marginTop + 35 {
+            translationY = self.marginTop
+            if duration < 0.1 {
+                duration = 0.1
+            }
+        }
+        
+        if let viewScroll = viewScroll {
+            UIView.animate(withDuration: duration, delay: 0, options: .curveEaseOut, animations: {
+                viewScroll.frame.origin.y = translationY
+            }, completion: { (_) in })
         }
     }
     
@@ -114,9 +170,9 @@ internal class ShowJourneyRoadmapViewController: UIViewController, ShowJourneyRo
     
     private func initScrollView() {
         if #available(iOS 11.0, *) {
-            scrollView?.contentInsetAdjustmentBehavior = .always
+            scrollView.contentInsetAdjustmentBehavior = .always
         }
-        scrollView?.bounces = false
+        scrollView.bounces = false
     }
     
     private func initLocation() {
@@ -212,15 +268,16 @@ internal class ShowJourneyRoadmapViewController: UIViewController, ShowJourneyRo
     
     private func displayHeader(viewModel: ShowJourneyRoadmap.GetRoadmap.ViewModel) {
         let journeySolutionView = getJourneySolutionView(viewModel: viewModel)
+        journeySolutionView.frame.origin.y = 13
 
-        scrollView.addSubview(journeySolutionView, margin: UIEdgeInsets(top: 0, left: 0, bottom: 5, right: 0))
-
+      //scrollView.addSubview(journeySolutionView, margin: UIEdgeInsets(top: 0, left: 0, bottom: 5, right: 0))
+        viewScroll.addSubview(journeySolutionView)
         if viewModel.journey.isRidesharing {
             let ridesharingView = displayRidesharingView()
 
             journeySolutionView.setRidesharingData(duration: viewModel.frieze.duration, friezeSection: viewModel.frieze.friezeSections)
 
-            scrollView.addSubview(ridesharingView, margin: UIEdgeInsets(top: 5, left: 10, bottom: 5, right: 10))
+          scrollView.addSubview(ridesharingView, margin: UIEdgeInsets(top: 5, left: 10, bottom: 5, right: 10))
         } else if viewModel.displayAvoidDisruption {
             let alternativeJourneyView = displayAlternativeJourneyView()
 
@@ -266,7 +323,7 @@ internal class ShowJourneyRoadmapViewController: UIViewController, ShowJourneyRo
         departureArrivalStepView.calorie = viewModel.calorie
         departureArrivalStepView.accessibilityLabel = viewModel.accessibility
         
-        scrollView.addSubview(departureArrivalStepView, margin: UIEdgeInsets(top: 5, left: 10, bottom: 5, right: 10))
+        //scrollView.addSubview(departureArrivalStepView, margin: UIEdgeInsets(top: 5, left: 10, bottom: 5, right: 10))
     }
     
     private func displaySteps(sections: [ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionModel]) {
@@ -389,22 +446,22 @@ internal class ShowJourneyRoadmapViewController: UIViewController, ShowJourneyRo
     }
     
     private func updateRidesharingView() {
-        guard let ridesharing = ridesharing, let ridesharingView = scrollView.selectSubviews(type: RidesharingView()).first else {
+        /*guard let ridesharing = ridesharing, let ridesharingView = scrollView.selectSubviews(type: RidesharingView()).first else {
             return
-        }
+        }*/
         
-        ridesharingView.price = ridesharing.price
-        ridesharingView.network = ridesharing.network
-        ridesharingView.departure = ridesharing.departure
-        ridesharingView.driverNickname = ridesharing.driverNickname
-        ridesharingView.driverGender = ridesharing.driverGender
-        ridesharingView.departureAddress = ridesharing.departureAddress
-        ridesharingView.arrivalAddress = ridesharing.arrivalAddress
-        ridesharingView.setSeatsCount(ridesharing.seatsCount)
-        ridesharingView.setDriverPictureURL(url: ridesharing.driverPictureURL)
-        ridesharingView.setRatingCount(ridesharing.ratingCount)
-        ridesharingView.setRating(ridesharing.rating)
-        ridesharingView.accessiblity = ridesharing.accessibility
+//        ridesharingView.price = ridesharing.price
+//        ridesharingView.network = ridesharing.network
+//        ridesharingView.departure = ridesharing.departure
+//        ridesharingView.driverNickname = ridesharing.driverNickname
+//        ridesharingView.driverGender = ridesharing.driverGender
+//        ridesharingView.departureAddress = ridesharing.departureAddress
+//        ridesharingView.arrivalAddress = ridesharing.arrivalAddress
+//        ridesharingView.setSeatsCount(ridesharing.seatsCount)
+//        ridesharingView.setDriverPictureURL(url: ridesharing.driverPictureURL)
+//        ridesharingView.setRatingCount(ridesharing.ratingCount)
+//        ridesharingView.setRating(ridesharing.rating)
+//        ridesharingView.accessiblity = ridesharing.accessibility
     }
     
     // MARKS: Update BSS
