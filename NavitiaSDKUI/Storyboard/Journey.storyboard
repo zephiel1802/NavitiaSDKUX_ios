@@ -224,7 +224,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" pitchEnabled="NO" translatesAutoresizingMaskIntoConstraints="NO" id="b4l-6W-DHd">
-                                <rect key="frame" x="0.0" y="32" width="667" height="283"/>
+                                <rect key="frame" x="0.0" y="32" width="667" height="343"/>
                                 <connections>
                                     <outlet property="delegate" destination="z4Z-Pd-Lif" id="ubg-bG-db4"/>
                                 </connections>
@@ -250,9 +250,9 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="b4l-6W-DHd" firstAttribute="leading" secondItem="jJw-gq-5GI" secondAttribute="leading" id="9lG-72-fKA"/>
-                            <constraint firstItem="HfL-JU-5ET" firstAttribute="bottom" secondItem="b4l-6W-DHd" secondAttribute="bottom" constant="60" id="EAF-Lg-vi9"/>
+                            <constraint firstItem="HfL-JU-5ET" firstAttribute="bottom" secondItem="b4l-6W-DHd" secondAttribute="bottom" id="EAF-Lg-vi9"/>
                             <constraint firstItem="b4l-6W-DHd" firstAttribute="top" secondItem="HfL-JU-5ET" secondAttribute="top" id="NHL-vB-r31"/>
-                            <constraint firstItem="zis-0N-UC9" firstAttribute="bottom" secondItem="b4l-6W-DHd" secondAttribute="bottom" constant="-5" id="UMY-qa-8Ig"/>
+                            <constraint firstItem="zis-0N-UC9" firstAttribute="bottom" secondItem="b4l-6W-DHd" secondAttribute="bottom" constant="-65" id="UMY-qa-8Ig"/>
                             <constraint firstAttribute="trailing" secondItem="b4l-6W-DHd" secondAttribute="trailing" id="kaR-ob-xCB"/>
                             <constraint firstItem="HfL-JU-5ET" firstAttribute="trailing" secondItem="zis-0N-UC9" secondAttribute="trailing" constant="5" id="ye5-0W-jUU"/>
                         </constraints>
@@ -260,6 +260,7 @@
                     </view>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <connections>
+                        <outlet property="alignBottomCenterMapButton" destination="UMY-qa-8Ig" id="qBq-wp-nsV"/>
                         <outlet property="centerMapButton" destination="zis-0N-UC9" id="ubB-LR-l3U"/>
                         <outlet property="mapView" destination="b4l-6W-DHd" id="yLp-tq-9a7"/>
                     </connections>
