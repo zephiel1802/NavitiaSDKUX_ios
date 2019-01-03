@@ -77,6 +77,10 @@ class JourneySolutionView: UIView {
     }
     
     private func updateFriezeView() {
+        if #available(iOS 11.0, *) {
+            friezeView.frame.origin.x = safeAreaInsets.left + paddingFriezeView.left
+        }
+        
         friezeView.frame.size = CGSize(width: frame.size.width - paddingFriezeView.right - paddingFriezeView.left,
                                        height: 27)
         friezeView.updatePositionFriezeSectionView()

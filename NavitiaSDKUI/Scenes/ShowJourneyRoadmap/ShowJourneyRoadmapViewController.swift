@@ -11,20 +11,16 @@ import CoreLocation
 
 internal class SlidingRoadmap: UIView {
     
-    private var scrollView: StackScrollView?
-    private var journeySolutionView: JourneySolutionView?
+    private var stackScrollView = StackScrollView()
+    private var journeySolutionView = JourneySolutionView()
     private var nock: UIView?
     internal var _originSlideY: CGFloat = 0
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        scrollView = StackScrollView()
-        journeySolutionView = JourneySolutionView()
         initNock()
-        
-//        let panRecognizer = UIPanGestureRecognizer(target: self, action: #selector(detectPan(_:)))
-//        gestureRecognizers = [panRecognizer]
+
         backgroundColor = Configuration.Color.white
     }
     
@@ -50,87 +46,7 @@ internal class SlidingRoadmap: UIView {
         NSLayoutConstraint(item: nock, attribute: NSLayoutConstraint.Attribute.width, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 35).isActive = true
     }
     
-//    @objc func detectPan(_ recognizer:UIPanGestureRecognizer) {
-//        guard let scrollView = scrollView else {
-//            return
-//        }
-//
-//        if #available(iOS 11.0, *), scrollView.frame.origin.y > 60 {
-//            UIView.animate(withDuration: 0.2, delay: 0, options: .curveEaseOut, animations: {
-//                scrollView.frame.origin.y = 60
-//            }, completion: { (_) in })
-//        }
-//
-//        UIView.animate(withDuration: 0.3, animations: {
-//            self.centerMapButton.alpha = 0
-//        }, completion: { (_) in })
-//
-//        let translation = _originSlideY + recognizer.translation(in: view).y
-//        let duration = TimeInterval(min(max(0.05, recognizer.translation(in: view).y / recognizer.velocity(in: view).y), 0.5))
-//        let translationY = min(max(self.marginTop, translation), view.frame.size.height - self.headerHeight + self.marginTop)
-//
-//        translationView(translationY: translationY, duration: duration)
-//
-//
-//        if recognizer.state == .ended {
-//            let pourcent = frame.origin.y / frame.size.height
-//
-//            if pourcent < 0.3 {
-//                updatePosition(state: 0)
-//            } else if pourcent < 0.8 {
-//                updatePosition(state: 1)
-//            } else {
-//                if #available(iOS 11.0, *) {
-//                    UIView.animate(withDuration: 0.2, delay: 0, options: .curveEaseOut, animations: {
-//                        scrollView.frame.origin.y = 60 + safeAreaInsets.bottom
-//                    }, completion: { (_) in })
-//                }
-//
-//                updatePosition(state: 2)
-//            }
-//        }
-//    }
-//
-//    func updatePosition(state: Int, duration: TimeInterval = 0.3) {
-//        if state == 0 {
-//            translationView(translationY: 0, duration: duration)
-//            _originSlideY = 0
-//            scrollView.frame.size.height = self.view.frame.size.height - 60 - self.viewScroll.frame.origin.y
-//        } else if state == 1 {
-//            zoomOverPolyline(targetPolyline: MKPolyline(coordinates: journeyPolylineCoordinates, count: journeyPolylineCoordinates.count),
-//                             edgePadding: UIEdgeInsets(top: 60, left: 40, bottom: view.frame.size.height * 0.6 + 10, right: 40),
-//                             animated: true)
-//
-//            translationView(translationY: view.frame.size.height * 0.4, duration: duration, completion: {
-//                UIView.animate(withDuration: 0.3, animations: {
-//                    self.centerMapButton.alpha = 1
-//                }, completion: { (_) in })
-//                self.alignBottomCenterMapButton.constant = -self.view.frame.size.height * 0.6 - 5
-//            })
-//
-//            _originSlideY = view.frame.size.height * 0.4
-//        } else {
-//            self.zoomOverPolyline(targetPolyline: MKPolyline(coordinates: self.journeyPolylineCoordinates, count: self.journeyPolylineCoordinates.count),
-//                                  edgePadding: UIEdgeInsets(top: 60, left: 40, bottom: 70, right: 40),
-//                                  animated: true)
-//
-//            translationView(translationY: view.frame.size.height - 60, duration: duration, completion: {
-//                UIView.animate(withDuration: 0.3, animations: {
-//                    self.centerMapButton.alpha = 1
-//                }, completion: { (_) in })
-//                self.alignBottomCenterMapButton.constant = -65
-//            })
-//
-//            _originSlideY = view.frame.size.height - 60
-//        }
-//
-//    }
-    
     public func translationView(translationY: CGFloat, duration: TimeInterval = 0.5, completion: (() -> Void)? = nil) {
-        guard let scrollView = scrollView else {
-            return
-        }
-        
         var duration = duration
         var translationY = translationY
         
@@ -144,10 +60,10 @@ internal class SlidingRoadmap: UIView {
         UIView.animate(withDuration: duration, delay: 0, options: .curveEaseOut, animations: {
             if #available(iOS 11.0, *) {
                 self.frame.origin.y = max(0, translationY - self.safeAreaInsets.bottom)
-                scrollView.frame.size.height = max(0, self.frame.size.height - 60 - self.frame.origin.y + self.safeAreaInsets.bottom)
+                self.stackScrollView.frame.size.height = max(0, self.frame.size.height - 60 - self.frame.origin.y + self.safeAreaInsets.bottom)
             } else {
                 self.frame.origin.y = translationY
-                scrollView.frame.size.height = max(0, self.frame.size.height - 60 - self.frame.origin.y)
+                self.stackScrollView.frame.size.height = max(0, self.frame.size.height - 60 - self.frame.origin.y)
             }
         }, completion: { (_) in
             completion?()
@@ -327,7 +243,6 @@ internal class ShowJourneyRoadmapViewController: UIViewController, ShowJourneyRo
             
             slidingViewYOrigin = view.frame.size.height - 60
         }
-        
     }
     
     private func rotationSlidingView() {
@@ -338,8 +253,20 @@ internal class ShowJourneyRoadmapViewController: UIViewController, ShowJourneyRo
             
             
             if self.slidingView.frame.origin.y == CGFloat(0) {
+                if #available(iOS 11.0, *) {
+                    UIView.animate(withDuration: 0.2, delay: 0, options: .curveEaseOut, animations: {
+                        self.stackScrollView.frame.origin.y = 60// + self.view.safeAreaInsets.bottom
+                    }, completion: { (_) in })
+                }
+                
                 self.updatePosition(state: 0)
             } else {
+                if #available(iOS 11.0, *) {
+                    UIView.animate(withDuration: 0.2, delay: 0, options: .curveEaseOut, animations: {
+                        self.stackScrollView.frame.origin.y = 60 + self.view.safeAreaInsets.bottom
+                    }, completion: { (_) in })
+                }
+                
                 self.updatePosition(state: 2)
             }
             
@@ -360,26 +287,46 @@ internal class ShowJourneyRoadmapViewController: UIViewController, ShowJourneyRo
         
         let translation = slidingViewYOrigin + recognizer.translation(in: view).y
         let duration = TimeInterval(min(max(0.05, recognizer.translation(in: view).y / recognizer.velocity(in: view).y), 0.5))
-        let translationY = min(max(self.marginTop, translation), slidingView.frame.size.height - self.headerHeight + self.marginTop)
+        let translationY = min(max(self.marginTop, translation), self.view.frame.size.height - self.headerHeight + self.marginTop)
         
         translationView(translationY: translationY, duration: duration)
         
         
         if recognizer.state == .ended {
-            let pourcent = slidingView.frame.origin.y / slidingView.frame.size.height
+
+            var marge: CGFloat = 0.15
+            if recognizer.isDown(theViewYouArePassing: view) {
+                marge = -0.15
+            }
             
-            if pourcent < 0.3 {
-                updatePosition(state: 0)
-            } else if pourcent < 0.8 {
-                updatePosition(state: 1)
-            } else {
-                if #available(iOS 11.0, *) {
-                    UIView.animate(withDuration: 0.2, delay: 0, options: .curveEaseOut, animations: {
-                        self.stackScrollView.frame.origin.y = 60 + self.slidingView.safeAreaInsets.bottom
-                    }, completion: { (_) in })
+            let pourcent = slidingView.frame.origin.y / view.frame.size.height
+            
+            if UIApplication.shared.statusBarOrientation.isPortrait {
+                if pourcent < 0.2 + marge {
+                    updatePosition(state: 0)
+                } else if pourcent < 0.7 + marge {
+                    updatePosition(state: 1)
+                } else {
+                    if #available(iOS 11.0, *) {
+                        UIView.animate(withDuration: 0.2, delay: 0, options: .curveEaseOut, animations: {
+                            self.stackScrollView.frame.origin.y = 60 + self.slidingView.safeAreaInsets.bottom
+                        }, completion: { (_) in })
+                    }
+                    
+                    updatePosition(state: 2)
                 }
-                
-                updatePosition(state: 2)
+            } else {
+                if pourcent < 0.5 + marge {
+                    updatePosition(state: 0)
+                } else {
+                    if #available(iOS 11.0, *) {
+                        UIView.animate(withDuration: 0.2, delay: 0, options: .curveEaseOut, animations: {
+                            self.stackScrollView.frame.origin.y = 60 + self.slidingView.safeAreaInsets.bottom
+                        }, completion: { (_) in })
+                    }
+                    
+                    updatePosition(state: 2)
+                }
             }
         }
     }
@@ -404,6 +351,8 @@ internal class ShowJourneyRoadmapViewController: UIViewController, ShowJourneyRo
                     viewScroll.frame.origin.y = translationY
                     self.stackScrollView.frame.size.height = max(0, self.view.frame.size.height - 60 - self.slidingView.frame.origin.y)
                 }
+                
+                self.slidingView.frame.size.height = self.view.frame.size.height - self.slidingView.frame.origin.y
             }, completion: { (_) in
                 completion?()
             })
@@ -539,7 +488,7 @@ internal class ShowJourneyRoadmapViewController: UIViewController, ShowJourneyRo
 
             journeySolutionView.setRidesharingData(duration: viewModel.frieze.duration, friezeSection: viewModel.frieze.friezeSections)
 
-          stackScrollView.addSubview(ridesharingView, margin: UIEdgeInsets(top: 5, left: 10, bottom: 5, right: 10))
+          stackScrollView.addSubview(ridesharingView, margin: UIEdgeInsets(top: 10, left: 10, bottom: 5, right: 10))
         } else if viewModel.displayAvoidDisruption {
             let alternativeJourneyView = displayAlternativeJourneyView()
 
@@ -708,22 +657,22 @@ internal class ShowJourneyRoadmapViewController: UIViewController, ShowJourneyRo
     }
     
     private func updateRidesharingView() {
-        /*guard let ridesharing = ridesharing, let ridesharingView = scrollView.selectSubviews(type: RidesharingView()).first else {
+        guard let ridesharing = ridesharing, let ridesharingView = stackScrollView.selectSubviews(type: RidesharingView()).first else {
             return
-        }*/
+        }
         
-//        ridesharingView.price = ridesharing.price
-//        ridesharingView.network = ridesharing.network
-//        ridesharingView.departure = ridesharing.departure
-//        ridesharingView.driverNickname = ridesharing.driverNickname
-//        ridesharingView.driverGender = ridesharing.driverGender
-//        ridesharingView.departureAddress = ridesharing.departureAddress
-//        ridesharingView.arrivalAddress = ridesharing.arrivalAddress
-//        ridesharingView.setSeatsCount(ridesharing.seatsCount)
-//        ridesharingView.setDriverPictureURL(url: ridesharing.driverPictureURL)
-//        ridesharingView.setRatingCount(ridesharing.ratingCount)
-//        ridesharingView.setRating(ridesharing.rating)
-//        ridesharingView.accessiblity = ridesharing.accessibility
+        ridesharingView.price = ridesharing.price
+        ridesharingView.network = ridesharing.network
+        ridesharingView.departure = ridesharing.departure
+        ridesharingView.driverNickname = ridesharing.driverNickname
+        ridesharingView.driverGender = ridesharing.driverGender
+        ridesharingView.departureAddress = ridesharing.departureAddress
+        ridesharingView.arrivalAddress = ridesharing.arrivalAddress
+        ridesharingView.setSeatsCount(ridesharing.seatsCount)
+        ridesharingView.setDriverPictureURL(url: ridesharing.driverPictureURL)
+        ridesharingView.setRatingCount(ridesharing.ratingCount)
+        ridesharingView.setRating(ridesharing.rating)
+        ridesharingView.accessiblity = ridesharing.accessibility
     }
     
     // MARKS: Update BSS

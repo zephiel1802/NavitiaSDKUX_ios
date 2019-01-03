@@ -55,7 +55,7 @@
                 <outlet property="durationCenterContraint" destination="cOu-3v-ogZ" id="UEJ-Ok-ss5"/>
                 <outlet property="durationLabel" destination="55m-Az-mud" id="hJB-KR-RAp"/>
             </connections>
-            <point key="canvasLocation" x="-14" y="-237"/>
+            <point key="canvasLocation" x="-14.4" y="-237.48125937031486"/>
         </view>
     </objects>
 </document>
