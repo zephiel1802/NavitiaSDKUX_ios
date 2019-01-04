@@ -35,8 +35,6 @@ class StackScrollView: UIScrollView, StackScrollViewProtocol {
             subview.view.frame.size.width = getViewSizeWidth(margin: subview.margin, safeArea: subview.safeArea)
         }
 
-     
-        
         contentSize.height = getContentSizeHeight()
     }
     

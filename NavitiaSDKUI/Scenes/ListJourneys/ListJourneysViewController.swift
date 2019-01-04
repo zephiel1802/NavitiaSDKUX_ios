@@ -136,7 +136,6 @@ open class ListJourneysViewController: UIViewController, ListJourneysDisplayLogi
             switchDepartureArrivalButton.isEnabled = false
             journeysRequest!.switchOriginDestination()
             fetchJourneys()
-            
         }
     }
     
