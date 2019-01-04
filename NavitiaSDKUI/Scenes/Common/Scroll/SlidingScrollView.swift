@@ -21,22 +21,18 @@ internal class SlidingScrollView: UIView {
         case map = 2
     }
     
-    private var currentState: SlideState = .hybrid
-    private var marginTop: CGFloat = 0
+    private var notchFrame = CGRect(x: 0, y: 9, width: 35, height: 4)
     private var headerHeight: CGFloat = 60
-    private var slidingViewYOrigin: CGFloat = 0
+    private var lastOrigin = CGPoint(x: 0, y: 0)
     private var parentViewSafeArea = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+    private var currentState: SlideState = .hybrid
     internal var delegate: SlidingScrollViewDelegate?
     internal var parentView: UIView!
     internal var stackScrollView: StackScrollView!
     internal var journeySolutionView: JourneySolutionView! {
         willSet {
             if journeySolutionView == nil {
-                newValue.frame.origin.y = 13
-                addSubview(newValue)
-                newValue.updateFriezeView()
-                headerHeight = newValue.frame.size.height + 13
-                self.stackScrollView.frame.origin.y = self.headerHeight
+                initJourneySolutionView(journeySolutionView: newValue)
             }
         }
     }
@@ -45,61 +41,65 @@ internal class SlidingScrollView: UIView {
         super.init(frame: frame)
         
         self.parentView = parentView
-        setup()
+        if #available(iOS 11.0, *) {
+            parentViewSafeArea = parentView.safeAreaInsets
+        }
+        
+        backgroundColor = Configuration.Color.white
+        
+        initGesture()
+        initNotch()
+        initStackScrollView()
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    private func setup() {
-        backgroundColor = Configuration.Color.white
-        
-        if #available(iOS 11.0, *) {
-            parentViewSafeArea = parentView.safeAreaInsets
-        }
-        
-        initViewScroll()
-        initNotch()
-        initStackScrollView()
-    }
+    private func initGesture() {
+        let panRecognizer = UIPanGestureRecognizer(target: self, action: #selector(moveViewWithGestureRecognizer(_:)))
     
-    private func initViewScroll() {
-        let panRecognizer = UIPanGestureRecognizer(target: self, action: #selector(detectPan(_:)))
-    
-        self.gestureRecognizers = [panRecognizer]
-        self.frame.origin = CGPoint(x: 0, y: slidingViewYOrigin)
-        self.backgroundColor = Configuration.Color.white
+        gestureRecognizers = [panRecognizer]
     }
     
     private func initNotch() {
         let notch = UIView()
         
+        addSubview(notch)
+        
         notch.layer.cornerRadius = 2
         notch.backgroundColor = Configuration.Color.shadow
         notch.translatesAutoresizingMaskIntoConstraints = false
         
-        self.addSubview(notch)
-        
         NSLayoutConstraint(item: notch, attribute: NSLayoutConstraint.Attribute.top, relatedBy: .equal,
-                           toItem: self, attribute: .top, multiplier: 1, constant: 9).isActive = true
+                           toItem: self, attribute: .top, multiplier: 1, constant: notchFrame.origin.y).isActive = true
         NSLayoutConstraint(item: notch, attribute: NSLayoutConstraint.Attribute.centerX, relatedBy: .equal,
                            toItem: self, attribute: .centerX, multiplier: 1, constant: 0).isActive = true
         NSLayoutConstraint(item: notch, attribute: NSLayoutConstraint.Attribute.height, relatedBy: .equal,
-                           toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 4).isActive = true
+                           toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: notchFrame.size.height).isActive = true
         NSLayoutConstraint(item: notch, attribute: NSLayoutConstraint.Attribute.width, relatedBy: .equal,
-                           toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 35).isActive = true
+                           toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: notchFrame.size.width).isActive = true
     }
     
     private func initStackScrollView() {
         stackScrollView = StackScrollView(frame: CGRect(x: 0,
                                                         y: headerHeight,
                                                         width: self.frame.size.width,
-                                                        height: parentView.frame.size.height - headerHeight - slidingViewYOrigin))
+                                                        height: parentView.frame.size.height - headerHeight - lastOrigin.y))
         stackScrollView.backgroundColor = Configuration.Color.background
         stackScrollView.bounces = false
         
-        self.addSubview(stackScrollView)
+        addSubview(stackScrollView)
+    }
+    
+    private func initJourneySolutionView(journeySolutionView: JourneySolutionView) {
+        journeySolutionView.frame.origin.y = notchFrame.origin.y + notchFrame.size.height
+        journeySolutionView.updateFriezeView()
+        
+        headerHeight = journeySolutionView.frame.size.height + journeySolutionView.frame.origin.y
+        stackScrollView.frame.origin.y = headerHeight
+        
+        addSubview(journeySolutionView)
     }
 
     internal func rotationSlidingView() {
@@ -109,98 +109,93 @@ internal class SlidingScrollView: UIView {
             self.journeySolutionView.frame.size.width = self.parentView.bounds.size.width
 
             self.journeySolutionView.updateFriezeView()
-            self.headerHeight = self.journeySolutionView.frame.size.height + 13
+            self.headerHeight = self.journeySolutionView.frame.size.height + self.notchFrame.origin.y + self.notchFrame.size.height
             
             if self.currentState == .roadmap {
-                UIView.animate(withDuration: 0.2, delay: 0, options: .curveEaseOut, animations: {
-                    self.stackScrollView.frame.origin.y = self.headerHeight
-                })
-
-                self.updatePosition(slideState: .roadmap)
+                self.animationBottom()
+                self.setAnchorPoint(slideState: .roadmap)
             } else {
-                UIView.animate(withDuration: 0.2, delay: 0, options: .curveEaseOut, animations: {
-                    self.stackScrollView.frame.origin.y = self.headerHeight + self.parentViewSafeArea.bottom
-                })
-
-                self.updatePosition(slideState: .map)
+                self.animationBottom(withSafeArea: true)
+                self.setAnchorPoint(slideState: .map)
             }
 
             self.stackScrollView.reloadStack()
         }
     }
     
-    @objc private func detectPan(_ recognizer:UIPanGestureRecognizer) {
-        if parentViewSafeArea.bottom > 0 && self.stackScrollView.frame.origin.y > headerHeight {
-            UIView.animate(withDuration: 0.2, delay: 0, options: .curveEaseOut, animations: {
-                self.stackScrollView.frame.origin.y = self.headerHeight
-            })
-        }
-
+    @objc private func moveViewWithGestureRecognizer(_ recognizer:UIPanGestureRecognizer) {
         delegate?.slidingDidMove()
-
-        let translation = slidingViewYOrigin + recognizer.translation(in: parentView).y
-        let translationY = min(max(self.marginTop, translation), parentView.frame.size.height + self.marginTop)
-
-        translationView(translationY: translationY)
 
         switch recognizer.state {
         case .began:
-            stackScrollView.frame.size.height = parentView.frame.size.height - headerHeight
-            frame.size.height = parentView.frame.size.height
+            animationBottom()
+            reinitSize()
         case .ended:
-            let marge:CGFloat = recognizer.isDown(theViewYouArePassing: parentView) ? -0.15 : 0.15
-            let pourcent = self.frame.origin.y / parentView.frame.size.height
+            let tolerance:CGFloat = recognizer.isDown(theViewYouArePassing: parentView) ? -0.15 : 0.15
+            let percentagePosition = frame.origin.y / parentView.frame.size.height
             
-            if UIApplication.shared.statusBarOrientation.isPortrait {
-                if pourcent < 0.2 + marge {
-                    updatePosition(slideState: .roadmap)
-                } else if pourcent < 0.7 + marge {
-                    updatePosition(slideState: .hybrid)
-                } else {
-                    updatePosition(slideState: .map)
-                }
-            } else {
-                if pourcent < 0.5 + marge {
-                    updatePosition(slideState: .roadmap)
-                } else {
-                    updatePosition(slideState: .map)
-                }
-            }
+            checkedAnchor(percentagePosition: percentagePosition, tolerance: tolerance)
         default:
-            translationView(translationY: translationY)
+            let translationForSliding = min(max(0, lastOrigin.y + recognizer.translation(in: parentView).y), parentView.frame.size.height)
+            
+            translationView(translationY: translationForSliding)
         }
-
+    }
+    
+    private func reinitSize() {
+        stackScrollView.frame.size.height = parentView.frame.size.height - headerHeight
+        frame.size.height = parentView.frame.size.height
+    }
+    
+    private func checkedAnchor(percentagePosition: CGFloat, tolerance: CGFloat = 0) {
+        if UIApplication.shared.statusBarOrientation.isPortrait  {
+            if percentagePosition < 0.2 + tolerance {
+                setAnchorPoint(slideState: .roadmap)
+            } else if percentagePosition < 0.7 + tolerance {
+                setAnchorPoint(slideState: .hybrid)
+            } else {
+                setAnchorPoint(slideState: .map)
+            }
+        } else {
+            if percentagePosition < 0.5 + tolerance {
+                setAnchorPoint(slideState: .roadmap)
+            } else {
+                setAnchorPoint(slideState: .map)
+            }
+        }
     }
 
-    internal func updatePosition(slideState: SlideState, duration: TimeInterval = 0.3) {
-        currentState = slideState
-        
+    internal func setAnchorPoint(slideState: SlideState, duration: TimeInterval = 0.3) {
         switch slideState {
         case .roadmap:
-            slidingViewYOrigin = 0
+            lastOrigin = getPourcentagePosition(value: 0)
         case .hybrid:
-            slidingViewYOrigin = parentView.frame.size.height * 0.4
-            
+            lastOrigin = getPourcentagePosition(value: 0.4)
         case .map:
-            animationForSafeAreaBottom()
-            
-            slidingViewYOrigin = parentView.frame.size.height - headerHeight
+            animationBottom(withSafeArea: true)
+            lastOrigin = getPourcentagePosition(value: 1)
         }
-        
-        delegate?.slidingEndMove(edgePaddingBottom:parentView.frame.size.height - slidingViewYOrigin + parentViewSafeArea.bottom, slidingState: slideState)
-        translationView(translationY: slidingViewYOrigin, duration: duration, completion: {
-            let translationY = max(0, self.slidingViewYOrigin - self.parentViewSafeArea.bottom)
-            let height = self.parentView.frame.size.height - translationY - self.headerHeight
-            
-            self.stackScrollView.frame.size.height = max(0, height)
-            self.frame.size.height = self.parentView.frame.size.height - translationY
 
+        translationView(translationY: lastOrigin.y, duration: duration, completion: {
+            self.stackScrollView.frame.size.height = max(0, self.parentView.frame.size.height - self.lastOrigin.y - self.headerHeight)
+            self.frame.size.height = self.parentView.frame.size.height - self.lastOrigin.y
         })
+        
+        currentState = slideState
+        
+        delegate?.slidingEndMove(edgePaddingBottom:parentView.frame.size.height - lastOrigin.y, slidingState: slideState)
+    }
+    
+    private func getPourcentagePosition(value: CGFloat) -> CGPoint {
+        var y = parentView.frame.size.height * value
+        
+        y = min(y, parentView.frame.size.height - headerHeight - parentViewSafeArea.bottom)
+        y = max(y, 0)
+        
+        return CGPoint(x: 0, y: y)
     }
     
     private func translationView(translationY: CGFloat, duration: TimeInterval = 0, completion: (() -> Void)? = nil) {
-        let translationY = max(0, translationY - parentViewSafeArea.bottom)
-
         UIView.animate(withDuration: duration, delay: 0, options: .curveEaseOut, animations: {
             self.frame.origin.y = translationY
         }, completion: { (_) in
@@ -208,11 +203,13 @@ internal class SlidingScrollView: UIView {
         })
     }
     
-    private func animationForSafeAreaBottom() {
-        if parentViewSafeArea.bottom > 0 {
-            UIView.animate(withDuration: 0.2, delay: 0, options: .curveEaseOut, animations: {
+    private func animationBottom(withSafeArea safeArea: Bool = false) {
+        UIView.animate(withDuration: 0.2, delay: 0, options: .curveEaseOut, animations: {
+            if safeArea {
                 self.stackScrollView.frame.origin.y = self.headerHeight + self.parentViewSafeArea.bottom
-            }, completion: { (_) in })
-        }
+            } else {
+                self.stackScrollView.frame.origin.y = self.headerHeight
+            }
+        }, completion: { (_) in })
     }
 }

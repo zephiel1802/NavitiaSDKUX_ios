@@ -129,7 +129,7 @@ internal class ShowJourneyRoadmapViewController: UIViewController, ShowJourneyRo
         slidingScrollView.delegate = self
         view.addSubview(slidingScrollView)
         
-        UIApplication.shared.statusBarOrientation.isPortrait ? slidingScrollView.updatePosition(slideState: .hybrid, duration: 0) : slidingScrollView.updatePosition(slideState: .map, duration: 0)
+        UIApplication.shared.statusBarOrientation.isPortrait ? slidingScrollView.setAnchorPoint(slideState: .hybrid, duration: 0) : slidingScrollView.setAnchorPoint(slideState: .map, duration: 0)
     }
     
     func displayRoadmap(viewModel: ShowJourneyRoadmap.GetRoadmap.ViewModel) {
