@@ -230,7 +230,7 @@ class ShowJourneyRoadmapPresenterTests: XCTestCase {
         XCTAssertEqual(walkingViewModel.startTime, "17:05")
         XCTAssertEqual(walkingViewModel.endTime, "17:14")
         XCTAssertEqual(walkingViewModel.stopDate.count, 0)
-        XCTAssertEqual(walkingViewModel.disruptionsClean.count, 0)
+        XCTAssertEqual(walkingViewModel.disruptions.count, 0)
         XCTAssertEqual(walkingViewModel.notes.count, 0)
         XCTAssertNotNil(walkingViewModel.displayInformations)
     }
@@ -259,7 +259,7 @@ class ShowJourneyRoadmapPresenterTests: XCTestCase {
         XCTAssertNil(bikeViewModel.poi)
 
         // TODO: Set with nil
-        XCTAssertEqual(bikeViewModel.disruptionsClean.count, 0)
+        XCTAssertEqual(bikeViewModel.disruptions.count, 0)
         XCTAssertEqual(bikeViewModel.notes.count, 0)
         XCTAssertEqual(bikeViewModel.stopDate.count, 0)
         XCTAssertEqual(bikeViewModel.startTime, "17:06")
@@ -294,7 +294,7 @@ class ShowJourneyRoadmapPresenterTests: XCTestCase {
         // TODO: Set with nil
         XCTAssertEqual(carViewModel.from, "Gares (Rennes)")
         XCTAssertEqual(carViewModel.stopDate.count, 0)
-        XCTAssertEqual(carViewModel.disruptionsClean.count, 0)
+        XCTAssertEqual(carViewModel.disruptions.count, 0)
         XCTAssertEqual(carViewModel.notes.count, 0)
         XCTAssertEqual(carViewModel.startTime, "10:08")
         XCTAssertEqual(carViewModel.endTime, "10:11")
@@ -330,7 +330,7 @@ class ShowJourneyRoadmapPresenterTests: XCTestCase {
         XCTAssertEqual(bssRentStandsViewModel.endTime, "10:14")
         XCTAssertEqual(bssRentStandsViewModel.path?.count, 0)
         XCTAssertEqual(bssRentStandsViewModel.stopDate.count, 0)
-        XCTAssertEqual(bssRentStandsViewModel.disruptionsClean.count, 0)
+        XCTAssertEqual(bssRentStandsViewModel.disruptions.count, 0)
         XCTAssertEqual(bssRentStandsViewModel.notes.count, 0)
         XCTAssertNotNil(bssRentStandsViewModel.displayInformations)
     }
@@ -363,7 +363,7 @@ class ShowJourneyRoadmapPresenterTests: XCTestCase {
         XCTAssertEqual(bssPutBackStandsViewModel.endTime, "10:24")
         XCTAssertEqual(bssPutBackStandsViewModel.path?.count, 0)
         XCTAssertEqual(bssPutBackStandsViewModel.stopDate.count, 0)
-        XCTAssertEqual(bssPutBackStandsViewModel.disruptionsClean.count, 0)
+        XCTAssertEqual(bssPutBackStandsViewModel.disruptions.count, 0)
         XCTAssertEqual(bssPutBackStandsViewModel.notes.count, 0)
         XCTAssertNotNil(bssPutBackStandsViewModel.displayInformations)
     }
@@ -391,7 +391,7 @@ class ShowJourneyRoadmapPresenterTests: XCTestCase {
         XCTAssertEqual(transferViewModel.endTime, "17:31")
         XCTAssertEqual(transferViewModel.path?.count, 0)
         XCTAssertEqual(transferViewModel.stopDate.count, 0)
-        XCTAssertEqual(transferViewModel.disruptionsClean.count, 0)
+        XCTAssertEqual(transferViewModel.disruptions.count, 0)
         XCTAssertEqual(transferViewModel.notes.count, 0)
         XCTAssertNotNil(transferViewModel.displayInformations)
         XCTAssertNil(transferViewModel.poi)
@@ -421,7 +421,7 @@ class ShowJourneyRoadmapPresenterTests: XCTestCase {
         XCTAssertEqual(crowFlyViewModel.endTime, "17:11")
         XCTAssertEqual(crowFlyViewModel.path?.count, 0)
         XCTAssertEqual(crowFlyViewModel.stopDate.count, 0)
-        XCTAssertEqual(crowFlyViewModel.disruptionsClean.count, 0)
+        XCTAssertEqual(crowFlyViewModel.disruptions.count, 0)
         XCTAssertEqual(crowFlyViewModel.notes.count, 0)
         XCTAssertNotNil(crowFlyViewModel.displayInformations)
     }
@@ -441,7 +441,7 @@ class ShowJourneyRoadmapPresenterTests: XCTestCase {
         XCTAssertEqual(publicTransportViewModel.actionDescription, "Take the Métro")
         XCTAssertEqual(publicTransportViewModel.stopDate.count, 16)
         XCTAssertEqual(publicTransportViewModel.waiting, "Wait 3 minutes")
-        XCTAssertEqual(publicTransportViewModel.disruptionsClean.count, 0)
+        XCTAssertEqual(publicTransportViewModel.disruptions.count, 0)
         XCTAssertEqual(publicTransportViewModel.notes.count, 0)
         XCTAssertEqual(publicTransportViewModel.icon, "metro")
         XCTAssertEqual(publicTransportViewModel.realTime, false)
@@ -471,7 +471,7 @@ class ShowJourneyRoadmapPresenterTests: XCTestCase {
         XCTAssertEqual(onDemandTransportViewModel.path?.count, 0)
         XCTAssertEqual(onDemandTransportViewModel.stopDate.count, 1)
         XCTAssertEqual(onDemandTransportViewModel.waiting, "Wait 33 minutes")
-        XCTAssertEqual(onDemandTransportViewModel.disruptionsClean.count, 0)
+        XCTAssertEqual(onDemandTransportViewModel.disruptions.count, 0)
         XCTAssertEqual(onDemandTransportViewModel.notes.count, 0)
         XCTAssertEqual(onDemandTransportViewModel.icon, "bus-tad")
         XCTAssertEqual(onDemandTransportViewModel.realTime, false)

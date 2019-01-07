@@ -19,7 +19,7 @@ class DepartureArrivalStepView: UIView {
     @IBOutlet weak var calorieImageView: UIImageView!
     @IBOutlet weak var calorieLabel: UILabel!
     
-    var type: ShowJourneyRoadmap.GetRoadmap.ViewModel.DepartureArrival.Mode = .departure {
+    internal var type: ShowJourneyRoadmap.GetRoadmap.ViewModel.DepartureArrival.Mode = .departure {
         didSet {
             if type == .departure {
                 contentContainerView.backgroundColor = Configuration.Color.origin
@@ -29,7 +29,7 @@ class DepartureArrivalStepView: UIView {
         }
     }
     
-    var information: (String, String)? {
+    internal var information: (String, String)? {
         didSet {
             guard let information = information else {
                 return
@@ -41,7 +41,7 @@ class DepartureArrivalStepView: UIView {
         }
     }
     
-    var time: String? {
+    internal var time: String? {
         didSet {
             guard let time = time else {
                 return
@@ -51,7 +51,7 @@ class DepartureArrivalStepView: UIView {
         }
     }
     
-    var calorie: String? {
+    internal var calorie: String? {
         didSet {
             guard let calorie = calorie else {
                 return
@@ -64,6 +64,8 @@ class DepartureArrivalStepView: UIView {
         }
     }
     
+    // MARK: - UINib
+    
     static var identifier: String {
         return String(describing: self)
     }
@@ -72,11 +74,12 @@ class DepartureArrivalStepView: UIView {
         return UINib(nibName: identifier, bundle: NavitiaSDKUI.shared.bundle).instantiate(withOwner: nil, options: nil)[0] as! DepartureArrivalStepView
     }
     
+    // MARK: - Initialization
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         
-        setupIcon()
-        addShadow(opacity: 0.28)
+        setup()
     }
 
     override func layoutSubviews() {
@@ -86,6 +89,13 @@ class DepartureArrivalStepView: UIView {
         if let superview = superview as? StackScrollView {
             superview.reloadStack()
         }
+    }
+    
+    // MARK: - Function
+    
+    private func setup() {
+        setupIcon()
+        addShadow(opacity: 0.28)
     }
     
     private func setupIcon() {

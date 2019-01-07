@@ -17,13 +17,14 @@ class ListRidesharingOffersPresenter: ListRidesharingOffersPresentationLogic {
     weak var viewController: ListRidesharingOffersDisplayLogic?
     
     func presentRidesharingOffers(response: ListRidesharingOffers.GetRidesharingOffers.Response) {
-        guard let duration = response.journey.duration, let sections = response.journey.sections else {
+        guard let duration = response.journey.duration else {
             return
         }
         
         let displayedRidesharingOffers = getRidesharingOffers(ridesharingJourneys: response.ridesharingJourneys)
-        let journeySummary = ListRidesharingOffers.GetRidesharingOffers.ViewModel.JourneySummary(duration: duration, sections: sections)
-        let viewModel = ListRidesharingOffers.GetRidesharingOffers.ViewModel(journeySummary: journeySummary, displayedRidesharingOffers: displayedRidesharingOffers)
+        let friezeSections = FriezePresenter().getDisplayedJourneySections(journey: response.journey, disruptions: response.disruptions)
+        let frieze = ListRidesharingOffers.GetRidesharingOffers.ViewModel.Frieze(duration: duration, friezeSections: friezeSections)
+        let viewModel = ListRidesharingOffers.GetRidesharingOffers.ViewModel(frieze: frieze, displayedRidesharingOffers: displayedRidesharingOffers)
         
         viewController?.displayRidesharingOffers(viewModel: viewModel)
     }

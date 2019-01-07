@@ -109,13 +109,21 @@ enum ShowJourneyRoadmap {
                 struct Note {
                     var content: String
                 }
-                
-                struct DisruptionModel {
+
+                struct Disruption {
+                    public enum Level: Int {
+                        case none = 100
+                        case information = 101
+                        case nonblocking = 102
+                        case blocking = 103
+                    }
+                    
                     var color: UIColor
                     var icon: String
                     var title: String
                     var date: String
                     var information: String?
+                    var level: Level
                     var accessibility: String
                 }
                 
@@ -131,14 +139,19 @@ enum ShowJourneyRoadmap {
                 var stopDate: [String]
                 var displayInformations: DisplayInformations
                 var waiting: String?
-                var disruptions: [Disruption] // Class: SDK Expert
-                var disruptionsClean: [DisruptionModel]
+                var disruptions: [Disruption]
                 var notes: [Note]
                 var poi: Poi?
                 var icon: String
                 var realTime: Bool
                 var background: Bool
                 var section: Section
+            }
+            
+            struct Frieze {
+                var duration: Int32
+                var friezeSections: [FriezePresenter.FriezeSection]
+                var friezeSectionsWithDisruption: [FriezePresenter.FriezeSection]
             }
             
             struct Emission {
@@ -150,9 +163,10 @@ enum ShowJourneyRoadmap {
             var ridesharing: Ridesharing?
             var departure: DepartureArrival
             var sections: [SectionModel]?
+            var frieze: Frieze
             var arrival: DepartureArrival
             var emission: Emission
-            var disruptions: [Disruption]? // Class: SDK Expert
+            var displayAvoidDisruption: Bool
             var journey: Journey // Class: SDK Expert
             var ridesharingJourneys: Journey? // Class: SDK Expert
         }

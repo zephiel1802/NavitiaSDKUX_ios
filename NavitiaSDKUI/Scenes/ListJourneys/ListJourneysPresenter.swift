@@ -27,8 +27,7 @@ class ListJourneysPresenter: ListJourneysPresentationLogic {
                                                              accessibilityHeader: "journey_research_in_progress".localized(),
                                                              accessibilitySwitchButton: nil,
                                                              displayedJourneys: [],
-                                                             displayedRidesharings: [],
-                                                             disruptions: [])
+                                                             displayedRidesharings: [])
         
         viewController?.displayFetchedJourneys(viewModel: viewModel)
     }
@@ -64,8 +63,7 @@ class ListJourneysPresenter: ListJourneysPresentationLogic {
                                                              accessibilityHeader: getHeaderAccessibility(origin: headerInformations.originString, destination: headerInformations.destinationString, dateTime: headerInformations.dateTimeDate),
                                                              accessibilitySwitchButton: getAccessibilitySwitchButton(),
                                                              displayedJourneys: displayedJourneys,
-                                                             displayedRidesharings: displayedRidesharings,
-                                                             disruptions: response.disruptions ?? [])
+                                                             displayedRidesharings: displayedRidesharings)
         
         viewController?.displayFetchedJourneys(viewModel: viewModel)
     }
@@ -176,13 +174,14 @@ class ListJourneysPresenter: ListJourneysPresentationLogic {
                 return nil
         }
         
+        let friezeSections = FriezePresenter().getDisplayedJourneySections(journey: journey, disruptions: disruptions)
         let accessibility = getJourneyAccessibility(duration: duration.string, sections: journey.sections, disruptions: disruptions)
         
         if journey.isRidesharing {
             return ListJourneys.FetchJourneys.ViewModel.DisplayedJourney(dateTime: dateTime,
                                                                             duration: duration,
                                                                             walkingInformation: nil,
-                                                                            sections: journey.sections ?? [],
+                                                                            friezeSections: friezeSections,
                                                                             accessibility: accessibility)
         }
         
@@ -191,7 +190,7 @@ class ListJourneysPresenter: ListJourneysPresentationLogic {
         return ListJourneys.FetchJourneys.ViewModel.DisplayedJourney(dateTime: dateTime,
                                                                         duration: duration,
                                                                         walkingInformation: walkingInformation,
-                                                                        sections: journey.sections ?? [],
+                                                                        friezeSections: friezeSections,
                                                                         accessibility: accessibility)
     }
     

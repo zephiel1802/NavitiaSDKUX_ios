@@ -15,8 +15,7 @@ class PublicTransportStepView: UIView {
     @IBOutlet weak var informationsLabel: UILabel!
     @IBOutlet weak var transportIconView: UIView!
     @IBOutlet weak var transportIconLabel: UILabel!
-    @IBOutlet weak var disruptionCircleLabel: UILabel!
-    @IBOutlet weak var disruptionIconLabel: UILabel!
+    @IBOutlet weak var disruptionImage: UIImageView!
     @IBOutlet weak var networkContainerView: UIView!
     @IBOutlet weak var networkLabel: UILabel!
     @IBOutlet weak var waitingContainerView: UIView!
@@ -44,6 +43,8 @@ class PublicTransportStepView: UIView {
 
     private var stationStackView: UIStackView!
     
+    // MARK: - UINib
+    
     static var identifier: String {
         return String(describing: self)
     }
@@ -52,17 +53,12 @@ class PublicTransportStepView: UIView {
         return UINib(nibName: identifier, bundle: NavitiaSDKUI.shared.bundle).instantiate(withOwner: nil, options: nil)[0] as! PublicTransportStepView
     }
     
+    // MARK: - Initialization
+
     override func awakeFromNib() {
         super.awakeFromNib()
         
-        transport = nil
-        disruptions = nil
-        network = nil
-        waiting = nil
-        stopDates = nil
-
-        initStationStackView()
-        addShadow(opacity: 0.28)
+        setup()
     }
     
     override func layoutSubviews() {
@@ -74,7 +70,20 @@ class PublicTransportStepView: UIView {
         }
     }
     
-    func updateAccessibility() {
+    // MARK: - Function
+    
+    private func setup() {
+        transport = nil
+        disruptions = nil
+        network = nil
+        waiting = nil
+        stopDates = nil
+        
+        initStationStackView()
+        addShadow(opacity: 0.28)
+    }
+    
+    internal func updateAccessibility() {
         guard let commercialMode = actionDescriptionLabel.text, let informations = informationsLabel.text else {
             return
         }
@@ -98,8 +107,6 @@ class PublicTransportStepView: UIView {
             accessibilityLabel.append(String(format: "%@.", waiting))
         }
         
-        
-        
         for item in stackView.arrangedSubviews {
             if let itemDisruption = item as? DisruptionItemView,
                 let accessibility = itemDisruption.accessibility {
@@ -114,9 +121,9 @@ class PublicTransportStepView: UIView {
         self.accessibilityLabel = accessibilityLabel
     }
     
-    //MARK: Common
+    // MARK: Common
     
-    var icon: String? {
+    internal var icon: String? {
         didSet {
             guard let icon = icon else {
                 return
@@ -126,7 +133,7 @@ class PublicTransportStepView: UIView {
         }
     }
 
-    var actionDescription: String? {
+    internal var actionDescription: String? {
         didSet {
             guard let actionDescription = actionDescription else {
                 return
@@ -136,7 +143,7 @@ class PublicTransportStepView: UIView {
         }
     }
 
-    var informations: (from: String, direction: String)? = nil {
+    internal var informations: (from: String, direction: String)? = nil {
         didSet {
             guard let informations = informations else {
                 return
@@ -155,7 +162,7 @@ class PublicTransportStepView: UIView {
 
     // MARK: Network
     
-    var network: String? = nil {
+    internal var network: String? = nil {
         didSet {
             guard let network = network else {
                 networkContainerView.isHidden = true
@@ -172,7 +179,7 @@ class PublicTransportStepView: UIView {
 
     // MARK: OnDemandeTransport
     
-    var notes: [ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionModel.Note]? = nil {
+    internal var notes: [ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionModel.Note]? = nil {
         didSet {
             guard let onDemandTransports = notes else {
                 return
@@ -189,25 +196,22 @@ class PublicTransportStepView: UIView {
 
     // MARK: Disruption
     
-    var disruptions: [ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionModel.DisruptionModel]? = nil {
+    internal var disruptions: [ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionModel.Disruption]? = nil {
         didSet {
             guard let disruptions = disruptions, disruptions.count > 0 else {
-                disruptionIconLabel.isHidden = true
-                disruptionCircleLabel.isHidden = true
+                disruptionImage.isHidden = true
                 return
             }
 
-            if let firstDisruption = disruptions.first {
-                disruptionCircleLabel.attributedText = NSMutableAttributedString().icon("circle-filled", color: Configuration.Color.white, size: 15)
-                disruptionCircleLabel.isHidden = false
-                disruptionIconLabel.attributedText = NSMutableAttributedString().icon(firstDisruption.icon, color: firstDisruption.color, size: 14)
-                disruptionIconLabel.isHidden = false
+            if let image = Disruption().levelImage(name: disruptions.first?.icon ?? ""), !transportIconView.isHidden {
+                disruptionImage.image = image
+                disruptionImage.isHidden = false
             }
 
             for (index, disruption) in disruptions.enumerated().reversed() {
                 let disruptionItemView = DisruptionItemView.instanceFromNib()
 
-                disruptionItemView.setIcon(icon: disruption.icon, color: disruption.color)
+                disruptionItemView.setIcon(icon: disruption.icon)
                 disruptionItemView.setDisruptionTitle(title: disruption.title, color: disruption.color)
                 disruptionItemView.disruptionInformation = disruption.information
                 disruptionItemView.disruptionDate = disruption.date
@@ -225,7 +229,7 @@ class PublicTransportStepView: UIView {
 
     // MARK: Waiting
 
-    var waiting: String? = nil {
+    internal var waiting: String? = nil {
         didSet {
             guard let waiting = waiting else {
                 waitingContainerView.isHidden = true
@@ -273,7 +277,7 @@ class PublicTransportStepView: UIView {
         }
     }
 
-    var transport: (code: String?, color: UIColor?)? {
+    internal var transport: (code: String?, color: UIColor?)? {
         didSet {
             guard let color = transport?.color else {
                 transportIconView.isHidden = true
@@ -294,7 +298,7 @@ class PublicTransportStepView: UIView {
         }
     }
 
-    var departure: (from: String, time: String)? = nil {
+    internal var departure: (from: String, time: String)? = nil {
         didSet {
             guard let departure = departure else {
                 return
@@ -305,7 +309,7 @@ class PublicTransportStepView: UIView {
         }
     }
 
-    var arrival: (to: String, time: String)? = nil {
+    internal var arrival: (to: String, time: String)? = nil {
         didSet {
             guard let arrival = arrival else {
                 return
@@ -316,7 +320,7 @@ class PublicTransportStepView: UIView {
         }
     }
 
-    var stopDates: [String]? = nil {
+    internal var stopDates: [String]? = nil {
         didSet {
             guard let stopDates = stopDates, !stopDates.isEmpty else {
                 stationsContainerIsHidden = true
@@ -342,6 +346,8 @@ class PublicTransportStepView: UIView {
                 .normal(String(format: "%@ %@", String(stopDatesCount + 1), "Arrêts"), color: Configuration.Color.darkerGray, size: 13)
         }
     }
+    
+    // MARK: - Action
     
     @IBAction func publicTransportButton(_ sender: Any) {
        stationsStackContainerIsHidden = !stationsStackContainerIsHidden

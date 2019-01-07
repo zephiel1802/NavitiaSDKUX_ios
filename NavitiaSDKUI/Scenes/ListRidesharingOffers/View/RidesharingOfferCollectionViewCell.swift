@@ -7,7 +7,7 @@
 
 import UIKit
 
-protocol RidesharingOfferCollectionViewCellDelegate {
+protocol RidesharingOfferCollectionViewCellDelegate: class {
     
     func onBookButtonClicked(_ ridesharingOfferCollectionViewCell: RidesharingOfferCollectionViewCell)
 }
@@ -26,36 +26,41 @@ class RidesharingOfferCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var priceLabel: UILabel!
     @IBOutlet weak var roadmapButton: UIButton!
     
-    var delegate: RidesharingOfferCollectionViewCellDelegate?
-    var row: Int?
+    internal weak var delegate: RidesharingOfferCollectionViewCellDelegate?
+    internal var row: Int?
     
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        
-        addShadow()
-        roadmapButton.setTitle("view_on_the_map".localized(), for: .normal)
-        roadmapButton.accessibilityElementsHidden = true
+    static var identifier: String {
+        return String(describing: self)
     }
     
     static var nib:UINib {
         return UINib(nibName: identifier, bundle: nil)
     }
     
-    static var identifier: String {
-        return String(describing: self)
+    // MARK: - Initialization
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        
+        setup()
     }
     
-    @IBAction func actionRoadmapButton(_ sender: Any) {
-        delegate?.onBookButtonClicked(self)
+    // MARK: - Function
+    
+    private func setup() {
+        roadmapButton.setTitle("view_on_the_map".localized(), for: .normal)
+        roadmapButton.accessibilityElementsHidden = true
+        
+        addShadow()
     }
     
-    func setPicture(url: String?) {
+    internal func setPicture(url: String?) {
         if let url = url {
             driverImageView.loadImageFromURL(urlString: url)
         }
     }
     
-    func setDriverRating(_ count: Int32?) {
+    internal func setDriverRating(_ count: Int32?) {
         if let count = count {
             var template = "rating_plural".localized()
             if count == 1 {
@@ -66,7 +71,7 @@ class RidesharingOfferCollectionViewCell: UICollectionViewCell {
         }
     }
     
-    func setFullStar(_ count: Float?) {
+    internal func setFullStar(_ count: Float?) {
         if let count = count {
             floatRatingView.backgroundColor = UIColor.clear
             floatRatingView.contentMode = UIView.ContentMode.scaleAspectFit
@@ -79,7 +84,7 @@ class RidesharingOfferCollectionViewCell: UICollectionViewCell {
         }
     }
     
-    func setSeatsCount(_ count: Int32?) {
+    internal func setSeatsCount(_ count: Int32?) {
         if let count = count {
             let template = "available_seats".localized()
             seatsCountLabel.attributedText = NSMutableAttributedString()
@@ -88,6 +93,12 @@ class RidesharingOfferCollectionViewCell: UICollectionViewCell {
             seatsCountLabel.attributedText = NSMutableAttributedString()
                 .semiBold("no_available_seats".localized(), size: 12.5)
         }
+    }
+    
+    // MARK: - Action
+    
+    @IBAction func actionRoadmapButton(_ sender: Any) {
+        delegate?.onBookButtonClicked(self)
     }
 }
 

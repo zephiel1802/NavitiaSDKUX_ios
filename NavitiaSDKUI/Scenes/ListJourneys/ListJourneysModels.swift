@@ -34,7 +34,7 @@ enum ListJourneys {
                 var dateTime: String
                 var duration: NSMutableAttributedString
                 var walkingInformation: NSMutableAttributedString?
-                var sections: [Section]
+                var friezeSections: [FriezePresenter.FriezeSection]
                 var accessibility: String?
             }
             
@@ -44,7 +44,6 @@ enum ListJourneys {
             var accessibilitySwitchButton: String?
             var displayedJourneys: [DisplayedJourney]
             var displayedRidesharings: [DisplayedJourney]
-            var disruptions: [Disruption] // Class: SDK Expert
         }
     }
 }

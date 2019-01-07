@@ -54,6 +54,7 @@ open class ListJourneysViewController: UIViewController, ListJourneysDisplayLogi
         super.viewWillLayoutSubviews()
         
         journeysCollectionView.collectionViewLayout.invalidateLayout()
+        reloadCollectionViewLayout()
     }
     
     private func initSDK() {
@@ -99,10 +100,16 @@ open class ListJourneysViewController: UIViewController, ListJourneysDisplayLogi
     }
     
     private func initCollectionView() {
+        let listJourneysCollectionViewLayout = ListJourneysCollectionViewLayout()
+        
+        listJourneysCollectionViewLayout.delegate = self
+        journeysCollectionView.setCollectionViewLayout(listJourneysCollectionViewLayout, animated: true)
+        
         if #available(iOS 11.0, *) {
             journeysCollectionView?.contentInsetAdjustmentBehavior = .always
         }
         
+        journeysCollectionView.contentInset = UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
         registerCollectionView()
     }
     
@@ -134,7 +141,7 @@ open class ListJourneysViewController: UIViewController, ListJourneysDisplayLogi
     
     // MARK: - Fetch journeys
     
-    private func fetchJourneys() {
+    internal func fetchJourneys() {
         guard let journeysRequest = self.journeysRequest else {
             return
         }
@@ -159,6 +166,16 @@ open class ListJourneysViewController: UIViewController, ListJourneysDisplayLogi
         searchView.accessibilityLabel = viewModel.accessibilityHeader
         switchDepartureArrivalButton.accessibilityLabel = viewModel.accessibilitySwitchButton
         journeysCollectionView.reloadData()
+        
+        reloadCollectionViewLayout()
+    }
+    
+    private func reloadCollectionViewLayout() {
+        guard let collectionViewLayout = journeysCollectionView.collectionViewLayout as? ListJourneysCollectionViewLayout else {
+            return
+        }
+        
+        collectionViewLayout.reloadLayout()
     }
 }
 
@@ -206,6 +223,7 @@ extension ListJourneysViewController: UICollectionViewDataSource, UICollectionVi
         guard let viewModel = viewModel else {
             return UICollectionViewCell()
         }
+        
         // Loading
         if !viewModel.loaded {
             if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: JourneySolutionLoadCollectionViewCell.identifier, for: indexPath) as? JourneySolutionLoadCollectionViewCell {
@@ -222,8 +240,7 @@ extension ListJourneysViewController: UICollectionViewDataSource, UICollectionVi
             }
             // Result
             if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: JourneySolutionCollectionViewCell.identifier, for: indexPath) as? JourneySolutionCollectionViewCell {
-                cell.setup(displayedJourney: viewModel.displayedJourneys[indexPath.row],
-                            displayedDisruptions: viewModel.disruptions)
+                cell.setup(displayedJourney: viewModel.displayedJourneys[indexPath.row])
                 return cell
             }
         }
@@ -244,8 +261,7 @@ extension ListJourneysViewController: UICollectionViewDataSource, UICollectionVi
             }
             // Result
             if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: JourneySolutionCollectionViewCell.identifier, for: indexPath) as? JourneySolutionCollectionViewCell {
-                cell.setup(displayedJourney: viewModel.displayedRidesharings[indexPath.row - 1],
-                            displayedDisruptions: viewModel.disruptions)
+                cell.setup(displayedJourney: viewModel.displayedRidesharings[indexPath.row - 1])
                 return cell
             }
         }
@@ -294,48 +310,80 @@ extension ListJourneysViewController: UICollectionViewDataSource, UICollectionVi
             }
         }
     }
+}
 
-    // MARK: - CollectionView Delegate Flow Layout
+extension ListJourneysViewController: ListJourneysCollectionViewLayoutDelegate {
     
-    public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        var safeAreaWidth: CGFloat = 20.0
-        if #available(iOS 11.0, *) {
-            safeAreaWidth += self.journeysCollectionView.safeAreaInsets.left + self.journeysCollectionView.safeAreaInsets.right
-        }
-        
+    func collectionView(_ collectionView: UICollectionView, heightForCellAtIndexPath indexPath: IndexPath, width: CGFloat) -> CGFloat {
         guard let viewModel = viewModel else {
-            return CGSize()
+            return 0
         }
         
         // Loading
         if !viewModel.loaded {
-            return CGSize(width: self.journeysCollectionView.frame.size.width - safeAreaWidth, height: 130)
+            return 130
         }
+        
         // Journey
         if indexPath.section == 0 {
             if viewModel.displayedJourneys.count == 0 {
                 // No journey
-                return CGSize(width: self.journeysCollectionView.frame.size.width - safeAreaWidth, height: 35)
-            } else if viewModel.displayedJourneys[indexPath.row].walkingInformation == nil {
-                // Result
-                return CGSize(width: self.journeysCollectionView.frame.size.width - safeAreaWidth, height: 97)
+                return 35
             }
             
-            return CGSize(width: self.journeysCollectionView.frame.size.width - safeAreaWidth, height: 130)
+            var height: CGFloat = 60
+            if let _ = viewModel.displayedJourneys[safe: indexPath.row]?.walkingInformation {
+                height += 30
+            }
+            
+            if let sections = viewModel.displayedJourneys[safe: indexPath.row]?.friezeSections {
+                let friezeView = FriezeView(frame: CGRect(x: 0, y: 0, width: width - 20, height: 27))
+                friezeView.addSection(friezeSections: sections)
+                
+                return height + friezeView.frame.size.height
+            }
         }
+        
         // Carsharing
         if indexPath.section == 1 {
             if indexPath.row == 0 {
                 // Header
-                return CGSize(width: self.journeysCollectionView.frame.size.width - safeAreaWidth, height: 75)
+                return 75
             } else if indexPath.row == 1 && viewModel.displayedRidesharings.count == 0 {
                 // No journey
-                return CGSize(width: self.journeysCollectionView.frame.size.width - safeAreaWidth, height: 35)
+                return 35
             }
-            // Result
-            return CGSize(width: self.journeysCollectionView.frame.size.width - safeAreaWidth, height: 97)
+            var height: CGFloat = 60
+            if let _ = viewModel.displayedRidesharings[safe: indexPath.row - 1]?.walkingInformation {
+                height += 30
+            }
+            
+            if let sections = viewModel.displayedRidesharings[safe: indexPath.row - 1]?.friezeSections {
+                let friezeView = FriezeView(frame: CGRect(x: 0, y: 0, width: width - 20, height: 27))
+                friezeView.addSection(friezeSections: sections)
+                
+                return height + friezeView.frame.size.height
+            }
         }
+        
         // Other
-        return CGSize(width: self.journeysCollectionView.frame.size.width - safeAreaWidth, height: 130)
+        return 117
     }
+
+    private func getHeightForJourneySolutionCollectionViewCell(indexPath: IndexPath, width: CGFloat) -> CGFloat {
+        guard let viewModel = viewModel, let displayedJourney = viewModel.displayedJourneys[safe: indexPath.row] else {
+            return 0
+        }
+        
+        let height: CGFloat = 60
+        let friezeView = FriezeView(frame: CGRect(x: 0, y: 0, width: width - 20, height: 27))
+        friezeView.addSection(friezeSections: displayedJourney.friezeSections)
+        
+        if displayedJourney.walkingInformation != nil {
+            return height + friezeView.frame.size.height + 30
+        }
+  
+        return height + friezeView.frame.size.height
+    }
+    
 }

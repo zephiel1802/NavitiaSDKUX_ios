@@ -7,67 +7,84 @@
 
 import UIKit
 
+public protocol JourneySolutionViewDelegate: class {
+    
+    func updateHeight(height: CGFloat)
+}
+
 class JourneySolutionView: UIView {
     
-    @IBOutlet var view: UIView!
     @IBOutlet weak var aboutLabel: UILabel!
     @IBOutlet weak var durationLabel: UILabel!
     @IBOutlet weak var durationCenterContraint: NSLayoutConstraint!
-    @IBOutlet weak var journeySummaryView: JourneySummaryView!
-    @IBOutlet weak var durationWalkerLabel: UILabel!
+    
+    private let paddingFriezeView = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 70)
+    private var friezeView = FriezeView()
+    private var disruptions: [Disruption]?
+    internal weak var delegate: JourneySolutionViewDelegate?
 
-    var disruptions: [Disruption]?
+    // MARK: - UINib
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        setup()
+    static var identifier: String {
+        return String(describing: self)
     }
     
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
+    class func instanceFromNib() -> JourneySolutionView {
+        return UINib(nibName: identifier, bundle: NavitiaSDKUI.shared.bundle).instantiate(withOwner: nil, options: nil)[0] as! JourneySolutionView
     }
     
+    // MARK: - Initialization
+
     override func awakeFromNib() {
         super.awakeFromNib()
+        
         setup()
     }
     
-    private func setup() {
-        UINib(nibName: "JourneySolutionView", bundle: NavitiaSDKUI.shared.bundle).instantiate(withOwner: self, options: nil)
-        view.frame = self.bounds
-        addSubview(view)
+    override func awakeAfter(using aDecoder: NSCoder) -> Any? {
+        guard subviews.isEmpty else {
+            return self
+        }
         
+        let journeySolutionView = JourneySolutionView.instanceFromNib()
+        
+        journeySolutionView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        journeySolutionView.frame = self.bounds
+        
+        return journeySolutionView
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        updateFriezeView()
+    }
+    
+    // MARK: - Function
+    
+    private func setup() {
+        setupFriezeView()
         addShadow()
     }
-
-    func setData(_ journey: Journey) {
-        aboutLabel.isHidden = true
-        durationCenterContraint.constant = 0
+    
+    private func setupFriezeView() {
+        friezeView.frame = CGRect(x: paddingFriezeView.left,
+                                  y: paddingFriezeView.top,
+                                  width: frame.size.width - paddingFriezeView.right -  paddingFriezeView.left,
+                                  height: frame.size.height - paddingFriezeView.top - paddingFriezeView.bottom)
         
-        if let durationInt = journey.duration {
-            formattedDuration(durationInt)
-        }
-        if let sections = journey.sections {
-            journeySummaryView.disruptions = disruptions
-            journeySummaryView.addSections(sections)
-        }
+        addSubview(friezeView)
     }
     
-    func setRidesharingData(duration: Int32, sections: [Section]) {
-        aboutLabel.isHidden = false
-        durationCenterContraint.constant = 7
-        
-        aboutLabel.attributedText = NSMutableAttributedString()
-            .semiBold("about".localized(), color: Configuration.Color.main)
-        formattedDuration(duration)
-        journeySummaryView.disruptions = disruptions
-        journeySummaryView.addSections(sections)
-        if durationWalkerLabel != nil {
-            durationWalkerLabel.isHidden = true
-        }
+    private func updateFriezeView() {
+        friezeView.frame.size = CGSize(width: frame.size.width - paddingFriezeView.right - paddingFriezeView.left,
+                                       height: 27)
+        friezeView.updatePositionFriezeSectionView()
 
+        frame.size.height = friezeView.frame.size.height + paddingFriezeView.top + paddingFriezeView.bottom
+        delegate?.updateHeight(height: frame.size.height)
     }
-    
+
     private func formattedDuration(prefix: String = "", _ duration: Int32) {
         let formattedStringDuration = NSMutableAttributedString()
             .semiBold(prefix, color: Configuration.Color.main)
@@ -75,14 +92,24 @@ class JourneySolutionView: UIView {
         self.duration = formattedStringDuration
     }
     
-    static var nib:UINib {
-        return UINib(nibName: identifier, bundle: nil)
+    internal func setData(duration: Int32, friezeSection: [FriezePresenter.FriezeSection]) {
+        aboutLabel.isHidden = true
+        durationCenterContraint.constant = 0
+        
+        formattedDuration(duration)
+        friezeView.addSection(friezeSections: friezeSection)
     }
     
-    static var identifier: String {
-        return String(describing: self)
+    internal func setRidesharingData(duration: Int32, friezeSection: [FriezePresenter.FriezeSection]) {
+        aboutLabel.isHidden = false
+        durationCenterContraint.constant = 7
+        
+        aboutLabel.attributedText = NSMutableAttributedString()
+            .semiBold("about".localized(), color: Configuration.Color.main)
+        formattedDuration(duration)
+        
+        friezeView.addSection(friezeSections: friezeSection)
     }
-    
 }
 
 extension JourneySolutionView {
@@ -95,5 +122,4 @@ extension JourneySolutionView {
             durationLabel.attributedText = newValue
         }
     }
-    
 }

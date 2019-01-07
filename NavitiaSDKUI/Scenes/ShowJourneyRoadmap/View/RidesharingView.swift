@@ -7,12 +7,9 @@
 
 import UIKit
 
-import UIKit
-
 class RidesharingView: UIView {
     
     @IBOutlet var view: UIView!
-    
     @IBOutlet weak var accessibilityButton: UIButton!
     @IBOutlet weak var bookButton: UIButton!
     @IBOutlet weak var titleLabel: UILabel!
@@ -27,8 +24,9 @@ class RidesharingView: UIView {
     @IBOutlet weak var seatCountLabel: UILabel!
     @IBOutlet weak var priceLabel: UILabel!
     
-    var parentViewController: ShowJourneyRoadmapViewController?
-    var accessiblity: String? {
+    internal var parentViewController: ShowJourneyRoadmapViewController?
+    
+    internal var accessiblity: String? {
         didSet {
             guard let accessiblity = accessiblity else {
                 return
@@ -38,8 +36,11 @@ class RidesharingView: UIView {
         }
     }
     
+    // MARK: - Initialization
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
+        
         setup()
     }
     
@@ -49,8 +50,11 @@ class RidesharingView: UIView {
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        
         setup()
     }
+    
+    // MARK: - Function
     
     private func setup() {
         UINib(nibName: "RidesharingView", bundle: NavitiaSDKUI.shared.bundle).instantiate(withOwner: self, options: nil)
@@ -61,36 +65,6 @@ class RidesharingView: UIView {
         
         bookButton.setTitle("send_request".localized(), for: .normal)
         bookButton.accessibilityElementsHidden = true
-    }
-    
-    func setDriverPictureURL(url: String?) {
-        if let url = url {
-            pictureImage.loadImageFromURL(urlString: url)
-        }
-    }
-    
-    func setRatingCount(_ count: Int32?) {
-        if let count = count {
-            var template = "rating_plural".localized()
-            if count == 1 {
-                template = "rating".localized()
-            }
-            notationLabel.attributedText = NSMutableAttributedString()
-                .normal(String(format: template, count), color: Configuration.Color.gray, size: 10)
-        }
-    }
-    
-    func setRating(_ count: Float?) {
-        if count != nil {
-            floatRatingView.backgroundColor = UIColor.clear
-            floatRatingView.contentMode = UIView.ContentMode.scaleAspectFit
-            floatRatingView.emptyImage = UIImage(named: "star_empty", in: NavitiaSDKUI.shared.bundle, compatibleWith: nil)
-            floatRatingView.fullImage = UIImage(named: "star_full", in: NavitiaSDKUI.shared.bundle, compatibleWith: nil)
-            floatRatingView.type = .floatRatings
-            floatRatingView.editable = false
-            floatRatingView.rating = Double(count!)
-            floatRatingView.starsInterspace = 2
-        }
     }
     
     private func bookRidesharing() {
@@ -111,6 +85,49 @@ class RidesharingView: UIView {
         }
     }
     
+    internal func setDriverPictureURL(url: String?) {
+        if let url = url {
+            pictureImage.loadImageFromURL(urlString: url)
+        }
+    }
+    
+    internal func setRatingCount(_ count: Int32?) {
+        if let count = count {
+            var template = "rating_plural".localized()
+            if count == 1 {
+                template = "rating".localized()
+            }
+            notationLabel.attributedText = NSMutableAttributedString()
+                .normal(String(format: template, count), color: Configuration.Color.gray, size: 10)
+        }
+    }
+    
+    internal func setRating(_ count: Float?) {
+        if count != nil {
+            floatRatingView.backgroundColor = UIColor.clear
+            floatRatingView.contentMode = UIView.ContentMode.scaleAspectFit
+            floatRatingView.emptyImage = UIImage(named: "star_empty", in: NavitiaSDKUI.shared.bundle, compatibleWith: nil)
+            floatRatingView.fullImage = UIImage(named: "star_full", in: NavitiaSDKUI.shared.bundle, compatibleWith: nil)
+            floatRatingView.type = .floatRatings
+            floatRatingView.editable = false
+            floatRatingView.rating = Double(count!)
+            floatRatingView.starsInterspace = 2
+        }
+    }
+    
+    internal func setSeatsCount(_ count: Int32?) {
+        if let count = count {
+            let template = "available_seats".localized()
+            seatCountLabel.attributedText = NSMutableAttributedString()
+                .semiBold(String(format: template, count), size: 12.5)
+        } else {
+            seatCountLabel.attributedText = NSMutableAttributedString()
+                .semiBold("no_available_seats".localized(), size: 12.5)
+        }
+    }
+    
+    // MARK: - Action
+    
     @IBAction func actionBookButton(_ sender: Any) {
         bookRidesharing()
     }
@@ -122,18 +139,6 @@ class RidesharingView: UIView {
         
         bookRidesharing()
     }
-    
-    func setSeatsCount(_ count: Int32?) {
-        if let count = count {
-            let template = "available_seats".localized()
-            seatCountLabel.attributedText = NSMutableAttributedString()
-                .semiBold(String(format: template, count), size: 12.5)
-        } else {
-            seatCountLabel.attributedText = NSMutableAttributedString()
-                .semiBold("no_available_seats".localized(), size: 12.5)
-        }
-    }
-    
 }
 
 extension RidesharingView {
