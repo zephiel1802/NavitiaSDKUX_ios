@@ -64,7 +64,6 @@ class JourneySolutionView: UIView {
     
     private func setup() {
         setupFriezeView()
-        //addShadow()
     }
     
     private func setupFriezeView() {

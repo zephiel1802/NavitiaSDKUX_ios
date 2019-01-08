@@ -97,7 +97,7 @@ internal class ShowJourneyRoadmapViewController: UIViewController, ShowJourneyRo
     }
     
     override func viewWillTransition( to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator ) {
-        slidingScrollView.rotationSlidingView()
+        slidingScrollView.updateSlidingViewAfterRotation()
     }
     
     // MARK: - Function
@@ -129,7 +129,7 @@ internal class ShowJourneyRoadmapViewController: UIViewController, ShowJourneyRo
         slidingScrollView.delegate = self
         view.addSubview(slidingScrollView)
         
-        UIApplication.shared.statusBarOrientation.isPortrait ? slidingScrollView.setAnchorPoint(slideState: .hybrid, duration: 0) : slidingScrollView.setAnchorPoint(slideState: .map, duration: 0)
+        UIApplication.shared.statusBarOrientation.isPortrait ? slidingScrollView.setAnchorPoint(slideState: .anchored, duration: 0) : slidingScrollView.setAnchorPoint(slideState: .collapsed, duration: 0)
     }
     
     func displayRoadmap(viewModel: ShowJourneyRoadmap.GetRoadmap.ViewModel) {
@@ -465,8 +465,8 @@ extension ShowJourneyRoadmapViewController: SlidingScrollViewDelegate {
     
     func slidingEndMove(edgePaddingBottom: CGFloat, slidingState: SlidingScrollView.SlideState) {
         switch slidingState {
-        case .hybrid,
-             .map:
+        case .anchored,
+             .collapsed:
             UIView.animate(withDuration: 0.3, animations: {
                 self.centerMapButton.alpha = 1
             }, completion: { (_) in })
@@ -476,7 +476,7 @@ extension ShowJourneyRoadmapViewController: SlidingScrollViewDelegate {
                              animated: true)
             
             self.alignBottomCenterMapButton.constant = -edgePaddingBottom - 5
-        case .roadmap:
+        case .expanded:
             break
         }
     }

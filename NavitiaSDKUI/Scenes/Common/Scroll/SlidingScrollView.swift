@@ -16,16 +16,16 @@ protocol SlidingScrollViewDelegate {
 internal class SlidingScrollView: UIView {
     
     enum SlideState: Int {
-        case roadmap = 0
-        case hybrid = 1
-        case map = 2
+        case expanded = 0
+        case anchored = 1
+        case collapsed = 2
     }
     
     private var notchFrame = CGRect(x: 0, y: 9, width: 35, height: 4)
     private var headerHeight: CGFloat = 60
-    private var lastOrigin = CGPoint(x: 0, y: 0)
-    private var parentViewSafeArea = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
-    private var currentState: SlideState = .hybrid
+    private var lastOrigin = CGPoint.zero
+    private var parentViewSafeArea = UIEdgeInsets.zero
+    private var currentState: SlideState = .anchored
     internal var delegate: SlidingScrollViewDelegate?
     internal var parentView: UIView!
     internal var stackScrollView: StackScrollView!
@@ -102,7 +102,7 @@ internal class SlidingScrollView: UIView {
         addSubview(journeySolutionView)
     }
 
-    internal func rotationSlidingView() {
+    internal func updateSlidingViewAfterRotation() {
         DispatchQueue.main.async() {
             self.frame.size.width = self.parentView.bounds.size.width
             self.stackScrollView.frame.size.width = self.parentView.bounds.size.width
@@ -111,12 +111,12 @@ internal class SlidingScrollView: UIView {
             self.journeySolutionView.updateFriezeView()
             self.headerHeight = self.journeySolutionView.frame.size.height + self.notchFrame.origin.y + self.notchFrame.size.height
             
-            if self.currentState == .roadmap {
+            if self.currentState == .expanded {
                 self.animationBottom()
-                self.setAnchorPoint(slideState: .roadmap)
+                self.setAnchorPoint(slideState: .expanded)
             } else {
                 self.animationBottom(withSafeArea: true)
-                self.setAnchorPoint(slideState: .map)
+                self.setAnchorPoint(slideState: .collapsed)
             }
 
             self.stackScrollView.reloadStack()
@@ -150,28 +150,28 @@ internal class SlidingScrollView: UIView {
     private func checkedAnchor(percentagePosition: CGFloat, tolerance: CGFloat = 0) {
         if UIApplication.shared.statusBarOrientation.isPortrait  {
             if percentagePosition < 0.2 + tolerance {
-                setAnchorPoint(slideState: .roadmap)
+                setAnchorPoint(slideState: .expanded)
             } else if percentagePosition < 0.7 + tolerance {
-                setAnchorPoint(slideState: .hybrid)
+                setAnchorPoint(slideState: .anchored)
             } else {
-                setAnchorPoint(slideState: .map)
+                setAnchorPoint(slideState: .collapsed)
             }
         } else {
             if percentagePosition < 0.5 + tolerance {
-                setAnchorPoint(slideState: .roadmap)
+                setAnchorPoint(slideState: .expanded)
             } else {
-                setAnchorPoint(slideState: .map)
+                setAnchorPoint(slideState: .collapsed)
             }
         }
     }
 
     internal func setAnchorPoint(slideState: SlideState, duration: TimeInterval = 0.3) {
         switch slideState {
-        case .roadmap:
+        case .expanded:
             lastOrigin = getPourcentagePosition(value: 0)
-        case .hybrid:
+        case .anchored:
             lastOrigin = getPourcentagePosition(value: 0.4)
-        case .map:
+        case .collapsed:
             animationBottom(withSafeArea: true)
             lastOrigin = getPourcentagePosition(value: 1)
         }

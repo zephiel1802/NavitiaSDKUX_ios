@@ -466,7 +466,6 @@
 		8422B45A206A242D0097E6C9 /* JourneyHeaderCollectionReusableView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = JourneyHeaderCollectionReusableView.xib; sourceTree = "<group>"; };
 		8422B45C206A2AE00097E6C9 /* RidesharingInformationCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RidesharingInformationCollectionViewCell.xib; sourceTree = "<group>"; };
 		8422B45F206A2AFF0097E6C9 /* RidesharingInformationCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RidesharingInformationCollectionViewCell.swift; sourceTree = "<group>"; };
-		8422B463206A30300097E6C9 /* JourneySummaryPartView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = JourneySummaryPartView.xib; sourceTree = "<group>"; };
 		8430274E20BBE70E005AD743 /* Message+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Message+Extension.swift"; sourceTree = "<group>"; };
 		8430275020BBE72B005AD743 /* Disruption+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Disruption+Extension.swift"; sourceTree = "<group>"; };
 		8432623D2180C0E100E70971 /* ListJourneysPresenterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListJourneysPresenterTests.swift; sourceTree = "<group>"; };
@@ -789,7 +788,6 @@
 		8422B462206A30200097E6C9 /* Interface */ = {
 			isa = PBXGroup;
 			children = (
-				8422B463206A30300097E6C9 /* JourneySummaryPartView.xib */,
 				8433F3A1207FAF22007DBBCE /* AlertView.xib */,
 				84BC297D207E66CC0073F198 /* StationsView.xib */,
 			);
