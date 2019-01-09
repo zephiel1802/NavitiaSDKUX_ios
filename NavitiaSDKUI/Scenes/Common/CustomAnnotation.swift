@@ -13,6 +13,7 @@ class CustomAnnotation: MKPointAnnotation {
     enum AnnotationType: Int {
         case PlaceAnnotation = 0
         case RidesharingAnnotation = 1
+        case Transfer = 2
     }
     
     enum PlaceType: String {
@@ -24,9 +25,11 @@ class CustomAnnotation: MKPointAnnotation {
     var annotationType: AnnotationType?
     var placeType: PlaceType?
     var identifier = "annotationViewIdentifier"
+    var color: UIColor?
     
-    init(coordinate: CLLocationCoordinate2D, title: String = "", annotationType: AnnotationType = .PlaceAnnotation, placeType: PlaceType = .Other) {
+    init(coordinate: CLLocationCoordinate2D, title: String = "", annotationType: AnnotationType = .PlaceAnnotation, placeType: PlaceType = .Other, color: UIColor? = nil) {
         super.init()
+        self.color = color
         self.coordinate = coordinate
         self.annotationType = annotationType
         self.placeType = placeType
@@ -38,47 +41,67 @@ class CustomAnnotation: MKPointAnnotation {
         let annotationView = MKAnnotationView(annotation: self, reuseIdentifier: annotationIdentifier)
         annotationView.canShowCallout = false
         
-        if placeType == .Departure || placeType == .Arrival {
-            let annotationLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 80, height: 25))
-            annotationLabel.backgroundColor = Configuration.Color.main
-            annotationLabel.layer.masksToBounds = true
-            annotationLabel.layer.cornerRadius = 4.0
-            annotationLabel.textColor = .white
-            annotationLabel.font = UIFont(descriptor: annotationLabel.font.fontDescriptor, size: 14)
-            annotationLabel.textAlignment = NSTextAlignment.center
-            annotationLabel.alpha = 1
-            if let title = title, !title.isEmpty {
-                annotationLabel.text = title
-            } else {
-                annotationLabel.text = placeType?.rawValue.localized()
-            }
-            
-            if annotationType == .RidesharingAnnotation {
-                let annotationImage = UIImageView(frame: CGRect(x: 30, y: 27, width: 20, height: 30))
-                annotationImage.image = UIImage(named: "ridesharing_pin", in: bundle, compatibleWith: nil)
-                
-                annotationView.addSubview(annotationImage)
-            } else {
-                let annotationPin = UILabel(frame: CGRect(x: 28, y: 27, width: 26, height: 26))
-                annotationPin.attributedText = NSMutableAttributedString()
-                    .icon("location-pin",
-                          color: self.placeType == .Departure ? Configuration.Color.origin : Configuration.Color.destination,
-                          size: 26)
-                
-                annotationView.addSubview(annotationPin)
-            }
-            
-            annotationView.addSubview(annotationLabel)
-            annotationView.frame = CGRect(x: 0, y: 0, width: 80, height: 100)
+        if annotationType == .Transfer {
+            let view = UIView(frame: CGRect(x: 0, y: 0, width: 20, height: 20))
+            view.center = CGPoint(x: 0, y: 0)
+            view.backgroundColor = .white
+            view.layer.cornerRadius = 10
+            view.layer.borderWidth = 2
+            view.layer.borderColor = color?.cgColor
+            annotationView.addSubview(view)
         } else {
-            if annotationType == .RidesharingAnnotation {
-                let annotationImage = UIImageView(frame: CGRect(x: 0, y: -15, width: 20, height: 30))
-                annotationImage.image = UIImage(named: "ridesharing_pin", in: bundle, compatibleWith: nil)
+            let view = UIView(frame: CGRect(x: 0, y: 0, width: 20, height: 20))
+            view.center = CGPoint(x: 41, y: 52)
+            view.backgroundColor = .white
+            view.layer.cornerRadius = 10
+            view.layer.borderWidth = 2
+            view.layer.borderColor = color?.cgColor
+            annotationView.addSubview(view)
+            
+            if placeType == .Departure || placeType == .Arrival {
+                let annotationLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 80, height: 25))
+                annotationLabel.backgroundColor = Configuration.Color.main
+                annotationLabel.layer.masksToBounds = true
+                annotationLabel.layer.cornerRadius = 4.0
+                annotationLabel.textColor = .white
+                annotationLabel.font = UIFont(descriptor: annotationLabel.font.fontDescriptor, size: 14)
+                annotationLabel.textAlignment = NSTextAlignment.center
+                annotationLabel.alpha = 1
+                if let title = title, !title.isEmpty {
+                    annotationLabel.text = title
+                } else {
+                    annotationLabel.text = placeType?.rawValue.localized()
+                }
                 
-                annotationView.addSubview(annotationImage)
-                annotationView.frame = CGRect(x: 0, y: 0, width: 20, height: 30)
+                if annotationType == .RidesharingAnnotation {
+                    let annotationImage = UIImageView(frame: CGRect(x: 30, y: 27, width: 20, height: 30))
+                    annotationImage.image = UIImage(named: "ridesharing_pin", in: bundle, compatibleWith: nil)
+                    
+                    annotationView.addSubview(annotationImage)
+                } else {
+                    let annotationPin = UILabel(frame: CGRect(x: 28, y: 27, width: 26, height: 26))
+                    annotationPin.attributedText = NSMutableAttributedString()
+                        .icon("location-pin",
+                              color: self.placeType == .Departure ? Configuration.Color.origin : Configuration.Color.destination,
+                              size: 26)
+                    
+                    annotationView.addSubview(annotationPin)
+                }
+                
+                annotationView.addSubview(annotationLabel)
+                annotationView.frame = CGRect(x: 0, y: 0, width: 80, height: 100)
+            } else {
+                if annotationType == .RidesharingAnnotation {
+                    let annotationImage = UIImageView(frame: CGRect(x: 0, y: -15, width: 20, height: 30))
+                    annotationImage.image = UIImage(named: "ridesharing_pin", in: bundle, compatibleWith: nil)
+                    
+                    annotationView.addSubview(annotationImage)
+                    annotationView.frame = CGRect(x: 0, y: 0, width: 20, height: 30)
+                }
             }
         }
+        
+        
         
         return annotationView
     }

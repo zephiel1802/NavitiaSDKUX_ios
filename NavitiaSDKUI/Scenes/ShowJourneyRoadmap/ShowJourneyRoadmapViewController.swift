@@ -489,9 +489,7 @@ extension ShowJourneyRoadmapViewController {
     private func setupMapView() {
         mapView.showsUserLocation = true
         mapView.accessibilityElementsHidden = true
-        
-        drawSections(journey: mapViewModel?.journey)
-        
+                
         if mapViewModel?.journey.sections?.first?.type == Section.ModelType.crowFly {
             if (mapViewModel?.journey.sections?.count)! - 1 >= 1 {
                 if mapViewModel?.journey.sections![1].type == .ridesharing, let departureCrowflyCoords = getCrowFlyCoordinates(targetPlace: mapViewModel?.journey.sections?.first?.from), let latitude = departureCrowflyCoords.lat, let lat = Double(latitude), let longitude = departureCrowflyCoords.lon, let lon = Double(longitude) {
@@ -515,6 +513,8 @@ extension ShowJourneyRoadmapViewController {
         } else {
             drawPinAnnotation(coordinates: mapViewModel?.journey.sections?.last?.geojson?.coordinates?.last, annotationType: .PlaceAnnotation, placeType: .Arrival)
         }
+        
+        drawSections(journey: mapViewModel?.journey)
         
         redrawIntermediatePointCircles(mapView: mapView, cameraAltitude: mapView.camera.altitude)
         zoomOverPolyline(targetPolyline: MKPolyline(coordinates: journeyPolylineCoordinates, count: journeyPolylineCoordinates.count))
@@ -577,7 +577,7 @@ extension ShowJourneyRoadmapViewController {
         return false
     }
     
-    private func drawPinAnnotation(coordinates: [Double]?, annotationType: CustomAnnotation.AnnotationType, placeType: CustomAnnotation.PlaceType) {
+    private func drawPinAnnotation(coordinates: [Double]?, annotationType: CustomAnnotation.AnnotationType, placeType: CustomAnnotation.PlaceType, color: UIColor? = nil) {
         guard let coordinates = coordinates else {
             return
         }
@@ -585,10 +585,11 @@ extension ShowJourneyRoadmapViewController {
         if coordinates.count > 1 {
             let customAnnotation = CustomAnnotation(coordinate: CLLocationCoordinate2DMake(coordinates[1], coordinates[0]),
                                                     annotationType: annotationType,
-                                                    placeType: placeType)
+                                                    placeType: placeType,
+                                                    color: color)
             
             mapView.addAnnotation(customAnnotation)
-            getCircle(coordinates: coordinates)
+            // getCircle(coordinates: coordinates)
         }
     }
     
@@ -677,11 +678,7 @@ extension ShowJourneyRoadmapViewController {
         }
         
         if coordinates.count > 1 {
-            let sectionCircle = SectionCircle(center: CLLocationCoordinate2DMake(coordinates[1], coordinates[0]),
-                                              radius: getCircleRadiusDependingOnCurrentCameraAltitude(cameraAltitude: mapView.camera.altitude))
-            sectionCircle.sectionBackgroundColor = backgroundColor
-            sectionCircle.accessibilityElementsHidden = true
-            intermediatePointsCircles.append(sectionCircle)
+            drawPinAnnotation(coordinates: coordinates, annotationType: .Transfer, placeType: .Other, color: backgroundColor)
         }
     }
     
