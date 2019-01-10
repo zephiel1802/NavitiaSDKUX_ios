@@ -99,15 +99,17 @@ extension BookPaymentWebViewController: UIWebViewDelegate {
     }
     
     public func webView(_ webView: UIWebView, shouldStartLoadWith request: URLRequest, navigationType: UIWebViewNavigationType) -> Bool {
-        if let url = request.url?.absoluteString {
+        if let url = request.url?.absoluteString.decodeUrl() {
             switch NavitiaSDKPartnersSogenActif.getReturnValue(url: url) {
             case .success:
-                let viewController = storyboard?.instantiateViewController(withIdentifier: BookRecapViewController.identifier) as! BookRecapViewController
-                viewController.customerID = customerID
-                viewController.transactionID = transactionID
-                viewController.bookTicketDelegate = bookTicketDelegate
-                
-                navigationController?.pushViewController(viewController, animated: true)
+                if navigationController?.viewControllers.last == self {
+                    let viewController = storyboard?.instantiateViewController(withIdentifier: BookRecapViewController.identifier) as! BookRecapViewController
+                    viewController.customerID = customerID
+                    viewController.transactionID = transactionID
+                    viewController.bookTicketDelegate = bookTicketDelegate
+                    
+                    navigationController?.pushViewController(viewController, animated: true)
+                }
             case .error:
                 navigationController?.popViewController(animated: true)
                 if let returnPayment = self.viewModel?.returnPayment { returnPayment(.error) }

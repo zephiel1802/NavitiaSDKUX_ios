@@ -54,6 +54,14 @@ extension String {
         return emailPredicate.evaluate(with: self)
     }
     
+    func encodeUrl() -> String? {
+        return self.addingPercentEncoding( withAllowedCharacters: NSCharacterSet.urlQueryAllowed)
+    }
+    
+    func decodeUrl() -> String? {
+        return self.removingPercentEncoding
+    }
+    
     // CryptoSwift
     public var bytes: Array<UInt8> {
         return data(using: String.Encoding.utf8, allowLossyConversion: true)?.bytes ?? Array(utf8)
