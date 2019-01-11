@@ -7,7 +7,7 @@
 
 import UIKit
 
-protocol SlidingScrollViewDelegate {
+protocol SlidingScrollViewDelegate: class {
     
     func slidingDidMove()
     func slidingEndMove(edgePaddingBottom: CGFloat, slidingState: SlidingScrollView.SlideState)
@@ -26,8 +26,8 @@ internal class SlidingScrollView: UIView {
     private var lastOrigin = CGPoint.zero
     private var parentViewSafeArea = UIEdgeInsets.zero
     private var currentState: SlideState = .anchored
-    internal var delegate: SlidingScrollViewDelegate?
-    internal var parentView: UIView!
+    internal weak var delegate: SlidingScrollViewDelegate?
+    internal weak var parentView: UIView!
     internal var stackScrollView: StackScrollView!
     internal var journeySolutionView: JourneySolutionView! {
         willSet {
