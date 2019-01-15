@@ -18,7 +18,8 @@ protocol ShowJourneyRoadmapDisplayLogic: class {
 internal class ShowJourneyRoadmapViewController: UIViewController, ShowJourneyRoadmapDisplayLogic {
 
     @IBOutlet weak var mapView: MKMapView!
-    @IBOutlet weak var scrollView: StackScrollView!
+    @IBOutlet weak var centerMapButton: UIButton!
+    @IBOutlet weak var alignBottomCenterMapButton: NSLayoutConstraint!
     
     private var mapViewModel: ShowJourneyRoadmap.GetMap.ViewModel?
     private var ridesharing: ShowJourneyRoadmap.GetRoadmap.ViewModel.Ridesharing?
@@ -27,6 +28,7 @@ internal class ShowJourneyRoadmapViewController: UIViewController, ShowJourneyRo
     private var intermediatePointsCircles = [SectionCircle]()
     private var journeyPolylineCoordinates = [CLLocationCoordinate2D]()
     private var sectionsPolylines = [SectionPolyline]()
+    private var slidingScrollView: SlidingScrollView!
     private var animationTimer: Timer?
     private var bssRealTimer: Timer?
     private var parkRealTimer: Timer?
@@ -53,10 +55,7 @@ internal class ShowJourneyRoadmapViewController: UIViewController, ShowJourneyRo
         
         title = "roadmap".localized()
 
-        initScrollView()
         initLocation()
-
-        getRoadmap()
         getMap()
     }
 
@@ -65,7 +64,9 @@ internal class ShowJourneyRoadmapViewController: UIViewController, ShowJourneyRo
         
         if !display {
             display = true
-            zoomOverPolyline(targetPolyline: MKPolyline(coordinates: journeyPolylineCoordinates, count: journeyPolylineCoordinates.count))
+            
+            initSlidingView()
+            getRoadmap()
         }
     }
     
@@ -95,6 +96,10 @@ internal class ShowJourneyRoadmapViewController: UIViewController, ShowJourneyRo
         navigationController?.navigationBar.setNeedsLayout()
     }
     
+    override func viewWillTransition( to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator ) {
+        slidingScrollView.updateSlidingViewAfterRotation()
+    }
+    
     // MARK: - Function
     
     private func initArchitecture() {
@@ -111,19 +116,20 @@ internal class ShowJourneyRoadmapViewController: UIViewController, ShowJourneyRo
         router.dataStore = interactor
     }
     
-    private func initScrollView() {
-        if #available(iOS 11.0, *) {
-            scrollView?.contentInsetAdjustmentBehavior = .always
-        }
-        scrollView?.bounces = false
-    }
-    
     private func initLocation() {
         locationManager.requestWhenInUseAuthorization()
     }
     
     private func initMapView() {
         setupMapView()
+    }
+    
+    private func initSlidingView() {
+        slidingScrollView = SlidingScrollView(frame: self.view.bounds, parentView: self.view)
+        slidingScrollView.delegate = self
+        view.addSubview(slidingScrollView)
+        
+        UIApplication.shared.statusBarOrientation.isPortrait ? slidingScrollView.setAnchorPoint(slideState: .anchored, duration: 0) : slidingScrollView.setAnchorPoint(slideState: .collapsed, duration: 0)
     }
     
     func displayRoadmap(viewModel: ShowJourneyRoadmap.GetRoadmap.ViewModel) {
@@ -211,28 +217,26 @@ internal class ShowJourneyRoadmapViewController: UIViewController, ShowJourneyRo
     
     private func displayHeader(viewModel: ShowJourneyRoadmap.GetRoadmap.ViewModel) {
         let journeySolutionView = getJourneySolutionView(viewModel: viewModel)
-
-        scrollView.addSubview(journeySolutionView, margin: UIEdgeInsets(top: 0, left: 0, bottom: 5, right: 0))
-
+        
+        slidingScrollView.journeySolutionView = journeySolutionView
+        
         if viewModel.journey.isRidesharing {
             let ridesharingView = displayRidesharingView()
 
             journeySolutionView.setRidesharingData(duration: viewModel.frieze.duration, friezeSection: viewModel.frieze.friezeSections)
-
-            scrollView.addSubview(ridesharingView, margin: UIEdgeInsets(top: 5, left: 10, bottom: 5, right: 10))
+            slidingScrollView.stackScrollView.addSubview(ridesharingView, margin: UIEdgeInsets(top: 10, left: 10, bottom: 5, right: 10))
         } else if viewModel.displayAvoidDisruption {
             let alternativeJourneyView = displayAlternativeJourneyView()
 
             alternativeJourneyView.addFrieze(friezeSection: viewModel.frieze.friezeSectionsWithDisruption)
-
-            scrollView.addSubview(alternativeJourneyView, margin: UIEdgeInsets(top: 15, left: 10, bottom: 15, right: 10))
+            slidingScrollView.stackScrollView.addSubview(alternativeJourneyView, margin: UIEdgeInsets(top: 15, left: 10, bottom: 15, right: 10))
         }
     }
     
     private func getJourneySolutionView(viewModel: ShowJourneyRoadmap.GetRoadmap.ViewModel) -> JourneySolutionView {
         let journeySolutionView = JourneySolutionView.instanceFromNib()
-        
-        journeySolutionView.frame.size = CGSize(width: scrollView.frame.size.width, height: 47)
+
+        journeySolutionView.frame.size = CGSize(width: slidingScrollView.stackScrollView.frame.size.width, height: 47)
         journeySolutionView.setData(duration: viewModel.frieze.duration, friezeSection: viewModel.frieze.friezeSections)
         
         return journeySolutionView
@@ -240,8 +244,8 @@ internal class ShowJourneyRoadmapViewController: UIViewController, ShowJourneyRo
     
     private func displayAlternativeJourneyView() -> AlternativeJourneyView {
         let alternativeJourneyView = AlternativeJourneyView.instanceFromNib()
-        
-        alternativeJourneyView.frame.size = CGSize(width: scrollView.frame.size.width, height: 110)
+
+        alternativeJourneyView.frame.size = CGSize(width: slidingScrollView.stackScrollView.frame.size.width, height: 110)
         alternativeJourneyView.delegate = self
         
         return alternativeJourneyView
@@ -265,13 +269,14 @@ internal class ShowJourneyRoadmapViewController: UIViewController, ShowJourneyRo
         departureArrivalStepView.calorie = viewModel.calorie
         departureArrivalStepView.accessibilityLabel = viewModel.accessibility
         
-        scrollView.addSubview(departureArrivalStepView, margin: UIEdgeInsets(top: 5, left: 10, bottom: 5, right: 10))
+        
+        slidingScrollView.stackScrollView.addSubview(departureArrivalStepView, margin: UIEdgeInsets(top: 5, left: 10, bottom: 5, right: 10))
     }
     
     private func displaySteps(sections: [ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionModel]) {
         for (_, section) in sections.enumerated() {
             if let sectionStep = getSectionStep(section: section) {
-                scrollView.addSubview(sectionStep, margin: UIEdgeInsets(top: 5, left: 10, bottom: 5, right: 10))
+                slidingScrollView.stackScrollView.addSubview(sectionStep, margin: UIEdgeInsets(top: 5, left: 10, bottom: 5, right: 10))
             }
         }
     }
@@ -358,13 +363,13 @@ internal class ShowJourneyRoadmapViewController: UIViewController, ShowJourneyRo
     
     private func displayEmission(emission: ShowJourneyRoadmap.GetRoadmap.ViewModel.Emission) {
         let emissionView = EmissionView.instanceFromNib()
-        
-        emissionView.frame.size = CGSize(width: scrollView.frame.size.width, height: 60)
+
+        emissionView.frame.size = CGSize(width: slidingScrollView.stackScrollView.frame.size.width, height: 60)
         emissionView.accessibilityLabel = emission.accessibility
         emissionView.journeyCarbon = emission.journey
         emissionView.carCarbon = emission.car
         
-        scrollView.addSubview(emissionView, margin: UIEdgeInsets(top: 5, left: 0, bottom: 0, right: 0))
+        slidingScrollView.stackScrollView.addSubview(emissionView, margin: UIEdgeInsets(top: 5, left: 0, bottom: 0, right: 0), safeArea: false)
     }
     
     private func getSectionStep(section: ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionModel) -> UIView? {
@@ -388,7 +393,7 @@ internal class ShowJourneyRoadmapViewController: UIViewController, ShowJourneyRo
     }
     
     private func updateRidesharingView() {
-        guard let ridesharing = ridesharing, let ridesharingView = scrollView.selectSubviews(type: RidesharingView()).first else {
+        guard let ridesharing = ridesharing, let ridesharingView = slidingScrollView.stackScrollView.selectSubviews(type: RidesharingView()).first else {
             return
         }
         
@@ -412,7 +417,7 @@ internal class ShowJourneyRoadmapViewController: UIViewController, ShowJourneyRo
         animationTimer?.invalidate()
         animationTimer = Timer.scheduledTimer(timeInterval: 2.0, target: self, selector: #selector(startAnimation), userInfo: nil, repeats: true)
 
-        let stepSubViews = scrollView.selectSubviews(type: StepView())
+        let stepSubViews = slidingScrollView.stackScrollView.selectSubviews(type: StepView())
         for stepView in stepSubViews {
             stepView.realTimeAnimation = true
         }
@@ -421,7 +426,7 @@ internal class ShowJourneyRoadmapViewController: UIViewController, ShowJourneyRo
     private func stopAnimation() {
         animationTimer?.invalidate()
         
-        let stepSubViews = scrollView.selectSubviews(type: StepView())
+        let stepSubViews = slidingScrollView.stackScrollView.selectSubviews(type: StepView())
         for stepView in stepSubViews {
             stepView.realTimeAnimation = false
         }
@@ -438,6 +443,41 @@ internal class ShowJourneyRoadmapViewController: UIViewController, ShowJourneyRo
                     UIApplication.shared.openURL(urlDeepLink)
                 }
             }
+        }
+    }
+    
+    @IBAction func actionCenterMap(_ sender: Any) {
+        zoomOverPolyline(targetPolyline: MKPolyline(coordinates: journeyPolylineCoordinates, count: journeyPolylineCoordinates.count),
+                         edgePadding: getEdgePaddingForZoom(),
+                         animated: true)
+    }
+}
+
+// MARKS: Sliding
+
+extension ShowJourneyRoadmapViewController: SlidingScrollViewDelegate {
+    
+    func slidingDidMove() {
+        UIView.animate(withDuration: 0.3, animations: {
+            self.centerMapButton.alpha = 0
+        })
+    }
+    
+    func slidingEndMove(edgePaddingBottom: CGFloat, slidingState: SlidingScrollView.SlideState) {
+        switch slidingState {
+        case .anchored,
+             .collapsed:
+            UIView.animate(withDuration: 0.3, animations: {
+                self.centerMapButton.alpha = 1
+            }, completion: { (_) in })
+            
+            zoomOverPolyline(targetPolyline: MKPolyline(coordinates: self.journeyPolylineCoordinates, count: self.journeyPolylineCoordinates.count),
+                             edgePadding: UIEdgeInsets(top: 60, left: 40, bottom: edgePaddingBottom + 10, right: 40),
+                             animated: true)
+            
+            self.alignBottomCenterMapButton.constant = -edgePaddingBottom - 5
+        case .expanded:
+            break
         }
     }
 }
@@ -478,6 +518,18 @@ extension ShowJourneyRoadmapViewController {
         
         redrawIntermediatePointCircles(mapView: mapView, cameraAltitude: mapView.camera.altitude)
         zoomOverPolyline(targetPolyline: MKPolyline(coordinates: journeyPolylineCoordinates, count: journeyPolylineCoordinates.count))
+        
+        setupCenterMapButton()
+    }
+    
+    private func setupCenterMapButton() {
+        centerMapButton.setImage(UIImage(named: "location", in: NavitiaSDKUI.shared.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate), for: .normal)
+        centerMapButton.tintColor = Configuration.Color.white
+        centerMapButton.imageEdgeInsets = UIEdgeInsets(top: 8, left: 6, bottom: 6, right: 8)
+        centerMapButton.addShadow(color: Configuration.Color.shadow.cgColor,
+                                  offset: CGSize(width: -1, height: -1),
+                                  opacity: 1,
+                                  radius: 2)
     }
     
     private func drawSections(journey: Journey?) {
@@ -666,12 +718,17 @@ extension ShowJourneyRoadmapViewController {
         mapView.addOverlays(intermediatePointsCircles)
     }
     
-    private func zoomOverPolyline(targetPolyline: MKPolyline) {
-        mapView.setVisibleMapRect(targetPolyline.boundingMapRect,
-                                  edgePadding: UIEdgeInsets(top: 60, left: 40, bottom: 10, right: 40),
-                                  animated: false)
+    private func getEdgePaddingForZoom() -> UIEdgeInsets {
+        return UIEdgeInsets(top: 60, left: 40, bottom: view.frame.size.height - slidingScrollView.frame.origin.y + 10, right: 40)
     }
     
+    private func zoomOverPolyline(targetPolyline: MKPolyline,
+                                  edgePadding: UIEdgeInsets = UIEdgeInsets(top: 60, left: 40, bottom: 10, right: 40),
+                                  animated: Bool = false) {
+        mapView.setVisibleMapRect(targetPolyline.boundingMapRect,
+                                  edgePadding: edgePadding,
+                                  animated: animated)
+    }
 }
 
 extension ShowJourneyRoadmapViewController: MKMapViewDelegate {
@@ -722,7 +779,6 @@ extension ShowJourneyRoadmapViewController: MKMapViewDelegate {
             return annotationView
         }
     }
-    
 }
 
 extension ShowJourneyRoadmapViewController: AlertViewControllerProtocol {
@@ -735,7 +791,6 @@ extension ShowJourneyRoadmapViewController: AlertViewControllerProtocol {
         openDeepLink()
         alertViewController.dismiss(animated: false, completion: nil)
     }
-    
 }
 
 extension ShowJourneyRoadmapViewController: CLLocationManagerDelegate {

@@ -9,20 +9,20 @@ import UIKit
 
 protocol StackScrollViewProtocol {
     
-    func addSubview(_ view: UIView, margin: UIEdgeInsets)
+    func addSubview(_ view: UIView, margin: UIEdgeInsets, safeArea: Bool)
     func reloadStack()
 }
 
 class StackScrollView: UIScrollView, StackScrollViewProtocol {
 
-    var stackSubviews = [(view: UIView, margin: UIEdgeInsets)]()
+    var stackSubviews = [(view: UIView, margin: UIEdgeInsets, safeArea: Bool)]()
     
-    func addSubview(_ view: UIView, margin: UIEdgeInsets) {
+    func addSubview(_ view: UIView, margin: UIEdgeInsets, safeArea: Bool = true) {
         view.frame.origin.y = getViewOriginY(index: stackSubviews.count, margin: margin)
-        view.frame.origin.x = getViewOriginX(margin: margin)
-        view.frame.size.width = getViewSizeWidth(margin: margin)
+        view.frame.origin.x = getViewOriginX(margin: margin, safeArea: safeArea)
+        view.frame.size.width = getViewSizeWidth(margin: margin, safeArea: safeArea)
         
-        stackSubviews.append((view, margin))
+        stackSubviews.append((view, margin, safeArea))
         addSubview(view)
         
         contentSize.height = getContentSizeHeight()
@@ -31,17 +31,17 @@ class StackScrollView: UIScrollView, StackScrollViewProtocol {
     public func reloadStack() {
         for (index, subview) in stackSubviews.enumerated() {
             subview.view.frame.origin.y = getViewOriginY(index: index, margin: subview.margin)
-            subview.view.frame.origin.x = getViewOriginX(margin: subview.margin)
-            subview.view.frame.size.width = getViewSizeWidth(margin: subview.margin)
+            subview.view.frame.origin.x = getViewOriginX(margin: subview.margin, safeArea: subview.safeArea)
+            subview.view.frame.size.width = getViewSizeWidth(margin: subview.margin, safeArea: subview.safeArea)
         }
-        
+
         contentSize.height = getContentSizeHeight()
     }
     
     public func selectSubviews<T>(type: T) -> [T] {
         var subviewsSelected = [T]()
         
-        for (subview, _) in stackSubviews {
+        for (subview, _, _) in stackSubviews {
             if let subview = subview as? T {
                 subviewsSelected.append(subview)
             }
@@ -68,14 +68,20 @@ class StackScrollView: UIScrollView, StackScrollViewProtocol {
         return previousView.view.frame.origin.y + previousView.view.frame.height + previousView.margin.bottom + margin.top
     }
     
-    private func getViewOriginX(margin: UIEdgeInsets) -> CGFloat {
-        return margin.left
+    private func getViewOriginX(margin: UIEdgeInsets, safeArea: Bool) -> CGFloat {
+        var margin = margin.left
+        
+        if #available(iOS 11.0, *), safeArea {
+            margin = margin + safeAreaInsets.left
+        }
+        
+        return margin
     }
     
-    private func getViewSizeWidth(margin: UIEdgeInsets) -> CGFloat {
+    private func getViewSizeWidth(margin: UIEdgeInsets, safeArea: Bool) -> CGFloat {
         var margin = margin.left + margin.right
         
-        if #available(iOS 11.0, *) {
+        if #available(iOS 11.0, *), safeArea {
             margin = margin + safeAreaInsets.left + safeAreaInsets.right
         }
         

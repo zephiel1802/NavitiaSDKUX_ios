@@ -290,6 +290,8 @@
 		84D0FA98210094B900EB420A /* DisruptionItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D0FA97210094B900EB420A /* DisruptionItemView.swift */; };
 		84E37EAA2074FF7B001D61E5 /* JourneySolutionLoadCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E37EA92074FF7B001D61E5 /* JourneySolutionLoadCollectionViewCell.swift */; };
 		84EB9B622142A7A200D61E59 /* StackScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84EB9B612142A7A200D61E59 /* StackScrollView.swift */; };
+		84EEEF7321DE101E00EF6415 /* UIPanGestureRecognizer+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84EEEF7221DE101E00EF6415 /* UIPanGestureRecognizer+Extension.swift */; };
+		84EEEF7721DE119400EF6415 /* SlidingScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84EEEF7621DE119400EF6415 /* SlidingScrollView.swift */; };
 		84FABE122074C7FC00BDDE9D /* Icons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84FABE112074C7FC00BDDE9D /* Icons.swift */; };
 		84FABE142074CB2300BDDE9D /* UIFont+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84FABE132074CB2300BDDE9D /* UIFont+Extension.swift */; };
 		84FABE162074F76600BDDE9D /* JourneySolutionLoadCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84FABE152074F76600BDDE9D /* JourneySolutionLoadCollectionViewCell.xib */; };
@@ -596,6 +598,8 @@
 		84D0FA97210094B900EB420A /* DisruptionItemView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DisruptionItemView.swift; sourceTree = "<group>"; };
 		84E37EA92074FF7B001D61E5 /* JourneySolutionLoadCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JourneySolutionLoadCollectionViewCell.swift; sourceTree = "<group>"; };
 		84EB9B612142A7A200D61E59 /* StackScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StackScrollView.swift; sourceTree = "<group>"; };
+		84EEEF7221DE101E00EF6415 /* UIPanGestureRecognizer+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIPanGestureRecognizer+Extension.swift"; sourceTree = "<group>"; };
+		84EEEF7621DE119400EF6415 /* SlidingScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlidingScrollView.swift; sourceTree = "<group>"; };
 		84FABE112074C7FC00BDDE9D /* Icons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Icons.swift; sourceTree = "<group>"; };
 		84FABE132074CB2300BDDE9D /* UIFont+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+Extension.swift"; sourceTree = "<group>"; };
 		84FABE152074F76600BDDE9D /* JourneySolutionLoadCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = JourneySolutionLoadCollectionViewCell.xib; sourceTree = "<group>"; };
@@ -897,6 +901,7 @@
 		8451DA5B2065062300CFA1E4 /* Extension */ = {
 			isa = PBXGroup;
 			children = (
+				84EEEF7221DE101E00EF6415 /* UIPanGestureRecognizer+Extension.swift */,
 				8454D1AB217F540E008BECA0 /* StopDateTime+Extension.swift */,
 				8476DD59208891CB006CB506 /* Collection+Extension.swift */,
 				8454D451206942B800C97D2F /* Date+Extension.swift */,
@@ -931,11 +936,11 @@
 		8451DA5D2065063800CFA1E4 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				84EEEF7521DE116D00EF6415 /* Scroll */,
 				848695A921A7F685009A4DFB /* Frieze */,
 				8422B462206A30200097E6C9 /* Interface */,
 				8433F39F207FAECF007DBBCE /* AlertViewController.swift */,
 				8476DD5320888154006CB506 /* CustomAnnotation.swift */,
-				84EB9B612142A7A200D61E59 /* StackScrollView.swift */,
 				84BC297F207E66D50073F198 /* StationsView.swift */,
 			);
 			path = Common;
@@ -1246,6 +1251,15 @@
 			path = Util;
 			sourceTree = "<group>";
 		};
+		84EEEF7521DE116D00EF6415 /* Scroll */ = {
+			isa = PBXGroup;
+			children = (
+				84EB9B612142A7A200D61E59 /* StackScrollView.swift */,
+				84EEEF7621DE119400EF6415 /* SlidingScrollView.swift */,
+			);
+			path = Scroll;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -1451,6 +1465,7 @@
 				841A107F215A29B800F46143 /* PlacesNearby.swift in Sources */,
 				841A1071215A29B800F46143 /* StopPoints.swift in Sources */,
 				84827A90214BBAA800CB9513 /* ListRidesharingOffersInteractor.swift in Sources */,
+				84EEEF7721DE119400EF6415 /* SlidingScrollView.swift in Sources */,
 				841A107C215A29B800F46143 /* LineReport.swift in Sources */,
 				841A1064215A29B800F46143 /* StopTime.swift in Sources */,
 				841A1068215A29B800F46143 /* Journeys.swift in Sources */,
@@ -1564,6 +1579,7 @@
 				8454D4402068D3A800C97D2F /* TransformOf.swift in Sources */,
 				8433F39E207F8E14007DBBCE /* RidesharingView.swift in Sources */,
 				31EF7C5E2153D3D100200AE0 /* UILabel+Extension.swift in Sources */,
+				84EEEF7321DE101E00EF6415 /* UIPanGestureRecognizer+Extension.swift in Sources */,
 				8451DAAA20650C9200CFA1E4 /* ShowJourneyRoadmapViewController.swift in Sources */,
 				841A10C1215A29B800F46143 /* StopSchedules.swift in Sources */,
 				84C482C4219DC30A00AA8364 /* FriezeView.swift in Sources */,
