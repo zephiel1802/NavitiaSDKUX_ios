@@ -29,11 +29,12 @@ class CustomAnnotation: MKPointAnnotation {
     
     init(coordinate: CLLocationCoordinate2D, title: String = "", annotationType: AnnotationType = .PlaceAnnotation, placeType: PlaceType = .Other, color: UIColor? = nil) {
         super.init()
+        
         self.color = color
         self.coordinate = coordinate
         self.annotationType = annotationType
         self.placeType = placeType
-        self.identifier = "\(annotationType.rawValue + placeType.hashValue)"
+        self.identifier = "\(annotationType.rawValue + placeType.hashValue) \(color?.description ?? "")"
         self.title = title
     }
     
@@ -42,21 +43,15 @@ class CustomAnnotation: MKPointAnnotation {
         annotationView.canShowCallout = false
         
         if annotationType == .Transfer {
-            let view = UIView(frame: CGRect(x: 0, y: 0, width: 20, height: 20))
+            let view = UIView(frame: CGRect(x: 0, y: 0, width: 12, height: 12))
             view.center = CGPoint(x: 0, y: 0)
             view.backgroundColor = .white
-            view.layer.cornerRadius = 10
+            view.layer.cornerRadius = 7
             view.layer.borderWidth = 2
             view.layer.borderColor = color?.cgColor
+            view.layer.zPosition = 0
             annotationView.addSubview(view)
         } else {
-            let view = UIView(frame: CGRect(x: 0, y: 0, width: 20, height: 20))
-            view.center = CGPoint(x: 41, y: 52)
-            view.backgroundColor = .white
-            view.layer.cornerRadius = 10
-            view.layer.borderWidth = 2
-            view.layer.borderColor = color?.cgColor
-            annotationView.addSubview(view)
             
             if placeType == .Departure || placeType == .Arrival {
                 let annotationLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 80, height: 25))
@@ -67,6 +62,7 @@ class CustomAnnotation: MKPointAnnotation {
                 annotationLabel.font = UIFont(descriptor: annotationLabel.font.fontDescriptor, size: 14)
                 annotationLabel.textAlignment = NSTextAlignment.center
                 annotationLabel.alpha = 1
+                
                 if let title = title, !title.isEmpty {
                     annotationLabel.text = title
                 } else {
@@ -74,12 +70,21 @@ class CustomAnnotation: MKPointAnnotation {
                 }
                 
                 if annotationType == .RidesharingAnnotation {
-                    let annotationImage = UIImageView(frame: CGRect(x: 30, y: 27, width: 20, height: 30))
+                    let annotationImage = UIImageView(frame: CGRect(x: 30, y: 29, width: 20, height: 30))
                     annotationImage.image = UIImage(named: "ridesharing_pin", in: bundle, compatibleWith: nil)
+                    annotationImage.layer.zPosition = 1
                     
                     annotationView.addSubview(annotationImage)
                 } else {
-                    let annotationPin = UILabel(frame: CGRect(x: 28, y: 27, width: 26, height: 26))
+                    let view = UIView(frame: CGRect(x: 0, y: 0, width: 12, height: 12))
+                    view.center = CGPoint(x: 40, y: 52)
+                    view.backgroundColor = .white
+                    view.layer.cornerRadius = 7
+                    view.layer.borderWidth = 2
+                    view.layer.borderColor = color?.cgColor
+                    annotationView.addSubview(view)
+                    
+                    let annotationPin = UILabel(frame: CGRect(x: 27, y: 27, width: 26, height: 26))
                     annotationPin.attributedText = NSMutableAttributedString()
                         .icon("location-pin",
                               color: self.placeType == .Departure ? Configuration.Color.origin : Configuration.Color.destination,

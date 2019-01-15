@@ -14,9 +14,10 @@ class SectionPolyline: MKPolyline {
     var sectionStrokeColor: UIColor?
     var sectionLineDashPattern: [NSNumber]?
     var sectionLineCap: CGLineCap?
+    
 }
 
-class SectionCircle: MKCircle {
-    
-    var sectionBackgroundColor: UIColor?
-}
+//class SectionCircle: MKCircle {
+//    
+//    var sectionBackgroundColor: UIColor?
+//}

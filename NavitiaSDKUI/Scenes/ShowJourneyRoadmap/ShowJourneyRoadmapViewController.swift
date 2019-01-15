@@ -25,7 +25,7 @@ internal class ShowJourneyRoadmapViewController: UIViewController, ShowJourneyRo
     private var ridesharing: ShowJourneyRoadmap.GetRoadmap.ViewModel.Ridesharing?
     private var ridesharingJourneys: Journey?
     private let locationManager = CLLocationManager()
-    private var intermediatePointsCircles = [SectionCircle]()
+  //  private var intermediatePointsCircles = [SectionCircle]()
     private var journeyPolylineCoordinates = [CLLocationCoordinate2D]()
     private var sectionsPolylines = [SectionPolyline]()
     private var slidingScrollView: SlidingScrollView!
@@ -138,7 +138,7 @@ internal class ShowJourneyRoadmapViewController: UIViewController, ShowJourneyRo
         }
         
         ridesharing = viewModel.ridesharing
-        ridesharingJourneys = viewModel.ridesharingJourneys
+      //  ridesharingJourneys = viewModel.ridesharingJourneys
         
         displayHeader(viewModel: viewModel)
         displayDepartureArrivalStep(viewModel: viewModel.departure)
@@ -220,7 +220,7 @@ internal class ShowJourneyRoadmapViewController: UIViewController, ShowJourneyRo
         
         slidingScrollView.journeySolutionView = journeySolutionView
         
-        if viewModel.journey.isRidesharing {
+        if viewModel.ridesharing != nil {
             let ridesharingView = displayRidesharingView()
 
             journeySolutionView.setRidesharingData(duration: viewModel.frieze.duration, friezeSection: viewModel.frieze.friezeSections)
@@ -489,37 +489,14 @@ extension ShowJourneyRoadmapViewController {
     private func setupMapView() {
         mapView.showsUserLocation = true
         mapView.accessibilityElementsHidden = true
-                
-        if mapViewModel?.journey.sections?.first?.type == Section.ModelType.crowFly {
-            if (mapViewModel?.journey.sections?.count)! - 1 >= 1 {
-                if mapViewModel?.journey.sections![1].type == .ridesharing, let departureCrowflyCoords = getCrowFlyCoordinates(targetPlace: mapViewModel?.journey.sections?.first?.from), let latitude = departureCrowflyCoords.lat, let lat = Double(latitude), let longitude = departureCrowflyCoords.lon, let lon = Double(longitude) {
-                   drawPinAnnotation(coordinates: [lon, lat], annotationType: .PlaceAnnotation, placeType: .Departure)
-                } else {
-                    drawPinAnnotation(coordinates: mapViewModel?.journey.sections?[1].geojson?.coordinates?.first, annotationType: .PlaceAnnotation, placeType: .Departure)
-                }
-            }
-        } else {
-            drawPinAnnotation(coordinates: mapViewModel?.journey.sections?.first?.geojson?.coordinates?.first, annotationType: .PlaceAnnotation, placeType: .Departure)
-        }
-        
-        if mapViewModel?.journey.sections?.last?.type == Section.ModelType.crowFly {
-            if ((mapViewModel?.journey.sections?.count)! - 1 > 1) {
-                if mapViewModel?.journey.sections![(mapViewModel?.journey.sections?.count)! - 2].type == .ridesharing, let arrivalCrowflyCoords = getCrowFlyCoordinates(targetPlace: mapViewModel?.journey.sections?.last?.to), let latitude = arrivalCrowflyCoords.lat, let lat = Double(latitude), let longitude = arrivalCrowflyCoords.lon, let lon = Double(longitude) {
-                    drawPinAnnotation(coordinates: [lon, lat], annotationType: .PlaceAnnotation, placeType: .Arrival)
-                } else {
-                    drawPinAnnotation(coordinates: mapViewModel?.journey.sections?[(mapViewModel?.journey.sections?.count)! - 2].geojson?.coordinates?.last, annotationType: .PlaceAnnotation, placeType: .Arrival)
-                }
-            }
-        } else {
-            drawPinAnnotation(coordinates: mapViewModel?.journey.sections?.last?.geojson?.coordinates?.last, annotationType: .PlaceAnnotation, placeType: .Arrival)
-        }
-        
-        drawSections(journey: mapViewModel?.journey)
-        
-        redrawIntermediatePointCircles(mapView: mapView, cameraAltitude: mapView.camera.altitude)
-        zoomOverPolyline(targetPolyline: MKPolyline(coordinates: journeyPolylineCoordinates, count: journeyPolylineCoordinates.count))
         
         setupCenterMapButton()
+        
+        drawSections(sectionPolylines: mapViewModel?.sectionPolylines)
+        drawDepartureArrivalPin()
+        drawRidesharingAnnoation()
+        
+        zoomOverPolyline(targetPolyline: MKPolyline(coordinates: journeyPolylineCoordinates, count: journeyPolylineCoordinates.count))
     }
     
     private func setupCenterMapButton() {
@@ -532,65 +509,45 @@ extension ShowJourneyRoadmapViewController {
                                   radius: 2)
     }
     
-    private func drawSections(journey: Journey?) {
-        guard let sections = journey?.sections else {
+    private func drawDepartureArrivalPin() {
+        drawPinAnnotation(coordinate: mapViewModel?.fromCoord, annotationType: .PlaceAnnotation, placeType: .Departure)
+        drawPinAnnotation(coordinate: mapViewModel?.toCoord, annotationType: .PlaceAnnotation, placeType: .Arrival)
+    }
+    
+    private func drawRidesharingAnnoation() {
+        guard let ridesharingAnnotation = mapViewModel?.ridesharingAnnotation else {
             return
         }
         
-        for (index , section) in sections.enumerated() {
-            if !drawRidesharingSection(section: section) {
-                var sectionPolylineCoordinates = [CLLocationCoordinate2D]()
-                if section.type == .crowFly && ((index - 1 >= 0 && sections[index-1].type == .ridesharing) || (index + 1 < sections.count - 1 && sections[index+1].type == .ridesharing)) {
-                    if let departureCrowflyCoords = getCrowFlyCoordinates(targetPlace: section.from), let latitude = departureCrowflyCoords.lat, let lat = Double(latitude), let longitude = departureCrowflyCoords.lon, let lon = Double(longitude) {
-                        sectionPolylineCoordinates.append(CLLocationCoordinate2DMake(lat, lon))
-                    }
-                    
-                    if let arrivalCrowflyCoords = getCrowFlyCoordinates(targetPlace: section.to), let latitude = arrivalCrowflyCoords.lat, let lat = Double(latitude), let longitude = arrivalCrowflyCoords.lon, let lon = Double(longitude) {
-                        sectionPolylineCoordinates.append(CLLocationCoordinate2DMake(lat, lon))
-                    }
-                } else if let coordinates = section.geojson?.coordinates {
-                    for (_, coordinate) in coordinates.enumerated() {
-                        if coordinate.count > 1 {
-                            sectionPolylineCoordinates.append(CLLocationCoordinate2DMake(Double(coordinate[1]), Double(coordinate[0])))
-                        }
-                    }
+        for annotation in ridesharingAnnotation {
+            drawPinAnnotation(coordinate: annotation, annotationType: .RidesharingAnnotation, placeType: .Other)
+        }
+    }
+
+    private func drawSections(sectionPolylines: [ShowJourneyRoadmap.GetMap.ViewModel.sectionPolyline]?) {
+        if let sectionPolylines = sectionPolylines {
+            for sectionPolyline in sectionPolylines {
+                if sectionPolyline.section.type == .publicTransport || sectionPolyline.section.type == .ridesharing || sectionPolyline.section.type == .onDemandTransport {
+                    drawPinAnnotation(coordinate: sectionPolyline.coordinates.first, annotationType: .Transfer, placeType: .Other, color: sectionPolyline.color)
+                    drawPinAnnotation(coordinate: sectionPolyline.coordinates.last, annotationType: .Transfer, placeType: .Other, color: sectionPolyline.color)
                 }
                 
-                addSectionCircle(section: section)
-                addSectionPolyline(sectionPolylineCoordinates: sectionPolylineCoordinates, section: section)
+                addSectionPolyline(sectionPolylineCoordinates: sectionPolyline.coordinates, section: sectionPolyline.section)
             }
         }
     }
     
-    private func drawRidesharingSection(section: Section) -> Bool {
-        if let _ = section.ridesharingJourneys, let ridesharingJourney = ridesharingJourneys {
-            drawSections(journey: ridesharingJourney)
-            
-            return true
-        }
-        
-        if section.type == .ridesharing {
-            drawPinAnnotation(coordinates: section.geojson?.coordinates?.first, annotationType: .RidesharingAnnotation, placeType: .Other)
-            drawPinAnnotation(coordinates: section.geojson?.coordinates?.last, annotationType: .RidesharingAnnotation, placeType: .Other)
-        }
-        
-        return false
-    }
-    
-    private func drawPinAnnotation(coordinates: [Double]?, annotationType: CustomAnnotation.AnnotationType, placeType: CustomAnnotation.PlaceType, color: UIColor? = nil) {
-        guard let coordinates = coordinates else {
+    private func drawPinAnnotation(coordinate: CLLocationCoordinate2D?, annotationType: CustomAnnotation.AnnotationType, placeType: CustomAnnotation.PlaceType, color: UIColor? = nil) {
+        guard let coordinate = coordinate else {
             return
         }
         
-        if coordinates.count > 1 {
-            let customAnnotation = CustomAnnotation(coordinate: CLLocationCoordinate2DMake(coordinates[1], coordinates[0]),
-                                                    annotationType: annotationType,
-                                                    placeType: placeType,
-                                                    color: color)
-            
-            mapView.addAnnotation(customAnnotation)
-            // getCircle(coordinates: coordinates)
-        }
+        let customAnnotation = CustomAnnotation(coordinate: coordinate,
+                                                annotationType: annotationType,
+                                                placeType: placeType,
+                                                color: color)
+        
+        mapView.addAnnotation(customAnnotation)
     }
     
     private func addSectionPolyline(sectionPolylineCoordinates: [CLLocationCoordinate2D], section: Section) {
@@ -645,76 +602,7 @@ extension ShowJourneyRoadmapViewController {
             break
         }
     }
-    
-    private func getCrowFlyCoordinates(targetPlace: Place?) -> Coord? {
-        guard let targetPlace = targetPlace else {
-            return nil;
-        }
-        
-        switch targetPlace.embeddedType {
-        case .stopPoint?:
-            return targetPlace.stopPoint?.coord
-        case .stopArea?:
-            return targetPlace.stopArea?.coord
-        case .poi?:
-            return targetPlace.poi?.coord
-        case .address?:
-            return targetPlace.address?.coord
-        case .administrativeRegion?:
-            return targetPlace.administrativeRegion?.coord
-        default:
-            return nil
-        }
-    }
-    
-    private func getCircle(coordinates: [Double]?, backgroundColor: UIColor? = Configuration.Color.black) {
-        guard let coordinates = coordinates else {
-            return
-        }
-        
-        var backgroundColor = backgroundColor
-        if backgroundColor == nil {
-            backgroundColor = Configuration.Color.black
-        }
-        
-        if coordinates.count > 1 {
-            drawPinAnnotation(coordinates: coordinates, annotationType: .Transfer, placeType: .Other, color: backgroundColor)
-        }
-    }
-    
-    private func addSectionCircle(section: Section) {
-        if let coordinates = section.geojson?.coordinates {
-            var backgroundColor = section.displayInformations?.color?.toUIColor()
-            if section.type == .ridesharing {
-                backgroundColor = Configuration.Color.black
-            }
-            
-            getCircle(coordinates: coordinates.first, backgroundColor: backgroundColor)
-            getCircle(coordinates: coordinates.last, backgroundColor: backgroundColor)
-        }
-    }
-    
-    private func getCircleRadiusDependingOnCurrentCameraAltitude(cameraAltitude: CLLocationDistance) -> CLLocationDistance {
-        let altitudeReferenceValue = 10000.0
-        let circleMaxmimumRadius = 100.0
-        return cameraAltitude/altitudeReferenceValue * circleMaxmimumRadius
-    }
-    
-    private func redrawIntermediatePointCircles(mapView: MKMapView, cameraAltitude: CLLocationDistance) {
-        mapView.removeOverlays(intermediatePointsCircles)
-        
-        var updatedIntermediatePointsCircles = [SectionCircle]()
-        for (_, drawnCircle) in intermediatePointsCircles.enumerated() {
-            let updatedCircleView = SectionCircle(center: drawnCircle.coordinate,
-                                                  radius: getCircleRadiusDependingOnCurrentCameraAltitude(cameraAltitude: cameraAltitude))
-            updatedCircleView.sectionBackgroundColor = drawnCircle.sectionBackgroundColor
-            updatedIntermediatePointsCircles.append(updatedCircleView)
-        }
-        intermediatePointsCircles = updatedIntermediatePointsCircles
-        
-        mapView.addOverlays(intermediatePointsCircles)
-    }
-    
+
     private func getEdgePaddingForZoom() -> UIEdgeInsets {
         return UIEdgeInsets(top: 60, left: 40, bottom: view.frame.size.height - slidingScrollView.frame.origin.y + 10, right: 40)
     }
@@ -730,10 +618,6 @@ extension ShowJourneyRoadmapViewController {
 
 extension ShowJourneyRoadmapViewController: MKMapViewDelegate {
     
-    public func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
-        redrawIntermediatePointCircles(mapView: mapView, cameraAltitude: mapView.camera.altitude)
-    }
-    
     public func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
         if let sectionPolyline = overlay as? SectionPolyline {
             let polylineRenderer = MKPolylineRenderer(polyline: sectionPolyline)
@@ -747,13 +631,6 @@ extension ShowJourneyRoadmapViewController: MKMapViewDelegate {
             }
             
             return polylineRenderer
-        } else if let circle = overlay as? SectionCircle {
-            let circleRenderer = MKCircleRenderer(circle: circle)
-            circleRenderer.lineWidth = 1.5
-            circleRenderer.strokeColor = circle.sectionBackgroundColor
-            circleRenderer.fillColor = UIColor.white
-            
-            return circleRenderer
         }
         
         return MKOverlayRenderer()
@@ -767,7 +644,7 @@ extension ShowJourneyRoadmapViewController: MKMapViewDelegate {
             } else {
                 annotationView?.annotation = annotation
             }
-            
+
             return annotationView
         } else {
             let annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: "annotationViewIdentifier")
