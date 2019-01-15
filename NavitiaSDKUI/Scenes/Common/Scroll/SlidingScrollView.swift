@@ -94,6 +94,7 @@ internal class SlidingScrollView: UIView {
     
     private func initJourneySolutionView(journeySolutionView: JourneySolutionView) {
         journeySolutionView.frame.origin.y = notchFrame.origin.y + notchFrame.size.height
+        journeySolutionView.addShadow(offset: CGSize(width: 0, height: 5), radius: 3)
         journeySolutionView.updateFriezeView()
         
         headerHeight = journeySolutionView.frame.size.height + journeySolutionView.frame.origin.y
