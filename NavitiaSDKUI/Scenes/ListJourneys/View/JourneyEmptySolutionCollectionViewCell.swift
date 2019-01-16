@@ -37,7 +37,7 @@ class JourneyEmptySolutionCollectionViewCell: UICollectionViewCell {
         noJourneyView.layer.borderWidth = 1
         noJourneyView.layer.borderColor = Configuration.Color.alertInfoDarker.cgColor
         
-        addShadow()
+        setShadow()
     }
     
     internal var text: String? {

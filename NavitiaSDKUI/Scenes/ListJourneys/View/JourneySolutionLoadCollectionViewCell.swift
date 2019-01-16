@@ -28,6 +28,6 @@ class JourneySolutionLoadCollectionViewCell: UICollectionViewCell {
     // MARK: - Function
     
     private func setup() {
-        addShadow()
+        setShadow()
     }
 }
