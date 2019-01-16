@@ -16,8 +16,3 @@ class SectionPolyline: MKPolyline {
     var sectionLineCap: CGLineCap?
     
 }
-
-//class SectionCircle: MKCircle {
-//    
-//    var sectionBackgroundColor: UIColor?
-//}

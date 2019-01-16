@@ -1003,8 +1003,13 @@ extension ShowJourneyRoadmapPresenter {
         
         for section in sections {
             if section.type == .ridesharing {
-                ridesharingAnnotations.append(CLLocationCoordinate2DMake(section.geojson?.coordinates?.first?[1] ?? 0, section.geojson?.coordinates?.first?[0] ?? 0))
-                ridesharingAnnotations.append(CLLocationCoordinate2DMake(section.geojson?.coordinates?.last?[1] ?? 0, section.geojson?.coordinates?.last?[0] ?? 0))
+                if let coordinates = section.geojson?.coordinates?.first {
+                    ridesharingAnnotations.append(CLLocationCoordinate2DMake(coordinates[1], coordinates[0]))
+                }
+                
+                if let coordinates = section.geojson?.coordinates?.last {
+                    ridesharingAnnotations.append(CLLocationCoordinate2DMake(coordinates[1], coordinates[0]))
+                }
             }
         }
         

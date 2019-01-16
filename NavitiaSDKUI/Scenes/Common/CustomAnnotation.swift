@@ -25,36 +25,46 @@ class CustomAnnotation: MKPointAnnotation {
     var annotationType: AnnotationType?
     var placeType: PlaceType?
     var identifier = "annotationViewIdentifier"
-    var color: UIColor?
+    var color: UIColor!
     
     init(coordinate: CLLocationCoordinate2D, title: String = "", annotationType: AnnotationType = .PlaceAnnotation, placeType: PlaceType = .Other, color: UIColor? = nil) {
         super.init()
         
-        self.color = color
+        self.color = color ?? .black
         self.coordinate = coordinate
         self.annotationType = annotationType
         self.placeType = placeType
-        self.identifier = "\(annotationType.rawValue + placeType.hashValue) \(color?.description ?? "")"
+        self.identifier = String(format: "%d %d %@", annotationType.rawValue, placeType.hashValue, self.color)
         self.title = title
     }
     
-    func getAnnotationView(annotationIdentifier: String, bundle: Bundle) -> MKAnnotationView {
+    private func getPin() -> UIView {
+        let view = UIView(frame: CGRect(x: 0, y: 0, width: 12, height: 12))
+        
+        view.backgroundColor = .white
+        view.layer.cornerRadius = 7
+        view.layer.borderWidth = 2
+        view.layer.borderColor = color.cgColor
+        view.layer.zPosition = 0
+        
+        return view
+    }
+    
+    internal func getAnnotationView(annotationIdentifier: String, bundle: Bundle) -> MKAnnotationView {
         let annotationView = MKAnnotationView(annotation: self, reuseIdentifier: annotationIdentifier)
+        
         annotationView.canShowCallout = false
         
         if annotationType == .Transfer {
-            let view = UIView(frame: CGRect(x: 0, y: 0, width: 12, height: 12))
+            let view = getPin()
+            
             view.center = CGPoint(x: 0, y: 0)
-            view.backgroundColor = .white
-            view.layer.cornerRadius = 7
-            view.layer.borderWidth = 2
-            view.layer.borderColor = color?.cgColor
-            view.layer.zPosition = 0
+
             annotationView.addSubview(view)
         } else {
-            
             if placeType == .Departure || placeType == .Arrival {
                 let annotationLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 80, height: 25))
+                
                 annotationLabel.backgroundColor = Configuration.Color.main
                 annotationLabel.layer.masksToBounds = true
                 annotationLabel.layer.cornerRadius = 4.0
@@ -76,14 +86,12 @@ class CustomAnnotation: MKPointAnnotation {
                     
                     annotationView.addSubview(annotationImage)
                 } else {
-                    let view = UIView(frame: CGRect(x: 0, y: 0, width: 12, height: 12))
-                    view.center = CGPoint(x: 40, y: 52)
-                    view.backgroundColor = .white
-                    view.layer.cornerRadius = 7
-                    view.layer.borderWidth = 2
-                    view.layer.borderColor = color?.cgColor
-                    annotationView.addSubview(view)
+                    let view = getPin()
                     
+                    view.center = CGPoint(x: 40, y: 52)
+                    
+                    annotationView.addSubview(view)
+
                     let annotationPin = UILabel(frame: CGRect(x: 27, y: 27, width: 26, height: 26))
                     annotationPin.attributedText = NSMutableAttributedString()
                         .icon("location-pin",
@@ -105,10 +113,7 @@ class CustomAnnotation: MKPointAnnotation {
                 }
             }
         }
-        
-        
-        
+
         return annotationView
     }
-    
 }
