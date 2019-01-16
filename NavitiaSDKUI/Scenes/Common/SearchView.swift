@@ -106,15 +106,17 @@ class SearchView: UIView {
     
     @IBAction func switchDepartureArrivalCoordinates(_ sender: UIButton) {
         if !lockSwitch {
-            UIView.animate(withDuration: 0.2, delay: 0, options: .curveEaseOut, animations: {
-                if  sender.transform == .identity {
-                    sender.transform = CGAffineTransform(rotationAngle: CGFloat(Double.pi * 0.999))
-                } else {
-                    sender.transform = .identity
-                }
-            }, completion: nil)
-            
             delegate?.switchDepartureArrivalCoordinates()
         }
+    }
+    
+    private func switchDepartureArrivalAnimate(_ sender: UIButton) {
+        UIView.animate(withDuration: 0.2, delay: 0, options: .curveEaseOut, animations: {
+            if  sender.transform == .identity {
+                sender.transform = CGAffineTransform(rotationAngle: CGFloat(Double.pi * 0.999))
+            } else {
+                sender.transform = .identity
+            }
+        }, completion: nil)
     }
 }

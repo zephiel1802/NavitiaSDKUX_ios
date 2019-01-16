@@ -136,9 +136,9 @@ open class ListJourneysViewController: UIViewController, ListJourneysDisplayLogi
 
         journeysCollectionView.reloadData()
         
-        searchView.origin = viewModel.headerInformations.originString
-        searchView.destination = viewModel.headerInformations.destinationString
-        searchView.dateTime = viewModel.headerInformations.dateTime.string
+        searchView.origin = viewModel.headerInformations.origin
+        searchView.destination = viewModel.headerInformations.destination
+        searchView.dateTime = viewModel.headerInformations.dateTime
         
         reloadCollectionViewLayout()
     }
