@@ -139,6 +139,8 @@ open class ListJourneysViewController: UIViewController, ListJourneysDisplayLogi
         searchView.origin = viewModel.headerInformations.origin
         searchView.destination = viewModel.headerInformations.destination
         searchView.dateTime = viewModel.headerInformations.dateTime
+        searchView.accessibilityLabel = viewModel.accessibilityHeader
+        searchView.switchDepartureArrivalButton.accessibilityLabel = viewModel.accessibilitySwitchButton
         
         reloadCollectionViewLayout()
     }
