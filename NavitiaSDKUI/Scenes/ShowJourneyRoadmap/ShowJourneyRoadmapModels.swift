@@ -185,8 +185,8 @@ enum ShowJourneyRoadmap {
             }
             
             var journey: Journey
-            var fromCoord: CLLocationCoordinate2D
-            var toCoord: CLLocationCoordinate2D
+            var departureCoord: CLLocationCoordinate2D
+            var arrivalCoord: CLLocationCoordinate2D
             var ridesharingAnnotation: [CLLocationCoordinate2D]
             var sectionPolylines: [sectionPolyline]
         }

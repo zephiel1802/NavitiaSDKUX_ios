@@ -962,10 +962,11 @@ extension ShowJourneyRoadmapPresenter {
         }
         
         let viewModel = ShowJourneyRoadmap.GetMap.ViewModel(journey: response.journey,
-                                                            fromCoord: fromCoord,
-                                                            toCoord: toCoord,
+                                                            departureCoord: fromCoord,
+                                                            arrivalCoord: toCoord,
                                                             ridesharingAnnotation: getRidesharingAnnotations(ridesharingJourney: response.journeyRidesharing),
                                                             sectionPolylines: sectionPolylines)
+        
         viewController?.displayMap(viewModel: viewModel)
     }
     
@@ -1053,7 +1054,7 @@ extension ShowJourneyRoadmapPresenter {
                 let sectionPolyline = ShowJourneyRoadmap.GetMap.ViewModel.sectionPolyline(coordinates: sectionPolylineCoordinates,
                                                                                           color: section.displayInformations?.color?.toUIColor() ?? .black,
                                                                                           section: section,
-                                                                                          annotation: nil) // Attention black pour le covoit
+                                                                                          annotation: nil)
                 sectionPolylines.append(sectionPolyline)
             } else {
                 if let ridesharing = ridesharing, let sectionPoly = getSectionPolylines(journey: ridesharing) {

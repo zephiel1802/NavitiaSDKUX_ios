@@ -21,13 +21,9 @@ internal class ShowJourneyRoadmapViewController: UIViewController, ShowJourneyRo
     @IBOutlet weak var centerMapButton: UIButton!
     @IBOutlet weak var alignBottomCenterMapButton: NSLayoutConstraint!
     
-    private var mapViewModel: ShowJourneyRoadmap.GetMap.ViewModel?
-    private var ridesharing: ShowJourneyRoadmap.GetRoadmap.ViewModel.Ridesharing?
-    private var ridesharingJourneys: Journey?
+    private var ridesharing: ShowJourneyRoadmap.GetRoadmap.ViewModel.Ridesharing? // ATTENTION
     private let locationManager = CLLocationManager()
-  //  private var intermediatePointsCircles = [SectionCircle]()
     private var journeyPolylineCoordinates = [CLLocationCoordinate2D]()
-    private var sectionsPolylines = [SectionPolyline]()
     private var slidingScrollView: SlidingScrollView!
     private var animationTimer: Timer?
     private var bssRealTimer: Timer?
@@ -120,10 +116,6 @@ internal class ShowJourneyRoadmapViewController: UIViewController, ShowJourneyRo
         locationManager.requestWhenInUseAuthorization()
     }
     
-    private func initMapView() {
-        setupMapView()
-    }
-    
     private func initSlidingView() {
         slidingScrollView = SlidingScrollView(frame: self.view.bounds, parentView: self.view)
         slidingScrollView.delegate = self
@@ -138,7 +130,6 @@ internal class ShowJourneyRoadmapViewController: UIViewController, ShowJourneyRo
         }
         
         ridesharing = viewModel.ridesharing
-      //  ridesharingJourneys = viewModel.ridesharingJourneys
         
         displayHeader(viewModel: viewModel)
         displayDepartureArrivalStep(viewModel: viewModel.departure)
@@ -148,9 +139,13 @@ internal class ShowJourneyRoadmapViewController: UIViewController, ShowJourneyRo
     }
     
     func displayMap(viewModel: ShowJourneyRoadmap.GetMap.ViewModel) {
-        self.mapViewModel = viewModel
-        
         initMapView()
+        
+        displaySections(viewModel: viewModel)
+        displayDepartureArrivalPin(viewModel: viewModel)
+        displayRidesharingAnnoation(viewModel: viewModel)
+        
+        zoomOverPolyline(targetPolyline: MKPolyline(coordinates: journeyPolylineCoordinates, count: journeyPolylineCoordinates.count))
     }
     
     // MARK: - Get roadmap
@@ -269,7 +264,6 @@ internal class ShowJourneyRoadmapViewController: UIViewController, ShowJourneyRo
         departureArrivalStepView.calorie = viewModel.calorie
         departureArrivalStepView.accessibilityLabel = viewModel.accessibility
         
-        
         slidingScrollView.stackScrollView.addSubview(departureArrivalStepView, margin: UIEdgeInsets(top: 5, left: 10, bottom: 5, right: 10))
     }
     
@@ -301,6 +295,7 @@ internal class ShowJourneyRoadmapViewController: UIViewController, ShowJourneyRo
         return publicTransportView
     }
     
+    // TODO : Add in presenter
     private func getInformationsStepView(section: ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionModel) -> NSAttributedString {
         let informations = NSMutableAttributedString()
         
@@ -457,13 +452,13 @@ internal class ShowJourneyRoadmapViewController: UIViewController, ShowJourneyRo
 
 extension ShowJourneyRoadmapViewController: SlidingScrollViewDelegate {
     
-    func slidingDidMove() {
+    internal func slidingDidMove() {
         UIView.animate(withDuration: 0.3, animations: {
             self.centerMapButton.alpha = 0
         })
     }
     
-    func slidingEndMove(edgePaddingBottom: CGFloat, slidingState: SlidingScrollView.SlideState) {
+    internal func slidingEndMove(edgePaddingBottom: CGFloat, slidingState: SlidingScrollView.SlideState) {
         switch slidingState {
         case .anchored,
              .collapsed:
@@ -486,20 +481,14 @@ extension ShowJourneyRoadmapViewController: SlidingScrollViewDelegate {
 
 extension ShowJourneyRoadmapViewController {
     
-    private func setupMapView() {
+    private func initMapView() {
         mapView.showsUserLocation = true
         mapView.accessibilityElementsHidden = true
         
-        setupCenterMapButton()
-        
-        drawSections(sectionPolylines: mapViewModel?.sectionPolylines)
-        drawDepartureArrivalPin()
-        drawRidesharingAnnoation()
-        
-        zoomOverPolyline(targetPolyline: MKPolyline(coordinates: journeyPolylineCoordinates, count: journeyPolylineCoordinates.count))
+        displayCenterMapButton()
     }
     
-    private func setupCenterMapButton() {
+    private func displayCenterMapButton() {
         centerMapButton.setImage(UIImage(named: "location", in: NavitiaSDKUI.shared.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate), for: .normal)
         centerMapButton.tintColor = Configuration.Color.white
         centerMapButton.imageEdgeInsets = UIEdgeInsets(top: 8, left: 6, bottom: 6, right: 8)
@@ -509,35 +498,30 @@ extension ShowJourneyRoadmapViewController {
                                   radius: 2)
     }
     
-    private func drawDepartureArrivalPin() {
-        drawPinAnnotation(coordinate: mapViewModel?.fromCoord, annotationType: .PlaceAnnotation, placeType: .Departure)
-        drawPinAnnotation(coordinate: mapViewModel?.toCoord, annotationType: .PlaceAnnotation, placeType: .Arrival)
+    private func displayDepartureArrivalPin(viewModel: ShowJourneyRoadmap.GetMap.ViewModel) {
+        displayPinAnnotation(coordinate: viewModel.departureCoord, annotationType: .PlaceAnnotation, placeType: .Departure)
+        displayPinAnnotation(coordinate: viewModel.arrivalCoord, annotationType: .PlaceAnnotation, placeType: .Arrival)
     }
     
-    private func drawRidesharingAnnoation() {
-        guard let ridesharingAnnotation = mapViewModel?.ridesharingAnnotation else {
-            return
-        }
-        
-        for annotation in ridesharingAnnotation {
-            drawPinAnnotation(coordinate: annotation, annotationType: .RidesharingAnnotation, placeType: .Other)
+    private func displayRidesharingAnnoation(viewModel: ShowJourneyRoadmap.GetMap.ViewModel) {
+        for annotation in viewModel.ridesharingAnnotation {
+            displayPinAnnotation(coordinate: annotation, annotationType: .RidesharingAnnotation, placeType: .Other)
         }
     }
 
-    private func drawSections(sectionPolylines: [ShowJourneyRoadmap.GetMap.ViewModel.sectionPolyline]?) {
-        if let sectionPolylines = sectionPolylines {
-            for sectionPolyline in sectionPolylines {
-                if sectionPolyline.section.type == .publicTransport || sectionPolyline.section.type == .ridesharing || sectionPolyline.section.type == .onDemandTransport {
-                    drawPinAnnotation(coordinate: sectionPolyline.coordinates.first, annotationType: .Transfer, placeType: .Other, color: sectionPolyline.color)
-                    drawPinAnnotation(coordinate: sectionPolyline.coordinates.last, annotationType: .Transfer, placeType: .Other, color: sectionPolyline.color)
-                }
-                
-                addSectionPolyline(sectionPolylineCoordinates: sectionPolyline.coordinates, section: sectionPolyline.section)
-            }
+    private func displaySections(viewModel: ShowJourneyRoadmap.GetMap.ViewModel) {
+        for sectionPolyline in viewModel.sectionPolylines {
+            displayPinAnnotation(coordinate: sectionPolyline.coordinates.first, annotationType: .Transfer, placeType: .Other, color: sectionPolyline.color)
+            displayPinAnnotation(coordinate: sectionPolyline.coordinates.last, annotationType: .Transfer, placeType: .Other, color: sectionPolyline.color)
+            
+            displaySectionPolyline(coordinates: sectionPolyline.coordinates, section: sectionPolyline.section)
         }
     }
     
-    private func drawPinAnnotation(coordinate: CLLocationCoordinate2D?, annotationType: CustomAnnotation.AnnotationType, placeType: CustomAnnotation.PlaceType, color: UIColor? = nil) {
+    private func displayPinAnnotation(coordinate: CLLocationCoordinate2D?,
+                                      annotationType: CustomAnnotation.AnnotationType,
+                                      placeType: CustomAnnotation.PlaceType,
+                                      color: UIColor? = nil) {
         guard let coordinate = coordinate else {
             return
         }
@@ -550,8 +534,8 @@ extension ShowJourneyRoadmapViewController {
         mapView.addAnnotation(customAnnotation)
     }
     
-    private func addSectionPolyline(sectionPolylineCoordinates: [CLLocationCoordinate2D], section: Section) {
-        var sectionPolyline = SectionPolyline(coordinates: sectionPolylineCoordinates, count: sectionPolylineCoordinates.count)
+    private func displaySectionPolyline(coordinates: [CLLocationCoordinate2D], section: Section) {
+        var sectionPolyline = SectionPolyline(coordinates: coordinates, count: coordinates.count)
 
         switch section.type {
         case .streetNetwork?:
@@ -572,8 +556,7 @@ extension ShowJourneyRoadmapViewController {
             sectionPolyline.sectionLineWidth = 4
         }
         
-        sectionsPolylines.append(sectionPolyline)
-        journeyPolylineCoordinates.append(contentsOf: sectionPolylineCoordinates)
+        journeyPolylineCoordinates.append(contentsOf: coordinates)
         mapView.addOverlay(sectionPolyline)
     }
     
