@@ -82,5 +82,4 @@ class CustomAnnotation: MKPointAnnotation {
         
         return annotationView
     }
-    
 }
