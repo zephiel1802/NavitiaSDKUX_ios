@@ -9,59 +9,35 @@ import UIKit
 
 class StationsView: UIView {
     
-    @IBOutlet var view: UIView!
     @IBOutlet weak var stationView: UIView!
     @IBOutlet weak var stationLabel: UILabel!
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        setup()
+    internal var color: UIColor? {
+        didSet {
+            stationView.backgroundColor = color
+        }
     }
-    
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-    }
-    
-    override var frame: CGRect {
-        willSet {
-            if let view = view {
-                view.frame.size = newValue.size
+    internal var name: String? {
+        didSet {
+            if let name = name {
+                stationLabel.attributedText = NSMutableAttributedString().bold(name, size: 12)
             }
         }
     }
+    
+    // MARK: - UINib
+    
+    static var identifier: String {
+        return String(describing: self)
+    }
+    
+    class func instanceFromNib() -> StationsView {
+        return UINib(nibName: identifier, bundle: NavitiaSDKUI.shared.bundle).instantiate(withOwner: nil, options: nil)[0] as! StationsView
+    }
+    
+    // MARK: - Initialization
     
     override func awakeFromNib() {
         super.awakeFromNib()
     }
-    
-    private func setup() {
-        UINib(nibName: "StationsView", bundle: NavitiaSDKUI.shared.bundle).instantiate(withOwner: self, options: nil)
-        view.frame = self.bounds
-        addSubview(view)
-    }
-}
-
-extension StationsView {
-    
-    var stationColor: UIColor? {
-        get {
-            return stationView.backgroundColor
-        }
-        set {
-            stationView.backgroundColor = newValue
-        }
-    }
-    
-    var stationName: String? {
-        get {
-            return stationLabel.text
-        }
-        set {
-            if let newValue = newValue {
-                stationLabel.attributedText = NSMutableAttributedString()
-                    .bold(newValue, size: 12)
-            }
-        }
-    }
-    
 }
