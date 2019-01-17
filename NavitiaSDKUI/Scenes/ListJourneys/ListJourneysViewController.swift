@@ -283,10 +283,11 @@ extension ListJourneysViewController: UICollectionViewDataSource, UICollectionVi
     
     public func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         if kind.isEqual(UICollectionView.elementKindSectionHeader) {
-            let cell = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: JourneyHeaderCollectionReusableView.identifier, for: indexPath) as! JourneyHeaderCollectionReusableView
-            cell.title = "carpooling".localized()
-            
-            return cell
+            if let cell = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: JourneyHeaderCollectionReusableView.identifier, for: indexPath) as? JourneyHeaderCollectionReusableView {
+                cell.title = "carpooling".localized()
+                
+                return cell
+            }
         }
         
         return UICollectionReusableView()
