@@ -18,6 +18,7 @@ protocol ShowJourneyRoadmapDisplayLogic: class {
 internal class ShowJourneyRoadmapViewController: UIViewController, ShowJourneyRoadmapDisplayLogic {
 
     @IBOutlet weak var mapView: MKMapView!
+    @IBOutlet weak var centerMapButton: UIButton!
     @IBOutlet weak var scrollView: StackScrollView!
     
     private var mapViewModel: ShowJourneyRoadmap.GetMap.ViewModel?
@@ -440,6 +441,10 @@ internal class ShowJourneyRoadmapViewController: UIViewController, ShowJourneyRo
             }
         }
     }
+    
+    @IBAction func actionCenterMap(_ sender: Any) {
+        zoomOverPolyline(targetPolyline: MKPolyline(coordinates: journeyPolylineCoordinates, count: journeyPolylineCoordinates.count), animated: true)
+    }
 }
 
 // MARKS: Maps
@@ -478,6 +483,18 @@ extension ShowJourneyRoadmapViewController {
         
         redrawIntermediatePointCircles(mapView: mapView, cameraAltitude: mapView.camera.altitude)
         zoomOverPolyline(targetPolyline: MKPolyline(coordinates: journeyPolylineCoordinates, count: journeyPolylineCoordinates.count))
+        
+        setupCenterMapButton()
+    }
+    
+    private func setupCenterMapButton() {
+        centerMapButton.setImage(UIImage(named: "location", in: NavitiaSDKUI.shared.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate), for: .normal)
+        centerMapButton.tintColor = Configuration.Color.white
+        centerMapButton.imageEdgeInsets = UIEdgeInsets(top: 8, left: 6, bottom: 6, right: 8)
+        centerMapButton.addShadow(color: Configuration.Color.shadow.cgColor,
+                                  offset: CGSize(width: -1, height: -1),
+                                  opacity: 1,
+                                  radius: 2)
     }
     
     private func drawSections(journey: Journey?) {
@@ -666,10 +683,10 @@ extension ShowJourneyRoadmapViewController {
         mapView.addOverlays(intermediatePointsCircles)
     }
     
-    private func zoomOverPolyline(targetPolyline: MKPolyline) {
+    private func zoomOverPolyline(targetPolyline: MKPolyline, animated: Bool = false) {
         mapView.setVisibleMapRect(targetPolyline.boundingMapRect,
                                   edgePadding: UIEdgeInsets(top: 60, left: 40, bottom: 10, right: 40),
-                                  animated: false)
+                                  animated: animated)
     }
     
 }
