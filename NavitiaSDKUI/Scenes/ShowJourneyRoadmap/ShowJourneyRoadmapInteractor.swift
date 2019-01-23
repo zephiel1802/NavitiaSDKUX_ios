@@ -71,7 +71,8 @@ class ShowJourneyRoadmapInteractor: ShowJourneyRoadmapBusinessLogic, ShowJourney
                                         return
                                     }
                                     
-                                    let response = ShowJourneyRoadmap.FetchBss.Response(poi: poi, notify: request.notify)
+                                    
+                                    let response = ShowJourneyRoadmap.FetchBss.Response(poi: poi, type: request.type, notify: request.notify)
                                     self.presenter?.presentBss(response: response)
         }
     }
