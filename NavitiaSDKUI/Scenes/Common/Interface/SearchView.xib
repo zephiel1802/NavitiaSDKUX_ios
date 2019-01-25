@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="SearchView" customModule="NavitiaSDKUI" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="130"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ExF-3c-Wxe">
+                    <rect key="frame" x="10" y="10" width="355" height="81"/>
+                    <subviews>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="origin-icon" translatesAutoresizingMaskIntoConstraints="NO" id="h0t-0c-CxQ">
+                            <rect key="frame" x="10" y="10" width="17" height="20"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="17" id="Sjw-BO-0Dx"/>
+                                <constraint firstAttribute="height" constant="20" id="nop-nT-qLw"/>
+                            </constraints>
+                        </imageView>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="origin-icon" translatesAutoresizingMaskIntoConstraints="NO" id="1So-mo-vfI">
+                            <rect key="frame" x="10" y="51" width="17" height="20"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="17" id="6Aa-gT-aWy"/>
+                                <constraint firstAttribute="height" constant="20" id="oyC-NO-Xle"/>
+                            </constraints>
+                        </imageView>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="20 Rue Hector Malot 75020 Paris" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TJr-Ld-DWP">
+                            <rect key="frame" x="37" y="13" width="268" height="14.5"/>
+                            <accessibility key="accessibilityConfiguration">
+                                <bool key="isElement" value="NO"/>
+                            </accessibility>
+                            <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Ménilmontant 75020 Paris" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kI3-Jd-a4b">
+                            <rect key="frame" x="37" y="54" width="268" height="14.5"/>
+                            <accessibility key="accessibilityConfiguration">
+                                <bool key="isElement" value="NO"/>
+                            </accessibility>
+                            <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="h1U-LA-82k">
+                            <rect key="frame" x="10" y="40" width="295" height="1"/>
+                            <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="1" id="IOC-7c-lbT"/>
+                            </constraints>
+                        </view>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mLF-qB-m3h">
+                            <rect key="frame" x="305" y="15.5" width="50" height="50"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="50" id="G0Y-jM-hms"/>
+                                <constraint firstAttribute="height" constant="50" id="f92-xR-cDP"/>
+                            </constraints>
+                            <inset key="contentEdgeInsets" minX="15" minY="15" maxX="15" maxY="15"/>
+                            <state key="normal" image="switch"/>
+                            <connections>
+                                <action selector="switchDepartureArrivalCoordinates:" destination="iN0-l3-epB" eventType="touchUpInside" id="8Yh-yc-g9u"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="trailing" secondItem="TJr-Ld-DWP" secondAttribute="trailing" constant="50" id="6Qv-Av-ojU"/>
+                        <constraint firstItem="TJr-Ld-DWP" firstAttribute="leading" secondItem="h0t-0c-CxQ" secondAttribute="trailing" constant="10" id="87j-Yb-sbi"/>
+                        <constraint firstAttribute="bottom" secondItem="1So-mo-vfI" secondAttribute="bottom" constant="10" id="8Fm-L8-ikK"/>
+                        <constraint firstAttribute="trailing" secondItem="kI3-Jd-a4b" secondAttribute="trailing" constant="50" id="8Ig-in-as9"/>
+                        <constraint firstItem="h0t-0c-CxQ" firstAttribute="leading" secondItem="ExF-3c-Wxe" secondAttribute="leading" constant="10" id="8kl-8n-ubC"/>
+                        <constraint firstItem="h1U-LA-82k" firstAttribute="trailing" secondItem="TJr-Ld-DWP" secondAttribute="trailing" id="9E5-et-6to"/>
+                        <constraint firstItem="mLF-qB-m3h" firstAttribute="centerY" secondItem="ExF-3c-Wxe" secondAttribute="centerY" id="Cfg-sY-zel"/>
+                        <constraint firstAttribute="trailing" secondItem="mLF-qB-m3h" secondAttribute="trailing" id="Hni-Jd-EKA"/>
+                        <constraint firstItem="1So-mo-vfI" firstAttribute="leading" secondItem="ExF-3c-Wxe" secondAttribute="leading" constant="10" id="Ipr-xT-mmG"/>
+                        <constraint firstItem="h1U-LA-82k" firstAttribute="leading" secondItem="h0t-0c-CxQ" secondAttribute="leading" id="VbG-JE-kqp"/>
+                        <constraint firstItem="h0t-0c-CxQ" firstAttribute="top" secondItem="ExF-3c-Wxe" secondAttribute="top" constant="10" id="bh9-ek-2b4"/>
+                        <constraint firstItem="TJr-Ld-DWP" firstAttribute="centerY" secondItem="h0t-0c-CxQ" secondAttribute="centerY" id="cXL-gz-Fzu"/>
+                        <constraint firstItem="h1U-LA-82k" firstAttribute="top" secondItem="h0t-0c-CxQ" secondAttribute="bottom" constant="10" id="fu4-or-7pK"/>
+                        <constraint firstAttribute="height" constant="81" id="jOf-cg-SpC"/>
+                        <constraint firstItem="kI3-Jd-a4b" firstAttribute="leading" secondItem="1So-mo-vfI" secondAttribute="trailing" constant="10" id="rvf-7O-Z0P"/>
+                        <constraint firstItem="1So-mo-vfI" firstAttribute="centerY" secondItem="kI3-Jd-a4b" secondAttribute="centerY" id="vB2-P3-aD2"/>
+                    </constraints>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                            <integer key="value" value="5"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                </view>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Départ : mer. 16 janv - 16:29" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lfw-N9-pg4">
+                    <rect key="frame" x="10" y="101" width="355" height="19"/>
+                    <accessibility key="accessibilityConfiguration">
+                        <bool key="isElement" value="NO"/>
+                    </accessibility>
+                    <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
+                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <color key="backgroundColor" red="0.25098039220000001" green="0.58431372550000005" blue="0.5568627451" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <accessibility key="accessibilityConfiguration">
+                <bool key="isElement" value="YES"/>
+            </accessibility>
+            <constraints>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="lfw-N9-pg4" secondAttribute="bottom" constant="10" id="BLf-eo-OI2"/>
+                <constraint firstItem="lfw-N9-pg4" firstAttribute="top" secondItem="ExF-3c-Wxe" secondAttribute="bottom" constant="10" id="Frb-fL-0qc"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="lfw-N9-pg4" secondAttribute="trailing" constant="10" id="KWQ-Wo-uUu"/>
+                <constraint firstItem="ExF-3c-Wxe" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="10" id="Mtj-Ci-Xpd"/>
+                <constraint firstItem="ExF-3c-Wxe" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="10" id="UeB-SC-5fg"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="ExF-3c-Wxe" secondAttribute="trailing" constant="10" id="eLw-0g-A1n"/>
+                <constraint firstItem="lfw-N9-pg4" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="10" id="vwI-th-n7g"/>
+            </constraints>
+            <nil key="simulatedTopBarMetrics"/>
+            <nil key="simulatedBottomBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <connections>
+                <outlet property="dateTimeLabel" destination="lfw-N9-pg4" id="1bD-yd-QJ5"/>
+                <outlet property="destinationPinImageView" destination="1So-mo-vfI" id="PP3-aM-LwC"/>
+                <outlet property="fromLabel" destination="TJr-Ld-DWP" id="TCh-9q-dh6"/>
+                <outlet property="originPinImageView" destination="h0t-0c-CxQ" id="F0e-No-DjV"/>
+                <outlet property="switchDepartureArrivalButton" destination="mLF-qB-m3h" id="zDW-cD-aj2"/>
+                <outlet property="toLabel" destination="kI3-Jd-a4b" id="6Sh-6q-Wky"/>
+            </connections>
+            <point key="canvasLocation" x="152.80000000000001" y="-8.0959520239880067"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="origin-icon" width="17" height="20"/>
+        <image name="switch" width="42" height="42"/>
+    </resources>
+</document>

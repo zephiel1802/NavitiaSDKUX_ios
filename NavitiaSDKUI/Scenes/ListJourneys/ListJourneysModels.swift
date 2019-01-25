@@ -22,12 +22,10 @@ enum ListJourneys {
         }
         struct ViewModel {
             struct HeaderInformations {
-                var dateTime: NSMutableAttributedString
+                var dateTime: String
                 var dateTimeDate: Date?
-                var origin: NSMutableAttributedString
-                var originString: String
-                var destination: NSMutableAttributedString
-                var destinationString: String
+                var origin: String
+                var destination: String
             }
             
             struct DisplayedJourney {

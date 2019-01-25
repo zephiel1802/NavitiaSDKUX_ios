@@ -60,7 +60,7 @@ class ListJourneysPresenter: ListJourneysPresentationLogic {
         let displayedRidesharings = appendDisplayedJourneys(journeys: response.journeys.withRidesharing, disruptions: response.disruptions)
         let viewModel = ListJourneys.FetchJourneys.ViewModel(loaded: true,
                                                              headerInformations: headerInformations,
-                                                             accessibilityHeader: getHeaderAccessibility(origin: headerInformations.originString, destination: headerInformations.destinationString, dateTime: headerInformations.dateTimeDate),
+                                                             accessibilityHeader: getHeaderAccessibility(origin: headerInformations.origin, destination: headerInformations.destination, dateTime: headerInformations.dateTimeDate),
                                                              accessibilitySwitchButton: getAccessibilitySwitchButton(),
                                                              displayedJourneys: displayedJourneys,
                                                              displayedRidesharings: displayedRidesharings)
@@ -71,18 +71,14 @@ class ListJourneysPresenter: ListJourneysPresentationLogic {
     // MARK: - Displayed Header Informations
     
     internal func getDisplayedHeaderInformations(journeysRequest: JourneysRequest) -> ListJourneys.FetchJourneys.ViewModel.HeaderInformations? {
-        guard let origin = getDisplayedHeaderInformationsOrigin(origin: journeysRequest.originLabel ?? journeysRequest.originId),
-            let destination = getDisplayedHeaderInformationsDestination(destination: journeysRequest.destinationLabel ?? journeysRequest.destinationId) else {
-                return nil
+        guard let dateTime = getDisplayedHeaderInformationsDateTime(dateTime: journeysRequest.datetime, datetimeRepresents: journeysRequest.datetimeRepresents) else {
+            return nil
         }
         
-        let dateTime = getDisplayedHeaderInformationsDateTime(dateTime: journeysRequest.datetime, datetimeRepresents: journeysRequest.datetimeRepresents)
         let headerInformations = ListJourneys.FetchJourneys.ViewModel.HeaderInformations(dateTime: dateTime,
                                                                                          dateTimeDate: journeysRequest.datetime,
-                                                                                         origin: origin,
-                                                                                         originString: journeysRequest.originLabel ?? journeysRequest.originId,
-                                                                                         destination: destination,
-                                                                                         destinationString: journeysRequest.destinationLabel ?? journeysRequest.destinationId)
+                                                                                         origin: journeysRequest.originLabel ?? journeysRequest.originId,
+                                                                                         destination: journeysRequest.destinationLabel ?? journeysRequest.destinationId)
         
         return headerInformations
     }
@@ -94,18 +90,15 @@ class ListJourneysPresenter: ListJourneysPresentationLogic {
         }
         
         if let journey = journey {
-            guard let origin = getDisplayedHeaderInformationsOrigin(origin: journeysRequest.originLabel ?? journey.sections?.first?.from?.name),
-                let destination = getDisplayedHeaderInformationsDestination(destination: journeysRequest.destinationLabel ?? journey.sections?.last?.to?.name) else {
-                    return nil
+            guard let dateTime = getDisplayedHeaderInformationsDateTime(dateTime: journeysRequest.datetime ?? journey.departureDateTime?.toDate(format: Configuration.date),
+                                                                        datetimeRepresents: journeysRequest.datetimeRepresents) else {
+                                                                            return nil
             }
-            let dateTime = getDisplayedHeaderInformationsDateTime(dateTime: journeysRequest.datetime ?? journey.departureDateTime?.toDate(format: Configuration.date),
-                                                                  datetimeRepresents: journeysRequest.datetimeRepresents)
+            
             let headerInformations = ListJourneys.FetchJourneys.ViewModel.HeaderInformations(dateTime: dateTime,
                                                                                              dateTimeDate: journeysRequest.datetime ?? journey.departureDateTime?.toDate(format: Configuration.date),
-                                                                                             origin: origin,
-                                                                                             originString: journeysRequest.originLabel ?? journey.sections?.first?.from?.name ?? "",
-                                                                                             destination: destination,
-                                                                                             destinationString: journeysRequest.destinationLabel ?? journey.sections?.last?.to?.name ?? "")
+                                                                                             origin: journeysRequest.originLabel ?? journey.sections?.first?.from?.name ?? "",
+                                                                                             destination: journeysRequest.destinationLabel ?? journey.sections?.last?.to?.name ?? "")
             
             return headerInformations
         }
@@ -134,24 +127,16 @@ class ListJourneysPresenter: ListJourneysPresentationLogic {
         return "reverse_departure_and_arrival".localized()
     }
     
-    private func getDisplayedHeaderInformationsDateTime(dateTime: Date?, datetimeRepresents: JourneysRequestBuilder.DatetimeRepresents?) -> NSMutableAttributedString {
+    private func getDisplayedHeaderInformationsDateTime(dateTime: Date?, datetimeRepresents: JourneysRequestBuilder.DatetimeRepresents?) -> String? {
         guard let departureDateTime = dateTime?.toString(format: Configuration.timeJourneySolution) else {
-            return NSMutableAttributedString()
+            return nil
         }
         
         if datetimeRepresents == .arrival {
-            return NSMutableAttributedString().bold(String(format: "%@ %@",
-                                                           "arrival_with_colon".localized(),
-                                                           departureDateTime),
-                                                    color: Configuration.Color.white,
-                                                    size: 12)
+            return String(format: "%@ %@", "arrival_with_colon".localized(), departureDateTime)
         }
         
-        return NSMutableAttributedString().bold(String(format: "%@ %@",
-                                                       "departure_with_colon".localized(),
-                                                       departureDateTime),
-                                                color: Configuration.Color.white,
-                                                size: 12)
+        return String(format: "%@ %@", "departure_with_colon".localized(), departureDateTime)
     }
     
     private func getDisplayedHeaderInformationsOrigin(origin: String?) -> NSMutableAttributedString? {
