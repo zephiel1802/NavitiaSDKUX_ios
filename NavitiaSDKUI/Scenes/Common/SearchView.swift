@@ -7,18 +7,27 @@
 
 import UIKit
 
-protocol SearchViewDelegate: class {
+@objc protocol SearchViewDelegate: class {
     
     func switchDepartureArrivalCoordinates()
+    @objc optional func fromFieldClicked(q: String?)
+    @objc optional func toFieldClicked(q: String?)
+    @objc optional func fromFieldDidChange(q: String?)
+    @objc optional func toFieldDidChange(q: String?)
 }
 
 class SearchView: UIView {
 
-    @IBOutlet weak var fromLabel: UILabel!
+    @IBOutlet weak var background: UIView!
+    @IBOutlet weak var fromTextField: UITextField!
     @IBOutlet weak var originPinImageView: UIImageView!
-    @IBOutlet weak var toLabel: UILabel!
+    @IBOutlet weak var toTextField: UITextField!
+    @IBOutlet weak var separatorView: UIView!
     @IBOutlet weak var destinationPinImageView: UIImageView!
     @IBOutlet weak var dateTimeLabel: UILabel!
+    @IBOutlet weak var dateTimeTopConstraint: NSLayoutConstraint!
+    @IBOutlet weak var dateTimeBottomConstraint: NSLayoutConstraint!
+    @IBOutlet weak var switchContraint: NSLayoutConstraint!
     @IBOutlet weak var switchDepartureArrivalButton: UIButton!
     
     internal weak var delegate: SearchViewDelegate?
@@ -29,7 +38,8 @@ class SearchView: UIView {
                 return
             }
             
-            fromLabel.attributedText = NSMutableAttributedString().bold(origin, color: Configuration.Color.headerTitle, size: 11)
+            fromTextField.text = origin
+            //fromTextField.attributedText = NSMutableAttributedString().bold(origin, color: Configuration.Color.headerTitle, size: 11)
         }
     }
     internal var destination: String? {
@@ -38,7 +48,8 @@ class SearchView: UIView {
                 return
             }
             
-            toLabel.attributedText = NSMutableAttributedString().bold(destination, color: Configuration.Color.headerTitle, size: 11)
+            toTextField.text = destination
+            //toTextField.attributedText = NSMutableAttributedString().bold(destination, color: Configuration.Color.headerTitle, size: 11)
         }
     }
     internal var dateTime: String? {
@@ -48,6 +59,20 @@ class SearchView: UIView {
             }
             
             dateTimeLabel.attributedText = NSMutableAttributedString().bold(dateTime, color: Configuration.Color.white, size: 12)
+        }
+    }
+    internal var dateTimeIsHidden: Bool = false {
+        didSet {
+            dateTimeLabel.isHidden = dateTimeIsHidden
+            dateTimeTopConstraint.isActive = !dateTimeIsHidden
+            dateTimeBottomConstraint.isActive = !dateTimeIsHidden
+        }
+    }
+    
+    internal var switchIsHidden: Bool = false {
+        didSet {
+            switchDepartureArrivalButton.isHidden = switchIsHidden
+            switchContraint.isActive = !switchIsHidden
         }
     }
     
@@ -118,5 +143,26 @@ class SearchView: UIView {
                 sender.transform = .identity
             }
         }, completion: nil)
+    }
+    
+    internal func animate() {
+        switchDepartureArrivalButton.isHidden = true
+       // separatorView.isHidden = true
+    }
+    
+    @IBAction func fromFieldClicked(_ sender: UITextField) {
+        delegate?.fromFieldClicked?(q: sender.text)
+    }
+    
+    @IBAction func toFieldClicked(_ sender: UITextField) {
+        delegate?.toFieldClicked?(q: sender.text)
+    }
+    
+    @IBAction func fromFieldDidChange(_ sender: UITextField) {
+        delegate?.fromFieldDidChange?(q: sender.text)
+    }
+    
+    @IBAction func toFieldDidChange(_ sender: UITextField) {
+        delegate?.toFieldDidChange?(q: sender.text)
     }
 }

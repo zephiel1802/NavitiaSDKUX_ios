@@ -11,6 +11,7 @@ import UIKit
     
     func routeToListRidesharingOffers(indexPath: IndexPath)
     func routeToJourneySolutionRoadmap(indexPath: IndexPath)
+    func routeToListPlaces(info: String)
 }
 
 protocol ListJourneysDataPassing {
@@ -49,6 +50,18 @@ internal class ListJourneysRouter: NSObject, ListJourneysViewRoutingLogic, ListJ
         navigateToJourneySolutionRoadmap(source: viewController, destination: destinationVC)
     }
     
+    func routeToListPlaces(info: String) {
+        guard let viewController = viewController,
+            let dataStore = dataStore,
+            let destinationVC = viewController.storyboard?.instantiateViewController(withIdentifier: ListPlacesViewController.identifier) as? ListPlacesViewController/*,
+             var destinationDS = destinationVC.router?.dataStore*/ else {
+                return
+        }
+        
+        destinationVC.firstBecome = info
+        navigateToListPlaces(source: viewController, destination: destinationVC)
+    }
+    
     // MARK: Navigation
     
     func navigateToListRidesharingOffers(source: ListJourneysViewController, destination: ListRidesharingOffersViewController) {
@@ -57,6 +70,14 @@ internal class ListJourneysRouter: NSObject, ListJourneysViewRoutingLogic, ListJ
     
     func navigateToJourneySolutionRoadmap(source: ListJourneysViewController, destination: ShowJourneyRoadmapViewController) {
         source.navigationController?.pushViewController(destination, animated: true)
+    }
+    
+    func navigateToListPlaces(source: ListJourneysViewController, destination: ListPlacesViewController) {
+        let navigationController = UINavigationController(rootViewController: destination)
+        
+        navigationController.modalTransitionStyle = .crossDissolve
+        navigationController.modalPresentationStyle = .overCurrentContext
+        source.present(navigationController, animated: true, completion: nil)
     }
     
     // MARK: Passing Data

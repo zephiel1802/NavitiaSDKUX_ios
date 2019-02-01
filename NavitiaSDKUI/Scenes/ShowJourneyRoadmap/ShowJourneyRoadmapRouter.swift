@@ -5,7 +5,6 @@
 //  Copyright © 2018 kisio. All rights reserved.
 //
 
-
 import UIKit
 
 @objc protocol ShowJourneyRoadmapRoutingLogic {

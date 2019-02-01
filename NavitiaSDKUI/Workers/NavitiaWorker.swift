@@ -93,4 +93,19 @@ class NavitiaWorker: NavitiaWorkerProtocol {
             }
         }
     }
+    
+    func fetchPlaces(q: String, coord: (lat: Double, lon: Double)? = nil, completionHandler: @escaping (Places?) -> Void) {
+        if NavitiaSDKUI.shared.navitiaSDK != nil {
+            let placesRequestBuilder = NavitiaSDKUI.shared.navitiaSDK.placesApi.newPlacesRequestBuilder()
+                .withQ(q)
+            
+            if let coord = coord {
+                placesRequestBuilder.from = String(format: "%d;%d", coord.lon, coord.lat)
+            }
+            
+            placesRequestBuilder.get { (result, error) in
+                completionHandler(result)
+            }
+        }
+    }
 }

@@ -12,7 +12,7 @@ protocol ListJourneysDisplayLogic: class {
     func displayFetchedJourneys(viewModel: ListJourneys.FetchJourneys.ViewModel)
 }
 
-open class ListJourneysViewController: UIViewController, ListJourneysDisplayLogic {
+open class ListJourneysViewController: UIViewController, ListJourneysDisplayLogic, JourneyRootViewController {
     
     @IBOutlet weak var searchView: SearchView!
     @IBOutlet weak var journeysCollectionView: UICollectionView!
@@ -22,6 +22,10 @@ open class ListJourneysViewController: UIViewController, ListJourneysDisplayLogi
     private var router: (NSObjectProtocol & ListJourneysViewRoutingLogic & ListJourneysDataPassing)?
     private var viewModel: ListJourneys.FetchJourneys.ViewModel?
 
+    static var identifier: String {
+        return String(describing: self)
+    }
+    
     // MARK: - Initialization
     
     required public init?(coder aDecoder: NSCoder) {
@@ -370,5 +374,13 @@ extension ListJourneysViewController: SearchViewDelegate {
             journeysRequest!.switchOriginDestination()
             fetchJourneys()
         }
+    }
+    
+    func fromFieldClicked(q: String?) {
+        router?.routeToListPlaces(info: "from")
+    }
+    
+    func toFieldClicked(q: String?) {
+        router?.routeToListPlaces(info: "to")
     }
 }

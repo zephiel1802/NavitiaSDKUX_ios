@@ -71,12 +71,12 @@ class ListJourneysPresenter: ListJourneysPresentationLogic {
     // MARK: - Displayed Header Informations
     
     internal func getDisplayedHeaderInformations(journeysRequest: JourneysRequest) -> ListJourneys.FetchJourneys.ViewModel.HeaderInformations? {
-        guard let dateTime = getDisplayedHeaderInformationsDateTime(dateTime: journeysRequest.datetime, datetimeRepresents: journeysRequest.datetimeRepresents) else {
+        guard let dateTime = getDisplayedHeaderInformationsDateTime(dateTime: journeysRequest.datetime ?? Date(), datetimeRepresents: journeysRequest.datetimeRepresents) else {
             return nil
         }
         
         let headerInformations = ListJourneys.FetchJourneys.ViewModel.HeaderInformations(dateTime: dateTime,
-                                                                                         dateTimeDate: journeysRequest.datetime,
+                                                                                         dateTimeDate: journeysRequest.datetime ?? Date(),
                                                                                          origin: journeysRequest.originLabel ?? journeysRequest.originId,
                                                                                          destination: journeysRequest.destinationLabel ?? journeysRequest.destinationId)
         

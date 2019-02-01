@@ -7,6 +7,11 @@
 
 import Foundation
 
+public protocol JourneyRootViewController {
+    
+    var journeysRequest: JourneysRequest? { get set }
+}
+
 @objc open class NavitiaSDKUI: NSObject {
     
     @objc public static let shared = NavitiaSDKUI()
@@ -59,6 +64,27 @@ import Foundation
             Configuration.multiNetwork = newValue
         }
     }
+    
+    @objc public var formJourney: Bool {
+        get {
+            return Configuration.formJourney
+        }
+        set {
+            Configuration.formJourney = newValue
+        }
+    }
+    
+    public var rootViewController: JourneyRootViewController? {
+        get {
+            let storyboard = UIStoryboard(name: "Journey", bundle: bundle)
+            
+            if Configuration.formJourney {
+                return storyboard.instantiateViewController(withIdentifier: "FormJourneyViewController") as? JourneyRootViewController
+            }
+            
+            return storyboard.instantiateViewController(withIdentifier: "ListJourneysViewController") as? JourneyRootViewController
+        }
+    }
 }
 
 enum Configuration {
@@ -83,6 +109,7 @@ enum Configuration {
     static let minWalkingValueFrieze = 180 
     
     static var multiNetwork = false
+    static var formJourney = false
     
     // Color
     enum Color {
