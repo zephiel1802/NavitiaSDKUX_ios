@@ -31,6 +31,8 @@ class ListPlacesViewController: UIViewController, ListPlacesDisplayLogic
     
     weak var delegate: ListPlacesViewControllerDelegate?
     var firstBecome = "from"
+    private var debouncedSearch: Debouncer?
+    private var q: String = ""
     
     var interactor: ListPlacesBusinessLogic?
     var router: (NSObjectProtocol & ListPlacesRoutingLogic & ListPlacesDataPassing)?
@@ -56,6 +58,7 @@ class ListPlacesViewController: UIViewController, ListPlacesDisplayLogic
         title = "journeys".localized()
         
         initNavigationBar()
+        initDebouncer()
         initHeader()
         initTableView()
         
@@ -111,6 +114,13 @@ class ListPlacesViewController: UIViewController, ListPlacesDisplayLogic
         
         navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: Configuration.Color.main.contrastColor()]
     }
+    
+    private func initDebouncer() {
+        debouncedSearch = Debouncer(delay: 0.15) {
+            self.fetchPlaces(q: self.q)
+        }
+    }
+
     
     private func initHeader() {
         searchView.delegate = self
@@ -283,7 +293,10 @@ extension ListPlacesViewController: SearchViewDelegate {
             return
         }
         
-        fetchPlaces(q: q)
+        self.q = q
+        
+        debouncedSearch?.call()
+       // fetchPlaces(q: q)
     }
     
     func toFieldClicked(q: String?) {
@@ -293,7 +306,10 @@ extension ListPlacesViewController: SearchViewDelegate {
             return
         }
         
-        fetchPlaces(q: q)
+        self.q = q
+        
+        debouncedSearch?.call()
+        // fetchPlaces(q: q)
     }
     
     func fromFieldDidChange(q: String?) {
@@ -301,7 +317,10 @@ extension ListPlacesViewController: SearchViewDelegate {
             return
         }
         
-        fetchPlaces(q: q)
+        self.q = q
+        
+        debouncedSearch?.call()
+        // fetchPlaces(q: q)
     }
     
     func toFieldDidChange(q: String?) {
@@ -309,6 +328,9 @@ extension ListPlacesViewController: SearchViewDelegate {
             return
         }
         
-        fetchPlaces(q: q)
+        self.q = q
+        
+        debouncedSearch?.call()
+        // fetchPlaces(q: q)
     }
 }

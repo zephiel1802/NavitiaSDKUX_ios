@@ -23,12 +23,15 @@ class ListPlacesPresenter: ListPlacesPresentationLogic
   
   // MARK: Do something
   
-  func presentSomething(response: ListPlaces.FetchPlaces.Response)
-  {
+  func presentSomething(response: ListPlaces.FetchPlaces.Response) {
     let viewModel = ListPlaces.FetchPlaces.ViewModel(sections: getSection(places: response.places))
     
     viewController?.displaySomething(viewModel: viewModel)
-  }
+    }
+    
+    private func geoloc() {
+        
+    }
     
     private func getSection(places: Places?) -> [ListPlaces.FetchPlaces.ViewModel.Section] {
         var sections = [ListPlaces.FetchPlaces.ViewModel.Section]()
