@@ -83,7 +83,7 @@ internal class ListJourneysRouter: NSObject, ListJourneysViewRoutingLogic, ListJ
         
         navigationController.modalTransitionStyle = .crossDissolve
         navigationController.modalPresentationStyle = .overCurrentContext
-        source.present(navigationController, animated: true, completion: nil)
+        source.present(navigationController, animated: false, completion: nil)
     }
     
     // MARK: Passing Data

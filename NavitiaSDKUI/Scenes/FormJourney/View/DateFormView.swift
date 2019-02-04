@@ -15,8 +15,12 @@ protocol DateFormViewDelegate: class {
 class DateFormView: UIView {
     
     @IBOutlet weak var departureArrivalSegmentedControl: UISegmentedControl!
+    @IBOutlet weak var iconImageView: UIImageView!
+    
     @IBOutlet weak var dateTextField: UITextField!
+    
     private var datePicker: UIDatePicker?
+    var date: Date?
     weak var delegate: DateFormViewDelegate?
     
     // MARK: - UINib
@@ -49,6 +53,9 @@ class DateFormView: UIView {
     // MARK: - Function
     
     private func setup() {
+        iconImageView.image = UIImage(named: "calendar", in: NavitiaSDKUI.shared.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
+        iconImageView.tintColor = Configuration.Color.main
+        
         datePicker = UIDatePicker()
         datePicker?.datePickerMode = .dateAndTime
         datePicker?.addTarget(self, action: #selector(DateFormView.dateChanged(datePicker:)), for: .valueChanged)
@@ -59,8 +66,9 @@ class DateFormView: UIView {
     
     @objc func dateChanged(datePicker: UIDatePicker) {
         let dateFormmatter = DateFormatter()
-        dateFormmatter.dateFormat = "MM/dd/yyyy"
+        dateFormmatter.dateFormat = "EEEE d MMMM 'à' HH:mm"
         
+        date = datePicker.date
         dateTextField.text = dateFormmatter.string(from: datePicker.date)
     }
 }

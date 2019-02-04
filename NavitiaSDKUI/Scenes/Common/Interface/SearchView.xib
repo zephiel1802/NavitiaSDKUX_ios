@@ -165,18 +165,22 @@
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <connections>
                 <outlet property="background" destination="ExF-3c-Wxe" id="YWr-d4-Acm"/>
+                <outlet property="backgroundTopConstraint" destination="Mtj-Ci-Xpd" id="VD1-9N-PZn"/>
                 <outlet property="dateTimeBottomConstraint" destination="BLf-eo-OI2" id="kl5-Tw-dFp"/>
                 <outlet property="dateTimeLabel" destination="lfw-N9-pg4" id="1bD-yd-QJ5"/>
                 <outlet property="dateTimeTopConstraint" destination="Frb-fL-0qc" id="bE0-WB-yco"/>
                 <outlet property="destinationPinImageView" destination="1So-mo-vfI" id="PP3-aM-LwC"/>
                 <outlet property="fromTextField" destination="YM1-j9-59T" id="Zbo-Kk-bbC"/>
+                <outlet property="fromView" destination="T0m-AS-tpC" id="Uqy-7U-GOH"/>
                 <outlet property="originPinImageView" destination="h0t-0c-CxQ" id="F0e-No-DjV"/>
+                <outlet property="separatorTopContraint" destination="K3v-O6-uEu" id="YVl-Rm-bhS"/>
                 <outlet property="separatorView" destination="h1U-LA-82k" id="yxT-fm-hpJ"/>
                 <outlet property="switchContraint" destination="TsX-7N-u1f" id="T5J-0l-Hw4"/>
                 <outlet property="switchDepartureArrivalButton" destination="mLF-qB-m3h" id="zDW-cD-aj2"/>
                 <outlet property="toTextField" destination="fL7-eC-Qtp" id="ir4-DP-kzh"/>
+                <outlet property="toView" destination="rxk-jh-q0m" id="NFm-T5-Q6x"/>
             </connections>
-            <point key="canvasLocation" x="152.80000000000001" y="-8.0959520239880067"/>
+            <point key="canvasLocation" x="319" y="-4"/>
         </view>
     </objects>
     <resources>

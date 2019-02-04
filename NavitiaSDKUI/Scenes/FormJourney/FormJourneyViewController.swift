@@ -8,8 +8,6 @@
 import UIKit
 
 protocol FormJourneyDisplayLogic: class {
-    
-    func displaySomething(viewModel: FormJourney.Something.ViewModel)
 }
 
 class FormJourneyViewController: UIViewController, FormJourneyDisplayLogic, JourneyRootViewController {
@@ -24,12 +22,14 @@ class FormJourneyViewController: UIViewController, FormJourneyDisplayLogic, Jour
     internal var interactor: FormJourneyBusinessLogic?
     private var router: (NSObjectProtocol & FormJourneyRoutingLogic & FormJourneyDataPassing)?
     
+    var dateFormView: DateFormView!
+    
     // MARK: - Initialization
     
     required public init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         
-        initSDK()
+       // initSDK()
         initArchitecture()
     }
     
@@ -50,11 +50,11 @@ class FormJourneyViewController: UIViewController, FormJourneyDisplayLogic, Jour
 //        let modeTransportView = ModeTransportView.instanceFromNib()
 //        modeTransportView.frame.size = CGSize(width: stackScrollView.frame.size.width, height: 100)
 //        stackScrollView.addSubview(modeTransportView, margin: UIEdgeInsets(top: 10, left: 10, bottom: 17, right: 10), safeArea: false)
-//
-//        let dateFormView = DateFormView.instanceFromNib()
-//        dateFormView.frame.size = CGSize(width: stackScrollView.frame.size.width, height: 93)
-//        stackScrollView.addSubview(dateFormView, margin: UIEdgeInsets(top: 17, left: 10, bottom: 17, right: 10), safeArea: false)
-//
+
+        dateFormView = DateFormView.instanceFromNib()
+        dateFormView.frame.size = CGSize(width: stackScrollView.frame.size.width, height: 93)
+        stackScrollView.addSubview(dateFormView, margin: UIEdgeInsets(top: 17, left: 10, bottom: 17, right: 10), safeArea: false)
+
         let searchButtonView = SearchButtonView.instanceFromNib()
         searchButtonView.frame.size = CGSize(width: stackScrollView.frame.size.width, height: 37)
         searchButtonView.delegate = self
@@ -66,13 +66,16 @@ class FormJourneyViewController: UIViewController, FormJourneyDisplayLogic, Jour
     
     override open func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
-    
     }
     
-    private func initSDK() {
-        NavitiaSDKUI.shared.bundle = self.nibBundle
-        UIFont.registerFontWithFilenameString(filenameString: "SDKIcons.ttf", bundle: NavitiaSDKUI.shared.bundle)
-    }
+//    override var preferredStatusBarStyle: UIStatusBarStyle {
+//        return .lightContent
+//    }
+    
+//    private func initSDK() {
+//        NavitiaSDKUI.shared.bundle = self.nibBundle
+//        UIFont.registerFontWithFilenameString(filenameString: "SDKIcons.ttf", bundle: NavitiaSDKUI.shared.bundle)
+//    }
     
     private func initArchitecture() {
         let viewController = self
@@ -121,19 +124,6 @@ class FormJourneyViewController: UIViewController, FormJourneyDisplayLogic, Jour
             }
         }
     }
-    
-    // MARK: Do something
-    
-    //@IBOutlet weak var nameTextField: UITextField!
-    
-    func doSomething() {
-        let request = FormJourney.Something.Request()
-        interactor?.doSomething(request: request)
-    }
-    
-    func displaySomething(viewModel: FormJourney.Something.ViewModel) {
-        //nameTextField.text = viewModel.name
-    }
 }
 
 extension FormJourneyViewController: SearchViewDelegate {
@@ -147,10 +137,12 @@ extension FormJourneyViewController: SearchViewDelegate {
     }
     
     func fromFieldClicked(q: String?) {
+        view.endEditing(true)
         router?.routeToListPlaces(info: "from")
     }
     
     func toFieldClicked(q: String?) {
+        view.endEditing(true)
         router?.routeToListPlaces(info: "to")
     }
 }

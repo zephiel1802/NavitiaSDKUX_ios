@@ -19,8 +19,10 @@ import UIKit
 class SearchView: UIView {
 
     @IBOutlet weak var background: UIView!
+    @IBOutlet weak var fromView: UIView!
     @IBOutlet weak var fromTextField: UITextField!
     @IBOutlet weak var originPinImageView: UIImageView!
+    @IBOutlet weak var toView: UIView!
     @IBOutlet weak var toTextField: UITextField!
     @IBOutlet weak var separatorView: UIView!
     @IBOutlet weak var destinationPinImageView: UIImageView!
@@ -29,6 +31,10 @@ class SearchView: UIView {
     @IBOutlet weak var dateTimeBottomConstraint: NSLayoutConstraint!
     @IBOutlet weak var switchContraint: NSLayoutConstraint!
     @IBOutlet weak var switchDepartureArrivalButton: UIButton!
+    
+    @IBOutlet weak var backgroundTopConstraint: NSLayoutConstraint!
+    @IBOutlet weak var separatorTopContraint: NSLayoutConstraint!
+    
     
     internal weak var delegate: SearchViewDelegate?
     internal var lockSwitch = false
@@ -74,6 +80,16 @@ class SearchView: UIView {
             switchDepartureArrivalButton.isHidden = switchIsHidden
             switchContraint.isActive = !switchIsHidden
         }
+    }
+    
+    func animatedd() {
+        //self.backgroundTopConstraint.constant = 5
+        self.separatorTopContraint.constant = 5
+    }
+    
+    func animateddFalse() {
+       // self.backgroundTopConstraint.constant = 10
+        self.separatorTopContraint.constant = 0
     }
     
     // MARK: - UINib

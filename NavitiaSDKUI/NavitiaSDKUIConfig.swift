@@ -17,7 +17,11 @@ public protocol JourneyRootViewController {
     @objc public static let shared = NavitiaSDKUI()
     
     open var navitiaSDK: NavitiaSDK!
-    open var bundle: Bundle!
+    open var bundle: Bundle! {
+        didSet {
+            UIFont.registerFontWithFilenameString(filenameString: "SDKIcons.ttf", bundle: NavitiaSDKUI.shared.bundle)
+        }
+    }
     
     private var token: String! {
         didSet {

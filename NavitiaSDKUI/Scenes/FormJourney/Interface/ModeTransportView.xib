@@ -49,6 +49,9 @@
             <nil key="simulatedBottomBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <connections>
+                <outlet property="stackView" destination="HO2-WM-jCG" id="4fG-zi-hFU"/>
+            </connections>
             <point key="canvasLocation" x="133.59999999999999" y="-74.662668665667169"/>
         </view>
     </objects>

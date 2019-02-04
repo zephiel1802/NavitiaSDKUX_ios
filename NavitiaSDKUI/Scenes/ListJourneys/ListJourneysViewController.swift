@@ -79,6 +79,10 @@ open class ListJourneysViewController: UIViewController, ListJourneysDisplayLogi
         navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarPosition.any, barMetrics: UIBarMetrics.default)
         navigationController?.navigationBar.shadowImage = UIImage()
         navigationController?.navigationBar.barTintColor = Configuration.Color.main
+        navigationController?.navigationBar.isTranslucent = false
+
+        
+      //  navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: Configuration.Color.main.contrastColor()]
     }
     
     private func initHeader() {

@@ -45,7 +45,7 @@
                             <rect key="frame" x="0.0" y="52" width="375" height="41"/>
                             <subviews>
                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="calendar" translatesAutoresizingMaskIntoConstraints="NO" id="gi4-dv-bZO">
-                                    <rect key="frame" x="5" y="10" width="21" height="21"/>
+                                    <rect key="frame" x="7" y="11" width="19" height="19"/>
                                     <constraints>
                                         <constraint firstAttribute="width" secondItem="gi4-dv-bZO" secondAttribute="height" multiplier="1:1" id="qHw-Ph-VOw"/>
                                     </constraints>
@@ -57,7 +57,7 @@
                                         <constraint firstAttribute="height" constant="1" id="IpC-UR-2Sj"/>
                                     </constraints>
                                 </view>
-                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="zhk-u5-9x4">
+                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Maintenant " textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="zhk-u5-9x4">
                                     <rect key="frame" x="33" y="12" width="320" height="17"/>
                                     <nil key="textColor"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -80,10 +80,10 @@
                                 <constraint firstItem="zhk-u5-9x4" firstAttribute="centerY" secondItem="XPM-a6-9L6" secondAttribute="centerY" id="Hs4-Hx-ZYb"/>
                                 <constraint firstItem="tk5-Ii-9ne" firstAttribute="leading" secondItem="XPM-a6-9L6" secondAttribute="leading" id="OnM-6l-EkK"/>
                                 <constraint firstItem="dRh-jb-N4t" firstAttribute="centerY" secondItem="XPM-a6-9L6" secondAttribute="centerY" id="W2K-xj-Muu"/>
-                                <constraint firstItem="gi4-dv-bZO" firstAttribute="leading" secondItem="XPM-a6-9L6" secondAttribute="leading" constant="5" id="Zpj-bJ-3Wa"/>
-                                <constraint firstItem="gi4-dv-bZO" firstAttribute="top" secondItem="XPM-a6-9L6" secondAttribute="top" constant="10" id="Zqz-dq-Je3"/>
+                                <constraint firstItem="gi4-dv-bZO" firstAttribute="leading" secondItem="XPM-a6-9L6" secondAttribute="leading" constant="7" id="Zpj-bJ-3Wa"/>
+                                <constraint firstItem="gi4-dv-bZO" firstAttribute="top" secondItem="XPM-a6-9L6" secondAttribute="top" constant="11" id="Zqz-dq-Je3"/>
                                 <constraint firstAttribute="trailing" secondItem="tk5-Ii-9ne" secondAttribute="trailing" id="bhQ-DK-khr"/>
-                                <constraint firstAttribute="bottom" secondItem="gi4-dv-bZO" secondAttribute="bottom" constant="10" id="hbT-rb-uiC"/>
+                                <constraint firstAttribute="bottom" secondItem="gi4-dv-bZO" secondAttribute="bottom" constant="11" id="hbT-rb-uiC"/>
                                 <constraint firstAttribute="bottom" secondItem="tk5-Ii-9ne" secondAttribute="bottom" id="pkH-Bl-BSz"/>
                             </constraints>
                         </view>
@@ -102,6 +102,7 @@
             <connections>
                 <outlet property="dateTextField" destination="zhk-u5-9x4" id="o7D-zk-oGa"/>
                 <outlet property="departureArrivalSegmentedControl" destination="JjV-Ap-YLy" id="DxK-Zp-OeT"/>
+                <outlet property="iconImageView" destination="gi4-dv-bZO" id="4hY-hR-6Q8"/>
             </connections>
             <point key="canvasLocation" x="-20" y="289.20539730134936"/>
         </view>
