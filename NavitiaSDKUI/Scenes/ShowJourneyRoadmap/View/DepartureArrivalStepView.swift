@@ -95,7 +95,7 @@ class DepartureArrivalStepView: UIView {
     
     private func setup() {
         setupIcon()
-        addShadow(opacity: 0.28)
+        setShadow(opacity: 0.28)
     }
     
     private func setupIcon() {

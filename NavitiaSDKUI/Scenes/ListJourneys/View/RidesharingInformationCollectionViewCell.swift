@@ -32,6 +32,6 @@ class RidesharingInformationCollectionViewCell: UICollectionViewCell {
     private func setup() {
          messageLabel.text = "carpool_highlight_message".localized()
         
-        addShadow()
+        setShadow()
     }
 }

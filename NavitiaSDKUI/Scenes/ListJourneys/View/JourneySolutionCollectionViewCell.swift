@@ -47,7 +47,7 @@ class JourneySolutionCollectionViewCell: UICollectionViewCell {
     // MARK: - Function
     
     private func setup() {
-        addShadow()
+        setShadow()
     }
     
     private func setArrow() {
