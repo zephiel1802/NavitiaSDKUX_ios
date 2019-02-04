@@ -47,20 +47,21 @@ class FormJourneyViewController: UIViewController, FormJourneyDisplayLogic, Jour
         
         hideKeyboardWhenTappedAround()
     
-        let modeTransportView = ModeTransportView.instanceFromNib()
-        modeTransportView.frame.size = CGSize(width: stackScrollView.frame.size.width, height: 100)
-        stackScrollView.addSubview(modeTransportView, margin: UIEdgeInsets(top: 10, left: 10, bottom: 17, right: 10), safeArea: false)
-        
-        let dateFormView = DateFormView.instanceFromNib()
-        dateFormView.frame.size = CGSize(width: stackScrollView.frame.size.width, height: 93)
-        stackScrollView.addSubview(dateFormView, margin: UIEdgeInsets(top: 17, left: 10, bottom: 17, right: 10), safeArea: false)
-        
+//        let modeTransportView = ModeTransportView.instanceFromNib()
+//        modeTransportView.frame.size = CGSize(width: stackScrollView.frame.size.width, height: 100)
+//        stackScrollView.addSubview(modeTransportView, margin: UIEdgeInsets(top: 10, left: 10, bottom: 17, right: 10), safeArea: false)
+//
+//        let dateFormView = DateFormView.instanceFromNib()
+//        dateFormView.frame.size = CGSize(width: stackScrollView.frame.size.width, height: 93)
+//        stackScrollView.addSubview(dateFormView, margin: UIEdgeInsets(top: 17, left: 10, bottom: 17, right: 10), safeArea: false)
+//
         let searchButtonView = SearchButtonView.instanceFromNib()
         searchButtonView.frame.size = CGSize(width: stackScrollView.frame.size.width, height: 37)
         searchButtonView.delegate = self
         stackScrollView.addSubview(searchButtonView, margin: UIEdgeInsets(top: 17, left: 10, bottom: 10, right: 10), safeArea: false)
         
         stackScrollView.translatesAutoresizingMaskIntoConstraints = false
+        stackScrollView.bounces = false
     }
     
     override open func viewWillLayoutSubviews() {

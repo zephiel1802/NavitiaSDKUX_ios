@@ -59,6 +59,12 @@ internal class ListJourneysRouter: NSObject, ListJourneysViewRoutingLogic, ListJ
         }
         
         destinationVC.firstBecome = info
+        if let originId = viewController.journeysRequest?.originId,
+            let destinationId = viewController.journeysRequest?.destinationId {
+            destinationVC.from = (name: viewController.journeysRequest?.originLabel, id: originId)
+            destinationVC.to = (name: viewController.journeysRequest?.destinationLabel, id: destinationId)
+        }
+        destinationVC.delegate = viewController
         navigateToListPlaces(source: viewController, destination: destinationVC)
     }
     

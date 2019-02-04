@@ -120,7 +120,6 @@ class ListPlacesViewController: UIViewController, ListPlacesDisplayLogic
     private func initTableView() {
         registerTableView()
         tableView.tableFooterView = UIView(frame: CGRect(x: 0, y: 0, width: tableView.frame.size.width, height: 1))
-
     }
     
     private func registerTableView() {
