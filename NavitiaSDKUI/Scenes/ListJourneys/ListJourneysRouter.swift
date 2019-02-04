@@ -52,7 +52,7 @@ internal class ListJourneysRouter: NSObject, ListJourneysViewRoutingLogic, ListJ
     
     func routeToListPlaces(info: String) {
         guard let viewController = viewController,
-            let dataStore = dataStore,
+            let _ = dataStore,
             let destinationVC = viewController.storyboard?.instantiateViewController(withIdentifier: ListPlacesViewController.identifier) as? ListPlacesViewController/*,
              var destinationDS = destinationVC.router?.dataStore*/ else {
                 return

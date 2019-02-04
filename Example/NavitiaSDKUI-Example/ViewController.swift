@@ -23,11 +23,16 @@ class ViewController: UIViewController {
     }
     
     @IBAction func touch(_ sender: Any) {
-        let journeyResultsViewController = getJourneys()
-        navigationController?.pushViewController(journeyResultsViewController, animated: true)
+        if let journeyResultsViewController = getJourneys() {
+            navigationController?.pushViewController(journeyResultsViewController, animated: true)
+        }
     }
     
-    private func getJourneys() -> ListJourneysViewController {
+    private func getJourneys() -> UIViewController? {
+        guard var journeyResultsViewController = NavitiaSDKUI.shared.rootViewController else {
+            return nil
+        }
+        
         var journeysRequest = JourneysRequest(originId: "2.3665844;48.8465337", destinationId: "2.2979169;48.8848719")
         journeysRequest.originLabel = "Chez moi"
         journeysRequest.destinationLabel = "Au travail"
@@ -38,13 +43,10 @@ class ViewController: UIViewController {
         journeysRequest.firstSectionModes = [.walking, .car, .bike, .bss, .ridesharing]
         journeysRequest.lastSectionModes = [.walking, .car, .bike, .bss, .ridesharing]
         journeysRequest.count = 5
-        
-        let bundle = Bundle(identifier: "org.cocoapods.NavitiaSDKUI")
-        let storyboard = UIStoryboard(name: "Journey", bundle: bundle)
-        let journeyResultsViewController = storyboard.instantiateInitialViewController() as! ListJourneysViewController
+
         journeyResultsViewController.journeysRequest = journeysRequest
         
-        return journeyResultsViewController
+        return journeyResultsViewController as? UIViewController
     }
     
 }

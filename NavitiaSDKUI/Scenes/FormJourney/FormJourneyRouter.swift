@@ -31,7 +31,7 @@ class FormJourneyRouter: NSObject, FormJourneyRoutingLogic, FormJourneyDataPassi
   
     func routeToListJourneys() {
         guard let viewController = viewController,
-            let dataStore = dataStore,
+            let _ = dataStore,
             let destinationVC = viewController.storyboard?.instantiateViewController(withIdentifier: ListJourneysViewController.identifier) as? ListJourneysViewController,
             let fromID = viewController.from?.id,
             let fromName = viewController.from?.name,
@@ -52,7 +52,7 @@ class FormJourneyRouter: NSObject, FormJourneyRoutingLogic, FormJourneyDataPassi
     
     func routeToListPlaces(info: String) {
         guard let viewController = viewController,
-            let dataStore = dataStore,
+            let _ = dataStore,
             let destinationVC = viewController.storyboard?.instantiateViewController(withIdentifier: ListPlacesViewController.identifier) as? ListPlacesViewController/*,
              var destinationDS = destinationVC.router?.dataStore*/ else {
                 return
