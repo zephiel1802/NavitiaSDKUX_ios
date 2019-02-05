@@ -46,7 +46,7 @@ class FormJourneyViewController: UIViewController, FormJourneyDisplayLogic, Jour
         initHeader()
         
         hideKeyboardWhenTappedAround()
-    
+//
 //        let modeTransportView = ModeTransportView.instanceFromNib()
 //        modeTransportView.frame.size = CGSize(width: stackScrollView.frame.size.width, height: 100)
 //        stackScrollView.addSubview(modeTransportView, margin: UIEdgeInsets(top: 10, left: 10, bottom: 17, right: 10), safeArea: false)
@@ -67,15 +67,6 @@ class FormJourneyViewController: UIViewController, FormJourneyDisplayLogic, Jour
     override open func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
     }
-    
-//    override var preferredStatusBarStyle: UIStatusBarStyle {
-//        return .lightContent
-//    }
-    
-//    private func initSDK() {
-//        NavitiaSDKUI.shared.bundle = self.nibBundle
-//        UIFont.registerFontWithFilenameString(filenameString: "SDKIcons.ttf", bundle: NavitiaSDKUI.shared.bundle)
-//    }
     
     private func initArchitecture() {
         let viewController = self

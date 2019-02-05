@@ -67,11 +67,11 @@ class ListPlacesViewController: UIViewController, ListPlacesDisplayLogic {
         hideKeyboardWhenTappedAround()
         if firstBecome == "from" {
             searchView.fromTextField.becomeFirstResponder()
-            searchView.fromView.backgroundColor = UIColor(red: 235/255, green: 245/255, blue: 245/255, alpha: 1.0)
+            searchView.fromView.backgroundColor = Configuration.Color.white.withAlphaComponent(0.9)
             fetchPlaces(q: searchView.fromTextField.text)
         } else {
             searchView.toTextField.becomeFirstResponder()
-            searchView.toView.backgroundColor = UIColor(red: 235/255, green: 245/255, blue: 245/255, alpha: 1.0)
+            searchView.toView.backgroundColor = Configuration.Color.white.withAlphaComponent(0.9)
             fetchPlaces(q: searchView.toTextField.text)
         }
         
@@ -249,8 +249,10 @@ extension ListPlacesViewController: UITableViewDataSource, UITableViewDelegate {
         if firstBecome == "from" {
             from = (name: name, id: id)
             searchView.fromTextField.text = name
+            searchView.fromView.backgroundColor = Configuration.Color.white
             if searchView.toTextField.text == "" {
                 searchView.toTextField.becomeFirstResponder()
+                searchView.toView.backgroundColor = Configuration.Color.white.withAlphaComponent(0.9)
                 viewModel = nil
                 tableView.reloadData()
                 firstBecome = "to"
@@ -261,14 +263,24 @@ extension ListPlacesViewController: UITableViewDataSource, UITableViewDelegate {
                 }
                 self.dismiss(animated: true, completion: nil)
             }
+            
         } else {
             to = (name: name, id: id)
             searchView.toTextField.text = name
-            if let from = from, let to = to {
-                delegate?.searchView(from: from,
-                                     to: to)
+            searchView.toView.backgroundColor = Configuration.Color.white
+            if searchView.fromTextField.text == "" {
+                searchView.fromTextField.becomeFirstResponder()
+                searchView.fromView.backgroundColor = Configuration.Color.white.withAlphaComponent(0.9)
+                viewModel = nil
+                tableView.reloadData()
+                firstBecome = "from"
+            } else {
+                if let from = from, let to = to {
+                    delegate?.searchView(from: from,
+                                         to: to)
+                }
+                self.dismiss(animated: true, completion: nil)
             }
-            self.dismiss(animated: true, completion: nil)
         }
     }
     
@@ -295,6 +307,8 @@ extension ListPlacesViewController: SearchViewDelegate {
     
     func fromFieldClicked(q: String?) {
         firstBecome = "from"
+        searchView.fromView.backgroundColor = Configuration.Color.white.withAlphaComponent(0.9)
+        searchView.toView.backgroundColor = Configuration.Color.white
         
         guard let q = q else {
             return
@@ -307,6 +321,8 @@ extension ListPlacesViewController: SearchViewDelegate {
     
     func toFieldClicked(q: String?) {
         firstBecome = "to"
+        searchView.fromView.backgroundColor = Configuration.Color.white
+        searchView.toView.backgroundColor = Configuration.Color.white.withAlphaComponent(0.9)
         
         guard let q = q else {
             return

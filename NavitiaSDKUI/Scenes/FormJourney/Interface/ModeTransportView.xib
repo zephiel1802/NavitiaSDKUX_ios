@@ -16,8 +16,8 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="158"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
-                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="HO2-WM-jCG">
-                    <rect key="frame" x="0.0" y="0.0" width="375" height="30"/>
+                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="HO2-WM-jCG">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="105"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8sJ-Ct-gHK">
                             <rect key="frame" x="0.0" y="0.0" width="375" height="30"/>
@@ -37,6 +37,13 @@
                                 <constraint firstAttribute="trailing" secondItem="h5Q-xL-DGj" secondAttribute="trailing" constant="5" id="wyw-Aa-LbK"/>
                             </constraints>
                         </view>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="04t-Vs-zi2">
+                            <rect key="frame" x="0.0" y="40" width="375" height="65"/>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="65" id="HPs-OH-9BA"/>
+                            </constraints>
+                        </view>
                     </subviews>
                 </stackView>
             </subviews>
@@ -51,6 +58,8 @@
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <connections>
                 <outlet property="stackView" destination="HO2-WM-jCG" id="4fG-zi-hFU"/>
+                <outlet property="viewTest" destination="04t-Vs-zi2" id="Iym-DD-tAf"/>
+                <outlet property="viewTestHeightConstraint" destination="HPs-OH-9BA" id="FfU-5K-f90"/>
             </connections>
             <point key="canvasLocation" x="133.59999999999999" y="-74.662668665667169"/>
         </view>

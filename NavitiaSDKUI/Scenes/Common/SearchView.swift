@@ -83,12 +83,12 @@ class SearchView: UIView {
     }
     
     func animatedd() {
-        //self.backgroundTopConstraint.constant = 5
-        self.separatorTopContraint.constant = 5
+        self.backgroundTopConstraint.constant = 7
+        self.separatorTopContraint.constant = 6
     }
     
     func animateddFalse() {
-       // self.backgroundTopConstraint.constant = 10
+        self.backgroundTopConstraint.constant = 10
         self.separatorTopContraint.constant = 0
     }
     

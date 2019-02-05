@@ -44,7 +44,7 @@ class SearchButtonView: UIView {
     // MARK: - Function
     
     private func setup() {
-        searchButton.tintColor = Configuration.Color.main
+        searchButton.backgroundColor = Configuration.Color.main
     }
     
     @IBAction func searchButtonClicked(_ sender: Any) {
