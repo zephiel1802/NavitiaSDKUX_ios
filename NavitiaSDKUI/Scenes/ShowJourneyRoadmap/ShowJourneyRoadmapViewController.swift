@@ -66,8 +66,8 @@ internal class ShowJourneyRoadmapViewController: UIViewController, ShowJourneyRo
         
         if !display {
             display = true
-            zoomOverPolyline(targetPolyline: MKPolyline(coordinates: journeyPolylineCoordinates, count: journeyPolylineCoordinates.count))
         }
+        zoomOverPolyline(targetPolyline: MKPolyline(coordinates: journeyPolylineCoordinates, count: journeyPolylineCoordinates.count))
     }
     
     override func viewDidAppear(_ animated: Bool) {
