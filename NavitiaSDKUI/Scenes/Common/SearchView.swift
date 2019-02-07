@@ -17,6 +17,11 @@ import UIKit
 }
 
 class SearchView: UIView {
+    
+    enum Focus: String {
+        case from = "from"
+        case to = "to"
+    }
 
     @IBOutlet weak var background: UIView!
     @IBOutlet weak var fromView: UIView!
@@ -35,9 +40,9 @@ class SearchView: UIView {
     @IBOutlet weak var backgroundTopConstraint: NSLayoutConstraint!
     @IBOutlet weak var separatorTopContraint: NSLayoutConstraint!
     
-    
     internal weak var delegate: SearchViewDelegate?
     internal var lockSwitch = false
+    internal var focus: Focus?
     internal var origin: String? {
         didSet {
             guard let origin = origin else {
@@ -143,6 +148,24 @@ class SearchView: UIView {
     private func setupSwitchButton() {
         switchDepartureArrivalButton.setImage(UIImage(named: "switch", in: NavitiaSDKUI.shared.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate), for: .normal)
         switchDepartureArrivalButton.tintColor = Configuration.Color.main
+    }
+    
+    internal func focusFromField(_ value: Bool = true) {
+        if value {
+            fromTextField.becomeFirstResponder()
+            fromView.backgroundColor = Configuration.Color.white.withAlphaComponent(0.9)
+        } else {
+            fromView.backgroundColor = Configuration.Color.white
+        }
+    }
+    
+    internal func focusToField(_ value: Bool = true) {
+        if value {
+            toTextField.becomeFirstResponder()
+            toView.backgroundColor = Configuration.Color.white.withAlphaComponent(0.9)
+        } else {
+            toView.backgroundColor = Configuration.Color.white
+        }
     }
     
     @IBAction func switchDepartureArrivalCoordinates(_ sender: UIButton) {

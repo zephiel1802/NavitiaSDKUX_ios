@@ -9,14 +9,18 @@ import UIKit
 
 protocol ListPlacesBusinessLogic {
     
+    var from: (name: String, id: String)? { get set }
+    var to: (name: String, id: String)? { get set }
+    
+    func displaySearch(request: ListPlaces.DisplaySearch.Request)
     func fetchJourneys(request: ListPlaces.FetchPlaces.Request)
 }
 
 protocol ListPlacesDataStore {
     
     var info: String { get set }
-    var from: (name: String?, id: String)? { get set }
-    var to: (name: String?, id: String)? { get set }
+    var from: (name: String, id: String)? { get set }
+    var to: (name: String, id: String)? { get set }
 }
 
 class ListPlacesInteractor: ListPlacesBusinessLogic, ListPlacesDataStore {
@@ -25,8 +29,24 @@ class ListPlacesInteractor: ListPlacesBusinessLogic, ListPlacesDataStore {
     var navitiaWorker = NavitiaWorker()
     
     var info: String = ""
-    var from: (name: String?, id: String)?
-    var to: (name: String?, id: String)?
+    var from: (name: String, id: String)?
+    var to: (name: String, id: String)?
+    
+    // MARK: - Display Search
+    
+    func displaySearch(request: ListPlaces.DisplaySearch.Request) {
+        if let from = request.from {
+            self.from = from
+        }
+        if let to = request.to {
+            self.to = to
+        }
+        
+        let response = ListPlaces.DisplaySearch.Response(fromName: from?.name,
+                                                         toName: to?.name)
+        
+        self.presenter?.presentDisplayedSearch(response: response)
+    }
     
     // MARK: - Fetch Places
     

@@ -15,8 +15,8 @@ class FormJourneyViewController: UIViewController, FormJourneyDisplayLogic, Jour
     @IBOutlet weak var searchView: SearchView!
     @IBOutlet weak var stackScrollView: StackScrollView!
     
-    var from: (name: String?, id: String)?
-    var to: (name: String?, id: String)?
+    var from: (name: String, id: String)?
+    var to: (name: String, id: String)?
     
     var journeysRequest: JourneysRequest?
     internal var interactor: FormJourneyBusinessLogic?
@@ -147,7 +147,10 @@ extension FormJourneyViewController: SearchButtonViewDelegate {
 
 extension FormJourneyViewController: ListPlacesViewControllerDelegate {
     
-    func searchView(from: (name: String?, id: String), to: (name: String?, id: String)) {
+    func searchView(from: (name: String, id: String), to: (name: String, id: String)) {
+        interactor?.from = from
+        interactor?.to = to
+
         self.from = from
         self.to = to
         

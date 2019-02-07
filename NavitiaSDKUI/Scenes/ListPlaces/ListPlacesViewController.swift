@@ -9,11 +9,12 @@ import UIKit
 
 protocol ListPlacesViewControllerDelegate: class {
     
-    func searchView(from: (name: String?, id: String), to: (name: String?, id: String))
+    func searchView(from: (name: String, id: String), to: (name: String, id: String))
 }
 
 protocol ListPlacesDisplayLogic: class {
     
+    func displaySearch(viewModel: ListPlaces.DisplaySearch.ViewModel)
     func displaySomething(viewModel: ListPlaces.FetchPlaces.ViewModel)
 }
 
@@ -21,19 +22,16 @@ class ListPlacesViewController: UIViewController, ListPlacesDisplayLogic {
     
     @IBOutlet weak var searchView: SearchView!
     @IBOutlet weak var tableView: UITableView!
-    
-    var from: (name: String?, id: String)?
-    var to: (name: String?, id: String)?
-    
-    weak var delegate: ListPlacesViewControllerDelegate?
-    var firstBecome = "from"
-    private var debouncedSearch: Debouncer?
-    private var q: String = ""
-    
+
     var interactor: ListPlacesBusinessLogic?
     var router: (NSObjectProtocol & ListPlacesRoutingLogic & ListPlacesDataPassing)?
     private var viewModel: ListPlaces.FetchPlaces.ViewModel?
-    
+    private var debouncedSearch: Debouncer?
+    internal weak var delegate: ListPlacesViewControllerDelegate?
+
+    var firstBecome = "from"
+    private var q: String = ""
+
     static var identifier: String {
         return String(describing: self)
     }
@@ -56,22 +54,14 @@ class ListPlacesViewController: UIViewController, ListPlacesDisplayLogic {
         initHeader()
         initTableView()
         
-        searchView.fromTextField.text = from?.name
-        searchView.toTextField.text = to?.name
-        
-        searchView.background.backgroundColor = .clear
-        searchView.switchIsHidden = true
-        searchView.separatorView.isHidden = true
-        
+        interactor?.displaySearch(request: ListPlaces.DisplaySearch.Request())
         
         hideKeyboardWhenTappedAround()
         if firstBecome == "from" {
-            searchView.fromTextField.becomeFirstResponder()
-            searchView.fromView.backgroundColor = Configuration.Color.white.withAlphaComponent(0.9)
+            searchView.focusFromField()
             fetchPlaces(q: searchView.fromTextField.text)
         } else {
-            searchView.toTextField.becomeFirstResponder()
-            searchView.toView.backgroundColor = Configuration.Color.white.withAlphaComponent(0.9)
+            searchView.focusToField()
             fetchPlaces(q: searchView.toTextField.text)
         }
         
@@ -130,6 +120,9 @@ class ListPlacesViewController: UIViewController, ListPlacesDisplayLogic {
     private func initHeader() {
         searchView.delegate = self
         searchView.dateTimeIsHidden = true
+        searchView.background.backgroundColor = .clear
+        searchView.switchIsHidden = true
+        searchView.separatorView.isHidden = true
     }
     
     private func initTableView() {
@@ -140,6 +133,7 @@ class ListPlacesViewController: UIViewController, ListPlacesDisplayLogic {
     private func registerTableView() {
         tableView.register(UINib(nibName: PlacesTableViewCell.identifier, bundle: self.nibBundle), forCellReuseIdentifier: PlacesTableViewCell.identifier)
     }
+    
     
     // MARK: Routing
     
@@ -166,10 +160,26 @@ class ListPlacesViewController: UIViewController, ListPlacesDisplayLogic {
         interactor?.fetchJourneys(request: request)
     }
     
+    
+    func displaySearch(viewModel: ListPlaces.DisplaySearch.ViewModel) {
+        searchView.fromTextField.text = viewModel.fromName
+        searchView.toTextField.text = viewModel.toName
+    }
+    
     func displaySomething(viewModel: ListPlaces.FetchPlaces.ViewModel) {
         self.viewModel = viewModel
         
         tableView.reloadData()
+    }
+    
+    func fetchDeboucedSearch(q: String?) {
+        guard let q = q else {
+            return
+        }
+        
+        self.q = q
+        
+        debouncedSearch?.call()
     }
     
     // MARK: - Events
@@ -247,41 +257,43 @@ extension ListPlacesViewController: UITableViewDataSource, UITableViewDelegate {
         }
         
         if firstBecome == "from" {
-            from = (name: name, id: id)
-            searchView.fromTextField.text = name
-            searchView.fromView.backgroundColor = Configuration.Color.white
+            interactor?.displaySearch(request: ListPlaces.DisplaySearch.Request(from: (name: name, id: id), to: nil))
+
+            searchView.focusFromField(false)
             if searchView.toTextField.text == "" {
-                searchView.toTextField.becomeFirstResponder()
-                searchView.toView.backgroundColor = Configuration.Color.white.withAlphaComponent(0.9)
-                viewModel = nil
-                tableView.reloadData()
+                searchView.focusToField()
+                clearTableView()
                 firstBecome = "to"
             } else {
-                if let from = from, let to = to {
-                    delegate?.searchView(from: from,
-                                         to: to)
-                }
-                self.dismiss(animated: true, completion: nil)
+                dismissAutocompletion()
             }
             
         } else {
-            to = (name: name, id: id)
-            searchView.toTextField.text = name
-            searchView.toView.backgroundColor = Configuration.Color.white
+            interactor?.displaySearch(request: ListPlaces.DisplaySearch.Request(from: nil, to: (name: name, id: id)))
+
+            searchView.focusToField(false)
             if searchView.fromTextField.text == "" {
-                searchView.fromTextField.becomeFirstResponder()
-                searchView.fromView.backgroundColor = Configuration.Color.white.withAlphaComponent(0.9)
-                viewModel = nil
-                tableView.reloadData()
+                searchView.focusFromField()
+                clearTableView()
                 firstBecome = "from"
             } else {
-                if let from = from, let to = to {
-                    delegate?.searchView(from: from,
-                                         to: to)
-                }
-                self.dismiss(animated: true, completion: nil)
+                dismissAutocompletion()
             }
         }
+    }
+    
+    private func clearTableView() {
+        viewModel = nil
+        tableView.reloadData()
+    }
+    
+    private func dismissAutocompletion() {
+        if let from = interactor?.from, let to = interactor?.to {
+            delegate?.searchView(from: from,
+                                 to: to)
+        }
+        
+        backButtonPressed()
     }
     
     @objc func keyboardWillShow(_ notification:Notification) {
@@ -310,13 +322,7 @@ extension ListPlacesViewController: SearchViewDelegate {
         searchView.fromView.backgroundColor = Configuration.Color.white.withAlphaComponent(0.9)
         searchView.toView.backgroundColor = Configuration.Color.white
         
-        guard let q = q else {
-            return
-        }
-        
-        self.q = q
-        
-        debouncedSearch?.call()
+        fetchDeboucedSearch(q: q)
     }
     
     func toFieldClicked(q: String?) {
@@ -324,32 +330,14 @@ extension ListPlacesViewController: SearchViewDelegate {
         searchView.fromView.backgroundColor = Configuration.Color.white
         searchView.toView.backgroundColor = Configuration.Color.white.withAlphaComponent(0.9)
         
-        guard let q = q else {
-            return
-        }
-        
-        self.q = q
-        
-        debouncedSearch?.call()
+        fetchDeboucedSearch(q: q)
     }
     
     func fromFieldDidChange(q: String?) {
-        guard let q = q else {
-            return
-        }
-        
-        self.q = q
-        
-        debouncedSearch?.call()
+        fetchDeboucedSearch(q: q)
     }
     
     func toFieldDidChange(q: String?) {
-        guard let q = q else {
-            return
-        }
-        
-        self.q = q
-        
-        debouncedSearch?.call()
+        fetchDeboucedSearch(q: q)
     }
 }

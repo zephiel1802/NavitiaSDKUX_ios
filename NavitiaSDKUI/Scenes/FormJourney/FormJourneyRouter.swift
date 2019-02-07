@@ -54,16 +54,17 @@ class FormJourneyRouter: NSObject, FormJourneyRoutingLogic, FormJourneyDataPassi
     
     func routeToListPlaces(info: String) {
         guard let viewController = viewController,
-            let _ = dataStore,
-            let destinationVC = viewController.storyboard?.instantiateViewController(withIdentifier: ListPlacesViewController.identifier) as? ListPlacesViewController/*,
-             var destinationDS = destinationVC.router?.dataStore*/ else {
+            let dataStore = dataStore,
+            let destinationVC = viewController.storyboard?.instantiateViewController(withIdentifier: ListPlacesViewController.identifier) as? ListPlacesViewController,
+             var destinationDS = destinationVC.router?.dataStore else {
                 return
         }
         
-        destinationVC.firstBecome = info
-        destinationVC.from = viewController.from
-        destinationVC.to = viewController.to
+//        destinationVC.firstBecome = info
+//        destinationVC.from = viewController.from
+//        destinationVC.to = viewController.to
         destinationVC.delegate = viewController as ListPlacesViewControllerDelegate
+        passDataToListPlaces(source: dataStore, destination: &destinationDS, info: info)
         navigateToListPlaces(source: viewController, destination: destinationVC)
     }
     

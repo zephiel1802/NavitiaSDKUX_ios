@@ -9,6 +9,7 @@ import UIKit
 
 protocol ListPlacesPresentationLogic {
     
+    func presentDisplayedSearch(response: ListPlaces.DisplaySearch.Response)
     func presentSomething(response: ListPlaces.FetchPlaces.Response)
 }
 
@@ -17,6 +18,13 @@ class ListPlacesPresenter: ListPlacesPresentationLogic {
     weak var viewController: ListPlacesDisplayLogic?
     
     // MARK: Do something
+    
+    func presentDisplayedSearch(response: ListPlaces.DisplaySearch.Response) {
+        let viewModel = ListPlaces.DisplaySearch.ViewModel(fromName: response.fromName ?? "",
+                                                           toName: response.toName ?? "")
+        
+        viewController?.displaySearch(viewModel: viewModel)
+    }
     
     func presentSomething(response: ListPlaces.FetchPlaces.Response) {
         let viewModel = ListPlaces.FetchPlaces.ViewModel(sections: getSection(places: response.places))

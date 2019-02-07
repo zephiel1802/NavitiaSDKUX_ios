@@ -108,4 +108,10 @@ class NavitiaWorker: NavitiaWorkerProtocol {
             }
         }
     }
+    
+    func fetchPhysicalMode(completionHandler: @escaping (Places?) -> Void) {
+        if NavitiaSDKUI.shared.navitiaSDK != nil {
+       NavitiaSDKUI.shared.navitiaSDK.physicalModesApi.new
+        }
+    }
 }
