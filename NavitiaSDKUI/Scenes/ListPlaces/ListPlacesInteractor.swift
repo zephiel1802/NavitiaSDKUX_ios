@@ -19,6 +19,7 @@ protocol ListPlacesBusinessLogic {
 protocol ListPlacesDataStore {
     
     var info: String { get set }
+    var coverage: String? { get set }
     var from: (name: String, id: String)? { get set }
     var to: (name: String, id: String)? { get set }
 }
@@ -29,6 +30,7 @@ class ListPlacesInteractor: ListPlacesBusinessLogic, ListPlacesDataStore {
     var navitiaWorker = NavitiaWorker()
     
     var info: String = ""
+    var coverage: String?
     var from: (name: String, id: String)?
     var to: (name: String, id: String)?
     
@@ -51,7 +53,11 @@ class ListPlacesInteractor: ListPlacesBusinessLogic, ListPlacesDataStore {
     // MARK: - Fetch Places
     
     func fetchJourneys(request: ListPlaces.FetchPlaces.Request) {
-        navitiaWorker.fetchPlaces(q: request.q, coord: request.coord) { (places) in
+        guard let coverage = coverage else {
+            return
+        }
+        
+        navitiaWorker.fetchPlaces(coverage: coverage, q: request.q, coord: request.coord) { (places) in
             let response = ListPlaces.FetchPlaces.Response(places: places)
             
             self.presenter?.presentSomething(response: response)

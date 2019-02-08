@@ -20,7 +20,15 @@ class DateFormView: UIView {
     @IBOutlet weak var dateTextField: UITextField!
     
     private var datePicker: UIDatePicker?
-    var date: Date?
+    var date: Date? {
+        didSet {
+            guard let date = date else {
+                return
+            }
+            
+            datePicker?.date = date
+        }
+    }
     weak var delegate: DateFormViewDelegate?
     
     // MARK: - UINib
@@ -43,11 +51,7 @@ class DateFormView: UIView {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        
-//        frame.size.height = contentContainerView.frame.size.height
-//        if let superview = superview as? StackScrollView {
-//            superview.reloadStack()
-//        }
+
     }
     
     // MARK: - Function

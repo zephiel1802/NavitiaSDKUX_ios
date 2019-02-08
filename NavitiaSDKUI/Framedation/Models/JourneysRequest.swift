@@ -9,28 +9,31 @@ import Foundation
 
 public struct JourneysRequest {
     
-    public var originId: String
+    public var coverage: String
+    public var originId: String?
     public var originLabel: String?
-    public var destinationId: String
+    public var originAddress: String?
+    public var destinationId: String?
     public var destinationLabel: String?
+    public var destinationAddress: String?
     public var datetime: Date?
-    public var datetimeRepresents: JourneysRequestBuilder.DatetimeRepresents?
+    public var datetimeRepresents: CoverageRegionJourneysRequestBuilder.DatetimeRepresents?
     public var forbiddenUris: [String]?
     public var allowedId: [String]?
-    public var firstSectionModes: [JourneysRequestBuilder.FirstSectionMode]?
-    public var lastSectionModes: [JourneysRequestBuilder.LastSectionMode]?
+    public var firstSectionModes: [CoverageRegionJourneysRequestBuilder.FirstSectionMode]?
+    public var lastSectionModes: [CoverageRegionJourneysRequestBuilder.LastSectionMode]?
     public var count: Int32?
     public var minNbJourneys: Int32?
     public var maxNbJourneys: Int32?
     public var bssStands: Bool?
-    public var directPath: JourneysRequestBuilder.DirectPath?
-    public var addPoiInfos: [JourneysRequestBuilder.AddPoiInfos]?
-    public var dataFreshness: JourneysRequestBuilder.DataFreshness?
+    public var directPath: CoverageRegionJourneysRequestBuilder.DirectPath?
+    public var addPoiInfos: [CoverageRegionJourneysRequestBuilder.AddPoiInfos]?
+    public var dataFreshness: CoverageRegionJourneysRequestBuilder.DataFreshness?
+    public var allowedPhysicalModes: [String]?
     public var debugURL: String?
     
-    public init(originId: String, destinationId: String) {
-        self.originId = originId
-        self.destinationId = destinationId
+    public init(coverage: String) {
+        self.coverage = coverage
     }
 }
 

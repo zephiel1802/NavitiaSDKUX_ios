@@ -18,7 +18,8 @@ class NavitiaWorker: NavitiaWorkerProtocol {
     
     func fetchJourneys(journeysRequest: JourneysRequest, completionHandler: @escaping NavitiaFetchJourneysCompletionHandler) {
         if NavitiaSDKUI.shared.navitiaSDK != nil {
-            let journeyRequestBuilder = NavitiaSDKUI.shared.navitiaSDK.journeysApi.newJourneysRequestBuilder()
+            let journeyRequestBuilder = NavitiaSDKUI.shared.navitiaSDK.journeysApi.newCoverageRegionJourneysRequestBuilder()
+                .withRegion(journeysRequest.coverage)
                 .withFrom(journeysRequest.originId)
                 .withTo(journeysRequest.destinationId)
                 .withDatetime(journeysRequest.datetime)
@@ -94,9 +95,10 @@ class NavitiaWorker: NavitiaWorkerProtocol {
         }
     }
     
-    func fetchPlaces(q: String, coord: (lat: Double, lon: Double)? = nil, completionHandler: @escaping (Places?) -> Void) {
+    func fetchPlaces(coverage: String, q: String, coord: (lat: Double, lon: Double)? = nil, completionHandler: @escaping (Places?) -> Void) {
         if NavitiaSDKUI.shared.navitiaSDK != nil {
-            let placesRequestBuilder = NavitiaSDKUI.shared.navitiaSDK.placesApi.newPlacesRequestBuilder()
+            let placesRequestBuilder = NavitiaSDKUI.shared.navitiaSDK.placesApi.newCoverageRegionPlacesRequestBuilder()
+                .withRegion(coverage)
                 .withQ(q)
             
             if let coord = coord {
@@ -109,9 +111,14 @@ class NavitiaWorker: NavitiaWorkerProtocol {
         }
     }
     
-    func fetchPhysicalMode(completionHandler: @escaping (Places?) -> Void) {
+    func fetchPhysicalMode(coverage: String, completionHandler: @escaping ([PhysicalMode]?) -> Void) {
         if NavitiaSDKUI.shared.navitiaSDK != nil {
-       NavitiaSDKUI.shared.navitiaSDK.physicalModesApi.new
+            let physicalModesRequestBuilder = NavitiaSDKUI.shared.navitiaSDK.physicalModesApi.newCoverageRegionPhysicalModesRequestBuilder()
+                .withRegion(coverage)
+            
+            physicalModesRequestBuilder.get { (result, error) in
+                completionHandler(result?.physicalModes)
+            }
         }
     }
 }

@@ -28,26 +28,23 @@ class FormJourneyRouter: NSObject, FormJourneyRoutingLogic, FormJourneyDataPassi
     func routeToListJourneys() {
         guard let viewController = viewController,
             let _ = dataStore,
-            let destinationVC = viewController.storyboard?.instantiateViewController(withIdentifier: ListJourneysViewController.identifier) as? ListJourneysViewController,
-            let fromID = viewController.from?.id,
-            let fromName = viewController.from?.name,
-            let toID = viewController.to?.id,
-            let toName = viewController.to?.name/*,
+            let destinationVC = viewController.storyboard?.instantiateViewController(withIdentifier: ListJourneysViewController.identifier) as? ListJourneysViewController/*,
              var destinationDS = destinationVC.router?.dataStore*/ else {
                 return
         }
         
-        var journeysRequest = JourneysRequest(originId: fromID, destinationId: toID)
-        journeysRequest.originLabel = fromName
-        journeysRequest.destinationLabel = toName
-        journeysRequest.datetime = viewController.dateFormView.date
+
+        dataStore?.journeysRequest?.datetime = viewController.dateFormView.date
+//        dataStore?.journeysRequest?.firstSectionModes = [.walking, .bike, .car]
+//        dataStore?.journeysRequest?.lastSectionModes = [.walking, .bike, .car]
         if viewController.dateFormView.departureArrivalSegmentedControl.selectedSegmentIndex == 0 {
-            journeysRequest.datetimeRepresents = .departure
+            dataStore?.journeysRequest?.datetimeRepresents = .departure
         } else {
-            journeysRequest.datetimeRepresents = .arrival
+            dataStore?.journeysRequest?.datetimeRepresents = .arrival
         }
+
         
-        destinationVC.journeysRequest = journeysRequest
+        destinationVC.journeysRequest = dataStore?.journeysRequest
         
         navigateToListJourneys(source: viewController, destination: destinationVC)
     }
@@ -60,9 +57,6 @@ class FormJourneyRouter: NSObject, FormJourneyRoutingLogic, FormJourneyDataPassi
                 return
         }
         
-//        destinationVC.firstBecome = info
-//        destinationVC.from = viewController.from
-//        destinationVC.to = viewController.to
         destinationVC.delegate = viewController as ListPlacesViewControllerDelegate
         passDataToListPlaces(source: dataStore, destination: &destinationDS, info: info)
         navigateToListPlaces(source: viewController, destination: destinationVC)
@@ -94,7 +88,14 @@ class FormJourneyRouter: NSObject, FormJourneyRoutingLogic, FormJourneyDataPassi
     
     func passDataToListPlaces(source: FormJourneyDataStore, destination: inout ListPlacesDataStore, info: String) {
         destination.info = info
-        destination.from = source.from
-        destination.to = source.to
+
+        if let fromId = source.journeysRequest?.originId, let fromLabel = source.journeysRequest?.originLabel {
+            destination.from = (name: fromLabel, id: fromId)
+        }
+        if let toId = source.journeysRequest?.destinationId, let toLabel = source.journeysRequest?.destinationLabel {
+            destination.to = (name: toLabel, id: toId)
+        }
+        
+        destination.coverage = source.journeysRequest?.coverage
     }
 }

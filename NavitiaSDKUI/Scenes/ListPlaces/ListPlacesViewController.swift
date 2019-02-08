@@ -54,6 +54,8 @@ class ListPlacesViewController: UIViewController, ListPlacesDisplayLogic {
         initHeader()
         initTableView()
         
+        
+        
         interactor?.displaySearch(request: ListPlaces.DisplaySearch.Request())
         
         hideKeyboardWhenTappedAround()

@@ -8,18 +8,37 @@
 import UIKit
 
 protocol FormJourneyBusinessLogic {
-    var from: (name: String, id: String)? { get set }
-    var to: (name: String, id: String)? { get set }
+    
+    var journeysRequest: JourneysRequest? { get set }
+    
+    func displaySearch(request: FormJourney.DisplaySearch.Request)
 }
 
 protocol FormJourneyDataStore {
-    var from: (name: String, id: String)? { get set }
-    var to: (name: String, id: String)? { get set }
+    
+    var journeysRequest: JourneysRequest? { get set }
 }
 
 class FormJourneyInteractor: FormJourneyBusinessLogic, FormJourneyDataStore {
     var presenter: FormJourneyPresentationLogic?
     
-    var from: (name: String, id: String)?
-    var to: (name: String, id: String)?
+    var journeysRequest: JourneysRequest?
+
+    // MARK: - Display Search
+    
+    func displaySearch(request: FormJourney.DisplaySearch.Request) {
+        if let from = request.from {
+            journeysRequest?.originId = from.id
+            journeysRequest?.originLabel = from.name
+        }
+        if let to = request.to {
+            journeysRequest?.destinationId = to.id
+            journeysRequest?.destinationLabel = to.name
+        }
+        
+        let response = FormJourney.DisplaySearch.Response(fromName: journeysRequest?.originLabel,
+                                                         toName: journeysRequest?.destinationLabel)
+        
+        self.presenter?.presentDisplayedSearch(response: response)
+    }
 }

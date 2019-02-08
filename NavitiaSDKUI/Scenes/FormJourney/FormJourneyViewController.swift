@@ -8,6 +8,8 @@
 import UIKit
 
 protocol FormJourneyDisplayLogic: class {
+    
+    func displaySearch(viewModel: FormJourney.DisplaySearch.ViewModel)
 }
 
 class FormJourneyViewController: UIViewController, FormJourneyDisplayLogic, JourneyRootViewController {
@@ -15,8 +17,8 @@ class FormJourneyViewController: UIViewController, FormJourneyDisplayLogic, Jour
     @IBOutlet weak var searchView: SearchView!
     @IBOutlet weak var stackScrollView: StackScrollView!
     
-    var from: (name: String, id: String)?
-    var to: (name: String, id: String)?
+//    var from: (name: String, id: String)?
+//    var to: (name: String, id: String)?
     
     var journeysRequest: JourneysRequest?
     internal var interactor: FormJourneyBusinessLogic?
@@ -45,6 +47,9 @@ class FormJourneyViewController: UIViewController, FormJourneyDisplayLogic, Jour
         initNavigationBar()
         initHeader()
         
+        interactor?.journeysRequest = journeysRequest
+        interactor?.displaySearch(request: FormJourney.DisplaySearch.Request())
+        
         hideKeyboardWhenTappedAround()
 //
 //        let modeTransportView = ModeTransportView.instanceFromNib()
@@ -54,6 +59,18 @@ class FormJourneyViewController: UIViewController, FormJourneyDisplayLogic, Jour
         dateFormView = DateFormView.instanceFromNib()
         dateFormView.frame.size = CGSize(width: stackScrollView.frame.size.width, height: 93)
         stackScrollView.addSubview(dateFormView, margin: UIEdgeInsets(top: 17, left: 10, bottom: 17, right: 10), safeArea: false)
+        if let datetimeRepresents = journeysRequest?.datetimeRepresents {
+            dateFormView.departureArrivalSegmentedControl.selectedSegmentIndex = datetimeRepresents == .departure ? 0 : 1
+        }
+        if let date = journeysRequest?.datetime {
+            dateFormView.date = date
+            
+            let dateFormmatter = DateFormatter()
+            
+            dateFormmatter.dateFormat = "EEEE d MMMM 'à' HH:mm"
+            dateFormView.dateTextField.text = dateFormmatter.string(from: date)
+        }
+        
 
         let searchButtonView = SearchButtonView.instanceFromNib()
         searchButtonView.frame.size = CGSize(width: stackScrollView.frame.size.width, height: 37)
@@ -115,16 +132,20 @@ class FormJourneyViewController: UIViewController, FormJourneyDisplayLogic, Jour
             }
         }
     }
+    
+    func displaySearch(viewModel: FormJourney.DisplaySearch.ViewModel) {
+        searchView.fromTextField.text = viewModel.fromName
+        searchView.toTextField.text = viewModel.toName
+    }
 }
 
 extension FormJourneyViewController: SearchViewDelegate {
     
     func switchDepartureArrivalCoordinates() {
-//        if journeysRequest != nil {
-//            searchView.lockSwitch = true
-//            journeysRequest!.switchOriginDestination()
-//            fetchJourneys()
-//        }
+        if journeysRequest != nil {
+            interactor?.journeysRequest?.switchOriginDestination()
+            interactor?.displaySearch(request: FormJourney.DisplaySearch.Request())
+        }
     }
     
     func fromFieldClicked(q: String?) {
@@ -148,13 +169,18 @@ extension FormJourneyViewController: SearchButtonViewDelegate {
 extension FormJourneyViewController: ListPlacesViewControllerDelegate {
     
     func searchView(from: (name: String, id: String), to: (name: String, id: String)) {
-        interactor?.from = from
-        interactor?.to = to
-
-        self.from = from
-        self.to = to
+        let request = FormJourney.DisplaySearch.Request(from: from, to: to)
         
-        searchView.fromTextField.text = from.name
-        searchView.toTextField.text = to.name
+        interactor?.displaySearch(request: request)
+        
+        
+//
+//        interactor?.journeysRequest?.originId = from.id
+//        interactor?.journeysRequest?.originLabel = from.name
+//        interactor?.journeysRequest?.destinationId = to.id
+//        interactor?.journeysRequest?.destinationLabel = to.name
+//
+//        searchView.fromTextField.text = "caca"//from.name
+//        searchView.toTextField.text = "prou"//to.name
     }
 }

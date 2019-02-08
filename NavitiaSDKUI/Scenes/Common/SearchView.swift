@@ -170,6 +170,7 @@ class SearchView: UIView {
     
     @IBAction func switchDepartureArrivalCoordinates(_ sender: UIButton) {
         if !lockSwitch {
+            switchDepartureArrivalAnimate(sender)
             delegate?.switchDepartureArrivalCoordinates()
         }
     }

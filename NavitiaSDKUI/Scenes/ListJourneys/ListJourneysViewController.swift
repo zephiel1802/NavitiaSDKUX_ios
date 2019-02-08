@@ -9,6 +9,8 @@ import UIKit
 
 protocol ListJourneysDisplayLogic: class {
     
+    func displaySearch(viewModel: ListJourneys.DisplaySearch.ViewModel)
+    func callbackFetchedPhysicalModes(viewModel: ListJourneys.FetchPhysicalModes.ViewModel)
     func displayFetchedJourneys(viewModel: ListJourneys.FetchJourneys.ViewModel)
 }
 
@@ -44,7 +46,14 @@ open class ListJourneysViewController: UIViewController, ListJourneysDisplayLogi
         initHeader()
         initCollectionView()
 
-        fetchJourneys()
+        interactor?.journeysRequest = journeysRequest
+        interactor?.displaySearch(request: ListJourneys.DisplaySearch.Request())
+        
+        if let allowedPhysicalModes = interactor?.journeysRequest?.allowedPhysicalModes {
+            fetchPhysicalMode()
+        } else {
+            fetchJourneys()
+        }
     }
     
     override open func viewWillLayoutSubviews() {
@@ -121,10 +130,44 @@ open class ListJourneysViewController: UIViewController, ListJourneysDisplayLogi
         }
     }
     
+    func displaySearch(viewModel: ListJourneys.DisplaySearch.ViewModel) {
+        searchView.fromTextField.text = viewModel.fromName
+        searchView.toTextField.text = viewModel.toName
+        searchView.dateTime = viewModel.dateTime
+        
+        searchView.accessibilityLabel = viewModel.accessibilityHeader
+        searchView.switchDepartureArrivalButton.accessibilityLabel = viewModel.accessibilitySwitchButton
+    }
+    
+    internal func fetchPhysicalMode() {
+        guard let journeysRequest = interactor?.journeysRequest else {
+            return
+        }
+        
+        interactor?.fetchPhysicalModes(request: ListJourneys.FetchPhysicalModes.Request(journeysRequest: journeysRequest))
+    }
+    
+    func callbackFetchedPhysicalModes(viewModel: ListJourneys.FetchPhysicalModes.ViewModel) {
+        guard let allowedPhysicalModes = interactor?.journeysRequest?.allowedPhysicalModes else {
+            fetchJourneys()
+            return
+        }
+        
+        var physicalModes = viewModel.physicalModes
+        
+        for physicalMode in allowedPhysicalModes {
+            physicalModes = physicalModes.filter{$0 != physicalMode}
+        }
+        
+        interactor?.journeysRequest?.forbiddenUris = physicalModes
+        
+        fetchJourneys()
+    }
+    
     // MARK: - Fetch journeys
     
     internal func fetchJourneys() {
-        guard let journeysRequest = self.journeysRequest else {
+        guard let journeysRequest = interactor?.journeysRequest else {
             return
         }
 
@@ -144,11 +187,11 @@ open class ListJourneysViewController: UIViewController, ListJourneysDisplayLogi
 
         journeysCollectionView.reloadData()
         
-        searchView.origin = viewModel.headerInformations.origin
-        searchView.destination = viewModel.headerInformations.destination
-        searchView.dateTime = viewModel.headerInformations.dateTime
-        searchView.accessibilityLabel = viewModel.accessibilityHeader
-        searchView.switchDepartureArrivalButton.accessibilityLabel = viewModel.accessibilitySwitchButton
+//        searchView.origin = viewModel.headerInformations.origin
+//        searchView.destination = viewModel.headerInformations.destination
+//        searchView.dateTime = viewModel.headerInformations.dateTime
+//        searchView.accessibilityLabel = viewModel.accessibilityHeader
+//        searchView.switchDepartureArrivalButton.accessibilityLabel = viewModel.accessibilitySwitchButton
         
         reloadCollectionViewLayout()
     }
@@ -167,7 +210,7 @@ extension ListJourneysViewController: UICollectionViewDataSource, UICollectionVi
     // MARK: - CollectionView Data Source
     
     public func numberOfSections(in collectionView: UICollectionView) -> Int {
-        guard let journeysRequest = self.journeysRequest, let viewModel = self.viewModel else {
+        guard let journeysRequest = interactor?.journeysRequest, let viewModel = self.viewModel else {
             return 0
         }
         // Journey + Carsharing
@@ -373,9 +416,10 @@ extension ListJourneysViewController: ListJourneysCollectionViewLayoutDelegate {
 extension ListJourneysViewController: SearchViewDelegate {
     
     func switchDepartureArrivalCoordinates() {
-        if journeysRequest != nil {
+        if interactor?.journeysRequest != nil {
             searchView.lockSwitch = true
-            journeysRequest!.switchOriginDestination()
+            interactor?.journeysRequest?.switchOriginDestination()
+            interactor?.displaySearch(request: ListJourneys.DisplaySearch.Request())
             fetchJourneys()
         }
     }
@@ -392,10 +436,10 @@ extension ListJourneysViewController: SearchViewDelegate {
 extension ListJourneysViewController: ListPlacesViewControllerDelegate {
     
     func searchView(from: (name: String, id: String), to: (name: String, id: String)) {
-        journeysRequest?.originId = from.id
-        journeysRequest?.originLabel = from.name
-        journeysRequest?.destinationId = to.id
-        journeysRequest?.destinationLabel = to.name
+//        journeysRequest?.originId = from.id
+//        journeysRequest?.originLabel = from.name
+//        journeysRequest?.destinationId = to.id
+//        journeysRequest?.destinationLabel = to.name
         fetchJourneys()
     }
 }

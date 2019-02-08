@@ -9,11 +9,17 @@ import UIKit
 
 protocol ListJourneysBusinessLogic {
     
+    var journeysRequest: JourneysRequest? { get set }
+    
+    func displaySearch(request: ListJourneys.DisplaySearch.Request)
+    func fetchPhysicalModes(request: ListJourneys.FetchPhysicalModes.Request)
     func fetchJourneys(request: ListJourneys.FetchJourneys.Request)
 }
 
 protocol ListJourneysDataStore {
     
+    var journeysRequest: JourneysRequest? { get set }
+    var physicalModes: [PhysicalMode]? { get }
     var journeys: [Journey]? { get }
     var ridesharingJourneys: [Journey]? { get }
     var disruptions: [Disruption]? { get }
@@ -25,11 +31,46 @@ internal class ListJourneysInteractor: ListJourneysBusinessLogic, ListJourneysDa
 
     var presenter: ListJourneysPresentationLogic?
     var navitiaWorker = NavitiaWorker()
+    var journeysRequest: JourneysRequest?
+    var physicalModes: [PhysicalMode]?
     var journeys: [Journey]?
     var ridesharingJourneys: [Journey]?
     var disruptions: [Disruption]?
     var notes: [Note]?
     var context: Context?
+    
+    // MARK: - Display Search
+    
+    func displaySearch(request: ListJourneys.DisplaySearch.Request) {
+        if let from = request.from {
+            journeysRequest?.originId = from.id
+            journeysRequest?.originLabel = from.name
+        }
+        if let to = request.to {
+            journeysRequest?.destinationId = to.id
+            journeysRequest?.destinationLabel = to.name
+        }
+
+        if let journeysRequest = journeysRequest {
+            let response = ListJourneys.DisplaySearch.Response(journeysRequest: journeysRequest)
+            
+            self.presenter?.presentDisplayedSearch(response: response)
+        }
+    }
+    
+    // MARK: - Fetch Physical Modes
+    
+    func fetchPhysicalModes(request: ListJourneys.FetchPhysicalModes.Request) {
+        presenter?.presentFetchedSearchInformation(journeysRequest: request.journeysRequest)
+        
+        navitiaWorker.fetchPhysicalMode(coverage: request.journeysRequest.coverage) { (physicalModes) in
+            self.physicalModes = physicalModes
+            
+            let response = ListJourneys.FetchPhysicalModes.Response(physicalModes: physicalModes)
+            
+            self.presenter?.presentFetchedPhysicalModes(response: response)
+        }
+    }
     
     // MARK: - Fetch Journey
     

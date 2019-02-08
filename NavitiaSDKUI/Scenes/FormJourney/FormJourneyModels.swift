@@ -11,12 +11,18 @@ enum FormJourney
 {
     // MARK: Use cases
     
-    enum Something {
+    enum DisplaySearch {
         struct Request {
+            var from: (name: String, id: String)?
+            var to: (name: String, id: String)?
         }
         struct Response {
+            var fromName: String?
+            var toName: String?
         }
         struct ViewModel {
+            var fromName: String
+            var toName: String
         }
     }
 }
