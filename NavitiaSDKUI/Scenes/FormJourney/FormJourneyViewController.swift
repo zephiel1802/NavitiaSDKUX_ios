@@ -46,10 +46,15 @@ class FormJourneyViewController: UIViewController, FormJourneyDisplayLogic, Jour
         initHeader()
         
         hideKeyboardWhenTappedAround()
-//
-//        let modeTransportView = ModeTransportView.instanceFromNib()
-//        modeTransportView.frame.size = CGSize(width: stackScrollView.frame.size.width, height: 100)
-//        stackScrollView.addSubview(modeTransportView, margin: UIEdgeInsets(top: 10, left: 10, bottom: 17, right: 10), safeArea: false)
+
+        
+        let modeTransportHeight = ModeTransportView.getViewHeight(by: self.view.frame.width)
+        let modeTransportView = ModeTransportView(frame: CGRect(x: 0, y: 0,
+                                                            width: self.view.frame.width, height: modeTransportHeight))
+        modeTransportView.isColorInverted = true
+        stackScrollView.addSubview(modeTransportView, margin: UIEdgeInsets(top: 10, left: 10, bottom: 17, right: 10), safeArea: false)
+        modeTransportView.transportModeLabel?.textColor = NavitiaSDKUI.shared.mainColor
+//        stackScrollView.addSubview(modeTransportView)
 
         dateFormView = DateFormView.instanceFromNib()
         dateFormView.frame.size = CGSize(width: stackScrollView.frame.size.width, height: 93)
@@ -66,6 +71,8 @@ class FormJourneyViewController: UIViewController, FormJourneyDisplayLogic, Jour
     
     override open func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
+        
+        stackScrollView.reloadStack()
     }
     
     private func initArchitecture() {

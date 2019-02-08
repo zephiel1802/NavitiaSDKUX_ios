@@ -16,6 +16,14 @@ extension NSMutableAttributedString {
         append(normal)
         return self
     }
+
+    @discardableResult func medium(_ text: String, color: UIColor = UIColor.black, size: CGFloat = 12.0) -> NSMutableAttributedString {
+        let normal = NSMutableAttributedString(string:text,
+                                               attributes: [.font : UIFont.systemFont(ofSize: size, weight: .medium),
+                                                            .foregroundColor: color])
+        append(normal)
+        return self
+    }
     
     @discardableResult func semiBold(_ text: String, color: UIColor = UIColor.black, size: CGFloat = 12.0) -> NSMutableAttributedString {
         let normal = NSMutableAttributedString(string:text,

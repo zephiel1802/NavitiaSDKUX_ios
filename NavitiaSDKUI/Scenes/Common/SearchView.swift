@@ -17,8 +17,8 @@ import UIKit
 }
 
 class SearchView: UIView {
-
-    @IBOutlet weak var background: UIView!
+    
+    @IBOutlet weak var background : UIView!
     @IBOutlet weak var fromView: UIView!
     @IBOutlet weak var fromTextField: UITextField!
     @IBOutlet weak var originPinImageView: UIImageView!
@@ -35,9 +35,12 @@ class SearchView: UIView {
     @IBOutlet weak var backgroundTopConstraint: NSLayoutConstraint!
     @IBOutlet weak var separatorTopContraint: NSLayoutConstraint!
     
+    internal var modeTransportView: ModeTransportView? = nil
     
     internal weak var delegate: SearchViewDelegate?
     internal var lockSwitch = false
+    internal var isPreferencesShown = false
+    
     internal var origin: String? {
         didSet {
             guard let origin = origin else {
@@ -63,15 +66,14 @@ class SearchView: UIView {
             guard let dateTime = dateTime else {
                 return
             }
-            
-            dateTimeLabel.attributedText = NSMutableAttributedString().bold(dateTime, color: Configuration.Color.white, size: 12)
+    
+            dateTimeLabel.attributedText = NSMutableAttributedString().medium(dateTime, color: Configuration.Color.white, size: 12)
         }
     }
     internal var dateTimeIsHidden: Bool = false {
         didSet {
             dateTimeLabel.isHidden = dateTimeIsHidden
             dateTimeTopConstraint.isActive = !dateTimeIsHidden
-            dateTimeBottomConstraint.isActive = !dateTimeIsHidden
         }
     }
     
@@ -149,6 +151,25 @@ class SearchView: UIView {
         if !lockSwitch {
             delegate?.switchDepartureArrivalCoordinates()
         }
+    }
+    
+    @IBAction func togglePreferences(_ sender: Any) {
+        if isPreferencesShown {
+            dateTimeBottomConstraint.constant = 10
+            modeTransportView?.removeFromSuperview()
+            modeTransportView = nil
+        } else {
+            let modeTransportHeight = ModeTransportView.getViewHeight(by: self.frame.width - 20)
+            modeTransportView = ModeTransportView(frame: CGRect(x: 10, y: dateTimeLabel.frame.origin.y + dateTimeLabel.frame.height + 10,
+                                                                width: self.frame.width - 20, height: modeTransportHeight))
+            UIView.animate(withDuration: 0.5) {
+                self.dateTimeBottomConstraint.constant = modeTransportHeight + 20
+            }
+            self.addSubview(modeTransportView!)
+            
+            
+        }
+        isPreferencesShown = !isPreferencesShown
     }
     
     private func switchDepartureArrivalAnimate(_ sender: UIButton) {

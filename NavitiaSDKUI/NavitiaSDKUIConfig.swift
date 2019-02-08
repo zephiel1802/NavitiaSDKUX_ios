@@ -60,6 +60,15 @@ public protocol JourneyRootViewController {
         }
     }
     
+    @objc public var __nbOfTransportMode : Int {
+        get {
+            return Configuration.nbOfTransportMode
+        }
+        set {
+            Configuration.nbOfTransportMode = newValue
+        }
+    }
+    
     @objc public var multiNetwork: Bool {
         get {
             return Configuration.multiNetwork
@@ -94,6 +103,7 @@ public protocol JourneyRootViewController {
 enum Configuration {
     
     static let fontIconsName = "SDKIcons"
+    static var nbOfTransportMode = 10
     
     // Format
     static let date = "yyyyMMdd'T'HHmmss"

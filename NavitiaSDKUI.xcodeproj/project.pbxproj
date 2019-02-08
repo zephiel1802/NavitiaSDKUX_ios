@@ -289,14 +289,12 @@
 		84C82F5422083FC500FE3F1D /* PlacesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C82F4A22083FC400FE3F1D /* PlacesTableViewCell.swift */; };
 		84C82F5522083FC500FE3F1D /* ListPlacesRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C82F4B22083FC400FE3F1D /* ListPlacesRouter.swift */; };
 		84C82F5622083FC500FE3F1D /* ListPlacesPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C82F4C22083FC400FE3F1D /* ListPlacesPresenter.swift */; };
-		84C82F5722083FC500FE3F1D /* ListPlacesWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C82F4D22083FC400FE3F1D /* ListPlacesWorker.swift */; };
 		84C82F5822083FC500FE3F1D /* ListPlacesInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C82F4E22083FC400FE3F1D /* ListPlacesInteractor.swift */; };
 		84C82F5922083FC500FE3F1D /* ListPlacesModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C82F4F22083FC400FE3F1D /* ListPlacesModels.swift */; };
 		84C82F6922083FD000FE3F1D /* ModeTransportView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84C82F5C22083FD000FE3F1D /* ModeTransportView.xib */; };
 		84C82F6A22083FD000FE3F1D /* SearchButtonView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84C82F5D22083FD000FE3F1D /* SearchButtonView.xib */; };
 		84C82F6B22083FD000FE3F1D /* DateFormView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84C82F5E22083FD000FE3F1D /* DateFormView.xib */; };
 		84C82F6C22083FD000FE3F1D /* FormJourneyInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C82F5F22083FD000FE3F1D /* FormJourneyInteractor.swift */; };
-		84C82F6D22083FD000FE3F1D /* FormJourneyWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C82F6022083FD000FE3F1D /* FormJourneyWorker.swift */; };
 		84C82F6E22083FD000FE3F1D /* FormJourneyRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C82F6122083FD000FE3F1D /* FormJourneyRouter.swift */; };
 		84C82F6F22083FD000FE3F1D /* FormJourneyModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C82F6222083FD000FE3F1D /* FormJourneyModels.swift */; };
 		84C82F7022083FD000FE3F1D /* FormJourneyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C82F6322083FD000FE3F1D /* FormJourneyViewController.swift */; };
@@ -320,6 +318,7 @@
 		84FABE122074C7FC00BDDE9D /* Icons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84FABE112074C7FC00BDDE9D /* Icons.swift */; };
 		84FABE142074CB2300BDDE9D /* UIFont+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84FABE132074CB2300BDDE9D /* UIFont+Extension.swift */; };
 		84FABE162074F76600BDDE9D /* JourneySolutionLoadCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84FABE152074F76600BDDE9D /* JourneySolutionLoadCollectionViewCell.xib */; };
+		F65672FA2209EAB9007A8E6E /* Debouncer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F65672F92209EAB9007A8E6E /* Debouncer.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -622,14 +621,12 @@
 		84C82F4A22083FC400FE3F1D /* PlacesTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlacesTableViewCell.swift; sourceTree = "<group>"; };
 		84C82F4B22083FC400FE3F1D /* ListPlacesRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListPlacesRouter.swift; sourceTree = "<group>"; };
 		84C82F4C22083FC400FE3F1D /* ListPlacesPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListPlacesPresenter.swift; sourceTree = "<group>"; };
-		84C82F4D22083FC400FE3F1D /* ListPlacesWorker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListPlacesWorker.swift; sourceTree = "<group>"; };
 		84C82F4E22083FC400FE3F1D /* ListPlacesInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListPlacesInteractor.swift; sourceTree = "<group>"; };
 		84C82F4F22083FC400FE3F1D /* ListPlacesModels.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListPlacesModels.swift; sourceTree = "<group>"; };
 		84C82F5C22083FD000FE3F1D /* ModeTransportView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ModeTransportView.xib; sourceTree = "<group>"; };
 		84C82F5D22083FD000FE3F1D /* SearchButtonView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SearchButtonView.xib; sourceTree = "<group>"; };
 		84C82F5E22083FD000FE3F1D /* DateFormView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DateFormView.xib; sourceTree = "<group>"; };
 		84C82F5F22083FD000FE3F1D /* FormJourneyInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FormJourneyInteractor.swift; sourceTree = "<group>"; };
-		84C82F6022083FD000FE3F1D /* FormJourneyWorker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FormJourneyWorker.swift; sourceTree = "<group>"; };
 		84C82F6122083FD000FE3F1D /* FormJourneyRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FormJourneyRouter.swift; sourceTree = "<group>"; };
 		84C82F6222083FD000FE3F1D /* FormJourneyModels.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FormJourneyModels.swift; sourceTree = "<group>"; };
 		84C82F6322083FD000FE3F1D /* FormJourneyViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FormJourneyViewController.swift; sourceTree = "<group>"; };
@@ -653,6 +650,7 @@
 		84FABE112074C7FC00BDDE9D /* Icons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Icons.swift; sourceTree = "<group>"; };
 		84FABE132074CB2300BDDE9D /* UIFont+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+Extension.swift"; sourceTree = "<group>"; };
 		84FABE152074F76600BDDE9D /* JourneySolutionLoadCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = JourneySolutionLoadCollectionViewCell.xib; sourceTree = "<group>"; };
+		F65672F92209EAB9007A8E6E /* Debouncer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Debouncer.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -906,6 +904,7 @@
 			isa = PBXGroup;
 			children = (
 				8454D2922068D3A700C97D2F /* NavitiaSDK */,
+				F65672F92209EAB9007A8E6E /* Debouncer.swift */,
 				8471D3862080A0DC000C9125 /* Checkbox.swift */,
 				84737E9A2087731A002D3748 /* FloatRatingView.swift */,
 			);
@@ -1298,7 +1297,6 @@
 				84C82F4822083FC400FE3F1D /* View */,
 				84C82F4B22083FC400FE3F1D /* ListPlacesRouter.swift */,
 				84C82F4C22083FC400FE3F1D /* ListPlacesPresenter.swift */,
-				84C82F4D22083FC400FE3F1D /* ListPlacesWorker.swift */,
 				84C82F4E22083FC400FE3F1D /* ListPlacesInteractor.swift */,
 				84C82F4F22083FC400FE3F1D /* ListPlacesModels.swift */,
 			);
@@ -1328,7 +1326,6 @@
 			children = (
 				84C82F5B22083FD000FE3F1D /* Interface */,
 				84C82F5F22083FD000FE3F1D /* FormJourneyInteractor.swift */,
-				84C82F6022083FD000FE3F1D /* FormJourneyWorker.swift */,
 				84C82F6122083FD000FE3F1D /* FormJourneyRouter.swift */,
 				84C82F6222083FD000FE3F1D /* FormJourneyModels.swift */,
 				84C82F6322083FD000FE3F1D /* FormJourneyViewController.swift */,
@@ -1567,7 +1564,6 @@
 				841A1059215A29B800F46143 /* JourneyPatternPoint.swift in Sources */,
 				841A10BC215A29B800F46143 /* Coord.swift in Sources */,
 				841A1084215A29B800F46143 /* TrafficReports.swift in Sources */,
-				84C82F6D22083FD000FE3F1D /* FormJourneyWorker.swift in Sources */,
 				841A1046215A29B800F46143 /* APIHelper.swift in Sources */,
 				84C82F5622083FC500FE3F1D /* ListPlacesPresenter.swift in Sources */,
 				84C82F5022083FC500FE3F1D /* ListPlacesViewController.swift in Sources */,
@@ -1716,6 +1712,7 @@
 				841A1053215A29B800F46143 /* VJDisplayInformation.swift in Sources */,
 				84C82F7222083FD000FE3F1D /* ModeTransportView.swift in Sources */,
 				841A10C0215A29B800F46143 /* Route.swift in Sources */,
+				F65672FA2209EAB9007A8E6E /* Debouncer.swift in Sources */,
 				8454D41A2068D3A800C97D2F /* Result.swift in Sources */,
 				841A1040215A29B800F46143 /* JourneysApi.swift in Sources */,
 				8454D4402068D3A800C97D2F /* TransformOf.swift in Sources */,
@@ -1750,7 +1747,6 @@
 				8433F39A207F47F0007DBBCE /* DepartureArrivalStepView.swift in Sources */,
 				841A10AF215A29B800F46143 /* Row.swift in Sources */,
 				841A10BB215A29B800F46143 /* LineGroups.swift in Sources */,
-				84C82F5722083FC500FE3F1D /* ListPlacesWorker.swift in Sources */,
 				841A10B5215A29B800F46143 /* PhysicalModes.swift in Sources */,
 				841A10C8215A29B800F46143 /* Calendars.swift in Sources */,
 				841EFD9321359F56004A313B /* ListJourneysPresenter.swift in Sources */,
