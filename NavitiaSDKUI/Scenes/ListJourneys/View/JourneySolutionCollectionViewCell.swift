@@ -13,7 +13,7 @@ class JourneySolutionCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var dateTimeLabel: UILabel!
     @IBOutlet weak var durationLabel: UILabel!
     @IBOutlet var durationWalkerLabel: UILabel!
-    @IBOutlet weak var journeySummaryView: JourneySummaryView!
+    @IBOutlet weak var friezeView: FriezeView!
     @IBOutlet weak var arrowLabel: UILabel!
     @IBOutlet var durationTopContraint: NSLayoutConstraint!
     @IBOutlet var durationBottomContraint: NSLayoutConstraint!
@@ -28,22 +28,40 @@ class JourneySolutionCollectionViewCell: UICollectionViewCell {
         }
     }
     
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        
-        addShadow()
+    static var identifier: String {
+        return String(describing: self)
     }
     
     static var nib:UINib {
         return UINib(nibName: identifier, bundle: nil)
     }
     
-    static var identifier: String {
-        return String(describing: self)
+    // MARK: - Initialization
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        
+        setup()
     }
     
-    internal func setup(displayedJourney: ListJourneys.FetchJourneys.ViewModel.DisplayedJourney,
-                        displayedDisruptions: [Disruption]) {
+    // MARK: - Function
+    
+    private func setup() {
+        addShadow()
+    }
+    
+    private func setArrow() {
+        arrowLabel.attributedText = NSMutableAttributedString()
+            .icon("arrow-right",
+                  color: Configuration.Color.main,
+                  size: 15)
+    }
+    
+    private func setJourneySummaryView(displayedJourney: ListJourneys.FetchJourneys.ViewModel.DisplayedJourney) {
+        friezeView.addSection(friezeSections: displayedJourney.friezeSections)
+    }
+    
+    internal func setup(displayedJourney: ListJourneys.FetchJourneys.ViewModel.DisplayedJourney) {
         setArrow()
         
         dateTime = displayedJourney.dateTime
@@ -57,24 +75,11 @@ class JourneySolutionCollectionViewCell: UICollectionViewCell {
             walkingInformationIsHidden = true
         }
         
-        setJourneySummaryView(displayedJourney: displayedJourney, displayedDisruptions: displayedDisruptions)
+        setJourneySummaryView(displayedJourney: displayedJourney)
         accessiblityView.accessibilityLabel = displayedJourney.accessibility
     }
     
-    private func setArrow() {
-        arrowLabel.attributedText = NSMutableAttributedString()
-            .icon("arrow-right",
-                  color: Configuration.Color.main,
-                  size: 15)
-    }
-    
-    private func setJourneySummaryView(displayedJourney: ListJourneys.FetchJourneys.ViewModel.DisplayedJourney,
-                                       displayedDisruptions: [Disruption]) {
-        journeySummaryView.disruptions = displayedDisruptions
-        journeySummaryView.addSections(displayedJourney.sections)
-    }
-    
-    public var dateTime: String? {
+    internal var dateTime: String? {
         didSet {
             guard let dateTime = dateTime else {
                 return

@@ -9,17 +9,25 @@ import UIKit
 
 class JourneySolutionLoadCollectionViewCell: UICollectionViewCell {
     
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        
-        addShadow()
+    static var identifier: String {
+        return String(describing: self)
     }
     
     static var nib:UINib {
         return UINib(nibName: identifier, bundle: nil)
     }
     
-    static var identifier: String {
-        return String(describing: self)
+    // MARK: - Initialization
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        
+        setup()
+    }
+    
+    // MARK: - Function
+    
+    private func setup() {
+        addShadow()
     }
 }

@@ -24,11 +24,10 @@ class ListJourneysPresenter: ListJourneysPresentationLogic {
         
         let viewModel = ListJourneys.FetchJourneys.ViewModel(loaded: false,
                                                              headerInformations: headerInformations,
-                                                             accessibilityHeader: "journey_research_in_progress".localized(bundle: NavitiaSDKUI.shared.bundle),
+                                                             accessibilityHeader: "journey_research_in_progress".localized(),
                                                              accessibilitySwitchButton: nil,
                                                              displayedJourneys: [],
-                                                             displayedRidesharings: [],
-                                                             disruptions: [])
+                                                             displayedRidesharings: [])
         
         viewController?.displayFetchedJourneys(viewModel: viewModel)
     }
@@ -64,8 +63,7 @@ class ListJourneysPresenter: ListJourneysPresentationLogic {
                                                              accessibilityHeader: getHeaderAccessibility(origin: headerInformations.originString, destination: headerInformations.destinationString, dateTime: headerInformations.dateTimeDate),
                                                              accessibilitySwitchButton: getAccessibilitySwitchButton(),
                                                              displayedJourneys: displayedJourneys,
-                                                             displayedRidesharings: displayedRidesharings,
-                                                             disruptions: response.disruptions ?? [])
+                                                             displayedRidesharings: displayedRidesharings)
         
         viewController?.displayFetchedJourneys(viewModel: viewModel)
     }
@@ -78,7 +76,7 @@ class ListJourneysPresenter: ListJourneysPresentationLogic {
                 return nil
         }
         
-        let dateTime = getDisplayedHeaderInformationsDateTime(departureDateTime: journeysRequest.datetime)
+        let dateTime = getDisplayedHeaderInformationsDateTime(dateTime: journeysRequest.datetime, datetimeRepresents: journeysRequest.datetimeRepresents)
         let headerInformations = ListJourneys.FetchJourneys.ViewModel.HeaderInformations(dateTime: dateTime,
                                                                                          dateTimeDate: journeysRequest.datetime,
                                                                                          origin: origin,
@@ -100,7 +98,8 @@ class ListJourneysPresenter: ListJourneysPresentationLogic {
                 let destination = getDisplayedHeaderInformationsDestination(destination: journeysRequest.destinationLabel ?? journey.sections?.last?.to?.name) else {
                     return nil
             }
-            let dateTime = getDisplayedHeaderInformationsDateTime(departureDateTime: journeysRequest.datetime ?? journey.departureDateTime?.toDate(format: Configuration.date))
+            let dateTime = getDisplayedHeaderInformationsDateTime(dateTime: journeysRequest.datetime ?? journey.departureDateTime?.toDate(format: Configuration.date),
+                                                                  datetimeRepresents: journeysRequest.datetimeRepresents)
             let headerInformations = ListJourneys.FetchJourneys.ViewModel.HeaderInformations(dateTime: dateTime,
                                                                                              dateTimeDate: journeysRequest.datetime ?? journey.departureDateTime?.toDate(format: Configuration.date),
                                                                                              origin: origin,
@@ -117,14 +116,14 @@ class ListJourneysPresenter: ListJourneysPresentationLogic {
     }
     
     private func getHeaderAccessibility(origin: String, destination: String, dateTime: Date?) -> String? {
-        var accessibilityLabel = String(format: "reminder_of_the_research".localized(bundle: NavitiaSDKUI.shared.bundle), origin, destination)
+        var accessibilityLabel = String(format: "reminder_of_the_research".localized(), origin, destination)
          
         if let dateTime = dateTime {
             let day = DateFormatter.localizedString(from: dateTime, dateStyle: .medium, timeStyle: .none)
             let hourComponents = Foundation.Calendar.current.dateComponents([.hour, .minute], from: dateTime)
             
             if let hours = DateComponentsFormatter.localizedString(from: hourComponents, unitsStyle: .spellOut) {
-                accessibilityLabel.append(String(format: "departure_on_at".localized(bundle: NavitiaSDKUI.shared.bundle), day, hours))
+                accessibilityLabel.append(String(format: "departure_on_at".localized(), day, hours))
             }
         }
         
@@ -132,16 +131,24 @@ class ListJourneysPresenter: ListJourneysPresentationLogic {
     }
     
     private func getAccessibilitySwitchButton() -> String? {
-        return "reverse_departure_and_arrival".localized(bundle: NavitiaSDKUI.shared.bundle)
+        return "reverse_departure_and_arrival".localized()
     }
     
-    private func getDisplayedHeaderInformationsDateTime(departureDateTime: Date?) -> NSMutableAttributedString {
-        guard let departureDateTime = departureDateTime?.toString(format: Configuration.timeJourneySolution) else {
+    private func getDisplayedHeaderInformationsDateTime(dateTime: Date?, datetimeRepresents: JourneysRequestBuilder.DatetimeRepresents?) -> NSMutableAttributedString {
+        guard let departureDateTime = dateTime?.toString(format: Configuration.timeJourneySolution) else {
             return NSMutableAttributedString()
         }
         
-        return NSMutableAttributedString().bold(String(format: "%@ : %@",
-                                                       "departure".localized(withComment: "Departure : ", bundle: NavitiaSDKUI.shared.bundle),
+        if datetimeRepresents == .arrival {
+            return NSMutableAttributedString().bold(String(format: "%@ %@",
+                                                           "arrival_with_colon".localized(),
+                                                           departureDateTime),
+                                                    color: Configuration.Color.white,
+                                                    size: 12)
+        }
+        
+        return NSMutableAttributedString().bold(String(format: "%@ %@",
+                                                       "departure_with_colon".localized(),
                                                        departureDateTime),
                                                 color: Configuration.Color.white,
                                                 size: 12)
@@ -176,13 +183,14 @@ class ListJourneysPresenter: ListJourneysPresentationLogic {
                 return nil
         }
         
+        let friezeSections = FriezePresenter().getDisplayedJourneySections(journey: journey, disruptions: disruptions)
         let accessibility = getJourneyAccessibility(duration: duration.string, sections: journey.sections, disruptions: disruptions)
         
         if journey.isRidesharing {
             return ListJourneys.FetchJourneys.ViewModel.DisplayedJourney(dateTime: dateTime,
                                                                             duration: duration,
                                                                             walkingInformation: nil,
-                                                                            sections: journey.sections ?? [],
+                                                                            friezeSections: friezeSections,
                                                                             accessibility: accessibility)
         }
         
@@ -191,7 +199,7 @@ class ListJourneysPresenter: ListJourneysPresentationLogic {
         return ListJourneys.FetchJourneys.ViewModel.DisplayedJourney(dateTime: dateTime,
                                                                         duration: duration,
                                                                         walkingInformation: walkingInformation,
-                                                                        sections: journey.sections ?? [],
+                                                                        friezeSections: friezeSections,
                                                                         accessibility: accessibility)
     }
     
@@ -212,7 +220,7 @@ class ListJourneysPresenter: ListJourneysPresentationLogic {
         let durationAttributedString = NSMutableAttributedString()
         
         if journey.isRidesharing {
-            durationAttributedString.append(NSMutableAttributedString().semiBold(String(format: "%@ ", "about".localized(bundle: NavitiaSDKUI.shared.bundle)),
+            durationAttributedString.append(NSMutableAttributedString().semiBold(String(format: "%@ ", "about".localized()),
                                                                                  color: Configuration.Color.main,
                                                                                  size: 12.5))
         }
@@ -227,9 +235,9 @@ class ListJourneysPresenter: ListJourneysPresentationLogic {
         }
         
         return NSMutableAttributedString()
-            .normal(String(format: "%@ ", "with".localized(withComment: "with", bundle: NavitiaSDKUI.shared.bundle)), color: Configuration.Color.gray)
+            .normal(String(format: "%@ ", "with".localized()), color: Configuration.Color.gray)
             .bold(duration.toStringTime(), color: Configuration.Color.gray)
-            .normal(String(format: " %@", "walking".localized(withComment: "walking", bundle: NavitiaSDKUI.shared.bundle)), color: Configuration.Color.gray)
+            .normal(String(format: " %@", "walking".localized()), color: Configuration.Color.gray)
     }
     
     private func getDisplayedJourneyWalkingDuration(journey: Journey) -> Int32? {
@@ -250,10 +258,10 @@ class ListJourneysPresenter: ListJourneysPresentationLogic {
         }
         
         if walkingDistance > 999 {
-            return String(format: "%@ %@", walkingDistance.toString(format: "%.01f"), "units_km".localized(withComment: "units_km", bundle: NavitiaSDKUI.shared.bundle))
+            return String(format: "%@ %@", walkingDistance.toString(format: "%.01f"), "units_km".localized())
         }
         
-        return String(format: "%@ %@", walkingDistance.toString(), "units_meters".localized(withComment: "meters", bundle: NavitiaSDKUI.shared.bundle))
+        return String(format: "%@ %@", walkingDistance.toString(), "units_meters".localized())
     }
     
     private func getJourneyAccessibility(duration: String, sections: [Section]?, disruptions: [Disruption]?) -> String? {
@@ -266,7 +274,7 @@ class ListJourneysPresenter: ListJourneysPresentationLogic {
         
         for (index, accessibilitySection) in accessibilitySections.enumerated() {
             if accessibilitySections.count == index + 1 && accessibilitySections.count > 1 {
-                modes.append(String(format: " %@.", "and".localized(bundle: NavitiaSDKUI.shared.bundle)))
+                modes.append(String(format: " %@.", "and".localized()))
             }
             modes.append(accessibilitySection)
         }
@@ -284,20 +292,20 @@ class ListJourneysPresenter: ListJourneysPresentationLogic {
                 accessibilityString.append(String(format: " %@ ", commercialMode))
                 if let code = section.displayInformations?.code {
                     if section.type == .onDemandTransport {
-                        accessibilityString.append(String(format: "dial_a_ride".localized(bundle: NavitiaSDKUI.shared.bundle), code))
+                        accessibilityString.append(String(format: "dial_a_ride".localized(), code))
                     } else {
                         accessibilityString.append(String(format: " %@ ", code))
                     }
                 }
             } else if let mode = section.mode, mode != .walking || sections.count == 1 {
                 let mode = Modes().getMode(section: section)
-                accessibilityString.append(String(format: " %@", "\(mode)_noun".localized(bundle: NavitiaSDKUI.shared.bundle)))
+                accessibilityString.append(String(format: " %@", "\(mode)_noun".localized()))
             } else {
                 continue
             }
             
             if getDisruption(section: section, disruptionsCount: disruptions?.count) {
-                accessibilityString.append(String(format: " %@", "disrupted".localized(bundle: NavitiaSDKUI.shared.bundle)))
+                accessibilityString.append(String(format: " %@", "disrupted".localized()))
             }
             
             accessibilitySections.append(String(format: "%@.", accessibilityString))

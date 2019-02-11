@@ -21,5 +21,4 @@ open class NavitiaSDKUserDefaultsManager {
         UserDefaults.standard.set(value, forKey: key)
         UserDefaults.standard.synchronize()
     }
-
 }

@@ -14,7 +14,8 @@ protocol ListRidesharingOffersDisplayLogic: class {
 
 internal class ListRidesharingOffersViewController: UIViewController, ListRidesharingOffersDisplayLogic {
     
-    @IBOutlet weak var journeySummaryView: JourneySolutionView!
+    @IBOutlet weak var journeySolutionView: JourneySolutionView!
+    @IBOutlet var heightJourneySolutionViewContraint: NSLayoutConstraint!
     @IBOutlet weak var ridesharingOffersCollectionView: UICollectionView!
     
     static var identifier: String {
@@ -36,7 +37,7 @@ internal class ListRidesharingOffersViewController: UIViewController, ListRidesh
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        title = "carpooling".localized(withComment: "Carpooling", bundle: NavitiaSDKUI.shared.bundle)
+        title = "carpooling".localized()
         
         registerCollectionView()
         
@@ -70,14 +71,23 @@ internal class ListRidesharingOffersViewController: UIViewController, ListRidesh
     
     func displayRidesharingOffers(viewModel: ListRidesharingOffers.GetRidesharingOffers.ViewModel) {
         self.viewModel = viewModel
-        self.journeySummaryView.setRidesharingData(duration: viewModel.journeySummary.duration, sections: viewModel.journeySummary.sections)
-        self.ridesharingOffersCollectionView.reloadData()
+        
+        journeySolutionView.delegate = self
+        journeySolutionView.setRidesharingData(duration: viewModel.frieze.duration, friezeSection: viewModel.frieze.friezeSections)
+        ridesharingOffersCollectionView.reloadData()
     }
     
     private func getRidesharingOffers() {
         let ridesharingOffersRequest = ListRidesharingOffers.GetRidesharingOffers.Request()
         
         interactor?.getRidesharingOffers(request: ridesharingOffersRequest)
+    }
+}
+
+extension ListRidesharingOffersViewController: JourneySolutionViewDelegate {
+    
+    func updateHeight(height: CGFloat) {
+        heightJourneySolutionViewContraint.constant = height
     }
 }
 

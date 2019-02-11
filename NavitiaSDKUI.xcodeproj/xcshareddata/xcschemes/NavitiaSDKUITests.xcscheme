@@ -8,8 +8,8 @@
    </BuildAction>
    <TestAction
       buildConfiguration = "Debug"
-      selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
-      selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
+      selectedDebuggerIdentifier = ""
+      selectedLauncherIdentifier = "Xcode.IDEFoundation.Launcher.PosixSpawn"
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
          <TestableReference
@@ -21,6 +21,35 @@
                BlueprintName = "NavitiaSDKUITests"
                ReferencedContainer = "container:NavitiaSDKUI.xcodeproj">
             </BuildableReference>
+            <SkippedTests>
+               <Test
+                  Identifier = "IconsTests">
+               </Test>
+               <Test
+                  Identifier = "ListJourneysViewControllerTests">
+               </Test>
+               <Test
+                  Identifier = "ListRidesharingOffersViewControllerTests">
+               </Test>
+               <Test
+                  Identifier = "NavitiaWorkersTests">
+               </Test>
+               <Test
+                  Identifier = "ShowJourneyRoadmapPresenterTests/testDisruption()">
+               </Test>
+               <Test
+                  Identifier = "ShowJourneyRoadmapPresenterTests/testNotes()">
+               </Test>
+               <Test
+                  Identifier = "ShowJourneyRoadmapPresenterTests/testRidesharing()">
+               </Test>
+               <Test
+                  Identifier = "ShowJourneyRoadmapPresenterTests/testRidesharingStepView()">
+               </Test>
+               <Test
+                  Identifier = "ShowJourneyRoadmapViewControllerTests">
+               </Test>
+            </SkippedTests>
          </TestableReference>
       </Testables>
       <AdditionalOptions>

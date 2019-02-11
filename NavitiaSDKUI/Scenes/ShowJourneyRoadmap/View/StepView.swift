@@ -20,69 +20,16 @@ class StepView: UIView {
     @IBOutlet weak var detailsButton: UIButton!
     @IBOutlet weak var detailsLabel: UILabel!
     @IBOutlet weak var detailsArrowLabel: UILabel!
+    @IBOutlet weak var bssStationStateView: UIView!
+    @IBOutlet weak var bssStationStateIconLabel: UILabel!
+    @IBOutlet weak var bssStationStateLabel: UILabel!
     @IBOutlet var detailsView: UIView!
     @IBOutlet weak var directionsContainer: UIView!
     @IBOutlet weak var directionsContainerHeightConstraint: NSLayoutConstraint!
     
-    var directionsStackView: UIStackView!
-
-    static var identifier: String {
-        return String(describing: self)
-    }
+    private var directionsStackView: UIStackView!
     
-    class func instanceFromNib() -> StepView {
-        return UINib(nibName: identifier, bundle: NavitiaSDKUI.shared.bundle).instantiate(withOwner: nil, options: nil)[0] as! StepView
-    }
-    
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        
-        initRealTime()
-        initDetails()
-        initDirection()
-    }
-    
-    override func layoutSubviews() {
-        super.layoutSubviews()
-
-        frame.size.height = stackView.frame.origin.y + stackView.frame.size.height
-        if let superview = superview as? StackScrollView {
-            superview.reloadStack()
-        }
-    }
-    
-    private func initRealTime() {
-        realTimeView.isHidden = true
-        realTimeIconLabel.isHidden = true
-        realTimeImage.image = UIImage(named: "real_time", in: NavitiaSDKUI.shared.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
-        realTimeImage.tintColor = Configuration.Color.main
-    }
-    
-    private func initDetails() {
-        detailsView.isHidden = true
-        detailsLabel.text = "details".localized(bundle: NavitiaSDKUI.shared.bundle)
-        detailsButton.accessibilityLabel = "details".localized(bundle: NavitiaSDKUI.shared.bundle)
-        detailsArrowLabel.attributedText = NSMutableAttributedString().icon("arrow-details-down", color: Configuration.Color.gray, size: 13)
-    }
-    
-    private func initDirection() {
-        directionsHidden = true
-    }
-    
-    private func updateAccessibility() {
-        guard let informations = informationsAttributedString?.string,
-            let type = iconInformations else {
-            return
-        }
-        
-        if type == "ridesharing" || type == "crow_fly" {
-            informationsContainerView.accessibilityLabel = String(format: "%@.", informations)
-        } else {
-            informationsContainerView.accessibilityLabel = String(format: "%@ %@.", "\(type)_noun".localized(bundle: NavitiaSDKUI.shared.bundle), informations)
-        }
-    }
-    
-    var enableBackground: Bool = false {
+    internal var enableBackground: Bool = false {
         didSet {
             if enableBackground {
                 backgroundColor = Configuration.Color.white
@@ -96,7 +43,7 @@ class StepView: UIView {
         }
     }
     
-    var iconInformations: String? {
+    internal var iconInformations: String? {
         didSet {
             guard let iconInformations = iconInformations else {
                 return
@@ -108,7 +55,7 @@ class StepView: UIView {
         }
     }
     
-    var informationsAttributedString: NSAttributedString? {
+    internal var informationsAttributedString: NSAttributedString? {
         didSet {
             informationsLabel.attributedText = informationsAttributedString
             informationsLabel.sizeToFit()
@@ -117,29 +64,38 @@ class StepView: UIView {
         }
     }
     
-    var realTimeIcon: String? {
+    internal var stands: ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionModel.Stands? {
         didSet {
-            guard let realTimeIcon = realTimeIcon else {
+            guard let stands = stands else {
                 return
             }
             
-            realTimeIconLabel.isHidden = false
-            realTimeIconLabel.attributedText = NSMutableAttributedString().icon(realTimeIcon, size: 17)
-        }
-    }
-    
-    var realTimeValue: String? {
-        didSet {
-            guard let realTimeValue = realTimeValue else {
-                return
+            if let bssStationStatus = stands.status {
+                if !realTimeView.isHidden {
+                    realTimeView.isHidden = true
+                }
+                
+                bssStationStateView.isHidden = false
+                bssStationStateLabel.attributedText = NSMutableAttributedString().bold(bssStationStatus, color: Configuration.Color.main, size: 13)
+            } else if let realTimeValue = stands.availability {
+                if !bssStationStateView.isHidden {
+                    bssStationStateView.isHidden = true
+                }
+                
+                realTimeView.isHidden = false
+                realTimeLabel.attributedText = NSMutableAttributedString().semiBold(realTimeValue, color: Configuration.Color.main, size: 13)
+                
+                if let realTimeIcon = stands.icon {
+                    realTimeIconLabel.isHidden = false
+                    realTimeIconLabel.attributedText = NSMutableAttributedString().icon(realTimeIcon, size: 17)
+                }
             }
             
-            realTimeView.isHidden = false
-            realTimeLabel.attributedText = NSMutableAttributedString().semiBold(realTimeValue, color: Configuration.Color.main, size: 13)
+            updateAccessibility()
         }
     }
     
-    var realTimeAnimation: Bool = false {
+    internal var realTimeAnimation: Bool = false {
         didSet {
             guard let _ = realTimeImage else {
                 return
@@ -157,13 +113,13 @@ class StepView: UIView {
         }
     }
     
-    var availablePath: String? {
+    internal var availablePath: String? {
         didSet {
             detailsView.isHidden = false
         }
     }
     
-    var paths: [ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionModel.Path]? {
+    internal var paths: [ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionModel.Path]? {
         didSet {
             guard let paths = paths, paths.count > 0 else {
                 return
@@ -175,6 +131,98 @@ class StepView: UIView {
             
             detailsView.isHidden = false
             updateDirectionsStack()
+        }
+    }
+    
+    internal var directionsHidden: Bool = true {
+        didSet {
+            if directionsHidden {
+                directionsContainer.isHidden = true
+                detailsArrowLabel.attributedText = NSMutableAttributedString().icon("arrow-details-down", color: Configuration.Color.gray, size: 13)
+                
+                frame.size.height -= directionsContainer.frame.size.height
+            } else {
+                directionsContainer.isHidden = false
+                detailsArrowLabel.attributedText = NSMutableAttributedString().icon("arrow-details-up", color: Configuration.Color.gray, size: 13)
+                
+                frame.size.height += directionsContainer.frame.size.height
+            }
+        }
+    }
+    
+    // MARK: - UINib
+    
+    static var identifier: String {
+        return String(describing: self)
+    }
+    
+    class func instanceFromNib() -> StepView {
+        return UINib(nibName: identifier, bundle: NavitiaSDKUI.shared.bundle).instantiate(withOwner: nil, options: nil)[0] as! StepView
+    }
+    
+    // MARK: - Initialization
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        
+        setup()
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+
+        frame.size.height = stackView.frame.origin.y + stackView.frame.size.height
+        if let superview = superview as? StackScrollView {
+            superview.reloadStack()
+        }
+    }
+    
+    // MARK: - Function
+    
+    private func setup() {
+        initBssState()
+        initRealTime()
+        initDetails()
+        initDirection()
+    }
+    
+    private func initRealTime() {
+        realTimeView.isHidden = true
+        realTimeIconLabel.isHidden = true
+        realTimeImage.image = UIImage(named: "real_time", in: NavitiaSDKUI.shared.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
+        realTimeImage.tintColor = Configuration.Color.main
+    }
+    
+    private func initDetails() {
+        detailsView.isHidden = true
+        detailsLabel.text = "details".localized()
+        detailsButton.accessibilityLabel = "details".localized()
+        detailsArrowLabel.attributedText = NSMutableAttributedString().icon("arrow-details-down", color: Configuration.Color.gray, size: 13)
+    }
+    
+    private func initDirection() {
+        directionsHidden = true
+    }
+    
+    private func initBssState() {
+        bssStationStateView.isHidden = true
+        bssStationStateIconLabel.attributedText = NSMutableAttributedString().icon("disruption-information", color: Configuration.Color.main, size: 17)
+    }
+    
+    private func updateAccessibility() {
+        guard let informations = informationsAttributedString?.string,
+            let type = iconInformations else {
+            return
+        }
+        
+        if type == "ridesharing" || type == "crow_fly" {
+            informationsContainerView.accessibilityLabel = String(format: "%@.", informations)
+        } else {
+            informationsContainerView.accessibilityLabel = String(format: "%@ %@.", "\(type)_noun".localized(), informations)
+        }
+        
+        if let availabilityStands = stands?.availability {
+            informationsContainerView.accessibilityLabel?.append(availabilityStands)
         }
     }
     
@@ -205,23 +253,9 @@ class StepView: UIView {
         }
     }
     
+    // MARK: - Action
+    
     @IBAction func manageDirectionsDisplay(_ sender: Any) {
         directionsHidden = !directionsHidden
-    }
-    
-    var directionsHidden: Bool = true {
-        didSet {
-            if directionsHidden {
-                directionsContainer.isHidden = true
-                detailsArrowLabel.attributedText = NSMutableAttributedString().icon("arrow-details-down", color: Configuration.Color.gray, size: 13)
-                
-                frame.size.height -= directionsContainer.frame.size.height
-            } else {
-                directionsContainer.isHidden = false
-                detailsArrowLabel.attributedText = NSMutableAttributedString().icon("arrow-details-up", color: Configuration.Color.gray, size: 13)
-                
-                frame.size.height += directionsContainer.frame.size.height
-            }
-        }
     }
 }

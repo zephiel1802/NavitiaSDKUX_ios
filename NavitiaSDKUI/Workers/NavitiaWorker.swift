@@ -7,9 +7,16 @@
 
 import Foundation
 
-internal struct NavitiaWorker {
+typealias NavitiaFetchJourneysCompletionHandler = ([Journey]?, [Journey]?, [Disruption]?, [Note]?, Context?) -> Void
+
+protocol NavitiaWorkerProtocol {
     
-    func fetchJourneys(journeysRequest: JourneysRequest, completionHandler: @escaping ([Journey]?, [Journey]?, [Disruption]?, [Note]?, Context?) -> Void) {
+    func fetchJourneys(journeysRequest: JourneysRequest, completionHandler: @escaping NavitiaFetchJourneysCompletionHandler)
+}
+
+class NavitiaWorker: NavitiaWorkerProtocol {
+    
+    func fetchJourneys(journeysRequest: JourneysRequest, completionHandler: @escaping NavitiaFetchJourneysCompletionHandler) {
         if NavitiaSDKUI.shared.navitiaSDK != nil {
             let journeyRequestBuilder = NavitiaSDKUI.shared.navitiaSDK.journeysApi.newJourneysRequestBuilder()
                 .withFrom(journeysRequest.originId)
@@ -27,26 +34,34 @@ internal struct NavitiaWorker {
                 .withAddPoiInfos(journeysRequest.addPoiInfos)
                 .withDirectPath(journeysRequest.directPath)
                 .withDebugURL(journeysRequest.debugURL)
+                .withDataFreshness(journeysRequest.dataFreshness)
             
             journeyRequestBuilder.get { (result, error) in
                 if let result = result {
-                    var journeys: [Journey] = []
-                    var ridesharing: [Journey] = []
-                    if let allJourneys = result.journeys {
-                        for journey in allJourneys {
-                            if journey.isRidesharing {
-                                ridesharing.append(journey)
-                            } else {
-                                journeys.append(journey)
-                            }
-                        }
-                    }
-                    completionHandler(journeys, ridesharing, result.disruptions, result.notes, result.context)
+                    let journeys = self.parseJourneyResponse(result: result)
+                    completionHandler(journeys.journeys, journeys.Ridesharing, journeys.disruptions, journeys.notes, journeys.context)
                 } else {
                     completionHandler(nil, nil, nil, nil, nil)
                 }
             }
         }
+    }
+
+    internal func parseJourneyResponse(result: Journeys) -> (journeys: [Journey]?, Ridesharing: [Journey]?, disruptions: [Disruption]?, notes: [Note]?, context: Context?) {
+        var journeys: [Journey] = []
+        var ridesharing: [Journey] = []
+        
+        if let allJourneys = result.journeys {
+            for journey in allJourneys {
+                if journey.isRidesharing {
+                    ridesharing.append(journey)
+                } else {
+                    journeys.append(journey)
+                }
+            }
+        }
+        
+        return (journeys, ridesharing, result.disruptions, result.notes, result.context)
     }
     
     func fetchBss(coord: (lat: Double, lon: Double), distance: Int32, id: String, completionHandler: @escaping (Poi?) -> Void) {

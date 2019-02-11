@@ -18,24 +18,30 @@ protocol ShowJourneyRoadmapDisplayLogic: class {
 internal class ShowJourneyRoadmapViewController: UIViewController, ShowJourneyRoadmapDisplayLogic {
 
     @IBOutlet weak var mapView: MKMapView!
+    @IBOutlet weak var centerMapButton: UIButton!
     @IBOutlet weak var scrollView: StackScrollView!
     
-    internal var router: (NSObjectProtocol & ShowJourneyRoadmapRoutingLogic & ShowJourneyRoadmapDataPassing)?
-    private var interactor: ShowJourneyRoadmapBusinessLogic?
     private var mapViewModel: ShowJourneyRoadmap.GetMap.ViewModel?
     private var ridesharing: ShowJourneyRoadmap.GetRoadmap.ViewModel.Ridesharing?
     private var ridesharingJourneys: Journey?
+    private let locationManager = CLLocationManager()
+    private var intermediatePointsCircles = [SectionCircle]()
+    private var journeyPolylineCoordinates = [CLLocationCoordinate2D]()
+    private var sectionsPolylines = [SectionPolyline]()
+    private var animationTimer: Timer?
+    private var bssRealTimer: Timer?
+    private var parkRealTimer: Timer?
+    private var bssTuple = [(poi: ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionModel.Poi?, type: String, view: StepView)]()
+    private var parkTuple = [(poi: ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionModel.Poi?, view: StepView)]()
+    private var display = false
+    internal var router: (NSObjectProtocol & ShowJourneyRoadmapRoutingLogic & ShowJourneyRoadmapDataPassing)?
+    internal var interactor: ShowJourneyRoadmapBusinessLogic?
+
+    static var identifier: String {
+        return String(describing: self)
+    }
     
-    let locationManager = CLLocationManager()
-    var intermediatePointsCircles = [SectionCircle]()
-    var journeyPolylineCoordinates = [CLLocationCoordinate2D]()
-    var sectionsPolylines = [SectionPolyline]()
-    var animationTimer: Timer?
-    var bssRealTimer: Timer?
-    var parkRealTimer: Timer?
-    var bssTuple = [(poi: ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionModel.Poi?, view: StepView)]()
-    var parkTuple = [(poi: ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionModel.Poi?, view: StepView)]()
-    var display = false
+    // MARK: - Initialization
     
     required public init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -46,7 +52,7 @@ internal class ShowJourneyRoadmapViewController: UIViewController, ShowJourneyRo
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        title = "roadmap".localized(withComment: "Roadmap", bundle: NavitiaSDKUI.shared.bundle)
+        title = "roadmap".localized()
 
         initScrollView()
         initLocation()
@@ -55,6 +61,15 @@ internal class ShowJourneyRoadmapViewController: UIViewController, ShowJourneyRo
         getMap()
     }
 
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        
+        if !display {
+            display = true
+        }
+        zoomOverPolyline(targetPolyline: MKPolyline(coordinates: journeyPolylineCoordinates, count: journeyPolylineCoordinates.count))
+    }
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
 
@@ -74,15 +89,6 @@ internal class ShowJourneyRoadmapViewController: UIViewController, ShowJourneyRo
         refreshFetchPark(run: false)
         stopAnimation()
     }
-
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        
-        if !display {
-            display = true
-            zoomOverPolyline(targetPolyline: MKPolyline(coordinates: journeyPolylineCoordinates, count: journeyPolylineCoordinates.count))
-        }
-    }
     
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
@@ -90,9 +96,7 @@ internal class ShowJourneyRoadmapViewController: UIViewController, ShowJourneyRo
         navigationController?.navigationBar.setNeedsLayout()
     }
     
-    static var identifier: String {
-        return String(describing: self)
-    }
+    // MARK: - Function
     
     private func initArchitecture() {
         let viewController = self
@@ -164,8 +168,8 @@ internal class ShowJourneyRoadmapViewController: UIViewController, ShowJourneyRo
                 return
             }
             
-            let request = ShowJourneyRoadmap.FetchBss.Request(lat: lat, lon: lon, distance: 10, id: addressId) { (stands) in
-                elem.view.realTimeValue = stands.availability
+            let request = ShowJourneyRoadmap.FetchBss.Request(lat: lat, lon: lon, distance: 10, id: addressId, type: elem.type) { (stands) in
+                elem.view.stands = stands
             }
             
             self.interactor?.fetchBss(request: request)
@@ -179,7 +183,7 @@ internal class ShowJourneyRoadmapViewController: UIViewController, ShowJourneyRo
             }
             
             let request = ShowJourneyRoadmap.FetchPark.Request(lat: lat, lon: lon, distance: 10, id: addressId) { (stands) in
-                elem.view.realTimeValue = stands.availability
+                elem.view.stands = stands
             }
 
             self.interactor?.fetchPark(request: request)
@@ -210,27 +214,38 @@ internal class ShowJourneyRoadmapViewController: UIViewController, ShowJourneyRo
         let journeySolutionView = getJourneySolutionView(viewModel: viewModel)
 
         scrollView.addSubview(journeySolutionView, margin: UIEdgeInsets(top: 0, left: 0, bottom: 5, right: 0))
-        
+
         if viewModel.journey.isRidesharing {
-            guard let duration = viewModel.journey.duration, let sections = viewModel.journey.sections else {
-                return
-            }
-            
             let ridesharingView = displayRidesharingView()
-            
-            journeySolutionView.setRidesharingData(duration: duration, sections: sections)
-            
+
+            journeySolutionView.setRidesharingData(duration: viewModel.frieze.duration, friezeSection: viewModel.frieze.friezeSections)
+
             scrollView.addSubview(ridesharingView, margin: UIEdgeInsets(top: 5, left: 10, bottom: 5, right: 10))
+        } else if viewModel.displayAvoidDisruption {
+            let alternativeJourneyView = displayAlternativeJourneyView()
+
+            alternativeJourneyView.addFrieze(friezeSection: viewModel.frieze.friezeSectionsWithDisruption)
+
+            scrollView.addSubview(alternativeJourneyView, margin: UIEdgeInsets(top: 15, left: 10, bottom: 15, right: 10))
         }
     }
     
     private func getJourneySolutionView(viewModel: ShowJourneyRoadmap.GetRoadmap.ViewModel) -> JourneySolutionView {
-        let journeySolutionView = JourneySolutionView(frame: CGRect(x: 0, y: 0, width: 0, height: 60))
+        let journeySolutionView = JourneySolutionView.instanceFromNib()
         
-        journeySolutionView.disruptions = viewModel.disruptions
-        journeySolutionView.setData(viewModel.journey)
+        journeySolutionView.frame.size = CGSize(width: scrollView.frame.size.width, height: 47)
+        journeySolutionView.setData(duration: viewModel.frieze.duration, friezeSection: viewModel.frieze.friezeSections)
         
         return journeySolutionView
+    }
+    
+    private func displayAlternativeJourneyView() -> AlternativeJourneyView {
+        let alternativeJourneyView = AlternativeJourneyView.instanceFromNib()
+        
+        alternativeJourneyView.frame.size = CGSize(width: scrollView.frame.size.width, height: 110)
+        alternativeJourneyView.delegate = self
+        
+        return alternativeJourneyView
     }
     
     private func displayRidesharingView() -> RidesharingView {
@@ -243,6 +258,7 @@ internal class ShowJourneyRoadmapViewController: UIViewController, ShowJourneyRo
     
     private func displayDepartureArrivalStep(viewModel: ShowJourneyRoadmap.GetRoadmap.ViewModel.DepartureArrival) {
         let departureArrivalStepView = DepartureArrivalStepView.instanceFromNib()
+        
         departureArrivalStepView.frame = view.bounds
         departureArrivalStepView.type = viewModel.mode
         departureArrivalStepView.information = viewModel.information
@@ -274,7 +290,7 @@ internal class ShowJourneyRoadmapViewController: UIViewController, ShowJourneyRo
         publicTransportView.arrival = (to: section.to, time: section.endTime)
         publicTransportView.stopDates = section.stopDate
         publicTransportView.notes = section.notes
-        publicTransportView.disruptions = section.disruptionsClean
+        publicTransportView.disruptions = section.disruptions
         publicTransportView.waiting = section.waiting
         publicTransportView.updateAccessibility()
         
@@ -288,7 +304,7 @@ internal class ShowJourneyRoadmapViewController: UIViewController, ShowJourneyRo
             if section.type == .ridesharing {
                 informations.append(NSMutableAttributedString().normal(String(format: "%@ ", actionDescription), color: Configuration.Color.black, size: 15))
                 informations.append(NSMutableAttributedString().bold(String(format: "%@ ", section.from), color: Configuration.Color.black, size: 15))
-                informations.append(NSMutableAttributedString().normal(String(format: "%@ ", "to".localized(bundle: NavitiaSDKUI.shared.bundle)), color: Configuration.Color.black, size: 15))
+                informations.append(NSMutableAttributedString().normal(String(format: "%@ ", "to".localized()), color: Configuration.Color.black, size: 15))
                 informations.append(NSMutableAttributedString().bold(String(format: "%@", section.to), color: Configuration.Color.black, size: 15))
             } else if section.type == .bssPutBack || section.type == .bssRent || section.type == .park {
                 if let name = section.poi?.name {
@@ -319,7 +335,7 @@ internal class ShowJourneyRoadmapViewController: UIViewController, ShowJourneyRo
                 parkTuple.append((poi: section.poi, view: view))
             case .bssRent,
                  .bssPutBack:
-                bssTuple.append((poi: section.poi, view: view))
+                bssTuple.append((poi: section.poi, type: section.type.rawValue, view: view))
             default:
                 break
             }
@@ -328,26 +344,26 @@ internal class ShowJourneyRoadmapViewController: UIViewController, ShowJourneyRo
     
     private func getStepView(section: ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionModel) -> UIView {
         let stepView = StepView.instanceFromNib()
-        
-        stepView.frame = scrollView.bounds
+
+        stepView.frame = view.bounds
         stepView.enableBackground = section.background
         stepView.iconInformations = section.icon
         stepView.informationsAttributedString = getInformationsStepView(section: section)
-        stepView.realTimeIcon = section.poi?.stands?.icon
-        stepView.realTimeValue = section.poi?.stands?.availability
+        stepView.stands = section.poi?.stands
         stepView.paths = section.path
-        
+
         getRealTime(section: section, view: stepView)
 
         return stepView
     }
     
     private func displayEmission(emission: ShowJourneyRoadmap.GetRoadmap.ViewModel.Emission) {
-        let emissionView = EmissionView(frame: CGRect(x: 0, y: 0, width: scrollView.frame.size.width, height: 60))
+        let emissionView = EmissionView.instanceFromNib()
         
+        emissionView.frame.size = CGSize(width: scrollView.frame.size.width, height: 60)
+        emissionView.accessibilityLabel = emission.accessibility
         emissionView.journeyCarbon = emission.journey
         emissionView.carCarbon = emission.car
-        emissionView.view.accessibilityLabel = emission.accessibility
         
         scrollView.addSubview(emissionView, margin: UIEdgeInsets(top: 5, left: 0, bottom: 0, right: 0))
     }
@@ -425,6 +441,10 @@ internal class ShowJourneyRoadmapViewController: UIViewController, ShowJourneyRo
             }
         }
     }
+    
+    @IBAction func actionCenterMap(_ sender: Any) {
+        zoomOverPolyline(targetPolyline: MKPolyline(coordinates: journeyPolylineCoordinates, count: journeyPolylineCoordinates.count), animated: true)
+    }
 }
 
 // MARKS: Maps
@@ -463,6 +483,18 @@ extension ShowJourneyRoadmapViewController {
         
         redrawIntermediatePointCircles(mapView: mapView, cameraAltitude: mapView.camera.altitude)
         zoomOverPolyline(targetPolyline: MKPolyline(coordinates: journeyPolylineCoordinates, count: journeyPolylineCoordinates.count))
+        
+        setupCenterMapButton()
+    }
+    
+    private func setupCenterMapButton() {
+        centerMapButton.setImage(UIImage(named: "location", in: NavitiaSDKUI.shared.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate), for: .normal)
+        centerMapButton.tintColor = Configuration.Color.white
+        centerMapButton.imageEdgeInsets = UIEdgeInsets(top: 8, left: 6, bottom: 6, right: 8)
+        centerMapButton.addShadow(color: Configuration.Color.shadow.cgColor,
+                                  offset: CGSize(width: -1, height: -1),
+                                  opacity: 1,
+                                  radius: 2)
     }
     
     private func drawSections(journey: Journey?) {
@@ -651,10 +683,10 @@ extension ShowJourneyRoadmapViewController {
         mapView.addOverlays(intermediatePointsCircles)
     }
     
-    private func zoomOverPolyline(targetPolyline: MKPolyline) {
+    private func zoomOverPolyline(targetPolyline: MKPolyline, animated: Bool = false) {
         mapView.setVisibleMapRect(targetPolyline.boundingMapRect,
                                   edgePadding: UIEdgeInsets(top: 60, left: 40, bottom: 10, right: 40),
-                                  animated: false)
+                                  animated: animated)
     }
     
 }
@@ -744,5 +776,17 @@ extension ShowJourneyRoadmapViewController: CLLocationManagerDelegate {
             locationManager.stopUpdatingLocation()
         }
     }
+}
+
+extension ShowJourneyRoadmapViewController: AlternativeJourneyDelegate {
     
+    func avoidJourney() {
+        var selector: Selector?
+        
+        selector = NSSelectorFromString("routeToListJourneys")
+        
+        if let router = router, router.responds(to: selector) {
+            router.perform(selector)
+        }
+    }
 }

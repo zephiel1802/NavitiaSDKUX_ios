@@ -12,7 +12,10 @@ class OnDemandItemView: UIView {
     @IBOutlet weak var phoneIconLabel: UILabel!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var informationLabel: UILabel!
-    var phoneNumber = ""
+    
+    private var phoneNumber = ""
+    
+    // MARK: - UINib
     
     static var identifier: String {
         return String(describing: self)
@@ -22,13 +25,21 @@ class OnDemandItemView: UIView {
         return UINib(nibName: identifier, bundle: NavitiaSDKUI.shared.bundle).instantiate(withOwner: nil, options: nil)[0] as! OnDemandItemView
     }
     
+    // MARK: - Initialization
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         
+        setup()
+    }
+    
+    // MARK: - Function
+    
+    private func setup() {
         phoneIconLabel.attributedText = NSMutableAttributedString().icon("phone-tad", size: 15)
         phoneIconLabel.textColor = Configuration.Color.main
         
-        titleLabel.attributedText = NSMutableAttributedString().normal("mandatory_reservation".localized(bundle: NavitiaSDKUI.shared.bundle), color: Configuration.Color.main, size: 13)
+        titleLabel.attributedText = NSMutableAttributedString().normal("mandatory_reservation".localized(), color: Configuration.Color.main, size: 13)
     }
 }
 
@@ -61,6 +72,7 @@ extension OnDemandItemView {
     
     @objc func callNumber(gesture: UITapGestureRecognizer) {
         var phoneNumber = ""
+        
         for item in self.phoneNumber.components(separatedBy: CharacterSet(charactersIn:"+0123456789").inverted) {
             phoneNumber += item
         }
@@ -73,5 +85,4 @@ extension OnDemandItemView {
             }
         }
     }
-    
 }
