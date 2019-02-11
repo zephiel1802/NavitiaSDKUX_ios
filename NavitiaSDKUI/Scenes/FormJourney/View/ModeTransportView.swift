@@ -8,7 +8,7 @@
 import UIKit
 
 class ModeTransportView: UIView {
-
+    
     var transportModeView: UIView? = nil
     var transportModeLabel: UILabel? = nil
     var isColorInverted: Bool = false
@@ -18,7 +18,7 @@ class ModeTransportView: UIView {
     override func layoutSubviews() {
         super.layoutSubviews()
         
-        self.frame = CGRect(x: 0, y: 0, width: self.frame.width, height: 30 + ModeTransportView.getViewHeight(by: self.frame.width))
+        self.frame.size = CGSize(width: self.frame.width, height: ModeTransportView.getViewHeight(by: self.frame.width))
         self.drawLabel()
         self.drawIcons()
     }
@@ -89,7 +89,7 @@ class ModeTransportView: UIView {
                 }
                 newButton.backgroundColor = UIColor.white
                 newButton.layer.cornerRadius = 5
-                    
+                
                 transportMode.addSubview(newButton)
                 transportMode.addSubview(newLabel)
                 

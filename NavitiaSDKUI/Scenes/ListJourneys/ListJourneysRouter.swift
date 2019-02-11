@@ -52,17 +52,18 @@ internal class ListJourneysRouter: NSObject, ListJourneysViewRoutingLogic, ListJ
     
     func routeToListPlaces(info: String) {
         guard let viewController = viewController,
-            let _ = dataStore,
+            let dataStore = dataStore,
             let destinationVC = viewController.storyboard?.instantiateViewController(withIdentifier: ListPlacesViewController.identifier) as? ListPlacesViewController/*,
              var destinationDS = destinationVC.router?.dataStore*/ else {
                 return
         }
         
         destinationVC.firstBecome = info
-        if let originId = viewController.journeysRequest?.originId,
-            let destinationId = viewController.journeysRequest?.destinationId {
-            destinationVC.from = (name: viewController.journeysRequest?.originLabel, id: originId)
-            destinationVC.to = (name: viewController.journeysRequest?.destinationLabel, id: destinationId)
+        if let originId = dataStore.journeysRequest?.originId,
+            let destinationId = dataStore.journeysRequest?.destinationId {
+            //⚠️ ALERT
+//            destinationVC.from = (name: viewController.journeysRequest?.originLabel, id: originId)
+//            destinationVC.to = (name: viewController.journeysRequest?.destinationLabel, id: destinationId)
         }
         destinationVC.delegate = viewController
         navigateToListPlaces(source: viewController, destination: destinationVC)

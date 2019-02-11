@@ -18,7 +18,12 @@ import UIKit
 
 class SearchView: UIView {
     
-    @IBOutlet weak var background : UIView!
+    enum Focus: String {
+        case from = "from"
+        case to = "to"
+    }
+    
+    @IBOutlet weak var background: UIView!
     @IBOutlet weak var fromView: UIView!
     @IBOutlet weak var fromTextField: UITextField!
     @IBOutlet weak var originPinImageView: UIImageView!
@@ -31,16 +36,14 @@ class SearchView: UIView {
     @IBOutlet weak var dateTimeBottomConstraint: NSLayoutConstraint!
     @IBOutlet weak var switchContraint: NSLayoutConstraint!
     @IBOutlet weak var switchDepartureArrivalButton: UIButton!
-    
     @IBOutlet weak var backgroundTopConstraint: NSLayoutConstraint!
     @IBOutlet weak var separatorTopContraint: NSLayoutConstraint!
     
     internal var modeTransportView: ModeTransportView? = nil
-    
     internal weak var delegate: SearchViewDelegate?
     internal var lockSwitch = false
     internal var isPreferencesShown = false
-    
+    internal var focus: Focus?
     internal var origin: String? {
         didSet {
             guard let origin = origin else {
@@ -66,7 +69,7 @@ class SearchView: UIView {
             guard let dateTime = dateTime else {
                 return
             }
-    
+            
             dateTimeLabel.attributedText = NSMutableAttributedString().medium(dateTime, color: Configuration.Color.white, size: 12)
         }
     }
@@ -147,8 +150,27 @@ class SearchView: UIView {
         switchDepartureArrivalButton.tintColor = Configuration.Color.main
     }
     
+    internal func focusFromField(_ value: Bool = true) {
+        if value {
+            fromTextField.becomeFirstResponder()
+            fromView.backgroundColor = Configuration.Color.white.withAlphaComponent(0.9)
+        } else {
+            fromView.backgroundColor = Configuration.Color.white
+        }
+    }
+    
+    internal func focusToField(_ value: Bool = true) {
+        if value {
+            toTextField.becomeFirstResponder()
+            toView.backgroundColor = Configuration.Color.white.withAlphaComponent(0.9)
+        } else {
+            toView.backgroundColor = Configuration.Color.white
+        }
+    }
+    
     @IBAction func switchDepartureArrivalCoordinates(_ sender: UIButton) {
         if !lockSwitch {
+            switchDepartureArrivalAnimate(sender)
             delegate?.switchDepartureArrivalCoordinates()
         }
     }
@@ -184,7 +206,7 @@ class SearchView: UIView {
     
     internal func animate() {
         switchDepartureArrivalButton.isHidden = true
-       // separatorView.isHidden = true
+        // separatorView.isHidden = true
     }
     
     @IBAction func fromFieldClicked(_ sender: UITextField) {

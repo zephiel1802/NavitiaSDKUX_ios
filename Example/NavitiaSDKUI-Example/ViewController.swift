@@ -33,8 +33,10 @@ class ViewController: UIViewController {
             return nil
         }
         
-        var journeysRequest = JourneysRequest(originId: "2.3665844;48.8465337", destinationId: "2.2979169;48.8848719")
+        var journeysRequest = JourneysRequest(coverage: "")
+        journeysRequest.originId = "2.3665844;48.8465337"
         journeysRequest.originLabel = "Chez moi"
+        journeysRequest.destinationId = "2.2979169;48.8848719"
         journeysRequest.destinationLabel = "Au travail"
         journeysRequest.datetime = Date()
         journeysRequest.datetime!.addTimeInterval(7200)
