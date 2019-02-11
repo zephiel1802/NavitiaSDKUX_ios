@@ -32,7 +32,7 @@ internal class ShowJourneyRoadmapViewController: UIViewController, ShowJourneyRo
     private var animationTimer: Timer?
     private var bssRealTimer: Timer?
     private var parkRealTimer: Timer?
-    private var bssTuple = [(poi: ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionModel.Poi?, view: StepView)]()
+    private var bssTuple = [(poi: ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionModel.Poi?, type: String, view: StepView)]()
     private var parkTuple = [(poi: ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionModel.Poi?, view: StepView)]()
     private var display = false
     internal var router: (NSObjectProtocol & ShowJourneyRoadmapRoutingLogic & ShowJourneyRoadmapDataPassing)?
@@ -173,7 +173,7 @@ internal class ShowJourneyRoadmapViewController: UIViewController, ShowJourneyRo
                 return
             }
             
-            let request = ShowJourneyRoadmap.FetchBss.Request(lat: lat, lon: lon, distance: 10, id: addressId) { (stands) in
+            let request = ShowJourneyRoadmap.FetchBss.Request(lat: lat, lon: lon, distance: 10, id: addressId, type: elem.type) { (stands) in
                 elem.view.stands = stands
             }
             
@@ -339,7 +339,7 @@ internal class ShowJourneyRoadmapViewController: UIViewController, ShowJourneyRo
                 parkTuple.append((poi: section.poi, view: view))
             case .bssRent,
                  .bssPutBack:
-                bssTuple.append((poi: section.poi, view: view))
+                bssTuple.append((poi: section.poi, type: section.type.rawValue, view: view))
             default:
                 break
             }
