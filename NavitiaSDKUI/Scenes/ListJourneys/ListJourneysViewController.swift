@@ -184,16 +184,15 @@ open class ListJourneysViewController: UIViewController, ListJourneysDisplayLogi
         }
         
         viewModel.loaded == true ? (searchView.lockSwitch = false) : (searchView.lockSwitch = true)
-
         journeysCollectionView.reloadData()
-        
-//        searchView.origin = viewModel.headerInformations.origin
-//        searchView.destination = viewModel.headerInformations.destination
-//        searchView.dateTime = viewModel.headerInformations.dateTime
-//        searchView.accessibilityLabel = viewModel.accessibilityHeader
-//        searchView.switchDepartureArrivalButton.accessibilityLabel = viewModel.accessibilitySwitchButton
-        
+
         reloadCollectionViewLayout()
+        
+        if viewModel.loaded {
+            DispatchQueue.main.async(execute: { () -> Void in
+                self.anim()
+            })
+        }
     }
     
     private func reloadCollectionViewLayout() {
@@ -202,6 +201,25 @@ open class ListJourneysViewController: UIViewController, ListJourneysDisplayLogi
         }
         
         collectionViewLayout.reloadLayout()
+        
+    }
+    
+    func anim() {
+        let cells = journeysCollectionView.visibleCells
+        let collectionViewHeight = journeysCollectionView.bounds.size.height
+        
+        for cell in cells {
+            cell.transform = CGAffineTransform(translationX: 0, y: collectionViewHeight)
+            
+        }
+        
+        var delayCounter = 0
+        for cell in cells {
+            UIView.animate(withDuration: 0.75, delay: Double(delayCounter) * 0.05, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: .curveEaseInOut, animations: {
+                cell.transform = CGAffineTransform.identity
+            }, completion: nil)
+            delayCounter = delayCounter + 1
+        }
     }
 }
 
