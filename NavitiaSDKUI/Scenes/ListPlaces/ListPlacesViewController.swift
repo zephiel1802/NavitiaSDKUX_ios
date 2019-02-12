@@ -361,19 +361,19 @@ extension ListPlacesViewController: SearchViewDelegate {
     func switchDepartureArrivalCoordinates() {}
     
     func fromFieldClicked(q: String?) {
-//        firstBecome = "from"
-//        searchView.fromView.backgroundColor = Configuration.Color.white.withAlphaComponent(0.9)
-//        searchView.toView.backgroundColor = Configuration.Color.white
-//
-//        fetchDeboucedSearch(q: q)
+        firstBecome = "from"
+        searchView.fromView.backgroundColor = Configuration.Color.white.withAlphaComponent(0.9)
+        searchView.toView.backgroundColor = Configuration.Color.white
+
+        fetchDeboucedSearch(q: q)
     }
     
     func toFieldClicked(q: String?) {
-//        firstBecome = "to"
-//        searchView.fromView.backgroundColor = Configuration.Color.white
-//        searchView.toView.backgroundColor = Configuration.Color.white.withAlphaComponent(0.9)
-//        
-//        fetchDeboucedSearch(q: q)
+        firstBecome = "to"
+        searchView.fromView.backgroundColor = Configuration.Color.white
+        searchView.toView.backgroundColor = Configuration.Color.white.withAlphaComponent(0.9)
+        
+        fetchDeboucedSearch(q: q)
     }
     
     func fromFieldDidChange(q: String?) {

@@ -87,6 +87,15 @@ public protocol JourneyRootViewController {
         }
     }
     
+//    public var modeForm: [TransportModeButton.ModeForm] {
+//        get {
+//            return Configuration.modeForm
+//        }
+//        set {
+//            Configuration.modeForm = newValue
+//        }
+//    }
+//    
     public var rootViewController: JourneyRootViewController? {
         get {
             let storyboard = UIStoryboard(name: "Journey", bundle: bundle)
@@ -103,7 +112,20 @@ public protocol JourneyRootViewController {
 enum Configuration {
     
     static let fontIconsName = "SDKIcons"
-    static var nbOfTransportMode = 10
+    static var nbOfTransportMode = 8
+    static var modeForm = [TransportModeButton.ModeForm(title: "Metro", icon: "metro", selected: true, mode: .walking, physicalMode: ["physical_mode:Metro"]),
+                           TransportModeButton.ModeForm(title: "Bus", icon: "bus", selected: true, mode: .walking, physicalMode: ["physical_mode:Bus"]),
+                           TransportModeButton.ModeForm(title: "RER", icon: "train", selected: true, mode: .walking, physicalMode: ["physical_mode:RapidTransit"]),
+                           TransportModeButton.ModeForm(title: "Tramway", icon: "train", selected: false, mode: .walking, physicalMode: ["physical_mode:Tramway"]),
+                           TransportModeButton.ModeForm(title: "Train", icon: "train", selected: false, mode: .walking, physicalMode: ["physical_mode:LocalTrain", "physical_mode:Train"]),
+                           TransportModeButton.ModeForm(title: "Navette", icon: "train", selected: false, mode: .walking, physicalMode: ["physical_mode:Shuttle"]),
+                           TransportModeButton.ModeForm(title: "Bike", icon: "bike", selected: false, mode: .bike, physicalMode: nil),
+                           TransportModeButton.ModeForm(title: "VLS", icon: "bss", selected: false, mode: .bss, physicalMode: nil),
+                           TransportModeButton.ModeForm(title: "Car", icon: "car", selected: false, mode: .car, physicalMode: nil)]
+    
+//    static var modeForm = [GenerateRequest.ModeForm(title: "Public Transport", icon: "metro", selected: true, mode: .walking, physicalMode: nil),
+//                           GenerateRequest.ModeForm(title: "Bike", icon: "metro", selected: false, mode: .bike, physicalMode: nil),
+//                           GenerateRequest.ModeForm(title: "Car", icon: "metro", selected: false, mode: .car, physicalMode: nil)]
     
     // Format
     static let date = "yyyyMMdd'T'HHmmss"
@@ -152,5 +174,60 @@ enum Configuration {
         static let background = #colorLiteral(red: 0.9411764706, green: 0.9411764706, blue: 0.9411764706, alpha: 1)
         static let shadow = #colorLiteral(red: 0.8, green: 0.8, blue: 0.8, alpha: 1)
         static let headerTitle = #colorLiteral(red: 0.2509803922, green: 0.2509803922, blue: 0.2509803922, alpha: 1)
+    }
+}
+
+public class GenerateRequest: NSObject {
+    
+    public enum ModeType: String {
+        case bike = "bike"
+        case bss = "bss"
+        case car = "car"
+        case ridesharing = "ridesharing"
+        case walking = "walking"
+    }
+    
+    public struct ModeForm {
+        var title: String
+        var icon: String
+        var selected: Bool
+        var mode: ModeType // bike // bss // car // ridesharing // walking
+        var physicalMode: [String]?
+    }
+    
+    var modeForm = [ModeForm]()
+    
+    public init(modeForm: [ModeForm]) {
+        self.modeForm = modeForm
+    }
+    
+//    internal func getMode() -> [ModeType]? {
+//        var modes = [ModeType]()
+//
+//        for mode in modeForm {
+//            modes.append(mode.mode)
+//        }
+//
+//        if modes.count == 0 {
+//            return nil
+//        }
+//
+//        return modes
+//    }
+
+    internal func getPhysicalModes() -> [String]? {
+        var physicalMode = [String]()
+
+        for mode in modeForm {
+            if let physiMode = mode.physicalMode {
+                physicalMode += physiMode
+            }
+        }
+
+        if physicalMode.count == 0 {
+            return nil
+        }
+
+        return physicalMode
     }
 }
