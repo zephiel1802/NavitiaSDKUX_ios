@@ -58,7 +58,7 @@ internal class ListJourneysRouter: NSObject, ListJourneysViewRoutingLogic, ListJ
                 return
         }
         
-        destinationVC.firstBecome = info
+    //    destinationVC.firstBecome = info // REMPLACER DANS LE VIEWMODEL DE SEARCH
         if let originId = dataStore.journeysRequest?.originId,
             let destinationId = dataStore.journeysRequest?.destinationId {
             //⚠️ ALERT

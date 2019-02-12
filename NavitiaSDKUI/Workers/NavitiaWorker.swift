@@ -121,4 +121,16 @@ class NavitiaWorker: NavitiaWorkerProtocol {
             }
         }
     }
+    
+    func fetchCoord(lon: Double?, lat: Double?, completionHandler: @escaping (DictAddresses?) -> Void) {
+        if NavitiaSDKUI.shared.navitiaSDK != nil {
+            let coordRequestBuilder = NavitiaSDKUI.shared.navitiaSDK.coordApi.newCoordLonLatRequestBuilder()
+                .withLat(lat)
+                .withLon(lon)
+            
+            coordRequestBuilder.get { (result, error) in
+                completionHandler(result)
+            }
+        }
+    }
 }

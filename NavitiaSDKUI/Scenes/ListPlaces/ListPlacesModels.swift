@@ -19,11 +19,25 @@ enum ListPlaces {
         struct Response {
             var fromName: String?
             var toName: String?
+            var info: String?
         }
         struct ViewModel {
             var fromName: String
             var toName: String
+            var info: String?
+            
         }
+    }
+    
+    enum FetchLocation {
+        struct Request {
+            var latitude: Double
+            var longitude: Double
+        }
+        struct Response {
+            var dictAddresses: DictAddresses
+        }
+        struct ViewModel {}
     }
     
     enum FetchPlaces {
@@ -33,6 +47,7 @@ enum ListPlaces {
         }
         struct Response {
             var places: Places?
+            var locationAddress: Address?
         }
         struct ViewModel {
             enum ModelType {

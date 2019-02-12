@@ -454,10 +454,8 @@ extension ListJourneysViewController: SearchViewDelegate {
 extension ListJourneysViewController: ListPlacesViewControllerDelegate {
     
     func searchView(from: (name: String, id: String), to: (name: String, id: String)) {
-//        journeysRequest?.originId = from.id
-//        journeysRequest?.originLabel = from.name
-//        journeysRequest?.destinationId = to.id
-//        journeysRequest?.destinationLabel = to.name
+        
+        
         fetchJourneys()
     }
 }

@@ -13,15 +13,18 @@ protocol ListPlacesBusinessLogic {
     var to: (name: String, id: String)? { get set }
     
     func displaySearch(request: ListPlaces.DisplaySearch.Request)
+    func fetchLocation(request: ListPlaces.FetchLocation.Request)
     func fetchJourneys(request: ListPlaces.FetchPlaces.Request)
 }
 
 protocol ListPlacesDataStore {
     
-    var info: String { get set }
+    var info: String? { get set }
     var coverage: String? { get set }
     var from: (name: String, id: String)? { get set }
     var to: (name: String, id: String)? { get set }
+    var places: Places? { get set }
+    var locationAddress: Address? { get set }
 }
 
 class ListPlacesInteractor: ListPlacesBusinessLogic, ListPlacesDataStore {
@@ -29,10 +32,12 @@ class ListPlacesInteractor: ListPlacesBusinessLogic, ListPlacesDataStore {
     var presenter: ListPlacesPresentationLogic?
     var navitiaWorker = NavitiaWorker()
     
-    var info: String = ""
+    var info: String?
     var coverage: String?
     var from: (name: String, id: String)?
     var to: (name: String, id: String)?
+    var places: Places?
+    var locationAddress: Address?
     
     // MARK: - Display Search
     
@@ -45,9 +50,23 @@ class ListPlacesInteractor: ListPlacesBusinessLogic, ListPlacesDataStore {
         }
         
         let response = ListPlaces.DisplaySearch.Response(fromName: from?.name,
-                                                         toName: to?.name)
+                                                         toName: to?.name,
+                                                         info: info)
         
         self.presenter?.presentDisplayedSearch(response: response)
+    }
+    
+    // MARK: - Fetch Location
+    
+    func fetchLocation(request: ListPlaces.FetchLocation.Request) {
+        navitiaWorker.fetchCoord(lon: request.longitude, lat: request.latitude) { (dictAddresses) in
+            self.locationAddress = dictAddresses?.address
+            
+            let response = ListPlaces.FetchPlaces.Response(places: self.places,
+                                                           locationAddress: self.locationAddress)
+            
+            self.presenter?.presentSomething(response: response)
+        }
     }
     
     // MARK: - Fetch Places
@@ -58,7 +77,10 @@ class ListPlacesInteractor: ListPlacesBusinessLogic, ListPlacesDataStore {
         }
         
         navitiaWorker.fetchPlaces(coverage: coverage, q: request.q, coord: request.coord) { (places) in
-            let response = ListPlaces.FetchPlaces.Response(places: places)
+            self.places = places
+            
+            let response = ListPlaces.FetchPlaces.Response(places: places,
+                                                           locationAddress: self.locationAddress)
             
             self.presenter?.presentSomething(response: response)
         }

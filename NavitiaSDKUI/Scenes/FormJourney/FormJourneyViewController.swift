@@ -172,15 +172,5 @@ extension FormJourneyViewController: ListPlacesViewControllerDelegate {
         let request = FormJourney.DisplaySearch.Request(from: from, to: to)
         
         interactor?.displaySearch(request: request)
-        
-        
-//
-//        interactor?.journeysRequest?.originId = from.id
-//        interactor?.journeysRequest?.originLabel = from.name
-//        interactor?.journeysRequest?.destinationId = to.id
-//        interactor?.journeysRequest?.destinationLabel = to.name
-//
-//        searchView.fromTextField.text = "caca"//from.name
-//        searchView.toTextField.text = "prou"//to.name
     }
 }
