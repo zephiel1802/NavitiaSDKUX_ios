@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import CoreLocation
 
 protocol ListPlacesViewControllerDelegate: class {
     
@@ -31,6 +32,8 @@ class ListPlacesViewController: UIViewController, ListPlacesDisplayLogic {
 
     var firstBecome = "from"
     private var q: String = ""
+    
+    let locationManager = CLLocationManager()
 
     static var identifier: String {
         return String(describing: self)
@@ -49,6 +52,10 @@ class ListPlacesViewController: UIViewController, ListPlacesDisplayLogic {
         
         title = "journeys".localized()
         
+        checkAccessLocationServices()
+        locationManager.delegate = self
+        locationManager.requestLocation()
+        
         initNavigationBar()
         initDebouncer()
         initHeader()
@@ -59,14 +66,6 @@ class ListPlacesViewController: UIViewController, ListPlacesDisplayLogic {
         interactor?.displaySearch(request: ListPlaces.DisplaySearch.Request())
         
         hideKeyboardWhenTappedAround()
-        if firstBecome == "from" {
-            searchView.focusFromField()
-            fetchPlaces(q: searchView.fromTextField.text)
-        } else {
-            searchView.focusToField()
-            fetchPlaces(q: searchView.toTextField.text)
-        }
-        
     }
     
     override open func viewWillAppear(_ animated: Bool) {
@@ -166,6 +165,17 @@ class ListPlacesViewController: UIViewController, ListPlacesDisplayLogic {
     func displaySearch(viewModel: ListPlaces.DisplaySearch.ViewModel) {
         searchView.fromTextField.text = viewModel.fromName
         searchView.toTextField.text = viewModel.toName
+        
+        if let info = viewModel.info {
+            firstBecome = info
+            if info == "from" {
+                searchView.focusFromField()
+                fetchPlaces(q: searchView.fromTextField.text)
+            } else {
+                searchView.focusToField()
+                fetchPlaces(q: searchView.toTextField.text)
+            }
+        }
     }
     
     func displaySomething(viewModel: ListPlaces.FetchPlaces.ViewModel) {
@@ -269,7 +279,7 @@ extension ListPlacesViewController: UITableViewDataSource, UITableViewDelegate {
             } else {
                 dismissAutocompletion()
             }
-            
+
         } else {
             interactor?.displaySearch(request: ListPlaces.DisplaySearch.Request(from: nil, to: (name: name, id: id)))
 
@@ -315,24 +325,55 @@ extension ListPlacesViewController: UITableViewDataSource, UITableViewDelegate {
     }
 }
 
+extension ListPlacesViewController: CLLocationManagerDelegate {
+    
+    private func checkAccessLocationServices() {
+        if CLLocationManager.locationServicesEnabled() {
+            switch CLLocationManager.authorizationStatus() {
+            case .notDetermined, .restricted, .denied:
+                print("Location: No access")
+            case .authorizedAlways, .authorizedWhenInUse:
+                print("Location: Access")
+            }
+        } else {
+            print("Location: Location services are not enabled")
+        }
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        if let location = locations.first {
+            let request = ListPlaces.FetchLocation.Request(latitude: Double(location.coordinate.latitude),
+                                                           longitude:  Double(location.coordinate.longitude))
+
+            interactor?.fetchLocation(request: request)
+
+        }
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        print("Failed to find user's location: \(error.localizedDescription)")
+    }
+
+}
+
 extension ListPlacesViewController: SearchViewDelegate {
     
     func switchDepartureArrivalCoordinates() {}
     
     func fromFieldClicked(q: String?) {
-        firstBecome = "from"
-        searchView.fromView.backgroundColor = Configuration.Color.white.withAlphaComponent(0.9)
-        searchView.toView.backgroundColor = Configuration.Color.white
-        
-        fetchDeboucedSearch(q: q)
+//        firstBecome = "from"
+//        searchView.fromView.backgroundColor = Configuration.Color.white.withAlphaComponent(0.9)
+//        searchView.toView.backgroundColor = Configuration.Color.white
+//
+//        fetchDeboucedSearch(q: q)
     }
     
     func toFieldClicked(q: String?) {
-        firstBecome = "to"
-        searchView.fromView.backgroundColor = Configuration.Color.white
-        searchView.toView.backgroundColor = Configuration.Color.white.withAlphaComponent(0.9)
-        
-        fetchDeboucedSearch(q: q)
+//        firstBecome = "to"
+//        searchView.fromView.backgroundColor = Configuration.Color.white
+//        searchView.toView.backgroundColor = Configuration.Color.white.withAlphaComponent(0.9)
+//        
+//        fetchDeboucedSearch(q: q)
     }
     
     func fromFieldDidChange(q: String?) {

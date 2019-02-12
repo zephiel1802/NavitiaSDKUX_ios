@@ -21,23 +21,29 @@ class ListPlacesPresenter: ListPlacesPresentationLogic {
     
     func presentDisplayedSearch(response: ListPlaces.DisplaySearch.Response) {
         let viewModel = ListPlaces.DisplaySearch.ViewModel(fromName: response.fromName ?? "",
-                                                           toName: response.toName ?? "")
+                                                           toName: response.toName ?? "",
+                                                           info: response.info)
         
         viewController?.displaySearch(viewModel: viewModel)
     }
     
     func presentSomething(response: ListPlaces.FetchPlaces.Response) {
-        let viewModel = ListPlaces.FetchPlaces.ViewModel(sections: getSection(places: response.places))
+        let viewModel = ListPlaces.FetchPlaces.ViewModel(sections: getSection(places: response.places, address: response.locationAddress))
         
         viewController?.displaySomething(viewModel: viewModel)
     }
     
-    private func geoloc() {
-        
-    }
+
     
-    private func getSection(places: Places?) -> [ListPlaces.FetchPlaces.ViewModel.Section] {
+    private func getSection(places: Places?, address: Address?) -> [ListPlaces.FetchPlaces.ViewModel.Section] {
         var sections = [ListPlaces.FetchPlaces.ViewModel.Section]()
+        
+        if let label = address?.label {
+            let section = ListPlaces.FetchPlaces.ViewModel.Section(type: .stopArea,
+                                                                   name: label,
+                                                                   places: [])
+            sections.append(section)
+        }
         
         if let placesViewModel = getPlaces(places: places) {
             if placesViewModel.stopArea.count > 0 {
