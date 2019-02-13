@@ -61,9 +61,17 @@ internal class ListJourneysInteractor: ListJourneysBusinessLogic, ListJourneysDa
     // MARK: - Fetch Physical Modes
     
     func fetchPhysicalModes(request: ListJourneys.FetchPhysicalModes.Request) {
-        presenter?.presentFetchedSearchInformation(journeysRequest: request.journeysRequest)
+        if let journeysRequest = request.journeysRequest {
+            self.journeysRequest = journeysRequest
+        }
         
-        navitiaWorker.fetchPhysicalMode(coverage: request.journeysRequest.coverage) { (physicalModes) in
+        guard let journeysRequest = journeysRequest else {
+            return
+        }
+        
+        presenter?.presentFetchedSearchInformation(journeysRequest: journeysRequest)
+        
+        navitiaWorker.fetchPhysicalMode(coverage: journeysRequest.coverage) { (physicalModes) in
             self.physicalModes = physicalModes
             
             let response = ListJourneys.FetchPhysicalModes.Response(physicalModes: physicalModes)
@@ -75,16 +83,24 @@ internal class ListJourneysInteractor: ListJourneysBusinessLogic, ListJourneysDa
     // MARK: - Fetch Journey
     
     func fetchJourneys(request: ListJourneys.FetchJourneys.Request) {
-        presenter?.presentFetchedSearchInformation(journeysRequest: request.journeysRequest)
+        if let journeysRequest = request.journeysRequest {
+            self.journeysRequest = journeysRequest
+        }
         
-        navitiaWorker.fetchJourneys(journeysRequest: request.journeysRequest) { (journeys, ridesharings, disruptions, notes, context) in
+        guard let journeysRequest = journeysRequest else {
+            return
+        }
+        
+        presenter?.presentFetchedSearchInformation(journeysRequest: journeysRequest)
+        
+        navitiaWorker.fetchJourneys(journeysRequest: journeysRequest) { (journeys, ridesharings, disruptions, notes, context) in
             self.journeys = journeys
             self.ridesharingJourneys = ridesharings
             self.disruptions = disruptions
             self.notes = notes
             self.context = context
             
-            let response = ListJourneys.FetchJourneys.Response(journeysRequest: request.journeysRequest,
+            let response = ListJourneys.FetchJourneys.Response(journeysRequest: journeysRequest,
                                                                journeys: (journeys, withRidesharing: ridesharings),
                                                                disruptions: disruptions)
             

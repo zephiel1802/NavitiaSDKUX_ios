@@ -24,7 +24,7 @@ class FormJourneyViewController: UIViewController, FormJourneyDisplayLogic, Jour
     
     var journeysRequest: JourneysRequest?
     internal var interactor: FormJourneyBusinessLogic?
-    private var router: (NSObjectProtocol & FormJourneyRoutingLogic & FormJourneyDataPassing)?
+    internal var router: (NSObjectProtocol & FormJourneyRoutingLogic & FormJourneyDataPassing)?
     
     var dateFormView: DateFormView!
     

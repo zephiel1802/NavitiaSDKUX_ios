@@ -135,13 +135,17 @@ class ModeTransportView: UIView {
         self.transportModeView = transportMode
     }
     
-    internal func getPhysicalModes() -> [String] {
+    internal func getPhysicalModes() -> [String]? {
         var physicalModes = [String]()
         
         for button in buttonsSaved {
             if button.isSelected, let physicalMode = button.mode?.physicalMode {
                 physicalModes += physicalMode
             }
+        }
+        
+        if physicalModes.count == 0 {
+            return nil
         }
         
         return physicalModes

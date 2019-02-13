@@ -30,7 +30,7 @@ enum ListJourneys {
     
     enum FetchPhysicalModes {
         struct Request {
-            var journeysRequest: JourneysRequest
+            var journeysRequest: JourneysRequest?
         }
         struct Response {
             var physicalModes: [PhysicalMode]?
@@ -42,7 +42,7 @@ enum ListJourneys {
     
     enum FetchJourneys {
         struct Request {
-            var journeysRequest: JourneysRequest
+            var journeysRequest: JourneysRequest?
         }
         struct Response {
             var journeysRequest: JourneysRequest

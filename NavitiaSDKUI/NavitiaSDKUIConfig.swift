@@ -87,15 +87,15 @@ public protocol JourneyRootViewController {
         }
     }
     
-//    public var modeForm: [TransportModeButton.ModeForm] {
-//        get {
-//            return Configuration.modeForm
-//        }
-//        set {
-//            Configuration.modeForm = newValue
-//        }
-//    }
-//    
+    public var modeForm: [ModeButtonModel] {
+        get {
+            return Configuration.modeForm
+        }
+        set {
+            Configuration.modeForm = newValue
+        }
+    }
+    
     public var rootViewController: JourneyRootViewController? {
         get {
             let storyboard = UIStoryboard(name: "Journey", bundle: bundle)
@@ -113,19 +113,9 @@ enum Configuration {
     
     static let fontIconsName = "SDKIcons"
     static var nbOfTransportMode = 8
-    static var modeForm = [TransportModeButton.ModeForm(title: "Metro", icon: "metro", selected: true, mode: .walking, physicalMode: ["physical_mode:Metro"]),
-                           TransportModeButton.ModeForm(title: "Bus", icon: "bus", selected: true, mode: .walking, physicalMode: ["physical_mode:Bus"]),
-                           TransportModeButton.ModeForm(title: "RER", icon: "train", selected: true, mode: .walking, physicalMode: ["physical_mode:RapidTransit"]),
-                           TransportModeButton.ModeForm(title: "Tramway", icon: "train", selected: false, mode: .walking, physicalMode: ["physical_mode:Tramway"]),
-                           TransportModeButton.ModeForm(title: "Train", icon: "train", selected: false, mode: .walking, physicalMode: ["physical_mode:LocalTrain", "physical_mode:Train"]),
-                           TransportModeButton.ModeForm(title: "Navette", icon: "train", selected: false, mode: .walking, physicalMode: ["physical_mode:Shuttle"]),
-                           TransportModeButton.ModeForm(title: "Bike", icon: "bike", selected: false, mode: .bike, physicalMode: nil),
-                           TransportModeButton.ModeForm(title: "VLS", icon: "bss", selected: false, mode: .bss, physicalMode: nil),
-                           TransportModeButton.ModeForm(title: "Car", icon: "car", selected: false, mode: .car, physicalMode: nil)]
-    
-//    static var modeForm = [GenerateRequest.ModeForm(title: "Public Transport", icon: "metro", selected: true, mode: .walking, physicalMode: nil),
-//                           GenerateRequest.ModeForm(title: "Bike", icon: "metro", selected: false, mode: .bike, physicalMode: nil),
-//                           GenerateRequest.ModeForm(title: "Car", icon: "metro", selected: false, mode: .car, physicalMode: nil)]
+    static var modeForm = [ModeButtonModel(title: "Public Transport", icon: "metro", selected: true, mode: .walking, physicalMode: nil),
+                           ModeButtonModel(title: "Bike", icon: "metro", selected: false, mode: .bike, physicalMode: nil),
+                           ModeButtonModel(title: "Car", icon: "metro", selected: false, mode: .car, physicalMode: nil)]
     
     // Format
     static let date = "yyyyMMdd'T'HHmmss"

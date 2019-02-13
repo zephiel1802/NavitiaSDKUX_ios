@@ -15,7 +15,7 @@ import UIKit
 
 protocol FormJourneyDataPassing {
     
-    var dataStore: FormJourneyDataStore? { get }
+    var dataStore: FormJourneyDataStore? { get set }
 }
 
 class FormJourneyRouter: NSObject, FormJourneyRoutingLogic, FormJourneyDataPassing {
@@ -35,8 +35,7 @@ class FormJourneyRouter: NSObject, FormJourneyRoutingLogic, FormJourneyDataPassi
         
 
         dataStore?.journeysRequest?.datetime = viewController.dateFormView.date
-//        dataStore?.journeysRequest?.firstSectionModes = [.walking, .bike, .car]
-//        dataStore?.journeysRequest?.lastSectionModes = [.walking, .bike, .car]
+        
         if viewController.dateFormView.departureArrivalSegmentedControl.selectedSegmentIndex == 0 {
             dataStore?.journeysRequest?.datetimeRepresents = .departure
         } else {
@@ -62,8 +61,6 @@ class FormJourneyRouter: NSObject, FormJourneyRoutingLogic, FormJourneyDataPassi
         navigateToListPlaces(source: viewController, destination: destinationVC)
     }
     
-    // passDataToListJourneys(source: dataStore, destination: &destinationDS)
-    
     // MARK: Navigation
     
     func navigateToListJourneys(source: FormJourneyViewController, destination: ListJourneysViewController) {
@@ -87,8 +84,6 @@ class FormJourneyRouter: NSObject, FormJourneyRoutingLogic, FormJourneyDataPassi
     // MARK: Passing Data
     
     func passDataToListPlaces(source: FormJourneyDataStore, destination: inout ListPlacesDataStore, info: String) {
-        destination.info = info
-
         if let fromId = source.journeysRequest?.originId, let fromLabel = source.journeysRequest?.originLabel {
             destination.from = (name: fromLabel, id: fromId)
         }
@@ -96,6 +91,7 @@ class FormJourneyRouter: NSObject, FormJourneyRoutingLogic, FormJourneyDataPassi
             destination.to = (name: toLabel, id: toId)
         }
         
+        destination.info = info
         destination.coverage = source.journeysRequest?.coverage
     }
 }

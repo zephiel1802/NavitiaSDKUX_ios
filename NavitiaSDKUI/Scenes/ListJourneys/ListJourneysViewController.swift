@@ -33,7 +33,7 @@ open class ListJourneysViewController: UIViewController, ListJourneysDisplayLogi
     required public init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         
-        initSDK()
+//        initSDK()
         initArchitecture()
     }
     
@@ -49,11 +49,7 @@ open class ListJourneysViewController: UIViewController, ListJourneysDisplayLogi
         interactor?.journeysRequest = journeysRequest
         interactor?.displaySearch(request: ListJourneys.DisplaySearch.Request())
         
-        if let allowedPhysicalModes = interactor?.journeysRequest?.allowedPhysicalModes {
-            fetchPhysicalMode()
-        } else {
-            fetchJourneys()
-        }
+        interactor?.journeysRequest?.allowedPhysicalModes != nil ? fetchPhysicalMode() : fetchJourneys()
     }
     
     override open func viewWillLayoutSubviews() {
@@ -63,10 +59,10 @@ open class ListJourneysViewController: UIViewController, ListJourneysDisplayLogi
         reloadCollectionViewLayout()
     }
     
-    private func initSDK() {
-        NavitiaSDKUI.shared.bundle = self.nibBundle
-        UIFont.registerFontWithFilenameString(filenameString: "SDKIcons.ttf", bundle: NavitiaSDKUI.shared.bundle)
-    }
+//    private func initSDK() {
+//        NavitiaSDKUI.shared.bundle = self.nibBundle
+//        UIFont.registerFontWithFilenameString(filenameString: "SDKIcons.ttf", bundle: NavitiaSDKUI.shared.bundle)
+//    }
     
     private func initArchitecture() {
         let viewController = self
@@ -123,11 +119,7 @@ open class ListJourneysViewController: UIViewController, ListJourneysDisplayLogi
     // MARK: - Events
     
     @objc func backButtonPressed() {
-        if isRootViewController() {
-            self.dismiss(animated: true, completion: nil)
-        } else {
-            self.navigationController?.popViewController(animated: true)
-        }
+        router?.routeToBack()
     }
     
     func displaySearch(viewModel: ListJourneys.DisplaySearch.ViewModel) {
@@ -454,7 +446,9 @@ extension ListJourneysViewController: SearchViewDelegate {
 extension ListJourneysViewController: ListPlacesViewControllerDelegate {
     
     func searchView(from: (name: String, id: String), to: (name: String, id: String)) {
+        let request = ListJourneys.DisplaySearch.Request(from: from, to: to)
         
+        interactor?.displaySearch(request: request)
         
         fetchJourneys()
     }

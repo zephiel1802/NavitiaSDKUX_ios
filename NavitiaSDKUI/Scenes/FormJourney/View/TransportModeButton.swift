@@ -9,23 +9,7 @@ import Foundation
 
 class TransportModeButton: UIButton {
     
-    public enum ModeType: String {
-        case bike = "bike"
-        case bss = "bss"
-        case car = "car"
-        case ridesharing = "ridesharing"
-        case walking = "walking"
-    }
-    
-    public struct ModeForm {
-        var title: String
-        var icon: String
-        var selected: Bool
-        var mode: ModeType // bike // bss // car // ridesharing // walking
-        var physicalMode: [String]?
-    }
-    
-    var mode: ModeForm? {
+    var mode: ModeButtonModel? {
         didSet {
             guard let mode = mode else {
                 return
@@ -37,13 +21,13 @@ class TransportModeButton: UIButton {
         }
     }
     
-    
     var icon: String? {
         didSet {
             updateIcon()
         }
     }
-    override var isSelected: Bool {
+    
+    override public var isSelected: Bool {
         didSet {
             if isSelected {
                 layer.borderColor = Configuration.Color.main.cgColor
@@ -54,7 +38,7 @@ class TransportModeButton: UIButton {
         }
     }
     
-    override init(frame: CGRect) {
+    override public init(frame: CGRect) {
         super.init(frame: frame)
         
         layer.borderWidth = 1
@@ -64,7 +48,7 @@ class TransportModeButton: UIButton {
         self.addTarget(self, action: #selector(self.buttonAction(_:)), for: UIControl.Event.touchUpInside)
     }
     
-    override required init?(coder aDecoder: NSCoder) {
+    required public init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
     
