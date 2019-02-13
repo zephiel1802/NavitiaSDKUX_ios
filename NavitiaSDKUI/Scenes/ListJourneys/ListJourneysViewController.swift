@@ -23,6 +23,8 @@ open class ListJourneysViewController: UIViewController, ListJourneysDisplayLogi
     internal var interactor: ListJourneysBusinessLogic?
     private var router: (NSObjectProtocol & ListJourneysViewRoutingLogic & ListJourneysDataPassing)?
     private var viewModel: ListJourneys.FetchJourneys.ViewModel?
+    
+    let activityView = UIActivityIndicatorView(style: .gray)
 
     static var identifier: String {
         return String(describing: self)
@@ -32,8 +34,7 @@ open class ListJourneysViewController: UIViewController, ListJourneysDisplayLogi
     
     required public init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        
-//        initSDK()
+    
         initArchitecture()
     }
     
@@ -55,14 +56,10 @@ open class ListJourneysViewController: UIViewController, ListJourneysDisplayLogi
     override open func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         
+        initActivityView()
         journeysCollectionView.collectionViewLayout.invalidateLayout()
         reloadCollectionViewLayout()
     }
-    
-//    private func initSDK() {
-//        NavitiaSDKUI.shared.bundle = self.nibBundle
-//        UIFont.registerFontWithFilenameString(filenameString: "SDKIcons.ttf", bundle: NavitiaSDKUI.shared.bundle)
-//    }
     
     private func initArchitecture() {
         let viewController = self
@@ -85,9 +82,6 @@ open class ListJourneysViewController: UIViewController, ListJourneysDisplayLogi
         navigationController?.navigationBar.shadowImage = UIImage()
         navigationController?.navigationBar.barTintColor = Configuration.Color.main
         navigationController?.navigationBar.isTranslucent = false
-
-        
-      //  navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: Configuration.Color.main.contrastColor()]
     }
     
     private func initHeader() {
@@ -116,6 +110,13 @@ open class ListJourneysViewController: UIViewController, ListJourneysDisplayLogi
         journeysCollectionView.register(UINib(nibName: JourneyHeaderCollectionReusableView.identifier, bundle: self.nibBundle), forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: JourneyHeaderCollectionReusableView.identifier)
     }
     
+    private func initActivityView() {
+        activityView.center.x = journeysCollectionView.center.x
+        activityView.frame.origin.y = 10
+        
+        journeysCollectionView.addSubview(activityView)
+    }
+    
     // MARK: - Events
     
     @objc func backButtonPressed() {
@@ -136,6 +137,7 @@ open class ListJourneysViewController: UIViewController, ListJourneysDisplayLogi
             return
         }
         
+        activityView.startAnimating()
         interactor?.fetchPhysicalModes(request: ListJourneys.FetchPhysicalModes.Request(journeysRequest: journeysRequest))
     }
     
@@ -163,6 +165,7 @@ open class ListJourneysViewController: UIViewController, ListJourneysDisplayLogi
             return
         }
 
+        activityView.startAnimating()
         let request = ListJourneys.FetchJourneys.Request(journeysRequest: journeysRequest)
         
         interactor?.fetchJourneys(request: request)
@@ -183,6 +186,7 @@ open class ListJourneysViewController: UIViewController, ListJourneysDisplayLogi
         if viewModel.loaded {
             DispatchQueue.main.async(execute: { () -> Void in
                 self.anim()
+                self.activityView.stopAnimating()
             })
         }
     }
@@ -237,7 +241,7 @@ extension ListJourneysViewController: UICollectionViewDataSource, UICollectionVi
         }
         // Loading
         if !viewModel.loaded {
-            return 4
+            return 0
         }
         // Carsharing : Header + Empty
         if section == 1 && viewModel.displayedRidesharings.count == 0 {
