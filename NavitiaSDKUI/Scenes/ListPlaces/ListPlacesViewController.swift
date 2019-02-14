@@ -68,6 +68,15 @@ class ListPlacesViewController: UIViewController, ListPlacesDisplayLogic {
         interactor?.displaySearch(request: ListPlaces.DisplaySearch.Request())
         
         hideKeyboardWhenTappedAround()
+        
+        let test = DataBaseWorker()
+        
+        test.connection()
+        //test.buttonSave(coverage: "stif", name: "test1", id: "test2", type: "test3")
+        test.buttonSave(coverage: "flavien11", name: "flavien22", id: "flavien33", type: "flavien44")
+        test.readValues()
+        var voila = test.journeysList
+        
     }
     
     override open func viewWillAppear(_ animated: Bool) {
@@ -135,7 +144,6 @@ class ListPlacesViewController: UIViewController, ListPlacesDisplayLogic {
     
     private func registerTableView() {
         tableView.register(UINib(nibName: PlacesTableViewCell.identifier, bundle: self.nibBundle), forCellReuseIdentifier: PlacesTableViewCell.identifier)
-        tableView.register(UINib(nibName: LocationTableViewCell.identifier, bundle: self.nibBundle), forCellReuseIdentifier: LocationTableViewCell.identifier)
     }
     
     

@@ -18,6 +18,18 @@ class SearchButtonView: UIView {
     
     weak var delegate: SearchButtonViewDelegate?
     
+    var isEnabled: Bool = true {
+        didSet {
+            searchButton.isEnabled = isEnabled
+            
+            if isEnabled {
+                searchButton.backgroundColor = Configuration.Color.main
+            } else {
+                searchButton.backgroundColor = Configuration.Color.shadow
+            }
+        }
+    }
+    
     // MARK: - UINib
     
     static var identifier: String {

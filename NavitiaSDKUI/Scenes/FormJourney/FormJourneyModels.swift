@@ -21,8 +21,8 @@ enum FormJourney
             var toName: String?
         }
         struct ViewModel {
-            var fromName: String
-            var toName: String
+            var fromName: String?
+            var toName: String?
         }
     }
 }

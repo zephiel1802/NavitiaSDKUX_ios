@@ -56,6 +56,7 @@ class ModeTransportView: UIView {
         for mode in Configuration.modeForm {
             let newButton = TransportModeButton(frame: CGRect(x: 0, y: 0, width: iconSize, height: iconSize))
             newButton.mode = mode
+            newButton.delegate = self
 //            newButton.mode = mode.title
 //            newButton.isSelected = mode.selected
 //            newButton.icon = mode.icon
@@ -161,5 +162,26 @@ class ModeTransportView: UIView {
         }
         
         return modes
+    }
+    
+    internal func getNumberButtonIsSelected() -> Int {
+        var count = 0
+        
+        for button in buttonsSaved {
+            if button.isSelected {
+                count = count + 1
+            }
+        }
+        
+        return count
+    }
+}
+
+extension ModeTransportView: TransportModeButtonDelegate {
+    
+    func touchButton(sender: TransportModeButton) {
+        if !sender.isSelected || (getNumberButtonIsSelected() > 1) {
+            sender.isSelected = !sender.isSelected
+        }
     }
 }

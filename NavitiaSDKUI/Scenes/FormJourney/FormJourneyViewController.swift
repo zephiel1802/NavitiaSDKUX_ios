@@ -27,6 +27,7 @@ class FormJourneyViewController: UIViewController, FormJourneyDisplayLogic, Jour
     internal var router: (NSObjectProtocol & FormJourneyRoutingLogic & FormJourneyDataPassing)?
     
     var dateFormView: DateFormView!
+    var searchButtonView: SearchButtonView!
     
     // MARK: - Initialization
     
@@ -50,7 +51,6 @@ class FormJourneyViewController: UIViewController, FormJourneyDisplayLogic, Jour
         initHeader()
         
         interactor?.journeysRequest = journeysRequest
-        interactor?.displaySearch(request: FormJourney.DisplaySearch.Request())
         
         hideKeyboardWhenTappedAround()
 
@@ -88,13 +88,16 @@ class FormJourneyViewController: UIViewController, FormJourneyDisplayLogic, Jour
             }
             
             
-            let searchButtonView = SearchButtonView.instanceFromNib()
+            searchButtonView = SearchButtonView.instanceFromNib()
             searchButtonView.frame.size = CGSize(width: stackScrollView.frame.size.width, height: 37)
             searchButtonView.delegate = self
             stackScrollView.addSubview(searchButtonView, margin: UIEdgeInsets(top: 17, left: 10, bottom: 10, right: 10), safeArea: false)
             
             display = true
+            interactor?.displaySearch(request: FormJourney.DisplaySearch.Request())
         }
+        
+        
         
     }
     
@@ -153,6 +156,12 @@ class FormJourneyViewController: UIViewController, FormJourneyDisplayLogic, Jour
     }
     
     func displaySearch(viewModel: FormJourney.DisplaySearch.ViewModel) {
+        if viewModel.fromName == nil || viewModel.toName == nil {
+            searchButtonView.isEnabled = false
+        } else {
+            searchButtonView.isEnabled = true
+        }
+        
         searchView.fromTextField.text = viewModel.fromName
         searchView.toTextField.text = viewModel.toName
     }

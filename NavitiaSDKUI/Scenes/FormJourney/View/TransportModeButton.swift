@@ -7,8 +7,14 @@
 
 import Foundation
 
+protocol TransportModeButtonDelegate: class {
+    
+    func touchButton(sender: TransportModeButton)
+}
+
 class TransportModeButton: UIButton {
     
+    weak var delegate: TransportModeButtonDelegate?
     var mode: ModeButtonModel? {
         didSet {
             guard let mode = mode else {
@@ -65,6 +71,6 @@ class TransportModeButton: UIButton {
     }
         
     @objc func buttonAction(_ sender:UIButton!) {
-        isSelected = !isSelected
+        delegate?.touchButton(sender: self)
     }
 }
