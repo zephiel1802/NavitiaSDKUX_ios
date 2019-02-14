@@ -38,10 +38,11 @@ class ListPlacesPresenter: ListPlacesPresentationLogic {
     private func getSection(places: Places?, address: Address?) -> [ListPlaces.FetchPlaces.ViewModel.Section] {
         var sections = [ListPlaces.FetchPlaces.ViewModel.Section]()
         
-        if let label = address?.label {
-            let section = ListPlaces.FetchPlaces.ViewModel.Section(type: .stopArea,
-                                                                   name: label,
-                                                                   places: [])
+        if let label = address?.label, let lon = address?.coord?.lon, let lat = address?.coord?.lat {
+            let place = ListPlaces.FetchPlaces.ViewModel.Place(name: label, id: String(format: "%@;%@", lon, lat))
+            let section = ListPlaces.FetchPlaces.ViewModel.Section(type: .location,
+                                                                   name: nil,
+                                                                   places: [place])
             sections.append(section)
         }
         

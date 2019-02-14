@@ -9,6 +9,7 @@ import UIKit
 
 protocol ListPlacesBusinessLogic {
     
+    var locationAddress: Address? { get set }
     var from: (name: String, id: String)? { get set }
     var to: (name: String, id: String)? { get set }
     

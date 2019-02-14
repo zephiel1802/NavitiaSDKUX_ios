@@ -54,6 +54,7 @@ enum ListPlaces {
                 case stopArea
                 case address
                 case poi
+                case location
             }
             
             struct Place {

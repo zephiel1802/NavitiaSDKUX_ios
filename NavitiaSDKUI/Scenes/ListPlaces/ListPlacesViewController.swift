@@ -53,8 +53,10 @@ class ListPlacesViewController: UIViewController, ListPlacesDisplayLogic {
         title = "journeys".localized()
         
         checkAccessLocationServices()
+        
         locationManager.delegate = self
-        locationManager.requestLocation()
+        locationManager.requestWhenInUseAuthorization()
+       // locationManager.requestLocation()
         
         initNavigationBar()
         initDebouncer()
@@ -133,6 +135,7 @@ class ListPlacesViewController: UIViewController, ListPlacesDisplayLogic {
     
     private func registerTableView() {
         tableView.register(UINib(nibName: PlacesTableViewCell.identifier, bundle: self.nibBundle), forCellReuseIdentifier: PlacesTableViewCell.identifier)
+        tableView.register(UINib(nibName: LocationTableViewCell.identifier, bundle: self.nibBundle), forCellReuseIdentifier: LocationTableViewCell.identifier)
     }
     
     
@@ -169,9 +172,12 @@ class ListPlacesViewController: UIViewController, ListPlacesDisplayLogic {
         if let info = viewModel.info {
             firstBecome = info
             if info == "from" {
+                locationManager.startUpdatingLocation()
                 searchView.focusFromField()
                 fetchPlaces(q: searchView.fromTextField.text)
             } else {
+                locationManager.stopUpdatingLocation()
+                interactor?.locationAddress = nil
                 searchView.focusToField()
                 fetchPlaces(q: searchView.toTextField.text)
             }
@@ -221,23 +227,30 @@ extension ListPlacesViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        guard let viewModel = viewModel, viewModel.sections[section].type != .location else {
+            return 0
+        }
+
         return 35
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        guard let viewModel = viewModel else {
+        guard let viewModel = viewModel, viewModel.sections[section].type != .location else {
             return nil
         }
         
         let view = PlacesHeaderView.instanceFromNib()
         
         if let name = viewModel.sections[section].name {
-            view.title = name
+            if viewModel.sections[section].type != .location {
+                view.title = name
+            }
         }
         
         if section == 0 {
             view.lineView.isHidden = true
         }
+  
         
         return view
     }
@@ -247,16 +260,29 @@ extension ListPlacesViewController: UITableViewDataSource, UITableViewDelegate {
             return 0
         }
         
+//        if viewModel.sections[section].type == .location {
+//            return 1
+//        }
+        
         return viewModel.sections[section].places.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if let cell = tableView.dequeueReusableCell(withIdentifier: PlacesTableViewCell.identifier, for: indexPath) as? PlacesTableViewCell,
-            let viewModel = viewModel {
+        guard let viewModel = viewModel else {
+            return UITableViewCell()
+        }
+        
+        if let cell = tableView.dequeueReusableCell(withIdentifier: PlacesTableViewCell.identifier, for: indexPath) as? PlacesTableViewCell {
+            if viewModel.sections[indexPath.section].type == .location {
+                cell.nameLabel.attributedText = NSMutableAttributedString()
+                    .bold("Ma position\n", size: 13)
+                    .normal(viewModel.sections[indexPath.section].places[indexPath.row].name, size: 11)
+            } else {
                 cell.nameLabel.text = viewModel.sections[indexPath.section].places[indexPath.row].name
-                cell.type = viewModel.sections[indexPath.section].type
-                
-                return cell
+            }
+            cell.type = viewModel.sections[indexPath.section].type
+            
+            return cell
         }
         
         return UITableViewCell()
@@ -276,6 +302,8 @@ extension ListPlacesViewController: UITableViewDataSource, UITableViewDelegate {
                 searchView.focusToField()
                 clearTableView()
                 firstBecome = "to"
+                locationManager.stopUpdatingLocation()
+                interactor?.locationAddress = nil
             } else {
                 dismissAutocompletion()
             }
@@ -288,6 +316,7 @@ extension ListPlacesViewController: UITableViewDataSource, UITableViewDelegate {
                 searchView.focusFromField()
                 clearTableView()
                 firstBecome = "from"
+                locationManager.startUpdatingLocation()
             } else {
                 dismissAutocompletion()
             }
@@ -362,6 +391,7 @@ extension ListPlacesViewController: SearchViewDelegate {
     
     func fromFieldClicked(q: String?) {
         firstBecome = "from"
+        locationManager.startUpdatingLocation()
         searchView.fromView.backgroundColor = Configuration.Color.white.withAlphaComponent(0.9)
         searchView.toView.backgroundColor = Configuration.Color.white
 
@@ -370,6 +400,8 @@ extension ListPlacesViewController: SearchViewDelegate {
     
     func toFieldClicked(q: String?) {
         firstBecome = "to"
+        locationManager.stopUpdatingLocation()
+        interactor?.locationAddress = nil
         searchView.fromView.backgroundColor = Configuration.Color.white
         searchView.toView.backgroundColor = Configuration.Color.white.withAlphaComponent(0.9)
         
