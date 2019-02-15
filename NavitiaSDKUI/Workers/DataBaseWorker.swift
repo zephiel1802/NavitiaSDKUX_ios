@@ -17,6 +17,8 @@ class DataBaseWorker {
         let fileURL = try! FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false)
             .appendingPathComponent("JourneysDatabase.sqlite")
 
+        print("SQLITE : ", fileURL.absoluteString)
+        
         if sqlite3_open(fileURL.path, &db) != SQLITE_OK {
             print("SQLITE : error opening database")
         } else {
@@ -32,6 +34,14 @@ class DataBaseWorker {
     }
     
     func buttonSave(coverage: String, name: String, id: String, type: String) {
+        
+        if let tab = readValues(coverage: coverage), tab.count > 10 {
+            if !remove() {
+                return
+            }
+        }
+        
+        
         //getting values from textfields
         let coverage = coverage.trimmingCharacters(in: .whitespacesAndNewlines) as NSString
         let name = name.trimmingCharacters(in: .whitespacesAndNewlines) as NSString
@@ -86,19 +96,41 @@ class DataBaseWorker {
         }
         
         
-        readValues()
-        
         //displaying a success message
         print("SQLITE : Journeys saved successfully")
     }
     
-    func readValues()  {
+    func remove() -> Bool {
+        let queryString = "DELETE FROM autocompletion"
+        
+        //statement pointer
+        var stmt:OpaquePointer?
+        
+        //preparing the query
+        if sqlite3_prepare(db, queryString, -1, &stmt, nil) != SQLITE_OK {
+            if sqlite3_step(stmt) == SQLITE_DONE {
+                print("Successfully deleted row.")
+            } else {
+                print("Could not delete row.")
+                return false
+            }
+        } else {
+            print("DELETE statement could not be prepared")
+            return false
+        }
+
+        sqlite3_finalize(stmt)
+        
+        return true
+    }
+    
+    func readValues(coverage: String) -> [Journeysss]? {
         
         //first empty the list of heroes
         journeysList.removeAll()
         
         //this is our select query
-        let queryString = "SELECT * FROM autocompletion"
+        let queryString = String(format: "SELECT * FROM autocompletion WHERE coverage = '%@'", coverage)
         
         //statement pointer
         var stmt:OpaquePointer?
@@ -107,11 +139,11 @@ class DataBaseWorker {
         if sqlite3_prepare(db, queryString, -1, &stmt, nil) != SQLITE_OK{
             let errmsg = String(cString: sqlite3_errmsg(db)!)
             print("error preparing insert: \(errmsg)")
-            return
+            return nil
         }
         
         //traversing through all the records
-        while(sqlite3_step(stmt) == SQLITE_ROW){
+        while(sqlite3_step(stmt) == SQLITE_ROW) {
             let coverage = String(cString: sqlite3_column_text(stmt, 0))
             let name = String(cString: sqlite3_column_text(stmt, 1))
             let idNavitia = String(cString: sqlite3_column_text(stmt, 2))
@@ -125,6 +157,9 @@ class DataBaseWorker {
                                            type: String(describing: type)))
         }
         
+        sqlite3_finalize(stmt)
+        
+        return journeysList
     }
 }
 

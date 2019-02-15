@@ -10,6 +10,7 @@ import UIKit
 protocol ListPlacesPresentationLogic {
     
     func presentDisplayedSearch(response: ListPlaces.DisplaySearch.Response)
+    func presentHistoryPlace(response: [Journeysss], locationAddress: Address?)
     func presentSomething(response: ListPlaces.FetchPlaces.Response)
 }
 
@@ -33,14 +34,39 @@ class ListPlacesPresenter: ListPlacesPresentationLogic {
         viewController?.displaySomething(viewModel: viewModel)
     }
     
+    func presentHistoryPlace(response: [Journeysss], locationAddress: Address?) {
+        var sections = [ListPlaces.FetchPlaces.ViewModel.Section]()
+        var placesNew = [ListPlaces.FetchPlaces.ViewModel.Place]()
 
+        if let label = locationAddress?.label, let lon = locationAddress?.coord?.lon, let lat = locationAddress?.coord?.lat {
+            let place = ListPlaces.FetchPlaces.ViewModel.Place(name: label, id: String(format: "%@;%@", lon, lat), type: .location)
+            let section = ListPlaces.FetchPlaces.ViewModel.Section(/*type: .location,*/
+                name: nil,
+                places: [place])
+            sections.append(section)
+        }
+
+        for i in response {
+            if let embeddedType = ListPlaces.FetchPlaces.ViewModel.ModelType(rawValue: i.type) {
+                var place = ListPlaces.FetchPlaces.ViewModel.Place(name: i.name, id: i.idNavitia, type: embeddedType)
+                placesNew.append(place)
+            }
+        }
+        let section = ListPlaces.FetchPlaces.ViewModel.Section(name: "HISTORIQUE", places: placesNew)
+        sections.append(section)
+        
+        let viewModel = ListPlaces.FetchPlaces.ViewModel(sections: sections)
+
+        viewController?.displaySomething(viewModel: viewModel)
+
+    }
     
     private func getSection(places: Places?, address: Address?) -> [ListPlaces.FetchPlaces.ViewModel.Section] {
         var sections = [ListPlaces.FetchPlaces.ViewModel.Section]()
         
         if let label = address?.label, let lon = address?.coord?.lon, let lat = address?.coord?.lat {
-            let place = ListPlaces.FetchPlaces.ViewModel.Place(name: label, id: String(format: "%@;%@", lon, lat))
-            let section = ListPlaces.FetchPlaces.ViewModel.Section(type: .location,
+            let place = ListPlaces.FetchPlaces.ViewModel.Place(name: label, id: String(format: "%@;%@", lon, lat), type: .location)
+            let section = ListPlaces.FetchPlaces.ViewModel.Section(/*type: .location,*/
                                                                    name: nil,
                                                                    places: [place])
             sections.append(section)
@@ -48,19 +74,19 @@ class ListPlacesPresenter: ListPlacesPresentationLogic {
         
         if let placesViewModel = getPlaces(places: places) {
             if placesViewModel.stopArea.count > 0 {
-                let section = ListPlaces.FetchPlaces.ViewModel.Section(type: .stopArea,
+                let section = ListPlaces.FetchPlaces.ViewModel.Section(/*type: .stopArea,*/
                                                                        name: "ARRÊTS - STATIONS",
                                                                        places: placesViewModel.stopArea)
                 sections.append(section)
             }
             if placesViewModel.address.count > 0 {
-                let section = ListPlaces.FetchPlaces.ViewModel.Section(type: .address,
+                let section = ListPlaces.FetchPlaces.ViewModel.Section(/*type: .address,*/
                                                                        name: "ADRESSE",
                                                                        places: placesViewModel.address)
                 sections.append(section)
             }
             if placesViewModel.poi.count > 0 {
-                let section = ListPlaces.FetchPlaces.ViewModel.Section(type: .poi,
+                let section = ListPlaces.FetchPlaces.ViewModel.Section(/*type: .poi,*/
                                                                        name: "POINTS D'INTERÊT",
                                                                        places: placesViewModel.poi)
                 sections.append(section)
@@ -80,14 +106,19 @@ class ListPlacesPresenter: ListPlacesPresentationLogic {
         var poi = [ListPlaces.FetchPlaces.ViewModel.Place]()
         
         for place in places {
-            let placeViewModel = ListPlaces.FetchPlaces.ViewModel.Place(name: place.name ?? "", id: place.id ?? "")
-            
-            if place.embeddedType == .stopArea {
-                stopArea.append(placeViewModel)
-            } else if place.embeddedType == .address || place.embeddedType == .administrativeRegion {
-                address.append(placeViewModel)
-            } else if place.embeddedType == .poi {
-                poi.append(placeViewModel)
+            if let name = place.name,
+                let id = place.id,
+                let embeddedType = place.embeddedType?.rawValue,
+                let type = ListPlaces.FetchPlaces.ViewModel.ModelType(rawValue: embeddedType) {
+                let placeViewModel = ListPlaces.FetchPlaces.ViewModel.Place(name: name, id: id, type: type)
+
+                if place.embeddedType == .stopArea {
+                    stopArea.append(placeViewModel)
+                } else if place.embeddedType == .address || place.embeddedType == .administrativeRegion {
+                    address.append(placeViewModel)
+                } else if place.embeddedType == .poi {
+                    poi.append(placeViewModel)
+                }
             }
         }
         

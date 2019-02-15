@@ -30,6 +30,12 @@ enum ListPlaces {
         }
     }
     
+    enum SavePlace {
+        struct Request {
+            var place: (name: String, id: String, type: String)
+        }
+    }
+    
     enum FetchLocation {
         struct Request {
             var latitude: Double
@@ -51,20 +57,21 @@ enum ListPlaces {
             var locationAddress: Address?
         }
         struct ViewModel {
-            enum ModelType {
-                case stopArea
-                case address
-                case poi
-                case location
+            enum ModelType: String {
+                case stopArea = "stop_area"
+                case address = "address"
+                case poi = "poi"
+                case location = "location"
             }
             
             struct Place {
                 var name: String
                 var id: String
+                var type: ModelType
             }
             
             struct Section {
-                var type: ModelType
+                //var type: ModelType
                 var name: String?
                 var places: [Place]
             }

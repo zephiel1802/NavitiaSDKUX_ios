@@ -66,17 +66,9 @@ class ListPlacesViewController: UIViewController, ListPlacesDisplayLogic {
         
         
         interactor?.displaySearch(request: ListPlaces.DisplaySearch.Request())
+        interactor?.info == "from" ? fetchPlaces(q: searchView.fromTextField.text) : fetchPlaces(q: searchView.toTextField.text)
         
         hideKeyboardWhenTappedAround()
-        
-        let test = DataBaseWorker()
-        
-        test.connection()
-        //test.buttonSave(coverage: "stif", name: "test1", id: "test2", type: "test3")
-        test.buttonSave(coverage: "flavien11", name: "flavien22", id: "flavien33", type: "flavien44")
-        test.readValues()
-        var voila = test.journeysList
-        
     }
     
     override open func viewWillAppear(_ animated: Bool) {
@@ -182,12 +174,12 @@ class ListPlacesViewController: UIViewController, ListPlacesDisplayLogic {
             if info == "from" {
                 locationManager.startUpdatingLocation()
                 searchView.focusFromField()
-                fetchPlaces(q: searchView.fromTextField.text)
+               // fetchPlaces(q: searchView.fromTextField.text)
             } else {
                 locationManager.stopUpdatingLocation()
                 interactor?.locationAddress = nil
                 searchView.focusToField()
-                fetchPlaces(q: searchView.toTextField.text)
+               // fetchPlaces(q: searchView.toTextField.text)
             }
         }
     }
@@ -235,7 +227,7 @@ extension ListPlacesViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        guard let viewModel = viewModel, viewModel.sections[section].type != .location else {
+        guard viewModel?.sections[safe: section]?.name != nil else {
             return 0
         }
 
@@ -243,17 +235,17 @@ extension ListPlacesViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        guard let viewModel = viewModel, viewModel.sections[section].type != .location else {
+        guard let name = viewModel?.sections[safe: section]?.name else {
             return nil
         }
         
         let view = PlacesHeaderView.instanceFromNib()
-        
-        if let name = viewModel.sections[section].name {
-            if viewModel.sections[section].type != .location {
-                view.title = name
-            }
-        }
+        view.title = name
+//        if let name = viewModel.sections[section].name {
+//            if viewModel.sections[section].type != .location {
+//                view.title = name
+//            }
+//        }
         
         if section == 0 {
             view.lineView.isHidden = true
@@ -281,14 +273,14 @@ extension ListPlacesViewController: UITableViewDataSource, UITableViewDelegate {
         }
         
         if let cell = tableView.dequeueReusableCell(withIdentifier: PlacesTableViewCell.identifier, for: indexPath) as? PlacesTableViewCell {
-            if viewModel.sections[indexPath.section].type == .location {
+            if viewModel.sections[indexPath.section].places[indexPath.row].type == .location {
                 cell.nameLabel.attributedText = NSMutableAttributedString()
                     .bold("Ma position\n", size: 13)
                     .normal(viewModel.sections[indexPath.section].places[indexPath.row].name, size: 11)
             } else {
                 cell.nameLabel.text = viewModel.sections[indexPath.section].places[indexPath.row].name
             }
-            cell.type = viewModel.sections[indexPath.section].type
+            cell.type = viewModel.sections[indexPath.section].places[indexPath.row].type
             
             return cell
         }
@@ -298,13 +290,19 @@ extension ListPlacesViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let name = viewModel?.sections[indexPath.section].places[indexPath.row].name,
-            let id = viewModel?.sections[indexPath.section].places[indexPath.row].id else {
+            let id = viewModel?.sections[indexPath.section].places[indexPath.row].id,
+            let type = viewModel?.sections[indexPath.section].places[indexPath.row].type else {
                 return
         }
         
+        if type != .location {
+            interactor?.savePlace(request: ListPlaces.SavePlace.Request(place: (name: name, id: id, type: type.rawValue)))
+        }
+
         if firstBecome == "from" {
             interactor?.displaySearch(request: ListPlaces.DisplaySearch.Request(from: (name: name, id: id), to: nil))
 
+            
             searchView.focusFromField(false)
             if searchView.toTextField.text == "" {
                 searchView.focusToField()
@@ -312,10 +310,12 @@ extension ListPlacesViewController: UITableViewDataSource, UITableViewDelegate {
                 firstBecome = "to"
                 locationManager.stopUpdatingLocation()
                 interactor?.locationAddress = nil
+                fetchPlaces(q: searchView.toTextField.text)
             } else {
                 dismissAutocompletion()
             }
 
+            
         } else {
             interactor?.displaySearch(request: ListPlaces.DisplaySearch.Request(from: nil, to: (name: name, id: id)))
 
@@ -325,6 +325,7 @@ extension ListPlacesViewController: UITableViewDataSource, UITableViewDelegate {
                 clearTableView()
                 firstBecome = "from"
                 locationManager.startUpdatingLocation()
+                fetchPlaces(q: searchView.fromTextField.text)
             } else {
                 dismissAutocompletion()
             }
