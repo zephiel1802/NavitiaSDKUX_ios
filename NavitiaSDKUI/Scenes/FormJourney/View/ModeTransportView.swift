@@ -20,11 +20,20 @@ class ModeTransportView: UIView {
     var isColorInverted: Bool = false
     var buttonsSaved: [TransportModeButton] = []
     
+    var contraintHegiht: NSLayoutConstraint?
     // MARK: - Initialization
+
     
     override func layoutSubviews() {
         super.layoutSubviews()
         
+        if contraintHegiht == nil {
+            contraintHegiht = NSLayoutConstraint(item: self, attribute: NSLayoutConstraint.Attribute.height, relatedBy: .equal,
+                                                 toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 0)
+        }
+        contraintHegiht?.constant = ModeTransportView.getViewHeight(by: self.frame.width)
+        contraintHegiht?.isActive = true
+
         self.frame.size = CGSize(width: self.frame.width, height: ModeTransportView.getViewHeight(by: self.frame.width))
         if buttonsSaved.count == 0 {
             initButtons()

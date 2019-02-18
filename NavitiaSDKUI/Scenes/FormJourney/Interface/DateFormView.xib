@@ -24,6 +24,7 @@
                             <subviews>
                                 <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="JjV-Ap-YLy">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="33"/>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="32" id="4yp-vg-p8j"/>
                                     </constraints>
@@ -71,7 +72,7 @@
                                     </constraints>
                                 </imageView>
                             </subviews>
-                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <constraints>
                                 <constraint firstItem="dRh-jb-N4t" firstAttribute="leading" secondItem="zhk-u5-9x4" secondAttribute="trailing" constant="5" id="0tq-Vd-nTj"/>
                                 <constraint firstItem="zhk-u5-9x4" firstAttribute="leading" secondItem="gi4-dv-bZO" secondAttribute="trailing" constant="7" id="28Q-Py-Eba"/>
@@ -100,9 +101,11 @@
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <connections>
+                <outlet property="arrowIconImageVIew" destination="dRh-jb-N4t" id="iSP-HC-ZRM"/>
                 <outlet property="dateTextField" destination="zhk-u5-9x4" id="o7D-zk-oGa"/>
                 <outlet property="departureArrivalSegmentedControl" destination="JjV-Ap-YLy" id="DxK-Zp-OeT"/>
                 <outlet property="iconImageView" destination="gi4-dv-bZO" id="4hY-hR-6Q8"/>
+                <outlet property="lineView" destination="tk5-Ii-9ne" id="3sa-fF-QcI"/>
             </connections>
             <point key="canvasLocation" x="-20" y="289.20539730134936"/>
         </view>

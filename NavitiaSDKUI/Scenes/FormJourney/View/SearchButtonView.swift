@@ -17,6 +17,7 @@ class SearchButtonView: UIView {
     @IBOutlet weak var searchButton: UIButton!
     
     weak var delegate: SearchButtonViewDelegate?
+    var contraintHegiht: NSLayoutConstraint?
     
     var isEnabled: Bool = true {
         didSet {
@@ -57,6 +58,12 @@ class SearchButtonView: UIView {
     
     private func setup() {
         searchButton.backgroundColor = Configuration.Color.main
+        searchButton.layer.borderColor = Configuration.Color.white.cgColor
+        searchButton.layer.borderWidth = 1
+        
+        contraintHegiht = NSLayoutConstraint(item: self, attribute: NSLayoutConstraint.Attribute.height, relatedBy: .equal,
+                                             toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 37)
+        contraintHegiht?.isActive = true
     }
     
     @IBAction func searchButtonClicked(_ sender: Any) {
