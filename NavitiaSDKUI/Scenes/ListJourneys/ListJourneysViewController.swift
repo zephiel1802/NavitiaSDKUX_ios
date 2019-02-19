@@ -21,7 +21,7 @@ open class ListJourneysViewController: UIViewController, ListJourneysDisplayLogi
     
     public var journeysRequest: JourneysRequest?
     internal var interactor: ListJourneysBusinessLogic?
-    private var router: (NSObjectProtocol & ListJourneysViewRoutingLogic & ListJourneysDataPassing)?
+    internal var router: (NSObjectProtocol & ListJourneysViewRoutingLogic & ListJourneysDataPassing)?
     private var viewModel: ListJourneys.FetchJourneys.ViewModel?
     
     let activityView = UIActivityIndicatorView(style: .gray)
@@ -47,7 +47,6 @@ open class ListJourneysViewController: UIViewController, ListJourneysDisplayLogi
         initHeader()
         initCollectionView()
 
-        interactor?.journeysRequest = journeysRequest
         interactor?.displaySearch(request: ListJourneys.DisplaySearch.Request())
         
         interactor?.journeysRequest?.allowedPhysicalModes != nil ? fetchPhysicalMode() : fetchJourneys()
@@ -449,7 +448,7 @@ extension ListJourneysViewController: SearchViewDelegate {
 
 extension ListJourneysViewController: ListPlacesViewControllerDelegate {
     
-    func searchView(from: (name: String, id: String), to: (name: String, id: String)) {
+    func searchView(from: (label: String?, name: String?, id: String), to: (label: String?, name: String?, id: String)) {
         let request = ListJourneys.DisplaySearch.Request(from: from, to: to)
         
         interactor?.displaySearch(request: request)

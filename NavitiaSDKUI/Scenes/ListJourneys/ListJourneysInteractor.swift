@@ -44,11 +44,13 @@ internal class ListJourneysInteractor: ListJourneysBusinessLogic, ListJourneysDa
     func displaySearch(request: ListJourneys.DisplaySearch.Request) {
         if let from = request.from {
             journeysRequest?.originId = from.id
-            journeysRequest?.originLabel = from.name
+            journeysRequest?.originName = from.name
+            journeysRequest?.originLabel = from.label
         }
         if let to = request.to {
             journeysRequest?.destinationId = to.id
-            journeysRequest?.destinationLabel = to.name
+            journeysRequest?.destinationName = to.name
+            journeysRequest?.destinationLabel = to.label
         }
 
         if let journeysRequest = journeysRequest {

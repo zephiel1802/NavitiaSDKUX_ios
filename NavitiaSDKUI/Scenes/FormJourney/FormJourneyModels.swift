@@ -7,14 +7,14 @@
 
 import UIKit
 
-enum FormJourney
-{
+enum FormJourney {
+    
     // MARK: Use cases
     
     enum DisplaySearch {
         struct Request {
-            var from: (name: String, id: String)?
-            var to: (name: String, id: String)?
+            var from: (label: String?, name: String?, id: String)?
+            var to: (label: String?, name: String?, id: String)?
         }
         struct Response {
             var fromName: String?
@@ -23,6 +23,24 @@ enum FormJourney
         struct ViewModel {
             var fromName: String?
             var toName: String?
+        }
+    }
+    
+    enum UpdateDate {
+        struct Request {
+            public enum DatetimeRepresents: String {
+                case arrival = "arrival"
+                case departure = "departure"
+            }
+            
+            var date: Date
+            var dateTimeRepresents: DatetimeRepresents
+        }
+        struct Response {
+            
+        }
+        struct ViewModel {
+            
         }
     }
 }

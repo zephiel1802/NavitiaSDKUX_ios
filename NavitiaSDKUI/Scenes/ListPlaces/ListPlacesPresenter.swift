@@ -21,8 +21,8 @@ class ListPlacesPresenter: ListPlacesPresentationLogic {
     // MARK: Do something
     
     func presentDisplayedSearch(response: ListPlaces.DisplaySearch.Response) {
-        let viewModel = ListPlaces.DisplaySearch.ViewModel(fromName: response.fromName ?? "",
-                                                           toName: response.toName ?? "",
+        let viewModel = ListPlaces.DisplaySearch.ViewModel(fromName: response.info == "from" ? response.fromName : response.fromName ?? response.fromLabel,
+                                                           toName: response.info == "to" ?  response.toName : response.toName ?? response.toLabel,
                                                            info: response.info)
         
         viewController?.displaySearch(viewModel: viewModel)

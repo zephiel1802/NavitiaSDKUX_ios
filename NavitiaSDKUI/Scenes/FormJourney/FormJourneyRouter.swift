@@ -25,26 +25,16 @@ class FormJourneyRouter: NSObject, FormJourneyRoutingLogic, FormJourneyDataPassi
     
     // MARK: Routing
     
+    // ⚠️ Add passDataToListJourneys
     func routeToListJourneys() {
         guard let viewController = viewController,
-            let _ = dataStore,
-            let destinationVC = viewController.storyboard?.instantiateViewController(withIdentifier: ListJourneysViewController.identifier) as? ListJourneysViewController/*,
-             var destinationDS = destinationVC.router?.dataStore*/ else {
+            let dataStore = dataStore,
+            let destinationVC = viewController.storyboard?.instantiateViewController(withIdentifier: ListJourneysViewController.identifier) as? ListJourneysViewController,
+            var destinationDS = destinationVC.router?.dataStore else {
                 return
         }
-        
 
-        dataStore?.journeysRequest?.datetime = viewController.dateFormView.date
-        
-        if viewController.dateFormView.departureArrivalSegmentedControl.selectedSegmentIndex == 0 {
-            dataStore?.journeysRequest?.datetimeRepresents = .departure
-        } else {
-            dataStore?.journeysRequest?.datetimeRepresents = .arrival
-        }
-
-        
-        destinationVC.journeysRequest = dataStore?.journeysRequest
-        
+        passDataToListJourneys(source: dataStore, destination: &destinationDS)
         navigateToListJourneys(source: viewController, destination: destinationVC)
     }
     
@@ -83,12 +73,20 @@ class FormJourneyRouter: NSObject, FormJourneyRoutingLogic, FormJourneyDataPassi
     
     // MARK: Passing Data
     
+    func passDataToListJourneys(source: FormJourneyDataStore, destination: inout ListJourneysDataStore) {
+        destination.journeysRequest = source.journeysRequest
+    }
+    
     func passDataToListPlaces(source: FormJourneyDataStore, destination: inout ListPlacesDataStore, info: String) {
-        if let fromId = source.journeysRequest?.originId, let fromLabel = source.journeysRequest?.originLabel {
-            destination.from = (name: fromLabel, id: fromId)
+        if let fromId = source.journeysRequest?.originId {
+            destination.from = (label: source.journeysRequest?.originLabel,
+                                name: source.journeysRequest?.originName,
+                                id: fromId)
         }
-        if let toId = source.journeysRequest?.destinationId, let toLabel = source.journeysRequest?.destinationLabel {
-            destination.to = (name: toLabel, id: toId)
+        if let toId = source.journeysRequest?.destinationId {
+            destination.to = (label: source.journeysRequest?.destinationLabel,
+                              name: source.journeysRequest?.destinationName,
+                              id: toId)
         }
         
         destination.info = info

@@ -126,11 +126,15 @@ internal class ListJourneysRouter: NSObject, ListJourneysViewRoutingLogic, ListJ
     }
     
     func passDataToListPlaces(source: ListJourneysDataStore, destination: inout ListPlacesDataStore, info: String) {
-        if let fromId = source.journeysRequest?.originId, let fromLabel = source.journeysRequest?.originLabel {
-            destination.from = (name: fromLabel, id: fromId)
+        if let fromId = source.journeysRequest?.originId {
+            destination.from = (label: source.journeysRequest?.originLabel,
+                                name: source.journeysRequest?.originName,
+                                id: fromId)
         }
-        if let toId = source.journeysRequest?.destinationId, let toLabel = source.journeysRequest?.destinationLabel {
-            destination.to = (name: toLabel, id: toId)
+        if let toId = source.journeysRequest?.destinationId {
+            destination.to = (label: source.journeysRequest?.destinationLabel,
+                              name: source.journeysRequest?.destinationName,
+                              id: toId)
         }
         
         destination.info = info

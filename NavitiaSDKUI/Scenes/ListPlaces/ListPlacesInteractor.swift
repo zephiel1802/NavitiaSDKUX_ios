@@ -11,8 +11,8 @@ protocol ListPlacesBusinessLogic {
     
     var info: String? { get set }
     var locationAddress: Address? { get set }
-    var from: (name: String, id: String)? { get set }
-    var to: (name: String, id: String)? { get set }
+    var from: (label: String?, name: String?, id: String)? { get set }
+    var to: (label: String?, name: String?, id: String)? { get set }
     
     func displaySearch(request: ListPlaces.DisplaySearch.Request)
     func savePlace(request: ListPlaces.SavePlace.Request)
@@ -24,8 +24,8 @@ protocol ListPlacesDataStore {
     
     var info: String? { get set }
     var coverage: String? { get set }
-    var from: (name: String, id: String)? { get set }
-    var to: (name: String, id: String)? { get set }
+    var from: (label: String?, name: String?, id: String)? { get set }
+    var to: (label: String?, name: String?, id: String)? { get set }
     var places: Places? { get set }
     var locationAddress: Address? { get set }
     var tab2: [Journeysss]? { get set }
@@ -39,8 +39,8 @@ class ListPlacesInteractor: ListPlacesBusinessLogic, ListPlacesDataStore {
     
     var info: String?
     var coverage: String?
-    var from: (name: String, id: String)?
-    var to: (name: String, id: String)?
+    var from: (label: String?, name: String?, id: String)?
+    var to: (label: String?, name: String?, id: String)?
     var places: Places?
     var locationAddress: Address?
     var tab2: [Journeysss]?
@@ -55,7 +55,9 @@ class ListPlacesInteractor: ListPlacesBusinessLogic, ListPlacesDataStore {
             self.to = to
         }
         
-        let response = ListPlaces.DisplaySearch.Response(fromName: from?.name,
+        let response = ListPlaces.DisplaySearch.Response(fromLabel: from?.label,
+                                                         fromName: from?.name,
+                                                         toLabel: to?.label,
                                                          toName: to?.name,
                                                          info: info)
         

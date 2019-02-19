@@ -10,7 +10,7 @@ import CoreLocation
 
 protocol ListPlacesViewControllerDelegate: class {
     
-    func searchView(from: (name: String, id: String), to: (name: String, id: String))
+    func searchView(from: (label: String?, name: String?, id: String), to: (label: String?, name: String?, id: String))
 }
 
 protocol ListPlacesDisplayLogic: class {
@@ -300,11 +300,12 @@ extension ListPlacesViewController: UITableViewDataSource, UITableViewDelegate {
         }
 
         if firstBecome == "from" {
-            interactor?.displaySearch(request: ListPlaces.DisplaySearch.Request(from: (name: name, id: id), to: nil))
+            interactor?.displaySearch(request: ListPlaces.DisplaySearch.Request(from: (label: nil, name: name, id: id), to: nil))
 
             
             searchView.focusFromField(false)
             if searchView.toTextField.text == "" {
+                
                 searchView.focusToField()
                 clearTableView()
                 firstBecome = "to"
@@ -317,7 +318,7 @@ extension ListPlacesViewController: UITableViewDataSource, UITableViewDelegate {
 
             
         } else {
-            interactor?.displaySearch(request: ListPlaces.DisplaySearch.Request(from: nil, to: (name: name, id: id)))
+            interactor?.displaySearch(request: ListPlaces.DisplaySearch.Request(from: nil, to: (label: nil, name: name, id: id)))
 
             searchView.focusToField(false)
             if searchView.fromTextField.text == "" {
@@ -400,19 +401,24 @@ extension ListPlacesViewController: SearchViewDelegate {
     
     func fromFieldClicked(q: String?) {
         firstBecome = "from"
+        
+        interactor?.info = "from"
         locationManager.startUpdatingLocation()
         searchView.fromView.backgroundColor = Configuration.Color.white.withAlphaComponent(0.9)
         searchView.toView.backgroundColor = Configuration.Color.white
-
+        interactor?.displaySearch(request: ListPlaces.DisplaySearch.Request())
         fetchDeboucedSearch(q: q)
     }
     
     func toFieldClicked(q: String?) {
         firstBecome = "to"
+        
+        interactor?.info = "to"
         locationManager.stopUpdatingLocation()
         interactor?.locationAddress = nil
         searchView.fromView.backgroundColor = Configuration.Color.white
         searchView.toView.backgroundColor = Configuration.Color.white.withAlphaComponent(0.9)
+        interactor?.displaySearch(request: ListPlaces.DisplaySearch.Request())
         
         fetchDeboucedSearch(q: q)
     }

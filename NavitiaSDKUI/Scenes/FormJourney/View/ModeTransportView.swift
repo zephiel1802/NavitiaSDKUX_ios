@@ -13,16 +13,29 @@ class ModeTransportView: UIView {
     private let iconSize: Int = 62
     private let minMargin: Int = 10
     private let textVerticalMargin = 0
-    private let textSize = 20
+    private let textSize = 25
     
-    var transportModeView: UIView? = nil
-    var transportModeLabel: UILabel? = nil
-    var isColorInverted: Bool = false
+    var transportModeView: UIView?
+    var transportModeLabel: UILabel!
+    var isColorInverted: Bool = false {
+        didSet {
+            transportModeLabel.textColor = (isColorInverted ? NavitiaSDKUI.shared.mainColor : UIColor.white)
+        }
+    }
     var buttonsSaved: [TransportModeButton] = []
     
     var contraintHegiht: NSLayoutConstraint?
     // MARK: - Initialization
 
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        
+        drawLabel()
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func layoutSubviews() {
         super.layoutSubviews()
@@ -31,6 +44,10 @@ class ModeTransportView: UIView {
             contraintHegiht = NSLayoutConstraint(item: self, attribute: NSLayoutConstraint.Attribute.height, relatedBy: .equal,
                                                  toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 0)
         }
+        if let superview = superview as? StackScrollView {
+            superview.reloadStack()
+        }
+        
         contraintHegiht?.constant = ModeTransportView.getViewHeight(by: self.frame.width)
         contraintHegiht?.isActive = true
 
@@ -38,12 +55,10 @@ class ModeTransportView: UIView {
         if buttonsSaved.count == 0 {
             initButtons()
         }
-        self.drawLabel()
+     //   self.drawLabel()
         self.drawIcons()
-        
-        if let superview = superview as? StackScrollView {
-            superview.reloadStack()
-        }
+//
+
     }
     
     // MARK: - Function
@@ -66,28 +81,20 @@ class ModeTransportView: UIView {
             let newButton = TransportModeButton(frame: CGRect(x: 0, y: 0, width: iconSize, height: iconSize))
             newButton.mode = mode
             newButton.delegate = self
-//            newButton.mode = mode.title
-//            newButton.isSelected = mode.selected
-//            newButton.icon = mode.icon
+
             buttonsSaved.append(newButton)
         }
     }
     
     private func drawLabel() {
-        let transportLabel = UILabel(frame: CGRect(x: 0, y: 0, width: self.frame.width, height: 30))
+        transportModeLabel = UILabel(frame: CGRect(x: 0, y: 0, width: frame.width, height: 30))
+        transportModeLabel.attributedText = NSMutableAttributedString().bold("Mode de transport",
+                                                                             color: isColorInverted ? NavitiaSDKUI.shared.mainColor : UIColor.white,
+                                                                             size: 13)
         
-        transportLabel.text = "Mode de transport"
-        transportLabel.font = UIFont.boldSystemFont(ofSize: 13)
-        transportLabel.textColor = (isColorInverted ? NavitiaSDKUI.shared.mainColor : UIColor.white)
-        
-        if transportModeLabel != nil {
-            transportModeLabel?.removeFromSuperview()
-        }
-        
-        self.addSubview(transportLabel)
-        self.transportModeLabel = transportLabel
+        addSubview(transportModeLabel)
     }
-    
+
     private func drawIcons() {
         let maxIconForWidth = ( Int(self.frame.width) + minMargin ) / ( iconSize + minMargin )
         let margin = Configuration.modeForm.count < maxIconForWidth ? minMargin : ( Int(self.frame.width) - ( maxIconForWidth * iconSize ) ) / ( maxIconForWidth - 1 )
@@ -114,17 +121,13 @@ class ModeTransportView: UIView {
                 let newButton = buttonsSaved[i * maxIconForWidth + j]
                 newButton.frame.origin = CGPoint(x: x, y: y)
 
-//                if isColorInverted {
-//                    newButton.layer.borderColor = NavitiaSDKUI.shared.mainColor.cgColor
-//                    newButton.layer.borderWidth = 1
-//                }
-                //newButton.backgroundColor = UIColor.white
                 newButton.layer.cornerRadius = 5
                 newButton.removeFromSuperview()
                 
                 let newLabel = UILabel(frame: CGRect(x: x, y: y + textVerticalMargin + iconSize, width: iconSize, height: textSize))
                 newLabel.text = newButton.mode?.title
                 newLabel.textAlignment = .center
+                newLabel.numberOfLines = 2
                 newLabel.font = UIFont.systemFont(ofSize: 8)
                 newLabel.textColor = (isColorInverted ? UIColor.black : UIColor.white)
                 

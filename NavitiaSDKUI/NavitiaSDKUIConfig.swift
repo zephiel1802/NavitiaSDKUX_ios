@@ -115,7 +115,11 @@ enum Configuration {
     static var nbOfTransportMode = 8
     static var modeForm = [ModeButtonModel(title: "Public Transport", icon: "metro", selected: true, mode: .walking, physicalMode: nil),
                            ModeButtonModel(title: "Bike", icon: "metro", selected: false, mode: .bike, physicalMode: nil),
-                           ModeButtonModel(title: "Car", icon: "metro", selected: false, mode: .car, physicalMode: nil)]
+                           ModeButtonModel(title: "Car", icon: "metro", selected: false, mode: .car, physicalMode: nil),
+                           ModeButtonModel(title: "Public Transport", icon: "metro", selected: true, mode: .walking, physicalMode: nil),
+                           ModeButtonModel(title: "Bike", icon: "metro", selected: false, mode: .bike, physicalMode: nil),
+                           ModeButtonModel(title: "Car", icon: "metro", selected: false, mode: .car, physicalMode: nil),
+                           ModeButtonModel(title: "Bike", icon: "metro", selected: false, mode: .bike, physicalMode: nil)]
     
     // Format
     static let date = "yyyyMMdd'T'HHmmss"

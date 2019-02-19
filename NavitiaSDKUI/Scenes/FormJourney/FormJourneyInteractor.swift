@@ -12,6 +12,7 @@ protocol FormJourneyBusinessLogic {
     var journeysRequest: JourneysRequest? { get set }
     
     func displaySearch(request: FormJourney.DisplaySearch.Request)
+    func updateDate(request: FormJourney.UpdateDate.Request)
 }
 
 protocol FormJourneyDataStore {
@@ -20,8 +21,8 @@ protocol FormJourneyDataStore {
 }
 
 class FormJourneyInteractor: FormJourneyBusinessLogic, FormJourneyDataStore {
-    var presenter: FormJourneyPresentationLogic?
     
+    var presenter: FormJourneyPresentationLogic?
     var journeysRequest: JourneysRequest?
 
     // MARK: - Display Search
@@ -29,16 +30,25 @@ class FormJourneyInteractor: FormJourneyBusinessLogic, FormJourneyDataStore {
     func displaySearch(request: FormJourney.DisplaySearch.Request) {
         if let from = request.from {
             journeysRequest?.originId = from.id
-            journeysRequest?.originLabel = from.name
+            journeysRequest?.originName = from.name
+            journeysRequest?.originLabel = from.label
         }
         if let to = request.to {
             journeysRequest?.destinationId = to.id
-            journeysRequest?.destinationLabel = to.name
+            journeysRequest?.destinationName = to.name
+            journeysRequest?.destinationLabel = to.label
         }
         
-        let response = FormJourney.DisplaySearch.Response(fromName: journeysRequest?.originLabel,
-                                                         toName: journeysRequest?.destinationLabel)
+        let response = FormJourney.DisplaySearch.Response(fromName: journeysRequest?.originName ?? journeysRequest?.originLabel,
+                                                         toName: journeysRequest?.destinationName ?? journeysRequest?.destinationLabel)
         
         self.presenter?.presentDisplayedSearch(response: response)
+    }
+    
+    // MARK: - Update Date
+    
+    func updateDate(request: FormJourney.UpdateDate.Request) {
+        journeysRequest?.datetime = request.date
+        journeysRequest?.datetimeRepresents = CoverageRegionJourneysRequestBuilder.DatetimeRepresents(rawValue: request.dateTimeRepresents.rawValue)
     }
 }

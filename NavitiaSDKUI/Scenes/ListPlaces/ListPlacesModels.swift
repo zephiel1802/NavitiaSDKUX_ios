@@ -14,17 +14,19 @@ enum ListPlaces {
     
     enum DisplaySearch {
         struct Request {
-            var from: (name: String, id: String)?
-            var to: (name: String, id: String)?
+            var from: (label: String?, name: String?, id: String)?
+            var to: (label: String?, name: String?, id: String)?
         }
         struct Response {
+            var fromLabel: String?
             var fromName: String?
+            var toLabel: String?
             var toName: String?
             var info: String?
         }
         struct ViewModel {
-            var fromName: String
-            var toName: String
+            var fromName: String?
+            var toName: String?
             var info: String?
             
         }

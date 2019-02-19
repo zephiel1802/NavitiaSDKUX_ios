@@ -12,10 +12,10 @@ public struct JourneysRequest {
     public var coverage: String
     public var originId: String?
     public var originLabel: String?
-    public var originAddress: String?
+    public var originName: String?
     public var destinationId: String?
     public var destinationLabel: String?
-    public var destinationAddress: String?
+    public var destinationName: String?
     public var datetime: Date?
     public var datetimeRepresents: CoverageRegionJourneysRequestBuilder.DatetimeRepresents?
     public var forbiddenUris: [String]?

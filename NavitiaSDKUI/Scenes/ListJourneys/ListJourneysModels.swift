@@ -13,8 +13,8 @@ enum ListJourneys {
     
     enum DisplaySearch {
         struct Request {
-            var from: (name: String, id: String)?
-            var to: (name: String, id: String)?
+            var from: (label: String?, name: String?, id: String)?
+            var to: (label: String?, name: String?, id: String)?
         }
         struct Response {
             var journeysRequest: JourneysRequest

@@ -46,7 +46,6 @@ class SearchView: UIView {
     @IBOutlet weak var preferenceButton: UIButton!
     
     
-    internal var modeTransportView: ModeTransportView? = nil
     internal weak var delegate: SearchViewDelegate?
     internal var lockSwitch = false
     internal var isPreferencesShown = false
@@ -140,9 +139,9 @@ class SearchView: UIView {
         return searchView
     }
     
-    var searchButtonView: SearchButtonView!
     var dateFormVoiew: DateFormView!
-    
+    var modeTransportView: ModeTransportView!
+    var searchButtonView: SearchButtonView!
     // MARK: - Function
     
     private func setup() {
@@ -151,25 +150,24 @@ class SearchView: UIView {
         setupPin()
         setupSwitchButton()
         
+        modeTransportView = ModeTransportView(frame: CGRect(x: 0, y: 0, width: stackView.frame.size.width, height: 0))
+        stackView.addArrangedSubview(modeTransportView)
+        
         dateFormVoiew = DateFormView.instanceFromNib()
-        dateFormVoiew.frame.size = CGSize(width: frame.size.width, height: 37)
         dateFormVoiew.isInverted = true
         stackView.addArrangedSubview(dateFormVoiew)
         
         searchButtonView = SearchButtonView.instanceFromNib()
-        searchButtonView.frame.size = CGSize(width: frame.size.width, height: 37)
         stackView.addArrangedSubview(searchButtonView)
         
         dateFormVoiew.isHidden = true
-        viewTest.isHidden = true
-        
+        modeTransportView.isHidden = true
         searchButtonView.isHidden = true
         
         preferenceButton.setAttributedTitle(NSMutableAttributedString()
             .medium(String(format: "%@  ", "Préférences"), color: Configuration.Color.white, size: 11)
             .icon("arrow-details-down", color: Configuration.Color.white, size: 11),
                                       for: .normal)
-        
     }
     
     private func setupPin() {
@@ -210,8 +208,6 @@ class SearchView: UIView {
         }
     }
     
-    @IBOutlet weak var viewTest: ModeTransportView!
-    
     @IBAction func togglePreferences(_ sender: Any) {
         if isPreferencesShown {
             preferenceButton.setAttributedTitle(NSMutableAttributedString()
@@ -219,8 +215,8 @@ class SearchView: UIView {
                 .icon("arrow-details-down", color: Configuration.Color.white, size: 11),
                                                 for: .normal)
             UIView.animate(withDuration: 0.25, delay: 0, options: .curveEaseOut, animations: {
-                self.viewTest.isHidden = true
-                self.viewTest.alpha = 0
+                self.modeTransportView.isHidden = true
+                self.modeTransportView.alpha = 0
                 self.searchButtonView.isHidden = true
                 self.searchButtonView.alpha = 0
             }, completion: nil)
@@ -237,8 +233,8 @@ class SearchView: UIView {
                 }, completion: nil)
             }
             UIView.animate(withDuration: 0.25, delay: 0, options: .curveEaseOut, animations: {
-                self.viewTest.isHidden = false
-                self.viewTest.alpha = 1
+                self.modeTransportView.isHidden = false
+                self.modeTransportView.alpha = 1
                 self.searchButtonView.isHidden = false
                 self.searchButtonView.alpha = 1
             }, completion: nil)
@@ -261,8 +257,8 @@ class SearchView: UIView {
                     .icon("arrow-details-down", color: Configuration.Color.white, size: 11),
                                                     for: .normal)
                 UIView.animate(withDuration: 0.25, delay: 0, options: .curveEaseOut, animations: {
-                    self.viewTest.isHidden = true
-                    self.viewTest.alpha = 0
+                    self.modeTransportView.isHidden = true
+                    self.modeTransportView.alpha = 0
                     self.isPreferencesShown = !self.isPreferencesShown
                 }, completion: nil)
             }
@@ -288,7 +284,6 @@ class SearchView: UIView {
     
     internal func animate() {
         switchDepartureArrivalButton.isHidden = true
-        // separatorView.isHidden = true
     }
     
     @IBAction func fromFieldClicked(_ sender: UITextField) {

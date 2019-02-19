@@ -16,25 +16,23 @@ class FormJourneyViewController: UIViewController, FormJourneyDisplayLogic, Jour
     
     @IBOutlet weak var searchView: SearchView!
     @IBOutlet weak var stackScrollView: StackScrollView!
+
+    private var modeTransportView: ModeTransportView!
+    private var dateFormView: DateFormView!
+    private var searchButtonView: SearchButtonView!
+    private var display = false
     
-    var modeTransportView: ModeTransportView?
-    
-//    var from: (name: String, id: String)?
-//    var to: (name: String, id: String)?
-    
-    var journeysRequest: JourneysRequest?
     internal var interactor: FormJourneyBusinessLogic?
     internal var router: (NSObjectProtocol & FormJourneyRoutingLogic & FormJourneyDataPassing)?
     
-    var dateFormView: DateFormView!
-    var searchButtonView: SearchButtonView!
+    // ⚠️ Trouver une solution concernant l'us age de l'interactor !!
+    var journeysRequest: JourneysRequest?
     
     // MARK: - Initialization
     
     required public init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        
-       // initSDK()
+
         initArchitecture()
     }
     
@@ -49,56 +47,25 @@ class FormJourneyViewController: UIViewController, FormJourneyDisplayLogic, Jour
         
         initNavigationBar()
         initHeader()
-        
-        interactor?.journeysRequest = journeysRequest
+        initStackScrollView()
         
         hideKeyboardWhenTappedAround()
-
         
-
-        stackScrollView.translatesAutoresizingMaskIntoConstraints = false
-        stackScrollView.bounces = false
+        // ⚠️ Voir de le supprimer
+        interactor?.journeysRequest = journeysRequest
     }
-    
-    var display = false
     
     override open func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         
         if !display {
-            modeTransportView = ModeTransportView(frame: CGRect(x: 0, y: 0, width: stackScrollView.frame.size.width, height: 0))
-            modeTransportView?.isColorInverted = true
-            stackScrollView.addSubview(modeTransportView!, margin: UIEdgeInsets(top: 10, left: 10, bottom: 17, right: 10), safeArea: true)
-            modeTransportView?.transportModeLabel?.textColor = NavitiaSDKUI.shared.mainColor
-            //        stackScrollView.addSubview(modeTransportView)
-            
-            dateFormView = DateFormView.instanceFromNib()
-            dateFormView.frame.size = CGSize(width: stackScrollView.frame.size.width, height: 93)
-            stackScrollView.addSubview(dateFormView, margin: UIEdgeInsets(top: 17, left: 10, bottom: 17, right: 10), safeArea: false)
-            if let datetimeRepresents = journeysRequest?.datetimeRepresents {
-                dateFormView.departureArrivalSegmentedControl.selectedSegmentIndex = datetimeRepresents == .departure ? 0 : 1
-            }
-            if let date = journeysRequest?.datetime {
-                dateFormView.date = date
-                
-                let dateFormmatter = DateFormatter()
-                
-                dateFormmatter.dateFormat = "EEEE d MMMM 'à' HH:mm"
-                dateFormView.dateTextField.text = dateFormmatter.string(from: date)
-            }
-            
-            
-            searchButtonView = SearchButtonView.instanceFromNib()
-            searchButtonView.frame.size = CGSize(width: stackScrollView.frame.size.width, height: 37)
-            searchButtonView.delegate = self
-            stackScrollView.addSubview(searchButtonView, margin: UIEdgeInsets(top: 17, left: 10, bottom: 10, right: 10), safeArea: false)
+            initModeTransportView()
+            initDateFormView()
+            initSearchButton()
             
             display = true
             interactor?.displaySearch(request: FormJourney.DisplaySearch.Request())
         }
-        
-        
-        
     }
     
     override open func viewWillLayoutSubviews() {
@@ -132,6 +99,42 @@ class FormJourneyViewController: UIViewController, FormJourneyDisplayLogic, Jour
     private func initHeader() {
         searchView.delegate = self
         searchView.dateTimeIsHidden = true
+    }
+    
+    private func initStackScrollView() {
+        stackScrollView.translatesAutoresizingMaskIntoConstraints = false
+        stackScrollView.bounces = false
+    }
+    
+    private func initModeTransportView() {
+        modeTransportView = ModeTransportView(frame: CGRect(x: 0, y: 0, width: stackScrollView.frame.size.width, height: 0))
+        modeTransportView?.isColorInverted = true
+        stackScrollView.addSubview(modeTransportView!, margin: UIEdgeInsets(top: 10, left: 10, bottom: 17, right: 10), safeArea: true)
+    }
+    
+    private func initDateFormView() {
+        dateFormView = DateFormView.instanceFromNib()
+        dateFormView.frame.size = CGSize(width: stackScrollView.frame.size.width, height: 93)
+        stackScrollView.addSubview(dateFormView, margin: UIEdgeInsets(top: 17, left: 10, bottom: 17, right: 10), safeArea: false)
+        // ⚠️
+        if let datetimeRepresents = journeysRequest?.datetimeRepresents {
+            dateFormView.departureArrivalSegmentedControl.selectedSegmentIndex = datetimeRepresents == .departure ? 0 : 1
+        }
+        if let date = journeysRequest?.datetime {
+            dateFormView.date = date
+            
+            let dateFormmatter = DateFormatter()
+            
+            dateFormmatter.dateFormat = "EEEE d MMMM 'à' HH:mm"
+            dateFormView.dateTextField.text = dateFormmatter.string(from: date)
+        }
+    }
+    
+    private func initSearchButton() {
+        searchButtonView = SearchButtonView.instanceFromNib()
+        searchButtonView.frame.size = CGSize(width: stackScrollView.frame.size.width, height: 37)
+        searchButtonView.delegate = self
+        stackScrollView.addSubview(searchButtonView, margin: UIEdgeInsets(top: 17, left: 10, bottom: 10, right: 10), safeArea: false)
     }
     
     // MARK: - Events
@@ -190,6 +193,13 @@ extension FormJourneyViewController: SearchViewDelegate {
 extension FormJourneyViewController: SearchButtonViewDelegate {
     
     func search() {
+
+        if let date = dateFormView.date {
+            interactor?.updateDate(request: FormJourney.UpdateDate.Request(date: date,
+                                                                           dateTimeRepresents: dateFormView.departureArrivalSegmentedControl.selectedSegmentIndex == 0 ? .departure : .arrival))
+        }
+        
+        
         if let physicalModes = modeTransportView?.getPhysicalModes() {
             interactor?.journeysRequest?.allowedPhysicalModes = physicalModes
         }
@@ -216,7 +226,7 @@ extension FormJourneyViewController: SearchButtonViewDelegate {
 
 extension FormJourneyViewController: ListPlacesViewControllerDelegate {
     
-    func searchView(from: (name: String, id: String), to: (name: String, id: String)) {
+    func searchView(from: (label: String?, name: String?, id: String), to: (label: String?, name: String?, id: String)) {
         let request = FormJourney.DisplaySearch.Request(from: from, to: to)
         
         interactor?.displaySearch(request: request)
