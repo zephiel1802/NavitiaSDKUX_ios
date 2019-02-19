@@ -17,7 +17,7 @@ class FormJourneyViewController: UIViewController, FormJourneyDisplayLogic, Jour
     @IBOutlet weak var searchView: SearchView!
     @IBOutlet weak var stackScrollView: StackScrollView!
 
-    private var modeTransportView: ModeTransportView!
+    private var transportModeView: TransportModeView!
     private var dateFormView: DateFormView!
     private var searchButtonView: SearchButtonView!
     private var display = false
@@ -59,7 +59,7 @@ class FormJourneyViewController: UIViewController, FormJourneyDisplayLogic, Jour
         super.viewDidLayoutSubviews()
         
         if !display {
-            initModeTransportView()
+            initTransportModeView()
             initDateFormView()
             initSearchButton()
             
@@ -106,10 +106,10 @@ class FormJourneyViewController: UIViewController, FormJourneyDisplayLogic, Jour
         stackScrollView.bounces = false
     }
     
-    private func initModeTransportView() {
-        modeTransportView = ModeTransportView(frame: CGRect(x: 0, y: 0, width: stackScrollView.frame.size.width, height: 0))
-        modeTransportView?.isColorInverted = true
-        stackScrollView.addSubview(modeTransportView!, margin: UIEdgeInsets(top: 10, left: 10, bottom: 17, right: 10), safeArea: true)
+    private func initTransportModeView() {
+        transportModeView = TransportModeView(frame: CGRect(x: 0, y: 0, width: stackScrollView.frame.size.width, height: 0))
+        transportModeView?.isColorInverted = true
+        stackScrollView.addSubview(transportModeView!, margin: UIEdgeInsets(top: 10, left: 10, bottom: 17, right: 10), safeArea: true)
     }
     
     private func initDateFormView() {
@@ -200,11 +200,11 @@ extension FormJourneyViewController: SearchButtonViewDelegate {
         }
         
         
-        if let physicalModes = modeTransportView?.getPhysicalModes() {
+        if let physicalModes = transportModeView?.getPhysicalModes() {
             interactor?.journeysRequest?.allowedPhysicalModes = physicalModes
         }
         
-        if let modes = modeTransportView?.getModes() {
+        if let modes = transportModeView?.getModes() {
             var firstSectionModes = [CoverageRegionJourneysRequestBuilder.FirstSectionMode]()
             var lastSectionModes = [CoverageRegionJourneysRequestBuilder.LastSectionMode]()
             

@@ -48,6 +48,7 @@ class TransportModeButton: UIButton {
         super.init(frame: frame)
         
         layer.borderWidth = 1
+        layer.cornerRadius = 5
         backgroundColor = Configuration.Color.white
 
         self.isSelected = true

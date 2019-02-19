@@ -1,5 +1,5 @@
 //
-//  ModeTransportView.swift
+//  TransportModeView.swift
 //  NavitiaSDKUI
 //
 //  Copyright © 2019 kisio. All rights reserved.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ModeTransportView: UIView {
+class TransportModeView: UIView {
     
     private let verticalMargin: Int = 10
     private let iconSize: Int = 62
@@ -23,13 +23,16 @@ class ModeTransportView: UIView {
         }
     }
     var buttonsSaved: [TransportModeButton] = []
+    var labelsSaved: [UILabel] = []
     
     var contraintHegiht: NSLayoutConstraint?
+    
     // MARK: - Initialization
 
     override init(frame: CGRect) {
         super.init(frame: frame)
         
+        initItems()
         drawLabel()
     }
     
@@ -48,22 +51,17 @@ class ModeTransportView: UIView {
             superview.reloadStack()
         }
         
-        contraintHegiht?.constant = ModeTransportView.getViewHeight(by: self.frame.width)
+        contraintHegiht?.constant = getViewHeight(by: self.frame.width)
         contraintHegiht?.isActive = true
 
-        self.frame.size = CGSize(width: self.frame.width, height: ModeTransportView.getViewHeight(by: self.frame.width))
-        if buttonsSaved.count == 0 {
-            initButtons()
-        }
-     //   self.drawLabel()
+        self.frame.size = CGSize(width: self.frame.width, height: getViewHeight(by: self.frame.width))
         self.drawIcons()
-//
 
     }
     
     // MARK: - Function
     
-    class func getViewHeight(by width : CGFloat) -> CGFloat {
+    internal func getViewHeight(by width : CGFloat) -> CGFloat {
         let verticalMargin: Int = 10
         let iconSize: Int = 62
         let minMargin: Int = 10
@@ -76,76 +74,73 @@ class ModeTransportView: UIView {
         return CGFloat((iconSize + verticalMargin + textSize + textVerticalMargin) * numberOfLines + 30 - verticalMargin)
     }
     
-    private func initButtons() {
+    internal func initItems() {
         for mode in Configuration.modeForm {
             let newButton = TransportModeButton(frame: CGRect(x: 0, y: 0, width: iconSize, height: iconSize))
             newButton.mode = mode
             newButton.delegate = self
 
             buttonsSaved.append(newButton)
+            
+            let newLabel = UILabel(frame: CGRect(x: 0, y: 0, width: iconSize, height: textSize))
+            newLabel.text = newButton.mode?.title
+            newLabel.textAlignment = .center
+            newLabel.numberOfLines = 2
+            newLabel.font = UIFont.systemFont(ofSize: 8)
+            newLabel.textColor = (isColorInverted ? NavitiaSDKUI.shared.mainColor : UIColor.white)
+            
+            labelsSaved.append(newLabel)
         }
     }
     
-    private func drawLabel() {
+    internal func drawLabel() {
         transportModeLabel = UILabel(frame: CGRect(x: 0, y: 0, width: frame.width, height: 30))
-        transportModeLabel.attributedText = NSMutableAttributedString().bold("Mode de transport",
-                                                                             color: isColorInverted ? NavitiaSDKUI.shared.mainColor : UIColor.white,
-                                                                             size: 13)
-        
+        transportModeLabel.attributedText = NSMutableAttributedString().bold("Mode de transport", color: isColorInverted ? NavitiaSDKUI.shared.mainColor : UIColor.white, size: 13)
         addSubview(transportModeLabel)
     }
 
-    private func drawIcons() {
+    internal func drawIcons() {
         let maxIconForWidth = ( Int(self.frame.width) + minMargin ) / ( iconSize + minMargin )
         let margin = Configuration.modeForm.count < maxIconForWidth ? minMargin : ( Int(self.frame.width) - ( maxIconForWidth * iconSize ) ) / ( maxIconForWidth - 1 )
         let numberOfLines = Configuration.modeForm.count / Int(maxIconForWidth) +
             ( Configuration.modeForm.count % maxIconForWidth == 0 ? 0 : 1 )
-        var transportMode = UIView(frame: CGRect(x: 0, y: 30, width: self.frame.width, height: CGFloat((iconSize + verticalMargin + textSize + textVerticalMargin) * numberOfLines - verticalMargin)))
+        let transportMode = UIView(frame: CGRect(x: 0, y: 30, width: self.frame.width, height: CGFloat((iconSize + verticalMargin + textSize + textVerticalMargin) * numberOfLines - verticalMargin)))
         
-        var countIconsToDisplay = Configuration.modeForm.count
         var y = 0
         for i in 0..<numberOfLines {
             var x = 0
             for j in 0..<maxIconForWidth {
-                if countIconsToDisplay <= 0 {
-                    if self.transportModeView != nil {
-                        self.transportModeView?.removeFromSuperview()
-                        self.transportModeView = nil
-                    }
-                    self.addSubview(transportMode)
-                    self.transportModeView = transportMode
+                guard let newButton = buttonsSaved[safe: i * maxIconForWidth + j],
+                    let newLabel = labelsSaved[safe: i * maxIconForWidth + j]else {
+                    showIcons(transportMode: transportMode)
                     
                     return
                 }
-                
-                let newButton = buttonsSaved[i * maxIconForWidth + j]
                 newButton.frame.origin = CGPoint(x: x, y: y)
-
-                newButton.layer.cornerRadius = 5
-                newButton.removeFromSuperview()
-                
-                let newLabel = UILabel(frame: CGRect(x: x, y: y + textVerticalMargin + iconSize, width: iconSize, height: textSize))
-                newLabel.text = newButton.mode?.title
-                newLabel.textAlignment = .center
-                newLabel.numberOfLines = 2
-                newLabel.font = UIFont.systemFont(ofSize: 8)
-                newLabel.textColor = (isColorInverted ? UIColor.black : UIColor.white)
+                newLabel.frame.origin = CGPoint(x: x, y: y + textVerticalMargin + iconSize)
+                if isColorInverted {
+                    newLabel.textColor = newButton.isSelected ? NavitiaSDKUI.shared.mainColor : UIColor.gray
+                } else {
+                    newLabel.textColor = UIColor.white
+                }
                 
                 transportMode.addSubview(newButton)
                 transportMode.addSubview(newLabel)
-                
-                countIconsToDisplay = countIconsToDisplay - 1
+
                 x = x + margin + iconSize
             }
             y = y + iconSize + verticalMargin + textSize + textVerticalMargin
         }
         
-        if self.transportModeView != nil {
-            self.transportModeView?.removeFromSuperview()
-            self.transportModeView = nil
+    }
+    
+    internal func showIcons(transportMode: UIView) {
+        if transportModeView != nil {
+            transportModeView?.removeFromSuperview()
+            transportModeView = nil
         }
-        self.addSubview(transportMode)
-        self.transportModeView = transportMode
+        addSubview(transportMode)
+        transportModeView = transportMode
     }
     
     internal func getPhysicalModes() -> [String]? {
@@ -189,7 +184,7 @@ class ModeTransportView: UIView {
     }
 }
 
-extension ModeTransportView: TransportModeButtonDelegate {
+extension TransportModeView: TransportModeButtonDelegate {
     
     func touchButton(sender: TransportModeButton) {
         if !sender.isSelected || (getNumberButtonIsSelected() > 1) {

@@ -140,7 +140,7 @@ class SearchView: UIView {
     }
     
     var dateFormVoiew: DateFormView!
-    var modeTransportView: ModeTransportView!
+    var transportModeView: TransportModeView!
     var searchButtonView: SearchButtonView!
     // MARK: - Function
     
@@ -150,8 +150,8 @@ class SearchView: UIView {
         setupPin()
         setupSwitchButton()
         
-        modeTransportView = ModeTransportView(frame: CGRect(x: 0, y: 0, width: stackView.frame.size.width, height: 0))
-        stackView.addArrangedSubview(modeTransportView)
+        transportModeView = TransportModeView(frame: CGRect(x: 0, y: 0, width: stackView.frame.size.width, height: 0))
+        stackView.addArrangedSubview(transportModeView)
         
         dateFormVoiew = DateFormView.instanceFromNib()
         dateFormVoiew.isInverted = true
@@ -161,7 +161,7 @@ class SearchView: UIView {
         stackView.addArrangedSubview(searchButtonView)
         
         dateFormVoiew.isHidden = true
-        modeTransportView.isHidden = true
+        transportModeView.isHidden = true
         searchButtonView.isHidden = true
         
         preferenceButton.setAttributedTitle(NSMutableAttributedString()
@@ -215,8 +215,8 @@ class SearchView: UIView {
                 .icon("arrow-details-down", color: Configuration.Color.white, size: 11),
                                                 for: .normal)
             UIView.animate(withDuration: 0.25, delay: 0, options: .curveEaseOut, animations: {
-                self.modeTransportView.isHidden = true
-                self.modeTransportView.alpha = 0
+                self.transportModeView.isHidden = true
+                self.transportModeView.alpha = 0
                 self.searchButtonView.isHidden = true
                 self.searchButtonView.alpha = 0
             }, completion: nil)
@@ -233,8 +233,8 @@ class SearchView: UIView {
                 }, completion: nil)
             }
             UIView.animate(withDuration: 0.25, delay: 0, options: .curveEaseOut, animations: {
-                self.modeTransportView.isHidden = false
-                self.modeTransportView.alpha = 1
+                self.transportModeView.isHidden = false
+                self.transportModeView.alpha = 1
                 self.searchButtonView.isHidden = false
                 self.searchButtonView.alpha = 1
             }, completion: nil)
@@ -257,8 +257,8 @@ class SearchView: UIView {
                     .icon("arrow-details-down", color: Configuration.Color.white, size: 11),
                                                     for: .normal)
                 UIView.animate(withDuration: 0.25, delay: 0, options: .curveEaseOut, animations: {
-                    self.modeTransportView.isHidden = true
-                    self.modeTransportView.alpha = 0
+                    self.transportModeView.isHidden = true
+                    self.transportModeView.alpha = 0
                     self.isPreferencesShown = !self.isPreferencesShown
                 }, completion: nil)
             }
