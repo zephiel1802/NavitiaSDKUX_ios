@@ -55,10 +55,8 @@ class ListPlacesInteractor: ListPlacesBusinessLogic, ListPlacesDataStore {
             self.to = to
         }
         
-        let response = ListPlaces.DisplaySearch.Response(fromLabel: from?.label,
-                                                         fromName: from?.name,
-                                                         toLabel: to?.label,
-                                                         toName: to?.name,
+        let response = ListPlaces.DisplaySearch.Response(from: from,
+                                                         to: to,
                                                          info: info)
         
         self.presenter?.presentDisplayedSearch(response: response)

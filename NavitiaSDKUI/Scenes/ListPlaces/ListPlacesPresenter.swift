@@ -21,8 +21,8 @@ class ListPlacesPresenter: ListPlacesPresentationLogic {
     // MARK: Do something
     
     func presentDisplayedSearch(response: ListPlaces.DisplaySearch.Response) {
-        let viewModel = ListPlaces.DisplaySearch.ViewModel(fromName: response.info == "from" ? response.fromName : response.fromName ?? response.fromLabel,
-                                                           toName: response.info == "to" ?  response.toName : response.toName ?? response.toLabel,
+        let viewModel = ListPlaces.DisplaySearch.ViewModel(fromName: response.info == "from" ? response.from?.name : response.from?.name ?? response.from?.label ?? response.from?.id,
+                                                           toName: response.info == "to" ?  response.to?.name : response.to?.name ?? response.to?.label ?? response.to?.id,
                                                            info: response.info)
         
         viewController?.displaySearch(viewModel: viewModel)
@@ -66,28 +66,24 @@ class ListPlacesPresenter: ListPlacesPresentationLogic {
         
         if let label = address?.label, let lon = address?.coord?.lon, let lat = address?.coord?.lat {
             let place = ListPlaces.FetchPlaces.ViewModel.Place(name: label, id: String(format: "%@;%@", lon, lat), type: .location)
-            let section = ListPlaces.FetchPlaces.ViewModel.Section(/*type: .location,*/
-                                                                   name: nil,
+            let section = ListPlaces.FetchPlaces.ViewModel.Section(name: nil,
                                                                    places: [place])
             sections.append(section)
         }
         
         if let placesViewModel = getPlaces(places: places) {
             if placesViewModel.stopArea.count > 0 {
-                let section = ListPlaces.FetchPlaces.ViewModel.Section(/*type: .stopArea,*/
-                                                                       name: "ARRÊTS - STATIONS",
+                let section = ListPlaces.FetchPlaces.ViewModel.Section(name: "ARRÊTS - STATIONS",
                                                                        places: placesViewModel.stopArea)
                 sections.append(section)
             }
             if placesViewModel.address.count > 0 {
-                let section = ListPlaces.FetchPlaces.ViewModel.Section(/*type: .address,*/
-                                                                       name: "ADRESSE",
+                let section = ListPlaces.FetchPlaces.ViewModel.Section(name: "ADRESSE",
                                                                        places: placesViewModel.address)
                 sections.append(section)
             }
             if placesViewModel.poi.count > 0 {
-                let section = ListPlaces.FetchPlaces.ViewModel.Section(/*type: .poi,*/
-                                                                       name: "POINTS D'INTERÊT",
+                let section = ListPlaces.FetchPlaces.ViewModel.Section(name: "POINTS D'INTERÊT",
                                                                        places: placesViewModel.poi)
                 sections.append(section)
             }

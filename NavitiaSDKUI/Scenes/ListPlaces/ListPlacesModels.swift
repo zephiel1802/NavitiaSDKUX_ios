@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import SQLite3
 
 enum ListPlaces {
     
@@ -18,23 +17,26 @@ enum ListPlaces {
             var to: (label: String?, name: String?, id: String)?
         }
         struct Response {
-            var fromLabel: String?
-            var fromName: String?
-            var toLabel: String?
-            var toName: String?
+            var from: (label: String?, name: String?, id: String)?
+            var to: (label: String?, name: String?, id: String)?
             var info: String?
         }
         struct ViewModel {
             var fromName: String?
             var toName: String?
             var info: String?
-            
         }
     }
     
     enum SavePlace {
         struct Request {
             var place: (name: String, id: String, type: String)
+        }
+        struct Response {
+            var dictAddresses: DictAddresses
+        }
+        struct ViewModel {
+            
         }
     }
     
@@ -73,7 +75,6 @@ enum ListPlaces {
             }
             
             struct Section {
-                //var type: ModelType
                 var name: String?
                 var places: [Place]
             }

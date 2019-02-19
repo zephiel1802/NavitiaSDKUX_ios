@@ -2,7 +2,7 @@
 //  PlacesTableViewCell.swift
 //  NavitiaSDKUI
 //
-//  Created by Flavien Sicard on 30/01/2019.
+//  Copyright © 2019 kisio. All rights reserved.
 //
 
 import UIKit
@@ -10,10 +10,10 @@ import UIKit
 class PlacesTableViewCell: UITableViewCell {
     
     enum ModelType: String {
-        case stopArea
-        case address
-        case poi
-        case location
+        case stopArea = "stopArea"
+        case address = "address"
+        case poi = "poi"
+        case location = "location"
     }
     
     @IBOutlet weak var typeimageView: UIImageView!
@@ -49,14 +49,4 @@ class PlacesTableViewCell: UITableViewCell {
     static var nib:UINib {
         return UINib(nibName: identifier, bundle: nil)
     }
-    
-    
-    // MARK: - Initialization
-    
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        
-        //setup()
-    }
-    
 }

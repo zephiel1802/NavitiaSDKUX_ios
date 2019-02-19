@@ -47,6 +47,10 @@ open class ListJourneysViewController: UIViewController, ListJourneysDisplayLogi
         initHeader()
         initCollectionView()
 
+        if let journeysRequest = journeysRequest {
+            interactor?.journeysRequest = journeysRequest
+        }
+        
         interactor?.displaySearch(request: ListJourneys.DisplaySearch.Request())
         
         interactor?.journeysRequest?.allowedPhysicalModes != nil ? fetchPhysicalMode() : fetchJourneys()
@@ -126,6 +130,7 @@ open class ListJourneysViewController: UIViewController, ListJourneysDisplayLogi
         searchView.fromTextField.text = viewModel.fromName
         searchView.toTextField.text = viewModel.toName
         searchView.dateTime = viewModel.dateTime
+        searchView.lock = !NavitiaSDKUI.shared.formJourney
         
         searchView.accessibilityLabel = viewModel.accessibilityHeader
         searchView.switchDepartureArrivalButton.accessibilityLabel = viewModel.accessibilitySwitchButton

@@ -95,6 +95,22 @@ class SearchView: UIView {
         }
     }
     
+    internal var lock: Bool = false {
+        didSet {
+            if lock {
+                fromTextField.isEnabled = false
+                toTextField.isEnabled = false
+                dateButton.isEnabled = false
+                preferenceButton.isHidden = true
+            } else {
+                fromTextField.isEnabled = true
+                toTextField.isEnabled = true
+                dateButton.isEnabled = true
+                preferenceButton.isHidden = false
+            }
+        }
+    }
+    
     func animatedd() {
        // self.backgroundTopConstraint.constant = 7
         self.separatorTopContraint.constant = 3
