@@ -69,17 +69,18 @@ enum ListPlaces {
             }
             
             struct Place {
+                var label: String?
                 var name: String
                 var id: String
                 var type: ModelType
             }
             
-            struct Section {
+            struct DisplayedSections {
                 var name: String?
                 var places: [Place]
             }
             
-            var sections: [Section]
+            var displayedSections: [DisplayedSections]
         }
     }
 }

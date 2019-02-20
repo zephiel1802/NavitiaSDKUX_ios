@@ -46,7 +46,11 @@ class SearchView: UIView {
     @IBOutlet weak var preferenceButton: UIButton!
     
     
-    internal weak var delegate: SearchViewDelegate?
+    internal weak var delegate: SearchViewDelegate? {
+        didSet {
+            searchButtonView.delegate = delegate as? SearchButtonViewDelegate
+        }
+    }
     internal var lockSwitch = false
     internal var isPreferencesShown = false
     internal var isDateShown = false
@@ -178,6 +182,7 @@ class SearchView: UIView {
         
         dateFormVoiew.isHidden = true
         transportModeView.isHidden = true
+        
         searchButtonView.isHidden = true
         
         preferenceButton.setAttributedTitle(NSMutableAttributedString()
@@ -226,16 +231,7 @@ class SearchView: UIView {
     
     @IBAction func togglePreferences(_ sender: Any) {
         if isPreferencesShown {
-            preferenceButton.setAttributedTitle(NSMutableAttributedString()
-                .medium(String(format: "%@  ", "preferences".localized()), color: Configuration.Color.white, size: 11)
-                .icon("arrow-details-down", color: Configuration.Color.white, size: 11),
-                                                for: .normal)
-            UIView.animate(withDuration: 0.25, delay: 0, options: .curveEaseOut, animations: {
-                self.transportModeView.isHidden = true
-                self.transportModeView.alpha = 0
-                self.searchButtonView.isHidden = true
-                self.searchButtonView.alpha = 0
-            }, completion: nil)
+            hiddenPreference()
         } else {
             preferenceButton.setAttributedTitle(NSMutableAttributedString()
                 .medium(String(format: "%@  ", "preferences".localized()), color: Configuration.Color.white, size: 11)
@@ -260,12 +256,7 @@ class SearchView: UIView {
     
     @IBAction func toggleDate(_ sender: Any) {
         if isDateShown {
-            UIView.animate(withDuration: 0.25, delay: 0, options: .curveEaseOut, animations: {
-                self.dateFormVoiew.isHidden = true
-                self.dateFormVoiew.alpha = 0
-                self.searchButtonView.isHidden = true
-                self.searchButtonView.alpha = 0
-            }, completion: nil)
+            hiddenDate()
         } else {
             if self.isPreferencesShown {
                 preferenceButton.setAttributedTitle(NSMutableAttributedString()
@@ -286,6 +277,28 @@ class SearchView: UIView {
             }, completion: nil)
         }
         isDateShown = !isDateShown
+    }
+    
+    internal func hiddenPreference() {
+        preferenceButton.setAttributedTitle(NSMutableAttributedString()
+            .medium(String(format: "%@  ", "Préférences"), color: Configuration.Color.white, size: 11)
+            .icon("arrow-details-down", color: Configuration.Color.white, size: 11),
+                                            for: .normal)
+        UIView.animate(withDuration: 0.25, delay: 0, options: .curveEaseOut, animations: {
+            self.transportModeView.isHidden = true
+            self.transportModeView.alpha = 0
+            self.searchButtonView.isHidden = true
+            self.searchButtonView.alpha = 0
+        }, completion: nil)
+    }
+    
+    internal func hiddenDate() {
+        UIView.animate(withDuration: 0.25, delay: 0, options: .curveEaseOut, animations: {
+            self.dateFormVoiew.isHidden = true
+            self.dateFormVoiew.alpha = 0
+            self.searchButtonView.isHidden = true
+            self.searchButtonView.alpha = 0
+        }, completion: nil)
     }
     
     private func switchDepartureArrivalAnimate(_ sender: UIButton) {

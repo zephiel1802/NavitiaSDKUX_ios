@@ -42,6 +42,22 @@ class PlacesTableViewCell: UITableViewCell {
         }
     }
     
+    internal var name: String? {
+        didSet {
+            guard let name = name else {
+                return
+            }
+            
+            if type == .location {
+                nameLabel.attributedText = NSMutableAttributedString()
+                    .bold("Ma position\n", size: 13)
+                    .normal(name, size: 11)
+            } else {
+                nameLabel.text = name
+            }
+        }
+    }
+    
     static var identifier: String {
         return String(describing: self)
     }

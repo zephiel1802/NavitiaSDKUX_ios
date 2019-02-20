@@ -43,6 +43,8 @@ open class ListJourneysViewController: UIViewController, ListJourneysDisplayLogi
         
         title = "journeys".localized()
         
+        hideKeyboardWhenTappedAround()
+        
         initNavigationBar()
         initHeader()
         initCollectionView()
@@ -51,8 +53,8 @@ open class ListJourneysViewController: UIViewController, ListJourneysDisplayLogi
             interactor?.journeysRequest = journeysRequest
         }
         
+        // ⚠️
         interactor?.displaySearch(request: ListJourneys.DisplaySearch.Request())
-        
         interactor?.journeysRequest?.allowedPhysicalModes != nil ? fetchPhysicalMode() : fetchJourneys()
     }
     
@@ -204,13 +206,13 @@ open class ListJourneysViewController: UIViewController, ListJourneysDisplayLogi
         
     }
     
+    // ⚠️
     func anim() {
         let cells = journeysCollectionView.visibleCells
         let collectionViewHeight = journeysCollectionView.bounds.size.height
         
         for cell in cells {
             cell.transform = CGAffineTransform(translationX: 0, y: collectionViewHeight)
-            
         }
         
         var delayCounter = 0
@@ -459,5 +461,72 @@ extension ListJourneysViewController: ListPlacesViewControllerDelegate {
         interactor?.displaySearch(request: request)
         
         fetchJourneys()
+    }
+}
+
+extension ListJourneysViewController: SearchButtonViewDelegate {
+    
+    func search() {
+        if searchView.isPreferencesShown {
+            print("Changement de mode")
+            if let physicalModes = searchView.transportModeView?.getPhysicalModes() {
+                interactor?.journeysRequest?.allowedPhysicalModes = physicalModes
+            }
+            
+            if let modes = searchView.transportModeView?.getModes() {
+                var firstSectionModes = [CoverageRegionJourneysRequestBuilder.FirstSectionMode]()
+                var lastSectionModes = [CoverageRegionJourneysRequestBuilder.LastSectionMode]()
+                
+                for mode in modes {
+                    if let sectionMode = CoverageRegionJourneysRequestBuilder.FirstSectionMode(rawValue:mode) {
+                        firstSectionModes.append(sectionMode)
+                    }
+                    if let sectionMode = CoverageRegionJourneysRequestBuilder.LastSectionMode(rawValue:mode) {
+                        lastSectionModes.append(sectionMode)
+                    }
+                }
+                
+                interactor?.journeysRequest?.firstSectionModes = firstSectionModes
+                interactor?.journeysRequest?.lastSectionModes = lastSectionModes
+            }
+            searchView.hiddenPreference()
+            fetchPhysicalMode()
+        } else if searchView.isDateShown {
+            if let date = searchView.dateFormVoiew.date {
+                interactor?.updateDate(request: FormJourney.UpdateDate.Request(date: date,
+                                                                               dateTimeRepresents: searchView.dateFormVoiew.departureArrivalSegmentedControl.selectedSegmentIndex == 0 ? .departure : .arrival))
+            }
+            
+            print("CHangement de date")
+            searchView.hiddenDate()
+            fetchJourneys()
+        }
+
+//        if let date = dateFormView.date {
+//            interactor?.updateDate(request: FormJourney.UpdateDate.Request(date: date,
+//                                                                           dateTimeRepresents: dateFormView.departureArrivalSegmentedControl.selectedSegmentIndex == 0 ? .departure : .arrival))
+//        }
+//
+//        if let physicalModes = modeTransportView?.getPhysicalModes() {
+//            interactor?.journeysRequest?.allowedPhysicalModes = physicalModes
+//        }
+//
+//        if let modes = modeTransportView?.getModes() {
+//            var firstSectionModes = [CoverageRegionJourneysRequestBuilder.FirstSectionMode]()
+//            var lastSectionModes = [CoverageRegionJourneysRequestBuilder.LastSectionMode]()
+//
+//            for mode in modes {
+//                if let sectionMode = CoverageRegionJourneysRequestBuilder.FirstSectionMode(rawValue:mode) {
+//                    firstSectionModes.append(sectionMode)
+//                }
+//                if let sectionMode = CoverageRegionJourneysRequestBuilder.LastSectionMode(rawValue:mode) {
+//                    lastSectionModes.append(sectionMode)
+//                }
+//            }
+//
+//            interactor?.journeysRequest?.firstSectionModes = firstSectionModes
+//            interactor?.journeysRequest?.lastSectionModes = lastSectionModes
+//        }
+//        router?.routeToListJourneys()
     }
 }

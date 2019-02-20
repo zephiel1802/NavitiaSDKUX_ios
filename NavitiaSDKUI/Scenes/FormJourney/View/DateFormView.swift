@@ -14,6 +14,11 @@ protocol DateFormViewDelegate: class {
 
 class DateFormView: UIView {
     
+    enum DatetimeRepresents: String {
+        case arrival = "arrival"
+        case departure = "departure"
+    }
+    
     @IBOutlet weak var departureArrivalSegmentedControl: UISegmentedControl!
     @IBOutlet weak var iconImageView: UIImageView!
     @IBOutlet weak var arrowIconImageVIew: UIImageView!
@@ -22,42 +27,48 @@ class DateFormView: UIView {
     
     private var datePicker: UIDatePicker?
     private var contraintHegiht: NSLayoutConstraint?
-    
-    internal var date: Date? {
-        didSet {
-            guard let date = date else {
+    internal weak var delegate: DateFormViewDelegate?
+    internal var dateTimeRepresentsSegmentedControl: String? {
+        get {
+            return departureArrivalSegmentedControl.selectedSegmentIndex == 0 ? DatetimeRepresents.departure.rawValue : DatetimeRepresents.arrival.rawValue
+        }
+        set {
+            guard let newValue = newValue,
+                let datetimeRepresents = DatetimeRepresents(rawValue: newValue) else {
                 return
             }
             
-            datePicker?.date = date
+            departureArrivalSegmentedControl.selectedSegmentIndex = datetimeRepresents == .departure ? 0 : 1
         }
     }
-    
+    internal var date: Date? {
+        get {
+            return datePicker?.date
+        }
+        set {
+            guard let newValue = newValue,
+                let datePicker = datePicker else {
+                return
+            }
+            
+            let dateFormmatter = DateFormatter()
+            
+            datePicker.date = newValue
+            dateFormmatter.dateFormat = "EEEE d MMMM 'à' HH:mm"
+            
+            dateTextField.text = dateFormmatter.string(from: datePicker.date)
+        }
+    }
     internal var isInverted: Bool = false {
         didSet {
-            if isInverted {
-                departureArrivalSegmentedControl.tintColor = Configuration.Color.white
-                departureArrivalSegmentedControl.backgroundColor = Configuration.Color.main
-                
-                iconImageView.tintColor = Configuration.Color.white
-                arrowIconImageVIew.tintColor = Configuration.Color.white
-                lineView.backgroundColor = Configuration.Color.white
-                
-                dateTextField.textColor = Configuration.Color.white
-
-            } else {
-                departureArrivalSegmentedControl.tintColor = Configuration.Color.main
-                departureArrivalSegmentedControl.backgroundColor = Configuration.Color.white
-                
-                iconImageView.tintColor = Configuration.Color.main
-                arrowIconImageVIew.tintColor = Configuration.Color.black
-                lineView.backgroundColor = Configuration.Color.black
-
-                dateTextField.textColor = Configuration.Color.black
-            }
+            departureArrivalSegmentedControl.tintColor = isInverted ? Configuration.Color.white : Configuration.Color.main
+            departureArrivalSegmentedControl.backgroundColor = isInverted ? Configuration.Color.main : Configuration.Color.white
+            iconImageView.tintColor = isInverted ? Configuration.Color.white : Configuration.Color.main
+            arrowIconImageVIew.tintColor = isInverted ? Configuration.Color.white : Configuration.Color.black
+            lineView.backgroundColor = isInverted ? Configuration.Color.white : Configuration.Color.black
+            dateTextField.textColor = isInverted ? Configuration.Color.white : Configuration.Color.black
         }
     }
-    weak var delegate: DateFormViewDelegate?
     
     // MARK: - UINib
     
@@ -99,10 +110,6 @@ class DateFormView: UIView {
     }
     
     @objc func dateChanged(datePicker: UIDatePicker) {
-        let dateFormmatter = DateFormatter()
-        dateFormmatter.dateFormat = "EEEE d MMMM 'à' HH:mm"
-        
         date = datePicker.date
-        dateTextField.text = dateFormmatter.string(from: datePicker.date)
     }
 }

@@ -12,6 +12,7 @@ protocol ListJourneysBusinessLogic {
     var journeysRequest: JourneysRequest? { get set }
     
     func displaySearch(request: ListJourneys.DisplaySearch.Request)
+    func updateDate(request: FormJourney.UpdateDate.Request)
     func fetchPhysicalModes(request: ListJourneys.FetchPhysicalModes.Request)
     func fetchJourneys(request: ListJourneys.FetchJourneys.Request)
 }
@@ -60,6 +61,13 @@ internal class ListJourneysInteractor: ListJourneysBusinessLogic, ListJourneysDa
         }
     }
     
+    // MARK: - Update Date
+    
+    func updateDate(request: FormJourney.UpdateDate.Request) {
+        journeysRequest?.datetime = request.date
+        journeysRequest?.datetimeRepresents = CoverageRegionJourneysRequestBuilder.DatetimeRepresents(rawValue: request.dateTimeRepresents.rawValue)
+    }
+    
     // MARK: - Fetch Physical Modes
     
     func fetchPhysicalModes(request: ListJourneys.FetchPhysicalModes.Request) {
@@ -102,11 +110,29 @@ internal class ListJourneysInteractor: ListJourneysBusinessLogic, ListJourneysDa
             self.notes = notes
             self.context = context
             
+            self.updateAddressJourneyRequest(from: journeys?.first?.sections?.first?.from,
+                                        to: journeys?.last?.sections?.last?.to)
+            
             let response = ListJourneys.FetchJourneys.Response(journeysRequest: journeysRequest,
                                                                journeys: (journeys, withRidesharing: ridesharings),
                                                                disruptions: disruptions)
             
             self.presenter?.presentFetchedJourneys(response: response)
+        }
+    }
+    
+    private func updateAddressJourneyRequest(from: Place?, to: Place?) {
+        if journeysRequest?.originName == nil, journeysRequest?.originLabel == nil, let from = from {
+            journeysRequest?.originName = from.name
+        }
+        if journeysRequest?.destinationName == nil, journeysRequest?.destinationLabel == nil, let to = to {
+            journeysRequest?.destinationName = to.name
+        }
+        
+        if let journeysRequest = journeysRequest {
+            let response = ListJourneys.DisplaySearch.Response(journeysRequest: journeysRequest)
+            
+            self.presenter?.presentDisplayedSearch(response: response)
         }
     }
 }

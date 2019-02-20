@@ -20,6 +20,7 @@ class FormJourneyViewController: UIViewController, FormJourneyDisplayLogic, Jour
     private var transportModeView: TransportModeView!
     private var dateFormView: DateFormView!
     private var searchButtonView: SearchButtonView!
+    // ⚠️
     private var display = false
     
     internal var interactor: FormJourneyBusinessLogic?
@@ -45,13 +46,13 @@ class FormJourneyViewController: UIViewController, FormJourneyDisplayLogic, Jour
         
         title = "journeys".localized()
         
+        hideKeyboardWhenTappedAround()
+        
         initNavigationBar()
         initHeader()
         initStackScrollView()
-        
-        hideKeyboardWhenTappedAround()
-        
-        // ⚠️ Voir de le supprimer
+
+        // ⚠️
         interactor?.journeysRequest = journeysRequest
     }
     
@@ -109,35 +110,26 @@ class FormJourneyViewController: UIViewController, FormJourneyDisplayLogic, Jour
     private func initTransportModeView() {
         transportModeView = TransportModeView(frame: CGRect(x: 0, y: 0, width: stackScrollView.frame.size.width, height: 0))
         transportModeView?.isColorInverted = true
-        stackScrollView.addSubview(transportModeView!, margin: UIEdgeInsets(top: 10, left: 10, bottom: 17, right: 10), safeArea: true)
+        stackScrollView.addSubview(transportModeView!, margin: UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10), safeArea: true)
     }
     
     private func initDateFormView() {
         dateFormView = DateFormView.instanceFromNib()
         dateFormView.frame.size = CGSize(width: stackScrollView.frame.size.width, height: 93)
-        stackScrollView.addSubview(dateFormView, margin: UIEdgeInsets(top: 17, left: 10, bottom: 17, right: 10), safeArea: false)
-        // ⚠️
-        if let datetimeRepresents = journeysRequest?.datetimeRepresents {
-            dateFormView.departureArrivalSegmentedControl.selectedSegmentIndex = datetimeRepresents == .departure ? 0 : 1
-        }
-        if let date = journeysRequest?.datetime {
-            dateFormView.date = date
-            
-            let dateFormmatter = DateFormatter()
-            
-            dateFormmatter.dateFormat = "EEEE d MMMM 'à' HH:mm"
-            dateFormView.dateTextField.text = dateFormmatter.string(from: date)
-        }
+        stackScrollView.addSubview(dateFormView, margin: UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10), safeArea: false)
+
+        dateFormView.dateTimeRepresentsSegmentedControl = journeysRequest?.datetimeRepresents?.rawValue
+        dateFormView.date = journeysRequest?.datetime
     }
     
     private func initSearchButton() {
         searchButtonView = SearchButtonView.instanceFromNib()
         searchButtonView.frame.size = CGSize(width: stackScrollView.frame.size.width, height: 37)
         searchButtonView.delegate = self
-        stackScrollView.addSubview(searchButtonView, margin: UIEdgeInsets(top: 17, left: 10, bottom: 10, right: 10), safeArea: false)
+        stackScrollView.addSubview(searchButtonView, margin: UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10), safeArea: false)
     }
     
-    // MARK: - Events
+    // MARK: - Events,;
     
     @objc func backButtonPressed() {
         if isRootViewController() {
@@ -146,18 +138,7 @@ class FormJourneyViewController: UIViewController, FormJourneyDisplayLogic, Jour
             self.navigationController?.popViewController(animated: true)
         }
     }
-    
-    // MARK: Routing
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let scene = segue.identifier {
-            let selector = NSSelectorFromString("routeTo\(scene)WithSegue:")
-            if let router = router, router.responds(to: selector) {
-                router.perform(selector, with: segue)
-            }
-        }
-    }
-    
+
     func displaySearch(viewModel: FormJourney.DisplaySearch.ViewModel) {
         if viewModel.fromName == nil || viewModel.toName == nil {
             searchButtonView.isEnabled = false
@@ -193,12 +174,10 @@ extension FormJourneyViewController: SearchViewDelegate {
 extension FormJourneyViewController: SearchButtonViewDelegate {
     
     func search() {
-
         if let date = dateFormView.date {
             interactor?.updateDate(request: FormJourney.UpdateDate.Request(date: date,
                                                                            dateTimeRepresents: dateFormView.departureArrivalSegmentedControl.selectedSegmentIndex == 0 ? .departure : .arrival))
         }
-        
         
         if let physicalModes = transportModeView?.getPhysicalModes() {
             interactor?.journeysRequest?.allowedPhysicalModes = physicalModes
