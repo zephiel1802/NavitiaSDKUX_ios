@@ -69,6 +69,7 @@ enum ListPlaces {
             }
             
             struct Place {
+                var label: String?
                 var name: String
                 var id: String
                 var type: ModelType

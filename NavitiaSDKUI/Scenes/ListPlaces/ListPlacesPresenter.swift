@@ -39,7 +39,7 @@ class ListPlacesPresenter: ListPlacesPresentationLogic {
         var placesNew = [ListPlaces.FetchPlaces.ViewModel.Place]()
 
         if let label = locationAddress?.label, let lon = locationAddress?.coord?.lon, let lat = locationAddress?.coord?.lat {
-            let place = ListPlaces.FetchPlaces.ViewModel.Place(name: label, id: String(format: "%@;%@", lon, lat), type: .location)
+            let place = ListPlaces.FetchPlaces.ViewModel.Place(label: "Ma position", name: label, id: String(format: "%@;%@", lon, lat), type: .location)
             let section = ListPlaces.FetchPlaces.ViewModel.DisplayedSections(/*type: .location,*/
                 name: nil,
                 places: [place])
@@ -48,7 +48,7 @@ class ListPlacesPresenter: ListPlacesPresentationLogic {
 
         for i in response {
             if let embeddedType = ListPlaces.FetchPlaces.ViewModel.ModelType(rawValue: i.type) {
-                var place = ListPlaces.FetchPlaces.ViewModel.Place(name: i.name, id: i.idNavitia, type: embeddedType)
+                var place = ListPlaces.FetchPlaces.ViewModel.Place(label: nil, name: i.name, id: i.idNavitia, type: embeddedType)
                 placesNew.append(place)
             }
         }
@@ -65,7 +65,7 @@ class ListPlacesPresenter: ListPlacesPresentationLogic {
         var sections = [ListPlaces.FetchPlaces.ViewModel.DisplayedSections]()
         
         if let label = address?.label, let lon = address?.coord?.lon, let lat = address?.coord?.lat {
-            let place = ListPlaces.FetchPlaces.ViewModel.Place(name: label, id: String(format: "%@;%@", lon, lat), type: .location)
+            let place = ListPlaces.FetchPlaces.ViewModel.Place(label: nil, name: label, id: String(format: "%@;%@", lon, lat), type: .location)
             let section = ListPlaces.FetchPlaces.ViewModel.DisplayedSections(name: nil,
                                                                    places: [place])
             sections.append(section)
@@ -106,7 +106,7 @@ class ListPlacesPresenter: ListPlacesPresentationLogic {
                 let id = place.id,
                 let embeddedType = place.embeddedType?.rawValue,
                 let type = ListPlaces.FetchPlaces.ViewModel.ModelType(rawValue: embeddedType) {
-                let placeViewModel = ListPlaces.FetchPlaces.ViewModel.Place(name: name, id: id, type: type)
+                let placeViewModel = ListPlaces.FetchPlaces.ViewModel.Place(label: nil, name: name, id: id, type: type)
 
                 if place.embeddedType == .stopArea {
                     stopArea.append(placeViewModel)

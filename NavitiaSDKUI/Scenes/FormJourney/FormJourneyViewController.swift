@@ -110,13 +110,13 @@ class FormJourneyViewController: UIViewController, FormJourneyDisplayLogic, Jour
     private func initModeTransportView() {
         modeTransportView = ModeTransportView(frame: CGRect(x: 0, y: 0, width: stackScrollView.frame.size.width, height: 0))
         modeTransportView?.isColorInverted = true
-        stackScrollView.addSubview(modeTransportView!, margin: UIEdgeInsets(top: 10, left: 10, bottom: 17, right: 10), safeArea: true)
+        stackScrollView.addSubview(modeTransportView!, margin: UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10), safeArea: true)
     }
     
     private func initDateFormView() {
         dateFormView = DateFormView.instanceFromNib()
         dateFormView.frame.size = CGSize(width: stackScrollView.frame.size.width, height: 93)
-        stackScrollView.addSubview(dateFormView, margin: UIEdgeInsets(top: 17, left: 10, bottom: 17, right: 10), safeArea: false)
+        stackScrollView.addSubview(dateFormView, margin: UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10), safeArea: false)
 
         dateFormView.dateTimeRepresentsSegmentedControl = journeysRequest?.datetimeRepresents?.rawValue
         dateFormView.date = journeysRequest?.datetime
@@ -126,7 +126,7 @@ class FormJourneyViewController: UIViewController, FormJourneyDisplayLogic, Jour
         searchButtonView = SearchButtonView.instanceFromNib()
         searchButtonView.frame.size = CGSize(width: stackScrollView.frame.size.width, height: 37)
         searchButtonView.delegate = self
-        stackScrollView.addSubview(searchButtonView, margin: UIEdgeInsets(top: 17, left: 10, bottom: 10, right: 10), safeArea: false)
+        stackScrollView.addSubview(searchButtonView, margin: UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10), safeArea: false)
     }
     
     // MARK: - Events,;
@@ -179,7 +179,6 @@ extension FormJourneyViewController: SearchButtonViewDelegate {
             interactor?.updateDate(request: FormJourney.UpdateDate.Request(date: date,
                                                                            dateTimeRepresents: dateFormView.departureArrivalSegmentedControl.selectedSegmentIndex == 0 ? .departure : .arrival))
         }
-        
         
         if let physicalModes = modeTransportView?.getPhysicalModes() {
             interactor?.journeysRequest?.allowedPhysicalModes = physicalModes

@@ -253,12 +253,14 @@ extension ListPlacesViewController: UITableViewDataSource, UITableViewDelegate {
         }
 
         if interactor?.info == "from" {
-            interactor?.displaySearch(request: ListPlaces.DisplaySearch.Request(from: (label: nil, name: name, id: id), to: nil))
+            interactor?.displaySearch(request: ListPlaces.DisplaySearch.Request(from: (label: displayedSections[safe: indexPath.section]?.places[safe: indexPath.row]?.label,
+                                                                                       name: name,
+                                                                                       id: id),
+                                                                                to: nil))
 
             
             searchView.focusFromField(false)
             if searchView.toTextField.text == "" {
-                
                 searchView.focusToField()
                 clearTableView()
                 interactor?.info = "to"
@@ -268,10 +270,11 @@ extension ListPlacesViewController: UITableViewDataSource, UITableViewDelegate {
             } else {
                 dismissAutocompletion()
             }
-
-            
         } else {
-            interactor?.displaySearch(request: ListPlaces.DisplaySearch.Request(from: nil, to: (label: nil, name: name, id: id)))
+            interactor?.displaySearch(request: ListPlaces.DisplaySearch.Request(from: nil,
+                                                                                to: (label: displayedSections[safe: indexPath.section]?.places[safe: indexPath.row]?.label,
+                                                                                     name: name,
+                                                                                     id: id)))
 
             searchView.focusToField(false)
             if searchView.fromTextField.text == "" {
