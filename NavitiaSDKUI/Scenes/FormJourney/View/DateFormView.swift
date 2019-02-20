@@ -18,12 +18,12 @@ class DateFormView: UIView {
     @IBOutlet weak var iconImageView: UIImageView!
     @IBOutlet weak var arrowIconImageVIew: UIImageView!
     @IBOutlet weak var lineView: UIView!
-    
     @IBOutlet weak var dateTextField: UITextField!
     
     private var datePicker: UIDatePicker?
-    var contraintHegiht: NSLayoutConstraint?
-    var date: Date? {
+    private var contraintHegiht: NSLayoutConstraint?
+    
+    internal var date: Date? {
         didSet {
             guard let date = date else {
                 return
@@ -32,7 +32,8 @@ class DateFormView: UIView {
             datePicker?.date = date
         }
     }
-    var isInverted: Bool = false {
+    
+    internal var isInverted: Bool = false {
         didSet {
             if isInverted {
                 departureArrivalSegmentedControl.tintColor = Configuration.Color.white
@@ -74,11 +75,6 @@ class DateFormView: UIView {
         super.awakeFromNib()
         
         setup()
-    }
-    
-    override func layoutSubviews() {
-        super.layoutSubviews()
-
     }
     
     // MARK: - Function

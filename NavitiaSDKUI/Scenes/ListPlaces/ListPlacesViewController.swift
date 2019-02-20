@@ -174,12 +174,12 @@ class ListPlacesViewController: UIViewController, ListPlacesDisplayLogic {
             if info == "from" {
                 locationManager.startUpdatingLocation()
                 searchView.focusFromField()
-               // fetchPlaces(q: searchView.fromTextField.text)
+                fetchPlaces(q: searchView.fromTextField.text)
             } else {
                 locationManager.stopUpdatingLocation()
                 interactor?.locationAddress = nil
                 searchView.focusToField()
-               // fetchPlaces(q: searchView.toTextField.text)
+                fetchPlaces(q: searchView.toTextField.text)
             }
         }
     }
@@ -401,26 +401,24 @@ extension ListPlacesViewController: SearchViewDelegate {
     
     func fromFieldClicked(q: String?) {
         firstBecome = "from"
-        
         interactor?.info = "from"
-        locationManager.startUpdatingLocation()
+       // locationManager.startUpdatingLocation()
         searchView.fromView.backgroundColor = Configuration.Color.white.withAlphaComponent(0.9)
         searchView.toView.backgroundColor = Configuration.Color.white
         interactor?.displaySearch(request: ListPlaces.DisplaySearch.Request())
-        fetchDeboucedSearch(q: q)
+       // fetchDeboucedSearch(q: q)
     }
     
     func toFieldClicked(q: String?) {
         firstBecome = "to"
-        
         interactor?.info = "to"
-        locationManager.stopUpdatingLocation()
-        interactor?.locationAddress = nil
+      //  locationManager.stopUpdatingLocation()
+      //  interactor?.locationAddress = nil
         searchView.fromView.backgroundColor = Configuration.Color.white
         searchView.toView.backgroundColor = Configuration.Color.white.withAlphaComponent(0.9)
         interactor?.displaySearch(request: ListPlaces.DisplaySearch.Request())
         
-        fetchDeboucedSearch(q: q)
+        //fetchDeboucedSearch(q: q)
     }
     
     func fromFieldDidChange(q: String?) {

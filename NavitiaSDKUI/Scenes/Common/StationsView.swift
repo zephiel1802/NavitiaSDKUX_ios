@@ -63,5 +63,4 @@ extension StationsView {
             }
         }
     }
-    
 }

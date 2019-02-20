@@ -17,8 +17,7 @@ enum FormJourney {
             var to: (label: String?, name: String?, id: String)?
         }
         struct Response {
-            var fromName: String?
-            var toName: String?
+            var journeysRequest: JourneysRequest
         }
         struct ViewModel {
             var fromName: String?

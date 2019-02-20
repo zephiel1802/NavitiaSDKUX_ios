@@ -39,10 +39,11 @@ class FormJourneyInteractor: FormJourneyBusinessLogic, FormJourneyDataStore {
             journeysRequest?.destinationLabel = to.label
         }
         
-        let response = FormJourney.DisplaySearch.Response(fromName: journeysRequest?.originName ?? journeysRequest?.originLabel,
-                                                         toName: journeysRequest?.destinationName ?? journeysRequest?.destinationLabel)
-        
-        self.presenter?.presentDisplayedSearch(response: response)
+        if let journeysRequest = journeysRequest {
+            let response = FormJourney.DisplaySearch.Response(journeysRequest: journeysRequest)
+            
+            self.presenter?.presentDisplayedSearch(response: response)
+        }
     }
     
     // MARK: - Update Date
