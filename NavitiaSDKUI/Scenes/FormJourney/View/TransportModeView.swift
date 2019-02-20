@@ -14,18 +14,20 @@ class TransportModeView: UIView {
     private let minMargin: Int = 10
     private let textVerticalMargin = 0
     private let textSize = 25
+    private var maxIconForWidth = 0
+    private var margin = 0
+    private var numberOfLines = 0
+    private var transportModeView: UIView?
+    private var transportModeLabel: UILabel!
+    private var buttonsSaved: [TransportModeButton] = []
+    private var labelsSaved: [UILabel] = []
+    private var contraintHegiht: NSLayoutConstraint?
     
-    var transportModeView: UIView?
-    var transportModeLabel: UILabel!
-    var isColorInverted: Bool = false {
+    public var isColorInverted: Bool = false {
         didSet {
             transportModeLabel.textColor = (isColorInverted ? NavitiaSDKUI.shared.mainColor : Configuration.Color.white)
         }
     }
-    var buttonsSaved: [TransportModeButton] = []
-    var labelsSaved: [UILabel] = []
-    
-    var contraintHegiht: NSLayoutConstraint?
     
     // MARK: - Initialization
 
@@ -62,14 +64,7 @@ class TransportModeView: UIView {
     // MARK: - Function
     
     internal func getViewHeight(by width : CGFloat) -> CGFloat {
-        let verticalMargin: Int = 10
-        let iconSize: Int = 62
-        let minMargin: Int = 10
-        let textVerticalMargin = 0
-        let textSize = 20
-        let maxIconForWidth = ( Int(width) + minMargin ) / ( iconSize + minMargin )
-        let numberOfLines = Configuration.modeForm.count / Int(maxIconForWidth) + ( Configuration.modeForm.count %
-            maxIconForWidth == 0 ? 0 : 1 )
+        calculateOptimization()
         
         return CGFloat((iconSize + verticalMargin + textSize + textVerticalMargin) * numberOfLines + 30 - verticalMargin)
     }
@@ -95,39 +90,59 @@ class TransportModeView: UIView {
     
     internal func drawLabel() {
         transportModeLabel = UILabel(frame: CGRect(x: 0, y: 0, width: frame.width, height: 30))
-        transportModeLabel.attributedText = NSMutableAttributedString().bold("Mode de transport", color: isColorInverted ? NavitiaSDKUI.shared.mainColor : Configuration.Color.white, size: 13)
+        transportModeLabel.attributedText = NSMutableAttributedString().bold("transport_modes".localized(), color: isColorInverted ? NavitiaSDKUI.shared.mainColor : Configuration.Color.white, size: 13)
         addSubview(transportModeLabel)
     }
+    
+    internal func drawLine(to transportMode: UIView, y: Int, line: Int) {
+        var x = 0
+        
+        for column in 0..<maxIconForWidth {
+            guard let newButton = buttonsSaved[safe: line * maxIconForWidth + column], let newLabel = labelsSaved[safe: line * maxIconForWidth + column] else {
+                showIcons(transportMode: transportMode)
+                
+                return
+            }
+            newButton.frame.origin = CGPoint(x: x, y: y)
+            newLabel.frame.origin = CGPoint(x: x, y: y + textVerticalMargin + iconSize)
+            if isColorInverted {
+                newLabel.textColor = Configuration.Color.black
+            } else {
+                newLabel.textColor = Configuration.Color.white
+            }
+            
+            transportMode.addSubview(newButton)
+            transportMode.addSubview(newLabel)
+            
+            x = x + margin + iconSize
+        }
+    }
 
+    internal func calculateOptimization() {
+        maxIconForWidth = ( Int(self.frame.width) + minMargin ) / ( iconSize + minMargin )
+        
+        if maxIconForWidth == 0 {
+            print("NavitiaSDKUI: Icons size too large to be displayed for transport mode")
+            
+            return
+        } else if maxIconForWidth == 1 {
+            margin = minMargin
+        } else {
+            margin = Configuration.modeForm.count < maxIconForWidth ? minMargin : ( Int(self.frame.width) - ( maxIconForWidth * iconSize ) ) / ( maxIconForWidth - 1 )
+        }
+        
+        numberOfLines = Configuration.modeForm.count / Int(maxIconForWidth) + ( Configuration.modeForm.count % maxIconForWidth == 0 ? 0 : 1 )
+    }
+    
     internal func drawIcons() {
-        let maxIconForWidth = ( Int(self.frame.width) + minMargin ) / ( iconSize + minMargin )
-        let margin = Configuration.modeForm.count < maxIconForWidth ? minMargin : ( Int(self.frame.width) - ( maxIconForWidth * iconSize ) ) / ( maxIconForWidth - 1 )
-        let numberOfLines = Configuration.modeForm.count / Int(maxIconForWidth) +
-            ( Configuration.modeForm.count % maxIconForWidth == 0 ? 0 : 1 )
+        if maxIconForWidth == 0 {
+            return
+        }
         let transportMode = UIView(frame: CGRect(x: 0, y: 30, width: self.frame.width, height: CGFloat((iconSize + verticalMargin + textSize + textVerticalMargin) * numberOfLines - verticalMargin)))
         
         var y = 0
-        for i in 0..<numberOfLines {
-            var x = 0
-            for j in 0..<maxIconForWidth {
-                guard let newButton = buttonsSaved[safe: i * maxIconForWidth + j], let newLabel = labelsSaved[safe: i * maxIconForWidth + j] else {
-                    showIcons(transportMode: transportMode)
-                    
-                    return
-                }
-                newButton.frame.origin = CGPoint(x: x, y: y)
-                newLabel.frame.origin = CGPoint(x: x, y: y + textVerticalMargin + iconSize)
-                if isColorInverted {
-                    newLabel.textColor = newButton.isSelected ? NavitiaSDKUI.shared.mainColor : Configuration.Color.gray
-                } else {
-                    newLabel.textColor = Configuration.Color.white
-                }
-                
-                transportMode.addSubview(newButton)
-                transportMode.addSubview(newLabel)
-
-                x = x + margin + iconSize
-            }
+        for line in 0..<numberOfLines {
+            drawLine(to: transportMode, y: y, line: line)
             y = y + iconSize + verticalMargin + textSize + textVerticalMargin
         }
         showIcons(transportMode: transportMode)

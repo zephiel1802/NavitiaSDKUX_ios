@@ -181,7 +181,7 @@ class SearchView: UIView {
         searchButtonView.isHidden = true
         
         preferenceButton.setAttributedTitle(NSMutableAttributedString()
-            .medium(String(format: "%@  ", "Préférences"), color: Configuration.Color.white, size: 11)
+            .medium(String(format: "%@  ", "preferences".localized()), color: Configuration.Color.white, size: 11)
             .icon("arrow-details-down", color: Configuration.Color.white, size: 11),
                                       for: .normal)
     }
@@ -227,7 +227,7 @@ class SearchView: UIView {
     @IBAction func togglePreferences(_ sender: Any) {
         if isPreferencesShown {
             preferenceButton.setAttributedTitle(NSMutableAttributedString()
-                .medium(String(format: "%@  ", "Préférences"), color: Configuration.Color.white, size: 11)
+                .medium(String(format: "%@  ", "preferences".localized()), color: Configuration.Color.white, size: 11)
                 .icon("arrow-details-down", color: Configuration.Color.white, size: 11),
                                                 for: .normal)
             UIView.animate(withDuration: 0.25, delay: 0, options: .curveEaseOut, animations: {
@@ -238,7 +238,7 @@ class SearchView: UIView {
             }, completion: nil)
         } else {
             preferenceButton.setAttributedTitle(NSMutableAttributedString()
-                .medium(String(format: "%@  ", "Préférences"), color: Configuration.Color.white, size: 11)
+                .medium(String(format: "%@  ", "preferences".localized()), color: Configuration.Color.white, size: 11)
                 .icon("arrow-details-up", color: Configuration.Color.white, size: 11),
                                                 for: .normal)
             if self.isDateShown {
@@ -269,7 +269,7 @@ class SearchView: UIView {
         } else {
             if self.isPreferencesShown {
                 preferenceButton.setAttributedTitle(NSMutableAttributedString()
-                    .medium(String(format: "%@  ", "Préférences"), color: Configuration.Color.white, size: 11)
+                    .medium(String(format: "%@  ", "preferences".localized()), color: Configuration.Color.white, size: 11)
                     .icon("arrow-details-down", color: Configuration.Color.white, size: 11),
                                                     for: .normal)
                 UIView.animate(withDuration: 0.25, delay: 0, options: .curveEaseOut, animations: {
