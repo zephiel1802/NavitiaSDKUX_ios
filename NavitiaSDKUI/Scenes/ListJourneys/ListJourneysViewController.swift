@@ -463,3 +463,70 @@ extension ListJourneysViewController: ListPlacesViewControllerDelegate {
         fetchJourneys()
     }
 }
+
+extension ListJourneysViewController: SearchButtonViewDelegate {
+    
+    func search() {
+        if searchView.isPreferencesShown {
+            print("CHangement de mode")
+            if let physicalModes = searchView.modeTransportView?.getPhysicalModes() {
+                interactor?.journeysRequest?.allowedPhysicalModes = physicalModes
+            }
+            
+            if let modes = searchView.modeTransportView?.getModes() {
+                var firstSectionModes = [CoverageRegionJourneysRequestBuilder.FirstSectionMode]()
+                var lastSectionModes = [CoverageRegionJourneysRequestBuilder.LastSectionMode]()
+                
+                for mode in modes {
+                    if let sectionMode = CoverageRegionJourneysRequestBuilder.FirstSectionMode(rawValue:mode) {
+                        firstSectionModes.append(sectionMode)
+                    }
+                    if let sectionMode = CoverageRegionJourneysRequestBuilder.LastSectionMode(rawValue:mode) {
+                        lastSectionModes.append(sectionMode)
+                    }
+                }
+                
+                interactor?.journeysRequest?.firstSectionModes = firstSectionModes
+                interactor?.journeysRequest?.lastSectionModes = lastSectionModes
+            }
+            searchView.hiddenPreference()
+            fetchPhysicalMode()
+        } else if searchView.isDateShown {
+            if let date = searchView.dateFormVoiew.date {
+                interactor?.updateDate(request: FormJourney.UpdateDate.Request(date: date,
+                                                                               dateTimeRepresents: searchView.dateFormVoiew.departureArrivalSegmentedControl.selectedSegmentIndex == 0 ? .departure : .arrival))
+            }
+            
+            print("CHangement de date")
+            searchView.hiddenDate()
+            fetchJourneys()
+        }
+
+//        if let date = dateFormView.date {
+//            interactor?.updateDate(request: FormJourney.UpdateDate.Request(date: date,
+//                                                                           dateTimeRepresents: dateFormView.departureArrivalSegmentedControl.selectedSegmentIndex == 0 ? .departure : .arrival))
+//        }
+//
+//        if let physicalModes = modeTransportView?.getPhysicalModes() {
+//            interactor?.journeysRequest?.allowedPhysicalModes = physicalModes
+//        }
+//
+//        if let modes = modeTransportView?.getModes() {
+//            var firstSectionModes = [CoverageRegionJourneysRequestBuilder.FirstSectionMode]()
+//            var lastSectionModes = [CoverageRegionJourneysRequestBuilder.LastSectionMode]()
+//
+//            for mode in modes {
+//                if let sectionMode = CoverageRegionJourneysRequestBuilder.FirstSectionMode(rawValue:mode) {
+//                    firstSectionModes.append(sectionMode)
+//                }
+//                if let sectionMode = CoverageRegionJourneysRequestBuilder.LastSectionMode(rawValue:mode) {
+//                    lastSectionModes.append(sectionMode)
+//                }
+//            }
+//
+//            interactor?.journeysRequest?.firstSectionModes = firstSectionModes
+//            interactor?.journeysRequest?.lastSectionModes = lastSectionModes
+//        }
+//        router?.routeToListJourneys()
+    }
+}

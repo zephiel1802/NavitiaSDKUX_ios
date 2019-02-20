@@ -174,7 +174,6 @@ extension FormJourneyViewController: SearchViewDelegate {
 extension FormJourneyViewController: SearchButtonViewDelegate {
     
     func search() {
-
         if let date = dateFormView.date {
             interactor?.updateDate(request: FormJourney.UpdateDate.Request(date: date,
                                                                            dateTimeRepresents: dateFormView.departureArrivalSegmentedControl.selectedSegmentIndex == 0 ? .departure : .arrival))

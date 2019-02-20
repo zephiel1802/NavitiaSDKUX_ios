@@ -12,6 +12,7 @@ protocol ListJourneysBusinessLogic {
     var journeysRequest: JourneysRequest? { get set }
     
     func displaySearch(request: ListJourneys.DisplaySearch.Request)
+    func updateDate(request: FormJourney.UpdateDate.Request)
     func fetchPhysicalModes(request: ListJourneys.FetchPhysicalModes.Request)
     func fetchJourneys(request: ListJourneys.FetchJourneys.Request)
 }
@@ -58,6 +59,13 @@ internal class ListJourneysInteractor: ListJourneysBusinessLogic, ListJourneysDa
             
             self.presenter?.presentDisplayedSearch(response: response)
         }
+    }
+    
+    // MARK: - Update Date
+    
+    func updateDate(request: FormJourney.UpdateDate.Request) {
+        journeysRequest?.datetime = request.date
+        journeysRequest?.datetimeRepresents = CoverageRegionJourneysRequestBuilder.DatetimeRepresents(rawValue: request.dateTimeRepresents.rawValue)
     }
     
     // MARK: - Fetch Physical Modes
