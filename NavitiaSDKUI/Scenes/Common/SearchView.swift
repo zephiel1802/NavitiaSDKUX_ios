@@ -250,8 +250,8 @@ class SearchView: UIView {
                 self.searchButtonView.isHidden = false
                 self.searchButtonView.alpha = 1
             }, completion: nil)
+            isPreferencesShown = !isPreferencesShown
         }
-        isPreferencesShown = !isPreferencesShown
     }
     
     @IBAction func toggleDate(_ sender: Any) {
@@ -275,8 +275,8 @@ class SearchView: UIView {
                 self.searchButtonView.isHidden = false
                 self.searchButtonView.alpha = 1
             }, completion: nil)
+            isDateShown = !isDateShown
         }
-        isDateShown = !isDateShown
     }
     
     internal func hiddenPreference() {
@@ -290,6 +290,7 @@ class SearchView: UIView {
             self.searchButtonView.isHidden = true
             self.searchButtonView.alpha = 0
         }, completion: nil)
+        isPreferencesShown = !isPreferencesShown
     }
     
     internal func hiddenDate() {
@@ -299,6 +300,7 @@ class SearchView: UIView {
             self.searchButtonView.isHidden = true
             self.searchButtonView.alpha = 0
         }, completion: nil)
+        isDateShown = !isDateShown
     }
     
     private func switchDepartureArrivalAnimate(_ sender: UIButton) {
