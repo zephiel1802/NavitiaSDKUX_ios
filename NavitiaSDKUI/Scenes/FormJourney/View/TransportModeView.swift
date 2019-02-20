@@ -19,7 +19,7 @@ class TransportModeView: UIView {
     var transportModeLabel: UILabel!
     var isColorInverted: Bool = false {
         didSet {
-            transportModeLabel.textColor = (isColorInverted ? NavitiaSDKUI.shared.mainColor : UIColor.white)
+            transportModeLabel.textColor = (isColorInverted ? NavitiaSDKUI.shared.mainColor : Configuration.Color.white)
         }
     }
     var buttonsSaved: [TransportModeButton] = []
@@ -87,7 +87,7 @@ class TransportModeView: UIView {
             newLabel.textAlignment = .center
             newLabel.numberOfLines = 2
             newLabel.font = UIFont.systemFont(ofSize: 8)
-            newLabel.textColor = (isColorInverted ? NavitiaSDKUI.shared.mainColor : UIColor.white)
+            newLabel.textColor = (isColorInverted ? NavitiaSDKUI.shared.mainColor : Configuration.Color.white)
             
             labelsSaved.append(newLabel)
         }
@@ -95,7 +95,7 @@ class TransportModeView: UIView {
     
     internal func drawLabel() {
         transportModeLabel = UILabel(frame: CGRect(x: 0, y: 0, width: frame.width, height: 30))
-        transportModeLabel.attributedText = NSMutableAttributedString().bold("Mode de transport", color: isColorInverted ? NavitiaSDKUI.shared.mainColor : UIColor.white, size: 13)
+        transportModeLabel.attributedText = NSMutableAttributedString().bold("Mode de transport", color: isColorInverted ? NavitiaSDKUI.shared.mainColor : Configuration.Color.white, size: 13)
         addSubview(transportModeLabel)
     }
 
@@ -110,8 +110,7 @@ class TransportModeView: UIView {
         for i in 0..<numberOfLines {
             var x = 0
             for j in 0..<maxIconForWidth {
-                guard let newButton = buttonsSaved[safe: i * maxIconForWidth + j],
-                    let newLabel = labelsSaved[safe: i * maxIconForWidth + j]else {
+                guard let newButton = buttonsSaved[safe: i * maxIconForWidth + j], let newLabel = labelsSaved[safe: i * maxIconForWidth + j] else {
                     showIcons(transportMode: transportMode)
                     
                     return
@@ -119,9 +118,9 @@ class TransportModeView: UIView {
                 newButton.frame.origin = CGPoint(x: x, y: y)
                 newLabel.frame.origin = CGPoint(x: x, y: y + textVerticalMargin + iconSize)
                 if isColorInverted {
-                    newLabel.textColor = newButton.isSelected ? NavitiaSDKUI.shared.mainColor : UIColor.gray
+                    newLabel.textColor = newButton.isSelected ? NavitiaSDKUI.shared.mainColor : Configuration.Color.gray
                 } else {
-                    newLabel.textColor = UIColor.white
+                    newLabel.textColor = Configuration.Color.white
                 }
                 
                 transportMode.addSubview(newButton)
@@ -131,7 +130,7 @@ class TransportModeView: UIView {
             }
             y = y + iconSize + verticalMargin + textSize + textVerticalMargin
         }
-        
+        showIcons(transportMode: transportMode)
     }
     
     internal func showIcons(transportMode: UIView) {
