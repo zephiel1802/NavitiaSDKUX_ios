@@ -29,18 +29,18 @@ class ListPlacesPresenter: ListPlacesPresentationLogic {
     }
     
     func presentSomething(response: ListPlaces.FetchPlaces.Response) {
-        let viewModel = ListPlaces.FetchPlaces.ViewModel(sections: getSection(places: response.places, address: response.locationAddress))
+        let viewModel = ListPlaces.FetchPlaces.ViewModel(displayedSections: getSection(places: response.places, address: response.locationAddress))
         
         viewController?.displaySomething(viewModel: viewModel)
     }
     
     func presentHistoryPlace(response: [Journeysss], locationAddress: Address?) {
-        var sections = [ListPlaces.FetchPlaces.ViewModel.Section]()
+        var sections = [ListPlaces.FetchPlaces.ViewModel.DisplayedSections]()
         var placesNew = [ListPlaces.FetchPlaces.ViewModel.Place]()
 
         if let label = locationAddress?.label, let lon = locationAddress?.coord?.lon, let lat = locationAddress?.coord?.lat {
             let place = ListPlaces.FetchPlaces.ViewModel.Place(name: label, id: String(format: "%@;%@", lon, lat), type: .location)
-            let section = ListPlaces.FetchPlaces.ViewModel.Section(/*type: .location,*/
+            let section = ListPlaces.FetchPlaces.ViewModel.DisplayedSections(/*type: .location,*/
                 name: nil,
                 places: [place])
             sections.append(section)
@@ -52,38 +52,38 @@ class ListPlacesPresenter: ListPlacesPresentationLogic {
                 placesNew.append(place)
             }
         }
-        let section = ListPlaces.FetchPlaces.ViewModel.Section(name: "HISTORIQUE", places: placesNew)
+        let section = ListPlaces.FetchPlaces.ViewModel.DisplayedSections(name: "HISTORIQUE", places: placesNew)
         sections.append(section)
         
-        let viewModel = ListPlaces.FetchPlaces.ViewModel(sections: sections)
+        let viewModel = ListPlaces.FetchPlaces.ViewModel(displayedSections: sections)
 
         viewController?.displaySomething(viewModel: viewModel)
 
     }
     
-    private func getSection(places: Places?, address: Address?) -> [ListPlaces.FetchPlaces.ViewModel.Section] {
-        var sections = [ListPlaces.FetchPlaces.ViewModel.Section]()
+    private func getSection(places: Places?, address: Address?) -> [ListPlaces.FetchPlaces.ViewModel.DisplayedSections] {
+        var sections = [ListPlaces.FetchPlaces.ViewModel.DisplayedSections]()
         
         if let label = address?.label, let lon = address?.coord?.lon, let lat = address?.coord?.lat {
             let place = ListPlaces.FetchPlaces.ViewModel.Place(name: label, id: String(format: "%@;%@", lon, lat), type: .location)
-            let section = ListPlaces.FetchPlaces.ViewModel.Section(name: nil,
+            let section = ListPlaces.FetchPlaces.ViewModel.DisplayedSections(name: nil,
                                                                    places: [place])
             sections.append(section)
         }
         
         if let placesViewModel = getPlaces(places: places) {
             if placesViewModel.stopArea.count > 0 {
-                let section = ListPlaces.FetchPlaces.ViewModel.Section(name: "ARRÊTS - STATIONS",
+                let section = ListPlaces.FetchPlaces.ViewModel.DisplayedSections(name: "ARRÊTS - STATIONS",
                                                                        places: placesViewModel.stopArea)
                 sections.append(section)
             }
             if placesViewModel.address.count > 0 {
-                let section = ListPlaces.FetchPlaces.ViewModel.Section(name: "ADRESSE",
+                let section = ListPlaces.FetchPlaces.ViewModel.DisplayedSections(name: "ADRESSE",
                                                                        places: placesViewModel.address)
                 sections.append(section)
             }
             if placesViewModel.poi.count > 0 {
-                let section = ListPlaces.FetchPlaces.ViewModel.Section(name: "POINTS D'INTERÊT",
+                let section = ListPlaces.FetchPlaces.ViewModel.DisplayedSections(name: "POINTS D'INTERÊT",
                                                                        places: placesViewModel.poi)
                 sections.append(section)
             }

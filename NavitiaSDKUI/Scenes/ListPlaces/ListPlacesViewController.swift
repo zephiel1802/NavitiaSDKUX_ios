@@ -24,16 +24,15 @@ class ListPlacesViewController: UIViewController, ListPlacesDisplayLogic {
     @IBOutlet weak var searchView: SearchView!
     @IBOutlet weak var tableView: UITableView!
 
-    var interactor: ListPlacesBusinessLogic?
-    var router: (NSObjectProtocol & ListPlacesRoutingLogic & ListPlacesDataPassing)?
-    private var viewModel: ListPlaces.FetchPlaces.ViewModel?
+    private let locationManager = CLLocationManager()
+    private var displayedSections: [ListPlaces.FetchPlaces.ViewModel.DisplayedSections] = []
     private var debouncedSearch: Debouncer?
+    private var interactor: ListPlacesBusinessLogic?
+    internal var router: (NSObjectProtocol & ListPlacesRoutingLogic & ListPlacesDataPassing)?
     internal weak var delegate: ListPlacesViewControllerDelegate?
 
-    var firstBecome = "from"
+    // ⚠️
     private var q: String = ""
-    
-    let locationManager = CLLocationManager()
 
     static var identifier: String {
         return String(describing: self)
@@ -51,24 +50,19 @@ class ListPlacesViewController: UIViewController, ListPlacesDisplayLogic {
         super.viewDidLoad()
         
         title = "journeys".localized()
+
+        hideKeyboardWhenTappedAround()
         
-        checkAccessLocationServices()
-        
-        locationManager.delegate = self
-        locationManager.requestWhenInUseAuthorization()
-       // locationManager.requestLocation()
-        
+        initLocation()
         initNavigationBar()
         initDebouncer()
         initHeader()
         initTableView()
         
-        
-        
+        // ⚠️
         interactor?.displaySearch(request: ListPlaces.DisplaySearch.Request())
         interactor?.info == "from" ? fetchPlaces(q: searchView.fromTextField.text) : fetchPlaces(q: searchView.toTextField.text)
-        
-        hideKeyboardWhenTappedAround()
+        interactor?.info == "from" ? searchView.focusFromField() : searchView.focusToField()
     }
     
     override open func viewWillAppear(_ animated: Bool) {
@@ -138,20 +132,11 @@ class ListPlacesViewController: UIViewController, ListPlacesDisplayLogic {
         tableView.register(UINib(nibName: PlacesTableViewCell.identifier, bundle: self.nibBundle), forCellReuseIdentifier: PlacesTableViewCell.identifier)
     }
     
-    
-    // MARK: Routing
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?)
-    {
-        if let scene = segue.identifier {
-            let selector = NSSelectorFromString("routeTo\(scene)WithSegue:")
-            if let router = router, router.responds(to: selector) {
-                router.perform(selector, with: segue)
-            }
-        }
+    private func initLocation() {
+        locationManager.delegate = self
+        locationManager.requestWhenInUseAuthorization()
     }
-    
-    
+
     // MARK: Do something
 
     func fetchPlaces(q: String?) {
@@ -164,28 +149,22 @@ class ListPlacesViewController: UIViewController, ListPlacesDisplayLogic {
         interactor?.fetchJourneys(request: request)
     }
     
-    
     func displaySearch(viewModel: ListPlaces.DisplaySearch.ViewModel) {
         searchView.fromTextField.text = viewModel.fromName
         searchView.toTextField.text = viewModel.toName
         
-        if let info = viewModel.info {
-            firstBecome = info
-            if info == "from" {
-                locationManager.startUpdatingLocation()
-                searchView.focusFromField()
-                fetchPlaces(q: searchView.fromTextField.text)
-            } else {
-                locationManager.stopUpdatingLocation()
-                interactor?.locationAddress = nil
-                searchView.focusToField()
-                fetchPlaces(q: searchView.toTextField.text)
-            }
+        if interactor?.info == "from" {
+            locationManager.startUpdatingLocation()
+            fetchPlaces(q: searchView.fromTextField.text)
+        } else {
+            locationManager.stopUpdatingLocation()
+            interactor?.locationAddress = nil
+            fetchPlaces(q: searchView.toTextField.text)
         }
     }
     
     func displaySomething(viewModel: ListPlaces.FetchPlaces.ViewModel) {
-        self.viewModel = viewModel
+        displayedSections = viewModel.displayedSections
         
         tableView.reloadData()
     }
@@ -215,19 +194,15 @@ class ListPlacesViewController: UIViewController, ListPlacesDisplayLogic {
 extension ListPlacesViewController: UITableViewDataSource, UITableViewDelegate {
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        guard let viewModel = viewModel else {
-            return 0
-        }
-        
-        return viewModel.sections.count
+        return displayedSections.count
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return viewModel?.sections[section].name
+        return displayedSections[safe: section]?.name
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        guard viewModel?.sections[safe: section]?.name != nil else {
+        guard displayedSections[safe: section]?.name != nil else {
             return 0
         }
 
@@ -235,18 +210,13 @@ extension ListPlacesViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        guard let name = viewModel?.sections[safe: section]?.name else {
+        guard let name = displayedSections[safe: section]?.name else {
             return nil
         }
         
         let view = PlacesHeaderView.instanceFromNib()
         view.title = name
-//        if let name = viewModel.sections[section].name {
-//            if viewModel.sections[section].type != .location {
-//                view.title = name
-//            }
-//        }
-        
+
         if section == 0 {
             view.lineView.isHidden = true
         }
@@ -256,31 +226,14 @@ extension ListPlacesViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        guard let viewModel = viewModel else {
-            return 0
-        }
-        
-//        if viewModel.sections[section].type == .location {
-//            return 1
-//        }
-        
-        return viewModel.sections[section].places.count
+        return displayedSections[safe: section]?.places.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let viewModel = viewModel else {
-            return UITableViewCell()
-        }
-        
         if let cell = tableView.dequeueReusableCell(withIdentifier: PlacesTableViewCell.identifier, for: indexPath) as? PlacesTableViewCell {
-            if viewModel.sections[indexPath.section].places[indexPath.row].type == .location {
-                cell.nameLabel.attributedText = NSMutableAttributedString()
-                    .bold("Ma position\n", size: 13)
-                    .normal(viewModel.sections[indexPath.section].places[indexPath.row].name, size: 11)
-            } else {
-                cell.nameLabel.text = viewModel.sections[indexPath.section].places[indexPath.row].name
-            }
-            cell.type = viewModel.sections[indexPath.section].places[indexPath.row].type
+
+            cell.type = displayedSections[safe: indexPath.section]?.places[safe: indexPath.row]?.type
+            cell.name = displayedSections[safe: indexPath.section]?.places[safe: indexPath.row]?.name
             
             return cell
         }
@@ -289,9 +242,9 @@ extension ListPlacesViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard let name = viewModel?.sections[indexPath.section].places[indexPath.row].name,
-            let id = viewModel?.sections[indexPath.section].places[indexPath.row].id,
-            let type = viewModel?.sections[indexPath.section].places[indexPath.row].type else {
+        guard let name = displayedSections[safe: indexPath.section]?.places[safe: indexPath.row]?.name,
+            let id = displayedSections[safe: indexPath.section]?.places[safe: indexPath.row]?.id,
+            let type = displayedSections[safe: indexPath.section]?.places[safe: indexPath.row]?.type else {
                 return
         }
         
@@ -299,7 +252,7 @@ extension ListPlacesViewController: UITableViewDataSource, UITableViewDelegate {
             interactor?.savePlace(request: ListPlaces.SavePlace.Request(place: (name: name, id: id, type: type.rawValue)))
         }
 
-        if firstBecome == "from" {
+        if interactor?.info == "from" {
             interactor?.displaySearch(request: ListPlaces.DisplaySearch.Request(from: (label: nil, name: name, id: id), to: nil))
 
             
@@ -308,7 +261,7 @@ extension ListPlacesViewController: UITableViewDataSource, UITableViewDelegate {
                 
                 searchView.focusToField()
                 clearTableView()
-                firstBecome = "to"
+                interactor?.info = "to"
                 locationManager.stopUpdatingLocation()
                 interactor?.locationAddress = nil
                 fetchPlaces(q: searchView.toTextField.text)
@@ -324,7 +277,7 @@ extension ListPlacesViewController: UITableViewDataSource, UITableViewDelegate {
             if searchView.fromTextField.text == "" {
                 searchView.focusFromField()
                 clearTableView()
-                firstBecome = "from"
+                interactor?.info  = "from"
                 locationManager.startUpdatingLocation()
                 fetchPlaces(q: searchView.fromTextField.text)
             } else {
@@ -334,7 +287,7 @@ extension ListPlacesViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     private func clearTableView() {
-        viewModel = nil
+        displayedSections.removeAll()
         tableView.reloadData()
     }
     
@@ -366,33 +319,18 @@ extension ListPlacesViewController: UITableViewDataSource, UITableViewDelegate {
 
 extension ListPlacesViewController: CLLocationManagerDelegate {
     
-    private func checkAccessLocationServices() {
-        if CLLocationManager.locationServicesEnabled() {
-            switch CLLocationManager.authorizationStatus() {
-            case .notDetermined, .restricted, .denied:
-                print("Location: No access")
-            case .authorizedAlways, .authorizedWhenInUse:
-                print("Location: Access")
-            }
-        } else {
-            print("Location: Location services are not enabled")
-        }
-    }
-    
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         if let location = locations.first {
             let request = ListPlaces.FetchLocation.Request(latitude: Double(location.coordinate.latitude),
                                                            longitude:  Double(location.coordinate.longitude))
 
             interactor?.fetchLocation(request: request)
-
         }
     }
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         print("Failed to find user's location: \(error.localizedDescription)")
     }
-
 }
 
 extension ListPlacesViewController: SearchViewDelegate {
@@ -400,25 +338,19 @@ extension ListPlacesViewController: SearchViewDelegate {
     func switchDepartureArrivalCoordinates() {}
     
     func fromFieldClicked(q: String?) {
-        firstBecome = "from"
         interactor?.info = "from"
-       // locationManager.startUpdatingLocation()
+
         searchView.fromView.backgroundColor = Configuration.Color.white.withAlphaComponent(0.9)
         searchView.toView.backgroundColor = Configuration.Color.white
         interactor?.displaySearch(request: ListPlaces.DisplaySearch.Request())
-       // fetchDeboucedSearch(q: q)
     }
     
     func toFieldClicked(q: String?) {
-        firstBecome = "to"
         interactor?.info = "to"
-      //  locationManager.stopUpdatingLocation()
-      //  interactor?.locationAddress = nil
+
         searchView.fromView.backgroundColor = Configuration.Color.white
         searchView.toView.backgroundColor = Configuration.Color.white.withAlphaComponent(0.9)
         interactor?.displaySearch(request: ListPlaces.DisplaySearch.Request())
-        
-        //fetchDeboucedSearch(q: q)
     }
     
     func fromFieldDidChange(q: String?) {

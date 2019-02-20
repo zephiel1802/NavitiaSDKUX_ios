@@ -20,6 +20,7 @@ class FormJourneyViewController: UIViewController, FormJourneyDisplayLogic, Jour
     private var modeTransportView: ModeTransportView!
     private var dateFormView: DateFormView!
     private var searchButtonView: SearchButtonView!
+    // ⚠️
     private var display = false
     
     internal var interactor: FormJourneyBusinessLogic?
@@ -45,13 +46,13 @@ class FormJourneyViewController: UIViewController, FormJourneyDisplayLogic, Jour
         
         title = "journeys".localized()
         
+        hideKeyboardWhenTappedAround()
+        
         initNavigationBar()
         initHeader()
         initStackScrollView()
-        
-        hideKeyboardWhenTappedAround()
-        
-        // ⚠️ Voir de le supprimer
+
+        // ⚠️
         interactor?.journeysRequest = journeysRequest
     }
     
@@ -116,18 +117,9 @@ class FormJourneyViewController: UIViewController, FormJourneyDisplayLogic, Jour
         dateFormView = DateFormView.instanceFromNib()
         dateFormView.frame.size = CGSize(width: stackScrollView.frame.size.width, height: 93)
         stackScrollView.addSubview(dateFormView, margin: UIEdgeInsets(top: 17, left: 10, bottom: 17, right: 10), safeArea: false)
-        // ⚠️
-        if let datetimeRepresents = journeysRequest?.datetimeRepresents {
-            dateFormView.departureArrivalSegmentedControl.selectedSegmentIndex = datetimeRepresents == .departure ? 0 : 1
-        }
-        if let date = journeysRequest?.datetime {
-            dateFormView.date = date
-            
-            let dateFormmatter = DateFormatter()
-            
-            dateFormmatter.dateFormat = "EEEE d MMMM 'à' HH:mm"
-            dateFormView.dateTextField.text = dateFormmatter.string(from: date)
-        }
+
+        dateFormView.dateTimeRepresentsSegmentedControl = journeysRequest?.datetimeRepresents?.rawValue
+        dateFormView.date = journeysRequest?.datetime
     }
     
     private func initSearchButton() {
@@ -137,7 +129,7 @@ class FormJourneyViewController: UIViewController, FormJourneyDisplayLogic, Jour
         stackScrollView.addSubview(searchButtonView, margin: UIEdgeInsets(top: 17, left: 10, bottom: 10, right: 10), safeArea: false)
     }
     
-    // MARK: - Events
+    // MARK: - Events,;
     
     @objc func backButtonPressed() {
         if isRootViewController() {
@@ -146,18 +138,7 @@ class FormJourneyViewController: UIViewController, FormJourneyDisplayLogic, Jour
             self.navigationController?.popViewController(animated: true)
         }
     }
-    
-    // MARK: Routing
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let scene = segue.identifier {
-            let selector = NSSelectorFromString("routeTo\(scene)WithSegue:")
-            if let router = router, router.responds(to: selector) {
-                router.perform(selector, with: segue)
-            }
-        }
-    }
-    
+
     func displaySearch(viewModel: FormJourney.DisplaySearch.ViewModel) {
         if viewModel.fromName == nil || viewModel.toName == nil {
             searchButtonView.isEnabled = false

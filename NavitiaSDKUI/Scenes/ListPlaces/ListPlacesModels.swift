@@ -74,12 +74,12 @@ enum ListPlaces {
                 var type: ModelType
             }
             
-            struct Section {
+            struct DisplayedSections {
                 var name: String?
                 var places: [Place]
             }
             
-            var sections: [Section]
+            var displayedSections: [DisplayedSections]
         }
     }
 }

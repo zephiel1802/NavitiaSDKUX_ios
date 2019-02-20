@@ -56,10 +56,13 @@ extension JourneysRequest {
     mutating func switchOriginDestination() {
         let oldOriginId = originId
         let oldOriginLabel = originLabel
+        let oldOriginName = originName
         
         originId = destinationId
         originLabel = destinationLabel
+        originName = destinationName
         destinationId = oldOriginId
         destinationLabel = oldOriginLabel
+        destinationName = oldOriginName
     }
 }

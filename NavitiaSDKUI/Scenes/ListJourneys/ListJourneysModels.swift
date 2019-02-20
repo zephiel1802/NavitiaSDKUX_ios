@@ -20,8 +20,8 @@ enum ListJourneys {
             var journeysRequest: JourneysRequest
         }
         struct ViewModel {
-            var fromName: String
-            var toName: String
+            var fromName: String?
+            var toName: String?
             var dateTime: String
             var accessibilityHeader: String?
             var accessibilitySwitchButton: String?

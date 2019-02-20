@@ -102,11 +102,29 @@ internal class ListJourneysInteractor: ListJourneysBusinessLogic, ListJourneysDa
             self.notes = notes
             self.context = context
             
+            self.updateAddressJourneyRequest(from: journeys?.first?.sections?.first?.from,
+                                        to: journeys?.last?.sections?.last?.to)
+            
             let response = ListJourneys.FetchJourneys.Response(journeysRequest: journeysRequest,
                                                                journeys: (journeys, withRidesharing: ridesharings),
                                                                disruptions: disruptions)
             
             self.presenter?.presentFetchedJourneys(response: response)
+        }
+    }
+    
+    private func updateAddressJourneyRequest(from: Place?, to: Place?) {
+        if journeysRequest?.originName == nil, journeysRequest?.originLabel == nil, let from = from {
+            journeysRequest?.originName = from.name
+        }
+        if journeysRequest?.destinationName == nil, journeysRequest?.destinationLabel == nil, let to = to {
+            journeysRequest?.destinationName = to.name
+        }
+        
+        if let journeysRequest = journeysRequest {
+            let response = ListJourneys.DisplaySearch.Response(journeysRequest: journeysRequest)
+            
+            self.presenter?.presentDisplayedSearch(response: response)
         }
     }
 }
