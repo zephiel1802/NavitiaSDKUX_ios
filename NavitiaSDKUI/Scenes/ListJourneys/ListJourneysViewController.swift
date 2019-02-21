@@ -133,7 +133,7 @@ open class ListJourneysViewController: UIViewController, ListJourneysDisplayLogi
         searchView.toTextField.text = viewModel.toName
         searchView.dateTime = viewModel.dateTime
         searchView.lock = !NavitiaSDKUI.shared.formJourney
-        searchView.dateFormVoiew.date = viewModel.date
+        searchView.dateFormView.date = viewModel.date
         
         searchView.accessibilityLabel = viewModel.accessibilityHeader
         searchView.switchDepartureArrivalButton.accessibilityLabel = viewModel.accessibilitySwitchButton
@@ -490,16 +490,15 @@ extension ListJourneysViewController: SearchButtonViewDelegate {
                 interactor?.journeysRequest?.firstSectionModes = firstSectionModes
                 interactor?.journeysRequest?.lastSectionModes = lastSectionModes
             }
-            searchView.hiddenPreference()
+            searchView.hidePreferences()
             fetchPhysicalMode()
         } else if searchView.isDateShown {
-            if let date = searchView.dateFormVoiew.date {
+            if let date = searchView.dateFormView.date {
                 interactor?.updateDate(request: FormJourney.UpdateDate.Request(date: date,
-                                                                               dateTimeRepresents: searchView.dateFormVoiew.departureArrivalSegmentedControl.selectedSegmentIndex == 0 ? .departure : .arrival))
+                                                                               dateTimeRepresents: searchView.dateFormView.departureArrivalSegmentedControl.selectedSegmentIndex == 0 ? .departure : .arrival))
             }
-            
-            print("CHangement de date")
-            searchView.hiddenDate()
+            print("Changement de date")
+            searchView.hideDate()
             fetchJourneys()
         }
     }

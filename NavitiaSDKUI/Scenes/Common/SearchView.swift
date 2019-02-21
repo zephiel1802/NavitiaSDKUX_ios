@@ -32,23 +32,19 @@ class SearchView: UIView {
     @IBOutlet weak var separatorView: UIView!
     @IBOutlet weak var destinationPinImageView: UIImageView!
     @IBOutlet weak var dateTimeLabel: UILabel!
-    @IBOutlet weak var dateTimeTopConstraint: NSLayoutConstraint!
-    @IBOutlet weak var dateTimeBottomConstraint: NSLayoutConstraint!
     @IBOutlet weak var switchContraint: NSLayoutConstraint!
     @IBOutlet weak var switchDepartureArrivalButton: UIButton!
-    @IBOutlet weak var backgroundTopConstraint: NSLayoutConstraint!
     @IBOutlet weak var separatorTopContraint: NSLayoutConstraint!
     @IBOutlet weak var separatorBottomContraint: NSLayoutConstraint!
     @IBOutlet weak var stackView: UIStackView!
     @IBOutlet weak var datePreferenceView: UIView!
-    
     @IBOutlet weak var dateButton: UIButton!
     @IBOutlet weak var preferenceButton: UIButton!
     
-    var dateFormVoiew: DateFormView!
+    var dateFormView: DateFormView!
     var transportModeView: TransportModeView!
     var searchButtonView: SearchButtonView!
-    
+
     internal weak var delegate: SearchViewDelegate? {
         didSet {
             searchButtonView.delegate = delegate as? SearchButtonViewDelegate
@@ -78,30 +74,20 @@ class SearchView: UIView {
     }
     internal var dateTime: String? {
         didSet {
-            guard let dateTime = dateTime else {
-                return
-            }
-            
-            dateButton.setAttributedTitle(NSMutableAttributedString()
-                .icon("calendar", color: Configuration.Color.white, size: 12)
-                .medium(String(format: "  %@  ", dateTime), color: Configuration.Color.white, size: 11)
-                .icon("arrow-details-down", color: Configuration.Color.white, size: 11),
-                                          for: .normal)
+            setDateButton()
         }
     }
-    internal var dateTimeIsHidden: Bool = false {
+    internal var detailsViewIsHidden: Bool = false {
         didSet {
-            datePreferenceView.isHidden = dateTimeIsHidden
+            datePreferenceView.isHidden = detailsViewIsHidden
         }
     }
-    
     internal var switchIsHidden: Bool = false {
         didSet {
             switchDepartureArrivalButton.isHidden = switchIsHidden
             switchContraint.isActive = !switchIsHidden
         }
     }
-    
     internal var lock: Bool = false {
         didSet {
             if lock {
@@ -118,14 +104,12 @@ class SearchView: UIView {
         }
     }
     
-    func animatedd() {
-       // self.backgroundTopConstraint.constant = 7
+    func animated() {
         self.separatorTopContraint.constant = 3
         self.separatorBottomContraint.constant = 3
     }
     
-    func animateddFalse() {
-//        self.backgroundTopConstraint.constant = 10
+    func animatedFalse() {
         self.separatorTopContraint.constant = 0
         self.separatorBottomContraint.constant = 0
     }
@@ -147,7 +131,6 @@ class SearchView: UIView {
         
         setup()
     }
-    @IBOutlet weak var heightContraint: NSLayoutConstraint!
     
     override func awakeAfter(using aDecoder: NSCoder) -> Any? {
         guard subviews.isEmpty else {
@@ -173,23 +156,20 @@ class SearchView: UIView {
         transportModeView = TransportModeView(frame: CGRect(x: 0, y: 0, width: stackView.frame.size.width, height: 0))
         stackView.addArrangedSubview(transportModeView)
         
-        dateFormVoiew = DateFormView.instanceFromNib()
-        dateFormVoiew.isInverted = true
-        stackView.addArrangedSubview(dateFormVoiew)
+        dateFormView = DateFormView.instanceFromNib()
+        dateFormView.isInverted = true
+        stackView.addArrangedSubview(dateFormView)
         
         searchButtonView = SearchButtonView.instanceFromNib()
         stackView.addArrangedSubview(searchButtonView)
         
-        dateFormVoiew.isHidden = true
+        dateFormView.isHidden = true
         transportModeView.isHidden = true
         
         searchButtonView.isHidden = true
         
-        preferenceButton.setAttributedTitle(NSMutableAttributedString()
-            .icon("option", color: Configuration.Color.white, size: 12)
-            .medium(String(format: "  %@  ", "preferences".localized()), color: Configuration.Color.white, size: 11)
-            .icon("arrow-details-down", color: Configuration.Color.white, size: 11),
-                                      for: .normal)
+        setPreferencesButton()
+        setDateButton()
     }
     
     private func setupPin() {
@@ -203,6 +183,24 @@ class SearchView: UIView {
     private func setupSwitchButton() {
         switchDepartureArrivalButton.setImage(UIImage(named: "switch", in: NavitiaSDKUI.shared.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate), for: .normal)
         switchDepartureArrivalButton.tintColor = Configuration.Color.main
+    }
+    
+    internal func setDateButton() {
+        guard let dateTime = dateTime else {
+            return
+        }
+        
+        dateButton.setAttributedTitle(NSMutableAttributedString()
+            .icon("calendar", color: Configuration.Color.white, size: 12)
+            .medium(String(format: "  %@  ", dateTime), color: Configuration.Color.white, size: 11)
+            .icon(( isDateShown ? "arrow-details-up" : "arrow-details-down") , color: Configuration.Color.white, size: 11), for: .normal)
+    }
+    
+    internal func setPreferencesButton() {
+        preferenceButton.setAttributedTitle(NSMutableAttributedString()
+            .icon("option", color: Configuration.Color.white, size: 12)
+            .medium(String(format: "  %@  ", "preferences".localized()), color: Configuration.Color.white, size: 11)
+            .icon(( isPreferencesShown ? "arrow-details-up" : "arrow-details-down"), color: Configuration.Color.white, size: 11), for: .normal)
     }
     
     internal func focusFromField(_ value: Bool = true) {
@@ -223,6 +221,60 @@ class SearchView: UIView {
         }
     }
     
+    internal func hidePreferences() {
+        isPreferencesShown = false
+        setPreferencesButton()
+        UIView.animate(withDuration: 0.25, delay: 0, options: .curveEaseOut, animations: {
+            self.transportModeView.isHidden = true
+            self.transportModeView.alpha = 0
+            self.searchButtonView.isHidden = true
+            self.searchButtonView.alpha = 0
+        }, completion: nil)
+    }
+    
+    internal func hideDate() {
+        isDateShown = false
+        setDateButton()
+        UIView.animate(withDuration: 0.25, delay: 0, options: .curveEaseOut, animations: {
+            self.dateFormView.isHidden = true
+            self.dateFormView.alpha = 0
+            self.searchButtonView.isHidden = true
+            self.searchButtonView.alpha = 0
+        }, completion: nil)
+    }
+    
+    internal func showPreferences() {
+        isPreferencesShown = true
+        setPreferencesButton()
+        UIView.animate(withDuration: 0.25, delay: 0, options: .curveEaseOut, animations: {
+            self.transportModeView.isHidden = false
+            self.transportModeView.alpha = 1
+            self.searchButtonView.isHidden = false
+            self.searchButtonView.alpha = 1
+        }, completion: nil)
+    }
+
+    internal func showDate() {
+        isDateShown = true
+        setDateButton()
+        UIView.animate(withDuration: 0.25, delay: 0, options: .curveEaseOut, animations: {
+            self.dateFormView.isHidden = false
+            self.dateFormView.alpha = 1
+            self.searchButtonView.isHidden = false
+            self.searchButtonView.alpha = 1
+        }, completion: nil)
+    }
+    
+    internal func switchDepartureArrivalAnimate(_ sender: UIButton) {
+        UIView.animate(withDuration: 0.2, delay: 0, options: .curveEaseOut, animations: {
+            if  sender.transform == .identity {
+                sender.transform = CGAffineTransform(rotationAngle: CGFloat(Double.pi * 0.999))
+            } else {
+                sender.transform = .identity
+            }
+        }, completion: nil)
+    }
+    
     @IBAction func switchDepartureArrivalCoordinates(_ sender: UIButton) {
         if !lockSwitch {
             switchDepartureArrivalAnimate(sender)
@@ -232,89 +284,24 @@ class SearchView: UIView {
     
     @IBAction func togglePreferences(_ sender: Any) {
         if isPreferencesShown {
-            hiddenPreference()
+            hidePreferences()
         } else {
-            preferenceButton.setAttributedTitle(NSMutableAttributedString()
-                .icon("option", color: Configuration.Color.white, size: 12)
-                .medium(String(format: "  %@  ", "preferences".localized()), color: Configuration.Color.white, size: 11)
-                .icon("arrow-details-up", color: Configuration.Color.white, size: 11),
-                                                for: .normal)
             if self.isDateShown {
-                UIView.animate(withDuration: 0.25, delay: 0, options: .curveEaseOut, animations: {
-                    self.dateFormVoiew.isHidden = true
-                    self.dateFormVoiew.alpha = 0
-                    self.isDateShown = !self.isDateShown
-                }, completion: nil)
+                hideDate()
             }
-            UIView.animate(withDuration: 0.25, delay: 0, options: .curveEaseOut, animations: {
-                self.transportModeView.isHidden = false
-                self.transportModeView.alpha = 1
-                self.searchButtonView.isHidden = false
-                self.searchButtonView.alpha = 1
-            }, completion: nil)
-            isPreferencesShown = !isPreferencesShown
+            showPreferences()
         }
     }
     
     @IBAction func toggleDate(_ sender: Any) {
         if isDateShown {
-            hiddenDate()
+            hideDate()
         } else {
             if self.isPreferencesShown {
-                preferenceButton.setAttributedTitle(NSMutableAttributedString()
-                    .icon("option", color: Configuration.Color.white, size: 12)
-                    .medium(String(format: "  %@  ", "preferences".localized()), color: Configuration.Color.white, size: 11)
-                    .icon("arrow-details-down", color: Configuration.Color.white, size: 11),
-                                                    for: .normal)
-                UIView.animate(withDuration: 0.25, delay: 0, options: .curveEaseOut, animations: {
-                    self.transportModeView.isHidden = true
-                    self.transportModeView.alpha = 0
-                    self.isPreferencesShown = !self.isPreferencesShown
-                }, completion: nil)
+                hidePreferences()
             }
-            UIView.animate(withDuration: 0.25, delay: 0, options: .curveEaseOut, animations: {
-                self.dateFormVoiew.isHidden = false
-                self.dateFormVoiew.alpha = 1
-                self.searchButtonView.isHidden = false
-                self.searchButtonView.alpha = 1
-            }, completion: nil)
-            isDateShown = !isDateShown
+            showDate()
         }
-    }
-    
-    internal func hiddenPreference() {
-        preferenceButton.setAttributedTitle(NSMutableAttributedString()
-            .icon("option", color: Configuration.Color.white, size: 12)
-            .medium(String(format: "  %@  ", "preferences"), color: Configuration.Color.white, size: 11)
-            .icon("arrow-details-down", color: Configuration.Color.white, size: 11),
-                                            for: .normal)
-        UIView.animate(withDuration: 0.25, delay: 0, options: .curveEaseOut, animations: {
-            self.transportModeView.isHidden = true
-            self.transportModeView.alpha = 0
-            self.searchButtonView.isHidden = true
-            self.searchButtonView.alpha = 0
-        }, completion: nil)
-        isPreferencesShown = !isPreferencesShown
-    }
-    
-    internal func hiddenDate() {
-        UIView.animate(withDuration: 0.25, delay: 0, options: .curveEaseOut, animations: {
-            self.dateFormVoiew.isHidden = true
-            self.dateFormVoiew.alpha = 0
-            self.searchButtonView.isHidden = true
-            self.searchButtonView.alpha = 0
-        }, completion: nil)
-        isDateShown = !isDateShown
-    }
-    
-    private func switchDepartureArrivalAnimate(_ sender: UIButton) {
-        UIView.animate(withDuration: 0.2, delay: 0, options: .curveEaseOut, animations: {
-            if  sender.transform == .identity {
-                sender.transform = CGAffineTransform(rotationAngle: CGFloat(Double.pi * 0.999))
-            } else {
-                sender.transform = .identity
-            }
-        }, completion: nil)
     }
     
     internal func animate() {

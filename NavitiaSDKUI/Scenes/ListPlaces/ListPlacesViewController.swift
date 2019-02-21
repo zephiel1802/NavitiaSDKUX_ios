@@ -76,7 +76,7 @@ class ListPlacesViewController: UIViewController, ListPlacesDisplayLogic {
         super.viewDidAppear(animated)
         
         UIView.animate(withDuration: 0.15) {
-            self.searchView.animatedd()
+            self.searchView.animated()
             self.view.layoutIfNeeded()
         }
     }
@@ -117,7 +117,7 @@ class ListPlacesViewController: UIViewController, ListPlacesDisplayLogic {
     
     private func initHeader() {
         searchView.delegate = self
-        searchView.dateTimeIsHidden = true
+        searchView.detailsViewIsHidden = true
         searchView.background.backgroundColor = .clear
         searchView.switchIsHidden = true
         searchView.separatorView.isHidden = true
@@ -183,7 +183,7 @@ class ListPlacesViewController: UIViewController, ListPlacesDisplayLogic {
     
     @objc func backButtonPressed() {
         UIView.animate(withDuration: 0.15) {
-            self.searchView.animateddFalse()
+            self.searchView.animatedFalse()
             self.view.layoutIfNeeded()
         }
         

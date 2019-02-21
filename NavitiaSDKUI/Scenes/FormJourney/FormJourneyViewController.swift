@@ -99,7 +99,7 @@ class FormJourneyViewController: UIViewController, FormJourneyDisplayLogic, Jour
     
     private func initHeader() {
         searchView.delegate = self
-        searchView.dateTimeIsHidden = true
+        searchView.detailsViewIsHidden = true
     }
     
     private func initStackScrollView() {
