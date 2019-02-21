@@ -133,6 +133,7 @@ open class ListJourneysViewController: UIViewController, ListJourneysDisplayLogi
         searchView.toTextField.text = viewModel.toName
         searchView.dateTime = viewModel.dateTime
         searchView.lock = !NavitiaSDKUI.shared.formJourney
+        searchView.dateFormVoiew.date = viewModel.date
         
         searchView.accessibilityLabel = viewModel.accessibilityHeader
         searchView.switchDepartureArrivalButton.accessibilityLabel = viewModel.accessibilitySwitchButton
@@ -501,32 +502,5 @@ extension ListJourneysViewController: SearchButtonViewDelegate {
             searchView.hiddenDate()
             fetchJourneys()
         }
-
-//        if let date = dateFormView.date {
-//            interactor?.updateDate(request: FormJourney.UpdateDate.Request(date: date,
-//                                                                           dateTimeRepresents: dateFormView.departureArrivalSegmentedControl.selectedSegmentIndex == 0 ? .departure : .arrival))
-//        }
-//
-//        if let physicalModes = modeTransportView?.getPhysicalModes() {
-//            interactor?.journeysRequest?.allowedPhysicalModes = physicalModes
-//        }
-//
-//        if let modes = modeTransportView?.getModes() {
-//            var firstSectionModes = [CoverageRegionJourneysRequestBuilder.FirstSectionMode]()
-//            var lastSectionModes = [CoverageRegionJourneysRequestBuilder.LastSectionMode]()
-//
-//            for mode in modes {
-//                if let sectionMode = CoverageRegionJourneysRequestBuilder.FirstSectionMode(rawValue:mode) {
-//                    firstSectionModes.append(sectionMode)
-//                }
-//                if let sectionMode = CoverageRegionJourneysRequestBuilder.LastSectionMode(rawValue:mode) {
-//                    lastSectionModes.append(sectionMode)
-//                }
-//            }
-//
-//            interactor?.journeysRequest?.firstSectionModes = firstSectionModes
-//            interactor?.journeysRequest?.lastSectionModes = lastSectionModes
-//        }
-//        router?.routeToListJourneys()
     }
 }

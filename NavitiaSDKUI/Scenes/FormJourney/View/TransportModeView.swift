@@ -48,16 +48,16 @@ class TransportModeView: UIView {
         if contraintHegiht == nil {
             contraintHegiht = NSLayoutConstraint(item: self, attribute: NSLayoutConstraint.Attribute.height, relatedBy: .equal,
                                                  toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 0)
+            contraintHegiht?.isActive = true
         }
+        
+        frame.size = CGSize(width: frame.width, height: getViewHeight(by: frame.width))
+        contraintHegiht?.constant = frame.size.height
+        drawIcons()
+        
         if let superview = superview as? StackScrollView {
             superview.reloadStack()
         }
-        
-        contraintHegiht?.constant = getViewHeight(by: self.frame.width)
-        contraintHegiht?.isActive = true
-
-        self.frame.size = CGSize(width: self.frame.width, height: getViewHeight(by: self.frame.width))
-        self.drawIcons()
     }
     
     // MARK: - Function

@@ -2,7 +2,7 @@
 //  DataBaseWorker.swift
 //  NavitiaSDKUI
 //
-//  Created by Flavien Sicard on 14/02/2019.
+//  Copyright © 2019 kisio. All rights reserved.
 //
 
 import Foundation
