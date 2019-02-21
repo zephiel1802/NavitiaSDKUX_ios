@@ -45,6 +45,9 @@ class SearchView: UIView {
     @IBOutlet weak var dateButton: UIButton!
     @IBOutlet weak var preferenceButton: UIButton!
     
+    var dateFormVoiew: DateFormView!
+    var transportModeView: TransportModeView!
+    var searchButtonView: SearchButtonView!
     
     internal weak var delegate: SearchViewDelegate? {
         didSet {
@@ -54,7 +57,6 @@ class SearchView: UIView {
     internal var lockSwitch = false
     internal var isPreferencesShown = false
     internal var isDateShown = false
-
     internal var focus: Focus?
     internal var origin: String? {
         didSet {
@@ -159,9 +161,6 @@ class SearchView: UIView {
         return searchView
     }
     
-    var dateFormVoiew: DateFormView!
-    var transportModeView: TransportModeView!
-    var searchButtonView: SearchButtonView!
     // MARK: - Function
     
     private func setup() {
@@ -281,7 +280,7 @@ class SearchView: UIView {
     
     internal func hiddenPreference() {
         preferenceButton.setAttributedTitle(NSMutableAttributedString()
-            .medium(String(format: "%@  ", "Préférences"), color: Configuration.Color.white, size: 11)
+            .medium(String(format: "%@  ", "preferences".localized()), color: Configuration.Color.white, size: 11)
             .icon("arrow-details-down", color: Configuration.Color.white, size: 11),
                                             for: .normal)
         UIView.animate(withDuration: 0.25, delay: 0, options: .curveEaseOut, animations: {

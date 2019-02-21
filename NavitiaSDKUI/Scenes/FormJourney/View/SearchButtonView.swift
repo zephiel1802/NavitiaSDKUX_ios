@@ -57,6 +57,7 @@ class SearchButtonView: UIView {
     // MARK: - Function
     
     private func setup() {
+        searchButton.setTitle("search".localized(), for: .normal)
         searchButton.backgroundColor = Configuration.Color.main
         searchButton.layer.borderColor = Configuration.Color.white.cgColor
         searchButton.layer.borderWidth = 1
