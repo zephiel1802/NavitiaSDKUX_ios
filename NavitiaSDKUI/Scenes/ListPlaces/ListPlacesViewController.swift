@@ -155,11 +155,11 @@ class ListPlacesViewController: UIViewController, ListPlacesDisplayLogic {
         
         if interactor?.info == "from" {
             locationManager.startUpdatingLocation()
-            fetchPlaces(q: searchView.fromTextField.text)
+          // fetchPlaces(q: searchView.fromTextField.text)
         } else {
             locationManager.stopUpdatingLocation()
             interactor?.locationAddress = nil
-            fetchPlaces(q: searchView.toTextField.text)
+          //  fetchPlaces(q: searchView.toTextField.text)
         }
     }
     
@@ -261,11 +261,12 @@ extension ListPlacesViewController: UITableViewDataSource, UITableViewDelegate {
             
             searchView.focusFromField(false)
             if searchView.toTextField.text == "" {
+                interactor?.info = "to"
                 searchView.focusToField()
                 clearTableView()
-                interactor?.info = "to"
                 locationManager.stopUpdatingLocation()
                 interactor?.locationAddress = nil
+                
                 fetchPlaces(q: searchView.toTextField.text)
             } else {
                 dismissAutocompletion()
@@ -277,10 +278,10 @@ extension ListPlacesViewController: UITableViewDataSource, UITableViewDelegate {
                                                                                      id: id)))
 
             searchView.focusToField(false)
-            if searchView.fromTextField.text == "" {
+            if searchView.fromTextField.text == nil {
+                interactor?.info  = "from"
                 searchView.focusFromField()
                 clearTableView()
-                interactor?.info  = "from"
                 locationManager.startUpdatingLocation()
                 fetchPlaces(q: searchView.fromTextField.text)
             } else {
@@ -346,6 +347,7 @@ extension ListPlacesViewController: SearchViewDelegate {
         searchView.fromView.backgroundColor = Configuration.Color.white.withAlphaComponent(0.9)
         searchView.toView.backgroundColor = Configuration.Color.white
         interactor?.displaySearch(request: ListPlaces.DisplaySearch.Request())
+        fetchPlaces(q: searchView.fromTextField.text)
     }
     
     func toFieldClicked(q: String?) {
@@ -354,6 +356,7 @@ extension ListPlacesViewController: SearchViewDelegate {
         searchView.fromView.backgroundColor = Configuration.Color.white
         searchView.toView.backgroundColor = Configuration.Color.white.withAlphaComponent(0.9)
         interactor?.displaySearch(request: ListPlaces.DisplaySearch.Request())
+        fetchPlaces(q: searchView.toTextField.text)
     }
     
     func fromFieldDidChange(q: String?) {

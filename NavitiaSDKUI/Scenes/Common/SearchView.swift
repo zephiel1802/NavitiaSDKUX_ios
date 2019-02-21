@@ -83,7 +83,8 @@ class SearchView: UIView {
             }
             
             dateButton.setAttributedTitle(NSMutableAttributedString()
-                .medium(String(format: "%@  ", dateTime), color: Configuration.Color.white, size: 11)
+                .icon("calendar", color: Configuration.Color.white, size: 12)
+                .medium(String(format: "  %@  ", dateTime), color: Configuration.Color.white, size: 11)
                 .icon("arrow-details-down", color: Configuration.Color.white, size: 11),
                                           for: .normal)
         }
@@ -185,7 +186,8 @@ class SearchView: UIView {
         searchButtonView.isHidden = true
         
         preferenceButton.setAttributedTitle(NSMutableAttributedString()
-            .medium(String(format: "%@  ", "preferences".localized()), color: Configuration.Color.white, size: 11)
+            .icon("option", color: Configuration.Color.white, size: 12)
+            .medium(String(format: "  %@  ", "preferences".localized()), color: Configuration.Color.white, size: 11)
             .icon("arrow-details-down", color: Configuration.Color.white, size: 11),
                                       for: .normal)
     }
@@ -233,7 +235,8 @@ class SearchView: UIView {
             hiddenPreference()
         } else {
             preferenceButton.setAttributedTitle(NSMutableAttributedString()
-                .medium(String(format: "%@  ", "preferences".localized()), color: Configuration.Color.white, size: 11)
+                .icon("option", color: Configuration.Color.white, size: 12)
+                .medium(String(format: "  %@  ", "preferences".localized()), color: Configuration.Color.white, size: 11)
                 .icon("arrow-details-up", color: Configuration.Color.white, size: 11),
                                                 for: .normal)
             if self.isDateShown {
@@ -259,7 +262,8 @@ class SearchView: UIView {
         } else {
             if self.isPreferencesShown {
                 preferenceButton.setAttributedTitle(NSMutableAttributedString()
-                    .medium(String(format: "%@  ", "preferences".localized()), color: Configuration.Color.white, size: 11)
+                    .icon("option", color: Configuration.Color.white, size: 12)
+                    .medium(String(format: "  %@  ", "preferences".localized()), color: Configuration.Color.white, size: 11)
                     .icon("arrow-details-down", color: Configuration.Color.white, size: 11),
                                                     for: .normal)
                 UIView.animate(withDuration: 0.25, delay: 0, options: .curveEaseOut, animations: {
@@ -280,7 +284,8 @@ class SearchView: UIView {
     
     internal func hiddenPreference() {
         preferenceButton.setAttributedTitle(NSMutableAttributedString()
-            .medium(String(format: "%@  ", "preferences".localized()), color: Configuration.Color.white, size: 11)
+            .icon("option", color: Configuration.Color.white, size: 12)
+            .medium(String(format: "  %@  ", "preferences"), color: Configuration.Color.white, size: 11)
             .icon("arrow-details-down", color: Configuration.Color.white, size: 11),
                                             for: .normal)
         UIView.animate(withDuration: 0.25, delay: 0, options: .curveEaseOut, animations: {
