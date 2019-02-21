@@ -27,6 +27,7 @@ class ListJourneysPresenter: ListJourneysPresentationLogic {
         let viewModel = ListJourneys.DisplaySearch.ViewModel(fromName: response.journeysRequest.originLabel ?? response.journeysRequest.originName ?? response.journeysRequest.originId,
                                                             toName: response.journeysRequest.destinationLabel ?? response.journeysRequest.destinationName ?? response.journeysRequest.destinationId,
                                                             dateTime: dateTime,
+                                                            date: response.journeysRequest.datetime ?? Date(),
                                                             accessibilityHeader: getHeaderAccessibility(origin: response.journeysRequest.originLabel ?? "",
                                                                                                         destination: response.journeysRequest.destinationLabel ?? "",
                                                                                                         dateTime: response.journeysRequest.datetime ?? Date()),

@@ -27,6 +27,7 @@ class DateFormView: UIView {
     
     private var datePicker: UIDatePicker?
     private var contraintHegiht: NSLayoutConstraint?
+    private var backback: UIView?
     internal weak var delegate: DateFormViewDelegate?
     internal var dateTimeRepresentsSegmentedControl: String? {
         get {
@@ -91,19 +92,51 @@ class DateFormView: UIView {
     // MARK: - Function
     
     private func setup() {
+        initIconImageView()
+        initArrowImageView()
+        initSegmentedControl()
+        initDatePicker()
+        initToolbar()
+        initConstraint()
+    }
+    
+    private func initIconImageView() {
         iconImageView.image = UIImage(named: "calendar", in: NavitiaSDKUI.shared.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
         iconImageView.tintColor = Configuration.Color.main
-        
+    }
+    
+    private func initArrowImageView() {
         arrowIconImageVIew.image = UIImage(named: "arrow_down", in: NavitiaSDKUI.shared.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
         arrowIconImageVIew.tintColor = Configuration.Color.black
-        
+    }
+    
+    private func initSegmentedControl() {
+        departureArrivalSegmentedControl.tintColor = Configuration.Color.main
+    }
+    
+    private func initDatePicker() {
         datePicker = UIDatePicker()
         datePicker?.datePickerMode = .dateAndTime
         datePicker?.addTarget(self, action: #selector(DateFormView.dateChanged(datePicker:)), for: .valueChanged)
-        
+        datePicker?.backgroundColor = Configuration.Color.white
         dateTextField.inputView = datePicker
-        departureArrivalSegmentedControl.tintColor = Configuration.Color.main
+    }
+    
+    private func initToolbar() {
+        let toolbar = UIToolbar();
+        let doneButton = UIBarButtonItem(title: "Now", style: UIBarButtonItem.Style.plain, target: self, action: #selector(DateFormView.nowDatePicker))
+        let spaceButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.flexibleSpace, target: nil, action: nil)
+        let cancelButton = UIBarButtonItem(title: "Done", style: UIBarButtonItem.Style.plain, target: self, action: #selector(DateFormView.doneDatePicker))
         
+        toolbar.sizeToFit()
+        doneButton.tintColor = Configuration.Color.main
+        cancelButton.tintColor = Configuration.Color.main
+        toolbar.setItems([doneButton,spaceButton,cancelButton], animated: false)
+
+        dateTextField.inputAccessoryView = toolbar
+    }
+    
+    private func initConstraint() {
         contraintHegiht = NSLayoutConstraint(item: self, attribute: NSLayoutConstraint.Attribute.height, relatedBy: .equal,
                                              toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 93)
         contraintHegiht?.isActive = true
@@ -111,5 +144,13 @@ class DateFormView: UIView {
     
     @objc func dateChanged(datePicker: UIDatePicker) {
         date = datePicker.date
+    }
+    
+    @objc func nowDatePicker() {
+        date = Date()
+    }
+    
+    @objc func doneDatePicker() {
+        endEditing(true)
     }
 }

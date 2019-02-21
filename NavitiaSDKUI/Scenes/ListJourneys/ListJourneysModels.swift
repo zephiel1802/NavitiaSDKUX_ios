@@ -23,6 +23,7 @@ enum ListJourneys {
             var fromName: String?
             var toName: String?
             var dateTime: String
+            var date: Date
             var accessibilityHeader: String?
             var accessibilitySwitchButton: String?
         }

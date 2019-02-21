@@ -10,8 +10,8 @@ import UIKit
 class TransportModeView: UIView {
     
     private let verticalMargin: Int = 10
-    private let iconSize: Int = 62
-    private let minMargin: Int = 10
+    private let iconSize: Int = 61
+    private let minMargin: Int = 8
     private let textVerticalMargin = 0
     private let textSize = 25
     private var maxIconForWidth = 0
@@ -48,17 +48,16 @@ class TransportModeView: UIView {
         if contraintHegiht == nil {
             contraintHegiht = NSLayoutConstraint(item: self, attribute: NSLayoutConstraint.Attribute.height, relatedBy: .equal,
                                                  toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 0)
+            contraintHegiht?.isActive = true
         }
+        
+        frame.size = CGSize(width: frame.width, height: getViewHeight(by: frame.width))
+        contraintHegiht?.constant = frame.size.height
+        drawIcons()
+        
         if let superview = superview as? StackScrollView {
             superview.reloadStack()
         }
-        
-        contraintHegiht?.constant = getViewHeight(by: self.frame.width)
-        contraintHegiht?.isActive = true
-
-        self.frame.size = CGSize(width: self.frame.width, height: getViewHeight(by: self.frame.width))
-        self.drawIcons()
-
     }
     
     // MARK: - Function
@@ -66,7 +65,7 @@ class TransportModeView: UIView {
     internal func getViewHeight(by width : CGFloat) -> CGFloat {
         calculateOptimization()
         
-        return CGFloat((iconSize + verticalMargin + textSize + textVerticalMargin) * numberOfLines + 30 - verticalMargin)
+        return CGFloat((iconSize + verticalMargin + textSize + textVerticalMargin) * numberOfLines + 23 - verticalMargin)
     }
     
     internal func initItems() {
@@ -89,7 +88,7 @@ class TransportModeView: UIView {
     }
     
     internal func drawLabel() {
-        transportModeLabel = UILabel(frame: CGRect(x: 0, y: 0, width: frame.width, height: 30))
+        transportModeLabel = UILabel(frame: CGRect(x: 0, y: 0, width: frame.width, height: 18))
         transportModeLabel.attributedText = NSMutableAttributedString().bold("transport_modes".localized(), color: isColorInverted ? NavitiaSDKUI.shared.mainColor : Configuration.Color.white, size: 13)
         addSubview(transportModeLabel)
     }
@@ -138,7 +137,7 @@ class TransportModeView: UIView {
         if maxIconForWidth == 0 {
             return
         }
-        let transportMode = UIView(frame: CGRect(x: 0, y: 30, width: self.frame.width, height: CGFloat((iconSize + verticalMargin + textSize + textVerticalMargin) * numberOfLines - verticalMargin)))
+        let transportMode = UIView(frame: CGRect(x: 0, y: transportModeLabel.frame.size.height + 5, width: self.frame.width, height: CGFloat((iconSize + verticalMargin + textSize + textVerticalMargin) * numberOfLines - verticalMargin)))
         
         var y = 0
         for line in 0..<numberOfLines {

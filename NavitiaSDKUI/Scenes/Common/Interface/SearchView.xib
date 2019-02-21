@@ -13,11 +13,11 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="SearchView" customModule="NavitiaSDKUI" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="320" height="131"/>
+            <rect key="frame" x="0.0" y="0.0" width="320" height="122"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="bur-PA-Qoa">
-                    <rect key="frame" x="10" y="10" width="300" height="111"/>
+                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="7" translatesAutoresizingMaskIntoConstraints="NO" id="bur-PA-Qoa">
+                    <rect key="frame" x="10" y="10" width="300" height="108"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ExF-3c-Wxe">
                             <rect key="frame" x="0.0" y="0.0" width="300" height="81"/>
@@ -139,12 +139,12 @@
                             </userDefinedRuntimeAttributes>
                         </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ven-mE-n8C">
-                            <rect key="frame" x="0.0" y="91" width="300" height="20"/>
+                            <rect key="frame" x="0.0" y="88" width="300" height="20"/>
                             <subviews>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0V7-wY-GfL">
-                                    <rect key="frame" x="235" y="0.0" width="65" height="20"/>
+                                    <rect key="frame" x="235" y="3" width="65" height="17"/>
                                     <constraints>
-                                        <constraint firstAttribute="height" constant="20" id="xO2-IN-Svx"/>
+                                        <constraint firstAttribute="height" constant="17" id="xO2-IN-Svx"/>
                                     </constraints>
                                     <fontDescription key="fontDescription" type="system" weight="medium" pointSize="11"/>
                                     <state key="normal" title="Préférences">
@@ -155,7 +155,7 @@
                                     </connections>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fDF-IT-UMr">
-                                    <rect key="frame" x="0.0" y="0.0" width="150" height="20"/>
+                                    <rect key="frame" x="0.0" y="3" width="150" height="17"/>
                                     <fontDescription key="fontDescription" type="system" weight="medium" pointSize="11"/>
                                     <state key="normal" title="Départ: Ven. 21 Juil. - 13:30">
                                         <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -170,9 +170,9 @@
                                 <constraint firstAttribute="trailing" secondItem="0V7-wY-GfL" secondAttribute="trailing" id="BU5-zv-ws4"/>
                                 <constraint firstAttribute="bottom" secondItem="fDF-IT-UMr" secondAttribute="bottom" id="T3z-8B-n5h"/>
                                 <constraint firstItem="fDF-IT-UMr" firstAttribute="leading" secondItem="ven-mE-n8C" secondAttribute="leading" id="WZG-q9-xTG"/>
-                                <constraint firstItem="fDF-IT-UMr" firstAttribute="top" secondItem="ven-mE-n8C" secondAttribute="top" id="jF1-6a-Byn"/>
+                                <constraint firstItem="fDF-IT-UMr" firstAttribute="top" secondItem="ven-mE-n8C" secondAttribute="top" constant="3" id="jF1-6a-Byn"/>
                                 <constraint firstAttribute="bottom" secondItem="0V7-wY-GfL" secondAttribute="bottom" id="pDu-SP-HTH"/>
-                                <constraint firstItem="0V7-wY-GfL" firstAttribute="top" secondItem="ven-mE-n8C" secondAttribute="top" id="x2I-tz-hJy"/>
+                                <constraint firstItem="0V7-wY-GfL" firstAttribute="top" secondItem="ven-mE-n8C" secondAttribute="top" constant="3" id="x2I-tz-hJy"/>
                             </constraints>
                         </view>
                     </subviews>
@@ -226,7 +226,7 @@
                 <outlet property="toTextField" destination="fL7-eC-Qtp" id="ir4-DP-kzh"/>
                 <outlet property="toView" destination="rxk-jh-q0m" id="NFm-T5-Q6x"/>
             </connections>
-            <point key="canvasLocation" x="28.800000000000001" y="-186.65667166416793"/>
+            <point key="canvasLocation" x="29" y="-196"/>
         </view>
     </objects>
     <resources>
