@@ -76,7 +76,7 @@ class ListPlacesViewController: UIViewController, ListPlacesDisplayLogic {
         super.viewDidAppear(animated)
         
         UIView.animate(withDuration: 0.15) {
-            self.searchView.animated()
+            self.searchView.unstickTextFields()
             self.view.layoutIfNeeded()
         }
     }
@@ -183,7 +183,7 @@ class ListPlacesViewController: UIViewController, ListPlacesDisplayLogic {
     
     @objc func backButtonPressed() {
         UIView.animate(withDuration: 0.15) {
-            self.searchView.animatedFalse()
+            self.searchView.stickTextFields()
             self.view.layoutIfNeeded()
         }
         

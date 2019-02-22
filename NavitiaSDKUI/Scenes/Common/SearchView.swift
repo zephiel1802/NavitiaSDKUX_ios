@@ -104,12 +104,12 @@ class SearchView: UIView {
         }
     }
     
-    func animated() {
+    func unstickTextFields() {
         self.separatorTopContraint.constant = 3
         self.separatorBottomContraint.constant = 3
     }
     
-    func animatedFalse() {
+    func stickTextFields() {
         self.separatorTopContraint.constant = 0
         self.separatorBottomContraint.constant = 0
     }
