@@ -61,7 +61,7 @@ class ListPlacesViewController: UIViewController, ListPlacesDisplayLogic {
         
         // ⚠️
         interactor?.displaySearch(request: ListPlaces.DisplaySearch.Request())
-        interactor?.info == "from" ? fetchPlaces(q: searchView.fromTextField.text) : fetchPlaces(q: searchView.toTextField.text)
+        fetchPlaces(q: "")
         interactor?.info == "from" ? searchView.focusFromField() : searchView.focusToField()
     }
     
@@ -267,7 +267,7 @@ extension ListPlacesViewController: UITableViewDataSource, UITableViewDelegate {
                 locationManager.stopUpdatingLocation()
                 interactor?.locationAddress = nil
                 
-                fetchPlaces(q: searchView.toTextField.text)
+                fetchPlaces(q: "")
             } else {
                 dismissAutocompletion()
             }
@@ -283,7 +283,7 @@ extension ListPlacesViewController: UITableViewDataSource, UITableViewDelegate {
                 searchView.focusFromField()
                 clearTableView()
                 locationManager.startUpdatingLocation()
-                fetchPlaces(q: searchView.fromTextField.text)
+                fetchPlaces(q: "")
             } else {
                 dismissAutocompletion()
             }
@@ -347,7 +347,7 @@ extension ListPlacesViewController: SearchViewDelegate {
         searchView.fromView.backgroundColor = Configuration.Color.white.withAlphaComponent(0.9)
         searchView.toView.backgroundColor = Configuration.Color.white
         interactor?.displaySearch(request: ListPlaces.DisplaySearch.Request())
-        fetchPlaces(q: searchView.fromTextField.text)
+        fetchPlaces(q: "")
     }
     
     func toFieldClicked(q: String?) {
@@ -356,7 +356,7 @@ extension ListPlacesViewController: SearchViewDelegate {
         searchView.fromView.backgroundColor = Configuration.Color.white
         searchView.toView.backgroundColor = Configuration.Color.white.withAlphaComponent(0.9)
         interactor?.displaySearch(request: ListPlaces.DisplaySearch.Request())
-        fetchPlaces(q: searchView.toTextField.text)
+        fetchPlaces(q: "")
     }
     
     func fromFieldDidChange(q: String?) {
