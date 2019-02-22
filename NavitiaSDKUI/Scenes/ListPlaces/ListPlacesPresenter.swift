@@ -48,11 +48,11 @@ class ListPlacesPresenter: ListPlacesPresentationLogic {
 
         for i in response {
             if let embeddedType = ListPlaces.FetchPlaces.ViewModel.ModelType(rawValue: i.type) {
-                var place = ListPlaces.FetchPlaces.ViewModel.Place(label: nil, name: i.name, id: i.idNavitia, type: embeddedType)
+                let place = ListPlaces.FetchPlaces.ViewModel.Place(label: nil, name: i.name, id: i.idNavitia, type: embeddedType)
                 placesNew.append(place)
             }
         }
-        let section = ListPlaces.FetchPlaces.ViewModel.DisplayedSections(name: "HISTORIQUE", places: placesNew)
+        let section = ListPlaces.FetchPlaces.ViewModel.DisplayedSections(name: "history".localized().uppercased(), places: placesNew)
         sections.append(section)
         
         let viewModel = ListPlaces.FetchPlaces.ViewModel(displayedSections: sections)
@@ -73,18 +73,18 @@ class ListPlacesPresenter: ListPlacesPresentationLogic {
         
         if let placesViewModel = getPlaces(places: places) {
             if placesViewModel.stopArea.count > 0 {
-                let section = ListPlaces.FetchPlaces.ViewModel.DisplayedSections(name: "ARRÊTS - STATIONS",
-                                                                       places: placesViewModel.stopArea)
+                let section = ListPlaces.FetchPlaces.ViewModel.DisplayedSections(name: String(format: "%@ - %@", "stops".localized(), "stations".localized()).uppercased(),
+                                                                                 places: placesViewModel.stopArea)
                 sections.append(section)
             }
             if placesViewModel.address.count > 0 {
-                let section = ListPlaces.FetchPlaces.ViewModel.DisplayedSections(name: "ADRESSE",
-                                                                       places: placesViewModel.address)
+                let section = ListPlaces.FetchPlaces.ViewModel.DisplayedSections(name: "address".localized().uppercased(),
+                                                                                 places: placesViewModel.address)
                 sections.append(section)
             }
             if placesViewModel.poi.count > 0 {
-                let section = ListPlaces.FetchPlaces.ViewModel.DisplayedSections(name: "POINTS D'INTERÊT",
-                                                                       places: placesViewModel.poi)
+                let section = ListPlaces.FetchPlaces.ViewModel.DisplayedSections(name: "points_of_interest".localized().uppercased(),
+                                                                                 places: placesViewModel.poi)
                 sections.append(section)
             }
         }

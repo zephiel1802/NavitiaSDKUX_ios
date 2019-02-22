@@ -111,6 +111,8 @@ class DateFormView: UIView {
     }
     
     private func initSegmentedControl() {
+        departureArrivalSegmentedControl.setTitle("departure".localized(), forSegmentAt: 0)
+        departureArrivalSegmentedControl.setTitle("arrival".localized(), forSegmentAt: 1)
         departureArrivalSegmentedControl.tintColor = Configuration.Color.main
     }
     
@@ -124,9 +126,9 @@ class DateFormView: UIView {
     
     private func initToolbar() {
         let toolbar = UIToolbar();
-        let doneButton = UIBarButtonItem(title: "Now", style: UIBarButtonItem.Style.plain, target: self, action: #selector(DateFormView.nowDatePicker))
+        let doneButton = UIBarButtonItem(title: "now".localized(), style: UIBarButtonItem.Style.plain, target: self, action: #selector(DateFormView.nowDatePicker))
         let spaceButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.flexibleSpace, target: nil, action: nil)
-        let cancelButton = UIBarButtonItem(title: "Done", style: UIBarButtonItem.Style.plain, target: self, action: #selector(DateFormView.doneDatePicker))
+        let cancelButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(DateFormView.doneDatePicker))
         
         toolbar.sizeToFit()
         doneButton.tintColor = Configuration.Color.main
