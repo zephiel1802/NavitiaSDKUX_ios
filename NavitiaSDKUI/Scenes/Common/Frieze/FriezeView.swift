@@ -58,6 +58,7 @@ class FriezeView: UIView {
 
     private func reuseFriezeSectionView(index: Int, friezeSection: FriezePresenter.FriezeSection, friezeSectionView: FriezeSectionView) {
         friezeSectionView.color = friezeSection.color
+        friezeSectionView.textColor = friezeSection.textColor
         friezeSectionView.name = friezeSection.name
         friezeSectionView.icon = friezeSection.icon
         friezeSectionView.displayDisruption(friezeSection.disruptionIcon, color: friezeSection.disruptionColor)

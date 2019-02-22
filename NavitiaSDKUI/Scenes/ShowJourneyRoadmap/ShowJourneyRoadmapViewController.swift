@@ -286,7 +286,7 @@ internal class ShowJourneyRoadmapViewController: UIViewController, ShowJourneyRo
         
         publicTransportView.frame = view.bounds
         publicTransportView.icon = section.icon
-        publicTransportView.transport = (code: section.displayInformations.code, color: section.displayInformations.color)
+        publicTransportView.transport = (code: section.displayInformations.code, textColor: section.displayInformations.textColor, backgroundColor: section.displayInformations.color)
         publicTransportView.actionDescription = section.actionDescription
         publicTransportView.network = section.displayInformations.network
         publicTransportView.informations = (from: section.from, direction: section.displayInformations.directionTransit)

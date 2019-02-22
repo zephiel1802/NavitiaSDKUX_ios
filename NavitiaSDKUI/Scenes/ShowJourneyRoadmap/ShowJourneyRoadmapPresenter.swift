@@ -664,6 +664,14 @@ class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
         return color.toUIColor()
     }
     
+    private func getTextColor(displayInformations: VJDisplayInformation?) -> UIColor {
+        guard let textColor = displayInformations?.textColor else {
+            return .white
+        }
+        
+        return textColor.toUIColor()
+    }
+    
     private func getDirection(displayInformations: VJDisplayInformation?) -> String {
         return displayInformations?.direction ?? ""
     }
@@ -687,10 +695,12 @@ class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
     private func getDisplayInformations(displayInformations: VJDisplayInformation?) -> ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionModel.DisplayInformations {
         let commercialMode = getCommercialMode(displayInformations: displayInformations)
         let color = getColor(displayInformations: displayInformations)
+        let textColor = getTextColor(displayInformations: displayInformations)
         let direction = getDirection(displayInformations: displayInformations)
         let code = getTransportCode(displayInformations: displayInformations)
         let displayInformationsClean = ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionModel.DisplayInformations(commercialMode: commercialMode,
                                                                                                                 color: color,
+                                                                                                                textColor: textColor,
                                                                                                                 directionTransit: direction,
                                                                                                                 code: code,
                                                                                                                 network: getNetwork(displayInformations: displayInformations))

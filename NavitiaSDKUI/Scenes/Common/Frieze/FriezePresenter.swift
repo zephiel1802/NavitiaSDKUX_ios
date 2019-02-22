@@ -11,6 +11,7 @@ class FriezePresenter: NSObject {
 
     struct FriezeSection {
         var color: UIColor
+        var textColor: UIColor
         var name: String?
         var icon: String
         var disruptionIcon: String?
@@ -51,6 +52,10 @@ class FriezePresenter: NSObject {
         return section.displayInformations?.color?.toUIColor() ?? .black
     }
     
+    private func getTextColor(section: Section) -> UIColor {
+        return section.displayInformations?.textColor?.toUIColor() ?? .black
+    }
+    
     private func getIcon(section: Section) -> String {
         return Modes().getMode(section: section)
     }
@@ -86,9 +91,11 @@ class FriezePresenter: NSObject {
             if validDisplayedJourneySections(section: section, count: sections.count) {
                 let name = getName(section: section)
                 let color = getColor(section: section)
+                let textColor = getTextColor(section: section)
                 let icon = getIcon(section: section)
                 let disruptionInfo = getDisruptionInformations(section: section, disruptions: disruptions)
                 let friezeSection = FriezePresenter.FriezeSection(color: color,
+                                                                  textColor: textColor,
                                                                   name: name,
                                                                   icon: icon,
                                                                   disruptionIcon: disruptionInfo.icon,

@@ -277,23 +277,24 @@ class PublicTransportStepView: UIView {
         }
     }
 
-    internal var transport: (code: String?, color: UIColor?)? {
+    internal var transport: (code: String?, backgroundColor: UIColor?, textColor: UIColor?)? {
         didSet {
-            guard let color = transport?.color else {
+            guard let backgroundColor = transport?.backgroundColor,
+            let textColor = transport?.textColor else {
                 transportIconView.isHidden = true
                 
                 return
             }
             
-            publicTransportPinFromView.backgroundColor = color
-            publicTransportPinToView.backgroundColor = color
-            publicTransportLineView.backgroundColor = color
+            publicTransportPinFromView.backgroundColor = backgroundColor
+            publicTransportPinToView.backgroundColor = backgroundColor
+            publicTransportLineView.backgroundColor = backgroundColor
             
             if let code = transport?.code {
                 transportIconView.isHidden = false
                 transportIconLabel.attributedText = NSMutableAttributedString()
-                    .bold(code, color: color.contrastColor(), size: 9)
-                transportIconView.backgroundColor = color
+                    .bold(code, color: textColor, size: 9)
+                transportIconView.backgroundColor = backgroundColor
             }
         }
     }
@@ -333,7 +334,7 @@ class PublicTransportStepView: UIView {
             
             for stopDate in stopDates {
                 let view = StationsView(frame: CGRect(x: 0, y: 0, width: stationStackView.frame.size.width, height: 20))
-                view.stationColor = transport?.color
+                view.stationColor = transport?.backgroundColor
                 view.stationName = stopDate
                 stationStackView.addArrangedSubview(view)
             }

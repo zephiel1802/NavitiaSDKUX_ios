@@ -101,6 +101,7 @@ enum ShowJourneyRoadmap {
                 struct DisplayInformations {
                     var commercialMode: String?
                     var color: UIColor?
+                    var textColor: UIColor
                     var directionTransit: String
                     var code: String?
                     var network: String?
