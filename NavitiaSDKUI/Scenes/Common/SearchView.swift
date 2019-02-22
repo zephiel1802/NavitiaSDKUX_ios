@@ -153,22 +153,9 @@ class SearchView: UIView {
         setupPin()
         setupSwitchButton()
         setupTextField()
-        
-        transportModeView = TransportModeView(frame: CGRect(x: 0, y: 0, width: stackView.frame.size.width, height: 0))
-        stackView.addArrangedSubview(transportModeView)
-        
-        dateFormView = DateFormView.instanceFromNib()
-        dateFormView.isInverted = true
-        stackView.addArrangedSubview(dateFormView)
-        
-        searchButtonView = SearchButtonView.instanceFromNib()
-        stackView.addArrangedSubview(searchButtonView)
-        
-        dateFormView.isHidden = true
-        transportModeView.isHidden = true
-        
-        searchButtonView.isHidden = true
-        
+        setupTransportModeView()
+        setupDateFormView()
+        setupSearchButtonView()
         setPreferencesButton()
         setDateButton()
     }
@@ -189,6 +176,25 @@ class SearchView: UIView {
     private func setupTextField() {
         fromTextField.placeholder = "place_of_departure".localized()
         toTextField.placeholder = "place_of_arrival".localized()
+    }
+    
+    private func setupTransportModeView() {
+        transportModeView = TransportModeView(frame: CGRect(x: 0, y: 0, width: stackView.frame.size.width, height: 0))
+        stackView.addArrangedSubview(transportModeView)
+        transportModeView.isHidden = true
+    }
+    
+    private func setupDateFormView() {
+        dateFormView = DateFormView.instanceFromNib()
+        dateFormView.isInverted = true
+        stackView.addArrangedSubview(dateFormView)
+        dateFormView.isHidden = true
+    }
+    
+    private func setupSearchButtonView() {
+        searchButtonView = SearchButtonView.instanceFromNib()
+        stackView.addArrangedSubview(searchButtonView)
+        searchButtonView.isHidden = true
     }
     
     internal func setDateButton() {
