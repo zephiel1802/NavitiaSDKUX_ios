@@ -59,7 +59,7 @@
                                     </constraints>
                                 </view>
                                 <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Maintenant " textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="zhk-u5-9x4">
-                                    <rect key="frame" x="33" y="12" width="320" height="17"/>
+                                    <rect key="frame" x="33" y="0.0" width="342" height="40"/>
                                     <nil key="textColor"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                     <textInputTraits key="textInputTraits"/>
@@ -74,13 +74,14 @@
                             </subviews>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <constraints>
-                                <constraint firstItem="dRh-jb-N4t" firstAttribute="leading" secondItem="zhk-u5-9x4" secondAttribute="trailing" constant="5" id="0tq-Vd-nTj"/>
+                                <constraint firstAttribute="trailing" secondItem="zhk-u5-9x4" secondAttribute="trailing" id="0tq-Vd-nTj"/>
                                 <constraint firstItem="zhk-u5-9x4" firstAttribute="leading" secondItem="gi4-dv-bZO" secondAttribute="trailing" constant="7" id="28Q-Py-Eba"/>
                                 <constraint firstAttribute="trailing" secondItem="dRh-jb-N4t" secondAttribute="trailing" constant="5" id="2a7-3n-KsR"/>
                                 <constraint firstAttribute="height" constant="41" id="8aN-3L-h4F"/>
-                                <constraint firstItem="zhk-u5-9x4" firstAttribute="centerY" secondItem="XPM-a6-9L6" secondAttribute="centerY" id="Hs4-Hx-ZYb"/>
+                                <constraint firstItem="zhk-u5-9x4" firstAttribute="top" secondItem="XPM-a6-9L6" secondAttribute="top" id="EED-mf-mZE"/>
                                 <constraint firstItem="tk5-Ii-9ne" firstAttribute="leading" secondItem="XPM-a6-9L6" secondAttribute="leading" id="OnM-6l-EkK"/>
                                 <constraint firstItem="dRh-jb-N4t" firstAttribute="centerY" secondItem="XPM-a6-9L6" secondAttribute="centerY" id="W2K-xj-Muu"/>
+                                <constraint firstItem="tk5-Ii-9ne" firstAttribute="top" secondItem="zhk-u5-9x4" secondAttribute="bottom" id="Xe0-HR-Yul"/>
                                 <constraint firstItem="gi4-dv-bZO" firstAttribute="leading" secondItem="XPM-a6-9L6" secondAttribute="leading" constant="7" id="Zpj-bJ-3Wa"/>
                                 <constraint firstItem="gi4-dv-bZO" firstAttribute="top" secondItem="XPM-a6-9L6" secondAttribute="top" constant="11" id="Zqz-dq-Je3"/>
                                 <constraint firstAttribute="trailing" secondItem="tk5-Ii-9ne" secondAttribute="trailing" id="bhQ-DK-khr"/>
