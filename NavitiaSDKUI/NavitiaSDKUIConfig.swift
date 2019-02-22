@@ -60,15 +60,6 @@ public protocol JourneyRootViewController {
         }
     }
     
-    @objc public var __nbOfTransportMode : Int {
-        get {
-            return Configuration.nbOfTransportMode
-        }
-        set {
-            Configuration.nbOfTransportMode = newValue
-        }
-    }
-    
     @objc public var multiNetwork: Bool {
         get {
             return Configuration.multiNetwork
@@ -112,7 +103,6 @@ public protocol JourneyRootViewController {
 enum Configuration {
     
     static let fontIconsName = "SDKIcons"
-    static var nbOfTransportMode = 8
     static var modeForm = [ModeButtonModel(title: "public_transport".localized().capitalized, icon: "metro", selected: true, mode: .walking, physicalMode: nil),
                            ModeButtonModel(title: "bike_noun".localized().capitalized, icon: "bike", selected: false, mode: .bike, physicalMode: nil),
                            ModeButtonModel(title: "car_noun".localized().capitalized, icon: "car", selected: false, mode: .car, physicalMode: nil)]

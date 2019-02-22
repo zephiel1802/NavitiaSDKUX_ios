@@ -152,6 +152,7 @@ class SearchView: UIView {
         
         setupPin()
         setupSwitchButton()
+        setupTextField()
         
         transportModeView = TransportModeView(frame: CGRect(x: 0, y: 0, width: stackView.frame.size.width, height: 0))
         stackView.addArrangedSubview(transportModeView)
@@ -183,6 +184,11 @@ class SearchView: UIView {
     private func setupSwitchButton() {
         switchDepartureArrivalButton.setImage(UIImage(named: "switch", in: NavitiaSDKUI.shared.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate), for: .normal)
         switchDepartureArrivalButton.tintColor = Configuration.Color.main
+    }
+    
+    private func setupTextField() {
+        fromTextField.placeholder = "place_of_departure".localized()
+        toTextField.placeholder = "place_of_arrival".localized()
     }
     
     internal func setDateButton() {
