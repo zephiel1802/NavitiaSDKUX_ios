@@ -11,7 +11,7 @@ import SQLite3
 class DataBaseWorker {
 
     var db: OpaquePointer?
-    var journeysList = [Journeysss]()
+    var journeysList = [AutocompletionHistory]()
     
     func connection() {
         let fileURL = try! FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false)
@@ -124,7 +124,7 @@ class DataBaseWorker {
         return true
     }
     
-    func readValues(coverage: String) -> [Journeysss]? {
+    func readValues(coverage: String) -> [AutocompletionHistory]? {
         
         //first empty the list of heroes
         journeysList.removeAll()
@@ -142,15 +142,13 @@ class DataBaseWorker {
             return nil
         }
         
-        //traversing through all the records
         while(sqlite3_step(stmt) == SQLITE_ROW) {
             let coverage = String(cString: sqlite3_column_text(stmt, 0))
             let name = String(cString: sqlite3_column_text(stmt, 1))
             let idNavitia = String(cString: sqlite3_column_text(stmt, 2))
             let type = String(cString: sqlite3_column_text(stmt, 3))
             
-            //adding values to list
-            journeysList.append(Journeysss(id: 0,
+            journeysList.append(AutocompletionHistory(id: 0,
                                            coverage: String(describing: coverage),
                                            name: String(describing: name),
                                            idNavitia: String(describing: idNavitia),
@@ -160,22 +158,5 @@ class DataBaseWorker {
         sqlite3_finalize(stmt)
         
         return journeysList
-    }
-}
-
-class Journeysss {
-    
-    var id: Int
-    let coverage: String
-    let name: String
-    let idNavitia: String
-    let type: String
-    
-    init(id: Int, coverage: String, name: String, idNavitia: String, type: String) {
-        self.id = id
-        self.coverage = coverage
-        self.name = name
-        self.idNavitia = idNavitia
-        self.type = type
     }
 }

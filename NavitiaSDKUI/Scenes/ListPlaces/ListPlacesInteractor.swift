@@ -28,7 +28,7 @@ protocol ListPlacesDataStore {
     var to: (label: String?, name: String?, id: String)? { get set }
     var places: Places? { get set }
     var locationAddress: Address? { get set }
-    var tab2: [Journeysss]? { get set }
+    var tab2: [AutocompletionHistory]? { get set }
 }
 
 class ListPlacesInteractor: ListPlacesBusinessLogic, ListPlacesDataStore {
@@ -43,7 +43,7 @@ class ListPlacesInteractor: ListPlacesBusinessLogic, ListPlacesDataStore {
     var to: (label: String?, name: String?, id: String)?
     var places: Places?
     var locationAddress: Address?
-    var tab2: [Journeysss]?
+    var tab2: [AutocompletionHistory]?
     
     // MARK: - Display Search
     

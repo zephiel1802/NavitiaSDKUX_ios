@@ -92,12 +92,17 @@ class DateFormView: UIView {
     // MARK: - Function
     
     private func setup() {
+        initTextField()
         initIconImageView()
         initArrowImageView()
         initSegmentedControl()
         initDatePicker()
         initToolbar()
         initConstraint()
+    }
+    
+    private func initTextField() {
+        dateTextField.text = "now".localized()
     }
     
     private func initIconImageView() {

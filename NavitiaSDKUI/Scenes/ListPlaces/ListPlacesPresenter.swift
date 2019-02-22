@@ -10,7 +10,7 @@ import UIKit
 protocol ListPlacesPresentationLogic {
     
     func presentDisplayedSearch(response: ListPlaces.DisplaySearch.Response)
-    func presentHistoryPlace(response: [Journeysss], locationAddress: Address?)
+    func presentHistoryPlace(response: [AutocompletionHistory], locationAddress: Address?)
     func presentSomething(response: ListPlaces.FetchPlaces.Response)
 }
 
@@ -34,7 +34,7 @@ class ListPlacesPresenter: ListPlacesPresentationLogic {
         viewController?.displaySomething(viewModel: viewModel)
     }
     
-    func presentHistoryPlace(response: [Journeysss], locationAddress: Address?) {
+    func presentHistoryPlace(response: [AutocompletionHistory], locationAddress: Address?) {
         var sections = [ListPlaces.FetchPlaces.ViewModel.DisplayedSections]()
         var placesNew = [ListPlaces.FetchPlaces.ViewModel.Place]()
 
