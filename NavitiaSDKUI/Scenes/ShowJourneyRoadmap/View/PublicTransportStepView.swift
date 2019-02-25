@@ -285,10 +285,10 @@ class PublicTransportStepView: UIView {
                 
                 return
             }
-            
-            publicTransportPinFromView.backgroundColor = backgroundColor
-            publicTransportPinToView.backgroundColor = backgroundColor
-            publicTransportLineView.backgroundColor = backgroundColor
+
+            publicTransportPinFromView.backgroundColor = backgroundColor == Configuration.Color.white ? textColor : backgroundColor
+            publicTransportPinToView.backgroundColor = backgroundColor == Configuration.Color.white ? textColor : backgroundColor
+            publicTransportLineView.backgroundColor = backgroundColor == Configuration.Color.white ? textColor : backgroundColor
             
             if let code = transport?.code {
                 transportIconView.isHidden = false
@@ -323,7 +323,10 @@ class PublicTransportStepView: UIView {
 
     internal var stopDates: [String]? = nil {
         didSet {
-            guard let stopDates = stopDates, !stopDates.isEmpty else {
+            guard let stopDates = stopDates,
+                !stopDates.isEmpty,
+                let backgroundColor = transport?.backgroundColor,
+                let textColor = transport?.textColor else {
                 stationsContainerIsHidden = true
                 return
             }
@@ -334,7 +337,7 @@ class PublicTransportStepView: UIView {
             
             for stopDate in stopDates {
                 let view = StationsView(frame: CGRect(x: 0, y: 0, width: stationStackView.frame.size.width, height: 20))
-                view.stationColor = transport?.backgroundColor
+                view.stationColor = backgroundColor == Configuration.Color.white ? textColor : backgroundColor
                 view.stationName = stopDate
                 stationStackView.addArrangedSubview(view)
             }
