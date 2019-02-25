@@ -25,7 +25,7 @@ class DataBaseWorker {
             print("SQLITE : OK OK data")
         }
         
-        if sqlite3_exec(db, "CREATE TABLE IF NOT EXISTS autocompletion (coverage TEXT, name TEXT, idNavitia TEXT UNIQUE, type INTEGER)", nil, nil, nil) != SQLITE_OK {
+        if sqlite3_exec(db, "CREATE TABLE IF NOT EXISTS autocompletion (id INTEGER PRIMARY KEY AUTOINCREMENT, coverage TEXT, name TEXT, idNavitia TEXT UNIQUE, type INTEGER)", nil, nil, nil) != SQLITE_OK {
             let errmsg = String(cString: sqlite3_errmsg(db)!)
             print("SQLITE : error creating table: \(errmsg)")
         } else {
@@ -35,9 +35,9 @@ class DataBaseWorker {
     
     func buttonSave(coverage: String, name: String, id: String, type: String) {
         
-        if let tab = readValues(coverage: coverage), tab.count > 10 {
-            if !remove() {
-                return
+        if let tab = readValues(coverage: coverage), tab.count >= Configuration.maxHistory {
+            if let id = getMinId(coverage: coverage) {
+                removeID(id: id)
             }
         }
         
@@ -143,12 +143,13 @@ class DataBaseWorker {
         }
         
         while(sqlite3_step(stmt) == SQLITE_ROW) {
-            let coverage = String(cString: sqlite3_column_text(stmt, 0))
-            let name = String(cString: sqlite3_column_text(stmt, 1))
-            let idNavitia = String(cString: sqlite3_column_text(stmt, 2))
-            let type = String(cString: sqlite3_column_text(stmt, 3))
+            let id = String(cString: sqlite3_column_text(stmt, 0))
+            let coverage = String(cString: sqlite3_column_text(stmt, 1))
+            let name = String(cString: sqlite3_column_text(stmt, 2))
+            let idNavitia = String(cString: sqlite3_column_text(stmt, 3))
+            let type = String(cString: sqlite3_column_text(stmt, 4))
             
-            journeysList.append(AutocompletionHistory(id: 0,
+            journeysList.append(AutocompletionHistory(id: Int(id) ?? 0,
                                            coverage: String(describing: coverage),
                                            name: String(describing: name),
                                            idNavitia: String(describing: idNavitia),
@@ -156,7 +157,48 @@ class DataBaseWorker {
         }
         
         sqlite3_finalize(stmt)
-        
         return journeysList
+    }
+    
+    private func getMinId(coverage: String) -> Int32? {
+        //this is our select query
+        let queryString = String(format: "SELECT min(id) FROM autocompletion WHERE coverage = '%@'", coverage)
+        
+        //statement pointer
+        var stmt:OpaquePointer?
+        
+        //preparing the query
+        if sqlite3_prepare(db, queryString, -1, &stmt, nil) != SQLITE_OK {
+            let errmsg = String(cString: sqlite3_errmsg(db)!)
+            print("error preparing insert: \(errmsg)")
+            return nil
+        }
+        
+        while(sqlite3_step(stmt) == SQLITE_ROW) {
+            let test = sqlite3_column_int(stmt, 0)
+            return test
+        }
+        
+        sqlite3_finalize(stmt)
+        
+        return nil
+    }
+    
+    private func removeID(id: Int32) {
+        let deleteStatementStirng = "DELETE FROM autocompletion WHERE id = ?;"
+        
+        var deleteStatement: OpaquePointer? = nil
+        if sqlite3_prepare_v2(db, deleteStatementStirng, -1, &deleteStatement, nil) == SQLITE_OK {
+            
+            sqlite3_bind_int(deleteStatement, 1, id)
+            
+            if sqlite3_step(deleteStatement) == SQLITE_DONE {
+                print("Successfully deleted row.")
+            } else {
+                print("Could not delete row.")
+            }
+        } else {
+            print("DELETE statement could not be prepared")
+        }
     }
 }

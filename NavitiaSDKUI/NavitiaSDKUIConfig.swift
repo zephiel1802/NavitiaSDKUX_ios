@@ -60,6 +60,15 @@ public protocol JourneyRootViewController {
         }
     }
     
+    @objc public var maxHistory: Int {
+        get {
+            return Configuration.maxHistory
+        }
+        set {
+            Configuration.maxHistory = newValue
+        }
+    }
+    
     @objc public var multiNetwork: Bool {
         get {
             return Configuration.multiNetwork
@@ -122,7 +131,8 @@ enum Configuration {
     // Constant
     static let caloriePerSecWalking = 0.071625714285714
     static let caloriePerSecBike = 0.11442857142857142
-    static let minWalkingValueFrieze = 180 
+    static let minWalkingValueFrieze = 180
+    static var maxHistory = 10
     
     static var multiNetwork = false
     static var formJourney = false
