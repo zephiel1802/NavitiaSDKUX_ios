@@ -75,6 +75,7 @@ class FormJourneyRouter: NSObject, FormJourneyRoutingLogic, FormJourneyDataPassi
     
     func passDataToListJourneys(source: FormJourneyDataStore, destination: inout ListJourneysDataStore) {
         destination.journeysRequest = source.journeysRequest
+        destination.modeTransportViewSelected = source.modeTransportViewSelected
     }
     
     func passDataToListPlaces(source: FormJourneyDataStore, destination: inout ListPlacesDataStore, info: String) {

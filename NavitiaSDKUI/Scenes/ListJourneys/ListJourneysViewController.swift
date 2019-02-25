@@ -91,6 +91,10 @@ open class ListJourneysViewController: UIViewController, ListJourneysDisplayLogi
     
     private func initHeader() {
         searchView.delegate = self
+        
+        if let modeTransportViewSelected = interactor?.modeTransportViewSelected {
+            searchView.transportModeView.updateSelectedButton(selectedButton: modeTransportViewSelected)
+        }
     }
     
     private func initCollectionView() {
@@ -125,6 +129,7 @@ open class ListJourneysViewController: UIViewController, ListJourneysDisplayLogi
     // MARK: - Events
     
     @objc func backButtonPressed() {
+        interactor?.modeTransportViewSelected = searchView.transportModeView.getSelectedButton()
         router?.routeToBack()
     }
     

@@ -144,5 +144,6 @@ internal class ListJourneysRouter: NSObject, ListJourneysViewRoutingLogic, ListJ
     func passDataToFormJourney(source: ListJourneysDataStore, destination: inout FormJourneyDataStore) {
         destination.journeysRequest = source.journeysRequest
         destination.journeysRequest?.dataFreshness = nil
+        destination.modeTransportViewSelected = source.modeTransportViewSelected
     }
 }

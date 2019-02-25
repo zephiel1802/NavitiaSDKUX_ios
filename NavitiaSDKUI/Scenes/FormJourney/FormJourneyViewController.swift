@@ -73,6 +73,9 @@ class FormJourneyViewController: UIViewController, FormJourneyDisplayLogic, Jour
         super.viewWillLayoutSubviews()
         
         stackScrollView.reloadStack()
+        if let modeTransportViewSelected = interactor?.modeTransportViewSelected {
+            transportModeView.updateSelectedButton(selectedButton: modeTransportViewSelected)
+        }
     }
     
     private func initArchitecture() {
@@ -211,6 +214,8 @@ extension FormJourneyViewController: SearchButtonViewDelegate {
                 }
             }
         }
+        
+        interactor?.modeTransportViewSelected = transportModeView.getSelectedButton()
         
         router?.routeToListJourneys()
     }

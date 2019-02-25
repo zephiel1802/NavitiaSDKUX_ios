@@ -10,6 +10,7 @@ import UIKit
 protocol ListJourneysBusinessLogic {
     
     var journeysRequest: JourneysRequest? { get set }
+    var modeTransportViewSelected: [Bool]? { get set }
     
     func displaySearch(request: ListJourneys.DisplaySearch.Request)
     func updateDate(request: FormJourney.UpdateDate.Request)
@@ -20,6 +21,7 @@ protocol ListJourneysBusinessLogic {
 protocol ListJourneysDataStore {
     
     var journeysRequest: JourneysRequest? { get set }
+    var modeTransportViewSelected: [Bool]? { get set }
     var physicalModes: [PhysicalMode]? { get }
     var journeys: [Journey]? { get }
     var ridesharingJourneys: [Journey]? { get }
@@ -33,6 +35,7 @@ internal class ListJourneysInteractor: ListJourneysBusinessLogic, ListJourneysDa
     var presenter: ListJourneysPresentationLogic?
     var navitiaWorker = NavitiaWorker()
     var journeysRequest: JourneysRequest?
+    var modeTransportViewSelected: [Bool]?
     var physicalModes: [PhysicalMode]?
     var journeys: [Journey]?
     var ridesharingJourneys: [Journey]?

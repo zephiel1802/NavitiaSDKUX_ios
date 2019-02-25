@@ -39,6 +39,7 @@ class TransportModeButton: UIButton {
             } else {
                 layer.borderColor = Configuration.Color.shadow.cgColor
             }
+          //  mode?.selected = isSelected
             updateIcon()
         }
     }

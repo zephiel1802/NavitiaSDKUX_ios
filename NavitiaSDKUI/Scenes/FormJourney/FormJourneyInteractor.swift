@@ -10,6 +10,7 @@ import UIKit
 protocol FormJourneyBusinessLogic {
     
     var journeysRequest: JourneysRequest? { get set }
+    var modeTransportViewSelected: [Bool]? { get set }
     
     func displaySearch(request: FormJourney.DisplaySearch.Request)
     func updateDate(request: FormJourney.UpdateDate.Request)
@@ -18,12 +19,14 @@ protocol FormJourneyBusinessLogic {
 protocol FormJourneyDataStore {
     
     var journeysRequest: JourneysRequest? { get set }
+    var modeTransportViewSelected: [Bool]? { get set }
 }
 
 class FormJourneyInteractor: FormJourneyBusinessLogic, FormJourneyDataStore {
     
     var presenter: FormJourneyPresentationLogic?
     var journeysRequest: JourneysRequest?
+    var modeTransportViewSelected: [Bool]?
 
     // MARK: - Display Search
     

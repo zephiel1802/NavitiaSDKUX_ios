@@ -23,7 +23,7 @@ class DateFormView: UIView {
     @IBOutlet weak var iconImageView: UIImageView!
     @IBOutlet weak var arrowIconImageVIew: UIImageView!
     @IBOutlet weak var lineView: UIView!
-    @IBOutlet weak var dateTextField: UITextField!
+    @IBOutlet var dateTextField: UITextField!
     
     private var datePicker: UIDatePicker?
     private var contraintHegiht: NSLayoutConstraint?
@@ -70,7 +70,7 @@ class DateFormView: UIView {
             dateTextField.textColor = isInverted ? Configuration.Color.white : Configuration.Color.black
         }
     }
-    
+
     // MARK: - UINib
     
     static var identifier: String {

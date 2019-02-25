@@ -28,6 +28,7 @@ class TransportModeView: UIView {
             transportModeLabel.textColor = (isColorInverted ? NavitiaSDKUI.shared.mainColor : Configuration.Color.white)
         }
     }
+
     
     // MARK: - Initialization
 
@@ -196,6 +197,18 @@ class TransportModeView: UIView {
         return modes
     }
     
+    internal func getModeButtons() -> [ModeButtonModel] {
+        var modes = [ModeButtonModel]()
+        
+        for button in buttonsSaved {
+            if let mode = button.mode {
+                modes.append(mode)
+            }
+        }
+        
+        return modes
+    }
+    
     internal func getNumberButtonIsSelected() -> Int {
         var count = 0
         
@@ -206,6 +219,24 @@ class TransportModeView: UIView {
         }
         
         return count
+    }
+    
+    internal func getSelectedButton() -> [Bool] {
+        var buttons = [Bool]()
+        
+        for button in buttonsSaved {
+            buttons.append(button.isSelected)
+        }
+        
+        return buttons
+    }
+    
+    internal func updateSelectedButton(selectedButton: [Bool]) {
+        for (index, value) in selectedButton.enumerated() {
+            if buttonsSaved[safe: index] != nil {
+                buttonsSaved[index].isSelected = value
+            }
+        }
     }
 }
 
