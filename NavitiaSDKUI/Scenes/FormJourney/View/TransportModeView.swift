@@ -184,6 +184,18 @@ class TransportModeView: UIView {
         return modes
     }
     
+    internal func getRealTimeModes() -> [String] {
+        var modes = [String]()
+        
+        for button in buttonsSaved {
+            if button.isSelected, let realTime = button.mode?.realTime, realTime, let mode = button.mode?.mode.rawValue {
+                modes.append(mode)
+            }
+        }
+        
+        return modes
+    }
+    
     internal func getNumberButtonIsSelected() -> Int {
         var count = 0
         

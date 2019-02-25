@@ -490,6 +490,19 @@ extension ListJourneysViewController: SearchButtonViewDelegate {
                 interactor?.journeysRequest?.firstSectionModes = firstSectionModes
                 interactor?.journeysRequest?.lastSectionModes = lastSectionModes
             }
+            
+            if let realTimeModes = searchView.transportModeView?.getRealTimeModes() {
+                interactor?.journeysRequest?.addPoiInfos = []
+                
+                for mode in realTimeModes {
+                    if mode == "bss" {
+                        interactor?.journeysRequest?.addPoiInfos?.append(.bssStands)
+                    } else if mode == "car" {
+                        interactor?.journeysRequest?.addPoiInfos?.append(.carPark)
+                    }
+                }
+            }
+            
             searchView.hidePreferences()
             fetchPhysicalMode()
         } else if searchView.isDateShown {
