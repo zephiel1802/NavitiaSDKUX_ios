@@ -95,6 +95,7 @@ open class ListJourneysViewController: UIViewController, ListJourneysDisplayLogi
         if let modeTransportViewSelected = interactor?.modeTransportViewSelected {
             searchView.transportModeView.updateSelectedButton(selectedButton: modeTransportViewSelected)
         }
+        searchView.dateFormView.dateTimeRepresentsSegmentedControl = interactor?.journeysRequest?.datetimeRepresents?.rawValue
     }
     
     private func initCollectionView() {

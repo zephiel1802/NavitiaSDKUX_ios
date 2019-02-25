@@ -151,6 +151,9 @@ class FormJourneyViewController: UIViewController, FormJourneyDisplayLogic, Jour
         
         searchView.fromTextField.text = viewModel.fromName
         searchView.toTextField.text = viewModel.toName
+        
+        dateFormView.date = interactor?.journeysRequest?.datetime
+        dateFormView.dateTimeRepresentsSegmentedControl = interactor?.journeysRequest?.datetimeRepresents?.rawValue
     }
 }
 
