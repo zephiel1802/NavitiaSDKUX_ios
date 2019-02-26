@@ -28,7 +28,6 @@ class TransportModeView: UIView {
             transportModeLabel.textColor = (isColorInverted ? NavitiaSDKUI.shared.mainColor : Configuration.Color.white)
         }
     }
-
     
     // MARK: - Initialization
 
@@ -52,8 +51,12 @@ class TransportModeView: UIView {
             contraintHegiht?.isActive = true
         }
         
-        frame.size = CGSize(width: frame.width, height: getViewHeight(by: frame.width))
-        contraintHegiht?.constant = frame.size.height
+        if let superview = superview as? StackScrollView {
+            superview.reloadStack()
+        }
+        
+        frame.size.height = getViewHeight(by: frame.width)
+        contraintHegiht?.constant = getViewHeight(by: frame.width)
         drawIcons()
         
         if let superview = superview as? StackScrollView {
@@ -119,7 +122,7 @@ class TransportModeView: UIView {
     }
 
     internal func calculateOptimization() {
-        maxIconForWidth = ( Int(self.frame.width) + minMargin ) / ( iconSize + minMargin )
+        maxIconForWidth = (Int(frame.width) + minMargin ) / ( iconSize + minMargin )
         
         if maxIconForWidth == 0 {
             print("NavitiaSDKUI: Icons size too large to be displayed for transport mode")
@@ -128,7 +131,7 @@ class TransportModeView: UIView {
         } else if maxIconForWidth == 1 {
             margin = minMargin
         } else {
-            margin = Configuration.modeForm.count < maxIconForWidth ? minMargin : ( Int(self.frame.width) - ( maxIconForWidth * iconSize ) ) / ( maxIconForWidth - 1 )
+            margin = Configuration.modeForm.count < maxIconForWidth ? minMargin : ( Int(frame.width) - ( maxIconForWidth * iconSize ) ) / ( maxIconForWidth - 1 )
         }
         
         numberOfLines = Configuration.modeForm.count / Int(maxIconForWidth) + ( Configuration.modeForm.count % maxIconForWidth == 0 ? 0 : 1 )
