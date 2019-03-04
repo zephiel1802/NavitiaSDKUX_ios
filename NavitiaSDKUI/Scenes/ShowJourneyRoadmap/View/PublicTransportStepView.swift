@@ -80,7 +80,7 @@ class PublicTransportStepView: UIView {
         stopDates = nil
         
         initStationStackView()
-        addShadow(opacity: 0.28)
+        setShadow(opacity: 0.28)
     }
     
     internal func updateAccessibility() {

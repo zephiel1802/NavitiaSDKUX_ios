@@ -492,7 +492,7 @@ extension ShowJourneyRoadmapViewController {
         centerMapButton.setImage(UIImage(named: "location", in: NavitiaSDKUI.shared.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate), for: .normal)
         centerMapButton.tintColor = Configuration.Color.white
         centerMapButton.imageEdgeInsets = UIEdgeInsets(top: 8, left: 6, bottom: 6, right: 8)
-        centerMapButton.addShadow(color: Configuration.Color.shadow.cgColor,
+        centerMapButton.setShadow(color: Configuration.Color.shadow.cgColor,
                                   offset: CGSize(width: -1, height: -1),
                                   opacity: 1,
                                   radius: 2)
