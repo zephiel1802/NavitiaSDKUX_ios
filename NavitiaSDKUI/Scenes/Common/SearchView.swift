@@ -206,7 +206,7 @@ class SearchView: UIView {
             dateButton.setAttributedTitle(NSMutableAttributedString()
                 .icon("calendar", color: Configuration.Color.white, size: 12)
                 .medium(String(format: "  %@  ", dateTime), color: Configuration.Color.white, size: 11)
-                .icon(( isDateShown ? "arrow-details-up" : "arrow-details-down") , color: Configuration.Color.white, size: 11), for: .normal)
+                .icon((isDateShown ? "arrow-details-up" : "arrow-details-down"), color: Configuration.Color.white, size: 11), for: .normal)
         } else {
             dateButton.setAttributedTitle(NSMutableAttributedString()
                 .icon("calendar", color: Configuration.Color.white, size: 12)
@@ -218,7 +218,7 @@ class SearchView: UIView {
         preferenceButton.setAttributedTitle(NSMutableAttributedString()
             .icon("option", color: Configuration.Color.white, size: 12)
             .medium(String(format: "  %@  ", "preferences".localized()), color: Configuration.Color.white, size: 11)
-            .icon(( isPreferencesShown ? "arrow-details-up" : "arrow-details-down"), color: Configuration.Color.white, size: 11), for: .normal)
+            .icon((isPreferencesShown ? "arrow-details-up" : "arrow-details-down"), color: Configuration.Color.white, size: 11), for: .normal)
     }
     
     internal func focusFromField(_ value: Bool = true) {

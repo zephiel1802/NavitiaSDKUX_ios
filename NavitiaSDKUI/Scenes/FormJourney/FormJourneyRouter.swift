@@ -25,7 +25,6 @@ class FormJourneyRouter: NSObject, FormJourneyRoutingLogic, FormJourneyDataPassi
     
     // MARK: Routing
     
-    // ⚠️ Add passDataToListJourneys
     func routeToListJourneys() {
         guard let viewController = viewController,
             let dataStore = dataStore,

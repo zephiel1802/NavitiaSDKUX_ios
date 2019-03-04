@@ -20,13 +20,11 @@ class FormJourneyViewController: UIViewController, FormJourneyDisplayLogic, Jour
     private var transportModeView: TransportModeView!
     private var dateFormView: DateFormView!
     private var searchButtonView: SearchButtonView!
-    // ⚠️
     private var display = false
     
     internal var interactor: FormJourneyBusinessLogic?
     internal var router: (NSObjectProtocol & FormJourneyRoutingLogic & FormJourneyDataPassing)?
     
-    // ⚠️ Trouver une solution concernant l'us age de l'interactor !!
     var journeysRequest: JourneysRequest?
     
     // MARK: - Initialization
@@ -52,7 +50,6 @@ class FormJourneyViewController: UIViewController, FormJourneyDisplayLogic, Jour
         initHeader()
         initStackScrollView()
 
-        // ⚠️
         interactor?.journeysRequest = journeysRequest
     }
     

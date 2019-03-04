@@ -36,10 +36,8 @@ enum FormJourney {
             var dateTimeRepresents: DatetimeRepresents
         }
         struct Response {
-            
         }
         struct ViewModel {
-            
         }
     }
 }

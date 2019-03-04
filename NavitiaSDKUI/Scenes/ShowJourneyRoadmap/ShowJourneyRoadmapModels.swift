@@ -12,7 +12,8 @@ enum ShowJourneyRoadmap {
     // MARK: Use cases
   
     enum GetRoadmap {
-        struct Request {}
+        struct Request {
+        }
         struct Response {
             var journey: Journey
             var journeyRidesharing: Journey?
@@ -171,7 +172,8 @@ enum ShowJourneyRoadmap {
     }
     
     enum GetMap {
-        struct Request {}
+        struct Request {
+        }
         struct Response {
             var journey: Journey
             var journeyRidesharing: Journey?
@@ -204,7 +206,8 @@ enum ShowJourneyRoadmap {
             var poi: Poi
             var notify: ((ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionModel.Stands) -> ())
         }
-        struct ViewModel {}
+        struct ViewModel {
+        }
     }
     
     enum FetchPark {
@@ -219,6 +222,7 @@ enum ShowJourneyRoadmap {
             var poi: Poi
             var notify: ((ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionModel.Stands) -> ())
         }
-        struct ViewModel {}
+        struct ViewModel {
+        }
     }
 }

@@ -181,7 +181,7 @@ public class GenerateRequest: NSObject {
         var title: String
         var icon: String
         var selected: Bool
-        var mode: ModeType // bike // bss // car // ridesharing // walking
+        var mode: ModeType
         var physicalMode: [String]?
     }
     
@@ -190,20 +190,6 @@ public class GenerateRequest: NSObject {
     public init(modeForm: [ModeForm]) {
         self.modeForm = modeForm
     }
-    
-//    internal func getMode() -> [ModeType]? {
-//        var modes = [ModeType]()
-//
-//        for mode in modeForm {
-//            modes.append(mode.mode)
-//        }
-//
-//        if modes.count == 0 {
-//            return nil
-//        }
-//
-//        return modes
-//    }
 
     internal func getPhysicalModes() -> [String]? {
         var physicalMode = [String]()

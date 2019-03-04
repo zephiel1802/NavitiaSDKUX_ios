@@ -53,7 +53,6 @@ open class ListJourneysViewController: UIViewController, ListJourneysDisplayLogi
             interactor?.journeysRequest = journeysRequest
         }
         
-        // ⚠️
         interactor?.displaySearch(request: ListJourneys.DisplaySearch.Request())
         interactor?.journeysRequest?.allowedPhysicalModes != nil ? fetchPhysicalMode() : fetchJourneys()
     }
@@ -213,7 +212,6 @@ open class ListJourneysViewController: UIViewController, ListJourneysDisplayLogi
         
     }
     
-    // ⚠️
     func anim() {
         let cells = journeysCollectionView.visibleCells
         let collectionViewHeight = journeysCollectionView.bounds.size.height

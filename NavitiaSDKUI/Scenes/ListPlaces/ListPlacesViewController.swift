@@ -31,7 +31,6 @@ class ListPlacesViewController: UIViewController, ListPlacesDisplayLogic {
     internal var router: (NSObjectProtocol & ListPlacesRoutingLogic & ListPlacesDataPassing)?
     internal weak var delegate: ListPlacesViewControllerDelegate?
 
-    // ⚠️
     private var q: String = ""
 
     static var identifier: String {
@@ -59,7 +58,6 @@ class ListPlacesViewController: UIViewController, ListPlacesDisplayLogic {
         initHeader()
         initTableView()
         
-        // ⚠️
         interactor?.displaySearch(request: ListPlaces.DisplaySearch.Request())
         fetchPlaces(q: "")
         interactor?.info == "from" ? searchView.focusFromField() : searchView.focusToField()

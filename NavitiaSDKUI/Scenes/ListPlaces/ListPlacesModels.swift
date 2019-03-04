@@ -36,7 +36,6 @@ enum ListPlaces {
             var dictAddresses: DictAddresses
         }
         struct ViewModel {
-            
         }
     }
     
@@ -48,7 +47,8 @@ enum ListPlaces {
         struct Response {
             var dictAddresses: DictAddresses
         }
-        struct ViewModel {}
+        struct ViewModel {
+        }
     }
     
     enum FetchPlaces {

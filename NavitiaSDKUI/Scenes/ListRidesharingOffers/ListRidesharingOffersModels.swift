@@ -12,7 +12,8 @@ enum ListRidesharingOffers {
     // MARK: Use cases
     
     enum GetRidesharingOffers {
-        struct Request {}
+        struct Request {
+        }
         struct Response {
             var journey: Journey
             var ridesharingJourneys: [Journey]?

@@ -99,44 +99,6 @@ class ListJourneysPresenter: ListJourneysPresentationLogic {
     
     // MARK: - Displayed Header Informations
     
-//    internal func getDisplayedHeaderInformations(journeysRequest: JourneysRequest) -> ListJourneys.FetchJourneys.ViewModel.HeaderInformations? {
-//        guard let dateTime = getDisplayedHeaderInformationsDateTime(dateTime: journeysRequest.datetime ?? Date(), datetimeRepresents: journeysRequest.datetimeRepresents) else {
-//            return nil
-//        }
-//
-//        let headerInformations = ListJourneys.FetchJourneys.ViewModel.HeaderInformations(dateTime: dateTime,
-//                                                                                         dateTimeDate: journeysRequest.datetime ?? Date(),
-//                                                                                         origin: journeysRequest.originLabel ?? journeysRequest.originId ?? "",
-//                                                                                         destination: journeysRequest.destinationLabel ?? journeysRequest.destinationId ?? "")
-//
-//        return headerInformations
-//    }
-    
-//    internal func getDisplayedHeaderInformations(journey: Journey? = nil,
-//                                                 journeysRequest: JourneysRequest? = nil) -> ListJourneys.FetchJourneys.ViewModel.HeaderInformations? {
-//        guard let journeysRequest = journeysRequest else {
-//            return nil
-//        }
-//
-//        if let journey = journey {
-//            guard let dateTime = getDisplayedHeaderInformationsDateTime(dateTime: journeysRequest.datetime ?? journey.departureDateTime?.toDate(format: Configuration.date),
-//                                                                        datetimeRepresents: journeysRequest.datetimeRepresents) else {
-//                                                                            return nil
-//            }
-//
-//            let headerInformations = ListJourneys.FetchJourneys.ViewModel.HeaderInformations(dateTime: dateTime,
-//                                                                                             dateTimeDate: journeysRequest.datetime ?? journey.departureDateTime?.toDate(format: Configuration.date),
-//                                                                                             origin: journeysRequest.originLabel ?? journey.sections?.first?.from?.name ?? "",
-//                                                                                             destination: journeysRequest.destinationLabel ?? journey.sections?.last?.to?.name ?? "")
-//
-//            return headerInformations
-//        }
-//
-//        let displayedInformations = getDisplayedHeaderInformations(journeysRequest: journeysRequest)
-//
-//        return displayedInformations
-//    }
-    
     private func getHeaderAccessibility(origin: String, destination: String, dateTime: Date?) -> String? {
         var accessibilityLabel = String(format: "reminder_of_the_research".localized(), origin, destination)
          
