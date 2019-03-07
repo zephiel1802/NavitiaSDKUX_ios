@@ -214,8 +214,14 @@ extension ListJourneysViewController: UICollectionViewDataSource, UICollectionVi
                 }
             }
             // Result
-            if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: JourneySolutionCollectionViewCell.identifier, for: indexPath) as? JourneySolutionCollectionViewCell {
-                cell.setup(displayedJourney: viewModel.displayedJourneys[indexPath.row])
+            if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: JourneySolutionCollectionViewCell.identifier, for: indexPath) as? JourneySolutionCollectionViewCell,
+                let viewModel = viewModel.displayedJourneys[safe: indexPath.row] {
+                cell.dateTime = viewModel.dateTime
+                cell.duration = viewModel.duration
+                cell.walkingDescription = viewModel.walkingInformation
+                cell.accessibility = viewModel.accessibility
+                cell.setJourneySummaryView(friezeSections: viewModel.friezeSections)
+                
                 return cell
             }
         }
@@ -230,13 +236,19 @@ extension ListJourneysViewController: UICollectionViewDataSource, UICollectionVi
             // No journey
             if indexPath.row == 1 && viewModel.displayedRidesharings.count == 0 {
                 if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: JourneyEmptySolutionCollectionViewCell.identifier, for: indexPath) as? JourneyEmptySolutionCollectionViewCell {
-                    cell.text = "no_carpooling_options_found".localized()
+                    cell.descriptionText = "no_carpooling_options_found".localized()
                     return cell
                 }
             }
             // Result
-            if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: JourneySolutionCollectionViewCell.identifier, for: indexPath) as? JourneySolutionCollectionViewCell {
-                cell.setup(displayedJourney: viewModel.displayedRidesharings[indexPath.row - 1])
+            if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: JourneySolutionCollectionViewCell.identifier, for: indexPath) as? JourneySolutionCollectionViewCell,
+                let viewModel = viewModel.displayedRidesharings[safe: indexPath.row - 1] {
+                cell.dateTime = viewModel.dateTime
+                cell.duration = viewModel.duration
+                cell.walkingDescription = viewModel.walkingInformation
+                cell.accessibility = viewModel.accessibility
+                cell.setJourneySummaryView(friezeSections: viewModel.friezeSections)
+                
                 return cell
             }
         }
@@ -246,10 +258,11 @@ extension ListJourneysViewController: UICollectionViewDataSource, UICollectionVi
     
     public func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         if kind.isEqual(UICollectionView.elementKindSectionHeader) {
-            let cell = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: JourneyHeaderCollectionReusableView.identifier, for: indexPath) as! JourneyHeaderCollectionReusableView
-            cell.title = "carpooling".localized()
-            
-            return cell
+            if let cell = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: JourneyHeaderCollectionReusableView.identifier, for: indexPath) as? JourneyHeaderCollectionReusableView {
+                cell.title = "carpooling".localized()
+                
+                return cell
+            }
         }
         
         return UICollectionReusableView()

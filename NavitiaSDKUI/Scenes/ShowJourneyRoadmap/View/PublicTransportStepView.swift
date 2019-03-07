@@ -332,10 +332,13 @@ class PublicTransportStepView: UIView {
             publicTransportStationsStackHeightContraint.constant = CGFloat(stopDates.count) * 25
             
             for stopDate in stopDates {
-                let view = StationsView(frame: CGRect(x: 0, y: 0, width: stationStackView.frame.size.width, height: 20))
-                view.stationColor = transport?.color
-                view.stationName = stopDate
-                stationStackView.addArrangedSubview(view)
+                let stationView = StationsView.instanceFromNib()
+                
+                stationView.bounds = CGRect(x: 0, y: 0, width: stationStackView.frame.size.width, height: 20)
+                stationView.color = transport?.color
+                stationView.name = stopDate
+                
+                stationStackView.addArrangedSubview(stationView)
             }
         }
     }
