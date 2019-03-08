@@ -543,7 +543,7 @@ extension ShowJourneyRoadmapViewController {
         case .crowFly?:
             crowFlyPolyline(mode: section.mode, sectionPolyline: &sectionPolyline)
         case .publicTransport?:
-            sectionPolyline.sectionStrokeColor = section.displayInformations?.color?.toUIColor()
+            sectionPolyline.sectionStrokeColor = section.displayInformations?.color?.toUIColor() == Configuration.Color.white ? section.displayInformations?.textColor?.toUIColor() : section.displayInformations?.color?.toUIColor()
             sectionPolyline.sectionLineWidth = 5
         case .transfer?:
             sectionPolyline.sectionStrokeColor = Configuration.Color.gray

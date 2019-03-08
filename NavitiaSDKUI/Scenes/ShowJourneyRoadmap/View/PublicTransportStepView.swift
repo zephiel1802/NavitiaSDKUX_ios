@@ -43,6 +43,19 @@ class PublicTransportStepView: UIView {
 
     private var stationStackView: UIStackView!
     
+    var borderColor: UIColor? {
+        didSet {
+            guard let color = borderColor?.cgColor else {
+                transportIconView.layer.borderWidth = 0
+                
+                return
+            }
+            
+            transportIconView.layer.borderWidth = 1
+            transportIconView.layer.borderColor = color
+        }
+    }
+    
     // MARK: - UINib
     
     static var identifier: String {
@@ -289,6 +302,8 @@ class PublicTransportStepView: UIView {
             publicTransportPinFromView.backgroundColor = backgroundColor == Configuration.Color.white ? textColor : backgroundColor
             publicTransportPinToView.backgroundColor = backgroundColor == Configuration.Color.white ? textColor : backgroundColor
             publicTransportLineView.backgroundColor = backgroundColor == Configuration.Color.white ? textColor : backgroundColor
+            
+            borderColor = backgroundColor == Configuration.Color.white ? textColor : nil
             
             if let code = transport?.code {
                 transportIconView.isHidden = false

@@ -26,6 +26,18 @@ class FriezeSectionView: UIView {
             updateWidth()
         }
     }
+    var borderColor: UIColor? {
+        didSet {
+            guard let color = borderColor?.cgColor else {
+                tagTransportView.layer.borderWidth = 0
+                
+                return
+            }
+            
+            tagTransportView.layer.borderWidth = 1
+            tagTransportView.layer.borderColor = color
+        }
+    }
     
     static var identifier: String {
         return String(describing: self)
