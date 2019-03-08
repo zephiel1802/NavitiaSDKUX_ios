@@ -44,7 +44,8 @@ class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
     }
     
     func presentBss(response: ShowJourneyRoadmap.FetchBss.Response) {
-        guard let stands = getStands(stands: response.poi.stands, carPark: response.poi.carPark, type: .bssRent) else {
+        guard let type = Section.ModelType(rawValue: response.type),
+            let stands = getStands(stands: response.poi.stands, carPark: response.poi.carPark, type: type) else {
             return
         }
 

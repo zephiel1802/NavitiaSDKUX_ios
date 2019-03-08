@@ -1,29 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="StationsView" customModule="NavitiaSDKUI" customModuleProvider="target">
-            <connections>
-                <outlet property="stationLabel" destination="rQa-d7-h4M" id="CZQ-VQ-Zzv"/>
-                <outlet property="stationView" destination="Jfi-1P-pDu" id="GUp-Ry-dHx"/>
-                <outlet property="view" destination="iN0-l3-epB" id="sYR-Ih-8tu"/>
-            </connections>
-        </placeholder>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <view contentMode="scaleToFill" id="iN0-l3-epB">
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="StationsView" customModule="NavitiaSDKUI" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="375" height="15"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Petis Champs - Danielle Casanova" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rQa-d7-h4M">
-                    <rect key="frame" x="28" y="0.0" width="194" height="15"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                    <nil key="textColor"/>
-                    <nil key="highlightedColor"/>
-                </label>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Jfi-1P-pDu">
                     <rect key="frame" x="2" y="2.5" width="10" height="10"/>
                     <color key="backgroundColor" red="0.94889697019999997" green="1" blue="0.52188898800000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -37,6 +29,12 @@
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                 </view>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Petis Champs - Danielle Casanova" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rQa-d7-h4M">
+                    <rect key="frame" x="28" y="0.0" width="194" height="15"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
             </subviews>
             <constraints>
                 <constraint firstItem="Jfi-1P-pDu" firstAttribute="centerY" secondItem="rQa-d7-h4M" secondAttribute="centerY" id="I0C-Zm-srj"/>
@@ -48,6 +46,10 @@
             <nil key="simulatedBottomBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <connections>
+                <outlet property="stationLabel" destination="rQa-d7-h4M" id="LSH-Rf-zdP"/>
+                <outlet property="stationView" destination="Jfi-1P-pDu" id="DbL-Dd-zi0"/>
+            </connections>
             <point key="canvasLocation" x="24.5" y="-270.5"/>
         </view>
     </objects>

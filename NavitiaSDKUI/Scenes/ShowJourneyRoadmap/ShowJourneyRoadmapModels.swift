@@ -200,10 +200,12 @@ enum ShowJourneyRoadmap {
             var lon: Double
             var distance: Int32
             var id: String
+            var type: String
             var notify: ((ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionModel.Stands) -> ())
         }
         struct Response {
             var poi: Poi
+            var type: String
             var notify: ((ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionModel.Stands) -> ())
         }
         struct ViewModel {

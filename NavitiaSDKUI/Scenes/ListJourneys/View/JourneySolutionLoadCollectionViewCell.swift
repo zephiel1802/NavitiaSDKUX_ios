@@ -9,11 +9,13 @@ import UIKit
 
 class JourneySolutionLoadCollectionViewCell: UICollectionViewCell {
     
+    // MARK: - UINib
+    
     static var identifier: String {
         return String(describing: self)
     }
     
-    static var nib:UINib {
+    static var nib: UINib {
         return UINib(nibName: identifier, bundle: nil)
     }
     

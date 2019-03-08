@@ -10,6 +10,8 @@ import NavitiaSDKUI
 
 class ViewController: UIViewController {
     
+    let coverage = "stif"
+    
     override func viewDidLoad() {
         super.viewDidLoad()
     }
@@ -22,18 +24,14 @@ class ViewController: UIViewController {
         return UIStatusBarStyle.lightContent
     }
     
-    @IBAction func touch(_ sender: Any) {
-        if let journeyResultsViewController = getJourneys() {
-            navigationController?.pushViewController(journeyResultsViewController, animated: true)
-        }
-    }
-    
-    private func getJourneys() -> UIViewController? {
+    private func getListJourneysViewController() -> UIViewController? {
+        NavitiaSDKUI.shared.formJourney = false
+        
         guard var journeyResultsViewController = NavitiaSDKUI.shared.rootViewController else {
             return nil
         }
         
-        var journeysRequest = JourneysRequest(coverage: "")
+        var journeysRequest = JourneysRequest(coverage: coverage)
         journeysRequest.originId = "2.3665844;48.8465337"
         journeysRequest.originLabel = "Chez moi"
         journeysRequest.destinationId = "2.2979169;48.8848719"
@@ -45,10 +43,44 @@ class ViewController: UIViewController {
         journeysRequest.firstSectionModes = [.walking, .car, .bike, .bss, .ridesharing]
         journeysRequest.lastSectionModes = [.walking, .car, .bike, .bss, .ridesharing]
         journeysRequest.count = 5
-
+        
         journeyResultsViewController.journeysRequest = journeysRequest
         
         return journeyResultsViewController as? UIViewController
     }
     
+    private func getFormJourneyViewController() -> UIViewController? {
+        NavitiaSDKUI.shared.formJourney = true
+        NavitiaSDKUI.shared.modeForm = [ModeButtonModel(title: "Metro", icon: "metro", selected: true, mode: .walking, physicalMode: ["physical_mode:Metro"]),
+                                        ModeButtonModel(title: "Bus", icon: "bus", selected: true, mode: .walking, physicalMode: ["physical_mode:Bus"]),
+                                        ModeButtonModel(title: "RER", icon: "train", selected: true, mode: .walking, physicalMode: ["physical_mode:RapidTransit"]),
+                                        ModeButtonModel(title: "Tramway", icon: "tramway", selected: false, mode: .walking, physicalMode: ["physical_mode:Tramway"]),
+                                        ModeButtonModel(title: "Train", icon: "train", selected: false, mode: .walking, physicalMode: ["physical_mode:LocalTrain", "physical_mode:Train"]),
+                                        ModeButtonModel(title: "Navette", icon: "train", selected: false, mode: .walking, physicalMode: ["physical_mode:Shuttle"]),
+                                        ModeButtonModel(title: "Bike", icon: "bike", selected: false, mode: .bike),
+                                        ModeButtonModel(title: "VLS", icon: "bss", selected: false, mode: .bss, realTime: true),
+                                        ModeButtonModel(title: "Car", icon: "car", selected: false, mode: .car)]
+        
+        guard var journeyResultsViewController = NavitiaSDKUI.shared.rootViewController else {
+            return nil
+        }
+        
+        let journeysRequest = JourneysRequest(coverage: coverage)
+        
+        journeyResultsViewController.journeysRequest = journeysRequest
+        
+        return journeyResultsViewController as? UIViewController
+    }
+    
+    @IBAction func touch(_ sender: Any) {
+        if let formJourneyViewController = getFormJourneyViewController() {
+            navigationController?.pushViewController(formJourneyViewController, animated: true)
+        }
+    }
+    
+    @IBAction func touchWithoutForm(_ sender: Any) {
+        if let listJourneysViewController = getListJourneysViewController() {
+            navigationController?.pushViewController(listJourneysViewController, animated: true)
+        }
+    }
 }
