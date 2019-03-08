@@ -135,7 +135,7 @@ class ListPlacesViewController: UIViewController, ListPlacesDisplayLogic {
         locationManager.requestWhenInUseAuthorization()
     }
 
-    // MARK: Do something
+    // MARK: Fetch Places
 
     func fetchPlaces(q: String?) {
         guard let q = q else {
@@ -147,19 +147,21 @@ class ListPlacesViewController: UIViewController, ListPlacesDisplayLogic {
         interactor?.fetchJourneys(request: request)
     }
     
+    // MARK: Display Search
+    
     func displaySearch(viewModel: ListPlaces.DisplaySearch.ViewModel) {
         searchView.fromTextField.text = viewModel.fromName
         searchView.toTextField.text = viewModel.toName
         
         if interactor?.info == "from" {
             locationManager.startUpdatingLocation()
-          // fetchPlaces(q: searchView.fromTextField.text)
         } else {
             locationManager.stopUpdatingLocation()
             interactor?.locationAddress = nil
-          //  fetchPlaces(q: searchView.toTextField.text)
         }
     }
+    
+    // MARK: Fetch Places
     
     func displaySomething(viewModel: ListPlaces.FetchPlaces.ViewModel) {
         displayedSections = viewModel.displayedSections

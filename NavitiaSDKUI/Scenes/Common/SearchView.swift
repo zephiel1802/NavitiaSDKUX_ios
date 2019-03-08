@@ -44,16 +44,16 @@ class SearchView: UIView {
     var dateFormView: DateFormView!
     var transportModeView: TransportModeView!
     var searchButtonView: SearchButtonView!
-
+    
+    internal var lockSwitch = false
+    internal var isPreferencesShown = false
+    internal var isDateShown = false
+    internal var focus: Focus?
     internal weak var delegate: SearchViewDelegate? {
         didSet {
             searchButtonView.delegate = delegate as? SearchButtonViewDelegate
         }
     }
-    internal var lockSwitch = false
-    internal var isPreferencesShown = false
-    internal var isDateShown = false
-    internal var focus: Focus?
     internal var origin: String? {
         didSet {
             guard let origin = origin else {
@@ -63,6 +63,7 @@ class SearchView: UIView {
             fromTextField.text = origin
         }
     }
+    
     internal var destination: String? {
         didSet {
             guard let destination = destination else {
@@ -90,17 +91,10 @@ class SearchView: UIView {
     }
     internal var lock: Bool = false {
         didSet {
-            if lock {
-                fromTextField.isEnabled = false
-                toTextField.isEnabled = false
-                dateButton.isEnabled = false
-                preferenceButton.isHidden = true
-            } else {
-                fromTextField.isEnabled = true
-                toTextField.isEnabled = true
-                dateButton.isEnabled = true
-                preferenceButton.isHidden = false
-            }
+            fromTextField.isEnabled = !lock
+            toTextField.isEnabled = !lock
+            dateButton.isEnabled = !lock
+            preferenceButton.isHidden = lock
         }
     }
     

@@ -11,14 +11,14 @@ protocol ListPlacesPresentationLogic {
     
     func presentDisplayedSearch(response: ListPlaces.DisplaySearch.Response)
     func presentHistoryPlace(response: [AutocompletionHistory], locationAddress: Address?)
-    func presentSomething(response: ListPlaces.FetchPlaces.Response)
+    func presentFetchPlaces(response: ListPlaces.FetchPlaces.Response)
 }
 
 class ListPlacesPresenter: ListPlacesPresentationLogic {
     
     weak var viewController: ListPlacesDisplayLogic?
     
-    // MARK: Do something
+    // MARK: Display Search
     
     func presentDisplayedSearch(response: ListPlaces.DisplaySearch.Response) {
         let viewModel = ListPlaces.DisplaySearch.ViewModel(fromName: response.info == "from" ? response.from?.name : response.from?.name ?? response.from?.label ?? response.from?.id,
@@ -28,11 +28,15 @@ class ListPlacesPresenter: ListPlacesPresentationLogic {
         viewController?.displaySearch(viewModel: viewModel)
     }
     
-    func presentSomething(response: ListPlaces.FetchPlaces.Response) {
+    // MARK: Fetch Places
+    
+    func presentFetchPlaces(response: ListPlaces.FetchPlaces.Response) {
         let viewModel = ListPlaces.FetchPlaces.ViewModel(displayedSections: getSection(places: response.places, address: response.locationAddress))
         
         viewController?.displaySomething(viewModel: viewModel)
     }
+    
+    // MARK: Fetch History Place
     
     func presentHistoryPlace(response: [AutocompletionHistory], locationAddress: Address?) {
         var sections = [ListPlaces.FetchPlaces.ViewModel.DisplayedSections]()
@@ -40,15 +44,15 @@ class ListPlacesPresenter: ListPlacesPresentationLogic {
 
         if let label = locationAddress?.label, let lon = locationAddress?.coord?.lon, let lat = locationAddress?.coord?.lat {
             let place = ListPlaces.FetchPlaces.ViewModel.Place(label: "Ma position", name: label, id: String(format: "%@;%@", lon, lat), type: .location)
-            let section = ListPlaces.FetchPlaces.ViewModel.DisplayedSections(/*type: .location,*/
+            let section = ListPlaces.FetchPlaces.ViewModel.DisplayedSections(
                 name: nil,
                 places: [place])
             sections.append(section)
         }
 
-        for i in response {
-            if let embeddedType = ListPlaces.FetchPlaces.ViewModel.ModelType(rawValue: i.type) {
-                let place = ListPlaces.FetchPlaces.ViewModel.Place(label: nil, name: i.name, id: i.idNavitia, type: embeddedType)
+        for line in response {
+            if let embeddedType = ListPlaces.FetchPlaces.ViewModel.ModelType(rawValue: line.type) {
+                let place = ListPlaces.FetchPlaces.ViewModel.Place(label: nil, name: line.name, id: line.idNavitia, type: embeddedType)
                 placesNew.append(place)
             }
         }

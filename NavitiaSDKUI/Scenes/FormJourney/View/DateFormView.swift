@@ -56,7 +56,7 @@ class DateFormView: UIView {
             let dateFormmatter = DateFormatter()
             
             datePicker.date = newValue
-            dateFormmatter.dateFormat = "EEEE d MMMM '-' HH:mm"
+            dateFormmatter.dateFormat = Configuration.timeFormJourney
             
             dateTextField.text = dateFormmatter.string(from: datePicker.date)
         }

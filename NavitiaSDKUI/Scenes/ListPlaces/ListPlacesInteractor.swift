@@ -82,7 +82,7 @@ class ListPlacesInteractor: ListPlacesBusinessLogic, ListPlacesDataStore {
                                                                locationAddress: self.locationAddress)
                 
                 
-                self.presenter?.presentSomething(response: response)
+                self.presenter?.presentFetchPlaces(response: response)
             } else if let tab2 = self.tab2 {
                 self.presenter?.presentHistoryPlace(response: tab2, locationAddress: self.locationAddress)
             }
@@ -115,7 +115,7 @@ class ListPlacesInteractor: ListPlacesBusinessLogic, ListPlacesDataStore {
                 let response = ListPlaces.FetchPlaces.Response(places: places,
                                                                locationAddress: self.locationAddress)
                 
-                self.presenter?.presentSomething(response: response)
+                self.presenter?.presentFetchPlaces(response: response)
             }
         }
     }
