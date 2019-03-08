@@ -9,13 +9,15 @@ import UIKit
 
 class RidesharingInformationCollectionViewCell: UICollectionViewCell {
     
-    @IBOutlet weak var messageLabel: UILabel!
+    @IBOutlet weak var descriptionLabel: UILabel!
+    
+    // MARK: - UINib
     
     static var identifier: String {
         return String(describing: self)
     }
     
-    static var nib:UINib {
+    static var nib: UINib {
         return UINib(nibName: identifier, bundle: nil)
     }
 
@@ -30,8 +32,11 @@ class RidesharingInformationCollectionViewCell: UICollectionViewCell {
     // MARK: - Function
     
     private func setup() {
-         messageLabel.text = "carpool_highlight_message".localized()
-        
-        addShadow()
+        setShadow()
+        setDescriptionLabel()
+    }
+    
+    private func setDescriptionLabel() {
+        descriptionLabel.text = "carpool_highlight_message".localized()
     }
 }

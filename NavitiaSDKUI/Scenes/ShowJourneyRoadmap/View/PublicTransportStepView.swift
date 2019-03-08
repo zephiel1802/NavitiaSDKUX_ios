@@ -80,7 +80,7 @@ class PublicTransportStepView: UIView {
         stopDates = nil
         
         initStationStackView()
-        addShadow(opacity: 0.28)
+        setShadow(opacity: 0.28)
     }
     
     internal func updateAccessibility() {
@@ -336,10 +336,13 @@ class PublicTransportStepView: UIView {
             publicTransportStationsStackHeightContraint.constant = CGFloat(stopDates.count) * 25
             
             for stopDate in stopDates {
-                let view = StationsView(frame: CGRect(x: 0, y: 0, width: stationStackView.frame.size.width, height: 20))
-                view.stationColor = backgroundColor == Configuration.Color.white ? textColor : backgroundColor
-                view.stationName = stopDate
-                stationStackView.addArrangedSubview(view)
+                let stationView = StationsView.instanceFromNib()
+                
+                stationView.bounds = CGRect(x: 0, y: 0, width: stationStackView.frame.size.width, height: 20)
+                stationView.color = backgroundColor == Configuration.Color.white ? textColor : backgroundColor
+                stationView.name = stopDate
+                
+                stationStackView.addArrangedSubview(stationView)
             }
         }
     }

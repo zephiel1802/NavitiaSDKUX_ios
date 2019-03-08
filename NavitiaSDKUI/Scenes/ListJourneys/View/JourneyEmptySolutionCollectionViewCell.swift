@@ -9,14 +9,21 @@ import UIKit
 
 class JourneyEmptySolutionCollectionViewCell: UICollectionViewCell {
     
-    @IBOutlet weak var noJourneyView: UIView!
-    @IBOutlet weak var noJourneyLabel: UILabel!
+    @IBOutlet weak var descriptionLabel: UILabel!
+    
+    internal var descriptionText: String? {
+        didSet {
+            descriptionLabel.text = descriptionText
+        }
+    }
+    
+    // MARK: - UINib
     
     static var identifier: String {
         return String(describing: self)
     }
     
-    static var nib:UINib {
+    static var nib: UINib {
         return UINib(nibName: identifier, bundle: nil)
     }
     
@@ -31,18 +38,19 @@ class JourneyEmptySolutionCollectionViewCell: UICollectionViewCell {
     // MARK: - Function
     
     private func setup() {
-        noJourneyLabel.text = "no_journey_found".localized()
-        noJourneyLabel.textColor = Configuration.Color.alertInfoDarker
-        noJourneyView.backgroundColor = Configuration.Color.alertView
-        noJourneyView.layer.borderWidth = 1
-        noJourneyView.layer.borderColor = Configuration.Color.alertInfoDarker.cgColor
-        
-        addShadow()
+        setShadow()
+        setView()
+        setDescriptionLabel()
     }
     
-    internal var text: String? {
-        didSet {
-            noJourneyLabel.text = text
-        }
+    private func setDescriptionLabel() {
+        descriptionLabel.text = "no_journey_found".localized()
+        descriptionLabel.textColor = Configuration.Color.alertInfoDarker
+    }
+    
+    private func setView() {
+        backgroundColor = Configuration.Color.alertView
+        layer.borderWidth = 1
+        layer.borderColor = Configuration.Color.alertInfoDarker.cgColor
     }
 }

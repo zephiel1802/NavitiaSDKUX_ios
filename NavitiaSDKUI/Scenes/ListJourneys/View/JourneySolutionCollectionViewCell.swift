@@ -28,11 +28,46 @@ class JourneySolutionCollectionViewCell: UICollectionViewCell {
         }
     }
     
+    internal var dateTime: String? {
+        didSet {
+            if let dateTime = dateTime {
+                dateTimeLabel.attributedText = NSMutableAttributedString().bold(dateTime)
+            }
+        }
+    }
+    internal var duration: NSMutableAttributedString? {
+        didSet {
+            if let duration = duration {
+                durationLabel.attributedText = duration
+            }
+        }
+    }
+    internal var walkingDescription: NSMutableAttributedString? {
+        didSet {
+            if let walkingDescription = walkingDescription {
+                durationWalkerLabel.attributedText = walkingDescription
+                walkingInformationIsHidden = false
+            } else {
+                walkingInformationIsHidden = true
+            }
+        }
+    }
+    internal var accessibility: String? {
+        get {
+            return accessiblityView.accessibilityLabel
+        }
+        set {
+            accessiblityView.accessibilityLabel = newValue
+        }
+    }
+    
+    // MARK: - UINib
+    
     static var identifier: String {
         return String(describing: self)
     }
     
-    static var nib:UINib {
+    static var nib: UINib {
         return UINib(nibName: identifier, bundle: nil)
     }
     
@@ -47,47 +82,15 @@ class JourneySolutionCollectionViewCell: UICollectionViewCell {
     // MARK: - Function
     
     private func setup() {
-        addShadow()
+        setShadow()
+        setArrow()
     }
     
     private func setArrow() {
-        arrowLabel.attributedText = NSMutableAttributedString()
-            .icon("arrow-right",
-                  color: Configuration.Color.main,
-                  size: 15)
+        arrowLabel.attributedText = NSMutableAttributedString().icon("arrow-right", color: Configuration.Color.main, size: 15)
     }
     
-    private func setJourneySummaryView(displayedJourney: ListJourneys.FetchJourneys.ViewModel.DisplayedJourney) {
-        friezeView.addSection(friezeSections: displayedJourney.friezeSections)
-    }
-    
-    internal func setup(displayedJourney: ListJourneys.FetchJourneys.ViewModel.DisplayedJourney) {
-        setArrow()
-        
-        dateTime = displayedJourney.dateTime
-        
-        durationLabel.attributedText = displayedJourney.duration
-
-        if let walkingInformation = displayedJourney.walkingInformation {
-            durationWalkerLabel.attributedText = walkingInformation
-            walkingInformationIsHidden = false
-        } else {
-            walkingInformationIsHidden = true
-        }
-        
-        setJourneySummaryView(displayedJourney: displayedJourney)
-        accessiblityView.accessibilityLabel = displayedJourney.accessibility
-    }
-    
-    internal var dateTime: String? {
-        didSet {
-            guard let dateTime = dateTime else {
-                return
-            }
-            
-            let attributedText = NSMutableAttributedString().bold(dateTime)
-            
-            dateTimeLabel.attributedText = attributedText
-        }
+    internal func setJourneySummaryView(friezeSections: [FriezePresenter.FriezeSection]) {
+        friezeView.addSection(friezeSections: friezeSections)
     }
 }

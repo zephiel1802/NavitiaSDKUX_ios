@@ -94,7 +94,7 @@ internal class SlidingScrollView: UIView {
     
     private func initJourneySolutionView(journeySolutionView: JourneySolutionView) {
         journeySolutionView.frame.origin.y = notchFrame.origin.y + notchFrame.size.height
-        journeySolutionView.addShadow(offset: CGSize(width: 0, height: 5), radius: 3)
+        journeySolutionView.setShadow(offset: CGSize(width: 0, height: 5), radius: 3)
         journeySolutionView.updateFriezeView()
         
         headerHeight = journeySolutionView.frame.size.height + journeySolutionView.frame.origin.y
@@ -129,6 +129,7 @@ internal class SlidingScrollView: UIView {
 
         switch recognizer.state {
         case .began:
+            addShadowInJourneySolutionView()
             animationBottom()
             reinitSize()
         case .ended:
@@ -173,6 +174,7 @@ internal class SlidingScrollView: UIView {
         case .anchored:
             lastOrigin = getPourcentagePosition(value: 0.4)
         case .collapsed:
+            removeShadowInJourneySolutionView()
             animationBottom(withSafeArea: true)
             lastOrigin = getPourcentagePosition(value: 1)
         }
@@ -185,6 +187,18 @@ internal class SlidingScrollView: UIView {
         currentState = slideState
         
         delegate?.slidingEndMove(edgePaddingBottom:parentView.frame.size.height - lastOrigin.y, slidingState: slideState)
+    }
+    
+    private func removeShadowInJourneySolutionView() {
+        if journeySolutionView != nil {
+            journeySolutionView.removeShadow()
+        }
+    }
+    
+    private func addShadowInJourneySolutionView() {
+        if journeySolutionView != nil {
+            journeySolutionView.setShadow(offset: CGSize(width: 0, height: 5), radius: 3)
+        }
     }
     
     private func getPourcentagePosition(value: CGFloat) -> CGPoint {

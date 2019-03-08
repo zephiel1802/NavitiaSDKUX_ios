@@ -34,7 +34,7 @@ class StepView: UIView {
             if enableBackground {
                 backgroundColor = Configuration.Color.white
                 layer.cornerRadius = 5
-                addShadow(opacity: 0.28)
+                setShadow(opacity: 0.28)
             } else {
                 backgroundColor = UIColor.clear
                 layer.cornerRadius = 0

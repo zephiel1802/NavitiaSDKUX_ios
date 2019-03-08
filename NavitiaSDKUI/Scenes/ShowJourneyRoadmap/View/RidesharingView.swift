@@ -61,7 +61,7 @@ class RidesharingView: UIView {
         view.frame = self.bounds
         addSubview(view)
         
-        addShadow()
+        setShadow()
         
         bookButton.setTitle("send_request".localized(), for: .normal)
         bookButton.accessibilityElementsHidden = true
