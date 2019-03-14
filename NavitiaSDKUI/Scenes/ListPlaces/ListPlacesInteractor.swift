@@ -77,7 +77,7 @@ class ListPlacesInteractor: ListPlacesBusinessLogic, ListPlacesDataStore {
         navitiaWorker.fetchCoord(lon: request.longitude, lat: request.latitude) { (dictAddresses) in
             self.locationAddress = dictAddresses?.address
             
-            if let places = self.places {
+            if self.places != nil {
                 let response = ListPlaces.FetchPlaces.Response(places: self.places,
                                                                locationAddress: self.locationAddress)
                 

@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct JourneysRequest {
+@objc public class JourneysRequest: NSObject {
     
     public var coverage: String
     public var originId: String?
@@ -53,7 +53,7 @@ extension JourneysRequest {
         }
     }
     
-    mutating func switchOriginDestination() {
+    func switchOriginDestination() {
         let oldOriginId = originId
         let oldOriginLabel = originLabel
         let oldOriginName = originName

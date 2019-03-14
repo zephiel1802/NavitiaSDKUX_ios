@@ -7,7 +7,7 @@
 
 import Foundation
 
-public protocol JourneyRootViewController {
+@objc public protocol JourneyRootViewController {
     
     var journeysRequest: JourneysRequest? { get set }
 }
@@ -87,7 +87,7 @@ public protocol JourneyRootViewController {
         }
     }
     
-    public var modeForm: [ModeButtonModel] {
+    @objc public var modeForm: [ModeButtonModel] {
         get {
             return Configuration.modeForm
         }
@@ -96,7 +96,7 @@ public protocol JourneyRootViewController {
         }
     }
     
-    public var rootViewController: JourneyRootViewController? {
+    @objc public var rootViewController: JourneyRootViewController? {
         get {
             let storyboard = UIStoryboard(name: "Journey", bundle: bundle)
             

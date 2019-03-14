@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct ModeButtonModel {
+@objc public class ModeButtonModel: NSObject {
     
     public enum ModeType: String {
         case bike = "bike"

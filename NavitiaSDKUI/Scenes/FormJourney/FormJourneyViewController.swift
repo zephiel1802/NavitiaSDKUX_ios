@@ -95,6 +95,7 @@ class FormJourneyViewController: UIViewController, FormJourneyDisplayLogic, Jour
         navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarPosition.any, barMetrics: UIBarMetrics.default)
         navigationController?.navigationBar.shadowImage = UIImage()
         navigationController?.navigationBar.barTintColor = Configuration.Color.main
+        navigationController?.navigationBar.isTranslucent = false
     }
     
     private func initHeader() {
