@@ -21,6 +21,7 @@ class ListPlacesPresenter: ListPlacesPresentationLogic {
     // MARK: Display Search
     
     func presentDisplayedSearch(response: ListPlaces.DisplaySearch.Response) {
+        // In one case, there is only one possibility of text to be displayed (name) and in the opposite case, several possibilities in a specific order (name > label > id)
         let viewModel = ListPlaces.DisplaySearch.ViewModel(fromName: response.info == "from" ? response.from?.name : response.from?.name ?? response.from?.label ?? response.from?.id,
                                                            toName: response.info == "to" ?  response.to?.name : response.to?.name ?? response.to?.label ?? response.to?.id,
                                                            info: response.info)
