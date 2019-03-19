@@ -54,7 +54,6 @@ enum ListPlaces {
     enum FetchPlaces {
         struct Request {
             var q: String
-            var coord: (lat: Double, lon: Double)?
         }
         struct Response {
             var places: Places?
@@ -72,6 +71,7 @@ enum ListPlaces {
                 var label: String?
                 var name: String
                 var id: String
+                var distance: String? = nil
                 var type: ModelType
             }
             

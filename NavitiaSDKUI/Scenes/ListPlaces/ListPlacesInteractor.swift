@@ -108,7 +108,7 @@ class ListPlacesInteractor: ListPlacesBusinessLogic, ListPlacesDataStore {
             
             self.presenter?.presentHistoryPlace(response: tab2, locationAddress: self.locationAddress)
         } else {
-            navitiaWorker.fetchPlaces(coverage: coverage, q: request.q, coord: request.coord) { (places) in
+            navitiaWorker.fetchPlaces(coverage: coverage, q: request.q, coord: (lat: self.locationAddress?.coord?.lat, lon: self.locationAddress?.coord?.lon)) { (places) in
                 self.places = places
                 self.tab2 = nil
                 

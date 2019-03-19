@@ -142,7 +142,7 @@ class ListPlacesViewController: UIViewController, ListPlacesDisplayLogic {
             return
         }
         
-        let request = ListPlaces.FetchPlaces.Request(q: q, coord: nil)
+        let request = ListPlaces.FetchPlaces.Request(q: q)
         
         interactor?.fetchJourneys(request: request)
     }
@@ -233,7 +233,8 @@ extension ListPlacesViewController: UITableViewDataSource, UITableViewDelegate {
         if let cell = tableView.dequeueReusableCell(withIdentifier: PlacesTableViewCell.identifier, for: indexPath) as? PlacesTableViewCell {
 
             cell.type = displayedSections[safe: indexPath.section]?.places[safe: indexPath.row]?.type
-            cell.name = displayedSections[safe: indexPath.section]?.places[safe: indexPath.row]?.name
+            cell.informations = (name: displayedSections[safe: indexPath.section]?.places[safe: indexPath.row]?.name,
+                                 distance: displayedSections[safe: indexPath.section]?.places[safe: indexPath.row]?.distance)
             
             return cell
         }

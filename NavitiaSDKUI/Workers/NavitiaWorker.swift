@@ -95,14 +95,14 @@ class NavitiaWorker: NavitiaWorkerProtocol {
         }
     }
     
-    func fetchPlaces(coverage: String, q: String, coord: (lat: Double, lon: Double)? = nil, completionHandler: @escaping (Places?) -> Void) {
+    func fetchPlaces(coverage: String, q: String, coord: (lat: String?, lon: String?), completionHandler: @escaping (Places?) -> Void) {
         if NavitiaSDKUI.shared.navitiaSDK != nil {
             let placesRequestBuilder = NavitiaSDKUI.shared.navitiaSDK.placesApi.newCoverageRegionPlacesRequestBuilder()
                 .withRegion(coverage)
                 .withQ(q)
             
-            if let coord = coord {
-                placesRequestBuilder.from = String(format: "%d;%d", coord.lon, coord.lat)
+            if let lat = coord.lat, let lon = coord.lon {
+                placesRequestBuilder.from = String(format: "%@;%@", lon, lat)
             }
             
             placesRequestBuilder.get { (result, error) in
