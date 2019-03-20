@@ -44,7 +44,7 @@ class ListPlacesPresenter: ListPlacesPresentationLogic {
         var placesNew = [ListPlaces.FetchPlaces.ViewModel.Place]()
 
         if let label = locationAddress?.label, let lon = locationAddress?.coord?.lon, let lat = locationAddress?.coord?.lat {
-            let place = ListPlaces.FetchPlaces.ViewModel.Place(label: "Ma position", name: label, id: String(format: "%@;%@", lon, lat), distance: nil, type: .location)
+            let place = ListPlaces.FetchPlaces.ViewModel.Place(label: "my_location".localized(), name: label, id: String(format: "%@;%@", lon, lat), distance: nil, type: .location)
             let section = ListPlaces.FetchPlaces.ViewModel.DisplayedSections(
                 name: nil,
                 places: [place])
