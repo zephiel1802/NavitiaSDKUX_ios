@@ -127,7 +127,7 @@ class ListPlacesPresenter: ListPlacesPresentationLogic {
     }
     
     private func getDistance(distance: String?) -> String? {
-        guard let distance = distance, let convert = Int(distance) else {
+        guard let distance = distance, let convert = Int(distance), convert != 0 else {
             return nil
         }
         
