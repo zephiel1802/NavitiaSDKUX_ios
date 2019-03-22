@@ -11,6 +11,8 @@ import UIKit
     
     func routeToListRidesharingOffers(indexPath: IndexPath)
     func routeToJourneySolutionRoadmap(indexPath: IndexPath)
+    func routeToListPlaces(info: String)
+    func routeToBack()
 }
 
 protocol ListJourneysDataPassing {
@@ -49,6 +51,37 @@ internal class ListJourneysRouter: NSObject, ListJourneysViewRoutingLogic, ListJ
         navigateToJourneySolutionRoadmap(source: viewController, destination: destinationVC)
     }
     
+    func routeToListPlaces(info: String) {
+        guard let viewController = viewController,
+            let dataStore = dataStore,
+            let destinationVC = viewController.storyboard?.instantiateViewController(withIdentifier: ListPlacesViewController.identifier) as? ListPlacesViewController,
+            var destinationDS = destinationVC.router?.dataStore else {
+                return
+        }
+
+        destinationVC.delegate = viewController
+        passDataToListPlaces(source: dataStore, destination: &destinationDS, info: info)
+        navigateToListPlaces(source: viewController, destination: destinationVC)
+    }
+    
+    func routeToBack() {
+        guard let viewController = viewController,
+            let dataStore = dataStore else {
+                return
+        }
+        
+        if let navController = viewController.presentingViewController as? UINavigationController {
+            for vc in navController.viewControllers {
+                if let destinationVC = vc as? FormJourneyViewController, var destinationDS = destinationVC.router?.dataStore {
+                    passDataToFormJourney(source: dataStore, destination: &destinationDS)
+                    destinationVC.interactor?.displaySearch(request: FormJourney.DisplaySearch.Request())
+                }
+            }
+        }
+        
+        navigateToBack(source: viewController)
+    }
+    
     // MARK: Navigation
     
     func navigateToListRidesharingOffers(source: ListJourneysViewController, destination: ListRidesharingOffersViewController) {
@@ -57,6 +90,23 @@ internal class ListJourneysRouter: NSObject, ListJourneysViewRoutingLogic, ListJ
     
     func navigateToJourneySolutionRoadmap(source: ListJourneysViewController, destination: ShowJourneyRoadmapViewController) {
         source.navigationController?.pushViewController(destination, animated: true)
+    }
+    
+    func navigateToListPlaces(source: ListJourneysViewController, destination: ListPlacesViewController) {
+        let navigationController = UINavigationController(rootViewController: destination)
+        
+        navigationController.modalTransitionStyle = .crossDissolve
+        navigationController.modalPresentationStyle = .overCurrentContext
+        
+        source.present(navigationController, animated: false, completion: nil)
+    }
+    
+    func navigateToBack(source: ListJourneysViewController) {
+        if source.isRootViewController() {
+            source.dismiss(animated: true, completion: nil)
+        } else {
+            source.navigationController?.popViewController(animated: true)
+        }
     }
     
     // MARK: Passing Data
@@ -73,5 +123,27 @@ internal class ListJourneysRouter: NSObject, ListJourneysViewRoutingLogic, ListJ
         destination.disruptions = source.disruptions
         destination.notes = source.notes
         destination.context = source.context
+    }
+    
+    func passDataToListPlaces(source: ListJourneysDataStore, destination: inout ListPlacesDataStore, info: String) {
+        if let fromId = source.journeysRequest?.originId {
+            destination.from = (label: source.journeysRequest?.originLabel,
+                                name: source.journeysRequest?.originName,
+                                id: fromId)
+        }
+        if let toId = source.journeysRequest?.destinationId {
+            destination.to = (label: source.journeysRequest?.destinationLabel,
+                              name: source.journeysRequest?.destinationName,
+                              id: toId)
+        }
+        
+        destination.info = info
+        destination.coverage = source.journeysRequest?.coverage
+    }
+    
+    func passDataToFormJourney(source: ListJourneysDataStore, destination: inout FormJourneyDataStore) {
+        destination.journeysRequest = source.journeysRequest
+        destination.journeysRequest?.dataFreshness = nil
+        destination.modeTransportViewSelected = source.modeTransportViewSelected
     }
 }

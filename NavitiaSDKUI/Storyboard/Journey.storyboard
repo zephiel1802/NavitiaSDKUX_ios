@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="uos-wP-qKq">
-    <device id="retina4_7" orientation="landscape">
+    <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
@@ -13,20 +13,20 @@
         <!--List Journeys View Controller-->
         <scene sceneID="TlP-kP-dFx">
             <objects>
-                <viewController storyboardIdentifier="JourneySolutionView" useStoryboardIdentifierAsRestorationIdentifier="YES" id="uos-wP-qKq" customClass="ListJourneysViewController" customModule="NavitiaSDKUI" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ListJourneysViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="uos-wP-qKq" customClass="ListJourneysViewController" customModule="NavitiaSDKUI" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="O1O-dz-djj">
-                        <rect key="frame" x="0.0" y="0.0" width="667" height="375"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="est-Cu-SKy" customClass="SearchView" customModule="NavitiaSDKUI" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="32" width="667" height="130"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="130"/>
                                 <color key="backgroundColor" red="0.25098039220000001" green="0.58431372550000005" blue="0.5568627451" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="130" id="ngm-oY-jnc"/>
                                 </constraints>
                             </view>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="yNZ-3x-aub">
-                                <rect key="frame" x="0.0" y="162" width="667" height="213"/>
+                                <rect key="frame" x="0.0" y="130" width="375" height="473"/>
                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="mQy-EO-Msz">
                                     <size key="itemSize" width="0.0" height="0.0"/>
@@ -54,7 +54,7 @@
                         <viewLayoutGuide key="safeArea" id="RRu-e6-XmQ"/>
                     </view>
                     <navigationItem key="navigationItem" id="KdW-6m-Adx"/>
-                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
                     <connections>
                         <outlet property="journeysCollectionView" destination="yNZ-3x-aub" id="jsb-UR-PlL"/>
                         <outlet property="searchView" destination="est-Cu-SKy" id="xct-cC-HiY"/>
@@ -62,24 +62,66 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Wpw-Ek-38a" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="662.51874062968523" y="12"/>
+            <point key="canvasLocation" x="-207" y="11"/>
+        </scene>
+        <!--Form Journey View Controller-->
+        <scene sceneID="5lg-kB-3FS">
+            <objects>
+                <viewController storyboardIdentifier="FormJourneyViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="lJO-mO-8es" customClass="FormJourneyViewController" customModule="NavitiaSDKUI" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="odA-gB-Lyy">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vrA-Pm-UlU" customClass="StackScrollView" customModule="NavitiaSDKUI" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="100" width="375" height="503"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SER-LR-9No" customClass="SearchView" customModule="NavitiaSDKUI" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="100"/>
+                                <color key="backgroundColor" red="0.25098039220000001" green="0.58431372550000005" blue="0.5568627451" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="100" id="dbo-ju-mYb"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="SER-LR-9No" firstAttribute="top" secondItem="dHA-9U-f3e" secondAttribute="top" id="2oE-Dm-d4I"/>
+                            <constraint firstAttribute="trailing" secondItem="vrA-Pm-UlU" secondAttribute="trailing" id="6KG-L0-e2G"/>
+                            <constraint firstItem="vrA-Pm-UlU" firstAttribute="top" secondItem="SER-LR-9No" secondAttribute="bottom" id="ASy-83-yeH"/>
+                            <constraint firstAttribute="bottom" secondItem="vrA-Pm-UlU" secondAttribute="bottom" id="R63-qR-gmI"/>
+                            <constraint firstItem="SER-LR-9No" firstAttribute="trailing" secondItem="odA-gB-Lyy" secondAttribute="trailing" id="hU7-60-Jmt"/>
+                            <constraint firstItem="vrA-Pm-UlU" firstAttribute="leading" secondItem="odA-gB-Lyy" secondAttribute="leading" id="qei-Ab-KBC"/>
+                            <constraint firstItem="SER-LR-9No" firstAttribute="leading" secondItem="odA-gB-Lyy" secondAttribute="leading" id="zf8-x5-Kf2"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="dHA-9U-f3e"/>
+                    </view>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
+                    <connections>
+                        <outlet property="searchView" destination="SER-LR-9No" id="uCD-by-0Ov"/>
+                        <outlet property="stackScrollView" destination="vrA-Pm-UlU" id="bRq-VJ-szW"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="D3K-C4-UuA" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="646" y="-446"/>
         </scene>
         <!--Show Journey Roadmap View Controller-->
         <scene sceneID="kVo-IF-55q">
             <objects>
                 <viewController storyboardIdentifier="ShowJourneyRoadmapViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="z4Z-Pd-Lif" customClass="ShowJourneyRoadmapViewController" customModule="NavitiaSDKUI" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="jJw-gq-5GI">
-                        <rect key="frame" x="0.0" y="0.0" width="667" height="375"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" pitchEnabled="NO" translatesAutoresizingMaskIntoConstraints="NO" id="b4l-6W-DHd">
-                                <rect key="frame" x="0.0" y="32" width="667" height="343"/>
+                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                                 <connections>
                                     <outlet property="delegate" destination="z4Z-Pd-Lif" id="ubg-bG-db4"/>
                                 </connections>
                             </mapView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zis-0N-UC9">
-                                <rect key="frame" x="632" y="280" width="30" height="30"/>
+                                <rect key="frame" x="340" y="572" width="30" height="30"/>
                                 <color key="backgroundColor" red="0.25098039220000001" green="0.58431372550000005" blue="0.5568627451" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="LvN-Kw-gWa"/>
@@ -118,27 +160,75 @@
             </objects>
             <point key="canvasLocation" x="2192.6536731634183" y="12"/>
         </scene>
+        <!--List Places View Controller-->
+        <scene sceneID="Jvx-YR-WhD">
+            <objects>
+                <viewController storyboardIdentifier="ListPlacesViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="TlC-cs-xLV" customClass="ListPlacesViewController" customModule="NavitiaSDKUI" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="1B8-TI-9Lw">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yVj-al-Sgm" customClass="SearchView" customModule="NavitiaSDKUI" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="100"/>
+                                <color key="backgroundColor" red="0.25098039220000001" green="0.58431372550000005" blue="0.5568627451" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="100" id="PU3-ga-0Mg"/>
+                                </constraints>
+                            </view>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="EfP-xX-8jF">
+                                <rect key="frame" x="0.0" y="100" width="375" height="503"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="TlC-cs-xLV" id="suQ-qO-lWe"/>
+                                    <outlet property="delegate" destination="TlC-cs-xLV" id="QzF-sW-6fL"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="EfP-xX-8jF" secondAttribute="trailing" id="Hle-wV-Dp8"/>
+                            <constraint firstItem="yVj-al-Sgm" firstAttribute="trailing" secondItem="1B8-TI-9Lw" secondAttribute="trailing" id="OZd-C9-2ra"/>
+                            <constraint firstAttribute="bottom" secondItem="EfP-xX-8jF" secondAttribute="bottom" id="PYs-gw-Yxp"/>
+                            <constraint firstItem="EfP-xX-8jF" firstAttribute="top" secondItem="yVj-al-Sgm" secondAttribute="bottom" id="R3P-Ex-1V6"/>
+                            <constraint firstItem="yVj-al-Sgm" firstAttribute="top" secondItem="y7Y-tN-W1K" secondAttribute="top" id="Xmo-JG-Lco"/>
+                            <constraint firstItem="EfP-xX-8jF" firstAttribute="leading" secondItem="1B8-TI-9Lw" secondAttribute="leading" id="seZ-gZ-M87"/>
+                            <constraint firstItem="yVj-al-Sgm" firstAttribute="leading" secondItem="1B8-TI-9Lw" secondAttribute="leading" id="vE6-6G-eEU"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="y7Y-tN-W1K"/>
+                    </view>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
+                    <nil key="simulatedBottomBarMetrics"/>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <connections>
+                        <outlet property="searchView" destination="yVj-al-Sgm" id="nfv-Jp-2ww"/>
+                        <outlet property="tableView" destination="EfP-xX-8jF" id="Lnt-YQ-bRn"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="0Da-rQ-JNM" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="639" y="283"/>
+        </scene>
         <!--List Ridesharing Offers View Controller-->
         <scene sceneID="ZeW-sv-AWq">
             <objects>
                 <viewController storyboardIdentifier="ListRidesharingOffersViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="0w9-Hr-lVK" customClass="ListRidesharingOffersViewController" customModule="NavitiaSDKUI" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="fhA-0v-Uex">
-                        <rect key="frame" x="0.0" y="0.0" width="667" height="375"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Obq-V9-UMS">
-                                <rect key="frame" x="0.0" y="32" width="667" height="47"/>
+                                <rect key="frame" x="0.0" y="64" width="375" height="47"/>
                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Uaw-W9-Vea" customClass="JourneySolutionView" customModule="NavitiaSDKUI" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="32" width="667" height="47"/>
+                                <rect key="frame" x="0.0" y="64" width="375" height="47"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="47" id="osK-jC-DkT"/>
                                 </constraints>
                             </view>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="i53-B1-z3B">
-                                <rect key="frame" x="0.0" y="79" width="667" height="296"/>
+                                <rect key="frame" x="0.0" y="111" width="375" height="556"/>
                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="TGz-QI-Lon">
                                     <size key="itemSize" width="0.0" height="0.0"/>

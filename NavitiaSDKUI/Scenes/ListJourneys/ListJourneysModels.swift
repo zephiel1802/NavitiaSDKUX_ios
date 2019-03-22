@@ -11,9 +11,39 @@ enum ListJourneys {
     
     // MARK: Use cases
     
+    enum DisplaySearch {
+        struct Request {
+            var from: (label: String?, name: String?, id: String)?
+            var to: (label: String?, name: String?, id: String)?
+        }
+        struct Response {
+            var journeysRequest: JourneysRequest
+        }
+        struct ViewModel {
+            var fromName: String?
+            var toName: String?
+            var dateTime: String
+            var date: Date
+            var accessibilityHeader: String?
+            var accessibilitySwitchButton: String?
+        }
+    }
+    
+    enum FetchPhysicalModes {
+        struct Request {
+            var journeysRequest: JourneysRequest?
+        }
+        struct Response {
+            var physicalModes: [PhysicalMode]?
+        }
+        struct ViewModel {
+            var physicalModes: [String]
+        }
+    }
+    
     enum FetchJourneys {
         struct Request {
-            var journeysRequest: JourneysRequest
+            var journeysRequest: JourneysRequest?
         }
         struct Response {
             var journeysRequest: JourneysRequest
@@ -21,13 +51,6 @@ enum ListJourneys {
             var disruptions: [Disruption]?
         }
         struct ViewModel {
-            struct HeaderInformations {
-                var dateTime: String
-                var dateTimeDate: Date?
-                var origin: String
-                var destination: String
-            }
-            
             struct DisplayedJourney {
                 var dateTime: String
                 var duration: NSMutableAttributedString
@@ -37,9 +60,6 @@ enum ListJourneys {
             }
             
             var loaded: Bool
-            var headerInformations: HeaderInformations
-            var accessibilityHeader: String?
-            var accessibilitySwitchButton: String?
             var displayedJourneys: [DisplayedJourney]
             var displayedRidesharings: [DisplayedJourney]
         }

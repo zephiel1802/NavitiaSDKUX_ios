@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="DateFormView" customModule="NavitiaSDKUI" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="93"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="Q95-FD-IEL">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="93"/>
+                    <subviews>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tMI-UK-MED">
+                            <rect key="frame" x="0.0" y="0.0" width="375" height="32"/>
+                            <subviews>
+                                <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="JjV-Ap-YLy">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="33"/>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="32" id="4yp-vg-p8j"/>
+                                    </constraints>
+                                    <segments>
+                                        <segment title="Departure"/>
+                                        <segment title="Arrival"/>
+                                    </segments>
+                                </segmentedControl>
+                            </subviews>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <constraints>
+                                <constraint firstAttribute="trailing" secondItem="JjV-Ap-YLy" secondAttribute="trailing" id="Lcf-3p-rdP"/>
+                                <constraint firstItem="JjV-Ap-YLy" firstAttribute="top" secondItem="tMI-UK-MED" secondAttribute="top" id="OwL-ab-JRU"/>
+                                <constraint firstItem="JjV-Ap-YLy" firstAttribute="leading" secondItem="tMI-UK-MED" secondAttribute="leading" id="bhP-zR-UvP"/>
+                                <constraint firstAttribute="bottom" secondItem="JjV-Ap-YLy" secondAttribute="bottom" id="ldU-gT-GNb"/>
+                            </constraints>
+                        </view>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XPM-a6-9L6">
+                            <rect key="frame" x="0.0" y="52" width="375" height="41"/>
+                            <subviews>
+                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="calendar" translatesAutoresizingMaskIntoConstraints="NO" id="gi4-dv-bZO">
+                                    <rect key="frame" x="7" y="11" width="19" height="19"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" secondItem="gi4-dv-bZO" secondAttribute="height" multiplier="1:1" id="qHw-Ph-VOw"/>
+                                    </constraints>
+                                </imageView>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tk5-Ii-9ne">
+                                    <rect key="frame" x="0.0" y="40" width="375" height="1"/>
+                                    <color key="backgroundColor" red="0.25098039215686274" green="0.25098039215686274" blue="0.25098039215686274" alpha="1" colorSpace="calibratedRGB"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="1" id="IpC-UR-2Sj"/>
+                                    </constraints>
+                                </view>
+                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Maintenant " textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="zhk-u5-9x4">
+                                    <rect key="frame" x="33" y="0.0" width="342" height="40"/>
+                                    <nil key="textColor"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                    <textInputTraits key="textInputTraits"/>
+                                </textField>
+                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="arrow_down" translatesAutoresizingMaskIntoConstraints="NO" id="dRh-jb-N4t">
+                                    <rect key="frame" x="358" y="14.5" width="12" height="12"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="12" id="CgD-vd-8u1"/>
+                                        <constraint firstAttribute="width" constant="12" id="X0w-rp-75z"/>
+                                    </constraints>
+                                </imageView>
+                            </subviews>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <constraints>
+                                <constraint firstAttribute="trailing" secondItem="zhk-u5-9x4" secondAttribute="trailing" id="0tq-Vd-nTj"/>
+                                <constraint firstItem="zhk-u5-9x4" firstAttribute="leading" secondItem="gi4-dv-bZO" secondAttribute="trailing" constant="7" id="28Q-Py-Eba"/>
+                                <constraint firstAttribute="trailing" secondItem="dRh-jb-N4t" secondAttribute="trailing" constant="5" id="2a7-3n-KsR"/>
+                                <constraint firstAttribute="height" constant="41" id="8aN-3L-h4F"/>
+                                <constraint firstItem="zhk-u5-9x4" firstAttribute="top" secondItem="XPM-a6-9L6" secondAttribute="top" id="EED-mf-mZE"/>
+                                <constraint firstItem="tk5-Ii-9ne" firstAttribute="leading" secondItem="XPM-a6-9L6" secondAttribute="leading" id="OnM-6l-EkK"/>
+                                <constraint firstItem="dRh-jb-N4t" firstAttribute="centerY" secondItem="XPM-a6-9L6" secondAttribute="centerY" id="W2K-xj-Muu"/>
+                                <constraint firstItem="tk5-Ii-9ne" firstAttribute="top" secondItem="zhk-u5-9x4" secondAttribute="bottom" id="Xe0-HR-Yul"/>
+                                <constraint firstItem="gi4-dv-bZO" firstAttribute="leading" secondItem="XPM-a6-9L6" secondAttribute="leading" constant="7" id="Zpj-bJ-3Wa"/>
+                                <constraint firstItem="gi4-dv-bZO" firstAttribute="top" secondItem="XPM-a6-9L6" secondAttribute="top" constant="11" id="Zqz-dq-Je3"/>
+                                <constraint firstAttribute="trailing" secondItem="tk5-Ii-9ne" secondAttribute="trailing" id="bhQ-DK-khr"/>
+                                <constraint firstAttribute="bottom" secondItem="gi4-dv-bZO" secondAttribute="bottom" constant="11" id="hbT-rb-uiC"/>
+                                <constraint firstAttribute="bottom" secondItem="tk5-Ii-9ne" secondAttribute="bottom" id="pkH-Bl-BSz"/>
+                            </constraints>
+                        </view>
+                    </subviews>
+                </stackView>
+            </subviews>
+            <constraints>
+                <constraint firstItem="Q95-FD-IEL" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="KGb-JA-jq1"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="Q95-FD-IEL" secondAttribute="trailing" id="exS-Le-iMc"/>
+                <constraint firstItem="Q95-FD-IEL" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="vxW-CD-BRE"/>
+            </constraints>
+            <nil key="simulatedTopBarMetrics"/>
+            <nil key="simulatedBottomBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <connections>
+                <outlet property="arrowIconImageVIew" destination="dRh-jb-N4t" id="iSP-HC-ZRM"/>
+                <outlet property="dateTextField" destination="zhk-u5-9x4" id="o7D-zk-oGa"/>
+                <outlet property="departureArrivalSegmentedControl" destination="JjV-Ap-YLy" id="DxK-Zp-OeT"/>
+                <outlet property="iconImageView" destination="gi4-dv-bZO" id="4hY-hR-6Q8"/>
+                <outlet property="lineView" destination="tk5-Ii-9ne" id="3sa-fF-QcI"/>
+            </connections>
+            <point key="canvasLocation" x="-20" y="289.20539730134936"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="arrow_down" width="33" height="33"/>
+        <image name="calendar" width="33" height="33"/>
+    </resources>
+</document>

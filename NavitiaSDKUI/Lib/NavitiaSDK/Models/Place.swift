@@ -44,6 +44,7 @@ open class Place: JSONEncodable, Mappable {
     /** Identifier of the object */
     public var id: String?
     public var stopArea: StopArea?
+    public var distance: String?
 
     public init() {}
     required public init?(map: Map) {
@@ -61,6 +62,7 @@ open class Place: JSONEncodable, Mappable {
         quality <- map["quality"]
         id <- map["id"]
         stopArea <- map["stop_area"]
+        distance <- map["distance"]
     }
 
     // MARK: JSONEncodable
@@ -75,6 +77,7 @@ open class Place: JSONEncodable, Mappable {
         nillableDictionary["quality"] = self.quality?.encodeToJSON()
         nillableDictionary["id"] = self.id
         nillableDictionary["stop_area"] = self.stopArea?.encodeToJSON()
+        nillableDictionary["distance"] = self.distance
 
         let dictionary: [String:Any] = APIHelper.rejectNil(nillableDictionary) ?? [:]
         return dictionary
