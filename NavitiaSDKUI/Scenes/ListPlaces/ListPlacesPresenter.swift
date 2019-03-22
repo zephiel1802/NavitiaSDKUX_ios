@@ -44,7 +44,7 @@ class ListPlacesPresenter: ListPlacesPresentationLogic {
         var placesNew = [ListPlaces.FetchPlaces.ViewModel.Place]()
 
         if let label = locationAddress?.label, let lon = locationAddress?.coord?.lon, let lat = locationAddress?.coord?.lat {
-            let place = ListPlaces.FetchPlaces.ViewModel.Place(label: "Ma position", name: label, id: String(format: "%@;%@", lon, lat), type: .location)
+            let place = ListPlaces.FetchPlaces.ViewModel.Place(label: "my_location".localized(), name: label, id: String(format: "%@;%@", lon, lat), distance: nil, type: .location)
             let section = ListPlaces.FetchPlaces.ViewModel.DisplayedSections(
                 name: nil,
                 places: [place])
@@ -53,7 +53,7 @@ class ListPlacesPresenter: ListPlacesPresentationLogic {
 
         for line in response {
             if let embeddedType = ListPlaces.FetchPlaces.ViewModel.ModelType(rawValue: line.type) {
-                let place = ListPlaces.FetchPlaces.ViewModel.Place(label: nil, name: line.name, id: line.idNavitia, type: embeddedType)
+                let place = ListPlaces.FetchPlaces.ViewModel.Place(label: nil, name: line.name, id: line.idNavitia, distance: nil, type: embeddedType)
                 placesNew.append(place)
             }
         }
@@ -70,7 +70,7 @@ class ListPlacesPresenter: ListPlacesPresentationLogic {
         var sections = [ListPlaces.FetchPlaces.ViewModel.DisplayedSections]()
         
         if let label = address?.label, let lon = address?.coord?.lon, let lat = address?.coord?.lat {
-            let place = ListPlaces.FetchPlaces.ViewModel.Place(label: nil, name: label, id: String(format: "%@;%@", lon, lat), type: .location)
+            let place = ListPlaces.FetchPlaces.ViewModel.Place(label: nil, name: label, id: String(format: "%@;%@", lon, lat), distance: nil, type: .location)
             let section = ListPlaces.FetchPlaces.ViewModel.DisplayedSections(name: nil,
                                                                    places: [place])
             sections.append(section)
@@ -111,7 +111,7 @@ class ListPlacesPresenter: ListPlacesPresentationLogic {
                 let id = place.id,
                 let embeddedType = place.embeddedType?.rawValue,
                 let type = ListPlaces.FetchPlaces.ViewModel.ModelType(rawValue: embeddedType) {
-                let placeViewModel = ListPlaces.FetchPlaces.ViewModel.Place(label: nil, name: name, id: id, type: type)
+                let placeViewModel = ListPlaces.FetchPlaces.ViewModel.Place(label: nil, name: name, id: id, distance: getDistance(distance: place.distance), type: type)
 
                 if place.embeddedType == .stopArea {
                     stopArea.append(placeViewModel)
@@ -124,5 +124,17 @@ class ListPlacesPresenter: ListPlacesPresentationLogic {
         }
         
         return (stopArea: stopArea, address: address, poi: poi)
+    }
+    
+    private func getDistance(distance: String?) -> String? {
+        guard let distance = distance, let convert = Int(distance), convert != 0 else {
+            return nil
+        }
+        
+        if convert < 1000 {
+            return String(format: "%d m", convert)
+        }
+        
+        return String(format: "%.1f km", Float(convert) / 1000)
     }
 }

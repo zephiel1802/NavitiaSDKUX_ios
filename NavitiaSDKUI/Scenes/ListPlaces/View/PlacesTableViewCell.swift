@@ -42,18 +42,25 @@ class PlacesTableViewCell: UITableViewCell {
         }
     }
     
-    internal var name: String? {
+    internal var informations: (name: String?, distance: String?) {
         didSet {
-            guard let name = name else {
+            guard let name = informations.name else {
                 return
             }
             
             if type == .location {
                 nameLabel.attributedText = NSMutableAttributedString()
-                    .bold("Ma position\n", size: 13)
+                    .bold(String(format: "%@\n", "my_position".localized()), size: 13)
                     .normal(name, size: 11)
             } else {
-                nameLabel.text = name
+                if let distance = informations.distance {
+                    nameLabel.attributedText = NSMutableAttributedString()
+                        .normal(name, size: 13)
+                        .bold(String(format: " %@", distance), color: Configuration.Color.gray, size: 10)
+                } else {
+                    nameLabel.attributedText = NSMutableAttributedString()
+                        .normal(name, size: 13)
+                }
             }
         }
     }

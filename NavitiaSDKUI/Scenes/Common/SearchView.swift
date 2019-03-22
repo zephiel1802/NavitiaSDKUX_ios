@@ -335,4 +335,12 @@ class SearchView: UIView {
     @IBAction func toFieldDidChange(_ sender: UITextField) {
         delegate?.toFieldDidChange?(q: sender.text)
     }
+    
+    @IBAction func fromPrimaryAction(_ sender: Any) {
+        endEditing(true)
+    }
+    
+    @IBAction func toPrimaryAction(_ sender: Any) {
+        endEditing(true)
+    }
 }

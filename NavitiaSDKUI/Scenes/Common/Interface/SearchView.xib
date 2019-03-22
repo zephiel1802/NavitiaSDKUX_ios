@@ -59,6 +59,7 @@
                                             <connections>
                                                 <action selector="fromFieldClicked:" destination="iN0-l3-epB" eventType="touchDown" id="rrr-fg-f5p"/>
                                                 <action selector="fromFieldDidChange:" destination="iN0-l3-epB" eventType="editingChanged" id="nG0-DN-o2B"/>
+                                                <action selector="fromPrimaryAction:" destination="iN0-l3-epB" eventType="primaryActionTriggered" id="rpg-pa-mFu"/>
                                             </connections>
                                         </textField>
                                     </subviews>
@@ -96,6 +97,7 @@
                                             <connections>
                                                 <action selector="toFieldClicked:" destination="iN0-l3-epB" eventType="touchDown" id="LWY-0g-4jW"/>
                                                 <action selector="toFieldDidChange:" destination="iN0-l3-epB" eventType="editingChanged" id="oFY-vj-mYs"/>
+                                                <action selector="toPrimaryAction:" destination="iN0-l3-epB" eventType="primaryActionTriggered" id="02c-lz-1sh"/>
                                             </connections>
                                         </textField>
                                     </subviews>

@@ -142,7 +142,7 @@ class ListPlacesViewController: UIViewController, ListPlacesDisplayLogic {
             return
         }
         
-        let request = ListPlaces.FetchPlaces.Request(q: q, coord: nil)
+        let request = ListPlaces.FetchPlaces.Request(q: q)
         
         interactor?.fetchJourneys(request: request)
     }
@@ -153,12 +153,7 @@ class ListPlacesViewController: UIViewController, ListPlacesDisplayLogic {
         searchView.fromTextField.text = viewModel.fromName
         searchView.toTextField.text = viewModel.toName
         
-        if interactor?.info == "from" {
-            locationManager.startUpdatingLocation()
-        } else {
-            locationManager.stopUpdatingLocation()
-            interactor?.locationAddress = nil
-        }
+        locationManager.startUpdatingLocation()
     }
     
     // MARK: Fetch Places
@@ -233,7 +228,8 @@ extension ListPlacesViewController: UITableViewDataSource, UITableViewDelegate {
         if let cell = tableView.dequeueReusableCell(withIdentifier: PlacesTableViewCell.identifier, for: indexPath) as? PlacesTableViewCell {
 
             cell.type = displayedSections[safe: indexPath.section]?.places[safe: indexPath.row]?.type
-            cell.name = displayedSections[safe: indexPath.section]?.places[safe: indexPath.row]?.name
+            cell.informations = (name: displayedSections[safe: indexPath.section]?.places[safe: indexPath.row]?.name,
+                                 distance: displayedSections[safe: indexPath.section]?.places[safe: indexPath.row]?.distance)
             
             return cell
         }
@@ -265,7 +261,6 @@ extension ListPlacesViewController: UITableViewDataSource, UITableViewDelegate {
                 searchView.focusToField()
                 clearTableView()
                 locationManager.stopUpdatingLocation()
-                interactor?.locationAddress = nil
                 
                 fetchPlaces(q: "")
             } else {
@@ -278,7 +273,7 @@ extension ListPlacesViewController: UITableViewDataSource, UITableViewDelegate {
                                                                                      id: id)))
 
             searchView.focusToField(false)
-            if searchView.fromTextField.text == nil {
+            if searchView.fromTextField.text == "" {
                 interactor?.info  = "from"
                 searchView.focusFromField()
                 clearTableView()
