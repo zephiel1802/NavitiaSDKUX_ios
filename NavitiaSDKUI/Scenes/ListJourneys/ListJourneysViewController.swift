@@ -14,15 +14,8 @@ protocol ListJourneysDisplayLogic: class {
 
 open class ListJourneysViewController: UIViewController, ListJourneysDisplayLogic {
     
-    @IBOutlet weak var searchView: UIView!
-    @IBOutlet weak var fromLabel: UILabel!
-    @IBOutlet weak var fromPinLabel: UILabel!
-    @IBOutlet weak var toLabel: UILabel!
-    @IBOutlet weak var toPinLabel: UILabel!
-    @IBOutlet weak var dateTimeLabel: UILabel!
+    @IBOutlet weak var searchView: SearchView!
     @IBOutlet weak var journeysCollectionView: UICollectionView!
-    @IBOutlet weak var switchDepartureArrivalImageView: UIImageView!
-    @IBOutlet weak var switchDepartureArrivalButton: UIButton!
     
     public var journeysRequest: JourneysRequest?
     internal var interactor: ListJourneysBusinessLogic?
@@ -85,18 +78,7 @@ open class ListJourneysViewController: UIViewController, ListJourneysDisplayLogi
     }
     
     private func initHeader() {
-        switchDepartureArrivalImageView.image = UIImage(named: "switch", in: NavitiaSDKUI.shared.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
-        switchDepartureArrivalImageView.tintColor = Configuration.Color.main
-        
-        fromPinLabel.attributedText = NSMutableAttributedString()
-            .icon("location-pin", color: Configuration.Color.origin, size: 22)
-        
-        toPinLabel.attributedText = NSMutableAttributedString()
-            .icon("location-pin", color: Configuration.Color.destination, size: 22)
-        
-        if let backgroundColor = navigationController?.navigationBar.barTintColor {
-            searchView.backgroundColor = backgroundColor
-        }
+        searchView.delegate = self
     }
     
     private func initCollectionView() {
@@ -131,14 +113,6 @@ open class ListJourneysViewController: UIViewController, ListJourneysDisplayLogi
         }
     }
     
-    @IBAction func switchDepartureArrivalCoordinates(_ sender: UIButton) {
-        if journeysRequest != nil {
-            switchDepartureArrivalButton.isEnabled = false
-            journeysRequest!.switchOriginDestination()
-            fetchJourneys()
-        }
-    }
-    
     // MARK: - Fetch journeys
     
     internal func fetchJourneys() {
@@ -158,14 +132,15 @@ open class ListJourneysViewController: UIViewController, ListJourneysDisplayLogi
             return
         }
         
-        viewModel.loaded == true ? (switchDepartureArrivalButton.isEnabled = true) : (switchDepartureArrivalButton.isEnabled = false)
+        viewModel.loaded == true ? (searchView.lockSwitch = false) : (searchView.lockSwitch = true)
 
-        fromLabel.attributedText = viewModel.headerInformations.origin
-        toLabel.attributedText = viewModel.headerInformations.destination
-        dateTimeLabel.attributedText = viewModel.headerInformations.dateTime
-        searchView.accessibilityLabel = viewModel.accessibilityHeader
-        switchDepartureArrivalButton.accessibilityLabel = viewModel.accessibilitySwitchButton
         journeysCollectionView.reloadData()
+        
+        searchView.origin = viewModel.headerInformations.origin
+        searchView.destination = viewModel.headerInformations.destination
+        searchView.dateTime = viewModel.headerInformations.dateTime
+        searchView.accessibilityLabel = viewModel.accessibilityHeader
+        searchView.switchDepartureArrivalButton.accessibilityLabel = viewModel.accessibilitySwitchButton
         
         reloadCollectionViewLayout()
     }
@@ -239,8 +214,14 @@ extension ListJourneysViewController: UICollectionViewDataSource, UICollectionVi
                 }
             }
             // Result
-            if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: JourneySolutionCollectionViewCell.identifier, for: indexPath) as? JourneySolutionCollectionViewCell {
-                cell.setup(displayedJourney: viewModel.displayedJourneys[indexPath.row])
+            if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: JourneySolutionCollectionViewCell.identifier, for: indexPath) as? JourneySolutionCollectionViewCell,
+                let viewModel = viewModel.displayedJourneys[safe: indexPath.row] {
+                cell.dateTime = viewModel.dateTime
+                cell.duration = viewModel.duration
+                cell.walkingDescription = viewModel.walkingInformation
+                cell.accessibility = viewModel.accessibility
+                cell.setJourneySummaryView(friezeSections: viewModel.friezeSections)
+                
                 return cell
             }
         }
@@ -255,13 +236,19 @@ extension ListJourneysViewController: UICollectionViewDataSource, UICollectionVi
             // No journey
             if indexPath.row == 1 && viewModel.displayedRidesharings.count == 0 {
                 if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: JourneyEmptySolutionCollectionViewCell.identifier, for: indexPath) as? JourneyEmptySolutionCollectionViewCell {
-                    cell.text = "no_carpooling_options_found".localized()
+                    cell.descriptionText = "no_carpooling_options_found".localized()
                     return cell
                 }
             }
             // Result
-            if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: JourneySolutionCollectionViewCell.identifier, for: indexPath) as? JourneySolutionCollectionViewCell {
-                cell.setup(displayedJourney: viewModel.displayedRidesharings[indexPath.row - 1])
+            if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: JourneySolutionCollectionViewCell.identifier, for: indexPath) as? JourneySolutionCollectionViewCell,
+                let viewModel = viewModel.displayedRidesharings[safe: indexPath.row - 1] {
+                cell.dateTime = viewModel.dateTime
+                cell.duration = viewModel.duration
+                cell.walkingDescription = viewModel.walkingInformation
+                cell.accessibility = viewModel.accessibility
+                cell.setJourneySummaryView(friezeSections: viewModel.friezeSections)
+                
                 return cell
             }
         }
@@ -271,10 +258,11 @@ extension ListJourneysViewController: UICollectionViewDataSource, UICollectionVi
     
     public func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         if kind.isEqual(UICollectionView.elementKindSectionHeader) {
-            let cell = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: JourneyHeaderCollectionReusableView.identifier, for: indexPath) as! JourneyHeaderCollectionReusableView
-            cell.title = "carpooling".localized()
-            
-            return cell
+            if let cell = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: JourneyHeaderCollectionReusableView.identifier, for: indexPath) as? JourneyHeaderCollectionReusableView {
+                cell.title = "carpooling".localized()
+                
+                return cell
+            }
         }
         
         return UICollectionReusableView()
@@ -385,5 +373,15 @@ extension ListJourneysViewController: ListJourneysCollectionViewLayoutDelegate {
   
         return height + friezeView.frame.size.height
     }
+}
+
+extension ListJourneysViewController: SearchViewDelegate {
     
+    func switchDepartureArrivalCoordinates() {
+        if journeysRequest != nil {
+            searchView.lockSwitch = true
+            journeysRequest!.switchOriginDestination()
+            fetchJourneys()
+        }
+    }
 }

@@ -28,6 +28,26 @@
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "8451DA842065081600CFA1E4"
+               BuildableName = "NavitiaSDKUI-ExampleTests.xctest"
+               BlueprintName = "NavitiaSDKUI-ExampleTests"
+               ReferencedContainer = "container:NavitiaSDKUI-Example.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "8451DA8F2065081600CFA1E4"
+               BuildableName = "NavitiaSDKUI-ExampleUITests.xctest"
+               BlueprintName = "NavitiaSDKUI-ExampleUITests"
+               ReferencedContainer = "container:NavitiaSDKUI-Example.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
       <MacroExpansion>
          <BuildableReference

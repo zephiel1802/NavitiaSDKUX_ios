@@ -64,7 +64,6 @@ class JourneySolutionView: UIView {
     
     private func setup() {
         setupFriezeView()
-        addShadow()
     }
     
     private func setupFriezeView() {
@@ -76,7 +75,11 @@ class JourneySolutionView: UIView {
         addSubview(friezeView)
     }
     
-    private func updateFriezeView() {
+    internal func updateFriezeView() {
+        if #available(iOS 11.0, *) {
+            friezeView.frame.origin.x = safeAreaInsets.left + paddingFriezeView.left
+        }
+        
         friezeView.frame.size = CGSize(width: frame.size.width - paddingFriezeView.right - paddingFriezeView.left,
                                        height: 27)
         friezeView.updatePositionFriezeSectionView()
@@ -98,6 +101,7 @@ class JourneySolutionView: UIView {
         
         formattedDuration(duration)
         friezeView.addSection(friezeSections: friezeSection)
+        updateFriezeView()
     }
     
     internal func setRidesharingData(duration: Int32, friezeSection: [FriezePresenter.FriezeSection]) {

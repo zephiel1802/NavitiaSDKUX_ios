@@ -51,7 +51,7 @@ class RidesharingOfferCollectionViewCell: UICollectionViewCell {
         roadmapButton.setTitle("view_on_the_map".localized(), for: .normal)
         roadmapButton.accessibilityElementsHidden = true
         
-        addShadow()
+        setShadow()
     }
     
     internal func setPicture(url: String?) {

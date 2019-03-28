@@ -5,8 +5,8 @@
 //  Copyright © 2018 kisio. All rights reserved.
 //
 
-
 import UIKit
+import CoreLocation
 
 enum ShowJourneyRoadmap {
     // MARK: Use cases
@@ -101,6 +101,7 @@ enum ShowJourneyRoadmap {
                 struct DisplayInformations {
                     var commercialMode: String?
                     var color: UIColor?
+                    var textColor: UIColor
                     var directionTransit: String
                     var code: String?
                     var network: String?
@@ -167,8 +168,6 @@ enum ShowJourneyRoadmap {
             var arrival: DepartureArrival
             var emission: Emission
             var displayAvoidDisruption: Bool
-            var journey: Journey // Class: SDK Expert
-            var ridesharingJourneys: Journey? // Class: SDK Expert
         }
     }
     
@@ -176,9 +175,21 @@ enum ShowJourneyRoadmap {
         struct Request {}
         struct Response {
             var journey: Journey
+            var journeyRidesharing: Journey?
         }
         struct ViewModel {
+            struct sectionPolyline {
+                var coordinates: [CLLocationCoordinate2D]
+                var color: UIColor
+                var section: Section
+                var annotation: [CLLocationCoordinate2D]?
+            }
+            
             var journey: Journey
+            var departureCoord: CLLocationCoordinate2D
+            var arrivalCoord: CLLocationCoordinate2D
+            var ridesharingAnnotation: [CLLocationCoordinate2D]
+            var sectionPolylines: [sectionPolyline]
         }
     }
     

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -19,42 +19,24 @@
                 <rect key="frame" x="0.0" y="0.0" width="300" height="30"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zlr-Ya-bfJ">
-                        <rect key="frame" x="0.0" y="0.0" width="300" height="30"/>
-                        <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No journey found" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nSp-8W-22M">
-                                <rect key="frame" x="10" y="0.0" width="280" height="30"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                <color key="textColor" red="0.20000000000000001" green="0.4392156862745098" blue="0.55686274509803924" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <constraints>
-                            <constraint firstAttribute="bottom" secondItem="nSp-8W-22M" secondAttribute="bottom" id="BY1-pd-cRZ"/>
-                            <constraint firstItem="nSp-8W-22M" firstAttribute="top" secondItem="zlr-Ya-bfJ" secondAttribute="top" id="ew8-G8-KnR"/>
-                            <constraint firstAttribute="trailing" secondItem="nSp-8W-22M" secondAttribute="trailing" constant="10" id="g3E-bs-8IB"/>
-                            <constraint firstItem="nSp-8W-22M" firstAttribute="leading" secondItem="zlr-Ya-bfJ" secondAttribute="leading" constant="10" id="lkp-qQ-3Q5"/>
-                        </constraints>
-                        <userDefinedRuntimeAttributes>
-                            <userDefinedRuntimeAttribute type="number" keyPath="layer.borderWidth">
-                                <integer key="value" value="0"/>
-                            </userDefinedRuntimeAttribute>
-                        </userDefinedRuntimeAttributes>
-                    </view>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No journey found" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nSp-8W-22M">
+                        <rect key="frame" x="10" y="0.0" width="280" height="30"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                        <color key="textColor" red="0.20000000000000001" green="0.4392156862745098" blue="0.55686274509803924" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
                 </subviews>
             </view>
             <constraints>
-                <constraint firstAttribute="bottom" secondItem="zlr-Ya-bfJ" secondAttribute="bottom" id="2Uf-GG-fnY"/>
-                <constraint firstItem="zlr-Ya-bfJ" firstAttribute="top" secondItem="Nbx-tn-6fp" secondAttribute="top" id="IbF-Ru-inA"/>
-                <constraint firstAttribute="trailing" secondItem="zlr-Ya-bfJ" secondAttribute="trailing" id="Vdy-Bg-T4d"/>
-                <constraint firstItem="zlr-Ya-bfJ" firstAttribute="leading" secondItem="Nbx-tn-6fp" secondAttribute="leading" id="cvt-mD-MLT"/>
+                <constraint firstItem="nSp-8W-22M" firstAttribute="top" secondItem="Nbx-tn-6fp" secondAttribute="top" id="IDj-OS-8z0"/>
+                <constraint firstAttribute="bottom" secondItem="nSp-8W-22M" secondAttribute="bottom" id="Mif-Zy-gw7"/>
+                <constraint firstItem="nSp-8W-22M" firstAttribute="leading" secondItem="Nbx-tn-6fp" secondAttribute="leading" constant="10" id="bGM-NF-pc4"/>
+                <constraint firstAttribute="trailing" secondItem="nSp-8W-22M" secondAttribute="trailing" constant="10" id="xMJ-Hh-ig3"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="xSQ-on-LDf"/>
             <size key="customSize" width="365" height="41"/>
             <connections>
-                <outlet property="noJourneyLabel" destination="nSp-8W-22M" id="BuB-WG-stK"/>
-                <outlet property="noJourneyView" destination="zlr-Ya-bfJ" id="bFA-RC-cnx"/>
+                <outlet property="descriptionLabel" destination="nSp-8W-22M" id="BuB-WG-stK"/>
             </connections>
             <point key="canvasLocation" x="-245.5" y="-70"/>
         </collectionViewCell>

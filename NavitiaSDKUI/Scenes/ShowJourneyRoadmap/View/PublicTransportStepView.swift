@@ -43,6 +43,19 @@ class PublicTransportStepView: UIView {
 
     private var stationStackView: UIStackView!
     
+    var borderColor: UIColor? {
+        didSet {
+            guard let color = borderColor?.cgColor else {
+                transportIconView.layer.borderWidth = 0
+                
+                return
+            }
+            
+            transportIconView.layer.borderWidth = 1
+            transportIconView.layer.borderColor = color
+        }
+    }
+    
     // MARK: - UINib
     
     static var identifier: String {
@@ -80,7 +93,7 @@ class PublicTransportStepView: UIView {
         stopDates = nil
         
         initStationStackView()
-        addShadow(opacity: 0.28)
+        setShadow(opacity: 0.28)
     }
     
     internal func updateAccessibility() {
@@ -277,23 +290,26 @@ class PublicTransportStepView: UIView {
         }
     }
 
-    internal var transport: (code: String?, color: UIColor?)? {
+    internal var transport: (code: String?, backgroundColor: UIColor?, textColor: UIColor?)? {
         didSet {
-            guard let color = transport?.color else {
+            guard let backgroundColor = transport?.backgroundColor,
+            let textColor = transport?.textColor else {
                 transportIconView.isHidden = true
                 
                 return
             }
+
+            publicTransportPinFromView.backgroundColor = backgroundColor == Configuration.Color.white ? textColor : backgroundColor
+            publicTransportPinToView.backgroundColor = backgroundColor == Configuration.Color.white ? textColor : backgroundColor
+            publicTransportLineView.backgroundColor = backgroundColor == Configuration.Color.white ? textColor : backgroundColor
             
-            publicTransportPinFromView.backgroundColor = color
-            publicTransportPinToView.backgroundColor = color
-            publicTransportLineView.backgroundColor = color
+            borderColor = backgroundColor == Configuration.Color.white ? textColor : nil
             
             if let code = transport?.code {
                 transportIconView.isHidden = false
                 transportIconLabel.attributedText = NSMutableAttributedString()
-                    .bold(code, color: color.contrastColor(), size: 9)
-                transportIconView.backgroundColor = color
+                    .bold(code, color: textColor, size: 9)
+                transportIconView.backgroundColor = backgroundColor
             }
         }
     }
@@ -322,7 +338,10 @@ class PublicTransportStepView: UIView {
 
     internal var stopDates: [String]? = nil {
         didSet {
-            guard let stopDates = stopDates, !stopDates.isEmpty else {
+            guard let stopDates = stopDates,
+                !stopDates.isEmpty,
+                let backgroundColor = transport?.backgroundColor,
+                let textColor = transport?.textColor else {
                 stationsContainerIsHidden = true
                 return
             }
@@ -332,10 +351,13 @@ class PublicTransportStepView: UIView {
             publicTransportStationsStackHeightContraint.constant = CGFloat(stopDates.count) * 25
             
             for stopDate in stopDates {
-                let view = StationsView(frame: CGRect(x: 0, y: 0, width: stationStackView.frame.size.width, height: 20))
-                view.stationColor = transport?.color
-                view.stationName = stopDate
-                stationStackView.addArrangedSubview(view)
+                let stationView = StationsView.instanceFromNib()
+                
+                stationView.bounds = CGRect(x: 0, y: 0, width: stationStackView.frame.size.width, height: 20)
+                stationView.color = backgroundColor == Configuration.Color.white ? textColor : backgroundColor
+                stationView.name = stopDate
+                
+                stationStackView.addArrangedSubview(stationView)
             }
         }
     }

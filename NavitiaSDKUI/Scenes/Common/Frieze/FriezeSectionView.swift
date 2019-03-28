@@ -23,7 +23,19 @@ class FriezeSectionView: UIView {
         didSet {
             separatorImage.isHidden = !separator
             separatorTransportConstraint.isActive = separator
-            updateWitdh()
+            updateWidth()
+        }
+    }
+    var borderColor: UIColor? {
+        didSet {
+            guard let color = borderColor?.cgColor else {
+                tagTransportView.layer.borderWidth = 0
+                
+                return
+            }
+            
+            tagTransportView.layer.borderWidth = 1
+            tagTransportView.layer.borderColor = color
         }
     }
     
@@ -49,7 +61,7 @@ class FriezeSectionView: UIView {
         setupDisruption()
         setupTag()
         
-        updateWitdh()
+        updateWidth()
     }
     
     private func setupTag() {
@@ -59,7 +71,7 @@ class FriezeSectionView: UIView {
     
     private func setupDisruption() {
         disruptionImage.isHidden = true
-        updateWitdh()
+        updateWidth()
     }
     
     func displayDisruption(_ iconName: String?, color: String?) {
@@ -71,7 +83,7 @@ class FriezeSectionView: UIView {
 
         disruptionImage.isHidden = false
         disruptionImage.image = image
-        updateWitdh()
+        updateWidth()
     }
     
 }
@@ -84,7 +96,16 @@ extension FriezeSectionView {
         }
         set {
             tagTransportView.backgroundColor = newValue
-            updateWitdh()
+            updateWidth()
+        }
+    }
+    
+    var textColor: UIColor? {
+        get {
+            return tagTransportLabel.textColor
+        }
+        set {
+            tagTransportLabel.textColor = newValue
         }
     }
     
@@ -95,16 +116,17 @@ extension FriezeSectionView {
         set {
             if let newValue = newValue {
                 let tagBackgroundColor = tagTransportView.backgroundColor ?? .black
-                
+                let tagTextColor = tagTransportLabel.textColor ?? tagBackgroundColor.contrastColor()
+
                 tagTransportView.isHidden = false
                 tagTransportLabel.isHidden = false
                 tagTransportLabel.attributedText = NSMutableAttributedString()
-                    .bold(newValue, color: tagBackgroundColor.contrastColor(), size: 9)
-                updateWitdh()
+                    .bold(newValue, color: tagTextColor, size: 9)
+                updateWidth()
             } else {
                 tagTransportView.isHidden = true
                 tagTransportLabel.isHidden = true
-                updateWitdh()
+                updateWidth()
             }
         }
     }
@@ -117,12 +139,12 @@ extension FriezeSectionView {
             if let newValue = newValue {
                 transportLabel.attributedText = NSMutableAttributedString()
                     .icon(newValue, size: 20)
-                updateWitdh()
+                updateWidth()
             }
         }
     }
     
-    func updateWitdh() {
+    func updateWidth() {
         let marginSeparator = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 2)
         let marginTransportTag = UIEdgeInsets(top: 0, left: 4, bottom: 0, right: 4)
         let paddingTransportTag = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 5)

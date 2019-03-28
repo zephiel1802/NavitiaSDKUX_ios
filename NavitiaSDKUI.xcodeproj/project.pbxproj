@@ -244,6 +244,8 @@
 		8471D38320809EAD000C9125 /* JourneySolutionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8471D38220809EAD000C9125 /* JourneySolutionView.xib */; };
 		8471D38520809EC7000C9125 /* JourneySolutionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8471D38420809EC7000C9125 /* JourneySolutionView.swift */; };
 		8471D3872080A0DD000C9125 /* Checkbox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8471D3862080A0DC000C9125 /* Checkbox.swift */; };
+		84731BAF21EF63F30041D8EA /* SearchView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84731BAE21EF63F30041D8EA /* SearchView.xib */; };
+		84731BB121EF69C60041D8EA /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84731BB021EF69C60041D8EA /* SearchView.swift */; };
 		84737E9B2087731A002D3748 /* FloatRatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84737E9A2087731A002D3748 /* FloatRatingView.swift */; };
 		84737E9D2087995B002D3748 /* UIImageView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84737E9C2087995B002D3748 /* UIImageView+Extension.swift */; };
 		84737E9F20879A3C002D3748 /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84737E9E20879A3C002D3748 /* UIView+Extension.swift */; };
@@ -290,6 +292,8 @@
 		84D0FA98210094B900EB420A /* DisruptionItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D0FA97210094B900EB420A /* DisruptionItemView.swift */; };
 		84E37EAA2074FF7B001D61E5 /* JourneySolutionLoadCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E37EA92074FF7B001D61E5 /* JourneySolutionLoadCollectionViewCell.swift */; };
 		84EB9B622142A7A200D61E59 /* StackScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84EB9B612142A7A200D61E59 /* StackScrollView.swift */; };
+		84EEEF7321DE101E00EF6415 /* UIPanGestureRecognizer+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84EEEF7221DE101E00EF6415 /* UIPanGestureRecognizer+Extension.swift */; };
+		84EEEF7721DE119400EF6415 /* SlidingScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84EEEF7621DE119400EF6415 /* SlidingScrollView.swift */; };
 		84FABE122074C7FC00BDDE9D /* Icons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84FABE112074C7FC00BDDE9D /* Icons.swift */; };
 		84FABE142074CB2300BDDE9D /* UIFont+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84FABE132074CB2300BDDE9D /* UIFont+Extension.swift */; };
 		84FABE162074F76600BDDE9D /* JourneySolutionLoadCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84FABE152074F76600BDDE9D /* JourneySolutionLoadCollectionViewCell.xib */; };
@@ -547,6 +551,8 @@
 		8471D38220809EAD000C9125 /* JourneySolutionView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = JourneySolutionView.xib; sourceTree = "<group>"; };
 		8471D38420809EC7000C9125 /* JourneySolutionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JourneySolutionView.swift; sourceTree = "<group>"; };
 		8471D3862080A0DC000C9125 /* Checkbox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Checkbox.swift; sourceTree = "<group>"; };
+		84731BAE21EF63F30041D8EA /* SearchView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SearchView.xib; sourceTree = "<group>"; };
+		84731BB021EF69C60041D8EA /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
 		84737E9A2087731A002D3748 /* FloatRatingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloatRatingView.swift; sourceTree = "<group>"; };
 		84737E9C2087995B002D3748 /* UIImageView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+Extension.swift"; sourceTree = "<group>"; };
 		84737E9E20879A3C002D3748 /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
@@ -596,6 +602,8 @@
 		84D0FA97210094B900EB420A /* DisruptionItemView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DisruptionItemView.swift; sourceTree = "<group>"; };
 		84E37EA92074FF7B001D61E5 /* JourneySolutionLoadCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JourneySolutionLoadCollectionViewCell.swift; sourceTree = "<group>"; };
 		84EB9B612142A7A200D61E59 /* StackScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StackScrollView.swift; sourceTree = "<group>"; };
+		84EEEF7221DE101E00EF6415 /* UIPanGestureRecognizer+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIPanGestureRecognizer+Extension.swift"; sourceTree = "<group>"; };
+		84EEEF7621DE119400EF6415 /* SlidingScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlidingScrollView.swift; sourceTree = "<group>"; };
 		84FABE112074C7FC00BDDE9D /* Icons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Icons.swift; sourceTree = "<group>"; };
 		84FABE132074CB2300BDDE9D /* UIFont+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+Extension.swift"; sourceTree = "<group>"; };
 		84FABE152074F76600BDDE9D /* JourneySolutionLoadCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = JourneySolutionLoadCollectionViewCell.xib; sourceTree = "<group>"; };
@@ -789,6 +797,7 @@
 				3192556221C7FED700CB11DD /* FriezeSectionView.xib */,
 				8433F3A1207FAF22007DBBCE /* AlertView.xib */,
 				84BC297D207E66CC0073F198 /* StationsView.xib */,
+				84731BAE21EF63F30041D8EA /* SearchView.xib */,
 			);
 			path = Interface;
 			sourceTree = "<group>";
@@ -897,6 +906,7 @@
 		8451DA5B2065062300CFA1E4 /* Extension */ = {
 			isa = PBXGroup;
 			children = (
+				84EEEF7221DE101E00EF6415 /* UIPanGestureRecognizer+Extension.swift */,
 				8454D1AB217F540E008BECA0 /* StopDateTime+Extension.swift */,
 				8476DD59208891CB006CB506 /* Collection+Extension.swift */,
 				8454D451206942B800C97D2F /* Date+Extension.swift */,
@@ -931,12 +941,13 @@
 		8451DA5D2065063800CFA1E4 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				84EEEF7521DE116D00EF6415 /* Scroll */,
 				848695A921A7F685009A4DFB /* Frieze */,
 				8422B462206A30200097E6C9 /* Interface */,
 				8433F39F207FAECF007DBBCE /* AlertViewController.swift */,
 				8476DD5320888154006CB506 /* CustomAnnotation.swift */,
-				84EB9B612142A7A200D61E59 /* StackScrollView.swift */,
 				84BC297F207E66D50073F198 /* StationsView.swift */,
+				84731BB021EF69C60041D8EA /* SearchView.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -1246,6 +1257,15 @@
 			path = Util;
 			sourceTree = "<group>";
 		};
+		84EEEF7521DE116D00EF6415 /* Scroll */ = {
+			isa = PBXGroup;
+			children = (
+				84EB9B612142A7A200D61E59 /* StackScrollView.swift */,
+				84EEEF7621DE119400EF6415 /* SlidingScrollView.swift */,
+			);
+			path = Scroll;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -1351,6 +1371,7 @@
 				3192556321C7FED700CB11DD /* FriezeSectionView.xib in Resources */,
 				8471D38320809EAD000C9125 /* JourneySolutionView.xib in Resources */,
 				84A790FD2121B0E90000C82F /* EmissionView.xib in Resources */,
+				84731BAF21EF63F30041D8EA /* SearchView.xib in Resources */,
 				8433F39C207F89C0007DBBCE /* RidesharingView.xib in Resources */,
 				84AE238721775B4B00439EE0 /* OnDemandItemView.xib in Resources */,
 				84BC297E207E66CC0073F198 /* StationsView.xib in Resources */,
@@ -1451,6 +1472,7 @@
 				841A107F215A29B800F46143 /* PlacesNearby.swift in Sources */,
 				841A1071215A29B800F46143 /* StopPoints.swift in Sources */,
 				84827A90214BBAA800CB9513 /* ListRidesharingOffersInteractor.swift in Sources */,
+				84EEEF7721DE119400EF6415 /* SlidingScrollView.swift in Sources */,
 				841A107C215A29B800F46143 /* LineReport.swift in Sources */,
 				841A1064215A29B800F46143 /* StopTime.swift in Sources */,
 				841A1068215A29B800F46143 /* Journeys.swift in Sources */,
@@ -1564,6 +1586,7 @@
 				8454D4402068D3A800C97D2F /* TransformOf.swift in Sources */,
 				8433F39E207F8E14007DBBCE /* RidesharingView.swift in Sources */,
 				31EF7C5E2153D3D100200AE0 /* UILabel+Extension.swift in Sources */,
+				84EEEF7321DE101E00EF6415 /* UIPanGestureRecognizer+Extension.swift in Sources */,
 				8451DAAA20650C9200CFA1E4 /* ShowJourneyRoadmapViewController.swift in Sources */,
 				841A10C1215A29B800F46143 /* StopSchedules.swift in Sources */,
 				84C482C4219DC30A00AA8364 /* FriezeView.swift in Sources */,
@@ -1614,6 +1637,7 @@
 				841A107D215A29B800F46143 /* GeoStatus1.swift in Sources */,
 				8471D3872080A0DD000C9125 /* Checkbox.swift in Sources */,
 				841A1085215A29B800F46143 /* Lines.swift in Sources */,
+				84731BB121EF69C60041D8EA /* SearchView.swift in Sources */,
 				841EFD9C21359FAE004A313B /* NavitiaWorker.swift in Sources */,
 				841A105A215A29B800F46143 /* LinesSchema.swift in Sources */,
 				841A109A215A29B800F46143 /* Section.swift in Sources */,

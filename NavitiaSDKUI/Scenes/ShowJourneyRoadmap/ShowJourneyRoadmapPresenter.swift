@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import CoreLocation
 
 protocol ShowJourneyRoadmapPresentationLogic {
     
@@ -37,16 +38,9 @@ class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
                                                                 frieze: frieze,
                                                                 arrival: arrival,
                                                                 emission: emission,
-                                                                displayAvoidDisruption: alternativeJourney,
-                                                                journey: response.journey,
-                                                                ridesharingJourneys: response.journeyRidesharing)
+                                                                displayAvoidDisruption: alternativeJourney)
         
         viewController?.displayRoadmap(viewModel: viewModel)
-    }
-    
-    func presentMap(response: ShowJourneyRoadmap.GetMap.Response) {
-        let viewModel = ShowJourneyRoadmap.GetMap.ViewModel(journey: response.journey)
-        viewController?.displayMap(viewModel: viewModel)
     }
     
     func presentBss(response: ShowJourneyRoadmap.FetchBss.Response) {
@@ -132,7 +126,6 @@ class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
                                                                                               time: departureTime,
                                                                                               calorie: nil,
                                                                                               accessibility: accessibility)
-            
             
             return departureViewModel
         }
@@ -664,6 +657,14 @@ class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
         return color.toUIColor()
     }
     
+    private func getTextColor(displayInformations: VJDisplayInformation?) -> UIColor {
+        guard let textColor = displayInformations?.textColor else {
+            return .white
+        }
+        
+        return textColor.toUIColor()
+    }
+    
     private func getDirection(displayInformations: VJDisplayInformation?) -> String {
         return displayInformations?.direction ?? ""
     }
@@ -687,10 +688,12 @@ class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
     private func getDisplayInformations(displayInformations: VJDisplayInformation?) -> ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionModel.DisplayInformations {
         let commercialMode = getCommercialMode(displayInformations: displayInformations)
         let color = getColor(displayInformations: displayInformations)
+        let textColor = getTextColor(displayInformations: displayInformations)
         let direction = getDirection(displayInformations: displayInformations)
         let code = getTransportCode(displayInformations: displayInformations)
         let displayInformationsClean = ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionModel.DisplayInformations(commercialMode: commercialMode,
                                                                                                                 color: color,
+                                                                                                                textColor: textColor,
                                                                                                                 directionTransit: direction,
                                                                                                                 code: code,
                                                                                                                 network: getNetwork(displayInformations: displayInformations))
@@ -966,5 +969,154 @@ class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
         }
         
         return newPaths
+    }
+}
+
+extension ShowJourneyRoadmapPresenter {
+    
+    func presentMap(response: ShowJourneyRoadmap.GetMap.Response) {
+        guard let fromCoord = getDepartureCoord(journey: response.journey),
+            let toCoord = getArrivalCoord(journey: response.journey),
+            let sectionPolylines = getSectionPolylines(journey: response.journey, ridesharing: response.journeyRidesharing) else {
+                return
+        }
+        
+        let viewModel = ShowJourneyRoadmap.GetMap.ViewModel(journey: response.journey,
+                                                            departureCoord: fromCoord,
+                                                            arrivalCoord: toCoord,
+                                                            ridesharingAnnotation: getRidesharingAnnotations(ridesharingJourney: response.journeyRidesharing),
+                                                            sectionPolylines: sectionPolylines)
+        
+        viewController?.displayMap(viewModel: viewModel)
+    }
+    
+    private func getDepartureCoord(journey: Journey) -> CLLocationCoordinate2D? {
+        if let coordinates = stringToLocationCoordinate2D(lat: journey.sections?.first?.from?.stopArea?.coord?.lat, lon: journey.sections?.first?.from?.stopArea?.coord?.lon) {
+            return coordinates
+        }
+
+        if let coordinates = journey.sections?.first?.geojson?.coordinates?.first {
+            return CLLocationCoordinate2DMake(coordinates[1], coordinates[0])
+        }
+        
+        return nil
+    }
+    
+    private func getArrivalCoord(journey: Journey) -> CLLocationCoordinate2D? {
+        if let coordinates = stringToLocationCoordinate2D(lat: journey.sections?.last?.to?.stopArea?.coord?.lat, lon: journey.sections?.last?.to?.stopArea?.coord?.lon) {
+            return coordinates
+        }
+
+        if let coordinates = journey.sections?.last?.geojson?.coordinates?.last {
+            return CLLocationCoordinate2DMake(coordinates[1], coordinates[0])
+        }
+        
+        return nil
+    }
+    
+    private func getRidesharingAnnotations(ridesharingJourney: Journey?) -> [CLLocationCoordinate2D] {
+        var ridesharingAnnotations = [CLLocationCoordinate2D]()
+        
+        guard let sections = ridesharingJourney?.sections else {
+            return ridesharingAnnotations
+        }
+        
+        for section in sections {
+            if section.type == .ridesharing {
+                if let coordinates = section.geojson?.coordinates?.first {
+                    ridesharingAnnotations.append(CLLocationCoordinate2DMake(coordinates[1], coordinates[0]))
+                }
+                
+                if let coordinates = section.geojson?.coordinates?.last {
+                    ridesharingAnnotations.append(CLLocationCoordinate2DMake(coordinates[1], coordinates[0]))
+                }
+            }
+        }
+        
+        return ridesharingAnnotations
+    }
+    
+    private func stringToLocationCoordinate2D(lat: String?, lon: String?) -> CLLocationCoordinate2D? {
+        guard let lat = lat,
+            let lon = lon,
+            let doubleLat = Double(lat),
+            let doubleLon = Double(lon) else {
+            return nil
+        }
+        
+        let locationCoordinate2D = CLLocationCoordinate2D(latitude: doubleLat, longitude: doubleLon)
+        
+        return locationCoordinate2D
+    }
+    
+    private func getSectionPolylines(journey: Journey, ridesharing: Journey? = nil) -> [ShowJourneyRoadmap.GetMap.ViewModel.sectionPolyline]? {
+        guard let sections = journey.sections else {
+            return nil
+        }
+        
+        var sectionPolylines = [ShowJourneyRoadmap.GetMap.ViewModel.sectionPolyline]()
+        
+        for section in sections {
+            if !getRidesharingSection(section: section) {
+                var sectionPolylineCoordinates = [CLLocationCoordinate2D]()
+                
+                if section.type == .crowFly {
+                    if let departureCrowflyCoords = getCoordinates(targetPlace: section.from), let latitude = departureCrowflyCoords.lat, let lat = Double(latitude), let longitude = departureCrowflyCoords.lon, let lon = Double(longitude) {
+                        sectionPolylineCoordinates.append(CLLocationCoordinate2DMake(lat, lon))
+                    }
+                    
+                    if let arrivalCrowflyCoords = getCoordinates(targetPlace: section.to), let latitude = arrivalCrowflyCoords.lat, let lat = Double(latitude), let longitude = arrivalCrowflyCoords.lon, let lon = Double(longitude) {
+                        sectionPolylineCoordinates.append(CLLocationCoordinate2DMake(lat, lon))
+                    }
+                } else if let coordinates = section.geojson?.coordinates {
+                    for (_, coordinate) in coordinates.enumerated() {
+                        if coordinate.count > 1 {
+                            sectionPolylineCoordinates.append(CLLocationCoordinate2DMake(Double(coordinate[1]), Double(coordinate[0])))
+                        }
+                    }
+                }
+
+                let sectionPolyline = ShowJourneyRoadmap.GetMap.ViewModel.sectionPolyline(coordinates: sectionPolylineCoordinates,
+                                                                                          color: section.displayInformations?.color?.toUIColor() ?? .black,
+                                                                                          section: section,
+                                                                                          annotation: nil)
+                sectionPolylines.append(sectionPolyline)
+            } else {
+                if let ridesharing = ridesharing, let sectionPoly = getSectionPolylines(journey: ridesharing) {
+                    sectionPolylines += sectionPoly
+                }
+            }
+        }
+        
+        return sectionPolylines
+    }
+    
+    private func getRidesharingSection(section: Section) -> Bool {
+        if let _ = section.ridesharingJourneys {
+            return true
+        }
+        
+        return false
+    }
+    
+    private func getCoordinates(targetPlace: Place?) -> Coord? {
+        guard let targetPlace = targetPlace else {
+            return nil;
+        }
+        
+        switch targetPlace.embeddedType {
+        case .stopPoint?:
+            return targetPlace.stopPoint?.coord
+        case .stopArea?:
+            return targetPlace.stopArea?.coord
+        case .poi?:
+            return targetPlace.poi?.coord
+        case .address?:
+            return targetPlace.address?.coord
+        case .administrativeRegion?:
+            return targetPlace.administrativeRegion?.coord
+        default:
+            return nil
+        }
     }
 }
