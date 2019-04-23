@@ -7,6 +7,11 @@
 
 import UIKit
 
+@objc public protocol PublicTransportStepViewDelegate: class {
+    
+    @objc func viewTicketClicked(index: Int)
+}
+
 class PublicTransportStepView: UIView {
 
     @IBOutlet weak var stackView: UIStackView!
@@ -42,8 +47,9 @@ class PublicTransportStepView: UIView {
     @IBOutlet weak var publicTransportFromToContraint: NSLayoutConstraint!
     @IBOutlet weak var ticketButton: UIButton!
     
-
     private var stationStackView: UIStackView!
+    
+    weak internal var delegate: PublicTransportStepViewDelegate?
     
     var borderColor: UIColor? {
         didSet {
@@ -376,5 +382,9 @@ class PublicTransportStepView: UIView {
     
     @IBAction func publicTransportButton(_ sender: Any) {
        stationsStackContainerIsHidden = !stationsStackContainerIsHidden
+    }
+    
+    @IBAction func viewTicketClicked(_ sender: Any) {
+        delegate?.viewTicketClicked(index: 0)
     }
 }

@@ -9,6 +9,11 @@ import UIKit
 import MapKit
 import CoreLocation
 
+@objc public protocol ShowJourneyRoadmapDelegate: class {
+    
+    @objc func viewTicketClicked(index: Int)
+}
+
 protocol ShowJourneyRoadmapDisplayLogic: class {
     
     func displayRoadmap(viewModel: ShowJourneyRoadmap.GetRoadmap.ViewModel)
@@ -34,6 +39,7 @@ open class ShowJourneyRoadmapViewController: UIViewController, ShowJourneyRoadma
 
     internal var interactor: ShowJourneyRoadmapBusinessLogic?
 
+    weak public var delegate: ShowJourneyRoadmapDelegate?
     public var router: (NSObjectProtocol & ShowJourneyRoadmapRoutingLogic & ShowJourneyRoadmapDataPassing)?
     
     static var identifier: String {
@@ -137,11 +143,10 @@ open class ShowJourneyRoadmapViewController: UIViewController, ShowJourneyRoadma
         displayDepartureArrivalStep(viewModel: viewModel.departure)
         displaySteps(sections: sections)
         displayDepartureArrivalStep(viewModel: viewModel.arrival)
-
-        slidingScrollView.stackScrollView.addSubview(getPriceView(), margin: UIEdgeInsets(top: 10, left: 0, bottom: 0, right: 0))
-        slidingScrollView.stackScrollView.addSubview(getCancelJourneyView(), margin: UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0))
+        displayPrice()
+        displayEmission(emission: viewModel.emission)
         
-        //displayEmission(emission: viewModel.emission)
+        //slidingScrollView.stackScrollView.addSubview(getCancelJourneyView(), margin: UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0))
     }
     
     func displayMap(viewModel: ShowJourneyRoadmap.GetMap.ViewModel) {
@@ -285,6 +290,7 @@ open class ShowJourneyRoadmapViewController: UIViewController, ShowJourneyRoadma
         let publicTransportView = PublicTransportStepView.instanceFromNib()
         
         publicTransportView.frame = view.bounds
+        publicTransportView.delegate = self
         publicTransportView.icon = section.icon
         publicTransportView.transport = (code: section.displayInformations.code, textColor: section.displayInformations.textColor, backgroundColor: section.displayInformations.color)
         publicTransportView.actionDescription = section.actionDescription
@@ -299,14 +305,6 @@ open class ShowJourneyRoadmapViewController: UIViewController, ShowJourneyRoadma
         publicTransportView.updateAccessibility()
         
         return publicTransportView
-    }
-    
-    private func getPriceView() -> PriceView {
-        let priceView = PriceView.instanceFromNib()
-        
-        priceView.frame.size = CGSize(width: slidingScrollView.stackScrollView.frame.size.width, height: 45)
-        
-        return priceView
     }
     
     private func getCancelJourneyView() -> CancelJourneyView {
@@ -376,6 +374,14 @@ open class ShowJourneyRoadmapViewController: UIViewController, ShowJourneyRoadma
         getRealTime(section: section, view: stepView)
 
         return stepView
+    }
+    
+    private func displayPrice() {
+        let priceView = PriceView.instanceFromNib()
+        
+        priceView.frame.size = CGSize(width: slidingScrollView.stackScrollView.frame.size.width, height: 45)
+        
+        slidingScrollView.stackScrollView.addSubview(priceView, margin: UIEdgeInsets(top: 10, left: 0, bottom: 0, right: 0))
     }
     
     private func displayEmission(emission: ShowJourneyRoadmap.GetRoadmap.ViewModel.Emission) {
@@ -705,5 +711,12 @@ extension ShowJourneyRoadmapViewController: AlternativeJourneyDelegate {
         if let router = router, router.responds(to: selector) {
             router.perform(selector)
         }
+    }
+}
+
+extension ShowJourneyRoadmapViewController: PublicTransportStepViewDelegate {
+    
+    public func viewTicketClicked(index: Int) {
+        delegate?.viewTicketClicked(index: index)
     }
 }
