@@ -15,7 +15,7 @@ protocol ShowJourneyRoadmapDisplayLogic: class {
     func displayMap(viewModel: ShowJourneyRoadmap.GetMap.ViewModel)
 }
 
-internal class ShowJourneyRoadmapViewController: UIViewController, ShowJourneyRoadmapDisplayLogic {
+open class ShowJourneyRoadmapViewController: UIViewController, ShowJourneyRoadmapDisplayLogic {
 
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var centerMapButton: UIButton!
@@ -31,9 +31,11 @@ internal class ShowJourneyRoadmapViewController: UIViewController, ShowJourneyRo
     private var bssTuple = [(poi: ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionModel.Poi?, type: String, view: StepView)]()
     private var parkTuple = [(poi: ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionModel.Poi?, view: StepView)]()
     private var display = false
-    internal var router: (NSObjectProtocol & ShowJourneyRoadmapRoutingLogic & ShowJourneyRoadmapDataPassing)?
+
     internal var interactor: ShowJourneyRoadmapBusinessLogic?
 
+    public var router: (NSObjectProtocol & ShowJourneyRoadmapRoutingLogic & ShowJourneyRoadmapDataPassing)?
+    
     static var identifier: String {
         return String(describing: self)
     }
@@ -46,7 +48,7 @@ internal class ShowJourneyRoadmapViewController: UIViewController, ShowJourneyRo
         initArchitecture()
     }
     
-    override func viewDidLoad() {
+    override open func viewDidLoad() {
         super.viewDidLoad()
         
         title = "roadmap".localized()
@@ -55,7 +57,7 @@ internal class ShowJourneyRoadmapViewController: UIViewController, ShowJourneyRo
         getMap()
     }
 
-    override func viewDidLayoutSubviews() {
+    override open func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         
         if !display {
@@ -66,7 +68,7 @@ internal class ShowJourneyRoadmapViewController: UIViewController, ShowJourneyRo
         }
     }
     
-    override func viewDidAppear(_ animated: Bool) {
+    override open func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
 
         startUpdatingUserLocation()
@@ -76,7 +78,7 @@ internal class ShowJourneyRoadmapViewController: UIViewController, ShowJourneyRo
         startAnimation()
     }
     
-    override func viewDidDisappear(_ animated: Bool) {
+    override open func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
 
         stopUpdatingUserLocation()
@@ -86,13 +88,13 @@ internal class ShowJourneyRoadmapViewController: UIViewController, ShowJourneyRo
         stopAnimation()
     }
     
-    override func viewWillLayoutSubviews() {
+    override open func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         
         navigationController?.navigationBar.setNeedsLayout()
     }
     
-    override func viewWillTransition( to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator ) {
+    override open func viewWillTransition( to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator ) {
         slidingScrollView.updateSlidingViewAfterRotation()
     }
     
@@ -135,7 +137,11 @@ internal class ShowJourneyRoadmapViewController: UIViewController, ShowJourneyRo
         displayDepartureArrivalStep(viewModel: viewModel.departure)
         displaySteps(sections: sections)
         displayDepartureArrivalStep(viewModel: viewModel.arrival)
-        displayEmission(emission: viewModel.emission)
+
+        slidingScrollView.stackScrollView.addSubview(getPriceView(), margin: UIEdgeInsets(top: 10, left: 0, bottom: 0, right: 0))
+        slidingScrollView.stackScrollView.addSubview(getCancelJourneyView(), margin: UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0))
+        
+        //displayEmission(emission: viewModel.emission)
     }
     
     func displayMap(viewModel: ShowJourneyRoadmap.GetMap.ViewModel) {
@@ -293,6 +299,22 @@ internal class ShowJourneyRoadmapViewController: UIViewController, ShowJourneyRo
         publicTransportView.updateAccessibility()
         
         return publicTransportView
+    }
+    
+    private func getPriceView() -> PriceView {
+        let priceView = PriceView.instanceFromNib()
+        
+        priceView.frame.size = CGSize(width: slidingScrollView.stackScrollView.frame.size.width, height: 45)
+        
+        return priceView
+    }
+    
+    private func getCancelJourneyView() -> CancelJourneyView {
+        let cancelJourneyView = CancelJourneyView.instanceFromNib()
+        
+        cancelJourneyView.frame.size = CGSize(width: slidingScrollView.stackScrollView.frame.size.width, height: 50)
+        
+        return cancelJourneyView
     }
     
     // TODO : Add in presenter

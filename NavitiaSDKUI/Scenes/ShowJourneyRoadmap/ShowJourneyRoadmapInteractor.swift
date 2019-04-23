@@ -16,7 +16,7 @@ protocol ShowJourneyRoadmapBusinessLogic {
     func fetchPark(request: ShowJourneyRoadmap.FetchPark.Request)
 }
 
-protocol ShowJourneyRoadmapDataStore {
+public protocol ShowJourneyRoadmapDataStore {
     
     var journey: Journey? { get set }
     var journeyRidesharing: Journey? { get set }

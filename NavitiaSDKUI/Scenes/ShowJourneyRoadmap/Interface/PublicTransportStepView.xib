@@ -13,11 +13,11 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view contentMode="scaleToFill" id="5Lw-F8-rCV" customClass="PublicTransportStepView" customModule="NavitiaSDKUI" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="384" height="290"/>
+            <rect key="frame" x="0.0" y="0.0" width="384" height="452"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="qh1-Nv-EMR">
-                    <rect key="frame" x="0.0" y="10" width="384" height="270"/>
+                    <rect key="frame" x="0.0" y="10" width="384" height="330"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4fw-wa-InW">
                             <rect key="frame" x="0.0" y="0.0" width="384" height="64"/>
@@ -359,6 +359,34 @@
                                 <constraint firstItem="dGe-KY-Yt1" firstAttribute="top" secondItem="gcp-h2-p5y" secondAttribute="bottom" priority="900" constant="20" id="wMK-U7-48W"/>
                             </constraints>
                         </view>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ERo-Vs-6Hz">
+                            <rect key="frame" x="0.0" y="280" width="384" height="50"/>
+                            <subviews>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sEO-RS-TFq">
+                                    <rect key="frame" x="10" y="0.0" width="364" height="40"/>
+                                    <color key="backgroundColor" red="0.25098039220000001" green="0.58431372550000005" blue="0.5568627451" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="40" id="jse-np-bEc"/>
+                                    </constraints>
+                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
+                                    <state key="normal" title="View ticket">
+                                        <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </state>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                            <integer key="value" value="5"/>
+                                        </userDefinedRuntimeAttribute>
+                                    </userDefinedRuntimeAttributes>
+                                </button>
+                            </subviews>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <constraints>
+                                <constraint firstAttribute="bottom" secondItem="sEO-RS-TFq" secondAttribute="bottom" constant="10" id="Den-Ix-ghs"/>
+                                <constraint firstAttribute="trailing" secondItem="sEO-RS-TFq" secondAttribute="trailing" constant="10" id="KAf-j2-npU"/>
+                                <constraint firstItem="sEO-RS-TFq" firstAttribute="top" secondItem="ERo-Vs-6Hz" secondAttribute="top" id="c5m-QM-Bqc"/>
+                                <constraint firstItem="sEO-RS-TFq" firstAttribute="leading" secondItem="ERo-Vs-6Hz" secondAttribute="leading" constant="10" id="oPK-z0-5RL"/>
+                            </constraints>
+                        </view>
                     </subviews>
                 </stackView>
             </subviews>
@@ -405,13 +433,14 @@
                 <outlet property="publicTransportStationsStackHeightContraint" destination="MBv-jp-gwZ" id="3IQ-yT-mWv"/>
                 <outlet property="publicTransportToLabel" destination="hAx-qi-4p3" id="KFR-ag-ikd"/>
                 <outlet property="stackView" destination="qh1-Nv-EMR" id="gA9-9I-D1F"/>
+                <outlet property="ticketButton" destination="sEO-RS-TFq" id="9fV-ch-LrI"/>
                 <outlet property="transportIconLabel" destination="uyK-mt-FQ8" id="EgF-Fk-3VV"/>
                 <outlet property="transportIconView" destination="Sdt-uv-Xuj" id="xZJ-2f-5mT"/>
                 <outlet property="waitingContainerView" destination="SYX-Ji-Ini" id="dRb-n1-bgA"/>
                 <outlet property="waitingIconLabel" destination="kt3-FA-0SQ" id="fgO-xj-eIe"/>
                 <outlet property="waitingInformationsLabel" destination="dX1-Hw-sA6" id="CSn-NH-py4"/>
             </connections>
-            <point key="canvasLocation" x="-80" y="44.977511244377816"/>
+            <point key="canvasLocation" x="-80" y="117.84107946026987"/>
         </view>
     </objects>
     <resources>

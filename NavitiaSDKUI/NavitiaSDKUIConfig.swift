@@ -42,6 +42,15 @@ import Foundation
         }
     }
     
+    @objc public var secondaryColor: UIColor {
+        get {
+            return Configuration.Color.secondary
+        }
+        set {
+            Configuration.Color.secondary = newValue
+        }
+    }
+    
     @objc public var originColor: UIColor {
         get {
             return Configuration.Color.origin
@@ -141,6 +150,7 @@ enum Configuration {
     // Color
     enum Color {
         static var main = #colorLiteral(red: 0.2509803922, green: 0.5843137255, blue: 0.5568627451, alpha: 1)
+        static var secondary = #colorLiteral(red: 0.2509803922, green: 0.5843137255, blue: 0.5568627451, alpha: 1)
         static var origin = #colorLiteral(red: 0, green: 0.7333333333, blue: 0.4588235294, alpha: 1)
         static var destination = #colorLiteral(red: 0.6901960784, green: 0.01176470588, blue: 0.3254901961, alpha: 1)
         static var dialogBackground = main.withAlphaComponent(0.5)

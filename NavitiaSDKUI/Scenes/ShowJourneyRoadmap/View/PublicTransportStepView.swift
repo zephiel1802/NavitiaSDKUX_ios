@@ -40,6 +40,8 @@ class PublicTransportStepView: UIView {
     @IBOutlet var publicTransportStationsStackContainerBottomContraint: NSLayoutConstraint!
     @IBOutlet var publicTransportStationsStackHeightContraint: NSLayoutConstraint!
     @IBOutlet weak var publicTransportFromToContraint: NSLayoutConstraint!
+    @IBOutlet weak var ticketButton: UIButton!
+    
 
     private var stationStackView: UIStackView!
     
@@ -94,6 +96,7 @@ class PublicTransportStepView: UIView {
         
         initStationStackView()
         setShadow(opacity: 0.28)
+        ticketButton.backgroundColor = Configuration.Color.secondary
     }
     
     internal func updateAccessibility() {
