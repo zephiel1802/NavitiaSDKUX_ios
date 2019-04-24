@@ -191,11 +191,14 @@ extension FormJourneyViewController: SearchButtonViewDelegate {
             var firstSectionModes = [CoverageRegionJourneysRequestBuilder.FirstSectionMode]()
             var lastSectionModes = [CoverageRegionJourneysRequestBuilder.LastSectionMode]()
             
-            for mode in modes {
-                if let sectionMode = CoverageRegionJourneysRequestBuilder.FirstSectionMode(rawValue:mode) {
+            for firstSectionMode in modes.firstSectionModes {
+                if let sectionMode = CoverageRegionJourneysRequestBuilder.FirstSectionMode(rawValue: firstSectionMode) {
                     firstSectionModes.append(sectionMode)
                 }
-                if let sectionMode = CoverageRegionJourneysRequestBuilder.LastSectionMode(rawValue:mode) {
+            }
+            
+            for lastSectionMode in modes.lastSectionModes {
+                if let sectionMode = CoverageRegionJourneysRequestBuilder.LastSectionMode(rawValue: lastSectionMode) {
                     lastSectionModes.append(sectionMode)
                 }
             }

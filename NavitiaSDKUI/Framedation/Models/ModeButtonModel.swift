@@ -25,15 +25,17 @@ import Foundation
     public var title: String
     public var icon: String
     public var selected: Bool
-    public var mode: ModeType
+    public var firstSectionModes: [ModeType]
+    public var lastSectionModes: [ModeType]
     public var physicalMode: [String]?
     public var realTime: Bool
 
-    public init(title: String, icon: String, selected: Bool, mode: ModeType, physicalMode: [String]? = nil, realTime: Bool = false) {
+    public init(title: String, icon: String, selected: Bool, firstSectionModes: [ModeType], lastSectionModes: [ModeType], physicalMode: [String]? = nil, realTime: Bool = false) {
         self.title = title
         self.icon = icon
         self.selected = selected
-        self.mode = mode
+        self.firstSectionModes = firstSectionModes
+        self.lastSectionModes = lastSectionModes
         self.physicalMode = physicalMode
         self.realTime = realTime
     }

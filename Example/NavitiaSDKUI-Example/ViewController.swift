@@ -27,11 +27,11 @@ class ViewController: UIViewController {
     private func getListJourneysViewController() -> UIViewController? {
         NavitiaSDKUI.shared.formJourney = false
         
-        guard var journeyResultsViewController = NavitiaSDKUI.shared.rootViewController else {
+        guard let journeyResultsViewController = NavitiaSDKUI.shared.rootViewController else {
             return nil
         }
         
-        var journeysRequest = JourneysRequest(coverage: coverage)
+        let journeysRequest = JourneysRequest(coverage: coverage)
         journeysRequest.originId = "2.3665844;48.8465337"
         journeysRequest.originLabel = "Chez moi"
         journeysRequest.destinationId = "2.2979169;48.8848719"
@@ -51,17 +51,17 @@ class ViewController: UIViewController {
     
     private func getFormJourneyViewController() -> UIViewController? {
         NavitiaSDKUI.shared.formJourney = true
-        NavitiaSDKUI.shared.modeForm = [ModeButtonModel(title: "Metro", icon: "metro", selected: true, mode: .walking, physicalMode: ["physical_mode:Metro"]),
-                                        ModeButtonModel(title: "Bus", icon: "bus", selected: true, mode: .walking, physicalMode: ["physical_mode:Bus"]),
-                                        ModeButtonModel(title: "RER", icon: "train", selected: true, mode: .walking, physicalMode: ["physical_mode:RapidTransit"]),
-                                        ModeButtonModel(title: "Tramway", icon: "tramway", selected: false, mode: .walking, physicalMode: ["physical_mode:Tramway"]),
-                                        ModeButtonModel(title: "Train", icon: "train", selected: false, mode: .walking, physicalMode: ["physical_mode:LocalTrain", "physical_mode:Train"]),
-                                        ModeButtonModel(title: "Navette", icon: "train", selected: false, mode: .walking, physicalMode: ["physical_mode:Shuttle"]),
-                                        ModeButtonModel(title: "Bike", icon: "bike", selected: false, mode: .bike),
-                                        ModeButtonModel(title: "VLS", icon: "bss", selected: false, mode: .bss, realTime: true),
-                                        ModeButtonModel(title: "Car", icon: "car", selected: false, mode: .car)]
+        NavitiaSDKUI.shared.modeForm = [ModeButtonModel(title: "Metro", icon: "metro", selected: true, firstSectionModes: [.walking], lastSectionModes: [.walking], physicalMode: ["physical_mode:Metro"]),
+                                        ModeButtonModel(title: "Bus", icon: "bus", selected: true, firstSectionModes: [.walking], lastSectionModes: [.walking], physicalMode: ["physical_mode:Bus"]),
+                                        ModeButtonModel(title: "RER", icon: "train", selected: true, firstSectionModes: [.walking], lastSectionModes: [.walking], physicalMode: ["physical_mode:RapidTransit"]),
+                                        ModeButtonModel(title: "Tramway", icon: "tramway", selected: false, firstSectionModes: [.walking], lastSectionModes: [.walking], physicalMode: ["physical_mode:Tramway"]),
+                                        ModeButtonModel(title: "Train", icon: "train", selected: false, firstSectionModes: [.walking], lastSectionModes: [.walking], physicalMode: ["physical_mode:LocalTrain", "physical_mode:Train"]),
+                                        ModeButtonModel(title: "Navette", icon: "train", selected: false, firstSectionModes: [.walking], lastSectionModes: [.walking], physicalMode: ["physical_mode:Shuttle"]),
+                                        ModeButtonModel(title: "Bike", icon: "bike", selected: false, firstSectionModes: [.bike], lastSectionModes: [.bike]),
+                                        ModeButtonModel(title: "VLS", icon: "bss", selected: false, firstSectionModes: [.bss], lastSectionModes: [.bss], realTime: true),
+                                        ModeButtonModel(title: "Car", icon: "car", selected: false, firstSectionModes: [.car], lastSectionModes: [.walking])]
         
-        guard var journeyResultsViewController = NavitiaSDKUI.shared.rootViewController else {
+        guard let journeyResultsViewController = NavitiaSDKUI.shared.rootViewController else {
             return nil
         }
         
