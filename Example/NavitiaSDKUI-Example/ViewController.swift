@@ -57,9 +57,9 @@ class ViewController: UIViewController {
                                         ModeButtonModel(title: "Tramway", icon: "tramway", selected: false, firstSectionModes: [.walking], lastSectionModes: [.walking], physicalMode: ["physical_mode:Tramway"]),
                                         ModeButtonModel(title: "Train", icon: "train", selected: false, firstSectionModes: [.walking], lastSectionModes: [.walking], physicalMode: ["physical_mode:LocalTrain", "physical_mode:Train"]),
                                         ModeButtonModel(title: "Navette", icon: "train", selected: false, firstSectionModes: [.walking], lastSectionModes: [.walking], physicalMode: ["physical_mode:Shuttle"]),
-                                        ModeButtonModel(title: "Bike", icon: "bike", selected: false, firstSectionModes: [.bike], lastSectionModes: [.bike]),
-                                        ModeButtonModel(title: "VLS", icon: "bss", selected: false, firstSectionModes: [.bss], lastSectionModes: [.bss], realTime: true),
-                                        ModeButtonModel(title: "Car", icon: "car", selected: false, firstSectionModes: [.car], lastSectionModes: [.walking])]
+                                        ModeButtonModel(title: "Bike", icon: "bike", selected: false, firstSectionModes: [.bike], lastSectionModes: [.bike], physicalMode: ["physical_mode:Bike"]),
+                                        ModeButtonModel(title: "VLS", icon: "bss", selected: false, firstSectionModes: [.bss], lastSectionModes: [.bss], physicalMode: ["physical_mode:Bss"], realTime: true),
+                                        ModeButtonModel(title: "Car", icon: "car", selected: false, firstSectionModes: [.car], lastSectionModes: [.walking], physicalMode: ["physical_mode:Car"])]
         
         guard let journeyResultsViewController = NavitiaSDKUI.shared.rootViewController else {
             return nil
