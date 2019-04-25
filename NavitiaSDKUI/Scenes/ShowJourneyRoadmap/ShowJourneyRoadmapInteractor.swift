@@ -23,6 +23,7 @@ public protocol ShowJourneyRoadmapDataStore {
     var disruptions: [Disruption]? { get set }
     var notes: [Note]? { get set }
     var context: Context? { get set }
+    var maasTickets: String? { get set }
 }
 
 class ShowJourneyRoadmapInteractor: ShowJourneyRoadmapBusinessLogic, ShowJourneyRoadmapDataStore {
@@ -34,6 +35,7 @@ class ShowJourneyRoadmapInteractor: ShowJourneyRoadmapBusinessLogic, ShowJourney
     var disruptions: [Disruption]?
     var notes: [Note]?
     var context: Context?
+    var maasTickets: String?
   
     // MARK: Get Roadmap
   
@@ -46,7 +48,8 @@ class ShowJourneyRoadmapInteractor: ShowJourneyRoadmapBusinessLogic, ShowJourney
                                                               journeyRidesharing: journeyRidesharing,
                                                               disruptions: disruptions,
                                                               notes: notes,
-                                                              context: context)
+                                                              context: context,
+                                                              maasTickets: maasTickets)
         presenter?.presentRoadmap(response: response)
     }
     

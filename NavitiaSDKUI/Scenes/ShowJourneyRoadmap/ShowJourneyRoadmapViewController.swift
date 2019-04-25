@@ -42,7 +42,7 @@ open class ShowJourneyRoadmapViewController: UIViewController, ShowJourneyRoadma
     weak public var delegate: ShowJourneyRoadmapDelegate?
     public var router: (NSObjectProtocol & ShowJourneyRoadmapRoutingLogic & ShowJourneyRoadmapDataPassing)?
     
-    static var identifier: String {
+    public static var identifier: String {
         return String(describing: self)
     }
     
@@ -143,7 +143,7 @@ open class ShowJourneyRoadmapViewController: UIViewController, ShowJourneyRoadma
         displayDepartureArrivalStep(viewModel: viewModel.departure)
         displaySteps(sections: sections)
         displayDepartureArrivalStep(viewModel: viewModel.arrival)
-        displayPrice()
+        displayPrice(maasTickets: viewModel.maasTickets)
         displayEmission(emission: viewModel.emission)
         
         //slidingScrollView.stackScrollView.addSubview(getCancelJourneyView(), margin: UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0))
@@ -376,7 +376,11 @@ open class ShowJourneyRoadmapViewController: UIViewController, ShowJourneyRoadma
         return stepView
     }
     
-    private func displayPrice() {
+    private func displayPrice(maasTickets: [ShowJourneyRoadmap.GetRoadmap.ViewModel.MaasTicket]?) {
+        guard let maasTickets = maasTickets else {
+            return
+        }
+        
         let priceView = PriceView.instanceFromNib()
         
         priceView.frame.size = CGSize(width: slidingScrollView.stackScrollView.frame.size.width, height: 45)
@@ -517,6 +521,7 @@ extension ShowJourneyRoadmapViewController {
     }
     
     private func displayCenterMapButton() {
+        centerMapButton.backgroundColor = Configuration.Color.secondary
         centerMapButton.setImage(UIImage(named: "location", in: NavitiaSDKUI.shared.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate), for: .normal)
         centerMapButton.tintColor = Configuration.Color.white
         centerMapButton.imageEdgeInsets = UIEdgeInsets(top: 8, left: 6, bottom: 6, right: 8)

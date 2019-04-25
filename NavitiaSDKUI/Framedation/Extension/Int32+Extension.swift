@@ -26,12 +26,12 @@ extension Int32 {
         
         if hours > 0 {
             return NSMutableAttributedString()
-                .bold(String(format: "%1dh%02d", hours, minutes), color: Configuration.Color.main)
+                .bold(String(format: "%1dh%02d", hours, minutes), color: Configuration.Color.secondary)
         }
         
         return NSMutableAttributedString()
-            .bold(String(format: "%1d", minutes), color: Configuration.Color.main, size: sizeBold)
-            .normal(String(format: " %@", "units_minutes_short".localized()), color: Configuration.Color.main, size: sizeNormal)
+            .bold(String(format: "%1d", minutes), color: Configuration.Color.secondary, size: sizeBold)
+            .normal(String(format: " %@", "units_minutes_short".localized()), color: Configuration.Color.secondary, size: sizeNormal)
     }
     
     func toString() -> String {

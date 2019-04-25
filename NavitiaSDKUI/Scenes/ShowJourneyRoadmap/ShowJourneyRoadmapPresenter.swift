@@ -38,7 +38,8 @@ class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
                                                                 frieze: frieze,
                                                                 arrival: arrival,
                                                                 emission: emission,
-                                                                displayAvoidDisruption: alternativeJourney)
+                                                                displayAvoidDisruption: alternativeJourney,
+                                                                maasTickets: getMaasTickets(reponseMaasTickets: response.maasTickets))
         
         viewController?.displayRoadmap(viewModel: viewModel)
     }
@@ -58,6 +59,16 @@ class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
         }
         
         response.notify(stands)
+    }
+    
+    // MARK: Maas Tickets
+    
+    private func getMaasTickets(reponseMaasTickets: String?) -> [ShowJourneyRoadmap.GetRoadmap.ViewModel.MaasTicket]? {
+        guard let responseMaasTickets = reponseMaasTickets else {
+            return nil
+        }
+        
+        return [ShowJourneyRoadmap.GetRoadmap.ViewModel.MaasTicket]()
     }
     
     // MARK: Ridesharing
