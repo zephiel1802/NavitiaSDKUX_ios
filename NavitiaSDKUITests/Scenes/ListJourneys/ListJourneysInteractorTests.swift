@@ -36,6 +36,8 @@ class ListJourneysInteractorTests: XCTestCase {
         
         var presentFetchedSearchInformationCalled = false
         var presentFetchedJourneysCalled = false
+        var presentDisplayedSearchCalled =  false
+        var presentFetchedPhysicalModesCalled = false
         
         func presentFetchedSearchInformation(journeysRequest: JourneysRequest) {
             presentFetchedSearchInformationCalled = true
@@ -43,6 +45,14 @@ class ListJourneysInteractorTests: XCTestCase {
         
         func presentFetchedJourneys(response: ListJourneys.FetchJourneys.Response) {
             presentFetchedJourneysCalled = true
+        }
+        
+        func presentDisplayedSearch(response: ListJourneys.DisplaySearch.Response) {
+            presentDisplayedSearchCalled = true
+        }
+        
+        func presentFetchedPhysicalModes(response: ListJourneys.FetchPhysicalModes.Response) {
+            presentFetchedPhysicalModesCalled = true
         }
     }
     
@@ -63,7 +73,7 @@ class ListJourneysInteractorTests: XCTestCase {
         sut.presenter = listJourneysPresentationLogicSpy
         sut.navitiaWorker = navitiaWorkerSpy
         
-        let request = ListJourneys.FetchJourneys.Request(journeysRequest: JourneysRequest(originId: "", destinationId: ""))
+        let request = ListJourneys.FetchJourneys.Request(journeysRequest: JourneysRequest(coverage: ""))
         sut.fetchJourneys(request: request)
         
         XCTAssert(navitiaWorkerSpy.fetchJourneysCalled, "FetchJourneys() should ask NavitiaWorker to fetch journeys")
