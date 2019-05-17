@@ -119,6 +119,7 @@ class ListPlacesViewController: UIViewController, ListPlacesDisplayLogic {
         searchView.background.backgroundColor = .clear
         searchView.switchIsHidden = true
         searchView.separatorView.isHidden = true
+        
     }
     
     private func initTableView() {
@@ -152,7 +153,17 @@ class ListPlacesViewController: UIViewController, ListPlacesDisplayLogic {
     func displaySearch(viewModel: ListPlaces.DisplaySearch.ViewModel) {
         searchView.fromTextField.text = viewModel.fromName
         searchView.toTextField.text = viewModel.toName
+        searchView.isAccessibilityElement = false
         
+        searchView.fromTextField.isAccessibilityElement = true
+        searchView.toTextField.isAccessibilityElement = true
+        if let text = viewModel.toName, text != "" {
+            searchView.toTextField.accessibilityLabel = "arrival_with_colon".localized() + text
+        }
+        if let text = viewModel.fromName, text != "" {
+            searchView.fromTextField.accessibilityLabel = "departure_with_colon".localized() + text
+        }
+
         locationManager.startUpdatingLocation()
     }
     
@@ -215,7 +226,6 @@ extension ListPlacesViewController: UITableViewDataSource, UITableViewDelegate {
         if section == 0 {
             view.lineView.isHidden = true
         }
-  
         
         return view
     }
@@ -226,10 +236,35 @@ extension ListPlacesViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let cell = tableView.dequeueReusableCell(withIdentifier: PlacesTableViewCell.identifier, for: indexPath) as? PlacesTableViewCell {
-
+            
             cell.type = displayedSections[safe: indexPath.section]?.places[safe: indexPath.row]?.type
             cell.informations = (name: displayedSections[safe: indexPath.section]?.places[safe: indexPath.row]?.name,
                                  distance: displayedSections[safe: indexPath.section]?.places[safe: indexPath.row]?.distance)
+            
+            if displayedSections[safe: indexPath.section]?.name == "history".localized().uppercased() {
+                
+                if let type = cell.type {
+                    var accessibilityText = ""
+                    switch type {
+                    case .stopArea :
+                        accessibilityText = "stop".localized()
+                    case .address :
+                        accessibilityText = "addresse".localized()
+                    case .poi :
+                        accessibilityText = "point_of_interest".localized()
+                    case .location :
+                        accessibilityText = "my_position".localized()
+                    }
+                    cell.accessibilityLabel = accessibilityText + " " + (cell.informations.name ?? "")
+                    cell.accessibilityHint = (cell.informations.distance ?? "")
+                }
+            } else {
+                var text = ""
+                if cell.type == .location {
+                    text = "my_position".localized() + " "
+                }
+                cell.accessibilityLabel = text + (cell.informations.name ?? "")
+            }
             
             return cell
         }
