@@ -165,11 +165,17 @@ class SearchView: UIView {
     private func setupSwitchButton() {
         switchDepartureArrivalButton.setImage(UIImage(named: "switch", in: NavitiaSDKUI.shared.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate), for: .normal)
         switchDepartureArrivalButton.tintColor = Configuration.Color.main
+        switchDepartureArrivalButton.accessibilityLabel = "reverse_departure_and_arrival".localized()
     }
     
     private func setupTextField() {
+        fromTextField.isAccessibilityElement = true
         fromTextField.placeholder = "place_of_departure".localized()
+        fromTextField.accessibilityLabel = "enter".localized()
+        
+        toTextField.isAccessibilityElement = true
         toTextField.placeholder = "place_of_arrival".localized()
+        toTextField.accessibilityLabel = "enter".localized()
     }
     
     private func setupTransportModeView() {
@@ -219,6 +225,7 @@ class SearchView: UIView {
         if value {
             fromTextField.becomeFirstResponder()
             fromView.backgroundColor = Configuration.Color.white.withAlphaComponent(0.9)
+            fromTextField.accessibilityLabel = "place_of_departure".localized()
         } else {
             fromView.backgroundColor = Configuration.Color.white
         }
@@ -228,6 +235,7 @@ class SearchView: UIView {
         if value {
             toTextField.becomeFirstResponder()
             toView.backgroundColor = Configuration.Color.white.withAlphaComponent(0.9)
+            toTextField.accessibilityLabel = "place_of_arrival".localized()
         } else {
             toView.backgroundColor = Configuration.Color.white
         }

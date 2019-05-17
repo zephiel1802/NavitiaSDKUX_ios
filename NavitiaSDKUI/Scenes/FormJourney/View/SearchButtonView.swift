@@ -22,11 +22,14 @@ class SearchButtonView: UIView {
     var isEnabled: Bool = true {
         didSet {
             searchButton.isEnabled = isEnabled
+            searchButton.isAccessibilityElement = true
             
             if isEnabled {
                 searchButton.backgroundColor = Configuration.Color.main
+                searchButton.accessibilityLabel = searchButton.titleLabel?.text
             } else {
                 searchButton.backgroundColor = Configuration.Color.shadow
+                searchButton.accessibilityLabel = "search_button_disabled".localized()
             }
         }
     }
