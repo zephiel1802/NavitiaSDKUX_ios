@@ -158,10 +158,10 @@ class ListPlacesViewController: UIViewController, ListPlacesDisplayLogic {
         searchView.fromTextField.isAccessibilityElement = true
         searchView.toTextField.isAccessibilityElement = true
         if let text = viewModel.toName, text != "" {
-            searchView.toTextField.accessibilityLabel = "arrival_with_colon".localized() + text
+            searchView.toTextField.accessibilityLabel = String(format: "%@ %@", "arrival_with_colon".localized(), text)
         }
         if let text = viewModel.fromName, text != "" {
-            searchView.fromTextField.accessibilityLabel = "departure_with_colon".localized() + text
+            searchView.fromTextField.accessibilityLabel = String(format: "%@ %@", "departure_with_colon".localized(), text)
         }
 
         locationManager.startUpdatingLocation()
@@ -255,7 +255,13 @@ extension ListPlacesViewController: UITableViewDataSource, UITableViewDelegate {
                     case .location :
                         accessibilityText = "my_position".localized()
                     }
-                    cell.accessibilityLabel = accessibilityText + " " + (cell.informations.name ?? "")
+                    
+                    if let cellName = cell.informations.name {
+                        cell.accessibilityLabel = String(format: "%@ %@", accessibilityText, cellName)
+                    } else {
+                        cell.accessibilityLabel = accessibilityText
+                    }
+                    
                     cell.accessibilityHint = (cell.informations.distance ?? "")
                 }
             } else {

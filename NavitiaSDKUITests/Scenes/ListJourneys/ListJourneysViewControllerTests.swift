@@ -52,4 +52,9 @@ class ListJourneysViewControllerTests: XCTestCase {
         XCTAssertNotNil(sut.journeysCollectionView)
         XCTAssertEqual(sut.journeysCollectionView.numberOfSections, 1)
     }
+    
+    func testColorHeader() {
+        XCTAssertEqual(sut.searchView.fromTextField.textColor, .blue)
+        XCTAssertEqual(sut.searchView.toTextField.textColor, .brown)
+    }
 }

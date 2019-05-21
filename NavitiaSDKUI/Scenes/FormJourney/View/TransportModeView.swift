@@ -167,7 +167,7 @@ class TransportModeView: UIView {
         var physicalModes = [String]()
         
         for button in buttonsSaved {
-            button.accessibilityLabel = String()
+            
             if button.isSelected, let physicalMode = button.mode?.physicalMode {
                 physicalModes += physicalMode
             }
