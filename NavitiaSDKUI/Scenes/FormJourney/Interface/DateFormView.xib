@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -33,11 +33,18 @@
                                         <segment title="Arrival"/>
                                     </segments>
                                 </segmentedControl>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7KR-GQ-Hkm">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="32"/>
+                                </button>
                             </subviews>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <constraints>
+                                <constraint firstItem="7KR-GQ-Hkm" firstAttribute="trailing" secondItem="JjV-Ap-YLy" secondAttribute="trailing" id="Iop-mf-bzP"/>
                                 <constraint firstAttribute="trailing" secondItem="JjV-Ap-YLy" secondAttribute="trailing" id="Lcf-3p-rdP"/>
+                                <constraint firstItem="7KR-GQ-Hkm" firstAttribute="leading" secondItem="JjV-Ap-YLy" secondAttribute="leading" id="Mns-dX-kPn"/>
+                                <constraint firstItem="7KR-GQ-Hkm" firstAttribute="bottom" secondItem="JjV-Ap-YLy" secondAttribute="bottom" id="O57-XG-txD"/>
                                 <constraint firstItem="JjV-Ap-YLy" firstAttribute="top" secondItem="tMI-UK-MED" secondAttribute="top" id="OwL-ab-JRU"/>
+                                <constraint firstItem="7KR-GQ-Hkm" firstAttribute="top" secondItem="JjV-Ap-YLy" secondAttribute="top" id="Sci-Wm-frN"/>
                                 <constraint firstItem="JjV-Ap-YLy" firstAttribute="leading" secondItem="tMI-UK-MED" secondAttribute="leading" id="bhP-zR-UvP"/>
                                 <constraint firstAttribute="bottom" secondItem="JjV-Ap-YLy" secondAttribute="bottom" id="ldU-gT-GNb"/>
                             </constraints>
@@ -102,6 +109,7 @@
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <connections>
+                <outlet property="accessibilityButton" destination="7KR-GQ-Hkm" id="Lw2-ZJ-T5o"/>
                 <outlet property="arrowIconImageVIew" destination="dRh-jb-N4t" id="iSP-HC-ZRM"/>
                 <outlet property="dateTextField" destination="zhk-u5-9x4" id="o7D-zk-oGa"/>
                 <outlet property="departureArrivalSegmentedControl" destination="JjV-Ap-YLy" id="DxK-Zp-OeT"/>
