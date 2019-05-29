@@ -1,6 +1,6 @@
 //
-//  h
-//  Alamofire
+//  AlamofireObjectMapper.h
+//  AlamofireObjectMapper
 //
 //  Created by Tristan Himmelman on 2015-04-30.
 //

@@ -176,12 +176,24 @@ class TransportModeView: UIView {
         return physicalModes
     }
     
-    internal func getModes() -> [String] {
+    internal func getFirstSectionMode() -> [String] {
         var modes = [String]()
         
         for button in buttonsSaved {
-            if button.isSelected, let mode = button.mode?.mode.rawValue {
-                modes.append(mode)
+            if button.isSelected, let mode = button.mode?.firstSectionMode {
+                modes = mode
+            }
+        }
+        
+        return modes
+    }
+    
+    internal func getLastSectionMode() -> [String] {
+        var modes = [String]()
+        
+        for button in buttonsSaved {
+            if button.isSelected, let mode = button.mode?.lastSectionMode {
+                modes = mode
             }
         }
         
@@ -192,12 +204,14 @@ class TransportModeView: UIView {
         var modes = [String]()
         
         for button in buttonsSaved {
-            if button.isSelected, let realTime = button.mode?.realTime, realTime, let mode = button.mode?.mode.rawValue {
-                modes.append(mode)
+            if button.isSelected, let realTime = button.mode?.realTime, realTime, let firstSectionMode = button.mode?.firstSectionMode, let lastSectionMode = button.mode?.lastSectionMode {
+                modes += firstSectionMode
+                modes += lastSectionMode
             }
         }
         
-        return modes
+
+        return Array(Set(modes))
     }
     
     internal func getModeButtons() -> [ModeButtonModel] {
