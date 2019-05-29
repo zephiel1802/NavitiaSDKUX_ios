@@ -1,6 +1,6 @@
 //
 //  Request.swift
-//  Alamofire
+//  AlamofireObjectMapper
 //
 //  Created by Tristan Himmelman on 2015-04-30.
 //
@@ -88,7 +88,7 @@ extension DataRequest {
                 return .success(parsedObject)
             }
             
-            let failureReason = " failed to serialize response."
+            let failureReason = "ObjectMapper failed to serialize response."
             let error = newError(.dataSerializationFailed, failureReason: failureReason)
             return .failure(error)
         }
@@ -101,14 +101,15 @@ extension DataRequest {
                 return .failure(error)
             }
             
-            let JSONObject = processResponse(request: request, response: response, data: data, keyPath: keyPath)
-            
-            if let JSONObject = JSONObject,
-                let parsedObject = (try? Mapper<T>(context: context, shouldIncludeNilValues: false).map(JSONObject: JSONObject)){
-                return .success(parsedObject)
+            if let currentJSONObject = processResponse(request: request, response: response, data: data, keyPath: keyPath) {
+                let mapper = Mapper<T>(context: context, shouldIncludeNilValues: false)
+                do {
+                    let parsedObject = try mapper.map(JSONObject: currentJSONObject)
+                    return .success(parsedObject)
+                } catch {}
             }
             
-            let failureReason = " failed to serialize response."
+            let failureReason = "ObjectMapper failed to serialize response."
             let error = newError(.dataSerializationFailed, failureReason: failureReason)
             return .failure(error)
         }
@@ -120,7 +121,7 @@ extension DataRequest {
      - parameter queue:             The queue on which the completion handler is dispatched.
      - parameter keyPath:           The key path where object mapping should be performed
      - parameter object:            An object to perform the mapping on to
-     - parameter completionHandler: A closure to be executed once the request has finished and the data has been mapped by .
+     - parameter completionHandler: A closure to be executed once the request has finished and the data has been mapped by ObjectMapper.
      
      - returns: The request.
      */
@@ -147,7 +148,7 @@ extension DataRequest {
                 return .success(parsedObject)
             }
             
-            let failureReason = " failed to serialize response."
+            let failureReason = "ObjectMapper failed to serialize response."
             let error = newError(.dataSerializationFailed, failureReason: failureReason)
             return .failure(error)
         }
@@ -160,14 +161,15 @@ extension DataRequest {
                 return .failure(error)
             }
             
-            if let JSONObject = processResponse(request: request, response: response, data: data, keyPath: keyPath){
-                
-                if let parsedObject = try? Mapper<T>(context: context, shouldIncludeNilValues: false).mapArray(JSONObject: JSONObject){
+            if let currentJSONObject = processResponse(request: request, response: response, data: data, keyPath: keyPath) {
+                let mapper = Mapper<T>(context: context, shouldIncludeNilValues: false)
+                do {
+                    let parsedObject = try mapper.mapArray(JSONObject: currentJSONObject)
                     return .success(parsedObject)
-                }
+                } catch {}
             }
             
-            let failureReason = " failed to serialize response."
+            let failureReason = "ObjectMapper failed to serialize response."
             let error = newError(.dataSerializationFailed, failureReason: failureReason)
             return .failure(error)
         }
@@ -178,7 +180,7 @@ extension DataRequest {
      
      - parameter queue: The queue on which the completion handler is dispatched.
      - parameter keyPath: The key path where object mapping should be performed
-     - parameter completionHandler: A closure to be executed once the request has finished and the data has been mapped by .
+     - parameter completionHandler: A closure to be executed once the request has finished and the data has been mapped by ObjectMapper.
      
      - returns: The request.
      */
@@ -192,7 +194,7 @@ extension DataRequest {
      
      - parameter queue: The queue on which the completion handler is dispatched.
      - parameter keyPath: The key path where object mapping should be performed
-     - parameter completionHandler: A closure to be executed once the request has finished and the data has been mapped by .
+     - parameter completionHandler: A closure to be executed once the request has finished and the data has been mapped by ObjectMapper.
      
      - returns: The request.
      */

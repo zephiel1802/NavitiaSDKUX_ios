@@ -18,7 +18,8 @@ class NavitiaWorker: NavitiaWorkerProtocol {
     
     func fetchJourneys(journeysRequest: JourneysRequest, completionHandler: @escaping NavitiaFetchJourneysCompletionHandler) {
         if NavitiaSDKUI.shared.navitiaSDK != nil {
-            let journeyRequestBuilder = NavitiaSDKUI.shared.navitiaSDK.journeysApi.newJourneysRequestBuilder()
+            let journeyRequestBuilder = NavitiaSDKUI.shared.navitiaSDK.journeysApi.newCoverageRegionJourneysRequestBuilder()
+                .withRegion(journeysRequest.coverage)
                 .withFrom(journeysRequest.originId)
                 .withTo(journeysRequest.destinationId)
                 .withDatetime(journeysRequest.datetime)
@@ -90,6 +91,45 @@ class NavitiaWorker: NavitiaWorkerProtocol {
             
             poisRequestBuilder.get { (result, error) in
                 completionHandler(result?.pois?.first)
+            }
+        }
+    }
+    
+    func fetchPlaces(coverage: String, q: String, coord: (lat: String?, lon: String?), completionHandler: @escaping (Places?) -> Void) {
+        if NavitiaSDKUI.shared.navitiaSDK != nil {
+            let placesRequestBuilder = NavitiaSDKUI.shared.navitiaSDK.placesApi.newCoverageRegionPlacesRequestBuilder()
+                .withRegion(coverage)
+                .withQ(q)
+            
+            if let lat = coord.lat, let lon = coord.lon {
+                placesRequestBuilder.from = String(format: "%@;%@", lon, lat)
+            }
+            
+            placesRequestBuilder.get { (result, error) in
+                completionHandler(result)
+            }
+        }
+    }
+    
+    func fetchPhysicalMode(coverage: String, completionHandler: @escaping ([PhysicalMode]?) -> Void) {
+        if NavitiaSDKUI.shared.navitiaSDK != nil {
+            let physicalModesRequestBuilder = NavitiaSDKUI.shared.navitiaSDK.physicalModesApi.newCoverageRegionPhysicalModesRequestBuilder()
+                .withRegion(coverage)
+            
+            physicalModesRequestBuilder.get { (result, error) in
+                completionHandler(result?.physicalModes)
+            }
+        }
+    }
+    
+    func fetchCoord(lon: Double?, lat: Double?, completionHandler: @escaping (DictAddresses?) -> Void) {
+        if NavitiaSDKUI.shared.navitiaSDK != nil {
+            let coordRequestBuilder = NavitiaSDKUI.shared.navitiaSDK.coordApi.newCoordLonLatRequestBuilder()
+                .withLat(lat)
+                .withLon(lon)
+            
+            coordRequestBuilder.get { (result, error) in
+                completionHandler(result)
             }
         }
     }

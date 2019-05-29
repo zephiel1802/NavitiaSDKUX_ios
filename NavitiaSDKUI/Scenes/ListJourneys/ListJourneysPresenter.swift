@@ -9,6 +9,8 @@ import UIKit
 
 protocol ListJourneysPresentationLogic {
     
+    func presentDisplayedSearch(response: ListJourneys.DisplaySearch.Response)
+    func presentFetchedPhysicalModes(response: ListJourneys.FetchPhysicalModes.Response)
     func presentFetchedSearchInformation(journeysRequest: JourneysRequest)
     func presentFetchedJourneys(response: ListJourneys.FetchJourneys.Response)
 }
@@ -17,15 +19,49 @@ class ListJourneysPresenter: ListJourneysPresentationLogic {
 
     weak var viewController: ListJourneysDisplayLogic?
     
-    func presentFetchedSearchInformation(journeysRequest: JourneysRequest) {
-        guard let headerInformations = getDisplayedHeaderInformations(journeysRequest: journeysRequest) else {
+    func presentDisplayedSearch(response: ListJourneys.DisplaySearch.Response) {
+        guard let dateTime = getDisplayedHeaderInformationsDateTime(dateTime: response.journeysRequest.datetime ?? Date(), datetimeRepresents: response.journeysRequest.datetimeRepresents) else {
             return
         }
         
+        let viewModel = ListJourneys.DisplaySearch.ViewModel(fromName: response.journeysRequest.originLabel ?? response.journeysRequest.originName ?? response.journeysRequest.originId,
+                                                            toName: response.journeysRequest.destinationLabel ?? response.journeysRequest.destinationName ?? response.journeysRequest.destinationId,
+                                                            dateTime: dateTime,
+                                                            date: response.journeysRequest.datetime ?? Date(),
+                                                            accessibilityHeader: getHeaderAccessibility(origin: response.journeysRequest.originLabel ?? "",
+                                                                                                        destination: response.journeysRequest.destinationLabel ?? "",
+                                                                                                        dateTime: response.journeysRequest.datetime ?? Date()),
+                                                            accessibilitySwitchButton: getAccessibilitySwitchButton())
+        
+        viewController?.displaySearch(viewModel: viewModel)
+    }
+    
+    func presentFetchedPhysicalModes(response: ListJourneys.FetchPhysicalModes.Response) {
+        let listPhysicalModes = getListPhysicalModes(physicalModes: response.physicalModes)
+        
+        let viewModel = ListJourneys.FetchPhysicalModes.ViewModel(physicalModes: listPhysicalModes)
+        
+        viewController?.callbackFetchedPhysicalModes(viewModel: viewModel)
+    }
+    
+    private func getListPhysicalModes(physicalModes: [PhysicalMode]?) -> [String] {
+        var listPhysicalModes = [String]()
+        
+        guard let physicalModes = physicalModes else {
+            return listPhysicalModes
+        }
+        
+        for item in physicalModes {
+            if let id = item.id {
+                listPhysicalModes.append(id)
+            }
+        }
+        
+        return listPhysicalModes
+    }
+    
+    func presentFetchedSearchInformation(journeysRequest: JourneysRequest) {
         let viewModel = ListJourneys.FetchJourneys.ViewModel(loaded: false,
-                                                             headerInformations: headerInformations,
-                                                             accessibilityHeader: "journey_research_in_progress".localized(),
-                                                             accessibilitySwitchButton: nil,
                                                              displayedJourneys: [],
                                                              displayedRidesharings: [])
         
@@ -52,16 +88,9 @@ class ListJourneysPresenter: ListJourneysPresentationLogic {
     
     
     func presentFetchedJourneys(response: ListJourneys.FetchJourneys.Response) {
-        guard let headerInformations = getDisplayedHeaderInformations(journey: response.journeys.0?.first ?? response.journeys.withRidesharing?.first, journeysRequest: response.journeysRequest) else {
-            return
-        }
-        
         let displayedJourneys = appendDisplayedJourneys(journeys: response.journeys.0, disruptions: response.disruptions)
         let displayedRidesharings = appendDisplayedJourneys(journeys: response.journeys.withRidesharing, disruptions: response.disruptions)
         let viewModel = ListJourneys.FetchJourneys.ViewModel(loaded: true,
-                                                             headerInformations: headerInformations,
-                                                             accessibilityHeader: getHeaderAccessibility(origin: headerInformations.origin, destination: headerInformations.destination, dateTime: headerInformations.dateTimeDate),
-                                                             accessibilitySwitchButton: getAccessibilitySwitchButton(),
                                                              displayedJourneys: displayedJourneys,
                                                              displayedRidesharings: displayedRidesharings)
         
@@ -69,44 +98,6 @@ class ListJourneysPresenter: ListJourneysPresentationLogic {
     }
     
     // MARK: - Displayed Header Informations
-    
-    internal func getDisplayedHeaderInformations(journeysRequest: JourneysRequest) -> ListJourneys.FetchJourneys.ViewModel.HeaderInformations? {
-        guard let dateTime = getDisplayedHeaderInformationsDateTime(dateTime: journeysRequest.datetime, datetimeRepresents: journeysRequest.datetimeRepresents) else {
-            return nil
-        }
-        
-        let headerInformations = ListJourneys.FetchJourneys.ViewModel.HeaderInformations(dateTime: dateTime,
-                                                                                         dateTimeDate: journeysRequest.datetime,
-                                                                                         origin: journeysRequest.originLabel ?? journeysRequest.originId,
-                                                                                         destination: journeysRequest.destinationLabel ?? journeysRequest.destinationId)
-        
-        return headerInformations
-    }
-    
-    internal func getDisplayedHeaderInformations(journey: Journey? = nil,
-                                                 journeysRequest: JourneysRequest? = nil) -> ListJourneys.FetchJourneys.ViewModel.HeaderInformations? {
-        guard let journeysRequest = journeysRequest else {
-            return nil
-        }
-        
-        if let journey = journey {
-            guard let dateTime = getDisplayedHeaderInformationsDateTime(dateTime: journeysRequest.datetime ?? journey.departureDateTime?.toDate(format: Configuration.date),
-                                                                        datetimeRepresents: journeysRequest.datetimeRepresents) else {
-                                                                            return nil
-            }
-            
-            let headerInformations = ListJourneys.FetchJourneys.ViewModel.HeaderInformations(dateTime: dateTime,
-                                                                                             dateTimeDate: journeysRequest.datetime ?? journey.departureDateTime?.toDate(format: Configuration.date),
-                                                                                             origin: journeysRequest.originLabel ?? journey.sections?.first?.from?.name ?? "",
-                                                                                             destination: journeysRequest.destinationLabel ?? journey.sections?.last?.to?.name ?? "")
-            
-            return headerInformations
-        }
-        
-        let displayedInformations = getDisplayedHeaderInformations(journeysRequest: journeysRequest)
-        
-        return displayedInformations
-    }
     
     private func getHeaderAccessibility(origin: String, destination: String, dateTime: Date?) -> String? {
         var accessibilityLabel = String(format: "reminder_of_the_research".localized(), origin, destination)
@@ -127,7 +118,7 @@ class ListJourneysPresenter: ListJourneysPresentationLogic {
         return "reverse_departure_and_arrival".localized()
     }
     
-    private func getDisplayedHeaderInformationsDateTime(dateTime: Date?, datetimeRepresents: JourneysRequestBuilder.DatetimeRepresents?) -> String? {
+    private func getDisplayedHeaderInformationsDateTime(dateTime: Date?, datetimeRepresents: CoverageRegionJourneysRequestBuilder.DatetimeRepresents?) -> String? {
         guard let departureDateTime = dateTime?.toString(format: Configuration.timeJourneySolution) else {
             return nil
         }

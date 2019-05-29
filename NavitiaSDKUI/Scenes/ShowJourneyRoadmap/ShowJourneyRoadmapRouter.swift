@@ -5,7 +5,6 @@
 //  Copyright © 2018 kisio. All rights reserved.
 //
 
-
 import UIKit
 
 @objc protocol ShowJourneyRoadmapRoutingLogic {
@@ -49,6 +48,6 @@ class ShowJourneyRoadmapRouter: NSObject, ShowJourneyRoadmapRoutingLogic, ShowJo
     // MARK: Passing Data
     
     func passDataToListJourneys(source: ShowJourneyRoadmapViewController, destination: inout ListJourneysViewController) {
-        destination.journeysRequest?.dataFreshness = .realtime
+        destination.interactor?.journeysRequest?.dataFreshness = .realtime
     }
 }

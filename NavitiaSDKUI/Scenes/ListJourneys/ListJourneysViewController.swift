@@ -9,25 +9,32 @@ import UIKit
 
 protocol ListJourneysDisplayLogic: class {
     
+    func displaySearch(viewModel: ListJourneys.DisplaySearch.ViewModel)
+    func callbackFetchedPhysicalModes(viewModel: ListJourneys.FetchPhysicalModes.ViewModel)
     func displayFetchedJourneys(viewModel: ListJourneys.FetchJourneys.ViewModel)
 }
 
-open class ListJourneysViewController: UIViewController, ListJourneysDisplayLogic {
+open class ListJourneysViewController: UIViewController, ListJourneysDisplayLogic, JourneyRootViewController {
     
     @IBOutlet weak var searchView: SearchView!
     @IBOutlet weak var journeysCollectionView: UICollectionView!
     
     public var journeysRequest: JourneysRequest?
     internal var interactor: ListJourneysBusinessLogic?
-    private var router: (NSObjectProtocol & ListJourneysViewRoutingLogic & ListJourneysDataPassing)?
+    internal var router: (NSObjectProtocol & ListJourneysViewRoutingLogic & ListJourneysDataPassing)?
     private var viewModel: ListJourneys.FetchJourneys.ViewModel?
+    
+    let activityView = UIActivityIndicatorView(style: .gray)
 
+    static var identifier: String {
+        return String(describing: self)
+    }
+    
     // MARK: - Initialization
     
     required public init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        
-        initSDK()
+    
         initArchitecture()
     }
     
@@ -36,23 +43,26 @@ open class ListJourneysViewController: UIViewController, ListJourneysDisplayLogi
         
         title = "journeys".localized()
         
+        hideKeyboardWhenTappedAround()
+        
         initNavigationBar()
         initHeader()
         initCollectionView()
 
-        fetchJourneys()
+        if let journeysRequest = journeysRequest {
+            interactor?.journeysRequest = journeysRequest
+        }
+        
+        interactor?.displaySearch(request: ListJourneys.DisplaySearch.Request())
+        interactor?.journeysRequest?.allowedPhysicalModes != nil ? fetchPhysicalMode() : fetchJourneys()
     }
     
     override open func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         
+        initActivityView()
         journeysCollectionView.collectionViewLayout.invalidateLayout()
         reloadCollectionViewLayout()
-    }
-    
-    private func initSDK() {
-        NavitiaSDKUI.shared.bundle = self.nibBundle
-        UIFont.registerFontWithFilenameString(filenameString: "SDKIcons.ttf", bundle: NavitiaSDKUI.shared.bundle)
     }
     
     private func initArchitecture() {
@@ -75,10 +85,16 @@ open class ListJourneysViewController: UIViewController, ListJourneysDisplayLogi
         navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarPosition.any, barMetrics: UIBarMetrics.default)
         navigationController?.navigationBar.shadowImage = UIImage()
         navigationController?.navigationBar.barTintColor = Configuration.Color.main
+        navigationController?.navigationBar.isTranslucent = false
     }
     
     private func initHeader() {
         searchView.delegate = self
+        
+        if let modeTransportViewSelected = interactor?.modeTransportViewSelected {
+            searchView.transportModeView.updateSelectedButton(selectedButton: modeTransportViewSelected)
+        }
+        searchView.dateFormView.dateTimeRepresentsSegmentedControl = interactor?.journeysRequest?.datetimeRepresents?.rawValue
     }
     
     private func initCollectionView() {
@@ -103,23 +119,65 @@ open class ListJourneysViewController: UIViewController, ListJourneysDisplayLogi
         journeysCollectionView.register(UINib(nibName: JourneyHeaderCollectionReusableView.identifier, bundle: self.nibBundle), forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: JourneyHeaderCollectionReusableView.identifier)
     }
     
+    private func initActivityView() {
+        activityView.center.x = journeysCollectionView.center.x
+        activityView.frame.origin.y = 10
+        
+        journeysCollectionView.addSubview(activityView)
+    }
+    
     // MARK: - Events
     
     @objc func backButtonPressed() {
-        if isRootViewController() {
-            self.dismiss(animated: true, completion: nil)
-        } else {
-            self.navigationController?.popViewController(animated: true)
+        interactor?.modeTransportViewSelected = searchView.transportModeView.getSelectedButton()
+        router?.routeToBack()
+    }
+    
+    func displaySearch(viewModel: ListJourneys.DisplaySearch.ViewModel) {
+        searchView.fromTextField.text = viewModel.fromName
+        searchView.toTextField.text = viewModel.toName
+        searchView.dateTime = viewModel.dateTime
+        searchView.lock = !NavitiaSDKUI.shared.formJourney
+        searchView.dateFormView.date = viewModel.date
+        
+        searchView.accessibilityLabel = viewModel.accessibilityHeader
+        searchView.switchDepartureArrivalButton.accessibilityLabel = viewModel.accessibilitySwitchButton
+    }
+    
+    internal func fetchPhysicalMode() {
+        guard let journeysRequest = interactor?.journeysRequest else {
+            return
         }
+        
+        activityView.startAnimating()
+        interactor?.fetchPhysicalModes(request: ListJourneys.FetchPhysicalModes.Request(journeysRequest: journeysRequest))
+    }
+    
+    func callbackFetchedPhysicalModes(viewModel: ListJourneys.FetchPhysicalModes.ViewModel) {
+        guard let allowedPhysicalModes = interactor?.journeysRequest?.allowedPhysicalModes else {
+            fetchJourneys()
+            return
+        }
+        
+        var physicalModes = viewModel.physicalModes
+        
+        for physicalMode in allowedPhysicalModes {
+            physicalModes = physicalModes.filter{$0 != physicalMode}
+        }
+        
+        interactor?.journeysRequest?.forbiddenUris = physicalModes
+        
+        fetchJourneys()
     }
     
     // MARK: - Fetch journeys
     
     internal func fetchJourneys() {
-        guard let journeysRequest = self.journeysRequest else {
+        guard let journeysRequest = interactor?.journeysRequest else {
             return
         }
 
+        activityView.startAnimating()
         let request = ListJourneys.FetchJourneys.Request(journeysRequest: journeysRequest)
         
         interactor?.fetchJourneys(request: request)
@@ -133,16 +191,16 @@ open class ListJourneysViewController: UIViewController, ListJourneysDisplayLogi
         }
         
         viewModel.loaded == true ? (searchView.lockSwitch = false) : (searchView.lockSwitch = true)
-
         journeysCollectionView.reloadData()
-        
-        searchView.origin = viewModel.headerInformations.origin
-        searchView.destination = viewModel.headerInformations.destination
-        searchView.dateTime = viewModel.headerInformations.dateTime
-        searchView.accessibilityLabel = viewModel.accessibilityHeader
-        searchView.switchDepartureArrivalButton.accessibilityLabel = viewModel.accessibilitySwitchButton
-        
+
         reloadCollectionViewLayout()
+        
+        if viewModel.loaded {
+            DispatchQueue.main.async(execute: { () -> Void in
+                self.anim()
+                self.activityView.stopAnimating()
+            })
+        }
     }
     
     private func reloadCollectionViewLayout() {
@@ -151,6 +209,24 @@ open class ListJourneysViewController: UIViewController, ListJourneysDisplayLogi
         }
         
         collectionViewLayout.reloadLayout()
+        
+    }
+    
+    func anim() {
+        let cells = journeysCollectionView.visibleCells
+        let collectionViewHeight = journeysCollectionView.bounds.size.height
+        
+        for cell in cells {
+            cell.transform = CGAffineTransform(translationX: 0, y: collectionViewHeight)
+        }
+        
+        var delayCounter = 0
+        for cell in cells {
+            UIView.animate(withDuration: 0.75, delay: Double(delayCounter) * 0.05, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: .curveEaseInOut, animations: {
+                cell.transform = CGAffineTransform.identity
+            }, completion: nil)
+            delayCounter = delayCounter + 1
+        }
     }
 }
 
@@ -159,7 +235,7 @@ extension ListJourneysViewController: UICollectionViewDataSource, UICollectionVi
     // MARK: - CollectionView Data Source
     
     public func numberOfSections(in collectionView: UICollectionView) -> Int {
-        guard let journeysRequest = self.journeysRequest, let viewModel = self.viewModel else {
+        guard let journeysRequest = interactor?.journeysRequest, let viewModel = self.viewModel else {
             return 0
         }
         // Journey + Carsharing
@@ -176,7 +252,7 @@ extension ListJourneysViewController: UICollectionViewDataSource, UICollectionVi
         }
         // Loading
         if !viewModel.loaded {
-            return 4
+            return 0
         }
         // Carsharing : Header + Empty
         if section == 1 && viewModel.displayedRidesharings.count == 0 {
@@ -378,9 +454,86 @@ extension ListJourneysViewController: ListJourneysCollectionViewLayoutDelegate {
 extension ListJourneysViewController: SearchViewDelegate {
     
     func switchDepartureArrivalCoordinates() {
-        if journeysRequest != nil {
+        if interactor?.journeysRequest != nil {
             searchView.lockSwitch = true
-            journeysRequest!.switchOriginDestination()
+            interactor?.journeysRequest?.switchOriginDestination()
+            interactor?.displaySearch(request: ListJourneys.DisplaySearch.Request())
+            fetchJourneys()
+        }
+    }
+    
+    func fromFieldClicked(q: String?) {
+        router?.routeToListPlaces(info: "from")
+    }
+    
+    func toFieldClicked(q: String?) {
+        router?.routeToListPlaces(info: "to")
+    }
+}
+
+extension ListJourneysViewController: ListPlacesViewControllerDelegate {
+    
+    func searchView(from: (label: String?, name: String?, id: String), to: (label: String?, name: String?, id: String)) {
+        let request = ListJourneys.DisplaySearch.Request(from: from, to: to)
+        
+        interactor?.displaySearch(request: request)
+        
+        fetchJourneys()
+    }
+}
+
+extension ListJourneysViewController: SearchButtonViewDelegate {
+    
+    func search() {
+        if searchView.isPreferencesShown {
+            print("Changement de mode")
+            if let physicalModes = searchView.transportModeView?.getPhysicalModes() {
+                interactor?.journeysRequest?.allowedPhysicalModes = physicalModes
+            }
+            
+            if let firstSectionModes = searchView.transportModeView?.getFirstSectionMode() {
+                var modes = [CoverageRegionJourneysRequestBuilder.FirstSectionMode]()
+                for mode in firstSectionModes {
+                    if let sectionMode = CoverageRegionJourneysRequestBuilder.FirstSectionMode(rawValue:mode) {
+                        modes.append(sectionMode)
+                    }
+                }
+                
+                interactor?.journeysRequest?.firstSectionModes = modes
+            }
+            
+            if let lastSectionModes = searchView.transportModeView?.getLastSectionMode() {
+                var modes = [CoverageRegionJourneysRequestBuilder.LastSectionMode]()
+                for mode in lastSectionModes {
+                    if let sectionMode = CoverageRegionJourneysRequestBuilder.LastSectionMode(rawValue:mode) {
+                        modes.append(sectionMode)
+                    }
+                }
+                
+                interactor?.journeysRequest?.lastSectionModes = modes
+            }
+            
+            if let realTimeModes = searchView.transportModeView?.getRealTimeModes() {
+                interactor?.journeysRequest?.addPoiInfos = []
+                
+                for mode in realTimeModes {
+                    if mode == "bss" {
+                        interactor?.journeysRequest?.addPoiInfos?.append(.bssStands)
+                    } else if mode == "car" {
+                        interactor?.journeysRequest?.addPoiInfos?.append(.carPark)
+                    }
+                }
+            }
+            
+            searchView.hidePreferences()
+            fetchPhysicalMode()
+        } else if searchView.isDateShown {
+            if let date = searchView.dateFormView.date {
+                interactor?.updateDate(request: FormJourney.UpdateDate.Request(date: date,
+                                                                               dateTimeRepresents: searchView.dateFormView.departureArrivalSegmentedControl.selectedSegmentIndex == 0 ? .departure : .arrival))
+            }
+            print("Changement de date")
+            searchView.hideDate()
             fetchJourneys()
         }
     }

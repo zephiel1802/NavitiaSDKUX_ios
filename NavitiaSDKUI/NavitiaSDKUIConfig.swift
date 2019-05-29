@@ -7,12 +7,21 @@
 
 import Foundation
 
+@objc public protocol JourneyRootViewController {
+    
+    var journeysRequest: JourneysRequest? { get set }
+}
+
 @objc open class NavitiaSDKUI: NSObject {
     
     @objc public static let shared = NavitiaSDKUI()
     
     open var navitiaSDK: NavitiaSDK!
-    open var bundle: Bundle!
+    open var bundle: Bundle! {
+        didSet {
+            UIFont.registerFontWithFilenameString(filenameString: "SDKIcons.ttf", bundle: NavitiaSDKUI.shared.bundle)
+        }
+    }
     
     private var token: String! {
         didSet {
@@ -51,6 +60,15 @@ import Foundation
         }
     }
     
+    @objc public var maxHistory: Int {
+        get {
+            return Configuration.maxHistory
+        }
+        set {
+            Configuration.maxHistory = newValue
+        }
+    }
+    
     @objc public var multiNetwork: Bool {
         get {
             return Configuration.multiNetwork
@@ -59,16 +77,50 @@ import Foundation
             Configuration.multiNetwork = newValue
         }
     }
+    
+    @objc public var formJourney: Bool {
+        get {
+            return Configuration.formJourney
+        }
+        set {
+            Configuration.formJourney = newValue
+        }
+    }
+    
+    @objc public var modeForm: [ModeButtonModel] {
+        get {
+            return Configuration.modeForm
+        }
+        set {
+            Configuration.modeForm = newValue
+        }
+    }
+    
+    @objc public var rootViewController: JourneyRootViewController? {
+        get {
+            let storyboard = UIStoryboard(name: "Journey", bundle: bundle)
+            
+            if Configuration.formJourney {
+                return storyboard.instantiateViewController(withIdentifier: "FormJourneyViewController") as? JourneyRootViewController
+            }
+            
+            return storyboard.instantiateViewController(withIdentifier: "ListJourneysViewController") as? JourneyRootViewController
+        }
+    }
 }
 
 enum Configuration {
     
     static let fontIconsName = "SDKIcons"
+    static var modeForm = [ModeButtonModel(title: "public_transport".localized().capitalized, icon: "metro", selected: true, firstSectionMode: ["walking"], lastSectionMode: ["walking"], physicalMode: nil),
+                           ModeButtonModel(title: "bike_noun".localized().capitalized, icon: "bike", selected: false, firstSectionMode: ["bike"], lastSectionMode: ["bike"], physicalMode: nil),
+                           ModeButtonModel(title: "car_noun".localized().capitalized, icon: "car", selected: false, firstSectionMode: ["car"], lastSectionMode: ["car"], physicalMode: nil)]
     
     // Format
     static let date = "yyyyMMdd'T'HHmmss"
     static let dateInterval = "dd/MM/yy"
     static let time = "HH:mm"
+    static let timeFormJourney = "EEEE d MMMM '-' HH:mm"
     static let timeJourneySolution = "EEE dd MMM - HH:mm"
     static let timeRidesharing = "HH'h'mm"
     
@@ -80,9 +132,11 @@ enum Configuration {
     // Constant
     static let caloriePerSecWalking = 0.071625714285714
     static let caloriePerSecBike = 0.11442857142857142
-    static let minWalkingValueFrieze = 180 
+    static let minWalkingValueFrieze = 180
+    static var maxHistory = 10
     
     static var multiNetwork = false
+    static var formJourney = false
     
     // Color
     enum Color {
@@ -111,5 +165,46 @@ enum Configuration {
         static let background = #colorLiteral(red: 0.9411764706, green: 0.9411764706, blue: 0.9411764706, alpha: 1)
         static let shadow = #colorLiteral(red: 0.8, green: 0.8, blue: 0.8, alpha: 1)
         static let headerTitle = #colorLiteral(red: 0.2509803922, green: 0.2509803922, blue: 0.2509803922, alpha: 1)
+    }
+}
+
+public class GenerateRequest: NSObject {
+    
+    public enum ModeType: String {
+        case bike = "bike"
+        case bss = "bss"
+        case car = "car"
+        case ridesharing = "ridesharing"
+        case walking = "walking"
+    }
+    
+    public struct ModeForm {
+        var title: String
+        var icon: String
+        var selected: Bool
+        var mode: ModeType
+        var physicalMode: [String]?
+    }
+    
+    var modeForm = [ModeForm]()
+    
+    public init(modeForm: [ModeForm]) {
+        self.modeForm = modeForm
+    }
+
+    internal func getPhysicalModes() -> [String]? {
+        var physicalMode = [String]()
+
+        for mode in modeForm {
+            if let physiMode = mode.physicalMode {
+                physicalMode += physiMode
+            }
+        }
+
+        if physicalMode.count == 0 {
+            return nil
+        }
+
+        return physicalMode
     }
 }
