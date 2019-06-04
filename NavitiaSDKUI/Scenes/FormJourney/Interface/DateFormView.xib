@@ -35,6 +35,9 @@
                                 </segmentedControl>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7KR-GQ-Hkm">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="32"/>
+                                    <connections>
+                                        <action selector="didTapOnAccessibilityButton:" destination="iN0-l3-epB" eventType="touchUpInside" id="GqY-IS-hZ8"/>
+                                    </connections>
                                 </button>
                             </subviews>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

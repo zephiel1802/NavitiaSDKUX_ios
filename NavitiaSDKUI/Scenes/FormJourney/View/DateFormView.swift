@@ -148,7 +148,6 @@ class DateFormView: UIView {
         datePicker?.addTarget(self, action: #selector(DateFormView.dateChanged(datePicker:)), for: .valueChanged)
         datePicker?.backgroundColor = Configuration.Color.white
         datePicker?.isAccessibilityElement = true
-        datePicker?.accessibilityLabel = String(format: "%@ %@","time_set".localized(), "now".localized())
         dateTextField.inputView = datePicker
     }
     
@@ -173,11 +172,6 @@ class DateFormView: UIView {
     }
     
     @objc func dateChanged(datePicker: UIDatePicker) {
-        let formatter       = DateFormatter()
-        formatter.dateStyle = .full
-        formatter.timeStyle = .medium
-        formatter.locale    = Locale(identifier: "FR-fr")
-        datePicker.accessibilityLabel = String(format: "%@ %@", "time_set".localized(), formatter.string(from:datePicker.date))
         date = datePicker.date
     }
     

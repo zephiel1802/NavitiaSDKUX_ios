@@ -23,6 +23,8 @@ class SearchView: UIView {
         case to = "to"
     }
     
+    @IBOutlet weak var toClearButton: UIButton!
+    @IBOutlet weak var fromClearButton: UIButton!
     @IBOutlet weak var background: UIView!
     @IBOutlet weak var fromView: UIView!
     @IBOutlet weak var fromTextField: UITextField!
@@ -152,6 +154,14 @@ class SearchView: UIView {
         setupSearchButtonView()
         setPreferencesButton()
         setDateButton()
+        setupClearButtons()
+    }
+    
+    private func setupClearButtons() {
+        fromClearButton.isHidden = true
+        fromClearButton.accessibilityLabel = "clear_departure".localized()
+        toClearButton.isHidden = true
+        toClearButton.accessibilityLabel = "clear_arrival".localized()
     }
     
     private func setupPin() {
@@ -171,11 +181,9 @@ class SearchView: UIView {
     private func setupTextField() {
         fromTextField.isAccessibilityElement = true
         fromTextField.placeholder = "place_of_departure".localized()
-        fromTextField.accessibilityLabel = "enter".localized()
-        
+
         toTextField.isAccessibilityElement = true
         toTextField.placeholder = "place_of_arrival".localized()
-        toTextField.accessibilityLabel = "enter".localized()
     }
     
     private func setupTransportModeView() {
@@ -225,7 +233,6 @@ class SearchView: UIView {
         if value {
             fromTextField.becomeFirstResponder()
             fromView.backgroundColor = Configuration.Color.white.withAlphaComponent(0.9)
-            fromTextField.accessibilityLabel = "place_of_departure".localized()
         } else {
             fromView.backgroundColor = Configuration.Color.white
         }
@@ -235,7 +242,6 @@ class SearchView: UIView {
         if value {
             toTextField.becomeFirstResponder()
             toView.backgroundColor = Configuration.Color.white.withAlphaComponent(0.9)
-            toTextField.accessibilityLabel = "place_of_arrival".localized()
         } else {
             toView.backgroundColor = Configuration.Color.white
         }
@@ -330,25 +336,57 @@ class SearchView: UIView {
     
     @IBAction func fromFieldClicked(_ sender: UITextField) {
         delegate?.fromFieldClicked?(q: sender.text)
+        if UIAccessibility.isVoiceOverRunning && sender.text != "" {
+            fromClearButton.isHidden = false
+        } else {
+            fromClearButton.isHidden = true
+        }
     }
     
     @IBAction func toFieldClicked(_ sender: UITextField) {
         delegate?.toFieldClicked?(q: sender.text)
+        if UIAccessibility.isVoiceOverRunning && sender.text != "" {
+            toClearButton.isHidden = false
+        } else {
+            toClearButton.isHidden = true
+        }
     }
     
     @IBAction func fromFieldDidChange(_ sender: UITextField) {
         delegate?.fromFieldDidChange?(q: sender.text)
+        if UIAccessibility.isVoiceOverRunning && sender.text != "" {
+            fromClearButton.isHidden = false
+        } else {
+            fromClearButton.isHidden = true
+        }
     }
     
     @IBAction func toFieldDidChange(_ sender: UITextField) {
         delegate?.toFieldDidChange?(q: sender.text)
+        if UIAccessibility.isVoiceOverRunning && sender.text != "" {
+            toClearButton.isHidden = false
+        } else {
+            toClearButton.isHidden = true
+        }
     }
     
     @IBAction func fromPrimaryAction(_ sender: Any) {
         endEditing(true)
+        fromClearButton.isHidden = true
     }
     
     @IBAction func toPrimaryAction(_ sender: Any) {
         endEditing(true)
+        toClearButton.isHidden = true
+    }
+    
+    @IBAction func fromClearButtonClicked(_ sender: Any) {
+        fromTextField.text = ""
+        fromFieldDidChange(fromTextField)
+    }
+    
+    @IBAction func toClearButtonClicked(_ sender: Any) {
+        toTextField.text = ""
+        toFieldDidChange(toTextField)
     }
 }
