@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="NOP-nf-fyr">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="NOP-nf-fyr">
     <device id="retina5_9" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -18,31 +18,78 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="724"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="n7A-Pb-Kbc">
-                                <rect key="frame" x="142.66666666666666" y="315" width="90" height="30"/>
-                                <state key="normal" title="Open SDK UI"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="[SDK Journey] Sample" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cID-ys-w40">
+                                <rect key="frame" x="89.000000000000014" y="30" width="197.33333333333337" height="24"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Choose a coverage :" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gZT-DV-1OO">
+                                <rect key="frame" x="15" y="114" width="157" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RZQ-d5-ZMw">
+                                <rect key="frame" x="5" y="135" width="365" height="180"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="180" id="llC-3l-Vkw"/>
+                                </constraints>
                                 <connections>
-                                    <action selector="touch:" destination="BYZ-38-t0r" eventType="touchUpInside" id="vMy-oX-GHv"/>
+                                    <outlet property="dataSource" destination="BYZ-38-t0r" id="Vkb-MS-eVW"/>
+                                    <outlet property="delegate" destination="BYZ-38-t0r" id="Fow-9H-hzc"/>
                                 </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1bb-Mx-cRL">
-                                <rect key="frame" x="84" y="362" width="207" height="30"/>
-                                <state key="normal" title="Open SDK UI without the form"/>
+                            </pickerView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Launch with form :" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LhY-c8-gCf">
+                                <rect key="frame" x="15" y="345" width="345" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Qhj-Yp-MoH">
+                                <rect key="frame" x="306" y="340" width="51" height="31"/>
+                                <color key="onTintColor" red="0.25098039220000001" green="0.58431372550000005" blue="0.5568627451" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </switch>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6Qd-QR-Kds">
+                                <rect key="frame" x="0.0" y="640" width="375" height="50"/>
+                                <color key="backgroundColor" red="0.25098039215686274" green="0.58431372549019611" blue="0.55686274509803924" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="ISd-Nh-Awf"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <state key="normal" title="Let's go !">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
                                 <connections>
-                                    <action selector="touchWithoutForm:" destination="BYZ-38-t0r" eventType="touchUpInside" id="wmV-EK-02h"/>
+                                    <action selector="letsGoClicked:" destination="BYZ-38-t0r" eventType="touchUpInside" id="gmF-81-99R"/>
                                 </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="n7A-Pb-Kbc" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" constant="-15" id="3xv-br-haa"/>
-                            <constraint firstItem="1bb-Mx-cRL" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" constant="15" id="WKz-UA-G0B"/>
-                            <constraint firstItem="n7A-Pb-Kbc" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="f9l-cx-jz9"/>
-                            <constraint firstItem="1bb-Mx-cRL" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="o73-Wj-C7S"/>
+                            <constraint firstItem="6Qd-QR-Kds" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="9L9-eO-ze8"/>
+                            <constraint firstItem="LhY-c8-gCf" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="15" id="GJW-RD-ReT"/>
+                            <constraint firstItem="gZT-DV-1OO" firstAttribute="top" secondItem="cID-ys-w40" secondAttribute="bottom" constant="60" id="H3x-BR-GxP"/>
+                            <constraint firstItem="gZT-DV-1OO" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="15" id="KhD-yA-K6N"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Qhj-Yp-MoH" secondAttribute="trailing" constant="20" id="NLz-y9-ZBz"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="RZQ-d5-ZMw" secondAttribute="trailing" constant="5" id="Wjv-7x-9vw"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="6Qd-QR-Kds" secondAttribute="trailing" id="X7G-rN-V2f"/>
+                            <constraint firstItem="RZQ-d5-ZMw" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="5" id="bhY-1Q-KTe"/>
+                            <constraint firstItem="RZQ-d5-ZMw" firstAttribute="top" secondItem="gZT-DV-1OO" secondAttribute="bottom" id="k1r-2X-BUu"/>
+                            <constraint firstItem="LhY-c8-gCf" firstAttribute="top" secondItem="RZQ-d5-ZMw" secondAttribute="bottom" constant="30" id="klb-ou-T7v"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="6Qd-QR-Kds" secondAttribute="bottom" id="mGq-5j-fxQ"/>
+                            <constraint firstItem="Qhj-Yp-MoH" firstAttribute="centerY" secondItem="LhY-c8-gCf" secondAttribute="centerY" id="obm-C5-Ica"/>
+                            <constraint firstItem="cID-ys-w40" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="oxR-97-BFf"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="LhY-c8-gCf" secondAttribute="trailing" constant="15" id="qmf-wa-5tS"/>
+                            <constraint firstItem="cID-ys-w40" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="30" id="umO-Tu-wG3"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <navigationItem key="navigationItem" id="Zm7-93-m0A"/>
+                    <connections>
+                        <outlet property="coveragePickerView" destination="RZQ-d5-ZMw" id="maO-u8-qh2"/>
+                        <outlet property="formSwitch" destination="Qhj-Yp-MoH" id="DaI-LQ-QZu"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>

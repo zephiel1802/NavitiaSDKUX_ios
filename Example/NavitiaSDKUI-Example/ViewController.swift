@@ -8,30 +8,66 @@
 import UIKit
 import NavitiaSDKUI
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource{
     
-    let coverage = "stif"
+    // MARK: variables
+    var selectedCoverage: String?
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-    }
+    @IBOutlet weak var coveragePickerView: UIPickerView!
+    @IBOutlet weak var formSwitch: UISwitch!
     
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-    }
+    let coverages = ["fr-idf", "fr-ne-dijon", "fr-nw-rennes", "stif"]
     
+    // MARK: inherits
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return UIStatusBarStyle.lightContent
+    }
+    
+    // MARK: IBActions
+    @IBAction func letsGoClicked(_ sender: Any) {
+        selectedCoverage = coverages[coveragePickerView.selectedRow(inComponent: 0)]
+        
+        if formSwitch.isOn {
+            launchWithForm()
+        } else {
+            launchWithoutForm()
+        }
+    }
+    
+    // MARK: Picker: Delegate & DataSource
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return coverages.count
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return coverages[row]
+    }
+    
+    // MARK: private methods
+    private func launchWithForm() {
+        if let formJourneyViewController = getFormJourneyViewController() {
+            navigationController?.pushViewController(formJourneyViewController, animated: true)
+        }
+    }
+    
+    private func launchWithoutForm() {
+        if let listJourneysViewController = getListJourneysViewController() {
+            navigationController?.pushViewController(listJourneysViewController, animated: true)
+        }
     }
     
     private func getListJourneysViewController() -> UIViewController? {
         NavitiaSDKUI.shared.formJourney = false
         
-        guard var journeyResultsViewController = NavitiaSDKUI.shared.rootViewController else {
+        guard let journeyResultsViewController = NavitiaSDKUI.shared.rootViewController else {
             return nil
         }
         
-        var journeysRequest = JourneysRequest(coverage: coverage)
+        let journeysRequest = JourneysRequest(coverage: selectedCoverage!)
         journeysRequest.originId = "2.3665844;48.8465337"
         journeysRequest.originLabel = "Chez moi"
         journeysRequest.destinationId = "2.2979169;48.8848719"
@@ -61,26 +97,14 @@ class ViewController: UIViewController {
                                         ModeButtonModel(title: "VLS", icon: "bss", selected: false, firstSectionMode: ["bss"], lastSectionMode: ["bss"], realTime: true),
                                         ModeButtonModel(title: "Car", icon: "car", selected: false, firstSectionMode: ["car"], lastSectionMode: ["car"])]
         
-        guard var journeyResultsViewController = NavitiaSDKUI.shared.rootViewController else {
+        guard let journeyResultsViewController = NavitiaSDKUI.shared.rootViewController else {
             return nil
         }
         
-        let journeysRequest = JourneysRequest(coverage: coverage)
+        let journeysRequest = JourneysRequest(coverage: selectedCoverage!)
         
         journeyResultsViewController.journeysRequest = journeysRequest
         
         return journeyResultsViewController as? UIViewController
-    }
-    
-    @IBAction func touch(_ sender: Any) {
-        if let formJourneyViewController = getFormJourneyViewController() {
-            navigationController?.pushViewController(formJourneyViewController, animated: true)
-        }
-    }
-    
-    @IBAction func touchWithoutForm(_ sender: Any) {
-        if let listJourneysViewController = getListJourneysViewController() {
-            navigationController?.pushViewController(listJourneysViewController, animated: true)
-        }
     }
 }
