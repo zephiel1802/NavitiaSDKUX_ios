@@ -16,13 +16,14 @@ import UIKit
     @objc optional func toFieldDidChange(q: String?)
 }
 
-class SearchView: UIView {
-    
+class SearchView: UIView, UITextFieldDelegate {
+    // MARK: enum
     enum Focus: String {
         case from = "from"
         case to = "to"
     }
     
+    // MARK: IBOutlet
     @IBOutlet weak var toClearButton: UIButton!
     @IBOutlet weak var fromClearButton: UIButton!
     @IBOutlet weak var background: UIView!
@@ -43,6 +44,7 @@ class SearchView: UIView {
     @IBOutlet weak var dateButton: UIButton!
     @IBOutlet weak var preferenceButton: UIButton!
     
+    // MARK: var
     var dateFormView: DateFormView!
     var transportModeView: TransportModeView!
     var searchButtonView: SearchButtonView!
@@ -100,16 +102,6 @@ class SearchView: UIView {
         }
     }
     
-    func unstickTextFields() {
-        self.separatorTopContraint.constant = 3
-        self.separatorBottomContraint.constant = 3
-    }
-    
-    func stickTextFields() {
-        self.separatorTopContraint.constant = 0
-        self.separatorBottomContraint.constant = 0
-    }
-    
     // MARK: - UINib
     
     static var identifier: String {
@@ -141,7 +133,7 @@ class SearchView: UIView {
         return searchView
     }
     
-    // MARK: - Function
+    // MARK: - Function (setup)
     
     private func setup() {
         backgroundColor = Configuration.Color.main
@@ -229,6 +221,17 @@ class SearchView: UIView {
             .icon((isPreferencesShown ? "arrow-details-up" : "arrow-details-down"), color: Configuration.Color.white, size: 11), for: .normal)
     }
     
+    // MARK: public func
+    func unstickTextFields() {
+        self.separatorTopContraint.constant = 3
+        self.separatorBottomContraint.constant = 3
+    }
+    
+    func stickTextFields() {
+        self.separatorTopContraint.constant = 0
+        self.separatorBottomContraint.constant = 0
+    }
+    
     internal func focusFromField(_ value: Bool = true) {
         if value {
             fromTextField.becomeFirstResponder()
@@ -301,6 +304,11 @@ class SearchView: UIView {
         }, completion: nil)
     }
     
+    internal func animate() {
+        switchDepartureArrivalButton.isHidden = true
+    }
+    
+    // MARK: IBAction
     @IBAction func switchDepartureArrivalCoordinates(_ sender: UIButton) {
         if !lockSwitch {
             switchDepartureArrivalAnimate(sender)
@@ -330,63 +338,72 @@ class SearchView: UIView {
         }
     }
     
-    internal func animate() {
-        switchDepartureArrivalButton.isHidden = true
-    }
-    
-    @IBAction func fromFieldClicked(_ sender: UITextField) {
-        delegate?.fromFieldClicked?(q: sender.text)
-        if UIAccessibility.isVoiceOverRunning && sender.text != "" {
-            fromClearButton.isHidden = false
-        } else {
-            fromClearButton.isHidden = true
-        }
-    }
-    
-    @IBAction func toFieldClicked(_ sender: UITextField) {
-        delegate?.toFieldClicked?(q: sender.text)
-        if UIAccessibility.isVoiceOverRunning && sender.text != "" {
-            toClearButton.isHidden = false
-        } else {
-            toClearButton.isHidden = true
-        }
-    }
-    
-    @IBAction func fromFieldDidChange(_ sender: UITextField) {
-        delegate?.fromFieldDidChange?(q: sender.text)
-        if UIAccessibility.isVoiceOverRunning && sender.text != "" {
-            fromClearButton.isHidden = false
-        } else {
-            fromClearButton.isHidden = true
-        }
-    }
-    
-    @IBAction func toFieldDidChange(_ sender: UITextField) {
-        delegate?.toFieldDidChange?(q: sender.text)
-        if UIAccessibility.isVoiceOverRunning && sender.text != "" {
-            toClearButton.isHidden = false
-        } else {
-            toClearButton.isHidden = true
-        }
-    }
-    
-    @IBAction func fromPrimaryAction(_ sender: Any) {
-        endEditing(true)
-        fromClearButton.isHidden = true
-    }
-    
-    @IBAction func toPrimaryAction(_ sender: Any) {
-        endEditing(true)
-        toClearButton.isHidden = true
-    }
-    
     @IBAction func fromClearButtonClicked(_ sender: Any) {
         fromTextField.text = ""
-        fromFieldDidChange(fromTextField)
+        delegate?.fromFieldDidChange?(q: "")
+        fromClearButton.isHidden = true
     }
     
     @IBAction func toClearButtonClicked(_ sender: Any) {
         toTextField.text = ""
-        toFieldDidChange(toTextField)
+        delegate?.toFieldDidChange?(q: "")
+        toClearButton.isHidden = true
     }
+
+    // MARK: Textfield delegate
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        if textField == fromTextField {
+            delegate?.fromFieldClicked?(q: textField.text)
+            if UIAccessibility.isVoiceOverRunning && textField.text != "" {
+                fromClearButton.isHidden = false
+            } else {
+                fromClearButton.isHidden = true
+            }
+        } else if textField == toTextField {
+            delegate?.toFieldClicked?(q: textField.text)
+            if UIAccessibility.isVoiceOverRunning && textField.text != "" {
+                toClearButton.isHidden = false
+            } else {
+                toClearButton.isHidden = true
+            }
+        }
+    }
+    
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        if let text = textField.text,
+            let textRange = Range(range, in: text) {
+            let updatedText = text.replacingCharacters(in: textRange,
+                                                       with: string)
+            
+            if textField == fromTextField {
+                delegate?.fromFieldDidChange?(q: updatedText)
+                if UIAccessibility.isVoiceOverRunning && updatedText != "" {
+                    fromClearButton.isHidden = false
+                } else {
+                    fromClearButton.isHidden = true
+                }
+            } else if textField == toTextField {
+                delegate?.toFieldDidChange?(q: updatedText)
+                if UIAccessibility.isVoiceOverRunning && updatedText != "" {
+                    toClearButton.isHidden = false
+                } else {
+                    toClearButton.isHidden = true
+                }
+            } else {
+                return false
+            }
+            
+            return true
+        } else {
+            return false
+        }
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        endEditing(true)
+        fromClearButton.isHidden = true
+        toClearButton.isHidden = true
+    }
+    
 }

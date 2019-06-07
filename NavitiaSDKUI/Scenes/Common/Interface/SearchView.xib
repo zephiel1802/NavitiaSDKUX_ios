@@ -57,9 +57,7 @@
                                             <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
                                             <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no"/>
                                             <connections>
-                                                <action selector="fromFieldClicked:" destination="iN0-l3-epB" eventType="touchDown" id="rrr-fg-f5p"/>
-                                                <action selector="fromFieldDidChange:" destination="iN0-l3-epB" eventType="editingChanged" id="nG0-DN-o2B"/>
-                                                <action selector="fromPrimaryAction:" destination="iN0-l3-epB" eventType="primaryActionTriggered" id="rpg-pa-mFu"/>
+                                                <outlet property="delegate" destination="iN0-l3-epB" id="gB4-LX-5CR"/>
                                             </connections>
                                         </textField>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="k0m-5a-iUZ">
@@ -107,9 +105,7 @@
                                             <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
                                             <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no"/>
                                             <connections>
-                                                <action selector="toFieldClicked:" destination="iN0-l3-epB" eventType="touchDown" id="LWY-0g-4jW"/>
-                                                <action selector="toFieldDidChange:" destination="iN0-l3-epB" eventType="editingChanged" id="oFY-vj-mYs"/>
-                                                <action selector="toPrimaryAction:" destination="iN0-l3-epB" eventType="primaryActionTriggered" id="02c-lz-1sh"/>
+                                                <outlet property="delegate" destination="iN0-l3-epB" id="OQa-qP-VCU"/>
                                             </connections>
                                         </textField>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KFj-vH-lWk">
