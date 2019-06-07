@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  ConfigurationViewController.swift
 //  NavitiaSDKUI-Example
 //
 //  Copyright © 2018 kisio. All rights reserved.
@@ -8,24 +8,32 @@
 import UIKit
 import NavitiaSDKUI
 
-class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource{
+class ConfigurationViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource{
     
     // MARK: variables
     var selectedCoverage: String?
     
     @IBOutlet weak var coveragePickerView: UIPickerView!
     @IBOutlet weak var formSwitch: UISwitch!
+    @IBOutlet weak var selectedCoverageLabel: UILabel!
     
-    let coverages = ["fr-idf", "fr-ne-dijon", "fr-nw-rennes", "stif"]
+    var coverages:[String] = []
+    var coverageIds:[String] = []
     
     // MARK: inherits
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        selectedCoverageLabel.text = String(format: "Coverage : %@\nId : %@", coverages[0], coverageIds[0])
+    }
+    
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return UIStatusBarStyle.lightContent
     }
     
     // MARK: IBActions
     @IBAction func letsGoClicked(_ sender: Any) {
-        selectedCoverage = coverages[coveragePickerView.selectedRow(inComponent: 0)]
+        selectedCoverage = coverageIds[coveragePickerView.selectedRow(inComponent: 0)]
         
         if formSwitch.isOn {
             launchWithForm()
@@ -47,7 +55,12 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
         return coverages[row]
     }
     
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        selectedCoverageLabel.text = String(format: "Coverage : %@\nId : %@", coverages[row], coverageIds[row])
+    }
+    
     // MARK: private methods
+    
     private func launchWithForm() {
         if let formJourneyViewController = getFormJourneyViewController() {
             navigationController?.pushViewController(formJourneyViewController, animated: true)
