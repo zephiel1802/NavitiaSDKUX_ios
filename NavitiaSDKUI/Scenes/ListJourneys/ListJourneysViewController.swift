@@ -499,21 +499,26 @@ extension ListJourneysViewController: SearchButtonViewDelegate {
                 interactor?.journeysRequest?.allowedPhysicalModes = physicalModes
             }
             
-            if let modes = searchView.transportModeView?.getModes() {
-                var firstSectionModes = [CoverageRegionJourneysRequestBuilder.FirstSectionMode]()
-                var lastSectionModes = [CoverageRegionJourneysRequestBuilder.LastSectionMode]()
-                
-                for mode in modes {
+            if let firstSectionModes = searchView.transportModeView?.getFirstSectionMode() {
+                var modes = [CoverageRegionJourneysRequestBuilder.FirstSectionMode]()
+                for mode in firstSectionModes {
                     if let sectionMode = CoverageRegionJourneysRequestBuilder.FirstSectionMode(rawValue:mode) {
-                        firstSectionModes.append(sectionMode)
-                    }
-                    if let sectionMode = CoverageRegionJourneysRequestBuilder.LastSectionMode(rawValue:mode) {
-                        lastSectionModes.append(sectionMode)
+                        modes.append(sectionMode)
                     }
                 }
                 
-                interactor?.journeysRequest?.firstSectionModes = firstSectionModes
-                interactor?.journeysRequest?.lastSectionModes = lastSectionModes
+                interactor?.journeysRequest?.firstSectionModes = modes
+            }
+            
+            if let lastSectionModes = searchView.transportModeView?.getLastSectionMode() {
+                var modes = [CoverageRegionJourneysRequestBuilder.LastSectionMode]()
+                for mode in lastSectionModes {
+                    if let sectionMode = CoverageRegionJourneysRequestBuilder.LastSectionMode(rawValue:mode) {
+                        modes.append(sectionMode)
+                    }
+                }
+                
+                interactor?.journeysRequest?.lastSectionModes = modes
             }
             
             if let realTimeModes = searchView.transportModeView?.getRealTimeModes() {

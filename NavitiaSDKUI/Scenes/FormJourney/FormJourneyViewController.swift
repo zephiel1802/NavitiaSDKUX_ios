@@ -16,7 +16,7 @@ class FormJourneyViewController: UIViewController, FormJourneyDisplayLogic, Jour
     
     @IBOutlet weak var searchView: SearchView!
     @IBOutlet weak var stackScrollView: StackScrollView!
-
+    
     private var transportModeView: TransportModeView!
     private var dateFormView: DateFormView!
     private var searchButtonView: SearchButtonView!
@@ -31,7 +31,7 @@ class FormJourneyViewController: UIViewController, FormJourneyDisplayLogic, Jour
     
     required public init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-
+        
         initArchitecture()
     }
     
@@ -49,7 +49,7 @@ class FormJourneyViewController: UIViewController, FormJourneyDisplayLogic, Jour
         initNavigationBar()
         initHeader()
         initStackScrollView()
-
+        
         interactor?.journeysRequest = journeysRequest
     }
     
@@ -139,7 +139,7 @@ class FormJourneyViewController: UIViewController, FormJourneyDisplayLogic, Jour
             self.navigationController?.popViewController(animated: true)
         }
     }
-
+    
     func displaySearch(viewModel: FormJourney.DisplaySearch.ViewModel) {
         if viewModel.fromName == nil || viewModel.toName == nil {
             searchButtonView.isEnabled = false
@@ -195,23 +195,28 @@ extension FormJourneyViewController: SearchButtonViewDelegate {
             interactor?.journeysRequest?.allowedPhysicalModes = physicalModes
         }
         
-        if let modes = transportModeView?.getModes() {
-            var firstSectionModes = [CoverageRegionJourneysRequestBuilder.FirstSectionMode]()
-            var lastSectionModes = [CoverageRegionJourneysRequestBuilder.LastSectionMode]()
-            
-            for mode in modes {
+        if let firstSectionModes = transportModeView?.getFirstSectionMode() {
+            var modes = [CoverageRegionJourneysRequestBuilder.FirstSectionMode]()
+            for mode in firstSectionModes {
                 if let sectionMode = CoverageRegionJourneysRequestBuilder.FirstSectionMode(rawValue:mode) {
-                    firstSectionModes.append(sectionMode)
-                }
-                if let sectionMode = CoverageRegionJourneysRequestBuilder.LastSectionMode(rawValue:mode) {
-                    lastSectionModes.append(sectionMode)
+                    modes.append(sectionMode)
                 }
             }
             
-            interactor?.journeysRequest?.firstSectionModes = firstSectionModes
-            interactor?.journeysRequest?.lastSectionModes = lastSectionModes
+            interactor?.journeysRequest?.firstSectionModes = modes
         }
         
+        if let lastSectionModes = transportModeView?.getLastSectionMode() {
+            var modes = [CoverageRegionJourneysRequestBuilder.LastSectionMode]()
+            for mode in lastSectionModes {
+                if let sectionMode = CoverageRegionJourneysRequestBuilder.LastSectionMode(rawValue:mode) {
+                    modes.append(sectionMode)
+                }
+            }
+            
+            interactor?.journeysRequest?.lastSectionModes = modes
+        }
+
         if let realTimeModes = transportModeView?.getRealTimeModes() {
             interactor?.journeysRequest?.addPoiInfos = []
             
