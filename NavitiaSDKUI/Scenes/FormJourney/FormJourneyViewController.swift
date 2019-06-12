@@ -75,6 +75,12 @@ class FormJourneyViewController: UIViewController, FormJourneyDisplayLogic, Jour
         }
     }
     
+    override open func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        searchView.fromTextField.resignFirstResponder()
+        searchView.toTextField.resignFirstResponder()
+    }
+    
     private func initArchitecture() {
         let viewController = self
         let interactor = FormJourneyInteractor()
@@ -124,6 +130,7 @@ class FormJourneyViewController: UIViewController, FormJourneyDisplayLogic, Jour
     }
     
     private func initSearchButton() {
+        searchView.isClearButtonAccessible = false
         searchButtonView = SearchButtonView.instanceFromNib()
         searchButtonView.frame.size = CGSize(width: stackScrollView.frame.size.width, height: 37)
         searchButtonView.delegate = self
@@ -154,6 +161,7 @@ class FormJourneyViewController: UIViewController, FormJourneyDisplayLogic, Jour
         if let text = viewModel.toName, text != "" {
             searchView.toTextField.accessibilityLabel = String(format: "%@ %@", "arrival_with_colon".localized(), text)
         }
+        
         if let text = viewModel.fromName, text != "" {
             searchView.fromTextField.accessibilityLabel = String(format: "%@ %@", "departure_with_colon".localized(), text)
         }

@@ -48,6 +48,7 @@ open class ListJourneysViewController: UIViewController, ListJourneysDisplayLogi
         initNavigationBar()
         initHeader()
         initCollectionView()
+        searchView.isClearButtonAccessible = false
 
         if let journeysRequest = journeysRequest {
             interactor?.journeysRequest = journeysRequest
@@ -63,6 +64,12 @@ open class ListJourneysViewController: UIViewController, ListJourneysDisplayLogi
         initActivityView()
         journeysCollectionView.collectionViewLayout.invalidateLayout()
         reloadCollectionViewLayout()
+    }
+    
+    override open func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        searchView.fromTextField.resignFirstResponder()
+        searchView.toTextField.resignFirstResponder()
     }
     
     private func initArchitecture() {

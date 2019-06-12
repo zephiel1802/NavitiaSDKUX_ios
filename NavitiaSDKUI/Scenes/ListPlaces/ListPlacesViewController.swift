@@ -158,6 +158,7 @@ class ListPlacesViewController: UIViewController, ListPlacesDisplayLogic {
         if let text = viewModel.toName, text != "" {
             searchView.toTextField.accessibilityLabel = String(format: "%@ %@", "arrival_with_colon".localized(), text)
         }
+        
         if let text = viewModel.fromName, text != "" {
             searchView.fromTextField.accessibilityLabel = String(format: "%@ %@", "departure_with_colon".localized(), text)
         }

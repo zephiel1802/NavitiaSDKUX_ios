@@ -48,6 +48,9 @@ class SearchView: UIView, UITextFieldDelegate {
     var dateFormView: DateFormView!
     var transportModeView: TransportModeView!
     var searchButtonView: SearchButtonView!
+    var fromTextFieldClear = false
+    var toTextFieldClear = false
+    var isClearButtonAccessible = true
     
     internal var lockSwitch = false
     internal var isPreferencesShown = false
@@ -173,7 +176,6 @@ class SearchView: UIView, UITextFieldDelegate {
     private func setupTextField() {
         fromTextField.isAccessibilityElement = true
         fromTextField.placeholder = "place_of_departure".localized()
-
         toTextField.isAccessibilityElement = true
         toTextField.placeholder = "place_of_arrival".localized()
     }
@@ -339,30 +341,38 @@ class SearchView: UIView, UITextFieldDelegate {
     }
     
     @IBAction func fromClearButtonClicked(_ sender: Any) {
-        fromTextField.text = ""
-        delegate?.fromFieldDidChange?(q: "")
-        fromClearButton.isHidden = true
+        fromTextField.text!.removeAll()
+        fromTextFieldClear = true
+        fromClearButton.becomeFirstResponder()
     }
     
     @IBAction func toClearButtonClicked(_ sender: Any) {
-        toTextField.text = ""
-        delegate?.toFieldDidChange?(q: "")
-        toClearButton.isHidden = true
+        toTextField.text!.removeAll()
+        toTextFieldClear = true
+        toTextField.becomeFirstResponder()
     }
 
     // MARK: Textfield delegate
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
         if textField == fromTextField {
-            delegate?.fromFieldClicked?(q: textField.text)
-            if UIAccessibility.isVoiceOverRunning && textField.text != "" {
+            if fromTextFieldClear {
+                fromTextFieldClear = false
+            } else {
+                delegate?.fromFieldClicked?(q: textField.text)
+            }
+            if UIAccessibility.isVoiceOverRunning && textField.text != "" && isClearButtonAccessible {
                 fromClearButton.isHidden = false
             } else {
                 fromClearButton.isHidden = true
             }
         } else if textField == toTextField {
-            delegate?.toFieldClicked?(q: textField.text)
-            if UIAccessibility.isVoiceOverRunning && textField.text != "" {
+            if toTextFieldClear {
+                toTextFieldClear = false
+            } else {
+                delegate?.toFieldClicked?(q: textField.text)
+            }
+            if UIAccessibility.isVoiceOverRunning && textField.text != "" && isClearButtonAccessible {
                 toClearButton.isHidden = false
             } else {
                 toClearButton.isHidden = true
@@ -371,21 +381,19 @@ class SearchView: UIView, UITextFieldDelegate {
     }
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        if let text = textField.text,
-            let textRange = Range(range, in: text) {
-            let updatedText = text.replacingCharacters(in: textRange,
-                                                       with: string)
+        if let text = textField.text, let textRange = Range(range, in: text) {
+            let updatedText = text.replacingCharacters(in: textRange, with: string)
             
             if textField == fromTextField {
                 delegate?.fromFieldDidChange?(q: updatedText)
-                if UIAccessibility.isVoiceOverRunning && updatedText != "" {
+                if UIAccessibility.isVoiceOverRunning && updatedText != "" && isClearButtonAccessible {
                     fromClearButton.isHidden = false
                 } else {
                     fromClearButton.isHidden = true
                 }
             } else if textField == toTextField {
                 delegate?.toFieldDidChange?(q: updatedText)
-                if UIAccessibility.isVoiceOverRunning && updatedText != "" {
+                if UIAccessibility.isVoiceOverRunning && updatedText != "" && isClearButtonAccessible {
                     toClearButton.isHidden = false
                 } else {
                     toClearButton.isHidden = true

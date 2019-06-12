@@ -112,16 +112,23 @@ internal class SlidingScrollView: UIView {
             self.journeySolutionView.updateFriezeView()
             self.headerHeight = self.journeySolutionView.frame.size.height + self.notchFrame.origin.y + self.notchFrame.size.height
             
-            if self.currentState == .expanded {
-                self.animationBottom()
-                self.setAnchorPoint(slideState: .expanded)
-            } else {
+            if self.currentState == .anchored {
                 self.animationBottom(withSafeArea: true)
                 self.setAnchorPoint(slideState: .collapsed)
+                self.currentState = .collapsed
+            } else {
+                self.animationBottom()
+                self.setAnchorPoint(slideState: .anchored)
+                self.currentState = .anchored
             }
 
             self.stackScrollView.reloadStack()
         }
+    }
+    
+    private func reinitSize() {
+        stackScrollView.frame.size.height = parentView.frame.size.height - headerHeight
+        frame.size.height = parentView.frame.size.height
     }
     
     @objc private func moveViewWithGestureRecognizer(_ recognizer:UIPanGestureRecognizer) {
@@ -142,11 +149,6 @@ internal class SlidingScrollView: UIView {
             
             translationView(translationY: translationForSliding)
         }
-    }
-    
-    private func reinitSize() {
-        stackScrollView.frame.size.height = parentView.frame.size.height - headerHeight
-        frame.size.height = parentView.frame.size.height
     }
     
     private func checkedAnchor(percentagePosition: CGFloat, tolerance: CGFloat = 0) {

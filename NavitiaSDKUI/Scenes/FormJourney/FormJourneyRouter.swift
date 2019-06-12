@@ -83,6 +83,7 @@ class FormJourneyRouter: NSObject, FormJourneyRoutingLogic, FormJourneyDataPassi
                                 name: source.journeysRequest?.originName,
                                 id: fromId)
         }
+        
         if let toId = source.journeysRequest?.destinationId {
             destination.to = (label: source.journeysRequest?.destinationLabel,
                               name: source.journeysRequest?.destinationName,
