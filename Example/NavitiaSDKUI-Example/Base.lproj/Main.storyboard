@@ -64,13 +64,13 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Choose a coverage :" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gZT-DV-1OO">
-                                <rect key="frame" x="15" y="114" width="157" height="21"/>
+                                <rect key="frame" x="15" y="94" width="157" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RZQ-d5-ZMw">
-                                <rect key="frame" x="5" y="145" width="365" height="200"/>
+                                <rect key="frame" x="5" y="125" width="365" height="200"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="200" id="llC-3l-Vkw"/>
                                 </constraints>
@@ -80,13 +80,13 @@
                                 </connections>
                             </pickerView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Launch with form :" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LhY-c8-gCf">
-                                <rect key="frame" x="15" y="385" width="345" height="21"/>
+                                <rect key="frame" x="15" y="365" width="345" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Qhj-Yp-MoH">
-                                <rect key="frame" x="306" y="380" width="51" height="31"/>
+                                <rect key="frame" x="306" y="360" width="51" height="31"/>
                                 <color key="onTintColor" red="0.25098039220000001" green="0.58431372550000005" blue="0.5568627451" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </switch>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6Qd-QR-Kds">
@@ -104,7 +104,7 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TId-zB-U4w">
-                                <rect key="frame" x="15" y="355" width="350" height="0.0"/>
+                                <rect key="frame" x="15" y="335" width="350" height="0.0"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="0.25098039220000001" green="0.58431372550000005" blue="0.5568627451" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
@@ -114,7 +114,7 @@
                         <constraints>
                             <constraint firstItem="6Qd-QR-Kds" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="9L9-eO-ze8"/>
                             <constraint firstItem="LhY-c8-gCf" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="15" id="GJW-RD-ReT"/>
-                            <constraint firstItem="gZT-DV-1OO" firstAttribute="top" secondItem="cID-ys-w40" secondAttribute="bottom" constant="60" id="H3x-BR-GxP"/>
+                            <constraint firstItem="gZT-DV-1OO" firstAttribute="top" secondItem="cID-ys-w40" secondAttribute="bottom" constant="40" id="H3x-BR-GxP"/>
                             <constraint firstItem="gZT-DV-1OO" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="15" id="KhD-yA-K6N"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Qhj-Yp-MoH" secondAttribute="trailing" constant="20" id="NLz-y9-ZBz"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="TId-zB-U4w" secondAttribute="trailing" constant="10" id="Qne-aJ-t3d"/>

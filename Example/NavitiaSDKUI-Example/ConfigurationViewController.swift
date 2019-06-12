@@ -8,7 +8,7 @@
 import UIKit
 import NavitiaSDKUI
 
-class ConfigurationViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource{
+class ConfigurationViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
     
     // MARK: variables
     var selectedCoverage: String?
@@ -17,8 +17,8 @@ class ConfigurationViewController: UIViewController, UIPickerViewDelegate, UIPic
     @IBOutlet weak var formSwitch: UISwitch!
     @IBOutlet weak var selectedCoverageLabel: UILabel!
     
-    var coverages:[String] = []
-    var coverageIds:[String] = []
+    var coverages: [String] = []
+    var coverageIds: [String] = []
     
     // MARK: inherits
     override func viewDidLoad() {

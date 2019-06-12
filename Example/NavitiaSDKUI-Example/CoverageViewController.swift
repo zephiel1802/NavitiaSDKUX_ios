@@ -12,8 +12,8 @@ import NavitiaSDKUI
 class CoverageViewController: UIViewController {
 
     let segueIdentifier = "goToConfiguration"
-    var retrievedCoverages:[String] = []
-    var coverageIds:[String] = []
+    var retrievedCoverages: [String] = []
+    var coverageIds: [String] = []
     
     @IBOutlet weak var messageLabel: UILabel!
     @IBOutlet weak var loaderIndicatorView: UIActivityIndicatorView!
@@ -26,18 +26,16 @@ class CoverageViewController: UIViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?)
     {
-        if segue.destination is ConfigurationViewController
-        {
-            if let vc = segue.destination as? ConfigurationViewController {
-                vc.coverages = retrievedCoverages
-                vc.coverageIds = coverageIds
-            }
+        if let vc = segue.destination as? ConfigurationViewController {
+            vc.coverages = retrievedCoverages
+            vc.coverageIds = coverageIds
         }
     }
     
     private func retrieveCoverageList() {
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
             self.messageLabel.text = "Error retrieving coverages"
+            
             return
         }
         
