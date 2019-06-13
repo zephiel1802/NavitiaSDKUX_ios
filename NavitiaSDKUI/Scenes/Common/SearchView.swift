@@ -361,7 +361,7 @@ class SearchView: UIView, UITextFieldDelegate {
             } else {
                 delegate?.fromFieldClicked?(q: textField.text)
             }
-            if UIAccessibility.isVoiceOverRunning && textField.text != "" && isClearButtonAccessible {
+            if UIAccessibility.isVoiceOverRunning && !(textField.text ?? "").isEmpty && isClearButtonAccessible {
                 fromClearButton.isHidden = false
             } else {
                 fromClearButton.isHidden = true
@@ -372,7 +372,7 @@ class SearchView: UIView, UITextFieldDelegate {
             } else {
                 delegate?.toFieldClicked?(q: textField.text)
             }
-            if UIAccessibility.isVoiceOverRunning && textField.text != "" && isClearButtonAccessible {
+            if UIAccessibility.isVoiceOverRunning && !(textField.text ?? "").isEmpty && isClearButtonAccessible {
                 toClearButton.isHidden = false
             } else {
                 toClearButton.isHidden = true
@@ -386,26 +386,27 @@ class SearchView: UIView, UITextFieldDelegate {
             
             if textField == fromTextField {
                 delegate?.fromFieldDidChange?(q: updatedText)
-                if UIAccessibility.isVoiceOverRunning && updatedText != "" && isClearButtonAccessible {
+                if UIAccessibility.isVoiceOverRunning && !updatedText.isEmpty && isClearButtonAccessible {
                     fromClearButton.isHidden = false
                 } else {
                     fromClearButton.isHidden = true
                 }
             } else if textField == toTextField {
                 delegate?.toFieldDidChange?(q: updatedText)
-                if UIAccessibility.isVoiceOverRunning && updatedText != "" && isClearButtonAccessible {
+                if UIAccessibility.isVoiceOverRunning && !updatedText.isEmpty && isClearButtonAccessible {
                     toClearButton.isHidden = false
                 } else {
                     toClearButton.isHidden = true
                 }
             } else {
+                
                 return false
             }
             
             return true
-        } else {
-            return false
         }
+        
+        return false
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
