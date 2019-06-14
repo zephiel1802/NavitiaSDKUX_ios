@@ -12,10 +12,11 @@ import NavitiaSDKUI
 class AppDelegate: UIResponder, UIApplicationDelegate {
     
     var window: UIWindow?
+    var token = ""
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
-        NavitiaSDKUI.shared.initialize(token: "")
+        NavitiaSDKUI.shared.initialize(token: token)
         NavitiaSDKUI.shared.bundle = Bundle(identifier: "org.cocoapods.NavitiaSDKUI")
         NavitiaSDKUI.shared.mainColor = UIColor(red: 64.0/255, green: 149.0/255, blue: 142.0/255, alpha: 1)
         NavitiaSDKUI.shared.originColor = UIColor(red: 0, green: 187.0/255, blue: 117.0/255, alpha: 1)

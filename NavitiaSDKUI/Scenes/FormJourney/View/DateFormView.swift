@@ -24,6 +24,7 @@ class DateFormView: UIView {
     @IBOutlet weak var arrowIconImageVIew: UIImageView!
     @IBOutlet weak var lineView: UIView!
     @IBOutlet var dateTextField: UITextField!
+    @IBOutlet weak var accessibilityButton: UIButton!
     
     private var datePicker: UIDatePicker?
     private var contraintHegiht: NSLayoutConstraint?
@@ -100,6 +101,18 @@ class DateFormView: UIView {
         initDatePicker()
         initToolbar()
         initConstraint()
+        initAccessibilityButton()
+    }
+    
+    private func initAccessibilityButton() {
+        accessibilityButton.isAccessibilityElement = true
+        accessibilityButton.accessibilityLabel = "search_by_departure".localized()
+        
+        if UIAccessibility.isVoiceOverRunning {
+            accessibilityButton.isHidden = false
+        } else {
+            accessibilityButton.isHidden = true
+        }
     }
     
     private func initTextField() {
@@ -120,6 +133,13 @@ class DateFormView: UIView {
         departureArrivalSegmentedControl.setTitle("departure".localized(), forSegmentAt: 0)
         departureArrivalSegmentedControl.setTitle("arrival".localized(), forSegmentAt: 1)
         departureArrivalSegmentedControl.tintColor = Configuration.Color.main
+        departureArrivalSegmentedControl.isAccessibilityElement = false
+        for view in departureArrivalSegmentedControl.subviews {
+            view.isAccessibilityElement = false
+            for subview in view.subviews {
+                subview.isAccessibilityElement = false
+            }
+        }
     }
     
     private func initDatePicker() {
@@ -127,6 +147,7 @@ class DateFormView: UIView {
         datePicker?.datePickerMode = .dateAndTime
         datePicker?.addTarget(self, action: #selector(DateFormView.dateChanged(datePicker:)), for: .valueChanged)
         datePicker?.backgroundColor = Configuration.Color.white
+        datePicker?.isAccessibilityElement = true
         dateTextField.inputView = datePicker
     }
     
@@ -161,4 +182,16 @@ class DateFormView: UIView {
     @objc func doneDatePicker() {
         endEditing(true)
     }
+    
+    // MARK : IBActions
+    @IBAction func didTapOnAccessibilityButton(_ sender: Any) {
+        if departureArrivalSegmentedControl.selectedSegmentIndex == 0 {
+            departureArrivalSegmentedControl.selectedSegmentIndex = 1
+            accessibilityButton.accessibilityLabel = "search_by_arrival".localized()
+        } else {
+            departureArrivalSegmentedControl.selectedSegmentIndex = 0
+            accessibilityButton.accessibilityLabel = "search_by_departure".localized()
+        }
+    }
+    
 }

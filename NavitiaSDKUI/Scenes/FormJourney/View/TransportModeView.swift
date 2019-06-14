@@ -77,7 +77,9 @@ class TransportModeView: UIView {
             let newButton = TransportModeButton(frame: CGRect(x: 0, y: 0, width: iconSize, height: iconSize))
             newButton.mode = mode
             newButton.delegate = self
-
+            newButton.isAccessibilityElement = true
+            newButton.accessibilityLabel = newButton.mode?.title
+            
             buttonsSaved.append(newButton)
             
             let newLabel = UILabel(frame: CGRect(x: 0, y: 0, width: iconSize, height: textSize))
@@ -86,6 +88,7 @@ class TransportModeView: UIView {
             newLabel.numberOfLines = 2
             newLabel.font = UIFont.systemFont(ofSize: 8)
             newLabel.textColor = (isColorInverted ? NavitiaSDKUI.shared.mainColor : Configuration.Color.white)
+            newLabel.isAccessibilityElement = false
             
             labelsSaved.append(newLabel)
         }
@@ -164,6 +167,7 @@ class TransportModeView: UIView {
         var physicalModes = [String]()
         
         for button in buttonsSaved {
+            
             if button.isSelected, let physicalMode = button.mode?.physicalMode {
                 physicalModes += physicalMode
             }

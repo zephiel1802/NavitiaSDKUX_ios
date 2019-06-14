@@ -48,6 +48,7 @@ open class ListJourneysViewController: UIViewController, ListJourneysDisplayLogi
         initNavigationBar()
         initHeader()
         initCollectionView()
+        searchView.isClearButtonAccessible = false
 
         if let journeysRequest = journeysRequest {
             interactor?.journeysRequest = journeysRequest
@@ -63,6 +64,12 @@ open class ListJourneysViewController: UIViewController, ListJourneysDisplayLogi
         initActivityView()
         journeysCollectionView.collectionViewLayout.invalidateLayout()
         reloadCollectionViewLayout()
+    }
+    
+    override open func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        searchView.fromTextField.resignFirstResponder()
+        searchView.toTextField.resignFirstResponder()
     }
     
     private func initArchitecture() {
@@ -90,7 +97,7 @@ open class ListJourneysViewController: UIViewController, ListJourneysDisplayLogi
     
     private func initHeader() {
         searchView.delegate = self
-        
+        searchView.isAccessibilityElement = false
         if let modeTransportViewSelected = interactor?.modeTransportViewSelected {
             searchView.transportModeView.updateSelectedButton(selectedButton: modeTransportViewSelected)
         }
@@ -136,11 +143,19 @@ open class ListJourneysViewController: UIViewController, ListJourneysDisplayLogi
     func displaySearch(viewModel: ListJourneys.DisplaySearch.ViewModel) {
         searchView.fromTextField.text = viewModel.fromName
         searchView.toTextField.text = viewModel.toName
+        
         searchView.dateTime = viewModel.dateTime
         searchView.lock = !NavitiaSDKUI.shared.formJourney
         searchView.dateFormView.date = viewModel.date
+        searchView.isAccessibilityElement = false
         
-        searchView.accessibilityLabel = viewModel.accessibilityHeader
+        if let text = viewModel.toName, text != "" {
+            searchView.toTextField.accessibilityLabel = String(format: "%@ %@", "arrival_with_colon".localized(), text)
+        }
+        if let text = viewModel.fromName, text != "" {
+            searchView.fromTextField.accessibilityLabel = String(format: "%@ %@", "departure_with_colon".localized(), text)
+        }
+        
         searchView.switchDepartureArrivalButton.accessibilityLabel = viewModel.accessibilitySwitchButton
     }
     

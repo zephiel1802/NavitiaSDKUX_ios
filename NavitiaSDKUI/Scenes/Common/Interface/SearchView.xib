@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -57,19 +57,29 @@
                                             <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
                                             <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no"/>
                                             <connections>
-                                                <action selector="fromFieldClicked:" destination="iN0-l3-epB" eventType="touchDown" id="rrr-fg-f5p"/>
-                                                <action selector="fromFieldDidChange:" destination="iN0-l3-epB" eventType="editingChanged" id="nG0-DN-o2B"/>
-                                                <action selector="fromPrimaryAction:" destination="iN0-l3-epB" eventType="primaryActionTriggered" id="rpg-pa-mFu"/>
+                                                <outlet property="delegate" destination="iN0-l3-epB" id="gB4-LX-5CR"/>
                                             </connections>
                                         </textField>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="k0m-5a-iUZ">
+                                            <rect key="frame" x="210" y="0.0" width="30" height="40"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="30" id="nA2-dj-VnP"/>
+                                            </constraints>
+                                            <connections>
+                                                <action selector="fromClearButtonClicked:" destination="iN0-l3-epB" eventType="touchUpInside" id="1JZ-me-WDp"/>
+                                            </connections>
+                                        </button>
                                     </subviews>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <constraints>
+                                        <constraint firstItem="k0m-5a-iUZ" firstAttribute="trailing" secondItem="YM1-j9-59T" secondAttribute="trailing" id="7E5-Bi-Sf6"/>
                                         <constraint firstAttribute="bottom" secondItem="YM1-j9-59T" secondAttribute="bottom" id="Czt-lV-v7S"/>
                                         <constraint firstAttribute="trailing" secondItem="YM1-j9-59T" secondAttribute="trailing" constant="10" id="FJa-QR-Bdd"/>
                                         <constraint firstItem="h0t-0c-CxQ" firstAttribute="top" secondItem="T0m-AS-tpC" secondAttribute="top" constant="10" id="H2O-Ua-KKf"/>
+                                        <constraint firstItem="k0m-5a-iUZ" firstAttribute="bottom" secondItem="YM1-j9-59T" secondAttribute="bottom" id="cNJ-TF-BV6"/>
                                         <constraint firstItem="YM1-j9-59T" firstAttribute="top" secondItem="T0m-AS-tpC" secondAttribute="top" id="eMg-3G-Xeb"/>
                                         <constraint firstItem="h0t-0c-CxQ" firstAttribute="leading" secondItem="T0m-AS-tpC" secondAttribute="leading" constant="10" id="npw-mr-LgW"/>
+                                        <constraint firstItem="k0m-5a-iUZ" firstAttribute="top" secondItem="YM1-j9-59T" secondAttribute="top" id="oOJ-LD-DPr"/>
                                         <constraint firstItem="YM1-j9-59T" firstAttribute="leading" secondItem="h0t-0c-CxQ" secondAttribute="trailing" constant="10" id="vPs-GL-2h5"/>
                                         <constraint firstAttribute="bottom" secondItem="h0t-0c-CxQ" secondAttribute="bottom" constant="10" id="ypE-cJ-yCx"/>
                                     </constraints>
@@ -95,20 +105,30 @@
                                             <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
                                             <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no"/>
                                             <connections>
-                                                <action selector="toFieldClicked:" destination="iN0-l3-epB" eventType="touchDown" id="LWY-0g-4jW"/>
-                                                <action selector="toFieldDidChange:" destination="iN0-l3-epB" eventType="editingChanged" id="oFY-vj-mYs"/>
-                                                <action selector="toPrimaryAction:" destination="iN0-l3-epB" eventType="primaryActionTriggered" id="02c-lz-1sh"/>
+                                                <outlet property="delegate" destination="iN0-l3-epB" id="OQa-qP-VCU"/>
                                             </connections>
                                         </textField>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KFj-vH-lWk">
+                                            <rect key="frame" x="210" y="0.0" width="30" height="40"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="30" id="fwQ-C0-20M"/>
+                                            </constraints>
+                                            <connections>
+                                                <action selector="toClearButtonClicked:" destination="iN0-l3-epB" eventType="touchUpInside" id="ved-F2-8iW"/>
+                                            </connections>
+                                        </button>
                                     </subviews>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <constraints>
                                         <constraint firstItem="1So-mo-vfI" firstAttribute="top" secondItem="rxk-jh-q0m" secondAttribute="top" constant="10" id="1pq-Vf-Ice"/>
                                         <constraint firstItem="fL7-eC-Qtp" firstAttribute="top" secondItem="rxk-jh-q0m" secondAttribute="top" id="5Nm-7G-Ilt"/>
                                         <constraint firstAttribute="bottom" secondItem="1So-mo-vfI" secondAttribute="bottom" constant="10" id="6aa-OF-31L"/>
+                                        <constraint firstItem="KFj-vH-lWk" firstAttribute="bottom" secondItem="fL7-eC-Qtp" secondAttribute="bottom" id="7dG-o9-AcY"/>
+                                        <constraint firstItem="KFj-vH-lWk" firstAttribute="top" secondItem="fL7-eC-Qtp" secondAttribute="top" id="7o8-16-bWh"/>
                                         <constraint firstItem="1So-mo-vfI" firstAttribute="leading" secondItem="rxk-jh-q0m" secondAttribute="leading" constant="10" id="9mn-4F-yaL"/>
                                         <constraint firstAttribute="trailing" secondItem="fL7-eC-Qtp" secondAttribute="trailing" constant="10" id="BDQ-Ry-iRz"/>
                                         <constraint firstItem="fL7-eC-Qtp" firstAttribute="leading" secondItem="1So-mo-vfI" secondAttribute="trailing" constant="10" id="M2X-Cl-RXK"/>
+                                        <constraint firstItem="KFj-vH-lWk" firstAttribute="trailing" secondItem="fL7-eC-Qtp" secondAttribute="trailing" id="rDy-QH-dbx"/>
                                         <constraint firstAttribute="bottom" secondItem="fL7-eC-Qtp" secondAttribute="bottom" id="wEo-kf-7nF"/>
                                     </constraints>
                                     <userDefinedRuntimeAttributes>
@@ -215,6 +235,7 @@
                 <outlet property="datePreferenceView" destination="ven-mE-n8C" id="gqi-99-iHC"/>
                 <outlet property="dateTimeLabel" destination="lfw-N9-pg4" id="1bD-yd-QJ5"/>
                 <outlet property="destinationPinImageView" destination="1So-mo-vfI" id="PP3-aM-LwC"/>
+                <outlet property="fromClearButton" destination="k0m-5a-iUZ" id="Tm2-b0-CJh"/>
                 <outlet property="fromTextField" destination="YM1-j9-59T" id="Zbo-Kk-bbC"/>
                 <outlet property="fromView" destination="T0m-AS-tpC" id="Uqy-7U-GOH"/>
                 <outlet property="originPinImageView" destination="h0t-0c-CxQ" id="F0e-No-DjV"/>
@@ -225,6 +246,7 @@
                 <outlet property="stackView" destination="bur-PA-Qoa" id="ArX-Wl-Ug2"/>
                 <outlet property="switchContraint" destination="TsX-7N-u1f" id="T5J-0l-Hw4"/>
                 <outlet property="switchDepartureArrivalButton" destination="mLF-qB-m3h" id="zDW-cD-aj2"/>
+                <outlet property="toClearButton" destination="KFj-vH-lWk" id="M18-oA-hDv"/>
                 <outlet property="toTextField" destination="fL7-eC-Qtp" id="ir4-DP-kzh"/>
                 <outlet property="toView" destination="rxk-jh-q0m" id="NFm-T5-Q6x"/>
             </connections>
