@@ -71,9 +71,7 @@ class ListJourneysInteractorTests: XCTestCase {
         let navitiaWorkerSpy = NavitiaWorkerSpy()
         sut.presenter = listJourneysPresentationLogicSpy
         sut.navitiaWorker = navitiaWorkerSpy
-        
         let journeysRequest = JourneysRequest(coverage: "fr-idf")
-        
         let request = ListJourneys.FetchJourneys.Request(journeysRequest: journeysRequest)
         sut.fetchJourneys(request: request)
         

@@ -41,7 +41,6 @@ class ListJourneysPresenterTests: XCTestCase {
         var callbackFetchedPhysicalModesJourneysCalled = false
         var displaySearchJourneysCalled = false
         var displayFetchedJourneysCalled = false
-        
         var fetchPhysicalModesViewModel: ListJourneys.FetchPhysicalModes.ViewModel!
         var displaySearchViewModel: ListJourneys.DisplaySearch.ViewModel!
         var fetchJourneysViewModel: ListJourneys.FetchJourneys.ViewModel!
@@ -60,6 +59,7 @@ class ListJourneysPresenterTests: XCTestCase {
             displayFetchedJourneysCalled = true
             self.fetchJourneysViewModel = viewModel
         }
+        
     }
     
     // MARK: - Tests
@@ -78,7 +78,6 @@ class ListJourneysPresenterTests: XCTestCase {
     func testPresentFetchedOrdersShouldFormatFetchedOrdersForDisplay() {
         let listJourneysDisplayLogicSpy = ListJourneysDisplayLogicSpy()
         sut.viewController = listJourneysDisplayLogicSpy
-
         let journeysRequest = JourneysRequest(coverage: "fr-idf")
         journeysRequest.originId = "2.3665844;48.8465337"
         journeysRequest.destinationId = "2.2979169;48.8848719"
@@ -97,7 +96,6 @@ class ListJourneysPresenterTests: XCTestCase {
         XCTAssertEqual(viewModel.displayedJourneys.count, 2)
         XCTAssertEqual(viewModel.displayedRidesharings.count, 1)
     }
-    
     
     func testPresentFetchedOrdersShouldAskViewControllerToDisplayFetchedOrders() {
         let listJourneysDisplayLogicSpy = ListJourneysDisplayLogicSpy()

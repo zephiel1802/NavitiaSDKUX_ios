@@ -75,6 +75,12 @@ class FormJourneyViewController: UIViewController, FormJourneyDisplayLogic, Jour
         }
     }
     
+    override open func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        searchView.fromTextField.resignFirstResponder()
+        searchView.toTextField.resignFirstResponder()
+    }
+    
     private func initArchitecture() {
         let viewController = self
         let interactor = FormJourneyInteractor()
@@ -118,19 +124,20 @@ class FormJourneyViewController: UIViewController, FormJourneyDisplayLogic, Jour
         dateFormView = DateFormView.instanceFromNib()
         dateFormView.frame.size = CGSize(width: stackScrollView.frame.size.width, height: 93)
         stackScrollView.addSubview(dateFormView, margin: UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10), safeArea: false)
-        
         dateFormView.dateTimeRepresentsSegmentedControl = journeysRequest?.datetimeRepresents?.rawValue
         dateFormView.date = journeysRequest?.datetime
+        dateFormView.isAccessibilityElement = false
     }
     
     private func initSearchButton() {
+        searchView.isClearButtonAccessible = false
         searchButtonView = SearchButtonView.instanceFromNib()
         searchButtonView.frame.size = CGSize(width: stackScrollView.frame.size.width, height: 37)
         searchButtonView.delegate = self
         stackScrollView.addSubview(searchButtonView, margin: UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10), safeArea: false)
     }
     
-    // MARK: - Events,;
+    // MARK: - Events
     
     @objc func backButtonPressed() {
         if isRootViewController() {
@@ -149,6 +156,15 @@ class FormJourneyViewController: UIViewController, FormJourneyDisplayLogic, Jour
         
         searchView.fromTextField.text = viewModel.fromName
         searchView.toTextField.text = viewModel.toName
+        
+        searchView.isAccessibilityElement = false
+        if let text = viewModel.toName, text != "" {
+            searchView.toTextField.accessibilityLabel = String(format: "%@ %@", "arrival_with_colon".localized(), text)
+        }
+        
+        if let text = viewModel.fromName, text != "" {
+            searchView.fromTextField.accessibilityLabel = String(format: "%@ %@", "departure_with_colon".localized(), text)
+        }
         
         dateFormView.date = interactor?.journeysRequest?.datetime
         dateFormView.dateTimeRepresentsSegmentedControl = interactor?.journeysRequest?.datetimeRepresents?.rawValue
