@@ -1,0 +1,105 @@
+#!/usr/bin/env groovy
+stage('Cleaning') {
+    node('Tatie') {
+        // clean up our workspace 
+        deleteDir()
+            // clean up tmp directory 
+            dir("${workspace}@tmp") {
+                deleteDir()
+            }
+        // clean up script directory
+        dir("${workspace}@script") {
+            deleteDir()
+        }
+    }
+}
+
+stage('Checkout code') {
+    node('Tatie') {
+        checkout changelog: false, poll: false, scm: [$class: 'GitSCM', branches: [[name: '${ref}']], browser: [$class: 'GithubWeb', repoUrl: 'https://github.com/CanalTP/NavitiaSDKUX_ios'], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: '']], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'a21b728c-1505-44dc-b4a0-d8fe8bd8acab', url: 'https://github.com/CanalTP/NavitiaSDKUX_ios.git']]]
+    }
+}
+
+stage('Setup native application environment') {
+    node('Tatie') {
+        dir('Example/NavitiaSDKUI-Example') {
+            withEnv(['PATH+LOCAL=/usr/local/bin']) {
+                sh "sed -i \'\' \'s/var token = \"\"/var token = \"${navitia_token}\"/g\' AppDelegate.swift"
+                    sh 'head -30 AppDelegate.swift'
+            }
+        }
+    }
+}
+
+stage('Building') {
+    node('Tatie') {
+        withCredentials([string(credentialsId: 'tatie-keychain-password', variable: 'PASSWORD')]) {
+            sh '''
+                security unlock-keychain -p "${PASSWORD}" $HOME/Library/Keychains/login.keychain
+                '''
+        }
+
+        //Build iOS sample application
+        //Generate iOS IPA & PLIST files
+        dir('Example') {
+            sh 'rm -rf ios && mkdir ios'
+                sh '''
+                echo "<?xml version=\\"1.0\\" encoding=\\"UTF-8\\"?>
+                <!DOCTYPE plist PUBLIC \\"-//Apple//DTD PLIST 1.0//EN\\" \\"http://www.apple.com/DTDs/PropertyList-1.0.dtd\\">
+                <plist version=\\"1.0\\">
+                <dict>
+                <key>items</key>
+                <array>
+                <dict>
+                <key>assets</key>
+                <array>
+                <dict>
+                <key>kind</key>
+                <string>software-package</string>
+                <key>url</key>
+                <string>https://store.canaltp.fr/client/sdk/${version_name}/ios/NavitiaSDKUI-Example.ipa</string>
+                </dict>
+                </array>
+                <key>metadata</key>
+                <dict>
+                <key>bundle-identifier</key>
+                <string>com.kisio.navitia.ui.sample</string>
+                <key>bundle-version</key>
+                <string>1.0.0</string>
+                <key>kind</key>
+                <string>software</string>
+                <key>title</key>
+                <string>JourneyUI-Sample</string>
+                </dict>
+                </dict>
+                </array>
+                </dict>
+                </plist>" > ios/NavitiaSDKUI-Example.plist
+                '''
+                sh 'pod install'
+                sh 'xcodebuild -workspace NavitiaSDKUI-Example.xcworkspace -scheme NavitiaSDKUI-Example -archivePath "ios/NavitiaSDKUI-Example.xcarchive" archive'
+                sh 'xcodebuild -exportArchive -archivePath "ios/NavitiaSDKUI-Example.xcarchive" -exportPath "ios/generated" -exportOptionsPlist "ios/NavitiaSDKUI-Example.plist"'
+
+                stash includes: 'ios/NavitiaSDKUI-Example.plist', name: 'ios_plist'
+                stash includes: 'ios/generated/NavitiaSDKUI-Example.ipa', name: 'ios_ipa'
+        }
+    }
+}
+
+stage('Upload to internal store') {
+    node('Tatie') {
+        unstash 'ios_plist'
+            unstash 'ios_ipa'
+
+            sshagent(credentials: ['internal-store']) {
+                retry(10) {
+                    sh '''
+                        ssh imm-int-store@imm-int-store.canaltp.prod "mkdir -p /srv/www/store.canaltp.fr/client/sdk/${version_name}/{android,ios}/ && setfacl -R -m u:www-data:rwX -m u:imm-int-store:rwX /srv/www/store.canaltp.fr/client/sdk/${version_name}/"
+                        scp ios/NavitiaSDKUI-Example.plist imm-int-store@imm-int-store.canaltp.prod:/srv/www/store.canaltp.fr/client/sdk/${version_name}/ios/NavitiaSDKUI-Example.plist
+                        scp ios/generated/NavitiaSDKUI-Example.ipa imm-int-store@imm-int-store.canaltp.prod:/srv/www/store.canaltp.fr/client/sdk/${version_name}/ios/NavitiaSDKUI-Example.ipa
+                        '''
+                }
+            }
+    }
+}
+
