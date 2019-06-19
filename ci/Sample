@@ -16,7 +16,7 @@ stage('Cleaning') {
 
 stage('Checkout code') {
     node('Tatie') {
-        checkout changelog: false, poll: false, scm: [$class: 'GitSCM', branches: [[name: '${ref_ios}']], browser: [$class: 'GithubWeb', repoUrl: 'https://github.com/CanalTP/NavitiaSDKUX_ios'], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: '']], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'a21b728c-1505-44dc-b4a0-d8fe8bd8acab', url: 'https://github.com/CanalTP/NavitiaSDKUX_ios.git']]]
+        checkout changelog: false, poll: false, scm: [$class: 'GitSCM', branches: [[name: '${ref}']], browser: [$class: 'GithubWeb', repoUrl: 'https://github.com/CanalTP/NavitiaSDKUX_ios'], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: '']], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'a21b728c-1505-44dc-b4a0-d8fe8bd8acab', url: 'https://github.com/CanalTP/NavitiaSDKUX_ios.git']]]
     }
 }
 
