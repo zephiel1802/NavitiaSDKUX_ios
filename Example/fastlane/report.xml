@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+  <testsuite name="fastlane.lanes">
+    
+    
+    
+      
+      <testcase classname="fastlane.lanes" name="00: update_fastlane" time="0.168769">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="01: default_platform" time="0.000977">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="02: increment_build_number" time="1.224373">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="03: get_certificates" time="3.553893">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="04: get_provisioning_profile" time="4.524813">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="05: update_app_identifier" time="0.107579">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="06: update_project_provisioning" time="0.035031">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="07: update_info_plist" time="0.001966">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="08: update_project_team" time="0.020702">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="09: cocoapods" time="9.697322">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="10: build_ios_app" time="211.955432">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="11: upload_to_testflight" time="852.635859">
+        
+      </testcase>
+    
+  </testsuite>
+</testsuites>
