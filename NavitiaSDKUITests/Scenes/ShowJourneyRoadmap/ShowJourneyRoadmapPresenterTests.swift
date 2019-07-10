@@ -93,7 +93,8 @@ class ShowJourneyRoadmapPresenterTests: XCTestCase {
                                                               journeyRidesharing: nil,
                                                               disruptions: seeds.disruptions,
                                                               notes: seeds.notes,
-                                                              context: context)
+                                                              context: context,
+                                                              maasTickets: "")
         
         return response
     }
