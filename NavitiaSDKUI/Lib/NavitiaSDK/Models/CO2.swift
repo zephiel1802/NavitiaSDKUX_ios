@@ -7,7 +7,8 @@
 
 import Foundation
 
-open class CO2: JSONEncodable, Mappable {
+
+open class CO2: JSONEncodable, Mappable, Codable {
 
     public var co2Emission: Amount?
 
@@ -16,6 +17,15 @@ open class CO2: JSONEncodable, Mappable {
 
     }
 
+
+    enum CodingKeys: String, CodingKey {
+        case co2Emission = "co2_emission"
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(co2Emission, forKey: .co2Emission)
+    }
 
     public func mapping(map: Map) {
         co2Emission <- map["co2_emission"]

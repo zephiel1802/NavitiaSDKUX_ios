@@ -7,7 +7,8 @@
 
 import Foundation
 
-open class Calendar: JSONEncodable, Mappable {
+
+open class Calendar: JSONEncodable, Mappable, Codable {
 
     public var activePeriods: [CalendarPeriod]?
     /** Name of the object */
@@ -23,6 +24,25 @@ open class Calendar: JSONEncodable, Mappable {
 
     }
 
+
+    enum CodingKeys: String, CodingKey {
+        case activePeriods = "active_periods"
+        case name = "name"
+        case validityPattern = "validity_pattern"
+        case exceptions = "exceptions"
+        case weekPattern = "week_pattern"
+        case id = "id"
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(activePeriods, forKey: .activePeriods)
+        try container.encode(name, forKey: .name)
+        try container.encode(validityPattern, forKey: .validityPattern)
+        try container.encode(exceptions, forKey: .exceptions)
+        try container.encode(weekPattern, forKey: .weekPattern)
+        try container.encode(id, forKey: .id)
+    }
 
     public func mapping(map: Map) {
         activePeriods <- map["active_periods"]

@@ -7,7 +7,8 @@
 
 import Foundation
 
-open class RouteSchedule: JSONEncodable, Mappable {
+
+open class RouteSchedule: JSONEncodable, Mappable, Codable {
 
     public var displayInformations: RouteDisplayInformation?
     public var table: Table?
@@ -20,6 +21,23 @@ open class RouteSchedule: JSONEncodable, Mappable {
 
     }
 
+
+    enum CodingKeys: String, CodingKey {
+        case displayInformations = "display_informations"
+        case table = "table"
+        case additionalInformations = "additional_informations"
+        case geojson = "geojson"
+        case links = "links"
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(displayInformations, forKey: .displayInformations)
+        try container.encode(table, forKey: .table)
+        try container.encode(additionalInformations, forKey: .additionalInformations)
+        try container.encode(geojson, forKey: .geojson)
+        try container.encode(links, forKey: .links)
+    }
 
     public func mapping(map: Map) {
         displayInformations <- map["display_informations"]

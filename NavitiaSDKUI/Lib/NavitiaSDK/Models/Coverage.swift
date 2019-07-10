@@ -7,7 +7,8 @@
 
 import Foundation
 
-open class Coverage: JSONEncodable, Mappable {
+
+open class Coverage: JSONEncodable, Mappable, Codable {
 
     public var status: String?
     /** Creation date of the dataset */
@@ -31,6 +32,31 @@ open class Coverage: JSONEncodable, Mappable {
 
     }
 
+
+    enum CodingKeys: String, CodingKey {
+        case status = "status"
+        case datasetCreatedAt = "dataset_created_at"
+        case name = "name"
+        case startProductionDate = "start_production_date"
+        case shape = "shape"
+        case endProductionDate = "end_production_date"
+        case error = "error"
+        case lastLoadAt = "last_load_at"
+        case id = "id"
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(status, forKey: .status)
+        try container.encode(datasetCreatedAt, forKey: .datasetCreatedAt)
+        try container.encode(name, forKey: .name)
+        try container.encode(startProductionDate, forKey: .startProductionDate)
+        try container.encode(shape, forKey: .shape)
+        try container.encode(endProductionDate, forKey: .endProductionDate)
+        try container.encode(error, forKey: .error)
+        try container.encode(lastLoadAt, forKey: .lastLoadAt)
+        try container.encode(id, forKey: .id)
+    }
 
     public func mapping(map: Map) {
         status <- map["status"]

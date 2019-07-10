@@ -7,7 +7,8 @@
 
 import Foundation
 
-open class CoverageError: JSONEncodable, Mappable {
+
+open class CoverageError: JSONEncodable, Mappable, Codable {
 
     public var code: String?
     public var value: String?
@@ -17,6 +18,17 @@ open class CoverageError: JSONEncodable, Mappable {
 
     }
 
+
+    enum CodingKeys: String, CodingKey {
+        case code = "code"
+        case value = "value"
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(code, forKey: .code)
+        try container.encode(value, forKey: .value)
+    }
 
     public func mapping(map: Map) {
         code <- map["code"]

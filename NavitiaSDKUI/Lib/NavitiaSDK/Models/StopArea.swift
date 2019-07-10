@@ -7,7 +7,8 @@
 
 import Foundation
 
-open class StopArea: JSONEncodable, Mappable {
+
+open class StopArea: JSONEncodable, Mappable, Codable {
 
     public var comment: String?
     public var codes: [Code]?
@@ -31,6 +32,39 @@ open class StopArea: JSONEncodable, Mappable {
 
     }
 
+
+    enum CodingKeys: String, CodingKey {
+        case comment = "comment"
+        case codes = "codes"
+        case name = "name"
+        case links = "links"
+        case physicalModes = "physical_modes"
+        case comments = "comments"
+        case label = "label"
+        case commercialModes = "commercial_modes"
+        case coord = "coord"
+        case administrativeRegions = "administrative_regions"
+        case timezone = "timezone"
+        case stopPoints = "stop_points"
+        case id = "id"
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(comment, forKey: .comment)
+        try container.encode(codes, forKey: .codes)
+        try container.encode(name, forKey: .name)
+        try container.encode(links, forKey: .links)
+        try container.encode(physicalModes, forKey: .physicalModes)
+        try container.encode(comments, forKey: .comments)
+        try container.encode(label, forKey: .label)
+        try container.encode(commercialModes, forKey: .commercialModes)
+        try container.encode(coord, forKey: .coord)
+        try container.encode(administrativeRegions, forKey: .administrativeRegions)
+        try container.encode(timezone, forKey: .timezone)
+        try container.encode(stopPoints, forKey: .stopPoints)
+        try container.encode(id, forKey: .id)
+    }
 
     public func mapping(map: Map) {
         comment <- map["comment"]

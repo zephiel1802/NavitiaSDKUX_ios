@@ -7,7 +7,8 @@
 
 import Foundation
 
-open class Path: JSONEncodable, Mappable {
+
+open class Path: JSONEncodable, Mappable, Codable {
 
     public var duration: Int32?
     public var direction: Int32?
@@ -19,6 +20,21 @@ open class Path: JSONEncodable, Mappable {
 
     }
 
+
+    enum CodingKeys: String, CodingKey {
+        case duration = "duration"
+        case direction = "direction"
+        case length = "length"
+        case name = "name"
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(duration, forKey: .duration)
+        try container.encode(direction, forKey: .direction)
+        try container.encode(length, forKey: .length)
+        try container.encode(name, forKey: .name)
+    }
 
     public func mapping(map: Map) {
         duration <- map["duration"]

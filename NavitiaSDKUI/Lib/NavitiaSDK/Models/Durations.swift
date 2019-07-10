@@ -7,18 +7,21 @@
 
 import Foundation
 
-open class Durations: JSONEncodable, Mappable {
 
-    /** Total duration by car of the journey (seconds) */
-    public var car: Int32?
+open class Durations: JSONEncodable, Mappable, Codable {
+
+    /** Total duration by taxi of the journey (seconds) */
+    public var taxi: Int32?
     /** Total walking duration of the journey (seconds) */
     public var walking: Int32?
-    /** Total duration of the journey (seconds) */
-    public var total: Int32?
+    /** Total duration by car of the journey (seconds) */
+    public var car: Int32?
     /** Total duration by ridesharing of the journey (seconds) */
     public var ridesharing: Int32?
     /** Total duration by bike of the journey (seconds) */
     public var bike: Int32?
+    /** Total duration of the journey (seconds) */
+    public var total: Int32?
 
     public init() {}
     required public init?(map: Map) {
@@ -26,22 +29,43 @@ open class Durations: JSONEncodable, Mappable {
     }
 
 
+    enum CodingKeys: String, CodingKey {
+        case taxi = "taxi"
+        case walking = "walking"
+        case car = "car"
+        case ridesharing = "ridesharing"
+        case bike = "bike"
+        case total = "total"
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(taxi, forKey: .taxi)
+        try container.encode(walking, forKey: .walking)
+        try container.encode(car, forKey: .car)
+        try container.encode(ridesharing, forKey: .ridesharing)
+        try container.encode(bike, forKey: .bike)
+        try container.encode(total, forKey: .total)
+    }
+
     public func mapping(map: Map) {
-        car <- map["car"]
+        taxi <- map["taxi"]
         walking <- map["walking"]
-        total <- map["total"]
+        car <- map["car"]
         ridesharing <- map["ridesharing"]
         bike <- map["bike"]
+        total <- map["total"]
     }
 
     // MARK: JSONEncodable
     open func encodeToJSON() -> Any {
         var nillableDictionary = [String:Any?]()
-        nillableDictionary["car"] = self.car?.encodeToJSON()
+        nillableDictionary["taxi"] = self.taxi?.encodeToJSON()
         nillableDictionary["walking"] = self.walking?.encodeToJSON()
-        nillableDictionary["total"] = self.total?.encodeToJSON()
+        nillableDictionary["car"] = self.car?.encodeToJSON()
         nillableDictionary["ridesharing"] = self.ridesharing?.encodeToJSON()
         nillableDictionary["bike"] = self.bike?.encodeToJSON()
+        nillableDictionary["total"] = self.total?.encodeToJSON()
 
         let dictionary: [String:Any] = APIHelper.rejectNil(nillableDictionary) ?? [:]
         return dictionary

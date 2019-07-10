@@ -7,7 +7,8 @@
 
 import Foundation
 
-open class Header: JSONEncodable, Mappable {
+
+open class Header: JSONEncodable, Mappable, Codable {
 
     public var displayInformations: VJDisplayInformation?
     public var additionalInformations: [String]?
@@ -18,6 +19,19 @@ open class Header: JSONEncodable, Mappable {
 
     }
 
+
+    enum CodingKeys: String, CodingKey {
+        case displayInformations = "display_informations"
+        case additionalInformations = "additional_informations"
+        case links = "links"
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(displayInformations, forKey: .displayInformations)
+        try container.encode(additionalInformations, forKey: .additionalInformations)
+        try container.encode(links, forKey: .links)
+    }
 
     public func mapping(map: Map) {
         displayInformations <- map["display_informations"]

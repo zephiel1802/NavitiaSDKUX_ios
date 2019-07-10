@@ -7,9 +7,10 @@
 
 import Foundation
 
-open class PtObject: JSONEncodable, Mappable {
 
-    public enum EmbeddedType: String { 
+open class PtObject: JSONEncodable, Mappable, Codable {
+
+    public enum EmbeddedType: String, Codable { 
         case line = "line"
         case journeyPattern = "journey_pattern"
         case vehicleJourney = "vehicle_journey"
@@ -52,6 +53,35 @@ open class PtObject: JSONEncodable, Mappable {
 
     }
 
+
+    enum CodingKeys: String, CodingKey {
+        case embeddedType = "embedded_type"
+        case stopPoint = "stop_point"
+        case name = "name"
+        case route = "route"
+        case stopArea = "stop_area"
+        case commercialMode = "commercial_mode"
+        case id = "id"
+        case line = "line"
+        case quality = "quality"
+        case trip = "trip"
+        case network = "network"
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(embeddedType, forKey: .embeddedType)
+        try container.encode(stopPoint, forKey: .stopPoint)
+        try container.encode(name, forKey: .name)
+        try container.encode(route, forKey: .route)
+        try container.encode(stopArea, forKey: .stopArea)
+        try container.encode(commercialMode, forKey: .commercialMode)
+        try container.encode(id, forKey: .id)
+        try container.encode(line, forKey: .line)
+        try container.encode(quality, forKey: .quality)
+        try container.encode(trip, forKey: .trip)
+        try container.encode(network, forKey: .network)
+    }
 
     public func mapping(map: Map) {
         embeddedType <- map["embedded_type"]

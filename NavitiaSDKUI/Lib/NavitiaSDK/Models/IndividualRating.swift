@@ -7,7 +7,8 @@
 
 import Foundation
 
-open class IndividualRating: JSONEncodable, Mappable {
+
+open class IndividualRating: JSONEncodable, Mappable, Codable {
 
     public var count: Int32?
     public var scaleMin: Float?
@@ -19,6 +20,21 @@ open class IndividualRating: JSONEncodable, Mappable {
 
     }
 
+
+    enum CodingKeys: String, CodingKey {
+        case count = "count"
+        case scaleMin = "scale_min"
+        case scaleMax = "scale_max"
+        case value = "value"
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(count, forKey: .count)
+        try container.encode(scaleMin, forKey: .scaleMin)
+        try container.encode(scaleMax, forKey: .scaleMax)
+        try container.encode(value, forKey: .value)
+    }
 
     public func mapping(map: Map) {
         count <- map["count"]

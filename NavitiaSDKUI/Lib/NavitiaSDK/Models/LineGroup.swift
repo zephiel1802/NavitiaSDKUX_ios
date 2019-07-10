@@ -7,7 +7,8 @@
 
 import Foundation
 
-open class LineGroup: JSONEncodable, Mappable {
+
+open class LineGroup: JSONEncodable, Mappable, Codable {
 
     /** Name of the object */
     public var name: String?
@@ -22,6 +23,23 @@ open class LineGroup: JSONEncodable, Mappable {
 
     }
 
+
+    enum CodingKeys: String, CodingKey {
+        case name = "name"
+        case lines = "lines"
+        case mainLine = "main_line"
+        case comments = "comments"
+        case id = "id"
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(name, forKey: .name)
+        try container.encode(lines, forKey: .lines)
+        try container.encode(mainLine, forKey: .mainLine)
+        try container.encode(comments, forKey: .comments)
+        try container.encode(id, forKey: .id)
+    }
 
     public func mapping(map: Map) {
         name <- map["name"]

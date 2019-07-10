@@ -7,9 +7,10 @@
 
 import Foundation
 
-open class Disruption: JSONEncodable, Mappable {
 
-    public enum Status: String { 
+open class Disruption: JSONEncodable, Mappable, Codable {
+
+    public enum Status: String, Codable { 
         case past = "past"
         case active = "active"
         case future = "future"
@@ -36,6 +37,45 @@ open class Disruption: JSONEncodable, Mappable {
 
     }
 
+
+    enum CodingKeys: String, CodingKey {
+        case status = "status"
+        case category = "category"
+        case severity = "severity"
+        case tags = "tags"
+        case messages = "messages"
+        case applicationPeriods = "application_periods"
+        case impactId = "impact_id"
+        case disruptionId = "disruption_id"
+        case updatedAt = "updated_at"
+        case uri = "uri"
+        case impactedObjects = "impacted_objects"
+        case id = "id"
+        case disruptionUri = "disruption_uri"
+        case contributor = "contributor"
+        case cause = "cause"
+        case properties = "properties"
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(status, forKey: .status)
+        try container.encode(category, forKey: .category)
+        try container.encode(severity, forKey: .severity)
+        try container.encode(tags, forKey: .tags)
+        try container.encode(messages, forKey: .messages)
+        try container.encode(applicationPeriods, forKey: .applicationPeriods)
+        try container.encode(impactId, forKey: .impactId)
+        try container.encode(disruptionId, forKey: .disruptionId)
+        try container.encode(updatedAt, forKey: .updatedAt)
+        try container.encode(uri, forKey: .uri)
+        try container.encode(impactedObjects, forKey: .impactedObjects)
+        try container.encode(id, forKey: .id)
+        try container.encode(disruptionUri, forKey: .disruptionUri)
+        try container.encode(contributor, forKey: .contributor)
+        try container.encode(cause, forKey: .cause)
+        try container.encode(properties, forKey: .properties)
+    }
 
     public func mapping(map: Map) {
         status <- map["status"]

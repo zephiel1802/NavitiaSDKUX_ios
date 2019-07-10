@@ -7,7 +7,8 @@
 
 import Foundation
 
-open class Journeys: JSONEncodable, Mappable {
+
+open class Journeys: JSONEncodable, Mappable, Codable {
 
     public var tickets: [Ticket]?
     public var links: [LinkSchema]?
@@ -24,6 +25,31 @@ open class Journeys: JSONEncodable, Mappable {
 
     }
 
+
+    enum CodingKeys: String, CodingKey {
+        case tickets = "tickets"
+        case links = "links"
+        case journeys = "journeys"
+        case disruptions = "disruptions"
+        case notes = "notes"
+        case feedPublishers = "feed_publishers"
+        case context = "context"
+        case error = "error"
+        case exceptions = "exceptions"
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(tickets, forKey: .tickets)
+        try container.encode(links, forKey: .links)
+        try container.encode(journeys, forKey: .journeys)
+        try container.encode(disruptions, forKey: .disruptions)
+        try container.encode(notes, forKey: .notes)
+        try container.encode(feedPublishers, forKey: .feedPublishers)
+        try container.encode(context, forKey: .context)
+        try container.encode(error, forKey: .error)
+        try container.encode(exceptions, forKey: .exceptions)
+    }
 
     public func mapping(map: Map) {
         tickets <- map["tickets"]

@@ -7,9 +7,11 @@
 
 import Foundation
 
-open class LineReports: JSONEncodable, Mappable {
+
+open class LineReports: JSONEncodable, Mappable, Codable {
 
     public var pagination: Pagination?
+    public var links: [LinkSchema]?
     public var warnings: [BetaEndpoints]?
     public var disruptions: [Disruption]?
     public var notes: [Note]?
@@ -24,8 +26,34 @@ open class LineReports: JSONEncodable, Mappable {
     }
 
 
+    enum CodingKeys: String, CodingKey {
+        case pagination = "pagination"
+        case links = "links"
+        case warnings = "warnings"
+        case disruptions = "disruptions"
+        case notes = "notes"
+        case lineReports = "line_reports"
+        case feedPublishers = "feed_publishers"
+        case context = "context"
+        case error = "error"
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(pagination, forKey: .pagination)
+        try container.encode(links, forKey: .links)
+        try container.encode(warnings, forKey: .warnings)
+        try container.encode(disruptions, forKey: .disruptions)
+        try container.encode(notes, forKey: .notes)
+        try container.encode(lineReports, forKey: .lineReports)
+        try container.encode(feedPublishers, forKey: .feedPublishers)
+        try container.encode(context, forKey: .context)
+        try container.encode(error, forKey: .error)
+    }
+
     public func mapping(map: Map) {
         pagination <- map["pagination"]
+        links <- map["links"]
         warnings <- map["warnings"]
         disruptions <- map["disruptions"]
         notes <- map["notes"]
@@ -39,6 +67,7 @@ open class LineReports: JSONEncodable, Mappable {
     open func encodeToJSON() -> Any {
         var nillableDictionary = [String:Any?]()
         nillableDictionary["pagination"] = self.pagination?.encodeToJSON()
+        nillableDictionary["links"] = self.links?.encodeToJSON()
         nillableDictionary["warnings"] = self.warnings?.encodeToJSON()
         nillableDictionary["disruptions"] = self.disruptions?.encodeToJSON()
         nillableDictionary["notes"] = self.notes?.encodeToJSON()

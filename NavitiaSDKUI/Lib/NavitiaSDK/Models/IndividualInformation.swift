@@ -7,9 +7,10 @@
 
 import Foundation
 
-open class IndividualInformation: JSONEncodable, Mappable {
 
-    public enum Gender: String { 
+open class IndividualInformation: JSONEncodable, Mappable, Codable {
+
+    public enum Gender: String, Codable { 
         case female = "female"
         case male = "male"
     }
@@ -23,6 +24,21 @@ open class IndividualInformation: JSONEncodable, Mappable {
 
     }
 
+
+    enum CodingKeys: String, CodingKey {
+        case alias = "alias"
+        case image = "image"
+        case gender = "gender"
+        case rating = "rating"
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(alias, forKey: .alias)
+        try container.encode(image, forKey: .image)
+        try container.encode(gender, forKey: .gender)
+        try container.encode(rating, forKey: .rating)
+    }
 
     public func mapping(map: Map) {
         alias <- map["alias"]

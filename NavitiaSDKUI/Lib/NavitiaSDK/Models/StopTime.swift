@@ -7,7 +7,8 @@
 
 import Foundation
 
-open class StopTime: JSONEncodable, Mappable {
+
+open class StopTime: JSONEncodable, Mappable, Codable {
 
     public var stopPoint: StopPoint?
     public var utcArrivalTime: String?
@@ -22,6 +23,27 @@ open class StopTime: JSONEncodable, Mappable {
 
     }
 
+
+    enum CodingKeys: String, CodingKey {
+        case stopPoint = "stop_point"
+        case utcArrivalTime = "utc_arrival_time"
+        case utcDepartureTime = "utc_departure_time"
+        case headsign = "headsign"
+        case arrivalTime = "arrival_time"
+        case journeyPatternPoint = "journey_pattern_point"
+        case departureTime = "departure_time"
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(stopPoint, forKey: .stopPoint)
+        try container.encode(utcArrivalTime, forKey: .utcArrivalTime)
+        try container.encode(utcDepartureTime, forKey: .utcDepartureTime)
+        try container.encode(headsign, forKey: .headsign)
+        try container.encode(arrivalTime, forKey: .arrivalTime)
+        try container.encode(journeyPatternPoint, forKey: .journeyPatternPoint)
+        try container.encode(departureTime, forKey: .departureTime)
+    }
 
     public func mapping(map: Map) {
         stopPoint <- map["stop_point"]

@@ -7,7 +7,8 @@
 
 import Foundation
 
-open class CarPark: JSONEncodable, Mappable {
+
+open class CarPark: JSONEncodable, Mappable, Codable {
 
     public var available: Int32?
     public var totalPlaces: Int32?
@@ -20,6 +21,23 @@ open class CarPark: JSONEncodable, Mappable {
 
     }
 
+
+    enum CodingKeys: String, CodingKey {
+        case available = "available"
+        case totalPlaces = "total_places"
+        case occupiedPRM = "occupied_PRM"
+        case occupied = "occupied"
+        case availablePRM = "available_PRM"
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(available, forKey: .available)
+        try container.encode(totalPlaces, forKey: .totalPlaces)
+        try container.encode(occupiedPRM, forKey: .occupiedPRM)
+        try container.encode(occupied, forKey: .occupied)
+        try container.encode(availablePRM, forKey: .availablePRM)
+    }
 
     public func mapping(map: Map) {
         available <- map["available"]

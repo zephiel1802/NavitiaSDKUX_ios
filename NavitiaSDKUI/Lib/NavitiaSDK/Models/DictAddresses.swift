@@ -7,7 +7,8 @@
 
 import Foundation
 
-open class DictAddresses: JSONEncodable, Mappable {
+
+open class DictAddresses: JSONEncodable, Mappable, Codable {
 
     public var regions: [String]?
     public var message: String?
@@ -19,6 +20,21 @@ open class DictAddresses: JSONEncodable, Mappable {
 
     }
 
+
+    enum CodingKeys: String, CodingKey {
+        case regions = "regions"
+        case message = "message"
+        case context = "context"
+        case address = "address"
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(regions, forKey: .regions)
+        try container.encode(message, forKey: .message)
+        try container.encode(context, forKey: .context)
+        try container.encode(address, forKey: .address)
+    }
 
     public func mapping(map: Map) {
         regions <- map["regions"]

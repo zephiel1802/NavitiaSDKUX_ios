@@ -7,15 +7,18 @@
 
 import Foundation
 
-open class Ticket: JSONEncodable, Mappable {
+
+open class Ticket: JSONEncodable, Mappable, Codable {
 
     public var comment: String?
-    /** Name of the object */
+    /** Name of the ticket */
     public var name: String?
     public var links: [LinkSchema]?
     public var cost: Cost?
+    /** Product identifier of the ticket */
+    public var sourceId: String?
     public var found: Bool?
-    /** Identifier of the object */
+    /** Identifier of the ticket */
     public var id: String?
 
     public init() {}
@@ -24,11 +27,33 @@ open class Ticket: JSONEncodable, Mappable {
     }
 
 
+    enum CodingKeys: String, CodingKey {
+        case comment = "comment"
+        case name = "name"
+        case links = "links"
+        case cost = "cost"
+        case sourceId = "source_id"
+        case found = "found"
+        case id = "id"
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(comment, forKey: .comment)
+        try container.encode(name, forKey: .name)
+        try container.encode(links, forKey: .links)
+        try container.encode(cost, forKey: .cost)
+        try container.encode(sourceId, forKey: .sourceId)
+        try container.encode(found, forKey: .found)
+        try container.encode(id, forKey: .id)
+    }
+
     public func mapping(map: Map) {
         comment <- map["comment"]
         name <- map["name"]
         links <- map["links"]
         cost <- map["cost"]
+        sourceId <- map["source_id"]
         found <- map["found"]
         id <- map["id"]
     }
@@ -40,6 +65,7 @@ open class Ticket: JSONEncodable, Mappable {
         nillableDictionary["name"] = self.name
         nillableDictionary["links"] = self.links?.encodeToJSON()
         nillableDictionary["cost"] = self.cost?.encodeToJSON()
+        nillableDictionary["source_id"] = self.sourceId
         nillableDictionary["found"] = self.found
         nillableDictionary["id"] = self.id
 

@@ -7,7 +7,8 @@
 
 import Foundation
 
-open class Coord: JSONEncodable, Mappable {
+
+open class Coord: JSONEncodable, Mappable, Codable {
 
     public var lat: String?
     public var lon: String?
@@ -17,6 +18,17 @@ open class Coord: JSONEncodable, Mappable {
 
     }
 
+
+    enum CodingKeys: String, CodingKey {
+        case lat = "lat"
+        case lon = "lon"
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(lat, forKey: .lat)
+        try container.encode(lon, forKey: .lon)
+    }
 
     public func mapping(map: Map) {
         lat <- map["lat"]

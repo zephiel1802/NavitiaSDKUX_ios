@@ -7,7 +7,8 @@
 
 import Foundation
 
-open class JourneyDebug: JSONEncodable, Mappable {
+
+open class JourneyDebug: JSONEncodable, Mappable, Codable {
 
     /** Number of stay-in */
     public var nbVjExtentions: Int32?
@@ -26,6 +27,25 @@ open class JourneyDebug: JSONEncodable, Mappable {
 
     }
 
+
+    enum CodingKeys: String, CodingKey {
+        case nbVjExtentions = "nb_vj_extentions"
+        case nbSections = "nb_sections"
+        case internalId = "internal_id"
+        case streetnetworkDuration = "streetnetwork_duration"
+        case transferDuration = "transfer_duration"
+        case minWaitingDuration = "min_waiting_duration"
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(nbVjExtentions, forKey: .nbVjExtentions)
+        try container.encode(nbSections, forKey: .nbSections)
+        try container.encode(internalId, forKey: .internalId)
+        try container.encode(streetnetworkDuration, forKey: .streetnetworkDuration)
+        try container.encode(transferDuration, forKey: .transferDuration)
+        try container.encode(minWaitingDuration, forKey: .minWaitingDuration)
+    }
 
     public func mapping(map: Map) {
         nbVjExtentions <- map["nb_vj_extentions"]

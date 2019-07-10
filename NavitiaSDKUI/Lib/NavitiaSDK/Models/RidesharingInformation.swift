@@ -7,7 +7,8 @@
 
 import Foundation
 
-open class RidesharingInformation: JSONEncodable, Mappable {
+
+open class RidesharingInformation: JSONEncodable, Mappable, Codable {
 
     public var _operator: String?
     public var driver: IndividualInformation?
@@ -19,6 +20,21 @@ open class RidesharingInformation: JSONEncodable, Mappable {
 
     }
 
+
+    enum CodingKeys: String, CodingKey {
+        case _operator = "operator"
+        case driver = "driver"
+        case network = "network"
+        case seats = "seats"
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(_operator, forKey: ._operator)
+        try container.encode(driver, forKey: .driver)
+        try container.encode(network, forKey: .network)
+        try container.encode(seats, forKey: .seats)
+    }
 
     public func mapping(map: Map) {
         _operator <- map["operator"]

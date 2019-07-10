@@ -7,7 +7,8 @@
 
 import Foundation
 
-open class SeatsDescription: JSONEncodable, Mappable {
+
+open class SeatsDescription: JSONEncodable, Mappable, Codable {
 
     public var available: Int32?
     public var total: Int32?
@@ -17,6 +18,17 @@ open class SeatsDescription: JSONEncodable, Mappable {
 
     }
 
+
+    enum CodingKeys: String, CodingKey {
+        case available = "available"
+        case total = "total"
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(available, forKey: .available)
+        try container.encode(total, forKey: .total)
+    }
 
     public func mapping(map: Map) {
         available <- map["available"]

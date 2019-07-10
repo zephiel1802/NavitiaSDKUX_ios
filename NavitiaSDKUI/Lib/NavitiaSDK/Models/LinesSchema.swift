@@ -7,7 +7,8 @@
 
 import Foundation
 
-open class LinesSchema: JSONEncodable, Mappable {
+
+open class LinesSchema: JSONEncodable, Mappable, Codable {
 
     public var duration: [Int32]?
     public var cellLon: CellLonSchema?
@@ -17,6 +18,17 @@ open class LinesSchema: JSONEncodable, Mappable {
 
     }
 
+
+    enum CodingKeys: String, CodingKey {
+        case duration = "duration"
+        case cellLon = "cell_lon"
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(duration, forKey: .duration)
+        try container.encode(cellLon, forKey: .cellLon)
+    }
 
     public func mapping(map: Map) {
         duration <- map["duration"]

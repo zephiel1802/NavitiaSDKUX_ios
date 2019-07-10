@@ -7,7 +7,8 @@
 
 import Foundation
 
-open class HeatMap: JSONEncodable, Mappable {
+
+open class HeatMap: JSONEncodable, Mappable, Codable {
 
     public var to: Place?
     public var requestedDateTime: String?
@@ -19,6 +20,21 @@ open class HeatMap: JSONEncodable, Mappable {
 
     }
 
+
+    enum CodingKeys: String, CodingKey {
+        case to = "to"
+        case requestedDateTime = "requested_date_time"
+        case from = "from"
+        case heatMatrix = "heat_matrix"
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(to, forKey: .to)
+        try container.encode(requestedDateTime, forKey: .requestedDateTime)
+        try container.encode(from, forKey: .from)
+        try container.encode(heatMatrix, forKey: .heatMatrix)
+    }
 
     public func mapping(map: Map) {
         to <- map["to"]

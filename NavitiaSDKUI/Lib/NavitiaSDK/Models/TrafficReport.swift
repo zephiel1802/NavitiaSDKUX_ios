@@ -7,7 +7,8 @@
 
 import Foundation
 
-open class TrafficReport: JSONEncodable, Mappable {
+
+open class TrafficReport: JSONEncodable, Mappable, Codable {
 
     public var vehicleJourneys: [VehicleJourney]?
     public var lines: [Line]?
@@ -19,6 +20,21 @@ open class TrafficReport: JSONEncodable, Mappable {
 
     }
 
+
+    enum CodingKeys: String, CodingKey {
+        case vehicleJourneys = "vehicle_journeys"
+        case lines = "lines"
+        case network = "network"
+        case stopAreas = "stop_areas"
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(vehicleJourneys, forKey: .vehicleJourneys)
+        try container.encode(lines, forKey: .lines)
+        try container.encode(network, forKey: .network)
+        try container.encode(stopAreas, forKey: .stopAreas)
+    }
 
     public func mapping(map: Map) {
         vehicleJourneys <- map["vehicle_journeys"]

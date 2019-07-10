@@ -7,9 +7,10 @@
 
 import Foundation
 
-open class Severity: JSONEncodable, Mappable {
 
-    public enum Effect: String { 
+open class Severity: JSONEncodable, Mappable, Codable {
+
+    public enum Effect: String, Codable { 
         case noService = "NO_SERVICE"
         case reducedService = "REDUCED_SERVICE"
         case significantDelays = "SIGNIFICANT_DELAYS"
@@ -30,6 +31,21 @@ open class Severity: JSONEncodable, Mappable {
 
     }
 
+
+    enum CodingKeys: String, CodingKey {
+        case color = "color"
+        case priority = "priority"
+        case name = "name"
+        case effect = "effect"
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(color, forKey: .color)
+        try container.encode(priority, forKey: .priority)
+        try container.encode(name, forKey: .name)
+        try container.encode(effect, forKey: .effect)
+    }
 
     public func mapping(map: Map) {
         color <- map["color"]

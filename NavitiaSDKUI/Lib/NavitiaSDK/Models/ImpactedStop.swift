@@ -7,9 +7,10 @@
 
 import Foundation
 
-open class ImpactedStop: JSONEncodable, Mappable {
 
-    public enum StopTimeEffect: String { 
+open class ImpactedStop: JSONEncodable, Mappable, Codable {
+
+    public enum StopTimeEffect: String, Codable { 
         case delayed = "delayed"
         case added = "added"
         case deleted = "deleted"
@@ -19,6 +20,7 @@ open class ImpactedStop: JSONEncodable, Mappable {
     public var stopPoint: StopPoint?
     public var stopTimeEffect: StopTimeEffect?
     public var departureStatus: String?
+    public var isDetour: Bool?
     public var amendedDepartureTime: String?
     public var baseArrivalTime: String?
     public var cause: String?
@@ -31,11 +33,39 @@ open class ImpactedStop: JSONEncodable, Mappable {
     }
 
 
+    enum CodingKeys: String, CodingKey {
+        case amendedArrivalTime = "amended_arrival_time"
+        case stopPoint = "stop_point"
+        case stopTimeEffect = "stop_time_effect"
+        case departureStatus = "departure_status"
+        case isDetour = "is_detour"
+        case amendedDepartureTime = "amended_departure_time"
+        case baseArrivalTime = "base_arrival_time"
+        case cause = "cause"
+        case baseDepartureTime = "base_departure_time"
+        case arrivalStatus = "arrival_status"
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(amendedArrivalTime, forKey: .amendedArrivalTime)
+        try container.encode(stopPoint, forKey: .stopPoint)
+        try container.encode(stopTimeEffect, forKey: .stopTimeEffect)
+        try container.encode(departureStatus, forKey: .departureStatus)
+        try container.encode(isDetour, forKey: .isDetour)
+        try container.encode(amendedDepartureTime, forKey: .amendedDepartureTime)
+        try container.encode(baseArrivalTime, forKey: .baseArrivalTime)
+        try container.encode(cause, forKey: .cause)
+        try container.encode(baseDepartureTime, forKey: .baseDepartureTime)
+        try container.encode(arrivalStatus, forKey: .arrivalStatus)
+    }
+
     public func mapping(map: Map) {
         amendedArrivalTime <- map["amended_arrival_time"]
         stopPoint <- map["stop_point"]
         stopTimeEffect <- map["stop_time_effect"]
         departureStatus <- map["departure_status"]
+        isDetour <- map["is_detour"]
         amendedDepartureTime <- map["amended_departure_time"]
         baseArrivalTime <- map["base_arrival_time"]
         cause <- map["cause"]
@@ -50,6 +80,7 @@ open class ImpactedStop: JSONEncodable, Mappable {
         nillableDictionary["stop_point"] = self.stopPoint?.encodeToJSON()
         nillableDictionary["stop_time_effect"] = self.stopTimeEffect?.rawValue
         nillableDictionary["departure_status"] = self.departureStatus
+        nillableDictionary["is_detour"] = self.isDetour
         nillableDictionary["amended_departure_time"] = self.amendedDepartureTime
         nillableDictionary["base_arrival_time"] = self.baseArrivalTime
         nillableDictionary["cause"] = self.cause

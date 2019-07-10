@@ -7,7 +7,8 @@
 
 import Foundation
 
-open class Exception: JSONEncodable, Mappable {
+
+open class Exception: JSONEncodable, Mappable, Codable {
 
     public var date: String?
     public var type: String?
@@ -18,6 +19,19 @@ open class Exception: JSONEncodable, Mappable {
 
     }
 
+
+    enum CodingKeys: String, CodingKey {
+        case date = "date"
+        case type = "type"
+        case id = "id"
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(date, forKey: .date)
+        try container.encode(type, forKey: .type)
+        try container.encode(id, forKey: .id)
+    }
 
     public func mapping(map: Map) {
         date <- map["date"]

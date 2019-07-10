@@ -7,7 +7,8 @@
 
 import Foundation
 
-open class Row: JSONEncodable, Mappable {
+
+open class Row: JSONEncodable, Mappable, Codable {
 
     public var stopPoint: StopPoint?
     public var dateTimes: [DateTimeType]?
@@ -17,6 +18,17 @@ open class Row: JSONEncodable, Mappable {
 
     }
 
+
+    enum CodingKeys: String, CodingKey {
+        case stopPoint = "stop_point"
+        case dateTimes = "date_times"
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(stopPoint, forKey: .stopPoint)
+        try container.encode(dateTimes, forKey: .dateTimes)
+    }
 
     public func mapping(map: Map) {
         stopPoint <- map["stop_point"]
