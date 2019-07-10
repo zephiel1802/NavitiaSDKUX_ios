@@ -48,6 +48,7 @@ open class ListJourneysViewController: UIViewController, ListJourneysDisplayLogi
         initNavigationBar()
         initHeader()
         initCollectionView()
+        searchView.isClearButtonAccessible = false
 
         if let journeysRequest = journeysRequest {
             interactor?.journeysRequest = journeysRequest
@@ -63,6 +64,12 @@ open class ListJourneysViewController: UIViewController, ListJourneysDisplayLogi
         initActivityView()
         journeysCollectionView.collectionViewLayout.invalidateLayout()
         reloadCollectionViewLayout()
+    }
+    
+    override open func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        searchView.fromTextField.resignFirstResponder()
+        searchView.toTextField.resignFirstResponder()
     }
     
     private func initArchitecture() {
@@ -90,7 +97,7 @@ open class ListJourneysViewController: UIViewController, ListJourneysDisplayLogi
     
     private func initHeader() {
         searchView.delegate = self
-        
+        searchView.isAccessibilityElement = false
         if let modeTransportViewSelected = interactor?.modeTransportViewSelected {
             searchView.transportModeView.updateSelectedButton(selectedButton: modeTransportViewSelected)
         }
@@ -136,11 +143,19 @@ open class ListJourneysViewController: UIViewController, ListJourneysDisplayLogi
     func displaySearch(viewModel: ListJourneys.DisplaySearch.ViewModel) {
         searchView.fromTextField.text = viewModel.fromName
         searchView.toTextField.text = viewModel.toName
+        
         searchView.dateTime = viewModel.dateTime
         searchView.lock = !NavitiaSDKUI.shared.formJourney
         searchView.dateFormView.date = viewModel.date
+        searchView.isAccessibilityElement = false
         
-        searchView.accessibilityLabel = viewModel.accessibilityHeader
+        if let text = viewModel.toName, text != "" {
+            searchView.toTextField.accessibilityLabel = String(format: "%@ %@", "arrival_with_colon".localized(), text)
+        }
+        if let text = viewModel.fromName, text != "" {
+            searchView.fromTextField.accessibilityLabel = String(format: "%@ %@", "departure_with_colon".localized(), text)
+        }
+        
         searchView.switchDepartureArrivalButton.accessibilityLabel = viewModel.accessibilitySwitchButton
     }
     
@@ -491,21 +506,26 @@ extension ListJourneysViewController: SearchButtonViewDelegate {
                 interactor?.journeysRequest?.allowedPhysicalModes = physicalModes
             }
             
-            if let modes = searchView.transportModeView?.getModes() {
-                var firstSectionModes = [CoverageRegionJourneysRequestBuilder.FirstSectionMode]()
-                var lastSectionModes = [CoverageRegionJourneysRequestBuilder.LastSectionMode]()
-                
-                for mode in modes {
+            if let firstSectionModes = searchView.transportModeView?.getFirstSectionMode() {
+                var modes = [CoverageRegionJourneysRequestBuilder.FirstSectionMode]()
+                for mode in firstSectionModes {
                     if let sectionMode = CoverageRegionJourneysRequestBuilder.FirstSectionMode(rawValue:mode) {
-                        firstSectionModes.append(sectionMode)
-                    }
-                    if let sectionMode = CoverageRegionJourneysRequestBuilder.LastSectionMode(rawValue:mode) {
-                        lastSectionModes.append(sectionMode)
+                        modes.append(sectionMode)
                     }
                 }
                 
-                interactor?.journeysRequest?.firstSectionModes = firstSectionModes
-                interactor?.journeysRequest?.lastSectionModes = lastSectionModes
+                interactor?.journeysRequest?.firstSectionModes = modes
+            }
+            
+            if let lastSectionModes = searchView.transportModeView?.getLastSectionMode() {
+                var modes = [CoverageRegionJourneysRequestBuilder.LastSectionMode]()
+                for mode in lastSectionModes {
+                    if let sectionMode = CoverageRegionJourneysRequestBuilder.LastSectionMode(rawValue:mode) {
+                        modes.append(sectionMode)
+                    }
+                }
+                
+                interactor?.journeysRequest?.lastSectionModes = modes
             }
             
             if let realTimeModes = searchView.transportModeView?.getRealTimeModes() {

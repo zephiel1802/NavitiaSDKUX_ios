@@ -29,9 +29,12 @@ class ListJourneysViewControllerTests: XCTestCase {
     
     func setupListJourneysViewController() {
         storyboard = UIStoryboard(name: "Journey", bundle: NavitiaSDKUI.shared.bundle)
-        sut = storyboard.instantiateInitialViewController() as! ListJourneysViewController
+        sut = storyboard.instantiateInitialViewController() as? ListJourneysViewController
+        let journeysRequest = JourneysRequest(coverage: "fr-idf")
+        journeysRequest.originId = "2.3665844;48.8465337"
+        journeysRequest.destinationId = "2.2979169;48.8848719"
         
-        sut.journeysRequest = JourneysRequest(originId: "2.3665844;48.8465337", destinationId: "2.2979169;48.8848719")
+        sut.journeysRequest = journeysRequest
         
         _ = sut.view
     }
@@ -50,7 +53,7 @@ class ListJourneysViewControllerTests: XCTestCase {
     }
     
     func testColorHeader() {
-        XCTAssertEqual(sut.fromPinLabel.textColor, .blue)
-        XCTAssertEqual(sut.toPinLabel.textColor, .brown)
+        XCTAssertEqual(sut.searchView.originPinImageView.tintColor, .blue)
+        XCTAssertEqual(sut.searchView.destinationPinImageView.tintColor, .brown)
     }
 }

@@ -188,6 +188,7 @@ class PublicTransportStepView: UIView {
         didSet {
             guard let network = network else {
                 networkContainerView.isHidden = true
+                networkLabel.attributedText = NSMutableAttributedString()
                 
                 return
             }

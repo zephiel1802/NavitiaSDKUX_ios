@@ -38,14 +38,28 @@ class ListJourneysPresenterTests: XCTestCase {
     // MARK: - Test doubles
     
     class ListJourneysDisplayLogicSpy: ListJourneysDisplayLogic {
-        
+        var callbackFetchedPhysicalModesJourneysCalled = false
+        var displaySearchJourneysCalled = false
         var displayFetchedJourneysCalled = false
-        var viewModel: ListJourneys.FetchJourneys.ViewModel!
+        var fetchPhysicalModesViewModel: ListJourneys.FetchPhysicalModes.ViewModel!
+        var displaySearchViewModel: ListJourneys.DisplaySearch.ViewModel!
+        var fetchJourneysViewModel: ListJourneys.FetchJourneys.ViewModel!
+        
+        func callbackFetchedPhysicalModes(viewModel: ListJourneys.FetchPhysicalModes.ViewModel) {
+            callbackFetchedPhysicalModesJourneysCalled = true
+            self.fetchPhysicalModesViewModel = viewModel
+        }
+        
+        func displaySearch(viewModel: ListJourneys.DisplaySearch.ViewModel) {
+            displaySearchJourneysCalled = true
+            self.displaySearchViewModel = viewModel
+        }
         
         func displayFetchedJourneys(viewModel: ListJourneys.FetchJourneys.ViewModel) {
             displayFetchedJourneysCalled = true
-            self.viewModel = viewModel
+            self.fetchJourneysViewModel = viewModel
         }
+        
     }
     
     // MARK: - Tests
@@ -54,22 +68,26 @@ class ListJourneysPresenterTests: XCTestCase {
         let listJourneysDisplayLogicSpy = ListJourneysDisplayLogicSpy()
         sut.viewController = listJourneysDisplayLogicSpy
         
-        sut.presentFetchedSearchInformation(journeysRequest: JourneysRequest(originId: "2.3665844;48.8465337", destinationId: "2.2979169;48.8848719"))
-        let viewModel = listJourneysDisplayLogicSpy.viewModel
-        XCTAssertEqual(viewModel?.headerInformations.destination,NSMutableAttributedString().bold("2.2979169;48.8848719",
-                                                                                                  color: Configuration.Color.headerTitle,
-                                                                                                  size: 11))
+        let journeysRequest = JourneysRequest(coverage: "fr-idf")
+        journeysRequest.originId = "2.3665844;48.8465337"
+        journeysRequest.originName = "Home"
+        journeysRequest.destinationId = "2.2979169;48.8848719"
+        journeysRequest.destinationName = "Destination"
     }
     
     func testPresentFetchedOrdersShouldFormatFetchedOrdersForDisplay() {
         let listJourneysDisplayLogicSpy = ListJourneysDisplayLogicSpy()
         sut.viewController = listJourneysDisplayLogicSpy
-
-        let response = ListJourneys.FetchJourneys.Response(journeysRequest: JourneysRequest(originId: "2.3665844;48.8465337", destinationId: "2.2979169;48.8848719"),
+        let journeysRequest = JourneysRequest(coverage: "fr-idf")
+        journeysRequest.originId = "2.3665844;48.8465337"
+        journeysRequest.destinationId = "2.2979169;48.8848719"
+        
+        let response = ListJourneys.FetchJourneys.Response(journeysRequest: journeysRequest,
                                                            journeys: (seeds.journeys, withRidesharing: seeds.ridesharing),
                                                            disruptions: seeds.disruptions)
+        
         sut.presentFetchedJourneys(response: response)
-        guard let viewModel = listJourneysDisplayLogicSpy.viewModel else {
+        guard let viewModel = listJourneysDisplayLogicSpy.fetchJourneysViewModel else {
             XCTFail("Error json String")
             
             return
@@ -79,12 +97,13 @@ class ListJourneysPresenterTests: XCTestCase {
         XCTAssertEqual(viewModel.displayedRidesharings.count, 1)
     }
     
-    
     func testPresentFetchedOrdersShouldAskViewControllerToDisplayFetchedOrders() {
         let listJourneysDisplayLogicSpy = ListJourneysDisplayLogicSpy()
         sut.viewController = listJourneysDisplayLogicSpy
         
-        let response = ListJourneys.FetchJourneys.Response(journeysRequest: JourneysRequest(originId: "", destinationId: ""),
+        let journeysRequest = JourneysRequest(coverage: "fr-idf")
+        
+        let response = ListJourneys.FetchJourneys.Response(journeysRequest: journeysRequest,
                                                            journeys: (nil, withRidesharing: nil),
                                                            disruptions: nil)
         sut.presentFetchedJourneys(response: response)

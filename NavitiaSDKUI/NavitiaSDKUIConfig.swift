@@ -121,9 +121,9 @@ import Foundation
 enum Configuration {
     
     static let fontIconsName = "SDKIcons"
-    static var modeForm = [ModeButtonModel(title: "public_transport".localized().capitalized, icon: "metro", selected: true, mode: .walking, physicalMode: nil),
-                           ModeButtonModel(title: "bike_noun".localized().capitalized, icon: "bike", selected: false, mode: .bike, physicalMode: nil),
-                           ModeButtonModel(title: "car_noun".localized().capitalized, icon: "car", selected: false, mode: .car, physicalMode: nil)]
+    static var modeForm = [ModeButtonModel(title: "public_transport".localized().capitalized, icon: "metro", selected: true, firstSectionMode: ["walking"], lastSectionMode: ["walking"], physicalMode: nil),
+                           ModeButtonModel(title: "bike_noun".localized().capitalized, icon: "bike", selected: false, firstSectionMode: ["bike"], lastSectionMode: ["bike"], physicalMode: nil),
+                           ModeButtonModel(title: "car_noun".localized().capitalized, icon: "car", selected: false, firstSectionMode: ["car"], lastSectionMode: ["car"], physicalMode: nil)]
     
     // Format
     static let date = "yyyyMMdd'T'HHmmss"

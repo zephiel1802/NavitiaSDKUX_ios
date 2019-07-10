@@ -51,14 +51,12 @@ class ListPlacesInteractor: ListPlacesBusinessLogic, ListPlacesDataStore {
         if let from = request.from {
             self.from = from
         }
+        
         if let to = request.to {
             self.to = to
         }
         
-        let response = ListPlaces.DisplaySearch.Response(from: from,
-                                                         to: to,
-                                                         info: info)
-        
+        let response = ListPlaces.DisplaySearch.Response(from: from, to: to, info: info)
         self.presenter?.presentDisplayedSearch(response: response)
     }
     

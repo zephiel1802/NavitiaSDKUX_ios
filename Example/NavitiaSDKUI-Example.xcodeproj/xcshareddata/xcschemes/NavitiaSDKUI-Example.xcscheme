@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "1010"
+   LastUpgradeVersion = "1020"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "8451DA702065081600CFA1E4"
+               BlueprintIdentifier = "F611214722B3E80100E2A5B8"
                BuildableName = "NavitiaSDKUI-Example.app"
                BlueprintName = "NavitiaSDKUI-Example"
                ReferencedContainer = "container:NavitiaSDKUI-Example.xcodeproj">
@@ -28,31 +28,11 @@
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "8451DA842065081600CFA1E4"
-               BuildableName = "NavitiaSDKUI-ExampleTests.xctest"
-               BlueprintName = "NavitiaSDKUI-ExampleTests"
-               ReferencedContainer = "container:NavitiaSDKUI-Example.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "8451DA8F2065081600CFA1E4"
-               BuildableName = "NavitiaSDKUI-ExampleUITests.xctest"
-               BlueprintName = "NavitiaSDKUI-ExampleUITests"
-               ReferencedContainer = "container:NavitiaSDKUI-Example.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
       </Testables>
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "8451DA702065081600CFA1E4"
+            BlueprintIdentifier = "F611214722B3E80100E2A5B8"
             BuildableName = "NavitiaSDKUI-Example.app"
             BlueprintName = "NavitiaSDKUI-Example"
             ReferencedContainer = "container:NavitiaSDKUI-Example.xcodeproj">
@@ -75,7 +55,7 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "8451DA702065081600CFA1E4"
+            BlueprintIdentifier = "F611214722B3E80100E2A5B8"
             BuildableName = "NavitiaSDKUI-Example.app"
             BlueprintName = "NavitiaSDKUI-Example"
             ReferencedContainer = "container:NavitiaSDKUI-Example.xcodeproj">
@@ -94,7 +74,7 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "8451DA702065081600CFA1E4"
+            BlueprintIdentifier = "F611214722B3E80100E2A5B8"
             BuildableName = "NavitiaSDKUI-Example.app"
             BlueprintName = "NavitiaSDKUI-Example"
             ReferencedContainer = "container:NavitiaSDKUI-Example.xcodeproj">
