@@ -148,6 +148,8 @@ class DateFormView: UIView {
         datePicker?.addTarget(self, action: #selector(DateFormView.dateChanged(datePicker:)), for: .valueChanged)
         datePicker?.backgroundColor = Configuration.Color.white
         datePicker?.isAccessibilityElement = true
+        datePicker?.maximumDate = Date().addingTimeInterval(60.0 * 60.0 * 24.0 * 366.0) // one year after today
+        datePicker?.minimumDate = Date()
         dateTextField.inputView = datePicker
     }
     
