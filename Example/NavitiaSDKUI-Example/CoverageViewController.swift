@@ -48,7 +48,9 @@ class CoverageViewController: UIViewController {
             if let error = error {
                 self.messageLabel.text = String(format: "Error retrieving coverages: %@", error.localizedDescription)
             } else if let datas = datas, let regions = datas.regions {
-                let sortedRegions = regions.sorted { ($0.name ?? "") < ($1.name ?? "") }
+                let sortedRegions = regions.sorted {
+                    ($0.name?.lowercased() ?? $0.id?.lowercased() ?? "") < ($1.name?.lowercased() ?? $1.id?.lowercased() ?? "")
+                }
                 
                 for data in sortedRegions {
                     self.retrievedCoverages.append(data.name ?? data.id ?? "unknown")
