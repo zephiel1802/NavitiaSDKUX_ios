@@ -51,10 +51,8 @@ class CoverageViewController: UIViewController {
                 let sortedRegions = regions.sorted { ($0.name ?? "") < ($1.name ?? "") }
                 
                 for data in sortedRegions {
-                    if let coverageID = data.id, let coverageName = data.name {
-                        self.retrievedCoverages.append(coverageName)
-                        self.coverageIds.append(coverageID)
-                    }
+                    self.retrievedCoverages.append(data.name ?? data.id ?? "unknown")
+                    self.coverageIds.append(data.id ?? "unknown")
                 }
                 
                 self.performSegue(withIdentifier: self.segueIdentifier, sender: self)
