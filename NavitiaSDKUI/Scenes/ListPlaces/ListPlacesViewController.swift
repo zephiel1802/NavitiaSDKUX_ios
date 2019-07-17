@@ -151,8 +151,8 @@ class ListPlacesViewController: UIViewController, ListPlacesDisplayLogic {
     // MARK: Display Search
     
     func displaySearch(viewModel: ListPlaces.DisplaySearch.ViewModel) {
-        searchView.fromTextField.text = viewModel.fromName
-        searchView.toTextField.text = viewModel.toName
+        searchView.origin = viewModel.fromName
+        searchView.destination = viewModel.toName
         searchView.isAccessibilityElement = false
         
         if let text = viewModel.toName, text != "" {
@@ -289,10 +289,11 @@ extension ListPlacesViewController: UITableViewDataSource, UITableViewDelegate {
         }
 
         if interactor?.info == "from" {
-            interactor?.displaySearch(request: ListPlaces.DisplaySearch.Request(from: (label: displayedSections[safe: indexPath.section]?.places[safe: indexPath.row]?.label,
-                                                                                       name: name,
-                                                                                       id: id),
-                                                                                to: nil))
+            let request = ListPlaces.DisplaySearch.Request(from: (label: displayedSections[safe: indexPath.section]?.places[safe: indexPath.row]?.label,
+                                                                  name: name,
+                                                                  id: id),
+                                                           to: nil)
+            interactor?.displaySearch(request:request)
 
             
             searchView.focusFromField(false)
