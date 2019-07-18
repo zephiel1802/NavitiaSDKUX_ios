@@ -51,6 +51,7 @@ class SearchView: UIView, UITextFieldDelegate {
     var fromTextFieldClear = false
     var toTextFieldClear = false
     var isClearButtonAccessible = true
+    var switchDepartureArrivalButtonWidth: CGFloat = 0
     
     internal var lockSwitch = false
     internal var isPreferencesShown = false
@@ -92,7 +93,7 @@ class SearchView: UIView, UITextFieldDelegate {
     }
     internal var switchIsHidden: Bool = false {
         didSet {
-            switchButtonWidthConstraint.constant = switchIsHidden ? 0 : 50
+            switchButtonWidthConstraint.constant = switchIsHidden ? 0 : switchDepartureArrivalButtonWidth
         }
     }
     internal var lock: Bool = false {
@@ -170,6 +171,7 @@ class SearchView: UIView, UITextFieldDelegate {
         switchDepartureArrivalButton.setImage(UIImage(named: "switch", in: NavitiaSDKUI.shared.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate), for: .normal)
         switchDepartureArrivalButton.tintColor = Configuration.Color.main
         switchDepartureArrivalButton.accessibilityLabel = "reverse_departure_and_arrival".localized()
+        switchDepartureArrivalButtonWidth = switchDepartureArrivalButton.frame.width
     }
     
     private func setupTextField() {
