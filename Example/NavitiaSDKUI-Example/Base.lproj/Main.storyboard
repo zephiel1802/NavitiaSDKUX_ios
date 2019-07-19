@@ -49,7 +49,7 @@
             </objects>
             <point key="canvasLocation" x="434" y="-31"/>
         </scene>
-        <!--Sample SDK Journey-->
+        <!--Configuration-->
         <scene sceneID="tne-QT-ifu">
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="ConfigurationViewController" customModule="NavitiaSDKUI_Example" customModuleProvider="target" sceneMemberID="viewController">
@@ -131,7 +131,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Sample SDK Journey" id="Zm7-93-m0A"/>
+                    <navigationItem key="navigationItem" title="Configuration" id="Zm7-93-m0A"/>
                     <connections>
                         <outlet property="coveragePickerView" destination="RZQ-d5-ZMw" id="maO-u8-qh2"/>
                         <outlet property="formSwitch" destination="Qhj-Yp-MoH" id="DaI-LQ-QZu"/>
