@@ -106,9 +106,9 @@ class ConfigurationViewController: UIViewController, UIPickerViewDelegate, UIPic
                                         ModeButtonModel(title: "Tramway", icon: "tramway", selected: false, firstSectionMode: ["walking"], lastSectionMode: ["walking"], physicalMode: ["physical_mode:Tramway"]),
                                         ModeButtonModel(title: "Train", icon: "train", selected: false, firstSectionMode: ["walking"], lastSectionMode: ["walking"], physicalMode: ["physical_mode:LocalTrain", "physical_mode:Train"]),
                                         ModeButtonModel(title: "Navette", icon: "train", selected: false, firstSectionMode: ["walking"], lastSectionMode: ["walking"], physicalMode: ["physical_mode:Shuttle"]),
-                                        ModeButtonModel(title: "Bike", icon: "bike", selected: false, firstSectionMode: ["bike"], lastSectionMode: ["bike"]),
+                                        ModeButtonModel(title: "Vélo", icon: "bike", selected: false, firstSectionMode: ["bike"], lastSectionMode: ["bike"]),
                                         ModeButtonModel(title: "VLS", icon: "bss", selected: false, firstSectionMode: ["bss"], lastSectionMode: ["bss"], realTime: true),
-                                        ModeButtonModel(title: "Car", icon: "car", selected: false, firstSectionMode: ["car"], lastSectionMode: ["car"])]
+                                        ModeButtonModel(title: "Voiture", icon: "car", selected: false, firstSectionMode: ["car"], lastSectionMode: ["car"])]
         
         guard let journeyResultsViewController = NavitiaSDKUI.shared.rootViewController else {
             return nil
