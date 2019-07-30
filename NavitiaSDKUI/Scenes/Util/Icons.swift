@@ -93,7 +93,7 @@ class Modes {
         case .waiting:
             return section?.type?.rawValue ?? ""
         case .streetNetwork:
-            return getStreetNetworkMode(section: section, roadmap: roadmap).lowercased()
+            return section?.mode?.rawValue ?? ""
         case .bssRent:
             return "bss"
         case .bssPutBack:
@@ -117,16 +117,6 @@ class Modes {
         var modeData = id.split(separator: ":").map(String.init)
         
         return modeData[1]
-    }
-    
-    private func getStreetNetworkMode(section: Section?, roadmap: Bool) -> String {
-        if !roadmap && section?.mode == .bike {
-            if section?.from?.poi != nil {
-                return "bss"
-            }
-        }
-        
-        return section?.mode?.rawValue ?? ""
     }
     
     private func getPhysicalModeId(section: Section?) -> String {
