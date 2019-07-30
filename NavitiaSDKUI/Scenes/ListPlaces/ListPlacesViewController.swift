@@ -333,8 +333,7 @@ extension ListPlacesViewController: UITableViewDataSource, UITableViewDelegate {
     
     private func dismissAutocompletion() {
         if let from = interactor?.from, let to = interactor?.to {
-            delegate?.searchView(from: from,
-                                 to: to)
+            delegate?.searchView(from: from, to: to)
         }
         
         backButtonPressed()
