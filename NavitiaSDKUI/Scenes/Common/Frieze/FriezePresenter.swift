@@ -87,14 +87,7 @@ class FriezePresenter: NSObject {
             return friezeSections
         }
         
-        var count = 0
         for section in sections {
-            
-            if count > 0 && (section.mode == .bike) && (sections[count - 1].type == .bssRent) {
-                section.mode = .bss
-            }
-            count += 1
-            
             if validDisplayedJourneySections(section: section, count: sections.count) {
                 let name = getName(section: section)
                 let color = getColor(section: section)
