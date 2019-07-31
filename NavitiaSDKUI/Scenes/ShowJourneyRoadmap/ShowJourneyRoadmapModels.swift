@@ -20,7 +20,8 @@ enum ShowJourneyRoadmap {
             var disruptions: [Disruption]?
             var notes: [Note]?
             var context: Context
-            var maasTickets: String?
+            var maasTickets: [MaasTicket]?
+            var totalPrice: (value: Float?, currency: String?)?
         }
         struct ViewModel {
             struct DepartureArrival {
@@ -163,10 +164,6 @@ enum ShowJourneyRoadmap {
                 var accessibility: String
             }
             
-            struct MaasTicket {
-                var name: String
-            }
-            
             var ridesharing: Ridesharing?
             var departure: DepartureArrival
             var sections: [SectionModel]?
@@ -175,6 +172,7 @@ enum ShowJourneyRoadmap {
             var emission: Emission
             var displayAvoidDisruption: Bool
             var maasTickets: [MaasTicket]?
+            var totalPrice: (description: String, value: String)?
         }
     }
     

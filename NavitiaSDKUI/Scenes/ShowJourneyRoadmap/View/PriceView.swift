@@ -12,6 +12,27 @@ class PriceView: UIView {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var priceView: UIView!
     @IBOutlet weak var priceLabel: UILabel!
+    var title: String? {
+        get {
+            return titleLabel.text
+        }
+        set {
+            if let newValue = newValue {
+                titleLabel.text = newValue
+            }
+        }
+    }
+    var price: String? {
+        get {
+            return priceLabel.text
+        }
+        set {
+            if let newValue = newValue {
+                priceLabel.text = newValue
+            }
+        }
+    }
+    
     // MARK: - UINib
     
     static var identifier: String {

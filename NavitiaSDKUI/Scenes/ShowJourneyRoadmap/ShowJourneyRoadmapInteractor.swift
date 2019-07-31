@@ -24,6 +24,7 @@ public protocol ShowJourneyRoadmapDataStore {
     var notes: [Note]? { get set }
     var context: Context? { get set }
     var maasTickets: String? { get set }
+    var totalPrice: (value: Float?, currency: String?)? { get set }
 }
 
 class ShowJourneyRoadmapInteractor: ShowJourneyRoadmapBusinessLogic, ShowJourneyRoadmapDataStore {
@@ -36,6 +37,7 @@ class ShowJourneyRoadmapInteractor: ShowJourneyRoadmapBusinessLogic, ShowJourney
     var notes: [Note]?
     var context: Context?
     var maasTickets: String?
+    var totalPrice: (value: Float?, currency: String?)?
   
     // MARK: Get Roadmap
   
@@ -49,7 +51,8 @@ class ShowJourneyRoadmapInteractor: ShowJourneyRoadmapBusinessLogic, ShowJourney
                                                               disruptions: disruptions,
                                                               notes: notes,
                                                               context: context,
-                                                              maasTickets: maasTickets)
+                                                              maasTickets: getMaasTickets(maasTickets: maasTickets),
+                                                              totalPrice: totalPrice)
         presenter?.presentRoadmap(response: response)
     }
     
@@ -93,6 +96,20 @@ class ShowJourneyRoadmapInteractor: ShowJourneyRoadmapBusinessLogic, ShowJourney
                                     
                                     let response = ShowJourneyRoadmap.FetchPark.Response(poi: poi, notify: request.notify)
                                     self.presenter?.presentPark(response: response)
+        }
+    }
+    
+    // MARK: Maas Tickets
+    
+    private func getMaasTickets(maasTickets: String?) -> [MaasTicket]? {
+        guard let maasTickets = maasTickets, let maasTicketsData = maasTickets.data(using: .utf8) else {
+            return nil
+        }
+        
+        do {
+            return try JSONDecoder().decode([MaasTicket].self, from: maasTicketsData)
+        } catch {
+            return nil
         }
     }
 }

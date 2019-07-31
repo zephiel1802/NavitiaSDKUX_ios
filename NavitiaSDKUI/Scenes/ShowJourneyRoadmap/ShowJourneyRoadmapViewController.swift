@@ -20,7 +20,7 @@ protocol ShowJourneyRoadmapDisplayLogic: class {
     func displayMap(viewModel: ShowJourneyRoadmap.GetMap.ViewModel)
 }
 
-open class ShowJourneyRoadmapViewController: UIViewController, ShowJourneyRoadmapDisplayLogic {
+open class ShowJourneyRoadmapViewController: UIViewController {
 
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var centerMapButton: UIButton!
@@ -130,33 +130,6 @@ open class ShowJourneyRoadmapViewController: UIViewController, ShowJourneyRoadma
         view.addSubview(slidingScrollView)
         
         UIApplication.shared.statusBarOrientation.isPortrait ? slidingScrollView.setAnchorPoint(slideState: .anchored, duration: 0) : slidingScrollView.setAnchorPoint(slideState: .collapsed, duration: 0)
-    }
-    
-    func displayRoadmap(viewModel: ShowJourneyRoadmap.GetRoadmap.ViewModel) {
-        guard let sections = viewModel.sections else {
-            return
-        }
-        
-        ridesharing = viewModel.ridesharing
-        
-        displayHeader(viewModel: viewModel)
-        displayDepartureArrivalStep(viewModel: viewModel.departure)
-        displaySteps(sections: sections)
-        displayDepartureArrivalStep(viewModel: viewModel.arrival)
-        displayPrice(maasTickets: viewModel.maasTickets)
-        displayEmission(emission: viewModel.emission)
-        
-        //slidingScrollView.stackScrollView.addSubview(getCancelJourneyView(), margin: UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0))
-    }
-    
-    func displayMap(viewModel: ShowJourneyRoadmap.GetMap.ViewModel) {
-        initMapView()
-        
-        displaySections(viewModel: viewModel)
-        displayDepartureArrivalPin(viewModel: viewModel)
-        displayRidesharingAnnoation(viewModel: viewModel)
-        
-        zoomOverPolyline(targetPolyline: MKPolyline(coordinates: journeyPolylineCoordinates, count: journeyPolylineCoordinates.count))
     }
     
     // MARK: - Get roadmap
@@ -376,13 +349,16 @@ open class ShowJourneyRoadmapViewController: UIViewController, ShowJourneyRoadma
         return stepView
     }
     
-    private func displayPrice(maasTickets: [ShowJourneyRoadmap.GetRoadmap.ViewModel.MaasTicket]?) {
-        guard let maasTickets = maasTickets else {
+    private func displayPrice(maasTickets: [MaasTicket]?, totalPrice: (description: String, value: String)?) {
+        guard let maasTickets = maasTickets,
+            maasTickets.count > 0,
+            let totalPrice = totalPrice else {
             return
         }
         
         let priceView = PriceView.instanceFromNib()
-        
+        priceView.title = totalPrice.description
+        priceView.price = totalPrice.value
         priceView.frame.size = CGSize(width: slidingScrollView.stackScrollView.frame.size.width, height: 45)
         
         slidingScrollView.stackScrollView.addSubview(priceView, margin: UIEdgeInsets(top: 10, left: 0, bottom: 0, right: 0))
@@ -477,6 +453,38 @@ open class ShowJourneyRoadmapViewController: UIViewController, ShowJourneyRoadma
         zoomOverPolyline(targetPolyline: MKPolyline(coordinates: journeyPolylineCoordinates, count: journeyPolylineCoordinates.count),
                          edgePadding: getEdgePaddingForZoom(),
                          animated: true)
+    }
+}
+
+// MARKS: Use cases
+
+extension ShowJourneyRoadmapViewController: ShowJourneyRoadmapDisplayLogic {
+    
+    func displayRoadmap(viewModel: ShowJourneyRoadmap.GetRoadmap.ViewModel) {
+        guard let sections = viewModel.sections else {
+            return
+        }
+        
+        ridesharing = viewModel.ridesharing
+        
+        displayHeader(viewModel: viewModel)
+        displayDepartureArrivalStep(viewModel: viewModel.departure)
+        displaySteps(sections: sections)
+        displayDepartureArrivalStep(viewModel: viewModel.arrival)
+        displayPrice(maasTickets: viewModel.maasTickets, totalPrice: viewModel.totalPrice)
+        displayEmission(emission: viewModel.emission)
+        
+        //slidingScrollView.stackScrollView.addSubview(getCancelJourneyView(), margin: UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0))
+    }
+    
+    func displayMap(viewModel: ShowJourneyRoadmap.GetMap.ViewModel) {
+        initMapView()
+        
+        displaySections(viewModel: viewModel)
+        displayDepartureArrivalPin(viewModel: viewModel)
+        displayRidesharingAnnoation(viewModel: viewModel)
+        
+        zoomOverPolyline(targetPolyline: MKPolyline(coordinates: journeyPolylineCoordinates, count: journeyPolylineCoordinates.count))
     }
 }
 

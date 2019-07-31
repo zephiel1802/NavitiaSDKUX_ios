@@ -31,6 +31,13 @@ class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
             let frieze = getFrieze(journey: response.journey, disruptions: response.disruptions) else {
             return
         }
+        
+        var price = ""
+        if let totalPrice = response.totalPrice,
+            let currency = totalPrice.currency,
+            let value = totalPrice.value {
+            price = String(format: "%@ %.2f", currency == "EUR" ? "€" : "", value)
+        }
 
         let viewModel = ShowJourneyRoadmap.GetRoadmap.ViewModel(ridesharing: getRidesharing(journeyRidesharing: response.journeyRidesharing),
                                                                 departure: departure,
@@ -39,7 +46,8 @@ class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
                                                                 arrival: arrival,
                                                                 emission: emission,
                                                                 displayAvoidDisruption: alternativeJourney,
-                                                                maasTickets: getMaasTickets(reponseMaasTickets: response.maasTickets))
+                                                                maasTickets: response.maasTickets,
+                                                                totalPrice: (description: "total_journey_price".localized(), value: price))
         
         viewController?.displayRoadmap(viewModel: viewModel)
     }
@@ -59,16 +67,6 @@ class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
         }
         
         response.notify(stands)
-    }
-    
-    // MARK: Maas Tickets
-    
-    private func getMaasTickets(reponseMaasTickets: String?) -> [ShowJourneyRoadmap.GetRoadmap.ViewModel.MaasTicket]? {
-        guard let responseMaasTickets = reponseMaasTickets else {
-            return nil
-        }
-        
-        return [ShowJourneyRoadmap.GetRoadmap.ViewModel.MaasTicket]()
     }
     
     // MARK: Ridesharing
