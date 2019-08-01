@@ -150,6 +150,7 @@ enum ShowJourneyRoadmap {
                 var realTime: Bool
                 var background: Bool
                 var section: Section
+                var hasAvailableTicket: Bool
             }
             
             struct Frieze {
@@ -164,6 +165,12 @@ enum ShowJourneyRoadmap {
                 var accessibility: String
             }
             
+            struct Ticket {
+                var shouldShowTicket: Bool
+                var viewTicketLocalized: String
+                var ticketNotAvailableLocalized: String
+            }
+            
             var ridesharing: Ridesharing?
             var departure: DepartureArrival
             var sections: [SectionModel]?
@@ -171,7 +178,7 @@ enum ShowJourneyRoadmap {
             var arrival: DepartureArrival
             var emission: Emission
             var displayAvoidDisruption: Bool
-            var maasTickets: [MaasTicket]?
+            var ticket: Ticket
             var totalPrice: (description: String, value: String)?
         }
     }

@@ -251,17 +251,16 @@ open class ShowJourneyRoadmapViewController: UIViewController {
         slidingScrollView.stackScrollView.addSubview(departureArrivalStepView, margin: UIEdgeInsets(top: 5, left: 10, bottom: 5, right: 10))
     }
     
-    private func displaySteps(sections: [ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionModel]) {
+    private func displaySteps(sections: [ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionModel], ticket: ShowJourneyRoadmap.GetRoadmap.ViewModel.Ticket) {
         for (_, section) in sections.enumerated() {
-            if let sectionStep = getSectionStep(section: section) {
+            if let sectionStep = getSectionStep(section: section, ticket: ticket) {
                 slidingScrollView.stackScrollView.addSubview(sectionStep, margin: UIEdgeInsets(top: 5, left: 10, bottom: 5, right: 10))
             }
         }
     }
     
-    private func getPublicTransportStepView(section: ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionModel) -> UIView {
+    private func getPublicTransportStepView(section: ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionModel, ticket: ShowJourneyRoadmap.GetRoadmap.ViewModel.Ticket) -> UIView {
         let publicTransportView = PublicTransportStepView.instanceFromNib()
-        
         publicTransportView.frame = view.bounds
         publicTransportView.delegate = self
         publicTransportView.icon = section.icon
@@ -276,6 +275,12 @@ open class ShowJourneyRoadmapViewController: UIViewController {
         publicTransportView.disruptions = section.disruptions
         publicTransportView.waiting = section.waiting
         publicTransportView.updateAccessibility()
+        
+        if ticket.shouldShowTicket {
+            publicTransportView.ticketViewConfig = (isTicketAvailable: section.hasAvailableTicket,
+                                                    viewTicketLocalized: ticket.viewTicketLocalized,
+                                                    ticketNotAvailableLocalized: ticket.ticketNotAvailableLocalized)
+        }
         
         return publicTransportView
     }
@@ -349,10 +354,8 @@ open class ShowJourneyRoadmapViewController: UIViewController {
         return stepView
     }
     
-    private func displayPrice(maasTickets: [MaasTicket]?, totalPrice: (description: String, value: String)?) {
-        guard let maasTickets = maasTickets,
-            maasTickets.count > 0,
-            let totalPrice = totalPrice else {
+    private func displayPrice(totalPrice: (description: String, value: String)?) {
+        guard let totalPrice = totalPrice else {
             return
         }
         
@@ -375,11 +378,11 @@ open class ShowJourneyRoadmapViewController: UIViewController {
         slidingScrollView.stackScrollView.addSubview(emissionView, margin: UIEdgeInsets(top: 5, left: 0, bottom: 0, right: 0), safeArea: false)
     }
     
-    private func getSectionStep(section: ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionModel) -> UIView? {
+    private func getSectionStep(section: ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionModel, ticket: ShowJourneyRoadmap.GetRoadmap.ViewModel.Ticket) -> UIView? {
         switch section.type {
         case .publicTransport,
              .onDemandTransport:
-            return getPublicTransportStepView(section: section)
+            return getPublicTransportStepView(section: section, ticket: ticket)
         case .streetNetwork,
              .bssRent,
              .bssPutBack,
@@ -469,9 +472,13 @@ extension ShowJourneyRoadmapViewController: ShowJourneyRoadmapDisplayLogic {
         
         displayHeader(viewModel: viewModel)
         displayDepartureArrivalStep(viewModel: viewModel.departure)
-        displaySteps(sections: sections)
+        displaySteps(sections: sections, ticket: viewModel.ticket)
         displayDepartureArrivalStep(viewModel: viewModel.arrival)
-        displayPrice(maasTickets: viewModel.maasTickets, totalPrice: viewModel.totalPrice)
+        
+        if viewModel.ticket.shouldShowTicket {
+            displayPrice(totalPrice: viewModel.totalPrice)
+        }
+        
         displayEmission(emission: viewModel.emission)
         
         //slidingScrollView.stackScrollView.addSubview(getCancelJourneyView(), margin: UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0))

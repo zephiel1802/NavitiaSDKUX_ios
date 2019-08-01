@@ -57,16 +57,25 @@ class PublicTransportStepView: UIView {
     
     weak internal var delegate: PublicTransportStepViewDelegate?
     
-    internal var ticketViewConfig: (shouldShow: Bool, isTicketAvailable: Bool, viewTicketLocalized: String, ticketNotAvailableLocalized: String)? {
+    internal var ticketViewConfig: (isTicketAvailable: Bool, viewTicketLocalized: String, ticketNotAvailableLocalized: String)? {
         didSet {
-            if let ticketViewConfig = ticketViewConfig, ticketViewConfig.shouldShow {
+            if let ticketViewConfig = ticketViewConfig {
                 if ticketViewConfig.isTicketAvailable {
+                    let ticketImage = UIImage(named: "ticket", in: NavitiaSDKUI.shared.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
+                    viewTicketButton.setImage(ticketImage, for: .normal)
+                    viewTicketButton.tintColor = Configuration.Color.secondary.contrastColor()
+                    viewTicketButton.imageView?.contentMode = .scaleAspectFit
+                    viewTicketButton.imageEdgeInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
                     viewTicketButton.setTitle(ticketViewConfig.viewTicketLocalized, for: .normal)
+                    viewTicketButton.setTitleColor(Configuration.Color.secondary.contrastColor(), for: .normal)
+                    
                     viewTicketContainer.backgroundColor = Configuration.Color.secondary
                     viewTicketContainer.isHidden = false
                 } else {
-                    noTicketAvailableImage.image = UIImage(named: "ticket_not_available", in: NavitiaSDKUI.shared.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
+                    let ticketNotAvailableImage = UIImage(named: "ticket_not_available", in: NavitiaSDKUI.shared.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
+                    noTicketAvailableImage.image = ticketNotAvailableImage
                     noTicketAvailableImage.tintColor = UIColor.white
+                    
                     noTicketAvailableLabel.text = ticketViewConfig.ticketNotAvailableLocalized
                     noTicketAvailableContainer.isHidden = false
                 }

@@ -46,9 +46,8 @@ class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
                                                                 arrival: arrival,
                                                                 emission: emission,
                                                                 displayAvoidDisruption: alternativeJourney,
-                                                                maasTickets: response.maasTickets,
+                                                                ticket: ShowJourneyRoadmap.GetRoadmap.ViewModel.Ticket(shouldShowTicket: response.maasTickets != nil, viewTicketLocalized: "view_ticket".localized(), ticketNotAvailableLocalized: "please_buy_ticket_separately".localized()),
                                                                 totalPrice: (description: "total_journey_price".localized(), value: price))
-        
         viewController?.displayRoadmap(viewModel: viewModel)
     }
     
@@ -524,7 +523,11 @@ class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
         return false
     }
     
-    private func getSectionModel(section: Section, sectionBefore: Section?, disruptions: [Disruption]?, notes: [Note]?) -> ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionModel? {
+    private func getSectionModel(section: Section,
+                                 sectionBefore: Section?,
+                                 disruptions: [Disruption]?,
+                                 notes: [Note]?,
+                                 maasTickets: [MaasTicket]?) -> ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionModel? {
         guard let type = getType(section: section) else {
             return nil
         }
@@ -547,9 +550,36 @@ class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
                                                                                 icon: Modes().getMode(section: section, roadmap: true),
                                                                                 realTime: getRealTime(section: section),
                                                                                 background: getBackground(section: section),
-                                                                                section: section)
+                                                                                section: section,
+                                                                                hasAvailableTicket: hasAvailableTicket(section: section, maasTickets: maasTickets))
         
         return sectionModel
+    }
+    
+    private func hasAvailableTicket(section: Section, maasTickets: [MaasTicket]?) -> Bool {
+        guard let maasTickets = maasTickets else {
+            return false
+        }
+        
+        if let links = section.links {
+            for link in links {
+                if let type = link.type, type == "ticket", let id = link.id {
+                    return isMaasTicket(linkId: id, maasTickets: maasTickets)
+                }
+            }
+        }
+        
+        return false
+    }
+    
+    private func isMaasTicket(linkId: String, maasTickets: [MaasTicket]) -> Bool {
+        for ticket in maasTickets {
+            if String(format: "%d", ticket.productId) == linkId {
+                return true
+            }
+        }
+        
+        return false
     }
     
     private func getSectionModels(response:  ShowJourneyRoadmap.GetRoadmap.Response) -> [ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionModel]? {
@@ -560,13 +590,21 @@ class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
                 if section.mode == .ridesharing {
                     if let sectionsRidesharing = response.journeyRidesharing?.sections {
                         for (index, ridesharingSection) in sectionsRidesharing.enumerated() {
-                            if let SectionModel = getSectionModel(section: ridesharingSection, sectionBefore: sectionsRidesharing[safe: index - 1], disruptions: response.disruptions, notes: response.notes) {
+                            if let SectionModel = getSectionModel(section: ridesharingSection,
+                                                                  sectionBefore: sectionsRidesharing[safe: index - 1],
+                                                                  disruptions: response.disruptions,
+                                                                  notes: response.notes,
+                                                                  maasTickets: response.maasTickets) {
                                 sectionsModel.append(SectionModel)
                             }
                         }
                     }
                 } else {
-                    if let sectionModel = getSectionModel(section: section, sectionBefore: sections[safe: index - 1], disruptions: response.disruptions, notes: response.notes) {
+                    if let sectionModel = getSectionModel(section: section,
+                                                          sectionBefore: sections[safe: index - 1],
+                                                          disruptions: response.disruptions,
+                                                          notes: response.notes,
+                                                          maasTickets: response.maasTickets) {
                         sectionsModel.append(sectionModel)
                     }
                 }
