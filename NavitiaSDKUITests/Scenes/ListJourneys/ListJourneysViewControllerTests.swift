@@ -29,8 +29,7 @@ class ListJourneysViewControllerTests: XCTestCase {
     
     func setupListJourneysViewController() {
         storyboard = UIStoryboard(name: "Journey", bundle: NavitiaSDKUI.shared.bundle)
-        sut = storyboard.instantiateInitialViewController() as! ListJourneysViewController
-        
+        sut = storyboard.instantiateInitialViewController() as? ListJourneysViewController
         let journeysRequest = JourneysRequest(coverage: "fr-idf")
         journeysRequest.originId = "2.3665844;48.8465337"
         journeysRequest.destinationId = "2.2979169;48.8848719"

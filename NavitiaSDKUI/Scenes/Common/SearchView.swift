@@ -16,13 +16,16 @@ import UIKit
     @objc optional func toFieldDidChange(q: String?)
 }
 
-class SearchView: UIView {
-    
+class SearchView: UIView, UITextFieldDelegate {
+    // MARK: enum
     enum Focus: String {
         case from = "from"
         case to = "to"
     }
     
+    // MARK: IBOutlet
+    @IBOutlet weak var toClearButton: UIButton!
+    @IBOutlet weak var fromClearButton: UIButton!
     @IBOutlet weak var background: UIView!
     @IBOutlet weak var fromView: UIView!
     @IBOutlet weak var fromTextField: UITextField!
@@ -32,7 +35,6 @@ class SearchView: UIView {
     @IBOutlet weak var separatorView: UIView!
     @IBOutlet weak var destinationPinImageView: UIImageView!
     @IBOutlet weak var dateTimeLabel: UILabel!
-    @IBOutlet weak var switchContraint: NSLayoutConstraint!
     @IBOutlet weak var switchDepartureArrivalButton: UIButton!
     @IBOutlet weak var separatorTopContraint: NSLayoutConstraint!
     @IBOutlet weak var separatorBottomContraint: NSLayoutConstraint!
@@ -40,10 +42,16 @@ class SearchView: UIView {
     @IBOutlet weak var datePreferenceView: UIView!
     @IBOutlet weak var dateButton: UIButton!
     @IBOutlet weak var preferenceButton: UIButton!
+    @IBOutlet weak var switchButtonWidthConstraint: NSLayoutConstraint!
     
+    // MARK: var
     var dateFormView: DateFormView!
     var transportModeView: TransportModeView!
     var searchButtonView: SearchButtonView!
+    var fromTextFieldClear = false
+    var toTextFieldClear = false
+    var isClearButtonAccessible = true
+    var switchDepartureArrivalButtonWidth: CGFloat = 0
     
     internal var lockSwitch = false
     internal var isPreferencesShown = false
@@ -85,8 +93,7 @@ class SearchView: UIView {
     }
     internal var switchIsHidden: Bool = false {
         didSet {
-            switchDepartureArrivalButton.isHidden = switchIsHidden
-            switchContraint.isActive = !switchIsHidden
+            switchButtonWidthConstraint.constant = switchIsHidden ? 0 : switchDepartureArrivalButtonWidth
         }
     }
     internal var lock: Bool = false {
@@ -96,16 +103,6 @@ class SearchView: UIView {
             dateButton.isEnabled = !lock
             preferenceButton.isHidden = lock
         }
-    }
-    
-    func unstickTextFields() {
-        self.separatorTopContraint.constant = 3
-        self.separatorBottomContraint.constant = 3
-    }
-    
-    func stickTextFields() {
-        self.separatorTopContraint.constant = 0
-        self.separatorBottomContraint.constant = 0
     }
     
     // MARK: - UINib
@@ -139,7 +136,7 @@ class SearchView: UIView {
         return searchView
     }
     
-    // MARK: - Function
+    // MARK: - Function (setup)
     
     private func setup() {
         backgroundColor = Configuration.Color.main
@@ -152,6 +149,14 @@ class SearchView: UIView {
         setupSearchButtonView()
         setPreferencesButton()
         setDateButton()
+        setupClearButtons()
+    }
+    
+    private func setupClearButtons() {
+        fromClearButton.isHidden = true
+        fromClearButton.accessibilityLabel = "clear_departure".localized()
+        toClearButton.isHidden = true
+        toClearButton.accessibilityLabel = "clear_arrival".localized()
     }
     
     private func setupPin() {
@@ -165,10 +170,14 @@ class SearchView: UIView {
     private func setupSwitchButton() {
         switchDepartureArrivalButton.setImage(UIImage(named: "switch", in: NavitiaSDKUI.shared.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate), for: .normal)
         switchDepartureArrivalButton.tintColor = Configuration.Color.main
+        switchDepartureArrivalButton.accessibilityLabel = "reverse_departure_and_arrival".localized()
+        switchDepartureArrivalButtonWidth = switchDepartureArrivalButton.frame.width
     }
     
     private func setupTextField() {
+        fromTextField.isAccessibilityElement = true
         fromTextField.placeholder = "place_of_departure".localized()
+        toTextField.isAccessibilityElement = true
         toTextField.placeholder = "place_of_arrival".localized()
     }
     
@@ -213,6 +222,17 @@ class SearchView: UIView {
             .icon("option", color: Configuration.Color.white, size: 12)
             .medium(String(format: "  %@  ", "preferences".localized()), color: Configuration.Color.white, size: 11)
             .icon((isPreferencesShown ? "arrow-details-up" : "arrow-details-down"), color: Configuration.Color.white, size: 11), for: .normal)
+    }
+    
+    // MARK: public func
+    func unstickTextFields() {
+        self.separatorTopContraint.constant = 3
+        self.separatorBottomContraint.constant = 3
+    }
+    
+    func stickTextFields() {
+        self.separatorTopContraint.constant = 0
+        self.separatorBottomContraint.constant = 0
     }
     
     internal func focusFromField(_ value: Bool = true) {
@@ -287,6 +307,11 @@ class SearchView: UIView {
         }, completion: nil)
     }
     
+    internal func animate() {
+        switchDepartureArrivalButton.isHidden = true
+    }
+    
+    // MARK: IBAction
     @IBAction func switchDepartureArrivalCoordinates(_ sender: UIButton) {
         if !lockSwitch {
             switchDepartureArrivalAnimate(sender)
@@ -316,31 +341,79 @@ class SearchView: UIView {
         }
     }
     
-    internal func animate() {
-        switchDepartureArrivalButton.isHidden = true
+    @IBAction func fromClearButtonClicked(_ sender: Any) {
+        fromTextField.text!.removeAll()
+        fromTextFieldClear = true
+        fromClearButton.becomeFirstResponder()
     }
     
-    @IBAction func fromFieldClicked(_ sender: UITextField) {
-        delegate?.fromFieldClicked?(q: sender.text)
+    @IBAction func toClearButtonClicked(_ sender: Any) {
+        toTextField.text!.removeAll()
+        toTextFieldClear = true
+        toTextField.becomeFirstResponder()
+    }
+
+    // MARK: Textfield delegate
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        if textField == fromTextField {
+            if fromTextFieldClear {
+                fromTextFieldClear = false
+            } else {
+                delegate?.fromFieldClicked?(q: textField.text)
+            }
+            if !(textField.text ?? "").isEmpty && isClearButtonAccessible {
+                fromClearButton.isHidden = false
+            } else {
+                fromClearButton.isHidden = true
+            }
+        } else if textField == toTextField {
+            if toTextFieldClear {
+                toTextFieldClear = false
+            } else {
+                delegate?.toFieldClicked?(q: textField.text)
+            }
+            if !(textField.text ?? "").isEmpty && isClearButtonAccessible {
+                toClearButton.isHidden = false
+            } else {
+                toClearButton.isHidden = true
+            }
+        }
     }
     
-    @IBAction func toFieldClicked(_ sender: UITextField) {
-        delegate?.toFieldClicked?(q: sender.text)
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        if let text = textField.text, let textRange = Range(range, in: text) {
+            let updatedText = text.replacingCharacters(in: textRange, with: string)
+            
+            if textField == fromTextField {
+                delegate?.fromFieldDidChange?(q: updatedText)
+                if !updatedText.isEmpty && isClearButtonAccessible {
+                    fromClearButton.isHidden = false
+                } else {
+                    fromClearButton.isHidden = true
+                }
+            } else if textField == toTextField {
+                delegate?.toFieldDidChange?(q: updatedText)
+                if !updatedText.isEmpty && isClearButtonAccessible {
+                    toClearButton.isHidden = false
+                } else {
+                    toClearButton.isHidden = true
+                }
+            } else {
+                
+                return false
+            }
+            
+            return true
+        }
+        
+        return false
     }
     
-    @IBAction func fromFieldDidChange(_ sender: UITextField) {
-        delegate?.fromFieldDidChange?(q: sender.text)
-    }
-    
-    @IBAction func toFieldDidChange(_ sender: UITextField) {
-        delegate?.toFieldDidChange?(q: sender.text)
-    }
-    
-    @IBAction func fromPrimaryAction(_ sender: Any) {
+    func textFieldDidEndEditing(_ textField: UITextField) {
         endEditing(true)
+        fromClearButton.isHidden = true
+        toClearButton.isHidden = true
     }
     
-    @IBAction func toPrimaryAction(_ sender: Any) {
-        endEditing(true)
-    }
 }

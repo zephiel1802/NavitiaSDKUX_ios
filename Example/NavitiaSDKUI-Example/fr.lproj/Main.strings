@@ -1,4 +1,15 @@
 
-/* Class = "UIButton"; normalTitle = "Open SDK UI"; ObjectID = "n7A-Pb-Kbc"; */
-"n7A-Pb-Kbc.normalTitle" = "Ouvrir SDK UI";
-"1bb-Mx-cRL.normalTitle" = "Ouvrir SDK UI sans le formulaire";
+/* Class = "UIButton"; normalTitle = "Let's go !"; ObjectID = "6Qd-QR-Kds"; */
+"6Qd-QR-Kds.normalTitle" = "Let's go !";
+
+/* Class = "UILabel"; text = "Retrieving coverages ..."; ObjectID = "6Qk-hT-0sV"; */
+"6Qk-hT-0sV.text" = "Retrieving coverages ...";
+
+/* Class = "UILabel"; text = "Launch with form :"; ObjectID = "LhY-c8-gCf"; */
+"LhY-c8-gCf.text" = "Launch with form :";
+
+/* Class = "UILabel"; text = "[SDK Journey] Sample"; ObjectID = "cID-ys-w40"; */
+"cID-ys-w40.text" = "[SDK Journey] Sample";
+
+/* Class = "UILabel"; text = "Choose a coverage :"; ObjectID = "gZT-DV-1OO"; */
+"gZT-DV-1OO.text" = "Choose a coverage :";

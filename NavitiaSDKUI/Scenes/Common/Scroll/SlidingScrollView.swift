@@ -26,6 +26,7 @@ internal class SlidingScrollView: UIView {
     private var lastOrigin = CGPoint.zero
     private var parentViewSafeArea = UIEdgeInsets.zero
     private var currentState: SlideState = .anchored
+    private var previousState: SlideState = .anchored
     internal weak var delegate: SlidingScrollViewDelegate?
     internal weak var parentView: UIView!
     internal var stackScrollView: StackScrollView!
@@ -112,16 +113,25 @@ internal class SlidingScrollView: UIView {
             self.journeySolutionView.updateFriezeView()
             self.headerHeight = self.journeySolutionView.frame.size.height + self.notchFrame.origin.y + self.notchFrame.size.height
             
-            if self.currentState == .expanded {
+            if UIDevice.current.orientation.isPortrait
+                && (self.previousState == .anchored || self.currentState == .anchored) {
                 self.animationBottom()
-                self.setAnchorPoint(slideState: .expanded)
-            } else {
+                self.setAnchorPoint(slideState: .anchored)
+            } else if self.currentState == .collapsed {
                 self.animationBottom(withSafeArea: true)
                 self.setAnchorPoint(slideState: .collapsed)
+            } else {
+                self.animationBottom(withSafeArea: true)
+                self.setAnchorPoint(slideState: .expanded)
             }
-
+            
             self.stackScrollView.reloadStack()
         }
+    }
+    
+    private func reinitSize() {
+        stackScrollView.frame.size.height = parentView.frame.size.height - headerHeight
+        frame.size.height = parentView.frame.size.height
     }
     
     @objc private func moveViewWithGestureRecognizer(_ recognizer:UIPanGestureRecognizer) {
@@ -142,11 +152,6 @@ internal class SlidingScrollView: UIView {
             
             translationView(translationY: translationForSliding)
         }
-    }
-    
-    private func reinitSize() {
-        stackScrollView.frame.size.height = parentView.frame.size.height - headerHeight
-        frame.size.height = parentView.frame.size.height
     }
     
     private func checkedAnchor(percentagePosition: CGFloat, tolerance: CGFloat = 0) {
@@ -184,6 +189,7 @@ internal class SlidingScrollView: UIView {
             self.frame.size.height = self.parentView.frame.size.height - self.lastOrigin.y
         })
         
+        previousState = currentState
         currentState = slideState
         
         delegate?.slidingEndMove(edgePaddingBottom:parentView.frame.size.height - lastOrigin.y, slidingState: slideState)

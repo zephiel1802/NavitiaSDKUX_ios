@@ -54,6 +54,13 @@ class NavitiaWorker: NavitiaWorkerProtocol {
         
         if let allJourneys = result.journeys {
             for journey in allJourneys {
+                let sections = journey.sections ?? []
+                for (count, section) in sections.enumerated() {
+                    if count > 0 && (section.mode == .bike) && (sections[count - 1].type == .bssRent) {
+                        section.mode = .bss
+                    }
+                }
+                
                 if journey.isRidesharing {
                     ridesharing.append(journey)
                 } else {

@@ -119,6 +119,7 @@ class ListPlacesViewController: UIViewController, ListPlacesDisplayLogic {
         searchView.background.backgroundColor = .clear
         searchView.switchIsHidden = true
         searchView.separatorView.isHidden = true
+        
     }
     
     private func initTableView() {
@@ -150,9 +151,18 @@ class ListPlacesViewController: UIViewController, ListPlacesDisplayLogic {
     // MARK: Display Search
     
     func displaySearch(viewModel: ListPlaces.DisplaySearch.ViewModel) {
-        searchView.fromTextField.text = viewModel.fromName
-        searchView.toTextField.text = viewModel.toName
+        searchView.origin = viewModel.fromName
+        searchView.destination = viewModel.toName
+        searchView.isAccessibilityElement = false
         
+        if let text = viewModel.toName, text != "" {
+            searchView.toTextField.accessibilityLabel = String(format: "%@ %@", "arrival_with_colon".localized(), text)
+        }
+        
+        if let text = viewModel.fromName, text != "" {
+            searchView.fromTextField.accessibilityLabel = String(format: "%@ %@", "departure_with_colon".localized(), text)
+        }
+
         locationManager.startUpdatingLocation()
     }
     
@@ -215,7 +225,6 @@ extension ListPlacesViewController: UITableViewDataSource, UITableViewDelegate {
         if section == 0 {
             view.lineView.isHidden = true
         }
-  
         
         return view
     }
@@ -226,10 +235,41 @@ extension ListPlacesViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let cell = tableView.dequeueReusableCell(withIdentifier: PlacesTableViewCell.identifier, for: indexPath) as? PlacesTableViewCell {
-
+            
             cell.type = displayedSections[safe: indexPath.section]?.places[safe: indexPath.row]?.type
             cell.informations = (name: displayedSections[safe: indexPath.section]?.places[safe: indexPath.row]?.name,
                                  distance: displayedSections[safe: indexPath.section]?.places[safe: indexPath.row]?.distance)
+            
+            if displayedSections[safe: indexPath.section]?.name == "history".localized().uppercased() {
+                
+                if let type = cell.type {
+                    var accessibilityText = ""
+                    switch type {
+                    case .stopArea :
+                        accessibilityText = "stop".localized()
+                    case .address :
+                        accessibilityText = "addresse".localized()
+                    case .poi :
+                        accessibilityText = "point_of_interest".localized()
+                    case .location :
+                        accessibilityText = "my_position".localized()
+                    }
+                    
+                    if let cellName = cell.informations.name {
+                        cell.accessibilityLabel = String(format: "%@ %@", accessibilityText, cellName)
+                    } else {
+                        cell.accessibilityLabel = accessibilityText
+                    }
+                    
+                    cell.accessibilityHint = (cell.informations.distance ?? "")
+                }
+            } else {
+                var text = ""
+                if cell.type == .location {
+                    text = "my_position".localized() + " "
+                }
+                cell.accessibilityLabel = text + (cell.informations.name ?? "")
+            }
             
             return cell
         }
@@ -249,10 +289,11 @@ extension ListPlacesViewController: UITableViewDataSource, UITableViewDelegate {
         }
 
         if interactor?.info == "from" {
-            interactor?.displaySearch(request: ListPlaces.DisplaySearch.Request(from: (label: displayedSections[safe: indexPath.section]?.places[safe: indexPath.row]?.label,
-                                                                                       name: name,
-                                                                                       id: id),
-                                                                                to: nil))
+            let request = ListPlaces.DisplaySearch.Request(from: (label: displayedSections[safe: indexPath.section]?.places[safe: indexPath.row]?.label,
+                                                                  name: name,
+                                                                  id: id),
+                                                           to: nil)
+            interactor?.displaySearch(request:request)
 
             
             searchView.focusFromField(false)
@@ -292,8 +333,7 @@ extension ListPlacesViewController: UITableViewDataSource, UITableViewDelegate {
     
     private func dismissAutocompletion() {
         if let from = interactor?.from, let to = interactor?.to {
-            delegate?.searchView(from: from,
-                                 to: to)
+            delegate?.searchView(from: from, to: to)
         }
         
         backButtonPressed()
