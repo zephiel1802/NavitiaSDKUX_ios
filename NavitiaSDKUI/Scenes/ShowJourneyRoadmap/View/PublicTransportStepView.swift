@@ -45,11 +45,36 @@ class PublicTransportStepView: UIView {
     @IBOutlet var publicTransportStationsStackContainerBottomContraint: NSLayoutConstraint!
     @IBOutlet var publicTransportStationsStackHeightContraint: NSLayoutConstraint!
     @IBOutlet weak var publicTransportFromToContraint: NSLayoutConstraint!
-    @IBOutlet weak var ticketButton: UIButton!
+    
+    @IBOutlet weak var showTicketView: UIView!
+    @IBOutlet weak var viewTicketContainer: UIView!
+    @IBOutlet weak var viewTicketButton: UIButton!
+    @IBOutlet weak var noTicketAvailableContainer: UIView!
+    @IBOutlet weak var noTicketAvailableImage: UIImageView!
+    @IBOutlet weak var noTicketAvailableLabel: UILabel!
     
     private var stationStackView: UIStackView!
     
     weak internal var delegate: PublicTransportStepViewDelegate?
+    
+    internal var ticketViewConfig: (shouldShow: Bool, isTicketAvailable: Bool, viewTicketLocalized: String, ticketNotAvailableLocalized: String)? {
+        didSet {
+            if let ticketViewConfig = ticketViewConfig, ticketViewConfig.shouldShow {
+                if ticketViewConfig.isTicketAvailable {
+                    viewTicketButton.setTitle(ticketViewConfig.viewTicketLocalized, for: .normal)
+                    viewTicketContainer.backgroundColor = Configuration.Color.secondary
+                    viewTicketContainer.isHidden = false
+                } else {
+                    noTicketAvailableImage.image = UIImage(named: "ticket_not_available", in: NavitiaSDKUI.shared.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
+                    noTicketAvailableImage.tintColor = UIColor.white
+                    noTicketAvailableLabel.text = ticketViewConfig.ticketNotAvailableLocalized
+                    noTicketAvailableContainer.isHidden = false
+                }
+                
+                showTicketView.isHidden = false
+            }
+        }
+    }
     
     var borderColor: UIColor? {
         didSet {
@@ -102,7 +127,6 @@ class PublicTransportStepView: UIView {
         
         initStationStackView()
         setShadow(opacity: 0.28)
-        ticketButton.backgroundColor = Configuration.Color.secondary
     }
     
     internal func updateAccessibility() {

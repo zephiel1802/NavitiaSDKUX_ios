@@ -17,7 +17,7 @@
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="qh1-Nv-EMR">
-                    <rect key="frame" x="0.0" y="10" width="384" height="330"/>
+                    <rect key="frame" x="0.0" y="10" width="384" height="270"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4fw-wa-InW">
                             <rect key="frame" x="0.0" y="0.0" width="384" height="64"/>
@@ -359,35 +359,85 @@
                                 <constraint firstItem="dGe-KY-Yt1" firstAttribute="top" secondItem="gcp-h2-p5y" secondAttribute="bottom" priority="900" constant="20" id="wMK-U7-48W"/>
                             </constraints>
                         </view>
-                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ERo-Vs-6Hz">
-                            <rect key="frame" x="0.0" y="280" width="384" height="50"/>
+                        <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ERo-Vs-6Hz" userLabel="ShowTicketView">
+                            <rect key="frame" x="0.0" y="270" width="384" height="50"/>
                             <subviews>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sEO-RS-TFq">
+                                <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fzs-gs-BcW" userLabel="ViewTicketContainer">
                                     <rect key="frame" x="10" y="0.0" width="364" height="40"/>
-                                    <color key="backgroundColor" red="0.25098039220000001" green="0.58431372550000005" blue="0.5568627451" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <subviews>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sEO-RS-TFq">
+                                            <rect key="frame" x="0.0" y="0.0" width="364" height="40"/>
+                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
+                                            <state key="normal">
+                                                <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            </state>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                    <integer key="value" value="5"/>
+                                                </userDefinedRuntimeAttribute>
+                                            </userDefinedRuntimeAttributes>
+                                            <connections>
+                                                <action selector="viewTicketClicked:" destination="5Lw-F8-rCV" eventType="touchUpInside" id="P6y-Pw-SxT"/>
+                                            </connections>
+                                        </button>
+                                    </subviews>
+                                    <color key="backgroundColor" red="0.25098039215686274" green="0.58431372549019611" blue="0.55686274509803924" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <constraints>
-                                        <constraint firstAttribute="height" constant="40" id="jse-np-bEc"/>
+                                        <constraint firstItem="sEO-RS-TFq" firstAttribute="centerX" secondItem="fzs-gs-BcW" secondAttribute="centerX" id="2O2-ea-cjb"/>
+                                        <constraint firstItem="sEO-RS-TFq" firstAttribute="height" secondItem="fzs-gs-BcW" secondAttribute="height" id="8Bq-lB-MN5"/>
+                                        <constraint firstItem="sEO-RS-TFq" firstAttribute="centerY" secondItem="fzs-gs-BcW" secondAttribute="centerY" id="DDT-gw-gxJ"/>
+                                        <constraint firstAttribute="height" constant="40" id="cWg-Ak-lxR"/>
+                                        <constraint firstItem="sEO-RS-TFq" firstAttribute="width" secondItem="fzs-gs-BcW" secondAttribute="width" id="xMq-Vp-DKJ"/>
                                     </constraints>
-                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
-                                    <state key="normal" title="View ticket">
-                                        <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                    </state>
                                     <userDefinedRuntimeAttributes>
                                         <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
                                             <integer key="value" value="5"/>
                                         </userDefinedRuntimeAttribute>
                                     </userDefinedRuntimeAttributes>
-                                    <connections>
-                                        <action selector="viewTicketClicked:" destination="5Lw-F8-rCV" eventType="touchUpInside" id="P6y-Pw-SxT"/>
-                                    </connections>
-                                </button>
+                                </view>
+                                <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VZe-sF-Hk6" userLabel="NoTicketAvailable">
+                                    <rect key="frame" x="10" y="0.0" width="364" height="40"/>
+                                    <subviews>
+                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ticket_not_available" translatesAutoresizingMaskIntoConstraints="NO" id="0rg-7h-g6T">
+                                            <rect key="frame" x="20" y="10" width="37.5" height="20"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" secondItem="0rg-7h-g6T" secondAttribute="height" multiplier="15:8" id="cB6-PH-0TA"/>
+                                            </constraints>
+                                        </imageView>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MQ7-kZ-fso">
+                                            <rect key="frame" x="67.5" y="20" width="286.5" height="0.0"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <color key="backgroundColor" red="0.68627450980392157" green="0.68627450980392157" blue="0.68627450980392157" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <constraints>
+                                        <constraint firstAttribute="trailing" secondItem="MQ7-kZ-fso" secondAttribute="trailing" constant="10" id="2vh-yk-ooq"/>
+                                        <constraint firstItem="MQ7-kZ-fso" firstAttribute="centerY" secondItem="0rg-7h-g6T" secondAttribute="centerY" id="Ao9-et-HIU"/>
+                                        <constraint firstItem="0rg-7h-g6T" firstAttribute="leading" secondItem="VZe-sF-Hk6" secondAttribute="leading" constant="20" id="I0j-CW-Geg"/>
+                                        <constraint firstAttribute="height" constant="40" id="L1q-do-wpa"/>
+                                        <constraint firstItem="0rg-7h-g6T" firstAttribute="height" secondItem="VZe-sF-Hk6" secondAttribute="height" multiplier="0.5" id="XBb-MX-crd"/>
+                                        <constraint firstItem="0rg-7h-g6T" firstAttribute="centerY" secondItem="VZe-sF-Hk6" secondAttribute="centerY" id="YVV-b4-Pgl"/>
+                                        <constraint firstItem="MQ7-kZ-fso" firstAttribute="leading" secondItem="0rg-7h-g6T" secondAttribute="trailing" constant="10" id="amZ-i7-PL0"/>
+                                    </constraints>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                            <integer key="value" value="5"/>
+                                        </userDefinedRuntimeAttribute>
+                                    </userDefinedRuntimeAttributes>
+                                </view>
                             </subviews>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <constraints>
-                                <constraint firstAttribute="bottom" secondItem="sEO-RS-TFq" secondAttribute="bottom" constant="10" id="Den-Ix-ghs"/>
-                                <constraint firstAttribute="trailing" secondItem="sEO-RS-TFq" secondAttribute="trailing" constant="10" id="KAf-j2-npU"/>
-                                <constraint firstItem="sEO-RS-TFq" firstAttribute="top" secondItem="ERo-Vs-6Hz" secondAttribute="top" id="c5m-QM-Bqc"/>
-                                <constraint firstItem="sEO-RS-TFq" firstAttribute="leading" secondItem="ERo-Vs-6Hz" secondAttribute="leading" constant="10" id="oPK-z0-5RL"/>
+                                <constraint firstAttribute="bottom" secondItem="fzs-gs-BcW" secondAttribute="bottom" constant="10" id="0GN-Tu-k1M"/>
+                                <constraint firstAttribute="trailing" secondItem="VZe-sF-Hk6" secondAttribute="trailing" constant="10" id="52g-lh-C5c"/>
+                                <constraint firstItem="VZe-sF-Hk6" firstAttribute="top" secondItem="ERo-Vs-6Hz" secondAttribute="top" id="5hZ-td-3ue"/>
+                                <constraint firstItem="VZe-sF-Hk6" firstAttribute="leading" secondItem="ERo-Vs-6Hz" secondAttribute="leading" constant="10" id="AjP-y9-UGy"/>
+                                <constraint firstAttribute="trailing" secondItem="fzs-gs-BcW" secondAttribute="trailing" constant="10" id="UtF-jp-A04"/>
+                                <constraint firstItem="fzs-gs-BcW" firstAttribute="top" secondItem="ERo-Vs-6Hz" secondAttribute="top" id="eaA-BY-an8"/>
+                                <constraint firstItem="fzs-gs-BcW" firstAttribute="leading" secondItem="ERo-Vs-6Hz" secondAttribute="leading" constant="10" id="hQH-cd-GHp"/>
+                                <constraint firstAttribute="bottom" secondItem="VZe-sF-Hk6" secondAttribute="bottom" constant="10" id="nIR-wk-7ev"/>
                             </constraints>
                         </view>
                     </subviews>
@@ -415,6 +465,9 @@
                 <outlet property="informationsLabel" destination="FNA-jL-VEB" id="Bfc-yd-B0N"/>
                 <outlet property="networkContainerView" destination="bhc-V0-cyu" id="PI7-ef-mWz"/>
                 <outlet property="networkLabel" destination="fPc-x1-ABh" id="TSa-0x-tnc"/>
+                <outlet property="noTicketAvailableContainer" destination="VZe-sF-Hk6" id="nwk-ij-1Ae"/>
+                <outlet property="noTicketAvailableImage" destination="0rg-7h-g6T" id="wC1-OX-qG7"/>
+                <outlet property="noTicketAvailableLabel" destination="MQ7-kZ-fso" id="d9S-yU-Ck3"/>
                 <outlet property="publicTransportContainerView" destination="dEI-6w-BO7" id="nyA-y4-2TE"/>
                 <outlet property="publicTransportEndTimeLabel" destination="Qk2-Cb-z3h" id="n8z-a0-rcB"/>
                 <outlet property="publicTransportFromLabel" destination="gcp-h2-p5y" id="t92-1w-FNf"/>
@@ -435,10 +488,12 @@
                 <outlet property="publicTransportStationsStackContainerView" destination="0Ml-xS-BDJ" id="RjI-WT-Jne"/>
                 <outlet property="publicTransportStationsStackHeightContraint" destination="MBv-jp-gwZ" id="3IQ-yT-mWv"/>
                 <outlet property="publicTransportToLabel" destination="hAx-qi-4p3" id="KFR-ag-ikd"/>
+                <outlet property="showTicketView" destination="ERo-Vs-6Hz" id="DnQ-H2-oma"/>
                 <outlet property="stackView" destination="qh1-Nv-EMR" id="gA9-9I-D1F"/>
-                <outlet property="ticketButton" destination="sEO-RS-TFq" id="9fV-ch-LrI"/>
                 <outlet property="transportIconLabel" destination="uyK-mt-FQ8" id="EgF-Fk-3VV"/>
                 <outlet property="transportIconView" destination="Sdt-uv-Xuj" id="xZJ-2f-5mT"/>
+                <outlet property="viewTicketButton" destination="sEO-RS-TFq" id="wkn-rS-xdc"/>
+                <outlet property="viewTicketContainer" destination="fzs-gs-BcW" id="U8X-a8-ioO"/>
                 <outlet property="waitingContainerView" destination="SYX-Ji-Ini" id="dRb-n1-bgA"/>
                 <outlet property="waitingIconLabel" destination="kt3-FA-0SQ" id="fgO-xj-eIe"/>
                 <outlet property="waitingInformationsLabel" destination="dX1-Hw-sA6" id="CSn-NH-py4"/>
@@ -448,5 +503,6 @@
     </objects>
     <resources>
         <image name="blocking_disruption" width="44" height="44"/>
+        <image name="ticket_not_available" width="69" height="35"/>
     </resources>
 </document>
