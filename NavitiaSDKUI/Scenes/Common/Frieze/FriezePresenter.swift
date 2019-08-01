@@ -47,13 +47,21 @@ class FriezePresenter: NSObject {
         
         return section.displayInformations?.commercialMode
     }
-    
+
     private func getColor(section: Section) -> UIColor {
-        return section.displayInformations?.color?.toUIColor() ?? .black
+        if section.displayInformations?.color?.toUIColor() == section.displayInformations?.textColor?.toUIColor() {
+            return Configuration.Color.white
+        }
+        
+        return section.displayInformations?.color?.toUIColor() ?? Configuration.Color.white
     }
     
     private func getTextColor(section: Section) -> UIColor {
-        return section.displayInformations?.textColor?.toUIColor() ?? .black
+        if section.displayInformations?.color?.toUIColor() == section.displayInformations?.textColor?.toUIColor() {
+            return Configuration.Color.black
+        }
+        
+        return section.displayInformations?.textColor?.toUIColor() ?? Configuration.Color.black
     }
     
     private func getIcon(section: Section) -> String {
