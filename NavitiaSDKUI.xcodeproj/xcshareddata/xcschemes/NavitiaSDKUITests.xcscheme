@@ -23,9 +23,6 @@
             </BuildableReference>
             <SkippedTests>
                <Test
-                  Identifier = "IconsTests">
-               </Test>
-               <Test
                   Identifier = "ListJourneysViewControllerTests">
                </Test>
                <Test
