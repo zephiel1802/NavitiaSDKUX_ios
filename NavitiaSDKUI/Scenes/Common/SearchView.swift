@@ -35,7 +35,6 @@ class SearchView: UIView, UITextFieldDelegate {
     @IBOutlet weak var separatorView: UIView!
     @IBOutlet weak var destinationPinImageView: UIImageView!
     @IBOutlet weak var dateTimeLabel: UILabel!
-    @IBOutlet weak var switchContraint: NSLayoutConstraint!
     @IBOutlet weak var switchDepartureArrivalButton: UIButton!
     @IBOutlet weak var separatorTopContraint: NSLayoutConstraint!
     @IBOutlet weak var separatorBottomContraint: NSLayoutConstraint!
@@ -43,6 +42,7 @@ class SearchView: UIView, UITextFieldDelegate {
     @IBOutlet weak var datePreferenceView: UIView!
     @IBOutlet weak var dateButton: UIButton!
     @IBOutlet weak var preferenceButton: UIButton!
+    @IBOutlet weak var switchButtonWidthConstraint: NSLayoutConstraint!
     
     // MARK: var
     var dateFormView: DateFormView!
@@ -51,6 +51,7 @@ class SearchView: UIView, UITextFieldDelegate {
     var fromTextFieldClear = false
     var toTextFieldClear = false
     var isClearButtonAccessible = true
+    var switchDepartureArrivalButtonWidth: CGFloat = 0
     
     internal var lockSwitch = false
     internal var isPreferencesShown = false
@@ -92,8 +93,7 @@ class SearchView: UIView, UITextFieldDelegate {
     }
     internal var switchIsHidden: Bool = false {
         didSet {
-            switchDepartureArrivalButton.isHidden = switchIsHidden
-            switchContraint.isActive = !switchIsHidden
+            switchButtonWidthConstraint.constant = switchIsHidden ? 0 : switchDepartureArrivalButtonWidth
         }
     }
     internal var lock: Bool = false {
@@ -171,6 +171,7 @@ class SearchView: UIView, UITextFieldDelegate {
         switchDepartureArrivalButton.setImage(UIImage(named: "switch", in: NavitiaSDKUI.shared.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate), for: .normal)
         switchDepartureArrivalButton.tintColor = Configuration.Color.main
         switchDepartureArrivalButton.accessibilityLabel = "reverse_departure_and_arrival".localized()
+        switchDepartureArrivalButtonWidth = switchDepartureArrivalButton.frame.width
     }
     
     private func setupTextField() {

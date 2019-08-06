@@ -48,13 +48,13 @@ class CoverageViewController: UIViewController {
             if let error = error {
                 self.messageLabel.text = String(format: "Error retrieving coverages: %@", error.localizedDescription)
             } else if let datas = datas, let regions = datas.regions {
-                let sortedRegions = regions.sorted { ($0.name ?? "") < ($1.name ?? "") }
+                let sortedRegions = regions.sorted {
+                    ($0.name?.lowercased() ?? $0.id?.lowercased() ?? "") < ($1.name?.lowercased() ?? $1.id?.lowercased() ?? "")
+                }
                 
                 for data in sortedRegions {
-                    if let coverageID = data.id, let coverageName = data.name {
-                        self.retrievedCoverages.append(coverageName)
-                        self.coverageIds.append(coverageID)
-                    }
+                    self.retrievedCoverages.append(data.name ?? data.id ?? "unknown")
+                    self.coverageIds.append(data.id ?? "unknown")
                 }
                 
                 self.performSegue(withIdentifier: self.segueIdentifier, sender: self)
