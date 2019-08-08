@@ -37,7 +37,7 @@
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="T0m-AS-tpC">
                                     <rect key="frame" x="0.0" y="0.0" width="250" height="40"/>
                                     <subviews>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="origin-icon" translatesAutoresizingMaskIntoConstraints="NO" id="h0t-0c-CxQ">
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="origin-icon" translatesAutoresizingMaskIntoConstraints="NO" id="h0t-0c-CxQ">
                                             <rect key="frame" x="10" y="10" width="17" height="20"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="17" id="Sjw-BO-0Dx"/>
@@ -92,7 +92,7 @@
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rxk-jh-q0m">
                                     <rect key="frame" x="0.0" y="41" width="250" height="40"/>
                                     <subviews>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="origin-icon" translatesAutoresizingMaskIntoConstraints="NO" id="1So-mo-vfI">
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="origin-icon" translatesAutoresizingMaskIntoConstraints="NO" id="1So-mo-vfI">
                                             <rect key="frame" x="10" y="10" width="17" height="20"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="17" id="6Aa-gT-aWy"/>

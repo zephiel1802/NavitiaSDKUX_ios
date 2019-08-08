@@ -117,12 +117,12 @@ import Foundation
                                        originImage: UIImage? = nil,
                                        destinationImage: UIImage? = nil) {
         // mandatory mode picto
-        Configuration.pictos["bike"] = bikeImage
-        Configuration.pictos["bus"] = busImage
-        Configuration.pictos["car"] = carImage
-        Configuration.pictos["taxi"] = taxiImage
-        Configuration.pictos["train"] = trainImage
-        Configuration.pictos["metro"] = metroImage
+        Configuration.pictos["bike"] = bikeImage.withRenderingMode(.alwaysTemplate)
+        Configuration.pictos["bus"] = busImage.withRenderingMode(.alwaysTemplate)
+        Configuration.pictos["car"] = carImage.withRenderingMode(.alwaysTemplate)
+        Configuration.pictos["taxi"] = taxiImage.withRenderingMode(.alwaysTemplate)
+        Configuration.pictos["train"] = trainImage.withRenderingMode(.alwaysTemplate)
+        Configuration.pictos["metro"] = metroImage.withRenderingMode(.alwaysTemplate)
         
         // optional origin and destination picto
         Configuration.pictos["origin"] = originImage ?? UIImage(named: "departure_color",

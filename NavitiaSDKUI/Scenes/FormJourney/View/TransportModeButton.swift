@@ -63,13 +63,20 @@ class TransportModeButton: UIButton {
             return
         }
         
-        if isSelected {
-            setAttributedTitle(NSMutableAttributedString().icon(icon, color: Configuration.Color.main, size: 25), for: .normal)
+        if let image = Configuration.pictos[icon] {
+            setImage(image, for: .normal)
+            subviews.first?.contentMode = .scaleAspectFit
+            imageEdgeInsets = UIEdgeInsets(top: 18,left: 18,bottom: 18,right: 18)
+            imageView?.tintColor = isSelected ? Configuration.Color.main : Configuration.Color.shadow
         } else {
-            setAttributedTitle(NSMutableAttributedString().icon(icon, color: Configuration.Color.shadow, size: 25), for: .normal)
+            if isSelected {
+                setAttributedTitle(NSMutableAttributedString().icon(icon, color: Configuration.Color.main, size: 25), for: .normal)
+            } else {
+                setAttributedTitle(NSMutableAttributedString().icon(icon, color: Configuration.Color.shadow, size: 25), for: .normal)
+            }
         }
     }
-        
+    
     @objc func buttonAction(_ sender:UIButton!) {
         delegate?.touchButton(sender: self)
     }
