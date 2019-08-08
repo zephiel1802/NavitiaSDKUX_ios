@@ -23,16 +23,7 @@ class FormJourneyPresenter: FormJourneyPresentationLogic {
         let toName =  response.journeysRequest.destinationLabel ??
             response.journeysRequest.destinationName ??
             response.journeysRequest.destinationId
-        let viewModel = FormJourney.DisplaySearch.ViewModel(fromName: fromName,
-                                                            toName: toName,
-                                                            bikeImage: Configuration.pictos["bike"],
-                                                            busImage: Configuration.pictos["bus"],
-                                                            carImage: Configuration.pictos["car"],
-                                                            taxiImage: Configuration.pictos["taxi"],
-                                                            trainImage: Configuration.pictos["train"],
-                                                            metroImage: Configuration.pictos["metro"],
-                                                            originImage: Configuration.pictos["origin"],
-                                                            destinationImage: Configuration.pictos["destination"])
+        let viewModel = FormJourney.DisplaySearch.ViewModel(fromName: fromName, toName: toName)
         
         viewController?.displaySearch(viewModel: viewModel)
     }
