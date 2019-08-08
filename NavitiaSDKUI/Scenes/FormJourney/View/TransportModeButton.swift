@@ -21,7 +21,7 @@ class TransportModeButton: UIButton {
                 return
             }
             
-            icon = mode.icon
+            icon = mode.type
             isSelected = mode.selected
         }
     }

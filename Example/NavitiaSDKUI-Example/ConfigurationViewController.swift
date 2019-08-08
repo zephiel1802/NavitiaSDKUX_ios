@@ -100,15 +100,36 @@ class ConfigurationViewController: UIViewController, UIPickerViewDelegate, UIPic
     
     private func getFormJourneyViewController() -> UIViewController? {
         NavitiaSDKUI.shared.formJourney = true
-        NavitiaSDKUI.shared.modeForm = [ModeButtonModel(title: "Metro", icon: "metro", selected: true, firstSectionMode: ["walking"], lastSectionMode: ["walking"], physicalMode: ["physical_mode:Metro"]),
-                                        ModeButtonModel(title: "Bus", icon: "bus", selected: true, firstSectionMode: ["walking"], lastSectionMode: ["walking"], physicalMode: ["physical_mode:Bus"]),
-                                        ModeButtonModel(title: "RER", icon: "train", selected: true, firstSectionMode: ["walking"], lastSectionMode: ["walking"], physicalMode: ["physical_mode:RapidTransit"]),
-                                        ModeButtonModel(title: "Tramway", icon: "tramway", selected: false, firstSectionMode: ["walking"], lastSectionMode: ["walking"], physicalMode: ["physical_mode:Tramway"]),
-                                        ModeButtonModel(title: "Train", icon: "train", selected: false, firstSectionMode: ["walking"], lastSectionMode: ["walking"], physicalMode: ["physical_mode:LocalTrain", "physical_mode:Train"]),
-                                        ModeButtonModel(title: "Navette", icon: "train", selected: false, firstSectionMode: ["walking"], lastSectionMode: ["walking"], physicalMode: ["physical_mode:Shuttle"]),
-                                        ModeButtonModel(title: "Vélo", icon: "bike", selected: false, firstSectionMode: ["bike"], lastSectionMode: ["bike"]),
-                                        ModeButtonModel(title: "VLS", icon: "bss", selected: false, firstSectionMode: ["bss"], lastSectionMode: ["bss"], realTime: true),
-                                        ModeButtonModel(title: "Voiture", icon: "car", selected: false, firstSectionMode: ["car"], lastSectionMode: ["car"], realTime: true)]
+        
+        let metroButton = ModeButtonModel(title: "Metro", type: "metro",
+                                          selected: true,firstSectionMode: ["walking"],
+                                          lastSectionMode: ["walking"],physicalMode: ["physical_mode:Metro"])
+        let busButton = ModeButtonModel(title: "Bus",type: "bus",
+                                        selected: true,firstSectionMode: ["walking"],
+                                        lastSectionMode: ["walking"],physicalMode: ["physical_mode:Bus"])
+        let rerButton = ModeButtonModel(title: "RER",type: "train",
+                                        selected: true,firstSectionMode: ["walking"],
+                                        lastSectionMode: ["walking"],physicalMode: ["physical_mode:RapidTransit"])
+        let tramButton = ModeButtonModel(title: "Tramway",type: "tramway",
+                                         selected: false,firstSectionMode: ["walking"],
+                                         lastSectionMode: ["walking"],physicalMode: ["physical_mode:Tramway"])
+        let trainButton = ModeButtonModel(title: "Train",type: "train",
+                                          selected: false,firstSectionMode: ["walking"],
+                                          lastSectionMode: ["walking"],physicalMode: ["physical_mode:LocalTrain", "physical_mode:Train"])
+        let navetteButton = ModeButtonModel(title: "Navette",type: "train",
+                                            selected: false,firstSectionMode: ["walking"],
+                                            lastSectionMode: ["walking"],physicalMode: ["physical_mode:Shuttle"])
+        let bikeButton = ModeButtonModel(title: "Vélo",type: "bike",
+                                         selected: false, firstSectionMode: ["bike"],
+                                         lastSectionMode: ["bike"])
+        let vlsButton = ModeButtonModel(title: "VLS",type: "bss",
+                                        selected: false,firstSectionMode: ["bss"],
+                                        lastSectionMode: ["bss"],realTime: true)
+        let carButton = ModeButtonModel(title: "Voiture",type: "car",
+                                        selected: false,firstSectionMode: ["car"],
+                                        lastSectionMode: ["car"], realTime: true)
+        NavitiaSDKUI.shared.modeForm = [metroButton, busButton, rerButton, tramButton,
+                                        trainButton, navetteButton, bikeButton, vlsButton, carButton]
         
         guard let journeyResultsViewController = NavitiaSDKUI.shared.rootViewController else {
             return nil

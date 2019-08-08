@@ -71,7 +71,6 @@ class SearchView: UIView, UITextFieldDelegate {
             fromTextField.text = origin
         }
     }
-    
     internal var destination: String? {
         didSet {
             guard let destination = destination else {
@@ -160,15 +159,26 @@ class SearchView: UIView, UITextFieldDelegate {
     }
     
     private func setupPin() {
-        originPinImageView.image = UIImage(named: "origin-icon", in: NavitiaSDKUI.shared.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
+        if let image = Configuration.pictos["origin"] {
+            originPinImageView.image = image
+        } else {
+            originPinImageView.image = UIImage(named: "origin-icon", in: NavitiaSDKUI.shared.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
+        }
         originPinImageView.tintColor = Configuration.Color.origin
         
-        destinationPinImageView.image = UIImage(named: "origin-icon", in: NavitiaSDKUI.shared.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
+        if let image = Configuration.pictos["destination"] {
+            destinationPinImageView.image = image
+        } else {
+            destinationPinImageView.image = UIImage(named: "origin-icon", in: NavitiaSDKUI.shared.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
+        }
         destinationPinImageView.tintColor = Configuration.Color.destination
     }
     
     private func setupSwitchButton() {
-        switchDepartureArrivalButton.setImage(UIImage(named: "switch", in: NavitiaSDKUI.shared.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate), for: .normal)
+        switchDepartureArrivalButton.setImage(UIImage(named: "switch",
+                                                      in: NavitiaSDKUI.shared.bundle,
+                                                      compatibleWith: nil)?.withRenderingMode(.alwaysTemplate),
+                                              for: .normal)
         switchDepartureArrivalButton.tintColor = Configuration.Color.main
         switchDepartureArrivalButton.accessibilityLabel = "reverse_departure_and_arrival".localized()
         switchDepartureArrivalButtonWidth = switchDepartureArrivalButton.frame.width

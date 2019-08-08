@@ -22,6 +22,14 @@ enum FormJourney {
         struct ViewModel {
             var fromName: String?
             var toName: String?
+            var bikeImage: UIImage?
+            var busImage: UIImage?
+            var carImage: UIImage?
+            var taxiImage: UIImage?
+            var trainImage: UIImage?
+            var metroImage: UIImage?
+            var originImage: UIImage?
+            var destinationImage: UIImage?
         }
     }
     

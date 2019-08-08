@@ -104,7 +104,8 @@ class TransportModeView: UIView {
         var x = 0
         
         for column in 0..<maxIconForWidth {
-            guard let newButton = buttonsSaved[safe: line * maxIconForWidth + column], let newLabel = labelsSaved[safe: line * maxIconForWidth + column] else {
+            guard let newButton = buttonsSaved[safe: line * maxIconForWidth + column],
+                let newLabel = labelsSaved[safe: line * maxIconForWidth + column] else {
                 showIcons(transportMode: transportMode)
                 
                 return
