@@ -115,7 +115,7 @@ extension FriezeSectionView {
         }
         set {
             if let newValue = newValue {
-                let tagBackgroundColor = tagTransportView.backgroundColor ?? .black
+                let tagBackgroundColor = tagTransportView.backgroundColor ?? Configuration.Color.white
                 let tagTextColor = tagTransportLabel.textColor ?? tagBackgroundColor.contrastColor()
 
                 tagTransportView.isHidden = false

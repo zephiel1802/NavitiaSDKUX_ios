@@ -18,4 +18,13 @@ extension UIColor {
         
         return (1 - ((0.299 * r) + (0.587 * g) + (0.114 * b))) > 0.5 ? darkColor : brightColor
     }
+    
+    func isEqualWithConversion(_ color: UIColor) -> Bool {
+        guard let space = self.cgColor.colorSpace,
+            let converted = color.cgColor.converted(to: space, intent: .absoluteColorimetric, options: nil) else {
+                return false
+        }
+        
+        return self.cgColor == converted
+    }
 }

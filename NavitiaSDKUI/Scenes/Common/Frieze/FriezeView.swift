@@ -62,8 +62,11 @@ class FriezeView: UIView {
         friezeSectionView.name = friezeSection.name
         friezeSectionView.icon = friezeSection.icon
         friezeSectionView.displayDisruption(friezeSection.disruptionIcon, color: friezeSection.disruptionColor)
-        friezeSectionView.borderColor = friezeSection.color == Configuration.Color.white ? friezeSection.textColor : nil
-        
+        if friezeSection.color.isEqualWithConversion(.white) ||
+            friezeSection.color.isEqualWithConversion(.clear) ||
+            friezeSection.color.isEqualWithConversion(Configuration.Color.white) {
+            friezeSectionView.borderColor = friezeSection.textColor
+        }
         friezeSectionView.separator = index == 0 ? false : true
     }
     

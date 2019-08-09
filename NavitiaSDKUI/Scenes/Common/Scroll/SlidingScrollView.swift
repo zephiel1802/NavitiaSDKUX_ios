@@ -26,6 +26,7 @@ internal class SlidingScrollView: UIView {
     private var lastOrigin = CGPoint.zero
     private var parentViewSafeArea = UIEdgeInsets.zero
     private var currentState: SlideState = .anchored
+    private var previousState: SlideState = .anchored
     internal weak var delegate: SlidingScrollViewDelegate?
     internal weak var parentView: UIView!
     internal var stackScrollView: StackScrollView!
@@ -112,16 +113,18 @@ internal class SlidingScrollView: UIView {
             self.journeySolutionView.updateFriezeView()
             self.headerHeight = self.journeySolutionView.frame.size.height + self.notchFrame.origin.y + self.notchFrame.size.height
             
-            if self.currentState == .anchored {
-                self.animationBottom(withSafeArea: true)
-                self.setAnchorPoint(slideState: .collapsed)
-                self.currentState = .collapsed
-            } else {
+            if UIDevice.current.orientation.isPortrait
+                && (self.previousState == .anchored || self.currentState == .anchored) {
                 self.animationBottom()
                 self.setAnchorPoint(slideState: .anchored)
-                self.currentState = .anchored
+            } else if self.currentState == .collapsed {
+                self.animationBottom(withSafeArea: true)
+                self.setAnchorPoint(slideState: .collapsed)
+            } else {
+                self.animationBottom(withSafeArea: true)
+                self.setAnchorPoint(slideState: .expanded)
             }
-
+            
             self.stackScrollView.reloadStack()
         }
     }
@@ -186,6 +189,7 @@ internal class SlidingScrollView: UIView {
             self.frame.size.height = self.parentView.frame.size.height - self.lastOrigin.y
         })
         
+        previousState = currentState
         currentState = slideState
         
         delegate?.slidingEndMove(edgePaddingBottom:parentView.frame.size.height - lastOrigin.y, slidingState: slideState)

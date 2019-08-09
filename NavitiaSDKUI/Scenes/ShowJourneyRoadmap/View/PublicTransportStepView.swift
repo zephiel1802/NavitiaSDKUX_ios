@@ -335,8 +335,7 @@ class PublicTransportStepView: UIView {
 
     internal var transport: (code: String?, backgroundColor: UIColor?, textColor: UIColor?)? {
         didSet {
-            guard let backgroundColor = transport?.backgroundColor,
-            let textColor = transport?.textColor else {
+            guard var backgroundColor = transport?.backgroundColor, var textColor = transport?.textColor else {
                 transportIconView.isHidden = true
                 
                 return
@@ -350,8 +349,20 @@ class PublicTransportStepView: UIView {
             
             if let code = transport?.code {
                 transportIconView.isHidden = false
-                transportIconLabel.attributedText = NSMutableAttributedString()
-                    .bold(code, color: textColor, size: 9)
+                var lineBorderColor = UIColor.clear.cgColor
+                if textColor.isEqualWithConversion(backgroundColor) {
+                    textColor = Configuration.Color.black
+                    backgroundColor = Configuration.Color.white
+                    lineBorderColor = textColor.cgColor
+                } else if backgroundColor == Configuration.Color.white {
+                    lineBorderColor = textColor.cgColor
+                }
+                
+                transportIconLabel.attributedText = NSMutableAttributedString().bold(code, color: textColor, size: 9)
+                transportIconLabel.superview?.layer.borderColor = lineBorderColor
+                transportIconLabel.superview?.layer.borderWidth = 1
+                transportIconLabel.superview?.layer.cornerRadius = 3
+                transportIconLabel.superview?.layer.masksToBounds = true
                 transportIconView.backgroundColor = backgroundColor
             }
         }
