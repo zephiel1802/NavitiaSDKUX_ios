@@ -6,6 +6,8 @@ pipeline {
     stages {
         stage('Building & Testing') {
             steps {
+	    	echo 'Cleaning Derived Data...'
+		rm -rf ~/Library/Developer/Xcode/DerivedData && echo 'Successful clean!' || echo 'Failed to clean directory'
                 sh 'xcodebuild -scheme NavitiaSDKUITests -sdk iphonesimulator -destination \'platform=iOS Simulator,name=iPhone 6,OS=12.4\' test'
             }
         }
