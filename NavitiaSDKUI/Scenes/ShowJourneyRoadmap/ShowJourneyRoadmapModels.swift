@@ -14,6 +14,7 @@ enum ShowJourneyRoadmap {
     enum GetRoadmap {
         struct Request {
         }
+        
         struct Response {
             var journey: Journey
             var journeyRidesharing: Journey?
@@ -23,6 +24,7 @@ enum ShowJourneyRoadmap {
             var maasTickets: [MaasTicket]?
             var totalPrice: (value: Float?, currency: String?)?
         }
+        
         struct ViewModel {
             struct DepartureArrival {
                 enum Mode {
@@ -186,10 +188,12 @@ enum ShowJourneyRoadmap {
     enum GetMap {
         struct Request {
         }
+        
         struct Response {
             var journey: Journey
             var journeyRidesharing: Journey?
         }
+        
         struct ViewModel {
             struct sectionPolyline {
                 var coordinates: [CLLocationCoordinate2D]
@@ -215,11 +219,13 @@ enum ShowJourneyRoadmap {
             var type: String
             var notify: ((ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionModel.Stands) -> ())
         }
+        
         struct Response {
             var poi: Poi
             var type: String
             var notify: ((ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionModel.Stands) -> ())
         }
+        
         struct ViewModel {
         }
     }
@@ -232,10 +238,12 @@ enum ShowJourneyRoadmap {
             var id: String
             var notify: ((ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionModel.Stands) -> ())
         }
+        
         struct Response {
             var poi: Poi
             var notify: ((ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionModel.Stands) -> ())
         }
+        
         struct ViewModel {
         }
     }

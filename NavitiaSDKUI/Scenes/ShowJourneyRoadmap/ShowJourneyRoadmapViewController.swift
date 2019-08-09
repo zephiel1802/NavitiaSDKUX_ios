@@ -20,7 +20,7 @@ protocol ShowJourneyRoadmapDisplayLogic: class {
     func displayMap(viewModel: ShowJourneyRoadmap.GetMap.ViewModel)
 }
 
-open class ShowJourneyRoadmapViewController: UIViewController {
+public class ShowJourneyRoadmapViewController: UIViewController {
 
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var centerMapButton: UIButton!
@@ -54,7 +54,7 @@ open class ShowJourneyRoadmapViewController: UIViewController {
         initArchitecture()
     }
     
-    override open func viewDidLoad() {
+    override public func viewDidLoad() {
         super.viewDidLoad()
         
         title = "roadmap".localized()
@@ -63,7 +63,7 @@ open class ShowJourneyRoadmapViewController: UIViewController {
         getMap()
     }
 
-    override open func viewDidLayoutSubviews() {
+    override public func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         
         if !display {
@@ -74,7 +74,7 @@ open class ShowJourneyRoadmapViewController: UIViewController {
         }
     }
     
-    override open func viewDidAppear(_ animated: Bool) {
+    override public func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
 
         startUpdatingUserLocation()
@@ -84,7 +84,7 @@ open class ShowJourneyRoadmapViewController: UIViewController {
         startAnimation()
     }
     
-    override open func viewDidDisappear(_ animated: Bool) {
+    override public func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
 
         stopUpdatingUserLocation()
@@ -94,13 +94,13 @@ open class ShowJourneyRoadmapViewController: UIViewController {
         stopAnimation()
     }
     
-    override open func viewWillLayoutSubviews() {
+    override public func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         
         navigationController?.navigationBar.setNeedsLayout()
     }
     
-    override open func viewWillTransition( to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator ) {
+    override public func viewWillTransition( to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator ) {
         slidingScrollView.updateSlidingViewAfterRotation()
     }
     
