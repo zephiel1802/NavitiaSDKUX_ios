@@ -335,6 +335,7 @@
 		84FABE142074CB2300BDDE9D /* UIFont+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84FABE132074CB2300BDDE9D /* UIFont+Extension.swift */; };
 		84FABE162074F76600BDDE9D /* JourneySolutionLoadCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84FABE152074F76600BDDE9D /* JourneySolutionLoadCollectionViewCell.xib */; };
 		F65672FA2209EAB9007A8E6E /* Debouncer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F65672F92209EAB9007A8E6E /* Debouncer.swift */; };
+		F656ECB122FDB92F00557B8C /* MaasTicket.swift in Sources */ = {isa = PBXBuildFile; fileRef = F656ECB022FDB92E00557B8C /* MaasTicket.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -683,6 +684,7 @@
 		84FABE132074CB2300BDDE9D /* UIFont+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+Extension.swift"; sourceTree = "<group>"; };
 		84FABE152074F76600BDDE9D /* JourneySolutionLoadCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = JourneySolutionLoadCollectionViewCell.xib; sourceTree = "<group>"; };
 		F65672F92209EAB9007A8E6E /* Debouncer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Debouncer.swift; sourceTree = "<group>"; };
+		F656ECB022FDB92E00557B8C /* MaasTicket.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaasTicket.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1291,6 +1293,7 @@
 				84AFDB8921417E6600858D42 /* ShowJourneyRoadmapPresenter.swift */,
 				84AFDB8B21417E6600858D42 /* ShowJourneyRoadmapRouter.swift */,
 				8451DAA920650C9200CFA1E4 /* ShowJourneyRoadmapViewController.swift */,
+				F656ECB022FDB92E00557B8C /* MaasTicket.swift */,
 			);
 			path = ShowJourneyRoadmap;
 			sourceTree = "<group>";
@@ -1591,6 +1594,7 @@
 				841A1057215A29B800F46143 /* Coverages.swift in Sources */,
 				8454D42F2068D3A800C97D2F /* NSDecimalNumberTransform.swift in Sources */,
 				841A1062215A29B800F46143 /* PhysicalMode.swift in Sources */,
+				F656ECB122FDB92F00557B8C /* MaasTicket.swift in Sources */,
 				841A1095215A29B800F46143 /* Note.swift in Sources */,
 				84C82F6C22083FD000FE3F1D /* FormJourneyInteractor.swift in Sources */,
 				841A109D215A29B800F46143 /* DateTimeType.swift in Sources */,
