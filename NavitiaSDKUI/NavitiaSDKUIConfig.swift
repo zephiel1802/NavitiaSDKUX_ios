@@ -105,6 +105,12 @@ import Foundation
         }
     }
     
+    @objc public var pictos: [String:UIImage] {
+        get {
+            return Configuration.pictos
+        }
+    }
+    
     @objc public var rootViewController: JourneyRootViewController? {
         get {
             let storyboard = UIStoryboard(name: "Journey", bundle: bundle)
@@ -115,6 +121,10 @@ import Foundation
             
             return storyboard.instantiateViewController(withIdentifier: "ListJourneysViewController") as? JourneyRootViewController
         }
+    }
+    
+    @objc open func addCustomizedTransportMode(name: String, icon: UIImage) {
+        Configuration.pictos[name] = icon.withRenderingMode(.alwaysTemplate)
     }
     
     @objc open func addCustomizedPicto(bikeImage: UIImage,
