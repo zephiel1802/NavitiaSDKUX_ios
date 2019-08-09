@@ -7,7 +7,8 @@
 
 import Foundation
 
-open class ValidityPattern: JSONEncodable, Mappable {
+
+open class ValidityPattern: JSONEncodable, Mappable, Codable {
 
     public var beginningDate: String?
     public var days: String?
@@ -17,6 +18,17 @@ open class ValidityPattern: JSONEncodable, Mappable {
 
     }
 
+
+    enum CodingKeys: String, CodingKey {
+        case beginningDate = "beginning_date"
+        case days = "days"
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(beginningDate, forKey: .beginningDate)
+        try container.encode(days, forKey: .days)
+    }
 
     public func mapping(map: Map) {
         beginningDate <- map["beginning_date"]

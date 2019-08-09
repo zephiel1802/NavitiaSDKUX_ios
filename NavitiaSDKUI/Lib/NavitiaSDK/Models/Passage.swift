@@ -7,7 +7,8 @@
 
 import Foundation
 
-open class Passage: JSONEncodable, Mappable {
+
+open class Passage: JSONEncodable, Mappable, Codable {
 
     public var displayInformations: VJDisplayInformation?
     public var stopPoint: StopPoint?
@@ -20,6 +21,23 @@ open class Passage: JSONEncodable, Mappable {
 
     }
 
+
+    enum CodingKeys: String, CodingKey {
+        case displayInformations = "display_informations"
+        case stopPoint = "stop_point"
+        case route = "route"
+        case links = "links"
+        case stopDateTime = "stop_date_time"
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(displayInformations, forKey: .displayInformations)
+        try container.encode(stopPoint, forKey: .stopPoint)
+        try container.encode(route, forKey: .route)
+        try container.encode(links, forKey: .links)
+        try container.encode(stopDateTime, forKey: .stopDateTime)
+    }
 
     public func mapping(map: Map) {
         displayInformations <- map["display_informations"]

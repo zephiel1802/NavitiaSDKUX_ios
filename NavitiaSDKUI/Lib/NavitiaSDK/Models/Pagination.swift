@@ -7,7 +7,8 @@
 
 import Foundation
 
-open class Pagination: JSONEncodable, Mappable {
+
+open class Pagination: JSONEncodable, Mappable, Codable {
 
     public var startPage: Int32?
     public var itemsOnPage: Int32?
@@ -19,6 +20,21 @@ open class Pagination: JSONEncodable, Mappable {
 
     }
 
+
+    enum CodingKeys: String, CodingKey {
+        case startPage = "start_page"
+        case itemsOnPage = "items_on_page"
+        case itemsPerPage = "items_per_page"
+        case totalResult = "total_result"
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(startPage, forKey: .startPage)
+        try container.encode(itemsOnPage, forKey: .itemsOnPage)
+        try container.encode(itemsPerPage, forKey: .itemsPerPage)
+        try container.encode(totalResult, forKey: .totalResult)
+    }
 
     public func mapping(map: Map) {
         startPage <- map["start_page"]

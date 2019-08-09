@@ -16,13 +16,15 @@ protocol ShowJourneyRoadmapBusinessLogic {
     func fetchPark(request: ShowJourneyRoadmap.FetchPark.Request)
 }
 
-protocol ShowJourneyRoadmapDataStore {
+public protocol ShowJourneyRoadmapDataStore {
     
     var journey: Journey? { get set }
     var journeyRidesharing: Journey? { get set }
     var disruptions: [Disruption]? { get set }
     var notes: [Note]? { get set }
     var context: Context? { get set }
+    var maasTickets: String? { get set }
+    var totalPrice: (value: Float?, currency: String?)? { get set }
 }
 
 class ShowJourneyRoadmapInteractor: ShowJourneyRoadmapBusinessLogic, ShowJourneyRoadmapDataStore {
@@ -34,6 +36,8 @@ class ShowJourneyRoadmapInteractor: ShowJourneyRoadmapBusinessLogic, ShowJourney
     var disruptions: [Disruption]?
     var notes: [Note]?
     var context: Context?
+    var maasTickets: String?
+    var totalPrice: (value: Float?, currency: String?)?
   
     // MARK: Get Roadmap
   
@@ -46,7 +50,9 @@ class ShowJourneyRoadmapInteractor: ShowJourneyRoadmapBusinessLogic, ShowJourney
                                                               journeyRidesharing: journeyRidesharing,
                                                               disruptions: disruptions,
                                                               notes: notes,
-                                                              context: context)
+                                                              context: context,
+                                                              maasTickets: getMaasTickets(maasTickets: maasTickets),
+                                                              totalPrice: totalPrice)
         presenter?.presentRoadmap(response: response)
     }
     
@@ -90,6 +96,20 @@ class ShowJourneyRoadmapInteractor: ShowJourneyRoadmapBusinessLogic, ShowJourney
                                     
                                     let response = ShowJourneyRoadmap.FetchPark.Response(poi: poi, notify: request.notify)
                                     self.presenter?.presentPark(response: response)
+        }
+    }
+    
+    // MARK: Maas Tickets
+    
+    private func getMaasTickets(maasTickets: String?) -> [MaasTicket]? {
+        guard let maasTickets = maasTickets, let maasTicketsData = maasTickets.data(using: .utf8) else {
+            return nil
+        }
+        
+        do {
+            return try JSONDecoder().decode([MaasTicket].self, from: maasTicketsData)
+        } catch {
+            return nil
         }
     }
 }

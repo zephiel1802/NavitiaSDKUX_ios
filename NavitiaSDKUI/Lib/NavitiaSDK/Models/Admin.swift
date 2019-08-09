@@ -7,7 +7,8 @@
 
 import Foundation
 
-open class Admin: JSONEncodable, Mappable {
+
+open class Admin: JSONEncodable, Mappable, Codable {
 
     public var insee: String?
     /** Name of the object */
@@ -24,6 +25,27 @@ open class Admin: JSONEncodable, Mappable {
 
     }
 
+
+    enum CodingKeys: String, CodingKey {
+        case insee = "insee"
+        case name = "name"
+        case level = "level"
+        case coord = "coord"
+        case label = "label"
+        case id = "id"
+        case zipCode = "zip_code"
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(insee, forKey: .insee)
+        try container.encode(name, forKey: .name)
+        try container.encode(level, forKey: .level)
+        try container.encode(coord, forKey: .coord)
+        try container.encode(label, forKey: .label)
+        try container.encode(id, forKey: .id)
+        try container.encode(zipCode, forKey: .zipCode)
+    }
 
     public func mapping(map: Map) {
         insee <- map["insee"]

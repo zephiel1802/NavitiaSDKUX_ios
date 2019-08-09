@@ -7,7 +7,8 @@
 
 import Foundation
 
-open class GraphicalIsrochoneGeojson: JSONEncodable, Mappable {
+
+open class GraphicalIsrochoneGeojson: JSONEncodable, Mappable, Codable {
 
     public var coordinates: [[[[Float]]]]?
 
@@ -16,6 +17,15 @@ open class GraphicalIsrochoneGeojson: JSONEncodable, Mappable {
 
     }
 
+
+    enum CodingKeys: String, CodingKey {
+        case coordinates = "coordinates"
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(coordinates, forKey: .coordinates)
+    }
 
     public func mapping(map: Map) {
         coordinates <- map["coordinates"]

@@ -7,7 +7,8 @@
 
 import Foundation
 
-open class GeoStatus1: JSONEncodable, Mappable {
+
+open class GeoStatus1: JSONEncodable, Mappable, Codable {
 
     public var geoStatus: GeoStatus?
     public var context: Context?
@@ -17,6 +18,17 @@ open class GeoStatus1: JSONEncodable, Mappable {
 
     }
 
+
+    enum CodingKeys: String, CodingKey {
+        case geoStatus = "geo_status"
+        case context = "context"
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(geoStatus, forKey: .geoStatus)
+        try container.encode(context, forKey: .context)
+    }
 
     public func mapping(map: Map) {
         geoStatus <- map["geo_status"]

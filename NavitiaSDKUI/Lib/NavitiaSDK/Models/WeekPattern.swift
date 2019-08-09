@@ -7,7 +7,8 @@
 
 import Foundation
 
-open class WeekPattern: JSONEncodable, Mappable {
+
+open class WeekPattern: JSONEncodable, Mappable, Codable {
 
     public var monday: Bool?
     public var tuesday: Bool?
@@ -22,6 +23,27 @@ open class WeekPattern: JSONEncodable, Mappable {
 
     }
 
+
+    enum CodingKeys: String, CodingKey {
+        case monday = "monday"
+        case tuesday = "tuesday"
+        case friday = "friday"
+        case wednesday = "wednesday"
+        case thursday = "thursday"
+        case sunday = "sunday"
+        case saturday = "saturday"
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(monday, forKey: .monday)
+        try container.encode(tuesday, forKey: .tuesday)
+        try container.encode(friday, forKey: .friday)
+        try container.encode(wednesday, forKey: .wednesday)
+        try container.encode(thursday, forKey: .thursday)
+        try container.encode(sunday, forKey: .sunday)
+        try container.encode(saturday, forKey: .saturday)
+    }
 
     public func mapping(map: Map) {
         monday <- map["monday"]

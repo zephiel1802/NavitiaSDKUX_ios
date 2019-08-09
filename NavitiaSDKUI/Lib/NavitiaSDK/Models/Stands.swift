@@ -7,9 +7,10 @@
 
 import Foundation
 
-open class Stands: JSONEncodable, Mappable {
 
-    public enum Status: String { 
+open class Stands: JSONEncodable, Mappable, Codable {
+
+    public enum Status: String, Codable { 
         case unavailable = "unavailable"
         case closed = "closed"
         case open = "open"
@@ -24,6 +25,21 @@ open class Stands: JSONEncodable, Mappable {
 
     }
 
+
+    enum CodingKeys: String, CodingKey {
+        case status = "status"
+        case availablePlaces = "available_places"
+        case availableBikes = "available_bikes"
+        case totalStands = "total_stands"
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(status, forKey: .status)
+        try container.encode(availablePlaces, forKey: .availablePlaces)
+        try container.encode(availableBikes, forKey: .availableBikes)
+        try container.encode(totalStands, forKey: .totalStands)
+    }
 
     public func mapping(map: Map) {
         status <- map["status"]

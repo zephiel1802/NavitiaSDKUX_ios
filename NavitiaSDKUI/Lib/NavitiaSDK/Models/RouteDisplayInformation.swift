@@ -7,7 +7,8 @@
 
 import Foundation
 
-open class RouteDisplayInformation: JSONEncodable, Mappable {
+
+open class RouteDisplayInformation: JSONEncodable, Mappable, Codable {
 
     public var direction: String?
     public var code: String?
@@ -24,6 +25,31 @@ open class RouteDisplayInformation: JSONEncodable, Mappable {
 
     }
 
+
+    enum CodingKeys: String, CodingKey {
+        case direction = "direction"
+        case code = "code"
+        case network = "network"
+        case links = "links"
+        case color = "color"
+        case label = "label"
+        case commercialMode = "commercial_mode"
+        case textColor = "text_color"
+        case name = "name"
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(direction, forKey: .direction)
+        try container.encode(code, forKey: .code)
+        try container.encode(network, forKey: .network)
+        try container.encode(links, forKey: .links)
+        try container.encode(color, forKey: .color)
+        try container.encode(label, forKey: .label)
+        try container.encode(commercialMode, forKey: .commercialMode)
+        try container.encode(textColor, forKey: .textColor)
+        try container.encode(name, forKey: .name)
+    }
 
     public func mapping(map: Map) {
         direction <- map["direction"]

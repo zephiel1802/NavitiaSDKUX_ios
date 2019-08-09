@@ -7,9 +7,11 @@
 
 import Foundation
 
-open class Calendars: JSONEncodable, Mappable {
+
+open class Calendars: JSONEncodable, Mappable, Codable {
 
     public var pagination: Pagination?
+    public var links: [LinkSchema]?
     public var disruptions: [Disruption]?
     public var notes: [Note]?
     public var calendars: [Calendar]?
@@ -23,8 +25,32 @@ open class Calendars: JSONEncodable, Mappable {
     }
 
 
+    enum CodingKeys: String, CodingKey {
+        case pagination = "pagination"
+        case links = "links"
+        case disruptions = "disruptions"
+        case notes = "notes"
+        case calendars = "calendars"
+        case feedPublishers = "feed_publishers"
+        case context = "context"
+        case error = "error"
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(pagination, forKey: .pagination)
+        try container.encode(links, forKey: .links)
+        try container.encode(disruptions, forKey: .disruptions)
+        try container.encode(notes, forKey: .notes)
+        try container.encode(calendars, forKey: .calendars)
+        try container.encode(feedPublishers, forKey: .feedPublishers)
+        try container.encode(context, forKey: .context)
+        try container.encode(error, forKey: .error)
+    }
+
     public func mapping(map: Map) {
         pagination <- map["pagination"]
+        links <- map["links"]
         disruptions <- map["disruptions"]
         notes <- map["notes"]
         calendars <- map["calendars"]
@@ -37,6 +63,7 @@ open class Calendars: JSONEncodable, Mappable {
     open func encodeToJSON() -> Any {
         var nillableDictionary = [String:Any?]()
         nillableDictionary["pagination"] = self.pagination?.encodeToJSON()
+        nillableDictionary["links"] = self.links?.encodeToJSON()
         nillableDictionary["disruptions"] = self.disruptions?.encodeToJSON()
         nillableDictionary["notes"] = self.notes?.encodeToJSON()
         nillableDictionary["calendars"] = self.calendars?.encodeToJSON()

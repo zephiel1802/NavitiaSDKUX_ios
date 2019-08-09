@@ -7,7 +7,8 @@
 
 import Foundation
 
-open class VehicleJourney: JSONEncodable, Mappable {
+
+open class VehicleJourney: JSONEncodable, Mappable, Codable {
 
     public var comment: String?
     public var codes: [Code]?
@@ -28,6 +29,35 @@ open class VehicleJourney: JSONEncodable, Mappable {
 
     }
 
+
+    enum CodingKeys: String, CodingKey {
+        case comment = "comment"
+        case codes = "codes"
+        case name = "name"
+        case journeyPattern = "journey_pattern"
+        case disruptions = "disruptions"
+        case calendars = "calendars"
+        case stopTimes = "stop_times"
+        case comments = "comments"
+        case validityPattern = "validity_pattern"
+        case id = "id"
+        case trip = "trip"
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(comment, forKey: .comment)
+        try container.encode(codes, forKey: .codes)
+        try container.encode(name, forKey: .name)
+        try container.encode(journeyPattern, forKey: .journeyPattern)
+        try container.encode(disruptions, forKey: .disruptions)
+        try container.encode(calendars, forKey: .calendars)
+        try container.encode(stopTimes, forKey: .stopTimes)
+        try container.encode(comments, forKey: .comments)
+        try container.encode(validityPattern, forKey: .validityPattern)
+        try container.encode(id, forKey: .id)
+        try container.encode(trip, forKey: .trip)
+    }
 
     public func mapping(map: Map) {
         comment <- map["comment"]

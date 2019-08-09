@@ -7,15 +7,16 @@
 
 import Foundation
 
-open class StopDateTime: JSONEncodable, Mappable {
 
-    public enum AdditionalInformations: String { 
+open class StopDateTime: JSONEncodable, Mappable, Codable {
+
+    public enum AdditionalInformations: String, Codable { 
         case pickUpOnly = "pick_up_only"
         case dropOffOnly = "drop_off_only"
         case onDemandTransport = "on_demand_transport"
         case dateTimeEstimated = "date_time_estimated"
     }
-    public enum DataFreshness: String { 
+    public enum DataFreshness: String, Codable { 
         case baseSchedule = "base_schedule"
         case adaptedSchedule = "adapted_schedule"
         case realtime = "realtime"
@@ -34,6 +35,29 @@ open class StopDateTime: JSONEncodable, Mappable {
 
     }
 
+
+    enum CodingKeys: String, CodingKey {
+        case stopPoint = "stop_point"
+        case links = "links"
+        case arrivalDateTime = "arrival_date_time"
+        case additionalInformations = "additional_informations"
+        case departureDateTime = "departure_date_time"
+        case baseArrivalDateTime = "base_arrival_date_time"
+        case baseDepartureDateTime = "base_departure_date_time"
+        case dataFreshness = "data_freshness"
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(stopPoint, forKey: .stopPoint)
+        try container.encode(links, forKey: .links)
+        try container.encode(arrivalDateTime, forKey: .arrivalDateTime)
+        try container.encode(additionalInformations, forKey: .additionalInformations)
+        try container.encode(departureDateTime, forKey: .departureDateTime)
+        try container.encode(baseArrivalDateTime, forKey: .baseArrivalDateTime)
+        try container.encode(baseDepartureDateTime, forKey: .baseDepartureDateTime)
+        try container.encode(dataFreshness, forKey: .dataFreshness)
+    }
 
     public func mapping(map: Map) {
         stopPoint <- map["stop_point"]

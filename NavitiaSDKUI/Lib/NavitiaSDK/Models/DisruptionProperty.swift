@@ -7,7 +7,8 @@
 
 import Foundation
 
-open class DisruptionProperty: JSONEncodable, Mappable {
+
+open class DisruptionProperty: JSONEncodable, Mappable, Codable {
 
     public var type: String?
     public var key: String?
@@ -18,6 +19,19 @@ open class DisruptionProperty: JSONEncodable, Mappable {
 
     }
 
+
+    enum CodingKeys: String, CodingKey {
+        case type = "type"
+        case key = "key"
+        case value = "value"
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(type, forKey: .type)
+        try container.encode(key, forKey: .key)
+        try container.encode(value, forKey: .value)
+    }
 
     public func mapping(map: Map) {
         type <- map["type"]

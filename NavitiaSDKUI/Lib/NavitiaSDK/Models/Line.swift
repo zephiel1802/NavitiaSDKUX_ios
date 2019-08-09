@@ -7,7 +7,8 @@
 
 import Foundation
 
-open class Line: JSONEncodable, Mappable {
+
+open class Line: JSONEncodable, Mappable, Codable {
 
     public var comment: String?
     public var properties: [Property]?
@@ -35,6 +36,49 @@ open class Line: JSONEncodable, Mappable {
 
     }
 
+
+    enum CodingKeys: String, CodingKey {
+        case comment = "comment"
+        case properties = "properties"
+        case code = "code"
+        case network = "network"
+        case links = "links"
+        case color = "color"
+        case routes = "routes"
+        case geojson = "geojson"
+        case textColor = "text_color"
+        case physicalModes = "physical_modes"
+        case codes = "codes"
+        case comments = "comments"
+        case closingTime = "closing_time"
+        case openingTime = "opening_time"
+        case commercialMode = "commercial_mode"
+        case id = "id"
+        case lineGroups = "line_groups"
+        case name = "name"
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(comment, forKey: .comment)
+        try container.encode(properties, forKey: .properties)
+        try container.encode(code, forKey: .code)
+        try container.encode(network, forKey: .network)
+        try container.encode(links, forKey: .links)
+        try container.encode(color, forKey: .color)
+        try container.encode(routes, forKey: .routes)
+        try container.encode(geojson, forKey: .geojson)
+        try container.encode(textColor, forKey: .textColor)
+        try container.encode(physicalModes, forKey: .physicalModes)
+        try container.encode(codes, forKey: .codes)
+        try container.encode(comments, forKey: .comments)
+        try container.encode(closingTime, forKey: .closingTime)
+        try container.encode(openingTime, forKey: .openingTime)
+        try container.encode(commercialMode, forKey: .commercialMode)
+        try container.encode(id, forKey: .id)
+        try container.encode(lineGroups, forKey: .lineGroups)
+        try container.encode(name, forKey: .name)
+    }
 
     public func mapping(map: Map) {
         comment <- map["comment"]

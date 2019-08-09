@@ -7,7 +7,8 @@
 
 import Foundation
 
-open class StopSchedule: JSONEncodable, Mappable {
+
+open class StopSchedule: JSONEncodable, Mappable, Codable {
 
     public var stopPoint: StopPoint?
     public var links: [LinkSchema]?
@@ -23,6 +24,29 @@ open class StopSchedule: JSONEncodable, Mappable {
 
     }
 
+
+    enum CodingKeys: String, CodingKey {
+        case stopPoint = "stop_point"
+        case links = "links"
+        case dateTimes = "date_times"
+        case route = "route"
+        case additionalInformations = "additional_informations"
+        case displayInformations = "display_informations"
+        case lastDatetime = "last_datetime"
+        case firstDatetime = "first_datetime"
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(stopPoint, forKey: .stopPoint)
+        try container.encode(links, forKey: .links)
+        try container.encode(dateTimes, forKey: .dateTimes)
+        try container.encode(route, forKey: .route)
+        try container.encode(additionalInformations, forKey: .additionalInformations)
+        try container.encode(displayInformations, forKey: .displayInformations)
+        try container.encode(lastDatetime, forKey: .lastDatetime)
+        try container.encode(firstDatetime, forKey: .firstDatetime)
+    }
 
     public func mapping(map: Map) {
         stopPoint <- map["stop_point"]

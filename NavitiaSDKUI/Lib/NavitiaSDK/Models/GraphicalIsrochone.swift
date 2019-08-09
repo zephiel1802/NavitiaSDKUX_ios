@@ -7,7 +7,8 @@
 
 import Foundation
 
-open class GraphicalIsrochone: JSONEncodable, Mappable {
+
+open class GraphicalIsrochone: JSONEncodable, Mappable, Codable {
 
     public var maxDuration: Int32?
     public var from: Place?
@@ -23,6 +24,29 @@ open class GraphicalIsrochone: JSONEncodable, Mappable {
 
     }
 
+
+    enum CodingKeys: String, CodingKey {
+        case maxDuration = "max_duration"
+        case from = "from"
+        case geojson = "geojson"
+        case minDuration = "min_duration"
+        case minDateTime = "min_date_time"
+        case to = "to"
+        case requestedDateTime = "requested_date_time"
+        case maxDateTime = "max_date_time"
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(maxDuration, forKey: .maxDuration)
+        try container.encode(from, forKey: .from)
+        try container.encode(geojson, forKey: .geojson)
+        try container.encode(minDuration, forKey: .minDuration)
+        try container.encode(minDateTime, forKey: .minDateTime)
+        try container.encode(to, forKey: .to)
+        try container.encode(requestedDateTime, forKey: .requestedDateTime)
+        try container.encode(maxDateTime, forKey: .maxDateTime)
+    }
 
     public func mapping(map: Map) {
         maxDuration <- map["max_duration"]

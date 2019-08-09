@@ -7,9 +7,10 @@
 
 import Foundation
 
-open class Route: JSONEncodable, Mappable {
 
-    public enum IsFrequence: String { 
+open class Route: JSONEncodable, Mappable, Codable {
+
+    public enum IsFrequence: String, Codable { 
         case _false = "False"
     }
     public var direction: Place?
@@ -32,6 +33,37 @@ open class Route: JSONEncodable, Mappable {
 
     }
 
+
+    enum CodingKeys: String, CodingKey {
+        case direction = "direction"
+        case codes = "codes"
+        case name = "name"
+        case links = "links"
+        case physicalModes = "physical_modes"
+        case isFrequence = "is_frequence"
+        case comments = "comments"
+        case directionType = "direction_type"
+        case geojson = "geojson"
+        case stopPoints = "stop_points"
+        case line = "line"
+        case id = "id"
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(direction, forKey: .direction)
+        try container.encode(codes, forKey: .codes)
+        try container.encode(name, forKey: .name)
+        try container.encode(links, forKey: .links)
+        try container.encode(physicalModes, forKey: .physicalModes)
+        try container.encode(isFrequence, forKey: .isFrequence)
+        try container.encode(comments, forKey: .comments)
+        try container.encode(directionType, forKey: .directionType)
+        try container.encode(geojson, forKey: .geojson)
+        try container.encode(stopPoints, forKey: .stopPoints)
+        try container.encode(line, forKey: .line)
+        try container.encode(id, forKey: .id)
+    }
 
     public func mapping(map: Map) {
         direction <- map["direction"]

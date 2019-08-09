@@ -7,7 +7,8 @@
 
 import Foundation
 
-open class Contributor: JSONEncodable, Mappable {
+
+open class Contributor: JSONEncodable, Mappable, Codable {
 
     public var website: String?
     /** Identifier of the object */
@@ -21,6 +22,21 @@ open class Contributor: JSONEncodable, Mappable {
 
     }
 
+
+    enum CodingKeys: String, CodingKey {
+        case website = "website"
+        case id = "id"
+        case license = "license"
+        case name = "name"
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(website, forKey: .website)
+        try container.encode(id, forKey: .id)
+        try container.encode(license, forKey: .license)
+        try container.encode(name, forKey: .name)
+    }
 
     public func mapping(map: Map) {
         website <- map["website"]

@@ -93,7 +93,9 @@ class ShowJourneyRoadmapPresenterTests: XCTestCase {
                                                               journeyRidesharing: nil,
                                                               disruptions: seeds.disruptions,
                                                               notes: seeds.notes,
-                                                              context: context)
+                                                              context: context,
+                                                              maasTickets: [],
+                                                              totalPrice: (1.0, "Euros"))
         
         return response
     }

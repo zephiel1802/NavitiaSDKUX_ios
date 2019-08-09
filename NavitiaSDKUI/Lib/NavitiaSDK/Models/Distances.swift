@@ -7,8 +7,11 @@
 
 import Foundation
 
-open class Distances: JSONEncodable, Mappable {
 
+open class Distances: JSONEncodable, Mappable, Codable {
+
+    /** Total distance by taxi of the journey (meters) */
+    public var taxi: Int32?
     /** Total distance by car of the journey (meters) */
     public var car: Int32?
     /** Total walking distance of the journey (meters) */
@@ -24,7 +27,25 @@ open class Distances: JSONEncodable, Mappable {
     }
 
 
+    enum CodingKeys: String, CodingKey {
+        case taxi = "taxi"
+        case car = "car"
+        case walking = "walking"
+        case bike = "bike"
+        case ridesharing = "ridesharing"
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(taxi, forKey: .taxi)
+        try container.encode(car, forKey: .car)
+        try container.encode(walking, forKey: .walking)
+        try container.encode(bike, forKey: .bike)
+        try container.encode(ridesharing, forKey: .ridesharing)
+    }
+
     public func mapping(map: Map) {
+        taxi <- map["taxi"]
         car <- map["car"]
         walking <- map["walking"]
         bike <- map["bike"]
@@ -34,6 +55,7 @@ open class Distances: JSONEncodable, Mappable {
     // MARK: JSONEncodable
     open func encodeToJSON() -> Any {
         var nillableDictionary = [String:Any?]()
+        nillableDictionary["taxi"] = self.taxi?.encodeToJSON()
         nillableDictionary["car"] = self.car?.encodeToJSON()
         nillableDictionary["walking"] = self.walking?.encodeToJSON()
         nillableDictionary["bike"] = self.bike?.encodeToJSON()

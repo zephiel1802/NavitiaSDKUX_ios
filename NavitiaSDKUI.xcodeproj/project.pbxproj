@@ -10,6 +10,15 @@
 		3126566520B2FA0A00D50F4B /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3126566420B2FA0A00D50F4B /* UIColor+Extension.swift */; };
 		3126566920B3008800D50F4B /* UIViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3126566820B3008700D50F4B /* UIViewController+Extension.swift */; };
 		31336E17211DF06B00D197E2 /* Int+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31336E16211DF06A00D197E2 /* Int+Extension.swift */; };
+		3144448122C605BA00218366 /* StopAreaEquipments.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3144447A22C605B900218366 /* StopAreaEquipments.swift */; };
+		3144448222C605BA00218366 /* CurrentAvailability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3144447B22C605B900218366 /* CurrentAvailability.swift */; };
+		3144448322C605BA00218366 /* EquipmentReport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3144447C22C605B900218366 /* EquipmentReport.swift */; };
+		3144448422C605BA00218366 /* EquipmentDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3144447D22C605B900218366 /* EquipmentDetails.swift */; };
+		3144448522C605BA00218366 /* EquipmentReports.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3144447E22C605B900218366 /* EquipmentReports.swift */; };
+		3144448622C605BA00218366 /* Cause.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3144447F22C605BA00218366 /* Cause.swift */; };
+		3144448722C605BA00218366 /* Effect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3144448022C605BA00218366 /* Effect.swift */; };
+		3144448A22C6092E00218366 /* CancelJourneyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3144448822C6092E00218366 /* CancelJourneyView.swift */; };
+		3144448B22C6092E00218366 /* PriceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3144448922C6092E00218366 /* PriceView.swift */; };
 		31653C9D21959AA8001593A8 /* CarPark.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31653C9B21959AA8001593A8 /* CarPark.swift */; };
 		31653C9E21959AA8001593A8 /* SectionGeoJsonSchemaProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31653C9C21959AA8001593A8 /* SectionGeoJsonSchemaProperties.swift */; };
 		317D6C78211091CE00F36242 /* StepByStepItemView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 317D6C76211091CE00F36242 /* StepByStepItemView.xib */; };
@@ -326,6 +335,7 @@
 		84FABE142074CB2300BDDE9D /* UIFont+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84FABE132074CB2300BDDE9D /* UIFont+Extension.swift */; };
 		84FABE162074F76600BDDE9D /* JourneySolutionLoadCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84FABE152074F76600BDDE9D /* JourneySolutionLoadCollectionViewCell.xib */; };
 		F65672FA2209EAB9007A8E6E /* Debouncer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F65672F92209EAB9007A8E6E /* Debouncer.swift */; };
+		F656ECB122FDB92F00557B8C /* MaasTicket.swift in Sources */ = {isa = PBXBuildFile; fileRef = F656ECB022FDB92E00557B8C /* MaasTicket.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -342,6 +352,15 @@
 		3126566420B2FA0A00D50F4B /* UIColor+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
 		3126566820B3008700D50F4B /* UIViewController+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extension.swift"; sourceTree = "<group>"; };
 		31336E16211DF06A00D197E2 /* Int+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Int+Extension.swift"; sourceTree = "<group>"; };
+		3144447A22C605B900218366 /* StopAreaEquipments.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StopAreaEquipments.swift; sourceTree = "<group>"; };
+		3144447B22C605B900218366 /* CurrentAvailability.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrentAvailability.swift; sourceTree = "<group>"; };
+		3144447C22C605B900218366 /* EquipmentReport.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EquipmentReport.swift; sourceTree = "<group>"; };
+		3144447D22C605B900218366 /* EquipmentDetails.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EquipmentDetails.swift; sourceTree = "<group>"; };
+		3144447E22C605B900218366 /* EquipmentReports.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EquipmentReports.swift; sourceTree = "<group>"; };
+		3144447F22C605BA00218366 /* Cause.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Cause.swift; sourceTree = "<group>"; };
+		3144448022C605BA00218366 /* Effect.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Effect.swift; sourceTree = "<group>"; };
+		3144448822C6092E00218366 /* CancelJourneyView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CancelJourneyView.swift; sourceTree = "<group>"; };
+		3144448922C6092E00218366 /* PriceView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PriceView.swift; sourceTree = "<group>"; };
 		31653C9B21959AA8001593A8 /* CarPark.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CarPark.swift; sourceTree = "<group>"; };
 		31653C9C21959AA8001593A8 /* SectionGeoJsonSchemaProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SectionGeoJsonSchemaProperties.swift; sourceTree = "<group>"; };
 		317D6C76211091CE00F36242 /* StepByStepItemView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StepByStepItemView.xib; sourceTree = "<group>"; };
@@ -665,6 +684,7 @@
 		84FABE132074CB2300BDDE9D /* UIFont+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+Extension.swift"; sourceTree = "<group>"; };
 		84FABE152074F76600BDDE9D /* JourneySolutionLoadCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = JourneySolutionLoadCollectionViewCell.xib; sourceTree = "<group>"; };
 		F65672F92209EAB9007A8E6E /* Debouncer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Debouncer.swift; sourceTree = "<group>"; };
+		F656ECB022FDB92E00557B8C /* MaasTicket.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaasTicket.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -724,6 +744,7 @@
 				841A0FEE215A29B800F46143 /* CalendarPeriod.swift */,
 				841A101F215A29B800F46143 /* Calendars.swift */,
 				31653C9B21959AA8001593A8 /* CarPark.swift */,
+				3144447F22C605BA00218366 /* Cause.swift */,
 				841A0FF2215A29B800F46143 /* CellLatSchema.swift */,
 				841A0FB4215A29B800F46143 /* CellLonSchema.swift */,
 				841A0FD1215A29B800F46143 /* Channel.swift */,
@@ -742,6 +763,7 @@
 				841A0FCD215A29B800F46143 /* Coverage.swift */,
 				841A0FA9215A29B800F46143 /* CoverageError.swift */,
 				841A0FAE215A29B800F46143 /* Coverages.swift */,
+				3144447B22C605B900218366 /* CurrentAvailability.swift */,
 				841A0FE7215A29B800F46143 /* Dataset.swift */,
 				841A101A215A29B800F46143 /* Datasets.swift */,
 				841A0FF4215A29B800F46143 /* DateTimeType.swift */,
@@ -752,6 +774,10 @@
 				841A0FC7215A29B800F46143 /* Disruptions.swift */,
 				841A0FC6215A29B800F46143 /* Distances.swift */,
 				841A0FF6215A29B800F46143 /* Durations.swift */,
+				3144448022C605BA00218366 /* Effect.swift */,
+				3144447D22C605B900218366 /* EquipmentDetails.swift */,
+				3144447C22C605B900218366 /* EquipmentReport.swift */,
+				3144447E22C605B900218366 /* EquipmentReports.swift */,
 				841A0FDD215A29B800F46143 /* Exception.swift */,
 				841A1010215A29B800F46143 /* Fare.swift */,
 				841A0FAB215A29B800F46143 /* FareZone.swift */,
@@ -823,6 +849,7 @@
 				841A0FB3215A29B800F46143 /* Severity.swift */,
 				841A0FE6215A29B800F46143 /* Stands.swift */,
 				841A1005215A29B800F46143 /* StopArea.swift */,
+				3144447A22C605B900218366 /* StopAreaEquipments.swift */,
 				841A100D215A29B800F46143 /* StopAreas.swift */,
 				841A1009215A29B800F46143 /* StopDateTime.swift */,
 				841A1002215A29B800F46143 /* StopPoint.swift */,
@@ -1055,12 +1082,14 @@
 			isa = PBXGroup;
 			children = (
 				31B3A82821C16008002EFF91 /* AlternativeJourneyView.swift */,
+				3144448822C6092E00218366 /* CancelJourneyView.swift */,
 				8433F399207F47F0007DBBCE /* DepartureArrivalStepView.swift */,
 				84D0FA97210094B900EB420A /* DisruptionItemView.swift */,
 				84A790FA2121B0E40000C82F /* EmissionView.swift */,
 				31EE0549214694CB00293B8B /* HorizontalSeparator.swift */,
 				8471D38420809EC7000C9125 /* JourneySolutionView.swift */,
 				84AE238821775E0E00439EE0 /* OnDemandItemView.swift */,
+				3144448922C6092E00218366 /* PriceView.swift */,
 				845B4EF021675DE3009CCF12 /* PublicTransportStepView.swift */,
 				8433F39D207F8E14007DBBCE /* RidesharingView.swift */,
 				317D6C79211091D500F36242 /* StepByStepItemVIew.swift */,
@@ -1264,6 +1293,7 @@
 				84AFDB8921417E6600858D42 /* ShowJourneyRoadmapPresenter.swift */,
 				84AFDB8B21417E6600858D42 /* ShowJourneyRoadmapRouter.swift */,
 				8451DAA920650C9200CFA1E4 /* ShowJourneyRoadmapViewController.swift */,
+				F656ECB022FDB92E00557B8C /* MaasTicket.swift */,
 			);
 			path = ShowJourneyRoadmap;
 			sourceTree = "<group>";
@@ -1565,6 +1595,7 @@
 				841A1057215A29B800F46143 /* Coverages.swift in Sources */,
 				8454D42F2068D3A800C97D2F /* NSDecimalNumberTransform.swift in Sources */,
 				841A1062215A29B800F46143 /* PhysicalMode.swift in Sources */,
+				F656ECB122FDB92F00557B8C /* MaasTicket.swift in Sources */,
 				841A1095215A29B800F46143 /* Note.swift in Sources */,
 				84C82F6C22083FD000FE3F1D /* FormJourneyInteractor.swift in Sources */,
 				841A109D215A29B800F46143 /* DateTimeType.swift in Sources */,
@@ -1578,6 +1609,7 @@
 				8454D4362068D3A800C97D2F /* FromJSON.swift in Sources */,
 				84339A82206CC6D900F2CB65 /* NSMutableAttributedString+Extension.swift in Sources */,
 				84AE238921775E0E00439EE0 /* OnDemandItemView.swift in Sources */,
+				3144448122C605BA00218366 /* StopAreaEquipments.swift in Sources */,
 				84FABE142074CB2300BDDE9D /* UIFont+Extension.swift in Sources */,
 				8490376B2161FBEF00472FD6 /* StepView.swift in Sources */,
 				8454D43B2068D3A800C97D2F /* TransformType.swift in Sources */,
@@ -1612,18 +1644,22 @@
 				841A1051215A29B800F46143 /* Arrivals.swift in Sources */,
 				8454D44A2068FC9F00C97D2F /* JourneySolutionCollectionViewCell.swift in Sources */,
 				8476DD5820888EE8006CB506 /* StackView+Extension.swift in Sources */,
+				3144448B22C6092E00218366 /* PriceView.swift in Sources */,
 				841A10B3215A29B800F46143 /* CalendarException.swift in Sources */,
 				8454D4172068D3A800C97D2F /* NetworkReachabilityManager.swift in Sources */,
 				31653C9D21959AA8001593A8 /* CarPark.swift in Sources */,
 				841A10AE215A29B800F46143 /* StopArea.swift in Sources */,
+				3144448522C605BA00218366 /* EquipmentReports.swift in Sources */,
 				84737E9D2087995B002D3748 /* UIImageView+Extension.swift in Sources */,
 				841A107F215A29B800F46143 /* PlacesNearby.swift in Sources */,
 				841A1071215A29B800F46143 /* StopPoints.swift in Sources */,
 				84827A90214BBAA800CB9513 /* ListRidesharingOffersInteractor.swift in Sources */,
 				84EEEF7721DE119400EF6415 /* SlidingScrollView.swift in Sources */,
 				841A107C215A29B800F46143 /* LineReport.swift in Sources */,
+				3144448322C605BA00218366 /* EquipmentReport.swift in Sources */,
 				84C82F6E22083FD000FE3F1D /* FormJourneyRouter.swift in Sources */,
 				841A1064215A29B800F46143 /* StopTime.swift in Sources */,
+				3144448722C605BA00218366 /* Effect.swift in Sources */,
 				841A1068215A29B800F46143 /* Journeys.swift in Sources */,
 				84AAB3142237BB0B00CC8C19 /* CoordApi.swift in Sources */,
 				3126566920B3008800D50F4B /* UIViewController+Extension.swift in Sources */,
@@ -1655,6 +1691,7 @@
 				8454D4392068D3A800C97D2F /* ImmutableMappable.swift in Sources */,
 				841A1047215A29B800F46143 /* AlamofireImplementations.swift in Sources */,
 				841A106E215A29B800F46143 /* ImpactedStop.swift in Sources */,
+				3144448422C605BA00218366 /* EquipmentDetails.swift in Sources */,
 				84AAB30D2237BAF100CC8C19 /* AutocompletionHistory.swift in Sources */,
 				841A1075215A29B800F46143 /* PoiTypes.swift in Sources */,
 				848CFDE921512F520022A4F2 /* HorizontalSeparator.swift in Sources */,
@@ -1733,6 +1770,7 @@
 				841A1083215A29B800F46143 /* BetaEndpoints.swift in Sources */,
 				84AFDB9321417E6600858D42 /* ShowJourneyRoadmapRouter.swift in Sources */,
 				8451DAC62065374F00CFA1E4 /* NavitiaSDKUIConfig.swift in Sources */,
+				3144448A22C6092E00218366 /* CancelJourneyView.swift in Sources */,
 				841A10B6215A29B800F46143 /* StopAreas.swift in Sources */,
 				841A104A215A29B800F46143 /* Models.swift in Sources */,
 				849DECC3219DD6340057A584 /* FriezeSectionView.swift in Sources */,
@@ -1782,6 +1820,7 @@
 				841EFD9621359F56004A313B /* ListJourneysViewController.swift in Sources */,
 				841A106C215A29B800F46143 /* SectionGeoJsonSchema.swift in Sources */,
 				841A1052215A29B800F46143 /* CoverageError.swift in Sources */,
+				3144448622C605BA00218366 /* Cause.swift in Sources */,
 				841A1099215A29B800F46143 /* PtObject.swift in Sources */,
 				8454D43E2068D3A800C97D2F /* DateFormatterTransform.swift in Sources */,
 				84AAB30E2237BAF100CC8C19 /* ModeButtonModel.swift in Sources */,
@@ -1807,6 +1846,7 @@
 				841A106D215A29B800F46143 /* Trip.swift in Sources */,
 				84C82F5522083FC500FE3F1D /* ListPlacesRouter.swift in Sources */,
 				8471D38520809EC7000C9125 /* JourneySolutionView.swift in Sources */,
+				3144448222C605BA00218366 /* CurrentAvailability.swift in Sources */,
 				841A10C7215A29B800F46143 /* LineHeadersSchema.swift in Sources */,
 				841A1049215A29B800F46143 /* Extensions.swift in Sources */,
 				84C82F7022083FD000FE3F1D /* FormJourneyViewController.swift in Sources */,

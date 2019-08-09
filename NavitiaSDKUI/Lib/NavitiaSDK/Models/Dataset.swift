@@ -7,7 +7,8 @@
 
 import Foundation
 
-open class Dataset: JSONEncodable, Mappable {
+
+open class Dataset: JSONEncodable, Mappable, Codable {
 
     public var realtimeLevel: String?
     public var description: String?
@@ -27,6 +28,27 @@ open class Dataset: JSONEncodable, Mappable {
 
     }
 
+
+    enum CodingKeys: String, CodingKey {
+        case realtimeLevel = "realtime_level"
+        case description = "description"
+        case system = "system"
+        case startValidationDate = "start_validation_date"
+        case endValidationDate = "end_validation_date"
+        case contributor = "contributor"
+        case id = "id"
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(realtimeLevel, forKey: .realtimeLevel)
+        try container.encode(description, forKey: .description)
+        try container.encode(system, forKey: .system)
+        try container.encode(startValidationDate, forKey: .startValidationDate)
+        try container.encode(endValidationDate, forKey: .endValidationDate)
+        try container.encode(contributor, forKey: .contributor)
+        try container.encode(id, forKey: .id)
+    }
 
     public func mapping(map: Map) {
         realtimeLevel <- map["realtime_level"]

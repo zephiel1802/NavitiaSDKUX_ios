@@ -7,7 +7,8 @@
 
 import Foundation
 
-open class Impacted: JSONEncodable, Mappable {
+
+open class Impacted: JSONEncodable, Mappable, Codable {
 
     public var impactedStops: [ImpactedStop]?
     public var ptObject: PtObject?
@@ -18,6 +19,19 @@ open class Impacted: JSONEncodable, Mappable {
 
     }
 
+
+    enum CodingKeys: String, CodingKey {
+        case impactedStops = "impacted_stops"
+        case ptObject = "pt_object"
+        case impactedSection = "impacted_section"
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(impactedStops, forKey: .impactedStops)
+        try container.encode(ptObject, forKey: .ptObject)
+        try container.encode(impactedSection, forKey: .impactedSection)
+    }
 
     public func mapping(map: Map) {
         impactedStops <- map["impacted_stops"]

@@ -7,7 +7,8 @@
 
 import Foundation
 
-open class DateTimeType: JSONEncodable, Mappable {
+
+open class DateTimeType: JSONEncodable, Mappable, Codable {
 
     public var dateTime: String?
     public var additionalInformations: [String]?
@@ -20,6 +21,23 @@ open class DateTimeType: JSONEncodable, Mappable {
 
     }
 
+
+    enum CodingKeys: String, CodingKey {
+        case dateTime = "date_time"
+        case additionalInformations = "additional_informations"
+        case baseDateTime = "base_date_time"
+        case dataFreshness = "data_freshness"
+        case links = "links"
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(dateTime, forKey: .dateTime)
+        try container.encode(additionalInformations, forKey: .additionalInformations)
+        try container.encode(baseDateTime, forKey: .baseDateTime)
+        try container.encode(dataFreshness, forKey: .dataFreshness)
+        try container.encode(links, forKey: .links)
+    }
 
     public func mapping(map: Map) {
         dateTime <- map["date_time"]

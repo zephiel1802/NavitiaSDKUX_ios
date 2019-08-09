@@ -9,13 +9,18 @@ import UIKit
 import MapKit
 import CoreLocation
 
+@objc public protocol ShowJourneyRoadmapDelegate: class {
+    
+    @objc func viewTicketClicked(index: Int)
+}
+
 protocol ShowJourneyRoadmapDisplayLogic: class {
     
     func displayRoadmap(viewModel: ShowJourneyRoadmap.GetRoadmap.ViewModel)
     func displayMap(viewModel: ShowJourneyRoadmap.GetMap.ViewModel)
 }
 
-internal class ShowJourneyRoadmapViewController: UIViewController, ShowJourneyRoadmapDisplayLogic {
+public class ShowJourneyRoadmapViewController: UIViewController {
 
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var centerMapButton: UIButton!
@@ -31,10 +36,13 @@ internal class ShowJourneyRoadmapViewController: UIViewController, ShowJourneyRo
     private var bssTuple = [(poi: ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionModel.Poi?, type: String, view: StepView)]()
     private var parkTuple = [(poi: ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionModel.Poi?, view: StepView)]()
     private var display = false
-    internal var router: (NSObjectProtocol & ShowJourneyRoadmapRoutingLogic & ShowJourneyRoadmapDataPassing)?
+
     internal var interactor: ShowJourneyRoadmapBusinessLogic?
 
-    static var identifier: String {
+    weak public var delegate: ShowJourneyRoadmapDelegate?
+    public var router: (NSObjectProtocol & ShowJourneyRoadmapRoutingLogic & ShowJourneyRoadmapDataPassing)?
+    
+    public static var identifier: String {
         return String(describing: self)
     }
     
@@ -46,7 +54,7 @@ internal class ShowJourneyRoadmapViewController: UIViewController, ShowJourneyRo
         initArchitecture()
     }
     
-    override func viewDidLoad() {
+    override public func viewDidLoad() {
         super.viewDidLoad()
         
         title = "roadmap".localized()
@@ -55,7 +63,7 @@ internal class ShowJourneyRoadmapViewController: UIViewController, ShowJourneyRo
         getMap()
     }
 
-    override func viewDidLayoutSubviews() {
+    override public func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         
         if !display {
@@ -66,7 +74,7 @@ internal class ShowJourneyRoadmapViewController: UIViewController, ShowJourneyRo
         }
     }
     
-    override func viewDidAppear(_ animated: Bool) {
+    override public func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
 
         startUpdatingUserLocation()
@@ -76,7 +84,7 @@ internal class ShowJourneyRoadmapViewController: UIViewController, ShowJourneyRo
         startAnimation()
     }
     
-    override func viewDidDisappear(_ animated: Bool) {
+    override public func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
 
         stopUpdatingUserLocation()
@@ -86,13 +94,13 @@ internal class ShowJourneyRoadmapViewController: UIViewController, ShowJourneyRo
         stopAnimation()
     }
     
-    override func viewWillLayoutSubviews() {
+    override public func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         
         navigationController?.navigationBar.setNeedsLayout()
     }
     
-    override func viewWillTransition( to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator ) {
+    override public func viewWillTransition( to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator ) {
         slidingScrollView.updateSlidingViewAfterRotation()
     }
     
@@ -122,30 +130,6 @@ internal class ShowJourneyRoadmapViewController: UIViewController, ShowJourneyRo
         view.addSubview(slidingScrollView)
         
         UIApplication.shared.statusBarOrientation.isPortrait ? slidingScrollView.setAnchorPoint(slideState: .anchored, duration: 0) : slidingScrollView.setAnchorPoint(slideState: .collapsed, duration: 0)
-    }
-    
-    func displayRoadmap(viewModel: ShowJourneyRoadmap.GetRoadmap.ViewModel) {
-        guard let sections = viewModel.sections else {
-            return
-        }
-        
-        ridesharing = viewModel.ridesharing
-        
-        displayHeader(viewModel: viewModel)
-        displayDepartureArrivalStep(viewModel: viewModel.departure)
-        displaySteps(sections: sections)
-        displayDepartureArrivalStep(viewModel: viewModel.arrival)
-        displayEmission(emission: viewModel.emission)
-    }
-    
-    func displayMap(viewModel: ShowJourneyRoadmap.GetMap.ViewModel) {
-        initMapView()
-        
-        displaySections(viewModel: viewModel)
-        displayDepartureArrivalPin(viewModel: viewModel)
-        displayRidesharingAnnoation(viewModel: viewModel)
-        
-        zoomOverPolyline(targetPolyline: MKPolyline(coordinates: journeyPolylineCoordinates, count: journeyPolylineCoordinates.count))
     }
     
     // MARK: - Get roadmap
@@ -267,18 +251,18 @@ internal class ShowJourneyRoadmapViewController: UIViewController, ShowJourneyRo
         slidingScrollView.stackScrollView.addSubview(departureArrivalStepView, margin: UIEdgeInsets(top: 5, left: 10, bottom: 5, right: 10))
     }
     
-    private func displaySteps(sections: [ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionModel]) {
+    private func displaySteps(sections: [ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionModel], ticket: ShowJourneyRoadmap.GetRoadmap.ViewModel.Ticket) {
         for (_, section) in sections.enumerated() {
-            if let sectionStep = getSectionStep(section: section) {
+            if let sectionStep = getSectionStep(section: section, ticket: ticket) {
                 slidingScrollView.stackScrollView.addSubview(sectionStep, margin: UIEdgeInsets(top: 5, left: 10, bottom: 5, right: 10))
             }
         }
     }
     
-    private func getPublicTransportStepView(section: ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionModel) -> UIView {
+    private func getPublicTransportStepView(section: ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionModel, ticket: ShowJourneyRoadmap.GetRoadmap.ViewModel.Ticket) -> UIView {
         let publicTransportView = PublicTransportStepView.instanceFromNib()
-        
         publicTransportView.frame = view.bounds
+        publicTransportView.delegate = self
         publicTransportView.icon = section.icon
         publicTransportView.transport = (code: section.displayInformations.code, textColor: section.displayInformations.textColor, backgroundColor: section.displayInformations.color)
         publicTransportView.actionDescription = section.actionDescription
@@ -292,7 +276,21 @@ internal class ShowJourneyRoadmapViewController: UIViewController, ShowJourneyRo
         publicTransportView.waiting = section.waiting
         publicTransportView.updateAccessibility()
         
+        if ticket.shouldShowTicket {
+            publicTransportView.ticketViewConfig = (isTicketAvailable: section.hasAvailableTicket,
+                                                    viewTicketLocalized: ticket.viewTicketLocalized,
+                                                    ticketNotAvailableLocalized: ticket.ticketNotAvailableLocalized)
+        }
+        
         return publicTransportView
+    }
+    
+    private func getCancelJourneyView() -> CancelJourneyView {
+        let cancelJourneyView = CancelJourneyView.instanceFromNib()
+        
+        cancelJourneyView.frame.size = CGSize(width: slidingScrollView.stackScrollView.frame.size.width, height: 50)
+        
+        return cancelJourneyView
     }
     
     // TODO : Add in presenter
@@ -356,6 +354,19 @@ internal class ShowJourneyRoadmapViewController: UIViewController, ShowJourneyRo
         return stepView
     }
     
+    private func displayPrice(totalPrice: (description: String, value: String)?) {
+        guard let totalPrice = totalPrice else {
+            return
+        }
+        
+        let priceView = PriceView.instanceFromNib()
+        priceView.title = totalPrice.description
+        priceView.price = totalPrice.value
+        priceView.frame.size = CGSize(width: slidingScrollView.stackScrollView.frame.size.width, height: 45)
+        
+        slidingScrollView.stackScrollView.addSubview(priceView, margin: UIEdgeInsets(top: 10, left: 0, bottom: 0, right: 0))
+    }
+    
     private func displayEmission(emission: ShowJourneyRoadmap.GetRoadmap.ViewModel.Emission) {
         let emissionView = EmissionView.instanceFromNib()
 
@@ -367,11 +378,11 @@ internal class ShowJourneyRoadmapViewController: UIViewController, ShowJourneyRo
         slidingScrollView.stackScrollView.addSubview(emissionView, margin: UIEdgeInsets(top: 5, left: 0, bottom: 0, right: 0), safeArea: false)
     }
     
-    private func getSectionStep(section: ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionModel) -> UIView? {
+    private func getSectionStep(section: ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionModel, ticket: ShowJourneyRoadmap.GetRoadmap.ViewModel.Ticket) -> UIView? {
         switch section.type {
         case .publicTransport,
              .onDemandTransport:
-            return getPublicTransportStepView(section: section)
+            return getPublicTransportStepView(section: section, ticket: ticket)
         case .streetNetwork,
              .bssRent,
              .bssPutBack,
@@ -448,6 +459,42 @@ internal class ShowJourneyRoadmapViewController: UIViewController, ShowJourneyRo
     }
 }
 
+// MARKS: Use cases
+
+extension ShowJourneyRoadmapViewController: ShowJourneyRoadmapDisplayLogic {
+    
+    func displayRoadmap(viewModel: ShowJourneyRoadmap.GetRoadmap.ViewModel) {
+        guard let sections = viewModel.sections else {
+            return
+        }
+        
+        ridesharing = viewModel.ridesharing
+        
+        displayHeader(viewModel: viewModel)
+        displayDepartureArrivalStep(viewModel: viewModel.departure)
+        displaySteps(sections: sections, ticket: viewModel.ticket)
+        displayDepartureArrivalStep(viewModel: viewModel.arrival)
+        
+        if viewModel.ticket.shouldShowTicket {
+            displayPrice(totalPrice: viewModel.totalPrice)
+        }
+        
+        displayEmission(emission: viewModel.emission)
+        
+        //slidingScrollView.stackScrollView.addSubview(getCancelJourneyView(), margin: UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0))
+    }
+    
+    func displayMap(viewModel: ShowJourneyRoadmap.GetMap.ViewModel) {
+        initMapView()
+        
+        displaySections(viewModel: viewModel)
+        displayDepartureArrivalPin(viewModel: viewModel)
+        displayRidesharingAnnoation(viewModel: viewModel)
+        
+        zoomOverPolyline(targetPolyline: MKPolyline(coordinates: journeyPolylineCoordinates, count: journeyPolylineCoordinates.count))
+    }
+}
+
 // MARKS: Sliding
 
 extension ShowJourneyRoadmapViewController: SlidingScrollViewDelegate {
@@ -489,6 +536,7 @@ extension ShowJourneyRoadmapViewController {
     }
     
     private func displayCenterMapButton() {
+        centerMapButton.backgroundColor = Configuration.Color.secondary
         centerMapButton.setImage(UIImage(named: "location", in: NavitiaSDKUI.shared.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate), for: .normal)
         centerMapButton.tintColor = Configuration.Color.white
         centerMapButton.imageEdgeInsets = UIEdgeInsets(top: 8, left: 6, bottom: 6, right: 8)
@@ -683,5 +731,12 @@ extension ShowJourneyRoadmapViewController: AlternativeJourneyDelegate {
         if let router = router, router.responds(to: selector) {
             router.perform(selector)
         }
+    }
+}
+
+extension ShowJourneyRoadmapViewController: PublicTransportStepViewDelegate {
+    
+    public func viewTicketClicked(index: Int) {
+        delegate?.viewTicketClicked(index: index)
     }
 }

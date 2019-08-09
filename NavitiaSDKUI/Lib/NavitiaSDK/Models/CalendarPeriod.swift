@@ -7,7 +7,8 @@
 
 import Foundation
 
-open class CalendarPeriod: JSONEncodable, Mappable {
+
+open class CalendarPeriod: JSONEncodable, Mappable, Codable {
 
     public var begin: String?
     public var end: String?
@@ -17,6 +18,17 @@ open class CalendarPeriod: JSONEncodable, Mappable {
 
     }
 
+
+    enum CodingKeys: String, CodingKey {
+        case begin = "begin"
+        case end = "end"
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(begin, forKey: .begin)
+        try container.encode(end, forKey: .end)
+    }
 
     public func mapping(map: Map) {
         begin <- map["begin"]

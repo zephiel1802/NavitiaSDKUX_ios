@@ -7,13 +7,14 @@
 
 import Foundation
 
-open class Section: JSONEncodable, Mappable {
 
-    public enum TransferType: String { 
+open class Section: JSONEncodable, Mappable, Codable {
+
+    public enum TransferType: String, Codable { 
         case walking = "walking"
         case stayIn = "stay_in"
     }
-    public enum AdditionalInformations: String { 
+    public enum AdditionalInformations: String, Codable { 
         case odtWithZone = "odt_with_zone"
         case odtWithStopPoint = "odt_with_stop_point"
         case odtWithStopTime = "odt_with_stop_time"
@@ -21,7 +22,7 @@ open class Section: JSONEncodable, Mappable {
         case regular = "regular"
         case stayIn = "stay_in"
     }
-    public enum ModelType: String { 
+    public enum ModelType: String, Codable { 
         case publicTransport = "public_transport"
         case streetNetwork = "street_network"
         case waiting = "waiting"
@@ -37,18 +38,19 @@ open class Section: JSONEncodable, Mappable {
         case ridesharing = "ridesharing"
         case onDemandTransport = "on_demand_transport"
     }
-    public enum DataFreshness: String { 
+    public enum DataFreshness: String, Codable { 
         case baseSchedule = "base_schedule"
         case adaptedSchedule = "adapted_schedule"
         case realtime = "realtime"
     }
-    public enum Mode: String { 
+    public enum Mode: String, Codable { 
         case walking = "walking"
         case bike = "bike"
         case car = "car"
         case bss = "bss"
         case ridesharing = "ridesharing"
         case carnopark = "carnopark"
+        case taxi = "taxi"
     }
     public var displayInformations: VJDisplayInformation?
     public var from: Place?
@@ -83,6 +85,55 @@ open class Section: JSONEncodable, Mappable {
 
     }
 
+
+    enum CodingKeys: String, CodingKey {
+        case displayInformations = "display_informations"
+        case from = "from"
+        case links = "links"
+        case transferType = "transfer_type"
+        case arrivalDateTime = "arrival_date_time"
+        case additionalInformations = "additional_informations"
+        case departureDateTime = "departure_date_time"
+        case ridesharingInformations = "ridesharing_informations"
+        case to = "to"
+        case baseArrivalDateTime = "base_arrival_date_time"
+        case baseDepartureDateTime = "base_departure_date_time"
+        case co2Emission = "co2_emission"
+        case ridesharingJourneys = "ridesharing_journeys"
+        case geojson = "geojson"
+        case duration = "duration"
+        case path = "path"
+        case stopDateTimes = "stop_date_times"
+        case type = "type"
+        case id = "id"
+        case dataFreshness = "data_freshness"
+        case mode = "mode"
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(displayInformations, forKey: .displayInformations)
+        try container.encode(from, forKey: .from)
+        try container.encode(links, forKey: .links)
+        try container.encode(transferType, forKey: .transferType)
+        try container.encode(arrivalDateTime, forKey: .arrivalDateTime)
+        try container.encode(additionalInformations, forKey: .additionalInformations)
+        try container.encode(departureDateTime, forKey: .departureDateTime)
+        try container.encode(ridesharingInformations, forKey: .ridesharingInformations)
+        try container.encode(to, forKey: .to)
+        try container.encode(baseArrivalDateTime, forKey: .baseArrivalDateTime)
+        try container.encode(baseDepartureDateTime, forKey: .baseDepartureDateTime)
+        try container.encode(co2Emission, forKey: .co2Emission)
+        try container.encode(ridesharingJourneys, forKey: .ridesharingJourneys)
+        try container.encode(geojson, forKey: .geojson)
+        try container.encode(duration, forKey: .duration)
+        try container.encode(path, forKey: .path)
+        try container.encode(stopDateTimes, forKey: .stopDateTimes)
+        try container.encode(type, forKey: .type)
+        try container.encode(id, forKey: .id)
+        try container.encode(dataFreshness, forKey: .dataFreshness)
+        try container.encode(mode, forKey: .mode)
+    }
 
     public func mapping(map: Map) {
         displayInformations <- map["display_informations"]

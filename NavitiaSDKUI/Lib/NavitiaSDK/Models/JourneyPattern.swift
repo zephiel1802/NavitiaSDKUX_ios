@@ -7,7 +7,8 @@
 
 import Foundation
 
-open class JourneyPattern: JSONEncodable, Mappable {
+
+open class JourneyPattern: JSONEncodable, Mappable, Codable {
 
     public var route: Route?
     public var journeyPatternPoints: [JourneyPatternPoint]?
@@ -21,6 +22,21 @@ open class JourneyPattern: JSONEncodable, Mappable {
 
     }
 
+
+    enum CodingKeys: String, CodingKey {
+        case route = "route"
+        case journeyPatternPoints = "journey_pattern_points"
+        case name = "name"
+        case id = "id"
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(route, forKey: .route)
+        try container.encode(journeyPatternPoints, forKey: .journeyPatternPoints)
+        try container.encode(name, forKey: .name)
+        try container.encode(id, forKey: .id)
+    }
 
     public func mapping(map: Map) {
         route <- map["route"]

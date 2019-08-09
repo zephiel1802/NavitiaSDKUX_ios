@@ -7,7 +7,8 @@
 
 import Foundation
 
-open class BetaEndpoints: JSONEncodable, Mappable {
+
+open class BetaEndpoints: JSONEncodable, Mappable, Codable {
 
     public var message: String?
     public var id: String?
@@ -17,6 +18,17 @@ open class BetaEndpoints: JSONEncodable, Mappable {
 
     }
 
+
+    enum CodingKeys: String, CodingKey {
+        case message = "message"
+        case id = "id"
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(message, forKey: .message)
+        try container.encode(id, forKey: .id)
+    }
 
     public func mapping(map: Map) {
         message <- map["message"]

@@ -7,9 +7,11 @@
 
 import Foundation
 
-open class PhysicalModes: JSONEncodable, Mappable {
+
+open class PhysicalModes: JSONEncodable, Mappable, Codable {
 
     public var pagination: Pagination?
+    public var links: [LinkSchema]?
     public var physicalModes: [PhysicalMode]?
     public var disruptions: [Disruption]?
     public var notes: [Note]?
@@ -23,8 +25,32 @@ open class PhysicalModes: JSONEncodable, Mappable {
     }
 
 
+    enum CodingKeys: String, CodingKey {
+        case pagination = "pagination"
+        case links = "links"
+        case physicalModes = "physical_modes"
+        case disruptions = "disruptions"
+        case notes = "notes"
+        case feedPublishers = "feed_publishers"
+        case context = "context"
+        case error = "error"
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(pagination, forKey: .pagination)
+        try container.encode(links, forKey: .links)
+        try container.encode(physicalModes, forKey: .physicalModes)
+        try container.encode(disruptions, forKey: .disruptions)
+        try container.encode(notes, forKey: .notes)
+        try container.encode(feedPublishers, forKey: .feedPublishers)
+        try container.encode(context, forKey: .context)
+        try container.encode(error, forKey: .error)
+    }
+
     public func mapping(map: Map) {
         pagination <- map["pagination"]
+        links <- map["links"]
         physicalModes <- map["physical_modes"]
         disruptions <- map["disruptions"]
         notes <- map["notes"]
@@ -37,6 +63,7 @@ open class PhysicalModes: JSONEncodable, Mappable {
     open func encodeToJSON() -> Any {
         var nillableDictionary = [String:Any?]()
         nillableDictionary["pagination"] = self.pagination?.encodeToJSON()
+        nillableDictionary["links"] = self.links?.encodeToJSON()
         nillableDictionary["physical_modes"] = self.physicalModes?.encodeToJSON()
         nillableDictionary["disruptions"] = self.disruptions?.encodeToJSON()
         nillableDictionary["notes"] = self.notes?.encodeToJSON()

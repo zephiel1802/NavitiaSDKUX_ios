@@ -7,7 +7,8 @@
 
 import Foundation
 
-open class CellLonSchema: JSONEncodable, Mappable {
+
+open class CellLonSchema: JSONEncodable, Mappable, Codable {
 
     public var minLon: Float?
     public var centerLon: Float?
@@ -18,6 +19,19 @@ open class CellLonSchema: JSONEncodable, Mappable {
 
     }
 
+
+    enum CodingKeys: String, CodingKey {
+        case minLon = "min_lon"
+        case centerLon = "center_lon"
+        case maxLon = "max_lon"
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(minLon, forKey: .minLon)
+        try container.encode(centerLon, forKey: .centerLon)
+        try container.encode(maxLon, forKey: .maxLon)
+    }
 
     public func mapping(map: Map) {
         minLon <- map["min_lon"]

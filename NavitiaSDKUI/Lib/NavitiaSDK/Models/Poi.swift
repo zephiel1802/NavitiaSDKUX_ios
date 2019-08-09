@@ -7,11 +7,13 @@
 
 import Foundation
 
-open class Poi: JSONEncodable, Mappable {
+
+open class Poi: JSONEncodable, Mappable, Codable {
 
     public var poiType: PoiType?
     /** Name of the object */
     public var name: String?
+    public var carPark: CarPark?
     public var coord: Coord?
     public var label: String?
     public var administrativeRegions: [Admin]?
@@ -20,7 +22,6 @@ open class Poi: JSONEncodable, Mappable {
     public var id: String?
     public var properties: [String:String]?
     public var stands: Stands?
-    public var carPark: CarPark?
 
     public init() {}
     required public init?(map: Map) {
@@ -28,9 +29,37 @@ open class Poi: JSONEncodable, Mappable {
     }
 
 
+    enum CodingKeys: String, CodingKey {
+        case poiType = "poi_type"
+        case name = "name"
+        case carPark = "car_park"
+        case coord = "coord"
+        case label = "label"
+        case administrativeRegions = "administrative_regions"
+        case address = "address"
+        case id = "id"
+        case properties = "properties"
+        case stands = "stands"
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(poiType, forKey: .poiType)
+        try container.encode(name, forKey: .name)
+        try container.encode(carPark, forKey: .carPark)
+        try container.encode(coord, forKey: .coord)
+        try container.encode(label, forKey: .label)
+        try container.encode(administrativeRegions, forKey: .administrativeRegions)
+        try container.encode(address, forKey: .address)
+        try container.encode(id, forKey: .id)
+        try container.encode(properties, forKey: .properties)
+        try container.encode(stands, forKey: .stands)
+    }
+
     public func mapping(map: Map) {
         poiType <- map["poi_type"]
         name <- map["name"]
+        carPark <- map["car_park"]
         coord <- map["coord"]
         label <- map["label"]
         administrativeRegions <- map["administrative_regions"]
@@ -38,7 +67,6 @@ open class Poi: JSONEncodable, Mappable {
         id <- map["id"]
         properties <- map["properties"]
         stands <- map["stands"]
-        carPark <- map["car_park"]
     }
 
     // MARK: JSONEncodable
@@ -46,6 +74,7 @@ open class Poi: JSONEncodable, Mappable {
         var nillableDictionary = [String:Any?]()
         nillableDictionary["poi_type"] = self.poiType?.encodeToJSON()
         nillableDictionary["name"] = self.name
+        nillableDictionary["car_park"] = self.carPark?.encodeToJSON()
         nillableDictionary["coord"] = self.coord?.encodeToJSON()
         nillableDictionary["label"] = self.label
         nillableDictionary["administrative_regions"] = self.administrativeRegions?.encodeToJSON()
@@ -53,7 +82,6 @@ open class Poi: JSONEncodable, Mappable {
         nillableDictionary["id"] = self.id
         nillableDictionary["properties"] = self.properties?.encodeToJSON()
         nillableDictionary["stands"] = self.stands?.encodeToJSON()
-        nillableDictionary["car_park"] = self.carPark?.encodeToJSON()
 
         let dictionary: [String:Any] = APIHelper.rejectNil(nillableDictionary) ?? [:]
         return dictionary

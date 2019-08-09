@@ -82,7 +82,10 @@ let iconFontCodes:[String: String] = [
     "option": "\u{e916}"
 ]
 
-class Modes {
+public class Modes {
+    
+    public init() {
+    }
     
     public func getMode(section: Section?, roadmap: Bool = false) -> String {
         switch section!.type! {
