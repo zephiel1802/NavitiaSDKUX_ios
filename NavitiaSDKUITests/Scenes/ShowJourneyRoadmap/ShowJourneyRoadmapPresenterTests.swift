@@ -94,7 +94,8 @@ class ShowJourneyRoadmapPresenterTests: XCTestCase {
                                                               disruptions: seeds.disruptions,
                                                               notes: seeds.notes,
                                                               context: context,
-                                                              maasTickets: "")
+                                                              maasTickets: [],
+                                                              totalPrice: (1.0, "Euros"))
         
         return response
     }
