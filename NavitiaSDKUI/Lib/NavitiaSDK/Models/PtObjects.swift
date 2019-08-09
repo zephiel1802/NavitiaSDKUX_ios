@@ -7,13 +7,15 @@
 
 import Foundation
 
-open class PtObjects: JSONEncodable, Mappable {
 
-    public var ptObjects: [PtObject]?
+open class PtObjects: JSONEncodable, Mappable, Codable {
+
+    public var links: [LinkSchema]?
     public var disruptions: [Disruption]?
-    public var error: ModelError?
-    public var context: Context?
     public var feedPublishers: [FeedPublisher]?
+    public var context: Context?
+    public var error: ModelError?
+    public var ptObjects: [PtObject]?
 
     public init() {}
     required public init?(map: Map) {
@@ -21,22 +23,43 @@ open class PtObjects: JSONEncodable, Mappable {
     }
 
 
+    enum CodingKeys: String, CodingKey {
+        case links = "links"
+        case disruptions = "disruptions"
+        case feedPublishers = "feed_publishers"
+        case context = "context"
+        case error = "error"
+        case ptObjects = "pt_objects"
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(links, forKey: .links)
+        try container.encode(disruptions, forKey: .disruptions)
+        try container.encode(feedPublishers, forKey: .feedPublishers)
+        try container.encode(context, forKey: .context)
+        try container.encode(error, forKey: .error)
+        try container.encode(ptObjects, forKey: .ptObjects)
+    }
+
     public func mapping(map: Map) {
-        ptObjects <- map["pt_objects"]
+        links <- map["links"]
         disruptions <- map["disruptions"]
-        error <- map["error"]
-        context <- map["context"]
         feedPublishers <- map["feed_publishers"]
+        context <- map["context"]
+        error <- map["error"]
+        ptObjects <- map["pt_objects"]
     }
 
     // MARK: JSONEncodable
     open func encodeToJSON() -> Any {
         var nillableDictionary = [String:Any?]()
-        nillableDictionary["pt_objects"] = self.ptObjects?.encodeToJSON()
+        nillableDictionary["links"] = self.links?.encodeToJSON()
         nillableDictionary["disruptions"] = self.disruptions?.encodeToJSON()
-        nillableDictionary["error"] = self.error?.encodeToJSON()
-        nillableDictionary["context"] = self.context?.encodeToJSON()
         nillableDictionary["feed_publishers"] = self.feedPublishers?.encodeToJSON()
+        nillableDictionary["context"] = self.context?.encodeToJSON()
+        nillableDictionary["error"] = self.error?.encodeToJSON()
+        nillableDictionary["pt_objects"] = self.ptObjects?.encodeToJSON()
 
         let dictionary: [String:Any] = APIHelper.rejectNil(nillableDictionary) ?? [:]
         return dictionary

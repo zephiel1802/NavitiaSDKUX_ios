@@ -7,7 +7,8 @@
 
 import Foundation
 
-open class HeatMatrixSchema: JSONEncodable, Mappable {
+
+open class HeatMatrixSchema: JSONEncodable, Mappable, Codable {
 
     public var lineHeaders: [LineHeadersSchema]?
     public var lines: [LinesSchema]?
@@ -17,6 +18,17 @@ open class HeatMatrixSchema: JSONEncodable, Mappable {
 
     }
 
+
+    enum CodingKeys: String, CodingKey {
+        case lineHeaders = "line_headers"
+        case lines = "lines"
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(lineHeaders, forKey: .lineHeaders)
+        try container.encode(lines, forKey: .lines)
+    }
 
     public func mapping(map: Map) {
         lineHeaders <- map["line_headers"]

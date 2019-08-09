@@ -7,12 +7,14 @@
 
 import Foundation
 
-open class Journey: JSONEncodable, Mappable {
+
+open class Journey: JSONEncodable, Mappable, Codable {
 
     /** Status from the whole journey taking into account the most disturbing information retrieved on every object used (can be \&quot;NO_SERVICE\&quot;, \&quot;SIGNIFICANT_DELAYS\&quot;, ... */
     public var status: String?
     public var distances: Distances?
     public var from: Place?
+    public var links: [LinkSchema]?
     public var tags: [String]?
     /** Number of transfers along the journey */
     public var nbTransfers: Int32?
@@ -39,10 +41,54 @@ open class Journey: JSONEncodable, Mappable {
     }
 
 
+    enum CodingKeys: String, CodingKey {
+        case status = "status"
+        case distances = "distances"
+        case from = "from"
+        case links = "links"
+        case tags = "tags"
+        case nbTransfers = "nb_transfers"
+        case durations = "durations"
+        case arrivalDateTime = "arrival_date_time"
+        case calendars = "calendars"
+        case departureDateTime = "departure_date_time"
+        case to = "to"
+        case requestedDateTime = "requested_date_time"
+        case fare = "fare"
+        case co2Emission = "co2_emission"
+        case type = "type"
+        case duration = "duration"
+        case sections = "sections"
+        case debug = "debug"
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(status, forKey: .status)
+        try container.encode(distances, forKey: .distances)
+        try container.encode(from, forKey: .from)
+        try container.encode(links, forKey: .links)
+        try container.encode(tags, forKey: .tags)
+        try container.encode(nbTransfers, forKey: .nbTransfers)
+        try container.encode(durations, forKey: .durations)
+        try container.encode(arrivalDateTime, forKey: .arrivalDateTime)
+        try container.encode(calendars, forKey: .calendars)
+        try container.encode(departureDateTime, forKey: .departureDateTime)
+        try container.encode(to, forKey: .to)
+        try container.encode(requestedDateTime, forKey: .requestedDateTime)
+        try container.encode(fare, forKey: .fare)
+        try container.encode(co2Emission, forKey: .co2Emission)
+        try container.encode(type, forKey: .type)
+        try container.encode(duration, forKey: .duration)
+        try container.encode(sections, forKey: .sections)
+        try container.encode(debug, forKey: .debug)
+    }
+
     public func mapping(map: Map) {
         status <- map["status"]
         distances <- map["distances"]
         from <- map["from"]
+        links <- map["links"]
         tags <- map["tags"]
         nbTransfers <- map["nb_transfers"]
         durations <- map["durations"]
@@ -65,6 +111,7 @@ open class Journey: JSONEncodable, Mappable {
         nillableDictionary["status"] = self.status
         nillableDictionary["distances"] = self.distances?.encodeToJSON()
         nillableDictionary["from"] = self.from?.encodeToJSON()
+        nillableDictionary["links"] = self.links?.encodeToJSON()
         nillableDictionary["tags"] = self.tags?.encodeToJSON()
         nillableDictionary["nb_transfers"] = self.nbTransfers?.encodeToJSON()
         nillableDictionary["durations"] = self.durations?.encodeToJSON()

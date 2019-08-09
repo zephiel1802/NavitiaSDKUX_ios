@@ -7,9 +7,10 @@
 
 import Foundation
 
-open class VJDisplayInformation: JSONEncodable, Mappable {
 
-    public enum Equipments: String { 
+open class VJDisplayInformation: JSONEncodable, Mappable, Codable {
+
+    public enum Equipments: String, Codable { 
         case wheelchairAccessibility = "has_wheelchair_accessibility"
         case bikeAccepted = "has_bike_accepted"
         case airConditioned = "has_air_conditioned"
@@ -44,6 +45,41 @@ open class VJDisplayInformation: JSONEncodable, Mappable {
 
     }
 
+
+    enum CodingKeys: String, CodingKey {
+        case direction = "direction"
+        case code = "code"
+        case network = "network"
+        case links = "links"
+        case color = "color"
+        case name = "name"
+        case physicalMode = "physical_mode"
+        case headsign = "headsign"
+        case label = "label"
+        case equipments = "equipments"
+        case textColor = "text_color"
+        case headsigns = "headsigns"
+        case commercialMode = "commercial_mode"
+        case description = "description"
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(direction, forKey: .direction)
+        try container.encode(code, forKey: .code)
+        try container.encode(network, forKey: .network)
+        try container.encode(links, forKey: .links)
+        try container.encode(color, forKey: .color)
+        try container.encode(name, forKey: .name)
+        try container.encode(physicalMode, forKey: .physicalMode)
+        try container.encode(headsign, forKey: .headsign)
+        try container.encode(label, forKey: .label)
+        try container.encode(equipments, forKey: .equipments)
+        try container.encode(textColor, forKey: .textColor)
+        try container.encode(headsigns, forKey: .headsigns)
+        try container.encode(commercialMode, forKey: .commercialMode)
+        try container.encode(description, forKey: .description)
+    }
 
     public func mapping(map: Map) {
         direction <- map["direction"]

@@ -7,7 +7,8 @@
 
 import Foundation
 
-open class SectionGeoJsonSchema: JSONEncodable, Mappable {
+
+open class SectionGeoJsonSchema: JSONEncodable, Mappable, Codable {
 
     public var type: String?
     public var properties: [SectionGeoJsonSchemaProperties]?
@@ -18,6 +19,19 @@ open class SectionGeoJsonSchema: JSONEncodable, Mappable {
 
     }
 
+
+    enum CodingKeys: String, CodingKey {
+        case type = "type"
+        case properties = "properties"
+        case coordinates = "coordinates"
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(type, forKey: .type)
+        try container.encode(properties, forKey: .properties)
+        try container.encode(coordinates, forKey: .coordinates)
+    }
 
     public func mapping(map: Map) {
         type <- map["type"]

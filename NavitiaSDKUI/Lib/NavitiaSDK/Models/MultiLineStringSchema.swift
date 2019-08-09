@@ -7,7 +7,8 @@
 
 import Foundation
 
-open class MultiLineStringSchema: JSONEncodable, Mappable {
+
+open class MultiLineStringSchema: JSONEncodable, Mappable, Codable {
 
     public var type: String?
     public var coordinates: [[[Float]]]?
@@ -17,6 +18,17 @@ open class MultiLineStringSchema: JSONEncodable, Mappable {
 
     }
 
+
+    enum CodingKeys: String, CodingKey {
+        case type = "type"
+        case coordinates = "coordinates"
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(type, forKey: .type)
+        try container.encode(coordinates, forKey: .coordinates)
+    }
 
     public func mapping(map: Map) {
         type <- map["type"]

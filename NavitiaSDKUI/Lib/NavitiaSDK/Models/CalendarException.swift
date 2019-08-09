@@ -7,7 +7,8 @@
 
 import Foundation
 
-open class CalendarException: JSONEncodable, Mappable {
+
+open class CalendarException: JSONEncodable, Mappable, Codable {
 
     public var type: String?
     public var datetime: String?
@@ -17,6 +18,17 @@ open class CalendarException: JSONEncodable, Mappable {
 
     }
 
+
+    enum CodingKeys: String, CodingKey {
+        case type = "type"
+        case datetime = "datetime"
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(type, forKey: .type)
+        try container.encode(datetime, forKey: .datetime)
+    }
 
     public func mapping(map: Map) {
         type <- map["type"]

@@ -7,7 +7,8 @@
 
 import Foundation
 
-open class GeoStatus: JSONEncodable, Mappable {
+
+open class GeoStatus: JSONEncodable, Mappable, Codable {
 
     public var nbAdminsFromCities: Int32?
     public var streetNetworkSources: [String]?
@@ -22,6 +23,27 @@ open class GeoStatus: JSONEncodable, Mappable {
 
     }
 
+
+    enum CodingKeys: String, CodingKey {
+        case nbAdminsFromCities = "nb_admins_from_cities"
+        case streetNetworkSources = "street_network_sources"
+        case poiSources = "poi_sources"
+        case nbAddresses = "nb_addresses"
+        case nbAdmins = "nb_admins"
+        case nbPois = "nb_pois"
+        case nbWays = "nb_ways"
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(nbAdminsFromCities, forKey: .nbAdminsFromCities)
+        try container.encode(streetNetworkSources, forKey: .streetNetworkSources)
+        try container.encode(poiSources, forKey: .poiSources)
+        try container.encode(nbAddresses, forKey: .nbAddresses)
+        try container.encode(nbAdmins, forKey: .nbAdmins)
+        try container.encode(nbPois, forKey: .nbPois)
+        try container.encode(nbWays, forKey: .nbWays)
+    }
 
     public func mapping(map: Map) {
         nbAdminsFromCities <- map["nb_admins_from_cities"]

@@ -7,15 +7,18 @@
 
 import Foundation
 
-open class LinkSchema: JSONEncodable, Mappable {
 
+open class LinkSchema: JSONEncodable, Mappable, Codable {
+
+    public var category: String?
     public var title: String?
-    public var id: String?
+    public var _internal: Bool?
+    public var value: String?
     public var href: String?
     public var rel: String?
     public var templated: Bool?
     public var type: String?
-    public var _internal: Bool?
+    public var id: String?
 
     public init() {}
     required public init?(map: Map) {
@@ -23,26 +26,55 @@ open class LinkSchema: JSONEncodable, Mappable {
     }
 
 
+    enum CodingKeys: String, CodingKey {
+        case category = "category"
+        case title = "title"
+        case _internal = "internal"
+        case value = "value"
+        case href = "href"
+        case rel = "rel"
+        case templated = "templated"
+        case type = "type"
+        case id = "id"
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(category, forKey: .category)
+        try container.encode(title, forKey: .title)
+        try container.encode(_internal, forKey: ._internal)
+        try container.encode(value, forKey: .value)
+        try container.encode(href, forKey: .href)
+        try container.encode(rel, forKey: .rel)
+        try container.encode(templated, forKey: .templated)
+        try container.encode(type, forKey: .type)
+        try container.encode(id, forKey: .id)
+    }
+
     public func mapping(map: Map) {
+        category <- map["category"]
         title <- map["title"]
-        id <- map["id"]
+        _internal <- map["internal"]
+        value <- map["value"]
         href <- map["href"]
         rel <- map["rel"]
         templated <- map["templated"]
         type <- map["type"]
-        _internal <- map["internal"]
+        id <- map["id"]
     }
 
     // MARK: JSONEncodable
     open func encodeToJSON() -> Any {
         var nillableDictionary = [String:Any?]()
+        nillableDictionary["category"] = self.category
         nillableDictionary["title"] = self.title
-        nillableDictionary["id"] = self.id
+        nillableDictionary["internal"] = self._internal
+        nillableDictionary["value"] = self.value
         nillableDictionary["href"] = self.href
         nillableDictionary["rel"] = self.rel
         nillableDictionary["templated"] = self.templated
         nillableDictionary["type"] = self.type
-        nillableDictionary["internal"] = self._internal
+        nillableDictionary["id"] = self.id
 
         let dictionary: [String:Any] = APIHelper.rejectNil(nillableDictionary) ?? [:]
         return dictionary

@@ -7,7 +7,8 @@
 
 import Foundation
 
-open class Fare: JSONEncodable, Mappable {
+
+open class Fare: JSONEncodable, Mappable, Codable {
 
     public var found: Bool?
     public var total: Cost?
@@ -18,6 +19,19 @@ open class Fare: JSONEncodable, Mappable {
 
     }
 
+
+    enum CodingKeys: String, CodingKey {
+        case found = "found"
+        case total = "total"
+        case links = "links"
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(found, forKey: .found)
+        try container.encode(total, forKey: .total)
+        try container.encode(links, forKey: .links)
+    }
 
     public func mapping(map: Map) {
         found <- map["found"]

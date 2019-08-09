@@ -7,7 +7,8 @@
 
 import Foundation
 
-open class Cost: JSONEncodable, Mappable {
+
+open class Cost: JSONEncodable, Mappable, Codable {
 
     public var currency: String?
     public var value: String?
@@ -17,6 +18,17 @@ open class Cost: JSONEncodable, Mappable {
 
     }
 
+
+    enum CodingKeys: String, CodingKey {
+        case currency = "currency"
+        case value = "value"
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(currency, forKey: .currency)
+        try container.encode(value, forKey: .value)
+    }
 
     public func mapping(map: Map) {
         currency <- map["currency"]

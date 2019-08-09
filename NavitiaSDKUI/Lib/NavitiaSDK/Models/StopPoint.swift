@@ -7,9 +7,10 @@
 
 import Foundation
 
-open class StopPoint: JSONEncodable, Mappable {
 
-    public enum Equipments: String { 
+open class StopPoint: JSONEncodable, Mappable, Codable {
+
+    public enum Equipments: String, Codable { 
         case wheelchairAccessibility = "has_wheelchair_accessibility"
         case bikeAccepted = "has_bike_accepted"
         case airConditioned = "has_air_conditioned"
@@ -25,22 +26,23 @@ open class StopPoint: JSONEncodable, Mappable {
         case bikeDepot = "has_bike_depot"
     }
     public var comment: String?
-    public var codes: [Code]?
-    /** Name of the object */
-    public var name: String?
+    public var commercialModes: [CommercialMode]?
+    public var stopArea: StopArea?
     public var links: [LinkSchema]?
+    public var administrativeRegions: [Admin]?
     public var physicalModes: [PhysicalMode]?
-    public var coord: Coord?
+    public var comments: [Comment]?
     public var label: String?
     public var equipments: [Equipments]?
-    public var commercialModes: [CommercialMode]?
-    public var comments: [Comment]?
-    public var administrativeRegions: [Admin]?
+    public var codes: [Code]?
+    public var coord: Coord?
+    public var equipmentDetails: [EquipmentDetails]?
     public var address: Address?
     public var fareZone: FareZone?
     /** Identifier of the object */
     public var id: String?
-    public var stopArea: StopArea?
+    /** Name of the object */
+    public var name: String?
 
     public init() {}
     required public init?(map: Map) {
@@ -48,42 +50,83 @@ open class StopPoint: JSONEncodable, Mappable {
     }
 
 
+    enum CodingKeys: String, CodingKey {
+        case comment = "comment"
+        case commercialModes = "commercial_modes"
+        case stopArea = "stop_area"
+        case links = "links"
+        case administrativeRegions = "administrative_regions"
+        case physicalModes = "physical_modes"
+        case comments = "comments"
+        case label = "label"
+        case equipments = "equipments"
+        case codes = "codes"
+        case coord = "coord"
+        case equipmentDetails = "equipment_details"
+        case address = "address"
+        case fareZone = "fare_zone"
+        case id = "id"
+        case name = "name"
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(comment, forKey: .comment)
+        try container.encode(commercialModes, forKey: .commercialModes)
+        try container.encode(stopArea, forKey: .stopArea)
+        try container.encode(links, forKey: .links)
+        try container.encode(administrativeRegions, forKey: .administrativeRegions)
+        try container.encode(physicalModes, forKey: .physicalModes)
+        try container.encode(comments, forKey: .comments)
+        try container.encode(label, forKey: .label)
+        try container.encode(equipments, forKey: .equipments)
+        try container.encode(codes, forKey: .codes)
+        try container.encode(coord, forKey: .coord)
+        try container.encode(equipmentDetails, forKey: .equipmentDetails)
+        try container.encode(address, forKey: .address)
+        try container.encode(fareZone, forKey: .fareZone)
+        try container.encode(id, forKey: .id)
+        try container.encode(name, forKey: .name)
+    }
+
     public func mapping(map: Map) {
         comment <- map["comment"]
-        codes <- map["codes"]
-        name <- map["name"]
+        commercialModes <- map["commercial_modes"]
+        stopArea <- map["stop_area"]
         links <- map["links"]
+        administrativeRegions <- map["administrative_regions"]
         physicalModes <- map["physical_modes"]
-        coord <- map["coord"]
+        comments <- map["comments"]
         label <- map["label"]
         equipments <- map["equipments"]
-        commercialModes <- map["commercial_modes"]
-        comments <- map["comments"]
-        administrativeRegions <- map["administrative_regions"]
+        codes <- map["codes"]
+        coord <- map["coord"]
+        equipmentDetails <- map["equipment_details"]
         address <- map["address"]
         fareZone <- map["fare_zone"]
         id <- map["id"]
-        stopArea <- map["stop_area"]
+        name <- map["name"]
     }
 
     // MARK: JSONEncodable
     open func encodeToJSON() -> Any {
         var nillableDictionary = [String:Any?]()
         nillableDictionary["comment"] = self.comment
-        nillableDictionary["codes"] = self.codes?.encodeToJSON()
-        nillableDictionary["name"] = self.name
+        nillableDictionary["commercial_modes"] = self.commercialModes?.encodeToJSON()
+        nillableDictionary["stop_area"] = self.stopArea?.encodeToJSON()
         nillableDictionary["links"] = self.links?.encodeToJSON()
+        nillableDictionary["administrative_regions"] = self.administrativeRegions?.encodeToJSON()
         nillableDictionary["physical_modes"] = self.physicalModes?.encodeToJSON()
-        nillableDictionary["coord"] = self.coord?.encodeToJSON()
+        nillableDictionary["comments"] = self.comments?.encodeToJSON()
         nillableDictionary["label"] = self.label
         nillableDictionary["equipments"] = self.equipments?.map({$0.rawValue}).encodeToJSON()
-        nillableDictionary["commercial_modes"] = self.commercialModes?.encodeToJSON()
-        nillableDictionary["comments"] = self.comments?.encodeToJSON()
-        nillableDictionary["administrative_regions"] = self.administrativeRegions?.encodeToJSON()
+        nillableDictionary["codes"] = self.codes?.encodeToJSON()
+        nillableDictionary["coord"] = self.coord?.encodeToJSON()
+        nillableDictionary["equipment_details"] = self.equipmentDetails?.encodeToJSON()
         nillableDictionary["address"] = self.address?.encodeToJSON()
         nillableDictionary["fare_zone"] = self.fareZone?.encodeToJSON()
         nillableDictionary["id"] = self.id
-        nillableDictionary["stop_area"] = self.stopArea?.encodeToJSON()
+        nillableDictionary["name"] = self.name
 
         let dictionary: [String:Any] = APIHelper.rejectNil(nillableDictionary) ?? [:]
         return dictionary

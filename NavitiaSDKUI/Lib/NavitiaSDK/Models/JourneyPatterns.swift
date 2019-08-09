@@ -7,14 +7,16 @@
 
 import Foundation
 
-open class JourneyPatterns: JSONEncodable, Mappable {
+
+open class JourneyPatterns: JSONEncodable, Mappable, Codable {
 
     public var pagination: Pagination?
-    public var journeyPatterns: [JourneyPattern]?
+    public var context: Context?
+    public var links: [LinkSchema]?
     public var disruptions: [Disruption]?
     public var notes: [Note]?
     public var feedPublishers: [FeedPublisher]?
-    public var context: Context?
+    public var journeyPatterns: [JourneyPattern]?
     public var error: ModelError?
 
     public init() {}
@@ -23,13 +25,37 @@ open class JourneyPatterns: JSONEncodable, Mappable {
     }
 
 
+    enum CodingKeys: String, CodingKey {
+        case pagination = "pagination"
+        case context = "context"
+        case links = "links"
+        case disruptions = "disruptions"
+        case notes = "notes"
+        case feedPublishers = "feed_publishers"
+        case journeyPatterns = "journey_patterns"
+        case error = "error"
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(pagination, forKey: .pagination)
+        try container.encode(context, forKey: .context)
+        try container.encode(links, forKey: .links)
+        try container.encode(disruptions, forKey: .disruptions)
+        try container.encode(notes, forKey: .notes)
+        try container.encode(feedPublishers, forKey: .feedPublishers)
+        try container.encode(journeyPatterns, forKey: .journeyPatterns)
+        try container.encode(error, forKey: .error)
+    }
+
     public func mapping(map: Map) {
         pagination <- map["pagination"]
-        journeyPatterns <- map["journey_patterns"]
+        context <- map["context"]
+        links <- map["links"]
         disruptions <- map["disruptions"]
         notes <- map["notes"]
         feedPublishers <- map["feed_publishers"]
-        context <- map["context"]
+        journeyPatterns <- map["journey_patterns"]
         error <- map["error"]
     }
 
@@ -37,11 +63,12 @@ open class JourneyPatterns: JSONEncodable, Mappable {
     open func encodeToJSON() -> Any {
         var nillableDictionary = [String:Any?]()
         nillableDictionary["pagination"] = self.pagination?.encodeToJSON()
-        nillableDictionary["journey_patterns"] = self.journeyPatterns?.encodeToJSON()
+        nillableDictionary["context"] = self.context?.encodeToJSON()
+        nillableDictionary["links"] = self.links?.encodeToJSON()
         nillableDictionary["disruptions"] = self.disruptions?.encodeToJSON()
         nillableDictionary["notes"] = self.notes?.encodeToJSON()
         nillableDictionary["feed_publishers"] = self.feedPublishers?.encodeToJSON()
-        nillableDictionary["context"] = self.context?.encodeToJSON()
+        nillableDictionary["journey_patterns"] = self.journeyPatterns?.encodeToJSON()
         nillableDictionary["error"] = self.error?.encodeToJSON()
 
         let dictionary: [String:Any] = APIHelper.rejectNil(nillableDictionary) ?? [:]

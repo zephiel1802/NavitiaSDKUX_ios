@@ -7,10 +7,12 @@
 
 import Foundation
 
-open class JourneyPatternPoints: JSONEncodable, Mappable {
+
+open class JourneyPatternPoints: JSONEncodable, Mappable, Codable {
 
     public var pagination: Pagination?
     public var journeyPatternPoints: [JourneyPatternPoint]?
+    public var links: [LinkSchema]?
     public var disruptions: [Disruption]?
     public var notes: [Note]?
     public var feedPublishers: [FeedPublisher]?
@@ -23,9 +25,33 @@ open class JourneyPatternPoints: JSONEncodable, Mappable {
     }
 
 
+    enum CodingKeys: String, CodingKey {
+        case pagination = "pagination"
+        case journeyPatternPoints = "journey_pattern_points"
+        case links = "links"
+        case disruptions = "disruptions"
+        case notes = "notes"
+        case feedPublishers = "feed_publishers"
+        case context = "context"
+        case error = "error"
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(pagination, forKey: .pagination)
+        try container.encode(journeyPatternPoints, forKey: .journeyPatternPoints)
+        try container.encode(links, forKey: .links)
+        try container.encode(disruptions, forKey: .disruptions)
+        try container.encode(notes, forKey: .notes)
+        try container.encode(feedPublishers, forKey: .feedPublishers)
+        try container.encode(context, forKey: .context)
+        try container.encode(error, forKey: .error)
+    }
+
     public func mapping(map: Map) {
         pagination <- map["pagination"]
         journeyPatternPoints <- map["journey_pattern_points"]
+        links <- map["links"]
         disruptions <- map["disruptions"]
         notes <- map["notes"]
         feedPublishers <- map["feed_publishers"]
@@ -38,6 +64,7 @@ open class JourneyPatternPoints: JSONEncodable, Mappable {
         var nillableDictionary = [String:Any?]()
         nillableDictionary["pagination"] = self.pagination?.encodeToJSON()
         nillableDictionary["journey_pattern_points"] = self.journeyPatternPoints?.encodeToJSON()
+        nillableDictionary["links"] = self.links?.encodeToJSON()
         nillableDictionary["disruptions"] = self.disruptions?.encodeToJSON()
         nillableDictionary["notes"] = self.notes?.encodeToJSON()
         nillableDictionary["feed_publishers"] = self.feedPublishers?.encodeToJSON()

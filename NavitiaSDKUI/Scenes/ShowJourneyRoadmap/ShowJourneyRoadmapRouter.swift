@@ -7,12 +7,12 @@
 
 import UIKit
 
-@objc protocol ShowJourneyRoadmapRoutingLogic {
+@objc public protocol ShowJourneyRoadmapRoutingLogic {
     
     func routeToListJourneys()
 }
 
-protocol ShowJourneyRoadmapDataPassing {
+public protocol ShowJourneyRoadmapDataPassing {
     
     var dataStore: ShowJourneyRoadmapDataStore? { get }
 }

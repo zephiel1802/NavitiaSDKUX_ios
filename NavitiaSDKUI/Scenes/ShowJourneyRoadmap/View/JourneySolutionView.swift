@@ -90,7 +90,7 @@ class JourneySolutionView: UIView {
 
     private func formattedDuration(prefix: String = "", _ duration: Int32) {
         let formattedStringDuration = NSMutableAttributedString()
-            .semiBold(prefix, color: Configuration.Color.main)
+            .semiBold(prefix, color: Configuration.Color.secondary)
         formattedStringDuration.append(duration.toAttributedStringTime(sizeBold: 14, sizeNormal: 10.5))
         self.duration = formattedStringDuration
     }
@@ -109,7 +109,7 @@ class JourneySolutionView: UIView {
         durationCenterContraint.constant = 7
         
         aboutLabel.attributedText = NSMutableAttributedString()
-            .semiBold("about".localized(), color: Configuration.Color.main)
+            .semiBold("about".localized(), color: Configuration.Color.secondary)
         formattedDuration(duration)
         
         friezeView.addSection(friezeSections: friezeSection)

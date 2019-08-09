@@ -7,9 +7,10 @@
 
 import Foundation
 
-open class Channel: JSONEncodable, Mappable {
 
-    public enum Types: String { 
+open class Channel: JSONEncodable, Mappable, Codable {
+
+    public enum Types: String, Codable { 
         case web = "web"
         case sms = "sms"
         case email = "email"
@@ -31,6 +32,21 @@ open class Channel: JSONEncodable, Mappable {
 
     }
 
+
+    enum CodingKeys: String, CodingKey {
+        case contentType = "content_type"
+        case id = "id"
+        case types = "types"
+        case name = "name"
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(contentType, forKey: .contentType)
+        try container.encode(id, forKey: .id)
+        try container.encode(types, forKey: .types)
+        try container.encode(name, forKey: .name)
+    }
 
     public func mapping(map: Map) {
         contentType <- map["content_type"]

@@ -7,7 +7,8 @@
 
 import Foundation
 
-open class LineHeadersSchema: JSONEncodable, Mappable {
+
+open class LineHeadersSchema: JSONEncodable, Mappable, Codable {
 
     public var cellLat: CellLatSchema?
 
@@ -16,6 +17,15 @@ open class LineHeadersSchema: JSONEncodable, Mappable {
 
     }
 
+
+    enum CodingKeys: String, CodingKey {
+        case cellLat = "cell_lat"
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(cellLat, forKey: .cellLat)
+    }
 
     public func mapping(map: Map) {
         cellLat <- map["cell_lat"]

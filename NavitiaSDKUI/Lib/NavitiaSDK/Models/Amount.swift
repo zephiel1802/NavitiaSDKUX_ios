@@ -7,7 +7,8 @@
 
 import Foundation
 
-open class Amount: JSONEncodable, Mappable {
+
+open class Amount: JSONEncodable, Mappable, Codable {
 
     public var value: Double?
     public var unit: String?
@@ -17,6 +18,17 @@ open class Amount: JSONEncodable, Mappable {
 
     }
 
+
+    enum CodingKeys: String, CodingKey {
+        case value = "value"
+        case unit = "unit"
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(value, forKey: .value)
+        try container.encode(unit, forKey: .unit)
+    }
 
     public func mapping(map: Map) {
         value <- map["value"]

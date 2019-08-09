@@ -7,7 +7,8 @@
 
 import Foundation
 
-open class Context: JSONEncodable, Mappable {
+
+open class Context: JSONEncodable, Mappable, Codable {
 
     /** Timezone of any datetime in the response, default value Africa/Abidjan (UTC) */
     public var timezone: String?
@@ -20,6 +21,19 @@ open class Context: JSONEncodable, Mappable {
 
     }
 
+
+    enum CodingKeys: String, CodingKey {
+        case timezone = "timezone"
+        case currentDatetime = "current_datetime"
+        case carDirectPath = "car_direct_path"
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(timezone, forKey: .timezone)
+        try container.encode(currentDatetime, forKey: .currentDatetime)
+        try container.encode(carDirectPath, forKey: .carDirectPath)
+    }
 
     public func mapping(map: Map) {
         timezone <- map["timezone"]

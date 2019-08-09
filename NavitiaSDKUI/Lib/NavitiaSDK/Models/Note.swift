@@ -7,9 +7,10 @@
 
 import Foundation
 
-open class Note: JSONEncodable, Mappable {
 
-    public enum Category: String { 
+open class Note: JSONEncodable, Mappable, Codable {
+
+    public enum Category: String, Codable { 
         case comment = "comment"
         case terminus = "terminus"
     }
@@ -23,6 +24,21 @@ open class Note: JSONEncodable, Mappable {
 
     }
 
+
+    enum CodingKeys: String, CodingKey {
+        case category = "category"
+        case type = "type"
+        case id = "id"
+        case value = "value"
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(category, forKey: .category)
+        try container.encode(type, forKey: .type)
+        try container.encode(id, forKey: .id)
+        try container.encode(value, forKey: .value)
+    }
 
     public func mapping(map: Map) {
         category <- map["category"]
