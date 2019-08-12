@@ -22,6 +22,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         NavitiaSDKUI.shared.originColor = UIColor(red: 0, green: 187.0/255, blue: 117.0/255, alpha: 1)
         NavitiaSDKUI.shared.destinationColor = UIColor(red: 176.0/255, green: 3.0/255, blue: 83.0/255, alpha: 1)
         NavitiaSDKUI.shared.multiNetwork = true
+        NavitiaSDKUI.shared.addCustomizedPicto(bikeImage: UIImage(named: "Velo")!,
+                                                     busImage: UIImage(named: "Bus")!,
+                                                     carImage: UIImage(named: "Voiture")!,
+                                                     taxiImage: UIImage(named: "Taxi")!,
+                                                     trainImage: UIImage(named: "Train")!,
+                                                     metroImage: UIImage(named: "Metro")!,
+                                                     originImage: UIImage(named: "compass")!,
+                                                     destinationImage: UIImage(named: "placeholder")!)
         
         return true
     }
