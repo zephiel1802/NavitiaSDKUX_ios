@@ -127,23 +127,35 @@ import Foundation
         Configuration.pictos[name] = icon.withRenderingMode(.alwaysTemplate)
     }
     
-    @objc open func addCustomizedPicto(bikeImage: UIImage,
-                                       busImage: UIImage,
-                                       carImage: UIImage,
-                                       taxiImage: UIImage,
-                                       trainImage: UIImage,
-                                       metroImage: UIImage,
+    @objc open func addCustomizedPicto(bikeImage: UIImage? = nil,
+                                       busImage: UIImage? = nil,
+                                       carImage: UIImage? = nil,
+                                       taxiImage: UIImage? = nil,
+                                       trainImage: UIImage? = nil,
+                                       metroImage: UIImage? = nil,
                                        originImage: UIImage? = nil,
                                        destinationImage: UIImage? = nil) {
-        // mandatory mode picto
-        Configuration.pictos["bike"] = bikeImage.withRenderingMode(.alwaysTemplate)
-        Configuration.pictos["bus"] = busImage.withRenderingMode(.alwaysTemplate)
-        Configuration.pictos["car"] = carImage.withRenderingMode(.alwaysTemplate)
-        Configuration.pictos["taxi"] = taxiImage.withRenderingMode(.alwaysTemplate)
-        Configuration.pictos["train"] = trainImage.withRenderingMode(.alwaysTemplate)
-        Configuration.pictos["metro"] = metroImage.withRenderingMode(.alwaysTemplate)
+        // optional mode picto
+        if let bikeImage = bikeImage {
+            Configuration.pictos["bike"] = bikeImage.withRenderingMode(.alwaysTemplate)
+        }
+        if let busImage = busImage {
+            Configuration.pictos["bus"] = busImage.withRenderingMode(.alwaysTemplate)
+        }
+        if let carImage = carImage {
+            Configuration.pictos["car"] = carImage.withRenderingMode(.alwaysTemplate)
+        }
+        if let taxiImage = taxiImage {
+            Configuration.pictos["taxi"] = taxiImage.withRenderingMode(.alwaysTemplate)
+        }
+        if let trainImage = trainImage {
+            Configuration.pictos["train"] = trainImage.withRenderingMode(.alwaysTemplate)
+        }
+        if let metroImage = metroImage {
+            Configuration.pictos["metro"] = metroImage.withRenderingMode(.alwaysTemplate)
+        }
         
-        // optional origin and destination picto
+        // Origin and destination picto
         Configuration.pictos["origin"] = originImage ?? UIImage(named: "departure_color",
                                                                 in: NavitiaSDKUI.shared.bundle,
                                                                 compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
