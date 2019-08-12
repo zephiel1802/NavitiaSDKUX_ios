@@ -21,12 +21,12 @@ class TransportModeButton: UIButton {
                 return
             }
             
-            icon = mode.type
+            type = mode.type
             isSelected = mode.selected
         }
     }
     
-    var icon: String? {
+    var type: String? {
         didSet {
             updateIcon()
         }
@@ -59,20 +59,20 @@ class TransportModeButton: UIButton {
     }
     
     private func updateIcon() {
-        guard let icon = icon else {
+        guard let type = type else {
             return
         }
         
-        if let image = Configuration.pictos[icon] {
+        if let image = Configuration.pictos[type] {
             setImage(image, for: .normal)
             subviews.first?.contentMode = .scaleAspectFit
             imageEdgeInsets = UIEdgeInsets(top: 18,left: 18,bottom: 18,right: 18)
             imageView?.tintColor = isSelected ? Configuration.Color.main : Configuration.Color.shadow
         } else {
             if isSelected {
-                setAttributedTitle(NSMutableAttributedString().icon(icon, color: Configuration.Color.main, size: 25), for: .normal)
+                setAttributedTitle(NSMutableAttributedString().icon(type, color: Configuration.Color.main, size: 25), for: .normal)
             } else {
-                setAttributedTitle(NSMutableAttributedString().icon(icon, color: Configuration.Color.shadow, size: 25), for: .normal)
+                setAttributedTitle(NSMutableAttributedString().icon(type, color: Configuration.Color.shadow, size: 25), for: .normal)
             }
         }
     }
