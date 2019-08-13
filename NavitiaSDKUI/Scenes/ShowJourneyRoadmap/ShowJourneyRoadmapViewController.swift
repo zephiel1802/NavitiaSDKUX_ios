@@ -469,7 +469,6 @@ extension ShowJourneyRoadmapViewController: ShowJourneyRoadmapDisplayLogic {
         }
         
         ridesharing = viewModel.ridesharing
-        
         displayHeader(viewModel: viewModel)
         displayDepartureArrivalStep(viewModel: viewModel.departure)
         displaySteps(sections: sections, ticket: viewModel.ticket)

@@ -210,7 +210,7 @@ extension FormJourneyViewController: SearchButtonViewDelegate {
                     modes.append(sectionMode)
                 }
             }
-            
+
             interactor?.journeysRequest?.firstSectionModes = modes
         }
         
