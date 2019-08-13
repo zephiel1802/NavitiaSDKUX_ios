@@ -21,7 +21,6 @@ extension UIViewController {
             print(Configuration.Color.main)
             print(Configuration.Color.main.contrastColor())
             backButton.tintColor = Configuration.Color.main.contrastColor()
-            //@TODO Fix 1143
             navigationItem.leftBarButtonItem = UIBarButtonItem(customView: backButton)
             
             navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: Configuration.Color.main.contrastColor()]
