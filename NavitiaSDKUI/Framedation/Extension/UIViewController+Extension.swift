@@ -18,8 +18,10 @@ extension UIViewController {
             backButton.titleEdgeInsets = UIEdgeInsets(top: 10, left: 16, bottom: 10, right: 0)
             backButton.setTitle("back".localized(), for: .normal)
             backButton.addTarget(self, action: targetSelector, for: .touchUpInside)
+            print(Configuration.Color.main)
+            print(Configuration.Color.main.contrastColor())
             backButton.tintColor = Configuration.Color.main.contrastColor()
-            
+            //@TODO Fix 1143
             navigationItem.leftBarButtonItem = UIBarButtonItem(customView: backButton)
             
             navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: Configuration.Color.main.contrastColor()]
