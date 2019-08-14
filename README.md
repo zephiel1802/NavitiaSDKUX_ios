@@ -130,6 +130,24 @@ journeysRequest.lastSectionModes = [.ridesharing]
 
 To run the example project, clone the repo, and run `pod install` from the Example directory first.
 
+## Picto customization 
+
+The mode, origin and destinatin pictos are customizable by calling the following method in the Appdelegate. Default pictos will be used if some arguments aren't given.
+```swift
+NavitiaSDKUI.shared.addCustomizedPicto(bikeImage: UIImage(named: "Velo"),
+                                        busImage: UIImage(named: "Velo"),
+                                        carImage: UIImage(named: "Voiture"),
+                                       taxiImage: UIImage(named: "Taxi"),
+                                      metroImage: UIImage(named: "Metro"),
+                                     originImage: UIImage(named: "Origin"),
+                                destinationImage: UIImage(named: "placeholder"))
+```
+
+It is possible to add customized transport mode with a custom picto by calling the following method in the Appdelegate.
+```swift
+NavitiaSDKUI.shared.addCustomizedTransportMode(name: "String", icon: UIImage(named: "Velo"))
+```
+
 ## License #
 
 Check out the NavitiaSDKUI iOS [License](https://github.com/CanalTP/NavitiaSDKUX_ios/blob/master/LICENSE) here.
