@@ -12,7 +12,7 @@ import Foundation
     var journeysRequest: JourneysRequest? { get set }
 }
 
-@objc open class NavitiaSDKUI: NSObject {
+@objc public class NavitiaSDKUI: NSObject {
     
     @objc public static let shared = NavitiaSDKUI()
     

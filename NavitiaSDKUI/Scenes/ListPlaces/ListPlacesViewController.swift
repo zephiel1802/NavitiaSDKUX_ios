@@ -48,7 +48,7 @@ class ListPlacesViewController: UIViewController, ListPlacesDisplayLogic {
     override open func viewDidLoad() {
         super.viewDidLoad()
         
-        title = "journeys".localized()
+        self.setTitle(title: "journeys".localized())
 
         hideKeyboardWhenTappedAround()
         

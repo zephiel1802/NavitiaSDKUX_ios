@@ -27,6 +27,13 @@ class ConfigurationViewController: UIViewController, UIPickerViewDelegate, UIPic
         selectedCoverageLabel.text = String(format: "Coverage : %@\nId : %@", coverages[0], coverageIds[0])
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        self.navigationController?.navigationBar.barStyle = UIBarStyle.default
+        self.navigationController?.navigationBar.tintColor = UIColor.black
+    }
+    
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return UIStatusBarStyle.lightContent
     }

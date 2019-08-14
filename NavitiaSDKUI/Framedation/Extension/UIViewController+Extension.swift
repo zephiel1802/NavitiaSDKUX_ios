@@ -9,6 +9,13 @@ import Foundation
 
 extension UIViewController {
     
+    func setTitle(title: String) {
+        self.title = title
+        navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: Configuration.Color.main.contrastColor()]
+        UINavigationBar.appearance().backgroundColor = Configuration.Color.main
+        UIBarButtonItem.appearance().tintColor = Configuration.Color.main.contrastColor()
+    }
+    
     func addBackButton(targetSelector: Selector) {
         if isRootViewController() {
             let backButton = UIButton(frame: CGRect(x: 0, y: 0, width: 70, height: 70))
@@ -18,14 +25,9 @@ extension UIViewController {
             backButton.titleEdgeInsets = UIEdgeInsets(top: 10, left: 16, bottom: 10, right: 0)
             backButton.setTitle("back".localized(), for: .normal)
             backButton.addTarget(self, action: targetSelector, for: .touchUpInside)
-            print(Configuration.Color.main)
-            print(Configuration.Color.main.contrastColor())
             backButton.tintColor = Configuration.Color.main.contrastColor()
+            backButton.setTitleColor(backButton.tintColor, for: .normal)
             navigationItem.leftBarButtonItem = UIBarButtonItem(customView: backButton)
-            
-            navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: Configuration.Color.main.contrastColor()]
-            UINavigationBar.appearance().backgroundColor = Configuration.Color.main
-            UIBarButtonItem.appearance().tintColor = Configuration.Color.main.contrastColor()
         }
     }
     
