@@ -1,8 +1,0 @@
-git_url("git@github.com:CanalTP/codesigning.git")
-username("mobile@canaltp.fr")
-team_id("AK7DPF549M")
-git_branch("team-sdk")
-type("development") # The default type, can be: appstore, adhoc, enterprise or development
-force_for_new_devices(true)
-skip_docs(true)
-app_identifier("com.kisio.navitia.ui.sample")
