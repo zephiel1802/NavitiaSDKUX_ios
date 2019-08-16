@@ -25,46 +25,40 @@ platform :ios do
     desc "Submit a new Beta Build to Apple TestFlight"
     desc "This will also make sure the profile is up to date"
     lane :beta do
-        Dir.chdir('../Example') do
-            sh "pwd"
-            increment_build_number(
-                xcodeproj: "./Example/NavitiaSDKUI-Example.xcodeproj"
-            )
-            get_certificates(
-                team_id: "AK7DPF549M"
-            )
-            get_provisioning_profile
-            sh "pwd"
-            update_app_identifier(
-                xcodeproj: "./Example/NavitiaSDKUI-Example.xcodeproj",
-                plist_path: "NavitiaSDKUI-Example/Info.plist",
-                app_identifier: "com.kisio.navitia.ui.sample"
-            )
-            update_project_provisioning(
-                build_configuration: "Release"
-            )
-            update_info_plist
-            update_project_team(
-                teamid: "AK7DPF549M"
-            )
-            cocoapods(
-                podfile: "./Example/Podfile"
-            )
-            build_ios_app(
-                workspace: "./Example/NavitiaSDKUI-Example.xcworkspace",
-                silent: true,
-                clean: true
-            )
-            UI.message "
-            #######################################################################
-            "
-            UI.success "Build successfully finish"
-            UI.message "
-            #######################################################################
-            "
-            upload_to_testflight(
-                skip_waiting_for_build_processing: true
-            )
-        end
+        increment_build_number(
+            xcodeproj: "./Example/NavitiaSDKUI-Example.xcodeproj"
+        )
+        get_certificates(
+            team_id: "AK7DPF549M"
+        )
+        get_provisioning_profile
+        update_app_identifier(
+            xcodeproj: "./Example/NavitiaSDKUI-Example.xcodeproj",
+            plist_path: "NavitiaSDKUI-Example/Info.plist",
+            app_identifier: "com.kisio.navitia.ui.sample"
+        )
+        update_project_provisioning(
+            build_configuration: "Release"
+        )
+        update_info_plist
+        update_project_team(
+            teamid: "AK7DPF549M"
+        )
+        cocoapods(
+            podfile: "./Example/Podfile"
+        )
+        build_ios_app(
+            workspace: "./Example/NavitiaSDKUI-Example.xcworkspace",
+            silent: true,
+            clean: true
+        )
+        UI.message "
+        #######################################################################
+        "
+        UI.success "Build successfully finish"
+        UI.message "
+        #######################################################################
+        "
+        upload_to_testflight
     end
 end

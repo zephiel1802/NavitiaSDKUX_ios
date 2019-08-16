@@ -43,3 +43,8 @@ fastlane/screenshots
 
 # scan temporary files
 fastlane/test_output
+
+*.cer
+*.lock
+*.mobileprovision
+*.zip

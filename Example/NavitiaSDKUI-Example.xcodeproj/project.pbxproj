@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8035F701A8FEEC7317BB77D3 /* Pods_NavitiaSDKUI_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 334E1DA49843D4436D420BBD /* Pods_NavitiaSDKUI_Example.framework */; };
 		F611214C22B3E80100E2A5B8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F611214B22B3E80100E2A5B8 /* AppDelegate.swift */; };
 		F611215122B3E80100E2A5B8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F611214F22B3E80100E2A5B8 /* Main.storyboard */; };
 		F611215322B3E80300E2A5B8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F611215222B3E80300E2A5B8 /* Assets.xcassets */; };
@@ -16,8 +17,11 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		334E1DA49843D4436D420BBD /* Pods_NavitiaSDKUI_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_NavitiaSDKUI_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		60D835C90E75E07DE80FD545 /* Pods-NavitiaSDKUI-Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NavitiaSDKUI-Example.release.xcconfig"; path = "Target Support Files/Pods-NavitiaSDKUI-Example/Pods-NavitiaSDKUI-Example.release.xcconfig"; sourceTree = "<group>"; };
 		AC00859922E1FA6300807A8A /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Main.strings; sourceTree = "<group>"; };
 		AC00859A22E1FA6300807A8A /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
+		E93B8E0B239BE15117ADB545 /* Pods-NavitiaSDKUI-Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NavitiaSDKUI-Example.debug.xcconfig"; path = "Target Support Files/Pods-NavitiaSDKUI-Example/Pods-NavitiaSDKUI-Example.debug.xcconfig"; sourceTree = "<group>"; };
 		F611214822B3E80100E2A5B8 /* NavitiaSDKUI-Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "NavitiaSDKUI-Example.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F611214B22B3E80100E2A5B8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F611215022B3E80100E2A5B8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -33,15 +37,26 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8035F701A8FEEC7317BB77D3 /* Pods_NavitiaSDKUI_Example.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		8968BA1ACC6856F2A837C5B8 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				334E1DA49843D4436D420BBD /* Pods_NavitiaSDKUI_Example.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		E6786914CED27DE07E31CFF0 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
+				E93B8E0B239BE15117ADB545 /* Pods-NavitiaSDKUI-Example.debug.xcconfig */,
+				60D835C90E75E07DE80FD545 /* Pods-NavitiaSDKUI-Example.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -52,6 +67,7 @@
 				F611214A22B3E80100E2A5B8 /* NavitiaSDKUI-Example */,
 				F611214922B3E80100E2A5B8 /* Products */,
 				E6786914CED27DE07E31CFF0 /* Pods */,
+				8968BA1ACC6856F2A837C5B8 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -84,9 +100,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = F611215A22B3E80300E2A5B8 /* Build configuration list for PBXNativeTarget "NavitiaSDKUI-Example" */;
 			buildPhases = (
+				97F23F11F7D3D2AD6F2DF9E3 /* [CP] Check Pods Manifest.lock */,
 				F611214422B3E80100E2A5B8 /* Sources */,
 				F611214522B3E80100E2A5B8 /* Frameworks */,
 				F611214622B3E80100E2A5B8 /* Resources */,
+				A5BB764D43FF881A8BCE3913 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -143,6 +161,48 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		97F23F11F7D3D2AD6F2DF9E3 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-NavitiaSDKUI-Example-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		A5BB764D43FF881A8BCE3913 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-NavitiaSDKUI-Example/Pods-NavitiaSDKUI-Example-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-NavitiaSDKUI-Example/Pods-NavitiaSDKUI-Example-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-NavitiaSDKUI-Example/Pods-NavitiaSDKUI-Example-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		F611214422B3E80100E2A5B8 /* Sources */ = {
@@ -299,11 +359,12 @@
 		};
 		F611215B22B3E80300E2A5B8 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = E93B8E0B239BE15117ADB545 /* Pods-NavitiaSDKUI-Example.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = AK7DPF549M;
 				INFOPLIST_FILE = "NavitiaSDKUI-Example/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
@@ -322,11 +383,12 @@
 		};
 		F611215C22B3E80300E2A5B8 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 60D835C90E75E07DE80FD545 /* Pods-NavitiaSDKUI-Example.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = AK7DPF549M;
 				INFOPLIST_FILE = "NavitiaSDKUI-Example/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
