@@ -41,7 +41,7 @@ open class ListJourneysViewController: UIViewController, ListJourneysDisplayLogi
     override open func viewDidLoad() {
         super.viewDidLoad()
         
-        title = "journeys".localized()
+        self.setTitle(title: "journeys".localized())
         
         hideKeyboardWhenTappedAround()
         

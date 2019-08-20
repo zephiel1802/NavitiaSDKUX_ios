@@ -57,7 +57,7 @@ public class ShowJourneyRoadmapViewController: UIViewController {
     override public func viewDidLoad() {
         super.viewDidLoad()
         
-        title = "roadmap".localized()
+        self.setTitle(title: "roadmap".localized())
 
         initLocation()
         getMap()
@@ -469,7 +469,6 @@ extension ShowJourneyRoadmapViewController: ShowJourneyRoadmapDisplayLogic {
         }
         
         ridesharing = viewModel.ridesharing
-        
         displayHeader(viewModel: viewModel)
         displayDepartureArrivalStep(viewModel: viewModel.departure)
         displaySteps(sections: sections, ticket: viewModel.ticket)

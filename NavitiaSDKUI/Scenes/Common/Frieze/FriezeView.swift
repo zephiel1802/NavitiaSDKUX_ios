@@ -66,6 +66,8 @@ class FriezeView: UIView {
             friezeSection.color.isEqualWithConversion(.clear) ||
             friezeSection.color.isEqualWithConversion(Configuration.Color.white) {
             friezeSectionView.borderColor = friezeSection.textColor
+        } else {
+            friezeSectionView.borderColor = UIColor.clear
         }
         friezeSectionView.separator = index == 0 ? false : true
     }

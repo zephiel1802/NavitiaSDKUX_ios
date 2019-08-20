@@ -42,7 +42,7 @@ class FormJourneyViewController: UIViewController, FormJourneyDisplayLogic, Jour
     override open func viewDidLoad() {
         super.viewDidLoad()
         
-        title = "journeys".localized()
+        self.setTitle(title: "journeys".localized())
         
         hideKeyboardWhenTappedAround()
         
@@ -210,7 +210,7 @@ extension FormJourneyViewController: SearchButtonViewDelegate {
                     modes.append(sectionMode)
                 }
             }
-            
+
             interactor?.journeysRequest?.firstSectionModes = modes
         }
         
