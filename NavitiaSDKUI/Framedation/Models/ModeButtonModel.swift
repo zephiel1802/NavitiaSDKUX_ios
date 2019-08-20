@@ -22,17 +22,26 @@ import Foundation
         case carPark = "car_park"
     }
     
+    public var type: String
     public var title: String
-    public var icon: String
     public var selected: Bool
     public var lastSectionMode: [String]?
     public var firstSectionMode: [String]?
     public var physicalMode: [String]?
     public var realTime: Bool
+    private var icon: UIImage? {
+        get {
+            if let image = Configuration.pictos[type] {
+                return image
+            } else {
+                return UIImage(named: type)
+            }
+        }
+    }
 
-    public init(title: String, icon: String, selected: Bool,  firstSectionMode: [String]? = nil, lastSectionMode: [String]? = nil, physicalMode: [String]? = nil, realTime: Bool = false) {
+    public init(title: String, type: String, selected: Bool,  firstSectionMode: [String]? = nil, lastSectionMode: [String]? = nil, physicalMode: [String]? = nil, realTime: Bool = false) {
         self.title = title
-        self.icon = icon
+        self.type = type
         self.selected = selected
         self.firstSectionMode = firstSectionMode
         self.lastSectionMode = lastSectionMode

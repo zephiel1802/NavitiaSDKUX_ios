@@ -4,7 +4,7 @@
 //
 //  Copyright © 2018 kisio. All rights reserved.
 //
-
+import UIKit
 import Foundation
 
 @objc public protocol JourneyRootViewController {
@@ -105,6 +105,12 @@ import Foundation
         }
     }
     
+    @objc public var pictos: [String:UIImage] {
+        get {
+            return Configuration.pictos
+        }
+    }
+    
     @objc public var rootViewController: JourneyRootViewController? {
         get {
             let storyboard = UIStoryboard(name: "Journey", bundle: bundle)
@@ -116,14 +122,62 @@ import Foundation
             return storyboard.instantiateViewController(withIdentifier: "ListJourneysViewController") as? JourneyRootViewController
         }
     }
+    
+    @objc open func addCustomizedTransportMode(name: String, icon: UIImage) {
+        Configuration.pictos[name] = icon.withRenderingMode(.alwaysTemplate)
+    }
+    
+    @objc open func addCustomizedPicto(bikeImage: UIImage? = nil,
+                                       busImage: UIImage? = nil,
+                                       carImage: UIImage? = nil,
+                                       taxiImage: UIImage? = nil,
+                                       trainImage: UIImage? = nil,
+                                       metroImage: UIImage? = nil,
+                                       originImage: UIImage? = nil,
+                                       destinationImage: UIImage? = nil) {
+        // optional mode picto
+        if let bikeImage = bikeImage {
+            Configuration.pictos["bike"] = bikeImage.withRenderingMode(.alwaysTemplate)
+        }
+        if let busImage = busImage {
+            Configuration.pictos["bus"] = busImage.withRenderingMode(.alwaysTemplate)
+        }
+        if let carImage = carImage {
+            Configuration.pictos["car"] = carImage.withRenderingMode(.alwaysTemplate)
+        }
+        if let taxiImage = taxiImage {
+            Configuration.pictos["taxi"] = taxiImage.withRenderingMode(.alwaysTemplate)
+        }
+        if let trainImage = trainImage {
+            Configuration.pictos["train"] = trainImage.withRenderingMode(.alwaysTemplate)
+        }
+        if let metroImage = metroImage {
+            Configuration.pictos["metro"] = metroImage.withRenderingMode(.alwaysTemplate)
+        }
+        
+        // Origin and destination picto
+        Configuration.pictos["origin"] = originImage ?? UIImage(named: "departure_color",
+                                                                in: NavitiaSDKUI.shared.bundle,
+                                                                compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
+        
+        Configuration.pictos["destination"] = destinationImage ?? UIImage(named: "arrival_color",
+                                                                          in: NavitiaSDKUI.shared.bundle,
+                                                                          compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
+    }
 }
 
 enum Configuration {
     
     static let fontIconsName = "SDKIcons"
-    static var modeForm = [ModeButtonModel(title: "public_transport".localized().capitalized, icon: "metro", selected: true, firstSectionMode: ["walking"], lastSectionMode: ["walking"], physicalMode: nil),
-                           ModeButtonModel(title: "bike_noun".localized().capitalized, icon: "bike", selected: false, firstSectionMode: ["bike"], lastSectionMode: ["bike"], physicalMode: nil),
-                           ModeButtonModel(title: "car_noun".localized().capitalized, icon: "car", selected: false, firstSectionMode: ["car"], lastSectionMode: ["car"], physicalMode: nil)]
+    static var modeForm = [ModeButtonModel(title: "public_transport".localized().capitalized, type: "metro",
+                                           selected: true, firstSectionMode: ["walking"],
+                                           lastSectionMode: ["walking"], physicalMode: nil),
+                           ModeButtonModel(title: "bike_noun".localized().capitalized, type: "bike",
+                                           selected: false, firstSectionMode: ["bike"],
+                                           lastSectionMode: ["bike"], physicalMode: nil),
+                           ModeButtonModel(title: "car_noun".localized().capitalized, type: "car",
+                                           selected: false, firstSectionMode: ["car"],
+                                           lastSectionMode: ["car"], physicalMode: nil)]
     
     // Format
     static let date = "yyyyMMdd'T'HHmmss"
@@ -146,6 +200,8 @@ enum Configuration {
     
     static var multiNetwork = false
     static var formJourney = false
+    
+    static var pictos: [String:UIImage] = [:]
     
     // Color
     enum Color {
