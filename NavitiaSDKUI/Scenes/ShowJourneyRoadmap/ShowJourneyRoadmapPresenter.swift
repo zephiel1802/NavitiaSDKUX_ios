@@ -551,35 +551,35 @@ class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
                                                                                 realTime: getRealTime(section: section),
                                                                                 background: getBackground(section: section),
                                                                                 section: section,
-                                                                                hasAvailableTicket: hasAvailableTicket(section: section, maasTickets: maasTickets))
+                                                                                availableTicketId: getAvailableTicketId(section: section, maasTickets: maasTickets))
         
         return sectionModel
     }
     
-    private func hasAvailableTicket(section: Section, maasTickets: [MaasTicket]?) -> Bool {
+    private func getAvailableTicketId(section: Section, maasTickets: [MaasTicket]?) -> Int? {
         guard let maasTickets = maasTickets else {
-            return false
+            return nil
         }
         
         if let links = section.links {
             for link in links {
                 if let type = link.type, type == "ticket", let id = link.id {
-                    return isMaasTicket(linkId: id, maasTickets: maasTickets)
+                    return getMaasTicketId(linkId: id, maasTickets: maasTickets)
                 }
             }
         }
         
-        return false
+        return nil
     }
     
-    private func isMaasTicket(linkId: String, maasTickets: [MaasTicket]) -> Bool {
+    private func getMaasTicketId(linkId: String, maasTickets: [MaasTicket]) -> Int? {
         for ticket in maasTickets {
             if String(format: "%d", ticket.productId) == linkId {
-                return true
+                return ticket.productId
             }
         }
         
-        return false
+        return nil
     }
     
     private func getSectionModels(response:  ShowJourneyRoadmap.GetRoadmap.Response) -> [ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionModel]? {

@@ -11,7 +11,7 @@ import CoreLocation
 
 @objc public protocol ShowJourneyRoadmapDelegate: class {
     
-    @objc func viewTicketClicked(index: Int)
+    @objc func viewTicketClicked(maasTicketId: Int)
 }
 
 protocol ShowJourneyRoadmapDisplayLogic: class {
@@ -277,7 +277,7 @@ public class ShowJourneyRoadmapViewController: UIViewController {
         publicTransportView.updateAccessibility()
         
         if ticket.shouldShowTicket {
-            publicTransportView.ticketViewConfig = (isTicketAvailable: section.hasAvailableTicket,
+            publicTransportView.ticketViewConfig = (availableTicketId: section.availableTicketId,
                                                     viewTicketLocalized: ticket.viewTicketLocalized,
                                                     ticketNotAvailableLocalized: ticket.ticketNotAvailableLocalized)
         }
@@ -735,7 +735,7 @@ extension ShowJourneyRoadmapViewController: AlternativeJourneyDelegate {
 
 extension ShowJourneyRoadmapViewController: PublicTransportStepViewDelegate {
     
-    public func viewTicketClicked(index: Int) {
-        delegate?.viewTicketClicked(index: index)
+    public func viewTicketClicked(maasTicketId: Int) {
+        delegate?.viewTicketClicked(maasTicketId: maasTicketId)
     }
 }
