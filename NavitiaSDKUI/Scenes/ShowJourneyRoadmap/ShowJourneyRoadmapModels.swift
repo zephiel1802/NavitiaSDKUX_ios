@@ -153,6 +153,7 @@ enum ShowJourneyRoadmap {
                 var background: Bool
                 var section: Section
                 var availableTicketId: Int?
+                var maasTicketsJson: String?
             }
             
             struct Frieze {

@@ -11,7 +11,7 @@ import CoreLocation
 
 @objc public protocol ShowJourneyRoadmapDelegate: class {
     
-    @objc func viewTicketClicked(maasTicketId: Int)
+    @objc func viewTicketClicked(maasTicketId: Int, maasTicketsJson: String)
 }
 
 protocol ShowJourneyRoadmapDisplayLogic: class {
@@ -278,6 +278,7 @@ public class ShowJourneyRoadmapViewController: UIViewController {
         
         if ticket.shouldShowTicket {
             publicTransportView.ticketViewConfig = (availableTicketId: section.availableTicketId,
+                                                    maasTicketsJson: section.maasTicketsJson,
                                                     viewTicketLocalized: ticket.viewTicketLocalized,
                                                     ticketNotAvailableLocalized: ticket.ticketNotAvailableLocalized)
         }
@@ -735,7 +736,11 @@ extension ShowJourneyRoadmapViewController: AlternativeJourneyDelegate {
 
 extension ShowJourneyRoadmapViewController: PublicTransportStepViewDelegate {
     
-    public func viewTicketClicked(maasTicketId: Int) {
-        delegate?.viewTicketClicked(maasTicketId: maasTicketId)
+    public func viewTicketClicked(maasTicketId: Int, maasTicketsJson: String) {
+        delegate?.viewTicketClicked(maasTicketId: maasTicketId, maasTicketsJson: maasTicketsJson)
+    }
+    
+    public func showError() {
+        // TODO: show popin error
     }
 }

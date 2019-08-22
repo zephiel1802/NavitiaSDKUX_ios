@@ -9,7 +9,8 @@ import UIKit
 
 @objc public protocol PublicTransportStepViewDelegate: class {
     
-    @objc func viewTicketClicked(maasTicketId: Int)
+    @objc func viewTicketClicked(maasTicketId: Int, maasTicketsJson: String)
+    func showError()
 }
 
 class PublicTransportStepView: UIView {
@@ -57,7 +58,7 @@ class PublicTransportStepView: UIView {
     
     weak internal var delegate: PublicTransportStepViewDelegate?
     
-    internal var ticketViewConfig: (availableTicketId: Int?, viewTicketLocalized: String, ticketNotAvailableLocalized: String)? {
+    internal var ticketViewConfig: (availableTicketId: Int?, maasTicketsJson: String?, viewTicketLocalized: String, ticketNotAvailableLocalized: String)? {
         didSet {
             if let ticketViewConfig = ticketViewConfig {
                 if ticketViewConfig.availableTicketId != nil {
@@ -429,8 +430,12 @@ class PublicTransportStepView: UIView {
     }
     
     @IBAction func viewTicketClicked(_ sender: Any) {
-        if let ticketViewConfig = ticketViewConfig, let maasTicketId = ticketViewConfig.availableTicketId {
-            delegate?.viewTicketClicked(maasTicketId: maasTicketId)
+        if let ticketViewConfig = ticketViewConfig,
+            let maasTicketId = ticketViewConfig.availableTicketId,
+            let maasTicketsJson = ticketViewConfig.maasTicketsJson {
+            delegate?.viewTicketClicked(maasTicketId: maasTicketId, maasTicketsJson: maasTicketsJson)
+        } else {
+            delegate?.showError()
         }
     }
 }

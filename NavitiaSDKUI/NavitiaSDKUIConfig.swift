@@ -180,7 +180,7 @@ enum Configuration {
                                            lastSectionMode: ["car"], physicalMode: nil)]
     
     // Format
-    static let date = "yyyyMMdd'T'HHmmss"
+    static let datetime = "yyyyMMdd'T'HHmmss"
     static let dateInterval = "dd/MM/yy"
     static let time = "HH:mm"
     static let timeFormJourney = "EEEE d MMMM '-' HH:mm"
