@@ -13,9 +13,11 @@ import Foundation
         case luggage = "luggage"
         case wheelchair = "wheelchair"
         case standard = "standard"
+        case luggageAndWheelchair = "WHEELCHAIR"
         
         func stringValue() -> String {
-            return self.rawValue
+            
+            return self.rawValue.lowercased()
         }
     }
     

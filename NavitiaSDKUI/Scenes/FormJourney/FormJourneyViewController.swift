@@ -133,12 +133,12 @@ class FormJourneyViewController: UIViewController, FormJourneyDisplayLogic, Jour
                                    safeArea: true)
         
         luggageTypeView = TravelerTypeView.instanceFromNib()
-        luggageTypeView.frame.size = CGSize(width: stackScrollView.frame.size.width, height: 30)
+        luggageTypeView.frame.size = CGSize(width: stackScrollView.frame.size.width, height: 35)
         luggageTypeView.name = JourneysRequest.TravelerType.luggage.stringValue()
         stackScrollView.addSubview(luggageTypeView, margin: UIEdgeInsets(top: 0, left: 10, bottom: 5, right: 10), safeArea: true)
         
         wheelchairTypeView = TravelerTypeView.instanceFromNib()
-        wheelchairTypeView.frame.size = CGSize(width: stackScrollView.frame.size.width, height: 30)
+        wheelchairTypeView.frame.size = CGSize(width: stackScrollView.frame.size.width, height: 35)
         wheelchairTypeView.name = JourneysRequest.TravelerType.wheelchair.stringValue()
         stackScrollView.addSubview(wheelchairTypeView, margin: UIEdgeInsets(top: 5, left: 10, bottom: 20, right: 10), safeArea: true)
     }
@@ -260,9 +260,12 @@ extension FormJourneyViewController: SearchButtonViewDelegate {
             }
         }
         
-        // if wheelchair is on, then luggage is ignored
         if wheelchairTypeView.typeIsOnSwitch.isOn {
-            interactor?.journeysRequest?.travelerType = .wheelchair
+            if luggageTypeView.typeIsOnSwitch.isOn {
+                interactor?.journeysRequest?.travelerType = .luggageAndWheelchair
+            } else {
+                interactor?.journeysRequest?.travelerType = .wheelchair
+            }
         } else if luggageTypeView.typeIsOnSwitch.isOn {
             interactor?.journeysRequest?.travelerType = .luggage
         } else {

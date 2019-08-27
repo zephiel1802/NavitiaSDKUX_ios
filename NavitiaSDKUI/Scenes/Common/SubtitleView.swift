@@ -15,18 +15,25 @@ class SubtitleView: UIView {
     internal var subtitle: String? {
         didSet {
             if let subtitle = subtitle {
-                subtitleLabel.attributedText = NSMutableAttributedString().bold(subtitle, size: 18)
-                subtitleLabel.textColor = NavitiaSDKUI.shared.mainColor
+                subtitleLabel.attributedText = NSMutableAttributedString().bold(subtitle, size: 13)
             }
+        }
+    }
+    
+    internal var isColorInverted: Bool = false {
+        didSet {
+            subtitleLabel.textColor = isColorInverted ? .white : NavitiaSDKUI.shared.mainColor
         }
     }
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        subtitleLabel.textColor = NavitiaSDKUI.shared.mainColor
+        
+        subtitleLabel.textColor = isColorInverted ? .white : NavitiaSDKUI.shared.mainColor
     }
     
     class func instanceFromNib() -> SubtitleView {
+        
         return UINib(nibName: String(describing: self), bundle: NavitiaSDKUI.shared.bundle).instantiate(withOwner: nil, options: nil)[0] as! SubtitleView
     }
 }

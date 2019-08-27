@@ -119,7 +119,6 @@ class ListPlacesViewController: UIViewController, ListPlacesDisplayLogic {
         searchView.background.backgroundColor = .clear
         searchView.switchIsHidden = true
         searchView.separatorView.isHidden = true
-        
     }
     
     private func initTableView() {

@@ -101,6 +101,10 @@ open class ListJourneysViewController: UIViewController, ListJourneysDisplayLogi
         if let modeTransportViewSelected = interactor?.modeTransportViewSelected {
             searchView.transportModeView.updateSelectedButton(selectedButton: modeTransportViewSelected)
         }
+        if let travelerType = interactor?.journeysRequest?.travelerType {
+            searchView.luggageTravelTypeIsOn = travelerType == .luggageAndWheelchair || travelerType == .luggage
+            searchView.wheelchairTravelTypeIsOn = travelerType == .luggageAndWheelchair || travelerType == .wheelchair
+        }
         searchView.dateFormView.dateTimeRepresentsSegmentedControl = interactor?.journeysRequest?.datetimeRepresents?.rawValue
     }
     

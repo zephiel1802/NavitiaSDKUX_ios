@@ -48,6 +48,9 @@ class SearchView: UIView, UITextFieldDelegate {
     var dateFormView: DateFormView!
     var transportModeView: TransportModeView!
     var searchButtonView: SearchButtonView!
+    var luggageTypeView: TravelerTypeView!
+    var wheelchairTypeView: TravelerTypeView!
+    var travelTypeSubtitleView: SubtitleView!
     var fromTextFieldClear = false
     var toTextFieldClear = false
     var isClearButtonAccessible = true
@@ -103,6 +106,16 @@ class SearchView: UIView, UITextFieldDelegate {
             preferenceButton.isHidden = lock
         }
     }
+    internal var luggageTravelTypeIsOn: Bool = false {
+        didSet {
+            luggageTypeView.isOn = luggageTravelTypeIsOn
+        }
+    }
+    internal var wheelchairTravelTypeIsOn: Bool = false {
+        didSet {
+            wheelchairTypeView.isOn = wheelchairTravelTypeIsOn
+        }
+    }
     
     // MARK: - UINib
     
@@ -144,6 +157,7 @@ class SearchView: UIView, UITextFieldDelegate {
         setupSwitchButton()
         setupTextField()
         setupTransportModeView()
+        setupTravelTypeView()
         setupDateFormView()
         setupSearchButtonView()
         setPreferencesButton()
@@ -195,6 +209,28 @@ class SearchView: UIView, UITextFieldDelegate {
         transportModeView = TransportModeView(frame: CGRect(x: 0, y: 0, width: stackView.frame.size.width, height: 0))
         stackView.addArrangedSubview(transportModeView)
         transportModeView.isHidden = true
+    }
+    
+    private func setupTravelTypeView() {
+        travelTypeSubtitleView = SubtitleView.instanceFromNib()
+        travelTypeSubtitleView.subtitle = "Traveler type"
+        travelTypeSubtitleView.isColorInverted = true
+        stackView.addArrangedSubview(travelTypeSubtitleView)
+        travelTypeSubtitleView.isHidden = true
+        
+        luggageTypeView = TravelerTypeView.instanceFromNib()
+        luggageTypeView.name = JourneysRequest.TravelerType.luggage.stringValue()
+        luggageTypeView.isOn = luggageTravelTypeIsOn
+        luggageTypeView.isColorInverted = true
+        stackView.addArrangedSubview(luggageTypeView)
+        luggageTypeView.isHidden = true
+        
+        wheelchairTypeView = TravelerTypeView.instanceFromNib()
+        wheelchairTypeView.name = JourneysRequest.TravelerType.wheelchair.stringValue()
+        wheelchairTypeView.isOn = wheelchairTravelTypeIsOn
+        wheelchairTypeView.isColorInverted = true
+        stackView.addArrangedSubview(wheelchairTypeView)
+        wheelchairTypeView.isHidden = true
     }
     
     private func setupDateFormView() {
@@ -267,8 +303,19 @@ class SearchView: UIView, UITextFieldDelegate {
         isPreferencesShown = false
         setPreferencesButton()
         UIView.animate(withDuration: 0.25, delay: 0, options: .curveEaseOut, animations: {
+            // transport mode
             self.transportModeView.isHidden = true
             self.transportModeView.alpha = 0
+            
+            // travel type
+            self.travelTypeSubtitleView.isHidden = true
+            self.travelTypeSubtitleView.alpha = 0
+            self.luggageTypeView.isHidden = true
+            self.luggageTypeView.alpha = 0
+            self.wheelchairTypeView.isHidden = true
+            self.wheelchairTypeView.alpha = 0
+            
+            // search button
             self.searchButtonView.isHidden = true
             self.searchButtonView.alpha = 0
         }, completion: nil)
@@ -289,8 +336,19 @@ class SearchView: UIView, UITextFieldDelegate {
         isPreferencesShown = true
         setPreferencesButton()
         UIView.animate(withDuration: 0.25, delay: 0, options: .curveEaseOut, animations: {
+            // transport mode
             self.transportModeView.isHidden = false
             self.transportModeView.alpha = 1
+            
+            // travel type
+            self.travelTypeSubtitleView.isHidden = false
+            self.travelTypeSubtitleView.alpha = 1
+            self.luggageTypeView.isHidden = false
+            self.luggageTypeView.alpha = 1
+            self.wheelchairTypeView.isHidden = false
+            self.wheelchairTypeView.alpha = 1
+            
+            // save button
             self.searchButtonView.isHidden = false
             self.searchButtonView.alpha = 1
         }, completion: nil)

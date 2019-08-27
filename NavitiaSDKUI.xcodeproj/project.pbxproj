@@ -334,6 +334,10 @@
 		84FABE122074C7FC00BDDE9D /* Icons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84FABE112074C7FC00BDDE9D /* Icons.swift */; };
 		84FABE142074CB2300BDDE9D /* UIFont+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84FABE132074CB2300BDDE9D /* UIFont+Extension.swift */; };
 		84FABE162074F76600BDDE9D /* JourneySolutionLoadCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84FABE152074F76600BDDE9D /* JourneySolutionLoadCollectionViewCell.xib */; };
+		AC7EC0BF23157FCB00A84D73 /* TravelerTypeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC7EC0BD23157FCB00A84D73 /* TravelerTypeView.swift */; };
+		AC7EC0C023157FCB00A84D73 /* SubtitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC7EC0BE23157FCB00A84D73 /* SubtitleView.swift */; };
+		AC7EC0C323157FDA00A84D73 /* SubtitleView.xib in Resources */ = {isa = PBXBuildFile; fileRef = AC7EC0C123157FDA00A84D73 /* SubtitleView.xib */; };
+		AC7EC0C423157FDA00A84D73 /* TravelerTypeView.xib in Resources */ = {isa = PBXBuildFile; fileRef = AC7EC0C223157FDA00A84D73 /* TravelerTypeView.xib */; };
 		F65672FA2209EAB9007A8E6E /* Debouncer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F65672F92209EAB9007A8E6E /* Debouncer.swift */; };
 		F656ECB122FDB92F00557B8C /* MaasTicket.swift in Sources */ = {isa = PBXBuildFile; fileRef = F656ECB022FDB92E00557B8C /* MaasTicket.swift */; };
 /* End PBXBuildFile section */
@@ -683,6 +687,10 @@
 		84FABE112074C7FC00BDDE9D /* Icons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Icons.swift; sourceTree = "<group>"; };
 		84FABE132074CB2300BDDE9D /* UIFont+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+Extension.swift"; sourceTree = "<group>"; };
 		84FABE152074F76600BDDE9D /* JourneySolutionLoadCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = JourneySolutionLoadCollectionViewCell.xib; sourceTree = "<group>"; };
+		AC7EC0BD23157FCB00A84D73 /* TravelerTypeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TravelerTypeView.swift; sourceTree = "<group>"; };
+		AC7EC0BE23157FCB00A84D73 /* SubtitleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubtitleView.swift; sourceTree = "<group>"; };
+		AC7EC0C123157FDA00A84D73 /* SubtitleView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SubtitleView.xib; sourceTree = "<group>"; };
+		AC7EC0C223157FDA00A84D73 /* TravelerTypeView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TravelerTypeView.xib; sourceTree = "<group>"; };
 		F65672F92209EAB9007A8E6E /* Debouncer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Debouncer.swift; sourceTree = "<group>"; };
 		F656ECB022FDB92E00557B8C /* MaasTicket.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaasTicket.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -884,6 +892,8 @@
 		8422B462206A30200097E6C9 /* Interface */ = {
 			isa = PBXGroup;
 			children = (
+				AC7EC0C123157FDA00A84D73 /* SubtitleView.xib */,
+				AC7EC0C223157FDA00A84D73 /* TravelerTypeView.xib */,
 				3192556221C7FED700CB11DD /* FriezeSectionView.xib */,
 				8433F3A1207FAF22007DBBCE /* AlertView.xib */,
 				84BC297D207E66CC0073F198 /* StationsView.xib */,
@@ -1043,6 +1053,8 @@
 				8476DD5320888154006CB506 /* CustomAnnotation.swift */,
 				84BC297F207E66D50073F198 /* StationsView.swift */,
 				84731BB021EF69C60041D8EA /* SearchView.swift */,
+				AC7EC0BE23157FCB00A84D73 /* SubtitleView.swift */,
+				AC7EC0BD23157FCB00A84D73 /* TravelerTypeView.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -1531,12 +1543,14 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AC7EC0C323157FDA00A84D73 /* SubtitleView.xib in Resources */,
 				8490376D2161FBF400472FD6 /* StepView.xib in Resources */,
 				31B3A82721C15FFB002EFF91 /* AlternativeJourneyView.xib in Resources */,
 				84C82F6A22083FD000FE3F1D /* SearchButtonView.xib in Resources */,
 				84827A8C214BBAA800CB9513 /* RidesharingOfferCollectionViewCell.xib in Resources */,
 				3192556321C7FED700CB11DD /* FriezeSectionView.xib in Resources */,
 				8471D38320809EAD000C9125 /* JourneySolutionView.xib in Resources */,
+				AC7EC0C423157FDA00A84D73 /* TravelerTypeView.xib in Resources */,
 				84A790FD2121B0E90000C82F /* EmissionView.xib in Resources */,
 				84731BAF21EF63F30041D8EA /* SearchView.xib in Resources */,
 				8433F39C207F89C0007DBBCE /* RidesharingView.xib in Resources */,
@@ -1735,6 +1749,7 @@
 				841A1079215A29B800F46143 /* Contributor.swift in Sources */,
 				8454D4152068D3A800C97D2F /* TaskDelegate.swift in Sources */,
 				841A1061215A29B800F46143 /* Address.swift in Sources */,
+				AC7EC0C023157FCB00A84D73 /* SubtitleView.swift in Sources */,
 				841A1090215A29B800F46143 /* Dataset.swift in Sources */,
 				841A10C4215A29B800F46143 /* Departures.swift in Sources */,
 				841A1066215A29B800F46143 /* Companies.swift in Sources */,
@@ -1788,6 +1803,7 @@
 				84C482C4219DC30A00AA8364 /* FriezeView.swift in Sources */,
 				841A1055215A29B800F46143 /* LineGroup.swift in Sources */,
 				8454D4222068D3A800C97D2F /* SessionManager.swift in Sources */,
+				AC7EC0BF23157FCB00A84D73 /* TravelerTypeView.swift in Sources */,
 				84AAB3172237BB4400CC8C19 /* TransportModeButton.swift in Sources */,
 				84D0FA98210094B900EB420A /* DisruptionItemView.swift in Sources */,
 				8454D41D2068D3A800C97D2F /* Validation.swift in Sources */,
