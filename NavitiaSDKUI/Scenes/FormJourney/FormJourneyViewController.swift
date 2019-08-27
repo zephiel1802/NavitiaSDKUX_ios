@@ -18,8 +18,11 @@ class FormJourneyViewController: UIViewController, FormJourneyDisplayLogic, Jour
     @IBOutlet weak var stackScrollView: StackScrollView!
     
     private var transportModeView: TransportModeView!
+    private var travelerTypeView: TravelerTypeView!
     private var dateFormView: DateFormView!
     private var searchButtonView: SearchButtonView!
+    private var luggageTypeView: TravelerTypeView!
+    private var wheelchairTypeView: TravelerTypeView!
     private var display = false
     
     internal var interactor: FormJourneyBusinessLogic?
@@ -58,6 +61,7 @@ class FormJourneyViewController: UIViewController, FormJourneyDisplayLogic, Jour
         
         if !display {
             initTransportModeView()
+            initTravelerTypeView()
             initDateFormView()
             initSearchButton()
             
@@ -118,6 +122,25 @@ class FormJourneyViewController: UIViewController, FormJourneyDisplayLogic, Jour
         transportModeView = TransportModeView(frame: CGRect(x: 0, y: 0, width: stackScrollView.frame.size.width, height: 0))
         transportModeView?.isColorInverted = true
         stackScrollView.addSubview(transportModeView!, margin: UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10), safeArea: true)
+    }
+    
+    private func initTravelerTypeView() {
+        let subtitleView = SubtitleView.instanceFromNib()
+        subtitleView.frame.size = CGSize(width: stackScrollView.frame.size.width, height: 30)
+        subtitleView.subtitle = "Traveler type"
+        stackScrollView.addSubview(subtitleView,
+                                   margin: UIEdgeInsets(top: 10, left: 10, bottom: 0, right: 10),
+                                   safeArea: true)
+        
+        luggageTypeView = TravelerTypeView.instanceFromNib()
+        luggageTypeView.frame.size = CGSize(width: stackScrollView.frame.size.width, height: 30)
+        luggageTypeView.name = JourneysRequest.TravelerType.luggage.stringValue()
+        stackScrollView.addSubview(luggageTypeView, margin: UIEdgeInsets(top: 0, left: 10, bottom: 5, right: 10), safeArea: true)
+        
+        wheelchairTypeView = TravelerTypeView.instanceFromNib()
+        wheelchairTypeView.frame.size = CGSize(width: stackScrollView.frame.size.width, height: 30)
+        wheelchairTypeView.name = JourneysRequest.TravelerType.wheelchair.stringValue()
+        stackScrollView.addSubview(wheelchairTypeView, margin: UIEdgeInsets(top: 5, left: 10, bottom: 20, right: 10), safeArea: true)
     }
     
     private func initDateFormView() {
@@ -235,6 +258,15 @@ extension FormJourneyViewController: SearchButtonViewDelegate {
                     interactor?.journeysRequest?.addPoiInfos?.append(.carPark)
                 }
             }
+        }
+        
+        // if wheelchair is on, then luggage is ignored
+        if wheelchairTypeView.typeIsOnSwitch.isOn {
+            interactor?.journeysRequest?.travelerType = .wheelchair
+        } else if luggageTypeView.typeIsOnSwitch.isOn {
+            interactor?.journeysRequest?.travelerType = .luggage
+        } else {
+            interactor?.journeysRequest?.travelerType = .standard
         }
         
         interactor?.modeTransportViewSelected = transportModeView.getSelectedButton()
