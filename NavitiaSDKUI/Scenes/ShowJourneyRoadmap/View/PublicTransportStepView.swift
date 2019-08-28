@@ -9,7 +9,8 @@ import UIKit
 
 @objc public protocol PublicTransportStepViewDelegate: class {
     
-    @objc func viewTicketClicked(index: Int)
+    @objc func viewTicketClicked(maasTicketId: Int, maasTicketsJson: String)
+    func showError()
 }
 
 class PublicTransportStepView: UIView {
@@ -57,10 +58,10 @@ class PublicTransportStepView: UIView {
     
     weak internal var delegate: PublicTransportStepViewDelegate?
     
-    internal var ticketViewConfig: (isTicketAvailable: Bool, viewTicketLocalized: String, ticketNotAvailableLocalized: String)? {
+    internal var ticketViewConfig: (availableTicketId: Int?, maasTicketsJson: String?, viewTicketLocalized: String, ticketNotAvailableLocalized: String)? {
         didSet {
             if let ticketViewConfig = ticketViewConfig {
-                if ticketViewConfig.isTicketAvailable {
+                if ticketViewConfig.availableTicketId != nil {
                     let ticketImage = UIImage(named: "ticket", in: NavitiaSDKUI.shared.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
                     viewTicketButton.setImage(ticketImage, for: .normal)
                     viewTicketButton.tintColor = Configuration.Color.secondary.contrastColor()
@@ -89,7 +90,6 @@ class PublicTransportStepView: UIView {
         didSet {
             guard let color = borderColor?.cgColor else {
                 transportIconView.layer.borderWidth = 0
-                
                 return
             }
             
@@ -430,6 +430,12 @@ class PublicTransportStepView: UIView {
     }
     
     @IBAction func viewTicketClicked(_ sender: Any) {
-        delegate?.viewTicketClicked(index: 0)
+        if let ticketViewConfig = ticketViewConfig,
+            let maasTicketId = ticketViewConfig.availableTicketId,
+            let maasTicketsJson = ticketViewConfig.maasTicketsJson {
+            delegate?.viewTicketClicked(maasTicketId: maasTicketId, maasTicketsJson: maasTicketsJson)
+        } else {
+            delegate?.showError()
+        }
     }
 }
