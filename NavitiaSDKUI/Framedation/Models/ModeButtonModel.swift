@@ -31,7 +31,7 @@ import Foundation
     public var realTime: Bool
     private var icon: UIImage? {
         get {
-            if let image = Configuration.pictos[type] {
+            if let image = Configuration.customIcons[type] {
                 return image
             } else {
                 return UIImage(named: type)

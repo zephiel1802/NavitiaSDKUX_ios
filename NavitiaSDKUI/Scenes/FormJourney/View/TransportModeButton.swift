@@ -63,7 +63,7 @@ class TransportModeButton: UIButton {
             return
         }
         
-        if let image = Configuration.pictos[type] {
+        if let image = Configuration.customIcons[type] {
             setImage(image, for: .normal)
             subviews.first?.contentMode = .scaleAspectFit
             imageEdgeInsets = UIEdgeInsets(top: 18,left: 18,bottom: 18,right: 18)

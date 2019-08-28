@@ -134,18 +134,21 @@ To run the example project, clone the repo, and run `pod install` from the Examp
 
 The mode, origin and destinatin pictos are customizable by calling the following method in the Appdelegate. Default pictos will be used if some arguments aren't given.
 ```swift
-NavitiaSDKUI.shared.addCustomizedPicto(bikeImage: UIImage(named: "Velo"),
-                                        busImage: UIImage(named: "Velo"),
-                                        carImage: UIImage(named: "Voiture"),
-                                       taxiImage: UIImage(named: "Taxi"),
-                                      metroImage: UIImage(named: "Metro"),
-                                     originImage: UIImage(named: "Origin"),
-                                destinationImage: UIImage(named: "placeholder"))
+NavitiaSDKUI.shared.addCustomIcons(bike: UIImage(named: "bike"),
+                                    bus: UIImage(named: "bus"),
+                                    car: UIImage(named: "car"),
+                                    ferry: UIImage(named: "ferry"),
+                                    metro: UIImage(named: "metro"),
+                                    taxi: UIImage(named: "taxi"),
+                                    tramway: UIImage(named: "tramway"),
+                                    walking: UIImage(named: "walking"),
+                                    origin: UIImage(named: "origin"),
+                                    destination: UIImage(named: "destination"))
 ```
 
-It is possible to add customized transport mode with a custom picto by calling the following method in the Appdelegate.
+It is possible to add custom transport mode with a custom picto by calling the following method in the Appdelegate.
 ```swift
-NavitiaSDKUI.shared.addCustomizedTransportMode(name: "String", icon: UIImage(named: "Velo"))
+NavitiaSDKUI.shared.addCustomTransportMode(name: "String", icon: UIImage(named: "Velo"))
 ```
 
 ## License #
