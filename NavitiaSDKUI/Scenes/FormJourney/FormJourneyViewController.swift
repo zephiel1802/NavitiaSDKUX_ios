@@ -42,7 +42,11 @@ class FormJourneyViewController: UIViewController, FormJourneyDisplayLogic, Jour
     override open func viewDidLoad() {
         super.viewDidLoad()
         
-        self.setTitle(title: "journeys".localized())
+        if let titlesConfig = Configuration.titlesConfig, let formTitle = titlesConfig.formTitle {
+            self.setTitle(title: formTitle)
+        } else {
+            self.setTitle(title: "journeys".localized())
+        }
         
         hideKeyboardWhenTappedAround()
         

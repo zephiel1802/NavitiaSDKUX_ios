@@ -48,7 +48,11 @@ class ListPlacesViewController: UIViewController, ListPlacesDisplayLogic {
     override open func viewDidLoad() {
         super.viewDidLoad()
         
-        self.setTitle(title: "journeys".localized())
+        if let titlesConfig = Configuration.titlesConfig, let autocompleteTitle = titlesConfig.autocompleteTitle {
+            self.setTitle(title: autocompleteTitle)
+        } else {
+            self.setTitle(title: "journeys".localized())
+        }
 
         hideKeyboardWhenTappedAround()
         
@@ -108,7 +112,7 @@ class ListPlacesViewController: UIViewController, ListPlacesDisplayLogic {
     }
     
     private func initDebouncer() {
-        debouncedSearch = Debouncer(delay: 0.15) {
+        debouncedSearch = Debouncer(delay: 0.6) {
             self.fetchPlaces(q: self.q)
         }
     }
@@ -144,7 +148,6 @@ class ListPlacesViewController: UIViewController, ListPlacesDisplayLogic {
         }
         
         let request = ListPlaces.FetchPlaces.Request(q: q)
-        
         interactor?.fetchJourneys(request: request)
     }
     

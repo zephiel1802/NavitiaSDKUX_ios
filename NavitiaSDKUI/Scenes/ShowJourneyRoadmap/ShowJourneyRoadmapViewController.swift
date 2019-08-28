@@ -57,8 +57,12 @@ public class ShowJourneyRoadmapViewController: UIViewController {
     override public func viewDidLoad() {
         super.viewDidLoad()
         
-        self.setTitle(title: "roadmap".localized())
-
+        if let titlesConfig = Configuration.titlesConfig, let roadmapTitle = titlesConfig.roadmapTitle {
+            self.setTitle(title: roadmapTitle)
+        } else {
+            self.setTitle(title: "roadmap".localized())
+        }
+        
         initLocation()
         getMap()
     }

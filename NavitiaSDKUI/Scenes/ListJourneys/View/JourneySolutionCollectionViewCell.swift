@@ -87,7 +87,7 @@ class JourneySolutionCollectionViewCell: UICollectionViewCell {
     }
     
     private func setArrow() {
-        arrowLabel.attributedText = NSMutableAttributedString().icon("arrow-right", color: Configuration.Color.main, size: 15)
+        arrowLabel.attributedText = NSMutableAttributedString().icon("arrow-right", color: Configuration.Color.secondary, size: 15)
     }
     
     internal func setJourneySummaryView(friezeSections: [FriezePresenter.FriezeSection]) {
