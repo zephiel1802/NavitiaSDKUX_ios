@@ -23,7 +23,7 @@ class FormJourneyViewController: UIViewController, FormJourneyDisplayLogic, Jour
     private var searchButtonView: SearchButtonView!
     private var luggageTypeView: TravelerTypeView!
     private var wheelchairTypeView: TravelerTypeView!
-    private var walkingSpeedView: WalkingSpeedProgressView!
+    private var walkingSpeedView: WalkingSpeedView!
     private var display = false
     
     internal var interactor: FormJourneyBusinessLogic?
@@ -153,7 +153,7 @@ class FormJourneyViewController: UIViewController, FormJourneyDisplayLogic, Jour
                                    margin: UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10),
                                    safeArea: true)
         
-        walkingSpeedView = WalkingSpeedProgressView.instanceFromNib()
+        walkingSpeedView = WalkingSpeedView.instanceFromNib()
         walkingSpeedView.frame.size = CGSize(width: stackScrollView.frame.size.width, height: 50)
         stackScrollView.addSubview(walkingSpeedView,
                                    margin: UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10),

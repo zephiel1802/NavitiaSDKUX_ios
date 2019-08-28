@@ -51,6 +51,8 @@ class SearchView: UIView, UITextFieldDelegate {
     var luggageTypeView: TravelerTypeView!
     var wheelchairTypeView: TravelerTypeView!
     var travelTypeSubtitleView: SubtitleView!
+    var walkingSpeedView: WalkingSpeedView!
+    var walkingSpeedSubtitleView: SubtitleView!
     var fromTextFieldClear = false
     var toTextFieldClear = false
     var isClearButtonAccessible = true
@@ -116,6 +118,11 @@ class SearchView: UIView, UITextFieldDelegate {
             wheelchairTypeView.isOn = wheelchairTravelTypeIsOn
         }
     }
+    internal var walkingSpeed: JourneysRequest.Speed = .slow {
+        didSet {
+            walkingSpeedView.speed = walkingSpeed
+        }
+    }
     
     // MARK: - UINib
     
@@ -158,6 +165,7 @@ class SearchView: UIView, UITextFieldDelegate {
         setupTextField()
         setupTransportModeView()
         setupTravelTypeView()
+        setupWalkingSpeedView()
         setupDateFormView()
         setupSearchButtonView()
         setPreferencesButton()
@@ -231,6 +239,20 @@ class SearchView: UIView, UITextFieldDelegate {
         wheelchairTypeView.isColorInverted = true
         stackView.addArrangedSubview(wheelchairTypeView)
         wheelchairTypeView.isHidden = true
+    }
+    
+    private func setupWalkingSpeedView() {
+        walkingSpeedSubtitleView = SubtitleView.instanceFromNib()
+        walkingSpeedSubtitleView.subtitle = "Walking speed"
+        walkingSpeedSubtitleView.isColorInverted = true
+        stackView.addArrangedSubview(walkingSpeedSubtitleView)
+        walkingSpeedSubtitleView.isHidden = true
+        
+        walkingSpeedView = WalkingSpeedView.instanceFromNib()
+        walkingSpeedView.speed = walkingSpeed
+        walkingSpeedView.isColorInverted = true
+        stackView.addArrangedSubview(walkingSpeedView)
+        walkingSpeedView.isHidden = true
     }
     
     private func setupDateFormView() {
@@ -315,6 +337,12 @@ class SearchView: UIView, UITextFieldDelegate {
             self.wheelchairTypeView.isHidden = true
             self.wheelchairTypeView.alpha = 0
             
+            // walking speed
+            self.walkingSpeedSubtitleView.isHidden = true
+            self.walkingSpeedSubtitleView.alpha = 0
+            self.walkingSpeedView.isHidden = true
+            self.walkingSpeedView.alpha = 0
+            
             // search button
             self.searchButtonView.isHidden = true
             self.searchButtonView.alpha = 0
@@ -347,6 +375,12 @@ class SearchView: UIView, UITextFieldDelegate {
             self.luggageTypeView.alpha = 1
             self.wheelchairTypeView.isHidden = false
             self.wheelchairTypeView.alpha = 1
+            
+            // walking speed
+            self.walkingSpeedSubtitleView.isHidden = false
+            self.walkingSpeedSubtitleView.alpha = 1
+            self.walkingSpeedView.isHidden = false
+            self.walkingSpeedView.alpha = 1
             
             // save button
             self.searchButtonView.isHidden = false

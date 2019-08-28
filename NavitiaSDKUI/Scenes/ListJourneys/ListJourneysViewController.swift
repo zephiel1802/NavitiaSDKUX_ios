@@ -105,6 +105,9 @@ open class ListJourneysViewController: UIViewController, ListJourneysDisplayLogi
             searchView.luggageTravelTypeIsOn = travelerType == .luggageAndWheelchair || travelerType == .luggage
             searchView.wheelchairTravelTypeIsOn = travelerType == .luggageAndWheelchair || travelerType == .wheelchair
         }
+        if let walkingSpeed = interactor?.journeysRequest?.walkingSpeed {
+            searchView.walkingSpeed = walkingSpeed
+        }
         searchView.dateFormView.dateTimeRepresentsSegmentedControl = interactor?.journeysRequest?.datetimeRepresents?.rawValue
     }
     
