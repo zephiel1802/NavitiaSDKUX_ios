@@ -159,14 +159,14 @@ class SearchView: UIView, UITextFieldDelegate {
     }
     
     private func setupPin() {
-        if let image = Configuration.pictos["origin"] {
+        if let image = Configuration.customIcons["origin"] {
             originPinImageView.image = image
         } else {
             originPinImageView.image = UIImage(named: "origin-icon", in: NavitiaSDKUI.shared.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
         }
         originPinImageView.tintColor = Configuration.Color.origin
         
-        if let image = Configuration.pictos["destination"] {
+        if let image = Configuration.customIcons["destination"] {
             destinationPinImageView.image = image
         } else {
             destinationPinImageView.image = UIImage(named: "origin-icon", in: NavitiaSDKUI.shared.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)

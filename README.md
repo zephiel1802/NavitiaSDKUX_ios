@@ -143,9 +143,9 @@ NavitiaSDKUI.shared.addCustomizedPicto(bikeImage: UIImage(named: "Velo"),
                                 destinationImage: UIImage(named: "placeholder"))
 ```
 
-It is possible to add customized transport mode with a custom picto by calling the following method in the Appdelegate.
+It is possible to add custom transport mode with a custom picto by calling the following method in the Appdelegate.
 ```swift
-NavitiaSDKUI.shared.addCustomizedTransportMode(name: "String", icon: UIImage(named: "Velo"))
+NavitiaSDKUI.shared.addCustomTransportMode(name: "String", icon: UIImage(named: "Velo"))
 ```
 
 ## License #

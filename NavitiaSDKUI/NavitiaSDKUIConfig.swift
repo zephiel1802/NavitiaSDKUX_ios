@@ -105,9 +105,9 @@ import Foundation
         }
     }
     
-    @objc public var pictos: [String:UIImage] {
+    @objc public var customIcons: [String:UIImage] {
         get {
-            return Configuration.pictos
+            return Configuration.customIcons
         }
     }
     
@@ -132,44 +132,56 @@ import Foundation
         }
     }
     
-    @objc open func addCustomizedTransportMode(name: String, icon: UIImage) {
-        Configuration.pictos[name] = icon.withRenderingMode(.alwaysTemplate)
+    @objc open func addCustomTransportMode(name: String, icon: UIImage) {
+        Configuration.customIcons[name] = icon.withRenderingMode(.alwaysTemplate)
     }
     
-    @objc open func addCustomizedPicto(bikeImage: UIImage? = nil,
-                                       busImage: UIImage? = nil,
-                                       carImage: UIImage? = nil,
-                                       taxiImage: UIImage? = nil,
-                                       trainImage: UIImage? = nil,
-                                       metroImage: UIImage? = nil,
-                                       originImage: UIImage? = nil,
-                                       destinationImage: UIImage? = nil) {
-        // optional mode picto
-        if let bikeImage = bikeImage {
-            Configuration.pictos["bike"] = bikeImage.withRenderingMode(.alwaysTemplate)
+    @objc open func addCustomIcons(bike: UIImage? = nil,
+                                       bus: UIImage? = nil,
+                                       car: UIImage? = nil,
+                                       ferry: UIImage? = nil,
+                                       metro: UIImage? = nil,
+                                       taxi: UIImage? = nil,
+                                       train: UIImage? = nil,
+                                       tramway: UIImage? = nil,
+                                       walking: UIImage? = nil,
+                                       destination: UIImage? = nil,
+                                       origin: UIImage? = nil) {
+        // Transport modes icons
+        if let bikeIcon = bike {
+            Configuration.customIcons["bike"] = bikeIcon.withRenderingMode(.alwaysTemplate)
         }
-        if let busImage = busImage {
-            Configuration.pictos["bus"] = busImage.withRenderingMode(.alwaysTemplate)
+        if let busIcon = bus {
+            Configuration.customIcons["bus"] = busIcon.withRenderingMode(.alwaysTemplate)
         }
-        if let carImage = carImage {
-            Configuration.pictos["car"] = carImage.withRenderingMode(.alwaysTemplate)
+        if let carIcon = car {
+            Configuration.customIcons["car"] = carIcon.withRenderingMode(.alwaysTemplate)
         }
-        if let taxiImage = taxiImage {
-            Configuration.pictos["taxi"] = taxiImage.withRenderingMode(.alwaysTemplate)
+        if let ferryIcon = ferry {
+            Configuration.customIcons["ferry"] = ferryIcon.withRenderingMode(.alwaysTemplate)
         }
-        if let trainImage = trainImage {
-            Configuration.pictos["train"] = trainImage.withRenderingMode(.alwaysTemplate)
+        if let metroIcon = metro {
+            Configuration.customIcons["metro"] = metroIcon.withRenderingMode(.alwaysTemplate)
         }
-        if let metroImage = metroImage {
-            Configuration.pictos["metro"] = metroImage.withRenderingMode(.alwaysTemplate)
+        if let taxiIcon = taxi {
+            Configuration.customIcons["taxi"] = taxiIcon.withRenderingMode(.alwaysTemplate)
+        }
+        if let trainIcon = train {
+            Configuration.customIcons["train"] = trainIcon.withRenderingMode(.alwaysTemplate)
+        }
+        if let tramwayIcon = tramway {
+            Configuration.customIcons["tramway"] = tramwayIcon.withRenderingMode(.alwaysTemplate)
+        }
+        if let walkingIcon = walking {
+            Configuration.customIcons["walking"] = walkingIcon.withRenderingMode(.alwaysTemplate)
         }
         
-        // Origin and destination picto
-        Configuration.pictos["origin"] = originImage ?? UIImage(named: "departure_color",
+        // SDK Icons
+        Configuration.customIcons["origin"] = origin ?? UIImage(named: "departure_color",
                                                                 in: NavitiaSDKUI.shared.bundle,
                                                                 compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
         
-        Configuration.pictos["destination"] = destinationImage ?? UIImage(named: "arrival_color",
+        Configuration.customIcons["destination"] = destination ?? UIImage(named: "arrival_color",
                                                                           in: NavitiaSDKUI.shared.bundle,
                                                                           compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
     }
@@ -211,7 +223,7 @@ enum Configuration {
     static var multiNetwork = false
     static var formJourney = false
     
-    static var pictos: [String:UIImage] = [:]
+    static var customIcons: [String:UIImage] = [:]
     
     // Color
     enum Color {
