@@ -41,7 +41,11 @@ open class ListJourneysViewController: UIViewController, ListJourneysDisplayLogi
     override open func viewDidLoad() {
         super.viewDidLoad()
         
-        self.setTitle(title: "journeys".localized())
+        if let titlesConfig = Configuration.titlesConfig, let journeysTitle = titlesConfig.journeysTitle {
+            self.setTitle(title: journeysTitle)
+        } else {
+            self.setTitle(title: "journeys".localized())
+        }
         
         hideKeyboardWhenTappedAround()
         
@@ -224,7 +228,6 @@ open class ListJourneysViewController: UIViewController, ListJourneysDisplayLogi
         }
         
         collectionViewLayout.reloadLayout()
-        
     }
     
     func anim() {
@@ -501,7 +504,6 @@ extension ListJourneysViewController: SearchButtonViewDelegate {
     
     func search() {
         if searchView.isPreferencesShown {
-            print("Changement de mode")
             if let physicalModes = searchView.transportModeView?.getPhysicalModes() {
                 interactor?.journeysRequest?.allowedPhysicalModes = physicalModes
             }

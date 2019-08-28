@@ -1374,13 +1374,13 @@
 		84C82F5A22083FD000FE3F1D /* FormJourney */ = {
 			isa = PBXGroup;
 			children = (
-				84C82F5B22083FD000FE3F1D /* Interface */,
 				84C82F5F22083FD000FE3F1D /* FormJourneyInteractor.swift */,
-				84C82F6122083FD000FE3F1D /* FormJourneyRouter.swift */,
 				84C82F6222083FD000FE3F1D /* FormJourneyModels.swift */,
-				84C82F6322083FD000FE3F1D /* FormJourneyViewController.swift */,
-				84C82F6422083FD000FE3F1D /* View */,
 				84C82F6822083FD000FE3F1D /* FormJourneyPresenter.swift */,
+				84C82F6122083FD000FE3F1D /* FormJourneyRouter.swift */,
+				84C82F6322083FD000FE3F1D /* FormJourneyViewController.swift */,
+				84C82F5B22083FD000FE3F1D /* Interface */,
+				84C82F6422083FD000FE3F1D /* View */,
 			);
 			path = FormJourney;
 			sourceTree = "<group>";

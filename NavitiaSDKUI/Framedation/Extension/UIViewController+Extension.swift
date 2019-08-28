@@ -10,8 +10,18 @@ import Foundation
 extension UIViewController {
     
     func setTitle(title: String) {
-        self.title = title
-        navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: Configuration.Color.main.contrastColor()]
+        if let navigationController = navigationController {
+            if navigationController.viewControllers.count > 1 {
+                navigationItem.title = title
+            } else {
+                navigationController.navigationBar.topItem?.title = title
+            }
+            
+            navigationController.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: Configuration.Color.main.contrastColor()]
+        } else {
+            self.title = title
+        }
+        
         UINavigationBar.appearance().backgroundColor = Configuration.Color.main
         UIBarButtonItem.appearance().tintColor = Configuration.Color.main.contrastColor()
     }

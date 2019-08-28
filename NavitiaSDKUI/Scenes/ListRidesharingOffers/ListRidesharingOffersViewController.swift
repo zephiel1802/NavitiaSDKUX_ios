@@ -37,7 +37,11 @@ internal class ListRidesharingOffersViewController: UIViewController, ListRidesh
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.setTitle(title: "carpooling".localized())
+        if let titlesConfig = Configuration.titlesConfig, let ridesharingOffersTitle = titlesConfig.ridesharingOffersTitle {
+            self.setTitle(title: ridesharingOffersTitle)
+        } else {
+            self.setTitle(title: "carpooling".localized())
+        }
         
         registerCollectionView()
         

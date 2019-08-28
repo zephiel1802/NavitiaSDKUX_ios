@@ -111,6 +111,15 @@ import Foundation
         }
     }
     
+    public var titlesConfig: TitlesConfig? {
+        get {
+            return Configuration.titlesConfig
+        }
+        set {
+            Configuration.titlesConfig = newValue
+        }
+    }
+    
     @objc public var rootViewController: JourneyRootViewController? {
         get {
             let storyboard = UIStoryboard(name: "Journey", bundle: bundle)
@@ -178,6 +187,7 @@ enum Configuration {
                            ModeButtonModel(title: "car_noun".localized().capitalized, type: "car",
                                            selected: false, firstSectionMode: ["car"],
                                            lastSectionMode: ["car"], physicalMode: nil)]
+    static var titlesConfig: TitlesConfig?
     
     // Format
     static let datetime = "yyyyMMdd'T'HHmmss"
@@ -272,5 +282,34 @@ public class GenerateRequest: NSObject {
         }
 
         return physicalMode
+    }
+}
+
+public struct TitlesConfig: Decodable {
+    
+    var formTitle: String?
+    var journeysTitle: String?
+    var roadmapTitle: String?
+    var ridesharingOffersTitle: String?
+    var autocompleteTitle: String?
+    
+    public init(formTitle: String?,
+                journeysTitle: String?,
+                roadmapTitle: String?,
+                ridesharingOffersTitle: String?,
+                autocompleteTitle: String?) {
+        self.formTitle = formTitle
+        self.journeysTitle = journeysTitle
+        self.roadmapTitle = roadmapTitle
+        self.ridesharingOffersTitle = ridesharingOffersTitle
+        self.autocompleteTitle = autocompleteTitle
+    }
+    
+    enum CodingKeys: String, CodingKey {
+        case formTitle = "form"
+        case journeysTitle = "journeys"
+        case roadmapTitle = "roadmap"
+        case ridesharingOffersTitle = "ridesharing"
+        case autocompleteTitle = "autocomplete"
     }
 }
