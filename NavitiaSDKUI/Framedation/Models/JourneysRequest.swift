@@ -21,6 +21,17 @@ import Foundation
         }
     }
     
+    public enum Speed: Double {
+        case slow = 0.66
+        case medium = 1.12
+        case fast = 1.78
+        
+        func doubleValue() -> Double {
+            
+            return self.rawValue
+        }
+    }
+    
     public var coverage: String
     public var originId: String?
     public var originLabel: String?
@@ -44,6 +55,7 @@ import Foundation
     public var allowedPhysicalModes: [String]?
     public var debugURL: String?
     public var travelerType: TravelerType?
+    public var walkingSpeed: Speed?
     
     public init(coverage: String) {
         self.coverage = coverage

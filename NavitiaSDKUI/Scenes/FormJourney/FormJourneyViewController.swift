@@ -23,6 +23,7 @@ class FormJourneyViewController: UIViewController, FormJourneyDisplayLogic, Jour
     private var searchButtonView: SearchButtonView!
     private var luggageTypeView: TravelerTypeView!
     private var wheelchairTypeView: TravelerTypeView!
+    private var walkingSpeedView: WalkingSpeedProgressView!
     private var display = false
     
     internal var interactor: FormJourneyBusinessLogic?
@@ -62,6 +63,7 @@ class FormJourneyViewController: UIViewController, FormJourneyDisplayLogic, Jour
         if !display {
             initTransportModeView()
             initTravelerTypeView()
+            initWalkingSpeedView()
             initDateFormView()
             initSearchButton()
             
@@ -141,6 +143,21 @@ class FormJourneyViewController: UIViewController, FormJourneyDisplayLogic, Jour
         wheelchairTypeView.frame.size = CGSize(width: stackScrollView.frame.size.width, height: 35)
         wheelchairTypeView.name = JourneysRequest.TravelerType.wheelchair.stringValue()
         stackScrollView.addSubview(wheelchairTypeView, margin: UIEdgeInsets(top: 5, left: 10, bottom: 20, right: 10), safeArea: true)
+    }
+    
+    private func initWalkingSpeedView() {
+        let subtitleView = SubtitleView.instanceFromNib()
+        subtitleView.frame.size = CGSize(width: stackScrollView.frame.size.width, height: 30)
+        subtitleView.subtitle = "Walking speed"
+        stackScrollView.addSubview(subtitleView,
+                                   margin: UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10),
+                                   safeArea: true)
+        
+        walkingSpeedView = WalkingSpeedProgressView.instanceFromNib()
+        walkingSpeedView.frame.size = CGSize(width: stackScrollView.frame.size.width, height: 50)
+        stackScrollView.addSubview(walkingSpeedView,
+                                   margin: UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10),
+                                   safeArea: true)
     }
     
     private func initDateFormView() {
@@ -272,6 +289,7 @@ extension FormJourneyViewController: SearchButtonViewDelegate {
             interactor?.journeysRequest?.travelerType = .standard
         }
         
+        interactor?.journeysRequest?.walkingSpeed = walkingSpeedView.speed
         interactor?.modeTransportViewSelected = transportModeView.getSelectedButton()
         
         router?.routeToListJourneys()

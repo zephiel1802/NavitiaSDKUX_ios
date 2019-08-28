@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="6Fp-mB-VG0" customClass="WalkingSpeedProgressView" customModule="NavitiaSDKUI" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="485" height="322"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="slow" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4Eu-kq-zEh">
+                    <rect key="frame" x="30" y="44" width="30" height="14.5"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Qtk-S1-1Wm" userLabel="Low Button">
+                    <rect key="frame" x="30" y="44" width="30" height="36.5"/>
+                    <connections>
+                        <action selector="lowButtonAction:" destination="6Fp-mB-VG0" eventType="touchUpInside" id="IUs-SX-pT0"/>
+                    </connections>
+                </button>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="medium" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="m25-QD-hqG">
+                    <rect key="frame" x="220" y="44" width="45.5" height="14.5"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Hx4-y0-V8H" userLabel="Medium Button">
+                    <rect key="frame" x="220" y="44" width="45.5" height="36.5"/>
+                    <connections>
+                        <action selector="mediumButtonAction:" destination="6Fp-mB-VG0" eventType="touchUpInside" id="N2y-P2-LX2"/>
+                    </connections>
+                </button>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="fast" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HrR-QO-QcV" userLabel="Fast Label">
+                    <rect key="frame" x="425" y="44" width="30" height="14.5"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Yyv-Ve-4WP" userLabel="Fast Button">
+                    <rect key="frame" x="425" y="44" width="30" height="36.5"/>
+                    <connections>
+                        <action selector="fastButtonAction:" destination="6Fp-mB-VG0" eventType="touchUpInside" id="hrX-Ho-Lvi"/>
+                    </connections>
+                </button>
+                <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="Zav-8a-Xwh">
+                    <rect key="frame" x="30" y="78.5" width="425" height="2"/>
+                </progressView>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstItem="Qtk-S1-1Wm" firstAttribute="trailing" secondItem="4Eu-kq-zEh" secondAttribute="trailing" id="0Aq-3P-sdz"/>
+                <constraint firstItem="Zav-8a-Xwh" firstAttribute="leading" secondItem="4Eu-kq-zEh" secondAttribute="leading" id="7R3-Cj-mP6"/>
+                <constraint firstItem="Hx4-y0-V8H" firstAttribute="trailing" secondItem="m25-QD-hqG" secondAttribute="trailing" id="814-5z-0nC"/>
+                <constraint firstItem="Zav-8a-Xwh" firstAttribute="leading" secondItem="6Fp-mB-VG0" secondAttribute="leading" constant="30" id="987-oQ-8s8"/>
+                <constraint firstItem="Zav-8a-Xwh" firstAttribute="leading" secondItem="Qtk-S1-1Wm" secondAttribute="leading" id="DHc-2f-g3V"/>
+                <constraint firstItem="Zav-8a-Xwh" firstAttribute="bottom" secondItem="Qtk-S1-1Wm" secondAttribute="bottom" id="DIo-yf-kws"/>
+                <constraint firstItem="sYK-4s-gvX" firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="Zav-8a-Xwh" secondAttribute="bottom" constant="10" id="DSV-Ul-yPi"/>
+                <constraint firstItem="HrR-QO-QcV" firstAttribute="leading" secondItem="Yyv-Ve-4WP" secondAttribute="leading" id="Fmb-tM-Owa"/>
+                <constraint firstItem="Hx4-y0-V8H" firstAttribute="top" secondItem="m25-QD-hqG" secondAttribute="top" id="HiS-fA-ebR"/>
+                <constraint firstItem="Yyv-Ve-4WP" firstAttribute="bottom" secondItem="Zav-8a-Xwh" secondAttribute="bottom" id="Jen-Ov-MHs"/>
+                <constraint firstItem="m25-QD-hqG" firstAttribute="top" secondItem="sYK-4s-gvX" secondAttribute="top" id="KYO-WJ-ZhD"/>
+                <constraint firstItem="Zav-8a-Xwh" firstAttribute="top" secondItem="m25-QD-hqG" secondAttribute="bottom" constant="20" id="Ogx-3z-WDj"/>
+                <constraint firstItem="m25-QD-hqG" firstAttribute="centerX" secondItem="6Fp-mB-VG0" secondAttribute="centerX" id="PQc-l3-B8i"/>
+                <constraint firstItem="HrR-QO-QcV" firstAttribute="trailing" secondItem="Zav-8a-Xwh" secondAttribute="trailing" id="QmS-iB-ABT"/>
+                <constraint firstAttribute="trailing" secondItem="Zav-8a-Xwh" secondAttribute="trailing" constant="30" id="ciJ-Cj-t04"/>
+                <constraint firstItem="HrR-QO-QcV" firstAttribute="centerY" secondItem="4Eu-kq-zEh" secondAttribute="centerY" id="cjc-bT-3lj"/>
+                <constraint firstItem="Qtk-S1-1Wm" firstAttribute="top" secondItem="4Eu-kq-zEh" secondAttribute="top" id="dl4-7Q-eqb"/>
+                <constraint firstItem="Hx4-y0-V8H" firstAttribute="leading" secondItem="m25-QD-hqG" secondAttribute="leading" id="doB-1u-76K"/>
+                <constraint firstItem="HrR-QO-QcV" firstAttribute="trailing" secondItem="Yyv-Ve-4WP" secondAttribute="trailing" id="ui9-lb-Yqf"/>
+                <constraint firstItem="HrR-QO-QcV" firstAttribute="top" secondItem="Yyv-Ve-4WP" secondAttribute="top" id="wHe-zo-wMM"/>
+                <constraint firstItem="Hx4-y0-V8H" firstAttribute="bottom" secondItem="Zav-8a-Xwh" secondAttribute="bottom" id="yIQ-YS-JJm"/>
+                <constraint firstItem="m25-QD-hqG" firstAttribute="centerY" secondItem="4Eu-kq-zEh" secondAttribute="centerY" id="yRi-a6-xjW"/>
+            </constraints>
+            <nil key="simulatedTopBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="sYK-4s-gvX"/>
+            <connections>
+                <outlet property="fastLabel" destination="HrR-QO-QcV" id="RVx-Oh-qPl"/>
+                <outlet property="lowLabel" destination="4Eu-kq-zEh" id="k2Q-bX-ePZ"/>
+                <outlet property="mediumLabel" destination="m25-QD-hqG" id="hc3-X1-2EJ"/>
+                <outlet property="progressView" destination="Zav-8a-Xwh" id="pG0-dR-XCe"/>
+            </connections>
+            <point key="canvasLocation" x="179" y="-23"/>
+        </view>
+    </objects>
+</document>
