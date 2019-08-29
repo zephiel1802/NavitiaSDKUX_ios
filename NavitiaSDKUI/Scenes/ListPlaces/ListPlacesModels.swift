@@ -61,6 +61,7 @@ enum ListPlaces {
         }
         struct ViewModel {
             enum ModelType: String {
+                case administrativeRegion = "administrative_region"
                 case stopArea = "stop_area"
                 case address = "address"
                 case poi = "poi"
