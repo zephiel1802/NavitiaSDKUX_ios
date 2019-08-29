@@ -250,12 +250,12 @@ extension ListPlacesViewController: UITableViewDataSource, UITableViewDelegate {
                     switch type {
                     case .stopArea :
                         accessibilityText = "stop".localized()
-                    case .address :
-                        accessibilityText = "addresse".localized()
                     case .poi :
                         accessibilityText = "point_of_interest".localized()
                     case .location :
                         accessibilityText = "my_position".localized()
+                    default:
+                        accessibilityText = "addresse".localized()
                     }
                     
                     if let cellName = cell.informations.name {
