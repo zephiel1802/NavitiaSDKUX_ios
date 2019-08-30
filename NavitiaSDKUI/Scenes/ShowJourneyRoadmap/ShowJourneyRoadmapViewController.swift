@@ -81,6 +81,8 @@ public class ShowJourneyRoadmapViewController: UIViewController {
     override public func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
 
+        self.view.layoutIfNeeded()
+        
         startUpdatingUserLocation()
 
         refreshFetchBss(run: true)
