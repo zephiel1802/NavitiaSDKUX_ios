@@ -14,12 +14,18 @@ protocol ListJourneysDisplayLogic: class {
     func displayFetchedJourneys(viewModel: ListJourneys.FetchJourneys.ViewModel)
 }
 
+protocol ListJourneysDisplayPriceLogic: class {
+    
+    func displayPrice(ticketsInputList: String, callback:  @escaping ((_ ticketsPriceList: String) -> ()))
+}
+
 open class ListJourneysViewController: UIViewController, ListJourneysDisplayLogic, JourneyRootViewController {
     
     @IBOutlet weak var searchView: SearchView!
     @IBOutlet weak var journeysCollectionView: UICollectionView!
     
     public var journeysRequest: JourneysRequest?
+    var priceDelegate: ListJourneysDisplayPriceLogic?
     internal var interactor: ListJourneysBusinessLogic?
     internal var router: (NSObjectProtocol & ListJourneysViewRoutingLogic & ListJourneysDataPassing)?
     private var viewModel: ListJourneys.FetchJourneys.ViewModel?
@@ -42,9 +48,9 @@ open class ListJourneysViewController: UIViewController, ListJourneysDisplayLogi
         super.viewDidLoad()
         
         if let titlesConfig = Configuration.titlesConfig, let journeysTitle = titlesConfig.journeysTitle {
-            self.setTitle(title: journeysTitle)
+            setTitle(title: journeysTitle)
         } else {
-            self.setTitle(title: "journeys".localized())
+            setTitle(title: "journeys".localized())
         }
         
         hideKeyboardWhenTappedAround()
@@ -195,7 +201,7 @@ open class ListJourneysViewController: UIViewController, ListJourneysDisplayLogi
         guard let journeysRequest = interactor?.journeysRequest else {
             return
         }
-
+        
         activityView.startAnimating()
         let request = ListJourneys.FetchJourneys.Request(journeysRequest: journeysRequest)
         
@@ -315,6 +321,7 @@ extension ListJourneysViewController: UICollectionViewDataSource, UICollectionVi
                 cell.walkingDescription = viewModel.walkingInformation
                 cell.accessibility = viewModel.accessibility
                 cell.setJourneySummaryView(friezeSections: viewModel.friezeSections)
+                cell.ticketInputs = viewModel.ticketsInput
                 
                 return cell
             }
@@ -381,7 +388,8 @@ extension ListJourneysViewController: UICollectionViewDataSource, UICollectionVi
         var selector: Selector?
         
         if viewModel.loaded {
-            if indexPath.section == 0 && viewModel.displayedJourneys.count > indexPath.row {
+            if let cell = collectionView.cellForItem(at: indexPath) as? JourneySolutionCollectionViewCell,
+                cell.pricedTickets != nil {
                 selector = NSSelectorFromString("routeToJourneySolutionRoadmapWithIndexPath:")
             } else if indexPath.section == 1 && viewModel.displayedRidesharings.count > indexPath.row - 1 && indexPath.row != 0 {
                 selector = NSSelectorFromString("routeToListRidesharingOffersWithIndexPath:")
@@ -552,6 +560,24 @@ extension ListJourneysViewController: SearchButtonViewDelegate {
             print("Changement de date")
             searchView.hideDate()
             fetchJourneys()
+        }
+    }
+}
+
+extension ListJourneysViewController: JourneySolutionCollectionViewCellDelegate {
+    
+    func getPrice(ticketsInputList: [TicketInput], callback: @escaping (([PricedTicket]) -> ())) {
+        if let journeys = viewModel?.displayedJourneys {
+            for displayJourney in journeys {
+                let jsonData = try! JSONEncoder().encode(displayJourney.ticketsInput)
+                let jsonString = String(data: jsonData, encoding: .utf8)!
+                
+                priceDelegate?.displayPrice(ticketsInputList: jsonString, callback: { (ticketsPrice) in
+                    let jsonData = jsonString.data(using: .utf8)!
+                    let prices = try! JSONDecoder().decode([PricedTicket].self, from: jsonData)
+                    callback(prices)
+                })
+            }
         }
     }
 }

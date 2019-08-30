@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -13,14 +13,14 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="JourneySolutionCollectionViewCell" id="8iX-MJ-bAx" customClass="JourneySolutionCollectionViewCell" customModule="NavitiaSDKUI" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="300" height="147"/>
+            <rect key="frame" x="0.0" y="0.0" width="409" height="147"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
-                <rect key="frame" x="0.0" y="0.0" width="300" height="147"/>
+                <rect key="frame" x="0.0" y="0.0" width="409" height="147"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1d3-gH-QaT">
-                        <rect key="frame" x="0.0" y="0.0" width="300" height="147"/>
+                        <rect key="frame" x="0.0" y="0.0" width="409" height="147"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <accessibility key="accessibilityConfiguration">
                             <accessibilityTraits key="traits" button="YES"/>
@@ -36,15 +36,33 @@
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uiE-c6-acZ">
-                        <rect key="frame" x="10" y="34.5" width="280" height="1"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="30 min" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qi9-Ve-v5r">
+                        <rect key="frame" x="344.5" y="10" width="39" height="14.5"/>
+                        <accessibility key="accessibilityConfiguration">
+                            <bool key="isElement" value="NO"/>
+                        </accessibility>
+                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="&gt;" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Yza-xI-lKm">
+                        <rect key="frame" x="388.5" y="0.0" width="10.5" height="34.5"/>
+                        <accessibility key="accessibilityConfiguration">
+                            <bool key="isElement" value="NO"/>
+                        </accessibility>
+                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uiE-c6-acZ" userLabel="Separator View">
+                        <rect key="frame" x="10" y="34.5" width="389" height="1"/>
                         <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="1" id="4NV-8o-Sx6"/>
                         </constraints>
                     </view>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lqf-YV-oSL" customClass="FriezeView" customModule="NavitiaSDKUI" customModuleProvider="target">
-                        <rect key="frame" x="10" y="45.5" width="280" height="56.5"/>
+                        <rect key="frame" x="10" y="45.5" width="389" height="56.5"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </view>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="With 12 min walking (767 meters)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JUD-Ce-byI">
@@ -56,24 +74,16 @@
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="30 min" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qi9-Ve-v5r">
-                        <rect key="frame" x="235.5" y="10" width="39" height="14.5"/>
-                        <accessibility key="accessibilityConfiguration">
-                            <bool key="isElement" value="NO"/>
-                        </accessibility>
-                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="j8r-Oh-A11">
+                        <rect key="frame" x="363.5" y="115" width="35.5" height="17"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="&gt;" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Yza-xI-lKm">
-                        <rect key="frame" x="279.5" y="0.0" width="10.5" height="34.5"/>
-                        <accessibility key="accessibilityConfiguration">
-                            <bool key="isElement" value="NO"/>
-                        </accessibility>
-                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
-                        <nil key="textColor"/>
-                        <nil key="highlightedColor"/>
-                    </label>
+                    <view opaque="NO" alpha="0.80000000000000004" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="G0X-69-9X7" userLabel="Loading View">
+                        <rect key="frame" x="0.0" y="0.0" width="182" height="66"/>
+                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </view>
                 </subviews>
             </view>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -81,18 +91,24 @@
                 <constraint firstAttribute="bottom" secondItem="1d3-gH-QaT" secondAttribute="bottom" id="48K-ZM-9cJ"/>
                 <constraint firstItem="uiE-c6-acZ" firstAttribute="top" secondItem="Yza-xI-lKm" secondAttribute="bottom" id="8Hm-EF-cKA"/>
                 <constraint firstAttribute="trailing" secondItem="Yza-xI-lKm" secondAttribute="trailing" priority="999" constant="10" id="91O-Y0-FcZ"/>
+                <constraint firstItem="G0X-69-9X7" firstAttribute="bottom" secondItem="UO3-ac-tHw" secondAttribute="bottom" id="B5o-dp-AbG"/>
                 <constraint firstItem="1d3-gH-QaT" firstAttribute="leading" secondItem="8iX-MJ-bAx" secondAttribute="leading" id="Br7-uO-YYw"/>
+                <constraint firstItem="j8r-Oh-A11" firstAttribute="bottom" secondItem="JUD-Ce-byI" secondAttribute="bottom" id="HB5-ZA-eDa"/>
                 <constraint firstItem="Yza-xI-lKm" firstAttribute="leading" secondItem="Qi9-Ve-v5r" secondAttribute="trailing" constant="5" id="I62-2h-XUA"/>
                 <constraint firstItem="dhB-Xm-3aP" firstAttribute="top" secondItem="8iX-MJ-bAx" secondAttribute="top" constant="10" id="Ij7-WS-ciy"/>
                 <constraint firstAttribute="trailing" secondItem="lqf-YV-oSL" secondAttribute="trailing" priority="999" constant="10" id="J1i-ed-dRN"/>
+                <constraint firstAttribute="trailing" secondItem="j8r-Oh-A11" secondAttribute="trailing" constant="10" id="JaH-tM-KSp"/>
                 <constraint firstItem="dhB-Xm-3aP" firstAttribute="leading" secondItem="8iX-MJ-bAx" secondAttribute="leading" constant="10" id="MKs-ls-tJk"/>
                 <constraint firstItem="JUD-Ce-byI" firstAttribute="top" secondItem="lqf-YV-oSL" secondAttribute="bottom" constant="15" id="Mgd-oC-fwr"/>
                 <constraint firstItem="lqf-YV-oSL" firstAttribute="top" secondItem="uiE-c6-acZ" secondAttribute="bottom" constant="10" id="Tb9-si-dTb"/>
                 <constraint firstAttribute="trailing" secondItem="1d3-gH-QaT" secondAttribute="trailing" id="Tm0-7k-Y7N"/>
                 <constraint firstAttribute="trailing" secondItem="uiE-c6-acZ" secondAttribute="trailing" constant="10" id="Tn6-4s-6kB"/>
                 <constraint firstItem="lqf-YV-oSL" firstAttribute="leading" secondItem="8iX-MJ-bAx" secondAttribute="leading" constant="10" id="YAs-HY-Yy3"/>
+                <constraint firstItem="G0X-69-9X7" firstAttribute="leading" secondItem="UO3-ac-tHw" secondAttribute="leading" id="ZPP-DL-FEa"/>
                 <constraint firstItem="1d3-gH-QaT" firstAttribute="top" secondItem="8iX-MJ-bAx" secondAttribute="top" id="amr-Ve-rNW"/>
                 <constraint firstItem="JUD-Ce-byI" firstAttribute="leading" secondItem="8iX-MJ-bAx" secondAttribute="leading" constant="10" id="b5U-aA-OQr"/>
+                <constraint firstItem="G0X-69-9X7" firstAttribute="top" secondItem="UO3-ac-tHw" secondAttribute="top" id="dFG-un-Lzy"/>
+                <constraint firstItem="G0X-69-9X7" firstAttribute="trailing" secondItem="UO3-ac-tHw" secondAttribute="trailing" id="hkN-Z4-Q8b"/>
                 <constraint firstItem="Qi9-Ve-v5r" firstAttribute="top" secondItem="8iX-MJ-bAx" secondAttribute="top" constant="10" id="hki-LY-er7"/>
                 <constraint firstItem="uiE-c6-acZ" firstAttribute="leading" secondItem="8iX-MJ-bAx" secondAttribute="leading" constant="10" id="hks-Tt-06d"/>
                 <constraint firstItem="uiE-c6-acZ" firstAttribute="top" secondItem="dhB-Xm-3aP" secondAttribute="bottom" constant="10" id="udo-uH-bvm"/>
@@ -101,7 +117,7 @@
                 <constraint firstItem="Yza-xI-lKm" firstAttribute="top" secondItem="8iX-MJ-bAx" secondAttribute="top" id="wfD-Z8-D2z"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="UO3-ac-tHw"/>
-            <size key="customSize" width="260" height="146"/>
+            <size key="customSize" width="369" height="146"/>
             <userDefinedRuntimeAttributes>
                 <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
                     <integer key="value" value="5"/>
@@ -117,8 +133,10 @@
                 <outlet property="durationTopContraint" destination="Mgd-oC-fwr" id="vnb-SC-qdz"/>
                 <outlet property="durationWalkerLabel" destination="JUD-Ce-byI" id="Rwh-J8-bok"/>
                 <outlet property="friezeView" destination="lqf-YV-oSL" id="029-vs-TaP"/>
+                <outlet property="loadingView" destination="G0X-69-9X7" id="kek-oB-15T"/>
+                <outlet property="priceLabel" destination="j8r-Oh-A11" id="f80-ge-WC5"/>
             </connections>
-            <point key="canvasLocation" x="-1971.2" y="50.824587706146929"/>
+            <point key="canvasLocation" x="-2136.8000000000002" y="-99.400299850074973"/>
         </collectionViewCell>
     </objects>
 </document>

@@ -30,8 +30,7 @@ class ListJourneysPresenter: ListJourneysPresentationLogic {
                                                             date: response.journeysRequest.datetime ?? Date(),
                                                             accessibilityHeader: getHeaderAccessibility(origin: response.journeysRequest.originLabel ?? "",
                                                                                                         destination: response.journeysRequest.destinationLabel ?? "",
-                                                                                                        dateTime: response.journeysRequest.datetime ?? Date()),
-                                                            accessibilitySwitchButton: getAccessibilitySwitchButton())
+                                                                                                        dateTime: response.journeysRequest.datetime ?? Date()),           accessibilitySwitchButton: getAccessibilitySwitchButton())
         
         viewController?.displaySearch(viewModel: viewModel)
     }
@@ -161,13 +160,15 @@ class ListJourneysPresenter: ListJourneysPresentationLogic {
         
         let friezeSections = FriezePresenter().getDisplayedJourneySections(journey: journey, disruptions: disruptions)
         let accessibility = getJourneyAccessibility(duration: duration.string, sections: journey.sections, disruptions: disruptions)
+        let ticketsInput = getTickets(journey: journey)
         
         if journey.isRidesharing {
             return ListJourneys.FetchJourneys.ViewModel.DisplayedJourney(dateTime: dateTime,
                                                                             duration: duration,
                                                                             walkingInformation: nil,
                                                                             friezeSections: friezeSections,
-                                                                            accessibility: accessibility)
+                                                                            accessibility: accessibility,
+                                                                            ticketsInput: ticketsInput)
         }
         
         let walkingInformation = getDisplayedJourneyWalkingInformation(journey: journey)
@@ -176,7 +177,29 @@ class ListJourneysPresenter: ListJourneysPresentationLogic {
                                                                         duration: duration,
                                                                         walkingInformation: walkingInformation,
                                                                         friezeSections: friezeSections,
-                                                                        accessibility: accessibility)
+                                                                        accessibility: accessibility,
+                                                                        ticketsInput: ticketsInput)
+    }
+    
+    private func getTickets(journey: Journey) -> [TicketInput] {
+        var ticketInputList:[TicketInput] = []
+        let ticketLink = journey.links?.first(where: { (item) -> Bool in
+            return item.type == "ticket"
+        })
+        let ticketId = ticketLink?.id ?? ""
+        
+        for section in journey.sections ?? [] {
+            let ride = Ride(from: section.from?.id ?? "",
+                            to: section.to?.id ?? "",
+                            departureDate: section.departureDateTime ?? "",
+                            arrivalDate: section.arrivalDateTime ?? "",
+                            ticketId: ticketId)
+            
+            let ticketInput = TicketInput(productId: ticketId, ride: ride)
+            ticketInputList.append(ticketInput)
+        }
+        
+        return ticketInputList
     }
     
     private func getDisplayedJourneyDateTime(journey: Journey) -> String? {

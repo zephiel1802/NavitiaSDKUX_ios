@@ -57,6 +57,7 @@ enum ListJourneys {
                 var walkingInformation: NSMutableAttributedString?
                 var friezeSections: [FriezePresenter.FriezeSection]
                 var accessibility: String?
+                var ticketsInput: [TicketInput]?
             }
             
             var loaded: Bool
