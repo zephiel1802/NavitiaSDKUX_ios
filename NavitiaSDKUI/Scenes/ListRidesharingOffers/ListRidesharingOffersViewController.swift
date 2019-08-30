@@ -12,7 +12,7 @@ protocol ListRidesharingOffersDisplayLogic: class {
     func displayRidesharingOffers(viewModel: ListRidesharingOffers.GetRidesharingOffers.ViewModel)
 }
 
-internal class ListRidesharingOffersViewController: UIViewController, ListRidesharingOffersDisplayLogic {
+public class ListRidesharingOffersViewController: UIViewController, ListRidesharingOffersDisplayLogic {
     
     @IBOutlet weak var journeySolutionView: JourneySolutionView!
     @IBOutlet var heightJourneySolutionViewContraint: NSLayoutConstraint!
@@ -34,7 +34,7 @@ internal class ListRidesharingOffersViewController: UIViewController, ListRidesh
         initArchitecture()
     }
     
-    override func viewDidLoad() {
+    override public func viewDidLoad() {
         super.viewDidLoad()
         
         self.setTitle(title: "carpooling".localized())
@@ -43,8 +43,10 @@ internal class ListRidesharingOffersViewController: UIViewController, ListRidesh
         
         getRidesharingOffers()
     }
+
     
-    override func viewWillLayoutSubviews() {
+    
+    override public func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         
         navigationController?.navigationBar.setNeedsLayout()
@@ -86,7 +88,7 @@ internal class ListRidesharingOffersViewController: UIViewController, ListRidesh
 
 extension ListRidesharingOffersViewController: JourneySolutionViewDelegate {
     
-    func updateHeight(height: CGFloat) {
+    public func updateHeight(height: CGFloat) {
         heightJourneySolutionViewContraint.constant = height
     }
 }

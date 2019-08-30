@@ -19,11 +19,11 @@ protocol ListPlacesDisplayLogic: class {
     func displaySomething(viewModel: ListPlaces.FetchPlaces.ViewModel)
 }
 
-class ListPlacesViewController: UIViewController, ListPlacesDisplayLogic {
+public class ListPlacesViewController: UIViewController, ListPlacesDisplayLogic {
     
     @IBOutlet weak var searchView: SearchView!
     @IBOutlet weak var tableView: UITableView!
-
+    
     private let locationManager = CLLocationManager()
     private var displayedSections: [ListPlaces.FetchPlaces.ViewModel.DisplayedSections] = []
     private var debouncedSearch: Debouncer?
@@ -198,15 +198,15 @@ class ListPlacesViewController: UIViewController, ListPlacesDisplayLogic {
 
 extension ListPlacesViewController: UITableViewDataSource, UITableViewDelegate {
     
-    func numberOfSections(in tableView: UITableView) -> Int {
+    public func numberOfSections(in tableView: UITableView) -> Int {
         return displayedSections.count
     }
     
-    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+    public func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         return displayedSections[safe: section]?.name
     }
     
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+    public func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         guard displayedSections[safe: section]?.name != nil else {
             return 0
         }
@@ -214,7 +214,7 @@ extension ListPlacesViewController: UITableViewDataSource, UITableViewDelegate {
         return 35
     }
     
-    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+    public func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         guard let name = displayedSections[safe: section]?.name else {
             return nil
         }
@@ -229,11 +229,11 @@ extension ListPlacesViewController: UITableViewDataSource, UITableViewDelegate {
         return view
     }
     
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return displayedSections[safe: section]?.places.count ?? 0
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let cell = tableView.dequeueReusableCell(withIdentifier: PlacesTableViewCell.identifier, for: indexPath) as? PlacesTableViewCell {
             
             cell.type = displayedSections[safe: indexPath.section]?.places[safe: indexPath.row]?.type
@@ -277,7 +277,7 @@ extension ListPlacesViewController: UITableViewDataSource, UITableViewDelegate {
         return UITableViewCell()
     }
     
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let name = displayedSections[safe: indexPath.section]?.places[safe: indexPath.row]?.name,
             let id = displayedSections[safe: indexPath.section]?.places[safe: indexPath.row]?.id,
             let type = displayedSections[safe: indexPath.section]?.places[safe: indexPath.row]?.type else {
@@ -358,7 +358,7 @@ extension ListPlacesViewController: UITableViewDataSource, UITableViewDelegate {
 
 extension ListPlacesViewController: CLLocationManagerDelegate {
     
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+    public func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         if let location = locations.first {
             let request = ListPlaces.FetchLocation.Request(latitude: Double(location.coordinate.latitude),
                                                            longitude:  Double(location.coordinate.longitude))
@@ -367,7 +367,7 @@ extension ListPlacesViewController: CLLocationManagerDelegate {
         }
     }
     
-    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+    public func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         print("Failed to find user's location: \(error.localizedDescription)")
     }
 }

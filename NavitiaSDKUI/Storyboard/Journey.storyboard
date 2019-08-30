@@ -119,6 +119,7 @@
                     <connections>
                         <outlet property="searchView" destination="SER-LR-9No" id="uCD-by-0Ov"/>
                         <outlet property="stackScrollView" destination="vrA-Pm-UlU" id="bRq-VJ-szW"/>
+                        <outlet property="vwHeader" destination="d2u-NR-p45" id="Q2O-fV-eDG"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="D3K-C4-UuA" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -133,8 +134,15 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4OG-C0-ZtA">
+                                <rect key="frame" x="0.0" y="64" width="375" height="66"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="66" id="bHy-WM-fDi"/>
+                                </constraints>
+                            </view>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" pitchEnabled="NO" translatesAutoresizingMaskIntoConstraints="NO" id="b4l-6W-DHd">
-                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                                <rect key="frame" x="0.0" y="130" width="375" height="537"/>
                                 <connections>
                                     <outlet property="delegate" destination="z4Z-Pd-Lif" id="ubg-bG-db4"/>
                                 </connections>
@@ -161,9 +169,12 @@
                         <constraints>
                             <constraint firstItem="b4l-6W-DHd" firstAttribute="leading" secondItem="jJw-gq-5GI" secondAttribute="leading" id="9lG-72-fKA"/>
                             <constraint firstAttribute="bottom" secondItem="b4l-6W-DHd" secondAttribute="bottom" id="EAF-Lg-vi9"/>
-                            <constraint firstItem="b4l-6W-DHd" firstAttribute="top" secondItem="HfL-JU-5ET" secondAttribute="top" id="NHL-vB-r31"/>
+                            <constraint firstItem="b4l-6W-DHd" firstAttribute="top" secondItem="4OG-C0-ZtA" secondAttribute="bottom" id="OwZ-SL-rCn"/>
+                            <constraint firstItem="HfL-JU-5ET" firstAttribute="trailing" secondItem="4OG-C0-ZtA" secondAttribute="trailing" id="RHQ-7j-h7W"/>
                             <constraint firstItem="zis-0N-UC9" firstAttribute="bottom" secondItem="jJw-gq-5GI" secondAttribute="bottom" constant="-65" id="UMY-qa-8Ig"/>
+                            <constraint firstItem="4OG-C0-ZtA" firstAttribute="leading" secondItem="HfL-JU-5ET" secondAttribute="leading" id="jX4-aO-472"/>
                             <constraint firstAttribute="trailing" secondItem="b4l-6W-DHd" secondAttribute="trailing" id="kaR-ob-xCB"/>
+                            <constraint firstItem="4OG-C0-ZtA" firstAttribute="top" secondItem="HfL-JU-5ET" secondAttribute="top" id="oXC-Z4-Zf1"/>
                             <constraint firstItem="HfL-JU-5ET" firstAttribute="trailing" secondItem="zis-0N-UC9" secondAttribute="trailing" constant="5" id="ye5-0W-jUU"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="HfL-JU-5ET"/>
@@ -173,11 +184,12 @@
                         <outlet property="alignBottomCenterMapButton" destination="UMY-qa-8Ig" id="qBq-wp-nsV"/>
                         <outlet property="centerMapButton" destination="zis-0N-UC9" id="ubB-LR-l3U"/>
                         <outlet property="mapView" destination="b4l-6W-DHd" id="yLp-tq-9a7"/>
+                        <outlet property="vwHeader" destination="4OG-C0-ZtA" id="nQX-0W-Rex"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JTY-AV-86e" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2192.6536731634183" y="12"/>
+            <point key="canvasLocation" x="2191.1999999999998" y="11.244377811094454"/>
         </scene>
         <!--List Places View Controller-->
         <scene sceneID="Jvx-YR-WhD">
@@ -195,14 +207,14 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yVj-al-Sgm" customClass="SearchView" customModule="NavitiaSDKUI" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="100"/>
+                                <rect key="frame" x="0.0" y="66" width="375" height="100"/>
                                 <color key="backgroundColor" red="0.25098039220000001" green="0.58431372550000005" blue="0.5568627451" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="100" id="PU3-ga-0Mg"/>
                                 </constraints>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="EfP-xX-8jF">
-                                <rect key="frame" x="0.0" y="100" width="375" height="503"/>
+                                <rect key="frame" x="0.0" y="166" width="375" height="437"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <connections>
                                     <outlet property="dataSource" destination="TlC-cs-xLV" id="suQ-qO-lWe"/>
@@ -219,7 +231,7 @@
                             <constraint firstItem="y7Y-tN-W1K" firstAttribute="trailing" secondItem="zqa-1X-4Vo" secondAttribute="trailing" id="QfQ-sZ-SRp"/>
                             <constraint firstItem="EfP-xX-8jF" firstAttribute="top" secondItem="yVj-al-Sgm" secondAttribute="bottom" id="R3P-Ex-1V6"/>
                             <constraint firstItem="zqa-1X-4Vo" firstAttribute="top" secondItem="y7Y-tN-W1K" secondAttribute="top" id="SA2-mk-A2d"/>
-                            <constraint firstItem="yVj-al-Sgm" firstAttribute="top" secondItem="y7Y-tN-W1K" secondAttribute="top" id="Xmo-JG-Lco"/>
+                            <constraint firstItem="yVj-al-Sgm" firstAttribute="top" secondItem="zqa-1X-4Vo" secondAttribute="bottom" id="Thj-j8-cEH"/>
                             <constraint firstItem="EfP-xX-8jF" firstAttribute="leading" secondItem="1B8-TI-9Lw" secondAttribute="leading" id="seZ-gZ-M87"/>
                             <constraint firstItem="yVj-al-Sgm" firstAttribute="leading" secondItem="1B8-TI-9Lw" secondAttribute="leading" id="vE6-6G-eEU"/>
                         </constraints>
@@ -231,6 +243,7 @@
                     <connections>
                         <outlet property="searchView" destination="yVj-al-Sgm" id="nfv-Jp-2ww"/>
                         <outlet property="tableView" destination="EfP-xX-8jF" id="Lnt-YQ-bRn"/>
+                        <outlet property="vwHeader" destination="zqa-1X-4Vo" id="T5S-YN-Ld1"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0Da-rQ-JNM" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -245,19 +258,22 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Obq-V9-UMS">
-                                <rect key="frame" x="0.0" y="64" width="375" height="47"/>
-                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kqe-FI-1D8">
+                                <rect key="frame" x="0.0" y="64" width="375" height="66"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="66" id="k8B-dL-8iP"/>
+                                </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Uaw-W9-Vea" customClass="JourneySolutionView" customModule="NavitiaSDKUI" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="64" width="375" height="47"/>
+                                <rect key="frame" x="0.0" y="130" width="375" height="47"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="47" id="osK-jC-DkT"/>
                                 </constraints>
                             </view>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="i53-B1-z3B">
-                                <rect key="frame" x="0.0" y="111" width="375" height="556"/>
+                                <rect key="frame" x="0.0" y="177" width="375" height="490"/>
                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="TGz-QI-Lon">
                                     <size key="itemSize" width="0.0" height="0.0"/>
@@ -275,15 +291,14 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="Uaw-W9-Vea" firstAttribute="leading" secondItem="fhA-0v-Uex" secondAttribute="leading" id="0Ts-Yj-Ll4"/>
-                            <constraint firstItem="Uaw-W9-Vea" firstAttribute="top" secondItem="hDI-dy-l1R" secondAttribute="top" id="0j4-Ba-fFR"/>
+                            <constraint firstItem="kqe-FI-1D8" firstAttribute="top" secondItem="hDI-dy-l1R" secondAttribute="top" id="BFH-Ao-iiK"/>
                             <constraint firstItem="i53-B1-z3B" firstAttribute="leading" secondItem="fhA-0v-Uex" secondAttribute="leading" id="Eqq-Jr-dBq"/>
                             <constraint firstAttribute="trailing" secondItem="i53-B1-z3B" secondAttribute="trailing" id="Gj3-yq-pof"/>
                             <constraint firstAttribute="trailing" secondItem="Uaw-W9-Vea" secondAttribute="trailing" id="IV2-c4-dov"/>
-                            <constraint firstItem="Obq-V9-UMS" firstAttribute="leading" secondItem="fhA-0v-Uex" secondAttribute="leading" id="Ren-6j-KUI"/>
-                            <constraint firstAttribute="trailing" secondItem="Obq-V9-UMS" secondAttribute="trailing" id="dUV-KF-oOk"/>
-                            <constraint firstItem="Obq-V9-UMS" firstAttribute="top" secondItem="hDI-dy-l1R" secondAttribute="top" id="jkp-BA-w9e"/>
-                            <constraint firstItem="i53-B1-z3B" firstAttribute="top" secondItem="Obq-V9-UMS" secondAttribute="bottom" id="miS-e4-eAq"/>
-                            <constraint firstItem="i53-B1-z3B" firstAttribute="top" secondItem="Uaw-W9-Vea" secondAttribute="bottom" id="vNo-nX-Jqp"/>
+                            <constraint firstItem="hDI-dy-l1R" firstAttribute="trailing" secondItem="kqe-FI-1D8" secondAttribute="trailing" id="PgX-Pa-WPe"/>
+                            <constraint firstItem="i53-B1-z3B" firstAttribute="top" secondItem="Uaw-W9-Vea" secondAttribute="bottom" id="rYN-2O-8iQ"/>
+                            <constraint firstItem="Uaw-W9-Vea" firstAttribute="top" secondItem="kqe-FI-1D8" secondAttribute="bottom" id="rh2-8w-PFq"/>
+                            <constraint firstItem="kqe-FI-1D8" firstAttribute="leading" secondItem="hDI-dy-l1R" secondAttribute="leading" id="uCj-3F-lHw"/>
                             <constraint firstAttribute="bottom" secondItem="i53-B1-z3B" secondAttribute="bottom" id="wd3-Tr-7oJ"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="hDI-dy-l1R"/>
@@ -293,11 +308,12 @@
                         <outlet property="heightJourneySolutionViewContraint" destination="osK-jC-DkT" id="riO-4b-3Gk"/>
                         <outlet property="journeySolutionView" destination="Uaw-W9-Vea" id="doZ-uu-Mdy"/>
                         <outlet property="ridesharingOffersCollectionView" destination="i53-B1-z3B" id="N1w-50-f7W"/>
+                        <outlet property="vwHeader" destination="kqe-FI-1D8" id="aKg-d5-is5"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wss-qm-pX7" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1434.2364532019706" y="12"/>
+            <point key="canvasLocation" x="1432.8" y="11.244377811094454"/>
         </scene>
     </scenes>
 </document>

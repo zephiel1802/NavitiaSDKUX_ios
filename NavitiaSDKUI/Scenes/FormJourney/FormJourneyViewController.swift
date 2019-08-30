@@ -12,7 +12,7 @@ protocol FormJourneyDisplayLogic: class {
     func displaySearch(viewModel: FormJourney.DisplaySearch.ViewModel)
 }
 
-class FormJourneyViewController: UIViewController, FormJourneyDisplayLogic, JourneyRootViewController {
+open class FormJourneyViewController: UIViewController, FormJourneyDisplayLogic, JourneyRootViewController {
     
     @IBOutlet weak var searchView: SearchView!
     @IBOutlet weak var stackScrollView: StackScrollView!
@@ -25,7 +25,7 @@ class FormJourneyViewController: UIViewController, FormJourneyDisplayLogic, Jour
     internal var interactor: FormJourneyBusinessLogic?
     internal var router: (NSObjectProtocol & FormJourneyRoutingLogic & FormJourneyDataPassing)?
     
-    var journeysRequest: JourneysRequest?
+    public var journeysRequest: JourneysRequest?
     
     // MARK: - Initialization
     
@@ -35,7 +35,7 @@ class FormJourneyViewController: UIViewController, FormJourneyDisplayLogic, Jour
         initArchitecture()
     }
     
-    override func viewWillTransition( to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator ) {
+    override open func viewWillTransition( to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator ) {
         stackScrollView.reloadStack()
     }
     
