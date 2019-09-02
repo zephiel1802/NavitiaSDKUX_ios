@@ -316,6 +316,7 @@ extension ListJourneysViewController: UICollectionViewDataSource, UICollectionVi
             // Result
             if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: JourneySolutionCollectionViewCell.identifier, for: indexPath) as? JourneySolutionCollectionViewCell,
                 let viewModel = viewModel.displayedJourneys[safe: indexPath.row] {
+                cell.journeySolutionDelegate = self
                 cell.dateTime = viewModel.dateTime
                 cell.duration = viewModel.duration
                 cell.walkingDescription = viewModel.walkingInformation

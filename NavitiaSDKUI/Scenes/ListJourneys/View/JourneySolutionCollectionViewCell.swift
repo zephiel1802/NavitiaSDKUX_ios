@@ -26,7 +26,7 @@ class JourneySolutionCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var loadingView: UIView!
     @IBOutlet weak var priceLabel: UILabel!
     
-    private var delegate: JourneySolutionCollectionViewCellDelegate?
+    public var journeySolutionDelegate: JourneySolutionCollectionViewCellDelegate?
     private var walkingInformationIsHidden: Bool = false {
         didSet {
             durationWalkerLabel.isHidden = walkingInformationIsHidden
@@ -71,7 +71,8 @@ class JourneySolutionCollectionViewCell: UICollectionViewCell {
     internal var ticketInputs: [TicketInput]? {
         didSet {
             if let ticketInputList = ticketInputs {
-                delegate?.getPrice(ticketsInputList: ticketInputList, callback: { (pricedTicketList) in
+                pricedTickets = nil
+                journeySolutionDelegate?.getPrice(ticketsInputList: ticketInputList, callback: { (pricedTicketList) in
                     self.pricedTickets = pricedTicketList
                 })
             }
@@ -116,7 +117,8 @@ class JourneySolutionCollectionViewCell: UICollectionViewCell {
         setArrow()
         
         if let ticketInputList = ticketInputs {
-            delegate?.getPrice(ticketsInputList: ticketInputList, callback: { (pricedTicketList) in
+            pricedTickets = nil
+            journeySolutionDelegate?.getPrice(ticketsInputList: ticketInputList, callback: { (pricedTicketList) in
                 self.pricedTickets = pricedTicketList
             })
         }
