@@ -82,7 +82,7 @@ class ListPlacesPresenter: ListPlacesPresentationLogic {
         
         if let placesViewModel = getPlaces(places: places) {
             if placesViewModel.stopArea.count > 0 {
-                let section = ListPlaces.FetchPlaces.ViewModel.DisplayedSections(name: String(format: "%@ - %@", "stops".localized(), "stations".localized()).uppercased(),
+                let section = ListPlaces.FetchPlaces.ViewModel.DisplayedSections(name: "stops_stations".localized().uppercased(),
                                                                                  places: placesViewModel.stopArea)
                 sections.append(section)
             }
