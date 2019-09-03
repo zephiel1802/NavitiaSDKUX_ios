@@ -23,6 +23,7 @@ public class ListPlacesViewController: UIViewController, ListPlacesDisplayLogic 
     
     @IBOutlet weak var searchView: SearchView!
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet var vwHeader: UIView!
     
     private let locationManager = CLLocationManager()
     private var displayedSections: [ListPlaces.FetchPlaces.ViewModel.DisplayedSections] = []

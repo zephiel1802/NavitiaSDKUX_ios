@@ -18,6 +18,7 @@ open class ListJourneysViewController: UIViewController, ListJourneysDisplayLogi
     
     @IBOutlet weak var searchView: SearchView!
     @IBOutlet weak var journeysCollectionView: UICollectionView!
+    @IBOutlet var vwHeader: UIView!
     
     public var journeysRequest: JourneysRequest?
     internal var interactor: ListJourneysBusinessLogic?

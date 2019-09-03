@@ -18,6 +18,7 @@ public class ListRidesharingOffersViewController: UIViewController, ListRideshar
     @IBOutlet var heightJourneySolutionViewContraint: NSLayoutConstraint!
     @IBOutlet weak var ridesharingOffersCollectionView: UICollectionView!
     
+    @IBOutlet var vwHeader: UIView!
     static var identifier: String {
         return String(describing: self)
     }

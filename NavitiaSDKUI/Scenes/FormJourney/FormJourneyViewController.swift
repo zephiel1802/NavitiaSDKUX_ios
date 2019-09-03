@@ -16,6 +16,7 @@ open class FormJourneyViewController: UIViewController, FormJourneyDisplayLogic,
     
     @IBOutlet weak var searchView: SearchView!
     @IBOutlet weak var stackScrollView: StackScrollView!
+    @IBOutlet var vwHeader: UIView!
     
     private var transportModeView: TransportModeView!
     private var dateFormView: DateFormView!

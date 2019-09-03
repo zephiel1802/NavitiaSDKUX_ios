@@ -67,6 +67,7 @@
                     <connections>
                         <outlet property="journeysCollectionView" destination="yNZ-3x-aub" id="jsb-UR-PlL"/>
                         <outlet property="searchView" destination="est-Cu-SKy" id="xct-cC-HiY"/>
+                        <outlet property="vwHeader" destination="QZY-xS-SOd" id="fnd-eP-JHO"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Wpw-Ek-38a" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -119,7 +120,7 @@
                     <connections>
                         <outlet property="searchView" destination="SER-LR-9No" id="uCD-by-0Ov"/>
                         <outlet property="stackScrollView" destination="vrA-Pm-UlU" id="bRq-VJ-szW"/>
-                        <outlet property="vwHeader" destination="d2u-NR-p45" id="Q2O-fV-eDG"/>
+                        <outlet property="vwHeader" destination="d2u-NR-p45" id="d8D-yJ-4A1"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="D3K-C4-UuA" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -184,7 +185,7 @@
                         <outlet property="alignBottomCenterMapButton" destination="UMY-qa-8Ig" id="qBq-wp-nsV"/>
                         <outlet property="centerMapButton" destination="zis-0N-UC9" id="ubB-LR-l3U"/>
                         <outlet property="mapView" destination="b4l-6W-DHd" id="yLp-tq-9a7"/>
-                        <outlet property="vwHeader" destination="4OG-C0-ZtA" id="nQX-0W-Rex"/>
+                        <outlet property="vwHeader" destination="4OG-C0-ZtA" id="kbW-uz-n5F"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JTY-AV-86e" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -243,7 +244,7 @@
                     <connections>
                         <outlet property="searchView" destination="yVj-al-Sgm" id="nfv-Jp-2ww"/>
                         <outlet property="tableView" destination="EfP-xX-8jF" id="Lnt-YQ-bRn"/>
-                        <outlet property="vwHeader" destination="zqa-1X-4Vo" id="T5S-YN-Ld1"/>
+                        <outlet property="vwHeader" destination="zqa-1X-4Vo" id="mCN-qc-vZe"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0Da-rQ-JNM" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -308,7 +309,7 @@
                         <outlet property="heightJourneySolutionViewContraint" destination="osK-jC-DkT" id="riO-4b-3Gk"/>
                         <outlet property="journeySolutionView" destination="Uaw-W9-Vea" id="doZ-uu-Mdy"/>
                         <outlet property="ridesharingOffersCollectionView" destination="i53-B1-z3B" id="N1w-50-f7W"/>
-                        <outlet property="vwHeader" destination="kqe-FI-1D8" id="aKg-d5-is5"/>
+                        <outlet property="vwHeader" destination="kqe-FI-1D8" id="3bz-x7-SnP"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wss-qm-pX7" userLabel="First Responder" sceneMemberID="firstResponder"/>

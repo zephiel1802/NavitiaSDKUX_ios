@@ -26,6 +26,7 @@ public class ShowJourneyRoadmapViewController: UIViewController {
     @IBOutlet weak var centerMapButton: UIButton!
     @IBOutlet weak var alignBottomCenterMapButton: NSLayoutConstraint!
     
+    @IBOutlet var vwHeader: UIView!
     private var ridesharing: ShowJourneyRoadmap.GetRoadmap.ViewModel.Ridesharing?
     private let locationManager = CLLocationManager()
     private var journeyPolylineCoordinates = [CLLocationCoordinate2D]()
