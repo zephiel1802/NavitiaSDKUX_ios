@@ -249,7 +249,7 @@
                 <outlet property="toTextField" destination="fL7-eC-Qtp" id="ir4-DP-kzh"/>
                 <outlet property="toView" destination="rxk-jh-q0m" id="NFm-T5-Q6x"/>
             </connections>
-            <point key="canvasLocation" x="28.800000000000001" y="-196.10194902548727"/>
+            <point key="canvasLocation" x="28.800000000000001" y="-195.6521739130435"/>
         </view>
     </objects>
     <resources>

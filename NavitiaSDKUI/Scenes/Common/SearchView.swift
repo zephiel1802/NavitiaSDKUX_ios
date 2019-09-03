@@ -103,6 +103,13 @@ class SearchView: UIView, UITextFieldDelegate {
             preferenceButton.isHidden = lock
         }
     }
+    internal var singleFieldConfiguration: Bool = false {
+        didSet {
+            switchIsHidden = true
+            toView.isHidden = singleFieldConfiguration
+            fromTextField.placeholder = singleFieldConfiguration ? "Type an address" : "place_of_departure".localized()
+        }
+    }
     
     // MARK: - UINib
     
