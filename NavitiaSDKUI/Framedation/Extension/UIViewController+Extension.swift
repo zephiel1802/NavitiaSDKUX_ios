@@ -13,6 +13,10 @@ extension UIViewController {
         if let navigationController = navigationController {
             if navigationController.viewControllers.count > 1 {
                 navigationItem.title = title
+                
+                if let parent = self.parent, !parent.isKind(of: UINavigationController.self) {
+                    parent.title = title
+                }
             } else {
                 navigationController.navigationBar.topItem?.title = title
             }
