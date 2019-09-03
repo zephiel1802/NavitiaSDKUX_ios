@@ -47,6 +47,7 @@ open class ListJourneysViewController: UIViewController, ListJourneysDisplayLogi
         hideKeyboardWhenTappedAround()
         
         initNavigationBar()
+        setupUI()
         initHeader()
         initCollectionView()
         searchView.isClearButtonAccessible = false
@@ -57,6 +58,26 @@ open class ListJourneysViewController: UIViewController, ListJourneysDisplayLogi
         
         interactor?.displaySearch(request: ListJourneys.DisplaySearch.Request())
         interactor?.journeysRequest?.allowedPhysicalModes != nil ? fetchPhysicalMode() : fetchJourneys()
+    }
+    
+    @objc func setupUI() {
+        //Setup for common method invoke
+        setupHeaderView(with: "Journey", showBackButton: true) {
+            DispatchQueue.main.async {
+                self.touchBackButton()
+            }
+        }
+    }
+    
+    fileprivate func touchBackButton() {
+        interactor?.modeTransportViewSelected = searchView.transportModeView.getSelectedButton()
+        router?.routeToBack()
+    }
+    
+    func setupHeaderView(with title: String, showBackButton: Bool, actionBlock: @escaping HeaderViewActionBlock){
+        if let header = self.vwHeader{
+            HeaderView.setupHeaderView(in: header, with: title, showBackButton: showBackButton, action: actionBlock)
+        }
     }
     
     override open func viewWillLayoutSubviews() {
@@ -94,6 +115,7 @@ open class ListJourneysViewController: UIViewController, ListJourneysDisplayLogi
         navigationController?.navigationBar.shadowImage = UIImage()
         navigationController?.navigationBar.barTintColor = Configuration.Color.main
         navigationController?.navigationBar.isTranslucent = false
+        navigationController?.navigationBar.isHidden = true
     }
     
     private func initHeader() {

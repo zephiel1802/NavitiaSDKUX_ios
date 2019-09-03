@@ -43,15 +43,37 @@ open class FormJourneyViewController: UIViewController, FormJourneyDisplayLogic,
     override open func viewDidLoad() {
         super.viewDidLoad()
         
-        self.setTitle(title: "journeys".localized())
-        
         hideKeyboardWhenTappedAround()
         
         initNavigationBar()
+        setupUI()
         initHeader()
         initStackScrollView()
         
         interactor?.journeysRequest = journeysRequest
+    }
+    
+    @objc func setupUI() {
+        //Setup for common method invoke
+        setupHeaderView(with: "journeys".localized(), showBackButton: true) {
+            DispatchQueue.main.async {
+                self.touchBackButton()
+            }
+        }
+    }
+    
+    fileprivate func touchBackButton() {
+        if isRootViewController() {
+            self.dismiss(animated: true, completion: nil)
+        } else {
+            self.navigationController?.popViewController(animated: true)
+        }
+    }
+    
+    func setupHeaderView(with title: String, showBackButton: Bool, actionBlock: @escaping HeaderViewActionBlock){
+        if let header = self.vwHeader{
+            HeaderView.setupHeaderView(in: header, with: title, showBackButton: showBackButton, action: actionBlock)
+        }
     }
     
     override open func viewDidLayoutSubviews() {
@@ -97,12 +119,12 @@ open class FormJourneyViewController: UIViewController, FormJourneyDisplayLogic,
     }
     
     private func initNavigationBar() {
-        addBackButton(targetSelector: #selector(backButtonPressed))
-        
-        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarPosition.any, barMetrics: UIBarMetrics.default)
+    navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarPosition.any, barMetrics: UIBarMetrics.default)
         navigationController?.navigationBar.shadowImage = UIImage()
         navigationController?.navigationBar.barTintColor = Configuration.Color.main
         navigationController?.navigationBar.isTranslucent = false
+        navigationController?.navigationBar.isHidden = true
+        navigationController?.isNavigationBarHidden = true
     }
     
     private func initHeader() {
@@ -139,14 +161,6 @@ open class FormJourneyViewController: UIViewController, FormJourneyDisplayLogic,
     }
     
     // MARK: - Events
-    
-    @objc func backButtonPressed() {
-        if isRootViewController() {
-            self.dismiss(animated: true, completion: nil)
-        } else {
-            self.navigationController?.popViewController(animated: true)
-        }
-    }
     
     func displaySearch(viewModel: FormJourney.DisplaySearch.ViewModel) {
         if viewModel.fromName == nil || viewModel.toName == nil {

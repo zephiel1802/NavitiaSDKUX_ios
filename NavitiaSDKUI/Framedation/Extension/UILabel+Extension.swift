@@ -21,3 +21,4 @@ extension UILabel {
         return labelTextSize.height > bounds.size.height
     }
 }
+

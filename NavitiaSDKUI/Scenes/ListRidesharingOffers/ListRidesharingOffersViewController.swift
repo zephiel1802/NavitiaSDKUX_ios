@@ -39,13 +39,30 @@ public class ListRidesharingOffersViewController: UIViewController, ListRideshar
         super.viewDidLoad()
         
         self.setTitle(title: "carpooling".localized())
-        
+        setupUI()
         registerCollectionView()
         
         getRidesharingOffers()
     }
 
+    @objc func setupUI() {
+        //Setup for common method invoke
+        setupHeaderView(with: "carpooling".localized(), showBackButton: true) {
+            DispatchQueue.main.async {
+                self.touchBackButton()
+            }
+        }
+    }
     
+    fileprivate func touchBackButton() {
+        self.navigationController?.popViewController(animated: true)
+    }
+    
+    func setupHeaderView(with title: String, showBackButton: Bool, actionBlock: @escaping HeaderViewActionBlock){
+        if let header = self.vwHeader{
+            HeaderView.setupHeaderView(in: header, with: title, showBackButton: showBackButton, action: actionBlock)
+        }
+    }
     
     override public func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()

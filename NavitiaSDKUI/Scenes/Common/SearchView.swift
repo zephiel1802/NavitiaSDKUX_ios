@@ -131,7 +131,7 @@ class SearchView: UIView, UITextFieldDelegate {
         
         searchView.translatesAutoresizingMaskIntoConstraints = false
         searchView.frame = self.bounds
-        
+        searchView.createDefaultGradientView()
         return searchView
     }
     

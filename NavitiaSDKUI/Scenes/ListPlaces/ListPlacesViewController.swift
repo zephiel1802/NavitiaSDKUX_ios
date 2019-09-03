@@ -53,6 +53,7 @@ public class ListPlacesViewController: UIViewController, ListPlacesDisplayLogic 
 
         hideKeyboardWhenTappedAround()
         
+        setupUI()
         initLocation()
         initNavigationBar()
         initDebouncer()
@@ -62,6 +63,25 @@ public class ListPlacesViewController: UIViewController, ListPlacesDisplayLogic 
         interactor?.displaySearch(request: ListPlaces.DisplaySearch.Request())
         fetchPlaces(q: "")
         interactor?.info == "from" ? searchView.focusFromField() : searchView.focusToField()
+    }
+    
+    @objc func setupUI() {
+        //Setup for common method invoke
+        setupHeaderView(with: "journeys".localized(), showBackButton: true) {
+            DispatchQueue.main.async {
+                self.touchBackButton()
+            }
+        }
+    }
+    
+    fileprivate func touchBackButton() {
+        self.navigationController?.popViewController(animated: true)
+    }
+    
+    func setupHeaderView(with title: String, showBackButton: Bool, actionBlock: @escaping HeaderViewActionBlock){
+        if let header = self.vwHeader{
+            HeaderView.setupHeaderView(in: header, with: title, showBackButton: showBackButton, action: actionBlock)
+        }
     }
     
     override open func viewWillAppear(_ animated: Bool) {
@@ -106,6 +126,7 @@ public class ListPlacesViewController: UIViewController, ListPlacesDisplayLogic 
         navigationItem.rightBarButtonItem?.tintColor = Configuration.Color.main.contrastColor()
         
         navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: Configuration.Color.main.contrastColor()]
+        navigationController?.isNavigationBarHidden = true
     }
     
     private func initDebouncer() {

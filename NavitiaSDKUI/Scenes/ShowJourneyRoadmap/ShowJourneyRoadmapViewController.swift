@@ -58,10 +58,30 @@ public class ShowJourneyRoadmapViewController: UIViewController {
     override public func viewDidLoad() {
         super.viewDidLoad()
         
-        self.setTitle(title: "roadmap".localized())
+//        self.setTitle(title: "roadmap".localized())
 
         initLocation()
+        setupUI()
         getMap()
+    }
+    
+    @objc func setupUI() {
+        //Setup for common method invoke
+        setupHeaderView(with: "roadmap".localized(), showBackButton: true) {
+            DispatchQueue.main.async {
+                self.touchBackButton()
+            }
+        }
+    }
+    
+    fileprivate func touchBackButton() {
+        self.navigationController?.popViewController(animated: true)
+    }
+    
+    func setupHeaderView(with title: String, showBackButton: Bool, actionBlock: @escaping HeaderViewActionBlock){
+        if let header = self.vwHeader{
+            HeaderView.setupHeaderView(in: header, with: title, showBackButton: showBackButton, action: actionBlock)
+        }
     }
 
     override public func viewDidLayoutSubviews() {
