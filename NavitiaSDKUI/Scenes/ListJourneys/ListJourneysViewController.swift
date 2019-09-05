@@ -14,18 +14,18 @@ protocol ListJourneysDisplayLogic: class {
     func displayFetchedJourneys(viewModel: ListJourneys.FetchJourneys.ViewModel)
 }
 
-protocol ListJourneysDisplayPriceLogic: class {
+public protocol ListJourneysDisplayPriceLogic: class {
     
-    func displayPrice(ticketsInputList: String, callback:  @escaping ((_ ticketsPriceList: String) -> ()))
+    func requestPrice(ticketInputData: Data, callback:  @escaping ((_ ticketPriceDictionary: [[String: Any]]) -> ()))
 }
 
-open class ListJourneysViewController: UIViewController, ListJourneysDisplayLogic, JourneyRootViewController {
+public class ListJourneysViewController: UIViewController, ListJourneysDisplayLogic, JourneyRootViewController {
     
     @IBOutlet weak var searchView: SearchView!
     @IBOutlet weak var journeysCollectionView: UICollectionView!
     
+    public var delegate: ListJourneysDisplayPriceLogic?
     public var journeysRequest: JourneysRequest?
-    var priceDelegate: ListJourneysDisplayPriceLogic?
     internal var interactor: ListJourneysBusinessLogic?
     internal var router: (NSObjectProtocol & ListJourneysViewRoutingLogic & ListJourneysDataPassing)?
     private var viewModel: ListJourneys.FetchJourneys.ViewModel?
@@ -64,6 +64,7 @@ open class ListJourneysViewController: UIViewController, ListJourneysDisplayLogi
             interactor?.journeysRequest = journeysRequest
         }
         
+        delegate = router?.dataStore?.delegate
         interactor?.displaySearch(request: ListJourneys.DisplaySearch.Request())
         interactor?.journeysRequest?.allowedPhysicalModes != nil ? fetchPhysicalMode() : fetchJourneys()
     }
@@ -568,17 +569,40 @@ extension ListJourneysViewController: SearchButtonViewDelegate {
 extension ListJourneysViewController: JourneySolutionCollectionViewCellDelegate {
     
     func getPrice(ticketsInputList: [TicketInput], callback: @escaping (([PricedTicket]) -> ())) {
-        if let journeys = viewModel?.displayedJourneys {
-            for displayJourney in journeys {
-                let jsonData = try! JSONEncoder().encode(displayJourney.ticketsInput)
-                let jsonString = String(data: jsonData, encoding: .utf8)!
-                
-                priceDelegate?.displayPrice(ticketsInputList: jsonString, callback: { (ticketsPrice) in
-                    let jsonData = jsonString.data(using: .utf8)!
-                    let prices = try! JSONDecoder().decode([PricedTicket].self, from: jsonData)
-                    callback(prices)
-                })
-            }
+        do {
+            let jsonData = try JSONEncoder().encode(getMokedTicketInputs())
+            delegate?.requestPrice(ticketInputData: jsonData, callback: { (ticketPriceDictionary) in
+                do {
+                    var pricedTicketList = [PricedTicket]()
+                    for response in ticketPriceDictionary {
+                        let pricedTicketData = try JSONSerialization.data(withJSONObject: response, options: .prettyPrinted)
+                        let pricedTicket = try JSONDecoder().decode(PricedTicket.self, from: pricedTicketData)
+                        pricedTicketList.append(pricedTicket)
+                    }
+                    callback(pricedTicketList)
+                } catch {
+                    print("toto \(error)")
+                }
+            })
+            /*if let jsonString = String(data: jsonData, encoding: .utf8) {
+                if let data = try? JSONEncoder().encode(jsonString) {
+                    
+                }
+            }*/
+        } catch {
         }
+    }
+    
+    // TODO: delete
+    private func getMokedTicketInputs() -> [TicketInput] {
+        let titi = Ride(from: "4.896701%3B52.373805",
+                        to: "4.760862%3B52.308896",
+                        departureDate: "20190421T095620",
+                        arrivalDate: "20190401T095620",
+                        ticketId: "45FSS")
+        let toto = TicketInput(productId: "3", ride: titi)
+        let toto2 = TicketInput(productId: "2", ride: titi)
+        let toto3 = TicketInput(productId: "1", ride: titi)
+        return [toto]
     }
 }

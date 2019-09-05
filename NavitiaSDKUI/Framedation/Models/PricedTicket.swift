@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 
 public struct PricedTicket: Codable {
-    let productId: String
+    let productId: Int
     let name: String
     let price: Double?
     let priceWithTax: Double?

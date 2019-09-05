@@ -40,7 +40,6 @@ open class Journey: JSONEncodable, Mappable, Codable {
 
     }
 
-
     enum CodingKeys: String, CodingKey {
         case status = "status"
         case distances = "distances"

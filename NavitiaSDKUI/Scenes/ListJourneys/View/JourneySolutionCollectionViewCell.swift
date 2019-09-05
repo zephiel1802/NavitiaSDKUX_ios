@@ -35,7 +35,6 @@ class JourneySolutionCollectionViewCell: UICollectionViewCell {
             durationLeadingContraint.isActive = !walkingInformationIsHidden
         }
     }
-    
     internal var dateTime: String? {
         didSet {
             if let dateTime = dateTime {
@@ -68,9 +67,10 @@ class JourneySolutionCollectionViewCell: UICollectionViewCell {
             accessiblityView.accessibilityLabel = newValue
         }
     }
+    private var isLoaded = false
     internal var ticketInputs: [TicketInput]? {
         didSet {
-            if let ticketInputList = ticketInputs {
+            if let ticketInputList = ticketInputs, ticketInputList.count > 0, isLoaded == false {
                 pricedTickets = nil
                 journeySolutionDelegate?.getPrice(ticketsInputList: ticketInputList, callback: { (pricedTicketList) in
                     self.pricedTickets = pricedTicketList
@@ -80,14 +80,17 @@ class JourneySolutionCollectionViewCell: UICollectionViewCell {
     }
     internal var pricedTickets: [PricedTicket]? {
         didSet {
-            if let pricedTickets = pricedTickets {
-                loadingView.alpha = 0
-                loadingView.isHidden = true
-                totalPrice(tickets: pricedTickets)
-            } else {
-                loadingView.alpha = 0.7
-                loadingView.isHidden = false
-                totalPrice(tickets: [])
+            DispatchQueue.main.async {
+                if let pricedTickets = self.pricedTickets {
+                    self.loadingView.alpha = 0
+                    self.loadingView.isHidden = true
+                    self.totalPrice(tickets: pricedTickets)
+                    self.isLoaded = true
+                } else {
+                    self.loadingView.alpha = 0.7
+                    self.loadingView.isHidden = false
+                    self.totalPrice(tickets: [])
+                }
             }
         }
     }
@@ -106,7 +109,7 @@ class JourneySolutionCollectionViewCell: UICollectionViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        
+        print("awakeFromNib \(ticketInputs) | \(pricedTickets)")
         setup()
     }
     
@@ -116,12 +119,7 @@ class JourneySolutionCollectionViewCell: UICollectionViewCell {
         setShadow()
         setArrow()
         
-        if let ticketInputList = ticketInputs {
-            pricedTickets = nil
-            journeySolutionDelegate?.getPrice(ticketsInputList: ticketInputList, callback: { (pricedTicketList) in
-                self.pricedTickets = pricedTicketList
-            })
-        }
+        pricedTickets = nil
     }
     
     private func setArrow() {
@@ -144,7 +142,7 @@ class JourneySolutionCollectionViewCell: UICollectionViewCell {
             priceLabel.text = ""
         } else {
             var priceText = nbPriceMissing > 0 ? "From " : ""
-            priceText += "\(totalPrice)€"
+            priceText += "\(totalPrice) €"
             priceLabel.text = priceText
         }
     }

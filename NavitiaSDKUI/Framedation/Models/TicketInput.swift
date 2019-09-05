@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-struct TicketInput: Codable {
+public struct TicketInput: Codable {
     let productId: String
     let ride: Ride
     
@@ -18,7 +18,7 @@ struct TicketInput: Codable {
     }
 }
 
-struct Ride: Codable {
+public struct Ride: Codable {
     let from: String
     let to: String
     let departureDate: String

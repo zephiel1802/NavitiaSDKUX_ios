@@ -182,21 +182,34 @@ class ListJourneysPresenter: ListJourneysPresentationLogic {
     }
     
     private func getTickets(journey: Journey) -> [TicketInput] {
-        var ticketInputList:[TicketInput] = []
-        let ticketLink = journey.links?.first(where: { (item) -> Bool in
-            return item.type == "ticket"
-        })
-        let ticketId = ticketLink?.id ?? ""
+        guard let sections = journey.sections else {
+            return []
+        }
         
-        for section in journey.sections ?? [] {
-            let ride = Ride(from: section.from?.id ?? "",
-                            to: section.to?.id ?? "",
-                            departureDate: section.departureDateTime ?? "",
-                            arrivalDate: section.arrivalDateTime ?? "",
-                            ticketId: ticketId)
+        let filteredSections = sections.filter({ (section) -> Bool in
+            return section.type == .publicTransport
+        })
+        
+        if filteredSections.count == 0 {
+            return []
+        }
+        
+        var ticketInputList:[TicketInput] = []
+        for section in filteredSections {
+            let ticketLink = section.links?.first(where: { (item) -> Bool in
+                return item.type == "ticket"
+            })
             
-            let ticketInput = TicketInput(productId: ticketId, ride: ride)
-            ticketInputList.append(ticketInput)
+            if let ticketId = ticketLink?.id {
+                let ride = Ride(from: section.from?.id ?? "",
+                                to: section.to?.id ?? "",
+                                departureDate: section.departureDateTime ?? "",
+                                arrivalDate: section.arrivalDateTime ?? "",
+                                ticketId: ticketId)
+                
+                let ticketInput = TicketInput(productId: ticketId, ride: ride)
+                ticketInputList.append(ticketInput)
+            }
         }
         
         return ticketInputList

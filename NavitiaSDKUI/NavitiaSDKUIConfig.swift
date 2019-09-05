@@ -7,9 +7,10 @@
 import UIKit
 import Foundation
 
-@objc public protocol JourneyRootViewController {
+public protocol JourneyRootViewController {
     
     var journeysRequest: JourneysRequest? { get set }
+    var delegate: ListJourneysDisplayPriceLogic? { get set }
 }
 
 @objc public class NavitiaSDKUI: NSObject {
@@ -120,7 +121,7 @@ import Foundation
         }
     }
     
-    @objc public var rootViewController: JourneyRootViewController? {
+    public var rootViewController: JourneyRootViewController? {
         get {
             let storyboard = UIStoryboard(name: "Journey", bundle: bundle)
             

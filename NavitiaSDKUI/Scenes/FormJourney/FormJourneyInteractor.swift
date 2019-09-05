@@ -20,10 +20,12 @@ protocol FormJourneyDataStore {
     
     var journeysRequest: JourneysRequest? { get set }
     var modeTransportViewSelected: [Bool]? { get set }
+    var delegate: ListJourneysDisplayPriceLogic? { get set }
 }
 
 class FormJourneyInteractor: FormJourneyBusinessLogic, FormJourneyDataStore {
     
+    var delegate: ListJourneysDisplayPriceLogic?
     var presenter: FormJourneyPresentationLogic?
     var journeysRequest: JourneysRequest?
     var modeTransportViewSelected: [Bool]?
