@@ -32,7 +32,7 @@
                         </imageView>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="39G-zb-5aJ">
                             <rect key="frame" x="10" y="18" width="25" height="30"/>
-                            <state key="normal" image="arrow_left"/>
+                            <state key="normal" image="ic_arrow_back"/>
                             <connections>
                                 <action selector="touchActionButton" destination="iN0-l3-epB" eventType="touchUpInside" id="nQ1-xa-hIu"/>
                             </connections>
@@ -84,6 +84,6 @@
         </view>
     </objects>
     <resources>
-        <image name="arrow_left" width="42" height="42"/>
+        <image name="ic_arrow_back" width="13" height="23"/>
     </resources>
 </document>

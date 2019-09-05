@@ -138,7 +138,7 @@ class SearchView: UIView, UITextFieldDelegate {
     // MARK: - Function (setup)
     
     private func setup() {
-        backgroundColor = Configuration.Color.main
+        backgroundColor = UIColor.white
         
         setupPin()
         setupSwitchButton()
