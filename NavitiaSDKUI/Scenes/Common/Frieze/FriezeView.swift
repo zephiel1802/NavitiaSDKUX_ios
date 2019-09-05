@@ -16,7 +16,7 @@ class FriezeView: UIView {
     }
 
     private var friezeSectionsView = [FriezeSectionView]()
-
+    
     public override init(frame: CGRect) {
         super.init(frame: frame)
     }

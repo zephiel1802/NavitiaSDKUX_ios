@@ -584,11 +584,6 @@ extension ListJourneysViewController: JourneySolutionCollectionViewCellDelegate 
                     print("toto \(error)")
                 }
             })
-            /*if let jsonString = String(data: jsonData, encoding: .utf8) {
-                if let data = try? JSONEncoder().encode(jsonString) {
-                    
-                }
-            }*/
         } catch {
         }
     }
@@ -601,8 +596,6 @@ extension ListJourneysViewController: JourneySolutionCollectionViewCellDelegate 
                         arrivalDate: "20190401T095620",
                         ticketId: "45FSS")
         let toto = TicketInput(productId: "3", ride: titi)
-        let toto2 = TicketInput(productId: "2", ride: titi)
-        let toto3 = TicketInput(productId: "1", ride: titi)
         return [toto]
     }
 }

@@ -24,7 +24,10 @@ class JourneySolutionCollectionViewCell: UICollectionViewCell {
     @IBOutlet var durationBottomContraint: NSLayoutConstraint!
     @IBOutlet var durationLeadingContraint: NSLayoutConstraint!
     @IBOutlet weak var loadingView: UIView!
+    @IBOutlet weak var priceView: UIView!
     @IBOutlet weak var priceLabel: UILabel!
+    @IBOutlet weak var fromLabel: UILabel!
+    @IBOutlet weak var priceLabelCenterYConstraint: NSLayoutConstraint!
     
     public var journeySolutionDelegate: JourneySolutionCollectionViewCellDelegate?
     private var walkingInformationIsHidden: Bool = false {
@@ -139,11 +142,18 @@ class JourneySolutionCollectionViewCell: UICollectionViewCell {
         }
         
         if tickets.count == 0 || tickets.count == nbPriceMissing {
-            priceLabel.text = ""
+            priceView.isHidden = true
         } else {
-            var priceText = nbPriceMissing > 0 ? "From " : ""
-            priceText += "\(totalPrice) €"
-            priceLabel.text = priceText
+            priceView.isHidden = false
+            if nbPriceMissing == 0 {
+                fromLabel.isHidden = true
+                priceLabelCenterYConstraint.isActive = true
+            } else {
+                fromLabel.text = "price-from".localized()
+                fromLabel.isHidden = false
+                priceLabelCenterYConstraint.isActive = false
+            }
+            priceLabel.text = String(format: "price".localized(), totalPrice)
         }
     }
     
