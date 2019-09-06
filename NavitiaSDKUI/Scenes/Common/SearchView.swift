@@ -103,11 +103,24 @@ class SearchView: UIView, UITextFieldDelegate {
             preferenceButton.isHidden = lock
         }
     }
+    internal var singleFieldCustomPlaceholder: String? {
+        didSet {
+            guard let singleFieldPlaceholder = singleFieldCustomPlaceholder else {
+                return
+            }
+            
+           fromTextField.placeholder = singleFieldPlaceholder
+        }
+    }
     internal var singleFieldConfiguration: Bool = false {
         didSet {
             switchIsHidden = true
             toView.isHidden = singleFieldConfiguration
-            fromTextField.placeholder = singleFieldConfiguration ? "Type an address" : "place_of_departure".localized()
+        }
+    }
+    internal var singleFieldCustomIcon: UIImage? {
+        didSet {
+            originPinImageView.image = singleFieldCustomIcon
         }
     }
     

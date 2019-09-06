@@ -31,6 +31,9 @@ public class ListPlacesViewController: UIViewController, ListPlacesDisplayLogic 
     internal var router: (NSObjectProtocol & ListPlacesRoutingLogic & ListPlacesDataPassing)?
     public weak var delegate: ListPlacesViewControllerDelegate?
     public var singleFieldConfiguration = false
+    public var singleFieldCustomPlaceholder: String?
+    public var customTitle: String?
+    public var singleFieldCustomIcon: UIImage?
     
     public var dataStore: ListPlacesDataStore? {
         get {
@@ -57,6 +60,8 @@ public class ListPlacesViewController: UIViewController, ListPlacesDisplayLogic 
         
         if let titlesConfig = Configuration.titlesConfig, let autocompleteTitle = titlesConfig.autocompleteTitle {
             self.setTitle(title: autocompleteTitle)
+        } else if let customTitle = customTitle {
+            self.setTitle(title: customTitle)
         } else {
             self.setTitle(title: "journeys".localized())
         }
@@ -134,6 +139,8 @@ public class ListPlacesViewController: UIViewController, ListPlacesDisplayLogic 
         searchView.switchIsHidden = true
         searchView.separatorView.isHidden = true
         searchView.singleFieldConfiguration = self.singleFieldConfiguration
+        searchView.singleFieldCustomPlaceholder = singleFieldCustomPlaceholder
+        searchView.singleFieldCustomIcon = singleFieldCustomIcon
     }
     
     private func initTableView() {
