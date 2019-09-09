@@ -324,6 +324,7 @@ extension ListJourneysViewController: UICollectionViewDataSource, UICollectionVi
                 cell.accessibility = viewModel.accessibility
                 cell.setJourneySummaryView(friezeSections: viewModel.friezeSections)
                 cell.ticketInputs = viewModel.ticketsInput
+                cell.navitiaPricedTickets = viewModel.pricedTicket
                 
                 return cell
             }
@@ -391,7 +392,7 @@ extension ListJourneysViewController: UICollectionViewDataSource, UICollectionVi
         
         if viewModel.loaded {
             if let cell = collectionView.cellForItem(at: indexPath) as? JourneySolutionCollectionViewCell,
-                cell.pricedTickets != nil {
+                cell.hermaasPricedTickets != nil {
                 selector = NSSelectorFromString("routeToJourneySolutionRoadmapWithIndexPath:")
             } else if indexPath.section == 1 && viewModel.displayedRidesharings.count > indexPath.row - 1 && indexPath.row != 0 {
                 selector = NSSelectorFromString("routeToListRidesharingOffersWithIndexPath:")
@@ -570,7 +571,7 @@ extension ListJourneysViewController: JourneySolutionCollectionViewCellDelegate 
     
     func getPrice(ticketsInputList: [TicketInput], callback: @escaping (([PricedTicket]) -> ())) {
         do {
-            let jsonData = try JSONEncoder().encode(getMokedTicketInputs())
+            let jsonData = try JSONEncoder().encode(ticketsInputList)
             delegate?.requestPrice(ticketInputData: jsonData, callback: { (ticketPriceDictionary) in
                 do {
                     var pricedTicketList = [PricedTicket]()

@@ -15,6 +15,7 @@ public struct PricedTicket: Codable {
     let priceWithTax: Double?
     let taxRate: Double?
     let currency: String
+    let ticketId: String?
     
     enum CodingKeys : String, CodingKey {
         case productId = "id_product"
@@ -23,5 +24,6 @@ public struct PricedTicket: Codable {
         case priceWithTax = "price_with_tax"
         case taxRate = "taxe_rate"
         case currency = "currency"
+        case ticketId = "ticket_id"
     }
 }

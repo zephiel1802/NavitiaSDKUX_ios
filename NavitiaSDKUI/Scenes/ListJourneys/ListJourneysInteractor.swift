@@ -108,7 +108,7 @@ internal class ListJourneysInteractor: ListJourneysBusinessLogic, ListJourneysDa
         
         presenter?.presentFetchedSearchInformation(journeysRequest: journeysRequest)
         
-        navitiaWorker.fetchJourneys(journeysRequest: journeysRequest) { (journeys, ridesharings, disruptions, notes, context) in
+        navitiaWorker.fetchJourneys(journeysRequest: journeysRequest) { (journeys, ridesharings, disruptions, notes, context, tickets)  in
             self.journeys = journeys
             self.ridesharingJourneys = ridesharings
             self.disruptions = disruptions
@@ -120,7 +120,7 @@ internal class ListJourneysInteractor: ListJourneysBusinessLogic, ListJourneysDa
             
             let response = ListJourneys.FetchJourneys.Response(journeysRequest: journeysRequest,
                                                                journeys: (journeys, withRidesharing: ridesharings),
-                                                               disruptions: disruptions)
+                                                               tickets: tickets, disruptions: disruptions)
             
             self.presenter?.presentFetchedJourneys(response: response)
         }

@@ -74,26 +74,42 @@ class JourneySolutionCollectionViewCell: UICollectionViewCell {
     internal var ticketInputs: [TicketInput]? {
         didSet {
             if let ticketInputList = ticketInputs, ticketInputList.count > 0, isLoaded == false {
-                pricedTickets = nil
+                hermaasPricedTickets = nil
                 journeySolutionDelegate?.getPrice(ticketsInputList: ticketInputList, callback: { (pricedTicketList) in
-                    self.pricedTickets = pricedTicketList
+                    self.hermaasPricedTickets = pricedTicketList
                 })
             }
         }
     }
-    internal var pricedTickets: [PricedTicket]? {
+    internal var navitiaPricedTickets: [PricedTicket]? {
         didSet {
             DispatchQueue.main.async {
-                if let pricedTickets = self.pricedTickets {
+                if self.navitiaPricedTickets != nil && self.ticketInputs == nil {
                     self.loadingView.alpha = 0
                     self.loadingView.isHidden = true
-                    self.totalPrice(tickets: pricedTickets)
                     self.isLoaded = true
-                } else {
+                } else if !self.isLoaded {
                     self.loadingView.alpha = 0.7
                     self.loadingView.isHidden = false
-                    self.totalPrice(tickets: [])
                 }
+                
+                self.totalPrice()
+            }
+        }
+    }
+    internal var hermaasPricedTickets: [PricedTicket]? {
+        didSet {
+            DispatchQueue.main.async {
+                if self.hermaasPricedTickets != nil {
+                    self.loadingView.alpha = 0
+                    self.loadingView.isHidden = true
+                    self.isLoaded = true
+                } else if !self.isLoaded {
+                    self.loadingView.alpha = 0.7
+                    self.loadingView.isHidden = false
+                }
+                
+                self.totalPrice()
             }
         }
     }
@@ -112,7 +128,7 @@ class JourneySolutionCollectionViewCell: UICollectionViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        print("awakeFromNib \(ticketInputs) | \(pricedTickets)")
+        
         setup()
     }
     
@@ -121,39 +137,49 @@ class JourneySolutionCollectionViewCell: UICollectionViewCell {
     private func setup() {
         setShadow()
         setArrow()
-        
-        pricedTickets = nil
     }
     
     private func setArrow() {
         arrowLabel.attributedText = NSMutableAttributedString().icon("arrow-right", color: Configuration.Color.secondary, size: 15)
     }
     
-    private func totalPrice(tickets: [PricedTicket]) {
+    private func totalPrice() {
         var totalPrice: Double = 0
-        var nbPriceMissing = 0
+        var isPriceMissing = false
+        
+        var tickets: [PricedTicket] = []
+        if let navitiaTickets = navitiaPricedTickets {
+            tickets.append(contentsOf: navitiaTickets)
+        }
+        if let hermaasTickets = hermaasPricedTickets {
+            tickets.append(contentsOf: hermaasTickets)
+            if hermaasTickets.count < (ticketInputs ?? []).count {
+                isPriceMissing = true
+            }
+        }
         
         for ticket in tickets {
             if let price = ticket.priceWithTax, ticket.currency.lowercased() == "eur" {
                 totalPrice += price
             } else {
-                nbPriceMissing += 1
+                isPriceMissing = true
             }
         }
         
-        if tickets.count == 0 || tickets.count == nbPriceMissing {
+        if tickets.count == 0 && !isPriceMissing {
             priceView.isHidden = true
         } else {
-            priceView.isHidden = false
-            if nbPriceMissing == 0 {
-                fromLabel.isHidden = true
-                priceLabelCenterYConstraint.isActive = true
-            } else {
+            if isPriceMissing {
                 fromLabel.text = "price-from".localized()
                 fromLabel.isHidden = false
                 priceLabelCenterYConstraint.isActive = false
+            } else {
+                fromLabel.isHidden = true
+                priceLabelCenterYConstraint.isActive = true
             }
+            priceView.isHidden = false
             priceLabel.text = String(format: "price".localized(), totalPrice)
+            print("cell \(duration!) : navitia \(navitiaPricedTickets!.count), hermaas \(hermaasPricedTickets!.count), ticketInput \(ticketInputs!.count)")
         }
     }
     

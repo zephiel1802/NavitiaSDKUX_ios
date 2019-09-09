@@ -48,6 +48,7 @@ enum ListJourneys {
         struct Response {
             var journeysRequest: JourneysRequest
             var journeys: ([Journey]?, withRidesharing: [Journey]?)
+            var tickets: [Ticket]?
             var disruptions: [Disruption]?
         }
         struct ViewModel {
@@ -58,6 +59,7 @@ enum ListJourneys {
                 var friezeSections: [FriezePresenter.FriezeSection]
                 var accessibility: String?
                 var ticketsInput: [TicketInput]?
+                var pricedTicket: [PricedTicket]?
             }
             
             var loaded: Bool

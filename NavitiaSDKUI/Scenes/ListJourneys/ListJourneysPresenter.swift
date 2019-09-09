@@ -69,7 +69,7 @@ class ListJourneysPresenter: ListJourneysPresentationLogic {
     
     // MARK: - Fetch Journeys
     
-    private func appendDisplayedJourneys(journeys: [Journey]?, disruptions: [Disruption]?) -> [ListJourneys.FetchJourneys.ViewModel.DisplayedJourney] {
+    private func appendDisplayedJourneys(journeys: [Journey]?, disruptions: [Disruption]?, tickets: [Ticket]?) -> [ListJourneys.FetchJourneys.ViewModel.DisplayedJourney] {
         var displayedJourneys = [ListJourneys.FetchJourneys.ViewModel.DisplayedJourney]()
         
         guard let journeys = journeys else {
@@ -77,7 +77,7 @@ class ListJourneysPresenter: ListJourneysPresentationLogic {
         }
         
         for journey in journeys {
-            if let displayedJourney = getDisplayedJourney(journey: journey, disruptions: disruptions) {
+            if let displayedJourney = getDisplayedJourney(journey: journey, disruptions: disruptions, tickets: tickets) {
                 displayedJourneys.append(displayedJourney)
             }
         }
@@ -85,10 +85,9 @@ class ListJourneysPresenter: ListJourneysPresentationLogic {
         return displayedJourneys
     }
     
-    
     func presentFetchedJourneys(response: ListJourneys.FetchJourneys.Response) {
-        let displayedJourneys = appendDisplayedJourneys(journeys: response.journeys.0, disruptions: response.disruptions)
-        let displayedRidesharings = appendDisplayedJourneys(journeys: response.journeys.withRidesharing, disruptions: response.disruptions)
+        let displayedJourneys = appendDisplayedJourneys(journeys: response.journeys.0, disruptions: response.disruptions, tickets: response.tickets)
+        let displayedRidesharings = appendDisplayedJourneys(journeys: response.journeys.withRidesharing, disruptions: response.disruptions, tickets: response.tickets)
         let viewModel = ListJourneys.FetchJourneys.ViewModel(loaded: true,
                                                              displayedJourneys: displayedJourneys,
                                                              displayedRidesharings: displayedRidesharings)
@@ -151,7 +150,7 @@ class ListJourneysPresenter: ListJourneysPresentationLogic {
     
     // MARK: - Displayed Journey
     
-    private func getDisplayedJourney(journey: Journey?, disruptions: [Disruption]?) -> ListJourneys.FetchJourneys.ViewModel.DisplayedJourney? {
+    private func getDisplayedJourney(journey: Journey?, disruptions: [Disruption]?, tickets: [Ticket]?) -> ListJourneys.FetchJourneys.ViewModel.DisplayedJourney? {
         guard let journey = journey,
             let dateTime = getDisplayedJourneyDateTime(journey: journey),
             let duration = getDisplayedJourneyDuration(journey: journey) else {
@@ -160,7 +159,7 @@ class ListJourneysPresenter: ListJourneysPresentationLogic {
         
         let friezeSections = FriezePresenter().getDisplayedJourneySections(journey: journey, disruptions: disruptions)
         let accessibility = getJourneyAccessibility(duration: duration.string, sections: journey.sections, disruptions: disruptions)
-        let ticketsInput = getTickets(journey: journey)
+        let ticketsInput = getTickets(journey: journey, tickets: tickets)
         
         if journey.isRidesharing {
             return ListJourneys.FetchJourneys.ViewModel.DisplayedJourney(dateTime: dateTime,
@@ -168,7 +167,8 @@ class ListJourneysPresenter: ListJourneysPresentationLogic {
                                                                             walkingInformation: nil,
                                                                             friezeSections: friezeSections,
                                                                             accessibility: accessibility,
-                                                                            ticketsInput: ticketsInput)
+                                                                            ticketsInput: ticketsInput.ticketInputList,
+                                                                            pricedTicket: ticketsInput.pricedTickets)
         }
         
         let walkingInformation = getDisplayedJourneyWalkingInformation(journey: journey)
@@ -178,45 +178,72 @@ class ListJourneysPresenter: ListJourneysPresentationLogic {
                                                                         walkingInformation: walkingInformation,
                                                                         friezeSections: friezeSections,
                                                                         accessibility: accessibility,
-                                                                        ticketsInput: ticketsInput)
+                                                                        ticketsInput: ticketsInput.ticketInputList,
+                                                                        pricedTicket: ticketsInput.pricedTickets)
     }
     
-    private func getTickets(journey: Journey) -> [TicketInput] {
+    private func getTickets(journey: Journey, tickets: [Ticket]?) -> (ticketInputList: [TicketInput], pricedTickets: [PricedTicket]) {
         guard let sections = journey.sections else {
-            return []
-        }
-        
-        let filteredSections = sections.filter({ (section) -> Bool in
-            return section.type == .publicTransport
-        })
-        
-        if filteredSections.count == 0 {
-            return []
+            return ([],[])
         }
         
         var ticketInputList:[TicketInput] = []
-        for section in filteredSections {
+        var pricedTicketList:[PricedTicket] = []
+        
+        for section in sections {
             let ticketLink = section.links?.first(where: { (item) -> Bool in
                 return item.type == "ticket"
             })
             
             if let ticketId = ticketLink?.id {
-                let ride = Ride(from: section.from?.id ?? "",
-                                to: section.to?.id ?? "",
-                                departureDate: section.departureDateTime ?? "",
-                                arrivalDate: section.arrivalDateTime ?? "",
-                                ticketId: ticketId)
-                
-                let ticketInput = TicketInput(productId: ticketId, ride: ride)
-                ticketInputList.append(ticketInput)
+                if section.mode == .taxi {
+                    ticketInputList.append(getTicketInput(section: section, productId: "3", ticketId: ticketId))
+                    
+                } else if section.type == .publicTransport {
+                    
+                    if let navitiaTicket = tickets?.first(where: { (item) -> Bool in
+                        return item.id == ticketId
+                    }), let cost = navitiaTicket.cost,
+                        let price = Double(cost.value ?? "0.0") {
+                        
+                        if price > 0.0, cost.currency == "centime" {
+                            pricedTicketList.append(getPricedTicket(ticketId: ticketId,
+                                                                    priceWithTaxInEur: price/100))
+                        } else if (navitiaTicket.sourceId ?? "").contains("ONL:ns") {
+                            ticketInputList.append(getTicketInput(section: section, productId: "1", ticketId: ticketId))
+                        } else if (navitiaTicket.sourceId ?? "").contains("NLSYN") {
+                            ticketInputList.append(getTicketInput(section: section, productId: "2", ticketId: ticketId))
+                        }
+                    }
+                }
             }
         }
         
-        return ticketInputList
+        return (ticketInputList, pricedTicketList)
+    }
+    
+    private func getTicketInput(section: Section, productId: String, ticketId: String) -> TicketInput {
+        let ride = Ride(from: section.from?.id ?? "",
+                        to: section.to?.id ?? "",
+                        departureDate: section.departureDateTime ?? "",
+                        arrivalDate: section.arrivalDateTime ?? "",
+                        ticketId: ticketId)
+        return TicketInput(productId: productId, ride: ride)
+    }
+    
+    private func getPricedTicket(ticketId: String, priceWithTaxInEur: Double) -> PricedTicket {
+        let pricedTicket = PricedTicket(productId: 0,
+                                        name: "",
+                                        price: nil,
+                                        priceWithTax: priceWithTaxInEur,
+                                        taxRate: nil,
+                                        currency: "Eur",
+                                        ticketId: ticketId)
+        return pricedTicket
     }
     
     private func getDisplayedJourneyDateTime(journey: Journey) -> String? {
-        guard let departureDateTime = journey.departureDateTime?.toDate(format: Configuration.datetime)?.toString(format: Configuration.time),
+            guard let departureDateTime = journey.departureDateTime?.toDate(format: Configuration.datetime)?.toString(format: Configuration.time),
             let arrivalDateTime = journey.arrivalDateTime?.toDate(format: Configuration.datetime)?.toString(format: Configuration.time) else {
             return nil
         }
