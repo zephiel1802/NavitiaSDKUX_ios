@@ -214,11 +214,10 @@ public class ListPlacesViewController: UIViewController, ListPlacesDisplayLogic 
         }
         
         if singleFieldConfiguration {
-            self.navigationController?.popViewController(animated: false)
+            navigationController?.popViewController(animated: false)
         } else {
             dismiss(animated: true, completion: nil)
         }
-        
     }
 }
 
