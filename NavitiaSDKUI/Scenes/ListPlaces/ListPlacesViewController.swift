@@ -135,7 +135,8 @@ public class ListPlacesViewController: UIViewController, ListPlacesDisplayLogic 
     private func initHeader() {
         searchView.delegate = self
         searchView.detailsViewIsHidden = true
-        searchView.background.backgroundColor = .clear
+        searchView.searchFieldsContainer.backgroundColor = .clear
+        searchView.singleSearchFieldsContainer.backgroundColor = .clear
         searchView.switchIsHidden = true
         searchView.separatorView.isHidden = true
         searchView.singleFieldConfiguration = self.singleFieldConfiguration
@@ -212,10 +213,10 @@ public class ListPlacesViewController: UIViewController, ListPlacesDisplayLogic 
             self.view.layoutIfNeeded()
         }
         
-        if self.isBeingPresented {
-            dismiss(animated: true, completion: nil)
-        } else {
+        if singleFieldConfiguration {
             self.navigationController?.popViewController(animated: false)
+        } else {
+            dismiss(animated: true, completion: nil)
         }
         
     }
@@ -407,6 +408,15 @@ extension ListPlacesViewController: SearchViewDelegate {
     
     func switchDepartureArrivalCoordinates() {}
     
+    func singleSearchFieldClicked(q: String?) {
+        interactor?.info = "from"
+        
+        searchView.fromView.backgroundColor = Configuration.Color.white.withAlphaComponent(0.9)
+        searchView.toView.backgroundColor = Configuration.Color.white
+        interactor?.displaySearch(request: ListPlaces.DisplaySearch.Request())
+        fetchPlaces(q: "")
+    }
+    
     func fromFieldClicked(q: String?) {
         interactor?.info = "from"
 
@@ -423,6 +433,10 @@ extension ListPlacesViewController: SearchViewDelegate {
         searchView.toView.backgroundColor = Configuration.Color.white.withAlphaComponent(0.9)
         interactor?.displaySearch(request: ListPlaces.DisplaySearch.Request())
         fetchPlaces(q: "")
+    }
+    
+    func singleSearchFieldChange(q: String?) {
+        fetchDeboucedSearch(q: q)
     }
     
     func fromFieldDidChange(q: String?) {
