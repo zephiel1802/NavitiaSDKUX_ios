@@ -491,7 +491,7 @@ extension ListJourneysViewController: SearchViewDelegate {
 
 extension ListJourneysViewController: ListPlacesViewControllerDelegate {
     
-    func searchView(from: (label: String?, name: String?, id: String), to: (label: String?, name: String?, id: String)) {
+    public func searchView(from: (label: String?, name: String?, id: String), to: (label: String?, name: String?, id: String)) {
         let request = ListJourneys.DisplaySearch.Request(from: from, to: to)
         
         interactor?.displaySearch(request: request)
