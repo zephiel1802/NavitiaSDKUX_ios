@@ -25,6 +25,7 @@ class DateFormView: UIView {
     @IBOutlet weak var lineView: UIView!
     @IBOutlet var dateTextField: UITextField!
     @IBOutlet weak var accessibilityButton: UIButton!
+    @IBOutlet var vwBackGround: UIView!
     
     private var datePicker: UIDatePicker?
     private var contraintHegiht: NSLayoutConstraint?

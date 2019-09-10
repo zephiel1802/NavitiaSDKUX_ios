@@ -299,6 +299,7 @@ class SearchView: UIView, UITextFieldDelegate {
     internal func showDate() {
         isDateShown = true
         setDateButton()
+        self.dateFormView.vwBackGround.createDefaultGradientView()
         UIView.animate(withDuration: 0.25, delay: 0, options: .curveEaseOut, animations: {
             self.dateFormView.isHidden = false
             self.dateFormView.alpha = 1

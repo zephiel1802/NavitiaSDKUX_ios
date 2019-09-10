@@ -16,6 +16,10 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="93"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QbJ-VC-JSr">
+                    <rect key="frame" x="-20" y="0.0" width="415" height="93"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                </view>
                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="Q95-FD-IEL">
                     <rect key="frame" x="0.0" y="0.0" width="375" height="93"/>
                     <subviews>
@@ -104,7 +108,11 @@
             </subviews>
             <constraints>
                 <constraint firstItem="Q95-FD-IEL" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="KGb-JA-jq1"/>
+                <constraint firstItem="QbJ-VC-JSr" firstAttribute="bottom" secondItem="vUN-kp-3ea" secondAttribute="bottom" id="MwD-JH-Vh7"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="Q95-FD-IEL" secondAttribute="trailing" id="exS-Le-iMc"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="top" secondItem="QbJ-VC-JSr" secondAttribute="top" id="tAM-Ln-PIb"/>
+                <constraint firstItem="QbJ-VC-JSr" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="-20" id="uiu-La-mek"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="QbJ-VC-JSr" secondAttribute="trailing" constant="-20" id="vWv-xs-d1e"/>
                 <constraint firstItem="Q95-FD-IEL" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="vxW-CD-BRE"/>
             </constraints>
             <nil key="simulatedTopBarMetrics"/>
@@ -118,6 +126,7 @@
                 <outlet property="departureArrivalSegmentedControl" destination="JjV-Ap-YLy" id="DxK-Zp-OeT"/>
                 <outlet property="iconImageView" destination="gi4-dv-bZO" id="4hY-hR-6Q8"/>
                 <outlet property="lineView" destination="tk5-Ii-9ne" id="3sa-fF-QcI"/>
+                <outlet property="vwBackGround" destination="QbJ-VC-JSr" id="U5o-Wv-yBg"/>
             </connections>
             <point key="canvasLocation" x="-20" y="289.20539730134936"/>
         </view>
