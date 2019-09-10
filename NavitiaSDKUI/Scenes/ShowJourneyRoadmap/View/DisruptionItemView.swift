@@ -12,7 +12,7 @@ class DisruptionItemView: UIView {
     @IBOutlet weak var disruptionImage: UIImageView!
     @IBOutlet weak var disruptionTitleLabel: UILabel!
     @IBOutlet weak var disruptionDateLabel: UILabel!
-    @IBOutlet weak var displayArrowLabel: UILabel!
+    @IBOutlet weak var arrowImageView: UIImageView!
     @IBOutlet weak var disruptionInformationLabel: UILabel!
     @IBOutlet var disruptionInformationBottomConstraint: NSLayoutConstraint!
     @IBOutlet var disruptionDateBottomConstraint: NSLayoutConstraint!
@@ -46,12 +46,16 @@ class DisruptionItemView: UIView {
             }
             
             if disruptionInformationHidden {
-                displayArrowLabel.attributedText = NSMutableAttributedString().icon("arrow-details-down", color: Configuration.Color.darkerGray, size: 14)
+                arrowImageView.image = "arrow_down".getIcon()
+                arrowImageView.tintColor = Configuration.Color.darkerGray
+                
                 disruptionDateBottomConstraint.isActive = true
                 disruptionInformationBottomConstraint.isActive = false
                 disruptionInformationLabel.isHidden = true
             } else {
-                displayArrowLabel.attributedText = NSMutableAttributedString().icon("arrow-details-up", color: Configuration.Color.darkerGray, size: 14)
+                arrowImageView.image = "arrow_up".getIcon()
+                arrowImageView.tintColor = Configuration.Color.darkerGray
+                
                 disruptionDateBottomConstraint.isActive = false
                 disruptionInformationBottomConstraint.isActive = true
                 disruptionInformationLabel.isHidden = false

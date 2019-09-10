@@ -50,11 +50,11 @@ extension Disruption {
     internal func levelImage(name: String) -> UIImage? {
         switch name {
         case "information":
-            return UIImage(named: "information_disruption", in: NavitiaSDKUI.shared.bundle, compatibleWith: nil)
+            return "information_disruption".getIcon(renderingMode: .alwaysOriginal)
         case "nonblocking":
-            return UIImage(named: "non_blocking_disruption", in: NavitiaSDKUI.shared.bundle, compatibleWith: nil)
+            return "non_blocking_disruption".getIcon(renderingMode: .alwaysOriginal)
         case "blocking":
-            return UIImage(named: "blocking_disruption", in: NavitiaSDKUI.shared.bundle, compatibleWith: nil)
+            return "blocking_disruption".getIcon(renderingMode: .alwaysOriginal)
         default:
             return nil
         }

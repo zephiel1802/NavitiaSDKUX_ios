@@ -16,7 +16,7 @@ import UIKit
 class PublicTransportStepView: UIView {
 
     @IBOutlet weak var stackView: UIStackView!
-    @IBOutlet weak var publicTransportIconLabel: UILabel!
+    @IBOutlet weak var publicTransportModeImageView: UIImageView!
     @IBOutlet weak var actionDescriptionLabel: UILabel!
     @IBOutlet weak var informationsLabel: UILabel!
     @IBOutlet weak var transportIconView: UIView!
@@ -25,7 +25,7 @@ class PublicTransportStepView: UIView {
     @IBOutlet weak var networkContainerView: UIView!
     @IBOutlet weak var networkLabel: UILabel!
     @IBOutlet weak var waitingContainerView: UIView!
-    @IBOutlet weak var waitingIconLabel: UILabel!
+    @IBOutlet weak var waitingIconImageView: UIImageView!
     @IBOutlet weak var waitingInformationsLabel: UILabel!
     @IBOutlet weak var publicTransportContainerView: UIView!
     @IBOutlet weak var publicTransportPinFromView: UIView!
@@ -36,7 +36,7 @@ class PublicTransportStepView: UIView {
     @IBOutlet var publicTransportStationsContainerView: UIView!
     @IBOutlet weak var publicTransportStationsButtonContainerView: UIButton!
     @IBOutlet weak var publicTransportStationsLabel: UILabel!
-    @IBOutlet weak var publicTransportStationsFlecheLabel: UILabel!
+    @IBOutlet weak var publicTransportStationsArrowImageView: UIImageView!
     @IBOutlet var publicTransportStationsStackContainerView: UIView!
     @IBOutlet weak var publicTransportEndTimeLabel: UILabel!
     @IBOutlet weak var publicTransportToLabel: UILabel!
@@ -183,8 +183,8 @@ class PublicTransportStepView: UIView {
             guard let icon = icon else {
                 return
             }
-
-            publicTransportIconLabel.attributedText = NSMutableAttributedString().icon(icon, size: 20)
+            
+            publicTransportModeImageView.image = icon.getIcon(renderingMode: .alwaysOriginal)
         }
     }
 
@@ -293,7 +293,8 @@ class PublicTransportStepView: UIView {
             }
 
             waitingContainerView.isHidden = false
-            waitingIconLabel.attributedText = NSMutableAttributedString().icon("clock", color: Configuration.Color.darkerGray, size: 15)
+            waitingIconImageView.image = "waiting".getIcon()
+            waitingIconImageView.tintColor = Configuration.Color.darkerGray
             waitingInformationsLabel.attributedText = NSMutableAttributedString().normal(waiting, color: Configuration.Color.darkerGray, size: 12)
         }
     }
@@ -321,11 +322,9 @@ class PublicTransportStepView: UIView {
 
     private var stationsStackContainerIsHidden: Bool = true {
         didSet {
-            if stationsStackContainerIsHidden {
-                publicTransportStationsFlecheLabel.attributedText = NSMutableAttributedString().icon("arrow-details-down", color: Configuration.Color.gray, size: 13)
-            } else {
-                publicTransportStationsFlecheLabel.attributedText = NSMutableAttributedString().icon("arrow-details-up", color: Configuration.Color.gray, size: 13)
-            }
+            let arrowImage = stationsStackContainerIsHidden ? "arrow_down".getIcon() : "arrow_up".getIcon()
+            publicTransportStationsArrowImageView.image = arrowImage
+            publicTransportStationsArrowImageView.tintColor = Configuration.Color.gray
             
             publicTransportStationsStackContainerView.isHidden = stationsStackContainerIsHidden
             publicTransportStationsStackContainerTopContraint.isActive = !stationsStackContainerIsHidden

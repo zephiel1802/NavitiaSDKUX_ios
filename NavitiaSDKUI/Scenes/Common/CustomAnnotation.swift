@@ -81,7 +81,7 @@ class CustomAnnotation: MKPointAnnotation {
                 
                 if annotationType == .RidesharingAnnotation {
                     let annotationImage = UIImageView(frame: CGRect(x: 30, y: 29, width: 20, height: 30))
-                    annotationImage.image = UIImage(named: "ridesharing_pin", in: bundle, compatibleWith: nil)
+                    annotationImage.image = "ridesharing_pin".getIcon(renderingMode: .alwaysOriginal)
                     annotationImage.layer.zPosition = 1
                     
                     annotationView.addSubview(annotationImage)
@@ -91,14 +91,12 @@ class CustomAnnotation: MKPointAnnotation {
                     view.center = CGPoint(x: 40, y: 52)
                     
                     annotationView.addSubview(view)
-
-                    let annotationPin = UILabel(frame: CGRect(x: 27, y: 27, width: 26, height: 26))
-                    annotationPin.attributedText = NSMutableAttributedString()
-                        .icon("location-pin",
-                              color: self.placeType == .Departure ? Configuration.Color.origin : Configuration.Color.destination,
-                              size: 26)
                     
-                    annotationView.addSubview(annotationPin)
+                    let annotationPinImageView = UIImageView(frame: CGRect(x: 27, y: 27, width: 26, height: 26))
+                    annotationPinImageView.image = "location_pin".getIcon()
+                    annotationPinImageView.tintColor = self.placeType == .Departure ? Configuration.Color.origin : Configuration.Color.destination
+                    
+                    annotationView.addSubview(annotationPinImageView)
                 }
                 
                 annotationView.addSubview(annotationLabel)
@@ -106,7 +104,7 @@ class CustomAnnotation: MKPointAnnotation {
             } else {
                 if annotationType == .RidesharingAnnotation {
                     let annotationImage = UIImageView(frame: CGRect(x: 0, y: -15, width: 20, height: 30))
-                    annotationImage.image = UIImage(named: "ridesharing_pin", in: bundle, compatibleWith: nil)
+                    annotationImage.image = "ridesharing_pin".getIcon(renderingMode: .alwaysOriginal)
                     
                     annotationView.addSubview(annotationImage)
                     annotationView.frame = CGRect(x: 0, y: 0, width: 20, height: 30)

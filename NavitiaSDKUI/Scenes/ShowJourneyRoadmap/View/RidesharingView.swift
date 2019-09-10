@@ -23,6 +23,8 @@ class RidesharingView: UIView {
     @IBOutlet weak var addressToLabel: UILabel!
     @IBOutlet weak var seatCountLabel: UILabel!
     @IBOutlet weak var priceLabel: UILabel!
+    @IBOutlet weak var ridesharingDepartureIconImageView: UIImageView!
+    @IBOutlet weak var ridesharingArrivalIconImageView: UIImageView!
     
     internal var parentViewController: ShowJourneyRoadmapViewController?
     
@@ -65,6 +67,9 @@ class RidesharingView: UIView {
         
         bookButton.setTitle("send_request".localized(), for: .normal)
         bookButton.accessibilityElementsHidden = true
+        
+        ridesharingDepartureIconImageView.image = "ridesharing_departure_flag".getIcon(renderingMode: .alwaysOriginal)
+        ridesharingArrivalIconImageView.image = "ridesharing_arrival_flag".getIcon(renderingMode: .alwaysOriginal)
     }
     
     private func bookRidesharing() {

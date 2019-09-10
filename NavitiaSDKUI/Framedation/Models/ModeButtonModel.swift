@@ -29,15 +29,6 @@ import Foundation
     public var firstSectionMode: [String]?
     public var physicalMode: [String]?
     public var realTime: Bool
-    private var icon: UIImage? {
-        get {
-            if let image = Configuration.customIcons[type] {
-                return image
-            } else {
-                return UIImage(named: type)
-            }
-        }
-    }
 
     public init(title: String, type: String, selected: Bool,  firstSectionMode: [String]? = nil, lastSectionMode: [String]? = nil, physicalMode: [String]? = nil, realTime: Bool = false) {
         self.title = title

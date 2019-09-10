@@ -11,7 +11,7 @@ class DepartureArrivalStepView: UIView {
     
     @IBOutlet weak var contentContainerView: UIView!
     @IBOutlet weak var hourLabel: UILabel!
-    @IBOutlet weak var iconLabel: UILabel!
+    @IBOutlet weak var iconImageView: UIImageView!
     @IBOutlet weak var informationLabel: UILabel!
     @IBOutlet weak var informationBottomConstraint: NSLayoutConstraint!
     @IBOutlet weak var calorieContainerView: UIView!
@@ -47,7 +47,7 @@ class DepartureArrivalStepView: UIView {
                 return
             }
             
-            hourLabel.attributedText = NSMutableAttributedString().normal(time, color: UIColor.white,size: 12)
+            hourLabel.attributedText = NSMutableAttributedString().normal(time, color: type == .departure ? Configuration.Color.origin.contrastColor() : Configuration.Color.destination.contrastColor(),size: 12)
         }
     }
     
@@ -60,7 +60,7 @@ class DepartureArrivalStepView: UIView {
             calorieContainerView.isHidden = false
             informationBottomConstraint.isActive = false
             calorieContainerBottomConstraint.isActive = true
-            calorieLabel.attributedText = NSMutableAttributedString().normal(String(format: "calorie_unit".localized(), calorie), color: UIColor.white, size: 12)
+            calorieLabel.attributedText = NSMutableAttributedString().normal(String(format: "calorie_unit".localized(), calorie), color: type == .departure ? Configuration.Color.origin.contrastColor() : Configuration.Color.destination.contrastColor(), size: 12)
         }
     }
     
@@ -99,9 +99,10 @@ class DepartureArrivalStepView: UIView {
     }
     
     private func setupIcon() {
-        iconLabel.attributedText = NSMutableAttributedString().icon("location-pin", color:UIColor.white, size: 22)
+        iconImageView.image = "location_pin".getIcon()
+        iconImageView.tintColor = type == .departure ? Configuration.Color.origin.contrastColor() : Configuration.Color.destination.contrastColor()
         
-        calorieImageView.image = UIImage(named: "calorie", in: NavitiaSDKUI.shared.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
-        calorieImageView.tintColor = Configuration.Color.white
+        calorieImageView.image = "calorie".getIcon()
+        calorieImageView.tintColor = type == .departure ? Configuration.Color.origin.contrastColor() : Configuration.Color.destination.contrastColor()
     }
 }
