@@ -20,7 +20,7 @@ protocol ListPlacesBusinessLogic {
     func fetchJourneys(request: ListPlaces.FetchPlaces.Request)
 }
 
-protocol ListPlacesDataStore {
+public protocol ListPlacesDataStore {
     
     var info: String? { get set }
     var coverage: String? { get set }

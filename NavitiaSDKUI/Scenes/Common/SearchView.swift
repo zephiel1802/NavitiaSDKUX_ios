@@ -10,8 +10,10 @@ import UIKit
 @objc protocol SearchViewDelegate: class {
     
     func switchDepartureArrivalCoordinates()
+    @objc optional func singleSearchFieldClicked(q: String?)
     @objc optional func fromFieldClicked(q: String?)
     @objc optional func toFieldClicked(q: String?)
+    @objc optional func singleSearchFieldChange(q: String?)
     @objc optional func fromFieldDidChange(q: String?)
     @objc optional func toFieldDidChange(q: String?)
 }
@@ -26,7 +28,12 @@ class SearchView: UIView, UITextFieldDelegate {
     // MARK: IBOutlet
     @IBOutlet weak var toClearButton: UIButton!
     @IBOutlet weak var fromClearButton: UIButton!
-    @IBOutlet weak var background: UIView!
+    @IBOutlet weak var searchFieldsContainer: UIView!
+    @IBOutlet weak var singleSearchFieldsContainer: UIView!
+    @IBOutlet weak var singleSearchView: UIView!
+    @IBOutlet weak var singleSearchTextField: UITextField!
+    @IBOutlet weak var singleSearchPinImageView: UIImageView!
+    @IBOutlet weak var singleSearchClearButton: UIButton!
     @IBOutlet weak var fromView: UIView!
     @IBOutlet weak var fromTextField: UITextField!
     @IBOutlet weak var originPinImageView: UIImageView!
@@ -57,6 +64,7 @@ class SearchView: UIView, UITextFieldDelegate {
     var searchButtonView: SearchButtonView!
     var fromTextFieldClear = false
     var toTextFieldClear = false
+    var singleSearchTextFieldClear = false
     var isClearButtonAccessible = true
     var switchDepartureArrivalButtonWidth: CGFloat = 0
     
@@ -108,6 +116,33 @@ class SearchView: UIView, UITextFieldDelegate {
             toTextField.isEnabled = !lock
             dateButton.isEnabled = !lock
             preferenceButton.isHidden = lock
+        }
+    }
+    internal var singleFieldConfiguration: Bool = false {
+        didSet {
+            switchIsHidden = true
+            searchFieldsContainer.isHidden = singleFieldConfiguration
+            singleSearchFieldsContainer.isHidden = !singleFieldConfiguration
+            separatorView.isHidden = singleFieldConfiguration
+        }
+    }
+    
+    internal var singleFieldCustomPlaceholder: String? {
+        didSet {
+            guard let singleFieldPlaceholder = singleFieldCustomPlaceholder else {
+                return
+            }
+            
+           singleSearchTextField.placeholder = singleFieldPlaceholder
+        }
+    }
+    internal var singleFieldCustomIcon: UIImage? {
+        didSet {
+            guard let singleFieldCustomIcon = singleFieldCustomIcon else {
+                return
+            }
+            
+            singleSearchPinImageView.image = singleFieldCustomIcon
         }
     }
     
@@ -185,6 +220,7 @@ class SearchView: UIView, UITextFieldDelegate {
         fromTextField.placeholder = "place_of_departure".localized()
         toTextField.isAccessibilityElement = true
         toTextField.placeholder = "place_of_arrival".localized()
+        singleSearchTextField.isAccessibilityElement = true
     }
     
     private func setupTransportModeView() {
@@ -361,6 +397,12 @@ class SearchView: UIView, UITextFieldDelegate {
         toTextFieldClear = true
         toTextField.becomeFirstResponder()
     }
+    
+    @IBAction func singleSearchClearButtonClicked(_ sender: Any) {
+        singleSearchTextField.text!.removeAll()
+        singleSearchTextFieldClear = true
+        singleSearchTextField.becomeFirstResponder()
+    }
 
     // MARK: Textfield delegate
     
@@ -387,6 +429,17 @@ class SearchView: UIView, UITextFieldDelegate {
             } else {
                 toClearButton.isHidden = true
             }
+        } else if textField == singleSearchTextField {
+            if singleSearchTextFieldClear {
+                singleSearchTextFieldClear = false
+            } else {
+                delegate?.singleSearchFieldClicked?(q: textField.text)
+            }
+            if !(textField.text ?? "").isEmpty && isClearButtonAccessible {
+                singleSearchClearButton.isHidden = false
+            } else {
+                singleSearchClearButton.isHidden = true
+            }
         }
     }
     
@@ -408,6 +461,13 @@ class SearchView: UIView, UITextFieldDelegate {
                 } else {
                     toClearButton.isHidden = true
                 }
+            } else if textField == singleSearchTextField {
+                delegate?.singleSearchFieldChange?(q: updatedText)
+                if !updatedText.isEmpty && isClearButtonAccessible {
+                    singleSearchClearButton.isHidden = false
+                } else {
+                    singleSearchClearButton.isHidden = true
+                }
             } else {
                 
                 return false
@@ -423,6 +483,6 @@ class SearchView: UIView, UITextFieldDelegate {
         endEditing(true)
         fromClearButton.isHidden = true
         toClearButton.isHidden = true
-    }
-    
+        singleSearchClearButton.isHidden = true
+    }    
 }

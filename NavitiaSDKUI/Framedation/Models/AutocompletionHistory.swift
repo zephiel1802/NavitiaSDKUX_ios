@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct AutocompletionHistory {
+public struct AutocompletionHistory {
     
     let id: Int
     let coverage: String
