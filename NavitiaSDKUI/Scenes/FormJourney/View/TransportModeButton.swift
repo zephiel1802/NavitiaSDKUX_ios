@@ -63,7 +63,7 @@ class TransportModeButton: UIButton {
             return
         }
         
-        setImage(type.getIcon(prefix: "transport_mode_"), for: .normal)
+        setImage(type.getIcon(prefix: "journey_mode_"), for: .normal)
         subviews.first?.contentMode = .scaleAspectFit
         imageEdgeInsets = UIEdgeInsets(top: 18,left: 18,bottom: 18,right: 18)
         imageView?.tintColor = isSelected ? Configuration.Color.main : Configuration.Color.shadow

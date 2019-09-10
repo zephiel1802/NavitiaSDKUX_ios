@@ -99,7 +99,7 @@ class DepartureArrivalStepView: UIView {
     }
     
     private func setupIcon() {
-        iconImageView.image = type == .departure ? "autocomplete_origin".getIcon() : "autocomplete_destination".getIcon()
+        iconImageView.image = type == .departure ? "journey_departure".getIcon() : "journey_arrival".getIcon()
         iconImageView.tintColor = type == .departure ? Configuration.Color.origin.contrastColor() : Configuration.Color.destination.contrastColor()
         
         calorieImageView.image = "calorie".getIcon()

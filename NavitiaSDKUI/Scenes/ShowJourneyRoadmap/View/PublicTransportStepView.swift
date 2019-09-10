@@ -184,7 +184,7 @@ class PublicTransportStepView: UIView {
                 return
             }
             
-            publicTransportModeImageView.image = icon.getIcon(prefix: "transport_mode_", renderingMode: .alwaysOriginal)
+            publicTransportModeImageView.image = icon.getIcon(prefix: "journey_mode_", renderingMode: .alwaysOriginal)
         }
     }
 
