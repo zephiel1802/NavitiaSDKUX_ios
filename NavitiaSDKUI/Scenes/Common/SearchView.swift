@@ -166,10 +166,10 @@ class SearchView: UIView, UITextFieldDelegate {
     }
     
     private func setupPin() {
-        originPinImageView.image = "origin".getIcon(customizable: true)
+        originPinImageView.image = "autocomplete_origin".getIcon(customizable: true)
         originPinImageView.tintColor = Configuration.Color.origin
         
-        destinationPinImageView.image = "destination".getIcon(customizable: true)
+        destinationPinImageView.image = "autocomplete_destination".getIcon(customizable: true)
         destinationPinImageView.tintColor = Configuration.Color.destination
     }
     

@@ -49,7 +49,7 @@ class StepView: UIView {
                 return
             }
             
-            transportModeImageView.image = iconInformations.getIcon(renderingMode: .alwaysOriginal)
+            transportModeImageView.image = iconInformations.getIcon(prefix: "transport_mode_", renderingMode: .alwaysOriginal)
             
             updateAccessibility()
         }
@@ -87,7 +87,7 @@ class StepView: UIView {
                 
                 if let realTimeIcon = stands.icon {
                     realTimeTypeImageView.isHidden = false
-                    realTimeTypeImageView.image = realTimeIcon.getIcon(renderingMode: .alwaysOriginal, customizable: true)
+                    realTimeTypeImageView.image = realTimeIcon.getIcon(prefix: "realtime_", renderingMode: .alwaysOriginal, customizable: true)
                 }
             }
             

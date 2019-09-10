@@ -138,7 +138,6 @@ import Foundation
 
 enum Configuration {
     
-    static let fontIconsName = "SDKIcons"
     static var modeForm = [ModeButtonModel(title: "public_transport".localized().capitalized,
                                            type: "metro",
                                            selected: true,

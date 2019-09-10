@@ -27,16 +27,16 @@ class PlacesTableViewCell: UITableViewCell {
             
             switch type {
             case .stopArea:
-                typeimageView.image = "stopArea".getIcon(customizable: true)
+                typeimageView.image = "autocomplete_stopArea".getIcon(customizable: true)
                 typeimageView.tintColor = Configuration.Color.black
             case .poi:
-                typeimageView.image = "poi".getIcon(customizable: true)
+                typeimageView.image = "autocomplete_poi".getIcon(customizable: true)
                 typeimageView.tintColor = Configuration.Color.black
             case .location:
-                typeimageView.image = "my_position".getIcon(customizable: true)
+                typeimageView.image = "autocomplete_my_position".getIcon(customizable: true)
                 typeimageView.tintColor = Configuration.Color.main
             default:
-                typeimageView.image = "address".getIcon(customizable: true)
+                typeimageView.image = "autocomplete_address".getIcon(customizable: true)
                 typeimageView.tintColor = Configuration.Color.black
             }
         }

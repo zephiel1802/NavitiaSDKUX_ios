@@ -93,7 +93,7 @@ class CustomAnnotation: MKPointAnnotation {
                     annotationView.addSubview(view)
                     
                     let annotationPinImageView = UIImageView(frame: CGRect(x: 27, y: 27, width: 26, height: 26))
-                    annotationPinImageView.image = placeType == .Departure ? "origin".getIcon(customizable: true) : "destination".getIcon(customizable: true)
+                    annotationPinImageView.image = placeType == .Departure ? "autocomplete_origin".getIcon(customizable: true) : "autocomplete_destination".getIcon(customizable: true)
                     annotationPinImageView.tintColor = placeType == .Departure ? Configuration.Color.origin : Configuration.Color.destination
                     
                     annotationView.addSubview(annotationPinImageView)

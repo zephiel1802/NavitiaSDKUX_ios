@@ -41,7 +41,7 @@ class FriezeSectionView: UIView {
     var icon: String? {
         didSet {
             if let icon = self.icon {
-                modeIconImageView.image = icon.getIcon(renderingMode: .alwaysOriginal)
+                modeIconImageView.image = icon.getIcon(prefix: "transport_mode_", renderingMode: .alwaysOriginal)
                 updateWidth()
             }
         }
