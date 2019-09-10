@@ -24,6 +24,7 @@ public class ListPlacesViewController: UIViewController, ListPlacesDisplayLogic 
     @IBOutlet weak var searchView: SearchView!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet var vwHeader: UIView!
+    @IBOutlet var vwBackground: UIView!
     
     private let locationManager = CLLocationManager()
     private var displayedSections: [ListPlaces.FetchPlaces.ViewModel.DisplayedSections] = []
@@ -67,6 +68,7 @@ public class ListPlacesViewController: UIViewController, ListPlacesDisplayLogic 
     
     @objc func setupUI() {
         //Setup for common method invoke
+        vwBackground.createDefaultGradientView()
         setupHeaderView(with: "journeys".localized(), showBackButton: true) {
             DispatchQueue.main.async {
                 self.touchBackButton()

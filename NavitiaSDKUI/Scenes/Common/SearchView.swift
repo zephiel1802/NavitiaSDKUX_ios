@@ -131,15 +131,12 @@ class SearchView: UIView, UITextFieldDelegate {
         
         searchView.translatesAutoresizingMaskIntoConstraints = false
         searchView.frame = self.bounds
-        searchView.createDefaultGradientView()
         return searchView
     }
     
     // MARK: - Function (setup)
     
-    private func setup() {
-        backgroundColor = UIColor.white
-        
+    private func setup() {        
         setupPin()
         setupSwitchButton()
         setupTextField()

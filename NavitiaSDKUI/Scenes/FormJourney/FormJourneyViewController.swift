@@ -17,6 +17,7 @@ open class FormJourneyViewController: UIViewController, FormJourneyDisplayLogic,
     @IBOutlet weak var searchView: SearchView!
     @IBOutlet weak var stackScrollView: StackScrollView!
     @IBOutlet var vwHeader: UIView!
+    @IBOutlet var vwBackground: UIView!
     
     private var transportModeView: TransportModeView!
     private var dateFormView: DateFormView!
@@ -55,6 +56,7 @@ open class FormJourneyViewController: UIViewController, FormJourneyDisplayLogic,
     
     @objc func setupUI() {
         //Setup for common method invoke
+        vwBackground.createDefaultGradientView()
         setupHeaderView(with: "journeys".localized(), showBackButton: true) {
             DispatchQueue.main.async {
                 self.touchBackButton()

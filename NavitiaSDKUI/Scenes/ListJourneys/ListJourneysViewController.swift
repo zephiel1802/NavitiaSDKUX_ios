@@ -19,6 +19,7 @@ open class ListJourneysViewController: UIViewController, ListJourneysDisplayLogi
     @IBOutlet weak var searchView: SearchView!
     @IBOutlet weak var journeysCollectionView: UICollectionView!
     @IBOutlet var vwHeader: UIView!
+    @IBOutlet var vwBackground: UIView!
     
     public var journeysRequest: JourneysRequest?
     internal var interactor: ListJourneysBusinessLogic?
@@ -43,9 +44,7 @@ open class ListJourneysViewController: UIViewController, ListJourneysDisplayLogi
         super.viewDidLoad()
         
         self.setTitle(title: "journeys".localized())
-        
         hideKeyboardWhenTappedAround()
-        
         initNavigationBar()
         setupUI()
         initHeader()
@@ -62,6 +61,7 @@ open class ListJourneysViewController: UIViewController, ListJourneysDisplayLogi
     
     @objc func setupUI() {
         //Setup for common method invoke
+        vwBackground.createDefaultGradientView()
         setupHeaderView(with: "Journey", showBackButton: true) {
             DispatchQueue.main.async {
                 self.touchBackButton()
