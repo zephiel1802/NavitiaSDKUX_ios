@@ -132,24 +132,46 @@ To run the example project, clone the repo, and run `pod install` from the Examp
 
 ## Image resources customization 
 
-The mode, origin and destinatin pictos are customizable by calling the following method in the Appdelegate. Default pictos will be used if some arguments aren't given.
-```swift
-NavitiaSDKUI.shared.addCustomIcons(bike: UIImage(named: "bike"),
-                                    bus: UIImage(named: "bus"),
-                                    car: UIImage(named: "car"),
-                                    ferry: UIImage(named: "ferry"),
-                                    metro: UIImage(named: "metro"),
-                                    taxi: UIImage(named: "taxi"),
-                                    tramway: UIImage(named: "tramway"),
-                                    walking: UIImage(named: "walking"),
-                                    origin: UIImage(named: "origin"),
-                                    destination: UIImage(named: "destination"))
-```
+Customizing transport mode icons and other resources is made possible. To use this feature, you should rename your image resource to match the resource name found below.
 
-It is possible to add custom transport mode with a custom picto by calling the following method in the Appdelegate.
-```swift
-NavitiaSDKUI.shared.addCustomTransportMode(name: "String", icon: UIImage(named: "Velo"))
-```
+The following resources can be overridden:
+
+### Section modes
+| Mode | Resource name |
+| --- | --- |
+| Air | journey_mode_air |
+| Bike | journey_mode_bike |
+| BSS | journey_mode_bss |
+| Bus | journey_mode_bus |
+| Car | journey_mode_car |
+| Coach | journey_mode_coach |
+| Crow fly | journey_mode_crow_fly |
+| Ferry | journey_mode_ferry |
+| Funicular | journey_mode_funicular |
+| Metro | journey_mode_metro |
+| Rapid transit | journey_mode_rapidtransit |
+| Ridesharing | journey_mode_ridesharing |
+| Shuttle | journey_mode_shuttle |
+| Taxi | journey_mode_taxi |
+| Train | journey_mode_train |
+| Tramway | journey_mode_tramway |
+| Walking | journey_mode_walking |
+
+### Realtime
+| Context | Resource name |
+| --- | --- |
+| Parking availability | journey_realtime_park |
+
+### And more...
+| Context | Resource name |
+| --- | --- |
+| Departure | journey_departure |
+| Arrival | journey_arrival |
+| My position | journey_my_position |
+| Address | journey_address |
+| POI | journey_poi |
+| Stop area | journey_stop_area |
+| Ridesharing pin | journey_ridesharing_pin |
 
 ## License #
 
