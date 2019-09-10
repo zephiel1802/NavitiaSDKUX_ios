@@ -25,7 +25,6 @@ extension UITableView {
         
         self.backgroundView = emptyView
         self.separatorStyle = .none
-        
     }
     
     func restore() {
