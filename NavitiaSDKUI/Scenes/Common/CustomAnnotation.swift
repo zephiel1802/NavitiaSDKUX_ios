@@ -81,7 +81,7 @@ class CustomAnnotation: MKPointAnnotation {
                 
                 if annotationType == .RidesharingAnnotation {
                     let annotationImage = UIImageView(frame: CGRect(x: 30, y: 29, width: 20, height: 30))
-                    annotationImage.image = "ridesharing_pin".getIcon(renderingMode: .alwaysOriginal, customizable: true)
+                    annotationImage.image = "journey_ridesharing_pin".getIcon(renderingMode: .alwaysOriginal, customizable: true)
                     annotationImage.layer.zPosition = 1
                     
                     annotationView.addSubview(annotationImage)
@@ -104,7 +104,7 @@ class CustomAnnotation: MKPointAnnotation {
             } else {
                 if annotationType == .RidesharingAnnotation {
                     let annotationImage = UIImageView(frame: CGRect(x: 0, y: -15, width: 20, height: 30))
-                    annotationImage.image = "ridesharing_pin".getIcon(renderingMode: .alwaysOriginal, customizable: true)
+                    annotationImage.image = "journey_ridesharing_pin".getIcon(renderingMode: .alwaysOriginal, customizable: true)
                     
                     annotationView.addSubview(annotationImage)
                     annotationView.frame = CGRect(x: 0, y: 0, width: 20, height: 30)
