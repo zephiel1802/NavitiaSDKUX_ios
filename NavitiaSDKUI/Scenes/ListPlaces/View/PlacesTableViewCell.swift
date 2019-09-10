@@ -32,7 +32,9 @@ class PlacesTableViewCell: UITableViewCell {
             case .poi:
                 typeimageView.image = UIImage(named: "poi", in: NavitiaSDKUI.shared.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
                 typeimageView.tintColor = Configuration.Color.black
-            case .location:
+            case .location: fallthrough
+            case .locationLoading: fallthrough
+            case .locationDisabled:
                 typeimageView.image = UIImage(named: "locationAutocomplete", in: NavitiaSDKUI.shared.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
                 typeimageView.tintColor = Configuration.Color.main
             default:
@@ -52,6 +54,19 @@ class PlacesTableViewCell: UITableViewCell {
                 nameLabel.attributedText = NSMutableAttributedString()
                     .bold(String(format: "%@\n", "my_position".localized()), size: 13)
                     .normal(name, size: 11)
+            } else if type == .locationDisabled {
+                var enableLocationText = "please_enable_your_location_manually_in_your_settings".localized()
+                if #available(iOS 10.0, *) {
+                    enableLocationText = "Please_enable_your_location".localized()
+                }
+                
+                nameLabel.attributedText = NSMutableAttributedString()
+                    .bold(String(format: "%@\n", "my_position".localized()), size: 13)
+                    .normal(enableLocationText, size: 11)
+            } else if type == .locationLoading {
+                nameLabel.attributedText = NSMutableAttributedString()
+                    .bold(String(format: "%@\n", "my_position".localized()), size: 13)
+                    .normal("loading".localized(), size: 11)
             } else {
                 if let distance = informations.distance {
                     nameLabel.attributedText = NSMutableAttributedString()
