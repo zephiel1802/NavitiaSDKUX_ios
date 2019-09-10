@@ -99,7 +99,7 @@ class DepartureArrivalStepView: UIView {
     }
     
     private func setupIcon() {
-        iconImageView.image = "location_pin".getIcon()
+        iconImageView.image = type == .departure ? "origin".getIcon() : "destination".getIcon()
         iconImageView.tintColor = type == .departure ? Configuration.Color.origin.contrastColor() : Configuration.Color.destination.contrastColor()
         
         calorieImageView.image = "calorie".getIcon()

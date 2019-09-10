@@ -166,16 +166,15 @@ class SearchView: UIView, UITextFieldDelegate {
     }
     
     private func setupPin() {
-        let locationPin = "location_pin".getIcon()
-        originPinImageView.image = locationPin
+        originPinImageView.image = "origin".getIcon(customizable: true)
         originPinImageView.tintColor = Configuration.Color.origin
         
-        destinationPinImageView.image = locationPin
+        destinationPinImageView.image = "destination".getIcon(customizable: true)
         destinationPinImageView.tintColor = Configuration.Color.destination
     }
     
     private func setupSwitchButton() {
-        switchDepartureArrivalButton.setImage("switch".getIcon(), for: .normal)
+        switchDepartureArrivalButton.setImage("switch".getIcon(customizable: true), for: .normal)
         switchDepartureArrivalButton.tintColor = Configuration.Color.main
         switchDepartureArrivalButton.accessibilityLabel = "reverse_departure_and_arrival".localized()
         switchDepartureArrivalButtonWidth = switchDepartureArrivalButton.frame.width

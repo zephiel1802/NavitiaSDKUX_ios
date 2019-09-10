@@ -27,16 +27,16 @@ class PlacesTableViewCell: UITableViewCell {
             
             switch type {
             case .stopArea:
-                typeimageView.image = UIImage(named: "stopArea", in: NavitiaSDKUI.shared.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
+                typeimageView.image = "stopArea".getIcon(customizable: true)
                 typeimageView.tintColor = Configuration.Color.black
             case .poi:
-                typeimageView.image = UIImage(named: "poi", in: NavitiaSDKUI.shared.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
+                typeimageView.image = "poi".getIcon(customizable: true)
                 typeimageView.tintColor = Configuration.Color.black
             case .location:
-                typeimageView.image = UIImage(named: "locationAutocomplete", in: NavitiaSDKUI.shared.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
+                typeimageView.image = "my_position".getIcon(customizable: true)
                 typeimageView.tintColor = Configuration.Color.main
             default:
-                typeimageView.image = UIImage(named: "address", in: NavitiaSDKUI.shared.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
+                typeimageView.image = "address".getIcon(customizable: true)
                 typeimageView.tintColor = Configuration.Color.black
             }
         }

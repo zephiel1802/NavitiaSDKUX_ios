@@ -29,12 +29,25 @@ import Foundation
         self.token = token
     }
     
+    public var applicationBundle: Bundle? {
+        get {
+            return Configuration.applicationBundle
+        }
+        set {
+            Configuration.applicationBundle = newValue
+        }
+    }
+    
     @objc public var mainColor: UIColor {
         get {
             return Configuration.Color.main
         }
         set {
             Configuration.Color.main = newValue
+            
+            // Secondary color should be the same as the main
+            // If later set, it will use the new value
+            Configuration.Color.secondary = newValue
         }
     }
     
@@ -110,15 +123,6 @@ import Foundation
         }
     }
     
-    public var applicationBundle: Bundle? {
-        get {
-            return Configuration.applicationBundle
-        }
-        set {
-            Configuration.applicationBundle = newValue
-        }
-    }
-    
     @objc public var rootViewController: JourneyRootViewController? {
         get {
             let storyboard = UIStoryboard(name: "Journey", bundle: bundle)
@@ -135,15 +139,24 @@ import Foundation
 enum Configuration {
     
     static let fontIconsName = "SDKIcons"
-    static var modeForm = [ModeButtonModel(title: "public_transport".localized().capitalized, type: "metro",
-                                           selected: true, firstSectionMode: ["walking"],
-                                           lastSectionMode: ["walking"], physicalMode: nil),
-                           ModeButtonModel(title: "bike_noun".localized().capitalized, type: "bike",
-                                           selected: false, firstSectionMode: ["bike"],
-                                           lastSectionMode: ["bike"], physicalMode: nil),
-                           ModeButtonModel(title: "car_noun".localized().capitalized, type: "car",
-                                           selected: false, firstSectionMode: ["car"],
-                                           lastSectionMode: ["car"], physicalMode: nil)]
+    static var modeForm = [ModeButtonModel(title: "public_transport".localized().capitalized,
+                                           type: "metro",
+                                           selected: true,
+                                           firstSectionMode: ["walking"],
+                                           lastSectionMode: ["walking"],
+                                           physicalMode: nil),
+                           ModeButtonModel(title: "bike_noun".localized().capitalized,
+                                           type: "bike",
+                                           selected: false,
+                                           firstSectionMode: ["bike"],
+                                           lastSectionMode: ["bike"],
+                                           physicalMode: nil),
+                           ModeButtonModel(title: "car_noun".localized().capitalized,
+                                           type: "car",
+                                           selected: false,
+                                           firstSectionMode: ["car"],
+                                           lastSectionMode: ["car"],
+                                           physicalMode: nil)]
     static var titlesConfig: TitlesConfig?
     static var applicationBundle: Bundle?
     
@@ -172,7 +185,7 @@ enum Configuration {
     // Color
     enum Color {
         static var main = #colorLiteral(red: 0.2509803922, green: 0.5843137255, blue: 0.5568627451, alpha: 1)
-        static var secondary = #colorLiteral(red: 0.2509803922, green: 0.5843137255, blue: 0.5568627451, alpha: 1)
+        static var secondary = #colorLiteral(red: 0.2392156869, green: 0.6745098233, blue: 0.9686274529, alpha: 1)
         static var origin = #colorLiteral(red: 0, green: 0.7333333333, blue: 0.4588235294, alpha: 1)
         static var destination = #colorLiteral(red: 0.6901960784, green: 0.01176470588, blue: 0.3254901961, alpha: 1)
         static var dialogBackground = main.withAlphaComponent(0.5)

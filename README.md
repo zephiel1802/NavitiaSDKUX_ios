@@ -130,7 +130,7 @@ journeysRequest.lastSectionModes = [.ridesharing]
 
 To run the example project, clone the repo, and run `pod install` from the Example directory first.
 
-## Picto customization 
+## Image resources customization 
 
 The mode, origin and destinatin pictos are customizable by calling the following method in the Appdelegate. Default pictos will be used if some arguments aren't given.
 ```swift

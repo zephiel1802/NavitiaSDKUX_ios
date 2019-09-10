@@ -89,8 +89,11 @@ extension String {
     
     func getIcon(applicationBundle: Bundle? = Configuration.applicationBundle,
                  sdkBundle: Bundle? = NavitiaSDKUI.shared.bundle,
-                 renderingMode: UIImage.RenderingMode = UIImage.RenderingMode.alwaysTemplate) -> UIImage? {
-        if let applicationBundle = applicationBundle, let iconImage = UIImage(named: self, in: applicationBundle, compatibleWith: nil) {
+                 renderingMode: UIImage.RenderingMode = UIImage.RenderingMode.alwaysTemplate,
+                 customizable: Bool = false) -> UIImage? {
+        if customizable,
+            let applicationBundle = applicationBundle,
+            let iconImage = UIImage(named: self, in: applicationBundle, compatibleWith: nil) {
             return iconImage.withRenderingMode(renderingMode)
         } else if let sdkBundle = sdkBundle, let iconImage = UIImage(named: self, in: sdkBundle, compatibleWith: nil) {
             return iconImage.withRenderingMode(renderingMode)

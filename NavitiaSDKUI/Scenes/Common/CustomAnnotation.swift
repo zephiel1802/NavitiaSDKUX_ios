@@ -81,7 +81,7 @@ class CustomAnnotation: MKPointAnnotation {
                 
                 if annotationType == .RidesharingAnnotation {
                     let annotationImage = UIImageView(frame: CGRect(x: 30, y: 29, width: 20, height: 30))
-                    annotationImage.image = "ridesharing_pin".getIcon(renderingMode: .alwaysOriginal)
+                    annotationImage.image = "ridesharing_pin".getIcon(renderingMode: .alwaysOriginal, customizable: true)
                     annotationImage.layer.zPosition = 1
                     
                     annotationView.addSubview(annotationImage)
@@ -93,8 +93,8 @@ class CustomAnnotation: MKPointAnnotation {
                     annotationView.addSubview(view)
                     
                     let annotationPinImageView = UIImageView(frame: CGRect(x: 27, y: 27, width: 26, height: 26))
-                    annotationPinImageView.image = "location_pin".getIcon()
-                    annotationPinImageView.tintColor = self.placeType == .Departure ? Configuration.Color.origin : Configuration.Color.destination
+                    annotationPinImageView.image = placeType == .Departure ? "origin".getIcon(customizable: true) : "destination".getIcon(customizable: true)
+                    annotationPinImageView.tintColor = placeType == .Departure ? Configuration.Color.origin : Configuration.Color.destination
                     
                     annotationView.addSubview(annotationPinImageView)
                 }
@@ -104,7 +104,7 @@ class CustomAnnotation: MKPointAnnotation {
             } else {
                 if annotationType == .RidesharingAnnotation {
                     let annotationImage = UIImageView(frame: CGRect(x: 0, y: -15, width: 20, height: 30))
-                    annotationImage.image = "ridesharing_pin".getIcon(renderingMode: .alwaysOriginal)
+                    annotationImage.image = "ridesharing_pin".getIcon(renderingMode: .alwaysOriginal, customizable: true)
                     
                     annotationView.addSubview(annotationImage)
                     annotationView.frame = CGRect(x: 0, y: 0, width: 20, height: 30)

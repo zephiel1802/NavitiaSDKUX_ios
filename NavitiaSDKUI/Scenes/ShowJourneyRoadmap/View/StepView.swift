@@ -87,7 +87,7 @@ class StepView: UIView {
                 
                 if let realTimeIcon = stands.icon {
                     realTimeTypeImageView.isHidden = false
-                    realTimeTypeImageView.image = realTimeIcon.getIcon(renderingMode: .alwaysOriginal)
+                    realTimeTypeImageView.image = realTimeIcon.getIcon(renderingMode: .alwaysOriginal, customizable: true)
                 }
             }
             
