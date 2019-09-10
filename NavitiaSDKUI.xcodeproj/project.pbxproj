@@ -334,6 +334,7 @@
 		84FABE122074C7FC00BDDE9D /* Icons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84FABE112074C7FC00BDDE9D /* Icons.swift */; };
 		84FABE142074CB2300BDDE9D /* UIFont+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84FABE132074CB2300BDDE9D /* UIFont+Extension.swift */; };
 		84FABE162074F76600BDDE9D /* JourneySolutionLoadCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84FABE152074F76600BDDE9D /* JourneySolutionLoadCollectionViewCell.xib */; };
+		9A334FD22327DA500084852C /* UITableView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A334FD12327DA500084852C /* UITableView+Extension.swift */; };
 		F65672FA2209EAB9007A8E6E /* Debouncer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F65672F92209EAB9007A8E6E /* Debouncer.swift */; };
 		F656ECB122FDB92F00557B8C /* MaasTicket.swift in Sources */ = {isa = PBXBuildFile; fileRef = F656ECB022FDB92E00557B8C /* MaasTicket.swift */; };
 /* End PBXBuildFile section */
@@ -683,6 +684,7 @@
 		84FABE112074C7FC00BDDE9D /* Icons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Icons.swift; sourceTree = "<group>"; };
 		84FABE132074CB2300BDDE9D /* UIFont+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+Extension.swift"; sourceTree = "<group>"; };
 		84FABE152074F76600BDDE9D /* JourneySolutionLoadCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = JourneySolutionLoadCollectionViewCell.xib; sourceTree = "<group>"; };
+		9A334FD12327DA500084852C /* UITableView+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITableView+Extension.swift"; sourceTree = "<group>"; };
 		F65672F92209EAB9007A8E6E /* Debouncer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Debouncer.swift; sourceTree = "<group>"; };
 		F656ECB022FDB92E00557B8C /* MaasTicket.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaasTicket.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -1001,6 +1003,7 @@
 		8451DA5B2065062300CFA1E4 /* Extension */ = {
 			isa = PBXGroup;
 			children = (
+				9A334FD12327DA500084852C /* UITableView+Extension.swift */,
 				84EEEF7221DE101E00EF6415 /* UIPanGestureRecognizer+Extension.swift */,
 				8454D1AB217F540E008BECA0 /* StopDateTime+Extension.swift */,
 				8476DD59208891CB006CB506 /* Collection+Extension.swift */,
@@ -1830,6 +1833,7 @@
 				84827A8F214BBAA800CB9513 /* RidesharingOfferCollectionViewCell.swift in Sources */,
 				84C6BC5E21A813CB0035729E /* ListJourneysCollectionViewLayout.swift in Sources */,
 				841A10BE215A29B800F46143 /* Networks.swift in Sources */,
+				9A334FD22327DA500084852C /* UITableView+Extension.swift in Sources */,
 				841A106A215A29B800F46143 /* HeatMap.swift in Sources */,
 				841A1070215A29B800F46143 /* Disruptions.swift in Sources */,
 				841A1088215A29B800F46143 /* RouteSchedules.swift in Sources */,
