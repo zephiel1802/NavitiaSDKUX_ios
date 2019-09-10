@@ -66,6 +66,8 @@ enum ListPlaces {
                 case address = "address"
                 case poi = "poi"
                 case location = "location"
+                case locationDisabled = "locationDisabled"
+                case locationLoading = "locationLoading"
             }
             
             struct Place {

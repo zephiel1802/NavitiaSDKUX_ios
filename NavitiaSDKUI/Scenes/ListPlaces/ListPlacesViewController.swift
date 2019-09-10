@@ -192,6 +192,17 @@ public class ListPlacesViewController: UIViewController, ListPlacesDisplayLogic 
     func displaySomething(viewModel: ListPlaces.FetchPlaces.ViewModel) {
         displayedSections = viewModel.displayedSections
         
+        if CLLocationManager.locationServicesEnabled() {
+            switch CLLocationManager.authorizationStatus() {
+            case .notDetermined, .restricted, .denied:
+                let place = ListPlaces.FetchPlaces.ViewModel.Place(label: "", name: "", id: "", distance: nil, type: .locationDisabled)
+                let section = ListPlaces.FetchPlaces.ViewModel.DisplayedSections(name: nil, places: [place])
+                displayedSections.insert(section, at: 0)
+            default:
+                break
+            }
+        }
+        
         tableView.reloadData()
     }
     
@@ -224,6 +235,12 @@ public class ListPlacesViewController: UIViewController, ListPlacesDisplayLogic 
 extension ListPlacesViewController: UITableViewDataSource, UITableViewDelegate {
     
     public func numberOfSections(in tableView: UITableView) -> Int {
+        if displayedSections.count == 1 {
+            tableView.setEmptyView(message: "could_not_find_anything".localized())
+        } else {
+            tableView.restore()
+        }
+    
         return displayedSections.count
     }
     
@@ -290,7 +307,7 @@ extension ListPlacesViewController: UITableViewDataSource, UITableViewDelegate {
                 }
             } else {
                 var text = ""
-                if cell.type == .location {
+                if cell.type == .location || cell.type == .locationDisabled || cell.type == .locationLoading {
                     text = "my_position".localized() + " "
                 }
                 cell.accessibilityLabel = text + (cell.informations.name ?? "")
@@ -305,8 +322,16 @@ extension ListPlacesViewController: UITableViewDataSource, UITableViewDelegate {
     public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let name = displayedSections[safe: indexPath.section]?.places[safe: indexPath.row]?.name,
             let id = displayedSections[safe: indexPath.section]?.places[safe: indexPath.row]?.id,
-            let type = displayedSections[safe: indexPath.section]?.places[safe: indexPath.row]?.type else {
+            let type = displayedSections[safe: indexPath.section]?.places[safe: indexPath.row]?.type,
+                type != .locationLoading else {
                 return
+        }
+        
+        if type == .locationDisabled {
+            if #available(iOS 10.0, *) {
+                UIApplication.shared.open(URL(string:UIApplication.openSettingsURLString)!)
+            }
+            return
         }
         
         if type != .location {
@@ -389,7 +414,16 @@ extension ListPlacesViewController: UITableViewDataSource, UITableViewDelegate {
 
 extension ListPlacesViewController: CLLocationManagerDelegate {
     
+    public func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+        locationManager.startUpdatingLocation()
+    }
+    
     public func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        let loadingPlace = ListPlaces.FetchPlaces.ViewModel.Place(label: "", name: "", id: "", distance: nil, type: .locationLoading)
+        let loadingLocationSection = ListPlaces.FetchPlaces.ViewModel.DisplayedSections(name: nil, places: [loadingPlace])
+        displayedSections.insert(loadingLocationSection, at: 0)
+        tableView.reloadData()
+        
         if let location = locations.first {
             let request = ListPlaces.FetchLocation.Request(latitude: Double(location.coordinate.latitude),
                                                            longitude:  Double(location.coordinate.longitude))
