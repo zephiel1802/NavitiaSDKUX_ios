@@ -244,7 +244,6 @@
 		8454D4402068D3A800C97D2F /* TransformOf.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8454D36C2068D3A800C97D2F /* TransformOf.swift */; };
 		8454D4482068F2BC00C97D2F /* JourneySolutionCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8454D4472068F2BC00C97D2F /* JourneySolutionCollectionViewCell.xib */; };
 		8454D44A2068FC9F00C97D2F /* JourneySolutionCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8454D4492068FC9F00C97D2F /* JourneySolutionCollectionViewCell.swift */; };
-		8454D44E20692CA200C97D2F /* SDKIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8454D44D20692CA200C97D2F /* SDKIcons.ttf */; };
 		8454D4502069429500C97D2F /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8454D44F2069429500C97D2F /* String+Extension.swift */; };
 		8454D452206942B800C97D2F /* Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8454D451206942B800C97D2F /* Date+Extension.swift */; };
 		845B4EF121675DE3009CCF12 /* PublicTransportStepView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845B4EF021675DE3009CCF12 /* PublicTransportStepView.swift */; };
@@ -591,7 +590,6 @@
 		8454D36C2068D3A800C97D2F /* TransformOf.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransformOf.swift; sourceTree = "<group>"; };
 		8454D4472068F2BC00C97D2F /* JourneySolutionCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = JourneySolutionCollectionViewCell.xib; sourceTree = "<group>"; };
 		8454D4492068FC9F00C97D2F /* JourneySolutionCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JourneySolutionCollectionViewCell.swift; sourceTree = "<group>"; };
-		8454D44D20692CA200C97D2F /* SDKIcons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = SDKIcons.ttf; sourceTree = "<group>"; };
 		8454D44F2069429500C97D2F /* String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
 		8454D451206942B800C97D2F /* Date+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extension.swift"; sourceTree = "<group>"; };
 		845B4EF021675DE3009CCF12 /* PublicTransportStepView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PublicTransportStepView.swift; sourceTree = "<group>"; };
@@ -983,7 +981,6 @@
 		8451DA582065060600CFA1E4 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				8451DA5E2065064700CFA1E4 /* Fonts */,
 				8451DA5F2065065E00CFA1E4 /* Images.xcassets */,
 				8451DA65206506ED00CFA1E4 /* Localizable.strings */,
 			);
@@ -1048,14 +1045,6 @@
 				84731BB021EF69C60041D8EA /* SearchView.swift */,
 			);
 			path = Common;
-			sourceTree = "<group>";
-		};
-		8451DA5E2065064700CFA1E4 /* Fonts */ = {
-			isa = PBXGroup;
-			children = (
-				8454D44D20692CA200C97D2F /* SDKIcons.ttf */,
-			);
-			path = Fonts;
 			sourceTree = "<group>";
 		};
 		8451DAA220650BF200CFA1E4 /* ListJourneys */ = {
@@ -1558,7 +1547,6 @@
 				8454D4482068F2BC00C97D2F /* JourneySolutionCollectionViewCell.xib in Resources */,
 				845B4EF321675DEA009CCF12 /* PublicTransportStepView.xib in Resources */,
 				8422B45B206A242D0097E6C9 /* JourneyHeaderCollectionReusableView.xib in Resources */,
-				8454D44E20692CA200C97D2F /* SDKIcons.ttf in Resources */,
 				8433F3A2207FAF23007DBBCE /* AlertView.xib in Resources */,
 				84339A7E206CC5E200F2CB65 /* JourneyEmptySolutionCollectionViewCell.xib in Resources */,
 				317D6C78211091CE00F36242 /* StepByStepItemView.xib in Resources */,

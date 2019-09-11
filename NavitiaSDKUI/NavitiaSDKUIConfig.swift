@@ -17,11 +17,7 @@ import Foundation
     @objc public static let shared = NavitiaSDKUI()
     
     open var navitiaSDK: NavitiaSDK!
-    open var bundle: Bundle! {
-        didSet {
-            UIFont.registerFontWithFilenameString(filenameString: "SDKIcons.ttf", bundle: NavitiaSDKUI.shared.bundle)
-        }
-    }
+    open var bundle: Bundle!
     
     private var token: String! {
         didSet {
@@ -33,12 +29,25 @@ import Foundation
         self.token = token
     }
     
+    public var applicationBundle: Bundle? {
+        get {
+            return Configuration.applicationBundle
+        }
+        set {
+            Configuration.applicationBundle = newValue
+        }
+    }
+    
     @objc public var mainColor: UIColor {
         get {
             return Configuration.Color.main
         }
         set {
             Configuration.Color.main = newValue
+            
+            // Secondary color should be the same as the main
+            // If later set, it will use the new value
+            Configuration.Color.secondary = newValue
         }
     }
     
@@ -105,12 +114,6 @@ import Foundation
         }
     }
     
-    @objc public var customIcons: [String:UIImage] {
-        get {
-            return Configuration.customIcons
-        }
-    }
-    
     public var titlesConfig: TitlesConfig? {
         get {
             return Configuration.titlesConfig
@@ -131,75 +134,30 @@ import Foundation
             return storyboard.instantiateViewController(withIdentifier: "ListJourneysViewController") as? JourneyRootViewController
         }
     }
-    
-    @objc open func addCustomTransportMode(name: String, icon: UIImage) {
-        Configuration.customIcons[name] = icon.withRenderingMode(.alwaysTemplate)
-    }
-    
-    @objc open func addCustomIcons(bike: UIImage? = nil,
-                                       bus: UIImage? = nil,
-                                       car: UIImage? = nil,
-                                       ferry: UIImage? = nil,
-                                       metro: UIImage? = nil,
-                                       taxi: UIImage? = nil,
-                                       train: UIImage? = nil,
-                                       tramway: UIImage? = nil,
-                                       walking: UIImage? = nil,
-                                       destination: UIImage? = nil,
-                                       origin: UIImage? = nil) {
-        // Transport modes icons
-        if let bikeIcon = bike {
-            Configuration.customIcons["bike"] = bikeIcon.withRenderingMode(.alwaysTemplate)
-        }
-        if let busIcon = bus {
-            Configuration.customIcons["bus"] = busIcon.withRenderingMode(.alwaysTemplate)
-        }
-        if let carIcon = car {
-            Configuration.customIcons["car"] = carIcon.withRenderingMode(.alwaysTemplate)
-        }
-        if let ferryIcon = ferry {
-            Configuration.customIcons["ferry"] = ferryIcon.withRenderingMode(.alwaysTemplate)
-        }
-        if let metroIcon = metro {
-            Configuration.customIcons["metro"] = metroIcon.withRenderingMode(.alwaysTemplate)
-        }
-        if let taxiIcon = taxi {
-            Configuration.customIcons["taxi"] = taxiIcon.withRenderingMode(.alwaysTemplate)
-        }
-        if let trainIcon = train {
-            Configuration.customIcons["train"] = trainIcon.withRenderingMode(.alwaysTemplate)
-        }
-        if let tramwayIcon = tramway {
-            Configuration.customIcons["tramway"] = tramwayIcon.withRenderingMode(.alwaysTemplate)
-        }
-        if let walkingIcon = walking {
-            Configuration.customIcons["walking"] = walkingIcon.withRenderingMode(.alwaysTemplate)
-        }
-        
-        // SDK Icons
-        Configuration.customIcons["origin"] = origin ?? UIImage(named: "departure_color",
-                                                                in: NavitiaSDKUI.shared.bundle,
-                                                                compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
-        
-        Configuration.customIcons["destination"] = destination ?? UIImage(named: "arrival_color",
-                                                                          in: NavitiaSDKUI.shared.bundle,
-                                                                          compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
-    }
 }
 
 enum Configuration {
     
-    static let fontIconsName = "SDKIcons"
-    static var modeForm = [ModeButtonModel(title: "public_transport".localized().capitalized, type: "metro",
-                                           selected: true, firstSectionMode: ["walking"],
-                                           lastSectionMode: ["walking"], physicalMode: nil),
-                           ModeButtonModel(title: "bike_noun".localized().capitalized, type: "bike",
-                                           selected: false, firstSectionMode: ["bike"],
-                                           lastSectionMode: ["bike"], physicalMode: nil),
-                           ModeButtonModel(title: "car_noun".localized().capitalized, type: "car",
-                                           selected: false, firstSectionMode: ["car"],
-                                           lastSectionMode: ["car"], physicalMode: nil)]
+    static var modeForm = [ModeButtonModel(title: "public_transport".localized().capitalized,
+                                           type: "metro",
+                                           selected: true,
+                                           firstSectionMode: ["walking"],
+                                           lastSectionMode: ["walking"],
+                                           physicalMode: nil),
+                           ModeButtonModel(title: "bike_noun".localized().capitalized,
+                                           type: "bike",
+                                           selected: false,
+                                           firstSectionMode: ["bike"],
+                                           lastSectionMode: ["bike"],
+                                           physicalMode: nil),
+                           ModeButtonModel(title: "car_noun".localized().capitalized,
+                                           type: "car",
+                                           selected: false,
+                                           firstSectionMode: ["car"],
+                                           lastSectionMode: ["car"],
+                                           physicalMode: nil)]
     static var titlesConfig: TitlesConfig?
+    static var applicationBundle: Bundle?
     
     // Format
     static let datetime = "yyyyMMdd'T'HHmmss"
@@ -223,12 +181,10 @@ enum Configuration {
     static var multiNetwork = false
     static var formJourney = false
     
-    static var customIcons: [String:UIImage] = [:]
-    
     // Color
     enum Color {
         static var main = #colorLiteral(red: 0.2509803922, green: 0.5843137255, blue: 0.5568627451, alpha: 1)
-        static var secondary = #colorLiteral(red: 0.2509803922, green: 0.5843137255, blue: 0.5568627451, alpha: 1)
+        static var secondary = #colorLiteral(red: 0.2392156869, green: 0.6745098233, blue: 0.9686274529, alpha: 1)
         static var origin = #colorLiteral(red: 0, green: 0.7333333333, blue: 0.4588235294, alpha: 1)
         static var destination = #colorLiteral(red: 0.6901960784, green: 0.01176470588, blue: 0.3254901961, alpha: 1)
         static var dialogBackground = main.withAlphaComponent(0.5)

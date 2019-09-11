@@ -975,15 +975,15 @@ class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
     
     private func getDirectionPath(pathDirection: Int32?) -> String {
         guard let pathDirection = pathDirection else {
-            return "arrow_right"
+            return "arrow_right_direction"
         }
         
         if pathDirection == 0 {
-            return "arrow_straight"
+            return "arrow_straight_direction"
         } else if pathDirection < 0 {
-            return "arrow_left"
+            return "arrow_left_direction"
         } else {
-            return "arrow_right"
+            return "arrow_right_direction"
         }
     }
     

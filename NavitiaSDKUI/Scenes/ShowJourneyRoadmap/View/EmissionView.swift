@@ -22,6 +22,7 @@ class EmissionView: UIView {
                 journeyCarbonAutoFilledLabel.autofillRightText = String(format: "%.1f %@", journeyCarbon.value, journeyCarbon.unit)
                 journeyCarbonAutoFilledLabel.autofillPattern = "."
                 journeyCarbonAutoFilledLabel.delegate = self
+                journeyCarbonAutoFilledLabel.textColor = Configuration.Color.main.contrastColor()
             }
         }
     }
@@ -33,6 +34,7 @@ class EmissionView: UIView {
                 carCarbonAutoFilledLabel.autofillRightText = String(format: "%.1f %@", carCarbon.value, carCarbon.unit)
                 carCarbonAutoFilledLabel.autofillPattern = "."
                 carCarbonAutoFilledLabel.delegate = self
+                carCarbonAutoFilledLabel.textColor = Configuration.Color.main.contrastColor()
             } else {
                 hideCarCarbonSummary()
             }
@@ -62,6 +64,9 @@ class EmissionView: UIView {
     private func setup() {
         backgroundColor = Configuration.Color.main
         setShadow(opacity: 0.28)
+        
+        iconImageView.image = "carbon".getIcon()
+        iconImageView.tintColor = Configuration.Color.main.contrastColor()
     }
     
     private func hideCarCarbonSummary() {

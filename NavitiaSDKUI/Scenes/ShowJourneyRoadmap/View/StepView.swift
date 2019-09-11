@@ -11,17 +11,17 @@ class StepView: UIView {
 
     @IBOutlet weak var stackView: UIStackView!
     @IBOutlet weak var informationsContainerView: UIView!
-    @IBOutlet weak var informationsIconLabel: UILabel!
+    @IBOutlet weak var transportModeImageView: UIImageView!
     @IBOutlet var informationsLabel: UILabel!
     @IBOutlet var realTimeView: UIView!
-    @IBOutlet weak var realTimeIconLabel: UILabel!
+    @IBOutlet weak var realTimeTypeImageView: UIImageView!
     @IBOutlet weak var realTimeImage: UIImageView!
     @IBOutlet weak var realTimeLabel: UILabel!
     @IBOutlet weak var detailsButton: UIButton!
     @IBOutlet weak var detailsLabel: UILabel!
-    @IBOutlet weak var detailsArrowLabel: UILabel!
+    @IBOutlet weak var detailsArrowImageView: UIImageView!
     @IBOutlet weak var bssStationStateView: UIView!
-    @IBOutlet weak var bssStationStateIconLabel: UILabel!
+    @IBOutlet weak var bssStationStateIconImageView: UIImageView!
     @IBOutlet weak var bssStationStateLabel: UILabel!
     @IBOutlet var detailsView: UIView!
     @IBOutlet weak var directionsContainer: UIView!
@@ -49,7 +49,7 @@ class StepView: UIView {
                 return
             }
             
-            informationsIconLabel.attributedText = NSMutableAttributedString().icon(iconInformations, size: 20)
+            transportModeImageView.image = iconInformations.getIcon(prefix: "journey_mode_", renderingMode: .alwaysOriginal, customizable: true)
             
             updateAccessibility()
         }
@@ -86,8 +86,8 @@ class StepView: UIView {
                 realTimeLabel.attributedText = NSMutableAttributedString().semiBold(realTimeValue, color: Configuration.Color.main, size: 13)
                 
                 if let realTimeIcon = stands.icon {
-                    realTimeIconLabel.isHidden = false
-                    realTimeIconLabel.attributedText = NSMutableAttributedString().icon(realTimeIcon, size: 17)
+                    realTimeTypeImageView.isHidden = false
+                    realTimeTypeImageView.image = realTimeIcon.getIcon(prefix: "journey_realtime_", renderingMode: .alwaysOriginal, customizable: true)
                 }
             }
             
@@ -136,15 +136,14 @@ class StepView: UIView {
     
     internal var directionsHidden: Bool = true {
         didSet {
+            let arrowImage = directionsHidden ? "arrow_down".getIcon() : "arrow_up".getIcon()
+            detailsArrowImageView.image = arrowImage
+            detailsArrowImageView.tintColor = Configuration.Color.gray
             if directionsHidden {
                 directionsContainer.isHidden = true
-                detailsArrowLabel.attributedText = NSMutableAttributedString().icon("arrow-details-down", color: Configuration.Color.gray, size: 13)
-                
                 frame.size.height -= directionsContainer.frame.size.height
             } else {
                 directionsContainer.isHidden = false
-                detailsArrowLabel.attributedText = NSMutableAttributedString().icon("arrow-details-up", color: Configuration.Color.gray, size: 13)
-                
                 frame.size.height += directionsContainer.frame.size.height
             }
         }
@@ -188,8 +187,8 @@ class StepView: UIView {
     
     private func initRealTime() {
         realTimeView.isHidden = true
-        realTimeIconLabel.isHidden = true
-        realTimeImage.image = UIImage(named: "real_time", in: NavitiaSDKUI.shared.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
+        realTimeTypeImageView.isHidden = true
+        realTimeImage.image = "real_time".getIcon()
         realTimeImage.tintColor = Configuration.Color.main
     }
     
@@ -197,7 +196,8 @@ class StepView: UIView {
         detailsView.isHidden = true
         detailsLabel.text = "details".localized()
         detailsButton.accessibilityLabel = "details".localized()
-        detailsArrowLabel.attributedText = NSMutableAttributedString().icon("arrow-details-down", color: Configuration.Color.gray, size: 13)
+        detailsArrowImageView.image = "arrow_down".getIcon()
+        detailsArrowImageView.tintColor = Configuration.Color.gray
     }
     
     private func initDirection() {
@@ -206,7 +206,8 @@ class StepView: UIView {
     
     private func initBssState() {
         bssStationStateView.isHidden = true
-        bssStationStateIconLabel.attributedText = NSMutableAttributedString().icon("disruption-information", color: Configuration.Color.main, size: 17)
+        bssStationStateIconImageView.image = "disruption-information".getIcon()
+        bssStationStateIconImageView.tintColor = Configuration.Color.main
     }
     
     private func updateAccessibility() {

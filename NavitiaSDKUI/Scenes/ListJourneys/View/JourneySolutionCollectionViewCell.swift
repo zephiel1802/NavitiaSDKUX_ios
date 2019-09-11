@@ -14,7 +14,7 @@ class JourneySolutionCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var durationLabel: UILabel!
     @IBOutlet var durationWalkerLabel: UILabel!
     @IBOutlet weak var friezeView: FriezeView!
-    @IBOutlet weak var arrowLabel: UILabel!
+    @IBOutlet weak var arrowImageView: UIImageView!
     @IBOutlet var durationTopContraint: NSLayoutConstraint!
     @IBOutlet var durationBottomContraint: NSLayoutConstraint!
     @IBOutlet var durationLeadingContraint: NSLayoutConstraint!
@@ -87,7 +87,8 @@ class JourneySolutionCollectionViewCell: UICollectionViewCell {
     }
     
     private func setArrow() {
-        arrowLabel.attributedText = NSMutableAttributedString().icon("arrow-right", color: Configuration.Color.secondary, size: 15)
+        arrowImageView.image = "arrow_right".getIcon()
+        arrowImageView.tintColor = Configuration.Color.secondary
     }
     
     internal func setJourneySummaryView(friezeSections: [FriezePresenter.FriezeSection]) {

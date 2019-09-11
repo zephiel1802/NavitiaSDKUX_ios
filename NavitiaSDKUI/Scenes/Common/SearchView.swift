@@ -42,12 +42,19 @@ class SearchView: UIView, UITextFieldDelegate {
     @IBOutlet weak var separatorView: UIView!
     @IBOutlet weak var destinationPinImageView: UIImageView!
     @IBOutlet weak var dateTimeLabel: UILabel!
+    @IBOutlet weak var switchDepartureArrivalImageView: UIImageView!
     @IBOutlet weak var switchDepartureArrivalButton: UIButton!
     @IBOutlet weak var separatorTopContraint: NSLayoutConstraint!
     @IBOutlet weak var separatorBottomContraint: NSLayoutConstraint!
     @IBOutlet weak var stackView: UIStackView!
     @IBOutlet weak var datePreferenceView: UIView!
+    @IBOutlet weak var dateIconImageView: UIImageView!
+    @IBOutlet weak var dateLabel: UILabel!
+    @IBOutlet weak var dateArrowIconImageView: UIImageView!
     @IBOutlet weak var dateButton: UIButton!
+    @IBOutlet weak var preferencesIconImageView: UIImageView!
+    @IBOutlet weak var preferencesLabel: UILabel!
+    @IBOutlet weak var preferencesArrowIconImageView: UIImageView!
     @IBOutlet weak var preferenceButton: UIButton!
     @IBOutlet weak var switchButtonWidthConstraint: NSLayoutConstraint!
     
@@ -194,26 +201,15 @@ class SearchView: UIView, UITextFieldDelegate {
     }
     
     private func setupPin() {
-        if let image = Configuration.customIcons["origin"] {
-            originPinImageView.image = image
-        } else {
-            originPinImageView.image = UIImage(named: "origin-icon", in: NavitiaSDKUI.shared.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
-        }
+        originPinImageView.image = "journey_departure".getIcon(customizable: true)
         originPinImageView.tintColor = Configuration.Color.origin
         
-        if let image = Configuration.customIcons["destination"] {
-            destinationPinImageView.image = image
-        } else {
-            destinationPinImageView.image = UIImage(named: "origin-icon", in: NavitiaSDKUI.shared.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
-        }
+        destinationPinImageView.image = "journey_arrival".getIcon(customizable: true)
         destinationPinImageView.tintColor = Configuration.Color.destination
     }
     
     private func setupSwitchButton() {
-        switchDepartureArrivalButton.setImage(UIImage(named: "switch",
-                                                      in: NavitiaSDKUI.shared.bundle,
-                                                      compatibleWith: nil)?.withRenderingMode(.alwaysTemplate),
-                                              for: .normal)
+        switchDepartureArrivalButton.setImage("switch".getIcon(customizable: true), for: .normal)
         switchDepartureArrivalButton.tintColor = Configuration.Color.main
         switchDepartureArrivalButton.accessibilityLabel = "reverse_departure_and_arrival".localized()
         switchDepartureArrivalButtonWidth = switchDepartureArrivalButton.frame.width
@@ -251,23 +247,26 @@ class SearchView: UIView, UITextFieldDelegate {
             return
         }
         
+        dateIconImageView.image = "calendar".getIcon()
+        dateIconImageView.tintColor = Configuration.Color.main.contrastColor()
+        dateLabel.text = dateTime
+        dateLabel.textColor = Configuration.Color.main.contrastColor()
+        
         if NavitiaSDKUI.shared.formJourney {
-            dateButton.setAttributedTitle(NSMutableAttributedString()
-                .icon("calendar", color: Configuration.Color.white, size: 10)
-                .medium(String(format: "  %@  ", dateTime), color: Configuration.Color.white, size: 11)
-                .icon((isDateShown ? "arrow-details-up" : "arrow-details-down"), color: Configuration.Color.white, size: 10), for: .normal)
+            dateArrowIconImageView.image = isDateShown ? "arrow_up".getIcon() : "arrow_down".getIcon()
+            dateArrowIconImageView.tintColor = Configuration.Color.main.contrastColor()
         } else {
-            dateButton.setAttributedTitle(NSMutableAttributedString()
-                .icon("calendar", color: Configuration.Color.white, size: 10)
-                .medium(String(format: "  %@  ", dateTime), color: Configuration.Color.white, size: 10), for: .normal)
+            dateArrowIconImageView.isHidden = true
         }
     }
     
     internal func setPreferencesButton() {
-        preferenceButton.setAttributedTitle(NSMutableAttributedString()
-            .icon("option", color: Configuration.Color.white, size: 10)
-            .medium(String(format: "  %@  ", "preferences".localized()), color: Configuration.Color.white, size: 11)
-            .icon((isPreferencesShown ? "arrow-details-up" : "arrow-details-down"), color: Configuration.Color.white, size: 10), for: .normal)
+        preferencesIconImageView.image = "preferences".getIcon()
+        preferencesIconImageView.tintColor = Configuration.Color.main.contrastColor()
+        preferencesLabel.text = "preferences".localized()
+        preferencesLabel.textColor = Configuration.Color.main.contrastColor()
+        preferencesArrowIconImageView.image = isPreferencesShown ? "arrow_up".getIcon() : "arrow_down".getIcon()
+        preferencesArrowIconImageView.tintColor = Configuration.Color.main.contrastColor()
     }
     
     // MARK: public func

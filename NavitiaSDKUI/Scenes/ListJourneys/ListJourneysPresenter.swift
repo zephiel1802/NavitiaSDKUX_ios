@@ -197,7 +197,7 @@ class ListJourneysPresenter: ListJourneysPresentationLogic {
         
         if journey.isRidesharing {
             durationAttributedString.append(NSMutableAttributedString().semiBold(String(format: "%@ ", "about".localized()),
-                                                                                 color: Configuration.Color.main,
+                                                                                 color: Configuration.Color.secondary,
                                                                                  size: 12.5))
         }
         durationAttributedString.append(duration.toAttributedStringTime(sizeBold: 12.5, sizeNormal: 12.5))
