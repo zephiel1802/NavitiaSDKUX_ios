@@ -21,11 +21,9 @@ class DepartureArrivalStepView: UIView {
     
     internal var type: ShowJourneyRoadmap.GetRoadmap.ViewModel.DepartureArrival.Mode = .departure {
         didSet {
-            if type == .departure {
-                contentContainerView.backgroundColor = Configuration.Color.origin
-            } else {
-                contentContainerView.backgroundColor = Configuration.Color.destination
-            }
+            contentContainerView.backgroundColor = type == .departure ? Configuration.Color.origin : Configuration.Color.destination
+            iconImageView.image = type == .departure ? "journey_departure".getIcon(customizable: true) : "journey_arrival".getIcon(customizable: true)
+            iconImageView.tintColor = type == .departure ? Configuration.Color.origin.contrastColor() : Configuration.Color.destination.contrastColor()
         }
     }
     
@@ -99,9 +97,6 @@ class DepartureArrivalStepView: UIView {
     }
     
     private func setupIcon() {
-        iconImageView.image = type == .departure ? "journey_departure".getIcon() : "journey_arrival".getIcon()
-        iconImageView.tintColor = type == .departure ? Configuration.Color.origin.contrastColor() : Configuration.Color.destination.contrastColor()
-        
         calorieImageView.image = "calorie".getIcon()
         calorieImageView.tintColor = type == .departure ? Configuration.Color.origin.contrastColor() : Configuration.Color.destination.contrastColor()
     }

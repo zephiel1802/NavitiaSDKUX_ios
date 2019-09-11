@@ -49,7 +49,7 @@ class StepView: UIView {
                 return
             }
             
-            transportModeImageView.image = iconInformations.getIcon(prefix: "journey_mode_", renderingMode: .alwaysOriginal)
+            transportModeImageView.image = iconInformations.getIcon(prefix: "journey_mode_", renderingMode: .alwaysOriginal, customizable: true)
             
             updateAccessibility()
         }
