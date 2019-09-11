@@ -12,7 +12,7 @@ import NavitiaSDKUI
 class AppDelegate: UIResponder, UIApplicationDelegate {
     
     var window: UIWindow?
-    var token = ""
+    var token = "b41b7127-e71c-41b6-8374-5699266e1982"
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.

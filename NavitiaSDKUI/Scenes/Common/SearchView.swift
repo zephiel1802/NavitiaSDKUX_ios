@@ -16,6 +16,9 @@ import UIKit
     @objc optional func singleSearchFieldChange(q: String?)
     @objc optional func fromFieldDidChange(q: String?)
     @objc optional func toFieldDidChange(q: String?)
+    @objc optional func singleSearchFieldClearButtonClicked()
+    @objc optional func fromFieldClearButtonClicked()
+    @objc optional func toFieldClearButtonClicked()
 }
 
 class SearchView: UIView, UITextFieldDelegate {
@@ -274,11 +277,13 @@ class SearchView: UIView, UITextFieldDelegate {
     func unstickTextFields() {
         self.separatorTopContraint.constant = 3
         self.separatorBottomContraint.constant = 3
+        self.separatorView.isHidden = true
     }
     
     func stickTextFields() {
         self.separatorTopContraint.constant = 0
         self.separatorBottomContraint.constant = 0
+        self.separatorView.isHidden = false
     }
     
     internal func focusFromField(_ value: Bool = true) {
@@ -391,18 +396,21 @@ class SearchView: UIView, UITextFieldDelegate {
         fromTextField.text!.removeAll()
         fromTextFieldClear = true
         fromClearButton.becomeFirstResponder()
+        delegate?.fromFieldClearButtonClicked?()
     }
     
     @IBAction func toClearButtonClicked(_ sender: Any) {
         toTextField.text!.removeAll()
         toTextFieldClear = true
         toTextField.becomeFirstResponder()
+        delegate?.toFieldClearButtonClicked?()
     }
     
     @IBAction func singleSearchClearButtonClicked(_ sender: Any) {
         singleSearchTextField.text!.removeAll()
         singleSearchTextFieldClear = true
         singleSearchTextField.becomeFirstResponder()
+        delegate?.singleSearchFieldClearButtonClicked?()
     }
 
     // MARK: Textfield delegate

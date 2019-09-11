@@ -195,9 +195,7 @@ public class ListPlacesViewController: UIViewController, ListPlacesDisplayLogic 
         if CLLocationManager.locationServicesEnabled() {
             switch CLLocationManager.authorizationStatus() {
             case .notDetermined, .restricted, .denied:
-                let place = ListPlaces.FetchPlaces.ViewModel.Place(label: "", name: "", id: "", distance: nil, type: .locationDisabled)
-                let section = ListPlaces.FetchPlaces.ViewModel.DisplayedSections(name: nil, places: [place])
-                displayedSections.insert(section, at: 0)
+                insertMyPosition(withType: .locationDisabled)
             default:
                 break
             }
@@ -235,7 +233,7 @@ public class ListPlacesViewController: UIViewController, ListPlacesDisplayLogic 
 extension ListPlacesViewController: UITableViewDataSource, UITableViewDelegate {
     
     public func numberOfSections(in tableView: UITableView) -> Int {
-        if displayedSections.count == 1 {
+        if displayedSections.count == 1 && displayedSections[0].places.contains(where: { $0.type == .location }){
             tableView.setEmptyView(message: "could_not_find_anything".localized())
         } else {
             tableView.restore()
@@ -376,6 +374,15 @@ extension ListPlacesViewController: UITableViewDataSource, UITableViewDelegate {
         }
     }
     
+    private func insertMyPosition(withType type: ListPlaces.FetchPlaces.ViewModel.ModelType) {
+        if let myPositionSection = displayedSections.first, !myPositionSection.places.contains(where: { $0.type == type }) {
+            let place = ListPlaces.FetchPlaces.ViewModel.Place(label: "", name: "", id: "", distance: nil, type: type)
+            let section = ListPlaces.FetchPlaces.ViewModel.DisplayedSections(name: nil, places: [place])
+            displayedSections.insert(section, at: 0)
+            tableView.reloadData()
+        }
+    }
+    
     private func clearTableView() {
         displayedSections.removeAll()
         tableView.reloadData()
@@ -419,10 +426,7 @@ extension ListPlacesViewController: CLLocationManagerDelegate {
     }
     
     public func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        let loadingPlace = ListPlaces.FetchPlaces.ViewModel.Place(label: "", name: "", id: "", distance: nil, type: .locationLoading)
-        let loadingLocationSection = ListPlaces.FetchPlaces.ViewModel.DisplayedSections(name: nil, places: [loadingPlace])
-        displayedSections.insert(loadingLocationSection, at: 0)
-        tableView.reloadData()
+        insertMyPosition(withType: .locationLoading)
         
         if let location = locations.first {
             let request = ListPlaces.FetchLocation.Request(latitude: Double(location.coordinate.latitude),
@@ -478,5 +482,20 @@ extension ListPlacesViewController: SearchViewDelegate {
     
     func toFieldDidChange(q: String?) {
         fetchDeboucedSearch(q: q)
+    }
+    
+    func singleSearchFieldClearButtonClicked() {
+        interactor?.displaySearch(request: ListPlaces.DisplaySearch.Request())
+        fetchPlaces(q: "")
+    }
+    
+    func fromFieldClearButtonClicked() {
+        interactor?.displaySearch(request: ListPlaces.DisplaySearch.Request())
+        fetchPlaces(q: "")
+    }
+    
+    func toFieldClearButtonClicked() {
+        interactor?.displaySearch(request: ListPlaces.DisplaySearch.Request())
+        fetchPlaces(q: "")
     }
 }

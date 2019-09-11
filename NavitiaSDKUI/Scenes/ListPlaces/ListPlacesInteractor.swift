@@ -105,14 +105,14 @@ class ListPlacesInteractor: ListPlacesBusinessLogic, ListPlacesDataStore {
             }
             
             
-            self.presenter?.presentHistoryPlace(response: tab2, locationAddress: self.info == "from" ? self.locationAddress : nil)
+            self.presenter?.presentHistoryPlace(response: tab2, locationAddress: self.locationAddress)
         } else {
             navitiaWorker.fetchPlaces(coverage: coverage, q: request.q, coord: (lat: self.locationAddress?.coord?.lat, lon: self.locationAddress?.coord?.lon)) { (places) in
                 self.places = places
                 self.tab2 = nil
                 
                 let response = ListPlaces.FetchPlaces.Response(places: places,
-                                                               locationAddress: self.info == "from" ? self.locationAddress : nil)
+                                                               locationAddress: self.locationAddress)
                 
                 self.presenter?.presentFetchPlaces(response: response)
             }

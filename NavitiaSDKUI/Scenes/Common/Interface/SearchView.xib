@@ -85,6 +85,7 @@
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="h1U-LA-82k">
                                     <rect key="frame" x="0.0" y="40" width="240" height="1"/>
                                     <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                    <accessibility key="accessibilityConfiguration" identifier="separator"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="1" id="IOC-7c-lbT"/>
                                     </constraints>
