@@ -121,6 +121,8 @@ public protocol JourneyRootViewController {
         }
     }
     
+    public var sourceIds: [String:String]?
+    
     public var rootViewController: JourneyRootViewController? {
         get {
             let storyboard = UIStoryboard(name: "Journey", bundle: bundle)

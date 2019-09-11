@@ -16,7 +16,7 @@ protocol ListJourneysPresentationLogic {
 }
 
 class ListJourneysPresenter: ListJourneysPresentationLogic {
-
+    
     weak var viewController: ListJourneysDisplayLogic?
     
     func presentDisplayedSearch(response: ListJourneys.DisplaySearch.Response) {
@@ -25,12 +25,12 @@ class ListJourneysPresenter: ListJourneysPresentationLogic {
         }
         
         let viewModel = ListJourneys.DisplaySearch.ViewModel(fromName: response.journeysRequest.originLabel ?? response.journeysRequest.originName ?? response.journeysRequest.originId,
-                                                            toName: response.journeysRequest.destinationLabel ?? response.journeysRequest.destinationName ?? response.journeysRequest.destinationId,
-                                                            dateTime: dateTime,
-                                                            date: response.journeysRequest.datetime ?? Date(),
-                                                            accessibilityHeader: getHeaderAccessibility(origin: response.journeysRequest.originLabel ?? "",
-                                                                                                        destination: response.journeysRequest.destinationLabel ?? "",
-                                                                                                        dateTime: response.journeysRequest.datetime ?? Date()),           accessibilitySwitchButton: getAccessibilitySwitchButton())
+                                                             toName: response.journeysRequest.destinationLabel ?? response.journeysRequest.destinationName ?? response.journeysRequest.destinationId,
+                                                             dateTime: dateTime,
+                                                             date: response.journeysRequest.datetime ?? Date(),
+                                                             accessibilityHeader: getHeaderAccessibility(origin: response.journeysRequest.originLabel ?? "",
+                                                                                                         destination: response.journeysRequest.destinationLabel ?? "",
+                                                                                                         dateTime: response.journeysRequest.datetime ?? Date()),           accessibilitySwitchButton: getAccessibilitySwitchButton())
         
         viewController?.displaySearch(viewModel: viewModel)
     }
@@ -99,7 +99,7 @@ class ListJourneysPresenter: ListJourneysPresentationLogic {
     
     private func getHeaderAccessibility(origin: String, destination: String, dateTime: Date?) -> String? {
         var accessibilityLabel = String(format: "reminder_of_the_research".localized(), origin, destination)
-         
+        
         if let dateTime = dateTime {
             let day = DateFormatter.localizedString(from: dateTime, dateStyle: .medium, timeStyle: .none)
             let hourComponents = Foundation.Calendar.current.dateComponents([.hour, .minute], from: dateTime)
@@ -159,67 +159,100 @@ class ListJourneysPresenter: ListJourneysPresentationLogic {
         
         let friezeSections = FriezePresenter().getDisplayedJourneySections(journey: journey, disruptions: disruptions)
         let accessibility = getJourneyAccessibility(duration: duration.string, sections: journey.sections, disruptions: disruptions)
-        let ticketsInput = getTickets(journey: journey, tickets: tickets)
+        let parsedTickets = parseTickets(journey: journey, tickets: tickets)
+        var walkingInformation: NSMutableAttributedString? = nil
         
-        if journey.isRidesharing {
-            return ListJourneys.FetchJourneys.ViewModel.DisplayedJourney(dateTime: dateTime,
-                                                                            duration: duration,
-                                                                            walkingInformation: nil,
-                                                                            friezeSections: friezeSections,
-                                                                            accessibility: accessibility,
-                                                                            ticketsInput: ticketsInput.ticketInputList,
-                                                                            pricedTicket: ticketsInput.pricedTickets)
+        if !journey.isRidesharing {
+            walkingInformation = getDisplayedJourneyWalkingInformation(journey: journey)
         }
-        
-        let walkingInformation = getDisplayedJourneyWalkingInformation(journey: journey)
         
         return ListJourneys.FetchJourneys.ViewModel.DisplayedJourney(dateTime: dateTime,
-                                                                        duration: duration,
-                                                                        walkingInformation: walkingInformation,
-                                                                        friezeSections: friezeSections,
-                                                                        accessibility: accessibility,
-                                                                        ticketsInput: ticketsInput.ticketInputList,
-                                                                        pricedTicket: ticketsInput.pricedTickets)
+                                                                     duration: duration,
+                                                                     walkingInformation: walkingInformation,
+                                                                     friezeSections: friezeSections,
+                                                                     accessibility: accessibility,
+                                                                     ticketsInput: parsedTickets.ticketInputList,
+                                                                     pricedTicket: parsedTickets.pricedTickets,
+                                                                     unbookableSectionIdList: parsedTickets.unbookableSectionIdList,
+                                                                     unexpectedErrorTicketIdList: parsedTickets.unexpectedErrorTicketIdList)
     }
     
-    private func getTickets(journey: Journey, tickets: [Ticket]?) -> (ticketInputList: [TicketInput], pricedTickets: [PricedTicket]) {
-        guard let sections = journey.sections else {
-            return ([],[])
-        }
+    private func parseTickets(journey: Journey, tickets: [Ticket]?) -> (ticketInputList: [TicketInput], pricedTickets: [PricedTicket], unbookableSectionIdList: [String], unexpectedErrorTicketIdList: [String]) {
         
         var ticketInputList:[TicketInput] = []
         var pricedTicketList:[PricedTicket] = []
+        var unbookableSectionIdList:[String] = []
+        var unexpectedErrorTicketIdList:[String] = []
         
-        for section in sections {
-            let ticketLink = section.links?.first(where: { (item) -> Bool in
-                return item.type == "ticket"
-            })
+        for section in journey.sections ?? [] {
             
-            if let ticketId = ticketLink?.id {
-                if section.mode == .taxi {
-                    ticketInputList.append(getTicketInput(section: section, productId: "3", ticketId: ticketId))
-                    
-                } else if section.type == .publicTransport {
-                    
-                    if let navitiaTicket = tickets?.first(where: { (item) -> Bool in
-                        return item.id == ticketId
-                    }), let cost = navitiaTicket.cost,
-                        let price = Double(cost.value ?? "0.0") {
-                        
-                        if price > 0.0, cost.currency == "centime" {
-                            pricedTicketList.append(getPricedTicket(ticketId: ticketId,
-                                                                    priceWithTaxInEur: price/100))
-                        } else if (navitiaTicket.sourceId ?? "").contains("ONL:ns") {
-                            ticketInputList.append(getTicketInput(section: section, productId: "1", ticketId: ticketId))
-                        } else if (navitiaTicket.sourceId ?? "").contains("NLSYN") {
-                            ticketInputList.append(getTicketInput(section: section, productId: "2", ticketId: ticketId))
-                        }
-                    }
+            print()
+            let ticketId = section.links?.first(where: { (item) -> Bool in
+                return item.type == "ticket"
+            })?.id
+            
+            
+            // *************** TAXI ********************
+            //Taxi's ticket will be returned by hermaas
+            //******************************************
+            if section.mode == .taxi, let taxiSourceId = NavitiaSDKUI.shared.sourceIds?["taxi"] {
+                ticketInputList.append(getTicketInput(section: section,
+                                                      productId: taxiSourceId,
+                                                      ticketId: ticketId ?? ""))
+                
+                
+                // *************** PUBLIC TRANSPORT ***********
+                // Public transport's ticket will be return by hermaas only if price is equal to 0
+                // ********************************************
+            } else if section.type == .publicTransport {
+                if let ticketId = ticketId {
+                    handlePublicTransportTicket(tickets: tickets,
+                                                ticketId: ticketId,
+                                                section: section,
+                                                pricedTicketList: &pricedTicketList,
+                                                unexpectedErrorTicketIdList: &unexpectedErrorTicketIdList,
+                                                ticketInputList: &ticketInputList)
+                } else {
+                    // If there is no ticket, than this transporter is not supported yet
+                    print("hello unbookable \(section.id ?? "")")
+                    unbookableSectionIdList.append(section.id ?? "")
                 }
             }
         }
         
-        return (ticketInputList, pricedTicketList)
+        return (ticketInputList, pricedTicketList, unbookableSectionIdList, unexpectedErrorTicketIdList)
+    }
+    
+    private func handlePublicTransportTicket(tickets: [Ticket]?, ticketId: String, section: Section, pricedTicketList: inout [PricedTicket], unexpectedErrorTicketIdList: inout [String], ticketInputList: inout [TicketInput]) {
+        
+        guard let navitiaTicket = tickets?.first(where: { (item) -> Bool in
+            return item.id == ticketId
+        }) else {
+            print("hello unexpected \(ticketId)")
+            unexpectedErrorTicketIdList.append(ticketId)
+            return
+        }
+            
+        if let cost = navitiaTicket.cost,
+            let price = Double(cost.value ?? "0.0"),
+            price > 0.0, cost.currency == "centime" {
+            pricedTicketList.append(getPricedTicket(ticketId: ticketId,
+                                                    priceWithTaxInEur: price/100))
+        } else {
+            var sourceIdNotFound = true
+            for sourceId in (NavitiaSDKUI.shared.sourceIds ?? [:]) {
+                if sourceId.key != "taxi", (navitiaTicket.sourceId ?? "").contains(sourceId.key) {
+                    
+                    ticketInputList.append(getTicketInput(section: section, productId: sourceId.value, ticketId: ticketId))
+                    sourceIdNotFound = false
+                }
+            }
+            
+            if sourceIdNotFound {
+                print("hello sourceIdNotFound \(ticketId)")
+                unexpectedErrorTicketIdList.append(ticketId)
+            }
+        }
     }
     
     private func getTicketInput(section: Section, productId: String, ticketId: String) -> TicketInput {
@@ -243,9 +276,9 @@ class ListJourneysPresenter: ListJourneysPresentationLogic {
     }
     
     private func getDisplayedJourneyDateTime(journey: Journey) -> String? {
-            guard let departureDateTime = journey.departureDateTime?.toDate(format: Configuration.datetime)?.toString(format: Configuration.time),
+        guard let departureDateTime = journey.departureDateTime?.toDate(format: Configuration.datetime)?.toString(format: Configuration.time),
             let arrivalDateTime = journey.arrivalDateTime?.toDate(format: Configuration.datetime)?.toString(format: Configuration.time) else {
-            return nil
+                return nil
         }
         
         return String(format: "%@ - %@", departureDateTime, arrivalDateTime)
@@ -270,7 +303,7 @@ class ListJourneysPresenter: ListJourneysPresentationLogic {
     
     private func getDisplayedJourneyWalkingInformation(journey: Journey) -> NSMutableAttributedString? {
         guard let duration = getDisplayedJourneyWalkingDuration(journey: journey), duration >= 60 else {
-                return nil
+            return nil
         }
         
         return NSMutableAttributedString()
@@ -307,7 +340,7 @@ class ListJourneysPresenter: ListJourneysPresentationLogic {
         guard let sections = sections else {
             return nil
         }
-
+        
         let accessibilitySections = getAccessibilitySections(sections: sections, disruptions: disruptions)
         var modes: String = ""
         

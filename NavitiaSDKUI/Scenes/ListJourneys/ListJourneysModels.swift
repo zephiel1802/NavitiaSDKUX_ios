@@ -60,6 +60,8 @@ enum ListJourneys {
                 var accessibility: String?
                 var ticketsInput: [TicketInput]?
                 var pricedTicket: [PricedTicket]?
+                var unbookableSectionIdList: [String]?
+                var unexpectedErrorTicketIdList: [String]?
             }
             
             var loaded: Bool

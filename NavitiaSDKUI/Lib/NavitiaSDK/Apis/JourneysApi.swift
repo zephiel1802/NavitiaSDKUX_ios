@@ -474,6 +474,7 @@ open class CoverageRegionJourneysRequestBuilder: NSObject {
         case bike = "bike"
         case bss = "bss"
         case ridesharing = "ridesharing"
+        case taxi = "taxi"
     }
     /**
     * enum for parameter dataFreshness

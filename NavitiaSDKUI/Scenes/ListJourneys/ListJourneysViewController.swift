@@ -322,7 +322,9 @@ extension ListJourneysViewController: UICollectionViewDataSource, UICollectionVi
                 cell.duration = viewModel.duration
                 cell.walkingDescription = viewModel.walkingInformation
                 cell.accessibility = viewModel.accessibility
-                cell.setJourneySummaryView(friezeSections: viewModel.friezeSections)
+                cell.friezeSections = viewModel.friezeSections
+                cell.unsupportedSectionIdList = viewModel.unbookableSectionIdList
+                cell.unexpectedErrorTicketIdList = viewModel.unexpectedErrorTicketIdList
                 cell.ticketInputs = viewModel.ticketsInput
                 cell.navitiaPricedTickets = viewModel.pricedTicket
                 
@@ -351,7 +353,7 @@ extension ListJourneysViewController: UICollectionViewDataSource, UICollectionVi
                 cell.duration = viewModel.duration
                 cell.walkingDescription = viewModel.walkingInformation
                 cell.accessibility = viewModel.accessibility
-                cell.setJourneySummaryView(friezeSections: viewModel.friezeSections)
+                cell.friezeSections = viewModel.friezeSections
                 
                 return cell
             }

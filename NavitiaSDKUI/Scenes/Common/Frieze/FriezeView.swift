@@ -61,6 +61,7 @@ class FriezeView: UIView {
         friezeSectionView.textColor = friezeSection.textColor
         friezeSectionView.name = friezeSection.name
         friezeSectionView.icon = friezeSection.icon
+        friezeSectionView.hasBadge = friezeSection.hasBadge
         friezeSectionView.displayDisruption(friezeSection.disruptionIcon, color: friezeSection.disruptionColor)
         if friezeSection.color.isEqualWithConversion(.white) ||
             friezeSection.color.isEqualWithConversion(.clear) ||

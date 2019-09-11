@@ -185,8 +185,12 @@ class TransportModeView: UIView {
         var modes = [String]()
         
         for button in buttonsSaved {
-            if button.isSelected, let mode = button.mode?.firstSectionMode {
-                modes = mode
+            if button.isSelected, let modeList = button.mode?.firstSectionMode {
+                for mode in modeList {
+                    if !modes.contains(mode) {
+                        modes.append(mode)
+                    }
+                }
             }
         }
         
@@ -197,8 +201,12 @@ class TransportModeView: UIView {
         var modes = [String]()
         
         for button in buttonsSaved {
-            if button.isSelected, let mode = button.mode?.lastSectionMode {
-                modes = mode
+            if button.isSelected, let modeList = button.mode?.lastSectionMode {
+                for mode in modeList {
+                    if !modes.contains(mode) {
+                        modes.append(mode)
+                    }
+                }
             }
         }
         

@@ -28,6 +28,7 @@ class JourneySolutionCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var priceLabel: UILabel!
     @IBOutlet weak var fromLabel: UILabel!
     @IBOutlet weak var priceLabelCenterYConstraint: NSLayoutConstraint!
+    @IBOutlet weak var PriceUnavailableLabel: UILabel!
     
     public var journeySolutionDelegate: JourneySolutionCollectionViewCellDelegate?
     private var walkingInformationIsHidden: Bool = false {
@@ -70,14 +71,30 @@ class JourneySolutionCollectionViewCell: UICollectionViewCell {
             accessiblityView.accessibilityLabel = newValue
         }
     }
+    internal var friezeSections: [FriezePresenter.FriezeSection] = [] {
+        didSet {
+            updateJourneySummaryView()
+        }
+    }
     private var isLoaded = false
+    internal var unsupportedSectionIdList: [String]?
+    internal var unexpectedErrorTicketIdList: [String]?
     internal var ticketInputs: [TicketInput]? {
         didSet {
-            if let ticketInputList = ticketInputs, ticketInputList.count > 0, isLoaded == false {
-                hermaasPricedTickets = nil
-                journeySolutionDelegate?.getPrice(ticketsInputList: ticketInputList, callback: { (pricedTicketList) in
-                    self.hermaasPricedTickets = pricedTicketList
-                })
+            if let ticketInputList = ticketInputs, isLoaded == false {
+                if ticketInputList.count > 0 {
+                    hermaasPricedTickets = nil
+                    journeySolutionDelegate?.getPrice(ticketsInputList: ticketInputList, callback: { (pricedTicketList) in
+                        self.hermaasPricedTickets = pricedTicketList
+                    })
+                } else {
+                    DispatchQueue.main.async {
+                        self.loadingView.alpha = 0
+                        self.loadingView.isHidden = true
+                        self.isLoaded = true
+                        self.totalPrice()
+                    }
+                }
             }
         }
     }
@@ -147,17 +164,24 @@ class JourneySolutionCollectionViewCell: UICollectionViewCell {
         var totalPrice: Double = 0
         var isPriceMissing = false
         
+        if (unsupportedSectionIdList?.count ?? 0) > 0 || (unexpectedErrorTicketIdList?.count ?? 0) > 0 {
+            isPriceMissing = true
+        }
+        
+        if (hermaasPricedTickets ?? []).count < (ticketInputs ?? []).count {
+            isPriceMissing = true
+        }
+        
+        // aggregate navitia and hermaas ticket's
         var tickets: [PricedTicket] = []
         if let navitiaTickets = navitiaPricedTickets {
             tickets.append(contentsOf: navitiaTickets)
         }
         if let hermaasTickets = hermaasPricedTickets {
             tickets.append(contentsOf: hermaasTickets)
-            if hermaasTickets.count < (ticketInputs ?? []).count {
-                isPriceMissing = true
-            }
         }
         
+        // Compute total price
         for ticket in tickets {
             if let price = ticket.priceWithTax, ticket.currency.lowercased() == "eur" {
                 totalPrice += price
@@ -166,24 +190,69 @@ class JourneySolutionCollectionViewCell: UICollectionViewCell {
             }
         }
         
-        if tickets.count == 0 && !isPriceMissing {
-            priceView.isHidden = true
+        if tickets.count == 0 {
+            // No tickets found
+            if isPriceMissing && isLoaded {
+                priceView.isHidden = false
+                fromLabel.isHidden = true
+                priceLabel.isHidden = true
+                PriceUnavailableLabel.isHidden = false
+                
+                // Only free sections like walking
+            } else {
+                priceView.isHidden = true
+            }
         } else {
+            priceView.isHidden = false
+            priceLabel.isHidden = false
+            priceLabel.text = String(format: "price".localized(), totalPrice)
+            
+            // Uncompleted price
             if isPriceMissing {
-                fromLabel.text = "price-from".localized()
+                fromLabel.text = "from".localized()
                 fromLabel.isHidden = false
-                priceLabelCenterYConstraint.isActive = false
+                priceLabelCenterYConstraint.priority = UILayoutPriority.init(rawValue: 250)
+                
+                // completed price
             } else {
                 fromLabel.isHidden = true
-                priceLabelCenterYConstraint.isActive = true
+                priceLabelCenterYConstraint.priority = UILayoutPriority.init(rawValue: 999)
             }
-            priceView.isHidden = false
-            priceLabel.text = String(format: "price".localized(), totalPrice)
-            print("cell \(duration!) : navitia \(navitiaPricedTickets!.count), hermaas \(hermaasPricedTickets!.count), ticketInput \(ticketInputs!.count)")
         }
+        updateJourneySummaryView()
     }
     
-    internal func setJourneySummaryView(friezeSections: [FriezePresenter.FriezeSection]) {
-        friezeView.addSection(friezeSections: friezeSections)
+    internal func updateJourneySummaryView() {
+        var updatedFriezeSections: [FriezePresenter.FriezeSection] = []
+        var errorTicketIdList: [String] = []
+        
+        if isLoaded {
+            if let unexpectedErrorTicketIdList = unexpectedErrorTicketIdList {
+                errorTicketIdList.append(contentsOf: unexpectedErrorTicketIdList)
+            }
+            
+            for ticket in (ticketInputs ?? []) {
+                if !(hermaasPricedTickets ?? []).contains(where: { (hermaasTicket) -> Bool in
+                    return hermaasTicket.ticketId == ticket.ride.ticketId
+                }) {
+                    errorTicketIdList.append(ticket.ride.ticketId)
+                }
+            }
+        }
+        print()
+        print("Friiiiieze")
+        for friezeSection in friezeSections {
+            var updatedFriezeSection = friezeSection
+            if errorTicketIdList.contains(friezeSection.ticketId ??  "") {
+                updatedFriezeSection.hasBadge = true
+            }
+            
+            updatedFriezeSections.append(updatedFriezeSection)
+        }
+        print("ticketInputs \(ticketInputs)")
+        print("hermaasPricedTickets \(hermaasPricedTickets)")
+        print("errorTicketIdList \(errorTicketIdList)")
+        print("unexpectedErrorTicketIdList \(unexpectedErrorTicketIdList)")
+        friezeView.addSection(friezeSections: updatedFriezeSections)
     }
 }
