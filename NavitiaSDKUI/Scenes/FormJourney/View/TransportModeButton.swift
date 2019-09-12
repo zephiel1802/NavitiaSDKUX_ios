@@ -63,18 +63,10 @@ class TransportModeButton: UIButton {
             return
         }
         
-        if let image = Configuration.customIcons[type] {
-            setImage(image, for: .normal)
-            subviews.first?.contentMode = .scaleAspectFit
-            imageEdgeInsets = UIEdgeInsets(top: 18,left: 18,bottom: 18,right: 18)
-            imageView?.tintColor = isSelected ? Configuration.Color.main : Configuration.Color.shadow
-        } else {
-            if isSelected {
-                setAttributedTitle(NSMutableAttributedString().icon(type, color: Configuration.Color.main, size: 25), for: .normal)
-            } else {
-                setAttributedTitle(NSMutableAttributedString().icon(type, color: Configuration.Color.shadow, size: 25), for: .normal)
-            }
-        }
+        setImage(type.getIcon(prefix: "journey_mode_", customizable: true), for: .normal)
+        subviews.first?.contentMode = .scaleAspectFit
+        imageEdgeInsets = UIEdgeInsets(top: 18,left: 18,bottom: 18,right: 18)
+        imageView?.tintColor = isSelected ? Configuration.Color.main : Configuration.Color.shadow
     }
     
     @objc func buttonAction(_ sender:UIButton!) {

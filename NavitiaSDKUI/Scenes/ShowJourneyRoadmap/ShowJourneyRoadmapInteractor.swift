@@ -65,8 +65,7 @@ class ShowJourneyRoadmapInteractor: ShowJourneyRoadmapBusinessLogic, ShowJourney
             return
         }
         
-        let response = ShowJourneyRoadmap.GetMap.Response(journey: journey,
-                                                          journeyRidesharing: journeyRidesharing)
+        let response = ShowJourneyRoadmap.GetMap.Response(journey: journey, journeyRidesharing: journeyRidesharing)
         presenter?.presentMap(response: response)
     }
     

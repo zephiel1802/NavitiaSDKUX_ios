@@ -34,7 +34,7 @@ extension UIViewController {
         if isRootViewController() {
             let backButton = UIButton(frame: CGRect(x: 0, y: 0, width: 70, height: 70))
             
-            backButton.setImage(UIImage(named: "back-icon", in: NavitiaSDKUI.shared.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate), for: .normal)
+            backButton.setImage("back-icon".getIcon(), for: .normal)
             backButton.contentEdgeInsets = UIEdgeInsets(top: 0, left: -32, bottom: 0, right: 0)
             backButton.titleEdgeInsets = UIEdgeInsets(top: 10, left: 16, bottom: 10, right: 0)
             backButton.setTitle("back".localized(), for: .normal)

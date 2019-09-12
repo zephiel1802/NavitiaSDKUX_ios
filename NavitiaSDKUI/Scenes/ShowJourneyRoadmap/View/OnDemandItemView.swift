@@ -9,7 +9,7 @@ import UIKit
 
 class OnDemandItemView: UIView {
     
-    @IBOutlet weak var phoneIconLabel: UILabel!
+    @IBOutlet weak var reservationIconImageView: UIImageView!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var informationLabel: UILabel!
     
@@ -36,8 +36,8 @@ class OnDemandItemView: UIView {
     // MARK: - Function
     
     private func setup() {
-        phoneIconLabel.attributedText = NSMutableAttributedString().icon("phone-tad", size: 15)
-        phoneIconLabel.textColor = Configuration.Color.main
+        reservationIconImageView.image = "phone_tad".getIcon()
+        reservationIconImageView.tintColor = Configuration.Color.main
         
         titleLabel.attributedText = NSMutableAttributedString().normal("mandatory_reservation".localized(), color: Configuration.Color.main, size: 13)
     }
