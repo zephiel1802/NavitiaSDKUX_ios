@@ -239,8 +239,7 @@ class JourneySolutionCollectionViewCell: UICollectionViewCell {
                 }
             }
         }
-        print()
-        print("Friiiiieze")
+        
         for friezeSection in friezeSections {
             var updatedFriezeSection = friezeSection
             if errorTicketIdList.contains(friezeSection.ticketId ??  "") {
@@ -249,10 +248,7 @@ class JourneySolutionCollectionViewCell: UICollectionViewCell {
             
             updatedFriezeSections.append(updatedFriezeSection)
         }
-        print("ticketInputs \(ticketInputs)")
-        print("hermaasPricedTickets \(hermaasPricedTickets)")
-        print("errorTicketIdList \(errorTicketIdList)")
-        print("unexpectedErrorTicketIdList \(unexpectedErrorTicketIdList)")
+        
         friezeView.addSection(friezeSections: updatedFriezeSections)
     }
 }
