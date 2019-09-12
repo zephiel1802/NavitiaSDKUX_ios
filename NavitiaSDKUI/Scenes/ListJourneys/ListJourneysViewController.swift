@@ -584,7 +584,7 @@ extension ListJourneysViewController: JourneySolutionCollectionViewCellDelegate 
                     }
                     callback(pricedTicketList)
                 } catch {
-                    print("toto \(error)")
+                    
                 }
             })
         } catch {

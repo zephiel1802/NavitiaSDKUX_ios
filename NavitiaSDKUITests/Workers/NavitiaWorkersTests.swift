@@ -37,10 +37,10 @@ class NavitiaWorkersTests: XCTestCase {
         
         override func fetchJourneys(journeysRequest: JourneysRequest?, completionHandler: @escaping NavitiaFetchJourneysCompletionHandler) {
             let journeys = self.parseJourneyResponse(result: Seeds.init().navitiaResponse!)
-            completionHandler(journeys.journeys, journeys.Ridesharing, journeys.disruptions, journeys.notes, journeys.context)
+            completionHandler(journeys.journeys, journeys.Ridesharing, journeys.disruptions, journeys.notes, journeys.context, journeys.tickets)
         }
         
-        override func parseJourneyResponse(result: Journeys) -> (journeys: [Journey]?, Ridesharing: [Journey]?, disruptions: [Disruption]?, notes: [Note]?, context: Context?) {
+        override func parseJourneyResponse(result: Journeys) -> (journeys: [Journey]?, Ridesharing: [Journey]?, disruptions: [Disruption]?, notes: [Note]?, context: Context?, tickets: [Ticket]?) {
             parseJourneyResponseCalled = true
             return super.parseJourneyResponse(result: result)
         }
@@ -51,7 +51,7 @@ class NavitiaWorkersTests: XCTestCase {
     func testFetchJourneysShouldReturnResponseNavitia() {
         let navitiaWorkerSpy = NavitiaWorkerSpy()
         
-        navitiaWorkerSpy.fetchJourneys(journeysRequest: nil) { (journeys, journeysRidesharing, disruption, notes, context) in
+        navitiaWorkerSpy.fetchJourneys(journeysRequest: nil) { (journeys, journeysRidesharing, disruption, notes, context, ticktes)  in
             XCTAssertEqual(journeys?.count, 2)
             XCTAssertEqual(journeysRidesharing?.count, 1)
             XCTAssertNotNil(disruption?.count)

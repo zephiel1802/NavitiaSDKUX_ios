@@ -58,9 +58,9 @@ class ListJourneysInteractorTests: XCTestCase {
     class NavitiaWorkerSpy: NavitiaWorker {
         var fetchJourneysCalled = false
         
-        override func fetchJourneys(journeysRequest: JourneysRequest, completionHandler: @escaping ([Journey]?, [Journey]?, [Disruption]?, [Note]?, Context?) -> Void) {
+        override func fetchJourneys(journeysRequest: JourneysRequest, completionHandler: @escaping ([Journey]?, [Journey]?, [Disruption]?, [Note]?, Context?, [Ticket]?) -> Void) {
             fetchJourneysCalled = true
-            completionHandler([], [], [], [], nil)
+            completionHandler([], [], [], [], nil, nil)
         }
     }
     
