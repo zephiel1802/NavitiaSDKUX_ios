@@ -184,14 +184,14 @@ extension FormJourneyViewController: SearchViewDelegate {
         }
     }
     
-    func fromFieldClicked(q: String?) {
-        view.endEditing(true)
-        router?.routeToListPlaces(info: "from")
+    func fromFieldClicked(query: String?) {
+        searchView.endEditing(true)
+        router?.routeToListPlaces(searchFieldType: .from)
     }
     
-    func toFieldClicked(q: String?) {
+    func toFieldClicked(query: String?) {
         searchView.endEditing(true)
-        router?.routeToListPlaces(info: "to")
+        router?.routeToListPlaces(searchFieldType: .to)
     }
 }
 

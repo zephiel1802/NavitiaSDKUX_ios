@@ -11,7 +11,7 @@ enum ListPlaces {
     
     // MARK: Use cases
     
-    enum DisplaySearch {
+    enum UpdateSearchViewFields {
         struct Request {
             var from: (label: String?, name: String?, id: String)?
             var to: (label: String?, name: String?, id: String)?
@@ -19,12 +19,10 @@ enum ListPlaces {
         struct Response {
             var from: (label: String?, name: String?, id: String)?
             var to: (label: String?, name: String?, id: String)?
-            var info: String?
         }
         struct ViewModel {
-            var fromName: String?
-            var toName: String?
-            var info: String?
+            var fromName: String
+            var toName: String
         }
     }
     
@@ -39,25 +37,27 @@ enum ListPlaces {
         }
     }
     
-    enum FetchLocation {
+    enum FetchUserLocation {
         struct Request {
             var latitude: Double
             var longitude: Double
         }
         struct Response {
-            var dictAddresses: DictAddresses
+            var userAddress: Address?
         }
         struct ViewModel {
+            var userSection: FetchPlaces.ViewModel.DisplayedSection
         }
     }
     
     enum FetchPlaces {
         struct Request {
-            var q: String
+            var query: String
+            var userLat: Double?
+            var userLon: Double?
         }
         struct Response {
             var places: Places?
-            var locationAddress: Address?
         }
         struct ViewModel {
             enum ModelType: String {
@@ -65,25 +65,38 @@ enum ListPlaces {
                 case stopArea = "stop_area"
                 case address = "address"
                 case poi = "poi"
-                case location = "location"
                 case locationDisabled = "locationDisabled"
                 case locationLoading = "locationLoading"
+                case locationFound = "locationFound"
+                case locationNotFound = "locationNotFound"
             }
             
             struct Place {
                 var label: String?
-                var name: String
-                var id: String
-                var distance: String? = nil
+                var name: String?
+                var id: String?
+                var distance: String?
                 var type: ModelType
             }
             
-            struct DisplayedSections {
+            struct DisplayedSection {
                 var name: String?
                 var places: [Place]
             }
             
-            var displayedSections: [DisplayedSections]
+            var displayedSections: [DisplayedSection]
+        }
+    }
+    
+    enum FetchHistoryItems {
+        struct Request {
+            
+        }
+        struct Response {
+            var historyItems: [AutocompletionHistory]
+        }
+        struct ViewModel {
+            
         }
     }
 }

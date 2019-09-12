@@ -10,12 +10,15 @@ import UIKit
 @objc protocol SearchViewDelegate: class {
     
     func switchDepartureArrivalCoordinates()
-    @objc optional func singleSearchFieldClicked(q: String?)
-    @objc optional func fromFieldClicked(q: String?)
-    @objc optional func toFieldClicked(q: String?)
-    @objc optional func singleSearchFieldChange(q: String?)
-    @objc optional func fromFieldDidChange(q: String?)
-    @objc optional func toFieldDidChange(q: String?)
+    @objc optional func singleSearchFieldClicked(query: String?)
+    @objc optional func fromFieldClicked(query: String?)
+    @objc optional func toFieldClicked(query: String?)
+    @objc optional func singleSearchFieldChange(query: String?)
+    @objc optional func fromFieldDidChange(query: String?)
+    @objc optional func toFieldDidChange(query: String?)
+    @objc optional func singleSearchFieldClearButtonClicked()
+    @objc optional func fromFieldClearButtonClicked()
+    @objc optional func toFieldClearButtonClicked()
 }
 
 class SearchView: UIView, UITextFieldDelegate {
@@ -62,9 +65,6 @@ class SearchView: UIView, UITextFieldDelegate {
     var dateFormView: DateFormView!
     var transportModeView: TransportModeView!
     var searchButtonView: SearchButtonView!
-    var fromTextFieldClear = false
-    var toTextFieldClear = false
-    var singleSearchTextFieldClear = false
     var isClearButtonAccessible = true
     var switchDepartureArrivalButtonWidth: CGFloat = 0
     
@@ -269,15 +269,23 @@ class SearchView: UIView, UITextFieldDelegate {
         preferencesArrowIconImageView.tintColor = Configuration.Color.main.contrastColor()
     }
     
-    // MARK: public func
-    func unstickTextFields() {
-        self.separatorTopContraint.constant = 3
-        self.separatorBottomContraint.constant = 3
+    func unstickTextFields(superview: UIView) {
+        UIView.animate(withDuration: 0.15, animations: {
+            self.separatorView.isHidden = true
+            self.separatorTopContraint.constant = 3
+            self.separatorBottomContraint.constant = 3
+            superview.layoutIfNeeded()
+        })
     }
     
-    func stickTextFields() {
-        self.separatorTopContraint.constant = 0
-        self.separatorBottomContraint.constant = 0
+    func stickTextFields(superview: UIView) {
+        UIView.animate(withDuration: 0.15, animations: {
+            self.separatorTopContraint.constant = 0
+            self.separatorBottomContraint.constant = 0
+            superview.layoutIfNeeded()
+        }) { (_) in
+            self.separatorView.isHidden = false
+        }
     }
     
     internal func focusFromField(_ value: Bool = true) {
@@ -388,54 +396,42 @@ class SearchView: UIView, UITextFieldDelegate {
     
     @IBAction func fromClearButtonClicked(_ sender: Any) {
         fromTextField.text!.removeAll()
-        fromTextFieldClear = true
-        fromClearButton.becomeFirstResponder()
+        fromTextField.becomeFirstResponder()
+        delegate?.fromFieldClearButtonClicked?()
     }
     
     @IBAction func toClearButtonClicked(_ sender: Any) {
         toTextField.text!.removeAll()
-        toTextFieldClear = true
         toTextField.becomeFirstResponder()
+        delegate?.toFieldClearButtonClicked?()
     }
     
     @IBAction func singleSearchClearButtonClicked(_ sender: Any) {
         singleSearchTextField.text!.removeAll()
-        singleSearchTextFieldClear = true
         singleSearchTextField.becomeFirstResponder()
+        delegate?.singleSearchFieldClearButtonClicked?()
     }
 
     // MARK: Textfield delegate
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
         if textField == fromTextField {
-            if fromTextFieldClear {
-                fromTextFieldClear = false
-            } else {
-                delegate?.fromFieldClicked?(q: textField.text)
-            }
-            if !(textField.text ?? "").isEmpty && isClearButtonAccessible {
+            delegate?.fromFieldClicked?(query: textField.text)
+            if let text = textField.text, !text.isEmpty, isClearButtonAccessible {
                 fromClearButton.isHidden = false
             } else {
                 fromClearButton.isHidden = true
             }
         } else if textField == toTextField {
-            if toTextFieldClear {
-                toTextFieldClear = false
-            } else {
-                delegate?.toFieldClicked?(q: textField.text)
-            }
-            if !(textField.text ?? "").isEmpty && isClearButtonAccessible {
+            delegate?.toFieldClicked?(query: textField.text)
+            if let text = textField.text, !text.isEmpty, isClearButtonAccessible {
                 toClearButton.isHidden = false
             } else {
                 toClearButton.isHidden = true
             }
         } else if textField == singleSearchTextField {
-            if singleSearchTextFieldClear {
-                singleSearchTextFieldClear = false
-            } else {
-                delegate?.singleSearchFieldClicked?(q: textField.text)
-            }
-            if !(textField.text ?? "").isEmpty && isClearButtonAccessible {
+            delegate?.singleSearchFieldClicked?(query: textField.text)
+            if let text = textField.text, !text.isEmpty, isClearButtonAccessible {
                 singleSearchClearButton.isHidden = false
             } else {
                 singleSearchClearButton.isHidden = true
@@ -448,21 +444,21 @@ class SearchView: UIView, UITextFieldDelegate {
             let updatedText = text.replacingCharacters(in: textRange, with: string)
             
             if textField == fromTextField {
-                delegate?.fromFieldDidChange?(q: updatedText)
+                delegate?.fromFieldDidChange?(query: updatedText)
                 if !updatedText.isEmpty && isClearButtonAccessible {
                     fromClearButton.isHidden = false
                 } else {
                     fromClearButton.isHidden = true
                 }
             } else if textField == toTextField {
-                delegate?.toFieldDidChange?(q: updatedText)
+                delegate?.toFieldDidChange?(query: updatedText)
                 if !updatedText.isEmpty && isClearButtonAccessible {
                     toClearButton.isHidden = false
                 } else {
                     toClearButton.isHidden = true
                 }
             } else if textField == singleSearchTextField {
-                delegate?.singleSearchFieldChange?(q: updatedText)
+                delegate?.singleSearchFieldChange?(query: updatedText)
                 if !updatedText.isEmpty && isClearButtonAccessible {
                     singleSearchClearButton.isHidden = false
                 } else {

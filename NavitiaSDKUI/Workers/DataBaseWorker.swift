@@ -33,33 +33,33 @@ class DataBaseWorker {
         }
     }
     
-    func buttonSave(coverage: String, name: String, id: String, type: String) {
+    func saveHistoryItem(coverage: String, name: String, id: String, type: String) {
         if let tab = readValues(coverage: coverage), tab.count >= Configuration.maxHistory {
             if let id = getMinId(coverage: coverage) {
                 removeID(id: id)
             }
         }
         
-        //getting values from textfields
+        // Getting values from textfields
         let coverage = coverage.trimmingCharacters(in: .whitespacesAndNewlines) as NSString
         let name = name.trimmingCharacters(in: .whitespacesAndNewlines) as NSString
         let idNavitia = id.trimmingCharacters(in: .whitespacesAndNewlines) as NSString
         let type = type.trimmingCharacters(in: .whitespacesAndNewlines) as NSString
 
-        //creating a statement
+        // Creating a statement
         var stmt: OpaquePointer?
         
-        //the insert query
+        // The insert query
         let queryString = "INSERT INTO autocompletion (coverage, name, idNavitia, type) VALUES (?, ?, ?, ?);"
         
-        //preparing the query
+        // Preparing the query
         if sqlite3_prepare(db, queryString, -1, &stmt, nil) != SQLITE_OK{
             let errmsg = String(cString: sqlite3_errmsg(db)!)
             print("SQLITE : error preparing insert: \(errmsg)")
             return
         }
         
-        //binding the parameters
+        // Binding the parameters
         if sqlite3_bind_text(stmt, 1, coverage.utf8String, -1, nil) != SQLITE_OK{
             let errmsg = String(cString: sqlite3_errmsg(db)!)
             print("SQLITE : failure binding name: \(errmsg)")
@@ -84,7 +84,7 @@ class DataBaseWorker {
             return
         }
 
-        //executing the query to insert values
+        // Executing the query to insert values
         if sqlite3_step(stmt) != SQLITE_DONE {
             let errmsg = String(cString: sqlite3_errmsg(db)!)
             print("SQLITE : failure inserting hero: \(errmsg)")
@@ -92,17 +92,17 @@ class DataBaseWorker {
         }
         
         
-        //displaying a success message
+        // Displaying a success message
         print("SQLITE : Journeys saved successfully")
     }
     
     func remove() -> Bool {
         let queryString = "DELETE FROM autocompletion"
         
-        //statement pointer
+        // Statement pointer
         var stmt:OpaquePointer?
         
-        //preparing the query
+        // Preparing the query
         if sqlite3_prepare(db, queryString, -1, &stmt, nil) != SQLITE_OK {
             if sqlite3_step(stmt) == SQLITE_DONE {
                 print("Successfully deleted row.")
@@ -121,16 +121,16 @@ class DataBaseWorker {
     }
     
     func readValues(coverage: String) -> [AutocompletionHistory]? {
-        //first empty the list of heroes
+        // First empty the list of heroes
         journeysList.removeAll()
         
-        //this is our select query
+        // This is our select query
         let queryString = String(format: "SELECT * FROM autocompletion WHERE coverage = '%@'", coverage)
         
-        //statement pointer
+        // Statement pointer
         var stmt:OpaquePointer?
         
-        //preparing the query
+        // Preparing the query
         if sqlite3_prepare(db, queryString, -1, &stmt, nil) != SQLITE_OK{
             let errmsg = String(cString: sqlite3_errmsg(db)!)
             print("error preparing insert: \(errmsg)")
@@ -157,7 +157,7 @@ class DataBaseWorker {
     }
     
     private func getMinId(coverage: String) -> Int32? {
-        //this is our select query
+        // This is our select query
         let queryString = String(format: "SELECT min(id) FROM autocompletion WHERE coverage = '%@'", coverage)
 
         var stmt:OpaquePointer?
