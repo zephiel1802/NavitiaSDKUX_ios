@@ -7,11 +7,11 @@
 
 import UIKit
 
-@objc protocol ListJourneysViewRoutingLogic {
+protocol ListJourneysViewRoutingLogic {
     
     func routeToListRidesharingOffers(indexPath: IndexPath)
     func routeToJourneySolutionRoadmap(indexPath: IndexPath)
-    func routeToListPlaces(info: String)
+    func routeToListPlaces(searchFieldType: SearchFieldType)
     func routeToBack()
 }
 
@@ -51,7 +51,7 @@ internal class ListJourneysRouter: NSObject, ListJourneysViewRoutingLogic, ListJ
         navigateToJourneySolutionRoadmap(source: viewController, destination: destinationVC)
     }
     
-    func routeToListPlaces(info: String) {
+    func routeToListPlaces(searchFieldType: SearchFieldType) {
         guard let viewController = viewController,
             let dataStore = dataStore,
             let destinationVC = viewController.storyboard?.instantiateViewController(withIdentifier: ListPlacesViewController.identifier) as? ListPlacesViewController,
@@ -60,7 +60,7 @@ internal class ListJourneysRouter: NSObject, ListJourneysViewRoutingLogic, ListJ
         }
 
         destinationVC.delegate = viewController
-        passDataToListPlaces(source: dataStore, destination: &destinationDS, info: info)
+        passDataToListPlaces(source: dataStore, destination: &destinationDS, searchFieldType: searchFieldType)
         navigateToListPlaces(source: viewController, destination: destinationVC)
     }
     
@@ -125,7 +125,7 @@ internal class ListJourneysRouter: NSObject, ListJourneysViewRoutingLogic, ListJ
         destination.context = source.context
     }
     
-    func passDataToListPlaces(source: ListJourneysDataStore, destination: inout ListPlacesDataStore, info: String) {
+    func passDataToListPlaces(source: ListJourneysDataStore, destination: inout ListPlacesDataStore, searchFieldType: SearchFieldType) {
         if let fromId = source.journeysRequest?.originId {
             destination.from = (label: source.journeysRequest?.originLabel,
                                 name: source.journeysRequest?.originName,
@@ -137,7 +137,7 @@ internal class ListJourneysRouter: NSObject, ListJourneysViewRoutingLogic, ListJ
                               id: toId)
         }
         
-        destination.info = info
+        destination.searchFieldType = searchFieldType
         destination.coverage = source.journeysRequest?.coverage
     }
     

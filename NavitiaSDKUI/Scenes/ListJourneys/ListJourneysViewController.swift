@@ -480,12 +480,14 @@ extension ListJourneysViewController: SearchViewDelegate {
         }
     }
     
-    func fromFieldClicked(q: String?) {
-        router?.routeToListPlaces(info: "from")
+    func fromFieldClicked(query: String?) {
+        searchView.endEditing(true)
+        router?.routeToListPlaces(searchFieldType: .from)
     }
     
-    func toFieldClicked(q: String?) {
-        router?.routeToListPlaces(info: "to")
+    func toFieldClicked(query: String?) {
+        searchView.endEditing(true)
+        router?.routeToListPlaces(searchFieldType: .to)
     }
 }
 

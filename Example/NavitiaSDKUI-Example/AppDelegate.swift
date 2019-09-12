@@ -22,13 +22,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         NavitiaSDKUI.shared.originColor = UIColor(red: 0, green: 187.0/255, blue: 117.0/255, alpha: 1)
         NavitiaSDKUI.shared.destinationColor = UIColor(red: 176.0/255, green: 3.0/255, blue: 83.0/255, alpha: 1)
         NavitiaSDKUI.shared.multiNetwork = true
-        NavitiaSDKUI.shared.addCustomIcons(bike: UIImage(named: "Velo")!,
-                                           bus: UIImage(named: "Bus")!,
-                                           car: UIImage(named: "Voiture")!,
-                                           taxi: UIImage(named: "Taxi")!,
-                                           train: UIImage(named: "Train")!,
-                                           destination: UIImage(named: "placeholder")!,
-                                           origin: UIImage(named: "compass")!)
         
         return true
     }

@@ -369,6 +369,7 @@
 		3192556221C7FED700CB11DD /* FriezeSectionView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FriezeSectionView.xib; sourceTree = "<group>"; };
 		31B3A82621C15FFB002EFF91 /* AlternativeJourneyView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AlternativeJourneyView.xib; sourceTree = "<group>"; };
 		31B3A82821C16008002EFF91 /* AlternativeJourneyView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlternativeJourneyView.swift; sourceTree = "<group>"; };
+		31B6E803232A3DE3002D8B02 /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/Localizable.strings; sourceTree = "<group>"; };
 		31EE0547214694BB00293B8B /* HorizontalSeparator.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HorizontalSeparator.xib; sourceTree = "<group>"; };
 		31EE0549214694CB00293B8B /* HorizontalSeparator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HorizontalSeparator.swift; sourceTree = "<group>"; };
 		31EF7C5B2153D3C300200AE0 /* UIAutoFilledLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIAutoFilledLabel.swift; sourceTree = "<group>"; };
@@ -1517,6 +1518,7 @@
 				en,
 				fr,
 				Base,
+				nl,
 			);
 			mainGroup = 8451DA30206503F100CFA1E4;
 			productRefGroup = 8451DA3B206503F100CFA1E4 /* Products */;
@@ -1902,6 +1904,7 @@
 			children = (
 				8451DA64206506ED00CFA1E4 /* en */,
 				8451DA66206506FD00CFA1E4 /* fr */,
+				31B6E803232A3DE3002D8B02 /* nl */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
