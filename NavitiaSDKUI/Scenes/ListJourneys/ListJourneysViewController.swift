@@ -590,15 +590,4 @@ extension ListJourneysViewController: JourneySolutionCollectionViewCellDelegate 
         } catch {
         }
     }
-    
-    // TODO: delete
-    private func getMokedTicketInputs() -> [TicketInput] {
-        let titi = Ride(from: "4.896701%3B52.373805",
-                        to: "4.760862%3B52.308896",
-                        departureDate: "20190421T095620",
-                        arrivalDate: "20190401T095620",
-                        ticketId: "45FSS")
-        let toto = TicketInput(productId: "3", ride: titi)
-        return [toto]
-    }
 }
