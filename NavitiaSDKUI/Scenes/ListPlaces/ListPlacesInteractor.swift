@@ -28,7 +28,7 @@ public protocol ListPlacesDataStore {
     var to: (label: String?, name: String?, id: String)? { get set }
 }
 
-public enum SearchFieldType {
+@objc public enum SearchFieldType: Int {
     
     case from
     case to
