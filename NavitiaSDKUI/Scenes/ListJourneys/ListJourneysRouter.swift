@@ -7,7 +7,7 @@
 
 import UIKit
 
-protocol ListJourneysViewRoutingLogic {
+@objc protocol ListJourneysViewRoutingLogic {
     
     func routeToListRidesharingOffers(indexPath: IndexPath)
     func routeToJourneySolutionRoadmap(indexPath: IndexPath)
