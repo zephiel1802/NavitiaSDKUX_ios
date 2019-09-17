@@ -13,7 +13,8 @@ import Foundation
         case luggage = "luggage"
         case wheelchair = "wheelchair"
         case standard = "standard"
-        case luggageAndWheelchair = "WHEELCHAIR"
+        case fast_walker = "fast_walker"
+        case slow_walker = "slow_walker"
         
         func stringValue() -> String {
             
@@ -55,7 +56,6 @@ import Foundation
     public var allowedPhysicalModes: [String]?
     public var debugURL: String?
     public var travelerType: TravelerType?
-    public var walkingSpeed: Speed?
     
     public init(coverage: String) {
         self.coverage = coverage

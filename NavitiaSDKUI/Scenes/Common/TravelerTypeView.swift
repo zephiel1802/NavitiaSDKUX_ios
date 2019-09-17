@@ -8,10 +8,17 @@
 import Foundation
 import UIKit
 
+protocol TravelerTypeDelegate {
+    func didTouch(travelerTypeView: TravelerTypeView)
+}
+
 class TravelerTypeView: UIView {
     
     @IBOutlet weak var typeName: UILabel!
-    @IBOutlet weak var typeIsOnSwitch: UISwitch!
+    @IBOutlet weak var pictoImageView: UIImageView!
+    @IBOutlet weak var pictoView: UIView!
+    
+    internal var delegate: TravelerTypeDelegate?
     
     internal var name: String? {
         didSet {
@@ -21,10 +28,19 @@ class TravelerTypeView: UIView {
         }
     }
     
-    internal var isOn: Bool? {
+    internal var image: UIImage? {
         didSet {
-            if let isOn = isOn {
-                typeIsOnSwitch.isOn = isOn
+            if let image = image {
+                pictoImageView.image = image
+            }
+        }
+    }
+    
+    internal var isOn: Bool = false {
+        didSet {
+            pictoImageView.tintColor = isOn ? Configuration.Color.main : Configuration.Color.shadow
+            if !isColorInverted {
+                pictoView.layer.borderColor = isOn ? Configuration.Color.main.cgColor : Configuration.Color.shadow.cgColor
             }
         }
     }
@@ -32,7 +48,6 @@ class TravelerTypeView: UIView {
     internal var isColorInverted: Bool = false {
         didSet {
             typeName.textColor = isColorInverted ? .white : .black
-            typeIsOnSwitch.onTintColor = isColorInverted ? .white : NavitiaSDKUI.shared.mainColor
         }
     }
     
@@ -40,11 +55,16 @@ class TravelerTypeView: UIView {
         super.awakeFromNib()
         
         typeName.textColor = isColorInverted ? .white : .black
-        typeIsOnSwitch.onTintColor = isColorInverted ? .white : NavitiaSDKUI.shared.mainColor
+        isOn = false
     }
     
     class func instanceFromNib() -> TravelerTypeView {
         
         return UINib(nibName: String(describing: self), bundle: NavitiaSDKUI.shared.bundle).instantiate(withOwner: nil, options: nil)[0] as! TravelerTypeView
+    }
+    
+    @IBAction func selectPictoAction(_ sender: Any) {
+        isOn = !isOn
+        delegate?.didTouch(travelerTypeView: self)
     }
 }

@@ -695,6 +695,7 @@
 		AC7EC0C223157FDA00A84D73 /* TravelerTypeView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TravelerTypeView.xib; sourceTree = "<group>"; };
 		AC7EC0CD231685A000A84D73 /* WalkingSpeedView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WalkingSpeedView.xib; sourceTree = "<group>"; };
 		AC7EC0CF231685A800A84D73 /* WalkingSpeedView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WalkingSpeedView.swift; sourceTree = "<group>"; };
+		AC8ED3F7232BD4B2004A6246 /* nl-NL */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "nl-NL"; path = "nl-NL.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		F65672F92209EAB9007A8E6E /* Debouncer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Debouncer.swift; sourceTree = "<group>"; };
 		F656ECB022FDB92E00557B8C /* MaasTicket.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaasTicket.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -1532,6 +1533,7 @@
 				en,
 				fr,
 				Base,
+				"nl-NL",
 			);
 			mainGroup = 8451DA30206503F100CFA1E4;
 			productRefGroup = 8451DA3B206503F100CFA1E4 /* Products */;
@@ -1922,6 +1924,7 @@
 			children = (
 				8451DA64206506ED00CFA1E4 /* en */,
 				8451DA66206506FD00CFA1E4 /* fr */,
+				AC8ED3F7232BD4B2004A6246 /* nl-NL */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";

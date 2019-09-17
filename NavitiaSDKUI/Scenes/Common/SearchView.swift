@@ -221,34 +221,51 @@ class SearchView: UIView, UITextFieldDelegate {
     
     private func setupTravelTypeView() {
         travelTypeSubtitleView = SubtitleView.instanceFromNib()
-        travelTypeSubtitleView.subtitle = "Traveler type"
+        travelTypeSubtitleView.subtitle = "about_you".localized()
         travelTypeSubtitleView.isColorInverted = true
         stackView.addArrangedSubview(travelTypeSubtitleView)
         travelTypeSubtitleView.isHidden = true
         
-        luggageTypeView = TravelerTypeView.instanceFromNib()
-        luggageTypeView.name = JourneysRequest.TravelerType.luggage.stringValue()
-        luggageTypeView.isOn = luggageTravelTypeIsOn
-        luggageTypeView.isColorInverted = true
-        stackView.addArrangedSubview(luggageTypeView)
-        luggageTypeView.isHidden = true
-        
         wheelchairTypeView = TravelerTypeView.instanceFromNib()
-        wheelchairTypeView.name = JourneysRequest.TravelerType.wheelchair.stringValue()
+        wheelchairTypeView.name = "wheelchair".localized()
+        wheelchairTypeView.image = UIImage(named: "wheelchair",
+                                           in: NavitiaSDKUI.shared.bundle,
+                                           compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
+        wheelchairTypeView.delegate = self
         wheelchairTypeView.isOn = wheelchairTravelTypeIsOn
         wheelchairTypeView.isColorInverted = true
         stackView.addArrangedSubview(wheelchairTypeView)
         wheelchairTypeView.isHidden = true
+        
+        luggageTypeView = TravelerTypeView.instanceFromNib()
+        luggageTypeView.name = "luggage".localized()
+        luggageTypeView.image = UIImage(named: "luggage",
+                                        in: NavitiaSDKUI.shared.bundle,
+                                        compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
+        luggageTypeView.delegate = self
+        luggageTypeView.isOn = luggageTravelTypeIsOn
+        luggageTypeView.isColorInverted = true
+        stackView.addArrangedSubview(luggageTypeView)
+        luggageTypeView.isHidden = true
     }
     
     private func setupWalkingSpeedView() {
         walkingSpeedSubtitleView = SubtitleView.instanceFromNib()
-        walkingSpeedSubtitleView.subtitle = "Walking speed"
+        walkingSpeedSubtitleView.subtitle = "walking_pace".localized()
         walkingSpeedSubtitleView.isColorInverted = true
         stackView.addArrangedSubview(walkingSpeedSubtitleView)
         walkingSpeedSubtitleView.isHidden = true
         
         walkingSpeedView = WalkingSpeedView.instanceFromNib()
+        walkingSpeedView.slowImage = UIImage(named: "slow-walking",
+                                             in: NavitiaSDKUI.shared.bundle,
+                                             compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
+        walkingSpeedView.mediumImage = UIImage(named: "normal-walking",
+                                               in: NavitiaSDKUI.shared.bundle,
+                                               compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
+        walkingSpeedView.fastImage = UIImage(named: "fast-walking",
+                                             in: NavitiaSDKUI.shared.bundle,
+                                             compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
         walkingSpeedView.speed = walkingSpeed
         walkingSpeedView.isColorInverted = true
         stackView.addArrangedSubview(walkingSpeedView)
@@ -518,4 +535,22 @@ class SearchView: UIView, UITextFieldDelegate {
         toClearButton.isHidden = true
     }
     
+}
+
+extension SearchView: TravelerTypeDelegate {
+    
+    func didTouch(travelerTypeView: TravelerTypeView) {
+        if travelerTypeView == wheelchairTypeView && wheelchairTypeView.isOn {
+            walkingSpeedView.isActive = false
+            walkingSpeedView.speed = .slow
+            luggageTypeView.isOn = false
+        } else if travelerTypeView == luggageTypeView && luggageTypeView.isOn {
+            walkingSpeedView.isActive = false
+            walkingSpeedView.speed = .medium
+            wheelchairTypeView.isOn = false
+        } else {
+            walkingSpeedView.isActive = true
+            walkingSpeedView.speed = .medium
+        }
+    }
 }

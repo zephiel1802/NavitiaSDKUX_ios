@@ -102,11 +102,33 @@ open class ListJourneysViewController: UIViewController, ListJourneysDisplayLogi
             searchView.transportModeView.updateSelectedButton(selectedButton: modeTransportViewSelected)
         }
         if let travelerType = interactor?.journeysRequest?.travelerType {
-            searchView.luggageTravelTypeIsOn = travelerType == .luggageAndWheelchair || travelerType == .luggage
-            searchView.wheelchairTravelTypeIsOn = travelerType == .luggageAndWheelchair || travelerType == .wheelchair
-        }
-        if let walkingSpeed = interactor?.journeysRequest?.walkingSpeed {
-            searchView.walkingSpeed = walkingSpeed
+            switch travelerType {
+            case .wheelchair:
+                searchView.wheelchairTravelTypeIsOn = true
+                searchView.luggageTravelTypeIsOn = false
+                searchView.walkingSpeedView.isActive = false
+                searchView.walkingSpeedView.speed = .slow
+            case .luggage:
+                searchView.wheelchairTravelTypeIsOn = false
+                searchView.luggageTravelTypeIsOn = true
+                searchView.walkingSpeedView.isActive = false
+                searchView.walkingSpeedView.speed = .medium
+            case .slow_walker:
+                searchView.wheelchairTravelTypeIsOn = false
+                searchView.luggageTravelTypeIsOn = false
+                searchView.walkingSpeedView.isActive = true
+                searchView.walkingSpeedView.speed = .slow
+            case .standard:
+                searchView.wheelchairTravelTypeIsOn = false
+                searchView.luggageTravelTypeIsOn = false
+                searchView.walkingSpeedView.isActive = true
+                searchView.walkingSpeedView.speed = .medium
+            case .fast_walker:
+                searchView.wheelchairTravelTypeIsOn = false
+                searchView.luggageTravelTypeIsOn = false
+                searchView.walkingSpeedView.isActive = true
+                searchView.walkingSpeedView.speed = .fast
+            }
         }
         searchView.dateFormView.dateTimeRepresentsSegmentedControl = interactor?.journeysRequest?.datetimeRepresents?.rawValue
     }
@@ -544,6 +566,21 @@ extension ListJourneysViewController: SearchButtonViewDelegate {
                     } else if mode == "car" {
                         interactor?.journeysRequest?.addPoiInfos?.append(.carPark)
                     }
+                }
+            }
+            
+            if searchView.wheelchairTypeView.isOn {
+                interactor?.journeysRequest?.travelerType = .wheelchair
+            } else if searchView.luggageTypeView.isOn {
+                interactor?.journeysRequest?.travelerType = .luggage
+            } else {
+                switch searchView.walkingSpeedView.speed {
+                case .slow:
+                    interactor?.journeysRequest?.travelerType = .slow_walker
+                case .medium:
+                    interactor?.journeysRequest?.travelerType = .standard
+                case .fast:
+                    interactor?.journeysRequest?.travelerType = .fast_walker
                 }
             }
             
