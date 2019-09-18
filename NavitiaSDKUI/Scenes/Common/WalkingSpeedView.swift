@@ -74,7 +74,6 @@ class WalkingSpeedView: UIView {
     }
     
     class func instanceFromNib() -> WalkingSpeedView {
-        
         return UINib(nibName: String(describing: self), bundle: NavitiaSDKUI.shared.bundle).instantiate(withOwner: nil, options: nil)[0] as! WalkingSpeedView
     }
     

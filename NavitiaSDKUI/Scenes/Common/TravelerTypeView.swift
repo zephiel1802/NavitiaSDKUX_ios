@@ -59,7 +59,6 @@ class TravelerTypeView: UIView {
     }
     
     class func instanceFromNib() -> TravelerTypeView {
-        
         return UINib(nibName: String(describing: self), bundle: NavitiaSDKUI.shared.bundle).instantiate(withOwner: nil, options: nil)[0] as! TravelerTypeView
     }
     

@@ -33,7 +33,6 @@ class SubtitleView: UIView {
     }
     
     class func instanceFromNib() -> SubtitleView {
-        
         return UINib(nibName: String(describing: self), bundle: NavitiaSDKUI.shared.bundle).instantiate(withOwner: nil, options: nil)[0] as! SubtitleView
     }
 }

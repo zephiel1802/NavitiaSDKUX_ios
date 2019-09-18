@@ -17,7 +17,6 @@ import Foundation
         case slow_walker = "slow_walker"
         
         func stringValue() -> String {
-            
             return self.rawValue.lowercased()
         }
     }
@@ -28,7 +27,6 @@ import Foundation
         case fast = 1.78
         
         func doubleValue() -> Double {
-            
             return self.rawValue
         }
     }
