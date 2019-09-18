@@ -9,6 +9,7 @@ import Foundation
 import UIKit
 
 public struct PricedTicket: Codable {
+    
     let productId: Int
     let name: String
     let price: Double?
@@ -19,11 +20,11 @@ public struct PricedTicket: Codable {
     
     enum CodingKeys : String, CodingKey {
         case productId = "id_product"
-        case name = "name"
-        case price = "price"
+        case name
+        case price
         case priceWithTax = "price_with_tax"
         case taxRate = "taxe_rate"
-        case currency = "currency"
+        case currency
         case ticketId = "ticket_id"
     }
 }

@@ -83,7 +83,7 @@ class ConfigurationViewController: UIViewController, UIPickerViewDelegate, UIPic
     private func getListJourneysViewController() -> UIViewController? {
         NavitiaSDKUI.shared.formJourney = false
         
-        guard let journeyResultsViewController = NavitiaSDKUI.shared.rootViewController else {
+        guard var journeyResultsViewController = NavitiaSDKUI.shared.rootViewController else {
             return nil
         }
         
@@ -138,7 +138,7 @@ class ConfigurationViewController: UIViewController, UIPickerViewDelegate, UIPic
         NavitiaSDKUI.shared.modeForm = [metroButton, busButton, rerButton, tramButton,
                                         trainButton, navetteButton, bikeButton, vlsButton, carButton]
         
-        guard let journeyResultsViewController = NavitiaSDKUI.shared.rootViewController else {
+        guard var journeyResultsViewController = NavitiaSDKUI.shared.rootViewController else {
             return nil
         }
         

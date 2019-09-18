@@ -40,7 +40,7 @@ class FriezeSectionView: UIView {
     }
     var hasBadge: Bool = false {
         didSet {
-                setupDisruption()
+            setupDisruption()
         }
     }
     

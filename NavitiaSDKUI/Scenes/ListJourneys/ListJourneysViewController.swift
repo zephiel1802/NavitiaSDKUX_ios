@@ -14,7 +14,7 @@ protocol ListJourneysDisplayLogic: class {
     func displayFetchedJourneys(viewModel: ListJourneys.FetchJourneys.ViewModel)
 }
 
-public protocol ListJourneysDisplayPriceLogic: class {
+public protocol journeyPriceDelegate: class {
     
     func requestPrice(ticketInputData: Data, callback:  @escaping ((_ ticketPriceDictionary: [[String: Any]]) -> ()))
 }
@@ -24,7 +24,7 @@ public class ListJourneysViewController: UIViewController, ListJourneysDisplayLo
     @IBOutlet weak var searchView: SearchView!
     @IBOutlet weak var journeysCollectionView: UICollectionView!
     
-    public var delegate: ListJourneysDisplayPriceLogic?
+    public var delegate: journeyPriceDelegate?
     public var journeysRequest: JourneysRequest?
     internal var interactor: ListJourneysBusinessLogic?
     internal var router: (NSObjectProtocol & ListJourneysViewRoutingLogic & ListJourneysDataPassing)?
@@ -323,10 +323,13 @@ extension ListJourneysViewController: UICollectionViewDataSource, UICollectionVi
                 cell.walkingDescription = viewModel.walkingInformation
                 cell.accessibility = viewModel.accessibility
                 cell.friezeSections = viewModel.friezeSections
-                cell.unsupportedSectionIdList = viewModel.unbookableSectionIdList
-                cell.unexpectedErrorTicketIdList = viewModel.unexpectedErrorTicketIdList
-                cell.ticketInputs = viewModel.ticketsInput
-                cell.navitiaPricedTickets = viewModel.pricedTicket
+                
+                if delegate != nil {
+                    cell.unsupportedSectionIdList = viewModel.unbookableSectionIdList
+                    cell.unexpectedErrorTicketIdList = viewModel.unexpectedErrorTicketIdList
+                    cell.ticketInputs = viewModel.ticketsInput
+                    cell.navitiaPricedTickets = viewModel.pricedTicket
+                }
                 
                 return cell
             }
@@ -394,7 +397,7 @@ extension ListJourneysViewController: UICollectionViewDataSource, UICollectionVi
         
         if viewModel.loaded {
             if let cell = collectionView.cellForItem(at: indexPath) as? JourneySolutionCollectionViewCell,
-                cell.hermaasPricedTickets != nil {
+                delegate != nil, cell.isLoaded {
                 selector = NSSelectorFromString("routeToJourneySolutionRoadmapWithIndexPath:")
             } else if indexPath.section == 1 && viewModel.displayedRidesharings.count > indexPath.row - 1 && indexPath.row != 0 {
                 selector = NSSelectorFromString("routeToListRidesharingOffersWithIndexPath:")
@@ -580,14 +583,17 @@ extension ListJourneysViewController: JourneySolutionCollectionViewCellDelegate 
                     for response in ticketPriceDictionary {
                         let pricedTicketData = try JSONSerialization.data(withJSONObject: response, options: .prettyPrinted)
                         let pricedTicket = try JSONDecoder().decode(PricedTicket.self, from: pricedTicketData)
+                        
                         pricedTicketList.append(pricedTicket)
                     }
+                    
                     callback(pricedTicketList)
                 } catch {
-                    
+                    callback([])
                 }
             })
         } catch {
+            callback([])
         }
     }
 }

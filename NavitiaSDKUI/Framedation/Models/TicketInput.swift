@@ -9,16 +9,18 @@ import Foundation
 import UIKit
 
 public struct TicketInput: Codable {
+   
     let productId: String
     let ride: Ride
     
     enum CodingKeys : String, CodingKey {
         case productId = "id_product"
-        case ride = "ride"
+        case ride
     }
 }
 
 public struct Ride: Codable {
+   
     let from: String
     let to: String
     let departureDate: String
@@ -26,8 +28,8 @@ public struct Ride: Codable {
     let ticketId: String
     
     enum CodingKeys : String, CodingKey {
-        case from = "from"
-        case to = "to"
+        case from
+        case to
         case departureDate = "datetime_departure"
         case arrivalDate = "datetime_arrival"
         case ticketId = "ticket_id"

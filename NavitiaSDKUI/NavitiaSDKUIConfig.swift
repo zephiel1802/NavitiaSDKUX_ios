@@ -10,7 +10,7 @@ import Foundation
 public protocol JourneyRootViewController {
     
     var journeysRequest: JourneysRequest? { get set }
-    var delegate: ListJourneysDisplayPriceLogic? { get set }
+    var delegate: journeyPriceDelegate? { get set }
 }
 
 @objc public class NavitiaSDKUI: NSObject {
@@ -122,7 +122,6 @@ public protocol JourneyRootViewController {
     }
     
     public var sourceIds: [String:String]?
-    
     public var rootViewController: JourneyRootViewController? {
         get {
             let storyboard = UIStoryboard(name: "Journey", bundle: bundle)

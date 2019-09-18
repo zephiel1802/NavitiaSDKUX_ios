@@ -28,12 +28,12 @@ protocol ListJourneysDataStore {
     var disruptions: [Disruption]? { get }
     var notes: [Note]? { get }
     var context: Context? { get }
-    var delegate: ListJourneysDisplayPriceLogic? { get set }
+    var delegate: journeyPriceDelegate? { get set }
 }
 
 internal class ListJourneysInteractor: ListJourneysBusinessLogic, ListJourneysDataStore {
     
-    var delegate: ListJourneysDisplayPriceLogic?
+    var delegate: journeyPriceDelegate?
     var presenter: ListJourneysPresentationLogic?
     var navitiaWorker = NavitiaWorker()
     var journeysRequest: JourneysRequest?
@@ -120,7 +120,8 @@ internal class ListJourneysInteractor: ListJourneysBusinessLogic, ListJourneysDa
             
             let response = ListJourneys.FetchJourneys.Response(journeysRequest: journeysRequest,
                                                                journeys: (journeys, withRidesharing: ridesharings),
-                                                               tickets: tickets, disruptions: disruptions)
+                                                               tickets: tickets,
+                                                               disruptions: disruptions)
             
             self.presenter?.presentFetchedJourneys(response: response)
         }

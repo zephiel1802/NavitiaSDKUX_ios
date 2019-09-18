@@ -14,6 +14,13 @@ protocol JourneySolutionCollectionViewCellDelegate {
 
 class JourneySolutionCollectionViewCell: UICollectionViewCell {
     
+    private enum PriceState {
+        case no_price
+        case full_price
+        case incomplete_price
+        case unavailable_price
+    }
+    
     @IBOutlet weak var accessiblityView: UIView!
     @IBOutlet weak var dateTimeLabel: UILabel!
     @IBOutlet weak var durationLabel: UILabel!
@@ -23,12 +30,12 @@ class JourneySolutionCollectionViewCell: UICollectionViewCell {
     @IBOutlet var durationTopContraint: NSLayoutConstraint!
     @IBOutlet var durationBottomContraint: NSLayoutConstraint!
     @IBOutlet var durationLeadingContraint: NSLayoutConstraint!
-    @IBOutlet weak var loadingView: UIView!
     @IBOutlet weak var priceView: UIView!
     @IBOutlet weak var priceLabel: UILabel!
     @IBOutlet weak var fromLabel: UILabel!
     @IBOutlet weak var priceLabelCenterYConstraint: NSLayoutConstraint!
     @IBOutlet weak var PriceUnavailableLabel: UILabel!
+    @IBOutlet weak var loadingActivityIndicatorView: UIActivityIndicatorView!
     
     public var journeySolutionDelegate: JourneySolutionCollectionViewCellDelegate?
     private var walkingInformationIsHidden: Bool = false {
@@ -76,22 +83,21 @@ class JourneySolutionCollectionViewCell: UICollectionViewCell {
             updateJourneySummaryView()
         }
     }
-    private var isLoaded = false
+    var isLoaded = false
     internal var unsupportedSectionIdList: [String]?
     internal var unexpectedErrorTicketIdList: [String]?
     internal var ticketInputs: [TicketInput]? {
         didSet {
-            if let ticketInputList = ticketInputs, isLoaded == false {
-                if ticketInputList.count > 0 {
+            if let ticketInputList = ticketInputs, !isLoaded {
+                if ticketInputList.count > 0, journeySolutionDelegate != nil {
                     hermaasPricedTickets = nil
-                    journeySolutionDelegate?.getPrice(ticketsInputList: ticketInputList, callback: { (pricedTicketList) in
+                    load(true)
+                    journeySolutionDelegate!.getPrice(ticketsInputList: ticketInputList, callback: { (pricedTicketList) in
                         self.hermaasPricedTickets = pricedTicketList
                     })
                 } else {
                     DispatchQueue.main.async {
-                        self.loadingView.alpha = 0
-                        self.loadingView.isHidden = true
-                        self.isLoaded = true
+                        self.load(false)
                         self.totalPrice()
                     }
                 }
@@ -102,12 +108,9 @@ class JourneySolutionCollectionViewCell: UICollectionViewCell {
         didSet {
             DispatchQueue.main.async {
                 if self.navitiaPricedTickets != nil && self.ticketInputs == nil {
-                    self.loadingView.alpha = 0
-                    self.loadingView.isHidden = true
-                    self.isLoaded = true
+                    self.load(false)
                 } else if !self.isLoaded {
-                    self.loadingView.alpha = 0.7
-                    self.loadingView.isHidden = false
+                    self.load(true)
                 }
                 
                 self.totalPrice()
@@ -118,12 +121,9 @@ class JourneySolutionCollectionViewCell: UICollectionViewCell {
         didSet {
             DispatchQueue.main.async {
                 if self.hermaasPricedTickets != nil {
-                    self.loadingView.alpha = 0
-                    self.loadingView.isHidden = true
-                    self.isLoaded = true
+                    self.load(false)
                 } else if !self.isLoaded {
-                    self.loadingView.alpha = 0.7
-                    self.loadingView.isHidden = false
+                    self.load(true)
                 }
                 
                 self.totalPrice()
@@ -193,56 +193,60 @@ class JourneySolutionCollectionViewCell: UICollectionViewCell {
         if tickets.count == 0 {
             // No tickets found
             if isPriceMissing && isLoaded {
-                priceView.isHidden = false
-                fromLabel.isHidden = true
-                priceLabel.isHidden = true
-                PriceUnavailableLabel.isHidden = false
+                updatePriceDisplaying(state: .unavailable_price, price: nil)
                 
                 // Only free sections like walking
             } else {
-                priceView.isHidden = true
+                updatePriceDisplaying(state: .no_price, price: nil)
             }
         } else {
-            priceView.isHidden = false
-            priceLabel.isHidden = false
-            priceLabel.text = String(format: "price".localized(), totalPrice)
-            
-            // Uncompleted price
+            // incompleted price
             if isPriceMissing {
-                fromLabel.text = "from".localized()
-                fromLabel.isHidden = false
-                priceLabelCenterYConstraint.priority = UILayoutPriority.init(rawValue: 250)
+                updatePriceDisplaying(state: .incomplete_price, price: totalPrice)
                 
                 // completed price
             } else {
-                fromLabel.isHidden = true
-                priceLabelCenterYConstraint.priority = UILayoutPriority.init(rawValue: 999)
+                updatePriceDisplaying(state: .full_price, price: totalPrice)
             }
         }
+        
         updateJourneySummaryView()
     }
     
+    private func load(_ startAnimating: Bool) {
+        if startAnimating {
+            loadingActivityIndicatorView.startAnimating()
+        } else {
+            loadingActivityIndicatorView.stopAnimating()
+        }
+        
+        loadingActivityIndicatorView.isHidden = !startAnimating
+        isLoaded = !startAnimating
+    }
+    
     internal func updateJourneySummaryView() {
-        var updatedFriezeSections: [FriezePresenter.FriezeSection] = []
-        var errorTicketIdList: [String] = []
+        var updatedFriezeSections = [FriezePresenter.FriezeSection]()
+        var errorTicketIdList = [String]()
         
         if isLoaded {
             if let unexpectedErrorTicketIdList = unexpectedErrorTicketIdList {
                 errorTicketIdList.append(contentsOf: unexpectedErrorTicketIdList)
             }
             
-            for ticket in (ticketInputs ?? []) {
-                if !(hermaasPricedTickets ?? []).contains(where: { (hermaasTicket) -> Bool in
-                    return hermaasTicket.ticketId == ticket.ride.ticketId
-                }) {
-                    errorTicketIdList.append(ticket.ride.ticketId)
+            if let ticketInputs = ticketInputs, let hermaasPricedTickets = hermaasPricedTickets {
+                for ticket in ticketInputs {
+                    if !hermaasPricedTickets.contains(where: { (hermaasTicket) -> Bool in
+                        return hermaasTicket.ticketId == ticket.ride.ticketId
+                    }) {
+                        errorTicketIdList.append(ticket.ride.ticketId)
+                    }
                 }
             }
         }
         
         for friezeSection in friezeSections {
             var updatedFriezeSection = friezeSection
-            if errorTicketIdList.contains(friezeSection.ticketId ??  "") {
+            if let ticketId = friezeSection.ticketId, errorTicketIdList.contains(ticketId) {
                 updatedFriezeSection.hasBadge = true
             }
             
@@ -250,5 +254,41 @@ class JourneySolutionCollectionViewCell: UICollectionViewCell {
         }
         
         friezeView.addSection(friezeSections: updatedFriezeSections)
+    }
+    
+    private func updatePriceDisplaying(state: PriceState, price: Double?) {
+        switch state {
+        case .no_price:
+            priceView.isHidden = true
+            
+        case .full_price:
+            if let price = price {
+                priceView.isHidden = false
+                priceLabel.isHidden = false
+                priceLabel.text = String(format: "price".localized(), price)
+                fromLabel.isHidden = true
+                priceLabelCenterYConstraint.priority = UILayoutPriority.defaultHigh + 1
+            } else {
+                updatePriceDisplaying(state: .unavailable_price, price: nil)
+            }
+            
+        case .incomplete_price:
+            if let price = price {
+                priceView.isHidden = false
+                priceLabel.isHidden = false
+                priceLabel.text = String(format: "price".localized(), price)
+                fromLabel.text = "from".localized()
+                fromLabel.isHidden = false
+                priceLabelCenterYConstraint.priority = UILayoutPriority.defaultLow
+            } else {
+                updatePriceDisplaying(state: .unavailable_price, price: nil)
+            }
+            
+        case .unavailable_price:
+            priceView.isHidden = false
+            fromLabel.isHidden = true
+            priceLabel.isHidden = true
+            PriceUnavailableLabel.isHidden = false
+        }
     }
 }
