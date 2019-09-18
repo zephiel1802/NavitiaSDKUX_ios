@@ -70,10 +70,16 @@ open class ListJourneysViewController: UIViewController, ListJourneysDisplayLogi
         reloadCollectionViewLayout()
     }
     
-    override open func viewDidAppear(_ animated: Bool) {
+    override open func viewWillAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         searchView.fromTextField.resignFirstResponder()
         searchView.toTextField.resignFirstResponder()
+        
+        if interactor?.journeysRequest?.originId == nil {
+            searchView.fromTextField.becomeFirstResponder()
+        } else if interactor?.journeysRequest?.destinationId == nil {
+            searchView.toTextField.becomeFirstResponder()
+        }
     }
     
     private func initArchitecture() {
@@ -149,7 +155,7 @@ open class ListJourneysViewController: UIViewController, ListJourneysDisplayLogi
         searchView.toTextField.text = viewModel.toName
         
         searchView.dateTime = viewModel.dateTime
-        searchView.lock = !NavitiaSDKUI.shared.formJourney
+        searchView.lock = !NavitiaSDKUI.shared.advancedSearchMode
         searchView.dateFormView.date = viewModel.date
         searchView.isAccessibilityElement = false
         

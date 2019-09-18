@@ -115,7 +115,7 @@ class SearchView: UIView, UITextFieldDelegate {
             fromTextField.isEnabled = !lock
             toTextField.isEnabled = !lock
             dateButton.isEnabled = !lock
-            preferenceButton.isHidden = lock
+            managePreferencesButtonVisibility(lock)
         }
     }
     internal var singleFieldConfiguration: Bool = false {
@@ -193,6 +193,13 @@ class SearchView: UIView, UITextFieldDelegate {
         setupClearButtons()
     }
     
+    private func managePreferencesButtonVisibility(_ isHidden: Bool) {
+        preferencesIconImageView.isHidden = isHidden
+        preferencesLabel.isHidden = isHidden
+        preferencesArrowIconImageView.isHidden = isHidden
+        preferenceButton.isHidden = isHidden
+    }
+    
     private func setupClearButtons() {
         fromClearButton.isHidden = true
         fromClearButton.accessibilityLabel = "clear_departure".localized()
@@ -252,7 +259,7 @@ class SearchView: UIView, UITextFieldDelegate {
         dateLabel.text = dateTime
         dateLabel.textColor = Configuration.Color.main.contrastColor()
         
-        if NavitiaSDKUI.shared.formJourney {
+        if NavitiaSDKUI.shared.advancedSearchMode {
             dateArrowIconImageView.image = isDateShown ? "arrow_up".getIcon() : "arrow_down".getIcon()
             dateArrowIconImageView.tintColor = Configuration.Color.main.contrastColor()
         } else {
