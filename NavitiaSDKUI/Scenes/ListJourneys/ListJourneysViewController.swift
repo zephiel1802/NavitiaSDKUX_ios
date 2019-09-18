@@ -14,7 +14,7 @@ protocol ListJourneysDisplayLogic: class {
     func displayFetchedJourneys(viewModel: ListJourneys.FetchJourneys.ViewModel)
 }
 
-public protocol journeyPriceDelegate: class {
+public protocol JourneyPriceDelegate: class {
     
     func requestPrice(ticketInputData: Data, callback:  @escaping ((_ ticketPriceDictionary: [[String: Any]]) -> ()))
 }
@@ -24,7 +24,7 @@ public class ListJourneysViewController: UIViewController, ListJourneysDisplayLo
     @IBOutlet weak var searchView: SearchView!
     @IBOutlet weak var journeysCollectionView: UICollectionView!
     
-    public var delegate: journeyPriceDelegate?
+    public var delegate: JourneyPriceDelegate?
     public var journeysRequest: JourneysRequest?
     internal var interactor: ListJourneysBusinessLogic?
     internal var router: (NSObjectProtocol & ListJourneysViewRoutingLogic & ListJourneysDataPassing)?
