@@ -102,6 +102,17 @@ import Foundation
         }
         set {
             Configuration.formJourney = newValue
+            if newValue {
+                advancedSearchMode = true
+            }
+        }
+    }
+    @objc public var advancedSearchMode: Bool {
+        get {
+            return Configuration.autocompleteEnabled
+        }
+        set {
+            Configuration.autocompleteEnabled = newValue
         }
     }
     
@@ -180,6 +191,7 @@ enum Configuration {
     
     static var multiNetwork = false
     static var formJourney = false
+    static var autocompleteEnabled = false
     
     // Color
     enum Color {

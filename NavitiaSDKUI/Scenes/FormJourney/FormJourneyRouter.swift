@@ -53,12 +53,17 @@ class FormJourneyRouter: NSObject, FormJourneyRoutingLogic, FormJourneyDataPassi
     // MARK: Navigation
     
     func navigateToListJourneys(source: FormJourneyViewController, destination: ListJourneysViewController) {
-        let navigationController = UINavigationController(rootViewController: destination)
+        if let navigationController = source.navigationController {
+            navigationController.pushViewController(destination, animated: true)
+        } else {
+            let navigationController = UINavigationController(rootViewController: destination)
+            
+            navigationController.modalTransitionStyle = .crossDissolve
+            navigationController.modalPresentationStyle = .overCurrentContext
+            
+            source.present(navigationController, animated: true, completion: nil)
+        }
         
-        navigationController.modalTransitionStyle = .crossDissolve
-        navigationController.modalPresentationStyle = .overCurrentContext
-        
-        source.present(navigationController, animated: true, completion: nil)
     }
     
     func navigateToListPlaces(source: FormJourneyViewController, destination: ListPlacesViewController) {
