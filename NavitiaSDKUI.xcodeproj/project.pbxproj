@@ -308,7 +308,6 @@
 		84C82F5622083FC500FE3F1D /* ListPlacesPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C82F4C22083FC400FE3F1D /* ListPlacesPresenter.swift */; };
 		84C82F5822083FC500FE3F1D /* ListPlacesInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C82F4E22083FC400FE3F1D /* ListPlacesInteractor.swift */; };
 		84C82F5922083FC500FE3F1D /* ListPlacesModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C82F4F22083FC400FE3F1D /* ListPlacesModels.swift */; };
-		84C82F6922083FD000FE3F1D /* ModeTransportView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84C82F5C22083FD000FE3F1D /* ModeTransportView.xib */; };
 		84C82F6A22083FD000FE3F1D /* SearchButtonView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84C82F5D22083FD000FE3F1D /* SearchButtonView.xib */; };
 		84C82F6B22083FD000FE3F1D /* DateFormView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84C82F5E22083FD000FE3F1D /* DateFormView.xib */; };
 		84C82F6C22083FD000FE3F1D /* FormJourneyInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C82F5F22083FD000FE3F1D /* FormJourneyInteractor.swift */; };
@@ -1583,7 +1582,6 @@
 				84339A7E206CC5E200F2CB65 /* JourneyEmptySolutionCollectionViewCell.xib in Resources */,
 				317D6C78211091CE00F36242 /* StepByStepItemView.xib in Resources */,
 				8451DA63206506ED00CFA1E4 /* Localizable.strings in Resources */,
-				84C82F6922083FD000FE3F1D /* ModeTransportView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
