@@ -11,7 +11,7 @@ import CoreLocation
 
 @objc public protocol ShowJourneyRoadmapDelegate: class {
     
-    @objc func viewTicketClicked(index: Int)
+    @objc func viewTicketClicked(maasTicketId: Int, maasTicketsJson: String)
 }
 
 protocol ShowJourneyRoadmapDisplayLogic: class {
@@ -57,9 +57,14 @@ public class ShowJourneyRoadmapViewController: UIViewController {
     override public func viewDidLoad() {
         super.viewDidLoad()
         
-        self.setTitle(title: "roadmap".localized())
-
+        if let titlesConfig = Configuration.titlesConfig, let roadmapTitle = titlesConfig.roadmapTitle {
+            self.setTitle(title: roadmapTitle)
+        } else {
+            self.setTitle(title: "roadmap".localized())
+        }
+        
         initLocation()
+        displayCenterMapButton()
         getMap()
     }
 
@@ -77,6 +82,8 @@ public class ShowJourneyRoadmapViewController: UIViewController {
     override public func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
 
+        self.view.layoutIfNeeded()
+        
         startUpdatingUserLocation()
 
         refreshFetchBss(run: true)
@@ -277,7 +284,8 @@ public class ShowJourneyRoadmapViewController: UIViewController {
         publicTransportView.updateAccessibility()
         
         if ticket.shouldShowTicket {
-            publicTransportView.ticketViewConfig = (isTicketAvailable: section.hasAvailableTicket,
+            publicTransportView.ticketViewConfig = (availableTicketId: section.availableTicketId,
+                                                    maasTicketsJson: section.maasTicketsJson,
                                                     viewTicketLocalized: ticket.viewTicketLocalized,
                                                     ticketNotAvailableLocalized: ticket.ticketNotAvailableLocalized)
         }
@@ -530,13 +538,11 @@ extension ShowJourneyRoadmapViewController {
     private func initMapView() {
         mapView.showsUserLocation = true
         mapView.accessibilityElementsHidden = true
-        
-        displayCenterMapButton()
     }
     
     private func displayCenterMapButton() {
         centerMapButton.backgroundColor = Configuration.Color.secondary
-        centerMapButton.setImage(UIImage(named: "location", in: NavitiaSDKUI.shared.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate), for: .normal)
+        centerMapButton.setImage("location".getIcon(), for: .normal)
         centerMapButton.tintColor = Configuration.Color.white
         centerMapButton.imageEdgeInsets = UIEdgeInsets(top: 8, left: 6, bottom: 6, right: 8)
         centerMapButton.setShadow(color: Configuration.Color.shadow.cgColor,
@@ -735,7 +741,11 @@ extension ShowJourneyRoadmapViewController: AlternativeJourneyDelegate {
 
 extension ShowJourneyRoadmapViewController: PublicTransportStepViewDelegate {
     
-    public func viewTicketClicked(index: Int) {
-        delegate?.viewTicketClicked(index: index)
+    public func viewTicketClicked(maasTicketId: Int, maasTicketsJson: String) {
+        delegate?.viewTicketClicked(maasTicketId: maasTicketId, maasTicketsJson: maasTicketsJson)
+    }
+    
+    public func showError() {
+        // TODO: show popin error
     }
 }

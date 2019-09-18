@@ -65,7 +65,7 @@ class ListRidesharingOffersPresenter: ListRidesharingOffersPresentationLogic {
         for journey in ridesharingJourneys {
             if let ridesharingSection = getRidesharingSection(ridesharingJourney: journey) {
                 let network = ridesharingSection.ridesharingInformations?.network ?? ""
-                let departure = ridesharingSection.departureDateTime?.toDate(format: Configuration.date)?.toString(format: Configuration.timeRidesharing) ?? ""
+                let departure = ridesharingSection.departureDateTime?.toDate(format: Configuration.datetime)?.toString(format: Configuration.timeRidesharing) ?? ""
                 let driverPictureURL = ridesharingSection.ridesharingInformations?.driver?.image ?? ""
                 let driverNickname = ridesharingSection.ridesharingInformations?.driver?.alias ?? ""
                 let driverGender = ridesharingSection.ridesharingInformations?.driver?.gender?.rawValue ?? ""

@@ -152,7 +152,8 @@ enum ShowJourneyRoadmap {
                 var realTime: Bool
                 var background: Bool
                 var section: Section
-                var hasAvailableTicket: Bool
+                var availableTicketId: Int?
+                var maasTicketsJson: String?
             }
             
             struct Frieze {

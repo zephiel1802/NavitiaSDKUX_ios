@@ -46,7 +46,11 @@ class FormJourneyViewController: UIViewController, FormJourneyDisplayLogic, Jour
     override open func viewDidLoad() {
         super.viewDidLoad()
         
-        self.setTitle(title: "journeys".localized())
+        if let titlesConfig = Configuration.titlesConfig, let formTitle = titlesConfig.formTitle {
+            self.setTitle(title: formTitle)
+        } else {
+            self.setTitle(title: "journeys".localized())
+        }
         
         hideKeyboardWhenTappedAround()
         
@@ -237,14 +241,14 @@ extension FormJourneyViewController: SearchViewDelegate {
         }
     }
     
-    func fromFieldClicked(q: String?) {
-        view.endEditing(true)
-        router?.routeToListPlaces(info: "from")
+    func fromFieldClicked(query: String?) {
+        searchView.endEditing(true)
+        router?.routeToListPlaces(searchFieldType: .from)
     }
     
-    func toFieldClicked(q: String?) {
+    func toFieldClicked(query: String?) {
         searchView.endEditing(true)
-        router?.routeToListPlaces(info: "to")
+        router?.routeToListPlaces(searchFieldType: .to)
     }
 }
 

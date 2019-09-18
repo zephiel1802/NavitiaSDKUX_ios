@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -21,6 +21,8 @@
                 <outlet property="notationLabel" destination="exV-cn-fEE" id="18j-VK-vqd"/>
                 <outlet property="pictureImage" destination="dbl-71-aPP" id="O5f-et-gqC"/>
                 <outlet property="priceLabel" destination="GgO-7r-3Uz" id="UTV-Hh-Sv3"/>
+                <outlet property="ridesharingArrivalIconImageView" destination="JmL-Gw-ZYv" id="wq5-26-oIt"/>
+                <outlet property="ridesharingDepartureIconImageView" destination="rpX-sq-h52" id="y3h-Iz-ikE"/>
                 <outlet property="seatCountLabel" destination="D1h-Fe-f88" id="20Y-hd-LFF"/>
                 <outlet property="startLabel" destination="UIT-xQ-gEJ" id="aYc-ii-dAO"/>
                 <outlet property="titleLabel" destination="N2s-nZ-KYx" id="ej5-WL-8xC"/>
@@ -106,7 +108,7 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Places disponibles : 1" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="D1h-Fe-f88">
-                    <rect key="frame" x="10" y="238.5" width="124" height="14.5"/>
+                    <rect key="frame" x="10" y="237.5" width="124" height="14.5"/>
                     <accessibility key="accessibilityConfiguration">
                         <bool key="isElement" value="NO"/>
                     </accessibility>
@@ -115,7 +117,7 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Gratuit" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GgO-7r-3Uz">
-                    <rect key="frame" x="318" y="240" width="35" height="12"/>
+                    <rect key="frame" x="318" y="239" width="35" height="12"/>
                     <accessibility key="accessibilityConfiguration">
                         <bool key="isElement" value="NO"/>
                     </accessibility>
@@ -123,28 +125,28 @@
                     <color key="textColor" red="0.97254901959999995" green="0.58039215690000001" blue="0.023529411760000001" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="green-flag" translatesAutoresizingMaskIntoConstraints="NO" id="rpX-sq-h52">
-                    <rect key="frame" x="13.5" y="175.5" width="10" height="12.5"/>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ridesharing_departure_flag" translatesAutoresizingMaskIntoConstraints="NO" id="rpX-sq-h52">
+                    <rect key="frame" x="13" y="175.5" width="10" height="12"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="10" id="Hod-Bl-pDY"/>
                         <constraint firstAttribute="height" constant="12" id="ZPY-6c-uRS"/>
                     </constraints>
                 </imageView>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="dot" translatesAutoresizingMaskIntoConstraints="NO" id="yBY-Wz-iG5">
-                    <rect key="frame" x="13" y="192" width="3.5" height="12"/>
+                    <rect key="frame" x="13" y="191.5" width="3" height="12"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="3" id="H5a-VC-fjS"/>
                     </constraints>
                 </imageView>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="red-flag" translatesAutoresizingMaskIntoConstraints="NO" id="JmL-Gw-ZYv">
-                    <rect key="frame" x="13.5" y="208" width="10" height="12.5"/>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ridesharing_arrival_flag" translatesAutoresizingMaskIntoConstraints="NO" id="JmL-Gw-ZYv">
+                    <rect key="frame" x="13" y="207.5" width="10" height="12"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="10" id="Gvh-SB-sNg"/>
                         <constraint firstAttribute="height" constant="12" id="rg1-zg-z0k"/>
                     </constraints>
                 </imageView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="20, rue Hector Malot 75012 Paris" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IZX-JG-iIF">
-                    <rect key="frame" x="38.5" y="175" width="319.5" height="13.5"/>
+                    <rect key="frame" x="38" y="175" width="320" height="13.5"/>
                     <accessibility key="accessibilityConfiguration">
                         <bool key="isElement" value="NO"/>
                     </accessibility>
@@ -153,7 +155,7 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="181, avenue Victor Hugo 75016 Paris" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mqE-me-jU7">
-                    <rect key="frame" x="38.5" y="207.5" width="319.5" height="13.5"/>
+                    <rect key="frame" x="38" y="207" width="320" height="13.5"/>
                     <accessibility key="accessibilityConfiguration">
                         <bool key="isElement" value="NO"/>
                     </accessibility>
@@ -194,7 +196,7 @@
                     </constraints>
                 </view>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="6 notes" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="exV-cn-fEE">
-                    <rect key="frame" x="292.5" y="125.5" width="36.5" height="12"/>
+                    <rect key="frame" x="292" y="125.5" width="36.5" height="12"/>
                     <accessibility key="accessibilityConfiguration">
                         <bool key="isElement" value="NO"/>
                     </accessibility>
@@ -275,7 +277,7 @@
     </objects>
     <resources>
         <image name="dot" width="5" height="21"/>
-        <image name="green-flag" width="17" height="20"/>
-        <image name="red-flag" width="17" height="20"/>
+        <image name="ridesharing_arrival_flag" width="17" height="20"/>
+        <image name="ridesharing_departure_flag" width="17" height="20"/>
     </resources>
 </document>

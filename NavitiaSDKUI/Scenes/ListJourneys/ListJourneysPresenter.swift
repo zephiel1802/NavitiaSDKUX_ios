@@ -180,8 +180,8 @@ class ListJourneysPresenter: ListJourneysPresentationLogic {
     }
     
     private func getDisplayedJourneyDateTime(journey: Journey) -> String? {
-        guard let departureDateTime = journey.departureDateTime?.toDate(format: Configuration.date)?.toString(format: Configuration.time),
-            let arrivalDateTime = journey.arrivalDateTime?.toDate(format: Configuration.date)?.toString(format: Configuration.time) else {
+        guard let departureDateTime = journey.departureDateTime?.toDate(format: Configuration.datetime)?.toString(format: Configuration.time),
+            let arrivalDateTime = journey.arrivalDateTime?.toDate(format: Configuration.datetime)?.toString(format: Configuration.time) else {
             return nil
         }
         
@@ -197,7 +197,7 @@ class ListJourneysPresenter: ListJourneysPresentationLogic {
         
         if journey.isRidesharing {
             durationAttributedString.append(NSMutableAttributedString().semiBold(String(format: "%@ ", "about".localized()),
-                                                                                 color: Configuration.Color.main,
+                                                                                 color: Configuration.Color.secondary,
                                                                                  size: 12.5))
         }
         durationAttributedString.append(duration.toAttributedStringTime(sizeBold: 12.5, sizeNormal: 12.5))

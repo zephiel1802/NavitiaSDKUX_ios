@@ -7,10 +7,10 @@
 
 import UIKit
 
-@objc protocol FormJourneyRoutingLogic {
+protocol FormJourneyRoutingLogic {
     
     func routeToListJourneys()
-    func routeToListPlaces(info: String)
+    func routeToListPlaces(searchFieldType: SearchFieldType)
 }
 
 protocol FormJourneyDataPassing {
@@ -37,7 +37,7 @@ class FormJourneyRouter: NSObject, FormJourneyRoutingLogic, FormJourneyDataPassi
         navigateToListJourneys(source: viewController, destination: destinationVC)
     }
     
-    func routeToListPlaces(info: String) {
+    func routeToListPlaces(searchFieldType: SearchFieldType) {
         guard let viewController = viewController,
             let dataStore = dataStore,
             let destinationVC = viewController.storyboard?.instantiateViewController(withIdentifier: ListPlacesViewController.identifier) as? ListPlacesViewController,
@@ -46,19 +46,24 @@ class FormJourneyRouter: NSObject, FormJourneyRoutingLogic, FormJourneyDataPassi
         }
         
         destinationVC.delegate = viewController as ListPlacesViewControllerDelegate
-        passDataToListPlaces(source: dataStore, destination: &destinationDS, info: info)
+        passDataToListPlaces(source: dataStore, destination: &destinationDS, searchFieldType: searchFieldType)
         navigateToListPlaces(source: viewController, destination: destinationVC)
     }
     
     // MARK: Navigation
     
     func navigateToListJourneys(source: FormJourneyViewController, destination: ListJourneysViewController) {
-        let navigationController = UINavigationController(rootViewController: destination)
+        if let navigationController = source.navigationController {
+            navigationController.pushViewController(destination, animated: true)
+        } else {
+            let navigationController = UINavigationController(rootViewController: destination)
+            
+            navigationController.modalTransitionStyle = .crossDissolve
+            navigationController.modalPresentationStyle = .overCurrentContext
+            
+            source.present(navigationController, animated: true, completion: nil)
+        }
         
-        navigationController.modalTransitionStyle = .crossDissolve
-        navigationController.modalPresentationStyle = .overCurrentContext
-        
-        source.present(navigationController, animated: true, completion: nil)
     }
     
     func navigateToListPlaces(source: FormJourneyViewController, destination: ListPlacesViewController) {
@@ -77,7 +82,7 @@ class FormJourneyRouter: NSObject, FormJourneyRoutingLogic, FormJourneyDataPassi
         destination.modeTransportViewSelected = source.modeTransportViewSelected
     }
     
-    func passDataToListPlaces(source: FormJourneyDataStore, destination: inout ListPlacesDataStore, info: String) {
+    func passDataToListPlaces(source: FormJourneyDataStore, destination: inout ListPlacesDataStore, searchFieldType: SearchFieldType) {
         if let fromId = source.journeysRequest?.originId {
             destination.from = (label: source.journeysRequest?.originLabel,
                                 name: source.journeysRequest?.originName,
@@ -90,7 +95,7 @@ class FormJourneyRouter: NSObject, FormJourneyRoutingLogic, FormJourneyDataPassi
                               id: toId)
         }
         
-        destination.info = info
+        destination.searchFieldType = searchFieldType
         destination.coverage = source.journeysRequest?.coverage
     }
 }

@@ -23,7 +23,7 @@ public protocol ShowJourneyRoadmapDataStore {
     var disruptions: [Disruption]? { get set }
     var notes: [Note]? { get set }
     var context: Context? { get set }
-    var maasTickets: String? { get set }
+    var maasTicketsJson: String? { get set }
     var totalPrice: (value: Float?, currency: String?)? { get set }
 }
 
@@ -36,7 +36,7 @@ class ShowJourneyRoadmapInteractor: ShowJourneyRoadmapBusinessLogic, ShowJourney
     var disruptions: [Disruption]?
     var notes: [Note]?
     var context: Context?
-    var maasTickets: String?
+    var maasTicketsJson: String?
     var totalPrice: (value: Float?, currency: String?)?
   
     // MARK: Get Roadmap
@@ -46,12 +46,14 @@ class ShowJourneyRoadmapInteractor: ShowJourneyRoadmapBusinessLogic, ShowJourney
             return
         }
         
+        // Add sections info to maas tickets
+        let maasTickets = getMaasTickets(sectionsList: journey.sections, maasTickets: maasTicketsJson)
         let response = ShowJourneyRoadmap.GetRoadmap.Response(journey: journey,
                                                               journeyRidesharing: journeyRidesharing,
                                                               disruptions: disruptions,
                                                               notes: notes,
                                                               context: context,
-                                                              maasTickets: getMaasTickets(maasTickets: maasTickets),
+                                                              maasTickets: maasTickets,
                                                               totalPrice: totalPrice)
         presenter?.presentRoadmap(response: response)
     }
@@ -63,8 +65,7 @@ class ShowJourneyRoadmapInteractor: ShowJourneyRoadmapBusinessLogic, ShowJourney
             return
         }
         
-        let response = ShowJourneyRoadmap.GetMap.Response(journey: journey,
-                                                          journeyRidesharing: journeyRidesharing)
+        let response = ShowJourneyRoadmap.GetMap.Response(journey: journey, journeyRidesharing: journeyRidesharing)
         presenter?.presentMap(response: response)
     }
     
@@ -101,13 +102,48 @@ class ShowJourneyRoadmapInteractor: ShowJourneyRoadmapBusinessLogic, ShowJourney
     
     // MARK: Maas Tickets
     
-    private func getMaasTickets(maasTickets: String?) -> [MaasTicket]? {
-        guard let maasTickets = maasTickets, let maasTicketsData = maasTickets.data(using: .utf8) else {
+    private func getMaasTickets(sectionsList: [Section]?, maasTickets: String?) -> [MaasTicket]? {
+        guard let sectionsList = sectionsList, let maasTickets = maasTickets, let maasTicketsData = maasTickets.data(using: .utf8) else {
             return nil
         }
         
         do {
-            return try JSONDecoder().decode([MaasTicket].self, from: maasTicketsData)
+            let decodedMaasTicketsList = try JSONDecoder().decode([MaasTicket].self, from: maasTicketsData)
+            var maasTickets = [MaasTicket]()
+            
+            for decodedMaasTicket in decodedMaasTicketsList {
+                for section in sectionsList {
+                    if let links = section.links {
+                        for link in links {
+                            if let type = link.type,
+                                type == "ticket",
+                                let linkId = link.id,
+                                String(format: "%d", decodedMaasTicket.productId) == linkId {
+                                var physicalMode = ""
+                                for link in links {
+                                    if let type = link.type,
+                                        type == "physical_mode",
+                                        let linkId = link.id {
+                                        let linkInfo = linkId.split(separator: ":")
+                                        physicalMode = String(linkInfo[1])
+                                    }
+                                }
+                                
+                                let maasTicket = MaasTicket(productId: decodedMaasTicket.productId,
+                                                            ticket: decodedMaasTicket.ticket,
+                                                            from: section.from?.name,
+                                                            to: section.to?.name,
+                                                            departureDatetime: section.departureDateTime,
+                                                            arrivalDatetime: section.arrivalDateTime,
+                                                            physicalMode: physicalMode)
+                                maasTickets.append(maasTicket)
+                            }
+                        }
+                    }
+                }
+            }
+            
+            return maasTickets
         } catch {
             return nil
         }

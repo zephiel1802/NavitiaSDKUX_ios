@@ -244,7 +244,6 @@
 		8454D4402068D3A800C97D2F /* TransformOf.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8454D36C2068D3A800C97D2F /* TransformOf.swift */; };
 		8454D4482068F2BC00C97D2F /* JourneySolutionCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8454D4472068F2BC00C97D2F /* JourneySolutionCollectionViewCell.xib */; };
 		8454D44A2068FC9F00C97D2F /* JourneySolutionCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8454D4492068FC9F00C97D2F /* JourneySolutionCollectionViewCell.swift */; };
-		8454D44E20692CA200C97D2F /* SDKIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8454D44D20692CA200C97D2F /* SDKIcons.ttf */; };
 		8454D4502069429500C97D2F /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8454D44F2069429500C97D2F /* String+Extension.swift */; };
 		8454D452206942B800C97D2F /* Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8454D451206942B800C97D2F /* Date+Extension.swift */; };
 		845B4EF121675DE3009CCF12 /* PublicTransportStepView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845B4EF021675DE3009CCF12 /* PublicTransportStepView.swift */; };
@@ -339,6 +338,7 @@
 		AC7EC0C423157FDA00A84D73 /* TravelerTypeView.xib in Resources */ = {isa = PBXBuildFile; fileRef = AC7EC0C223157FDA00A84D73 /* TravelerTypeView.xib */; };
 		AC7EC0CE231685A000A84D73 /* WalkingSpeedView.xib in Resources */ = {isa = PBXBuildFile; fileRef = AC7EC0CD231685A000A84D73 /* WalkingSpeedView.xib */; };
 		AC7EC0D0231685A800A84D73 /* WalkingSpeedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC7EC0CF231685A800A84D73 /* WalkingSpeedView.swift */; };
+		9A334FD22327DA500084852C /* UITableView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A334FD12327DA500084852C /* UITableView+Extension.swift */; };
 		F65672FA2209EAB9007A8E6E /* Debouncer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F65672F92209EAB9007A8E6E /* Debouncer.swift */; };
 		F656ECB122FDB92F00557B8C /* MaasTicket.swift in Sources */ = {isa = PBXBuildFile; fileRef = F656ECB022FDB92E00557B8C /* MaasTicket.swift */; };
 /* End PBXBuildFile section */
@@ -373,6 +373,7 @@
 		3192556221C7FED700CB11DD /* FriezeSectionView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FriezeSectionView.xib; sourceTree = "<group>"; };
 		31B3A82621C15FFB002EFF91 /* AlternativeJourneyView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AlternativeJourneyView.xib; sourceTree = "<group>"; };
 		31B3A82821C16008002EFF91 /* AlternativeJourneyView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlternativeJourneyView.swift; sourceTree = "<group>"; };
+		31B6E803232A3DE3002D8B02 /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/Localizable.strings; sourceTree = "<group>"; };
 		31EE0547214694BB00293B8B /* HorizontalSeparator.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HorizontalSeparator.xib; sourceTree = "<group>"; };
 		31EE0549214694CB00293B8B /* HorizontalSeparator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HorizontalSeparator.swift; sourceTree = "<group>"; };
 		31EF7C5B2153D3C300200AE0 /* UIAutoFilledLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIAutoFilledLabel.swift; sourceTree = "<group>"; };
@@ -595,7 +596,6 @@
 		8454D36C2068D3A800C97D2F /* TransformOf.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransformOf.swift; sourceTree = "<group>"; };
 		8454D4472068F2BC00C97D2F /* JourneySolutionCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = JourneySolutionCollectionViewCell.xib; sourceTree = "<group>"; };
 		8454D4492068FC9F00C97D2F /* JourneySolutionCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JourneySolutionCollectionViewCell.swift; sourceTree = "<group>"; };
-		8454D44D20692CA200C97D2F /* SDKIcons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = SDKIcons.ttf; sourceTree = "<group>"; };
 		8454D44F2069429500C97D2F /* String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
 		8454D451206942B800C97D2F /* Date+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extension.swift"; sourceTree = "<group>"; };
 		845B4EF021675DE3009CCF12 /* PublicTransportStepView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PublicTransportStepView.swift; sourceTree = "<group>"; };
@@ -695,6 +695,7 @@
 		AC7EC0CD231685A000A84D73 /* WalkingSpeedView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WalkingSpeedView.xib; sourceTree = "<group>"; };
 		AC7EC0CF231685A800A84D73 /* WalkingSpeedView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WalkingSpeedView.swift; sourceTree = "<group>"; };
 		AC8ED3F7232BD4B2004A6246 /* nl-NL */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "nl-NL"; path = "nl-NL.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		9A334FD12327DA500084852C /* UITableView+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITableView+Extension.swift"; sourceTree = "<group>"; };
 		F65672F92209EAB9007A8E6E /* Debouncer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Debouncer.swift; sourceTree = "<group>"; };
 		F656ECB022FDB92E00557B8C /* MaasTicket.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaasTicket.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -996,7 +997,6 @@
 		8451DA582065060600CFA1E4 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				8451DA5E2065064700CFA1E4 /* Fonts */,
 				8451DA5F2065065E00CFA1E4 /* Images.xcassets */,
 				8451DA65206506ED00CFA1E4 /* Localizable.strings */,
 			);
@@ -1016,6 +1016,7 @@
 		8451DA5B2065062300CFA1E4 /* Extension */ = {
 			isa = PBXGroup;
 			children = (
+				9A334FD12327DA500084852C /* UITableView+Extension.swift */,
 				84EEEF7221DE101E00EF6415 /* UIPanGestureRecognizer+Extension.swift */,
 				8454D1AB217F540E008BECA0 /* StopDateTime+Extension.swift */,
 				8476DD59208891CB006CB506 /* Collection+Extension.swift */,
@@ -1063,14 +1064,6 @@
 				AC7EC0CF231685A800A84D73 /* WalkingSpeedView.swift */,
 			);
 			path = Common;
-			sourceTree = "<group>";
-		};
-		8451DA5E2065064700CFA1E4 /* Fonts */ = {
-			isa = PBXGroup;
-			children = (
-				8454D44D20692CA200C97D2F /* SDKIcons.ttf */,
-			);
-			path = Fonts;
 			sourceTree = "<group>";
 		};
 		8451DAA220650BF200CFA1E4 /* ListJourneys */ = {
@@ -1392,13 +1385,13 @@
 		84C82F5A22083FD000FE3F1D /* FormJourney */ = {
 			isa = PBXGroup;
 			children = (
-				84C82F5B22083FD000FE3F1D /* Interface */,
 				84C82F5F22083FD000FE3F1D /* FormJourneyInteractor.swift */,
-				84C82F6122083FD000FE3F1D /* FormJourneyRouter.swift */,
 				84C82F6222083FD000FE3F1D /* FormJourneyModels.swift */,
-				84C82F6322083FD000FE3F1D /* FormJourneyViewController.swift */,
-				84C82F6422083FD000FE3F1D /* View */,
 				84C82F6822083FD000FE3F1D /* FormJourneyPresenter.swift */,
+				84C82F6122083FD000FE3F1D /* FormJourneyRouter.swift */,
+				84C82F6322083FD000FE3F1D /* FormJourneyViewController.swift */,
+				84C82F5B22083FD000FE3F1D /* Interface */,
+				84C82F6422083FD000FE3F1D /* View */,
 			);
 			path = FormJourney;
 			sourceTree = "<group>";
@@ -1532,7 +1525,7 @@
 				en,
 				fr,
 				Base,
-				"nl-NL",
+				nl-NL,
 			);
 			mainGroup = 8451DA30206503F100CFA1E4;
 			productRefGroup = 8451DA3B206503F100CFA1E4 /* Products */;
@@ -1577,7 +1570,6 @@
 				8454D4482068F2BC00C97D2F /* JourneySolutionCollectionViewCell.xib in Resources */,
 				845B4EF321675DEA009CCF12 /* PublicTransportStepView.xib in Resources */,
 				8422B45B206A242D0097E6C9 /* JourneyHeaderCollectionReusableView.xib in Resources */,
-				8454D44E20692CA200C97D2F /* SDKIcons.ttf in Resources */,
 				8433F3A2207FAF23007DBBCE /* AlertView.xib in Resources */,
 				84339A7E206CC5E200F2CB65 /* JourneyEmptySolutionCollectionViewCell.xib in Resources */,
 				317D6C78211091CE00F36242 /* StepByStepItemView.xib in Resources */,
@@ -1854,6 +1846,7 @@
 				84827A8F214BBAA800CB9513 /* RidesharingOfferCollectionViewCell.swift in Sources */,
 				84C6BC5E21A813CB0035729E /* ListJourneysCollectionViewLayout.swift in Sources */,
 				841A10BE215A29B800F46143 /* Networks.swift in Sources */,
+				9A334FD22327DA500084852C /* UITableView+Extension.swift in Sources */,
 				841A106A215A29B800F46143 /* HeatMap.swift in Sources */,
 				841A1070215A29B800F46143 /* Disruptions.swift in Sources */,
 				841A1088215A29B800F46143 /* RouteSchedules.swift in Sources */,
@@ -1922,7 +1915,7 @@
 			children = (
 				8451DA64206506ED00CFA1E4 /* en */,
 				8451DA66206506FD00CFA1E4 /* fr */,
-				AC8ED3F7232BD4B2004A6246 /* nl-NL */,
+				31B6E803232A3DE3002D8B02 /* nl */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";

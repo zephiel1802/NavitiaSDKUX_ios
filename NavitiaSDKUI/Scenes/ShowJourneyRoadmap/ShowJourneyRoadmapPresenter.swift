@@ -94,7 +94,7 @@ class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
         }
         
         let network = ridesharingSection.ridesharingInformations?.network ?? ""
-        let departure = ridesharingSection.departureDateTime?.toDate(format: Configuration.date)?.toString(format: Configuration.timeRidesharing) ?? ""
+        let departure = ridesharingSection.departureDateTime?.toDate(format: Configuration.datetime)?.toString(format: Configuration.timeRidesharing) ?? ""
         let driverPictureURL = ridesharingSection.ridesharingInformations?.driver?.image ?? ""
         let driverNickname = ridesharingSection.ridesharingInformations?.driver?.alias ?? ""
         let driverGender = ridesharingSection.ridesharingInformations?.driver?.gender?.rawValue ?? ""
@@ -150,7 +150,7 @@ class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
     }
     
     private func getDepartureTime(journey: Journey) -> String? {
-        guard let departureDate = journey.departureDateTime?.toDate(format: Configuration.date) else {
+        guard let departureDate = journey.departureDateTime?.toDate(format: Configuration.datetime) else {
             return nil
         }
         
@@ -159,7 +159,7 @@ class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
     
     private func getDepartureAccessibilty(journey: Journey) -> String {
         guard let name = journey.sections?.first?.from?.name,
-            let dateTime = journey.departureDateTime?.toDate(format: Configuration.date) else {
+            let dateTime = journey.departureDateTime?.toDate(format: Configuration.datetime) else {
                 return ""
         }
         
@@ -183,7 +183,7 @@ class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
     
     private func getArrivalAccessibilty(journey: Journey) -> String {
         guard let name = journey.sections?.last?.to?.name,
-            let dateTime = journey.arrivalDateTime?.toDate(format: Configuration.date) else {
+            let dateTime = journey.arrivalDateTime?.toDate(format: Configuration.datetime) else {
                 return ""
         }
         
@@ -233,7 +233,7 @@ class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
     }
     
     private func getArrivalTime(journey: Journey) -> String? {
-        guard let arrivalDate = journey.arrivalDateTime?.toDate(format: Configuration.date) else {
+        guard let arrivalDate = journey.arrivalDateTime?.toDate(format: Configuration.datetime) else {
             return nil
         }
         
@@ -279,7 +279,7 @@ class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
     }
     
     private func getDepartureDateTime(section: Section) -> String {
-        guard let departureDate = section.departureDateTime?.toDate(format: Configuration.date) else {
+        guard let departureDate = section.departureDateTime?.toDate(format: Configuration.datetime) else {
             return ""
         }
         
@@ -287,7 +287,7 @@ class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
     }
     
     private func getArrivalDateTime(section: Section) -> String {
-        guard let arrivalDate = section.arrivalDateTime?.toDate(format: Configuration.date) else {
+        guard let arrivalDate = section.arrivalDateTime?.toDate(format: Configuration.datetime) else {
             return ""
         }
         
@@ -532,6 +532,13 @@ class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
             return nil
         }
         
+        var maasTicketsJson: String? = nil
+        do {
+            maasTicketsJson = String(data: try JSONEncoder().encode(maasTickets), encoding: .utf8)
+        } catch {
+            // We keep the original JSON if enoding didn't work
+        }
+        
         let sectionModel = ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionModel(type: type,
                                                                                 mode: getMode(section: section),
                                                                                 from: getFrom(section: section),
@@ -551,35 +558,36 @@ class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
                                                                                 realTime: getRealTime(section: section),
                                                                                 background: getBackground(section: section),
                                                                                 section: section,
-                                                                                hasAvailableTicket: hasAvailableTicket(section: section, maasTickets: maasTickets))
+                                                                                availableTicketId: getAvailableTicketId(section: section, maasTickets: maasTickets),
+                                                                                maasTicketsJson: maasTicketsJson)
         
         return sectionModel
     }
     
-    private func hasAvailableTicket(section: Section, maasTickets: [MaasTicket]?) -> Bool {
+    private func getAvailableTicketId(section: Section, maasTickets: [MaasTicket]?) -> Int? {
         guard let maasTickets = maasTickets else {
-            return false
+            return nil
         }
         
         if let links = section.links {
             for link in links {
                 if let type = link.type, type == "ticket", let id = link.id {
-                    return isMaasTicket(linkId: id, maasTickets: maasTickets)
+                    return getMaasTicketId(linkId: id, maasTickets: maasTickets)
                 }
             }
         }
         
-        return false
+        return nil
     }
     
-    private func isMaasTicket(linkId: String, maasTickets: [MaasTicket]) -> Bool {
+    private func getMaasTicketId(linkId: String, maasTickets: [MaasTicket]) -> Int? {
         for ticket in maasTickets {
             if String(format: "%d", ticket.productId) == linkId {
-                return true
+                return ticket.productId
             }
         }
         
-        return false
+        return nil
     }
     
     private func getSectionModels(response:  ShowJourneyRoadmap.GetRoadmap.Response) -> [ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionModel]? {
@@ -795,9 +803,8 @@ class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
     }
     
     func getDateDisruption(disruption: Disruption) -> String {
-        if let startDate = disruption.applicationPeriods?.first?.begin?.toDate(format: Configuration.date),
-            let endDate = disruption.applicationPeriods?.first?.end?.toDate(format: Configuration.date) {
-            
+        if let startDate = disruption.applicationPeriods?.first?.begin?.toDate(format: Configuration.datetime),
+            let endDate = disruption.applicationPeriods?.first?.end?.toDate(format: Configuration.datetime) {
             return String(format: "%@ %@ %@ %@", "from".localized(),
                           startDate.toString(format: Configuration.dateInterval),
                           "to_period".localized(),
@@ -813,10 +820,10 @@ class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
         var startDate = ""
         var endDate = ""
         
-        if let start = disruption.applicationPeriods?.first?.begin?.toDate(format: Configuration.date) {
+        if let start = disruption.applicationPeriods?.first?.begin?.toDate(format: Configuration.datetime) {
             startDate = DateFormatter.localizedString(from: start, dateStyle: .medium, timeStyle: .none)
         }
-        if let end = disruption.applicationPeriods?.first?.end?.toDate(format: Configuration.date) {
+        if let end = disruption.applicationPeriods?.first?.end?.toDate(format: Configuration.datetime) {
             endDate = DateFormatter.localizedString(from: end, dateStyle: .medium, timeStyle: .none)
         }
 
@@ -968,15 +975,15 @@ class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
     
     private func getDirectionPath(pathDirection: Int32?) -> String {
         guard let pathDirection = pathDirection else {
-            return "arrow_right"
+            return "arrow_right_direction"
         }
         
         if pathDirection == 0 {
-            return "arrow_straight"
+            return "arrow_straight_direction"
         } else if pathDirection < 0 {
-            return "arrow_left"
+            return "arrow_left_direction"
         } else {
-            return "arrow_right"
+            return "arrow_right_direction"
         }
     }
     

@@ -18,18 +18,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         NavitiaSDKUI.shared.initialize(token: token)
         NavitiaSDKUI.shared.bundle = Bundle(identifier: "org.cocoapods.NavitiaSDKUI")
+        NavitiaSDKUI.shared.applicationBundle = Bundle.main
         NavitiaSDKUI.shared.mainColor = UIColor(red: 64.0/255, green: 149.0/255, blue: 142.0/255, alpha: 1)
         NavitiaSDKUI.shared.originColor = UIColor(red: 0, green: 187.0/255, blue: 117.0/255, alpha: 1)
         NavitiaSDKUI.shared.destinationColor = UIColor(red: 176.0/255, green: 3.0/255, blue: 83.0/255, alpha: 1)
         NavitiaSDKUI.shared.multiNetwork = true
-        NavitiaSDKUI.shared.addCustomizedPicto(bikeImage: UIImage(named: "Velo")!,
-                                                     busImage: UIImage(named: "Bus")!,
-                                                     carImage: UIImage(named: "Voiture")!,
-                                                     taxiImage: UIImage(named: "Taxi")!,
-                                                     trainImage: UIImage(named: "Train")!,
-                                                     metroImage: UIImage(named: "Metro")!,
-                                                     originImage: UIImage(named: "compass")!,
-                                                     destinationImage: UIImage(named: "placeholder")!)
         
         return true
     }

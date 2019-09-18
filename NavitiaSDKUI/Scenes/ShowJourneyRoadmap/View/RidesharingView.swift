@@ -23,6 +23,8 @@ class RidesharingView: UIView {
     @IBOutlet weak var addressToLabel: UILabel!
     @IBOutlet weak var seatCountLabel: UILabel!
     @IBOutlet weak var priceLabel: UILabel!
+    @IBOutlet weak var ridesharingDepartureIconImageView: UIImageView!
+    @IBOutlet weak var ridesharingArrivalIconImageView: UIImageView!
     
     internal var parentViewController: ShowJourneyRoadmapViewController?
     
@@ -65,6 +67,9 @@ class RidesharingView: UIView {
         
         bookButton.setTitle("send_request".localized(), for: .normal)
         bookButton.accessibilityElementsHidden = true
+        
+        ridesharingDepartureIconImageView.image = "ridesharing_departure_flag".getIcon(renderingMode: .alwaysOriginal)
+        ridesharingArrivalIconImageView.image = "ridesharing_arrival_flag".getIcon(renderingMode: .alwaysOriginal)
     }
     
     private func bookRidesharing() {
@@ -106,8 +111,8 @@ class RidesharingView: UIView {
         if count != nil {
             floatRatingView.backgroundColor = UIColor.clear
             floatRatingView.contentMode = UIView.ContentMode.scaleAspectFit
-            floatRatingView.emptyImage = UIImage(named: "star_empty", in: NavitiaSDKUI.shared.bundle, compatibleWith: nil)
-            floatRatingView.fullImage = UIImage(named: "star_full", in: NavitiaSDKUI.shared.bundle, compatibleWith: nil)
+            floatRatingView.emptyImage = "star_empty".getIcon()
+            floatRatingView.fullImage = "star_full".getIcon()
             floatRatingView.type = .floatRatings
             floatRatingView.editable = false
             floatRatingView.rating = Double(count!)

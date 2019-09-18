@@ -10,10 +10,15 @@ import UIKit
 @objc protocol SearchViewDelegate: class {
     
     func switchDepartureArrivalCoordinates()
-    @objc optional func fromFieldClicked(q: String?)
-    @objc optional func toFieldClicked(q: String?)
-    @objc optional func fromFieldDidChange(q: String?)
-    @objc optional func toFieldDidChange(q: String?)
+    @objc optional func singleSearchFieldClicked(query: String?)
+    @objc optional func fromFieldClicked(query: String?)
+    @objc optional func toFieldClicked(query: String?)
+    @objc optional func singleSearchFieldChange(query: String?)
+    @objc optional func fromFieldDidChange(query: String?)
+    @objc optional func toFieldDidChange(query: String?)
+    @objc optional func singleSearchFieldClearButtonClicked()
+    @objc optional func fromFieldClearButtonClicked()
+    @objc optional func toFieldClearButtonClicked()
 }
 
 class SearchView: UIView, UITextFieldDelegate {
@@ -26,7 +31,12 @@ class SearchView: UIView, UITextFieldDelegate {
     // MARK: IBOutlet
     @IBOutlet weak var toClearButton: UIButton!
     @IBOutlet weak var fromClearButton: UIButton!
-    @IBOutlet weak var background: UIView!
+    @IBOutlet weak var searchFieldsContainer: UIView!
+    @IBOutlet weak var singleSearchFieldsContainer: UIView!
+    @IBOutlet weak var singleSearchView: UIView!
+    @IBOutlet weak var singleSearchTextField: UITextField!
+    @IBOutlet weak var singleSearchPinImageView: UIImageView!
+    @IBOutlet weak var singleSearchClearButton: UIButton!
     @IBOutlet weak var fromView: UIView!
     @IBOutlet weak var fromTextField: UITextField!
     @IBOutlet weak var originPinImageView: UIImageView!
@@ -35,12 +45,19 @@ class SearchView: UIView, UITextFieldDelegate {
     @IBOutlet weak var separatorView: UIView!
     @IBOutlet weak var destinationPinImageView: UIImageView!
     @IBOutlet weak var dateTimeLabel: UILabel!
+    @IBOutlet weak var switchDepartureArrivalImageView: UIImageView!
     @IBOutlet weak var switchDepartureArrivalButton: UIButton!
     @IBOutlet weak var separatorTopContraint: NSLayoutConstraint!
     @IBOutlet weak var separatorBottomContraint: NSLayoutConstraint!
     @IBOutlet weak var stackView: UIStackView!
     @IBOutlet weak var datePreferenceView: UIView!
+    @IBOutlet weak var dateIconImageView: UIImageView!
+    @IBOutlet weak var dateLabel: UILabel!
+    @IBOutlet weak var dateArrowIconImageView: UIImageView!
     @IBOutlet weak var dateButton: UIButton!
+    @IBOutlet weak var preferencesIconImageView: UIImageView!
+    @IBOutlet weak var preferencesLabel: UILabel!
+    @IBOutlet weak var preferencesArrowIconImageView: UIImageView!
     @IBOutlet weak var preferenceButton: UIButton!
     @IBOutlet weak var switchButtonWidthConstraint: NSLayoutConstraint!
     
@@ -105,7 +122,34 @@ class SearchView: UIView, UITextFieldDelegate {
             fromTextField.isEnabled = !lock
             toTextField.isEnabled = !lock
             dateButton.isEnabled = !lock
-            preferenceButton.isHidden = lock
+            managePreferencesButtonVisibility(lock)
+        }
+    }
+    internal var singleFieldConfiguration: Bool = false {
+        didSet {
+            switchIsHidden = true
+            searchFieldsContainer.isHidden = singleFieldConfiguration
+            singleSearchFieldsContainer.isHidden = !singleFieldConfiguration
+            separatorView.isHidden = singleFieldConfiguration
+        }
+    }
+    
+    internal var singleFieldCustomPlaceholder: String? {
+        didSet {
+            guard let singleFieldPlaceholder = singleFieldCustomPlaceholder else {
+                return
+            }
+            
+           singleSearchTextField.placeholder = singleFieldPlaceholder
+        }
+    }
+    internal var singleFieldCustomIcon: UIImage? {
+        didSet {
+            guard let singleFieldCustomIcon = singleFieldCustomIcon else {
+                return
+            }
+            
+            singleSearchPinImageView.image = singleFieldCustomIcon
         }
     }
     internal var luggageTravelTypeIsOn: Bool = false {
@@ -173,6 +217,13 @@ class SearchView: UIView, UITextFieldDelegate {
         setupClearButtons()
     }
     
+    private func managePreferencesButtonVisibility(_ isHidden: Bool) {
+        preferencesIconImageView.isHidden = isHidden
+        preferencesLabel.isHidden = isHidden
+        preferencesArrowIconImageView.isHidden = isHidden
+        preferenceButton.isHidden = isHidden
+    }
+    
     private func setupClearButtons() {
         fromClearButton.isHidden = true
         fromClearButton.accessibilityLabel = "clear_departure".localized()
@@ -181,26 +232,15 @@ class SearchView: UIView, UITextFieldDelegate {
     }
     
     private func setupPin() {
-        if let image = Configuration.pictos["origin"] {
-            originPinImageView.image = image
-        } else {
-            originPinImageView.image = UIImage(named: "origin-icon", in: NavitiaSDKUI.shared.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
-        }
+        originPinImageView.image = "journey_departure".getIcon(customizable: true)
         originPinImageView.tintColor = Configuration.Color.origin
         
-        if let image = Configuration.pictos["destination"] {
-            destinationPinImageView.image = image
-        } else {
-            destinationPinImageView.image = UIImage(named: "origin-icon", in: NavitiaSDKUI.shared.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
-        }
+        destinationPinImageView.image = "journey_arrival".getIcon(customizable: true)
         destinationPinImageView.tintColor = Configuration.Color.destination
     }
     
     private func setupSwitchButton() {
-        switchDepartureArrivalButton.setImage(UIImage(named: "switch",
-                                                      in: NavitiaSDKUI.shared.bundle,
-                                                      compatibleWith: nil)?.withRenderingMode(.alwaysTemplate),
-                                              for: .normal)
+        switchDepartureArrivalButton.setImage("switch".getIcon(customizable: true), for: .normal)
         switchDepartureArrivalButton.tintColor = Configuration.Color.main
         switchDepartureArrivalButton.accessibilityLabel = "reverse_departure_and_arrival".localized()
         switchDepartureArrivalButtonWidth = switchDepartureArrivalButton.frame.width
@@ -211,6 +251,7 @@ class SearchView: UIView, UITextFieldDelegate {
         fromTextField.placeholder = "place_of_departure".localized()
         toTextField.isAccessibilityElement = true
         toTextField.placeholder = "place_of_arrival".localized()
+        singleSearchTextField.isAccessibilityElement = true
     }
     
     private func setupTransportModeView() {
@@ -290,34 +331,45 @@ class SearchView: UIView, UITextFieldDelegate {
             return
         }
         
-        if NavitiaSDKUI.shared.formJourney {
-            dateButton.setAttributedTitle(NSMutableAttributedString()
-                .icon("calendar", color: Configuration.Color.white, size: 12)
-                .medium(String(format: "  %@  ", dateTime), color: Configuration.Color.white, size: 11)
-                .icon((isDateShown ? "arrow-details-up" : "arrow-details-down"), color: Configuration.Color.white, size: 11), for: .normal)
+        dateIconImageView.image = "calendar".getIcon()
+        dateIconImageView.tintColor = Configuration.Color.main.contrastColor()
+        dateLabel.text = dateTime
+        dateLabel.textColor = Configuration.Color.main.contrastColor()
+        
+        if NavitiaSDKUI.shared.advancedSearchMode {
+            dateArrowIconImageView.image = isDateShown ? "arrow_up".getIcon() : "arrow_down".getIcon()
+            dateArrowIconImageView.tintColor = Configuration.Color.main.contrastColor()
         } else {
-            dateButton.setAttributedTitle(NSMutableAttributedString()
-                .icon("calendar", color: Configuration.Color.white, size: 12)
-                .medium(String(format: "  %@  ", dateTime), color: Configuration.Color.white, size: 11), for: .normal)
+            dateArrowIconImageView.isHidden = true
         }
     }
     
     internal func setPreferencesButton() {
-        preferenceButton.setAttributedTitle(NSMutableAttributedString()
-            .icon("option", color: Configuration.Color.white, size: 12)
-            .medium(String(format: "  %@  ", "preferences".localized()), color: Configuration.Color.white, size: 11)
-            .icon((isPreferencesShown ? "arrow-details-up" : "arrow-details-down"), color: Configuration.Color.white, size: 11), for: .normal)
+        preferencesIconImageView.image = "preferences".getIcon()
+        preferencesIconImageView.tintColor = Configuration.Color.main.contrastColor()
+        preferencesLabel.text = "preferences".localized()
+        preferencesLabel.textColor = Configuration.Color.main.contrastColor()
+        preferencesArrowIconImageView.image = isPreferencesShown ? "arrow_up".getIcon() : "arrow_down".getIcon()
+        preferencesArrowIconImageView.tintColor = Configuration.Color.main.contrastColor()
     }
     
-    // MARK: public func
-    func unstickTextFields() {
-        self.separatorTopContraint.constant = 3
-        self.separatorBottomContraint.constant = 3
+    func unstickTextFields(superview: UIView) {
+        UIView.animate(withDuration: 0.15, animations: {
+            self.separatorView.isHidden = true
+            self.separatorTopContraint.constant = 3
+            self.separatorBottomContraint.constant = 3
+            superview.layoutIfNeeded()
+        })
     }
     
-    func stickTextFields() {
-        self.separatorTopContraint.constant = 0
-        self.separatorBottomContraint.constant = 0
+    func stickTextFields(superview: UIView) {
+        UIView.animate(withDuration: 0.15, animations: {
+            self.separatorTopContraint.constant = 0
+            self.separatorBottomContraint.constant = 0
+            superview.layoutIfNeeded()
+        }) { (_) in
+            self.separatorView.isHidden = false
+        }
     }
     
     internal func focusFromField(_ value: Bool = true) {
@@ -462,40 +514,45 @@ class SearchView: UIView, UITextFieldDelegate {
     
     @IBAction func fromClearButtonClicked(_ sender: Any) {
         fromTextField.text!.removeAll()
-        fromTextFieldClear = true
-        fromClearButton.becomeFirstResponder()
+        fromTextField.becomeFirstResponder()
+        delegate?.fromFieldClearButtonClicked?()
     }
     
     @IBAction func toClearButtonClicked(_ sender: Any) {
         toTextField.text!.removeAll()
-        toTextFieldClear = true
         toTextField.becomeFirstResponder()
+        delegate?.toFieldClearButtonClicked?()
+    }
+    
+    @IBAction func singleSearchClearButtonClicked(_ sender: Any) {
+        singleSearchTextField.text!.removeAll()
+        singleSearchTextField.becomeFirstResponder()
+        delegate?.singleSearchFieldClearButtonClicked?()
     }
 
     // MARK: Textfield delegate
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
         if textField == fromTextField {
-            if fromTextFieldClear {
-                fromTextFieldClear = false
-            } else {
-                delegate?.fromFieldClicked?(q: textField.text)
-            }
-            if !(textField.text ?? "").isEmpty && isClearButtonAccessible {
+            delegate?.fromFieldClicked?(query: textField.text)
+            if let text = textField.text, !text.isEmpty, isClearButtonAccessible {
                 fromClearButton.isHidden = false
             } else {
                 fromClearButton.isHidden = true
             }
         } else if textField == toTextField {
-            if toTextFieldClear {
-                toTextFieldClear = false
-            } else {
-                delegate?.toFieldClicked?(q: textField.text)
-            }
-            if !(textField.text ?? "").isEmpty && isClearButtonAccessible {
+            delegate?.toFieldClicked?(query: textField.text)
+            if let text = textField.text, !text.isEmpty, isClearButtonAccessible {
                 toClearButton.isHidden = false
             } else {
                 toClearButton.isHidden = true
+            }
+        } else if textField == singleSearchTextField {
+            delegate?.singleSearchFieldClicked?(query: textField.text)
+            if let text = textField.text, !text.isEmpty, isClearButtonAccessible {
+                singleSearchClearButton.isHidden = false
+            } else {
+                singleSearchClearButton.isHidden = true
             }
         }
     }
@@ -505,18 +562,25 @@ class SearchView: UIView, UITextFieldDelegate {
             let updatedText = text.replacingCharacters(in: textRange, with: string)
             
             if textField == fromTextField {
-                delegate?.fromFieldDidChange?(q: updatedText)
+                delegate?.fromFieldDidChange?(query: updatedText)
                 if !updatedText.isEmpty && isClearButtonAccessible {
                     fromClearButton.isHidden = false
                 } else {
                     fromClearButton.isHidden = true
                 }
             } else if textField == toTextField {
-                delegate?.toFieldDidChange?(q: updatedText)
+                delegate?.toFieldDidChange?(query: updatedText)
                 if !updatedText.isEmpty && isClearButtonAccessible {
                     toClearButton.isHidden = false
                 } else {
                     toClearButton.isHidden = true
+                }
+            } else if textField == singleSearchTextField {
+                delegate?.singleSearchFieldChange?(query: updatedText)
+                if !updatedText.isEmpty && isClearButtonAccessible {
+                    singleSearchClearButton.isHidden = false
+                } else {
+                    singleSearchClearButton.isHidden = true
                 }
             } else {
                 
@@ -533,8 +597,8 @@ class SearchView: UIView, UITextFieldDelegate {
         endEditing(true)
         fromClearButton.isHidden = true
         toClearButton.isHidden = true
-    }
-    
+        singleSearchClearButton.isHidden = true
+    }    
 }
 
 extension SearchView: TravelerTypeDelegate {

@@ -9,13 +9,14 @@ import UIKit
 
 @objc public protocol PublicTransportStepViewDelegate: class {
     
-    @objc func viewTicketClicked(index: Int)
+    @objc func viewTicketClicked(maasTicketId: Int, maasTicketsJson: String)
+    func showError()
 }
 
 class PublicTransportStepView: UIView {
 
     @IBOutlet weak var stackView: UIStackView!
-    @IBOutlet weak var publicTransportIconLabel: UILabel!
+    @IBOutlet weak var publicTransportModeImageView: UIImageView!
     @IBOutlet weak var actionDescriptionLabel: UILabel!
     @IBOutlet weak var informationsLabel: UILabel!
     @IBOutlet weak var transportIconView: UIView!
@@ -24,7 +25,7 @@ class PublicTransportStepView: UIView {
     @IBOutlet weak var networkContainerView: UIView!
     @IBOutlet weak var networkLabel: UILabel!
     @IBOutlet weak var waitingContainerView: UIView!
-    @IBOutlet weak var waitingIconLabel: UILabel!
+    @IBOutlet weak var waitingIconImageView: UIImageView!
     @IBOutlet weak var waitingInformationsLabel: UILabel!
     @IBOutlet weak var publicTransportContainerView: UIView!
     @IBOutlet weak var publicTransportPinFromView: UIView!
@@ -35,7 +36,7 @@ class PublicTransportStepView: UIView {
     @IBOutlet var publicTransportStationsContainerView: UIView!
     @IBOutlet weak var publicTransportStationsButtonContainerView: UIButton!
     @IBOutlet weak var publicTransportStationsLabel: UILabel!
-    @IBOutlet weak var publicTransportStationsFlecheLabel: UILabel!
+    @IBOutlet weak var publicTransportStationsArrowImageView: UIImageView!
     @IBOutlet var publicTransportStationsStackContainerView: UIView!
     @IBOutlet weak var publicTransportEndTimeLabel: UILabel!
     @IBOutlet weak var publicTransportToLabel: UILabel!
@@ -57,11 +58,11 @@ class PublicTransportStepView: UIView {
     
     weak internal var delegate: PublicTransportStepViewDelegate?
     
-    internal var ticketViewConfig: (isTicketAvailable: Bool, viewTicketLocalized: String, ticketNotAvailableLocalized: String)? {
+    internal var ticketViewConfig: (availableTicketId: Int?, maasTicketsJson: String?, viewTicketLocalized: String, ticketNotAvailableLocalized: String)? {
         didSet {
             if let ticketViewConfig = ticketViewConfig {
-                if ticketViewConfig.isTicketAvailable {
-                    let ticketImage = UIImage(named: "ticket", in: NavitiaSDKUI.shared.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
+                if ticketViewConfig.availableTicketId != nil {
+                    let ticketImage = "ticket".getIcon(renderingMode: .alwaysOriginal, customizable: true)
                     viewTicketButton.setImage(ticketImage, for: .normal)
                     viewTicketButton.tintColor = Configuration.Color.secondary.contrastColor()
                     viewTicketButton.imageView?.contentMode = .scaleAspectFit
@@ -72,7 +73,7 @@ class PublicTransportStepView: UIView {
                     viewTicketContainer.backgroundColor = Configuration.Color.secondary
                     viewTicketContainer.isHidden = false
                 } else {
-                    let ticketNotAvailableImage = UIImage(named: "ticket_not_available", in: NavitiaSDKUI.shared.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
+                    let ticketNotAvailableImage = "ticket_not_available".getIcon(renderingMode: .alwaysOriginal, customizable: true)
                     noTicketAvailableImage.image = ticketNotAvailableImage
                     noTicketAvailableImage.tintColor = UIColor.white
                     
@@ -89,7 +90,6 @@ class PublicTransportStepView: UIView {
         didSet {
             guard let color = borderColor?.cgColor else {
                 transportIconView.layer.borderWidth = 0
-                
                 return
             }
             
@@ -183,8 +183,8 @@ class PublicTransportStepView: UIView {
             guard let icon = icon else {
                 return
             }
-
-            publicTransportIconLabel.attributedText = NSMutableAttributedString().icon(icon, size: 20)
+            
+            publicTransportModeImageView.image = icon.getIcon(prefix: "journey_mode_", renderingMode: .alwaysOriginal, customizable: true)
         }
     }
 
@@ -293,7 +293,8 @@ class PublicTransportStepView: UIView {
             }
 
             waitingContainerView.isHidden = false
-            waitingIconLabel.attributedText = NSMutableAttributedString().icon("clock", color: Configuration.Color.darkerGray, size: 15)
+            waitingIconImageView.image = "waiting".getIcon()
+            waitingIconImageView.tintColor = Configuration.Color.darkerGray
             waitingInformationsLabel.attributedText = NSMutableAttributedString().normal(waiting, color: Configuration.Color.darkerGray, size: 12)
         }
     }
@@ -321,11 +322,9 @@ class PublicTransportStepView: UIView {
 
     private var stationsStackContainerIsHidden: Bool = true {
         didSet {
-            if stationsStackContainerIsHidden {
-                publicTransportStationsFlecheLabel.attributedText = NSMutableAttributedString().icon("arrow-details-down", color: Configuration.Color.gray, size: 13)
-            } else {
-                publicTransportStationsFlecheLabel.attributedText = NSMutableAttributedString().icon("arrow-details-up", color: Configuration.Color.gray, size: 13)
-            }
+            let arrowImage = stationsStackContainerIsHidden ? "arrow_down".getIcon() : "arrow_up".getIcon()
+            publicTransportStationsArrowImageView.image = arrowImage
+            publicTransportStationsArrowImageView.tintColor = Configuration.Color.gray
             
             publicTransportStationsStackContainerView.isHidden = stationsStackContainerIsHidden
             publicTransportStationsStackContainerTopContraint.isActive = !stationsStackContainerIsHidden
@@ -430,6 +429,12 @@ class PublicTransportStepView: UIView {
     }
     
     @IBAction func viewTicketClicked(_ sender: Any) {
-        delegate?.viewTicketClicked(index: 0)
+        if let ticketViewConfig = ticketViewConfig,
+            let maasTicketId = ticketViewConfig.availableTicketId,
+            let maasTicketsJson = ticketViewConfig.maasTicketsJson {
+            delegate?.viewTicketClicked(maasTicketId: maasTicketId, maasTicketsJson: maasTicketsJson)
+        } else {
+            delegate?.showError()
+        }
     }
 }

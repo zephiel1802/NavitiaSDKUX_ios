@@ -41,7 +41,11 @@ open class ListJourneysViewController: UIViewController, ListJourneysDisplayLogi
     override open func viewDidLoad() {
         super.viewDidLoad()
         
-        self.setTitle(title: "journeys".localized())
+        if let titlesConfig = Configuration.titlesConfig, let journeysTitle = titlesConfig.journeysTitle {
+            self.setTitle(title: journeysTitle)
+        } else {
+            self.setTitle(title: "journeys".localized())
+        }
         
         hideKeyboardWhenTappedAround()
         
@@ -66,10 +70,16 @@ open class ListJourneysViewController: UIViewController, ListJourneysDisplayLogi
         reloadCollectionViewLayout()
     }
     
-    override open func viewDidAppear(_ animated: Bool) {
+    override open func viewWillAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         searchView.fromTextField.resignFirstResponder()
         searchView.toTextField.resignFirstResponder()
+        
+        if interactor?.journeysRequest?.originId == nil {
+            searchView.fromTextField.becomeFirstResponder()
+        } else if interactor?.journeysRequest?.destinationId == nil {
+            searchView.toTextField.becomeFirstResponder()
+        }
     }
     
     private func initArchitecture() {
@@ -174,7 +184,7 @@ open class ListJourneysViewController: UIViewController, ListJourneysDisplayLogi
         searchView.toTextField.text = viewModel.toName
         
         searchView.dateTime = viewModel.dateTime
-        searchView.lock = !NavitiaSDKUI.shared.formJourney
+        searchView.lock = !NavitiaSDKUI.shared.advancedSearchMode
         searchView.dateFormView.date = viewModel.date
         searchView.isAccessibilityElement = false
         
@@ -253,7 +263,6 @@ open class ListJourneysViewController: UIViewController, ListJourneysDisplayLogi
         }
         
         collectionViewLayout.reloadLayout()
-        
     }
     
     func anim() {
@@ -506,18 +515,20 @@ extension ListJourneysViewController: SearchViewDelegate {
         }
     }
     
-    func fromFieldClicked(q: String?) {
-        router?.routeToListPlaces(info: "from")
+    func fromFieldClicked(query: String?) {
+        searchView.endEditing(true)
+        router?.routeToListPlaces(searchFieldType: .from)
     }
     
-    func toFieldClicked(q: String?) {
-        router?.routeToListPlaces(info: "to")
+    func toFieldClicked(query: String?) {
+        searchView.endEditing(true)
+        router?.routeToListPlaces(searchFieldType: .to)
     }
 }
 
 extension ListJourneysViewController: ListPlacesViewControllerDelegate {
     
-    func searchView(from: (label: String?, name: String?, id: String), to: (label: String?, name: String?, id: String)) {
+    public func searchView(from: (label: String?, name: String?, id: String), to: (label: String?, name: String?, id: String)) {
         let request = ListJourneys.DisplaySearch.Request(from: from, to: to)
         
         interactor?.displaySearch(request: request)
@@ -530,7 +541,6 @@ extension ListJourneysViewController: SearchButtonViewDelegate {
     
     func search() {
         if searchView.isPreferencesShown {
-            print("Changement de mode")
             if let physicalModes = searchView.transportModeView?.getPhysicalModes() {
                 interactor?.journeysRequest?.allowedPhysicalModes = physicalModes
             }
