@@ -191,23 +191,9 @@ class JourneySolutionCollectionViewCell: UICollectionViewCell {
         }
         
         if tickets.count == 0 {
-            // No tickets found
-            if isPriceMissing && isLoaded {
-                updatePriceDisplaying(state: .unavailable_price, price: nil)
-                
-                // Only free sections like walking
-            } else {
-                updatePriceDisplaying(state: .no_price, price: nil)
-            }
+            updatePriceDisplaying(state: isPriceMissing && isLoaded ? .unavailable_price : .no_price, price: nil)
         } else {
-            // incompleted price
-            if isPriceMissing {
-                updatePriceDisplaying(state: .incomplete_price, price: totalPrice)
-                
-                // completed price
-            } else {
-                updatePriceDisplaying(state: .full_price, price: totalPrice)
-            }
+            updatePriceDisplaying(state: isPriceMissing ? .incomplete_price : .full_price, price: totalPrice)
         }
         
         updateJourneySummaryView()
