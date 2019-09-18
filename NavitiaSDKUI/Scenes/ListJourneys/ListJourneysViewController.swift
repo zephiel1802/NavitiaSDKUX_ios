@@ -75,7 +75,7 @@ open class ListJourneysViewController: UIViewController, ListJourneysDisplayLogi
         searchView.fromTextField.resignFirstResponder()
         searchView.toTextField.resignFirstResponder()
         
-        if interactor?.journeysRequest?.originId == nil || (interactor?.journeysRequest?.originId == nil && interactor?.journeysRequest?.destinationId == nil) {
+        if interactor?.journeysRequest?.originId == nil {
             searchView.fromTextField.becomeFirstResponder()
         } else if interactor?.journeysRequest?.destinationId == nil {
             searchView.toTextField.becomeFirstResponder()
