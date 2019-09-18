@@ -22,6 +22,7 @@ extension UIViewController {
             }
             
             navigationController.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: Configuration.Color.main.contrastColor()]
+            navigationController.navigationBar.tintColor = Configuration.Color.main.contrastColor()
         } else {
             self.title = title
         }
