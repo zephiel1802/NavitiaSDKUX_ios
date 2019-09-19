@@ -360,6 +360,7 @@ extension ListJourneysViewController: UICollectionViewDataSource, UICollectionVi
                 cell.friezeSections = viewModel.friezeSections
                 
                 if delegate != nil {
+                    cell.hermaasPricedTickets = nil
                     cell.unsupportedSectionIdList = viewModel.unbookableSectionIdList
                     cell.unexpectedErrorTicketIdList = viewModel.unexpectedErrorTicketIdList
                     cell.ticketInputs = viewModel.ticketsInput
@@ -431,8 +432,7 @@ extension ListJourneysViewController: UICollectionViewDataSource, UICollectionVi
         var selector: Selector?
         
         if viewModel.loaded {
-            if let cell = collectionView.cellForItem(at: indexPath) as? JourneySolutionCollectionViewCell,
-                delegate != nil, cell.isLoaded {
+            if let cell = collectionView.cellForItem(at: indexPath) as? JourneySolutionCollectionViewCell, (delegate == nil || cell.isLoaded) {
                 selector = NSSelectorFromString("routeToJourneySolutionRoadmapWithIndexPath:")
             } else if indexPath.section == 1 && viewModel.displayedRidesharings.count > indexPath.row - 1 && indexPath.row != 0 {
                 selector = NSSelectorFromString("routeToListRidesharingOffersWithIndexPath:")

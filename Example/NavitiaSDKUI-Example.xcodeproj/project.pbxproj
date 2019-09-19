@@ -7,8 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		74BB9E7091EEE11538CAA182 /* Pods_NavitiaSDKUI_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D02B2FF90D19A6F9514AE5F /* Pods_NavitiaSDKUI_Example.framework */; };
-		17FCD731D60D98BB94B92824 /* Pods_NavitiaSDKUI_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A0A832B544A9274FCF91BB82 /* Pods_NavitiaSDKUI_Example.framework */; };
+		E99EE2551FEB5D4E919B40F7 /* Pods_NavitiaSDKUI_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D9998C030D86075F1B842E65 /* Pods_NavitiaSDKUI_Example.framework */; };
 		F611214C22B3E80100E2A5B8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F611214B22B3E80100E2A5B8 /* AppDelegate.swift */; };
 		F611215122B3E80100E2A5B8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F611214F22B3E80100E2A5B8 /* Main.storyboard */; };
 		F611215322B3E80300E2A5B8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F611215222B3E80300E2A5B8 /* Assets.xcassets */; };
@@ -18,12 +17,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		56C6EA544DA617C76AFF2C33 /* Pods-NavitiaSDKUI-Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NavitiaSDKUI-Example.debug.xcconfig"; path = "Target Support Files/Pods-NavitiaSDKUI-Example/Pods-NavitiaSDKUI-Example.debug.xcconfig"; sourceTree = "<group>"; };
-		69E77C0828B8940A63D87F6B /* Pods-NavitiaSDKUI-Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NavitiaSDKUI-Example.release.xcconfig"; path = "Target Support Files/Pods-NavitiaSDKUI-Example/Pods-NavitiaSDKUI-Example.release.xcconfig"; sourceTree = "<group>"; };
-		7D02B2FF90D19A6F9514AE5F /* Pods_NavitiaSDKUI_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_NavitiaSDKUI_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		2127F69DFE4D1DF7EC37FF4E /* Pods-NavitiaSDKUI-Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NavitiaSDKUI-Example.release.xcconfig"; path = "Target Support Files/Pods-NavitiaSDKUI-Example/Pods-NavitiaSDKUI-Example.release.xcconfig"; sourceTree = "<group>"; };
-		6CF7581A8D8F5D0322B4FF94 /* Pods-NavitiaSDKUI-Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NavitiaSDKUI-Example.debug.xcconfig"; path = "Target Support Files/Pods-NavitiaSDKUI-Example/Pods-NavitiaSDKUI-Example.debug.xcconfig"; sourceTree = "<group>"; };
-		A0A832B544A9274FCF91BB82 /* Pods_NavitiaSDKUI_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_NavitiaSDKUI_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		396B2485E72FC4988D0E6223 /* Pods-NavitiaSDKUI-Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NavitiaSDKUI-Example.release.xcconfig"; path = "Target Support Files/Pods-NavitiaSDKUI-Example/Pods-NavitiaSDKUI-Example.release.xcconfig"; sourceTree = "<group>"; };
+		D26FC8636BFFF5FC33E49EAB /* Pods-NavitiaSDKUI-Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NavitiaSDKUI-Example.debug.xcconfig"; path = "Target Support Files/Pods-NavitiaSDKUI-Example/Pods-NavitiaSDKUI-Example.debug.xcconfig"; sourceTree = "<group>"; };
+		D9998C030D86075F1B842E65 /* Pods_NavitiaSDKUI_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_NavitiaSDKUI_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F611214822B3E80100E2A5B8 /* NavitiaSDKUI-Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "NavitiaSDKUI-Example.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F611214B22B3E80100E2A5B8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F611215022B3E80100E2A5B8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -39,22 +35,17 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				74BB9E7091EEE11538CAA182 /* Pods_NavitiaSDKUI_Example.framework in Frameworks */,
-				17FCD731D60D98BB94B92824 /* Pods_NavitiaSDKUI_Example.framework in Frameworks */,
+				E99EE2551FEB5D4E919B40F7 /* Pods_NavitiaSDKUI_Example.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		0105D2EFA27801EAAB04F050 /* Frameworks */ = {
+		CB475330B92044AC7EB78798 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				7D02B2FF90D19A6F9514AE5F /* Pods_NavitiaSDKUI_Example.framework */,
-		6D96114529222080C8EA82EE /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				A0A832B544A9274FCF91BB82 /* Pods_NavitiaSDKUI_Example.framework */,
+				D9998C030D86075F1B842E65 /* Pods_NavitiaSDKUI_Example.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -62,10 +53,8 @@
 		E6786914CED27DE07E31CFF0 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				56C6EA544DA617C76AFF2C33 /* Pods-NavitiaSDKUI-Example.debug.xcconfig */,
-				69E77C0828B8940A63D87F6B /* Pods-NavitiaSDKUI-Example.release.xcconfig */,
-				6CF7581A8D8F5D0322B4FF94 /* Pods-NavitiaSDKUI-Example.debug.xcconfig */,
-				2127F69DFE4D1DF7EC37FF4E /* Pods-NavitiaSDKUI-Example.release.xcconfig */,
+				D26FC8636BFFF5FC33E49EAB /* Pods-NavitiaSDKUI-Example.debug.xcconfig */,
+				396B2485E72FC4988D0E6223 /* Pods-NavitiaSDKUI-Example.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -76,8 +65,7 @@
 				F611214A22B3E80100E2A5B8 /* NavitiaSDKUI-Example */,
 				F611214922B3E80100E2A5B8 /* Products */,
 				E6786914CED27DE07E31CFF0 /* Pods */,
-				0105D2EFA27801EAAB04F050 /* Frameworks */,
-				6D96114529222080C8EA82EE /* Frameworks */,
+				CB475330B92044AC7EB78798 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -110,16 +98,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = F611215A22B3E80300E2A5B8 /* Build configuration list for PBXNativeTarget "NavitiaSDKUI-Example" */;
 			buildPhases = (
-				897B2AFDCC3C85F10F3F55CD /* [CP] Check Pods Manifest.lock */,
+				4F32BD0E3D5D993186768502 /* [CP] Check Pods Manifest.lock */,
 				F611214422B3E80100E2A5B8 /* Sources */,
 				F611214522B3E80100E2A5B8 /* Frameworks */,
 				F611214622B3E80100E2A5B8 /* Resources */,
-				535AFEE0F02DB8DACA43C7B3 /* [CP] Embed Pods Frameworks */,
-				AB49C8B5CCC272A559F7CF9C /* [CP] Check Pods Manifest.lock */,
-				F611214422B3E80100E2A5B8 /* Sources */,
-				F611214522B3E80100E2A5B8 /* Frameworks */,
-				F611214622B3E80100E2A5B8 /* Resources */,
-				1E563850004039D408B7EEA3 /* [CP] Embed Pods Frameworks */,
+				488D88B80E6BD7AA3EB12CEE /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -178,8 +161,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		535AFEE0F02DB8DACA43C7B3 /* [CP] Embed Pods Frameworks */ = {
-		1E563850004039D408B7EEA3 /* [CP] Embed Pods Frameworks */ = {
+		488D88B80E6BD7AA3EB12CEE /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -196,8 +178,7 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-NavitiaSDKUI-Example/Pods-NavitiaSDKUI-Example-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		897B2AFDCC3C85F10F3F55CD /* [CP] Check Pods Manifest.lock */ = {
-		AB49C8B5CCC272A559F7CF9C /* [CP] Check Pods Manifest.lock */ = {
+		4F32BD0E3D5D993186768502 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -374,8 +355,7 @@
 		};
 		F611215B22B3E80300E2A5B8 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 56C6EA544DA617C76AFF2C33 /* Pods-NavitiaSDKUI-Example.debug.xcconfig */;
-			baseConfigurationReference = 6CF7581A8D8F5D0322B4FF94 /* Pods-NavitiaSDKUI-Example.debug.xcconfig */;
+			baseConfigurationReference = D26FC8636BFFF5FC33E49EAB /* Pods-NavitiaSDKUI-Example.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -397,8 +377,7 @@
 		};
 		F611215C22B3E80300E2A5B8 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 69E77C0828B8940A63D87F6B /* Pods-NavitiaSDKUI-Example.release.xcconfig */;
-			baseConfigurationReference = 2127F69DFE4D1DF7EC37FF4E /* Pods-NavitiaSDKUI-Example.release.xcconfig */;
+			baseConfigurationReference = 396B2485E72FC4988D0E6223 /* Pods-NavitiaSDKUI-Example.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
