@@ -1,0 +1,546 @@
+/*
+ * Loco ios export: iOS Localizable.strings
+ * Project: SDK
+ * Release: Working copy
+ * Locale: fr-FR, French (France)
+ * Tagged: journey
+ * Exported by: team sdk
+ * Exported at: Fri, 13 Sep 2019 15:39:38 +0200
+ */
+
+/* loco:5a33f812c430fe55028b4567 */
+"journeys" = "Itinéraires";
+
+/* loco:5a33f812c430fe55028b4569 */
+"with" = "Dont";
+
+/* loco:5a33f812c430fe55028b456a */
+"walking" = "à pied";
+
+/* loco:5a33f812c430fe55028b456d */
+"no_journey_found" = "Aucun itinéraire trouvé";
+
+/* loco:5a33f812c430fe55028b456e */
+"roadmap" = "Feuille de route";
+
+/* loco:5a33f812c430fe55028b456f */
+"details" = "Détails";
+
+/* loco:5a33f812c430fe55028b4570 */
+"a_time_walk" = "%@ de marche";
+
+/* loco:5a33f812c430fe55028b4571 */
+"a_time_ride" = "%@ de vélo";
+
+/* loco:5a33f812c430fe55028b4572 */
+"a_time_drive" = "%@ de voiture";
+
+/* loco:5a33f812c430fe55028b4573 */
+"take_a_bike_at" = "Prendre un vélo %@ à";
+
+/* loco:5a33f812c430fe55028b4575 */
+"wait" = "Attendre";
+
+/* loco:5a33f812c430fe55028b4576 */
+"from" = "Du";
+
+/* loco:5a33f812c430fe55028b4577 */
+"to_period" = "au";
+
+/* loco:5a33f812c430fe55028b4578 */
+"until_further_notice" = "jusqu'à nouvel ordre";
+
+/* loco:5a33f812c430fe55028b457b */
+"units_h" = "h";
+
+/* loco:5a33f812c430fe55028b457c */
+"units_minute" = "minute";
+
+/* loco:5a33f812c430fe55028b457d */
+"units_minutes" = "minutes";
+
+/* loco:5a33f812c430fe55028b4580 */
+"units_meters" = "mètres";
+
+/* loco:5a33f812c430fe55028b4584 */
+"units_km" = "km";
+
+/* loco:5a43b23b820ee91a678b4569 */
+"departure" = "Départ";
+
+/* loco:5a43b257820ee968678b4567 */
+"arrival" = "Arrivée";
+
+/* loco:5a43ceba820ee9586c8b456a */
+"take_the" = "Prendre le";
+
+/* loco:5a43cee4820ee9576c8b456a */
+"at" = "à";
+
+/* loco:5a43cf06820ee96f6c8b4568 */
+"in_the_direction_of" = "en direction de";
+
+/* loco:5a43cf3a820ee9796c8b456a */
+"units_hour_and_minute" = "%d heure et %d minute";
+
+/* loco:5a43cf5d820ee90a6d8b4568 */
+"units_hour_and_minutes" = "%d heure et %d minutes";
+
+/* loco:5a43cf7c820ee9156d8b4567 */
+"units_hours_and_minute" = "%d heures et %d minute";
+
+/* loco:5a43cfae820ee9296d8b4567 */
+"units_hours_and_minutes" = "%d heures et %d minutes";
+
+/* loco:5a4ce98fa39ff30e4e8b4569 */
+"stops" = "%d arrêts";
+
+/* loco:5a54f3bbc430fe984f8b4567 */
+"to" = "vers";
+
+/* loco:5a54f7dcc430fe98508b4567 */
+"departure_with_colon" = "Départ :";
+
+/* loco:5a54f808c430fe5c508b4567 */
+"arrival_with_colon" = "Arrivée :";
+
+/* loco:5a54f86cc430fe97508b4567 */
+"to_with_uppercase" = "En direction de";
+
+/* loco:5a7c7018a39ff3fe268b456a */
+"carpooling" = "Covoiturage";
+
+/* loco:5a82b9e0a39ff3e91a8b4567 */
+"no_carpooling_options_found" = "Aucune offre de covoiturage disponible";
+
+/* loco:5a8b077e820ee9374b8b4568 */
+"male" = "Homme";
+
+/* loco:5a8b07cc820ee92a4b8b4567 */
+"female" = "Femme";
+
+/* loco:5a8c339b820ee92d2f8b4567 */
+"rating" = "%d note";
+
+/* loco:5a8c33bd820ee92d2f8b456a */
+"rating_plural" = "%d notes";
+
+/* loco:5a8c3629820ee9a52f8b4568 */
+"free" = "Gratuit";
+
+/* loco:5a8d5166a39ff373208b4568 */
+"price_not_available" = "Prix non disponible";
+
+/* loco:5a8e97fc820ee9ab4e8b4569 */
+"available_seats" = "Places disponibles : %d";
+
+/* loco:5a8e98f5820ee9304f8b4567 */
+"no_available_seats" = "Places disponibles : N/A";
+
+/* loco:5a97fe7c820ee90b7d8b4568 */
+"book" = "Réserver";
+
+/* loco:5a981071c430fe582e8b4567 */
+"view_on_the_map" = "Voir sur la carte";
+
+/* loco:5a9ebec0c430febe228b456e */
+"carpool_highlight_message" = "Partager une voiture avec un particulier pour aller vers la même destination.";
+
+/* loco:5aaa3dd7820ee93f748b4568 */
+"cancel" = "Annuler";
+
+/* loco:5aaa3e13820ee98a748b4567 */
+"proceed" = "continuer";
+
+/* loco:5aaa3f3c820ee9b2748b4569 */
+"dont_show_this_message_again" = "Ne plus afficher ce message";
+
+/* loco:5aaa7c42a39ff3e97e8b4567 */
+"redirection_message" = "Vous allez être redirigé vers l'application de covoiturage";
+
+/* loco:5ab8cae5a39ff39a3a8b4567 */
+"units_minutes_short" = "min";
+
+/* loco:5ac79b67a39ff316528b4567 */
+"about" = "Environ";
+
+/* loco:5acf4095a39ff34f038b4568 */
+"take_the_ridesharing" = "Prendre le covoiturage à";
+
+/* loco:5ae99160820ee935448b4567 */
+"understood" = "Compris";
+
+/* loco:5b02c198a39ff3802e8b4568 */
+"back" = "Retour";
+
+/* loco:5b1102f3c430fedc4f8b4567 */
+"close" = "Fermer";
+
+/* loco:5b114657c430fe085b8b4567 */
+"yes" = "Oui";
+
+/* loco:5b16980172c2c95dec271e44 */
+"ok" = "Ok";
+
+/* loco:5b238a147ec8ae17ea57c2b3 */
+"a_time_ridesharing" = "%@ de covoiturage";
+
+/* loco:5b39ec2f72c2c95fc7236eb3 */
+"for_meter" = "sur %dm";
+
+/* loco:5b3c85bb7ec8ae5c0e68dfe2 */
+"description" = "Description";
+
+/* loco:5b3f1ef4a08ef13f38223d22 */
+"bss_available_bikes" = "%d vélo disponible";
+
+/* loco:5b3f1f62a08ef13f396e0244 */
+"available_places" = "%d place disponible";
+
+/* loco:5b3f65dc7ec8ae6b1502e685 */
+"dock_bike_at" = "Déposer le vélo %@ à";
+
+/* loco:5b5f14d37ec8ae116017e2f3 */
+"continue_on" = "Continuez sur";
+
+/* loco:5b5f161d7ec8ae11d90d2de2 */
+"carry_straight_on" = "Continuez tout droit";
+
+/* loco:5b5f168b7ec8ae11db351063 */
+"turn_left_on" = "Tournez à gauche sur";
+
+/* loco:5b5f16c27ec8ae11dc0845f2 */
+"in_meter" = "dans %dm";
+
+/* loco:5b5f16e47ec8ae11d11e9802 */
+"turn_left" = "Tournez à gauche";
+
+/* loco:5b5f17037ec8ae11d8022222 */
+"turn_right_on" = "Tournez à droite sur";
+
+/* loco:5b5f171e7ec8ae11d721b378 */
+"turn_right" = "Tournez à droite";
+
+/* loco:5b6aeb8a72c2c942fd1bdc12 */
+"carbon_journey" = "Votre trajet";
+
+/* loco:5b6af01c72c2c944085df942 */
+"units_kg" = "Kg";
+
+/* loco:5b6c161972c2c92fa54c7853 */
+"calorie_unit" = "%@ Kcal";
+
+/* loco:5b7d4c7172c2c979717e37c2 */
+"bss_available_bikes_plural" = "%d vélos disponibles";
+
+/* loco:5b7d4cf472c2c97933053f97 */
+"available_places_plural" = "%d places disponibles";
+
+/* loco:5b856bbc72c2c968217e76d2 */
+"mandatory_reservation" = "Réservation obligatoire";
+
+/* loco:5b8699cd72c2c918b60e33b3 */
+"carbon" = "CO2";
+
+/* loco:5b9291c372c2c91308618604 */
+"carbon_car" = "En voiture";
+
+/* loco:5b9fabf372c2c9529717f6a3 */
+"units_g" = "g";
+
+/* loco:5ba2091ca08ef179f4209a39 */
+"send_request" = "Répondre à l'annonce";
+
+/* loco:5bb498d572c2c92bf22c7a52 */
+"network" = "Réseau :";
+
+/* loco:5bbc6e5472c2c953373717d2 */
+"journey_research_in_progress" = "Recherche d'itinéraire en cours";
+
+/* loco:5bbc6ebe72c2c9533e1da093 */
+"reminder_of_the_research" = "Rappel de la recherche. Depuis %@ vers %@";
+
+/* loco:5bbc6ee472c2c9533b0d4de3 */
+"departure_on_at" = "Départ le %@ à %@";
+
+/* loco:5bbc6f0972c2c953373717d6 */
+"reverse_departure_and_arrival" = "Inverser départ et arrivée";
+
+/* loco:5bbc6f3472c2c9533b0d4de7 */
+"disrupted" = "Perturbé";
+
+/* loco:5bbc71be72c2c9539217b195 */
+"and" = "et";
+
+/* loco:5bbc739772c2c954441adc14 */
+"walking_noun" = "Marche à pied";
+
+/* loco:5bbc73b472c2c954423e1334 */
+"bike_noun" = "Vélo";
+
+/* loco:5bbc73df72c2c95446046966 */
+"car_noun" = "Voiture";
+
+/* loco:5bbc740372c2c9544604696d */
+"bss_noun" = "Vélo en libre service";
+
+/* loco:5bbc741f72c2c954492055d5 */
+"ridesharing_noun" = "Covoiturage";
+
+/* loco:5bbdc36ea08ef10e81715a12 */
+"ridesharing_departure_at" = "Covoiturage départ à %@ avec %@ .";
+
+/* loco:5bbdc3d4a08ef10e844c79e6 */
+"ridesharing_available_places" = "%d places disponibles.";
+
+/* loco:5bbdc450a08ef10e7a229ca7 */
+"no_rating" = "Pas de note.";
+
+/* loco:5bbdc4eba08ef10f0e7461e2 */
+"rating_out_of_five" = "Note : %.1f sur 5.";
+
+/* loco:5bbde82c7ec8ae0403382f87 */
+"ridesharing_offer" = "Offre de covoiturage : Prise en charge au %@. Dépose au %@.";
+
+/* loco:5bbde87b7ec8ae043050a552 */
+"departure_at_from" = "Départ à %@ de %@";
+
+/* loco:5bbde89d7ec8ae043d362374 */
+"you_arrived" = "Vous êtes arrivé à %@.";
+
+/* loco:5bbde8bc7ec8ae041a7fbde6 */
+"carbon_footprint" = "Bilan carbone de votre trajet: %@.";
+
+/* loco:5bbde8df7ec8ae043e369814 */
+"carbon_comparison_car" = "Comparaison en voiture: %@.";
+
+/* loco:5bc8436472c2c94dd16fa5e6 */
+"park_in_the" = "Garez-vous dans le";
+
+/* loco:5bc8441f72c2c94de41d6364 */
+"it_usually_takes" = "Cela prend habituellement";
+
+/* loco:5bc99663a08ef1696a2539c3 */
+"less_than_a_minute_drive" = "Moins d'une minute de voiture";
+
+/* loco:5bc99734a08ef169be51bf93 */
+"less_than_a_minute_ridesharing" = "Moins d'une minute de covoiturage";
+
+/* loco:5bc9982da08ef16a3158d4f2 */
+"less_than_a_minute_ride" = "Moins d'une minute de vélo";
+
+/* loco:5bc99901a08ef16a2f213b03 */
+"less_than_a_minute_walk" = "Moins d'une minute de marche";
+
+/* loco:5bc99f28a08ef16c072dc5f2 */
+"less_than_a" = "Moins d'une";
+
+/* loco:5bd2d5507ec8ae706c55e212 */
+"dial_a_ride" = "%@ à réserver";
+
+/* loco:5bd734efa08ef13d39629c42 */
+"double_tap_to" = "Tapez deux fois pour";
+
+/* loco:5bd889527ec8ae5c1e0dec13 */
+"arrival_at_to" = "Arrivée à %@ à %@";
+
+/* loco:5be450cd7ec8ae2356035c22 */
+"gram" = "gramme";
+
+/* loco:5be4514c7ec8ae235400e624 */
+"kilogram" = "kilogramme";
+
+/* loco:5be457357ec8ae249d272d92 */
+"of_carbon_dioxide" = "de dioxyde de carbone";
+
+/* loco:5be583c472c2c9710417d847 */
+"bss_station_status_closed" = "Attention : La station est fermée.";
+
+/* loco:5be5845972c2c9713b11bd32 */
+"bss_station_status_unavailable_pick_up" = "Nombre de vélos non disponible";
+
+/* loco:5be584ba72c2c9710254c767 */
+"bss_station_status_unavailable_drop_off" = "Nombre de places non disponible";
+
+/* loco:5bed3fc77ec8ae16ba519993 */
+"get_of_at" = "Descendre à l'arrêt %@";
+
+/* loco:5bf2e36f7ec8ae167110ebd3 */
+"hour" = "heure";
+
+/* loco:5c05654a7ec8ae1cf3739cf3 */
+"itinerary_disruption_message" = "Cet itinéraire subit actuellement des perturbations bloquantes.";
+
+/* loco:5c0565ae7ec8ae1cf62612b2 */
+"avoid_the_disruption" = "Éviter la perturbation";
+
+/* loco:5c61988472c2c96ee60fdf04 */
+"my_position" = "Ma position";
+
+/* loco:5c6d3617a08ef178182780a2 */
+"transport_modes" = "Modes de transport";
+
+/* loco:5c6d369aa08ef1782113afd3 */
+"preferences" = "Préférences";
+
+/* loco:5c6e74f5a08ef13ecd4b39a3 */
+"search" = "Recherche";
+
+/* loco:5c6fc996a08ef1110276d302 */
+"history" = "Historique";
+
+/* loco:5c6fca6da08ef110b672d135 */
+"points_of_interest" = "Points d'interêts";
+
+/* loco:5c6fca9ca08ef111251d10c4 */
+"addresses" = "Adresses";
+
+/* loco:5c6fcaeda08ef11126446973 */
+"stations" = "Stations";
+
+/* loco:5c6fcf4c7ec8ae58f46d30d2 */
+"now" = "Maintenant";
+
+/* loco:5c6fd42e7ec8ae59f6054692 */
+"public_transport" = "transports publics";
+
+/* loco:5c7017297ec8ae68326a4d67 */
+"place_of_departure" = "Lieu de départ";
+
+/* loco:5c7017697ec8ae68fc336642 */
+"place_of_arrival" = "Lieu d'arrivée";
+
+/* loco:5c87d5bfa08ef147ed3199f4 */
+"all_search" = "Rechercher";
+
+/* loco:5c87d68fa08ef147f909fb76 */
+"all_preferences" = "Préférences";
+
+/* loco:5cdadd3fed0cfa51f2687e64 */
+"journey_header_from" = "Départ : %@";
+
+/* loco:5cdadd9bed0cfa52121601e2 */
+"journey_header_to" = "Arrivée : %@";
+
+/* loco:5cdd6a23c38e0f03340d8ac4 */
+"search_by_departure" = "Recherche par date de départ, double clic pour rechercher par date d'arrivée";
+
+/* loco:5cdd6a99c38e0f04842604b2 */
+"search_by_arrival" = "Recherche par date d'arrivé, clic double pour rechercher par date de départ";
+
+/* loco:5cdea2cf4d3dd771b64bcc32 */
+"search_button_disabled" = "Recherche désactivée. Veuillez saisir le lieu de départ et d'arrivée.";
+
+/* loco:5cdea6ff4d3dd772e43a7822 */
+"stop" = "%d arrêt";
+
+/* loco:5cdea76f4d3dd7733f02d4a5 */
+"point_of_interest" = "Point d'interêt";
+
+/* loco:5cded03ec38e0f5f6164ea45 */
+"today" = "Aujourd'hui";
+
+/* loco:5cded68fc38e0f663412f6b2 */
+"journey_header_hint" = "Saisissez votre %s";
+
+/* loco:5cded7fbc38e0f669a5c94d2 */
+"form_time_description" = "Heure définie : %s";
+
+/* loco:5cded82dc38e0f66265e24f2 */
+"form_date_description" = "Date définie : %s";
+
+/* loco:5ce2be30ed0cfa72990ad553 */
+"preferences_description" = "Préférences et modes de transport";
+
+/* loco:5cf52d4eed0cfa1a67488f25 */
+"clear_departure" = "Effacer le lieu de départ";
+
+/* loco:5cf52d74ed0cfa1a67488f27 */
+"clear_arrival" = "Effacer le lieu d'arrivée";
+
+/* loco:5d01f30d4d3dd777093425d3 */
+"see_ticket" = "Voir ticket";
+
+/* loco:5d01f3664d3dd7771063e442 */
+"please_buy_ticket_separately" = "Veuillez acheter ce ticket séparément";
+
+/* loco:5d020dab4d3dd77f664ef702 */
+"total_journey_price" = "Total du voyage";
+
+/* loco:5d137524c38e0f55b803e189 */
+"stop_with_uppercase" = "Arrêt";
+
+/* loco:5d260526c38e0f233f6f4d05 */
+"now_short" = "Maint...";
+
+/* loco:5d42af01ed0cfa1e516e4bf2 */
+"view_ticket" = "Afficher le ticket";
+
+/* loco:5d6d4012ed0cfa1a2a4a89f2 */
+"stops_stations" = "Arrêts - Stations";
+
+/* loco:5d70d3194d3dd7153b1966b2 */
+"price" = "€ %.2f";
+
+/* loco:5d71266d4d3dd7423b7a0e82 */
+"price-from" = "A partir de %s";
+
+/* loco:5d75661ec38e0f09a1081c72 */
+"clear_home" = "Effacer le domicile";
+
+/* loco:5d75664fc38e0f09a21f2722 */
+"clear_work" = "Effacer le lieu de travail";
+
+/* loco:5d7567a2c38e0f09a009a5e3 */
+"journey_header_work" = "lieu de travail";
+
+/* loco:5d7567fbc38e0f09a009a5e6 */
+"journey_header_home" = "domicile";
+
+/* loco:5d76512cc38e0f507e237a22 */
+"fill_in_your_home_address" = "Saississez votre adresse";
+
+/* loco:5d765194c38e0f5048139cd2 */
+"fill_in_your_work_address" = "Saississez l'adresse de votre travail";
+
+/* loco:5d776c444d3dd740c8795442 */
+"taxi" = "Taxi";
+
+/* loco:5d779e8e4d3dd757bf773212 */
+"please_enable_location_manually" = "Veuillez activer manuellement votre position dans vos paramètres";
+
+/* loco:5d779f304d3dd757bc67f882 */
+"please_enable_location" = "Veuillez activer votre localisation";
+
+/* loco:5d779f864d3dd757c01d9014 */
+"loading" = "Chargement...";
+
+/* loco:5d77a0404d3dd75bc34bd153 */
+"could_not_find_anything" = "Aucun résultat";
+
+/* loco:5d78e976c38e0f06331d5e13 */
+"price_unavailable" = "Prix\\nIndisponible";
+
+/* loco:5d7a05cec38e0f428a5cf824 */
+"location_not_found" = "Position introuvable";
+
+/* loco:5d7b868bc38e0f50b17e8d94 */
+"about_you" = "";
+
+/* loco:5d7b86c3c38e0f51325cf722 */
+"walking_pace" = "";
+
+/* loco:5d7b9b8cc38e0f5524596012 */
+"wheelchair" = "";
+
+/* loco:5d7b9ba3c38e0f55025a0ce3 */
+"luggage" = "";
+
+/* loco:5d7b9bb1c38e0f552a433fb2 */
+"slow" = "";
+
+/* loco:5d7b9bbbc38e0f55025a0ce5 */
+"normal" = "";
+
+/* loco:5d7b9bc3c38e0f55016e9b43 */
+"fast" = "";
