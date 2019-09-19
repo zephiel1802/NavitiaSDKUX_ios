@@ -77,10 +77,16 @@ public class ListJourneysViewController: UIViewController, ListJourneysDisplayLo
         reloadCollectionViewLayout()
     }
     
-    override open func viewDidAppear(_ animated: Bool) {
+    override open func viewWillAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         searchView.fromTextField.resignFirstResponder()
         searchView.toTextField.resignFirstResponder()
+        
+        if interactor?.journeysRequest?.originId == nil {
+            searchView.fromTextField.becomeFirstResponder()
+        } else if interactor?.journeysRequest?.destinationId == nil {
+            searchView.toTextField.becomeFirstResponder()
+        }
     }
     
     private func initArchitecture() {
@@ -111,6 +117,35 @@ public class ListJourneysViewController: UIViewController, ListJourneysDisplayLo
         searchView.isAccessibilityElement = false
         if let modeTransportViewSelected = interactor?.modeTransportViewSelected {
             searchView.transportModeView.updateSelectedButton(selectedButton: modeTransportViewSelected)
+        }
+        if let travelerType = interactor?.journeysRequest?.travelerType {
+            switch travelerType {
+            case .wheelchair:
+                searchView.wheelchairTravelTypeIsOn = true
+                searchView.luggageTravelTypeIsOn = false
+                searchView.walkingSpeedView.isActive = false
+                searchView.walkingSpeedView.speed = .slow
+            case .luggage:
+                searchView.wheelchairTravelTypeIsOn = false
+                searchView.luggageTravelTypeIsOn = true
+                searchView.walkingSpeedView.isActive = false
+                searchView.walkingSpeedView.speed = .medium
+            case .slow_walker:
+                searchView.wheelchairTravelTypeIsOn = false
+                searchView.luggageTravelTypeIsOn = false
+                searchView.walkingSpeedView.isActive = true
+                searchView.walkingSpeedView.speed = .slow
+            case .standard:
+                searchView.wheelchairTravelTypeIsOn = false
+                searchView.luggageTravelTypeIsOn = false
+                searchView.walkingSpeedView.isActive = true
+                searchView.walkingSpeedView.speed = .medium
+            case .fast_walker:
+                searchView.wheelchairTravelTypeIsOn = false
+                searchView.luggageTravelTypeIsOn = false
+                searchView.walkingSpeedView.isActive = true
+                searchView.walkingSpeedView.speed = .fast
+            }
         }
         searchView.dateFormView.dateTimeRepresentsSegmentedControl = interactor?.journeysRequest?.datetimeRepresents?.rawValue
     }
@@ -156,7 +191,7 @@ public class ListJourneysViewController: UIViewController, ListJourneysDisplayLo
         searchView.toTextField.text = viewModel.toName
         
         searchView.dateTime = viewModel.dateTime
-        searchView.lock = !NavitiaSDKUI.shared.formJourney
+        searchView.lock = !NavitiaSDKUI.shared.advancedSearchMode
         searchView.dateFormView.date = viewModel.date
         searchView.isAccessibilityElement = false
         
@@ -496,18 +531,20 @@ extension ListJourneysViewController: SearchViewDelegate {
         }
     }
     
-    func fromFieldClicked(q: String?) {
-        router?.routeToListPlaces(info: "from")
+    func fromFieldClicked(query: String?) {
+        searchView.endEditing(true)
+        router?.routeToListPlaces(searchFieldType: .from)
     }
     
-    func toFieldClicked(q: String?) {
-        router?.routeToListPlaces(info: "to")
+    func toFieldClicked(query: String?) {
+        searchView.endEditing(true)
+        router?.routeToListPlaces(searchFieldType: .to)
     }
 }
 
 extension ListJourneysViewController: ListPlacesViewControllerDelegate {
     
-    func searchView(from: (label: String?, name: String?, id: String), to: (label: String?, name: String?, id: String)) {
+    public func searchView(from: (label: String?, name: String?, id: String), to: (label: String?, name: String?, id: String)) {
         let request = ListJourneys.DisplaySearch.Request(from: from, to: to)
         
         interactor?.displaySearch(request: request)
@@ -555,6 +592,21 @@ extension ListJourneysViewController: SearchButtonViewDelegate {
                     } else if mode == "car" {
                         interactor?.journeysRequest?.addPoiInfos?.append(.carPark)
                     }
+                }
+            }
+            
+            if searchView.wheelchairTypeView.isOn {
+                interactor?.journeysRequest?.travelerType = .wheelchair
+            } else if searchView.luggageTypeView.isOn {
+                interactor?.journeysRequest?.travelerType = .luggage
+            } else {
+                switch searchView.walkingSpeedView.speed {
+                case .slow:
+                    interactor?.journeysRequest?.travelerType = .slow_walker
+                case .medium:
+                    interactor?.journeysRequest?.travelerType = .standard
+                case .fast:
+                    interactor?.journeysRequest?.travelerType = .fast_walker
                 }
             }
             

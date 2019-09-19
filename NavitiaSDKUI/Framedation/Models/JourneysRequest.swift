@@ -9,6 +9,28 @@ import Foundation
 
 @objc public class JourneysRequest: NSObject {
     
+    public enum TravelerType: String {
+        case luggage = "luggage"
+        case wheelchair = "wheelchair"
+        case standard = "standard"
+        case fast_walker = "fast_walker"
+        case slow_walker = "slow_walker"
+        
+        func stringValue() -> String {
+            return self.rawValue.lowercased()
+        }
+    }
+    
+    public enum Speed: Double {
+        case slow = 0.66
+        case medium = 1.12
+        case fast = 1.78
+        
+        func doubleValue() -> Double {
+            return self.rawValue
+        }
+    }
+    
     public var coverage: String
     public var originId: String?
     public var originLabel: String?
@@ -31,6 +53,7 @@ import Foundation
     public var dataFreshness: CoverageRegionJourneysRequestBuilder.DataFreshness?
     public var allowedPhysicalModes: [String]?
     public var debugURL: String?
+    public var travelerType: TravelerType?
     
     public init(coverage: String) {
         self.coverage = coverage

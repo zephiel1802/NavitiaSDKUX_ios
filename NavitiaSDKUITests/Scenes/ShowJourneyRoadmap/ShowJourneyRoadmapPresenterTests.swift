@@ -153,11 +153,11 @@ class ShowJourneyRoadmapPresenterTests: XCTestCase {
             return
         }
         
-        XCTAssertEqual(pathViewMode[0].directionIcon, "arrow_straight")
+        XCTAssertEqual(pathViewMode[0].directionIcon, "arrow_straight_direction")
         XCTAssertEqual(pathViewMode[0].instruction, "Continue on avenue Daumesnil for 125m")
-        XCTAssertEqual(pathViewMode[1].directionIcon, "arrow_right")
+        XCTAssertEqual(pathViewMode[1].directionIcon, "arrow_right_direction")
         XCTAssertEqual(pathViewMode[1].instruction, "Turn right on rue Abel in 125m")
-        XCTAssertEqual(pathViewMode[2].directionIcon, "arrow_left")
+        XCTAssertEqual(pathViewMode[2].directionIcon, "arrow_left_direction")
         XCTAssertEqual(pathViewMode[2].instruction, "Turn left on rue de Prague in 260m")
     }
     

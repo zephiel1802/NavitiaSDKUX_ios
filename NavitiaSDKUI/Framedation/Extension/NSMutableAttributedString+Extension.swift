@@ -40,15 +40,5 @@ extension NSMutableAttributedString {
         append(boldString)
         return self
     }
-    
-    @discardableResult func icon(_ iconName: String, color: UIColor = UIColor.black, size: CGFloat = 12.0) -> NSMutableAttributedString {
-        if let font = UIFont(name: Configuration.fontIconsName, size: size) {
-            let icon = NSMutableAttributedString(string: Icon(iconName).iconFontCode,
-                                                 attributes: [.font : font,
-                             .foregroundColor: color])
-            append(icon)
-        }
-        return self
-    }
 }
 

@@ -18,7 +18,7 @@ class StepByStepItemView: UIView {
                 return
             }
             
-            directionIconImageView.image = UIImage(named: icon, in: NavitiaSDKUI.shared.bundle, compatibleWith: nil)
+            directionIconImageView.image = icon.getIcon(renderingMode: .alwaysOriginal)
         }
     }
     

@@ -86,4 +86,21 @@ extension String {
         
         return indices
     }
+    
+    func getIcon(applicationBundle: Bundle? = Configuration.applicationBundle,
+                 sdkBundle: Bundle? = NavitiaSDKUI.shared.bundle,
+                 prefix: String = "",
+                 renderingMode: UIImage.RenderingMode = UIImage.RenderingMode.alwaysTemplate,
+                 customizable: Bool = false) -> UIImage? {
+        let resourceName = String(format: "%@%@", prefix, self)
+        if customizable,
+            let applicationBundle = applicationBundle,
+            let iconImage = UIImage(named: resourceName, in: applicationBundle, compatibleWith: nil) {
+            return iconImage.withRenderingMode(renderingMode)
+        } else if let sdkBundle = sdkBundle, let iconImage = UIImage(named: resourceName, in: sdkBundle, compatibleWith: nil) {
+            return iconImage.withRenderingMode(renderingMode)
+        }
+        
+        return nil
+    }
 }

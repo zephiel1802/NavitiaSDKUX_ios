@@ -64,6 +64,7 @@ public class ShowJourneyRoadmapViewController: UIViewController {
         }
         
         initLocation()
+        displayCenterMapButton()
         getMap()
     }
 
@@ -81,6 +82,8 @@ public class ShowJourneyRoadmapViewController: UIViewController {
     override public func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
 
+        self.view.layoutIfNeeded()
+        
         startUpdatingUserLocation()
 
         refreshFetchBss(run: true)
@@ -535,13 +538,11 @@ extension ShowJourneyRoadmapViewController {
     private func initMapView() {
         mapView.showsUserLocation = true
         mapView.accessibilityElementsHidden = true
-        
-        displayCenterMapButton()
     }
     
     private func displayCenterMapButton() {
         centerMapButton.backgroundColor = Configuration.Color.secondary
-        centerMapButton.setImage(UIImage(named: "location", in: NavitiaSDKUI.shared.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate), for: .normal)
+        centerMapButton.setImage("location".getIcon(), for: .normal)
         centerMapButton.tintColor = Configuration.Color.white
         centerMapButton.imageEdgeInsets = UIEdgeInsets(top: 8, left: 6, bottom: 6, right: 8)
         centerMapButton.setShadow(color: Configuration.Color.shadow.cgColor,

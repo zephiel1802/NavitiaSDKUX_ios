@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -31,20 +31,15 @@
                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="P" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YaX-53-ulz">
-                            <rect key="frame" x="55" y="9" width="30" height="20.5"/>
-                            <accessibility key="accessibilityConfiguration">
-                                <bool key="isElement" value="NO"/>
-                            </accessibility>
+                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="location_pin" translatesAutoresizingMaskIntoConstraints="NO" id="vil-Qa-r2X">
+                            <rect key="frame" x="50" y="6.5" width="25" height="25"/>
                             <constraints>
-                                <constraint firstAttribute="width" constant="30" id="yxl-Bn-Jkw"/>
+                                <constraint firstAttribute="width" secondItem="vil-Qa-r2X" secondAttribute="height" multiplier="1:1" id="Y9c-Z2-wg4"/>
+                                <constraint firstAttribute="width" constant="25" id="hbq-dn-NhT"/>
                             </constraints>
-                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            <nil key="highlightedColor"/>
-                        </label>
+                        </imageView>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7Rj-Hq-nOQ">
-                            <rect key="frame" x="90" y="10" width="280" height="18"/>
+                            <rect key="frame" x="80" y="10" width="290" height="18"/>
                             <accessibility key="accessibilityConfiguration">
                                 <bool key="isElement" value="NO"/>
                             </accessibility>
@@ -59,7 +54,7 @@
                             <nil key="highlightedColor"/>
                         </label>
                         <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LdS-Wg-scv">
-                            <rect key="frame" x="90" y="38" width="280" height="15"/>
+                            <rect key="frame" x="80" y="38" width="290" height="15"/>
                             <subviews>
                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="calorie" translatesAutoresizingMaskIntoConstraints="NO" id="EoU-dF-lAv">
                                     <rect key="frame" x="0.0" y="1" width="13" height="13"/>
@@ -69,7 +64,7 @@
                                     </constraints>
                                 </imageView>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="154 Kcal" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0Bd-OD-6Hn">
-                                    <rect key="frame" x="18" y="0.0" width="262" height="14.5"/>
+                                    <rect key="frame" x="18" y="0.0" width="272" height="14.5"/>
                                     <accessibility key="accessibilityConfiguration">
                                         <bool key="isElement" value="NO"/>
                                     </accessibility>
@@ -92,19 +87,19 @@
                     </subviews>
                     <color key="backgroundColor" red="0.25098039220000001" green="0.58431372550000005" blue="0.5568627451" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
-                        <constraint firstItem="YaX-53-ulz" firstAttribute="centerY" secondItem="7Rj-Hq-nOQ" secondAttribute="centerY" id="5kx-AL-r8e"/>
                         <constraint firstItem="7Rj-Hq-nOQ" firstAttribute="top" secondItem="ZsE-1l-Ugi" secondAttribute="top" constant="10" id="FoX-iu-5uF"/>
-                        <constraint firstItem="YaX-53-ulz" firstAttribute="leading" secondItem="G7C-9x-Edy" secondAttribute="trailing" constant="5" id="HgP-WX-5rX"/>
+                        <constraint firstItem="7Rj-Hq-nOQ" firstAttribute="leading" secondItem="vil-Qa-r2X" secondAttribute="trailing" constant="5" id="Qoq-on-GTu"/>
                         <constraint firstItem="LdS-Wg-scv" firstAttribute="leading" secondItem="7Rj-Hq-nOQ" secondAttribute="leading" id="Rjy-Vm-nFV"/>
                         <constraint firstAttribute="height" relation="greaterThanOrEqual" id="SID-In-PZe"/>
+                        <constraint firstItem="vil-Qa-r2X" firstAttribute="leading" secondItem="G7C-9x-Edy" secondAttribute="trailing" id="U3y-AC-J7U"/>
                         <constraint firstAttribute="bottom" secondItem="7Rj-Hq-nOQ" secondAttribute="bottom" constant="10" id="V8v-fl-esf"/>
                         <constraint firstAttribute="bottom" secondItem="LdS-Wg-scv" secondAttribute="bottom" priority="250" constant="10" id="Wop-Am-Rzn"/>
                         <constraint firstAttribute="trailing" secondItem="7Rj-Hq-nOQ" secondAttribute="trailing" constant="5" id="auW-5W-cwH"/>
                         <constraint firstItem="G7C-9x-Edy" firstAttribute="leading" secondItem="ZsE-1l-Ugi" secondAttribute="leading" id="cTL-pZ-dFF"/>
+                        <constraint firstItem="G7C-9x-Edy" firstAttribute="centerY" secondItem="vil-Qa-r2X" secondAttribute="centerY" id="hdS-3z-goD"/>
                         <constraint firstAttribute="trailing" secondItem="LdS-Wg-scv" secondAttribute="trailing" constant="5" id="vZd-UD-Icz"/>
-                        <constraint firstItem="G7C-9x-Edy" firstAttribute="centerY" secondItem="YaX-53-ulz" secondAttribute="centerY" id="vo9-AE-nfK"/>
+                        <constraint firstItem="vil-Qa-r2X" firstAttribute="centerY" secondItem="7Rj-Hq-nOQ" secondAttribute="centerY" id="vqS-qt-LMf"/>
                         <constraint firstItem="LdS-Wg-scv" firstAttribute="top" secondItem="7Rj-Hq-nOQ" secondAttribute="bottom" constant="10" id="y0I-OF-Km8"/>
-                        <constraint firstItem="7Rj-Hq-nOQ" firstAttribute="leading" secondItem="YaX-53-ulz" secondAttribute="trailing" constant="5" id="zyy-yP-Sbg"/>
                     </constraints>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
@@ -131,7 +126,7 @@
                 <outlet property="calorieLabel" destination="0Bd-OD-6Hn" id="uAl-FO-YRZ"/>
                 <outlet property="contentContainerView" destination="ZsE-1l-Ugi" id="iTf-fg-nOe"/>
                 <outlet property="hourLabel" destination="G7C-9x-Edy" id="e2W-rr-BIk"/>
-                <outlet property="iconLabel" destination="YaX-53-ulz" id="L2B-p0-H0J"/>
+                <outlet property="iconImageView" destination="vil-Qa-r2X" id="JXy-F8-Efc"/>
                 <outlet property="informationBottomConstraint" destination="V8v-fl-esf" id="zgk-Hl-njB"/>
                 <outlet property="informationLabel" destination="7Rj-Hq-nOQ" id="Rfz-Oq-7OC"/>
             </connections>
@@ -140,5 +135,6 @@
     </objects>
     <resources>
         <image name="calorie" width="42" height="42"/>
+        <image name="location_pin" width="32" height="32"/>
     </resources>
 </document>

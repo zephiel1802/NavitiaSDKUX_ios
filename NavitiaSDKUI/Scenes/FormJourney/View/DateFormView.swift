@@ -120,12 +120,12 @@ class DateFormView: UIView {
     }
     
     private func initIconImageView() {
-        iconImageView.image = UIImage(named: "calendar", in: NavitiaSDKUI.shared.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
+        iconImageView.image = "calendar".getIcon()
         iconImageView.tintColor = Configuration.Color.main
     }
     
     private func initArrowImageView() {
-        arrowIconImageVIew.image = UIImage(named: "arrow_down", in: NavitiaSDKUI.shared.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
+        arrowIconImageVIew.image = "arrow_down".getIcon()
         arrowIconImageVIew.tintColor = Configuration.Color.black
     }
     

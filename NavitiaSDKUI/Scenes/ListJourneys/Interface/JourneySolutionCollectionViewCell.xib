@@ -37,7 +37,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="30 min" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qi9-Ve-v5r">
-                        <rect key="frame" x="235.5" y="10" width="39" height="14.5"/>
+                        <rect key="frame" x="236" y="10" width="39" height="14.5"/>
                         <accessibility key="accessibilityConfiguration">
                             <bool key="isElement" value="NO"/>
                         </accessibility>
@@ -45,15 +45,13 @@
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="&gt;" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Yza-xI-lKm">
-                        <rect key="frame" x="279.5" y="0.0" width="10.5" height="34.5"/>
-                        <accessibility key="accessibilityConfiguration">
-                            <bool key="isElement" value="NO"/>
-                        </accessibility>
-                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
-                        <nil key="textColor"/>
-                        <nil key="highlightedColor"/>
-                    </label>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="arrow_right" translatesAutoresizingMaskIntoConstraints="NO" id="uIM-uR-2h3">
+                        <rect key="frame" x="278" y="11.5" width="12" height="12"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="12" id="TAk-VM-Uuy"/>
+                            <constraint firstAttribute="width" secondItem="uIM-uR-2h3" secondAttribute="height" multiplier="1:1" id="UKX-Gc-9f4"/>
+                        </constraints>
+                    </imageView>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uiE-c6-acZ">
                         <rect key="frame" x="10" y="34.5" width="280" height="1"/>
                         <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
@@ -61,6 +59,15 @@
                             <constraint firstAttribute="height" constant="1" id="4NV-8o-Sx6"/>
                         </constraints>
                     </view>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="With 12 min walking (767 meters)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JUD-Ce-byI">
+                        <rect key="frame" x="10" y="117" width="189" height="15"/>
+                        <accessibility key="accessibilityConfiguration">
+                            <bool key="isElement" value="NO"/>
+                        </accessibility>
+                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lqf-YV-oSL" customClass="FriezeView" customModule="NavitiaSDKUI" customModuleProvider="target">
                         <rect key="frame" x="10" y="45.5" width="224" height="56.5"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -120,15 +127,6 @@ Unavailable</string>
                             <constraint firstItem="lda-rr-GTv" firstAttribute="leading" secondItem="ARY-OS-xlX" secondAttribute="leading" id="pS5-Ft-vEG"/>
                         </constraints>
                     </view>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="With 12 min walking (767 meters)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JUD-Ce-byI">
-                        <rect key="frame" x="10" y="117" width="189" height="15"/>
-                        <accessibility key="accessibilityConfiguration">
-                            <bool key="isElement" value="NO"/>
-                        </accessibility>
-                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                        <nil key="textColor"/>
-                        <nil key="highlightedColor"/>
-                    </label>
                     <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="4ZV-Ic-1Eg">
                         <rect key="frame" x="252" y="64" width="20" height="20"/>
                     </activityIndicatorView>
@@ -137,16 +135,14 @@ Unavailable</string>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
                 <constraint firstAttribute="bottom" secondItem="1d3-gH-QaT" secondAttribute="bottom" id="48K-ZM-9cJ"/>
-                <constraint firstItem="uiE-c6-acZ" firstAttribute="top" secondItem="Yza-xI-lKm" secondAttribute="bottom" id="8Hm-EF-cKA"/>
-                <constraint firstAttribute="trailing" secondItem="Yza-xI-lKm" secondAttribute="trailing" priority="999" constant="10" id="91O-Y0-FcZ"/>
                 <constraint firstItem="ARY-OS-xlX" firstAttribute="leading" secondItem="lqf-YV-oSL" secondAttribute="trailing" id="Amw-QL-MZq"/>
                 <constraint firstItem="1d3-gH-QaT" firstAttribute="leading" secondItem="8iX-MJ-bAx" secondAttribute="leading" id="Br7-uO-YYw"/>
                 <constraint firstAttribute="trailing" secondItem="ARY-OS-xlX" secondAttribute="trailing" constant="10" id="EHl-db-BEB"/>
-                <constraint firstItem="Yza-xI-lKm" firstAttribute="leading" secondItem="Qi9-Ve-v5r" secondAttribute="trailing" constant="5" id="I62-2h-XUA"/>
                 <constraint firstItem="dhB-Xm-3aP" firstAttribute="top" secondItem="8iX-MJ-bAx" secondAttribute="top" constant="10" id="Ij7-WS-ciy"/>
                 <constraint firstItem="ARY-OS-xlX" firstAttribute="centerX" secondItem="4ZV-Ic-1Eg" secondAttribute="centerX" id="KHr-oi-bOu"/>
                 <constraint firstItem="dhB-Xm-3aP" firstAttribute="leading" secondItem="8iX-MJ-bAx" secondAttribute="leading" constant="10" id="MKs-ls-tJk"/>
                 <constraint firstItem="JUD-Ce-byI" firstAttribute="top" secondItem="lqf-YV-oSL" secondAttribute="bottom" constant="15" id="Mgd-oC-fwr"/>
+                <constraint firstItem="UO3-ac-tHw" firstAttribute="trailing" secondItem="uIM-uR-2h3" secondAttribute="trailing" constant="10" id="PL2-zk-SOG"/>
                 <constraint firstItem="lqf-YV-oSL" firstAttribute="top" secondItem="uiE-c6-acZ" secondAttribute="bottom" constant="10" id="Tb9-si-dTb"/>
                 <constraint firstAttribute="trailing" secondItem="1d3-gH-QaT" secondAttribute="trailing" id="Tm0-7k-Y7N"/>
                 <constraint firstAttribute="trailing" secondItem="uiE-c6-acZ" secondAttribute="trailing" constant="10" id="Tn6-4s-6kB"/>
@@ -157,11 +153,13 @@ Unavailable</string>
                 <constraint firstItem="ARY-OS-xlX" firstAttribute="top" secondItem="lqf-YV-oSL" secondAttribute="top" id="e9t-Em-RIs"/>
                 <constraint firstItem="Qi9-Ve-v5r" firstAttribute="top" secondItem="8iX-MJ-bAx" secondAttribute="top" constant="10" id="hki-LY-er7"/>
                 <constraint firstItem="uiE-c6-acZ" firstAttribute="leading" secondItem="8iX-MJ-bAx" secondAttribute="leading" constant="10" id="hks-Tt-06d"/>
+                <constraint firstItem="Qi9-Ve-v5r" firstAttribute="centerY" secondItem="dhB-Xm-3aP" secondAttribute="centerY" id="pLa-E8-BOh"/>
                 <constraint firstItem="uiE-c6-acZ" firstAttribute="top" secondItem="dhB-Xm-3aP" secondAttribute="bottom" constant="10" id="udo-uH-bvm"/>
                 <constraint firstItem="UO3-ac-tHw" firstAttribute="bottom" secondItem="lqf-YV-oSL" secondAttribute="bottom" priority="500" constant="10" id="urS-PO-EW5"/>
+                <constraint firstItem="uIM-uR-2h3" firstAttribute="centerY" secondItem="Qi9-Ve-v5r" secondAttribute="centerY" id="vTm-Zl-tMJ"/>
                 <constraint firstItem="ARY-OS-xlX" firstAttribute="bottom" secondItem="lqf-YV-oSL" secondAttribute="bottom" id="vsW-1h-yyz"/>
                 <constraint firstAttribute="bottom" secondItem="JUD-Ce-byI" secondAttribute="bottom" constant="15" id="wRi-Fv-KrL"/>
-                <constraint firstItem="Yza-xI-lKm" firstAttribute="top" secondItem="8iX-MJ-bAx" secondAttribute="top" id="wfD-Z8-D2z"/>
+                <constraint firstItem="uIM-uR-2h3" firstAttribute="leading" secondItem="Qi9-Ve-v5r" secondAttribute="trailing" constant="3" id="yeU-tk-QEn"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="UO3-ac-tHw"/>
             <size key="customSize" width="260" height="146"/>
@@ -173,7 +171,7 @@ Unavailable</string>
             <connections>
                 <outlet property="PriceUnavailableLabel" destination="MZi-Ad-qHH" id="J4z-Cx-m9R"/>
                 <outlet property="accessiblityView" destination="1d3-gH-QaT" id="gCS-25-8xl"/>
-                <outlet property="arrowLabel" destination="Yza-xI-lKm" id="WHj-ZP-2av"/>
+                <outlet property="arrowImageView" destination="uIM-uR-2h3" id="wUm-Xh-wuS"/>
                 <outlet property="dateTimeLabel" destination="dhB-Xm-3aP" id="2q5-50-6I9"/>
                 <outlet property="durationBottomContraint" destination="wRi-Fv-KrL" id="eed-2z-Vwp"/>
                 <outlet property="durationLabel" destination="Qi9-Ve-v5r" id="v4m-aF-ytE"/>
@@ -190,4 +188,7 @@ Unavailable</string>
             <point key="canvasLocation" x="-1971.2" y="50.824587706146929"/>
         </collectionViewCell>
     </objects>
+    <resources>
+        <image name="arrow_right" width="32" height="32"/>
+    </resources>
 </document>

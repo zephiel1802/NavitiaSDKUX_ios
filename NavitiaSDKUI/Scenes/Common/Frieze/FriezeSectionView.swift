@@ -12,7 +12,7 @@ class FriezeSectionView: UIView {
     @IBOutlet weak var view: UIView!
     @IBOutlet weak var separatorImage: UIImageView!
     @IBOutlet var separatorTransportConstraint: NSLayoutConstraint!
-    @IBOutlet weak var transportLabel: UILabel!
+    @IBOutlet weak var modeIconImageView: UIImageView!
     @IBOutlet weak var tagTransportView: UIView!
     @IBOutlet weak var tagTransportLabel: UILabel!
     @IBOutlet weak var disruptionImage: UIImageView!
@@ -41,6 +41,14 @@ class FriezeSectionView: UIView {
     var hasBadge: Bool = false {
         didSet {
             setupDisruption()
+        }
+    }
+    var icon: String? {
+        didSet {
+            if let icon = self.icon {
+                modeIconImageView.image = icon.getIcon(prefix: "journey_mode_", renderingMode: .alwaysOriginal, customizable: true)
+                updateWidth()
+            }
         }
     }
     
@@ -134,24 +142,11 @@ extension FriezeSectionView {
         }
     }
     
-    var icon: String? {
-        get {
-            return transportLabel.text
-        }
-        set {
-            if let newValue = newValue {
-                transportLabel.attributedText = NSMutableAttributedString()
-                    .icon(newValue, size: 20)
-                updateWidth()
-            }
-        }
-    }
-    
     func updateWidth() {
         let marginSeparator = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 2)
         let marginTransportTag = UIEdgeInsets(top: 0, left: 4, bottom: 0, right: 4)
         let paddingTransportTag = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 5)
-        var width: CGFloat = 27
+        var width: CGFloat = 20
         
         if !separatorImage.isHidden {
             width = width + separatorImage.frame.size.width + marginSeparator.right

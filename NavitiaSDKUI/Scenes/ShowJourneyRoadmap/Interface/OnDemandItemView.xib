@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -16,19 +16,13 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="141"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="I" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ySN-69-9kM" userLabel="Disruption Icon Label">
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="phone_tad" translatesAutoresizingMaskIntoConstraints="NO" id="2Um-hC-kq5">
                     <rect key="frame" x="50" y="-0.5" width="15" height="15.5"/>
-                    <accessibility key="accessibilityConfiguration">
-                        <bool key="isElement" value="NO"/>
-                    </accessibility>
                     <constraints>
-                        <constraint firstAttribute="height" constant="15" id="2Hc-eW-E9h"/>
-                        <constraint firstAttribute="width" constant="15" id="w5a-1n-pDt"/>
+                        <constraint firstAttribute="width" constant="15" id="NzP-TK-uw3"/>
+                        <constraint firstAttribute="width" secondItem="2Um-hC-kq5" secondAttribute="height" multiplier="1:1" id="ocP-nf-Z2g"/>
                     </constraints>
-                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                    <nil key="textColor"/>
-                    <nil key="highlightedColor"/>
-                </label>
+                </imageView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Mandatory reservation" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JOL-LE-xg5" userLabel="Disruption Title Label">
                     <rect key="frame" x="70" y="0.0" width="285" height="14.5"/>
                     <accessibility key="accessibilityConfiguration">
@@ -49,15 +43,15 @@
                 </label>
             </subviews>
             <constraints>
-                <constraint firstItem="JOL-LE-xg5" firstAttribute="leading" secondItem="ySN-69-9kM" secondAttribute="trailing" constant="5" id="0TK-M5-uQ5"/>
+                <constraint firstItem="2Um-hC-kq5" firstAttribute="centerY" secondItem="JOL-LE-xg5" secondAttribute="centerY" id="0BN-3J-CoT"/>
+                <constraint firstItem="2Um-hC-kq5" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="50" id="8HD-G6-1Oi"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="Rve-sv-Irr" secondAttribute="bottom" constant="5" id="AxU-9Z-meg"/>
                 <constraint firstItem="Rve-sv-Irr" firstAttribute="trailing" secondItem="JOL-LE-xg5" secondAttribute="trailing" id="Cuu-N3-Ikp"/>
                 <constraint firstItem="Rve-sv-Irr" firstAttribute="top" secondItem="JOL-LE-xg5" secondAttribute="bottom" constant="10" id="NvA-Ag-E7D"/>
-                <constraint firstItem="JOL-LE-xg5" firstAttribute="centerY" secondItem="ySN-69-9kM" secondAttribute="centerY" id="hiw-bs-6rW"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="JOL-LE-xg5" secondAttribute="trailing" constant="20" id="kA0-Oi-Qzo"/>
                 <constraint firstItem="Rve-sv-Irr" firstAttribute="leading" secondItem="JOL-LE-xg5" secondAttribute="leading" id="rMH-dB-qm2"/>
                 <constraint firstItem="JOL-LE-xg5" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="vFr-9l-eVy"/>
-                <constraint firstItem="ySN-69-9kM" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="50" id="wgM-px-omk"/>
+                <constraint firstItem="JOL-LE-xg5" firstAttribute="leading" secondItem="2Um-hC-kq5" secondAttribute="trailing" constant="5" id="zNS-Hj-4pI"/>
             </constraints>
             <nil key="simulatedTopBarMetrics"/>
             <nil key="simulatedBottomBarMetrics"/>
@@ -65,10 +59,13 @@
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <connections>
                 <outlet property="informationLabel" destination="Rve-sv-Irr" id="nxH-cZ-knc"/>
-                <outlet property="phoneIconLabel" destination="ySN-69-9kM" id="atv-58-AFY"/>
+                <outlet property="reservationIconImageView" destination="2Um-hC-kq5" id="fFx-fu-Bnn"/>
                 <outlet property="titleLabel" destination="JOL-LE-xg5" id="DAH-bf-HVa"/>
             </connections>
             <point key="canvasLocation" x="-28" y="224.4377811094453"/>
         </view>
     </objects>
+    <resources>
+        <image name="phone_tad" width="32" height="32"/>
+    </resources>
 </document>

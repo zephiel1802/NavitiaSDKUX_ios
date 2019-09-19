@@ -10,13 +10,18 @@ import Foundation
 extension UIColor {
     
     func contrastColor(brightColor: UIColor = UIColor.white, darkColor: UIColor = UIColor.black) -> UIColor {
-        var r = CGFloat(0)
-        var g = CGFloat(0)
-        var b = CGFloat(0)
-        var a = CGFloat(0)
-        self.getRed(&r, green: &g, blue: &b, alpha: &a)
+        var red: CGFloat = 0
+        var green: CGFloat = 0
+        var blue: CGFloat = 0
+        var alpha: CGFloat = 0
+        getRed(&red, green: &green, blue: &blue, alpha: &alpha)
+
+        red = red < 0.04045 ? red / 12.92 : pow((red + 0.055) / 1.055, 2.4);
+        green = green < 0.04045 ? green / 12.92 : pow((green + 0.055) / 1.055, 2.4);
+        blue = blue < 0.04045 ? blue / 12.92 : pow((blue + 0.055) / 1.055, 2.4);
         
-        return (1 - ((0.299 * r) + (0.587 * g) + (0.114 * b))) < 0.5 ? darkColor : brightColor
+        let luminance = 0.2126 * red + 0.7152 * green + 0.0722 * blue
+        return luminance > 0.5 ? darkColor : brightColor
     }
     
     func isEqualWithConversion(_ color: UIColor) -> Bool {

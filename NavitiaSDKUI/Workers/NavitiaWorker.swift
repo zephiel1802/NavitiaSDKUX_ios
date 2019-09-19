@@ -36,6 +36,8 @@ class NavitiaWorker: NavitiaWorkerProtocol {
                 .withDirectPath(journeysRequest.directPath)
                 .withDebugURL(journeysRequest.debugURL)
                 .withDataFreshness(journeysRequest.dataFreshness)
+                .withTravelerType(CoverageRegionJourneysRequestBuilder
+                    .TravelerType(rawValue: (journeysRequest.travelerType ?? .standard).rawValue))
             
             journeyRequestBuilder.get { (result, error) in
                 if let result = result {
@@ -102,14 +104,14 @@ class NavitiaWorker: NavitiaWorkerProtocol {
         }
     }
     
-    func fetchPlaces(coverage: String, q: String, coord: (lat: String?, lon: String?), completionHandler: @escaping (Places?) -> Void) {
+    func fetchPlaces(coverage: String, query: String, coord: (lat: Double?, lon: Double?), completionHandler: @escaping (Places?) -> Void) {
         if NavitiaSDKUI.shared.navitiaSDK != nil {
             let placesRequestBuilder = NavitiaSDKUI.shared.navitiaSDK.placesApi.newCoverageRegionPlacesRequestBuilder()
                 .withRegion(coverage)
-                .withQ(q)
+                .withQ(query)
             
             if let lat = coord.lat, let lon = coord.lon {
-                placesRequestBuilder.from = String(format: "%@;%@", lon, lat)
+                placesRequestBuilder.from = String(format: "%f;%f", lon, lat)
             }
             
             placesRequestBuilder.get { (result, error) in
