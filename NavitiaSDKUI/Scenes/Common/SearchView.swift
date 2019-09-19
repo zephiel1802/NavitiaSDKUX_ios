@@ -65,6 +65,13 @@ class SearchView: UIView, UITextFieldDelegate {
     var dateFormView: DateFormView!
     var transportModeView: TransportModeView!
     var searchButtonView: SearchButtonView!
+    var luggageTypeView: TravelerTypeView!
+    var wheelchairTypeView: TravelerTypeView!
+    var travelTypeSubtitleView: SubtitleView!
+    var walkingSpeedView: WalkingSpeedView!
+    var walkingSpeedSubtitleView: SubtitleView!
+    var fromTextFieldClear = false
+    var toTextFieldClear = false
     var isClearButtonAccessible = true
     var switchDepartureArrivalButtonWidth: CGFloat = 0
     
@@ -145,6 +152,21 @@ class SearchView: UIView, UITextFieldDelegate {
             singleSearchPinImageView.image = singleFieldCustomIcon
         }
     }
+    internal var luggageTravelTypeIsOn: Bool = false {
+        didSet {
+            luggageTypeView.isOn = luggageTravelTypeIsOn
+        }
+    }
+    internal var wheelchairTravelTypeIsOn: Bool = false {
+        didSet {
+            wheelchairTypeView.isOn = wheelchairTravelTypeIsOn
+        }
+    }
+    internal var walkingSpeed: JourneysRequest.Speed = .slow {
+        didSet {
+            walkingSpeedView.speed = walkingSpeed
+        }
+    }
     
     // MARK: - UINib
     
@@ -186,6 +208,8 @@ class SearchView: UIView, UITextFieldDelegate {
         setupSwitchButton()
         setupTextField()
         setupTransportModeView()
+        setupTravelTypeView()
+        setupWalkingSpeedView()
         setupDateFormView()
         setupSearchButtonView()
         setPreferencesButton()
@@ -234,6 +258,59 @@ class SearchView: UIView, UITextFieldDelegate {
         transportModeView = TransportModeView(frame: CGRect(x: 0, y: 0, width: stackView.frame.size.width, height: 0))
         stackView.addArrangedSubview(transportModeView)
         transportModeView.isHidden = true
+    }
+    
+    private func setupTravelTypeView() {
+        travelTypeSubtitleView = SubtitleView.instanceFromNib()
+        travelTypeSubtitleView.subtitle = "about_you".localized()
+        travelTypeSubtitleView.isColorInverted = true
+        stackView.addArrangedSubview(travelTypeSubtitleView)
+        travelTypeSubtitleView.isHidden = true
+        
+        wheelchairTypeView = TravelerTypeView.instanceFromNib()
+        wheelchairTypeView.name = "wheelchair".localized()
+        wheelchairTypeView.image = UIImage(named: "wheelchair",
+                                           in: NavitiaSDKUI.shared.bundle,
+                                           compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
+        wheelchairTypeView.delegate = self
+        wheelchairTypeView.isOn = wheelchairTravelTypeIsOn
+        wheelchairTypeView.isColorInverted = true
+        stackView.addArrangedSubview(wheelchairTypeView)
+        wheelchairTypeView.isHidden = true
+        
+        luggageTypeView = TravelerTypeView.instanceFromNib()
+        luggageTypeView.name = "luggage".localized()
+        luggageTypeView.image = UIImage(named: "luggage",
+                                        in: NavitiaSDKUI.shared.bundle,
+                                        compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
+        luggageTypeView.delegate = self
+        luggageTypeView.isOn = luggageTravelTypeIsOn
+        luggageTypeView.isColorInverted = true
+        stackView.addArrangedSubview(luggageTypeView)
+        luggageTypeView.isHidden = true
+    }
+    
+    private func setupWalkingSpeedView() {
+        walkingSpeedSubtitleView = SubtitleView.instanceFromNib()
+        walkingSpeedSubtitleView.subtitle = "walking_pace".localized()
+        walkingSpeedSubtitleView.isColorInverted = true
+        stackView.addArrangedSubview(walkingSpeedSubtitleView)
+        walkingSpeedSubtitleView.isHidden = true
+        
+        walkingSpeedView = WalkingSpeedView.instanceFromNib()
+        walkingSpeedView.slowImage = UIImage(named: "slow-walking",
+                                             in: NavitiaSDKUI.shared.bundle,
+                                             compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
+        walkingSpeedView.mediumImage = UIImage(named: "normal-walking",
+                                               in: NavitiaSDKUI.shared.bundle,
+                                               compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
+        walkingSpeedView.fastImage = UIImage(named: "fast-walking",
+                                             in: NavitiaSDKUI.shared.bundle,
+                                             compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
+        walkingSpeedView.speed = walkingSpeed
+        walkingSpeedView.isColorInverted = true
+        stackView.addArrangedSubview(walkingSpeedView)
+        walkingSpeedView.isHidden = true
     }
     
     private func setupDateFormView() {
@@ -317,8 +394,25 @@ class SearchView: UIView, UITextFieldDelegate {
         isPreferencesShown = false
         setPreferencesButton()
         UIView.animate(withDuration: 0.25, delay: 0, options: .curveEaseOut, animations: {
+            // transport mode
             self.transportModeView.isHidden = true
             self.transportModeView.alpha = 0
+            
+            // travel type
+            self.travelTypeSubtitleView.isHidden = true
+            self.travelTypeSubtitleView.alpha = 0
+            self.luggageTypeView.isHidden = true
+            self.luggageTypeView.alpha = 0
+            self.wheelchairTypeView.isHidden = true
+            self.wheelchairTypeView.alpha = 0
+            
+            // walking speed
+            self.walkingSpeedSubtitleView.isHidden = true
+            self.walkingSpeedSubtitleView.alpha = 0
+            self.walkingSpeedView.isHidden = true
+            self.walkingSpeedView.alpha = 0
+            
+            // search button
             self.searchButtonView.isHidden = true
             self.searchButtonView.alpha = 0
         }, completion: nil)
@@ -339,8 +433,25 @@ class SearchView: UIView, UITextFieldDelegate {
         isPreferencesShown = true
         setPreferencesButton()
         UIView.animate(withDuration: 0.25, delay: 0, options: .curveEaseOut, animations: {
+            // transport mode
             self.transportModeView.isHidden = false
             self.transportModeView.alpha = 1
+            
+            // travel type
+            self.travelTypeSubtitleView.isHidden = false
+            self.travelTypeSubtitleView.alpha = 1
+            self.luggageTypeView.isHidden = false
+            self.luggageTypeView.alpha = 1
+            self.wheelchairTypeView.isHidden = false
+            self.wheelchairTypeView.alpha = 1
+            
+            // walking speed
+            self.walkingSpeedSubtitleView.isHidden = false
+            self.walkingSpeedSubtitleView.alpha = 1
+            self.walkingSpeedView.isHidden = false
+            self.walkingSpeedView.alpha = 1
+            
+            // save button
             self.searchButtonView.isHidden = false
             self.searchButtonView.alpha = 1
         }, completion: nil)
@@ -488,4 +599,22 @@ class SearchView: UIView, UITextFieldDelegate {
         toClearButton.isHidden = true
         singleSearchClearButton.isHidden = true
     }    
+}
+
+extension SearchView: TravelerTypeDelegate {
+    
+    func didTouch(travelerTypeView: TravelerTypeView) {
+        if travelerTypeView == wheelchairTypeView && wheelchairTypeView.isOn {
+            walkingSpeedView.isActive = false
+            walkingSpeedView.speed = .slow
+            luggageTypeView.isOn = false
+        } else if travelerTypeView == luggageTypeView && luggageTypeView.isOn {
+            walkingSpeedView.isActive = false
+            walkingSpeedView.speed = .medium
+            wheelchairTypeView.isOn = false
+        } else {
+            walkingSpeedView.isActive = true
+            walkingSpeedView.speed = .medium
+        }
+    }
 }

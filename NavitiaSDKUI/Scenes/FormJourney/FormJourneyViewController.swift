@@ -18,8 +18,12 @@ class FormJourneyViewController: UIViewController, FormJourneyDisplayLogic, Jour
     @IBOutlet weak var stackScrollView: StackScrollView!
     
     private var transportModeView: TransportModeView!
+    private var travelerTypeView: TravelerTypeView!
     private var dateFormView: DateFormView!
     private var searchButtonView: SearchButtonView!
+    private var luggageTypeView: TravelerTypeView!
+    private var wheelchairTypeView: TravelerTypeView!
+    private var walkingSpeedView: WalkingSpeedView!
     private var display = false
     
     internal var interactor: FormJourneyBusinessLogic?
@@ -62,6 +66,8 @@ class FormJourneyViewController: UIViewController, FormJourneyDisplayLogic, Jour
         
         if !display {
             initTransportModeView()
+            initTravelerTypeView()
+            initWalkingSpeedView()
             initDateFormView()
             initSearchButton()
             
@@ -122,6 +128,57 @@ class FormJourneyViewController: UIViewController, FormJourneyDisplayLogic, Jour
         transportModeView = TransportModeView(frame: CGRect(x: 0, y: 0, width: stackScrollView.frame.size.width, height: 0))
         transportModeView?.isColorInverted = true
         stackScrollView.addSubview(transportModeView!, margin: UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10), safeArea: true)
+    }
+    
+    private func initTravelerTypeView() {
+        let subtitleView = SubtitleView.instanceFromNib()
+        subtitleView.frame.size = CGSize(width: stackScrollView.frame.size.width, height: 30)
+        subtitleView.subtitle = "about_you".localized()
+        stackScrollView.addSubview(subtitleView,
+                                   margin: UIEdgeInsets(top: 10, left: 10, bottom: 0, right: 10),
+                                   safeArea: true)
+        
+        wheelchairTypeView = TravelerTypeView.instanceFromNib()
+        wheelchairTypeView.frame.size = CGSize(width: stackScrollView.frame.size.width, height: 62)
+        wheelchairTypeView.name = "wheelchair".localized()
+        wheelchairTypeView.image = UIImage(named: "wheelchair",
+                                           in: NavitiaSDKUI.shared.bundle,
+                                           compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
+        wheelchairTypeView.delegate = self
+        stackScrollView.addSubview(wheelchairTypeView, margin: UIEdgeInsets(top: 10, left: 0, bottom: 0, right: 10), safeArea: true)
+        
+        luggageTypeView = TravelerTypeView.instanceFromNib()
+        luggageTypeView.frame.size = CGSize(width: stackScrollView.frame.size.width, height: 62)
+        luggageTypeView.name = "luggage".localized()
+        luggageTypeView.image = UIImage(named: "luggage",
+                                        in: NavitiaSDKUI.shared.bundle,
+                                        compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
+        luggageTypeView.delegate = self
+        stackScrollView.addSubview(luggageTypeView, margin: UIEdgeInsets(top: 10, left: 0, bottom: 20, right: 10), safeArea: true)
+    }
+    
+    private func initWalkingSpeedView() {
+        let subtitleView = SubtitleView.instanceFromNib()
+        subtitleView.frame.size = CGSize(width: stackScrollView.frame.size.width, height: 30)
+        subtitleView.subtitle = "walking_pace".localized()
+        stackScrollView.addSubview(subtitleView,
+                                   margin: UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10),
+                                   safeArea: true)
+        
+        walkingSpeedView = WalkingSpeedView.instanceFromNib()
+        walkingSpeedView.frame.size = CGSize(width: stackScrollView.frame.size.width, height: 50)
+        walkingSpeedView.slowImage = UIImage(named: "slow-walking",
+                                             in: NavitiaSDKUI.shared.bundle,
+                                             compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
+        walkingSpeedView.mediumImage = UIImage(named: "normal-walking",
+                                               in: NavitiaSDKUI.shared.bundle,
+                                               compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
+        walkingSpeedView.fastImage = UIImage(named: "fast-walking",
+                                             in: NavitiaSDKUI.shared.bundle,
+                                             compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
+        stackScrollView.addSubview(walkingSpeedView,
+                                   margin: UIEdgeInsets(top: 10, left: 0, bottom: 10, right: 10),
+                                   safeArea: true)
     }
     
     private func initDateFormView() {
@@ -241,6 +298,21 @@ extension FormJourneyViewController: SearchButtonViewDelegate {
             }
         }
         
+        if wheelchairTypeView.isOn {
+            interactor?.journeysRequest?.travelerType = .wheelchair
+        } else if luggageTypeView.isOn {
+            interactor?.journeysRequest?.travelerType = .luggage
+        } else {
+            switch walkingSpeedView.speed {
+            case .slow:
+                interactor?.journeysRequest?.travelerType = .slow_walker
+            case .medium:
+                interactor?.journeysRequest?.travelerType = .standard
+            case .fast:
+                interactor?.journeysRequest?.travelerType = .fast_walker
+            }
+        }
+        
         interactor?.modeTransportViewSelected = transportModeView.getSelectedButton()
         
         router?.routeToListJourneys()
@@ -253,5 +325,23 @@ extension FormJourneyViewController: ListPlacesViewControllerDelegate {
         let request = FormJourney.DisplaySearch.Request(from: from, to: to)
         
         interactor?.displaySearch(request: request)
+    }
+}
+
+extension FormJourneyViewController: TravelerTypeDelegate {
+    
+    func didTouch(travelerTypeView: TravelerTypeView) {
+        if travelerTypeView == wheelchairTypeView && wheelchairTypeView.isOn {
+            walkingSpeedView.isActive = false
+            walkingSpeedView.speed = .slow
+            luggageTypeView.isOn = false
+        } else if travelerTypeView == luggageTypeView && luggageTypeView.isOn {
+            walkingSpeedView.isActive = false
+            walkingSpeedView.speed = .medium
+            wheelchairTypeView.isOn = false
+        } else {
+            walkingSpeedView.isActive = true
+            walkingSpeedView.speed = .medium
+        }
     }
 }
