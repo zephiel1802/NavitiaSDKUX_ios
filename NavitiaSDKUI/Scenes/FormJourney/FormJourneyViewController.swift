@@ -26,7 +26,8 @@ open class FormJourneyViewController: UIViewController, FormJourneyDisplayLogic,
     
     internal var interactor: FormJourneyBusinessLogic?
     internal var router: (NSObjectProtocol & FormJourneyRoutingLogic & FormJourneyDataPassing)?
-    
+    private var interactorL: ListPlacesBusinessLogic?
+    internal weak var delegate: ListPlacesViewControllerDelegate?
     public var journeysRequest: JourneysRequest?
     
     // MARK: - Initialization
@@ -185,6 +186,57 @@ open class FormJourneyViewController: UIViewController, FormJourneyDisplayLogic,
         
         dateFormView.date = interactor?.journeysRequest?.datetime
         dateFormView.dateTimeRepresentsSegmentedControl = interactor?.journeysRequest?.datetimeRepresents?.rawValue
+    }
+    
+    func assignHomeWorkAddress() {
+        let home = UserDefaults.standard.object(forKey: "home")
+        
+        if interactorL?.info == "from" {
+            let request = ListPlaces.DisplaySearch.Request(from: (label: "",
+                                                                  name: "",
+                                                                  id: ""),
+                                                           to: nil)
+            interactorL?.displaySearch(request:request)
+            
+            
+            searchView.focusFromField(false)
+            if searchView.toTextField.text == "" {
+                interactorL?.info = "to"
+                searchView.focusToField()
+            } else {
+                dismissAutocompletion()
+            }
+        } else {
+            interactorL?.displaySearch(request: ListPlaces.DisplaySearch.Request(from: nil,
+                                                                                to: (label: "",
+                                                                                     name: "",
+                                                                                     id: "")))
+            
+            searchView.focusToField(false)
+            if searchView.fromTextField.text == "" {
+                interactorL?.info  = "from"
+                searchView.focusFromField()
+            } else {
+                dismissAutocompletion()
+            }
+        }
+    }
+    
+    private func dismissAutocompletion() {
+        if let from = interactorL?.from, let to = interactorL?.to {
+            delegate?.searchView(from: from, to: to)
+        }
+        
+        backButtonPressed()
+    }
+    
+    @objc func backButtonPressed() {
+        UIView.animate(withDuration: 0.15) {
+            self.searchView.stickTextFields()
+            self.view.layoutIfNeeded()
+        }
+        
+        dismiss(animated: true, completion: nil)
     }
 }
 
