@@ -360,7 +360,8 @@ extension ListJourneysViewController: UICollectionViewDataSource, UICollectionVi
                 cell.friezeSections = viewModel.friezeSections
                 
                 if delegate != nil {
-                    cell.hermaasPricedTickets = nil
+                    cell.indexPath = indexPath
+                    cell.hermaasPricedTickets = viewModel.hermaasPrices
                     cell.unsupportedSectionIdList = viewModel.unbookableSectionIdList
                     cell.unexpectedErrorTicketIdList = viewModel.unexpectedErrorTicketIdList
                     cell.ticketInputs = viewModel.ticketsInput
@@ -626,7 +627,7 @@ extension ListJourneysViewController: SearchButtonViewDelegate {
 
 extension ListJourneysViewController: JourneySolutionCollectionViewCellDelegate {
     
-    func getPrice(ticketsInputList: [TicketInput], callback: @escaping (([PricedTicket]) -> ())) {
+    func getPrice(ticketsInputList: [TicketInput], indexPath: IndexPath?) {
         do {
             let jsonData = try JSONEncoder().encode(ticketsInputList)
             delegate?.requestPrice(ticketInputData: jsonData, callback: { (ticketPriceDictionary) in
@@ -639,13 +640,18 @@ extension ListJourneysViewController: JourneySolutionCollectionViewCellDelegate 
                         pricedTicketList.append(pricedTicket)
                     }
                     
-                    callback(pricedTicketList)
+                    if let index = indexPath, var viewModel = self.viewModel?.displayedJourneys[safe: index.row] {
+                        viewModel.hermaasPrices = []
+                        DispatchQueue.main.async {
+                            self.journeysCollectionView.reloadItems(at: [index])
+                        }
+                    }
                 } catch {
-                    callback([])
+                    //viewModel.hermaasPrices = []
                 }
             })
         } catch {
-            callback([])
+            //viewModel.hermaasPrices = []
         }
     }
 }

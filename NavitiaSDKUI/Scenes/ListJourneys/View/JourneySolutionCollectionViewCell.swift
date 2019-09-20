@@ -9,17 +9,10 @@ import UIKit
 
 protocol JourneySolutionCollectionViewCellDelegate {
     
-    func getPrice(ticketsInputList: [TicketInput], callback:  @escaping ((_ pricedTicketList: [PricedTicket]) -> ()))
+    func getPrice(ticketsInputList: [TicketInput], indexPath: IndexPath?)
 }
 
 class JourneySolutionCollectionViewCell: UICollectionViewCell {
-    
-    private enum PriceState {
-        case no_price
-        case full_price
-        case incomplete_price
-        case unavailable_price
-    }
     
     @IBOutlet weak var accessiblityView: UIView!
     @IBOutlet weak var dateTimeLabel: UILabel!
@@ -37,6 +30,7 @@ class JourneySolutionCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var PriceUnavailableLabel: UILabel!
     @IBOutlet weak var loadingActivityIndicatorView: UIActivityIndicatorView!
     
+    var indexPath: IndexPath?
     public var journeySolutionDelegate: JourneySolutionCollectionViewCellDelegate?
     private var walkingInformationIsHidden: Bool = false {
         didSet {
@@ -89,12 +83,9 @@ class JourneySolutionCollectionViewCell: UICollectionViewCell {
     internal var ticketInputs: [TicketInput]? {
         didSet {
             if let ticketInputList = ticketInputs, !isLoaded {
-                if ticketInputList.count > 0, journeySolutionDelegate != nil {
-                    hermaasPricedTickets = nil
+                if ticketInputList.count > 0, journeySolutionDelegate != nil, hermaasPricedTickets == nil {
                     load(true)
-                    journeySolutionDelegate!.getPrice(ticketsInputList: ticketInputList, callback: { (pricedTicketList) in
-                        self.hermaasPricedTickets = pricedTicketList
-                    })
+                    journeySolutionDelegate!.getPrice(ticketsInputList: ticketInputList, indexPath: indexPath)
                 } else {
                     DispatchQueue.main.async {
                         self.load(false)
@@ -206,7 +197,7 @@ class JourneySolutionCollectionViewCell: UICollectionViewCell {
         } else {
             loadingActivityIndicatorView.stopAnimating()
         }
-        
+        loadingActivityIndicatorView.color = Configuration.Color.main
         loadingActivityIndicatorView.isHidden = !startAnimating
         isLoaded = !startAnimating
     }
@@ -243,7 +234,7 @@ class JourneySolutionCollectionViewCell: UICollectionViewCell {
         friezeView.addSection(friezeSections: updatedFriezeSections)
     }
     
-    private func updatePriceDisplaying(state: PriceState, price: Double?) {
+    private func updatePriceDisplaying(state: PricesModel.PriceState, price: Double?) {
         switch state {
         case .no_price:
             priceView.isHidden = true
