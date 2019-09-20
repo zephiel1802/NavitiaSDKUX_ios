@@ -7,7 +7,7 @@
 
 import Foundation
 
-typealias NavitiaFetchJourneysCompletionHandler = ([Journey]?, [Journey]?, [Disruption]?, [Note]?, Context?) -> Void
+typealias NavitiaFetchJourneysCompletionHandler = ([Journey]?, [Journey]?, [Disruption]?, [Note]?, Context?, [Ticket]?) -> Void
 
 protocol NavitiaWorkerProtocol {
     
@@ -42,15 +42,15 @@ class NavitiaWorker: NavitiaWorkerProtocol {
             journeyRequestBuilder.get { (result, error) in
                 if let result = result {
                     let journeys = self.parseJourneyResponse(result: result)
-                    completionHandler(journeys.journeys, journeys.Ridesharing, journeys.disruptions, journeys.notes, journeys.context)
+                    completionHandler(journeys.journeys, journeys.Ridesharing, journeys.disruptions, journeys.notes, journeys.context, journeys.tickets)
                 } else {
-                    completionHandler(nil, nil, nil, nil, nil)
+                    completionHandler(nil, nil, nil, nil, nil, nil)
                 }
             }
         }
     }
 
-    internal func parseJourneyResponse(result: Journeys) -> (journeys: [Journey]?, Ridesharing: [Journey]?, disruptions: [Disruption]?, notes: [Note]?, context: Context?) {
+    internal func parseJourneyResponse(result: Journeys) -> (journeys: [Journey]?, Ridesharing: [Journey]?, disruptions: [Disruption]?, notes: [Note]?, context: Context?, tickets: [Ticket]?) {
         var journeys: [Journey] = []
         var ridesharing: [Journey] = []
         
@@ -71,7 +71,7 @@ class NavitiaWorker: NavitiaWorkerProtocol {
             }
         }
         
-        return (journeys, ridesharing, result.disruptions, result.notes, result.context)
+        return (journeys, ridesharing, result.disruptions, result.notes, result.context, result.tickets)
     }
     
     func fetchBss(coord: (lat: Double, lon: Double), distance: Int32, id: String, completionHandler: @escaping (Poi?) -> Void) {

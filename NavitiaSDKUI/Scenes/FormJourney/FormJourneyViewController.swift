@@ -30,6 +30,11 @@ class FormJourneyViewController: UIViewController, FormJourneyDisplayLogic, Jour
     internal var router: (NSObjectProtocol & FormJourneyRoutingLogic & FormJourneyDataPassing)?
     
     var journeysRequest: JourneysRequest?
+    var delegate: JourneyPriceDelegate? {
+        didSet {
+            router?.dataStore?.delegate = delegate
+        }
+    }
     
     // MARK: - Initialization
     

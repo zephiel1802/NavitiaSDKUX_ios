@@ -18,6 +18,8 @@ class FriezePresenter: NSObject {
         var disruptionColor: String?
         var disruptionLevel: Int?
         var duration: Int32?
+        var hasBadge: Bool
+        var ticketId: String?
     }
     
     private func validDisplayedJourneySections(section: Section, count: Int) -> Bool {
@@ -102,6 +104,9 @@ class FriezePresenter: NSObject {
                 let textColor = getTextColor(section: section)
                 let icon = getIcon(section: section)
                 let disruptionInfo = getDisruptionInformations(section: section, disruptions: disruptions)
+                let ticketId = section.links?.first(where: { (item) -> Bool in
+                    return item.type == "ticket"
+                })?.id
                 let friezeSection = FriezePresenter.FriezeSection(color: color,
                                                                   textColor: textColor,
                                                                   name: name,
@@ -109,7 +114,9 @@ class FriezePresenter: NSObject {
                                                                   disruptionIcon: disruptionInfo.icon,
                                                                   disruptionColor: disruptionInfo.color,
                                                                   disruptionLevel: disruptionInfo.level,
-                                                                  duration: section.duration)
+                                                                  duration: section.duration,
+                                                                  hasBadge: false,
+                                                                  ticketId: ticketId)
 
                 if isShowingLevel && disruptionInfo.level == Disruption.DisruptionLevel.blocking.rawValue {
                     friezeSections.append(friezeSection)

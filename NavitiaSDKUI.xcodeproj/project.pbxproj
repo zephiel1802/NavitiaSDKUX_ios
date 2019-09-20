@@ -339,6 +339,8 @@
 		AC7EC0C423157FDA00A84D73 /* TravelerTypeView.xib in Resources */ = {isa = PBXBuildFile; fileRef = AC7EC0C223157FDA00A84D73 /* TravelerTypeView.xib */; };
 		AC7EC0CE231685A000A84D73 /* WalkingSpeedView.xib in Resources */ = {isa = PBXBuildFile; fileRef = AC7EC0CD231685A000A84D73 /* WalkingSpeedView.xib */; };
 		AC7EC0D0231685A800A84D73 /* WalkingSpeedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC7EC0CF231685A800A84D73 /* WalkingSpeedView.swift */; };
+		AC9D5C09231D1C3000C29202 /* PricedTicket.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC9D5C07231D1C3000C29202 /* PricedTicket.swift */; };
+		AC9D5C0A231D1C3000C29202 /* TicketInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC9D5C08231D1C3000C29202 /* TicketInput.swift */; };
 		F65672FA2209EAB9007A8E6E /* Debouncer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F65672F92209EAB9007A8E6E /* Debouncer.swift */; };
 		F656ECB122FDB92F00557B8C /* MaasTicket.swift in Sources */ = {isa = PBXBuildFile; fileRef = F656ECB022FDB92E00557B8C /* MaasTicket.swift */; };
 /* End PBXBuildFile section */
@@ -695,6 +697,8 @@
 		AC7EC0C223157FDA00A84D73 /* TravelerTypeView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TravelerTypeView.xib; sourceTree = "<group>"; };
 		AC7EC0CD231685A000A84D73 /* WalkingSpeedView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WalkingSpeedView.xib; sourceTree = "<group>"; };
 		AC7EC0CF231685A800A84D73 /* WalkingSpeedView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WalkingSpeedView.swift; sourceTree = "<group>"; };
+		AC9D5C07231D1C3000C29202 /* PricedTicket.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PricedTicket.swift; sourceTree = "<group>"; };
+		AC9D5C08231D1C3000C29202 /* TicketInput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TicketInput.swift; sourceTree = "<group>"; };
 		F65672F92209EAB9007A8E6E /* Debouncer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Debouncer.swift; sourceTree = "<group>"; };
 		F656ECB022FDB92E00557B8C /* MaasTicket.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaasTicket.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -1005,6 +1009,8 @@
 		8451DA592065061900CFA1E4 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				AC9D5C07231D1C3000C29202 /* PricedTicket.swift */,
+				AC9D5C08231D1C3000C29202 /* TicketInput.swift */,
 				84AAB30B2237BAF000CC8C19 /* AutocompletionHistory.swift */,
 				84AAB30C2237BAF000CC8C19 /* ModeButtonModel.swift */,
 				841EFD9821359F7B004A313B /* JourneysRequest.swift */,
@@ -1015,9 +1021,6 @@
 		8451DA5B2065062300CFA1E4 /* Extension */ = {
 			isa = PBXGroup;
 			children = (
-				9A334FD12327DA500084852C /* UITableView+Extension.swift */,
-				84EEEF7221DE101E00EF6415 /* UIPanGestureRecognizer+Extension.swift */,
-				8454D1AB217F540E008BECA0 /* StopDateTime+Extension.swift */,
 				8476DD59208891CB006CB506 /* Collection+Extension.swift */,
 				8454D451206942B800C97D2F /* Date+Extension.swift */,
 				8430275020BBE72B005AD743 /* Disruption+Extension.swift */,
@@ -1028,11 +1031,14 @@
 				84339A81206CC6D900F2CB65 /* NSMutableAttributedString+Extension.swift */,
 				84D0FA93210094A900EB420A /* Section+Extension.swift */,
 				8476DD5720888EE8006CB506 /* StackView+Extension.swift */,
+				8454D1AB217F540E008BECA0 /* StopDateTime+Extension.swift */,
 				8454D44F2069429500C97D2F /* String+Extension.swift */,
 				3126566420B2FA0A00D50F4B /* UIColor+Extension.swift */,
 				84FABE132074CB2300BDDE9D /* UIFont+Extension.swift */,
 				84737E9C2087995B002D3748 /* UIImageView+Extension.swift */,
 				31EF7C5D2153D3D100200AE0 /* UILabel+Extension.swift */,
+				84EEEF7221DE101E00EF6415 /* UIPanGestureRecognizer+Extension.swift */,
+				9A334FD12327DA500084852C /* UITableView+Extension.swift */,
 				84737E9E20879A3C002D3748 /* UIView+Extension.swift */,
 				3126566820B3008700D50F4B /* UIViewController+Extension.swift */,
 			);
@@ -1645,6 +1651,7 @@
 				84C82F5422083FC500FE3F1D /* PlacesTableViewCell.swift in Sources */,
 				8430275120BBE72B005AD743 /* Disruption+Extension.swift in Sources */,
 				841A105E215A29B800F46143 /* JourneyDebug.swift in Sources */,
+				AC9D5C0A231D1C3000C29202 /* TicketInput.swift in Sources */,
 				84C482C3219DC30A00AA8364 /* FriezePresenter.swift in Sources */,
 				84C82F7422083FD000FE3F1D /* FormJourneyPresenter.swift in Sources */,
 				8454D42E2068D3A800C97D2F /* URLTransform.swift in Sources */,
@@ -1758,6 +1765,7 @@
 				84C82F5922083FC500FE3F1D /* ListPlacesModels.swift in Sources */,
 				8454D42A2068D3A800C97D2F /* CustomDateFormatTransform.swift in Sources */,
 				8454D4272068D3A800C97D2F /* AlamofireObjectMapper.swift in Sources */,
+				AC9D5C09231D1C3000C29202 /* PricedTicket.swift in Sources */,
 				841A1086215A29B800F46143 /* Exception.swift in Sources */,
 				841A10AA215A29B800F46143 /* CommercialMode.swift in Sources */,
 				841A1078215A29B800F46143 /* Place.swift in Sources */,

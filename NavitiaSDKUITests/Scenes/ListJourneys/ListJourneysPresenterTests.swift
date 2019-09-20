@@ -84,6 +84,7 @@ class ListJourneysPresenterTests: XCTestCase {
         
         let response = ListJourneys.FetchJourneys.Response(journeysRequest: journeysRequest,
                                                            journeys: (seeds.journeys, withRidesharing: seeds.ridesharing),
+                                                           tickets: nil,
                                                            disruptions: seeds.disruptions)
         
         sut.presentFetchedJourneys(response: response)
@@ -105,6 +106,7 @@ class ListJourneysPresenterTests: XCTestCase {
         
         let response = ListJourneys.FetchJourneys.Response(journeysRequest: journeysRequest,
                                                            journeys: (nil, withRidesharing: nil),
+                                                           tickets: nil,
                                                            disruptions: nil)
         sut.presentFetchedJourneys(response: response)
         

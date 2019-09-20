@@ -38,6 +38,11 @@ class FriezeSectionView: UIView {
             tagTransportView.layer.borderColor = color
         }
     }
+    var hasBadge: Bool = false {
+        didSet {
+            setupDisruption()
+        }
+    }
     var icon: String? {
         didSet {
             if let icon = self.icon {
@@ -78,22 +83,20 @@ class FriezeSectionView: UIView {
     }
     
     private func setupDisruption() {
-        disruptionImage.isHidden = true
+        disruptionImage.isHidden = !hasBadge
         updateWidth()
     }
     
     func displayDisruption(_ iconName: String?, color: String?) {
-        guard let name = iconName, let image = Disruption().levelImage(name: name) else {
+        if let name = hasBadge ? "nonblocking" : iconName,
+        let image = Disruption().levelImage(name: name) {
+            disruptionImage.isHidden = false
+            disruptionImage.image = image
+            updateWidth()
+        } else {
             disruptionImage.isHidden = true
-            
-            return
         }
-
-        disruptionImage.isHidden = false
-        disruptionImage.image = image
-        updateWidth()
     }
-    
 }
 
 extension FriezeSectionView {

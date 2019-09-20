@@ -13,7 +13,6 @@ public protocol JourneySolutionViewDelegate: class {
 }
 
 class JourneySolutionView: UIView {
-    
     @IBOutlet weak var aboutLabel: UILabel!
     @IBOutlet weak var durationLabel: UILabel!
     @IBOutlet weak var durationCenterContraint: NSLayoutConstraint!
