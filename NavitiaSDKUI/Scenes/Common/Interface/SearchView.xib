@@ -42,7 +42,7 @@
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="T0m-AS-tpC">
                                     <rect key="frame" x="0.0" y="0.0" width="250" height="40"/>
                                     <subviews>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="origin-icon" translatesAutoresizingMaskIntoConstraints="NO" id="h0t-0c-CxQ">
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="h0t-0c-CxQ">
                                             <rect key="frame" x="10" y="10" width="17" height="20"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="17" id="Sjw-BO-0Dx"/>
@@ -98,7 +98,7 @@
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rxk-jh-q0m">
                                     <rect key="frame" x="0.0" y="41" width="250" height="40"/>
                                     <subviews>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="origin-icon" translatesAutoresizingMaskIntoConstraints="NO" id="1So-mo-vfI">
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="1So-mo-vfI">
                                             <rect key="frame" x="10" y="10" width="17" height="20"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="17" id="6Aa-gT-aWy"/>
@@ -174,7 +174,7 @@
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FfF-wk-6kd">
                                     <rect key="frame" x="0.0" y="0.0" width="300" height="40"/>
                                     <subviews>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="origin-icon" translatesAutoresizingMaskIntoConstraints="NO" id="4JO-LQ-fZg">
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="4JO-LQ-fZg">
                                             <rect key="frame" x="10" y="10" width="17" height="20"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="20" id="Gym-iu-dkf"/>
@@ -266,7 +266,7 @@
                                         <action selector="toggleDate:" destination="iN0-l3-epB" eventType="touchUpInside" id="HZ3-eF-a7l"/>
                                     </connections>
                                 </button>
-                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="option" translatesAutoresizingMaskIntoConstraints="NO" id="e0f-xy-CGo">
+                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="e0f-xy-CGo">
                                     <rect key="frame" x="205" y="5.5" width="12" height="12"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="12" id="4gr-om-Ttu"/>
@@ -397,8 +397,6 @@
     <resources>
         <image name="arrow_down" width="32" height="32"/>
         <image name="calendar" width="33" height="33"/>
-        <image name="option" width="32" height="32"/>
-        <image name="origin-icon" width="17" height="20"/>
         <image name="switch" width="42" height="42"/>
     </resources>
 </document>
