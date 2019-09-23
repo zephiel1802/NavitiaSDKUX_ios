@@ -184,7 +184,8 @@ class ListJourneysPresenter: ListJourneysPresentationLogic {
                                                                      ticketsInput: parsedTickets.ticketInputList,
                                                                      pricedTicket: parsedTickets.pricedTickets,
                                                                      unbookableSectionIdList: parsedTickets.unbookableSectionIdList,
-                                                                     unexpectedErrorTicketIdList: parsedTickets.unexpectedErrorTicketIdList)
+                                                                     unexpectedErrorTicketIdList: parsedTickets.unexpectedErrorTicketIdList,
+                                                                     hermaasPrices: nil)
     }
     
     private func parseTickets(journey: Journey, tickets: [Ticket]?) -> (ticketInputList: [TicketInput],

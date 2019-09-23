@@ -333,6 +333,7 @@
 		84FABE142074CB2300BDDE9D /* UIFont+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84FABE132074CB2300BDDE9D /* UIFont+Extension.swift */; };
 		84FABE162074F76600BDDE9D /* JourneySolutionLoadCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84FABE152074F76600BDDE9D /* JourneySolutionLoadCollectionViewCell.xib */; };
 		9A334FD22327DA500084852C /* UITableView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A334FD12327DA500084852C /* UITableView+Extension.swift */; };
+		9AF5C25C233510AC003AA9E1 /* PricesModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AF5C25B233510AC003AA9E1 /* PricesModel.swift */; };
 		AC7EC0BF23157FCB00A84D73 /* TravelerTypeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC7EC0BD23157FCB00A84D73 /* TravelerTypeView.swift */; };
 		AC7EC0C023157FCB00A84D73 /* SubtitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC7EC0BE23157FCB00A84D73 /* SubtitleView.swift */; };
 		AC7EC0C323157FDA00A84D73 /* SubtitleView.xib in Resources */ = {isa = PBXBuildFile; fileRef = AC7EC0C123157FDA00A84D73 /* SubtitleView.xib */; };
@@ -691,6 +692,7 @@
 		84FABE132074CB2300BDDE9D /* UIFont+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+Extension.swift"; sourceTree = "<group>"; };
 		84FABE152074F76600BDDE9D /* JourneySolutionLoadCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = JourneySolutionLoadCollectionViewCell.xib; sourceTree = "<group>"; };
 		9A334FD12327DA500084852C /* UITableView+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITableView+Extension.swift"; sourceTree = "<group>"; };
+		9AF5C25B233510AC003AA9E1 /* PricesModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PricesModel.swift; sourceTree = "<group>"; };
 		AC7EC0BD23157FCB00A84D73 /* TravelerTypeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TravelerTypeView.swift; sourceTree = "<group>"; };
 		AC7EC0BE23157FCB00A84D73 /* SubtitleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubtitleView.swift; sourceTree = "<group>"; };
 		AC7EC0C123157FDA00A84D73 /* SubtitleView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SubtitleView.xib; sourceTree = "<group>"; };
@@ -1009,6 +1011,7 @@
 		8451DA592065061900CFA1E4 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				9AF5C25B233510AC003AA9E1 /* PricesModel.swift */,
 				AC9D5C07231D1C3000C29202 /* PricedTicket.swift */,
 				AC9D5C08231D1C3000C29202 /* TicketInput.swift */,
 				84AAB30B2237BAF000CC8C19 /* AutocompletionHistory.swift */,
@@ -1665,6 +1668,7 @@
 				8454D44A2068FC9F00C97D2F /* JourneySolutionCollectionViewCell.swift in Sources */,
 				8476DD5820888EE8006CB506 /* StackView+Extension.swift in Sources */,
 				3144448B22C6092E00218366 /* PriceView.swift in Sources */,
+				9AF5C25C233510AC003AA9E1 /* PricesModel.swift in Sources */,
 				841A10B3215A29B800F46143 /* CalendarException.swift in Sources */,
 				8454D4172068D3A800C97D2F /* NetworkReachabilityManager.swift in Sources */,
 				31653C9D21959AA8001593A8 /* CarPark.swift in Sources */,

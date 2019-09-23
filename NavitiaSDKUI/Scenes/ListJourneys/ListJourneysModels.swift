@@ -62,6 +62,7 @@ enum ListJourneys {
                 var pricedTicket: [PricedTicket]?
                 var unbookableSectionIdList: [String]?
                 var unexpectedErrorTicketIdList: [String]?
+                var hermaasPrices: [PricedTicket]?
             }
             
             var loaded: Bool
