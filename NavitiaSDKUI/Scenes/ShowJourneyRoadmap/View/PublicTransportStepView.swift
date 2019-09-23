@@ -62,7 +62,7 @@ class PublicTransportStepView: UIView {
         didSet {
             if let ticketViewConfig = ticketViewConfig {
                 if ticketViewConfig.availableTicketId != nil {
-                    let ticketImage = "ticket".getIcon(renderingMode: .alwaysOriginal, customizable: true)
+                    let ticketImage = "ticket".getIcon(customizable: true)
                     viewTicketButton.setImage(ticketImage, for: .normal)
                     viewTicketButton.tintColor = Configuration.Color.secondary.contrastColor()
                     viewTicketButton.imageView?.contentMode = .scaleAspectFit
@@ -73,7 +73,7 @@ class PublicTransportStepView: UIView {
                     viewTicketContainer.backgroundColor = Configuration.Color.secondary
                     viewTicketContainer.isHidden = false
                 } else {
-                    let ticketNotAvailableImage = "ticket_not_available".getIcon(renderingMode: .alwaysOriginal, customizable: true)
+                    let ticketNotAvailableImage = "ticket_not_available".getIcon(customizable: true)
                     noTicketAvailableImage.image = ticketNotAvailableImage
                     noTicketAvailableImage.tintColor = UIColor.white
                     
