@@ -81,8 +81,7 @@ public class ShowJourneyRoadmapViewController: UIViewController {
     
     override public func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-
-        self.view.layoutIfNeeded()
+        view.layoutIfNeeded()
         
         startUpdatingUserLocation()
 
@@ -243,6 +242,16 @@ public class ShowJourneyRoadmapViewController: UIViewController {
         ridesharingView.parentViewController = self
         
         return ridesharingView
+    }
+    
+    private func displayInformationView() {
+        let informationView = InformationView.instanceFromNib()
+        informationView.frame = view.bounds
+        informationView.titleText = "Voici le titre"
+        informationView.descriptionText = "voici la description"
+        informationView.mode = .info
+        
+        slidingScrollView.stackScrollView.addSubview(informationView, margin: UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0))
     }
     
     private func displayDepartureArrivalStep(viewModel: ShowJourneyRoadmap.GetRoadmap.ViewModel.DepartureArrival) {
@@ -478,6 +487,7 @@ extension ShowJourneyRoadmapViewController: ShowJourneyRoadmapDisplayLogic {
         
         ridesharing = viewModel.ridesharing
         displayHeader(viewModel: viewModel)
+        displayInformationView()
         displayDepartureArrivalStep(viewModel: viewModel.departure)
         displaySteps(sections: sections, ticket: viewModel.ticket)
         displayDepartureArrivalStep(viewModel: viewModel.arrival)
