@@ -52,6 +52,7 @@ class PublicTransportStepView: UIView {
     @IBOutlet weak var noTicketAvailableContainer: UIView!
     @IBOutlet weak var noTicketAvailableImage: UIImageView!
     @IBOutlet weak var noTicketAvailableLabel: UILabel!
+    @IBOutlet weak var ticketPriceView: TicketPriceView!
     
     private var stationStackView: UIStackView!
     

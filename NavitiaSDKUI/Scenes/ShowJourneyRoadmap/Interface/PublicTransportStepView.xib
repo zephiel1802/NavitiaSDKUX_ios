@@ -64,7 +64,19 @@
                                         <constraint firstAttribute="height" constant="12" id="9Z1-3x-Gke"/>
                                     </constraints>
                                 </imageView>
-                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="s5L-qt-fpc">
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cda-Cg-6Zp" customClass="TicketPriceView" customModule="NavitiaSDKUI" customModuleProvider="target">
+                                    <rect key="frame" x="316" y="12" width="56" height="20"/>
+                                    <color key="backgroundColor" red="0.91764705879999997" green="0.91764705879999997" blue="0.91764705879999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="56" id="5IF-FE-Ufz"/>
+                                    </constraints>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                            <integer key="value" value="5"/>
+                                        </userDefinedRuntimeAttribute>
+                                    </userDefinedRuntimeAttributes>
+                                </view>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="s5L-qt-fpc" userLabel="Separator">
                                     <rect key="frame" x="12" y="43" width="360" height="1"/>
                                     <color key="backgroundColor" red="0.94117647058823528" green="0.94117647058823528" blue="0.94117647058823528" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <constraints>
@@ -76,14 +88,17 @@
                             <constraints>
                                 <constraint firstItem="s5L-qt-fpc" firstAttribute="leading" secondItem="4fw-wa-InW" secondAttribute="leading" constant="12" id="4Tj-CE-RFR"/>
                                 <constraint firstAttribute="height" constant="44" id="8P1-il-GMn"/>
+                                <constraint firstAttribute="bottom" secondItem="cda-Cg-6Zp" secondAttribute="bottom" constant="12" id="DLJ-H3-BKh"/>
                                 <constraint firstItem="yMW-uY-M7f" firstAttribute="top" secondItem="4fw-wa-InW" secondAttribute="top" id="GgE-zX-AFN"/>
                                 <constraint firstItem="Sdt-uv-Xuj" firstAttribute="leading" secondItem="vd7-1j-br7" secondAttribute="trailing" constant="8" id="HEk-Jt-BzC"/>
+                                <constraint firstAttribute="trailing" secondItem="cda-Cg-6Zp" secondAttribute="trailing" constant="12" id="LSo-rE-cNj"/>
                                 <constraint firstAttribute="bottom" secondItem="s5L-qt-fpc" secondAttribute="bottom" id="PWE-cr-aWl"/>
                                 <constraint firstItem="Sdt-uv-Xuj" firstAttribute="centerY" secondItem="vd7-1j-br7" secondAttribute="centerY" id="UeX-Pe-tfV"/>
                                 <constraint firstItem="vd7-1j-br7" firstAttribute="centerY" secondItem="4fw-wa-InW" secondAttribute="centerY" id="Wuh-Y9-25o"/>
                                 <constraint firstAttribute="trailing" secondItem="s5L-qt-fpc" secondAttribute="trailing" constant="12" id="Y4h-Db-eHM"/>
                                 <constraint firstItem="yMW-uY-M7f" firstAttribute="leading" secondItem="vd7-1j-br7" secondAttribute="trailing" constant="-6" id="h9v-Sh-C1H"/>
                                 <constraint firstItem="vd7-1j-br7" firstAttribute="leading" secondItem="4fw-wa-InW" secondAttribute="leading" constant="12" id="lXt-1O-EOH"/>
+                                <constraint firstItem="cda-Cg-6Zp" firstAttribute="top" secondItem="4fw-wa-InW" secondAttribute="top" constant="12" id="s0u-Wy-1kO"/>
                             </constraints>
                         </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="j9D-zG-JIl">
@@ -488,6 +503,7 @@
                 <outlet property="publicTransportToLabel" destination="hAx-qi-4p3" id="KFR-ag-ikd"/>
                 <outlet property="showTicketView" destination="ERo-Vs-6Hz" id="DnQ-H2-oma"/>
                 <outlet property="stackView" destination="qh1-Nv-EMR" id="gA9-9I-D1F"/>
+                <outlet property="ticketPriceView" destination="cda-Cg-6Zp" id="31h-Du-GNU"/>
                 <outlet property="transportIconLabel" destination="uyK-mt-FQ8" id="EgF-Fk-3VV"/>
                 <outlet property="transportIconView" destination="Sdt-uv-Xuj" id="xZJ-2f-5mT"/>
                 <outlet property="viewTicketButton" destination="sEO-RS-TFq" id="wkn-rS-xdc"/>

@@ -204,7 +204,7 @@ class ListJourneysPresenter: ListJourneysPresentationLogic {
                 })?.id
                 
                 // *************** TAXI ********************
-                //Taxi's ticket will be returned by hermaas
+                // Taxi's ticket will be returned by hermaas
                 //******************************************
                 if section.mode == .taxi, let taxiSourceId = NavitiaSDKUI.shared.sourceIds?["taxi"] {
                     ticketInputList.append(getTicketInput(section: section,
