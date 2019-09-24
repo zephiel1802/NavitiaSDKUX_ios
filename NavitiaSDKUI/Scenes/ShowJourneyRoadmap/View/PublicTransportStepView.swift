@@ -17,7 +17,6 @@ class PublicTransportStepView: UIView {
 
     @IBOutlet weak var stackView: UIStackView!
     @IBOutlet weak var publicTransportModeImageView: UIImageView!
-    @IBOutlet weak var actionDescriptionLabel: UILabel!
     @IBOutlet weak var informationsLabel: UILabel!
     @IBOutlet weak var transportIconView: UIView!
     @IBOutlet weak var transportIconLabel: UILabel!
@@ -62,7 +61,7 @@ class PublicTransportStepView: UIView {
         didSet {
             if let ticketViewConfig = ticketViewConfig {
                 if ticketViewConfig.availableTicketId != nil {
-                    let ticketImage = "ticket".getIcon(renderingMode: .alwaysOriginal, customizable: true)
+                    let ticketImage = "ticket".getIcon(customizable: true)
                     viewTicketButton.setImage(ticketImage, for: .normal)
                     viewTicketButton.tintColor = Configuration.Color.secondary.contrastColor()
                     viewTicketButton.imageView?.contentMode = .scaleAspectFit
@@ -73,7 +72,7 @@ class PublicTransportStepView: UIView {
                     viewTicketContainer.backgroundColor = Configuration.Color.secondary
                     viewTicketContainer.isHidden = false
                 } else {
-                    let ticketNotAvailableImage = "ticket_not_available".getIcon(renderingMode: .alwaysOriginal, customizable: true)
+                    let ticketNotAvailableImage = "ticket_not_available".getIcon(customizable: true)
                     noTicketAvailableImage.image = ticketNotAvailableImage
                     noTicketAvailableImage.tintColor = UIColor.white
                     
@@ -139,11 +138,11 @@ class PublicTransportStepView: UIView {
     }
     
     internal func updateAccessibility() {
-        guard let commercialMode = actionDescriptionLabel.text, let informations = informationsLabel.text else {
+        guard let informations = informationsLabel.text else {
             return
         }
         
-        var accessibilityLabel = String(format: "%@ ", commercialMode)
+        var accessibilityLabel = ""
         
         if let code = transportIconLabel.text {
             accessibilityLabel.append(String(format: "%@ ", code))
@@ -188,23 +187,15 @@ class PublicTransportStepView: UIView {
         }
     }
 
-    internal var actionDescription: String? {
-        didSet {
-            guard let actionDescription = actionDescription else {
-                return
-            }
-
-            actionDescriptionLabel.attributedText = NSMutableAttributedString().normal(actionDescription, size: 15)
-        }
-    }
-
-    internal var informations: (from: String, direction: String)? = nil {
+    internal var informations: (action: String, from: String, direction: String)? = nil {
         didSet {
             guard let informations = informations else {
                 return
             }
 
             informationsLabel.attributedText = NSMutableAttributedString()
+                .normal(informations.action, size: 15)
+                .normal(" ", size: 15)
                 .normal("at".localized(), size: 15)
                 .normal(" ", size: 15)
                 .bold(informations.from, size: 15)
@@ -332,9 +323,9 @@ class PublicTransportStepView: UIView {
         }
     }
 
-    internal var transport: (code: String?, backgroundColor: UIColor?, textColor: UIColor?)? {
+    internal var transport: (mode: String?, code: String?, backgroundColor: UIColor?, textColor: UIColor?)? {
         didSet {
-            guard var backgroundColor = transport?.backgroundColor, var textColor = transport?.textColor else {
+            guard let backgroundColor = transport?.backgroundColor, let textColor = transport?.textColor else {
                 transportIconView.isHidden = true
                 
                 return
@@ -346,23 +337,13 @@ class PublicTransportStepView: UIView {
             
             borderColor = backgroundColor == Configuration.Color.white ? textColor : nil
             
-            if let code = transport?.code {
+            if let mode = transport?.mode, let code = transport?.code {
                 transportIconView.isHidden = false
-                var lineBorderColor = UIColor.clear.cgColor
-                if textColor.isEqualWithConversion(backgroundColor) {
-                    textColor = Configuration.Color.black
-                    backgroundColor = Configuration.Color.white
-                    lineBorderColor = textColor.cgColor
-                } else if backgroundColor == Configuration.Color.white {
-                    lineBorderColor = textColor.cgColor
-                }
-                
-                transportIconLabel.attributedText = NSMutableAttributedString().bold(code, color: textColor, size: 9)
-                transportIconLabel.superview?.layer.borderColor = lineBorderColor
-                transportIconLabel.superview?.layer.borderWidth = 1
-                transportIconLabel.superview?.layer.cornerRadius = 3
-                transportIconLabel.superview?.layer.masksToBounds = true
-                transportIconView.backgroundColor = backgroundColor
+                transportIconLabel.attributedText = NSMutableAttributedString()
+                    .bold(mode.uppercased(), color: .black, size: 12)
+                    .normal(" ")
+                    .bold(code.uppercased(), color: .black, size: 12)
+                transportIconView.backgroundColor = .white
             }
         }
     }

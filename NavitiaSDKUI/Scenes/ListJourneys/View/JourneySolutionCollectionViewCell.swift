@@ -9,17 +9,18 @@ import UIKit
 
 protocol JourneySolutionCollectionViewCellDelegate {
     
-    func getPrice(ticketsInputList: [TicketInput], callback:  @escaping ((_ pricedTicketList: [PricedTicket]) -> ()))
+    func getPrice(ticketsInputList: [TicketInput], indexPath: IndexPath?)
 }
 
+private enum PriceState {
+    case no_price
+    case full_price
+    case incomplete_price
+    case unavailable_price
+}
+
+
 class JourneySolutionCollectionViewCell: UICollectionViewCell {
-    
-    private enum PriceState {
-        case no_price
-        case full_price
-        case incomplete_price
-        case unavailable_price
-    }
     
     @IBOutlet weak var accessiblityView: UIView!
     @IBOutlet weak var dateTimeLabel: UILabel!
@@ -37,6 +38,8 @@ class JourneySolutionCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var PriceUnavailableLabel: UILabel!
     @IBOutlet weak var loadingActivityIndicatorView: UIActivityIndicatorView!
     
+    internal var isLoaded = false
+    internal var indexPath: IndexPath?
     public var journeySolutionDelegate: JourneySolutionCollectionViewCellDelegate?
     private var walkingInformationIsHidden: Bool = false {
         didSet {
@@ -80,57 +83,34 @@ class JourneySolutionCollectionViewCell: UICollectionViewCell {
     }
     internal var friezeSections: [FriezePresenter.FriezeSection] = [] {
         didSet {
-            updateJourneySummaryView()
+            friezeView.addSection(friezeSections: friezeSections)
         }
     }
-    var isLoaded = false
-    internal var unsupportedSectionIdList: [String]?
-    internal var unexpectedErrorTicketIdList: [String]?
-    internal var ticketInputs: [TicketInput]? {
-        didSet {
-            if let ticketInputList = ticketInputs, !isLoaded {
-                if ticketInputList.count > 0, journeySolutionDelegate != nil {
-                    hermaasPricedTickets = nil
-                    load(true)
-                    journeySolutionDelegate!.getPrice(ticketsInputList: ticketInputList, callback: { (pricedTicketList) in
-                        self.hermaasPricedTickets = pricedTicketList
-                    })
-                } else {
-                    DispatchQueue.main.async {
-                        self.load(false)
-                        self.totalPrice()
-                    }
-                }
+
+    internal func configurePrice(ticketInputs: [TicketInput]?,
+                                 navitiaPricedTickets: [PricedTicket]?,
+                                 hermaasPricedTickets: [PricedTicket]?,
+                                 unsupportedSectionIdList: [String]?,
+                                 unexpectedErrorTicketIdList: [String]?) {
+        // Reset UI before any action due to reusable cell
+        load(false)
+        totalPrice(ticketInputs: nil, navitiaPricedTickets: nil, hermaasPricedTickets: nil, unsupportedSectionIdList: nil, unexpectedErrorTicketIdList: nil)
+        
+        if hermaasPricedTickets != nil {
+            load(false)
+            totalPrice(ticketInputs: ticketInputs,
+                       navitiaPricedTickets: navitiaPricedTickets,
+                       hermaasPricedTickets: hermaasPricedTickets,
+                       unsupportedSectionIdList: unsupportedSectionIdList,
+                       unexpectedErrorTicketIdList: unexpectedErrorTicketIdList)
+        } else {
+            if let ticketInputList = ticketInputs, ticketInputList.count > 0 {
+                journeySolutionDelegate?.getPrice(ticketsInputList: ticketInputList, indexPath: indexPath)
+                load(true)
             }
         }
     }
-    internal var navitiaPricedTickets: [PricedTicket]? {
-        didSet {
-            DispatchQueue.main.async {
-                if self.navitiaPricedTickets != nil && self.ticketInputs == nil {
-                    self.load(false)
-                } else if !self.isLoaded {
-                    self.load(true)
-                }
-                
-                self.totalPrice()
-            }
-        }
-    }
-    internal var hermaasPricedTickets: [PricedTicket]? {
-        didSet {
-            DispatchQueue.main.async {
-                if self.hermaasPricedTickets != nil {
-                    self.load(false)
-                } else if !self.isLoaded {
-                    self.load(true)
-                }
-                
-                self.totalPrice()
-            }
-        }
-    }
-    
+
     // MARK: - UINib
     
     static var identifier: String {
@@ -161,7 +141,11 @@ class JourneySolutionCollectionViewCell: UICollectionViewCell {
         arrowImageView.tintColor = Configuration.Color.secondary
     }
     
-    private func totalPrice() {
+    private func totalPrice(ticketInputs: [TicketInput]?,
+                            navitiaPricedTickets: [PricedTicket]?,
+                            hermaasPricedTickets: [PricedTicket]?,
+                            unsupportedSectionIdList: [String]?,
+                            unexpectedErrorTicketIdList: [String]?) {
         var totalPrice: Double = 0
         var isPriceMissing = false
         
@@ -197,7 +181,9 @@ class JourneySolutionCollectionViewCell: UICollectionViewCell {
             updatePriceDisplaying(state: isPriceMissing ? .incomplete_price : .full_price, price: totalPrice)
         }
         
-        updateJourneySummaryView()
+        updateJourneySummaryView(ticketInputs: ticketInputs,
+                                 hermaasPricedTickets: hermaasPricedTickets,
+                                 unexpectedErrorTicketIdList: unexpectedErrorTicketIdList)
     }
     
     private func load(_ startAnimating: Bool) {
@@ -206,12 +192,14 @@ class JourneySolutionCollectionViewCell: UICollectionViewCell {
         } else {
             loadingActivityIndicatorView.stopAnimating()
         }
-        
+        loadingActivityIndicatorView.color = Configuration.Color.main
         loadingActivityIndicatorView.isHidden = !startAnimating
         isLoaded = !startAnimating
     }
     
-    internal func updateJourneySummaryView() {
+    private func updateJourneySummaryView(ticketInputs: [TicketInput]?,
+                                           hermaasPricedTickets: [PricedTicket]?,
+                                           unexpectedErrorTicketIdList: [String]?) {
         var updatedFriezeSections = [FriezePresenter.FriezeSection]()
         var errorTicketIdList = [String]()
         

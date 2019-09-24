@@ -280,10 +280,14 @@ public class ShowJourneyRoadmapViewController: UIViewController {
         publicTransportView.frame = view.bounds
         publicTransportView.delegate = self
         publicTransportView.icon = section.icon
-        publicTransportView.transport = (code: section.displayInformations.code, textColor: section.displayInformations.textColor, backgroundColor: section.displayInformations.color)
-        publicTransportView.actionDescription = section.actionDescription
+        publicTransportView.transport = (mode: section.displayInformations.commercialMode,
+                                         code: section.displayInformations.code,
+                                         textColor: section.displayInformations.textColor,
+                                         backgroundColor: section.displayInformations.color)
         publicTransportView.network = section.displayInformations.network
-        publicTransportView.informations = (from: section.from, direction: section.displayInformations.directionTransit)
+        publicTransportView.informations = (action: section.actionDescription ?? "",
+                                            from: section.from,
+                                            direction: section.displayInformations.directionTransit)
         publicTransportView.departure = (from: section.from, time: section.startTime)
         publicTransportView.arrival = (to: section.to, time: section.endTime)
         publicTransportView.stopDates = section.stopDate
