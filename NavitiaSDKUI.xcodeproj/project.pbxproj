@@ -333,6 +333,8 @@
 		84FABE142074CB2300BDDE9D /* UIFont+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84FABE132074CB2300BDDE9D /* UIFont+Extension.swift */; };
 		84FABE162074F76600BDDE9D /* JourneySolutionLoadCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84FABE152074F76600BDDE9D /* JourneySolutionLoadCollectionViewCell.xib */; };
 		9A334FD22327DA500084852C /* UITableView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A334FD12327DA500084852C /* UITableView+Extension.swift */; };
+		9A9C31E8233A262C00257750 /* TicketPriceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A9C31E7233A262C00257750 /* TicketPriceView.swift */; };
+		9A9C31EA233A265C00257750 /* TicketPriceView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9A9C31E9233A265C00257750 /* TicketPriceView.xib */; };
 		9AF5C25C233510AC003AA9E1 /* PricesModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AF5C25B233510AC003AA9E1 /* PricesModel.swift */; };
 		AC7EC0BF23157FCB00A84D73 /* TravelerTypeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC7EC0BD23157FCB00A84D73 /* TravelerTypeView.swift */; };
 		AC7EC0C023157FCB00A84D73 /* SubtitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC7EC0BE23157FCB00A84D73 /* SubtitleView.swift */; };
@@ -692,6 +694,8 @@
 		84FABE132074CB2300BDDE9D /* UIFont+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+Extension.swift"; sourceTree = "<group>"; };
 		84FABE152074F76600BDDE9D /* JourneySolutionLoadCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = JourneySolutionLoadCollectionViewCell.xib; sourceTree = "<group>"; };
 		9A334FD12327DA500084852C /* UITableView+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITableView+Extension.swift"; sourceTree = "<group>"; };
+		9A9C31E7233A262C00257750 /* TicketPriceView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TicketPriceView.swift; sourceTree = "<group>"; };
+		9A9C31E9233A265C00257750 /* TicketPriceView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TicketPriceView.xib; sourceTree = "<group>"; };
 		9AF5C25B233510AC003AA9E1 /* PricesModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PricesModel.swift; sourceTree = "<group>"; };
 		AC7EC0BD23157FCB00A84D73 /* TravelerTypeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TravelerTypeView.swift; sourceTree = "<group>"; };
 		AC7EC0BE23157FCB00A84D73 /* SubtitleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubtitleView.swift; sourceTree = "<group>"; };
@@ -902,6 +906,7 @@
 		8422B462206A30200097E6C9 /* Interface */ = {
 			isa = PBXGroup;
 			children = (
+				9A9C31E9233A265C00257750 /* TicketPriceView.xib */,
 				AC7EC0CD231685A000A84D73 /* WalkingSpeedView.xib */,
 				AC7EC0C123157FDA00A84D73 /* SubtitleView.xib */,
 				AC7EC0C223157FDA00A84D73 /* TravelerTypeView.xib */,
@@ -1060,6 +1065,7 @@
 		8451DA5D2065063800CFA1E4 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				9A9C31E7233A262C00257750 /* TicketPriceView.swift */,
 				84EEEF7521DE116D00EF6415 /* Scroll */,
 				848695A921A7F685009A4DFB /* Frieze */,
 				8422B462206A30200097E6C9 /* Interface */,
@@ -1564,6 +1570,7 @@
 				84A790FD2121B0E90000C82F /* EmissionView.xib in Resources */,
 				84731BAF21EF63F30041D8EA /* SearchView.xib in Resources */,
 				8433F39C207F89C0007DBBCE /* RidesharingView.xib in Resources */,
+				9A9C31EA233A265C00257750 /* TicketPriceView.xib in Resources */,
 				84AE238721775B4B00439EE0 /* OnDemandItemView.xib in Resources */,
 				84BC297E207E66CC0073F198 /* StationsView.xib in Resources */,
 				84C82F5222083FC500FE3F1D /* PlacesTableViewCell.xib in Resources */,
@@ -1843,6 +1850,7 @@
 				841A10BB215A29B800F46143 /* LineGroups.swift in Sources */,
 				841A10B5215A29B800F46143 /* PhysicalModes.swift in Sources */,
 				841A10C8215A29B800F46143 /* Calendars.swift in Sources */,
+				9A9C31E8233A262C00257750 /* TicketPriceView.swift in Sources */,
 				841EFD9321359F56004A313B /* ListJourneysPresenter.swift in Sources */,
 				841A105C215A29B800F46143 /* Severity.swift in Sources */,
 				841EFD9621359F56004A313B /* ListJourneysViewController.swift in Sources */,

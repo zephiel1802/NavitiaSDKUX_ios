@@ -73,62 +73,23 @@
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </view>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ARY-OS-xlX">
-                        <rect key="frame" x="234" y="45.5" width="56" height="56.5"/>
+                        <rect key="frame" x="234" y="45.5" width="56" height="101.5"/>
                         <subviews>
-                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lda-rr-GTv" userLabel="Price View">
-                                <rect key="frame" x="0.0" y="17" width="56" height="29"/>
-                                <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="From" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="k7F-8O-Hx4">
-                                        <rect key="frame" x="15" y="1" width="26" height="12"/>
-                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="10"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="€ 0,00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="th8-TB-EN4">
-                                        <rect key="frame" x="9" y="13" width="38.5" height="14.5"/>
-                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="12"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MZi-Ad-qHH">
-                                        <rect key="frame" x="1.5" y="3.5" width="53" height="21.5"/>
-                                        <string key="text">Price
-Unavailable</string>
-                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="9"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                </subviews>
-                                <color key="backgroundColor" red="0.91764705879999997" green="0.91764705879999997" blue="0.91764705879999997" alpha="1" colorSpace="calibratedRGB"/>
-                                <constraints>
-                                    <constraint firstItem="th8-TB-EN4" firstAttribute="centerY" secondItem="lda-rr-GTv" secondAttribute="centerY" priority="250" id="0Nb-Ug-1mL"/>
-                                    <constraint firstItem="k7F-8O-Hx4" firstAttribute="centerX" secondItem="lda-rr-GTv" secondAttribute="centerX" id="240-aE-bYI"/>
-                                    <constraint firstItem="th8-TB-EN4" firstAttribute="centerX" secondItem="lda-rr-GTv" secondAttribute="centerX" id="3o3-pe-Xgp"/>
-                                    <constraint firstItem="th8-TB-EN4" firstAttribute="top" secondItem="k7F-8O-Hx4" secondAttribute="bottom" id="9y0-1p-ZX4"/>
-                                    <constraint firstItem="MZi-Ad-qHH" firstAttribute="centerY" secondItem="lda-rr-GTv" secondAttribute="centerY" id="Cc3-lg-hWN"/>
-                                    <constraint firstAttribute="width" constant="56" id="Jsm-u3-JkH"/>
-                                    <constraint firstItem="MZi-Ad-qHH" firstAttribute="centerX" secondItem="lda-rr-GTv" secondAttribute="centerX" id="ZRF-9B-1Sj"/>
-                                    <constraint firstItem="k7F-8O-Hx4" firstAttribute="top" secondItem="lda-rr-GTv" secondAttribute="top" constant="1" id="gHB-yO-yff"/>
-                                    <constraint firstAttribute="height" constant="29" id="rE1-3H-EKp"/>
-                                </constraints>
-                                <viewLayoutGuide key="safeArea" id="7Ax-jh-W2T"/>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                        <integer key="value" value="5"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="boolean" keyPath="clipsToBounds" value="YES"/>
-                                </userDefinedRuntimeAttributes>
+                            <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nqU-U3-5OW" customClass="TicketPriceView" customModule="NavitiaSDKUI" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="36.5" width="56" height="29"/>
+                                <color key="backgroundColor" red="0.91764705879999997" green="0.91764705879999997" blue="0.91764705879999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="lda-rr-GTv" firstAttribute="centerY" secondItem="ARY-OS-xlX" secondAttribute="centerY" constant="3" id="1Vq-0G-naS"/>
-                            <constraint firstAttribute="trailing" secondItem="lda-rr-GTv" secondAttribute="trailing" id="jmJ-qX-Dmm"/>
-                            <constraint firstItem="lda-rr-GTv" firstAttribute="leading" secondItem="ARY-OS-xlX" secondAttribute="leading" id="pS5-Ft-vEG"/>
+                            <constraint firstAttribute="width" constant="56" id="VXm-6H-MuD"/>
+                            <constraint firstItem="nqU-U3-5OW" firstAttribute="leading" secondItem="ARY-OS-xlX" secondAttribute="leading" id="gcN-VJ-ff8"/>
+                            <constraint firstAttribute="trailing" secondItem="nqU-U3-5OW" secondAttribute="trailing" id="lHf-Nk-Zfi"/>
+                            <constraint firstItem="nqU-U3-5OW" firstAttribute="centerY" secondItem="ARY-OS-xlX" secondAttribute="centerY" id="nlh-TD-aD9"/>
                         </constraints>
                     </view>
                     <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="4ZV-Ic-1Eg">
-                        <rect key="frame" x="252" y="64" width="20" height="20"/>
+                        <rect key="frame" x="252" y="86.5" width="20" height="20"/>
                     </activityIndicatorView>
                 </subviews>
             </view>
@@ -157,7 +118,7 @@ Unavailable</string>
                 <constraint firstItem="uiE-c6-acZ" firstAttribute="top" secondItem="dhB-Xm-3aP" secondAttribute="bottom" constant="10" id="udo-uH-bvm"/>
                 <constraint firstItem="UO3-ac-tHw" firstAttribute="bottom" secondItem="lqf-YV-oSL" secondAttribute="bottom" priority="500" constant="10" id="urS-PO-EW5"/>
                 <constraint firstItem="uIM-uR-2h3" firstAttribute="centerY" secondItem="Qi9-Ve-v5r" secondAttribute="centerY" id="vTm-Zl-tMJ"/>
-                <constraint firstItem="ARY-OS-xlX" firstAttribute="bottom" secondItem="lqf-YV-oSL" secondAttribute="bottom" id="vsW-1h-yyz"/>
+                <constraint firstItem="ARY-OS-xlX" firstAttribute="bottom" secondItem="8iX-MJ-bAx" secondAttribute="bottom" id="vsW-1h-yyz"/>
                 <constraint firstAttribute="bottom" secondItem="JUD-Ce-byI" secondAttribute="bottom" constant="15" id="wRi-Fv-KrL"/>
                 <constraint firstItem="uIM-uR-2h3" firstAttribute="leading" secondItem="Qi9-Ve-v5r" secondAttribute="trailing" constant="3" id="yeU-tk-QEn"/>
             </constraints>
@@ -169,7 +130,6 @@ Unavailable</string>
                 </userDefinedRuntimeAttribute>
             </userDefinedRuntimeAttributes>
             <connections>
-                <outlet property="PriceUnavailableLabel" destination="MZi-Ad-qHH" id="J4z-Cx-m9R"/>
                 <outlet property="accessiblityView" destination="1d3-gH-QaT" id="gCS-25-8xl"/>
                 <outlet property="arrowImageView" destination="uIM-uR-2h3" id="wUm-Xh-wuS"/>
                 <outlet property="dateTimeLabel" destination="dhB-Xm-3aP" id="2q5-50-6I9"/>
@@ -179,11 +139,8 @@ Unavailable</string>
                 <outlet property="durationTopContraint" destination="Mgd-oC-fwr" id="vnb-SC-qdz"/>
                 <outlet property="durationWalkerLabel" destination="JUD-Ce-byI" id="Rwh-J8-bok"/>
                 <outlet property="friezeView" destination="lqf-YV-oSL" id="029-vs-TaP"/>
-                <outlet property="fromLabel" destination="k7F-8O-Hx4" id="TKt-5Y-LDA"/>
                 <outlet property="loadingActivityIndicatorView" destination="4ZV-Ic-1Eg" id="Ncr-lz-iwY"/>
-                <outlet property="priceLabel" destination="th8-TB-EN4" id="AQd-la-7bz"/>
-                <outlet property="priceLabelCenterYConstraint" destination="0Nb-Ug-1mL" id="UVi-nZ-SB5"/>
-                <outlet property="priceView" destination="lda-rr-GTv" id="MpV-ez-wdP"/>
+                <outlet property="priceView" destination="nqU-U3-5OW" id="pHB-jg-uMi"/>
             </connections>
             <point key="canvasLocation" x="-1971.2" y="50.824587706146929"/>
         </collectionViewCell>
