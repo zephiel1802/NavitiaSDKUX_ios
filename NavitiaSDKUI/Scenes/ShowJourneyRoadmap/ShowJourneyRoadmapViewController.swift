@@ -244,12 +244,46 @@ public class ShowJourneyRoadmapViewController: UIViewController {
         return ridesharingView
     }
     
-    private func displayInformationView() {
+    private func displayInformationView(sections: [ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionModel],
+                                        viewModel: ShowJourneyRoadmap.GetRoadmap.ViewModel) {
+
+        // Check if there is a taxi which departure date is in less than 30 minutes
+        if let taxiSection = sections.first(where: { (section) -> Bool in
+            section.type == .crowFly
+        }), let timeinterval = taxiSection.timeintervalInMinutes, timeinterval <= 30 {
+            addInformationView(withStatus: .taxi_not_bookable)
+        } else {
+            if let state = viewModel.pricesModel?.state {
+                switch state {
+                case .incomplete_price:
+                    if let errorList = viewModel.pricesModel?.unexpectedErrorTicketIdList,
+                        errorList.count > 0 {
+                        addInformationView(withStatus: .some_unbookable_transport)
+                    }
+                    if let unbookableList = viewModel.pricesModel?.unbookableSectionIdList,
+                        unbookableList.count > 0 {
+                        addInformationView(withStatus: .some_unsopported_transport)
+                    }
+                case .unavailable_price:
+                    if let errorList = viewModel.pricesModel?.unexpectedErrorTicketIdList,
+                        errorList.count > 0 {
+                        addInformationView(withStatus: .no_bookable_transport)
+                    }
+                    if let unbookableList = viewModel.pricesModel?.unbookableSectionIdList,
+                        unbookableList.count > 0 {
+                        addInformationView(withStatus: .no_supported_transport)
+                    }
+                default:
+                    break
+                }
+            }
+        }
+    }
+    
+    private func addInformationView(withStatus status: InformationView.Status) {
         let informationView = InformationView.instanceFromNib()
         informationView.frame = view.bounds
-        informationView.titleText = "Voici le titre"
-        informationView.descriptionText = "voici la description"
-        informationView.mode = .info
+        informationView.status = status
         
         slidingScrollView.stackScrollView.addSubview(informationView, margin: UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0))
     }
@@ -492,7 +526,7 @@ extension ShowJourneyRoadmapViewController: ShowJourneyRoadmapDisplayLogic {
         
         ridesharing = viewModel.ridesharing
         displayHeader(viewModel: viewModel)
-        displayInformationView()
+        displayInformationView(sections: sections, viewModel: viewModel)
         displayDepartureArrivalStep(viewModel: viewModel.departure)
         displaySteps(sections: sections, ticket: viewModel.ticket)
         displayDepartureArrivalStep(viewModel: viewModel.arrival)
