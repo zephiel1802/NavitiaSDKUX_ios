@@ -38,10 +38,6 @@ class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
             let value = totalPrice.value {
             price = String(format: "%@ %.2f", currency == "EUR" ? "€" : "", value)
         }
-
-        let ticket = ShowJourneyRoadmap.GetRoadmap.ViewModel.Ticket(shouldShowTicket: response.maasTickets != nil,
-                                                                    viewTicketLocalized: "view_ticket".localized(),
-                                                                    ticketNotAvailableLocalized: "please_buy_ticket_separately".localized())
         
         let viewModel = ShowJourneyRoadmap.GetRoadmap.ViewModel(ridesharing: getRidesharing(journeyRidesharing: response.journeyRidesharing),
                                                                 departure: departure,
@@ -571,9 +567,16 @@ class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
             // We keep the original JSON if enoding didn't work
         }
         
-        
         let sectionTicketId = section.links?.first{ $0.type == "ticket" }?.id
         let ticketPrice = pricesModel?.hermaasPricedTickets?.first { $0.ticketId == sectionTicketId }?.price
+        var priceState: PricesModel.PriceState? = .full_price
+        
+        if let unbookableList = pricesModel?.unbookableSectionIdList, let sectionId = sectionTicketId, unbookableList.contains(sectionId)  {
+            priceState = .unbookable
+        } else if let priceOnErrorList = pricesModel?.unexpectedErrorTicketIdList, let sectionId = sectionTicketId, priceOnErrorList.contains(sectionId) {
+            priceState = .unavailable_price
+        }
+        
         let sectionModel = ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionModel(type: type,
                                                                                 mode: getMode(section: section),
                                                                                 from: getFrom(section: section),
@@ -596,7 +599,7 @@ class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
                                                                                 section: section,
                                                                                 availableTicketId: getAvailableTicketId(section: section, maasTickets: maasTickets),
                                                                                 maasTicketsJson: maasTicketsJson,
-                                                                                ticketPrice: (state: .full_price, price: ticketPrice))
+                                                                                ticketPrice: (state: priceState, price: ticketPrice))
         
         return sectionModel
     }

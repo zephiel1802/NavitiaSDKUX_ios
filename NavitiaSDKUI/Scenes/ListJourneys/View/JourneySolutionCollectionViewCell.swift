@@ -125,52 +125,6 @@ class JourneySolutionCollectionViewCell: UICollectionViewCell {
         arrowImageView.tintColor = Configuration.Color.secondary
     }
     
-    private func totalPrice(ticketInputs: [TicketInput]?,
-                            navitiaPricedTickets: [PricedTicket]?,
-                            hermaasPricedTickets: [PricedTicket]?,
-                            unsupportedSectionIdList: [String]?,
-                            unexpectedErrorTicketIdList: [String]?) {
-        
-        var totalPrice: Double = 0
-        var isPriceMissing = false
-        
-        if (unsupportedSectionIdList?.count ?? 0) > 0 || (unexpectedErrorTicketIdList?.count ?? 0) > 0 {
-            isPriceMissing = true
-        }
-        
-        if (hermaasPricedTickets ?? []).count < (ticketInputs ?? []).count {
-            isPriceMissing = true
-        }
-        
-        // aggregate navitia and hermaas ticket's
-        var tickets: [PricedTicket] = []
-        if let navitiaTickets = navitiaPricedTickets {
-            tickets.append(contentsOf: navitiaTickets)
-        }
-        if let hermaasTickets = hermaasPricedTickets {
-            tickets.append(contentsOf: hermaasTickets)
-        }
-        
-        // Compute total price
-        for ticket in tickets {
-            if let price = ticket.priceWithTax, ticket.currency.lowercased() == "eur" {
-                totalPrice += price
-            } else {
-                isPriceMissing = true
-            }
-        }
-        
-        if tickets.count == 0 {
-            priceView.updatePrice(state: isPriceMissing && isLoaded ? .unavailable_price : .no_price, price: nil)
-        } else {
-            priceView.updatePrice(state: isPriceMissing ? .incomplete_price : .full_price, price: totalPrice)
-        }
-        
-        updateJourneySummaryView(ticketInputs: ticketInputs,
-                                 hermaasPricedTickets: hermaasPricedTickets,
-                                 unexpectedErrorTicketIdList: unexpectedErrorTicketIdList)
-    }
-    
     private func load(_ startAnimating: Bool) {
         if startAnimating {
             loadingActivityIndicatorView.startAnimating()

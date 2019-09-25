@@ -25,12 +25,22 @@
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
+                <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ticket_not_available" translatesAutoresizingMaskIntoConstraints="NO" id="Mad-a4-ML9">
+                    <rect key="frame" x="0.0" y="0.0" width="56" height="25"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                </imageView>
             </subviews>
             <color key="backgroundColor" red="0.91764705882352937" green="0.91764705882352937" blue="0.91764705882352937" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
+                <constraint firstItem="Mad-a4-ML9" firstAttribute="width" secondItem="iN0-l3-epB" secondAttribute="width" id="2YS-KE-DLP"/>
+                <constraint firstItem="Mad-a4-ML9" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="JE6-OU-Ooh"/>
+                <constraint firstAttribute="bottom" secondItem="Mad-a4-ML9" secondAttribute="bottom" id="Pa2-8j-kH6"/>
                 <constraint firstItem="aLc-2o-WGq" firstAttribute="top" secondItem="pr5-Tr-sUU" secondAttribute="top" constant="2" id="WKF-Xt-9n7"/>
+                <constraint firstItem="Mad-a4-ML9" firstAttribute="height" secondItem="iN0-l3-epB" secondAttribute="height" id="fPY-ZC-abH"/>
                 <constraint firstItem="aLc-2o-WGq" firstAttribute="leading" secondItem="pr5-Tr-sUU" secondAttribute="leading" constant="8" id="k8X-t8-SOZ"/>
+                <constraint firstItem="Mad-a4-ML9" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="txQ-ls-arI"/>
                 <constraint firstItem="pr5-Tr-sUU" firstAttribute="trailing" secondItem="aLc-2o-WGq" secondAttribute="trailing" constant="8" id="vzm-sD-7tV"/>
+                <constraint firstAttribute="trailing" secondItem="Mad-a4-ML9" secondAttribute="trailing" id="xcK-CW-4fe"/>
                 <constraint firstItem="pr5-Tr-sUU" firstAttribute="bottom" secondItem="aLc-2o-WGq" secondAttribute="bottom" constant="2" id="xn2-gk-AGr"/>
             </constraints>
             <nil key="simulatedTopBarMetrics"/>
@@ -44,8 +54,12 @@
             </userDefinedRuntimeAttributes>
             <connections>
                 <outlet property="priceLabel" destination="aLc-2o-WGq" id="hTi-NP-beL"/>
+                <outlet property="unavailableImageView" destination="Mad-a4-ML9" id="AgW-V6-aTX"/>
             </connections>
             <point key="canvasLocation" x="140.625" y="124.11971830985915"/>
         </view>
     </objects>
+    <resources>
+        <image name="ticket_not_available" width="69" height="35"/>
+    </resources>
 </document>

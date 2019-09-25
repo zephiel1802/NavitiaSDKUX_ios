@@ -11,6 +11,7 @@ import UIKit
 class TicketPriceView: UIView {
 
     @IBOutlet weak var priceLabel: UILabel!
+    @IBOutlet weak var unavailableImageView: UIImageView!
     
     // MARK: - UINib
     
@@ -48,6 +49,9 @@ class TicketPriceView: UIView {
             isHidden = true
             
         case .full_price?:
+            unavailableImageView.isHidden = true
+            priceLabel.isHidden = false
+            
             if let price = price {
                 isHidden = false
                 priceLabel.text = String(format: "price".localized(), price)
@@ -56,6 +60,9 @@ class TicketPriceView: UIView {
             }
             
         case .incomplete_price?:
+            unavailableImageView.isHidden = true
+            priceLabel.isHidden = false
+            
             if let price = price {
                 isHidden = false
                 let priceText = String(format: "price".localized(), price)
@@ -65,8 +72,16 @@ class TicketPriceView: UIView {
             }
             
         case .unavailable_price?:
+            unavailableImageView.isHidden = true
             isHidden = false
+            priceLabel.isHidden = false
             priceLabel.text = "price_unavailable".localized()
+            
+        case .unbookable?:
+            isHidden = false
+            priceLabel.isHidden = true
+            unavailableImageView.isHidden = false
+            
         case .none:
             isHidden = true
         }

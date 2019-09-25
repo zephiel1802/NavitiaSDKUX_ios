@@ -14,6 +14,7 @@ import Foundation
         case full_price
         case incomplete_price
         case unavailable_price
+        case unbookable
     }
     
     var state = PriceState.no_price

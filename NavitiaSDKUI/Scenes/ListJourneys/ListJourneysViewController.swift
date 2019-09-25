@@ -651,8 +651,13 @@ extension ListJourneysViewController: JourneySolutionCollectionViewCellDelegate 
                         var totalPrice: Double = 0
                         var isPriceMissing = false
                         
-                        isPriceMissing = (priceModel.unbookableSectionIdList?.count ?? 0) > 0 || (priceModel.unexpectedErrorTicketIdList?.count ?? 0) > 0
-                        isPriceMissing = (priceModel.hermaasPricedTickets ?? []).count < (self.viewModel?.displayedJourneys[index.row].ticketsInput ?? []).count
+                        if (priceModel.unbookableSectionIdList?.count ?? 0) > 0 || (priceModel.unexpectedErrorTicketIdList?.count ?? 0) > 0 {
+                            isPriceMissing = true
+                        }
+                        
+                        if (priceModel.hermaasPricedTickets ?? []).count < (self.viewModel?.displayedJourneys[index.row].ticketsInput ?? []).count {
+                            isPriceMissing = true
+                        }
                         
                         // aggregate navitia and hermaas ticket's
                         var tickets: [PricedTicket] = []

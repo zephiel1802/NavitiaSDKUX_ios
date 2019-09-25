@@ -145,7 +145,7 @@ class FriezePresenter: NSObject {
         case .incomplete_price:
             if let price = priceModel.totalPrice {
                 let priceText = String(format: "price".localized(), price)
-                return String(format: "%@\n%@", "from".localized(), priceText)
+                return String(format: "%@ %@", "from".localized(), priceText)
             } else {
                 return ""
             }
