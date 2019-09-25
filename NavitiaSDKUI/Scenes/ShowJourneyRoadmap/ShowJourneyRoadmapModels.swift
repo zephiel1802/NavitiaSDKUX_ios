@@ -155,6 +155,7 @@ enum ShowJourneyRoadmap {
                 var section: Section
                 var availableTicketId: Int?
                 var maasTicketsJson: String?
+                var ticketPrice: (state: PricesModel.PriceState?, price: Double?)
             }
             
             struct Frieze {

@@ -290,6 +290,18 @@ class PublicTransportStepView: UIView {
             waitingInformationsLabel.attributedText = NSMutableAttributedString().normal(waiting, color: Configuration.Color.darkerGray, size: 12)
         }
     }
+    
+    internal var ticketPrice: (state: PricesModel.PriceState?, price: Double?)? = nil {
+        didSet {
+            guard let ticketPrice = ticketPrice else {
+                ticketPriceView.isHidden = true
+                return
+            }
+            
+            ticketPriceView.isHidden = false
+            ticketPriceView.updatePrice(state: ticketPrice.state, price: ticketPrice.price)
+        }
+    }
 
     // MARK: Public Transport
 
