@@ -247,11 +247,33 @@ public class ShowJourneyRoadmapViewController: UIViewController {
     private func displayInformationView() {
         let informationView = InformationView.instanceFromNib()
         informationView.frame = view.bounds
-        informationView.titleText = "Voici le titre"
-        informationView.descriptionText = "voici la description"
-        informationView.mode = .info
+        informationView.status = .no_bookable_transport
         
         slidingScrollView.stackScrollView.addSubview(informationView, margin: UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0))
+        
+        let a = InformationView.instanceFromNib()
+        a.frame = view.bounds
+        a.status = .taxi_not_bookable
+        
+        slidingScrollView.stackScrollView.addSubview(a, margin: UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0))
+        
+        let b = InformationView.instanceFromNib()
+        b.frame = view.bounds
+        b.status = .some_unbookable_transport
+        
+        slidingScrollView.stackScrollView.addSubview(b, margin: UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0))
+        
+        let c = InformationView.instanceFromNib()
+        c.frame = view.bounds
+        c.status = .no_supported_transport
+        
+        slidingScrollView.stackScrollView.addSubview(c, margin: UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0))
+        
+        let d = InformationView.instanceFromNib()
+        d.frame = view.bounds
+        d.status = .some_unsopported_transport
+        
+        slidingScrollView.stackScrollView.addSubview(d, margin: UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0))
     }
     
     private func displayDepartureArrivalStep(viewModel: ShowJourneyRoadmap.GetRoadmap.ViewModel.DepartureArrival) {
