@@ -138,6 +138,7 @@ enum ShowJourneyRoadmap {
                 var mode: Mode?
                 var from: String
                 var to: String
+                var timeintervalInMinutes: Int?
                 var startTime: String
                 var endTime: String
                 var actionDescription: String?
@@ -185,6 +186,7 @@ enum ShowJourneyRoadmap {
             var displayAvoidDisruption: Bool
             var ticket: Ticket
             var totalPrice: (description: String, value: String)?
+            var pricesModel: PricesModel?
         }
     }
     

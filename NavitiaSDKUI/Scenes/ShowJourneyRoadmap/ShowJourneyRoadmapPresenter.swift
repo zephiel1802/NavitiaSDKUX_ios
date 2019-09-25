@@ -47,7 +47,8 @@ class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
                                                                 emission: emission,
                                                                 displayAvoidDisruption: alternativeJourney,
                                                                 ticket: ShowJourneyRoadmap.GetRoadmap.ViewModel.Ticket(shouldShowTicket: response.maasTickets != nil, viewTicketLocalized: "view_ticket".localized(), ticketNotAvailableLocalized: "please_buy_ticket_separately".localized()),
-                                                                totalPrice: (description: "total_journey_price".localized(), value: price))
+                                                                totalPrice: (description: "total_journey_price".localized(), value: price),
+                                                                pricesModel: response.journeyPriceModel)
         viewController?.displayRoadmap(viewModel: viewModel)
     }
     
@@ -276,6 +277,16 @@ class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
     
     private func getTo(section: Section) -> String {
         return section.to?.name ?? ""
+    }
+    
+    private func getDepartureTimeintervalInMinutes(section: Section) -> Int? {
+        guard let timeintervalInSeconds = section.departureDateTime?
+            .toDate(format: Configuration.datetime)?
+            .timeIntervalSince(Date()) else {
+            return nil
+        }
+        
+        return Int(timeintervalInSeconds/60)
     }
     
     private func getDepartureDateTime(section: Section) -> String {
@@ -547,6 +558,7 @@ class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
                                                                                 mode: getMode(section: section),
                                                                                 from: getFrom(section: section),
                                                                                 to: getTo(section: section),
+                                                                                timeintervalInMinutes: getDepartureTimeintervalInMinutes(section: section),
                                                                                 startTime: getDepartureDateTime(section: section),
                                                                                 endTime: getArrivalDateTime(section: section),
                                                                                 actionDescription: getActionDescription(section: section),
