@@ -176,16 +176,20 @@ class ListJourneysPresenter: ListJourneysPresentationLogic {
             walkingInformation = getDisplayedJourneyWalkingInformation(journey: journey)
         }
         
+        let priceModel = PricesModel(state: .no_price,
+                                     totalPrice: nil,
+                                     navitiaPricedTickets: parsedTickets.pricedTickets,
+                                     hermaasPricedTickets: nil,
+                                     unbookableSectionIdList: parsedTickets.unbookableSectionIdList,
+                                     unexpectedErrorTicketIdList: parsedTickets.unexpectedErrorTicketIdList)
+        
         return ListJourneys.FetchJourneys.ViewModel.DisplayedJourney(dateTime: dateTime,
                                                                      duration: duration,
                                                                      walkingInformation: walkingInformation,
                                                                      friezeSections: friezeSections,
                                                                      accessibility: accessibility,
                                                                      ticketsInput: parsedTickets.ticketInputList,
-                                                                     pricedTicket: parsedTickets.pricedTickets,
-                                                                     unbookableSectionIdList: parsedTickets.unbookableSectionIdList,
-                                                                     unexpectedErrorTicketIdList: parsedTickets.unexpectedErrorTicketIdList,
-                                                                     hermaasPrices: nil)
+                                                                     priceModel: priceModel)
     }
     
     private func parseTickets(journey: Journey, tickets: [Ticket]?) -> (ticketInputList: [TicketInput],

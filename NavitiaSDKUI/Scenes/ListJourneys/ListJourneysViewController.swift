@@ -363,10 +363,7 @@ extension ListJourneysViewController: UICollectionViewDataSource, UICollectionVi
                 if journeyPriceDelegate != nil {
                     cell.indexPath = indexPath
                     cell.configurePrice(ticketInputs: viewModel.ticketsInput,
-                                        navitiaPricedTickets: viewModel.pricedTicket,
-                                        hermaasPricedTickets: viewModel.hermaasPrices,
-                                        unsupportedSectionIdList: viewModel.unbookableSectionIdList,
-                                        unexpectedErrorTicketIdList: viewModel.unexpectedErrorTicketIdList)
+                                        priceModel: viewModel.priceModel)
                 }
                 
                 return cell
@@ -645,21 +642,50 @@ extension ListJourneysViewController: JourneySolutionCollectionViewCellDelegate 
                         return
                     }
                     
-                    if self.viewModel?.displayedJourneys[safe: index.row] != nil {
-                        self.viewModel?.displayedJourneys[index.row].hermaasPrices = pricedTicketList
+                    if let priceModel = self.viewModel?.displayedJourneys[safe: index.row]?.priceModel {
+                        self.viewModel?.displayedJourneys[index.row].priceModel?.hermaasPricedTickets = pricedTicketList
+                        
+                        var totalPrice: Double = 0
+                        var isPriceMissing = false
+                        
+                        isPriceMissing = (priceModel.unbookableSectionIdList?.count ?? 0) > 0 || (priceModel.unexpectedErrorTicketIdList?.count ?? 0) > 0
+                        isPriceMissing = (priceModel.hermaasPricedTickets ?? []).count < (self.viewModel?.displayedJourneys[index.row].ticketsInput ?? []).count
+                        
+                        // aggregate navitia and hermaas ticket's
+                        var tickets: [PricedTicket] = []
+                        tickets.append(contentsOf: priceModel.navitiaPricedTickets ?? [])
+                        tickets.append(contentsOf: pricedTicketList)
+                        
+                        // Compute total price
+                        for ticket in tickets {
+                            if let price = ticket.priceWithTax, ticket.currency.lowercased() == "eur" {
+                                totalPrice += price
+                            } else {
+                                isPriceMissing = true
+                            }
+                        }
+                        
+                        if tickets.count == 0 {
+                            self.viewModel?.displayedJourneys[index.row].priceModel?.state = isPriceMissing ? .unavailable_price : .no_price
+                            self.viewModel?.displayedJourneys[index.row].priceModel?.totalPrice = nil
+                        } else {
+                            self.viewModel?.displayedJourneys[index.row].priceModel?.state = isPriceMissing ? .incomplete_price : .full_price
+                            self.viewModel?.displayedJourneys[index.row].priceModel?.totalPrice = totalPrice
+                        }
+                        
                         DispatchQueue.main.async {
                             self.journeysCollectionView.reloadItems(at: [index])
                         }
                     }
                 } catch {
                     if let index = indexPath, self.viewModel?.displayedJourneys[safe: index.row] != nil {
-                        self.viewModel?.displayedJourneys[index.row].hermaasPrices = []
+                        self.viewModel?.displayedJourneys[index.row].priceModel?.hermaasPricedTickets = []
                     }
                 }
             })
         } catch {
             if let index = indexPath, self.viewModel?.displayedJourneys[safe: index.row] != nil {
-                self.viewModel?.displayedJourneys[index.row].hermaasPrices = []
+                self.viewModel?.displayedJourneys[index.row].priceModel?.hermaasPricedTickets = []
             }
         }
     }

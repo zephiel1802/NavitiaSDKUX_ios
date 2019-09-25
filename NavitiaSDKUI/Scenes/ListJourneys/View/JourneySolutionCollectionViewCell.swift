@@ -75,28 +75,24 @@ class JourneySolutionCollectionViewCell: UICollectionViewCell {
         }
     }
 
-    internal func configurePrice(ticketInputs: [TicketInput]?,
-                                 navitiaPricedTickets: [PricedTicket]?,
-                                 hermaasPricedTickets: [PricedTicket]?,
-                                 unsupportedSectionIdList: [String]?,
-                                 unexpectedErrorTicketIdList: [String]?) {
+    internal func configurePrice(ticketInputs: [TicketInput]?, priceModel: PricesModel?) {
         // Reset UI before any action due to reusable cell
         load(false)
-        totalPrice(ticketInputs: nil, navitiaPricedTickets: nil, hermaasPricedTickets: nil, unsupportedSectionIdList: nil, unexpectedErrorTicketIdList: nil)
+        priceView.updatePrice(state: .no_price, price: nil)
         
-        if hermaasPricedTickets != nil {
+        if let priceModel = priceModel, priceModel.hermaasPricedTickets != nil {
             load(false)
-            totalPrice(ticketInputs: ticketInputs,
-                       navitiaPricedTickets: navitiaPricedTickets,
-                       hermaasPricedTickets: hermaasPricedTickets,
-                       unsupportedSectionIdList: unsupportedSectionIdList,
-                       unexpectedErrorTicketIdList: unexpectedErrorTicketIdList)
+            priceView.updatePrice(state: priceModel.state, price: priceModel.totalPrice)
         } else {
             if let ticketInputList = ticketInputs, ticketInputList.count > 0 {
-                journeySolutionDelegate?.getPrice(ticketsInputList: ticketInputList, indexPath: indexPath)
                 load(true)
+                journeySolutionDelegate?.getPrice(ticketsInputList: ticketInputList, indexPath: indexPath)
             }
         }
+        
+        updateJourneySummaryView(ticketInputs: ticketInputs,
+                                 hermaasPricedTickets: priceModel?.hermaasPricedTickets,
+                                 unexpectedErrorTicketIdList: priceModel?.unexpectedErrorTicketIdList)
     }
 
     // MARK: - UINib

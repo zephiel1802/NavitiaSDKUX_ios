@@ -7,7 +7,7 @@
 
 import Foundation
 
-class PricesModel {
+struct PricesModel {
     
     public enum PriceState {
         case no_price
@@ -18,6 +18,8 @@ class PricesModel {
     
     var state = PriceState.no_price
     var totalPrice: Double?
-    var ticketList: [PricedTicket]?
-    var hermaasTicketList: [PricedTicket]?
+    var navitiaPricedTickets: [PricedTicket]?
+    var hermaasPricedTickets: [PricedTicket]?
+    var unbookableSectionIdList: [String]?
+    var unexpectedErrorTicketIdList: [String]?
 }

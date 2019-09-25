@@ -8,13 +8,6 @@
 import Foundation
 import UIKit
 
-enum PriceState {
-    case no_price
-    case full_price
-    case incomplete_price
-    case unavailable_price
-}
-
 class TicketPriceView: UIView {
 
     @IBOutlet weak var priceLabel: UILabel!
@@ -49,7 +42,7 @@ class TicketPriceView: UIView {
     }
     
     //MARK: - Public methods
-    func updatePrice(state: PriceState, price: Double?) {
+    func updatePrice(state: PricesModel.PriceState, price: Double?) {
         switch state {
         case .no_price:
             isHidden = true

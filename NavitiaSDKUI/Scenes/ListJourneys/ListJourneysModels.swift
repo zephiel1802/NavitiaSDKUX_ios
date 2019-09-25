@@ -59,10 +59,7 @@ enum ListJourneys {
                 var friezeSections: [FriezePresenter.FriezeSection]
                 var accessibility: String?
                 var ticketsInput: [TicketInput]?
-                var pricedTicket: [PricedTicket]?
-                var unbookableSectionIdList: [String]?
-                var unexpectedErrorTicketIdList: [String]?
-                var hermaasPrices: [PricedTicket]?
+                var priceModel: PricesModel?
             }
             
             var loaded: Bool
