@@ -304,12 +304,24 @@ class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
         }
         
         let friezeSections = FriezePresenter().getDisplayedJourneySections(journey: journey, disruptions: disruptions)
+        
+        var updatedFriezeSections = [FriezePresenter.FriezeSection]()
+        if let priceModel = priceModel {
+            for friezeSection in friezeSections {
+                var updatedFriezeSection = friezeSection
+                if let ticketId = friezeSection.ticketId, let errorIdList = priceModel.unexpectedErrorTicketIdList  {
+                    updatedFriezeSection.hasBadge = errorIdList.contains(ticketId)
+                }
+                
+                updatedFriezeSections.append(updatedFriezeSection)
+            }
+        }
+        
         let friezeSectionsWithDisruption = FriezePresenter().getDisplayedJourneySections(journey: journey, disruptions: disruptions, withDisruptionLevel: true)
         let displayedJourneyPrice = FriezePresenter().getDisplayedJourneyPrice(priceModel: priceModel)
         
-        
         let frieze = ShowJourneyRoadmap.GetRoadmap.ViewModel.Frieze(duration: duration,
-                                                                    friezeSections: friezeSections,
+                                                                    friezeSections: updatedFriezeSections,
                                                                     friezeSectionsWithDisruption: friezeSectionsWithDisruption,
                                                                     journeyPrice: displayedJourneyPrice)
         
