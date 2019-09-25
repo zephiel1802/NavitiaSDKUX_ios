@@ -19,6 +19,7 @@ protocol ShowJourneyRoadmapBusinessLogic {
 public protocol ShowJourneyRoadmapDataStore {
     
     var journey: Journey? { get set }
+    var journeyPriceModel: PricesModel? { get set }
     var journeyRidesharing: Journey? { get set }
     var disruptions: [Disruption]? { get set }
     var notes: [Note]? { get set }
@@ -32,6 +33,7 @@ class ShowJourneyRoadmapInteractor: ShowJourneyRoadmapBusinessLogic, ShowJourney
     var presenter: ShowJourneyRoadmapPresentationLogic?
     var journeysWorker = NavitiaWorker()
     var journey: Journey?
+    var journeyPriceModel: PricesModel?
     var journeyRidesharing: Journey?
     var disruptions: [Disruption]?
     var notes: [Note]?
@@ -50,6 +52,7 @@ class ShowJourneyRoadmapInteractor: ShowJourneyRoadmapBusinessLogic, ShowJourney
         let maasTickets = getMaasTickets(sectionsList: journey.sections, maasTickets: maasTicketsJson)
         let response = ShowJourneyRoadmap.GetRoadmap.Response(journey: journey,
                                                               journeyRidesharing: journeyRidesharing,
+                                                              journeyPriceModel: journeyPriceModel,
                                                               disruptions: disruptions,
                                                               notes: notes,
                                                               context: context,

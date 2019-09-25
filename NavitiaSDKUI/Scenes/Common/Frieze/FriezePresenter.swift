@@ -128,4 +128,31 @@ class FriezePresenter: NSObject {
         
         return friezeSections
     }
+    
+    internal func getDisplayedJourneyPrice(priceModel: PricesModel?) -> String {
+        guard let priceModel = priceModel else {
+            return ""
+        }
+        
+        
+        switch priceModel.state {
+        case .full_price:
+            if let price = priceModel.totalPrice {
+                return String(format: "price".localized(), price)
+            } else {
+                return ""
+            }
+        case .incomplete_price:
+            if let price = priceModel.totalPrice {
+                let priceText = String(format: "price".localized(), price)
+                return String(format: "%@\n%@", "from".localized(), priceText)
+            } else {
+                return ""
+            }
+        case .unavailable_price:
+            return "price_unavailable".localized()
+        default:
+            return ""
+        }
+    }
 }

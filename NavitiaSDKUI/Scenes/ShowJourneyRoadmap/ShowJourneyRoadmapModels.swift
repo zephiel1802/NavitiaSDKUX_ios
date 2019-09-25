@@ -18,6 +18,7 @@ enum ShowJourneyRoadmap {
         struct Response {
             var journey: Journey
             var journeyRidesharing: Journey?
+            var journeyPriceModel: PricesModel?
             var disruptions: [Disruption]?
             var notes: [Note]?
             var context: Context
@@ -160,6 +161,7 @@ enum ShowJourneyRoadmap {
                 var duration: Int32
                 var friezeSections: [FriezePresenter.FriezeSection]
                 var friezeSectionsWithDisruption: [FriezePresenter.FriezeSection]
+                var journeyPrice: String
             }
             
             struct Emission {

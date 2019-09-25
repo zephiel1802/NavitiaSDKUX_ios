@@ -28,7 +28,7 @@ class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
             let arrival = getArrivalViewModel(journey: response.journey),
             let emission = getEmission(response: response),
             let alternativeJourney = getAlternativeJourney(sectionsModel: sectionsClean),
-            let frieze = getFrieze(journey: response.journey, disruptions: response.disruptions) else {
+            let frieze = getFrieze(journey: response.journey, disruptions: response.disruptions, priceModel: response.journeyPriceModel) else {
             return
         }
         
@@ -294,16 +294,20 @@ class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
         return arrivalDate.toString(format: Configuration.time)
     }
 
-    private func getFrieze(journey: Journey, disruptions: [Disruption]?) -> ShowJourneyRoadmap.GetRoadmap.ViewModel.Frieze? {
+    private func getFrieze(journey: Journey, disruptions: [Disruption]?, priceModel: PricesModel?) -> ShowJourneyRoadmap.GetRoadmap.ViewModel.Frieze? {
         guard let duration = journey.duration else {
             return nil
         }
         
         let friezeSections = FriezePresenter().getDisplayedJourneySections(journey: journey, disruptions: disruptions)
         let friezeSectionsWithDisruption = FriezePresenter().getDisplayedJourneySections(journey: journey, disruptions: disruptions, withDisruptionLevel: true)
+        let displayedJourneyPrice = FriezePresenter().getDisplayedJourneyPrice(priceModel: priceModel)
+        
+        
         let frieze = ShowJourneyRoadmap.GetRoadmap.ViewModel.Frieze(duration: duration,
                                                                     friezeSections: friezeSections,
-                                                                    friezeSectionsWithDisruption: friezeSectionsWithDisruption)
+                                                                    friezeSectionsWithDisruption: friezeSectionsWithDisruption,
+                                                                    journeyPrice: displayedJourneyPrice)
         
         return frieze
     }

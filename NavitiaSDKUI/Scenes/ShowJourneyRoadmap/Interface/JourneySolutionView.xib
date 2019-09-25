@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -40,11 +40,21 @@
                     </attributedString>
                     <nil key="highlightedColor"/>
                 </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RBu-US-SzD">
+                    <rect key="frame" x="236" y="45.5" width="54" height="24"/>
+                    <string key="text">Price
+unavailable</string>
+                    <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstItem="55m-Az-mud" firstAttribute="top" secondItem="Ytc-Wb-FnP" secondAttribute="bottom" id="3Oq-l7-y3Q"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="Ytc-Wb-FnP" secondAttribute="trailing" constant="10" id="AnK-wa-drt"/>
+                <constraint firstItem="RBu-US-SzD" firstAttribute="top" secondItem="55m-Az-mud" secondAttribute="bottom" id="JeL-06-OUo"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="RBu-US-SzD" secondAttribute="trailing" constant="10" id="MB8-ie-dcz"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="55m-Az-mud" secondAttribute="trailing" constant="10" id="Y8c-Ld-koj"/>
                 <constraint firstItem="55m-Az-mud" firstAttribute="centerY" secondItem="vUN-kp-3ea" secondAttribute="centerY" constant="7" id="cOu-3v-ogZ"/>
             </constraints>
@@ -54,6 +64,7 @@
                 <outlet property="aboutLabel" destination="Ytc-Wb-FnP" id="0se-gh-12H"/>
                 <outlet property="durationCenterContraint" destination="cOu-3v-ogZ" id="UEJ-Ok-ss5"/>
                 <outlet property="durationLabel" destination="55m-Az-mud" id="hJB-KR-RAp"/>
+                <outlet property="priceLabel" destination="RBu-US-SzD" id="4NU-yV-bma"/>
             </connections>
             <point key="canvasLocation" x="-14.4" y="-237.48125937031486"/>
         </view>

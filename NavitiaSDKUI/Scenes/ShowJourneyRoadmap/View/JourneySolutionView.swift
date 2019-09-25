@@ -16,6 +16,7 @@ class JourneySolutionView: UIView {
     @IBOutlet weak var aboutLabel: UILabel!
     @IBOutlet weak var durationLabel: UILabel!
     @IBOutlet weak var durationCenterContraint: NSLayoutConstraint!
+    @IBOutlet weak var priceLabel: UILabel!
     
     private let paddingFriezeView = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 70)
     private var friezeView = FriezeView()
@@ -94,10 +95,11 @@ class JourneySolutionView: UIView {
         self.duration = formattedStringDuration
     }
     
-    internal func setData(duration: Int32, friezeSection: [FriezePresenter.FriezeSection]) {
+    internal func setData(duration: Int32, friezeSection: [FriezePresenter.FriezeSection], price: String) {
         aboutLabel.isHidden = true
         durationCenterContraint.constant = 0
         
+        priceLabel.text = price
         formattedDuration(duration)
         friezeView.addSection(friezeSections: friezeSection)
         updateFriezeView()

@@ -432,13 +432,16 @@ extension ListJourneysViewController: UICollectionViewDataSource, UICollectionVi
         
         if viewModel.loaded {
             if let cell = collectionView.cellForItem(at: indexPath) as? JourneySolutionCollectionViewCell, (journeyPriceDelegate == nil || cell.isLoaded) {
-                selector = NSSelectorFromString("routeToJourneySolutionRoadmapWithIndexPath:")
+                selector = NSSelectorFromString("routeToJourneySolutionRoadmapWithIndexPath:priceModel:")
+                if let router = router, router.responds(to: selector) {
+                    router.perform(selector, with: indexPath, with: self.viewModel?.displayedJourneys[indexPath.row].priceModel)
+                }
             } else if indexPath.section == 1 && viewModel.displayedRidesharings.count > indexPath.row - 1 && indexPath.row != 0 {
                 selector = NSSelectorFromString("routeToListRidesharingOffersWithIndexPath:")
-            }
-            
-            if let router = router, router.responds(to: selector) {
-                router.perform(selector, with: indexPath)
+                
+                if let router = router, router.responds(to: selector) {
+                    router.perform(selector, with: indexPath)
+                }
             }
         }
     }

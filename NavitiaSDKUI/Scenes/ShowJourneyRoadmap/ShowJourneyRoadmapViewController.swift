@@ -222,7 +222,7 @@ public class ShowJourneyRoadmapViewController: UIViewController {
         let journeySolutionView = JourneySolutionView.instanceFromNib()
 
         journeySolutionView.frame.size = CGSize(width: slidingScrollView.stackScrollView.frame.size.width, height: 47)
-        journeySolutionView.setData(duration: viewModel.frieze.duration, friezeSection: viewModel.frieze.friezeSections)
+        journeySolutionView.setData(duration: viewModel.frieze.duration, friezeSection: viewModel.frieze.friezeSections, price: viewModel.frieze.journeyPrice)
         
         return journeySolutionView
     }

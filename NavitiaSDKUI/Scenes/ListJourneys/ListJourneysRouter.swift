@@ -10,7 +10,7 @@ import UIKit
 @objc protocol ListJourneysViewRoutingLogic {
     
     func routeToListRidesharingOffers(indexPath: IndexPath)
-    func routeToJourneySolutionRoadmap(indexPath: IndexPath)
+    func routeToJourneySolutionRoadmap(indexPath: IndexPath, priceModel: PricesModel?)
     func routeToListPlaces(searchFieldType: SearchFieldType)
     func routeToBack()
 }
@@ -39,7 +39,7 @@ internal class ListJourneysRouter: NSObject, ListJourneysViewRoutingLogic, ListJ
         navigateToListRidesharingOffers(source: viewController, destination: destinationVC)
     }
     
-    func routeToJourneySolutionRoadmap(indexPath: IndexPath) {
+    func routeToJourneySolutionRoadmap(indexPath: IndexPath, priceModel: PricesModel?) {
         guard let viewController = viewController,
             let dataStore = dataStore,
             let destinationVC = viewController.storyboard?.instantiateViewController(withIdentifier: ShowJourneyRoadmapViewController.identifier) as? ShowJourneyRoadmapViewController,
@@ -47,7 +47,7 @@ internal class ListJourneysRouter: NSObject, ListJourneysViewRoutingLogic, ListJ
             return
         }
         
-        passDataToJourneySolutionRoadmap(source: dataStore, destination: &destinationDS, index: indexPath)
+        passDataToJourneySolutionRoadmap(source: dataStore, destination: &destinationDS, index: indexPath, priceModel: priceModel)
         navigateToJourneySolutionRoadmap(source: viewController, destination: destinationVC)
     }
     
@@ -118,8 +118,9 @@ internal class ListJourneysRouter: NSObject, ListJourneysViewRoutingLogic, ListJ
         destination.context = source.context
     }
     
-    func passDataToJourneySolutionRoadmap(source: ListJourneysDataStore, destination: inout ShowJourneyRoadmapDataStore, index: IndexPath) {
+    func passDataToJourneySolutionRoadmap(source: ListJourneysDataStore, destination: inout ShowJourneyRoadmapDataStore, index: IndexPath, priceModel: PricesModel?) {
         destination.journey = source.journeys?[index.row]
+        destination.journeyPriceModel = priceModel
         destination.disruptions = source.disruptions
         destination.notes = source.notes
         destination.context = source.context

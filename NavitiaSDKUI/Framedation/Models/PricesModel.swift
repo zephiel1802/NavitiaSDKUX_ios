@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct PricesModel {
+@objc open class PricesModel: NSObject {
     
     public enum PriceState {
         case no_price
@@ -22,4 +22,18 @@ struct PricesModel {
     var hermaasPricedTickets: [PricedTicket]?
     var unbookableSectionIdList: [String]?
     var unexpectedErrorTicketIdList: [String]?
+    
+    public init(state: PriceState = PriceState.no_price,
+                 totalPrice: Double?,
+                 navitiaPricedTickets: [PricedTicket]?,
+                 hermaasPricedTickets: [PricedTicket]?,
+                 unbookableSectionIdList: [String]?,
+                 unexpectedErrorTicketIdList: [String]?) {
+        self.state = state
+        self.totalPrice = totalPrice
+        self.navitiaPricedTickets = navitiaPricedTickets
+        self.hermaasPricedTickets = hermaasPricedTickets
+        self.unbookableSectionIdList = unbookableSectionIdList
+        self.unexpectedErrorTicketIdList = unexpectedErrorTicketIdList
+    }
 }
