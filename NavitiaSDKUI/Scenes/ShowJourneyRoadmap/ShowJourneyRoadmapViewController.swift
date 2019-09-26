@@ -30,7 +30,7 @@ public class ShowJourneyRoadmapViewController: UIViewController {
     private let locationManager = CLLocationManager()
     private var journeyPolylineCoordinates = [CLLocationCoordinate2D]()
     private var slidingScrollView: SlidingScrollView!
-    private var buyTicketButtonView: BuyTicketButtonView!
+    private var buyTicketButtonView: BuyTicketButtonView?
     private var animationTimer: Timer?
     private var bssRealTimer: Timer?
     private var parkRealTimer: Timer?
@@ -248,6 +248,7 @@ public class ShowJourneyRoadmapViewController: UIViewController {
     private func displayInformationView(sections: [ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionModel],
                                         viewModel: ShowJourneyRoadmap.GetRoadmap.ViewModel) {
 
+        enableBuyTicketButton = false
         // Check if there is a taxi which departure date is in less than 30 minutes
         if let taxiSection = sections.first(where: { (section) -> Bool in
             section.mode == .taxi
@@ -256,6 +257,8 @@ public class ShowJourneyRoadmapViewController: UIViewController {
         } else {
             if let state = viewModel.pricesModel?.state {
                 switch state {
+                case .full_price:
+                    enableBuyTicketButton = true
                 case .incomplete_price:
                     enableBuyTicketButton = true
                     if let errorList = viewModel.pricesModel?.unexpectedErrorTicketIdList,
@@ -276,7 +279,7 @@ public class ShowJourneyRoadmapViewController: UIViewController {
                         addInformationView(withStatus: .no_supported_transport)
                     }
                 default:
-                    enableBuyTicketButton = true
+                    break
                 }
             }
         }
@@ -433,7 +436,8 @@ public class ShowJourneyRoadmapViewController: UIViewController {
         emissionView.journeyCarbon = emission.journey
         emissionView.carCarbon = emission.car
         
-        slidingScrollView.stackScrollView.addSubview(emissionView, margin: UIEdgeInsets(top: 5, left: 0, bottom: 85, right: 0), safeArea: false)
+        let bottomMargin: CGFloat = enableBuyTicketButton ? 83 : 0
+        slidingScrollView.stackScrollView.addSubview(emissionView, margin: UIEdgeInsets(top: 5, left: 0, bottom: bottomMargin, right: 0), safeArea: false)
     }
     
     private func getSectionStep(section: ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionModel, ticket: ShowJourneyRoadmap.GetRoadmap.ViewModel.Ticket) -> UIView? {
@@ -542,12 +546,11 @@ extension ShowJourneyRoadmapViewController: ShowJourneyRoadmapDisplayLogic {
         if viewModel.pricesModel?.state != .no_price {
             buyTicketButtonView = BuyTicketButtonView.instanceFromNib()
             if enableBuyTicketButton {
-                buyTicketButtonView.price = viewModel.pricesModel?.totalPrice
+                buyTicketButtonView!.price = viewModel.pricesModel?.totalPrice
             }
-            buyTicketButtonView.frame = CGRect(x: 0, y: view.frame.height - 60, width: view.frame.width, height: 65)
-            view.addSubview(buyTicketButtonView)
+            buyTicketButtonView!.frame = CGRect(x: 0, y: view.frame.height - 60, width: view.frame.width, height: 65)
+            view.addSubview(buyTicketButtonView!)
         }
-        //slidingScrollView.stackScrollView.addSubview(getCancelJourneyView(), margin: UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0))
     }
     
     func displayMap(viewModel: ShowJourneyRoadmap.GetMap.ViewModel) {
@@ -573,9 +576,9 @@ extension ShowJourneyRoadmapViewController: SlidingScrollViewDelegate {
     
     internal func slidingEndMove(edgePaddingBottom: CGFloat, slidingState: SlidingScrollView.SlideState) {
         switch slidingState {
-        case .anchored,
-             .collapsed:
+        case .anchored:
             UIView.animate(withDuration: 0.3, animations: {
+                self.buyTicketButtonView?.isHidden = false
                 self.centerMapButton.alpha = 1
             }, completion: { (_) in })
             
@@ -583,9 +586,24 @@ extension ShowJourneyRoadmapViewController: SlidingScrollViewDelegate {
                              edgePadding: UIEdgeInsets(top: 60, left: 40, bottom: edgePaddingBottom + 10, right: 40),
                              animated: true)
             
-            self.alignBottomCenterMapButton.constant = -edgePaddingBottom - 5
+            alignBottomCenterMapButton.constant = -edgePaddingBottom - 5
+            
+        case .collapsed:
+            UIView.animate(withDuration: 0.3, animations: {
+                self.centerMapButton.alpha = 1
+                self.buyTicketButtonView?.isHidden = true
+            }, completion: { (_) in })
+            
+            zoomOverPolyline(targetPolyline: MKPolyline(coordinates: self.journeyPolylineCoordinates, count: self.journeyPolylineCoordinates.count),
+                             edgePadding: UIEdgeInsets(top: 60, left: 40, bottom: edgePaddingBottom + 10, right: 40),
+                             animated: true)
+            
+            alignBottomCenterMapButton.constant = -edgePaddingBottom - 5
+            
         case .expanded:
-            break
+            UIView.animate(withDuration: 0.3, animations: {
+                self.buyTicketButtonView?.isHidden = false
+            }, completion: { (_) in })
         }
     }
 }

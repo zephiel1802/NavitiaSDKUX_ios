@@ -16,11 +16,11 @@
             <rect key="frame" x="0.0" y="0.0" width="543" height="204"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nlg-sb-x7Z">
-                    <rect key="frame" x="24" y="0.0" width="495" height="40"/>
+                <view alpha="0.84999999999999998" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nlg-sb-x7Z">
+                    <rect key="frame" x="55" y="0.0" width="433" height="40"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LhX-RH-GhE">
-                            <rect key="frame" x="228" y="11.5" width="39" height="17"/>
+                            <rect key="frame" x="197" y="11.5" width="39" height="17"/>
                             <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="14"/>
                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <nil key="highlightedColor"/>
@@ -42,8 +42,8 @@
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
                 <constraint firstItem="nlg-sb-x7Z" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="3Ge-ty-2Mb"/>
-                <constraint firstAttribute="trailing" secondItem="nlg-sb-x7Z" secondAttribute="trailing" constant="24" id="Aq7-Fd-hJG"/>
-                <constraint firstItem="nlg-sb-x7Z" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="24" id="Uxy-R3-KDI"/>
+                <constraint firstAttribute="trailing" secondItem="nlg-sb-x7Z" secondAttribute="trailing" constant="55" id="Aq7-Fd-hJG"/>
+                <constraint firstItem="nlg-sb-x7Z" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="55" id="Uxy-R3-KDI"/>
                 <constraint firstItem="nlg-sb-x7Z" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="tEp-s3-rLs"/>
             </constraints>
             <nil key="simulatedTopBarMetrics"/>
