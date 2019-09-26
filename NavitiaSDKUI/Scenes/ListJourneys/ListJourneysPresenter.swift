@@ -179,6 +179,7 @@ class ListJourneysPresenter: ListJourneysPresentationLogic {
         let priceModel = PricesModel(state: .no_price,
                                      totalPrice: nil,
                                      navitiaPricedTickets: parsedTickets.pricedTickets,
+                                     ticketsInput: parsedTickets.ticketInputList,
                                      hermaasPricedTickets: nil,
                                      unbookableSectionIdList: parsedTickets.unbookableSectionIdList,
                                      unexpectedErrorTicketIdList: parsedTickets.unexpectedErrorTicketIdList)
@@ -188,7 +189,6 @@ class ListJourneysPresenter: ListJourneysPresentationLogic {
                                                                      walkingInformation: walkingInformation,
                                                                      friezeSections: friezeSections,
                                                                      accessibility: accessibility,
-                                                                     ticketsInput: parsedTickets.ticketInputList,
                                                                      priceModel: priceModel)
     }
     
@@ -216,16 +216,23 @@ class ListJourneysPresenter: ListJourneysPresentationLogic {
                                                           ticketId: ticketId ?? ""))
                     
                     
+                    // *************** ON DEMAND TRANSPORT ********
+                    // We do not support tad tickets
+                    // ********************************************
+                } else if section.type == .onDemandTransport {
+                    unbookableSectionIdList.append(section.id ?? "")
+                    
                     // *************** PUBLIC TRANSPORT ***********
                     // Public transport's ticket will be return by hermaas only if price is equal to 0
                     // ********************************************
                 } else if section.type == .publicTransport {
                     if let ticketId = ticketId {
-                        handlePublicTransportTicket(tickets: tickets,
+                        handlePublicTransportTicket(ticketsFromNavitia: tickets,
                                                     ticketId: ticketId,
                                                     section: section,
-                                                    pricedTicketList: &pricedTicketList,
+                                                    navitiaTicketsWithValidPrice: &pricedTicketList,
                                                     unexpectedErrorTicketIdList: &unexpectedErrorTicketIdList,
+                                                    unbookableSectionIdList: &unbookableSectionIdList,
                                                     ticketInputList: &ticketInputList)
                     } else {
                         // If there is no ticket, than this transporter is not supported yet
@@ -237,13 +244,14 @@ class ListJourneysPresenter: ListJourneysPresentationLogic {
             return (ticketInputList, pricedTicketList, unbookableSectionIdList, unexpectedErrorTicketIdList)
     }
     
-    private func handlePublicTransportTicket(tickets: [Ticket]?,
+    private func handlePublicTransportTicket(ticketsFromNavitia: [Ticket]?,
                                              ticketId: String,
                                              section: Section,
-                                             pricedTicketList: inout [PricedTicket],
+                                             navitiaTicketsWithValidPrice: inout [PricedTicket],
                                              unexpectedErrorTicketIdList: inout [String],
+                                             unbookableSectionIdList: inout [String],
                                              ticketInputList: inout [TicketInput]) {
-        guard let navitiaTicket = tickets?.first(where: { (item) -> Bool in
+        guard let navitiaTicket = ticketsFromNavitia?.first(where: { (item) -> Bool in
             return item.id == ticketId
         }) else {
             unexpectedErrorTicketIdList.append(ticketId)
@@ -251,11 +259,12 @@ class ListJourneysPresenter: ListJourneysPresentationLogic {
         }
         
         if let cost = navitiaTicket.cost,
+            let sourceId = navitiaTicket.sourceId,
             let price = Double(cost.value ?? "0.0"),
             price > 0.0, cost.currency == "centime" {
             
-            pricedTicketList.append(getPricedTicket(ticketId: ticketId,
-                                                    priceWithTaxInEur: price/100))
+            navitiaTicketsWithValidPrice.append(getPricedTicket(ticketId: ticketId, priceWithTaxInEur: price/100))
+            ticketInputList.append(getTicketInput(section: section, productId: sourceId, ticketId: ticketId))
         } else if let sourceIds = NavitiaSDKUI.shared.sourceIds, let navitiaSourceId = navitiaTicket.sourceId {
             var sourceIdFound = false
             for sourceId in sourceIds {
@@ -267,7 +276,7 @@ class ListJourneysPresenter: ListJourneysPresentationLogic {
             }
             
             if !sourceIdFound {
-                unexpectedErrorTicketIdList.append(ticketId)
+                unbookableSectionIdList.append(ticketId)
             }
         } else {
             unexpectedErrorTicketIdList.append(ticketId)

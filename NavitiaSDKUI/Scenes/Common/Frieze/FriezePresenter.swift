@@ -134,7 +134,6 @@ class FriezePresenter: NSObject {
             return ""
         }
         
-        
         switch priceModel.state {
         case .full_price:
             if let price = priceModel.totalPrice {

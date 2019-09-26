@@ -75,24 +75,26 @@ class JourneySolutionCollectionViewCell: UICollectionViewCell {
         }
     }
 
-    internal func configurePrice(ticketInputs: [TicketInput]?, priceModel: PricesModel?) {
+    internal func configurePrice(priceModel: PricesModel?) {
         // Reset UI before any action due to reusable cell
         load(false)
         priceView.updatePrice(state: .no_price, price: nil)
         
-        if let priceModel = priceModel, priceModel.hermaasPricedTickets != nil {
+        guard let priceModel = priceModel else {
+            return
+        }
+        
+        if priceModel.hermaasPricedTickets != nil {
             load(false)
             priceView.updatePrice(state: priceModel.state, price: priceModel.totalPrice)
         } else {
-            if let ticketInputList = ticketInputs, ticketInputList.count > 0 {
+            if let ticketInputList = priceModel.ticketsInput, ticketInputList.count > 0 {
                 load(true)
                 journeySolutionDelegate?.getPrice(ticketsInputList: ticketInputList, indexPath: indexPath)
             }
         }
         
-        updateJourneySummaryView(ticketInputs: ticketInputs,
-                                 hermaasPricedTickets: priceModel?.hermaasPricedTickets,
-                                 unexpectedErrorTicketIdList: priceModel?.unexpectedErrorTicketIdList)
+        updateJourneySummaryView(priceModel: priceModel)
     }
 
     // MARK: - UINib
@@ -136,32 +138,17 @@ class JourneySolutionCollectionViewCell: UICollectionViewCell {
         isLoaded = !startAnimating
     }
     
-    private func updateJourneySummaryView(ticketInputs: [TicketInput]?,
-                                           hermaasPricedTickets: [PricedTicket]?,
-                                           unexpectedErrorTicketIdList: [String]?) {
+    private func updateJourneySummaryView(priceModel: PricesModel?) {
         var updatedFriezeSections = [FriezePresenter.FriezeSection]()
-        var errorTicketIdList = [String]()
         
-        if isLoaded {
-            if let unexpectedErrorTicketIdList = unexpectedErrorTicketIdList {
-                errorTicketIdList.append(contentsOf: unexpectedErrorTicketIdList)
-            }
-            
-            if let ticketInputs = ticketInputs, let hermaasPricedTickets = hermaasPricedTickets {
-                for ticket in ticketInputs {
-                    if !hermaasPricedTickets.contains(where: { (hermaasTicket) -> Bool in
-                        return hermaasTicket.ticketId == ticket.ride.ticketId
-                    }) {
-                        errorTicketIdList.append(ticket.ride.ticketId)
-                    }
-                }
-            }
+        guard let priceModel = priceModel else {
+            return
         }
         
         for friezeSection in friezeSections {
             var updatedFriezeSection = friezeSection
-            if let ticketId = friezeSection.ticketId, errorTicketIdList.contains(ticketId) {
-                updatedFriezeSection.hasBadge = true
+            if let ticketId = friezeSection.ticketId, let unexpectedErrorTicketIdList = priceModel.unexpectedErrorTicketIdList {
+                updatedFriezeSection.hasBadge = unexpectedErrorTicketIdList.contains(ticketId)
             }
             
             updatedFriezeSections.append(updatedFriezeSection)

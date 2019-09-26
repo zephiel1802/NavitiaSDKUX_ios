@@ -23,16 +23,19 @@ import Foundation
     var hermaasPricedTickets: [PricedTicket]?
     var unbookableSectionIdList: [String]?
     var unexpectedErrorTicketIdList: [String]?
+    var ticketsInput: [TicketInput]?
     
     public init(state: PriceState = PriceState.no_price,
                  totalPrice: Double?,
                  navitiaPricedTickets: [PricedTicket]?,
+                 ticketsInput: [TicketInput]?,
                  hermaasPricedTickets: [PricedTicket]?,
                  unbookableSectionIdList: [String]?,
                  unexpectedErrorTicketIdList: [String]?) {
         self.state = state
         self.totalPrice = totalPrice
         self.navitiaPricedTickets = navitiaPricedTickets
+        self.ticketsInput = ticketsInput
         self.hermaasPricedTickets = hermaasPricedTickets
         self.unbookableSectionIdList = unbookableSectionIdList
         self.unexpectedErrorTicketIdList = unexpectedErrorTicketIdList

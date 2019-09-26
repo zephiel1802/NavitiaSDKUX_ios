@@ -12,8 +12,8 @@ public struct PricedTicket: Codable {
     
     let productId: Int
     let name: String
-    let price: Double?
-    let priceWithTax: Double?
+    var price: Double?
+    var priceWithTax: Double?
     let taxRate: Double?
     let currency: String
     let ticketId: String?

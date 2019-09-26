@@ -316,10 +316,9 @@ class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
         if let priceModel = priceModel {
             for friezeSection in friezeSections {
                 var updatedFriezeSection = friezeSection
-                if let ticketId = friezeSection.ticketId, let errorIdList = priceModel.unexpectedErrorTicketIdList  {
-                    updatedFriezeSection.hasBadge = errorIdList.contains(ticketId)
+                if let ticketId = friezeSection.ticketId, let unexpectedErrorTicketIdList = priceModel.unexpectedErrorTicketIdList {
+                    updatedFriezeSection.hasBadge = unexpectedErrorTicketIdList.contains(ticketId)
                 }
-                
                 updatedFriezeSections.append(updatedFriezeSection)
             }
         }
@@ -568,10 +567,10 @@ class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
         }
         
         let sectionTicketId = section.links?.first{ $0.type == "ticket" }?.id
-        let ticketPrice = pricesModel?.hermaasPricedTickets?.first { $0.ticketId == sectionTicketId }?.price
+        let ticketPrice = pricesModel?.hermaasPricedTickets?.first { $0.ticketId == sectionTicketId }?.priceWithTax
         var priceState: PricesModel.PriceState? = .full_price
         
-        if let unbookableList = pricesModel?.unbookableSectionIdList, let sectionId = sectionTicketId, unbookableList.contains(sectionId)  {
+        if let unbookableList = pricesModel?.unbookableSectionIdList, let sectionId = section.id, unbookableList.contains(sectionId)  {
             priceState = .unbookable
         } else if let priceOnErrorList = pricesModel?.unexpectedErrorTicketIdList, let sectionId = sectionTicketId, priceOnErrorList.contains(sectionId) {
             priceState = .unavailable_price

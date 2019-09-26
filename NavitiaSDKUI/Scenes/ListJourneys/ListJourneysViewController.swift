@@ -362,8 +362,7 @@ extension ListJourneysViewController: UICollectionViewDataSource, UICollectionVi
                 
                 if journeyPriceDelegate != nil {
                     cell.indexPath = indexPath
-                    cell.configurePrice(ticketInputs: viewModel.ticketsInput,
-                                        priceModel: viewModel.priceModel)
+                    cell.configurePrice(priceModel: viewModel.priceModel)
                 }
                 
                 return cell
@@ -633,12 +632,20 @@ extension ListJourneysViewController: JourneySolutionCollectionViewCellDelegate 
             let jsonData = try JSONEncoder().encode(ticketsInputList)
             journeyPriceDelegate?.requestPrice(ticketInputData: jsonData, callback: { (ticketPriceDictionary) in
                 do {
-                    var pricedTicketList = [PricedTicket]()
+                    var pricedTicketsFromHermaas = [PricedTicket]()
                     for response in ticketPriceDictionary {
                         let pricedTicketData = try JSONSerialization.data(withJSONObject: response, options: .prettyPrinted)
-                        let pricedTicket = try JSONDecoder().decode(PricedTicket.self, from: pricedTicketData)
+                        var pricedTicket = try JSONDecoder().decode(PricedTicket.self, from: pricedTicketData)
                         
-                        pricedTicketList.append(pricedTicket)
+                        // Merge navitia prices with hermaas prices
+                        if let index = indexPath, let priceModel = self.viewModel?.displayedJourneys[safe: index.row]?.priceModel {
+                            if let navitiaTicket = priceModel.navitiaPricedTickets?.first(where: { $0.ticketId == pricedTicket.ticketId }) {
+                                pricedTicket.price = navitiaTicket.price
+                                pricedTicket.priceWithTax = navitiaTicket.priceWithTax
+                            }
+                        }
+                        
+                        pricedTicketsFromHermaas.append(pricedTicket)
                     }
                     
                     guard let index = indexPath else {
@@ -646,26 +653,29 @@ extension ListJourneysViewController: JourneySolutionCollectionViewCellDelegate 
                     }
                     
                     if let priceModel = self.viewModel?.displayedJourneys[safe: index.row]?.priceModel {
-                        self.viewModel?.displayedJourneys[index.row].priceModel?.hermaasPricedTickets = pricedTicketList
+                        self.viewModel?.displayedJourneys[index.row].priceModel?.hermaasPricedTickets = pricedTicketsFromHermaas
                         
-                        var totalPrice: Double = 0
+                        // verify which ticket is on error
+                        if let ticketInputs = priceModel.ticketsInput {
+                            for ticket in ticketInputs {
+                                if !pricedTicketsFromHermaas.contains(where: { $0.ticketId == ticket.ride.ticketId }) {
+                                    self.viewModel?.displayedJourneys[safe: index.row]?.priceModel?.unexpectedErrorTicketIdList?.append(ticket.ride.ticketId)
+                                }
+                            }
+                        }
+                        
                         var isPriceMissing = false
-                        
                         if (priceModel.unbookableSectionIdList?.count ?? 0) > 0 || (priceModel.unexpectedErrorTicketIdList?.count ?? 0) > 0 {
                             isPriceMissing = true
                         }
                         
-                        if (priceModel.hermaasPricedTickets ?? []).count < (self.viewModel?.displayedJourneys[index.row].ticketsInput ?? []).count {
+                        if (priceModel.hermaasPricedTickets ?? []).count < (priceModel.ticketsInput ?? []).count {
                             isPriceMissing = true
                         }
                         
-                        // aggregate navitia and hermaas ticket's
-                        var tickets: [PricedTicket] = []
-                        tickets.append(contentsOf: priceModel.navitiaPricedTickets ?? [])
-                        tickets.append(contentsOf: pricedTicketList)
-                        
                         // Compute total price
-                        for ticket in tickets {
+                        var totalPrice: Double = 0
+                        for ticket in pricedTicketsFromHermaas {
                             if let price = ticket.priceWithTax, ticket.currency.lowercased() == "eur" {
                                 totalPrice += price
                             } else {
@@ -673,7 +683,7 @@ extension ListJourneysViewController: JourneySolutionCollectionViewCellDelegate 
                             }
                         }
                         
-                        if tickets.count == 0 {
+                        if pricedTicketsFromHermaas.count == 0 {
                             self.viewModel?.displayedJourneys[index.row].priceModel?.state = isPriceMissing ? .unavailable_price : .no_price
                             self.viewModel?.displayedJourneys[index.row].priceModel?.totalPrice = nil
                         } else {

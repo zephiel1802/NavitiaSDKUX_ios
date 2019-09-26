@@ -17,7 +17,7 @@
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Environ" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ytc-Wb-FnP">
-                    <rect key="frame" x="252" y="16.5" width="38" height="12"/>
+                    <rect key="frame" x="252" y="2.5" width="38" height="12"/>
                     <accessibility key="accessibilityConfiguration">
                         <bool key="isElement" value="NO"/>
                     </accessibility>
@@ -26,7 +26,7 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="55m-Az-mud">
-                    <rect key="frame" x="245.5" y="28.5" width="44.5" height="17"/>
+                    <rect key="frame" x="245.5" y="14.5" width="44.5" height="17"/>
                     <accessibility key="accessibilityConfiguration">
                         <bool key="isElement" value="NO"/>
                     </accessibility>
@@ -40,8 +40,8 @@
                     </attributedString>
                     <nil key="highlightedColor"/>
                 </label>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RBu-US-SzD">
-                    <rect key="frame" x="236" y="45.5" width="54" height="24"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="RBu-US-SzD">
+                    <rect key="frame" x="236" y="31.5" width="54" height="28.5"/>
                     <string key="text">Price
 unavailable</string>
                     <fontDescription key="fontDescription" type="system" pointSize="10"/>
@@ -52,11 +52,13 @@ unavailable</string>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstItem="55m-Az-mud" firstAttribute="top" secondItem="Ytc-Wb-FnP" secondAttribute="bottom" id="3Oq-l7-y3Q"/>
+                <constraint firstItem="55m-Az-mud" firstAttribute="centerY" secondItem="vUN-kp-3ea" secondAttribute="centerY" constant="-7" id="9oG-Od-5lv"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="Ytc-Wb-FnP" secondAttribute="trailing" constant="10" id="AnK-wa-drt"/>
                 <constraint firstItem="RBu-US-SzD" firstAttribute="top" secondItem="55m-Az-mud" secondAttribute="bottom" id="JeL-06-OUo"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="RBu-US-SzD" secondAttribute="trailing" constant="10" id="MB8-ie-dcz"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="55m-Az-mud" secondAttribute="trailing" constant="10" id="Y8c-Ld-koj"/>
-                <constraint firstItem="55m-Az-mud" firstAttribute="centerY" secondItem="vUN-kp-3ea" secondAttribute="centerY" constant="7" id="cOu-3v-ogZ"/>
+                <constraint firstItem="55m-Az-mud" firstAttribute="centerY" secondItem="vUN-kp-3ea" secondAttribute="centerY" priority="250" constant="7" id="cOu-3v-ogZ"/>
+                <constraint firstAttribute="bottom" secondItem="RBu-US-SzD" secondAttribute="bottom" id="zYO-En-ySO"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
