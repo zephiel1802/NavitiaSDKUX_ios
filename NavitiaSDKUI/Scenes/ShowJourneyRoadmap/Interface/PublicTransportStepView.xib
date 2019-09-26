@@ -58,7 +58,7 @@
                                     </userDefinedRuntimeAttributes>
                                 </view>
                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="blocking_disruption" translatesAutoresizingMaskIntoConstraints="NO" id="yMW-uY-M7f">
-                                    <rect key="frame" x="26" y="0.0" width="12" height="12"/>
+                                    <rect key="frame" x="49" y="0.0" width="12" height="12"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="12" id="70k-pj-uiA"/>
                                         <constraint firstAttribute="height" constant="12" id="9Z1-3x-Gke"/>
@@ -83,20 +83,29 @@
                                         <constraint firstAttribute="height" constant="1" id="2UA-td-NCf"/>
                                     </constraints>
                                 </view>
+                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="non_blocking_disruption" translatesAutoresizingMaskIntoConstraints="NO" id="ouK-X4-7yt">
+                                    <rect key="frame" x="26" y="6" width="12" height="12"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="12" id="Ndb-zK-3Qk"/>
+                                        <constraint firstAttribute="width" constant="12" id="i8v-f1-Tcg"/>
+                                    </constraints>
+                                </imageView>
                             </subviews>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <constraints>
                                 <constraint firstItem="s5L-qt-fpc" firstAttribute="leading" secondItem="4fw-wa-InW" secondAttribute="leading" constant="12" id="4Tj-CE-RFR"/>
                                 <constraint firstAttribute="height" constant="44" id="8P1-il-GMn"/>
+                                <constraint firstItem="ouK-X4-7yt" firstAttribute="leading" secondItem="vd7-1j-br7" secondAttribute="trailing" constant="-6" id="D84-CP-uiL"/>
                                 <constraint firstAttribute="bottom" secondItem="cda-Cg-6Zp" secondAttribute="bottom" constant="12" id="DLJ-H3-BKh"/>
                                 <constraint firstItem="yMW-uY-M7f" firstAttribute="top" secondItem="4fw-wa-InW" secondAttribute="top" id="GgE-zX-AFN"/>
                                 <constraint firstItem="Sdt-uv-Xuj" firstAttribute="leading" secondItem="vd7-1j-br7" secondAttribute="trailing" constant="8" id="HEk-Jt-BzC"/>
                                 <constraint firstAttribute="trailing" secondItem="cda-Cg-6Zp" secondAttribute="trailing" constant="12" id="LSo-rE-cNj"/>
                                 <constraint firstAttribute="bottom" secondItem="s5L-qt-fpc" secondAttribute="bottom" id="PWE-cr-aWl"/>
+                                <constraint firstItem="ouK-X4-7yt" firstAttribute="top" secondItem="4fw-wa-InW" secondAttribute="top" constant="6" id="SNZ-Hb-gR8"/>
                                 <constraint firstItem="Sdt-uv-Xuj" firstAttribute="centerY" secondItem="vd7-1j-br7" secondAttribute="centerY" id="UeX-Pe-tfV"/>
                                 <constraint firstItem="vd7-1j-br7" firstAttribute="centerY" secondItem="4fw-wa-InW" secondAttribute="centerY" id="Wuh-Y9-25o"/>
                                 <constraint firstAttribute="trailing" secondItem="s5L-qt-fpc" secondAttribute="trailing" constant="12" id="Y4h-Db-eHM"/>
-                                <constraint firstItem="yMW-uY-M7f" firstAttribute="leading" secondItem="vd7-1j-br7" secondAttribute="trailing" constant="-6" id="h9v-Sh-C1H"/>
+                                <constraint firstItem="yMW-uY-M7f" firstAttribute="leading" secondItem="Sdt-uv-Xuj" secondAttribute="trailing" constant="-6" id="h9v-Sh-C1H"/>
                                 <constraint firstItem="vd7-1j-br7" firstAttribute="leading" secondItem="4fw-wa-InW" secondAttribute="leading" constant="12" id="lXt-1O-EOH"/>
                                 <constraint firstItem="cda-Cg-6Zp" firstAttribute="top" secondItem="4fw-wa-InW" secondAttribute="top" constant="12" id="s0u-Wy-1kO"/>
                             </constraints>
@@ -504,6 +513,7 @@
                 <outlet property="showTicketView" destination="ERo-Vs-6Hz" id="DnQ-H2-oma"/>
                 <outlet property="stackView" destination="qh1-Nv-EMR" id="gA9-9I-D1F"/>
                 <outlet property="ticketPriceView" destination="cda-Cg-6Zp" id="31h-Du-GNU"/>
+                <outlet property="ticketUnavailableImage" destination="ouK-X4-7yt" id="1Qw-R6-j06"/>
                 <outlet property="transportIconLabel" destination="uyK-mt-FQ8" id="EgF-Fk-3VV"/>
                 <outlet property="transportIconView" destination="Sdt-uv-Xuj" id="xZJ-2f-5mT"/>
                 <outlet property="viewTicketButton" destination="sEO-RS-TFq" id="wkn-rS-xdc"/>
@@ -519,6 +529,7 @@
         <image name="arrow_down" width="32" height="32"/>
         <image name="blocking_disruption" width="44" height="44"/>
         <image name="bus" width="32" height="32"/>
+        <image name="non_blocking_disruption" width="44" height="44"/>
         <image name="ticket" width="181" height="318"/>
         <image name="ticket_not_available" width="69" height="35"/>
         <image name="waiting" width="32" height="32"/>

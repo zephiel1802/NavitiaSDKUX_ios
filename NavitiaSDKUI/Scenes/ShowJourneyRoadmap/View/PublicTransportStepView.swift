@@ -21,6 +21,7 @@ class PublicTransportStepView: UIView {
     @IBOutlet weak var transportIconView: UIView!
     @IBOutlet weak var transportIconLabel: UILabel!
     @IBOutlet weak var disruptionImage: UIImageView!
+    @IBOutlet weak var ticketUnavailableImage: UIImageView!
     @IBOutlet weak var networkContainerView: UIView!
     @IBOutlet weak var networkLabel: UILabel!
     @IBOutlet weak var waitingContainerView: UIView!
@@ -298,6 +299,7 @@ class PublicTransportStepView: UIView {
                 return
             }
             
+            ticketUnavailableImage.isHidden = ticketPrice.state != .unavailable_price
             ticketPriceView.isHidden = false
             ticketPriceView.updatePrice(state: ticketPrice.state, price: ticketPrice.price)
         }
