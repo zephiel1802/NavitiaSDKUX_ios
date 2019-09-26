@@ -30,13 +30,14 @@ public class ShowJourneyRoadmapViewController: UIViewController {
     private let locationManager = CLLocationManager()
     private var journeyPolylineCoordinates = [CLLocationCoordinate2D]()
     private var slidingScrollView: SlidingScrollView!
+    private var buyTicketButtonView: BuyTicketButtonView!
     private var animationTimer: Timer?
     private var bssRealTimer: Timer?
     private var parkRealTimer: Timer?
     private var bssTuple = [(poi: ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionModel.Poi?, type: String, view: StepView)]()
     private var parkTuple = [(poi: ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionModel.Poi?, view: StepView)]()
     private var display = false
-
+    private var enableBuyTicketButton = false
     internal var interactor: ShowJourneyRoadmapBusinessLogic?
 
     weak public var delegate: ShowJourneyRoadmapDelegate?
@@ -249,13 +250,14 @@ public class ShowJourneyRoadmapViewController: UIViewController {
 
         // Check if there is a taxi which departure date is in less than 30 minutes
         if let taxiSection = sections.first(where: { (section) -> Bool in
-            section.type == .crowFly
+            section.mode == .taxi
         }), let timeinterval = taxiSection.timeintervalInMinutes, timeinterval <= 30 {
             addInformationView(withStatus: .taxi_not_bookable)
         } else {
             if let state = viewModel.pricesModel?.state {
                 switch state {
                 case .incomplete_price:
+                    enableBuyTicketButton = true
                     if let errorList = viewModel.pricesModel?.unexpectedErrorTicketIdList,
                         errorList.count > 0 {
                         addInformationView(withStatus: .some_unbookable_transport)
@@ -274,7 +276,7 @@ public class ShowJourneyRoadmapViewController: UIViewController {
                         addInformationView(withStatus: .no_supported_transport)
                     }
                 default:
-                    break
+                    enableBuyTicketButton = true
                 }
             }
         }
@@ -431,7 +433,7 @@ public class ShowJourneyRoadmapViewController: UIViewController {
         emissionView.journeyCarbon = emission.journey
         emissionView.carCarbon = emission.car
         
-        slidingScrollView.stackScrollView.addSubview(emissionView, margin: UIEdgeInsets(top: 5, left: 0, bottom: 0, right: 0), safeArea: false)
+        slidingScrollView.stackScrollView.addSubview(emissionView, margin: UIEdgeInsets(top: 5, left: 0, bottom: 85, right: 0), safeArea: false)
     }
     
     private func getSectionStep(section: ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionModel, ticket: ShowJourneyRoadmap.GetRoadmap.ViewModel.Ticket) -> UIView? {
@@ -537,6 +539,14 @@ extension ShowJourneyRoadmapViewController: ShowJourneyRoadmapDisplayLogic {
         
         displayEmission(emission: viewModel.emission)
         
+        if viewModel.pricesModel?.state != .no_price {
+            buyTicketButtonView = BuyTicketButtonView.instanceFromNib()
+            if enableBuyTicketButton {
+                buyTicketButtonView.price = viewModel.pricesModel?.totalPrice
+            }
+            buyTicketButtonView.frame = CGRect(x: 0, y: view.frame.height - 60, width: view.frame.width, height: 65)
+            view.addSubview(buyTicketButtonView)
+        }
         //slidingScrollView.stackScrollView.addSubview(getCancelJourneyView(), margin: UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0))
     }
     

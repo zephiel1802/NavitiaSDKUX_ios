@@ -81,6 +81,7 @@ enum ShowJourneyRoadmap {
                     case bss = "bss"
                     case ridesharing = "ridesharing"
                     case carnopark = "carnopark"
+                    case taxi = "taxi"
                 }
                 
                 struct Poi {
