@@ -59,15 +59,15 @@ enum ListPlaces {
             var places: Places?
             var locationAddress: Address?
         }
-        struct ViewModel {
-            enum ModelType: String {
+        struct ViewModel:Codable {
+            enum ModelType: String, Codable {
                 case stopArea = "stop_area"
                 case address = "address"
                 case poi = "poi"
                 case location = "location"
             }
             
-            struct Place {
+            struct Place:Codable {
                 var label: String?
                 var name: String
                 var id: String
@@ -75,7 +75,7 @@ enum ListPlaces {
                 var type: ModelType
             }
             
-            struct DisplayedSections {
+            struct DisplayedSections:Codable {
                 var name: String?
                 var places: [Place]
             }

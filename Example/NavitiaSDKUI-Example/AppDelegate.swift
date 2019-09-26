@@ -17,6 +17,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         
+        UserDefaults.standard.setStruct(Place(JSON: ["name":"Luxford Rd At Hawaii Av","id":"stop_area:OEY:Navitia:2770370"]), forKey: "home_address")
+        UserDefaults.standard.setStruct(Place(JSON: ["name":"Anzac Pde Near Long Bay Correctional Centre","id":"stop_area:OEY:Navitia:2036113"]), forKey: "work_address")
+        
+        
         NavitiaSDKUI.shared.initialize(token: token)
         NavitiaSDKUI.shared.bundle = Bundle(identifier: "org.cocoapods.NavitiaSDKUI")
         NavitiaSDKUI.shared.mainColor = UIColor(red: 64.0/255, green: 149.0/255, blue: 142.0/255, alpha: 1)

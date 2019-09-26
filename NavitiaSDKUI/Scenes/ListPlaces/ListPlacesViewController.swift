@@ -307,7 +307,6 @@ extension ListPlacesViewController: UITableViewDataSource, UITableViewDelegate {
             let type = displayedSections[safe: indexPath.section]?.places[safe: indexPath.row]?.type else {
                 return
         }
-        
         if type != .location {
             interactor?.savePlace(request: ListPlaces.SavePlace.Request(place: (name: name, id: id, type: type.rawValue)))
         }

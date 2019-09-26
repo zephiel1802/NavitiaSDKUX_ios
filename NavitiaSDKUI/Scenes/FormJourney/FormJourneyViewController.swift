@@ -23,6 +23,8 @@ open class FormJourneyViewController: UIViewController, FormJourneyDisplayLogic,
     private var dateFormView: DateFormView!
     private var searchButtonView: SearchButtonView!
     private var display = false
+    var home:Place?
+    var work:Place?
     
     internal var interactor: FormJourneyBusinessLogic?
     internal var router: (NSObjectProtocol & FormJourneyRoutingLogic & FormJourneyDataPassing)?
@@ -44,7 +46,6 @@ open class FormJourneyViewController: UIViewController, FormJourneyDisplayLogic,
     
     override open func viewDidLoad() {
         super.viewDidLoad()
-        
         hideKeyboardWhenTappedAround()
         
         initNavigationBar()
@@ -105,20 +106,33 @@ open class FormJourneyViewController: UIViewController, FormJourneyDisplayLogic,
         super.viewDidAppear(animated)
         searchView.fromTextField.resignFirstResponder()
         searchView.toTextField.resignFirstResponder()
+        
+        if (searchView.fromTextField.text == "") {
+            home = UserDefaults.standard.structData(Place.self, forKey: "home_address")
+            work = UserDefaults.standard.structData(Place.self, forKey: "work_address")
+            
+            assignHomeWorkAddress(home: home, work: work)
+        }
     }
     
     private func initArchitecture() {
         let viewController = self
         let interactor = FormJourneyInteractor()
+        let interactorL = ListPlacesInteractor()
         let presenter = FormJourneyPresenter()
+        let presenterL = ListPlacesPresenter()
         let router = FormJourneyRouter()
+        let routerL = ListPlacesRouter()
         
         viewController.interactor = interactor
+        viewController.interactorL = interactorL
         viewController.router = router
         interactor.presenter = presenter
+        interactorL.presenter = presenterL
         presenter.viewController = viewController
         router.viewController = viewController
         router.dataStore = interactor
+        routerL.dataStore = interactorL
     }
     
     private func initNavigationBar() {
@@ -188,13 +202,17 @@ open class FormJourneyViewController: UIViewController, FormJourneyDisplayLogic,
         dateFormView.dateTimeRepresentsSegmentedControl = interactor?.journeysRequest?.datetimeRepresents?.rawValue
     }
     
-    func assignHomeWorkAddress() {
-        let home = UserDefaults.standard.object(forKey: "home")
+    func assignHomeWorkAddress(home:Place?, work:Place?) {
+        let homeModel = FormJourney.DisplaySearch.ViewModel(fromName: home?.name, toName: work?.name)
+        self.displaySearch(viewModel: homeModel)
+        
+        interactorL?.displaySearch(request: ListPlaces.DisplaySearch.Request())
+        interactorL?.info == "from" ? searchView.focusFromField() : searchView.focusToField()
         
         if interactorL?.info == "from" {
-            let request = ListPlaces.DisplaySearch.Request(from: (label: "",
-                                                                  name: "",
-                                                                  id: ""),
+            let request = ListPlaces.DisplaySearch.Request(from: (label:home?.label,
+                                                                  name: home!.name,
+                                                                  id: home!.id) as? (label: String?, name: String?, id: String),
                                                            to: nil)
             interactorL?.displaySearch(request:request)
             
@@ -203,23 +221,38 @@ open class FormJourneyViewController: UIViewController, FormJourneyDisplayLogic,
             if searchView.toTextField.text == "" {
                 interactorL?.info = "to"
                 searchView.focusToField()
+                fetchPlaces(q: "")
             } else {
                 dismissAutocompletion()
             }
         } else {
-            interactorL?.displaySearch(request: ListPlaces.DisplaySearch.Request(from: nil,
-                                                                                to: (label: "",
-                                                                                     name: "",
-                                                                                     id: "")))
+            
+            let request = ListPlaces.DisplaySearch.Request(from: nil,
+                                                           to: (label: work?.label,
+                                                                name: work?.name,
+                                                                id: work!.id) as? (label: String?, name: String?, id: String))
+            
+            interactorL?.displaySearch(request: request)
             
             searchView.focusToField(false)
             if searchView.fromTextField.text == "" {
                 interactorL?.info  = "from"
                 searchView.focusFromField()
+                fetchPlaces(q: "")
             } else {
                 dismissAutocompletion()
             }
         }
+    }
+    
+    func fetchPlaces(q: String?) {
+        guard let q = q else {
+            return
+        }
+        
+        let request = ListPlaces.FetchPlaces.Request(q: q)
+        
+        interactorL?.fetchJourneys(request: request)
     }
     
     private func dismissAutocompletion() {
