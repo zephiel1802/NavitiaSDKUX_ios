@@ -37,9 +37,13 @@
                             <integer key="value" value="20"/>
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
+                    <connections>
+                        <outletCollection property="gestureRecognizers" destination="813-sO-z0r" appends="YES" id="ZX5-sC-B7v"/>
+                    </connections>
                 </view>
             </subviews>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <gestureRecognizers/>
             <constraints>
                 <constraint firstItem="nlg-sb-x7Z" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="3Ge-ty-2Mb"/>
                 <constraint firstAttribute="trailing" secondItem="nlg-sb-x7Z" secondAttribute="trailing" constant="55" id="Aq7-Fd-hJG"/>
@@ -53,8 +57,15 @@
             <connections>
                 <outlet property="buttonView" destination="nlg-sb-x7Z" id="BHk-FP-kKE"/>
                 <outlet property="textLabel" destination="LhX-RH-GhE" id="8WI-Wx-8L7"/>
+                <outletCollection property="gestureRecognizers" destination="813-sO-z0r" appends="YES" id="cXc-aL-sv1"/>
             </connections>
             <point key="canvasLocation" x="231.15942028985509" y="-79.017857142857139"/>
         </view>
+        <tapGestureRecognizer id="813-sO-z0r">
+            <connections>
+                <action selector="buyButtonViewAction:" destination="iN0-l3-epB" id="Ay2-8N-SIf"/>
+                <outlet property="delegate" destination="iN0-l3-epB" id="8mU-YM-FXr"/>
+            </connections>
+        </tapGestureRecognizer>
     </objects>
 </document>

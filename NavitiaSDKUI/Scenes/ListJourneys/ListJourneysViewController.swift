@@ -17,10 +17,10 @@ protocol ListJourneysDisplayLogic: class {
 public protocol JourneyPriceDelegate: class {
     
     func requestPrice(ticketInputData: Data, callback:  @escaping ((_ ticketPriceDictionary: [[String: Any]]) -> ()))
+    func buyTicket(priceModel: PricesModel)
 }
 
 public class ListJourneysViewController: UIViewController, ListJourneysDisplayLogic, JourneyRootViewController {
-    
     @IBOutlet weak var searchView: SearchView!
     @IBOutlet weak var journeysCollectionView: UICollectionView!
     

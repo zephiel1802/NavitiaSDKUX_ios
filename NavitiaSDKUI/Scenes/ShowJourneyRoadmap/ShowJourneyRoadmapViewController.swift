@@ -20,7 +20,7 @@ protocol ShowJourneyRoadmapDisplayLogic: class {
     func displayMap(viewModel: ShowJourneyRoadmap.GetMap.ViewModel)
 }
 
-public class ShowJourneyRoadmapViewController: UIViewController {
+public class ShowJourneyRoadmapViewController: UIViewController, JourneyRootViewController {
 
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var centerMapButton: UIButton!
@@ -38,8 +38,11 @@ public class ShowJourneyRoadmapViewController: UIViewController {
     private var parkTuple = [(poi: ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionModel.Poi?, view: StepView)]()
     private var display = false
     private var enableBuyTicketButton = false
+    private var pricesModel: PricesModel?
     internal var interactor: ShowJourneyRoadmapBusinessLogic?
 
+    public var journeysRequest: JourneysRequest?
+    public var journeyPriceDelegate: JourneyPriceDelegate?
     weak public var delegate: ShowJourneyRoadmapDelegate?
     public var router: (NSObjectProtocol & ShowJourneyRoadmapRoutingLogic & ShowJourneyRoadmapDataPassing)?
     
@@ -437,7 +440,7 @@ public class ShowJourneyRoadmapViewController: UIViewController {
         emissionView.journeyCarbon = emission.journey
         emissionView.carCarbon = emission.car
         
-        let bottomMargin: CGFloat = enableBuyTicketButton ? 83 : 0
+        let bottomMargin: CGFloat = buyTicketButtonView != nil ? 83 : 0
         slidingScrollView.stackScrollView.addSubview(emissionView, margin: UIEdgeInsets(top: 5, left: 0, bottom: bottomMargin, right: 0), safeArea: false)
     }
     
@@ -532,6 +535,7 @@ extension ShowJourneyRoadmapViewController: ShowJourneyRoadmapDisplayLogic {
             return
         }
         
+        pricesModel = viewModel.pricesModel
         ridesharing = viewModel.ridesharing
         displayHeader(viewModel: viewModel)
         displayInformationView(sections: sections, viewModel: viewModel)
@@ -543,16 +547,17 @@ extension ShowJourneyRoadmapViewController: ShowJourneyRoadmapDisplayLogic {
             displayPrice(totalPrice: viewModel.totalPrice)
         }
         
-        displayEmission(emission: viewModel.emission)
-        
         if viewModel.pricesModel?.state != .no_price {
             buyTicketButtonView = BuyTicketButtonView.instanceFromNib()
             if enableBuyTicketButton {
+                buyTicketButtonView!.delegate = self
                 buyTicketButtonView!.price = viewModel.pricesModel?.totalPrice
             }
             buyTicketButtonView!.frame = CGRect(x: 0, y: view.frame.height - 60, width: view.frame.width, height: 65)
             view.addSubview(buyTicketButtonView!)
         }
+        
+        displayEmission(emission: viewModel.emission)
     }
     
     func displayMap(viewModel: ShowJourneyRoadmap.GetMap.ViewModel) {
@@ -826,5 +831,13 @@ extension ShowJourneyRoadmapViewController: PublicTransportStepViewDelegate {
     
     public func showError() {
         // TODO: show popin error
+    }
+}
+
+extension ShowJourneyRoadmapViewController: BuyTicketButtonViewDelegate {
+    func didTapOnBuyTicketButton() {
+        if let pricesModel = pricesModel {
+            journeyPriceDelegate?.buyTicket(priceModel: pricesModel)
+        }
     }
 }
