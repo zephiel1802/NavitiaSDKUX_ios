@@ -75,9 +75,12 @@
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ARY-OS-xlX">
                         <rect key="frame" x="234" y="45.5" width="56" height="101.5"/>
                         <subviews>
-                            <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nqU-U3-5OW" customClass="TicketPriceView" customModule="NavitiaSDKUI" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="36.5" width="56" height="29"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nqU-U3-5OW" customClass="TicketPriceView" customModule="NavitiaSDKUI" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="14" width="56" height="29"/>
                                 <color key="backgroundColor" red="0.91764705879999997" green="0.91764705879999997" blue="0.91764705879999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="29" id="puF-Ug-7QI"/>
+                                </constraints>
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -85,7 +88,6 @@
                             <constraint firstAttribute="width" constant="56" id="VXm-6H-MuD"/>
                             <constraint firstItem="nqU-U3-5OW" firstAttribute="leading" secondItem="ARY-OS-xlX" secondAttribute="leading" id="gcN-VJ-ff8"/>
                             <constraint firstAttribute="trailing" secondItem="nqU-U3-5OW" secondAttribute="trailing" id="lHf-Nk-Zfi"/>
-                            <constraint firstItem="nqU-U3-5OW" firstAttribute="centerY" secondItem="ARY-OS-xlX" secondAttribute="centerY" id="nlh-TD-aD9"/>
                         </constraints>
                     </view>
                     <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="4ZV-Ic-1Eg">
@@ -103,6 +105,7 @@
                 <constraint firstItem="ARY-OS-xlX" firstAttribute="centerX" secondItem="4ZV-Ic-1Eg" secondAttribute="centerX" id="KHr-oi-bOu"/>
                 <constraint firstItem="dhB-Xm-3aP" firstAttribute="leading" secondItem="8iX-MJ-bAx" secondAttribute="leading" constant="10" id="MKs-ls-tJk"/>
                 <constraint firstItem="JUD-Ce-byI" firstAttribute="top" secondItem="lqf-YV-oSL" secondAttribute="bottom" constant="15" id="Mgd-oC-fwr"/>
+                <constraint firstItem="nqU-U3-5OW" firstAttribute="centerY" secondItem="lqf-YV-oSL" secondAttribute="centerY" id="N7B-0r-mqY"/>
                 <constraint firstItem="UO3-ac-tHw" firstAttribute="trailing" secondItem="uIM-uR-2h3" secondAttribute="trailing" constant="10" id="PL2-zk-SOG"/>
                 <constraint firstItem="lqf-YV-oSL" firstAttribute="top" secondItem="uiE-c6-acZ" secondAttribute="bottom" constant="10" id="Tb9-si-dTb"/>
                 <constraint firstAttribute="trailing" secondItem="1d3-gH-QaT" secondAttribute="trailing" id="Tm0-7k-Y7N"/>
@@ -146,6 +149,6 @@
         </collectionViewCell>
     </objects>
     <resources>
-        <image name="arrow_right" width="32" height="32"/>
+        <image name="arrow_right" width="42" height="42"/>
     </resources>
 </document>
