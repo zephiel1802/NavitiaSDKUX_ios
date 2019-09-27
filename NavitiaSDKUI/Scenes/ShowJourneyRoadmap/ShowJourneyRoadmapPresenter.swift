@@ -527,18 +527,21 @@ class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
                                  sectionBefore: Section?,
                                  disruptions: [Disruption]?,
                                  notes: [Note]?,
+                                 maasOrderId: Int?,
                                  maasTickets: [MaasTicket]?) -> ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionModel? {
         guard let type = getType(section: section) else {
             return nil
         }
         
-        var maasTicketsJson: String? = nil
+        var maasOrderJson: String? = nil
         do {
-            maasTicketsJson = String(data: try JSONEncoder().encode(maasTickets), encoding: .utf8)
+            let maasOrder = MaasOrder(orderId: maasOrderId, ticketsList: maasTickets)
+            maasOrderJson = String(data: try JSONEncoder().encode(maasOrder), encoding: .utf8)
         } catch {
             // We keep the original JSON if enoding didn't work
         }
         
+        let maasTicketInfo = getAvailableMaasTicket(section: section, maasTickets: maasTickets)
         let sectionModel = ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionModel(type: type,
                                                                                 mode: getMode(section: section),
                                                                                 from: getFrom(section: section),
@@ -558,36 +561,41 @@ class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
                                                                                 realTime: getRealTime(section: section),
                                                                                 background: getBackground(section: section),
                                                                                 section: section,
-                                                                                availableTicketId: getAvailableTicketId(section: section, maasTickets: maasTickets),
-                                                                                maasTicketsJson: maasTicketsJson)
+                                                                                maasProductId: maasTicketInfo.maasProductId,
+                                                                                maasTicketId: maasTicketInfo.maasTicketId,
+                                                                                maasOrderJson: maasOrderJson)
         
         return sectionModel
     }
     
-    private func getAvailableTicketId(section: Section, maasTickets: [MaasTicket]?) -> Int? {
+    private func getAvailableMaasTicket(section: Section, maasTickets: [MaasTicket]?) -> (maasProductId: Int?, maasTicketId: String?) {
         guard let maasTickets = maasTickets else {
-            return nil
+            return (maasProductId: nil, maasTicketId: nil)
         }
         
-        if let links = section.links {
+        // We only allow Taxi and public transport sections
+        if let mode = section.mode, mode == .taxi {
+            // If the section refers to Taxi, we need to find the Hermaas ticket that has a Product id 3
+            for ticket in maasTickets {
+                if ticket.productId == 3 {
+                    return (maasProductId: ticket.productId, maasTicketId: ticket.ticketId)
+                }
+            }
+        } else if let type = section.type,
+            type == .publicTransport,
+            let links = section.links {
             for link in links {
-                if let type = link.type, type == "ticket", let id = link.id {
-                    return getMaasTicketId(linkId: id, maasTickets: maasTickets)
+                if link.type == "ticket", let linkId = link.id {
+                    for ticket in maasTickets {
+                        if ticket.ticketId == linkId {
+                            return (maasProductId: ticket.productId, maasTicketId: ticket.ticketId)
+                        }
+                    }
                 }
             }
         }
         
-        return nil
-    }
-    
-    private func getMaasTicketId(linkId: String, maasTickets: [MaasTicket]) -> Int? {
-        for ticket in maasTickets {
-            if String(format: "%d", ticket.productId) == linkId {
-                return ticket.productId
-            }
-        }
-        
-        return nil
+        return (maasProductId: nil, maasTicketId: nil)
     }
     
     private func getSectionModels(response:  ShowJourneyRoadmap.GetRoadmap.Response) -> [ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionModel]? {
@@ -602,6 +610,7 @@ class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
                                                                   sectionBefore: sectionsRidesharing[safe: index - 1],
                                                                   disruptions: response.disruptions,
                                                                   notes: response.notes,
+                                                                  maasOrderId: response.maasOrderId,
                                                                   maasTickets: response.maasTickets) {
                                 sectionsModel.append(SectionModel)
                             }
@@ -612,6 +621,7 @@ class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
                                                           sectionBefore: sections[safe: index - 1],
                                                           disruptions: response.disruptions,
                                                           notes: response.notes,
+                                                          maasOrderId: response.maasOrderId,
                                                           maasTickets: response.maasTickets) {
                         sectionsModel.append(sectionModel)
                     }

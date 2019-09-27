@@ -26,6 +26,7 @@
 		3192556321C7FED700CB11DD /* FriezeSectionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3192556221C7FED700CB11DD /* FriezeSectionView.xib */; };
 		31B3A82721C15FFB002EFF91 /* AlternativeJourneyView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 31B3A82621C15FFB002EFF91 /* AlternativeJourneyView.xib */; };
 		31B3A82921C16008002EFF91 /* AlternativeJourneyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31B3A82821C16008002EFF91 /* AlternativeJourneyView.swift */; };
+		31EA4EA9233E4E600006DAA4 /* MaasOrder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31EA4EA8233E4E600006DAA4 /* MaasOrder.swift */; };
 		31EE0548214694BB00293B8B /* HorizontalSeparator.xib in Resources */ = {isa = PBXBuildFile; fileRef = 31EE0547214694BB00293B8B /* HorizontalSeparator.xib */; };
 		31EF7C5C2153D3C300200AE0 /* UIAutoFilledLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31EF7C5B2153D3C300200AE0 /* UIAutoFilledLabel.swift */; };
 		31EF7C5E2153D3D100200AE0 /* UILabel+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31EF7C5D2153D3D100200AE0 /* UILabel+Extension.swift */; };
@@ -376,6 +377,7 @@
 		31B3A82621C15FFB002EFF91 /* AlternativeJourneyView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AlternativeJourneyView.xib; sourceTree = "<group>"; };
 		31B3A82821C16008002EFF91 /* AlternativeJourneyView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlternativeJourneyView.swift; sourceTree = "<group>"; };
 		31B6E803232A3DE3002D8B02 /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/Localizable.strings; sourceTree = "<group>"; };
+		31EA4EA8233E4E600006DAA4 /* MaasOrder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaasOrder.swift; sourceTree = "<group>"; };
 		31EE0547214694BB00293B8B /* HorizontalSeparator.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HorizontalSeparator.xib; sourceTree = "<group>"; };
 		31EE0549214694CB00293B8B /* HorizontalSeparator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HorizontalSeparator.swift; sourceTree = "<group>"; };
 		31EF7C5B2153D3C300200AE0 /* UIAutoFilledLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIAutoFilledLabel.swift; sourceTree = "<group>"; };
@@ -1301,15 +1303,16 @@
 		84AFDB8821417D8800858D42 /* ShowJourneyRoadmap */ = {
 			isa = PBXGroup;
 			children = (
-				8451DABB2065175000CFA1E4 /* Interface */,
-				8451DAB8206516BC00CFA1E4 /* View */,
 				8476DD552088819C006CB506 /* JourneyPathOverlays.swift */,
+				31EA4EA8233E4E600006DAA4 /* MaasOrder.swift */,
+				F656ECB022FDB92E00557B8C /* MaasTicket.swift */,
 				84AFDB8E21417E6600858D42 /* ShowJourneyRoadmapInteractor.swift */,
 				84AFDB8C21417E6600858D42 /* ShowJourneyRoadmapModels.swift */,
 				84AFDB8921417E6600858D42 /* ShowJourneyRoadmapPresenter.swift */,
 				84AFDB8B21417E6600858D42 /* ShowJourneyRoadmapRouter.swift */,
 				8451DAA920650C9200CFA1E4 /* ShowJourneyRoadmapViewController.swift */,
-				F656ECB022FDB92E00557B8C /* MaasTicket.swift */,
+				8451DABB2065175000CFA1E4 /* Interface */,
+				8451DAB8206516BC00CFA1E4 /* View */,
 			);
 			path = ShowJourneyRoadmap;
 			sourceTree = "<group>";
@@ -1766,6 +1769,7 @@
 				8454D42A2068D3A800C97D2F /* CustomDateFormatTransform.swift in Sources */,
 				8454D4272068D3A800C97D2F /* AlamofireObjectMapper.swift in Sources */,
 				AC9D5C09231D1C3000C29202 /* PricedTicket.swift in Sources */,
+				31EA4EA9233E4E600006DAA4 /* MaasOrder.swift in Sources */,
 				841A1086215A29B800F46143 /* Exception.swift in Sources */,
 				841A10AA215A29B800F46143 /* CommercialMode.swift in Sources */,
 				841A1078215A29B800F46143 /* Place.swift in Sources */,

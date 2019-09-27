@@ -23,6 +23,7 @@ public protocol ShowJourneyRoadmapDataStore {
     var disruptions: [Disruption]? { get set }
     var notes: [Note]? { get set }
     var context: Context? { get set }
+    var maasOrderId: Int? { get set }
     var maasTicketsJson: String? { get set }
     var totalPrice: (value: Float?, currency: String?)? { get set }
 }
@@ -36,6 +37,7 @@ class ShowJourneyRoadmapInteractor: ShowJourneyRoadmapBusinessLogic, ShowJourney
     var disruptions: [Disruption]?
     var notes: [Note]?
     var context: Context?
+    var maasOrderId: Int?
     var maasTicketsJson: String?
     var totalPrice: (value: Float?, currency: String?)?
   
@@ -53,6 +55,7 @@ class ShowJourneyRoadmapInteractor: ShowJourneyRoadmapBusinessLogic, ShowJourney
                                                               disruptions: disruptions,
                                                               notes: notes,
                                                               context: context,
+                                                              maasOrderId: maasOrderId,
                                                               maasTickets: maasTickets,
                                                               totalPrice: totalPrice)
         presenter?.presentRoadmap(response: response)
@@ -111,14 +114,31 @@ class ShowJourneyRoadmapInteractor: ShowJourneyRoadmapBusinessLogic, ShowJourney
             let decodedMaasTicketsList = try JSONDecoder().decode([MaasTicket].self, from: maasTicketsData)
             var maasTickets = [MaasTicket]()
             
-            for decodedMaasTicket in decodedMaasTicketsList {
-                for section in sectionsList {
-                    if let links = section.links {
+            for section in sectionsList {
+                for decodedMaasTicket in decodedMaasTicketsList {
+                    if let mode = section.mode,
+                        mode == .taxi,
+                        decodedMaasTicket.productId == 3 {
+                        let maasTicket = MaasTicket(productId: decodedMaasTicket.productId,
+                                                    ticketId: decodedMaasTicket.ticketId,
+                                                    ticket: decodedMaasTicket.ticket,
+                                                    from: section.from?.name,
+                                                    to: section.to?.name,
+                                                    departureDatetime: section.departureDateTime,
+                                                    arrivalDatetime: section.arrivalDateTime,
+                                                    physicalMode: "taxi")
+                        maasTickets.append(maasTicket)
+                        break
+                    } else if let type = section.type,
+                        type == .publicTransport,
+                        let links = section.links,
+                        let ticketId = decodedMaasTicket.ticketId,
+                        !ticketId.isEmpty {
                         for link in links {
                             if let type = link.type,
                                 type == "ticket",
                                 let linkId = link.id,
-                                String(format: "%d", decodedMaasTicket.productId) == linkId {
+                                ticketId == linkId {
                                 var physicalMode = ""
                                 for link in links {
                                     if let type = link.type,
@@ -126,10 +146,12 @@ class ShowJourneyRoadmapInteractor: ShowJourneyRoadmapBusinessLogic, ShowJourney
                                         let linkId = link.id {
                                         let linkInfo = linkId.split(separator: ":")
                                         physicalMode = String(linkInfo[1])
+                                        break
                                     }
                                 }
                                 
                                 let maasTicket = MaasTicket(productId: decodedMaasTicket.productId,
+                                                            ticketId: ticketId,
                                                             ticket: decodedMaasTicket.ticket,
                                                             from: section.from?.name,
                                                             to: section.to?.name,
@@ -137,6 +159,7 @@ class ShowJourneyRoadmapInteractor: ShowJourneyRoadmapBusinessLogic, ShowJourney
                                                             arrivalDatetime: section.arrivalDateTime,
                                                             physicalMode: physicalMode)
                                 maasTickets.append(maasTicket)
+                                break
                             }
                         }
                     }

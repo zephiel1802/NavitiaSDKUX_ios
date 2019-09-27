@@ -9,7 +9,7 @@ import UIKit
 
 @objc public protocol PublicTransportStepViewDelegate: class {
     
-    @objc func viewTicketClicked(maasTicketId: Int, maasTicketsJson: String)
+    @objc func viewTicketClicked(maasProductId: Int, maasTicketId: String, maasOrderJson: String)
     func showError()
 }
 
@@ -58,10 +58,10 @@ class PublicTransportStepView: UIView {
     
     weak internal var delegate: PublicTransportStepViewDelegate?
     
-    internal var ticketViewConfig: (availableTicketId: Int?, maasTicketsJson: String?, viewTicketLocalized: String, ticketNotAvailableLocalized: String)? {
+    internal var ticketViewConfig: (maasProductId: Int?, maasTicketId: String?, maasOrderJson: String?, viewTicketLocalized: String, ticketNotAvailableLocalized: String)? {
         didSet {
             if let ticketViewConfig = ticketViewConfig {
-                if ticketViewConfig.availableTicketId != nil {
+                if ticketViewConfig.maasProductId != nil {
                     let ticketImage = "ticket".getIcon(customizable: true)
                     viewTicketButton.setImage(ticketImage, for: .normal)
                     viewTicketButton.tintColor = Configuration.Color.secondary.contrastColor()
@@ -430,9 +430,12 @@ class PublicTransportStepView: UIView {
     
     @IBAction func viewTicketClicked(_ sender: Any) {
         if let ticketViewConfig = ticketViewConfig,
-            let maasTicketId = ticketViewConfig.availableTicketId,
-            let maasTicketsJson = ticketViewConfig.maasTicketsJson {
-            delegate?.viewTicketClicked(maasTicketId: maasTicketId, maasTicketsJson: maasTicketsJson)
+            let maasProductId = ticketViewConfig.maasProductId,
+            let maasTicketId = ticketViewConfig.maasTicketId,
+            let maasOrderJson = ticketViewConfig.maasOrderJson {
+            delegate?.viewTicketClicked(maasProductId: maasProductId,
+                                        maasTicketId: maasTicketId,
+                                        maasOrderJson: maasOrderJson)
         } else {
             delegate?.showError()
         }
