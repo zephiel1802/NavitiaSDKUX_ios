@@ -24,6 +24,7 @@ enum ShowJourneyRoadmap {
             var context: Context
             var maasTickets: [MaasTicket]?
             var totalPrice: (value: Float?, currency: String?)?
+            var journeyPriceDelegate: JourneyPriceDelegate?
         }
         
         struct ViewModel {
@@ -193,6 +194,7 @@ enum ShowJourneyRoadmap {
             var ticket: Ticket
             var totalPrice: (description: String, value: String)?
             var pricesModel: PricesModel?
+            var journeyPriceDelegate: JourneyPriceDelegate?
         }
     }
     

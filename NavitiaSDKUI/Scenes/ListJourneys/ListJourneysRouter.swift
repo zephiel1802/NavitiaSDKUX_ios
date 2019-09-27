@@ -124,6 +124,7 @@ internal class ListJourneysRouter: NSObject, ListJourneysViewRoutingLogic, ListJ
         destination.disruptions = source.disruptions
         destination.notes = source.notes
         destination.context = source.context
+        destination.journeyPriceDelegate = source.delegate
     }
     
     func passDataToListPlaces(source: ListJourneysDataStore, destination: inout ListPlacesDataStore, searchFieldType: SearchFieldType) {

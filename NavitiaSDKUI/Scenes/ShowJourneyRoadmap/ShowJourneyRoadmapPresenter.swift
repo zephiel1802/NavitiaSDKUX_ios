@@ -48,7 +48,8 @@ class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
                                                                 displayAvoidDisruption: alternativeJourney,
                                                                 ticket: ShowJourneyRoadmap.GetRoadmap.ViewModel.Ticket(shouldShowTicket: response.maasTickets != nil, viewTicketLocalized: "view_ticket".localized(), ticketNotAvailableLocalized: "please_buy_ticket_separately".localized()),
                                                                 totalPrice: (description: "total_journey_price".localized(), value: price),
-                                                                pricesModel: response.journeyPriceModel)
+                                                                pricesModel: response.journeyPriceModel,
+                                                                journeyPriceDelegate: response.journeyPriceDelegate)
         viewController?.displayRoadmap(viewModel: viewModel)
     }
     

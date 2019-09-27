@@ -535,6 +535,7 @@ extension ShowJourneyRoadmapViewController: ShowJourneyRoadmapDisplayLogic {
             return
         }
         
+        journeyPriceDelegate = viewModel.journeyPriceDelegate
         pricesModel = viewModel.pricesModel
         ridesharing = viewModel.ridesharing
         displayHeader(viewModel: viewModel)
