@@ -568,13 +568,28 @@ class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
             // We keep the original JSON if enoding didn't work
         }
         
+        var ticketPrice: Double? = nil
         let sectionTicketId = section.links?.first{ $0.type == "ticket" }?.id
-        let ticketPrice = pricesModel?.hermaasPricedTickets?.first { $0.ticketId == sectionTicketId }?.priceWithTax
-        var priceState: PricesModel.PriceState? = .full_price
-        
+        if let hermaasPricedTickets = pricesModel?.hermaasPricedTickets {
+            for ticket in hermaasPricedTickets {
+                if ticket.ticketId == sectionTicketId {
+                    ticketPrice = ticket.priceWithTax
+                    break
+                }
+            }
+            
+            // Since there is no ticket id for taxi, we lookup for it manually in case of price not found
+            if ticketPrice == nil,
+                (section.type == .streetNetwork && section.mode == .taxi),
+                let hermaasTaxiTicket = hermaasPricedTickets.first(where: { $0.productId == 3 }) {
+                ticketPrice = hermaasTaxiTicket.priceWithTax
+            }
+        }
+    
+        var priceState: PricesModel.PriceState? = (ticketPrice != nil) ? .full_price : .no_price
         if let unbookableList = pricesModel?.unbookableSectionIdList, let sectionId = section.id, unbookableList.contains(sectionId)  {
             priceState = .unbookable
-        } else if let priceOnErrorList = pricesModel?.unexpectedErrorTicketIdList, let sectionId = sectionTicketId, priceOnErrorList.contains(sectionId) {
+        } else if let priceOnErrorList = pricesModel?.unexpectedErrorTicketIdList, let ticketId = sectionTicketId, priceOnErrorList.contains(ticketId) {
             priceState = .unavailable_price
         }
         

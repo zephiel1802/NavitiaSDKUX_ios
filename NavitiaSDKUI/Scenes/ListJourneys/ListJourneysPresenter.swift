@@ -276,7 +276,9 @@ class ListJourneysPresenter: ListJourneysPresentationLogic {
             }
             
             if !sourceIdFound {
-                unbookableSectionIdList.append(ticketId)
+                if let sectionId = section.id {
+                    unbookableSectionIdList.append(sectionId)
+                }
             }
         } else {
             unexpectedErrorTicketIdList.append(ticketId)
