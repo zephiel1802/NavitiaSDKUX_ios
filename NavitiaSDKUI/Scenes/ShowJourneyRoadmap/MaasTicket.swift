@@ -19,7 +19,6 @@ struct MaasTicket: Codable {
     let physicalMode: String?
     
     enum CodingKeys: String, CodingKey {
-        
         case productId = "id_product"
         case ticketId = "ticket_id"
         case ticket
