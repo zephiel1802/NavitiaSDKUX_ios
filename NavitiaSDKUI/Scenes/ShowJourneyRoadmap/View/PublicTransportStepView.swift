@@ -189,22 +189,34 @@ class PublicTransportStepView: UIView {
         }
     }
 
-    internal var informations: (action: String, from: String, direction: String)? = nil {
+    internal var informations: (action: String?, from: String, direction: String)? = nil {
         didSet {
             guard let informations = informations else {
                 return
             }
 
-            informationsLabel.attributedText = NSMutableAttributedString()
-                .normal(informations.action, size: 15)
-                .normal(" ", size: 15)
+            let informationsText = NSMutableAttributedString()
+            
+            if let action = informations.action {
+                informationsText
+                    .normal(action, size: 15)
+                    .normal(" ", size: 15)
+            }
+            
+            informationsText
                 .normal("at".localized(), size: 15)
                 .normal(" ", size: 15)
                 .bold(informations.from, size: 15)
-                .normal(" ", size: 15)
-                .normal("in_the_direction_of".localized(), size: 15)
-                .normal(" ", size: 15)
-                .bold(informations.direction, size: 15)
+                
+            if !informations.direction.isEmpty {
+                informationsText
+                    .normal(" ", size: 15)
+                    .normal("in_the_direction_of".localized(), size: 15)
+                    .normal(" ", size: 15)
+                    .bold(informations.direction, size: 15)
+            }
+            
+            informationsLabel.attributedText = informationsText
         }
     }
 

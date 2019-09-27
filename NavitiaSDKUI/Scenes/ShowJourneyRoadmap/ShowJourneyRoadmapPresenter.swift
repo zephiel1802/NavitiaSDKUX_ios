@@ -341,6 +341,8 @@ class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
 
         if type == .park {
             return "park_in_the".localized()
+        } else if type == .streetNetwork, let mode = section.mode, mode == .taxi {
+            return String(format: "%@ %@", "take_the".localized(), mode.stringValue())
         } else if type == .ridesharing {
             return "take_the_ridesharing".localized()
         } else if type == .transfer || section.mode != nil {

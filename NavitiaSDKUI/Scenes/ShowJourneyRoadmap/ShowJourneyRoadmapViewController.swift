@@ -319,12 +319,13 @@ public class ShowJourneyRoadmapViewController: UIViewController {
         publicTransportView.frame = view.bounds
         publicTransportView.delegate = self
         publicTransportView.icon = section.icon
-        publicTransportView.transport = (mode: section.displayInformations.commercialMode,
-                                         code: section.displayInformations.code,
+        
+        publicTransportView.transport = (mode: section.displayInformations.commercialMode ?? section.mode?.stringValue(),
+                                         code: (section.mode == .taxi) ? "" : section.displayInformations.code,
                                          textColor: section.displayInformations.textColor,
                                          backgroundColor: section.displayInformations.color)
         publicTransportView.network = section.displayInformations.network
-        publicTransportView.informations = (action: section.actionDescription ?? "",
+        publicTransportView.informations = (action: section.actionDescription,
                                             from: section.from,
                                             direction: section.displayInformations.directionTransit)
         publicTransportView.departure = (from: section.from, time: section.startTime)
@@ -443,7 +444,8 @@ public class ShowJourneyRoadmapViewController: UIViewController {
     private func getSectionStep(section: ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionModel, ticket: ShowJourneyRoadmap.GetRoadmap.ViewModel.Ticket) -> UIView? {
         switch section.type {
         case .publicTransport,
-             .onDemandTransport:
+             .onDemandTransport,
+             .streetNetwork where (section.mode ?? .walking) == .taxi:
             return getPublicTransportStepView(section: section, ticket: ticket)
         case .streetNetwork,
              .bssRent,

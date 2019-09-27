@@ -51,6 +51,10 @@ open class Section: JSONEncodable, Mappable, Codable {
         case ridesharing = "ridesharing"
         case carnopark = "carnopark"
         case taxi = "taxi"
+        
+        func stringValue() -> String {
+            return rawValue
+        }
     }
     public var displayInformations: VJDisplayInformation?
     public var from: Place?

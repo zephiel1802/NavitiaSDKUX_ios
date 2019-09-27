@@ -82,6 +82,10 @@ enum ShowJourneyRoadmap {
                     case ridesharing = "ridesharing"
                     case carnopark = "carnopark"
                     case taxi = "taxi"
+                    
+                    func stringValue() -> String {
+                        return rawValue
+                    }
                 }
                 
                 struct Poi {
