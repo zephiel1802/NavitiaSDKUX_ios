@@ -23,6 +23,7 @@ enum ShowJourneyRoadmap {
             var notes: [Note]?
             var context: Context
             var navitiaTickets: [Ticket]?
+            var maasOrderId: Int?
             var maasTickets: [MaasTicket]?
             var totalPrice: (value: Float?, currency: String?)?
             var journeyPriceDelegate: JourneyPriceDelegate?
@@ -161,8 +162,9 @@ enum ShowJourneyRoadmap {
                 var realTime: Bool
                 var background: Bool
                 var section: Section
-                var availableTicketId: Int?
-                var maasTicketsJson: String?
+                var maasProductId: Int?
+                var maasTicketId: String?
+                var maasOrderJson: String?
                 var ticketPrice: (state: PricesModel.PriceState?, price: Double?)
             }
             

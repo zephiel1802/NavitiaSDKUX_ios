@@ -11,7 +11,7 @@ import CoreLocation
 
 @objc public protocol ShowJourneyRoadmapDelegate: class {
     
-    @objc func viewTicketClicked(maasTicketId: Int, maasTicketsJson: String)
+    @objc func viewTicketClicked(maasProductId: Int, maasTicketId: String, maasOrderJson: String)
 }
 
 protocol ShowJourneyRoadmapDisplayLogic: class {
@@ -339,8 +339,9 @@ public class ShowJourneyRoadmapViewController: UIViewController, JourneyRootView
         publicTransportView.updateAccessibility()
         
         if ticket.shouldShowTicket {
-            publicTransportView.ticketViewConfig = (availableTicketId: section.availableTicketId,
-                                                    maasTicketsJson: section.maasTicketsJson,
+            publicTransportView.ticketViewConfig = (maasProductId: section.maasProductId,
+                                                    maasTicketId: section.maasTicketId,
+                                                    maasOrderJson: section.maasOrderJson,
                                                     viewTicketLocalized: ticket.viewTicketLocalized,
                                                     ticketNotAvailableLocalized: ticket.ticketNotAvailableLocalized)
         }
@@ -824,8 +825,8 @@ extension ShowJourneyRoadmapViewController: AlternativeJourneyDelegate {
 
 extension ShowJourneyRoadmapViewController: PublicTransportStepViewDelegate {
     
-    public func viewTicketClicked(maasTicketId: Int, maasTicketsJson: String) {
-        delegate?.viewTicketClicked(maasTicketId: maasTicketId, maasTicketsJson: maasTicketsJson)
+    public func viewTicketClicked(maasProductId: Int, maasTicketId: String, maasOrderJson: String) {
+        delegate?.viewTicketClicked(maasProductId: maasProductId, maasTicketId: maasTicketId, maasOrderJson: maasOrderJson)
     }
     
     public func showError() {
