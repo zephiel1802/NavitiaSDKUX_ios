@@ -87,12 +87,11 @@ class JourneySolutionCollectionViewCell: UICollectionViewCell {
         if priceModel.hermaasPricedTickets != nil {
             load(false)
             priceView.updatePrice(state: priceModel.state, price: priceModel.totalPrice)
-        } else {
-            if let ticketInputList = priceModel.ticketsInput, ticketInputList.count > 0 {
-                load(true)
-                journeySolutionDelegate?.getPrice(ticketsInputList: ticketInputList, indexPath: indexPath)
-            }
+        } else if let ticketInputList = priceModel.ticketsInput, ticketInputList.count > 0 {
+            load(true)
+            journeySolutionDelegate?.getPrice(ticketsInputList: ticketInputList, indexPath: indexPath)
         }
+        
         
         updateJourneySummaryView(priceModel: priceModel)
     }
@@ -139,21 +138,14 @@ class JourneySolutionCollectionViewCell: UICollectionViewCell {
     }
     
     private func updateJourneySummaryView(priceModel: PricesModel?) {
-        var updatedFriezeSections = [FriezePresenter.FriezeSection]()
-        
         guard let priceModel = priceModel else {
             return
         }
         
-        for friezeSection in friezeSections {
-            var updatedFriezeSection = friezeSection
+        for var friezeSection in friezeSections {
             if let ticketId = friezeSection.ticketId, let unexpectedErrorTicketIdList = priceModel.unexpectedErrorTicketIdList {
-                updatedFriezeSection.hasBadge = unexpectedErrorTicketIdList.contains(ticketId)
+                friezeSection.hasBadge = unexpectedErrorTicketIdList.contains(ticketId)
             }
-            
-            updatedFriezeSections.append(updatedFriezeSection)
         }
-        
-        friezeView.addSection(friezeSections: updatedFriezeSections)
     }
 }

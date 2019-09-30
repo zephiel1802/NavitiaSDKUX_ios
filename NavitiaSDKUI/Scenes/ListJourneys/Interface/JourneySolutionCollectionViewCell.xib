@@ -91,18 +91,18 @@
                         </constraints>
                     </view>
                     <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="4ZV-Ic-1Eg">
-                        <rect key="frame" x="252" y="86.5" width="20" height="20"/>
+                        <rect key="frame" x="252" y="64" width="20" height="20"/>
                     </activityIndicatorView>
                 </subviews>
             </view>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
+                <constraint firstItem="4ZV-Ic-1Eg" firstAttribute="centerY" secondItem="nqU-U3-5OW" secondAttribute="centerY" id="13d-da-5t9"/>
                 <constraint firstAttribute="bottom" secondItem="1d3-gH-QaT" secondAttribute="bottom" id="48K-ZM-9cJ"/>
                 <constraint firstItem="ARY-OS-xlX" firstAttribute="leading" secondItem="lqf-YV-oSL" secondAttribute="trailing" id="Amw-QL-MZq"/>
                 <constraint firstItem="1d3-gH-QaT" firstAttribute="leading" secondItem="8iX-MJ-bAx" secondAttribute="leading" id="Br7-uO-YYw"/>
                 <constraint firstAttribute="trailing" secondItem="ARY-OS-xlX" secondAttribute="trailing" constant="10" id="EHl-db-BEB"/>
                 <constraint firstItem="dhB-Xm-3aP" firstAttribute="top" secondItem="8iX-MJ-bAx" secondAttribute="top" constant="10" id="Ij7-WS-ciy"/>
-                <constraint firstItem="ARY-OS-xlX" firstAttribute="centerX" secondItem="4ZV-Ic-1Eg" secondAttribute="centerX" id="KHr-oi-bOu"/>
                 <constraint firstItem="dhB-Xm-3aP" firstAttribute="leading" secondItem="8iX-MJ-bAx" secondAttribute="leading" constant="10" id="MKs-ls-tJk"/>
                 <constraint firstItem="JUD-Ce-byI" firstAttribute="top" secondItem="lqf-YV-oSL" secondAttribute="bottom" constant="15" id="Mgd-oC-fwr"/>
                 <constraint firstItem="nqU-U3-5OW" firstAttribute="centerY" secondItem="lqf-YV-oSL" secondAttribute="centerY" id="N7B-0r-mqY"/>
@@ -110,10 +110,10 @@
                 <constraint firstItem="lqf-YV-oSL" firstAttribute="top" secondItem="uiE-c6-acZ" secondAttribute="bottom" constant="10" id="Tb9-si-dTb"/>
                 <constraint firstAttribute="trailing" secondItem="1d3-gH-QaT" secondAttribute="trailing" id="Tm0-7k-Y7N"/>
                 <constraint firstAttribute="trailing" secondItem="uiE-c6-acZ" secondAttribute="trailing" constant="10" id="Tn6-4s-6kB"/>
-                <constraint firstItem="ARY-OS-xlX" firstAttribute="centerY" secondItem="4ZV-Ic-1Eg" secondAttribute="centerY" id="WJS-Og-xm3"/>
                 <constraint firstItem="lqf-YV-oSL" firstAttribute="leading" secondItem="8iX-MJ-bAx" secondAttribute="leading" constant="10" id="YAs-HY-Yy3"/>
                 <constraint firstItem="1d3-gH-QaT" firstAttribute="top" secondItem="8iX-MJ-bAx" secondAttribute="top" id="amr-Ve-rNW"/>
                 <constraint firstItem="JUD-Ce-byI" firstAttribute="leading" secondItem="8iX-MJ-bAx" secondAttribute="leading" constant="10" id="b5U-aA-OQr"/>
+                <constraint firstItem="4ZV-Ic-1Eg" firstAttribute="centerX" secondItem="nqU-U3-5OW" secondAttribute="centerX" id="dGP-am-vyl"/>
                 <constraint firstItem="ARY-OS-xlX" firstAttribute="top" secondItem="lqf-YV-oSL" secondAttribute="top" id="e9t-Em-RIs"/>
                 <constraint firstItem="Qi9-Ve-v5r" firstAttribute="top" secondItem="8iX-MJ-bAx" secondAttribute="top" constant="10" id="hki-LY-er7"/>
                 <constraint firstItem="uiE-c6-acZ" firstAttribute="leading" secondItem="8iX-MJ-bAx" secondAttribute="leading" constant="10" id="hks-Tt-06d"/>

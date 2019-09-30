@@ -257,33 +257,31 @@ public class ShowJourneyRoadmapViewController: UIViewController, JourneyRootView
             section.mode == .taxi
         }), let timeinterval = taxiSection.timeintervalInMinutes, timeinterval <= 30 {
             addInformationView(withStatus: .taxi_not_bookable)
-        } else {
-            if let state = viewModel.pricesModel?.state {
-                switch state {
-                case .full_price:
-                    enableBuyTicketButton = true
-                case .incomplete_price:
-                    enableBuyTicketButton = true
-                    if let errorList = viewModel.pricesModel?.unexpectedErrorTicketIdList,
-                        errorList.count > 0 {
-                        addInformationView(withStatus: .some_unbookable_transport)
-                    }
-                    if let unbookableList = viewModel.pricesModel?.unbookableSectionIdList,
-                        unbookableList.count > 0 {
-                        addInformationView(withStatus: .some_unsopported_transport)
-                    }
-                case .unavailable_price:
-                    if let errorList = viewModel.pricesModel?.unexpectedErrorTicketIdList,
-                        errorList.count > 0 {
-                        addInformationView(withStatus: .no_bookable_transport)
-                    }
-                    if let unbookableList = viewModel.pricesModel?.unbookableSectionIdList,
-                        unbookableList.count > 0 {
-                        addInformationView(withStatus: .no_supported_transport)
-                    }
-                default:
-                    break
+        } else if let state = viewModel.pricesModel?.state {
+            switch state {
+            case .full_price:
+                enableBuyTicketButton = true
+            case .incomplete_price:
+                enableBuyTicketButton = true
+                if let errorList = viewModel.pricesModel?.unexpectedErrorTicketIdList,
+                    errorList.count > 0 {
+                    addInformationView(withStatus: .some_unbookable_transport)
                 }
+                if let unbookableList = viewModel.pricesModel?.unbookableSectionIdList,
+                    unbookableList.count > 0 {
+                    addInformationView(withStatus: .some_unsupported_transport)
+                }
+            case .unavailable_price:
+                if let errorList = viewModel.pricesModel?.unexpectedErrorTicketIdList,
+                    errorList.count > 0 {
+                    addInformationView(withStatus: .no_bookable_transport)
+                }
+                if let unbookableList = viewModel.pricesModel?.unbookableSectionIdList,
+                    unbookableList.count > 0 {
+                    addInformationView(withStatus: .no_supported_transport)
+                }
+            default:
+                break
             }
         }
     }
@@ -448,7 +446,7 @@ public class ShowJourneyRoadmapViewController: UIViewController, JourneyRootView
         switch section.type {
         case .publicTransport,
              .onDemandTransport,
-             .streetNetwork where (section.mode ?? .walking) == .taxi:
+             .streetNetwork where section.mode == .taxi:
             return getPublicTransportStepView(section: section, ticket: ticket)
         case .streetNetwork,
              .bssRent,
@@ -588,7 +586,7 @@ extension ShowJourneyRoadmapViewController: SlidingScrollViewDelegate {
             UIView.animate(withDuration: 0.3, animations: {
                 self.buyTicketButtonView?.isHidden = false
                 self.centerMapButton.alpha = 1
-            }, completion: { (_) in })
+            })
             
             zoomOverPolyline(targetPolyline: MKPolyline(coordinates: self.journeyPolylineCoordinates, count: self.journeyPolylineCoordinates.count),
                              edgePadding: UIEdgeInsets(top: 60, left: 40, bottom: edgePaddingBottom + 10, right: 40),
@@ -600,7 +598,7 @@ extension ShowJourneyRoadmapViewController: SlidingScrollViewDelegate {
             UIView.animate(withDuration: 0.3, animations: {
                 self.centerMapButton.alpha = 1
                 self.buyTicketButtonView?.isHidden = true
-            }, completion: { (_) in })
+            })
             
             zoomOverPolyline(targetPolyline: MKPolyline(coordinates: self.journeyPolylineCoordinates, count: self.journeyPolylineCoordinates.count),
                              edgePadding: UIEdgeInsets(top: 60, left: 40, bottom: edgePaddingBottom + 10, right: 40),
@@ -611,7 +609,7 @@ extension ShowJourneyRoadmapViewController: SlidingScrollViewDelegate {
         case .expanded:
             UIView.animate(withDuration: 0.3, animations: {
                 self.buyTicketButtonView?.isHidden = false
-            }, completion: { (_) in })
+            })
         }
     }
 }
@@ -836,6 +834,7 @@ extension ShowJourneyRoadmapViewController: PublicTransportStepViewDelegate {
 }
 
 extension ShowJourneyRoadmapViewController: BuyTicketButtonViewDelegate {
+    
     func didTapOnBuyTicketButton() {
         if let pricesModel = pricesModel {
             journeyPriceDelegate?.buyTicket(priceModel: pricesModel)

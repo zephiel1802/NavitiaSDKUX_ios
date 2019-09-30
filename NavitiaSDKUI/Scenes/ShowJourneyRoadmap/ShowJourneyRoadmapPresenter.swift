@@ -280,14 +280,14 @@ class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
         return section.to?.name ?? ""
     }
     
-    private func getDepartureTimeintervalInMinutes(section: Section) -> Int? {
-        guard let timeintervalInSeconds = section.departureDateTime?
+    private func getDepartureTimeIntervalInMinutes(section: Section) -> Int? {
+        guard let timeIntervalInSeconds = section.departureDateTime?
             .toDate(format: Configuration.datetime)?
             .timeIntervalSince(Date()) else {
             return nil
         }
         
-        return Int(timeintervalInSeconds/60)
+        return Int(timeIntervalInSeconds / 60)
     }
     
     private func getDepartureDateTime(section: Section) -> String {
@@ -313,14 +313,11 @@ class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
         
         let friezeSections = FriezePresenter().getDisplayedJourneySections(journey: journey, disruptions: disruptions)
         
-        var updatedFriezeSections = [FriezePresenter.FriezeSection]()
         if let priceModel = priceModel {
-            for friezeSection in friezeSections {
-                var updatedFriezeSection = friezeSection
+            for var friezeSection in friezeSections {
                 if let ticketId = friezeSection.ticketId, let unexpectedErrorTicketIdList = priceModel.unexpectedErrorTicketIdList {
-                    updatedFriezeSection.hasBadge = unexpectedErrorTicketIdList.contains(ticketId)
+                    friezeSection.hasBadge = unexpectedErrorTicketIdList.contains(ticketId)
                 }
-                updatedFriezeSections.append(updatedFriezeSection)
             }
         }
         
@@ -328,7 +325,7 @@ class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
         let displayedJourneyPrice = FriezePresenter().getDisplayedJourneyPrice(priceModel: priceModel)
         
         let frieze = ShowJourneyRoadmap.GetRoadmap.ViewModel.Frieze(duration: duration,
-                                                                    friezeSections: updatedFriezeSections,
+                                                                    friezeSections: friezeSections,
                                                                     friezeSectionsWithDisruption: friezeSectionsWithDisruption,
                                                                     journeyPrice: displayedJourneyPrice)
         
@@ -343,7 +340,7 @@ class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
         if type == .park {
             return "park_in_the".localized()
         } else if type == .streetNetwork, let mode = section.mode, mode == .taxi {
-            return String(format: "%@ %@", "take_the".localized(), mode.stringValue())
+            return String(format: "%@ %@", "take_the".localized(), mode.rawValue)
         } else if type == .ridesharing {
             return "take_the_ridesharing".localized()
         } else if type == .transfer || section.mode != nil {
@@ -587,7 +584,7 @@ class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
             }
         }
     
-        var priceState: PricesModel.PriceState? = (ticketPrice != nil) ? .full_price : .no_price
+        var priceState = (ticketPrice != nil) ? PricesModel.PriceState.full_price : PricesModel.PriceState.no_price
         if let unbookableList = pricesModel?.unbookableSectionIdList, let sectionId = section.id, unbookableList.contains(sectionId)  {
             priceState = .unbookable
         } else if let priceOnErrorList = pricesModel?.unexpectedErrorTicketIdList, let ticketId = sectionTicketId, priceOnErrorList.contains(ticketId) {
@@ -598,7 +595,7 @@ class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
                                                                                 mode: getMode(section: section),
                                                                                 from: getFrom(section: section),
                                                                                 to: getTo(section: section),
-                                                                                timeintervalInMinutes: getDepartureTimeintervalInMinutes(section: section),
+                                                                                timeintervalInMinutes: getDepartureTimeIntervalInMinutes(section: section),
                                                                                 startTime: getDepartureDateTime(section: section),
                                                                                 endTime: getArrivalDateTime(section: section),
                                                                                 actionDescription: getActionDescription(section: section),

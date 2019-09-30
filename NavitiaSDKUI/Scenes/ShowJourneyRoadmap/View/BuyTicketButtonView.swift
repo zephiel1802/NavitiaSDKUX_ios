@@ -9,6 +9,7 @@
 import Foundation
 
 protocol BuyTicketButtonViewDelegate {
+    
     func didTapOnBuyTicketButton()
 }
 
@@ -30,7 +31,6 @@ class BuyTicketButtonView: UIView {
                     ])
                 attributedString.addAttribute(.font, value: UIFont.systemFont(ofSize: 14.0, weight: .bold), range: NSRange(location: 0, length: 12))
                 textLabel.attributedText = attributedString
-                
             } else {
                 buttonView.backgroundColor = Configuration.Color.shadow
                 textLabel.text = "buy_tickets".localized().uppercased()

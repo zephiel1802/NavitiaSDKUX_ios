@@ -45,9 +45,8 @@ class TicketPriceView: UIView {
     //MARK: - Public methods
     func updatePrice(state: PricesModel.PriceState?, price: Double?) {
         switch state {
-        case .no_price?:
+        case .no_price?, .none:
             isHidden = true
-            
         case .full_price?:
             unavailableImageView.isHidden = true
             priceLabel.isHidden = false
@@ -58,7 +57,6 @@ class TicketPriceView: UIView {
             } else {
                 updatePrice(state: .unavailable_price, price: nil)
             }
-            
         case .incomplete_price?:
             unavailableImageView.isHidden = true
             priceLabel.isHidden = false
@@ -70,20 +68,15 @@ class TicketPriceView: UIView {
             } else {
                 updatePrice(state: .unavailable_price, price: nil)
             }
-            
         case .unavailable_price?:
             unavailableImageView.isHidden = true
             isHidden = false
             priceLabel.isHidden = false
             priceLabel.text = "price_unavailable".localized()
-            
         case .unbookable?:
             isHidden = false
             priceLabel.isHidden = true
             unavailableImageView.isHidden = false
-            
-        case .none:
-            isHidden = true
         }
     }
 }

@@ -7,7 +7,7 @@
 
 import Foundation
 
-@objc open class PricesModel: NSObject {
+@objc public class PricesModel: NSObject {
     
     public enum PriceState {
         case no_price

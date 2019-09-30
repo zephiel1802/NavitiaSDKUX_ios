@@ -665,12 +665,14 @@ extension ListJourneysViewController: JourneySolutionCollectionViewCellDelegate 
                         }
                         
                         var isPriceMissing = false
-                        if (priceModel.unbookableSectionIdList?.count ?? 0) > 0 || (priceModel.unexpectedErrorTicketIdList?.count ?? 0) > 0 {
-                            isPriceMissing = true
+                        if let unbookableSectionCount = priceModel.unbookableSectionIdList?.count,
+                            let unexpectedErrorCount = priceModel.unexpectedErrorTicketIdList?.count  {
+                            isPriceMissing =  unbookableSectionCount > 0 || unexpectedErrorCount > 0
                         }
                         
-                        if (priceModel.hermaasPricedTickets ?? []).count < (priceModel.ticketsInput ?? []).count {
-                            isPriceMissing = true
+                        if let hermaasPricedTicketsCount = priceModel.hermaasPricedTickets?.count,
+                            let ticketsInputCount = priceModel.ticketsInput?.count {
+                            isPriceMissing = hermaasPricedTicketsCount < ticketsInputCount
                         }
                         
                         // Compute total price

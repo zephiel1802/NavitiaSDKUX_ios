@@ -14,7 +14,7 @@ class InformationView: UIView {
         case no_bookable_transport
         case some_unbookable_transport
         case no_supported_transport
-        case some_unsopported_transport
+        case some_unsupported_transport
     }
     
     @IBOutlet weak var shadowView: UIView!
@@ -26,6 +26,7 @@ class InformationView: UIView {
     static var identifier: String {
         return String(describing: self)
     }
+    
     internal var status: Status? {
         didSet {
             updateStatus()
@@ -62,7 +63,6 @@ class InformationView: UIView {
                 setText(boldText: "taxi_booking_only_advance".localized(),
                         regularText: "",
                         ligneReturn: false)
-                
             case .no_bookable_transport:
                 streamerView.backgroundColor = Configuration.Color.orange
                 iconImageView.image = "warning".getIcon()
@@ -70,7 +70,6 @@ class InformationView: UIView {
                 setText(boldText: "booking_information_not_available".localized(),
                         regularText: "please_try_again".localized(),
                         ligneReturn: true)
-                
             case .some_unbookable_transport:
                 streamerView.backgroundColor = Configuration.Color.orange
                 iconImageView.image = "warning".getIcon()
@@ -78,7 +77,6 @@ class InformationView: UIView {
                 setText(boldText: "booking_information_not_available".localized(),
                         regularText: "buy_tickets_rest_journey".localized(),
                         ligneReturn: true)
-                
             case .no_supported_transport:
                 streamerView.backgroundColor = Configuration.Color.black
                 iconImageView.image = "ticket_not_available".getIcon()
@@ -86,8 +84,7 @@ class InformationView: UIView {
                 setText(boldText: "do_not_support_provider".localized(),
                         regularText: "",
                         ligneReturn: false)
-                
-            case .some_unsopported_transport:
+            case .some_unsupported_transport:
                 streamerView.backgroundColor = Configuration.Color.black
                 iconImageView.image = "ticket_not_available".getIcon()
                 iconImageView.tintColor = Configuration.Color.black
@@ -99,7 +96,7 @@ class InformationView: UIView {
     }
     
     private func setText(boldText: String, regularText: String, ligneReturn: Bool) {
-        let text = boldText + (ligneReturn ? "\n" : " ") + regularText
+        let text = String(format: "%@%@%@", boldText, (ligneReturn ? "\n" : " "), regularText)
         
         let attributedString = NSMutableAttributedString(string: text, attributes: [
             .font: UIFont.systemFont(ofSize: 14.0, weight: .regular),

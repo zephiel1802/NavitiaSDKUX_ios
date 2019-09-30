@@ -219,8 +219,8 @@ class ListJourneysPresenter: ListJourneysPresentationLogic {
                     // *************** ON DEMAND TRANSPORT ********
                     // We do not support tad tickets
                     // ********************************************
-                } else if section.type == .onDemandTransport {
-                    unbookableSectionIdList.append(section.id ?? "")
+                } else if section.type == .onDemandTransport, let sectionId = section.id {
+                    unbookableSectionIdList.append(sectionId)
                     
                     // *************** PUBLIC TRANSPORT ***********
                     // Public transport's ticket will be return by hermaas only if price is equal to 0
@@ -236,7 +236,9 @@ class ListJourneysPresenter: ListJourneysPresentationLogic {
                                                     ticketInputList: &ticketInputList)
                     } else {
                         // If there is no ticket, than this transporter is not supported yet
-                        unbookableSectionIdList.append(section.id ?? "")
+                        if let sectionId = section.id {
+                            unbookableSectionIdList.append(sectionId)
+                        }
                     }
                 }
             }
