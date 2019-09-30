@@ -75,7 +75,7 @@ class ListJourneysPresenter: ListJourneysPresentationLogic {
     
     private func appendDisplayedJourneys(journeys: [Journey]?,
                                          disruptions: [Disruption]?,
-                                         tickets: [Ticket]?) -> [ListJourneys.FetchJourneys.ViewModel.DisplayedJourney] {
+                                         navitiaTickets: [Ticket]?) -> [ListJourneys.FetchJourneys.ViewModel.DisplayedJourney] {
         var displayedJourneys = [ListJourneys.FetchJourneys.ViewModel.DisplayedJourney]()
         
         guard let journeys = journeys else {
@@ -85,7 +85,7 @@ class ListJourneysPresenter: ListJourneysPresentationLogic {
         for journey in journeys {
             if let displayedJourney = getDisplayedJourney(journey: journey,
                                                           disruptions: disruptions,
-                                                          tickets: tickets) {
+                                                          navitiaTickets: navitiaTickets) {
                 displayedJourneys.append(displayedJourney)
             }
         }
@@ -94,8 +94,12 @@ class ListJourneysPresenter: ListJourneysPresentationLogic {
     }
     
     func presentFetchedJourneys(response: ListJourneys.FetchJourneys.Response) {
-        let displayedJourneys = appendDisplayedJourneys(journeys: response.journeys.0, disruptions: response.disruptions, tickets: response.tickets)
-        let displayedRidesharings = appendDisplayedJourneys(journeys: response.journeys.withRidesharing, disruptions: response.disruptions, tickets: response.tickets)
+        let displayedJourneys = appendDisplayedJourneys(journeys: response.journeys.0,
+                                                        disruptions: response.disruptions,
+                                                        navitiaTickets: response.tickets)
+        let displayedRidesharings = appendDisplayedJourneys(journeys: response.journeys.withRidesharing,
+                                                            disruptions: response.disruptions,
+                                                            navitiaTickets: response.tickets)
         let viewModel = ListJourneys.FetchJourneys.ViewModel(loaded: true,
                                                              displayedJourneys: displayedJourneys,
                                                              displayedRidesharings: displayedRidesharings)
@@ -160,20 +164,26 @@ class ListJourneysPresenter: ListJourneysPresentationLogic {
     
     private func getDisplayedJourney(journey: Journey?,
                                      disruptions: [Disruption]?,
-                                     tickets: [Ticket]?) -> ListJourneys.FetchJourneys.ViewModel.DisplayedJourney? {
+                                     navitiaTickets: [Ticket]?) -> ListJourneys.FetchJourneys.ViewModel.DisplayedJourney? {
         guard let journey = journey,
             let dateTime = getDisplayedJourneyDateTime(journey: journey),
             let duration = getDisplayedJourneyDuration(journey: journey) else {
                 return nil
         }
         
-        let friezeSections = FriezePresenter().getDisplayedJourneySections(journey: journey, disruptions: disruptions)
+        let friezeSections = FriezePresenter().getDisplayedJourneySections(navitiaTickets: navitiaTickets,
+                                                                           journey: journey,
+                                                                           disruptions: disruptions)
         let accessibility = getJourneyAccessibility(duration: duration.string, sections: journey.sections, disruptions: disruptions)
-        let parsedTickets = parseTickets(journey: journey, tickets: tickets)
         var walkingInformation: NSMutableAttributedString? = nil
         
         if !journey.isRidesharing {
             walkingInformation = getDisplayedJourneyWalkingInformation(journey: journey)
+        }
+        
+        var priceModel: PricesModel?
+        if let sectionsList = journey.sections {
+            priceModel = getPriceModel(sectionsList: sectionsList, navitiaTickets: navitiaTickets)
         }
         
         return ListJourneys.FetchJourneys.ViewModel.DisplayedJourney(dateTime: dateTime,
@@ -181,113 +191,84 @@ class ListJourneysPresenter: ListJourneysPresentationLogic {
                                                                      walkingInformation: walkingInformation,
                                                                      friezeSections: friezeSections,
                                                                      accessibility: accessibility,
-                                                                     ticketsInput: parsedTickets.ticketInputList,
-                                                                     pricedTicket: parsedTickets.pricedTickets,
-                                                                     unbookableSectionIdList: parsedTickets.unbookableSectionIdList,
-                                                                     unexpectedErrorTicketIdList: parsedTickets.unexpectedErrorTicketIdList,
-                                                                     hermaasPrices: nil)
+                                                                     priceModel: priceModel)
     }
     
-    private func parseTickets(journey: Journey, tickets: [Ticket]?) -> (ticketInputList: [TicketInput],
-        pricedTickets: [PricedTicket],
-        unbookableSectionIdList: [String],
-        unexpectedErrorTicketIdList: [String]) {
-            var ticketInputList = [TicketInput]()
-            var pricedTicketList = [PricedTicket]()
-            var unbookableSectionIdList = [String]()
-            var unexpectedErrorTicketIdList = [String]()
-            
-            for section in journey.sections ?? [] {
-                
-                let ticketId = section.links?.first(where: { (item) -> Bool in
-                    return item.type == "ticket"
-                })?.id
-                
-                // *************** TAXI ********************
-                //Taxi's ticket will be returned by hermaas
-                //******************************************
-                if section.mode == .taxi, let taxiSourceId = NavitiaSDKUI.shared.sourceIds?["taxi"] {
+    private func getPriceModel(sectionsList: [Section], navitiaTickets: [Ticket]?) -> PricesModel? {
+        var ticketInputList = [TicketInput]()
+        var pricedTicketList = [PricedTicket]()
+        var unbookableSectionIdList = [String]()
+        
+        for section in sectionsList {
+            if let ticketId = section.links?.first(where: { $0.type == "ticket" })?.id,
+                section.type != .onDemandTransport,
+                let sourceIds = NavitiaSDKUI.shared.sourceIds {
+                if section.type == .streetNetwork,
+                    section.mode == .taxi,
+                    let taxiProductId = sourceIds["taxi"] {
+                    // *************** TAXI ********************
+                    // Taxi's ticket will be returned by hermaas
+                    //******************************************
+                    
                     ticketInputList.append(getTicketInput(section: section,
-                                                          productId: taxiSourceId,
-                                                          ticketId: ticketId ?? ""))
-                    
-                    
+                                                          productId: taxiProductId,
+                                                          ticketId: ticketId))
+                } else if section.type == .publicTransport {
                     // *************** PUBLIC TRANSPORT ***********
                     // Public transport's ticket will be return by hermaas only if price is equal to 0
                     // ********************************************
-                } else if section.type == .publicTransport {
-                    if let ticketId = ticketId {
-                        handlePublicTransportTicket(tickets: tickets,
-                                                    ticketId: ticketId,
-                                                    section: section,
-                                                    pricedTicketList: &pricedTicketList,
-                                                    unexpectedErrorTicketIdList: &unexpectedErrorTicketIdList,
-                                                    ticketInputList: &ticketInputList)
-                    } else {
-                        // If there is no ticket, than this transporter is not supported yet
-                        unbookableSectionIdList.append(section.id ?? "")
+                    if let targetNavitiaTicket = navitiaTickets?.first(where: { $0.id == ticketId }) {
+                        if let cost = targetNavitiaTicket.cost,
+                            cost.currency == "centime",
+                            let costValue = cost.value,
+                            let price = Double(costValue),
+                            price > 0.0 {
+                            // This is a bookable Navitia Ticket with valid price
+                            let pricedNavitiaTicket = PricedTicket(productId: -1,
+                                                            name: "",
+                                                            price: nil,
+                                                            priceWithTax: price / 100,
+                                                            taxRate: nil,
+                                                            currency: "Eur",
+                                                            ticketId: ticketId)
+                            pricedTicketList.append(pricedNavitiaTicket)
+                            ticketInputList.append(getTicketInput(section: section,
+                                                                  productId: -1,
+                                                                  ticketId: ticketId))
+                        } else if let navitiaSourceId = targetNavitiaTicket.sourceId, let productId = sourceIds[navitiaSourceId] {
+                            // We should call Hermaas to get the price for this ticket since we don't have an available price
+                            ticketInputList.append(getTicketInput(section: section,
+                                                                  productId: productId,
+                                                                  ticketId: ticketId))
+                        } else if let sectionId = section.id {
+                            // The product ID is not supported, so the ticket is unbookable
+                            unbookableSectionIdList.append(sectionId)
+                        }
                     }
                 }
+            } else if section.type == .publicTransport || section.type == .onDemandTransport, let sectionId = section.id {
+                // If there is no ticket, than the provider is not supported yet
+                unbookableSectionIdList.append(sectionId)
             }
-            
-            return (ticketInputList, pricedTicketList, unbookableSectionIdList, unexpectedErrorTicketIdList)
-    }
-    
-    private func handlePublicTransportTicket(tickets: [Ticket]?,
-                                             ticketId: String,
-                                             section: Section,
-                                             pricedTicketList: inout [PricedTicket],
-                                             unexpectedErrorTicketIdList: inout [String],
-                                             ticketInputList: inout [TicketInput]) {
-        guard let navitiaTicket = tickets?.first(where: { (item) -> Bool in
-            return item.id == ticketId
-        }) else {
-            unexpectedErrorTicketIdList.append(ticketId)
-            return
         }
         
-        if let cost = navitiaTicket.cost,
-            let price = Double(cost.value ?? "0.0"),
-            price > 0.0, cost.currency == "centime" {
-            
-            pricedTicketList.append(getPricedTicket(ticketId: ticketId,
-                                                    priceWithTaxInEur: price/100))
-        } else if let sourceIds = NavitiaSDKUI.shared.sourceIds, let navitiaSourceId = navitiaTicket.sourceId {
-            var sourceIdFound = false
-            for sourceId in sourceIds {
-                if sourceId.key != "taxi", navitiaSourceId.contains(sourceId.key) {
-                    ticketInputList.append(getTicketInput(section: section, productId: sourceId.value, ticketId: ticketId))
-                    sourceIdFound = true
-                    break
-                }
-            }
-            
-            if !sourceIdFound {
-                unexpectedErrorTicketIdList.append(ticketId)
-            }
-        } else {
-            unexpectedErrorTicketIdList.append(ticketId)
-        }
+        let priceModel = PricesModel(state: ticketInputList.count == 0 && unbookableSectionIdList.count > 0 ? .unbookable : .no_price,
+                                     totalPrice: nil,
+                                     navitiaPricedTickets: pricedTicketList,
+                                     ticketsInput: ticketInputList,
+                                     hermaasPricedTickets: nil,
+                                     unbookableSectionIdList: unbookableSectionIdList,
+                                     unexpectedErrorTicketList: [])
+        return priceModel
     }
     
-    private func getTicketInput(section: Section, productId: String, ticketId: String) -> TicketInput {
+    private func getTicketInput(section: Section, productId: Int, ticketId: String) -> TicketInput {
         let ride = Ride(from: section.from?.id ?? "",
                         to: section.to?.id ?? "",
                         departureDate: section.departureDateTime ?? "",
                         arrivalDate: section.arrivalDateTime ?? "",
                         ticketId: ticketId)
         return TicketInput(productId: productId, ride: ride)
-    }
-    
-    private func getPricedTicket(ticketId: String, priceWithTaxInEur: Double) -> PricedTicket {
-        let pricedTicket = PricedTicket(productId: 0,
-                                        name: "",
-                                        price: nil,
-                                        priceWithTax: priceWithTaxInEur,
-                                        taxRate: nil,
-                                        currency: "Eur",
-                                        ticketId: ticketId)
-        return pricedTicket
     }
     
     private func getDisplayedJourneyDateTime(journey: Journey) -> String? {

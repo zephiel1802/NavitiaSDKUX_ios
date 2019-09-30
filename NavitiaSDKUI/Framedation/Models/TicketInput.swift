@@ -10,7 +10,7 @@ import UIKit
 
 public struct TicketInput: Codable {
    
-    let productId: String
+    let productId: Int
     let ride: Ride
     
     enum CodingKeys : String, CodingKey {

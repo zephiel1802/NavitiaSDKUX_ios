@@ -23,11 +23,7 @@ class JourneySolutionCollectionViewCell: UICollectionViewCell {
     @IBOutlet var durationTopContraint: NSLayoutConstraint!
     @IBOutlet var durationBottomContraint: NSLayoutConstraint!
     @IBOutlet var durationLeadingContraint: NSLayoutConstraint!
-    @IBOutlet weak var priceView: UIView!
-    @IBOutlet weak var priceLabel: UILabel!
-    @IBOutlet weak var fromLabel: UILabel!
-    @IBOutlet weak var priceLabelCenterYConstraint: NSLayoutConstraint!
-    @IBOutlet weak var PriceUnavailableLabel: UILabel!
+    @IBOutlet weak var priceView: TicketPriceView!
     @IBOutlet weak var loadingActivityIndicatorView: UIActivityIndicatorView!
     
     internal var isLoaded = false
@@ -79,28 +75,25 @@ class JourneySolutionCollectionViewCell: UICollectionViewCell {
         }
     }
 
-    internal func configurePrice(ticketInputs: [TicketInput]?,
-                                 navitiaPricedTickets: [PricedTicket]?,
-                                 hermaasPricedTickets: [PricedTicket]?,
-                                 unsupportedSectionIdList: [String]?,
-                                 unexpectedErrorTicketIdList: [String]?) {
+    internal func configurePrice(priceModel: PricesModel?) {
         // Reset UI before any action due to reusable cell
         load(false)
-        totalPrice(ticketInputs: nil, navitiaPricedTickets: nil, hermaasPricedTickets: nil, unsupportedSectionIdList: nil, unexpectedErrorTicketIdList: nil)
+        priceView.updatePrice(state: .no_price, price: nil)
         
-        if hermaasPricedTickets != nil {
-            load(false)
-            totalPrice(ticketInputs: ticketInputs,
-                       navitiaPricedTickets: navitiaPricedTickets,
-                       hermaasPricedTickets: hermaasPricedTickets,
-                       unsupportedSectionIdList: unsupportedSectionIdList,
-                       unexpectedErrorTicketIdList: unexpectedErrorTicketIdList)
-        } else {
-            if let ticketInputList = ticketInputs, ticketInputList.count > 0 {
-                journeySolutionDelegate?.getPrice(ticketsInputList: ticketInputList, indexPath: indexPath)
-                load(true)
-            }
+        guard let priceModel = priceModel else {
+            return
         }
+        
+        if priceModel.hermaasPricedTickets != nil {
+            load(false)
+            priceView.updatePrice(state: priceModel.state, price: priceModel.totalPrice)
+        } else if let ticketInputList = priceModel.ticketsInput, ticketInputList.count > 0 {
+            load(true)
+            journeySolutionDelegate?.getPrice(ticketsInputList: ticketInputList, indexPath: indexPath)
+        }
+        
+        
+        updateJourneySummaryView(priceModel: priceModel)
     }
 
     // MARK: - UINib
@@ -133,51 +126,6 @@ class JourneySolutionCollectionViewCell: UICollectionViewCell {
         arrowImageView.tintColor = Configuration.Color.secondary
     }
     
-    private func totalPrice(ticketInputs: [TicketInput]?,
-                            navitiaPricedTickets: [PricedTicket]?,
-                            hermaasPricedTickets: [PricedTicket]?,
-                            unsupportedSectionIdList: [String]?,
-                            unexpectedErrorTicketIdList: [String]?) {
-        var totalPrice: Double = 0
-        var isPriceMissing = false
-        
-        if (unsupportedSectionIdList?.count ?? 0) > 0 || (unexpectedErrorTicketIdList?.count ?? 0) > 0 {
-            isPriceMissing = true
-        }
-        
-        if (hermaasPricedTickets ?? []).count < (ticketInputs ?? []).count {
-            isPriceMissing = true
-        }
-        
-        // aggregate navitia and hermaas ticket's
-        var tickets: [PricedTicket] = []
-        if let navitiaTickets = navitiaPricedTickets {
-            tickets.append(contentsOf: navitiaTickets)
-        }
-        if let hermaasTickets = hermaasPricedTickets {
-            tickets.append(contentsOf: hermaasTickets)
-        }
-        
-        // Compute total price
-        for ticket in tickets {
-            if let price = ticket.priceWithTax, ticket.currency.lowercased() == "eur" {
-                totalPrice += price
-            } else {
-                isPriceMissing = true
-            }
-        }
-        
-        if tickets.count == 0 {
-            updatePriceDisplaying(state: isPriceMissing && isLoaded ? .unavailable_price : .no_price, price: nil)
-        } else {
-            updatePriceDisplaying(state: isPriceMissing ? .incomplete_price : .full_price, price: totalPrice)
-        }
-        
-        updateJourneySummaryView(ticketInputs: ticketInputs,
-                                 hermaasPricedTickets: hermaasPricedTickets,
-                                 unexpectedErrorTicketIdList: unexpectedErrorTicketIdList)
-    }
-    
     private func load(_ startAnimating: Bool) {
         if startAnimating {
             loadingActivityIndicatorView.startAnimating()
@@ -189,73 +137,20 @@ class JourneySolutionCollectionViewCell: UICollectionViewCell {
         isLoaded = !startAnimating
     }
     
-    private func updateJourneySummaryView(ticketInputs: [TicketInput]?,
-                                           hermaasPricedTickets: [PricedTicket]?,
-                                           unexpectedErrorTicketIdList: [String]?) {
-        var updatedFriezeSections = [FriezePresenter.FriezeSection]()
-        var errorTicketIdList = [String]()
-        
-        if isLoaded {
-            if let unexpectedErrorTicketIdList = unexpectedErrorTicketIdList {
-                errorTicketIdList.append(contentsOf: unexpectedErrorTicketIdList)
-            }
-            
-            if let ticketInputs = ticketInputs, let hermaasPricedTickets = hermaasPricedTickets {
-                for ticket in ticketInputs {
-                    if !hermaasPricedTickets.contains(where: { (hermaasTicket) -> Bool in
-                        return hermaasTicket.ticketId == ticket.ride.ticketId
-                    }) {
-                        errorTicketIdList.append(ticket.ride.ticketId)
-                    }
-                }
-            }
+    private func updateJourneySummaryView(priceModel: PricesModel?) {
+        guard let priceModel = priceModel else {
+            return
         }
         
-        for friezeSection in friezeSections {
-            var updatedFriezeSection = friezeSection
-            if let ticketId = friezeSection.ticketId, errorTicketIdList.contains(ticketId) {
-                updatedFriezeSection.hasBadge = true
+        for (index, friezeSection) in friezeSections.enumerated() {
+            if let ticketId = friezeSection.ticketId,
+                let productId = friezeSection.productId,
+                let unexpectedErrorTicketList = priceModel.unexpectedErrorTicketList,
+                unexpectedErrorTicketList.count > 0 {
+                friezeSections[index].hasBadge = unexpectedErrorTicketList.contains(where: { ticketError -> Bool in
+                    return ticketError.productId == productId && ticketError.ticketId == ticketId
+                })
             }
-            
-            updatedFriezeSections.append(updatedFriezeSection)
-        }
-        
-        friezeView.addSection(friezeSections: updatedFriezeSections)
-    }
-    
-    private func updatePriceDisplaying(state: PricesModel.PriceState, price: Double?) {
-        switch state {
-        case .no_price:
-            priceView.isHidden = true
-            
-        case .full_price:
-            if let price = price {
-                priceView.isHidden = false
-                priceLabel.isHidden = false
-                priceLabel.text = String(format: "price".localized(), price)
-                fromLabel.isHidden = true
-                priceLabelCenterYConstraint.priority = UILayoutPriority.defaultHigh + 1
-            } else {
-                updatePriceDisplaying(state: .unavailable_price, price: nil)
-            }
-            
-        case .incomplete_price:
-            if let price = price {
-                priceView.isHidden = false
-                priceLabel.isHidden = false
-                priceLabel.text = String(format: "price".localized(), price)
-                fromLabel.text = "from".localized()
-                fromLabel.isHidden = false
-                priceLabelCenterYConstraint.priority = UILayoutPriority.defaultLow
-            } else {
-                updatePriceDisplaying(state: .unavailable_price, price: nil)
-            }
-            
-        case .unavailable_price:
-            priceView.isHidden = false
-            fromLabel.isHidden = true
-            priceLabel.isHidden = true
-            PriceUnavailableLabel.isHidden = false
         }
     }
 }

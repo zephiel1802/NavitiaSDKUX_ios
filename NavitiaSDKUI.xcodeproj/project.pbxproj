@@ -334,7 +334,13 @@
 		84FABE142074CB2300BDDE9D /* UIFont+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84FABE132074CB2300BDDE9D /* UIFont+Extension.swift */; };
 		84FABE162074F76600BDDE9D /* JourneySolutionLoadCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84FABE152074F76600BDDE9D /* JourneySolutionLoadCollectionViewCell.xib */; };
 		9A334FD22327DA500084852C /* UITableView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A334FD12327DA500084852C /* UITableView+Extension.swift */; };
+		9A9C31E8233A262C00257750 /* TicketPriceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A9C31E7233A262C00257750 /* TicketPriceView.swift */; };
+		9A9C31EA233A265C00257750 /* TicketPriceView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9A9C31E9233A265C00257750 /* TicketPriceView.xib */; };
 		9AF5C25C233510AC003AA9E1 /* PricesModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AF5C25B233510AC003AA9E1 /* PricesModel.swift */; };
+		AC479B10233BBAC200312565 /* BuyTicketButtonView.xib in Resources */ = {isa = PBXBuildFile; fileRef = AC479B0F233BBAC200312565 /* BuyTicketButtonView.xib */; };
+		AC479B12233BBCD900312565 /* InformationView.xib in Resources */ = {isa = PBXBuildFile; fileRef = AC479B11233BBCD900312565 /* InformationView.xib */; };
+		AC479B14233BBCE100312565 /* InformationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC479B13233BBCE000312565 /* InformationView.swift */; };
+		AC479B16233BBD3F00312565 /* BuyTicketButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC479B15233BBD3F00312565 /* BuyTicketButtonView.swift */; };
 		AC7EC0BF23157FCB00A84D73 /* TravelerTypeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC7EC0BD23157FCB00A84D73 /* TravelerTypeView.swift */; };
 		AC7EC0C023157FCB00A84D73 /* SubtitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC7EC0BE23157FCB00A84D73 /* SubtitleView.swift */; };
 		AC7EC0C323157FDA00A84D73 /* SubtitleView.xib in Resources */ = {isa = PBXBuildFile; fileRef = AC7EC0C123157FDA00A84D73 /* SubtitleView.xib */; };
@@ -694,7 +700,13 @@
 		84FABE132074CB2300BDDE9D /* UIFont+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+Extension.swift"; sourceTree = "<group>"; };
 		84FABE152074F76600BDDE9D /* JourneySolutionLoadCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = JourneySolutionLoadCollectionViewCell.xib; sourceTree = "<group>"; };
 		9A334FD12327DA500084852C /* UITableView+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITableView+Extension.swift"; sourceTree = "<group>"; };
+		9A9C31E7233A262C00257750 /* TicketPriceView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TicketPriceView.swift; sourceTree = "<group>"; };
+		9A9C31E9233A265C00257750 /* TicketPriceView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TicketPriceView.xib; sourceTree = "<group>"; };
 		9AF5C25B233510AC003AA9E1 /* PricesModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PricesModel.swift; sourceTree = "<group>"; };
+		AC479B0F233BBAC200312565 /* BuyTicketButtonView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BuyTicketButtonView.xib; sourceTree = "<group>"; };
+		AC479B11233BBCD900312565 /* InformationView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = InformationView.xib; sourceTree = "<group>"; };
+		AC479B13233BBCE000312565 /* InformationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InformationView.swift; sourceTree = "<group>"; };
+		AC479B15233BBD3F00312565 /* BuyTicketButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuyTicketButtonView.swift; sourceTree = "<group>"; };
 		AC7EC0BD23157FCB00A84D73 /* TravelerTypeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TravelerTypeView.swift; sourceTree = "<group>"; };
 		AC7EC0BE23157FCB00A84D73 /* SubtitleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubtitleView.swift; sourceTree = "<group>"; };
 		AC7EC0C123157FDA00A84D73 /* SubtitleView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SubtitleView.xib; sourceTree = "<group>"; };
@@ -904,6 +916,7 @@
 		8422B462206A30200097E6C9 /* Interface */ = {
 			isa = PBXGroup;
 			children = (
+				9A9C31E9233A265C00257750 /* TicketPriceView.xib */,
 				AC7EC0CD231685A000A84D73 /* WalkingSpeedView.xib */,
 				AC7EC0C123157FDA00A84D73 /* SubtitleView.xib */,
 				AC7EC0C223157FDA00A84D73 /* TravelerTypeView.xib */,
@@ -1062,6 +1075,7 @@
 		8451DA5D2065063800CFA1E4 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				9A9C31E7233A262C00257750 /* TicketPriceView.swift */,
 				84EEEF7521DE116D00EF6415 /* Scroll */,
 				848695A921A7F685009A4DFB /* Frieze */,
 				8422B462206A30200097E6C9 /* Interface */,
@@ -1102,6 +1116,7 @@
 		8451DAB8206516BC00CFA1E4 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				AC479B13233BBCE000312565 /* InformationView.swift */,
 				31B3A82821C16008002EFF91 /* AlternativeJourneyView.swift */,
 				3144448822C6092E00218366 /* CancelJourneyView.swift */,
 				8433F399207F47F0007DBBCE /* DepartureArrivalStepView.swift */,
@@ -1116,6 +1131,7 @@
 				317D6C79211091D500F36242 /* StepByStepItemVIew.swift */,
 				8490376A2161FBEF00472FD6 /* StepView.swift */,
 				848CFDE821512F510022A4F2 /* HorizontalSeparator.swift */,
+				AC479B15233BBD3F00312565 /* BuyTicketButtonView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1135,6 +1151,7 @@
 		8451DABB2065175000CFA1E4 /* Interface */ = {
 			isa = PBXGroup;
 			children = (
+				AC479B11233BBCD900312565 /* InformationView.xib */,
 				31B3A82621C15FFB002EFF91 /* AlternativeJourneyView.xib */,
 				846B185020775479005D4A9B /* DepartureArrivalStepView.xib */,
 				84D0FA95210094B300EB420A /* DisruptionItemView.xib */,
@@ -1147,6 +1164,7 @@
 				317D6C76211091CE00F36242 /* StepByStepItemView.xib */,
 				8490376C2161FBF400472FD6 /* StepView.xib */,
 				848CFDED21512F6B0022A4F2 /* HorizontalSeparator.xib */,
+				AC479B0F233BBAC200312565 /* BuyTicketButtonView.xib */,
 			);
 			path = Interface;
 			sourceTree = "<group>";
@@ -1564,9 +1582,12 @@
 				3192556321C7FED700CB11DD /* FriezeSectionView.xib in Resources */,
 				8471D38320809EAD000C9125 /* JourneySolutionView.xib in Resources */,
 				AC7EC0C423157FDA00A84D73 /* TravelerTypeView.xib in Resources */,
+				AC479B10233BBAC200312565 /* BuyTicketButtonView.xib in Resources */,
 				84A790FD2121B0E90000C82F /* EmissionView.xib in Resources */,
+				AC479B12233BBCD900312565 /* InformationView.xib in Resources */,
 				84731BAF21EF63F30041D8EA /* SearchView.xib in Resources */,
 				8433F39C207F89C0007DBBCE /* RidesharingView.xib in Resources */,
+				9A9C31EA233A265C00257750 /* TicketPriceView.xib in Resources */,
 				84AE238721775B4B00439EE0 /* OnDemandItemView.xib in Resources */,
 				84BC297E207E66CC0073F198 /* StationsView.xib in Resources */,
 				84C82F5222083FC500FE3F1D /* PlacesTableViewCell.xib in Resources */,
@@ -1645,6 +1666,7 @@
 				841A1084215A29B800F46143 /* TrafficReports.swift in Sources */,
 				841A1046215A29B800F46143 /* APIHelper.swift in Sources */,
 				84C82F5622083FC500FE3F1D /* ListPlacesPresenter.swift in Sources */,
+				AC479B16233BBD3F00312565 /* BuyTicketButtonView.swift in Sources */,
 				84C82F5022083FC500FE3F1D /* ListPlacesViewController.swift in Sources */,
 				841A108B215A29B800F46143 /* Trips.swift in Sources */,
 				841A10A3215A29B800F46143 /* Companie.swift in Sources */,
@@ -1729,6 +1751,7 @@
 				841A10B4215A29B800F46143 /* TrafficReport.swift in Sources */,
 				8430274F20BBE70E005AD743 /* Message+Extension.swift in Sources */,
 				AC7EC0D0231685A800A84D73 /* WalkingSpeedView.swift in Sources */,
+				AC479B14233BBCE100312565 /* InformationView.swift in Sources */,
 				841A108F215A29B800F46143 /* Stands.swift in Sources */,
 				841A10AB215A29B800F46143 /* StopPoint.swift in Sources */,
 				841EFD9521359F56004A313B /* ListJourneysInteractor.swift in Sources */,
@@ -1847,6 +1870,7 @@
 				841A10BB215A29B800F46143 /* LineGroups.swift in Sources */,
 				841A10B5215A29B800F46143 /* PhysicalModes.swift in Sources */,
 				841A10C8215A29B800F46143 /* Calendars.swift in Sources */,
+				9A9C31E8233A262C00257750 /* TicketPriceView.swift in Sources */,
 				841EFD9321359F56004A313B /* ListJourneysPresenter.swift in Sources */,
 				841A105C215A29B800F46143 /* Severity.swift in Sources */,
 				841EFD9621359F56004A313B /* ListJourneysViewController.swift in Sources */,

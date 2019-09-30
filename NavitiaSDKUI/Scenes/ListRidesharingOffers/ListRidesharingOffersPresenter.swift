@@ -22,7 +22,9 @@ class ListRidesharingOffersPresenter: ListRidesharingOffersPresentationLogic {
         }
         
         let displayedRidesharingOffers = getRidesharingOffers(ridesharingJourneys: response.ridesharingJourneys)
-        let friezeSections = FriezePresenter().getDisplayedJourneySections(journey: response.journey, disruptions: response.disruptions)
+        let friezeSections = FriezePresenter().getDisplayedJourneySections(navitiaTickets: nil,
+                                                                           journey: response.journey,
+                                                                           disruptions: response.disruptions)
         let frieze = ListRidesharingOffers.GetRidesharingOffers.ViewModel.Frieze(duration: duration, friezeSections: friezeSections)
         let viewModel = ListRidesharingOffers.GetRidesharingOffers.ViewModel(frieze: frieze, displayedRidesharingOffers: displayedRidesharingOffers)
         

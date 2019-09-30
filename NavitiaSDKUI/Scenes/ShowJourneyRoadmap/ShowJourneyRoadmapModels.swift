@@ -18,12 +18,15 @@ enum ShowJourneyRoadmap {
         struct Response {
             var journey: Journey
             var journeyRidesharing: Journey?
+            var journeyPriceModel: PricesModel?
             var disruptions: [Disruption]?
             var notes: [Note]?
             var context: Context
+            var navitiaTickets: [Ticket]?
             var maasOrderId: Int?
             var maasTickets: [MaasTicket]?
             var totalPrice: (value: Float?, currency: String?)?
+            var journeyPriceDelegate: JourneyPriceDelegate?
         }
         
         struct ViewModel {
@@ -81,6 +84,11 @@ enum ShowJourneyRoadmap {
                     case bss = "bss"
                     case ridesharing = "ridesharing"
                     case carnopark = "carnopark"
+                    case taxi = "taxi"
+                    
+                    func stringValue() -> String {
+                        return rawValue
+                    }
                 }
                 
                 struct Poi {
@@ -138,6 +146,7 @@ enum ShowJourneyRoadmap {
                 var mode: Mode?
                 var from: String
                 var to: String
+                var timeintervalInMinutes: Int?
                 var startTime: String
                 var endTime: String
                 var actionDescription: String?
@@ -156,12 +165,14 @@ enum ShowJourneyRoadmap {
                 var maasProductId: Int?
                 var maasTicketId: String?
                 var maasOrderJson: String?
+                var ticketPrice: (state: PricesModel.PriceState?, price: Double?)
             }
             
             struct Frieze {
                 var duration: Int32
                 var friezeSections: [FriezePresenter.FriezeSection]
                 var friezeSectionsWithDisruption: [FriezePresenter.FriezeSection]
+                var journeyPrice: String
             }
             
             struct Emission {
@@ -185,6 +196,8 @@ enum ShowJourneyRoadmap {
             var displayAvoidDisruption: Bool
             var ticket: Ticket
             var totalPrice: (description: String, value: String)?
+            var pricesModel: PricesModel?
+            var journeyPriceDelegate: JourneyPriceDelegate?
         }
     }
     

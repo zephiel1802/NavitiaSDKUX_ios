@@ -20,7 +20,7 @@ protocol ShowJourneyRoadmapDisplayLogic: class {
     func displayMap(viewModel: ShowJourneyRoadmap.GetMap.ViewModel)
 }
 
-public class ShowJourneyRoadmapViewController: UIViewController {
+public class ShowJourneyRoadmapViewController: UIViewController, JourneyRootViewController {
 
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var centerMapButton: UIButton!
@@ -30,15 +30,19 @@ public class ShowJourneyRoadmapViewController: UIViewController {
     private let locationManager = CLLocationManager()
     private var journeyPolylineCoordinates = [CLLocationCoordinate2D]()
     private var slidingScrollView: SlidingScrollView!
+    private var buyTicketButtonView: BuyTicketButtonView?
     private var animationTimer: Timer?
     private var bssRealTimer: Timer?
     private var parkRealTimer: Timer?
     private var bssTuple = [(poi: ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionModel.Poi?, type: String, view: StepView)]()
     private var parkTuple = [(poi: ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionModel.Poi?, view: StepView)]()
     private var display = false
-
+    private var enableBuyTicketButton = false
+    private var pricesModel: PricesModel?
     internal var interactor: ShowJourneyRoadmapBusinessLogic?
 
+    public var journeysRequest: JourneysRequest?
+    public var journeyPriceDelegate: JourneyPriceDelegate?
     weak public var delegate: ShowJourneyRoadmapDelegate?
     public var router: (NSObjectProtocol & ShowJourneyRoadmapRoutingLogic & ShowJourneyRoadmapDataPassing)?
     
@@ -81,8 +85,7 @@ public class ShowJourneyRoadmapViewController: UIViewController {
     
     override public func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-
-        self.view.layoutIfNeeded()
+        view.layoutIfNeeded()
         
         startUpdatingUserLocation()
 
@@ -223,7 +226,7 @@ public class ShowJourneyRoadmapViewController: UIViewController {
         let journeySolutionView = JourneySolutionView.instanceFromNib()
 
         journeySolutionView.frame.size = CGSize(width: slidingScrollView.stackScrollView.frame.size.width, height: 47)
-        journeySolutionView.setData(duration: viewModel.frieze.duration, friezeSection: viewModel.frieze.friezeSections)
+        journeySolutionView.setData(duration: viewModel.frieze.duration, friezeSection: viewModel.frieze.friezeSections, price: viewModel.frieze.journeyPrice)
         
         return journeySolutionView
     }
@@ -243,6 +246,52 @@ public class ShowJourneyRoadmapViewController: UIViewController {
         ridesharingView.parentViewController = self
         
         return ridesharingView
+    }
+    
+    private func displayInformationView(sections: [ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionModel],
+                                        viewModel: ShowJourneyRoadmap.GetRoadmap.ViewModel) {
+
+        enableBuyTicketButton = false
+        // Check if there is a taxi which departure date is in less than 30 minutes
+        if let taxiSection = sections.first(where: { (section) -> Bool in
+            section.mode == .taxi
+        }), let timeinterval = taxiSection.timeintervalInMinutes, timeinterval <= 30 {
+            addInformationView(withStatus: .taxi_not_bookable)
+        } else if let state = viewModel.pricesModel?.state {
+            switch state {
+            case .full_price:
+                enableBuyTicketButton = true	
+            case .incomplete_price:
+                enableBuyTicketButton = true
+                if let errorList = viewModel.pricesModel?.unexpectedErrorTicketList,
+                    errorList.count > 0 {
+                    addInformationView(withStatus: .some_unbookable_transport)
+                }
+                if let unbookableList = viewModel.pricesModel?.unbookableSectionIdList,
+                    unbookableList.count > 0 {
+                    addInformationView(withStatus: .some_unsupported_transport)
+                }
+            case .unavailable_price, .unbookable:
+                if let errorList = viewModel.pricesModel?.unexpectedErrorTicketList,
+                    errorList.count > 0 {
+                    addInformationView(withStatus: .no_bookable_transport)
+                }
+                if let unbookableList = viewModel.pricesModel?.unbookableSectionIdList,
+                    unbookableList.count > 0 {
+                    addInformationView(withStatus: .no_supported_transport)
+                }
+            case .no_price:
+                break
+            }
+        }
+    }
+    
+    private func addInformationView(withStatus status: InformationView.Status) {
+        let informationView = InformationView.instanceFromNib()
+        informationView.frame = view.bounds
+        informationView.status = status
+        
+        slidingScrollView.stackScrollView.addSubview(informationView, margin: UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0))
     }
     
     private func displayDepartureArrivalStep(viewModel: ShowJourneyRoadmap.GetRoadmap.ViewModel.DepartureArrival) {
@@ -271,16 +320,22 @@ public class ShowJourneyRoadmapViewController: UIViewController {
         publicTransportView.frame = view.bounds
         publicTransportView.delegate = self
         publicTransportView.icon = section.icon
-        publicTransportView.transport = (code: section.displayInformations.code, textColor: section.displayInformations.textColor, backgroundColor: section.displayInformations.color)
-        publicTransportView.actionDescription = section.actionDescription
+        
+        publicTransportView.transport = (mode: section.displayInformations.commercialMode ?? section.mode?.stringValue(),
+                                         code: (section.mode == .taxi) ? "" : section.displayInformations.code,
+                                         textColor: section.displayInformations.textColor,
+                                         backgroundColor: section.displayInformations.color)
         publicTransportView.network = section.displayInformations.network
-        publicTransportView.informations = (from: section.from, direction: section.displayInformations.directionTransit)
+        publicTransportView.informations = (action: section.actionDescription,
+                                            from: section.from,
+                                            direction: section.displayInformations.directionTransit)
         publicTransportView.departure = (from: section.from, time: section.startTime)
         publicTransportView.arrival = (to: section.to, time: section.endTime)
         publicTransportView.stopDates = section.stopDate
         publicTransportView.notes = section.notes
         publicTransportView.disruptions = section.disruptions
         publicTransportView.waiting = section.waiting
+        publicTransportView.ticketPrice = (state: section.ticketPrice.state, price: section.ticketPrice.price)
         publicTransportView.updateAccessibility()
         
         if ticket.shouldShowTicket {
@@ -384,13 +439,15 @@ public class ShowJourneyRoadmapViewController: UIViewController {
         emissionView.journeyCarbon = emission.journey
         emissionView.carCarbon = emission.car
         
-        slidingScrollView.stackScrollView.addSubview(emissionView, margin: UIEdgeInsets(top: 5, left: 0, bottom: 0, right: 0), safeArea: false)
+        let bottomMargin: CGFloat = buyTicketButtonView != nil ? 83 : 0
+        slidingScrollView.stackScrollView.addSubview(emissionView, margin: UIEdgeInsets(top: 5, left: 0, bottom: bottomMargin, right: 0), safeArea: false)
     }
     
     private func getSectionStep(section: ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionModel, ticket: ShowJourneyRoadmap.GetRoadmap.ViewModel.Ticket) -> UIView? {
         switch section.type {
         case .publicTransport,
-             .onDemandTransport:
+             .onDemandTransport,
+             .streetNetwork where section.mode == .taxi:
             return getPublicTransportStepView(section: section, ticket: ticket)
         case .streetNetwork,
              .bssRent,
@@ -477,8 +534,11 @@ extension ShowJourneyRoadmapViewController: ShowJourneyRoadmapDisplayLogic {
             return
         }
         
+        journeyPriceDelegate = viewModel.journeyPriceDelegate
+        pricesModel = viewModel.pricesModel
         ridesharing = viewModel.ridesharing
         displayHeader(viewModel: viewModel)
+        displayInformationView(sections: sections, viewModel: viewModel)
         displayDepartureArrivalStep(viewModel: viewModel.departure)
         displaySteps(sections: sections, ticket: viewModel.ticket)
         displayDepartureArrivalStep(viewModel: viewModel.arrival)
@@ -487,9 +547,17 @@ extension ShowJourneyRoadmapViewController: ShowJourneyRoadmapDisplayLogic {
             displayPrice(totalPrice: viewModel.totalPrice)
         }
         
-        displayEmission(emission: viewModel.emission)
+        if viewModel.pricesModel?.state != .no_price {
+            buyTicketButtonView = BuyTicketButtonView.instanceFromNib()
+            if enableBuyTicketButton {
+                buyTicketButtonView!.delegate = self
+                buyTicketButtonView!.price = viewModel.pricesModel?.totalPrice
+            }
+            buyTicketButtonView!.frame = CGRect(x: 0, y: view.frame.height - 60, width: view.frame.width, height: 65)
+            view.addSubview(buyTicketButtonView!)
+        }
         
-        //slidingScrollView.stackScrollView.addSubview(getCancelJourneyView(), margin: UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0))
+        displayEmission(emission: viewModel.emission)
     }
     
     func displayMap(viewModel: ShowJourneyRoadmap.GetMap.ViewModel) {
@@ -515,19 +583,34 @@ extension ShowJourneyRoadmapViewController: SlidingScrollViewDelegate {
     
     internal func slidingEndMove(edgePaddingBottom: CGFloat, slidingState: SlidingScrollView.SlideState) {
         switch slidingState {
-        case .anchored,
-             .collapsed:
+        case .anchored:
             UIView.animate(withDuration: 0.3, animations: {
+                self.buyTicketButtonView?.isHidden = false
                 self.centerMapButton.alpha = 1
-            }, completion: { (_) in })
+            })
             
             zoomOverPolyline(targetPolyline: MKPolyline(coordinates: self.journeyPolylineCoordinates, count: self.journeyPolylineCoordinates.count),
                              edgePadding: UIEdgeInsets(top: 60, left: 40, bottom: edgePaddingBottom + 10, right: 40),
                              animated: true)
             
-            self.alignBottomCenterMapButton.constant = -edgePaddingBottom - 5
+            alignBottomCenterMapButton.constant = -edgePaddingBottom - 5
+            
+        case .collapsed:
+            UIView.animate(withDuration: 0.3, animations: {
+                self.centerMapButton.alpha = 1
+                self.buyTicketButtonView?.isHidden = true
+            })
+            
+            zoomOverPolyline(targetPolyline: MKPolyline(coordinates: self.journeyPolylineCoordinates, count: self.journeyPolylineCoordinates.count),
+                             edgePadding: UIEdgeInsets(top: 60, left: 40, bottom: edgePaddingBottom + 10, right: 40),
+                             animated: true)
+            
+            alignBottomCenterMapButton.constant = -edgePaddingBottom - 5
+            
         case .expanded:
-            break
+            UIView.animate(withDuration: 0.3, animations: {
+                self.buyTicketButtonView?.isHidden = false
+            })
         }
     }
 }
@@ -748,5 +831,14 @@ extension ShowJourneyRoadmapViewController: PublicTransportStepViewDelegate {
     
     public func showError() {
         // TODO: show popin error
+    }
+}
+
+extension ShowJourneyRoadmapViewController: BuyTicketButtonViewDelegate {
+    
+    func didTapOnBuyTicketButton() {
+        if let pricesModel = pricesModel {
+            journeyPriceDelegate?.buyTicket(priceModel: pricesModel)
+        }
     }
 }

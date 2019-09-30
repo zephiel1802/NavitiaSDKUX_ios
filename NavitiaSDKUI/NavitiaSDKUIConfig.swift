@@ -108,6 +108,7 @@ public protocol JourneyRootViewController {
             }
         }
     }
+    
     @objc public var advancedSearchMode: Bool {
         get {
             return Configuration.autocompleteEnabled
@@ -135,7 +136,7 @@ public protocol JourneyRootViewController {
         }
     }
     
-    public var sourceIds: [String:String]?
+    public var sourceIds: [String: Int]?
     public var rootViewController: JourneyRootViewController? {
         get {
             let storyboard = UIStoryboard(name: "Journey", bundle: bundle)
@@ -223,6 +224,7 @@ enum Configuration {
         static let background = #colorLiteral(red: 0.9411764706, green: 0.9411764706, blue: 0.9411764706, alpha: 1)
         static let shadow = #colorLiteral(red: 0.8, green: 0.8, blue: 0.8, alpha: 1)
         static let headerTitle = #colorLiteral(red: 0.2509803922, green: 0.2509803922, blue: 0.2509803922, alpha: 1)
+        static let coolBlue = #colorLiteral(red: 0.2470588235, green: 0.4078431373, blue: 0.768627451, alpha: 1)
     }
 }
 

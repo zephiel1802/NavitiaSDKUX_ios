@@ -19,24 +19,30 @@ protocol ShowJourneyRoadmapBusinessLogic {
 public protocol ShowJourneyRoadmapDataStore {
     
     var journey: Journey? { get set }
+    var journeyPriceModel: PricesModel? { get set }
     var journeyRidesharing: Journey? { get set }
     var disruptions: [Disruption]? { get set }
     var notes: [Note]? { get set }
     var context: Context? { get set }
+    var navitiaTickets: [Ticket]? { get set }
     var maasOrderId: Int? { get set }
     var maasTicketsJson: String? { get set }
     var totalPrice: (value: Float?, currency: String?)? { get set }
+    var journeyPriceDelegate: JourneyPriceDelegate? { get set }
 }
 
 class ShowJourneyRoadmapInteractor: ShowJourneyRoadmapBusinessLogic, ShowJourneyRoadmapDataStore {
     
+    var journeyPriceDelegate: JourneyPriceDelegate?
     var presenter: ShowJourneyRoadmapPresentationLogic?
     var journeysWorker = NavitiaWorker()
     var journey: Journey?
+    var journeyPriceModel: PricesModel?
     var journeyRidesharing: Journey?
     var disruptions: [Disruption]?
     var notes: [Note]?
     var context: Context?
+    var navitiaTickets: [Ticket]?
     var maasOrderId: Int?
     var maasTicketsJson: String?
     var totalPrice: (value: Float?, currency: String?)?
@@ -52,12 +58,15 @@ class ShowJourneyRoadmapInteractor: ShowJourneyRoadmapBusinessLogic, ShowJourney
         let maasTickets = getMaasTickets(sectionsList: journey.sections, maasTickets: maasTicketsJson)
         let response = ShowJourneyRoadmap.GetRoadmap.Response(journey: journey,
                                                               journeyRidesharing: journeyRidesharing,
+                                                              journeyPriceModel: journeyPriceModel,
                                                               disruptions: disruptions,
                                                               notes: notes,
                                                               context: context,
+                                                              navitiaTickets: navitiaTickets,
                                                               maasOrderId: maasOrderId,
                                                               maasTickets: maasTickets,
-                                                              totalPrice: totalPrice)
+                                                              totalPrice: totalPrice,
+                                                              journeyPriceDelegate: journeyPriceDelegate)
         presenter?.presentRoadmap(response: response)
     }
     
