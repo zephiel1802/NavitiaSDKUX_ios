@@ -105,14 +105,18 @@ public class ListPlacesViewController: UIViewController, ListPlacesDisplayLogic 
         home = UserDefaults.standard.structData(Place.self, forKey: "home_address")
         work = UserDefaults.standard.structData(Place.self, forKey: "work_address")
         
-        if (searchView.fromTextField.text == "") {
-            interactor?.info = "from"
-            assignHomeWorkAddress(home: home, work: work)
+        if home != nil {
+            if (searchView.fromTextField.text == "") {
+                interactor?.info = "from"
+                assignHomeWorkAddress(home: home, work: work)
+            }
         }
         
-        if (searchView.toTextField.text == "") {
-            interactor?.info = "to"
-            assignHomeWorkAddress(home: home, work: work)
+        if work != nil {
+            if (searchView.toTextField.text == "") {
+                interactor?.info = "to"
+                assignHomeWorkAddress(home: home, work: work)
+            }
         }
     }
     
@@ -363,54 +367,56 @@ extension ListPlacesViewController: UITableViewDataSource, UITableViewDelegate {
         }
     }
     public func assignHomeWorkAddress(home:Place?, work:Place?) {
-        
-        let hm = ListPlaces.FetchPlaces.ViewModel.Place(label: nil, name: home!.name!, id: home!.id!, distance: nil, type: .stopArea)
-        let wk = ListPlaces.FetchPlaces.ViewModel.Place(label: nil, name: work!.name!, id: work!.id!, distance: nil, type: .stopArea)
-        
-        if hm.type != .location {
-            interactor?.savePlace(request: ListPlaces.SavePlace.Request(place: (name: hm.name, id: hm.id, type: hm.type.rawValue)))
-        }
-        
-        if wk.type != .location {
-            interactor?.savePlace(request: ListPlaces.SavePlace.Request(place: (name: wk.name, id: wk.id, type: wk.type.rawValue)))
-        }
-        
-        if interactor?.info == "from" {
-            let request = ListPlaces.DisplaySearch.Request(from: (label: hm.label,
-                                                                  name: hm.name,
-                                                                  id: hm.id),
-                                                           to: nil)
-            interactor?.displaySearch(request:request)
+        if let hName = home?.name, let hID = home?.id, let wName = work?.name, let wID = work?.id {
+            let hm = ListPlaces.FetchPlaces.ViewModel.Place(label: nil, name: hName, id: hID, distance: nil, type: .stopArea)
+            let wk = ListPlaces.FetchPlaces.ViewModel.Place(label: nil, name: wName, id: wID, distance: nil, type: .stopArea)
             
+            if hm.type != .location {
+                interactor?.savePlace(request: ListPlaces.SavePlace.Request(place: (name: hm.name, id: hm.id, type: hm.type.rawValue)))
+            }
             
-            searchView.focusFromField(false)
-            if searchView.toTextField.text == "" {
-                interactor?.info = "to"
-                searchView.focusToField()
-                clearTableView()
-                locationManager.stopUpdatingLocation()
+            if wk.type != .location {
+                interactor?.savePlace(request: ListPlaces.SavePlace.Request(place: (name: wk.name, id: wk.id, type: wk.type.rawValue)))
+            }
+            
+            if interactor?.info == "from" {
+                let request = ListPlaces.DisplaySearch.Request(from: (label: hm.label,
+                                                                      name: hm.name,
+                                                                      id: hm.id),
+                                                               to: nil)
+                interactor?.displaySearch(request:request)
                 
-                fetchPlaces(q: "")
+                
+                searchView.focusFromField(false)
+                if searchView.toTextField.text == "" {
+                    interactor?.info = "to"
+                    searchView.focusToField()
+                    clearTableView()
+                    locationManager.stopUpdatingLocation()
+                    
+                    fetchPlaces(q: "")
+                } else {
+                    dismissAutocompletion()
+                }
             } else {
-                dismissAutocompletion()
-            }
-        } else {
-            interactor?.displaySearch(request: ListPlaces.DisplaySearch.Request(from: nil,
-                                                                                to: (label: hm.label,
-                                                                                     name: hm.name,
-                                                                                     id: hm.id)))
-            
-            searchView.focusToField(false)
-            if searchView.fromTextField.text == "" {
-                interactor?.info  = "from"
-                searchView.focusFromField()
-                clearTableView()
-                locationManager.startUpdatingLocation()
-                fetchPlaces(q: "")
-            } else {
-                dismissAutocompletion()
+                interactor?.displaySearch(request: ListPlaces.DisplaySearch.Request(from: nil,
+                                                                                    to: (label: hm.label,
+                                                                                         name: hm.name,
+                                                                                         id: hm.id)))
+                
+                searchView.focusToField(false)
+                if searchView.fromTextField.text == "" {
+                    interactor?.info  = "from"
+                    searchView.focusFromField()
+                    clearTableView()
+                    locationManager.startUpdatingLocation()
+                    fetchPlaces(q: "")
+                } else {
+                    dismissAutocompletion()
+                }
             }
         }
+        
     }
 
     private func clearTableView() {
