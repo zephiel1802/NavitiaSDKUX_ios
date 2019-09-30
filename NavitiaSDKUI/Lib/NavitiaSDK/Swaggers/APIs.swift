@@ -7,7 +7,7 @@
 import Foundation
 
 open class NavitiaSDKAPI {
-    public static var basePath = "https://api.navitia.io/v1"
+    public static var basePath = NavitiaSDKUI.shared.urlString
     public static var credential: URLCredential?
     public static var customHeaders: [String:String] = [:]
     public static var requestBuilderFactory: RequestBuilderFactory = AlamofireRequestBuilderFactory()

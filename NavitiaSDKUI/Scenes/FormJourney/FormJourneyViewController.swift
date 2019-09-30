@@ -107,10 +107,16 @@ open class FormJourneyViewController: UIViewController, FormJourneyDisplayLogic,
         searchView.fromTextField.resignFirstResponder()
         searchView.toTextField.resignFirstResponder()
         
+        home = UserDefaults.standard.structData(Place.self, forKey: "home_address")
+        work = UserDefaults.standard.structData(Place.self, forKey: "work_address")
+        
         if (searchView.fromTextField.text == "") {
-            home = UserDefaults.standard.structData(Place.self, forKey: "home_address")
-            work = UserDefaults.standard.structData(Place.self, forKey: "work_address")
-            
+            interactorL?.info = "from"
+            assignHomeWorkAddress(home: home, work: work)
+        }
+        
+        if (searchView.toTextField.text == "") {
+            interactorL?.info = "to"
             assignHomeWorkAddress(home: home, work: work)
         }
     }
@@ -202,17 +208,23 @@ open class FormJourneyViewController: UIViewController, FormJourneyDisplayLogic,
         dateFormView.dateTimeRepresentsSegmentedControl = interactor?.journeysRequest?.datetimeRepresents?.rawValue
     }
     
-    func assignHomeWorkAddress(home:Place?, work:Place?) {
-        let homeModel = FormJourney.DisplaySearch.ViewModel(fromName: home?.name, toName: work?.name)
-        self.displaySearch(viewModel: homeModel)
+    public func assignHomeWorkAddress(home:Place?, work:Place?) {
         
-        interactorL?.displaySearch(request: ListPlaces.DisplaySearch.Request())
-        interactorL?.info == "from" ? searchView.focusFromField() : searchView.focusToField()
+        let hm = ListPlaces.FetchPlaces.ViewModel.Place(label: nil, name: home!.name!, id: home!.id!, distance: nil, type: .stopArea)
+        let wk = ListPlaces.FetchPlaces.ViewModel.Place(label: nil, name: work!.name!, id: work!.id!, distance: nil, type: .stopArea)
+        
+        if hm.type != .location {
+            interactorL?.savePlace(request: ListPlaces.SavePlace.Request(place: (name: hm.name, id: hm.id, type: hm.type.rawValue)))
+        }
+        
+        if wk.type != .location {
+            interactorL?.savePlace(request: ListPlaces.SavePlace.Request(place: (name: wk.name, id: wk.id, type: wk.type.rawValue)))
+        }
         
         if interactorL?.info == "from" {
-            let request = ListPlaces.DisplaySearch.Request(from: (label:home?.label,
-                                                                  name: home!.name,
-                                                                  id: home!.id) as? (label: String?, name: String?, id: String),
+            let request = ListPlaces.DisplaySearch.Request(from: (label: hm.label,
+                                                                  name: hm.name,
+                                                                  id: hm.id),
                                                            to: nil)
             interactorL?.displaySearch(request:request)
             
@@ -226,13 +238,10 @@ open class FormJourneyViewController: UIViewController, FormJourneyDisplayLogic,
                 dismissAutocompletion()
             }
         } else {
-            
-            let request = ListPlaces.DisplaySearch.Request(from: nil,
-                                                           to: (label: work?.label,
-                                                                name: work?.name,
-                                                                id: work!.id) as? (label: String?, name: String?, id: String))
-            
-            interactorL?.displaySearch(request: request)
+            interactorL?.displaySearch(request: ListPlaces.DisplaySearch.Request(from: nil,
+                                                                                to: (label: hm.label,
+                                                                                     name: hm.name,
+                                                                                     id: hm.id)))
             
             searchView.focusToField(false)
             if searchView.fromTextField.text == "" {

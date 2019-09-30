@@ -117,7 +117,7 @@ public class Modes {
     private func getPhysicalMode(section: Section?) -> String {
         let id = getPhysicalModeId(section: section)
         
-        var modeData = id.split(separator: ":").map(String.init)
+        let modeData = id.split(separator: ":").map(String.init)
         
         return modeData[1]
     }

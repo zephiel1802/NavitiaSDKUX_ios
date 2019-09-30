@@ -29,6 +29,15 @@ import Foundation
         }
     }
     
+    @objc public var urlString: String {
+        get {
+            return "https://api.navitia.io/v1"
+        }
+        set {
+            NavitiaSDKAPI.basePath = newValue
+        }
+    }
+    
     @objc public func initialize(token: String) {
         self.token = token
     }
