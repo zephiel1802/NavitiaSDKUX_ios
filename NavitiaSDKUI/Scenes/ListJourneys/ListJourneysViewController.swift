@@ -29,8 +29,8 @@ public class ListJourneysViewController: UIViewController, ListJourneysDisplayLo
     @IBOutlet weak var searchView: SearchView!
     @IBOutlet weak var journeysCollectionView: UICollectionView!
     
-    public var delegate: JourneyPriceDelegate?
     public var successBookDelegate: JourneySuccessBookDelegate?
+    public var journeyPriceDelegate: JourneyPriceDelegate?
     public var journeysRequest: JourneysRequest?
     internal var interactor: ListJourneysBusinessLogic?
     internal var router: (NSObjectProtocol & ListJourneysViewRoutingLogic & ListJourneysDataPassing)?
@@ -70,7 +70,7 @@ public class ListJourneysViewController: UIViewController, ListJourneysDisplayLo
             interactor?.journeysRequest = journeysRequest
         }
         
-        delegate = router?.dataStore?.delegate
+        journeyPriceDelegate = router?.dataStore?.delegate
         interactor?.displaySearch(request: ListJourneys.DisplaySearch.Request())
         interactor?.journeysRequest?.allowedPhysicalModes != nil ? fetchPhysicalMode() : fetchJourneys()
     }
@@ -257,17 +257,18 @@ public class ListJourneysViewController: UIViewController, ListJourneysDisplayLo
             return
         }
         
-        viewModel.loaded == true ? (searchView.lockSwitch = false) : (searchView.lockSwitch = true)
-        journeysCollectionView.reloadData()
-
-        reloadCollectionViewLayout()
-        
         if viewModel.loaded {
-            DispatchQueue.main.async(execute: { () -> Void in
+            DispatchQueue.main.async {
+                self.searchView.lockSwitch = false
                 self.anim()
                 self.activityView.stopAnimating()
-            })
+            }
+        } else {
+            searchView.lockSwitch = true
         }
+        
+        journeysCollectionView.reloadData()
+        reloadCollectionViewLayout()
     }
     
     private func reloadCollectionViewLayout() {
@@ -365,12 +366,13 @@ extension ListJourneysViewController: UICollectionViewDataSource, UICollectionVi
                 cell.accessibility = viewModel.accessibility
                 cell.friezeSections = viewModel.friezeSections
                 
-                if delegate != nil {
-                    cell.hermaasPricedTickets = nil
-                    cell.unsupportedSectionIdList = viewModel.unbookableSectionIdList
-                    cell.unexpectedErrorTicketIdList = viewModel.unexpectedErrorTicketIdList
-                    cell.ticketInputs = viewModel.ticketsInput
-                    cell.navitiaPricedTickets = viewModel.pricedTicket
+                if journeyPriceDelegate != nil {
+                    cell.indexPath = indexPath
+                    cell.configurePrice(ticketInputs: viewModel.ticketsInput,
+                                        navitiaPricedTickets: viewModel.pricedTicket,
+                                        hermaasPricedTickets: viewModel.hermaasPrices,
+                                        unsupportedSectionIdList: viewModel.unbookableSectionIdList,
+                                        unexpectedErrorTicketIdList: viewModel.unexpectedErrorTicketIdList)
                 }
                 
                 return cell
@@ -438,7 +440,7 @@ extension ListJourneysViewController: UICollectionViewDataSource, UICollectionVi
         var selector: Selector?
         
         if viewModel.loaded {
-            if let cell = collectionView.cellForItem(at: indexPath) as? JourneySolutionCollectionViewCell, (delegate == nil || cell.isLoaded) {
+            if let cell = collectionView.cellForItem(at: indexPath) as? JourneySolutionCollectionViewCell, (journeyPriceDelegate == nil || cell.isLoaded) {
                 selector = NSSelectorFromString("routeToJourneySolutionRoadmapWithIndexPath:")
             } else if indexPath.section == 1 && viewModel.displayedRidesharings.count > indexPath.row - 1 && indexPath.row != 0 {
                 selector = NSSelectorFromString("routeToListRidesharingOffersWithIndexPath:")
@@ -472,7 +474,7 @@ extension ListJourneysViewController: ListJourneysCollectionViewLayoutDelegate {
             
             var height: CGFloat = 60
             if let _ = viewModel.displayedJourneys[safe: indexPath.row]?.walkingInformation {
-                height += 30
+                height += 30 // TODO : Fix height of cell
             }
             
             if let sections = viewModel.displayedJourneys[safe: indexPath.row]?.friezeSections {
@@ -632,10 +634,10 @@ extension ListJourneysViewController: SearchButtonViewDelegate {
 
 extension ListJourneysViewController: JourneySolutionCollectionViewCellDelegate {
     
-    func getPrice(ticketsInputList: [TicketInput], callback: @escaping (([PricedTicket]) -> ())) {
+    func getPrice(ticketsInputList: [TicketInput], indexPath: IndexPath?) {
         do {
             let jsonData = try JSONEncoder().encode(ticketsInputList)
-            delegate?.requestPrice(ticketInputData: jsonData, callback: { (ticketPriceDictionary) in
+            journeyPriceDelegate?.requestPrice(ticketInputData: jsonData, callback: { (ticketPriceDictionary) in
                 do {
                     var pricedTicketList = [PricedTicket]()
                     for response in ticketPriceDictionary {
@@ -645,13 +647,26 @@ extension ListJourneysViewController: JourneySolutionCollectionViewCellDelegate 
                         pricedTicketList.append(pricedTicket)
                     }
                     
-                    callback(pricedTicketList)
+                    guard let index = indexPath else {
+                        return
+                    }
+                    
+                    if self.viewModel?.displayedJourneys[safe: index.row] != nil {
+                        self.viewModel?.displayedJourneys[index.row].hermaasPrices = pricedTicketList
+                        DispatchQueue.main.async {
+                            self.journeysCollectionView.reloadItems(at: [index])
+                        }
+                    }
                 } catch {
-                    callback([])
+                    if let index = indexPath, self.viewModel?.displayedJourneys[safe: index.row] != nil {
+                        self.viewModel?.displayedJourneys[index.row].hermaasPrices = []
+                    }
                 }
             })
         } catch {
-            callback([])
+            if let index = indexPath, self.viewModel?.displayedJourneys[safe: index.row] != nil {
+                self.viewModel?.displayedJourneys[index.row].hermaasPrices = []
+            }
         }
     }
 }
