@@ -224,13 +224,26 @@ class ListJourneysPresenter: ListJourneysPresentationLogic {
                             let price = Double(costValue),
                             price > 0.0 {
                             // This is a bookable Navitia Ticket with valid price
+                            let randomMaasGeoInfoCoord = MaasGeoInfoCoord(lat: "", lon: "")
+                            let maasGeoInfoPlace = MaasGeoInfoPlace(name: "", coord: randomMaasGeoInfoCoord, label: nil, gtfsStopCode: nil)
+                            let maasGeoInfo = MaasGeoInfo(departure: maasGeoInfoPlace, arrival: maasGeoInfoPlace)
                             let pricedNavitiaTicket = PricedTicket(productId: -1,
-                                                            name: "",
-                                                            price: nil,
-                                                            priceWithTax: price / 100,
-                                                            taxRate: nil,
-                                                            currency: "Eur",
-                                                            ticketId: ticketId)
+                                                                   name: "",
+                                                                   shortDescription: "",
+                                                                   price: 0,
+                                                                   priceWithTax: price / 100,
+                                                                   taxRate: 0,
+                                                                   defaultCategoryId: -1,
+                                                                   active: false,
+                                                                   customType: nil,
+                                                                   currency: "Eur",
+                                                                   maxQuantity: 0,
+                                                                   imageUrl: "",
+                                                                   displayOrder: 0,
+                                                                   legalTerm: "",
+                                                                   geoInfo: maasGeoInfo,
+                                                                   links: nil,
+                                                                   ticketId: ticketId)
                             pricedTicketList.append(pricedNavitiaTicket)
                             ticketInputList.append(getTicketInput(section: section,
                                                                   productId: -1,

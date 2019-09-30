@@ -837,8 +837,8 @@ extension ShowJourneyRoadmapViewController: PublicTransportStepViewDelegate {
 extension ShowJourneyRoadmapViewController: BuyTicketButtonViewDelegate {
     
     func didTapOnBuyTicketButton() {
-        if let pricesModel = pricesModel {
-            journeyPriceDelegate?.buyTicket(priceModel: pricesModel)
+        if let summaryInputJson = router?.dataStore?.journeyInputJson {
+            journeyPriceDelegate?.buyTicket(journeyJson: summaryInputJson)
         }
     }
 }
