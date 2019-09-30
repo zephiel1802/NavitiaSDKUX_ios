@@ -24,11 +24,6 @@ class TicketPriceView: UIView {
     }
     
     // MARK: - Initialization
-    
-    override func awakeFromNib() {
-        super.awakeFromNib()
-    }
-    
     override func awakeAfter(using aDecoder: NSCoder) -> Any? {
         guard subviews.isEmpty else {
             return self

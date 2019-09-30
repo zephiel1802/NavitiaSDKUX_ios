@@ -632,70 +632,68 @@ extension ListJourneysViewController: JourneySolutionCollectionViewCellDelegate 
             let jsonData = try JSONEncoder().encode(ticketsInputList)
             journeyPriceDelegate?.requestPrice(ticketInputData: jsonData, callback: { (ticketPriceDictionary) in
                 do {
+                    guard let index = indexPath, let priceModel = self.viewModel?.displayedJourneys[safe: index.row]?.priceModel else {
+                        return
+                    }
+                    
                     var pricedTicketsFromHermaas = [PricedTicket]()
                     for response in ticketPriceDictionary {
                         let pricedTicketData = try JSONSerialization.data(withJSONObject: response, options: .prettyPrinted)
                         var pricedTicket = try JSONDecoder().decode(PricedTicket.self, from: pricedTicketData)
                         
                         // Merge navitia prices with hermaas prices
-                        if let index = indexPath, let priceModel = self.viewModel?.displayedJourneys[safe: index.row]?.priceModel {
-                            if let navitiaTicket = priceModel.navitiaPricedTickets?.first(where: { $0.ticketId == pricedTicket.ticketId }) {
-                                pricedTicket.price = navitiaTicket.price
-                                pricedTicket.priceWithTax = navitiaTicket.priceWithTax
-                            }
+                        if let navitiaTicket = priceModel.navitiaPricedTickets?.first(where: { $0.ticketId == pricedTicket.ticketId }) {
+                            pricedTicket.price = navitiaTicket.price
+                            pricedTicket.priceWithTax = navitiaTicket.priceWithTax
                         }
                         
                         pricedTicketsFromHermaas.append(pricedTicket)
                     }
                     
-                    guard let index = indexPath else {
-                        return
+                    self.viewModel?.displayedJourneys[index.row].priceModel?.hermaasPricedTickets = pricedTicketsFromHermaas
+                    
+                    // Check which ticket has an error
+                    if let ticketInputs = priceModel.ticketsInput {
+                        for ticket in ticketInputs {
+                            if !pricedTicketsFromHermaas.contains(where: { $0.ticketId == ticket.ride.ticketId }) {
+                                self.viewModel?.displayedJourneys[safe: index.row]?.priceModel?.unexpectedErrorTicketList?.append((productId: ticket.productId, ticketId: ticket.ride.ticketId))
+                            }
+                        }
                     }
                     
-                    if let priceModel = self.viewModel?.displayedJourneys[safe: index.row]?.priceModel {
-                        self.viewModel?.displayedJourneys[index.row].priceModel?.hermaasPricedTickets = pricedTicketsFromHermaas
-                        
-                        // verify which ticket is on error
-                        if let ticketInputs = priceModel.ticketsInput {
-                            for ticket in ticketInputs {
-                                if !pricedTicketsFromHermaas.contains(where: { $0.ticketId == ticket.ride.ticketId }) {
-                                    self.viewModel?.displayedJourneys[safe: index.row]?.priceModel?.unexpectedErrorTicketIdList?.append(ticket.ride.ticketId)
-                                }
-                            }
-                        }
-                        
-                        var isPriceMissing = false
-                        if let unbookableSectionCount = priceModel.unbookableSectionIdList?.count,
-                            let unexpectedErrorCount = priceModel.unexpectedErrorTicketIdList?.count  {
-                            isPriceMissing =  unbookableSectionCount > 0 || unexpectedErrorCount > 0
-                        }
-                        
-                        if let hermaasPricedTicketsCount = priceModel.hermaasPricedTickets?.count,
-                            let ticketsInputCount = priceModel.ticketsInput?.count {
-                            isPriceMissing = hermaasPricedTicketsCount < ticketsInputCount
-                        }
-                        
-                        // Compute total price
-                        var totalPrice: Double = 0
-                        for ticket in pricedTicketsFromHermaas {
-                            if let price = ticket.priceWithTax, ticket.currency.lowercased() == "eur" {
-                                totalPrice += price
-                            } else {
-                                isPriceMissing = true
-                            }
-                        }
-                        
-                        if pricedTicketsFromHermaas.count == 0 {
-                            self.viewModel?.displayedJourneys[index.row].priceModel?.state = isPriceMissing ? .unavailable_price : .no_price
-                            self.viewModel?.displayedJourneys[index.row].priceModel?.totalPrice = nil
+                    var isPriceMissing = false
+                    if let unbookableSectionCount = priceModel.unbookableSectionIdList?.count,
+                        let unexpectedErrorCount = priceModel.unexpectedErrorTicketList?.count,
+                        unbookableSectionCount > 0 || unexpectedErrorCount > 0 {
+                        isPriceMissing = true
+                    }
+                    
+                    if let hermaasPricedTicketsCount = priceModel.hermaasPricedTickets?.count,
+                        let ticketsInputCount = priceModel.ticketsInput?.count,
+                        hermaasPricedTicketsCount < ticketsInputCount {
+                        isPriceMissing = true
+                    }
+                    
+                    // Compute total price
+                    var totalPrice: Double = 0
+                    for ticket in pricedTicketsFromHermaas {
+                        if let price = ticket.priceWithTax, ticket.currency.lowercased() == "eur" {
+                            totalPrice += price
                         } else {
-                            self.viewModel?.displayedJourneys[index.row].priceModel?.state = isPriceMissing ? .incomplete_price : .full_price
-                            self.viewModel?.displayedJourneys[index.row].priceModel?.totalPrice = totalPrice
+                            isPriceMissing = true
                         }
-                        
-                        DispatchQueue.main.async {
-                            self.journeysCollectionView.reloadItems(at: [index])
-                        }
+                    }
+                    
+                    if pricedTicketsFromHermaas.count == 0 {
+                        self.viewModel?.displayedJourneys[index.row].priceModel?.state = isPriceMissing ? .unavailable_price : .no_price
+                        self.viewModel?.displayedJourneys[index.row].priceModel?.totalPrice = nil
+                    } else {
+                        self.viewModel?.displayedJourneys[index.row].priceModel?.state = isPriceMissing ? .incomplete_price : .full_price
+                        self.viewModel?.displayedJourneys[index.row].priceModel?.totalPrice = totalPrice
+                    }
+                    
+                    DispatchQueue.main.async {
+                        self.journeysCollectionView.reloadItems(at: [index])
                     }
                 } catch {
                     if let index = indexPath, self.viewModel?.displayedJourneys[safe: index.row] != nil {

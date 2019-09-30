@@ -24,6 +24,7 @@ public protocol ShowJourneyRoadmapDataStore {
     var disruptions: [Disruption]? { get set }
     var notes: [Note]? { get set }
     var context: Context? { get set }
+    var navitiaTickets: [Ticket]? { get set }
     var maasTicketsJson: String? { get set }
     var totalPrice: (value: Float?, currency: String?)? { get set }
     var journeyPriceDelegate: JourneyPriceDelegate? { get set }
@@ -40,6 +41,7 @@ class ShowJourneyRoadmapInteractor: ShowJourneyRoadmapBusinessLogic, ShowJourney
     var disruptions: [Disruption]?
     var notes: [Note]?
     var context: Context?
+    var navitiaTickets: [Ticket]?
     var maasTicketsJson: String?
     var totalPrice: (value: Float?, currency: String?)?
   
@@ -58,6 +60,7 @@ class ShowJourneyRoadmapInteractor: ShowJourneyRoadmapBusinessLogic, ShowJourney
                                                               disruptions: disruptions,
                                                               notes: notes,
                                                               context: context,
+                                                              navitiaTickets: navitiaTickets,
                                                               maasTickets: maasTickets,
                                                               totalPrice: totalPrice,
                                                               journeyPriceDelegate: journeyPriceDelegate)

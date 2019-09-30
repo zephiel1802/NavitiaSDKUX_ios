@@ -124,6 +124,7 @@ internal class ListJourneysRouter: NSObject, ListJourneysViewRoutingLogic, ListJ
         destination.disruptions = source.disruptions
         destination.notes = source.notes
         destination.context = source.context
+        destination.navitiaTickets = source.navitiaTickets
         destination.journeyPriceDelegate = source.delegate
     }
     

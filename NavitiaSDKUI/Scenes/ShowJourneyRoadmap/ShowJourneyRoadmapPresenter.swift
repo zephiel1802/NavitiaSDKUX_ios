@@ -28,7 +28,10 @@ class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
             let arrival = getArrivalViewModel(journey: response.journey),
             let emission = getEmission(response: response),
             let alternativeJourney = getAlternativeJourney(sectionsModel: sectionsClean),
-            let frieze = getFrieze(journey: response.journey, disruptions: response.disruptions, priceModel: response.journeyPriceModel) else {
+            let frieze = getFrieze(journey: response.journey,
+                                   disruptions: response.disruptions,
+                                   priceModel: response.journeyPriceModel,
+                                   navitiaTickets: response.navitiaTickets) else {
             return
         }
         
@@ -306,22 +309,34 @@ class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
         return arrivalDate.toString(format: Configuration.time)
     }
 
-    private func getFrieze(journey: Journey, disruptions: [Disruption]?, priceModel: PricesModel?) -> ShowJourneyRoadmap.GetRoadmap.ViewModel.Frieze? {
+    private func getFrieze(journey: Journey,
+                           disruptions: [Disruption]?,
+                           priceModel: PricesModel?,
+                           navitiaTickets: [Ticket]?) -> ShowJourneyRoadmap.GetRoadmap.ViewModel.Frieze? {
         guard let duration = journey.duration else {
             return nil
         }
         
-        let friezeSections = FriezePresenter().getDisplayedJourneySections(journey: journey, disruptions: disruptions)
+        var friezeSections = FriezePresenter().getDisplayedJourneySections(navitiaTickets: navitiaTickets,
+                                                                           journey: journey,
+                                                                           disruptions: disruptions)
         
         if let priceModel = priceModel {
-            for var friezeSection in friezeSections {
-                if let ticketId = friezeSection.ticketId, let unexpectedErrorTicketIdList = priceModel.unexpectedErrorTicketIdList {
-                    friezeSection.hasBadge = unexpectedErrorTicketIdList.contains(ticketId)
+            for (index, friezeSection) in friezeSections.enumerated() {
+                if let ticketId = friezeSection.ticketId,
+                    let productId = friezeSection.productId,
+                    let unexpectedErrorTicketList = priceModel.unexpectedErrorTicketList {
+                    friezeSections[index].hasBadge = unexpectedErrorTicketList.contains(where: { ticketError -> Bool in
+                        return ticketError.productId == productId && ticketError.ticketId == ticketId
+                    })
                 }
             }
         }
         
-        let friezeSectionsWithDisruption = FriezePresenter().getDisplayedJourneySections(journey: journey, disruptions: disruptions, withDisruptionLevel: true)
+        let friezeSectionsWithDisruption = FriezePresenter().getDisplayedJourneySections(navitiaTickets: navitiaTickets,
+                                                                                         journey: journey,
+                                                                                         disruptions: disruptions,
+                                                                                         withDisruptionLevel: true)
         let displayedJourneyPrice = FriezePresenter().getDisplayedJourneyPrice(priceModel: priceModel)
         
         let frieze = ShowJourneyRoadmap.GetRoadmap.ViewModel.Frieze(duration: duration,
@@ -584,10 +599,12 @@ class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
             }
         }
     
-        var priceState = (ticketPrice != nil) ? PricesModel.PriceState.full_price : PricesModel.PriceState.no_price
+        var priceState: PricesModel.PriceState = (ticketPrice != nil) ? .full_price : .no_price
         if let unbookableList = pricesModel?.unbookableSectionIdList, let sectionId = section.id, unbookableList.contains(sectionId)  {
             priceState = .unbookable
-        } else if let priceOnErrorList = pricesModel?.unexpectedErrorTicketIdList, let ticketId = sectionTicketId, priceOnErrorList.contains(ticketId) {
+        } else if let priceOnErrorList = pricesModel?.unexpectedErrorTicketList, let ticketId = sectionTicketId, priceOnErrorList.contains(where: { ticketError -> Bool in
+            return ticketError.productId == -1 && ticketError.ticketId == ticketId
+        }) {
             priceState = .unavailable_price
         }
         

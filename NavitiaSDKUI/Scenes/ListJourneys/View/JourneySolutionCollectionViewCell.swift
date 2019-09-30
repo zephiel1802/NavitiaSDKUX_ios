@@ -142,9 +142,14 @@ class JourneySolutionCollectionViewCell: UICollectionViewCell {
             return
         }
         
-        for var friezeSection in friezeSections {
-            if let ticketId = friezeSection.ticketId, let unexpectedErrorTicketIdList = priceModel.unexpectedErrorTicketIdList {
-                friezeSection.hasBadge = unexpectedErrorTicketIdList.contains(ticketId)
+        for (index, friezeSection) in friezeSections.enumerated() {
+            if let ticketId = friezeSection.ticketId,
+                let productId = friezeSection.productId,
+                let unexpectedErrorTicketList = priceModel.unexpectedErrorTicketList,
+                unexpectedErrorTicketList.count > 0 {
+                friezeSections[index].hasBadge = unexpectedErrorTicketList.contains(where: { ticketError -> Bool in
+                    return ticketError.productId == productId && ticketError.ticketId == ticketId
+                })
             }
         }
     }

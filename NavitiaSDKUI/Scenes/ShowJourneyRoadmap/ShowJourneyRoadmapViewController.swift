@@ -260,10 +260,10 @@ public class ShowJourneyRoadmapViewController: UIViewController, JourneyRootView
         } else if let state = viewModel.pricesModel?.state {
             switch state {
             case .full_price:
-                enableBuyTicketButton = true
+                enableBuyTicketButton = true	
             case .incomplete_price:
                 enableBuyTicketButton = true
-                if let errorList = viewModel.pricesModel?.unexpectedErrorTicketIdList,
+                if let errorList = viewModel.pricesModel?.unexpectedErrorTicketList,
                     errorList.count > 0 {
                     addInformationView(withStatus: .some_unbookable_transport)
                 }
@@ -271,8 +271,8 @@ public class ShowJourneyRoadmapViewController: UIViewController, JourneyRootView
                     unbookableList.count > 0 {
                     addInformationView(withStatus: .some_unsupported_transport)
                 }
-            case .unavailable_price:
-                if let errorList = viewModel.pricesModel?.unexpectedErrorTicketIdList,
+            case .unavailable_price, .unbookable:
+                if let errorList = viewModel.pricesModel?.unexpectedErrorTicketList,
                     errorList.count > 0 {
                     addInformationView(withStatus: .no_bookable_transport)
                 }
@@ -280,7 +280,7 @@ public class ShowJourneyRoadmapViewController: UIViewController, JourneyRootView
                     unbookableList.count > 0 {
                     addInformationView(withStatus: .no_supported_transport)
                 }
-            default:
+            case .no_price:
                 break
             }
         }

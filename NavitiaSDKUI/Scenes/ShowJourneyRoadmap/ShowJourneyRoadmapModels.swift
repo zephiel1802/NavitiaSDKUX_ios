@@ -22,6 +22,7 @@ enum ShowJourneyRoadmap {
             var disruptions: [Disruption]?
             var notes: [Note]?
             var context: Context
+            var navitiaTickets: [Ticket]?
             var maasTickets: [MaasTicket]?
             var totalPrice: (value: Float?, currency: String?)?
             var journeyPriceDelegate: JourneyPriceDelegate?

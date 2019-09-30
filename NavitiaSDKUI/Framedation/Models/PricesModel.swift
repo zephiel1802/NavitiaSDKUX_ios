@@ -22,7 +22,7 @@ import Foundation
     var navitiaPricedTickets: [PricedTicket]?
     var hermaasPricedTickets: [PricedTicket]?
     var unbookableSectionIdList: [String]?
-    var unexpectedErrorTicketIdList: [String]?
+    var unexpectedErrorTicketList: [(productId: Int, ticketId: String)]?
     var ticketsInput: [TicketInput]?
     
     public init(state: PriceState = PriceState.no_price,
@@ -31,13 +31,13 @@ import Foundation
                  ticketsInput: [TicketInput]?,
                  hermaasPricedTickets: [PricedTicket]?,
                  unbookableSectionIdList: [String]?,
-                 unexpectedErrorTicketIdList: [String]?) {
+                 unexpectedErrorTicketList: [(productId: Int, ticketId: String)]?) {
         self.state = state
         self.totalPrice = totalPrice
         self.navitiaPricedTickets = navitiaPricedTickets
         self.ticketsInput = ticketsInput
         self.hermaasPricedTickets = hermaasPricedTickets
         self.unbookableSectionIdList = unbookableSectionIdList
-        self.unexpectedErrorTicketIdList = unexpectedErrorTicketIdList
+        self.unexpectedErrorTicketList = unexpectedErrorTicketList
     }
 }
