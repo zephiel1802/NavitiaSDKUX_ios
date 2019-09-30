@@ -11,6 +11,7 @@ public protocol JourneyRootViewController {
     
     var journeysRequest: JourneysRequest? { get set }
     var delegate: JourneyPriceDelegate? { get set }
+    var successBookDelegate: JourneySuccessBookDelegate? { get set }
 }
 
 @objc public class NavitiaSDKUI: NSObject {

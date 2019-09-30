@@ -19,12 +19,18 @@ public protocol JourneyPriceDelegate: class {
     func requestPrice(ticketInputData: Data, callback:  @escaping ((_ ticketPriceDictionary: [[String: Any]]) -> ()))
 }
 
+public protocol JourneySuccessBookDelegate: class {
+    
+    func displayAfterSuccess(newOrderId: Int?)
+}
+
 public class ListJourneysViewController: UIViewController, ListJourneysDisplayLogic, JourneyRootViewController {
     
     @IBOutlet weak var searchView: SearchView!
     @IBOutlet weak var journeysCollectionView: UICollectionView!
     
     public var delegate: JourneyPriceDelegate?
+    public var successBookDelegate: JourneySuccessBookDelegate?
     public var journeysRequest: JourneysRequest?
     internal var interactor: ListJourneysBusinessLogic?
     internal var router: (NSObjectProtocol & ListJourneysViewRoutingLogic & ListJourneysDataPassing)?

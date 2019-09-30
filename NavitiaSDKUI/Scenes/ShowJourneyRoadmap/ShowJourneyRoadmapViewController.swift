@@ -40,6 +40,7 @@ public class ShowJourneyRoadmapViewController: UIViewController {
     internal var interactor: ShowJourneyRoadmapBusinessLogic?
 
     weak public var delegate: ShowJourneyRoadmapDelegate?
+    public weak var successBookDelegate: JourneySuccessBookDelegate?
     public var router: (NSObjectProtocol & ShowJourneyRoadmapRoutingLogic & ShowJourneyRoadmapDataPassing)?
     
     public static var identifier: String {

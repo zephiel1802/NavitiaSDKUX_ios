@@ -29,11 +29,13 @@ protocol ListJourneysDataStore {
     var notes: [Note]? { get }
     var context: Context? { get }
     var delegate: JourneyPriceDelegate? { get set }
+    var successBookDelegate: JourneySuccessBookDelegate? { get set }
 }
 
 internal class ListJourneysInteractor: ListJourneysBusinessLogic, ListJourneysDataStore {
     
     var delegate: JourneyPriceDelegate?
+    var successBookDelegate: JourneySuccessBookDelegate?
     var presenter: ListJourneysPresentationLogic?
     var navitiaWorker = NavitiaWorker()
     var journeysRequest: JourneysRequest?
