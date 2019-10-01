@@ -17,6 +17,7 @@ protocol ListJourneysDisplayLogic: class {
 public protocol JourneyPriceDelegate: class {
     
     func requestPrice(ticketInputData: Data, callback:  @escaping ((_ ticketPriceDictionary: [[String: Any]]) -> ()))
+    func buyTicket(priceModel: PricesModel)
 }
 
 public protocol JourneySuccessBookDelegate: class {
@@ -25,7 +26,6 @@ public protocol JourneySuccessBookDelegate: class {
 }
 
 public class ListJourneysViewController: UIViewController, ListJourneysDisplayLogic, JourneyRootViewController {
-    
     @IBOutlet weak var searchView: SearchView!
     @IBOutlet weak var journeysCollectionView: UICollectionView!
     
@@ -368,11 +368,7 @@ extension ListJourneysViewController: UICollectionViewDataSource, UICollectionVi
                 
                 if journeyPriceDelegate != nil {
                     cell.indexPath = indexPath
-                    cell.configurePrice(ticketInputs: viewModel.ticketsInput,
-                                        navitiaPricedTickets: viewModel.pricedTicket,
-                                        hermaasPricedTickets: viewModel.hermaasPrices,
-                                        unsupportedSectionIdList: viewModel.unbookableSectionIdList,
-                                        unexpectedErrorTicketIdList: viewModel.unexpectedErrorTicketIdList)
+                    cell.configurePrice(priceModel: viewModel.priceModel)
                 }
                 
                 return cell
@@ -441,13 +437,16 @@ extension ListJourneysViewController: UICollectionViewDataSource, UICollectionVi
         
         if viewModel.loaded {
             if let cell = collectionView.cellForItem(at: indexPath) as? JourneySolutionCollectionViewCell, (journeyPriceDelegate == nil || cell.isLoaded) {
-                selector = NSSelectorFromString("routeToJourneySolutionRoadmapWithIndexPath:")
+                selector = NSSelectorFromString("routeToJourneySolutionRoadmapWithIndexPath:priceModel:")
+                if let router = router, router.responds(to: selector) {
+                    router.perform(selector, with: indexPath, with: self.viewModel?.displayedJourneys[indexPath.row].priceModel)
+                }
             } else if indexPath.section == 1 && viewModel.displayedRidesharings.count > indexPath.row - 1 && indexPath.row != 0 {
                 selector = NSSelectorFromString("routeToListRidesharingOffersWithIndexPath:")
-            }
-            
-            if let router = router, router.responds(to: selector) {
-                router.perform(selector, with: indexPath)
+                
+                if let router = router, router.responds(to: selector) {
+                    router.perform(selector, with: indexPath)
+                }
             }
         }
     }
@@ -474,11 +473,11 @@ extension ListJourneysViewController: ListJourneysCollectionViewLayoutDelegate {
             
             var height: CGFloat = 60
             if let _ = viewModel.displayedJourneys[safe: indexPath.row]?.walkingInformation {
-                height += 30 // TODO : Fix height of cell
+                height += 30
             }
             
             if let sections = viewModel.displayedJourneys[safe: indexPath.row]?.friezeSections {
-                let friezeView = FriezeView(frame: CGRect(x: 0, y: 0, width: width - 20, height: 27))
+                let friezeView = FriezeView(frame: CGRect(x: 0, y: 0, width: width - 66, height: 27))
                 friezeView.addSection(friezeSections: sections)
                 
                 return height + friezeView.frame.size.height
@@ -639,33 +638,78 @@ extension ListJourneysViewController: JourneySolutionCollectionViewCellDelegate 
             let jsonData = try JSONEncoder().encode(ticketsInputList)
             journeyPriceDelegate?.requestPrice(ticketInputData: jsonData, callback: { (ticketPriceDictionary) in
                 do {
-                    var pricedTicketList = [PricedTicket]()
-                    for response in ticketPriceDictionary {
-                        let pricedTicketData = try JSONSerialization.data(withJSONObject: response, options: .prettyPrinted)
-                        let pricedTicket = try JSONDecoder().decode(PricedTicket.self, from: pricedTicketData)
-                        
-                        pricedTicketList.append(pricedTicket)
-                    }
-                    
-                    guard let index = indexPath else {
+                    guard let index = indexPath, let priceModel = self.viewModel?.displayedJourneys[safe: index.row]?.priceModel else {
                         return
                     }
                     
-                    if self.viewModel?.displayedJourneys[safe: index.row] != nil {
-                        self.viewModel?.displayedJourneys[index.row].hermaasPrices = pricedTicketList
-                        DispatchQueue.main.async {
-                            self.journeysCollectionView.reloadItems(at: [index])
+                    var pricedTicketsFromHermaas = [PricedTicket]()
+                    for response in ticketPriceDictionary {
+                        let pricedTicketData = try JSONSerialization.data(withJSONObject: response, options: .prettyPrinted)
+                        var pricedTicket = try JSONDecoder().decode(PricedTicket.self, from: pricedTicketData)
+                        
+                        // Merge navitia prices with hermaas prices
+                        if let navitiaTicket = priceModel.navitiaPricedTickets?.first(where: { $0.ticketId == pricedTicket.ticketId }) {
+                            pricedTicket.price = navitiaTicket.price
+                            pricedTicket.priceWithTax = navitiaTicket.priceWithTax
                         }
+                        
+                        pricedTicketsFromHermaas.append(pricedTicket)
+                    }
+                    
+                    self.viewModel?.displayedJourneys[index.row].priceModel?.hermaasPricedTickets = pricedTicketsFromHermaas
+                    
+                    // Check which ticket has an error
+                    if let ticketInputs = priceModel.ticketsInput {
+                        for ticket in ticketInputs {
+                            if !pricedTicketsFromHermaas.contains(where: { $0.ticketId == ticket.ride.ticketId }) {
+                                self.viewModel?.displayedJourneys[safe: index.row]?.priceModel?.unexpectedErrorTicketList?.append((productId: ticket.productId, ticketId: ticket.ride.ticketId))
+                            }
+                        }
+                    }
+                    
+                    var isPriceMissing = false
+                    if let unbookableSectionCount = priceModel.unbookableSectionIdList?.count,
+                        let unexpectedErrorCount = priceModel.unexpectedErrorTicketList?.count,
+                        unbookableSectionCount > 0 || unexpectedErrorCount > 0 {
+                        isPriceMissing = true
+                    }
+                    
+                    if let hermaasPricedTicketsCount = priceModel.hermaasPricedTickets?.count,
+                        let ticketsInputCount = priceModel.ticketsInput?.count,
+                        hermaasPricedTicketsCount < ticketsInputCount {
+                        isPriceMissing = true
+                    }
+                    
+                    // Compute total price
+                    var totalPrice: Double = 0
+                    for ticket in pricedTicketsFromHermaas {
+                        if let price = ticket.priceWithTax, ticket.currency.lowercased() == "eur" {
+                            totalPrice += price
+                        } else {
+                            isPriceMissing = true
+                        }
+                    }
+                    
+                    if pricedTicketsFromHermaas.count == 0 {
+                        self.viewModel?.displayedJourneys[index.row].priceModel?.state = isPriceMissing ? .unavailable_price : .no_price
+                        self.viewModel?.displayedJourneys[index.row].priceModel?.totalPrice = nil
+                    } else {
+                        self.viewModel?.displayedJourneys[index.row].priceModel?.state = isPriceMissing ? .incomplete_price : .full_price
+                        self.viewModel?.displayedJourneys[index.row].priceModel?.totalPrice = totalPrice
+                    }
+                    
+                    DispatchQueue.main.async {
+                        self.journeysCollectionView.reloadItems(at: [index])
                     }
                 } catch {
                     if let index = indexPath, self.viewModel?.displayedJourneys[safe: index.row] != nil {
-                        self.viewModel?.displayedJourneys[index.row].hermaasPrices = []
+                        self.viewModel?.displayedJourneys[index.row].priceModel?.hermaasPricedTickets = []
                     }
                 }
             })
         } catch {
             if let index = indexPath, self.viewModel?.displayedJourneys[safe: index.row] != nil {
-                self.viewModel?.displayedJourneys[index.row].hermaasPrices = []
+                self.viewModel?.displayedJourneys[index.row].priceModel?.hermaasPricedTickets = []
             }
         }
     }

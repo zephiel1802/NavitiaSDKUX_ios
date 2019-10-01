@@ -28,7 +28,10 @@ class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
             let arrival = getArrivalViewModel(journey: response.journey),
             let emission = getEmission(response: response),
             let alternativeJourney = getAlternativeJourney(sectionsModel: sectionsClean),
-            let frieze = getFrieze(journey: response.journey, disruptions: response.disruptions) else {
+            let frieze = getFrieze(journey: response.journey,
+                                   disruptions: response.disruptions,
+                                   priceModel: response.journeyPriceModel,
+                                   navitiaTickets: response.navitiaTickets) else {
             return
         }
         
@@ -38,7 +41,7 @@ class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
             let value = totalPrice.value {
             price = String(format: "%@ %.2f", currency == "EUR" ? "€" : "", value)
         }
-
+        
         let viewModel = ShowJourneyRoadmap.GetRoadmap.ViewModel(ridesharing: getRidesharing(journeyRidesharing: response.journeyRidesharing),
                                                                 departure: departure,
                                                                 sections: sectionsClean,
@@ -47,7 +50,9 @@ class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
                                                                 emission: emission,
                                                                 displayAvoidDisruption: alternativeJourney,
                                                                 ticket: ShowJourneyRoadmap.GetRoadmap.ViewModel.Ticket(shouldShowTicket: response.maasTickets != nil, viewTicketLocalized: "view_ticket".localized(), ticketNotAvailableLocalized: "please_buy_ticket_separately".localized()),
-                                                                totalPrice: (description: "total_journey_price".localized(), value: price))
+                                                                totalPrice: (description: "total_journey_price".localized(), value: price),
+                                                                pricesModel: response.journeyPriceModel,
+                                                                journeyPriceDelegate: response.journeyPriceDelegate)
         viewController?.displayRoadmap(viewModel: viewModel)
     }
     
@@ -278,6 +283,16 @@ class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
         return section.to?.name ?? ""
     }
     
+    private func getDepartureTimeIntervalInMinutes(section: Section) -> Int? {
+        guard let timeIntervalInSeconds = section.departureDateTime?
+            .toDate(format: Configuration.datetime)?
+            .timeIntervalSince(Date()) else {
+            return nil
+        }
+        
+        return Int(timeIntervalInSeconds / 60)
+    }
+    
     private func getDepartureDateTime(section: Section) -> String {
         guard let departureDate = section.departureDateTime?.toDate(format: Configuration.datetime) else {
             return ""
@@ -294,16 +309,40 @@ class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
         return arrivalDate.toString(format: Configuration.time)
     }
 
-    private func getFrieze(journey: Journey, disruptions: [Disruption]?) -> ShowJourneyRoadmap.GetRoadmap.ViewModel.Frieze? {
+    private func getFrieze(journey: Journey,
+                           disruptions: [Disruption]?,
+                           priceModel: PricesModel?,
+                           navitiaTickets: [Ticket]?) -> ShowJourneyRoadmap.GetRoadmap.ViewModel.Frieze? {
         guard let duration = journey.duration else {
             return nil
         }
         
-        let friezeSections = FriezePresenter().getDisplayedJourneySections(journey: journey, disruptions: disruptions)
-        let friezeSectionsWithDisruption = FriezePresenter().getDisplayedJourneySections(journey: journey, disruptions: disruptions, withDisruptionLevel: true)
+        var friezeSections = FriezePresenter().getDisplayedJourneySections(navitiaTickets: navitiaTickets,
+                                                                           journey: journey,
+                                                                           disruptions: disruptions)
+        
+        if let priceModel = priceModel {
+            for (index, friezeSection) in friezeSections.enumerated() {
+                if let ticketId = friezeSection.ticketId,
+                    let productId = friezeSection.productId,
+                    let unexpectedErrorTicketList = priceModel.unexpectedErrorTicketList {
+                    friezeSections[index].hasBadge = unexpectedErrorTicketList.contains(where: { ticketError -> Bool in
+                        return ticketError.productId == productId && ticketError.ticketId == ticketId
+                    })
+                }
+            }
+        }
+        
+        let friezeSectionsWithDisruption = FriezePresenter().getDisplayedJourneySections(navitiaTickets: navitiaTickets,
+                                                                                         journey: journey,
+                                                                                         disruptions: disruptions,
+                                                                                         withDisruptionLevel: true)
+        let displayedJourneyPrice = FriezePresenter().getDisplayedJourneyPrice(priceModel: priceModel)
+        
         let frieze = ShowJourneyRoadmap.GetRoadmap.ViewModel.Frieze(duration: duration,
                                                                     friezeSections: friezeSections,
-                                                                    friezeSectionsWithDisruption: friezeSectionsWithDisruption)
+                                                                    friezeSectionsWithDisruption: friezeSectionsWithDisruption,
+                                                                    journeyPrice: displayedJourneyPrice)
         
         return frieze
     }
@@ -315,6 +354,8 @@ class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
 
         if type == .park {
             return "park_in_the".localized()
+        } else if type == .streetNetwork, let mode = section.mode, mode == .taxi {
+            return String(format: "%@ %@", "take_the".localized(), mode.rawValue)
         } else if type == .ridesharing {
             return "take_the_ridesharing".localized()
         } else if type == .transfer || section.mode != nil {
@@ -528,7 +569,8 @@ class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
                                  disruptions: [Disruption]?,
                                  notes: [Note]?,
                                  maasOrderId: Int?,
-                                 maasTickets: [MaasTicket]?) -> ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionModel? {
+                                 maasTickets: [MaasTicket]?,
+                                 pricesModel: PricesModel?) -> ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionModel? {
         guard let type = getType(section: section) else {
             return nil
         }
@@ -541,11 +583,39 @@ class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
             // We keep the original JSON if enoding didn't work
         }
         
+        var ticketPrice: Double? = nil
+        let sectionTicketId = section.links?.first{ $0.type == "ticket" }?.id
+        if let hermaasPricedTickets = pricesModel?.hermaasPricedTickets {
+            for ticket in hermaasPricedTickets {
+                if ticket.ticketId == sectionTicketId {
+                    ticketPrice = ticket.priceWithTax
+                    break
+                }
+            }
+            
+            // Since there is no ticket id for taxi, we lookup for it manually in case of price not found
+            if ticketPrice == nil,
+                (section.type == .streetNetwork && section.mode == .taxi),
+                let hermaasTaxiTicket = hermaasPricedTickets.first(where: { $0.productId == 3 }) {
+                ticketPrice = hermaasTaxiTicket.priceWithTax
+            }
+        }
+    
+        var priceState: PricesModel.PriceState = (ticketPrice != nil) ? .full_price : .no_price
+        if let unbookableList = pricesModel?.unbookableSectionIdList, let sectionId = section.id, unbookableList.contains(sectionId)  {
+            priceState = .unbookable
+        } else if let priceOnErrorList = pricesModel?.unexpectedErrorTicketList, let ticketId = sectionTicketId, priceOnErrorList.contains(where: { ticketError -> Bool in
+            return ticketError.productId == -1 && ticketError.ticketId == ticketId
+        }) {
+            priceState = .unavailable_price
+        }
+        
         let maasTicketInfo = getAvailableMaasTicket(section: section, maasTickets: maasTickets)
         let sectionModel = ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionModel(type: type,
                                                                                 mode: getMode(section: section),
                                                                                 from: getFrom(section: section),
                                                                                 to: getTo(section: section),
+                                                                                timeintervalInMinutes: getDepartureTimeIntervalInMinutes(section: section),
                                                                                 startTime: getDepartureDateTime(section: section),
                                                                                 endTime: getArrivalDateTime(section: section),
                                                                                 actionDescription: getActionDescription(section: section),
@@ -563,7 +633,8 @@ class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
                                                                                 section: section,
                                                                                 maasProductId: maasTicketInfo.maasProductId,
                                                                                 maasTicketId: maasTicketInfo.maasTicketId,
-                                                                                maasOrderJson: maasOrderJson)
+                                                                                maasOrderJson: maasOrderJson,
+                                                                                ticketPrice: (state: priceState, price: ticketPrice))
         
         return sectionModel
     }
@@ -611,7 +682,8 @@ class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
                                                                   disruptions: response.disruptions,
                                                                   notes: response.notes,
                                                                   maasOrderId: response.maasOrderId,
-                                                                  maasTickets: response.maasTickets) {
+                                                                  maasTickets: response.maasTickets,
+                                                                  pricesModel: response.journeyPriceModel) {
                                 sectionsModel.append(SectionModel)
                             }
                         }
@@ -622,7 +694,8 @@ class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
                                                           disruptions: response.disruptions,
                                                           notes: response.notes,
                                                           maasOrderId: response.maasOrderId,
-                                                          maasTickets: response.maasTickets) {
+                                                          maasTickets: response.maasTickets,
+                                                          pricesModel: response.journeyPriceModel) {
                         sectionsModel.append(sectionModel)
                     }
                 }

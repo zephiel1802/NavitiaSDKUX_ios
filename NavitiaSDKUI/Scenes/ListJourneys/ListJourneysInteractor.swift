@@ -28,6 +28,7 @@ protocol ListJourneysDataStore {
     var disruptions: [Disruption]? { get }
     var notes: [Note]? { get }
     var context: Context? { get }
+    var navitiaTickets: [Ticket]? { get set }
     var delegate: JourneyPriceDelegate? { get set }
     var successBookDelegate: JourneySuccessBookDelegate? { get set }
 }
@@ -46,6 +47,7 @@ internal class ListJourneysInteractor: ListJourneysBusinessLogic, ListJourneysDa
     var disruptions: [Disruption]?
     var notes: [Note]?
     var context: Context?
+    var navitiaTickets: [Ticket]?
     
     // MARK: - Display Search
     
@@ -116,6 +118,7 @@ internal class ListJourneysInteractor: ListJourneysBusinessLogic, ListJourneysDa
             self.disruptions = disruptions
             self.notes = notes
             self.context = context
+            self.navitiaTickets = tickets
             
             self.updateAddressJourneyRequest(from: journeys?.first?.sections?.first?.from,
                                         to: journeys?.last?.sections?.last?.to)

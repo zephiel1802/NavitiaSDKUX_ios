@@ -129,8 +129,6 @@ class TransportModeView: UIView {
         maxIconForWidth = (Int(frame.width) + minMargin ) / ( iconSize + minMargin )
         
         if maxIconForWidth == 0 {
-            print("NavitiaSDKUI: Icons size too large to be displayed for transport mode")
-            
             return
         } else if maxIconForWidth == 1 {
             margin = minMargin

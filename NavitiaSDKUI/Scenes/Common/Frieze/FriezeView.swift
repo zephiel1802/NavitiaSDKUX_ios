@@ -72,7 +72,6 @@ class FriezeView: UIView {
         }
         friezeSectionView.separator = index == 0 ? false : true
     }
-    
     internal func updatePositionFriezeSectionView() {
         let padding = UIEdgeInsets(top: 4, left: 0, bottom: 0, right: 0)
         var position = CGPoint(x: 0, y: 0)

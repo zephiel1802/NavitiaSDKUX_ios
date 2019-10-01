@@ -17,11 +17,11 @@ class PublicTransportStepView: UIView {
 
     @IBOutlet weak var stackView: UIStackView!
     @IBOutlet weak var publicTransportModeImageView: UIImageView!
-    @IBOutlet weak var actionDescriptionLabel: UILabel!
     @IBOutlet weak var informationsLabel: UILabel!
     @IBOutlet weak var transportIconView: UIView!
     @IBOutlet weak var transportIconLabel: UILabel!
     @IBOutlet weak var disruptionImage: UIImageView!
+    @IBOutlet weak var ticketUnavailableImage: UIImageView!
     @IBOutlet weak var networkContainerView: UIView!
     @IBOutlet weak var networkLabel: UILabel!
     @IBOutlet weak var waitingContainerView: UIView!
@@ -53,6 +53,7 @@ class PublicTransportStepView: UIView {
     @IBOutlet weak var noTicketAvailableContainer: UIView!
     @IBOutlet weak var noTicketAvailableImage: UIImageView!
     @IBOutlet weak var noTicketAvailableLabel: UILabel!
+    @IBOutlet weak var ticketPriceView: TicketPriceView!
     
     private var stationStackView: UIStackView!
     
@@ -139,11 +140,11 @@ class PublicTransportStepView: UIView {
     }
     
     internal func updateAccessibility() {
-        guard let commercialMode = actionDescriptionLabel.text, let informations = informationsLabel.text else {
+        guard let informations = informationsLabel.text else {
             return
         }
         
-        var accessibilityLabel = String(format: "%@ ", commercialMode)
+        var accessibilityLabel = ""
         
         if let code = transportIconLabel.text {
             accessibilityLabel.append(String(format: "%@ ", code))
@@ -188,30 +189,34 @@ class PublicTransportStepView: UIView {
         }
     }
 
-    internal var actionDescription: String? {
-        didSet {
-            guard let actionDescription = actionDescription else {
-                return
-            }
-
-            actionDescriptionLabel.attributedText = NSMutableAttributedString().normal(actionDescription, size: 15)
-        }
-    }
-
-    internal var informations: (from: String, direction: String)? = nil {
+    internal var informations: (action: String?, from: String, direction: String)? = nil {
         didSet {
             guard let informations = informations else {
                 return
             }
 
-            informationsLabel.attributedText = NSMutableAttributedString()
+            let informationsText = NSMutableAttributedString()
+            
+            if let action = informations.action {
+                informationsText
+                    .normal(action, size: 15)
+                    .normal(" ", size: 15)
+            }
+            
+            informationsText
                 .normal("at".localized(), size: 15)
                 .normal(" ", size: 15)
                 .bold(informations.from, size: 15)
-                .normal(" ", size: 15)
-                .normal("in_the_direction_of".localized(), size: 15)
-                .normal(" ", size: 15)
-                .bold(informations.direction, size: 15)
+                
+            if !informations.direction.isEmpty {
+                informationsText
+                    .normal(" ", size: 15)
+                    .normal("in_the_direction_of".localized(), size: 15)
+                    .normal(" ", size: 15)
+                    .bold(informations.direction, size: 15)
+            }
+            
+            informationsLabel.attributedText = informationsText
         }
     }
 
@@ -298,6 +303,19 @@ class PublicTransportStepView: UIView {
             waitingInformationsLabel.attributedText = NSMutableAttributedString().normal(waiting, color: Configuration.Color.darkerGray, size: 12)
         }
     }
+    
+    internal var ticketPrice: (state: PricesModel.PriceState?, price: Double?)? = nil {
+        didSet {
+            guard let ticketPrice = ticketPrice else {
+                ticketPriceView.isHidden = true
+                return
+            }
+            
+            ticketUnavailableImage.isHidden = ticketPrice.state != .unavailable_price
+            ticketPriceView.isHidden = false
+            ticketPriceView.updatePrice(state: ticketPrice.state, price: ticketPrice.price)
+        }
+    }
 
     // MARK: Public Transport
 
@@ -332,9 +350,9 @@ class PublicTransportStepView: UIView {
         }
     }
 
-    internal var transport: (code: String?, backgroundColor: UIColor?, textColor: UIColor?)? {
+    internal var transport: (mode: String?, code: String?, backgroundColor: UIColor?, textColor: UIColor?)? {
         didSet {
-            guard var backgroundColor = transport?.backgroundColor, var textColor = transport?.textColor else {
+            guard let backgroundColor = transport?.backgroundColor, let textColor = transport?.textColor else {
                 transportIconView.isHidden = true
                 
                 return
@@ -346,23 +364,13 @@ class PublicTransportStepView: UIView {
             
             borderColor = backgroundColor == Configuration.Color.white ? textColor : nil
             
-            if let code = transport?.code {
+            if let mode = transport?.mode, let code = transport?.code {
                 transportIconView.isHidden = false
-                var lineBorderColor = UIColor.clear.cgColor
-                if textColor.isEqualWithConversion(backgroundColor) {
-                    textColor = Configuration.Color.black
-                    backgroundColor = Configuration.Color.white
-                    lineBorderColor = textColor.cgColor
-                } else if backgroundColor == Configuration.Color.white {
-                    lineBorderColor = textColor.cgColor
-                }
-                
-                transportIconLabel.attributedText = NSMutableAttributedString().bold(code, color: textColor, size: 9)
-                transportIconLabel.superview?.layer.borderColor = lineBorderColor
-                transportIconLabel.superview?.layer.borderWidth = 1
-                transportIconLabel.superview?.layer.cornerRadius = 3
-                transportIconLabel.superview?.layer.masksToBounds = true
-                transportIconView.backgroundColor = backgroundColor
+                transportIconLabel.attributedText = NSMutableAttributedString()
+                    .bold(mode.uppercased(), color: .black, size: 12)
+                    .normal(" ")
+                    .bold(code.uppercased(), color: .black, size: 12)
+                transportIconView.backgroundColor = .white
             }
         }
     }

@@ -20,6 +20,7 @@ class FriezePresenter: NSObject {
         var duration: Int32?
         var hasBadge: Bool
         var ticketId: String?
+        var productId: Int?
     }
     
     private func validDisplayedJourneySections(section: Section, count: Int) -> Bool {
@@ -90,7 +91,10 @@ class FriezePresenter: NSObject {
         return (icon: icon, color: color, level: level)
     }
     
-    internal func getDisplayedJourneySections(journey: Journey, disruptions: [Disruption]?, withDisruptionLevel isShowingLevel: Bool = false) -> [FriezeSection] {
+    internal func getDisplayedJourneySections(navitiaTickets: [Ticket]?,
+                                              journey: Journey,
+                                              disruptions: [Disruption]?,
+                                              withDisruptionLevel isShowingLevel: Bool = false) -> [FriezeSection] {
         var friezeSections = [FriezeSection]()
         
         guard let sections = journey.sections else {
@@ -107,6 +111,15 @@ class FriezePresenter: NSObject {
                 let ticketId = section.links?.first(where: { (item) -> Bool in
                     return item.type == "ticket"
                 })?.id
+                let targetTicket = navitiaTickets?.first(where: { (ticket) -> Bool in
+                    return ticket.id == ticketId
+                })
+                
+                var productId = -1
+                if let sourceIds = NavitiaSDKUI.shared.sourceIds, let targetSourceId = targetTicket?.sourceId {
+                    productId = sourceIds[targetSourceId] ?? -1
+                }
+                
                 let friezeSection = FriezePresenter.FriezeSection(color: color,
                                                                   textColor: textColor,
                                                                   name: name,
@@ -116,7 +129,8 @@ class FriezePresenter: NSObject {
                                                                   disruptionLevel: disruptionInfo.level,
                                                                   duration: section.duration,
                                                                   hasBadge: false,
-                                                                  ticketId: ticketId)
+                                                                  ticketId: ticketId,
+                                                                  productId: productId)
 
                 if isShowingLevel && disruptionInfo.level == Disruption.DisruptionLevel.blocking.rawValue {
                     friezeSections.append(friezeSection)
@@ -127,5 +141,31 @@ class FriezePresenter: NSObject {
         }
         
         return friezeSections
+    }
+    
+    internal func getDisplayedJourneyPrice(priceModel: PricesModel?) -> String {
+        guard let priceModel = priceModel else {
+            return ""
+        }
+        
+        switch priceModel.state {
+        case .full_price:
+            if let price = priceModel.totalPrice {
+                return String(format: "price".localized(), price)
+            } else {
+                return ""
+            }
+        case .incomplete_price:
+            if let price = priceModel.totalPrice {
+                let priceText = String(format: "price".localized(), price)
+                return String(format: "%@ %@", "from".localized(), priceText)
+            } else {
+                return ""
+            }
+        case .unavailable_price:
+            return "price_unavailable".localized()
+        default:
+            return ""
+        }
     }
 }

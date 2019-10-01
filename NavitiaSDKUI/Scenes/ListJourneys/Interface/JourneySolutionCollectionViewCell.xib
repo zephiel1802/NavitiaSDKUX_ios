@@ -73,58 +73,21 @@
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </view>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ARY-OS-xlX">
-                        <rect key="frame" x="234" y="45.5" width="56" height="56.5"/>
+                        <rect key="frame" x="234" y="45.5" width="56" height="101.5"/>
                         <subviews>
-                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lda-rr-GTv" userLabel="Price View">
-                                <rect key="frame" x="0.0" y="17" width="56" height="29"/>
-                                <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="From" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="k7F-8O-Hx4">
-                                        <rect key="frame" x="15" y="1" width="26" height="12"/>
-                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="10"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="€ 0,00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="th8-TB-EN4">
-                                        <rect key="frame" x="9" y="13" width="38.5" height="14.5"/>
-                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="12"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MZi-Ad-qHH">
-                                        <rect key="frame" x="1.5" y="3.5" width="53" height="21.5"/>
-                                        <string key="text">Price
-Unavailable</string>
-                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="9"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                </subviews>
-                                <color key="backgroundColor" red="0.91764705879999997" green="0.91764705879999997" blue="0.91764705879999997" alpha="1" colorSpace="calibratedRGB"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nqU-U3-5OW" customClass="TicketPriceView" customModule="NavitiaSDKUI" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="14" width="56" height="29"/>
+                                <color key="backgroundColor" red="0.91764705879999997" green="0.91764705879999997" blue="0.91764705879999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
-                                    <constraint firstItem="th8-TB-EN4" firstAttribute="centerY" secondItem="lda-rr-GTv" secondAttribute="centerY" priority="250" id="0Nb-Ug-1mL"/>
-                                    <constraint firstItem="k7F-8O-Hx4" firstAttribute="centerX" secondItem="lda-rr-GTv" secondAttribute="centerX" id="240-aE-bYI"/>
-                                    <constraint firstItem="th8-TB-EN4" firstAttribute="centerX" secondItem="lda-rr-GTv" secondAttribute="centerX" id="3o3-pe-Xgp"/>
-                                    <constraint firstItem="th8-TB-EN4" firstAttribute="top" secondItem="k7F-8O-Hx4" secondAttribute="bottom" id="9y0-1p-ZX4"/>
-                                    <constraint firstItem="MZi-Ad-qHH" firstAttribute="centerY" secondItem="lda-rr-GTv" secondAttribute="centerY" id="Cc3-lg-hWN"/>
-                                    <constraint firstAttribute="width" constant="56" id="Jsm-u3-JkH"/>
-                                    <constraint firstItem="MZi-Ad-qHH" firstAttribute="centerX" secondItem="lda-rr-GTv" secondAttribute="centerX" id="ZRF-9B-1Sj"/>
-                                    <constraint firstItem="k7F-8O-Hx4" firstAttribute="top" secondItem="lda-rr-GTv" secondAttribute="top" constant="1" id="gHB-yO-yff"/>
-                                    <constraint firstAttribute="height" constant="29" id="rE1-3H-EKp"/>
+                                    <constraint firstAttribute="height" constant="29" id="puF-Ug-7QI"/>
                                 </constraints>
-                                <viewLayoutGuide key="safeArea" id="7Ax-jh-W2T"/>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                        <integer key="value" value="5"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="boolean" keyPath="clipsToBounds" value="YES"/>
-                                </userDefinedRuntimeAttributes>
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="lda-rr-GTv" firstAttribute="centerY" secondItem="ARY-OS-xlX" secondAttribute="centerY" constant="3" id="1Vq-0G-naS"/>
-                            <constraint firstAttribute="trailing" secondItem="lda-rr-GTv" secondAttribute="trailing" id="jmJ-qX-Dmm"/>
-                            <constraint firstItem="lda-rr-GTv" firstAttribute="leading" secondItem="ARY-OS-xlX" secondAttribute="leading" id="pS5-Ft-vEG"/>
+                            <constraint firstAttribute="width" constant="56" id="VXm-6H-MuD"/>
+                            <constraint firstItem="nqU-U3-5OW" firstAttribute="leading" secondItem="ARY-OS-xlX" secondAttribute="leading" id="gcN-VJ-ff8"/>
+                            <constraint firstAttribute="trailing" secondItem="nqU-U3-5OW" secondAttribute="trailing" id="lHf-Nk-Zfi"/>
                         </constraints>
                     </view>
                     <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="4ZV-Ic-1Eg">
@@ -134,22 +97,23 @@ Unavailable</string>
             </view>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
+                <constraint firstItem="4ZV-Ic-1Eg" firstAttribute="centerY" secondItem="nqU-U3-5OW" secondAttribute="centerY" id="13d-da-5t9"/>
                 <constraint firstAttribute="bottom" secondItem="1d3-gH-QaT" secondAttribute="bottom" id="48K-ZM-9cJ"/>
                 <constraint firstItem="ARY-OS-xlX" firstAttribute="leading" secondItem="lqf-YV-oSL" secondAttribute="trailing" id="Amw-QL-MZq"/>
                 <constraint firstItem="1d3-gH-QaT" firstAttribute="leading" secondItem="8iX-MJ-bAx" secondAttribute="leading" id="Br7-uO-YYw"/>
                 <constraint firstAttribute="trailing" secondItem="ARY-OS-xlX" secondAttribute="trailing" constant="10" id="EHl-db-BEB"/>
                 <constraint firstItem="dhB-Xm-3aP" firstAttribute="top" secondItem="8iX-MJ-bAx" secondAttribute="top" constant="10" id="Ij7-WS-ciy"/>
-                <constraint firstItem="ARY-OS-xlX" firstAttribute="centerX" secondItem="4ZV-Ic-1Eg" secondAttribute="centerX" id="KHr-oi-bOu"/>
                 <constraint firstItem="dhB-Xm-3aP" firstAttribute="leading" secondItem="8iX-MJ-bAx" secondAttribute="leading" constant="10" id="MKs-ls-tJk"/>
                 <constraint firstItem="JUD-Ce-byI" firstAttribute="top" secondItem="lqf-YV-oSL" secondAttribute="bottom" constant="15" id="Mgd-oC-fwr"/>
+                <constraint firstItem="nqU-U3-5OW" firstAttribute="centerY" secondItem="lqf-YV-oSL" secondAttribute="centerY" id="N7B-0r-mqY"/>
                 <constraint firstItem="UO3-ac-tHw" firstAttribute="trailing" secondItem="uIM-uR-2h3" secondAttribute="trailing" constant="10" id="PL2-zk-SOG"/>
                 <constraint firstItem="lqf-YV-oSL" firstAttribute="top" secondItem="uiE-c6-acZ" secondAttribute="bottom" constant="10" id="Tb9-si-dTb"/>
                 <constraint firstAttribute="trailing" secondItem="1d3-gH-QaT" secondAttribute="trailing" id="Tm0-7k-Y7N"/>
                 <constraint firstAttribute="trailing" secondItem="uiE-c6-acZ" secondAttribute="trailing" constant="10" id="Tn6-4s-6kB"/>
-                <constraint firstItem="ARY-OS-xlX" firstAttribute="centerY" secondItem="4ZV-Ic-1Eg" secondAttribute="centerY" id="WJS-Og-xm3"/>
                 <constraint firstItem="lqf-YV-oSL" firstAttribute="leading" secondItem="8iX-MJ-bAx" secondAttribute="leading" constant="10" id="YAs-HY-Yy3"/>
                 <constraint firstItem="1d3-gH-QaT" firstAttribute="top" secondItem="8iX-MJ-bAx" secondAttribute="top" id="amr-Ve-rNW"/>
                 <constraint firstItem="JUD-Ce-byI" firstAttribute="leading" secondItem="8iX-MJ-bAx" secondAttribute="leading" constant="10" id="b5U-aA-OQr"/>
+                <constraint firstItem="4ZV-Ic-1Eg" firstAttribute="centerX" secondItem="nqU-U3-5OW" secondAttribute="centerX" id="dGP-am-vyl"/>
                 <constraint firstItem="ARY-OS-xlX" firstAttribute="top" secondItem="lqf-YV-oSL" secondAttribute="top" id="e9t-Em-RIs"/>
                 <constraint firstItem="Qi9-Ve-v5r" firstAttribute="top" secondItem="8iX-MJ-bAx" secondAttribute="top" constant="10" id="hki-LY-er7"/>
                 <constraint firstItem="uiE-c6-acZ" firstAttribute="leading" secondItem="8iX-MJ-bAx" secondAttribute="leading" constant="10" id="hks-Tt-06d"/>
@@ -157,7 +121,7 @@ Unavailable</string>
                 <constraint firstItem="uiE-c6-acZ" firstAttribute="top" secondItem="dhB-Xm-3aP" secondAttribute="bottom" constant="10" id="udo-uH-bvm"/>
                 <constraint firstItem="UO3-ac-tHw" firstAttribute="bottom" secondItem="lqf-YV-oSL" secondAttribute="bottom" priority="500" constant="10" id="urS-PO-EW5"/>
                 <constraint firstItem="uIM-uR-2h3" firstAttribute="centerY" secondItem="Qi9-Ve-v5r" secondAttribute="centerY" id="vTm-Zl-tMJ"/>
-                <constraint firstItem="ARY-OS-xlX" firstAttribute="bottom" secondItem="lqf-YV-oSL" secondAttribute="bottom" id="vsW-1h-yyz"/>
+                <constraint firstItem="ARY-OS-xlX" firstAttribute="bottom" secondItem="8iX-MJ-bAx" secondAttribute="bottom" id="vsW-1h-yyz"/>
                 <constraint firstAttribute="bottom" secondItem="JUD-Ce-byI" secondAttribute="bottom" constant="15" id="wRi-Fv-KrL"/>
                 <constraint firstItem="uIM-uR-2h3" firstAttribute="leading" secondItem="Qi9-Ve-v5r" secondAttribute="trailing" constant="3" id="yeU-tk-QEn"/>
             </constraints>
@@ -169,7 +133,6 @@ Unavailable</string>
                 </userDefinedRuntimeAttribute>
             </userDefinedRuntimeAttributes>
             <connections>
-                <outlet property="PriceUnavailableLabel" destination="MZi-Ad-qHH" id="J4z-Cx-m9R"/>
                 <outlet property="accessiblityView" destination="1d3-gH-QaT" id="gCS-25-8xl"/>
                 <outlet property="arrowImageView" destination="uIM-uR-2h3" id="wUm-Xh-wuS"/>
                 <outlet property="dateTimeLabel" destination="dhB-Xm-3aP" id="2q5-50-6I9"/>
@@ -179,16 +142,13 @@ Unavailable</string>
                 <outlet property="durationTopContraint" destination="Mgd-oC-fwr" id="vnb-SC-qdz"/>
                 <outlet property="durationWalkerLabel" destination="JUD-Ce-byI" id="Rwh-J8-bok"/>
                 <outlet property="friezeView" destination="lqf-YV-oSL" id="029-vs-TaP"/>
-                <outlet property="fromLabel" destination="k7F-8O-Hx4" id="TKt-5Y-LDA"/>
                 <outlet property="loadingActivityIndicatorView" destination="4ZV-Ic-1Eg" id="Ncr-lz-iwY"/>
-                <outlet property="priceLabel" destination="th8-TB-EN4" id="AQd-la-7bz"/>
-                <outlet property="priceLabelCenterYConstraint" destination="0Nb-Ug-1mL" id="UVi-nZ-SB5"/>
-                <outlet property="priceView" destination="lda-rr-GTv" id="MpV-ez-wdP"/>
+                <outlet property="priceView" destination="nqU-U3-5OW" id="pHB-jg-uMi"/>
             </connections>
             <point key="canvasLocation" x="-1971.2" y="50.824587706146929"/>
         </collectionViewCell>
     </objects>
     <resources>
-        <image name="arrow_right" width="32" height="32"/>
+        <image name="arrow_right" width="42" height="42"/>
     </resources>
 </document>

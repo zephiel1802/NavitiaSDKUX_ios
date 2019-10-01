@@ -91,12 +91,15 @@ class ShowJourneyRoadmapPresenterTests: XCTestCase {
         
         let response = ShowJourneyRoadmap.GetRoadmap.Response(journey: journey,
                                                               journeyRidesharing: nil,
+                                                              journeyPriceModel: nil,
                                                               disruptions: seeds.disruptions,
                                                               notes: seeds.notes,
                                                               context: context,
+                                                              navitiaTickets: nil,
                                                               maasOrderId: 0,
                                                               maasTickets: [],
-                                                              totalPrice: (1.0, "Euros"))
+                                                              totalPrice: (1.0, "Euros"),
+                                                              journeyPriceDelegate: nil)
         
         return response
     }
