@@ -102,17 +102,14 @@ public class ListPlacesViewController: UIViewController, ListPlacesDisplayLogic 
             self.view.layoutIfNeeded()
         }
         
-        home = UserDefaults.standard.structData(Place.self, forKey: "home_address")
-        work = UserDefaults.standard.structData(Place.self, forKey: "work_address")
-        
-        if home != nil {
+        if let home = UserDefaults.standard.structData(Place.self, forKey: "home_address") {
             if (searchView.fromTextField.text == "") {
                 interactor?.info = "from"
                 assignHomeWorkAddress(home: home, work: work)
             }
         }
         
-        if work != nil {
+        if let work = UserDefaults.standard.structData(Place.self, forKey: "work_address") {
             if (searchView.toTextField.text == "") {
                 interactor?.info = "to"
                 assignHomeWorkAddress(home: home, work: work)
@@ -367,57 +364,62 @@ extension ListPlacesViewController: UITableViewDataSource, UITableViewDelegate {
         }
     }
     public func assignHomeWorkAddress(home:Place?, work:Place?) {
-        if let hName = home?.name, let hID = home?.id, let wName = work?.name, let wID = work?.id, let hType = home?.embeddedType?.rawValue, let wType = work?.embeddedType?.rawValue, let homeType = ListPlaces.FetchPlaces.ViewModel.ModelType(rawValue: hType), let workType = ListPlaces.FetchPlaces.ViewModel.ModelType(rawValue: wType) {
+        if let hName = home?.name, let hID = home?.id, let hType = home?.embeddedType?.rawValue, let homeType = ListPlaces.FetchPlaces.ViewModel.ModelType(rawValue: hType) {
             
             let hm = ListPlaces.FetchPlaces.ViewModel.Place(label: nil, name: hName, id: hID, distance: nil, type: homeType)
-            let wk = ListPlaces.FetchPlaces.ViewModel.Place(label: nil, name: wName, id: wID, distance: nil, type: workType)
+            
             
             if hm.type != .location {
                 interactor?.savePlace(request: ListPlaces.SavePlace.Request(place: (name: hm.name, id: hm.id, type: hm.type.rawValue)))
             }
             
+            let request = ListPlaces.DisplaySearch.Request(from: (label: hm.label,
+                                                                  name: hm.name,
+                                                                  id: hm.id),
+                                                           to: nil)
+            interactor?.displaySearch(request:request)
+            
+            
+            searchView.focusFromField(false)
+            if searchView.toTextField.text == "" {
+                interactor?.info = "to"
+                searchView.focusToField()
+                clearTableView()
+                locationManager.stopUpdatingLocation()
+                
+                fetchPlaces(q: "")
+            } else {
+                dismissAutocompletion()
+            }
+        }
+        
+        if let wName = work?.name, let wID = work?.id, let wType = work?.embeddedType?.rawValue, let workType = ListPlaces.FetchPlaces.ViewModel.ModelType(rawValue: wType) {
+            
+            let wk = ListPlaces.FetchPlaces.ViewModel.Place(label: nil, name: wName, id: wID, distance: nil, type: workType)
+            
             if wk.type != .location {
                 interactor?.savePlace(request: ListPlaces.SavePlace.Request(place: (name: wk.name, id: wk.id, type: wk.type.rawValue)))
             }
             
-            if interactor?.info == "from" {
-                let request = ListPlaces.DisplaySearch.Request(from: (label: hm.label,
-                                                                      name: hm.name,
-                                                                      id: hm.id),
-                                                               to: nil)
-                interactor?.displaySearch(request:request)
-                
-                
-                searchView.focusFromField(false)
-                if searchView.toTextField.text == "" {
-                    interactor?.info = "to"
-                    searchView.focusToField()
-                    clearTableView()
-                    locationManager.stopUpdatingLocation()
-                    
-                    fetchPlaces(q: "")
-                } else {
-                    dismissAutocompletion()
-                }
+            interactor?.displaySearch(request: ListPlaces.DisplaySearch.Request(from: nil,
+                                                                                to: (label: wk.label,
+                                                                                     name: wk.name,
+                                                                                     id: wk.id)))
+            
+            searchView.focusToField(false)
+            if searchView.fromTextField.text == "" {
+                interactor?.info  = "from"
+                searchView.focusFromField()
+                clearTableView()
+                locationManager.startUpdatingLocation()
+                fetchPlaces(q: "")
             } else {
-                interactor?.displaySearch(request: ListPlaces.DisplaySearch.Request(from: nil,
-                                                                                    to: (label: wk.label,
-                                                                                         name: wk.name,
-                                                                                         id: wk.id)))
-                
-                searchView.focusToField(false)
-                if searchView.fromTextField.text == "" {
-                    interactor?.info  = "from"
-                    searchView.focusFromField()
-                    clearTableView()
-                    locationManager.startUpdatingLocation()
-                    fetchPlaces(q: "")
-                } else {
-                    dismissAutocompletion()
-                }
+                dismissAutocompletion()
             }
         }
-        
+
+        delegate?.searchView(from: interactor?.from ?? (label: "", name: "", id:""), to: interactor?.to ?? (label: "", name: "", id:""))
+        backButtonPressed()
     }
 
     private func clearTableView() {

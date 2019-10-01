@@ -107,21 +107,14 @@ open class FormJourneyViewController: UIViewController, FormJourneyDisplayLogic,
         searchView.fromTextField.resignFirstResponder()
         searchView.toTextField.resignFirstResponder()
         
-        home = UserDefaults.standard.structData(Place.self, forKey: "home_address")
-        work = UserDefaults.standard.structData(Place.self, forKey: "work_address")
-        
-//        let viewModel = FormJourney.DisplaySearch.ViewModel(fromName: home?.name, toName: work?.name)
-//        
-//        displaySearch(viewModel: viewModel)
-        
-        if home != nil {
+        if let home = UserDefaults.standard.structData(Place.self, forKey: "home_address") {
             if (searchView.fromTextField.text == "") {
                 interactorL?.info = "from"
                 assignHomeWorkAddress(home: home, work: work)
             }
         }
         
-        if work != nil {
+        if let work = UserDefaults.standard.structData(Place.self, forKey: "work_address") {
             if (searchView.toTextField.text == "") {
                 interactorL?.info = "to"
                 assignHomeWorkAddress(home: home, work: work)
@@ -194,7 +187,7 @@ open class FormJourneyViewController: UIViewController, FormJourneyDisplayLogic,
     // MARK: - Events
     
     func displaySearch(viewModel: FormJourney.DisplaySearch.ViewModel) {
-        if viewModel.fromName == nil || viewModel.toName == nil {
+        if viewModel.fromName?.count == 0 || viewModel.toName?.count == 0 {
             searchButtonView.isEnabled = false
         } else {
             searchButtonView.isEnabled = true
@@ -218,51 +211,57 @@ open class FormJourneyViewController: UIViewController, FormJourneyDisplayLogic,
     
     public func assignHomeWorkAddress(home:Place?, work:Place?) {
         
-        if let hName = home?.name, let hID = home?.id, let wName = work?.name, let wID = work?.id, let hType = home?.embeddedType?.rawValue, let wType = work?.embeddedType?.rawValue, let homeType = ListPlaces.FetchPlaces.ViewModel.ModelType(rawValue: hType), let workType = ListPlaces.FetchPlaces.ViewModel.ModelType(rawValue: wType) {
+        if let hName = home?.name, let hID = home?.id, let hType = home?.embeddedType?.rawValue, let homeType = ListPlaces.FetchPlaces.ViewModel.ModelType(rawValue: hType) {
             
             let hm = ListPlaces.FetchPlaces.ViewModel.Place(label: nil, name: hName, id: hID, distance: nil, type: homeType)
-            let wk = ListPlaces.FetchPlaces.ViewModel.Place(label: nil, name: wName, id: wID, distance: nil, type: workType)
+            
             
             if hm.type != .location {
                 interactorL?.savePlace(request: ListPlaces.SavePlace.Request(place: (name: hm.name, id: hm.id, type: hm.type.rawValue)))
             }
             
+            let request = ListPlaces.DisplaySearch.Request(from: (label: hm.label,
+                                                                  name: hm.name,
+                                                                  id: hm.id),
+                                                           to: nil)
+            interactorL?.displaySearch(request:request)
+            
+            
+            searchView.focusFromField(false)
+            if searchView.toTextField.text == "" {
+                interactorL?.info = "to"
+                searchView.focusToField()
+                fetchPlaces(q: "")
+            } else {
+                dismissAutocompletion()
+            }
+        }
+        
+        if let wName = work?.name, let wID = work?.id, let wType = work?.embeddedType?.rawValue, let workType = ListPlaces.FetchPlaces.ViewModel.ModelType(rawValue: wType) {
+            
+            let wk = ListPlaces.FetchPlaces.ViewModel.Place(label: nil, name: wName, id: wID, distance: nil, type: workType)
+            
             if wk.type != .location {
                 interactorL?.savePlace(request: ListPlaces.SavePlace.Request(place: (name: wk.name, id: wk.id, type: wk.type.rawValue)))
             }
             
-            if interactorL?.info == "from" {
-                let request = ListPlaces.DisplaySearch.Request(from: (label: hm.label,
-                                                                      name: hm.name,
-                                                                      id: hm.id),
-                                                               to: nil)
-                interactorL?.displaySearch(request:request)
-                
-                
-                searchView.focusFromField(false)
-                if searchView.toTextField.text == "" {
-                    interactorL?.info = "to"
-                    searchView.focusToField()
-                    fetchPlaces(q: "")
-                } else {
-                    dismissAutocompletion()
-                }
+            interactorL?.displaySearch(request: ListPlaces.DisplaySearch.Request(from: nil,
+                                                                                 to: (label: wk.label,
+                                                                                      name: wk.name,
+                                                                                      id: wk.id)))
+            
+            searchView.focusToField(false)
+            if searchView.fromTextField.text == "" {
+                interactorL?.info  = "from"
+                searchView.focusFromField()
+                fetchPlaces(q: "")
             } else {
-                interactorL?.displaySearch(request: ListPlaces.DisplaySearch.Request(from: nil,
-                                                                                     to: (label: wk.label,
-                                                                                          name: wk.name,
-                                                                                          id: wk.id)))
-                
-                searchView.focusToField(false)
-                if searchView.fromTextField.text == "" {
-                    interactorL?.info  = "from"
-                    searchView.focusFromField()
-                    fetchPlaces(q: "")
-                } else {
-                    dismissAutocompletion()
-                }
+                dismissAutocompletion()
             }
         }
+        
+        delegate?.searchView(from: interactorL?.from ?? (label: "", name: "", id:""), to: interactorL?.to ?? (label: "", name: "", id:""))
+        backButtonPressed()
         
     }
     
