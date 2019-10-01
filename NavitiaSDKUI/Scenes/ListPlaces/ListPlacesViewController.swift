@@ -72,12 +72,12 @@ public class ListPlacesViewController: UIViewController, ListPlacesDisplayLogic 
         vwBackground.createDefaultGradientView()
         setupHeaderView(with: "journeys".localized(), showBackButton: true) {
             DispatchQueue.main.async {
-                self.touchBackButton()
+                self.backButtonPressed()
             }
         }
     }
     
-    fileprivate func touchBackButton() {
+    @objc fileprivate func touchBackButton() {
         self.navigationController?.popViewController(animated: true)
     }
     
@@ -142,7 +142,7 @@ public class ListPlacesViewController: UIViewController, ListPlacesDisplayLogic 
         navigationController?.navigationBar.barTintColor = Configuration.Color.main
         navigationController?.navigationBar.isTranslucent = false
         
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action:  #selector(backButtonPressed))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action:  #selector(touchBackButton))
         navigationItem.rightBarButtonItem?.tintColor = Configuration.Color.main.contrastColor()
         
         navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: Configuration.Color.main.contrastColor()]

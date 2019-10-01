@@ -249,9 +249,9 @@ open class FormJourneyViewController: UIViewController, FormJourneyDisplayLogic,
                 }
             } else {
                 interactorL?.displaySearch(request: ListPlaces.DisplaySearch.Request(from: nil,
-                                                                                     to: (label: hm.label,
-                                                                                          name: hm.name,
-                                                                                          id: hm.id)))
+                                                                                     to: (label: wk.label,
+                                                                                          name: wk.name,
+                                                                                          id: wk.id)))
                 
                 searchView.focusToField(false)
                 if searchView.fromTextField.text == "" {
