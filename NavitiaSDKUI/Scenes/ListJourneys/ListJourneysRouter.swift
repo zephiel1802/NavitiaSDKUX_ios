@@ -17,7 +17,7 @@ import UIKit
 
 protocol ListJourneysDataPassing {
     
-    var dataStore: ListJourneysDataStore? { get }
+    var dataStore: ListJourneysDataStore? { get set }
 }
 
 internal class ListJourneysRouter: NSObject, ListJourneysViewRoutingLogic, ListJourneysDataPassing {

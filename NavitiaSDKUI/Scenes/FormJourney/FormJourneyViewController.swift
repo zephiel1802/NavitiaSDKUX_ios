@@ -36,12 +36,6 @@ class FormJourneyViewController: UIViewController, FormJourneyDisplayLogic, Jour
         }
     }
     
-    var successBookDelegate: JourneySuccessBookDelegate? {
-        didSet {
-            router?.dataStore?.successBookDelegate = successBookDelegate
-        }
-    }
-    
     // MARK: - Initialization
     
     required public init?(coder aDecoder: NSCoder) {

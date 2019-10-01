@@ -33,6 +33,7 @@ class TicketPriceView: UIView {
         
         ticketPriceView.translatesAutoresizingMaskIntoConstraints = false
         ticketPriceView.frame = self.bounds
+        ticketPriceView.updatePrice(state: .no_price, price: nil)
         
         return ticketPriceView
     }
