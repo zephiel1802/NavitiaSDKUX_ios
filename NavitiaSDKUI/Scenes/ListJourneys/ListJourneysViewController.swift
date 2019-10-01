@@ -20,10 +20,16 @@ public protocol JourneyPriceDelegate: class {
     func buyTicket(journeyJson: String)
 }
 
+public protocol JourneySuccessBookDelegate: class {
+    
+    func displayAfterSuccess(newOrderId: Int?)
+}
+
 public class ListJourneysViewController: UIViewController, ListJourneysDisplayLogic, JourneyRootViewController {
     @IBOutlet weak var searchView: SearchView!
     @IBOutlet weak var journeysCollectionView: UICollectionView!
     
+    public var successBookDelegate: JourneySuccessBookDelegate?
     public var journeyPriceDelegate: JourneyPriceDelegate?
     public var journeysRequest: JourneysRequest?
     internal var interactor: ListJourneysBusinessLogic?

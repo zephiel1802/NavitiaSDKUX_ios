@@ -44,6 +44,7 @@ public class ShowJourneyRoadmapViewController: UIViewController, JourneyRootView
     public var journeysRequest: JourneysRequest?
     public var journeyPriceDelegate: JourneyPriceDelegate?
     weak public var delegate: ShowJourneyRoadmapDelegate?
+    public weak var successBookDelegate: JourneySuccessBookDelegate?
     public var router: (NSObjectProtocol & ShowJourneyRoadmapRoutingLogic & ShowJourneyRoadmapDataPassing)?
     
     public static var identifier: String {
