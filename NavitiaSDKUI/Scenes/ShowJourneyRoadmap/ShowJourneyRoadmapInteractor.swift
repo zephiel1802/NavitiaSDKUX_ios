@@ -65,7 +65,7 @@ class ShowJourneyRoadmapInteractor: ShowJourneyRoadmapBusinessLogic, ShowJourney
             let summaryInputData = try JSONEncoder().encode(maasJourney)
             journeyInputJson = String(data: summaryInputData, encoding: .utf8)
         } catch {
-            
+            journeyInputJson = nil
         }
         
         // Add sections info to maas tickets
