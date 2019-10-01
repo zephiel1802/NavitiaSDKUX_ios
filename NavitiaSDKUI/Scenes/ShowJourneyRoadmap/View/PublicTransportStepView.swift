@@ -63,7 +63,7 @@ class PublicTransportStepView: UIView {
         didSet {
             if let ticketViewConfig = ticketViewConfig {
                 if ticketViewConfig.maasProductId != nil {
-                    let ticketImage = "ticket".getIcon(customizable: true)
+                    let ticketImage = "ticket".getIcon()
                     viewTicketButton.setImage(ticketImage, for: .normal)
                     viewTicketButton.tintColor = Configuration.Color.secondary.contrastColor()
                     viewTicketButton.imageView?.contentMode = .scaleAspectFit
