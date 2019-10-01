@@ -110,6 +110,10 @@ open class FormJourneyViewController: UIViewController, FormJourneyDisplayLogic,
         home = UserDefaults.standard.structData(Place.self, forKey: "home_address")
         work = UserDefaults.standard.structData(Place.self, forKey: "work_address")
         
+//        let viewModel = FormJourney.DisplaySearch.ViewModel(fromName: home?.name, toName: work?.name)
+//        
+//        displaySearch(viewModel: viewModel)
+        
         if home != nil {
             if (searchView.fromTextField.text == "") {
                 interactorL?.info = "from"
@@ -214,9 +218,10 @@ open class FormJourneyViewController: UIViewController, FormJourneyDisplayLogic,
     
     public func assignHomeWorkAddress(home:Place?, work:Place?) {
         
-        if let hName = home?.name, let hID = home?.id, let wName = work?.name, let wID = work?.id {
-            let hm = ListPlaces.FetchPlaces.ViewModel.Place(label: nil, name: hName, id: hID, distance: nil, type: .stopArea)
-            let wk = ListPlaces.FetchPlaces.ViewModel.Place(label: nil, name: wName, id: wID, distance: nil, type: .stopArea)
+        if let hName = home?.name, let hID = home?.id, let wName = work?.name, let wID = work?.id, let hType = home?.embeddedType?.rawValue, let wType = work?.embeddedType?.rawValue, let homeType = ListPlaces.FetchPlaces.ViewModel.ModelType(rawValue: hType), let workType = ListPlaces.FetchPlaces.ViewModel.ModelType(rawValue: wType) {
+            
+            let hm = ListPlaces.FetchPlaces.ViewModel.Place(label: nil, name: hName, id: hID, distance: nil, type: homeType)
+            let wk = ListPlaces.FetchPlaces.ViewModel.Place(label: nil, name: wName, id: wID, distance: nil, type: workType)
             
             if hm.type != .location {
                 interactorL?.savePlace(request: ListPlaces.SavePlace.Request(place: (name: hm.name, id: hm.id, type: hm.type.rawValue)))
