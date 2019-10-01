@@ -471,7 +471,7 @@ extension ListJourneysViewController: ListJourneysCollectionViewLayoutDelegate {
             }
             
             if let sections = viewModel.displayedJourneys[safe: indexPath.row]?.friezeSections {
-                let friezeView = FriezeView(frame: CGRect(x: 0, y: 0, width: width - 66, height: 27))
+                let friezeView = FriezeView(frame: CGRect(x: 0, y: 0, width: width - 86, height: 29))
                 friezeView.addSection(friezeSections: sections)
                 
                 return height + friezeView.frame.size.height
