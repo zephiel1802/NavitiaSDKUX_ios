@@ -538,7 +538,9 @@ extension ShowJourneyRoadmapViewController: ShowJourneyRoadmapDisplayLogic {
         pricesModel = viewModel.pricesModel
         ridesharing = viewModel.ridesharing
         displayHeader(viewModel: viewModel)
-        displayInformationView(sections: sections, viewModel: viewModel)
+        if journeyPriceDelegate != nil {
+            displayInformationView(sections: sections, viewModel: viewModel)
+        }
         displayDepartureArrivalStep(viewModel: viewModel.departure)
         displaySteps(sections: sections, ticket: viewModel.ticket)
         displayDepartureArrivalStep(viewModel: viewModel.arrival)
@@ -547,7 +549,7 @@ extension ShowJourneyRoadmapViewController: ShowJourneyRoadmapDisplayLogic {
             displayPrice(totalPrice: viewModel.totalPrice)
         }
         
-        if viewModel.pricesModel?.state != .no_price {
+        if journeyPriceDelegate != nil, viewModel.pricesModel?.state != .no_price {
             buyTicketButtonView = BuyTicketButtonView.instanceFromNib()
             if enableBuyTicketButton {
                 buyTicketButtonView!.delegate = self
@@ -837,8 +839,8 @@ extension ShowJourneyRoadmapViewController: PublicTransportStepViewDelegate {
 extension ShowJourneyRoadmapViewController: BuyTicketButtonViewDelegate {
     
     func didTapOnBuyTicketButton() {
-        if let pricesModel = pricesModel {
-            journeyPriceDelegate?.buyTicket(priceModel: pricesModel)
+        if let summaryInputJson = router?.dataStore?.journeyInputJson {
+            journeyPriceDelegate?.buyTicket(journeyJson: summaryInputJson)
         }
     }
 }

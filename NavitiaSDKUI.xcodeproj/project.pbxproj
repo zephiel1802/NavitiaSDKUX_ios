@@ -27,6 +27,7 @@
 		31B3A82721C15FFB002EFF91 /* AlternativeJourneyView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 31B3A82621C15FFB002EFF91 /* AlternativeJourneyView.xib */; };
 		31B3A82921C16008002EFF91 /* AlternativeJourneyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31B3A82821C16008002EFF91 /* AlternativeJourneyView.swift */; };
 		31EA4EA9233E4E600006DAA4 /* MaasOrder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31EA4EA8233E4E600006DAA4 /* MaasOrder.swift */; };
+		31EA4EAF234390EE0006DAA4 /* MaasJourney.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31EA4EAE234390EE0006DAA4 /* MaasJourney.swift */; };
 		31EE0548214694BB00293B8B /* HorizontalSeparator.xib in Resources */ = {isa = PBXBuildFile; fileRef = 31EE0547214694BB00293B8B /* HorizontalSeparator.xib */; };
 		31EF7C5C2153D3C300200AE0 /* UIAutoFilledLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31EF7C5B2153D3C300200AE0 /* UIAutoFilledLabel.swift */; };
 		31EF7C5E2153D3D100200AE0 /* UILabel+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31EF7C5D2153D3D100200AE0 /* UILabel+Extension.swift */; };
@@ -385,6 +386,7 @@
 		31B3A82821C16008002EFF91 /* AlternativeJourneyView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlternativeJourneyView.swift; sourceTree = "<group>"; };
 		31B6E803232A3DE3002D8B02 /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/Localizable.strings; sourceTree = "<group>"; };
 		31EA4EA8233E4E600006DAA4 /* MaasOrder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaasOrder.swift; sourceTree = "<group>"; };
+		31EA4EAE234390EE0006DAA4 /* MaasJourney.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaasJourney.swift; sourceTree = "<group>"; };
 		31EE0547214694BB00293B8B /* HorizontalSeparator.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HorizontalSeparator.xib; sourceTree = "<group>"; };
 		31EE0549214694CB00293B8B /* HorizontalSeparator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HorizontalSeparator.swift; sourceTree = "<group>"; };
 		31EF7C5B2153D3C300200AE0 /* UIAutoFilledLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIAutoFilledLabel.swift; sourceTree = "<group>"; };
@@ -1324,6 +1326,7 @@
 		84AFDB8821417D8800858D42 /* ShowJourneyRoadmap */ = {
 			isa = PBXGroup;
 			children = (
+				31EA4EAE234390EE0006DAA4 /* MaasJourney.swift */,
 				8476DD552088819C006CB506 /* JourneyPathOverlays.swift */,
 				31EA4EA8233E4E600006DAA4 /* MaasOrder.swift */,
 				F656ECB022FDB92E00557B8C /* MaasTicket.swift */,
@@ -1641,6 +1644,7 @@
 				841A1057215A29B800F46143 /* Coverages.swift in Sources */,
 				8454D42F2068D3A800C97D2F /* NSDecimalNumberTransform.swift in Sources */,
 				841A1062215A29B800F46143 /* PhysicalMode.swift in Sources */,
+				31EA4EAF234390EE0006DAA4 /* MaasJourney.swift in Sources */,
 				F656ECB122FDB92F00557B8C /* MaasTicket.swift in Sources */,
 				841A1095215A29B800F46143 /* Note.swift in Sources */,
 				84C82F6C22083FD000FE3F1D /* FormJourneyInteractor.swift in Sources */,

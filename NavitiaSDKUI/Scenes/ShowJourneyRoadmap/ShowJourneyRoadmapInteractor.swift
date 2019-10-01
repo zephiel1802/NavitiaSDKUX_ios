@@ -29,10 +29,12 @@ public protocol ShowJourneyRoadmapDataStore {
     var maasTicketsJson: String? { get set }
     var totalPrice: (value: Float?, currency: String?)? { get set }
     var journeyPriceDelegate: JourneyPriceDelegate? { get set }
+    var journeyInputJson: String? { get set }
 }
 
 class ShowJourneyRoadmapInteractor: ShowJourneyRoadmapBusinessLogic, ShowJourneyRoadmapDataStore {
     
+    var journeyInputJson: String?
     var journeyPriceDelegate: JourneyPriceDelegate?
     var presenter: ShowJourneyRoadmapPresentationLogic?
     var journeysWorker = NavitiaWorker()
@@ -52,6 +54,18 @@ class ShowJourneyRoadmapInteractor: ShowJourneyRoadmapBusinessLogic, ShowJourney
     func getRoadmap(request: ShowJourneyRoadmap.GetRoadmap.Request) {
         guard let journey = journey, let context = context else {
             return
+        }
+        
+        let maasJourney = MaasJourney(context: context,
+                                      disruptions: disruptions,
+                                      journeys: [journey],
+                                      tickets: navitiaTickets,
+                                      hermaasTickets: journeyPriceModel?.hermaasPricedTickets)
+        do {
+            let summaryInputData = try JSONEncoder().encode(maasJourney)
+            journeyInputJson = String(data: summaryInputData, encoding: .utf8)
+        } catch {
+            journeyInputJson = nil
         }
         
         // Add sections info to maas tickets

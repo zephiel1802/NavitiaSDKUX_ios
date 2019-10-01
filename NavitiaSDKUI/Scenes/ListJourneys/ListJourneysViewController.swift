@@ -17,7 +17,7 @@ protocol ListJourneysDisplayLogic: class {
 public protocol JourneyPriceDelegate: class {
     
     func requestPrice(ticketInputData: Data, callback:  @escaping ((_ ticketPriceDictionary: [[String: Any]]) -> ()))
-    func buyTicket(priceModel: PricesModel)
+    func buyTicket(journeyJson: String)
 }
 
 public class ListJourneysViewController: UIViewController, ListJourneysDisplayLogic, JourneyRootViewController {
@@ -677,8 +677,8 @@ extension ListJourneysViewController: JourneySolutionCollectionViewCellDelegate 
                     // Compute total price
                     var totalPrice: Double = 0
                     for ticket in pricedTicketsFromHermaas {
-                        if let price = ticket.priceWithTax, ticket.currency.lowercased() == "eur" {
-                            totalPrice += price
+                        if ticket.currency.lowercased() == "eur" {
+                            totalPrice += ticket.priceWithTax
                         } else {
                             isPriceMissing = true
                         }
