@@ -28,14 +28,12 @@ public protocol ShowJourneyRoadmapDataStore {
     var maasOrderId: Int? { get set }
     var maasTicketsJson: String? { get set }
     var totalPrice: (value: Float?, currency: String?)? { get set }
-    var journeyPriceDelegate: JourneyPriceDelegate? { get set }
     var journeyInputJson: String? { get set }
 }
 
 class ShowJourneyRoadmapInteractor: ShowJourneyRoadmapBusinessLogic, ShowJourneyRoadmapDataStore {
     
     var journeyInputJson: String?
-    var journeyPriceDelegate: JourneyPriceDelegate?
     var presenter: ShowJourneyRoadmapPresentationLogic?
     var journeysWorker = NavitiaWorker()
     var journey: Journey?
@@ -79,8 +77,7 @@ class ShowJourneyRoadmapInteractor: ShowJourneyRoadmapBusinessLogic, ShowJourney
                                                               navitiaTickets: navitiaTickets,
                                                               maasOrderId: maasOrderId,
                                                               maasTickets: maasTickets,
-                                                              totalPrice: totalPrice,
-                                                              journeyPriceDelegate: journeyPriceDelegate)
+                                                              totalPrice: totalPrice)
         presenter?.presentRoadmap(response: response)
     }
     

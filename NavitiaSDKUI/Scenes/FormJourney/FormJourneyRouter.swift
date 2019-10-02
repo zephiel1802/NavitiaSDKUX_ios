@@ -32,7 +32,8 @@ class FormJourneyRouter: NSObject, FormJourneyRoutingLogic, FormJourneyDataPassi
             var destinationDS = destinationVC.router?.dataStore else {
                 return
         }
-
+        
+        destinationVC.journeyPriceDelegate = viewController.journeyPriceDelegate
         passDataToListJourneys(source: dataStore, destination: &destinationDS)
         navigateToListJourneys(source: viewController, destination: destinationVC)
     }
@@ -80,7 +81,6 @@ class FormJourneyRouter: NSObject, FormJourneyRoutingLogic, FormJourneyDataPassi
     func passDataToListJourneys(source: FormJourneyDataStore, destination: inout ListJourneysDataStore) {
         destination.journeysRequest = source.journeysRequest
         destination.modeTransportViewSelected = source.modeTransportViewSelected
-        destination.delegate = source.delegate
     }
     
     func passDataToListPlaces(source: FormJourneyDataStore, destination: inout ListPlacesDataStore, searchFieldType: SearchFieldType) {
