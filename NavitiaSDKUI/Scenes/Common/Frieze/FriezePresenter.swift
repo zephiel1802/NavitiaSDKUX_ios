@@ -48,7 +48,7 @@ class FriezePresenter: NSObject {
             return code
         }
         
-        return section.displayInformations?.commercialMode
+        return section.mode == .taxi ? "taxi".localized : section.displayInformations?.commercialMode
     }
 
     private func getColor(section: Section) -> UIColor {
