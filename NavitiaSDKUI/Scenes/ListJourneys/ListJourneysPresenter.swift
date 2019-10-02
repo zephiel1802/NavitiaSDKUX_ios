@@ -200,9 +200,7 @@ class ListJourneysPresenter: ListJourneysPresentationLogic {
         var unbookableSectionIdList = [String]()
         
         for section in sectionsList {
-            if let ticketId = section.links?.first(where: { $0.type == "ticket" })?.id,
-                section.type != .onDemandTransport,
-                let sourceIds = NavitiaSDKUI.shared.sourceIds {
+            if section.type != .onDemandTransport, let sourceIds = NavitiaSDKUI.shared.sourceIds {
                 if section.type == .streetNetwork,
                     section.mode == .taxi,
                     let taxiProductId = sourceIds["taxi"] {
@@ -212,12 +210,14 @@ class ListJourneysPresenter: ListJourneysPresentationLogic {
                     
                     ticketInputList.append(getTicketInput(section: section,
                                                           productId: taxiProductId,
-                                                          ticketId: ticketId))
-                } else if section.type == .publicTransport {
+                                                          ticketId: ""))
+                } else if let ticketId = section.links?.first(where: { $0.type == "ticket" })?.id, section.type == .publicTransport {
                     // *************** PUBLIC TRANSPORT ***********
                     // Public transport's ticket will be return by hermaas only if price is equal to 0
                     // ********************************************
-                    if let targetNavitiaTicket = navitiaTickets?.first(where: { $0.id == ticketId }) {
+                    if let targetNavitiaTicket = navitiaTickets?.first(where: { $0.id == ticketId }),
+                        let navitiaSourceId = targetNavitiaTicket.sourceId,
+                        let productId = getProductId(requestedSourceId: navitiaSourceId, sourceIds: sourceIds) {
                         if let cost = targetNavitiaTicket.cost,
                             cost.currency == "centime",
                             let costValue = cost.value,
@@ -227,7 +227,7 @@ class ListJourneysPresenter: ListJourneysPresentationLogic {
                             let randomMaasGeoInfoCoord = MaasGeoInfoCoord(lat: "", lon: "")
                             let maasGeoInfoPlace = MaasGeoInfoPlace(name: "", coord: randomMaasGeoInfoCoord, label: nil, gtfsStopCode: nil)
                             let maasGeoInfo = MaasGeoInfo(departure: maasGeoInfoPlace, arrival: maasGeoInfoPlace)
-                            let pricedNavitiaTicket = PricedTicket(productId: -1,
+                            let pricedNavitiaTicket = PricedTicket(productId: productId,
                                                                    name: "",
                                                                    shortDescription: "",
                                                                    price: 0,
@@ -246,17 +246,17 @@ class ListJourneysPresenter: ListJourneysPresentationLogic {
                                                                    ticketId: ticketId)
                             pricedTicketList.append(pricedNavitiaTicket)
                             ticketInputList.append(getTicketInput(section: section,
-                                                                  productId: -1,
+                                                                  productId: productId,
                                                                   ticketId: ticketId))
-                        } else if let navitiaSourceId = targetNavitiaTicket.sourceId, let productId = sourceIds[navitiaSourceId] {
+                        } else {
                             // We should call Hermaas to get the price for this ticket since we don't have an available price
                             ticketInputList.append(getTicketInput(section: section,
                                                                   productId: productId,
                                                                   ticketId: ticketId))
-                        } else if let sectionId = section.id {
-                            // The product ID is not supported, so the ticket is unbookable
-                            unbookableSectionIdList.append(sectionId)
                         }
+                    } else if let sectionId = section.id {
+                        // The source ID or the ticket ID is not found, so the ticket is unbookable
+                        unbookableSectionIdList.append(sectionId)
                     }
                 }
             } else if section.type == .publicTransport || section.type == .onDemandTransport, let sectionId = section.id {
@@ -275,7 +275,17 @@ class ListJourneysPresenter: ListJourneysPresentationLogic {
         return priceModel
     }
     
-    private func getTicketInput(section: Section, productId: Int, ticketId: String) -> TicketInput {
+    private func getProductId(requestedSourceId: String, sourceIds: [String: Int]) -> Int? {
+        guard let targetKey = sourceIds.keys.first(where: { (key) -> Bool in
+            return requestedSourceId.contains(key)
+        }) else {
+            return nil
+        }
+        
+        return sourceIds[targetKey]
+    }
+    
+    private func getTicketInput(section: Section, productId: Int?, ticketId: String) -> TicketInput {
         let ride = Ride(from: section.from?.id ?? "",
                         to: section.to?.id ?? "",
                         departureDate: section.departureDateTime ?? "",
