@@ -40,10 +40,18 @@
                                     <outlet property="delegate" destination="uos-wP-qKq" id="Kha-qu-roy"/>
                                 </connections>
                             </collectionView>
+                            <view hidden="YES" clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xzB-3K-GIc" customClass="StackScrollView" customModule="NavitiaSDKUI" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="130" width="375" height="473"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="xzB-3K-GIc" firstAttribute="top" secondItem="yNZ-3x-aub" secondAttribute="top" id="13X-bx-Ho7"/>
                             <constraint firstItem="yNZ-3x-aub" firstAttribute="leading" secondItem="O1O-dz-djj" secondAttribute="leading" id="30Z-ES-eUO"/>
+                            <constraint firstItem="xzB-3K-GIc" firstAttribute="bottom" secondItem="yNZ-3x-aub" secondAttribute="bottom" id="C1O-gc-ypn"/>
+                            <constraint firstItem="xzB-3K-GIc" firstAttribute="leading" secondItem="yNZ-3x-aub" secondAttribute="leading" id="CG5-7s-eeC"/>
+                            <constraint firstItem="xzB-3K-GIc" firstAttribute="trailing" secondItem="yNZ-3x-aub" secondAttribute="trailing" id="Jbf-lR-8Li"/>
                             <constraint firstItem="est-Cu-SKy" firstAttribute="trailing" secondItem="O1O-dz-djj" secondAttribute="trailing" id="NnI-pG-39z"/>
                             <constraint firstItem="est-Cu-SKy" firstAttribute="top" secondItem="RRu-e6-XmQ" secondAttribute="top" id="aFp-Wr-nLp"/>
                             <constraint firstAttribute="trailing" secondItem="yNZ-3x-aub" secondAttribute="trailing" id="h0q-6x-nY6"/>
@@ -58,6 +66,7 @@
                     <connections>
                         <outlet property="journeysCollectionView" destination="yNZ-3x-aub" id="jsb-UR-PlL"/>
                         <outlet property="searchView" destination="est-Cu-SKy" id="xct-cC-HiY"/>
+                        <outlet property="stackScrollView" destination="xzB-3K-GIc" id="S6E-zp-cMA"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Wpw-Ek-38a" userLabel="First Responder" sceneMemberID="firstResponder"/>

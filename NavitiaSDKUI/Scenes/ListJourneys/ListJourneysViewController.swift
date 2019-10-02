@@ -24,15 +24,23 @@ public class ListJourneysViewController: UIViewController, ListJourneysDisplayLo
     
     @IBOutlet weak var searchView: SearchView!
     @IBOutlet weak var journeysCollectionView: UICollectionView!
+    @IBOutlet weak var stackScrollView: StackScrollView!
     
     public var journeyPriceDelegate: JourneyPriceDelegate?
     public var journeysRequest: JourneysRequest?
     internal var interactor: ListJourneysBusinessLogic?
     internal var router: (NSObjectProtocol & ListJourneysViewRoutingLogic & ListJourneysDataPassing)?
     private var viewModel: ListJourneys.FetchJourneys.ViewModel?
+    private var transportModeView: TransportModeView!
+    private var travelTypeSubtitleView: SubtitleView!
+    private var luggageTypeView: TravelerTypeView!
+    private var wheelchairTypeView: TravelerTypeView!
+    private var walkingSpeedSubtitleView: SubtitleView!
+    private var walkingSpeedView: WalkingSpeedView!
+    private var searchButtonView: SearchButtonView!
     
     let activityView = UIActivityIndicatorView(style: .gray)
-
+    
     static var identifier: String {
         return String(describing: self)
     }
@@ -41,7 +49,7 @@ public class ListJourneysViewController: UIViewController, ListJourneysDisplayLo
     
     required public init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-    
+        
         initArchitecture()
     }
     
@@ -58,9 +66,10 @@ public class ListJourneysViewController: UIViewController, ListJourneysDisplayLo
         
         initNavigationBar()
         initHeader()
+        initStackScrollView()
         initCollectionView()
         searchView.isClearButtonAccessible = false
-
+        
         if let journeysRequest = journeysRequest {
             interactor?.journeysRequest = journeysRequest
         }
@@ -115,39 +124,122 @@ public class ListJourneysViewController: UIViewController, ListJourneysDisplayLo
     private func initHeader() {
         searchView.delegate = self
         searchView.isAccessibilityElement = false
+        
+        searchView.dateFormView.dateTimeRepresentsSegmentedControl = interactor?.journeysRequest?.datetimeRepresents?.rawValue
+    }
+    
+    private func initStackScrollView() {
+        stackScrollView.backgroundColor = Configuration.Color.main
+        setupTransportModeView()
+        setupTravelTypeView()
+        setupWalkingSpeedView()
+        setupSearchButtonView()
+        
         if let modeTransportViewSelected = interactor?.modeTransportViewSelected {
-            searchView.transportModeView.updateSelectedButton(selectedButton: modeTransportViewSelected)
+            transportModeView.updateSelectedButton(selectedButton: modeTransportViewSelected)
         }
         if let travelerType = interactor?.journeysRequest?.travelerType {
+            wheelchairTypeView.isOn = false
+            luggageTypeView.isOn = false
+            walkingSpeedView.isActive = false
+            
             switch travelerType {
             case .wheelchair:
-                searchView.wheelchairTravelTypeIsOn = true
-                searchView.luggageTravelTypeIsOn = false
-                searchView.walkingSpeedView.isActive = false
-                searchView.walkingSpeedView.speed = .slow
+                wheelchairTypeView.isOn = true
+                walkingSpeedView.speed = .slow
             case .luggage:
-                searchView.wheelchairTravelTypeIsOn = false
-                searchView.luggageTravelTypeIsOn = true
-                searchView.walkingSpeedView.isActive = false
-                searchView.walkingSpeedView.speed = .medium
+                luggageTypeView.isOn = true
+                walkingSpeedView.speed = .medium
             case .slow_walker:
-                searchView.wheelchairTravelTypeIsOn = false
-                searchView.luggageTravelTypeIsOn = false
-                searchView.walkingSpeedView.isActive = true
-                searchView.walkingSpeedView.speed = .slow
+                walkingSpeedView.isActive = true
+                walkingSpeedView.speed = .slow
             case .standard:
-                searchView.wheelchairTravelTypeIsOn = false
-                searchView.luggageTravelTypeIsOn = false
-                searchView.walkingSpeedView.isActive = true
-                searchView.walkingSpeedView.speed = .medium
+                walkingSpeedView.isActive = true
+                walkingSpeedView.speed = .medium
             case .fast_walker:
-                searchView.wheelchairTravelTypeIsOn = false
-                searchView.luggageTravelTypeIsOn = false
-                searchView.walkingSpeedView.isActive = true
-                searchView.walkingSpeedView.speed = .fast
+                walkingSpeedView.isActive = true
+                walkingSpeedView.speed = .fast
             }
         }
-        searchView.dateFormView.dateTimeRepresentsSegmentedControl = interactor?.journeysRequest?.datetimeRepresents?.rawValue
+    }
+    
+    private func setupTransportModeView() {
+        transportModeView = TransportModeView(frame: CGRect(x: 0, y: 0, width: stackScrollView.frame.size.width, height: 0))
+        stackScrollView.addSubview(transportModeView,
+                                   margin: UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10),
+                                   safeArea: true)
+        transportModeView.isHidden = true
+    }
+    
+    private func setupTravelTypeView() {
+        travelTypeSubtitleView = SubtitleView.instanceFromNib()
+        travelTypeSubtitleView.frame.size = CGSize(width: stackScrollView.frame.size.width, height: 30)
+        travelTypeSubtitleView.subtitle = "about_you".localized()
+        travelTypeSubtitleView.isColorInverted = true
+        stackScrollView.addSubview(travelTypeSubtitleView,
+                                   margin: UIEdgeInsets(top: 10, left: 10, bottom: 0, right: 10),
+                                   safeArea: true)
+        travelTypeSubtitleView.isHidden = true
+        
+        wheelchairTypeView = TravelerTypeView.instanceFromNib()
+        wheelchairTypeView.frame.size = CGSize(width: stackScrollView.frame.size.width, height: 62)
+        wheelchairTypeView.name = "wheelchair".localized()
+        wheelchairTypeView.image = UIImage(named: "wheelchair",
+                                           in: NavitiaSDKUI.shared.bundle,
+                                           compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
+        wheelchairTypeView.delegate = self
+        wheelchairTypeView.isColorInverted = true
+        stackScrollView.addSubview(wheelchairTypeView, margin: UIEdgeInsets(top: 10, left: 0, bottom: 0, right: 10), safeArea: true)
+        wheelchairTypeView.isHidden = true
+        
+        luggageTypeView = TravelerTypeView.instanceFromNib()
+        luggageTypeView.frame.size = CGSize(width: stackScrollView.frame.size.width, height: 62)
+        luggageTypeView.name = "luggage".localized()
+        luggageTypeView.image = UIImage(named: "luggage",
+                                        in: NavitiaSDKUI.shared.bundle,
+                                        compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
+        luggageTypeView.delegate = self
+        luggageTypeView.isColorInverted = true
+        stackScrollView.addSubview(luggageTypeView,
+                                   margin: UIEdgeInsets(top: 10, left: 0, bottom: 20, right: 10),
+                                   safeArea: true)
+        luggageTypeView.isHidden = true
+    }
+    
+    private func setupWalkingSpeedView() {
+        walkingSpeedSubtitleView = SubtitleView.instanceFromNib()
+        walkingSpeedSubtitleView.frame.size = CGSize(width: stackScrollView.frame.size.width, height: 30)
+        walkingSpeedSubtitleView.subtitle = "walking_pace".localized()
+        walkingSpeedSubtitleView.isColorInverted = true
+        stackScrollView.addSubview(walkingSpeedSubtitleView,
+                                   margin: UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10),
+                                   safeArea: true)
+        walkingSpeedSubtitleView.isHidden = true
+        
+        walkingSpeedView = WalkingSpeedView.instanceFromNib()
+        walkingSpeedView.frame.size = CGSize(width: stackScrollView.frame.size.width, height: 50)
+        walkingSpeedView.slowImage = UIImage(named: "slow-walking",
+                                             in: NavitiaSDKUI.shared.bundle,
+                                             compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
+        walkingSpeedView.mediumImage = UIImage(named: "normal-walking",
+                                               in: NavitiaSDKUI.shared.bundle,
+                                               compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
+        walkingSpeedView.fastImage = UIImage(named: "fast-walking",
+                                             in: NavitiaSDKUI.shared.bundle,
+                                             compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
+        walkingSpeedView.isColorInverted = true
+        stackScrollView.addSubview(walkingSpeedView,
+                                   margin: UIEdgeInsets(top: 10, left: 0, bottom: 10, right: 10),
+                                   safeArea: true)
+        walkingSpeedView.isHidden = true
+    }
+    
+    private func setupSearchButtonView() {
+        searchButtonView = SearchButtonView.instanceFromNib()
+        searchButtonView.frame.size = CGSize(width: stackScrollView.frame.size.width, height: 37)
+        searchButtonView.isHidden = true
+        searchButtonView.delegate = self
+        stackScrollView.addSubview(searchButtonView, margin: UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10), safeArea: false)
     }
     
     private func initCollectionView() {
@@ -182,7 +274,7 @@ public class ListJourneysViewController: UIViewController, ListJourneysDisplayLo
     // MARK: - Events
     
     @objc func backButtonPressed() {
-        interactor?.modeTransportViewSelected = searchView.transportModeView.getSelectedButton()
+        interactor?.modeTransportViewSelected = transportModeView.getSelectedButton()
         router?.routeToBack()
     }
     
@@ -410,7 +502,7 @@ extension ListJourneysViewController: UICollectionViewDataSource, UICollectionVi
         
         return UICollectionReusableView()
     }
-
+    
     // MARK: - CollectionView Delegate
     
     public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
@@ -503,7 +595,7 @@ extension ListJourneysViewController: ListJourneysCollectionViewLayoutDelegate {
         // Other
         return 117
     }
-
+    
     private func getHeightForJourneySolutionCollectionViewCell(indexPath: IndexPath, width: CGFloat) -> CGFloat {
         guard let viewModel = viewModel, let displayedJourney = viewModel.displayedJourneys[safe: indexPath.row] else {
             return 0
@@ -516,7 +608,7 @@ extension ListJourneysViewController: ListJourneysCollectionViewLayoutDelegate {
         if displayedJourney.walkingInformation != nil {
             return height + friezeView.frame.size.height + 30
         }
-  
+        
         return height + friezeView.frame.size.height
     }
 }
@@ -541,6 +633,51 @@ extension ListJourneysViewController: SearchViewDelegate {
         searchView.endEditing(true)
         router?.routeToListPlaces(searchFieldType: .to)
     }
+    
+    func showPreferencesClicked(open: Bool) {
+        stackScrollView.isHidden = !open
+        UIView.animate(withDuration: 0.25, delay: 0, options: .curveEaseOut, animations: {
+            // transport mode
+            self.transportModeView.isHidden = !open
+            self.transportModeView.alpha = open ? 1 : 0
+            
+            // travel type
+            self.travelTypeSubtitleView.isHidden = false
+            self.travelTypeSubtitleView.alpha = 1
+            self.luggageTypeView.isHidden = false
+            self.luggageTypeView.alpha = 1
+            self.wheelchairTypeView.isHidden = false
+            self.wheelchairTypeView.alpha = 1
+            
+            // walking speed
+            self.walkingSpeedSubtitleView.isHidden = false
+            self.walkingSpeedSubtitleView.alpha = 1
+            self.walkingSpeedView.isHidden = false
+            self.walkingSpeedView.alpha = 1
+            
+            // save button
+            self.searchButtonView.isHidden = false
+            self.searchButtonView.alpha = 1
+        }, completion: nil)
+    }
+}
+
+extension ListJourneysViewController: TravelerTypeDelegate {
+    
+    func didTouch(travelerTypeView: TravelerTypeView) {
+        if travelerTypeView == wheelchairTypeView && wheelchairTypeView.isOn {
+            walkingSpeedView.isActive = false
+            walkingSpeedView.speed = .slow
+            luggageTypeView.isOn = false
+        } else if travelerTypeView == luggageTypeView && luggageTypeView.isOn {
+            walkingSpeedView.isActive = false
+            walkingSpeedView.speed = .medium
+            wheelchairTypeView.isOn = false
+        } else {
+            walkingSpeedView.isActive = true
+            walkingSpeedView.speed = .medium
+        }
+    }
 }
 
 extension ListJourneysViewController: ListPlacesViewControllerDelegate {
@@ -558,11 +695,11 @@ extension ListJourneysViewController: SearchButtonViewDelegate {
     
     func search() {
         if searchView.isPreferencesShown {
-            if let physicalModes = searchView.transportModeView?.getPhysicalModes() {
+            if let physicalModes = transportModeView?.getPhysicalModes() {
                 interactor?.journeysRequest?.allowedPhysicalModes = physicalModes
             }
             
-            if let firstSectionModes = searchView.transportModeView?.getFirstSectionMode() {
+            if let firstSectionModes = transportModeView?.getFirstSectionMode() {
                 var modes = [CoverageRegionJourneysRequestBuilder.FirstSectionMode]()
                 for mode in firstSectionModes {
                     if let sectionMode = CoverageRegionJourneysRequestBuilder.FirstSectionMode(rawValue:mode) {
@@ -573,7 +710,7 @@ extension ListJourneysViewController: SearchButtonViewDelegate {
                 interactor?.journeysRequest?.firstSectionModes = modes
             }
             
-            if let lastSectionModes = searchView.transportModeView?.getLastSectionMode() {
+            if let lastSectionModes = transportModeView?.getLastSectionMode() {
                 var modes = [CoverageRegionJourneysRequestBuilder.LastSectionMode]()
                 for mode in lastSectionModes {
                     if let sectionMode = CoverageRegionJourneysRequestBuilder.LastSectionMode(rawValue:mode) {
@@ -584,7 +721,7 @@ extension ListJourneysViewController: SearchButtonViewDelegate {
                 interactor?.journeysRequest?.lastSectionModes = modes
             }
             
-            if let realTimeModes = searchView.transportModeView?.getRealTimeModes() {
+            if let realTimeModes = transportModeView?.getRealTimeModes() {
                 interactor?.journeysRequest?.addPoiInfos = []
                 
                 for mode in realTimeModes {
@@ -596,12 +733,12 @@ extension ListJourneysViewController: SearchButtonViewDelegate {
                 }
             }
             
-            if searchView.wheelchairTypeView.isOn {
+            if wheelchairTypeView.isOn {
                 interactor?.journeysRequest?.travelerType = .wheelchair
-            } else if searchView.luggageTypeView.isOn {
+            } else if luggageTypeView.isOn {
                 interactor?.journeysRequest?.travelerType = .luggage
             } else {
-                switch searchView.walkingSpeedView.speed {
+                switch walkingSpeedView.speed {
                 case .slow:
                     interactor?.journeysRequest?.travelerType = .slow_walker
                 case .medium:
@@ -611,7 +748,7 @@ extension ListJourneysViewController: SearchButtonViewDelegate {
                 }
             }
             
-            searchView.hidePreferences()
+            showPreferencesClicked(open: false)
             fetchPhysicalMode()
         } else if searchView.isDateShown {
             if let date = searchView.dateFormView.date {
