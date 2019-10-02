@@ -10,7 +10,6 @@ import Foundation
 public protocol JourneyRootViewController {
     
     var journeysRequest: JourneysRequest? { get set }
-    var successBookDelegate: JourneySuccessBookDelegate? { get set }
     var journeyPriceDelegate: JourneyPriceDelegate? { get set }
 }
 
