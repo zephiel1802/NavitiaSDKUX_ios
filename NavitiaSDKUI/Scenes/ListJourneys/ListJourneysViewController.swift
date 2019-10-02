@@ -65,7 +65,6 @@ public class ListJourneysViewController: UIViewController, ListJourneysDisplayLo
             interactor?.journeysRequest = journeysRequest
         }
         
-        router?.dataStore?.delegate = journeyPriceDelegate
         interactor?.displaySearch(request: ListJourneys.DisplaySearch.Request())
         interactor?.journeysRequest?.allowedPhysicalModes != nil ? fetchPhysicalMode() : fetchJourneys()
     }

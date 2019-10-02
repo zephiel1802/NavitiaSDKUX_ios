@@ -47,6 +47,7 @@ internal class ListJourneysRouter: NSObject, ListJourneysViewRoutingLogic, ListJ
             return
         }
         
+        destinationVC.journeyPriceDelegate = viewController.journeyPriceDelegate
         passDataToJourneySolutionRoadmap(source: dataStore, destination: &destinationDS, index: indexPath, priceModel: priceModel)
         navigateToJourneySolutionRoadmap(source: viewController, destination: destinationVC)
     }
@@ -125,7 +126,6 @@ internal class ListJourneysRouter: NSObject, ListJourneysViewRoutingLogic, ListJ
         destination.notes = source.notes
         destination.context = source.context
         destination.navitiaTickets = source.navitiaTickets
-        destination.journeyPriceDelegate = source.delegate
     }
     
     func passDataToListPlaces(source: ListJourneysDataStore, destination: inout ListPlacesDataStore, searchFieldType: SearchFieldType) {
