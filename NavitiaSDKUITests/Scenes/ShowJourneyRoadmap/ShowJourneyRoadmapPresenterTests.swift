@@ -98,8 +98,7 @@ class ShowJourneyRoadmapPresenterTests: XCTestCase {
                                                               navitiaTickets: nil,
                                                               maasOrderId: 0,
                                                               maasTickets: [],
-                                                              totalPrice: (1.0, "Euros"),
-                                                              journeyPriceDelegate: nil)
+                                                              totalPrice: (1.0, "Euros"))
         
         return response
     }
