@@ -209,10 +209,10 @@ class SearchView: UIView, UITextFieldDelegate {
     }
     
     private func setupPin() {
-        originPinImageView.image = "journey_departure".getIcon(customizable: true)
+        originPinImageView.image = "journey_departure".getIcon(renderingMode: .alwaysOriginal, customizable: true)
         originPinImageView.tintColor = Configuration.Color.origin
         
-        destinationPinImageView.image = "journey_arrival".getIcon(customizable: true)
+        destinationPinImageView.image = "journey_arrival".getIcon(renderingMode: .alwaysOriginal, customizable: true)
         destinationPinImageView.tintColor = Configuration.Color.destination
     }
     
