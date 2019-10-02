@@ -64,7 +64,7 @@
                                         <constraint firstAttribute="height" constant="12" id="9Z1-3x-Gke"/>
                                     </constraints>
                                 </imageView>
-                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cda-Cg-6Zp" customClass="TicketPriceView" customModule="NavitiaSDKUI" customModuleProvider="target">
+                                <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cda-Cg-6Zp" customClass="TicketPriceView" customModule="NavitiaSDKUI" customModuleProvider="target">
                                     <rect key="frame" x="316" y="12" width="56" height="20"/>
                                     <color key="backgroundColor" red="0.91764705879999997" green="0.91764705879999997" blue="0.91764705879999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <constraints>
@@ -530,7 +530,7 @@
         <image name="blocking_disruption" width="44" height="44"/>
         <image name="bus" width="32" height="32"/>
         <image name="non_blocking_disruption" width="44" height="44"/>
-        <image name="ticket" width="181" height="318"/>
+        <image name="ticket" width="60" height="34"/>
         <image name="ticket_not_available" width="69" height="35"/>
         <image name="waiting" width="32" height="32"/>
     </resources>

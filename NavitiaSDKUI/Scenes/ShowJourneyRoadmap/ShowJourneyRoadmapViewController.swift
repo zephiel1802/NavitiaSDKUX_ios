@@ -335,7 +335,9 @@ public class ShowJourneyRoadmapViewController: UIViewController, JourneyRootView
         publicTransportView.notes = section.notes
         publicTransportView.disruptions = section.disruptions
         publicTransportView.waiting = section.waiting
-        publicTransportView.ticketPrice = (state: section.ticketPrice.state, price: section.ticketPrice.price)
+        if journeyPriceDelegate != nil {
+            publicTransportView.ticketPrice = (state: section.ticketPrice.state, price: section.ticketPrice.price)
+        }
         publicTransportView.updateAccessibility()
         
         if ticket.shouldShowTicket {
