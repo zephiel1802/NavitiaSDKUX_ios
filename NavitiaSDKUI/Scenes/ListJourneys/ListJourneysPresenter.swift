@@ -285,7 +285,7 @@ class ListJourneysPresenter: ListJourneysPresentationLogic {
         return sourceIds[targetKey]
     }
     
-    private func getTicketInput(section: Section, productId: Int?, ticketId: String) -> TicketInput {
+    private func getTicketInput(section: Section, productId: Int, ticketId: String) -> TicketInput {
         let ride = Ride(from: section.from?.id ?? "",
                         to: section.to?.id ?? "",
                         departureDate: section.departureDateTime ?? "",
