@@ -183,9 +183,7 @@ public class ListJourneysViewController: UIViewController, ListJourneysDisplayLo
         wheelchairTypeView = TravelerTypeView.instanceFromNib()
         wheelchairTypeView.frame.size = CGSize(width: stackScrollView.frame.size.width, height: 62)
         wheelchairTypeView.name = "wheelchair".localized()
-        wheelchairTypeView.image = UIImage(named: "wheelchair",
-                                           in: NavitiaSDKUI.shared.bundle,
-                                           compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
+        wheelchairTypeView.image = "wheelchair".getIcon()
         wheelchairTypeView.delegate = self
         wheelchairTypeView.isColorInverted = true
         stackScrollView.addSubview(wheelchairTypeView, margin: UIEdgeInsets(top: 10, left: 0, bottom: 0, right: 10), safeArea: true)
@@ -193,9 +191,7 @@ public class ListJourneysViewController: UIViewController, ListJourneysDisplayLo
         luggageTypeView = TravelerTypeView.instanceFromNib()
         luggageTypeView.frame.size = CGSize(width: stackScrollView.frame.size.width, height: 62)
         luggageTypeView.name = "luggage".localized()
-        luggageTypeView.image = UIImage(named: "luggage",
-                                        in: NavitiaSDKUI.shared.bundle,
-                                        compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
+        luggageTypeView.image = "luggage".getIcon()
         luggageTypeView.delegate = self
         luggageTypeView.isColorInverted = true
         stackScrollView.addSubview(luggageTypeView,
@@ -214,15 +210,9 @@ public class ListJourneysViewController: UIViewController, ListJourneysDisplayLo
         
         walkingSpeedView = WalkingSpeedView.instanceFromNib()
         walkingSpeedView.frame.size = CGSize(width: stackScrollView.frame.size.width, height: 50)
-        walkingSpeedView.slowImage = UIImage(named: "slow-walking",
-                                             in: NavitiaSDKUI.shared.bundle,
-                                             compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
-        walkingSpeedView.mediumImage = UIImage(named: "normal-walking",
-                                               in: NavitiaSDKUI.shared.bundle,
-                                               compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
-        walkingSpeedView.fastImage = UIImage(named: "fast-walking",
-                                             in: NavitiaSDKUI.shared.bundle,
-                                             compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
+        walkingSpeedView.slowImage = "slow-walking".getIcon()
+        walkingSpeedView.mediumImage = "normal-walking".getIcon()
+        walkingSpeedView.fastImage = "fast-walking".getIcon()
         walkingSpeedView.isColorInverted = true
         stackScrollView.addSubview(walkingSpeedView,
                                    margin: UIEdgeInsets(top: 10, left: 0, bottom: 10, right: 10),

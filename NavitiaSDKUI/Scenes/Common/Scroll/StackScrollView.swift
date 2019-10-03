@@ -17,10 +17,6 @@ class StackScrollView: UIScrollView, StackScrollViewProtocol {
 
     var stackSubviews = [(view: UIView, margin: UIEdgeInsets, safeArea: Bool)]()
     
-    override func awakeFromNib() {
-        super.awakeFromNib()
-    }
-    
     func addSubview(_ view: UIView, margin: UIEdgeInsets, safeArea: Bool = true) {
         view.frame.origin.y = getViewOriginY(index: stackSubviews.count, margin: margin)
         view.frame.origin.x = getViewOriginX(margin: margin, safeArea: safeArea)
