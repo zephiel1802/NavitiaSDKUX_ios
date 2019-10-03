@@ -22,8 +22,11 @@ class DepartureArrivalStepView: UIView {
     internal var type: ShowJourneyRoadmap.GetRoadmap.ViewModel.DepartureArrival.Mode = .departure {
         didSet {
             contentContainerView.backgroundColor = type == .departure ? Configuration.Color.origin : Configuration.Color.destination
-            iconImageView.image = type == .departure ? "journey_departure".getIcon(customizable: true) : "journey_arrival".getIcon(customizable: true)
-            iconImageView.tintColor = type == .departure ? Configuration.Color.origin.contrastColor() : Configuration.Color.destination.contrastColor()
+            iconImageView.image = type == .departure ?
+                "journey_departure".getIcon(renderingMode: .alwaysOriginal, customizable: true) :
+                "journey_arrival".getIcon(renderingMode: .alwaysOriginal, customizable: true)
+            hourLabel.textColor = type == .departure ? Configuration.Color.origin.contrastColor() : Configuration.Color.destination.contrastColor()
+            informationLabel.textColor = type == .departure ? Configuration.Color.origin.contrastColor() : Configuration.Color.destination.contrastColor()
         }
     }
     
@@ -34,8 +37,12 @@ class DepartureArrivalStepView: UIView {
             }
             
             informationLabel.attributedText = NSMutableAttributedString()
-                .bold(information.0, color: Configuration.Color.white, size: 15.0)
-                .normal(information.1, color: Configuration.Color.white, size: 15.0)
+                .bold(information.0,
+                      color: type == .departure ? Configuration.Color.origin.contrastColor() : Configuration.Color.destination.contrastColor(),
+                      size: 15.0)
+                .normal(information.1,
+                        color: type == .departure ? Configuration.Color.origin.contrastColor() : Configuration.Color.destination.contrastColor(),
+                        size: 15.0)
         }
     }
     
