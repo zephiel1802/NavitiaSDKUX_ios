@@ -129,6 +129,7 @@ public class ListJourneysViewController: UIViewController, ListJourneysDisplayLo
     }
     
     private func initStackScrollView() {
+        stackScrollView.bounces = false
         stackScrollView.backgroundColor = Configuration.Color.main
         setupTransportModeView()
         setupTravelTypeView()
@@ -168,7 +169,6 @@ public class ListJourneysViewController: UIViewController, ListJourneysDisplayLo
         stackScrollView.addSubview(transportModeView,
                                    margin: UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10),
                                    safeArea: true)
-        transportModeView.isHidden = true
     }
     
     private func setupTravelTypeView() {
@@ -179,7 +179,6 @@ public class ListJourneysViewController: UIViewController, ListJourneysDisplayLo
         stackScrollView.addSubview(travelTypeSubtitleView,
                                    margin: UIEdgeInsets(top: 10, left: 10, bottom: 0, right: 10),
                                    safeArea: true)
-        travelTypeSubtitleView.isHidden = true
         
         wheelchairTypeView = TravelerTypeView.instanceFromNib()
         wheelchairTypeView.frame.size = CGSize(width: stackScrollView.frame.size.width, height: 62)
@@ -190,7 +189,6 @@ public class ListJourneysViewController: UIViewController, ListJourneysDisplayLo
         wheelchairTypeView.delegate = self
         wheelchairTypeView.isColorInverted = true
         stackScrollView.addSubview(wheelchairTypeView, margin: UIEdgeInsets(top: 10, left: 0, bottom: 0, right: 10), safeArea: true)
-        wheelchairTypeView.isHidden = true
         
         luggageTypeView = TravelerTypeView.instanceFromNib()
         luggageTypeView.frame.size = CGSize(width: stackScrollView.frame.size.width, height: 62)
@@ -203,7 +201,6 @@ public class ListJourneysViewController: UIViewController, ListJourneysDisplayLo
         stackScrollView.addSubview(luggageTypeView,
                                    margin: UIEdgeInsets(top: 10, left: 0, bottom: 20, right: 10),
                                    safeArea: true)
-        luggageTypeView.isHidden = true
     }
     
     private func setupWalkingSpeedView() {
@@ -214,7 +211,6 @@ public class ListJourneysViewController: UIViewController, ListJourneysDisplayLo
         stackScrollView.addSubview(walkingSpeedSubtitleView,
                                    margin: UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10),
                                    safeArea: true)
-        walkingSpeedSubtitleView.isHidden = true
         
         walkingSpeedView = WalkingSpeedView.instanceFromNib()
         walkingSpeedView.frame.size = CGSize(width: stackScrollView.frame.size.width, height: 50)
@@ -231,13 +227,11 @@ public class ListJourneysViewController: UIViewController, ListJourneysDisplayLo
         stackScrollView.addSubview(walkingSpeedView,
                                    margin: UIEdgeInsets(top: 10, left: 0, bottom: 10, right: 10),
                                    safeArea: true)
-        walkingSpeedView.isHidden = true
     }
     
     private func setupSearchButtonView() {
         searchButtonView = SearchButtonView.instanceFromNib()
         searchButtonView.frame.size = CGSize(width: stackScrollView.frame.size.width, height: 37)
-        searchButtonView.isHidden = true
         searchButtonView.delegate = self
         stackScrollView.addSubview(searchButtonView, margin: UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10), safeArea: false)
     }
@@ -634,30 +628,9 @@ extension ListJourneysViewController: SearchViewDelegate {
         router?.routeToListPlaces(searchFieldType: .to)
     }
     
-    func showPreferencesClicked(open: Bool) {
-        stackScrollView.isHidden = !open
+    func togglePreferences() {
         UIView.animate(withDuration: 0.25, delay: 0, options: .curveEaseOut, animations: {
-            // transport mode
-            self.transportModeView.isHidden = !open
-            self.transportModeView.alpha = open ? 1 : 0
-            
-            // travel type
-            self.travelTypeSubtitleView.isHidden = false
-            self.travelTypeSubtitleView.alpha = 1
-            self.luggageTypeView.isHidden = false
-            self.luggageTypeView.alpha = 1
-            self.wheelchairTypeView.isHidden = false
-            self.wheelchairTypeView.alpha = 1
-            
-            // walking speed
-            self.walkingSpeedSubtitleView.isHidden = false
-            self.walkingSpeedSubtitleView.alpha = 1
-            self.walkingSpeedView.isHidden = false
-            self.walkingSpeedView.alpha = 1
-            
-            // save button
-            self.searchButtonView.isHidden = false
-            self.searchButtonView.alpha = 1
+            self.stackScrollView.isHidden = !self.stackScrollView.isHidden
         }, completion: nil)
     }
 }
@@ -748,8 +721,9 @@ extension ListJourneysViewController: SearchButtonViewDelegate {
                 }
             }
             
-            showPreferencesClicked(open: false)
+            togglePreferences()
             fetchPhysicalMode()
+            searchView.setPreferencesButton()
         } else if searchView.isDateShown {
             if let date = searchView.dateFormView.date {
                 interactor?.updateDate(request: FormJourney.UpdateDate.Request(date: date,

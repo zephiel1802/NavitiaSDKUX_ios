@@ -19,7 +19,6 @@ class StackScrollView: UIScrollView, StackScrollViewProtocol {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        bounces = false
     }
     
     func addSubview(_ view: UIView, margin: UIEdgeInsets, safeArea: Bool = true) {

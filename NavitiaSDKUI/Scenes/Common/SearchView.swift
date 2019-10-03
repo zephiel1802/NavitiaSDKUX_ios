@@ -10,7 +10,7 @@ import UIKit
 @objc protocol SearchViewDelegate: class {
     
     func switchDepartureArrivalCoordinates()
-    @objc optional func showPreferencesClicked(open: Bool)
+    @objc optional func togglePreferences()
     @objc optional func singleSearchFieldClicked(query: String?)
     @objc optional func fromFieldClicked(query: String?)
     @objc optional func toFieldClicked(query: String?)
@@ -263,6 +263,7 @@ class SearchView: UIView, UITextFieldDelegate {
     }
     
     internal func setPreferencesButton() {
+        isPreferencesShown = !isPreferencesShown
         preferencesIconImageView.image = "preferences".getIcon()
         preferencesIconImageView.tintColor = Configuration.Color.main.contrastColor()
         preferencesLabel.text = "preferences".localized()
@@ -354,14 +355,12 @@ class SearchView: UIView, UITextFieldDelegate {
     
     @IBAction func togglePreferences(_ sender: Any) {
         if isPreferencesShown {
-            delegate?.showPreferencesClicked?(open: false)
-            isPreferencesShown = false
+            delegate?.togglePreferences?()
         } else {
             if self.isDateShown {
                 hideDate()
             }
-            delegate?.showPreferencesClicked?(open: true)
-            isPreferencesShown = true
+            delegate?.togglePreferences?()
         }
         setPreferencesButton()
     }
@@ -371,8 +370,8 @@ class SearchView: UIView, UITextFieldDelegate {
             hideDate()
         } else {
             if self.isPreferencesShown {
+                delegate?.togglePreferences?()
                 setPreferencesButton()
-                delegate?.showPreferencesClicked?(open: false)
             }
             showDate()
         }
