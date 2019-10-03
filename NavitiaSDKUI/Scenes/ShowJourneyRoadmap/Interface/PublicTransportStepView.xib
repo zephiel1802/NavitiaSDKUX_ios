@@ -83,7 +83,7 @@
                                         <constraint firstAttribute="height" constant="1" id="2UA-td-NCf"/>
                                     </constraints>
                                 </view>
-                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="non_blocking_disruption" translatesAutoresizingMaskIntoConstraints="NO" id="ouK-X4-7yt">
+                                <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="non_blocking_disruption" translatesAutoresizingMaskIntoConstraints="NO" id="ouK-X4-7yt">
                                     <rect key="frame" x="26" y="6" width="12" height="12"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="12" id="Ndb-zK-3Qk"/>
