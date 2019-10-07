@@ -107,19 +107,19 @@ open class FormJourneyViewController: UIViewController, FormJourneyDisplayLogic,
         searchView.fromTextField.resignFirstResponder()
         searchView.toTextField.resignFirstResponder()
         
-        if let home = UserDefaults.standard.structData(Place.self, forKey: "home_address") {
-            if (searchView.fromTextField.text == "") {
-                interactorL?.info = "from"
-                assignHomeWorkAddress(home: home, work: work)
-            }
-        }
-        
-        if let work = UserDefaults.standard.structData(Place.self, forKey: "work_address") {
-            if (searchView.toTextField.text == "") {
-                interactorL?.info = "to"
-                assignHomeWorkAddress(home: home, work: work)
-            }
-        }
+//        if let home = UserDefaults.standard.structData(Place.self, forKey: "home_address") {
+//            if (searchView.fromTextField.text == "") {
+//                interactorL?.info = "from"
+//                assignHomeWorkAddress(home: home, work: work)
+//            }
+//        }
+//        
+//        if let work = UserDefaults.standard.structData(Place.self, forKey: "work_address") {
+//            if (searchView.toTextField.text == "") {
+//                interactorL?.info = "to"
+//                assignHomeWorkAddress(home: home, work: work)
+//            }
+//        }
     }
     
     private func initArchitecture() {

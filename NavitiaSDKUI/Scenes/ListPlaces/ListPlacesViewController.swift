@@ -36,6 +36,7 @@ public class ListPlacesViewController: UIViewController, ListPlacesDisplayLogic 
     private var q: String = ""
     var home:Place?
     var work:Place?
+    var sectionCount:Int = 0
     static var identifier: String {
         return String(describing: self)
     }
@@ -52,7 +53,7 @@ public class ListPlacesViewController: UIViewController, ListPlacesDisplayLogic 
         super.viewDidLoad()
         
         self.setTitle(title: "journeys".localized())
-
+        
         hideKeyboardWhenTappedAround()
         
         setupUI()
@@ -100,20 +101,6 @@ public class ListPlacesViewController: UIViewController, ListPlacesDisplayLogic 
         UIView.animate(withDuration: 0.15) {
             self.searchView.unstickTextFields()
             self.view.layoutIfNeeded()
-        }
-        
-        if let home = UserDefaults.standard.structData(Place.self, forKey: "home_address") {
-            if (searchView.fromTextField.text == "") {
-                interactor?.info = "from"
-                assignHomeWorkAddress(home: home, work: work)
-            }
-        }
-        
-        if let work = UserDefaults.standard.structData(Place.self, forKey: "work_address") {
-            if (searchView.toTextField.text == "") {
-                interactor?.info = "to"
-                assignHomeWorkAddress(home: home, work: work)
-            }
         }
     }
     
@@ -164,6 +151,18 @@ public class ListPlacesViewController: UIViewController, ListPlacesDisplayLogic 
     private func initTableView() {
         registerTableView()
         tableView.tableFooterView = UIView(frame: CGRect(x: 0, y: 0, width: tableView.frame.size.width, height: 1))
+        home = UserDefaults.standard.structData(Place.self, forKey: "home_address")
+        work = UserDefaults.standard.structData(Place.self, forKey: "work_address")
+        sectionCount = 0
+        
+        if home != nil {
+            sectionCount += 1
+        }
+        
+        if work != nil {
+            sectionCount += 1
+        }
+        
     }
     
     private func registerTableView() {
@@ -238,76 +237,377 @@ public class ListPlacesViewController: UIViewController, ListPlacesDisplayLogic 
 extension ListPlacesViewController: UITableViewDataSource, UITableViewDelegate {
     
     public func numberOfSections(in tableView: UITableView) -> Int {
-        return displayedSections.count
+        return displayedSections.count + sectionCount
     }
     
     public func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return displayedSections[safe: section]?.name
+        if sectionCount == 0 {
+            return displayedSections[safe: section-sectionCount]?.name
+        }
+        else if sectionCount == 1 {
+            if section == 0 {
+                if home != nil {
+                    return "Home"
+                }
+                else {
+                    return "Work"
+                }
+            }
+            else {
+                return displayedSections[safe: section-sectionCount]?.name
+            }
+        }
+        else {
+            if section == 0 {
+                return "Home"
+            }
+            else if section == 1 {
+                return "Work"
+            }
+            else
+            {
+                return displayedSections[safe: section-sectionCount]?.name
+            }
+        }
     }
     
     public func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        guard displayedSections[safe: section]?.name != nil else {
-            return 0
-        }
-
         return 35
     }
     
     public func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        guard let name = displayedSections[safe: section]?.name else {
-            return nil
-        }
         
         let view = PlacesHeaderView.instanceFromNib()
-        view.title = name
-
-        if section == 0 {
-            view.lineView.isHidden = true
+        
+        if sectionCount == 0 {
+            view.title = displayedSections[safe: section-sectionCount]?.name
+        }
+        else if sectionCount == 1 {
+            if section == 0 {
+                if home != nil {
+                    view.title = "Home"
+                }
+                else {
+                    view.title = "Work"
+                }
+                
+            }
+            else {
+                view.title = displayedSections[safe: section-sectionCount]?.name
+            }
+        }
+        else {
+            if section == 0 {
+                view.title = "Home"
+            } else if section == 1 {
+                view.title = "Work"
+            }
+            else {
+                view.title = displayedSections[safe: section-sectionCount]?.name
+            }
         }
         
         return view
     }
     
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return displayedSections[safe: section]?.places.count ?? 0
+        
+        if sectionCount == 0 {
+            return displayedSections[safe: section-sectionCount]?.places.count ?? 0
+        }
+        else if sectionCount == 1 {
+            if section == 0 {
+                return 1
+            }
+            else {
+                return displayedSections[safe: section-sectionCount]?.places.count ?? 0
+            }
+        }
+        else {
+            if section == 0 || section == 1 {
+                return 1
+            }
+            else {
+                return displayedSections[safe: section-sectionCount]?.places.count ?? 0
+            }
+        }
     }
     
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let cell = tableView.dequeueReusableCell(withIdentifier: PlacesTableViewCell.identifier, for: indexPath) as? PlacesTableViewCell {
             
-            cell.type = displayedSections[safe: indexPath.section]?.places[safe: indexPath.row]?.type
-            cell.informations = (name: displayedSections[safe: indexPath.section]?.places[safe: indexPath.row]?.name,
-                                 distance: displayedSections[safe: indexPath.section]?.places[safe: indexPath.row]?.distance)
-            
-            if displayedSections[safe: indexPath.section]?.name == "history".localized().uppercased() {
+            if sectionCount == 0 {
+                cell.type = displayedSections[safe: indexPath.section-sectionCount]?.places[safe: indexPath.row]?.type
+                cell.informations = (name: displayedSections[safe: indexPath.section-sectionCount]?.places[safe: indexPath.row]?.name,
+                                     distance: displayedSections[safe: indexPath.section-sectionCount]?.places[safe: indexPath.section-sectionCount]?.distance)
                 
-                if let type = cell.type {
-                    var accessibilityText = ""
-                    switch type {
-                    case .stopArea :
-                        accessibilityText = "stop".localized()
-                    case .address :
-                        accessibilityText = "addresse".localized()
-                    case .poi :
-                        accessibilityText = "point_of_interest".localized()
-                    case .location :
-                        accessibilityText = "my_position".localized()
-                    }
+                if displayedSections[safe: indexPath.section-sectionCount]?.name == "history".localized().uppercased() {
                     
-                    if let cellName = cell.informations.name {
-                        cell.accessibilityLabel = String(format: "%@ %@", accessibilityText, cellName)
+                    if let type = cell.type {
+                        var accessibilityText = ""
+                        switch type {
+                        case .stopArea :
+                            accessibilityText = "stop".localized()
+                        case .address :
+                            accessibilityText = "addresse".localized()
+                        case .poi :
+                            accessibilityText = "point_of_interest".localized()
+                        case .location :
+                            accessibilityText = "my_position".localized()
+                        }
+                        
+                        if let cellName = cell.informations.name {
+                            cell.accessibilityLabel = String(format: "%@ %@", accessibilityText, cellName)
+                        } else {
+                            cell.accessibilityLabel = accessibilityText
+                        }
+                        
+                        cell.accessibilityHint = (cell.informations.distance ?? "")
+                    }
+                } else {
+                    var text = ""
+                    if cell.type == .location {
+                        text = "my_position".localized() + " "
+                    }
+                    cell.accessibilityLabel = text + (cell.informations.name ?? "")
+                }
+            }
+            else if sectionCount == 1 {
+                if indexPath.section == 0 {
+                    
+                    if home != nil {
+                        if let hName = home?.name, let hType = home?.embeddedType?.rawValue, let homeType = ListPlaces.FetchPlaces.ViewModel.ModelType(rawValue: hType) {
+                            cell.type = homeType
+                            cell.informations = (name: hName,
+                                                 distance: home?.distance)
+                            
+                            
+                            if hName == "history".localized().uppercased() {
+                                
+                                if let type = cell.type {
+                                    var accessibilityText = ""
+                                    switch type {
+                                    case .stopArea :
+                                        accessibilityText = "stop".localized()
+                                    case .address :
+                                        accessibilityText = "addresse".localized()
+                                    case .poi :
+                                        accessibilityText = "point_of_interest".localized()
+                                    case .location :
+                                        accessibilityText = "my_position".localized()
+                                    }
+                                    
+                                    if let cellName = cell.informations.name {
+                                        cell.accessibilityLabel = String(format: "%@ %@", accessibilityText, cellName)
+                                    } else {
+                                        cell.accessibilityLabel = accessibilityText
+                                    }
+                                    
+                                    cell.accessibilityHint = (cell.informations.distance ?? "")
+                                }
+                            } else {
+                                var text = ""
+                                if cell.type == .location {
+                                    text = "my_position".localized() + " "
+                                }
+                                cell.accessibilityLabel = text + (cell.informations.name ?? "")
+                            }
+                            cell.typeimageView.image = UIImage(named: "ic_home", in: NavitiaSDKUI.shared.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
+                        }
+                    }
+                    else {
+                        if let wName = work?.name, let wType = work?.embeddedType?.rawValue, let workType = ListPlaces.FetchPlaces.ViewModel.ModelType(rawValue: wType) {
+                            cell.type = workType
+                            cell.informations = (name: wName,
+                                                 distance: work?.distance)
+                            
+                            if wName == "history".localized().uppercased() {
+                                
+                                if let type = cell.type {
+                                    var accessibilityText = ""
+                                    switch type {
+                                    case .stopArea :
+                                        accessibilityText = "stop".localized()
+                                    case .address :
+                                        accessibilityText = "addresse".localized()
+                                    case .poi :
+                                        accessibilityText = "point_of_interest".localized()
+                                    case .location :
+                                        accessibilityText = "my_position".localized()
+                                    }
+                                    
+                                    if let cellName = cell.informations.name {
+                                        cell.accessibilityLabel = String(format: "%@ %@", accessibilityText, cellName)
+                                    } else {
+                                        cell.accessibilityLabel = accessibilityText
+                                    }
+                                    
+                                    cell.accessibilityHint = (cell.informations.distance ?? "")
+                                }
+                            } else {
+                                var text = ""
+                                if cell.type == .location {
+                                    text = "my_position".localized() + " "
+                                }
+                                cell.accessibilityLabel = text + (cell.informations.name ?? "")
+                            }
+                            cell.typeimageView.image = UIImage(named: "ic_work", in: NavitiaSDKUI.shared.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
+                        }
+                    }
+                }
+                else {
+                    cell.type = displayedSections[safe: indexPath.section-sectionCount]?.places[safe: indexPath.row]?.type
+                    cell.informations = (name: displayedSections[safe: indexPath.section-sectionCount]?.places[safe: indexPath.row]?.name,
+                                         distance: displayedSections[safe: indexPath.section-sectionCount]?.places[safe: indexPath.section-sectionCount]?.distance)
+                    
+                    if displayedSections[safe: indexPath.section-sectionCount]?.name == "history".localized().uppercased() {
+                        
+                        if let type = cell.type {
+                            var accessibilityText = ""
+                            switch type {
+                            case .stopArea :
+                                accessibilityText = "stop".localized()
+                            case .address :
+                                accessibilityText = "addresse".localized()
+                            case .poi :
+                                accessibilityText = "point_of_interest".localized()
+                            case .location :
+                                accessibilityText = "my_position".localized()
+                            }
+                            
+                            if let cellName = cell.informations.name {
+                                cell.accessibilityLabel = String(format: "%@ %@", accessibilityText, cellName)
+                            } else {
+                                cell.accessibilityLabel = accessibilityText
+                            }
+                            
+                            cell.accessibilityHint = (cell.informations.distance ?? "")
+                        }
                     } else {
-                        cell.accessibilityLabel = accessibilityText
+                        var text = ""
+                        if cell.type == .location {
+                            text = "my_position".localized() + " "
+                        }
+                        cell.accessibilityLabel = text + (cell.informations.name ?? "")
                     }
+                }
+            }
+            else {
+                if indexPath.section == 0 {
+                    if let hName = home?.name, let hType = home?.embeddedType?.rawValue, let homeType = ListPlaces.FetchPlaces.ViewModel.ModelType(rawValue: hType) {
+                        cell.type = homeType
+                        cell.informations = (name: hName,
+                                             distance: home?.distance)
+                        
+                        
+                        if hName == "history".localized().uppercased() {
+                            
+                            if let type = cell.type {
+                                var accessibilityText = ""
+                                switch type {
+                                case .stopArea :
+                                    accessibilityText = "stop".localized()
+                                case .address :
+                                    accessibilityText = "addresse".localized()
+                                case .poi :
+                                    accessibilityText = "point_of_interest".localized()
+                                case .location :
+                                    accessibilityText = "my_position".localized()
+                                }
+                                
+                                if let cellName = cell.informations.name {
+                                    cell.accessibilityLabel = String(format: "%@ %@", accessibilityText, cellName)
+                                } else {
+                                    cell.accessibilityLabel = accessibilityText
+                                }
+                                
+                                cell.accessibilityHint = (cell.informations.distance ?? "")
+                            }
+                        } else {
+                            var text = ""
+                            if cell.type == .location {
+                                text = "my_position".localized() + " "
+                            }
+                            cell.accessibilityLabel = text + (cell.informations.name ?? "")
+                        }
+                        cell.typeimageView.image = UIImage(named: "ic_home", in: NavitiaSDKUI.shared.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
+                    }
+                }
+                else if indexPath.section == 1 {
+                    if let wName = work?.name, let wType = work?.embeddedType?.rawValue, let workType = ListPlaces.FetchPlaces.ViewModel.ModelType(rawValue: wType) {
+                        cell.type = workType
+                        cell.informations = (name: wName,
+                                             distance: work?.distance)
+                        
+                        if wName == "history".localized().uppercased() {
+                            
+                            if let type = cell.type {
+                                var accessibilityText = ""
+                                switch type {
+                                case .stopArea :
+                                    accessibilityText = "stop".localized()
+                                case .address :
+                                    accessibilityText = "addresse".localized()
+                                case .poi :
+                                    accessibilityText = "point_of_interest".localized()
+                                case .location :
+                                    accessibilityText = "my_position".localized()
+                                }
+                                
+                                if let cellName = cell.informations.name {
+                                    cell.accessibilityLabel = String(format: "%@ %@", accessibilityText, cellName)
+                                } else {
+                                    cell.accessibilityLabel = accessibilityText
+                                }
+                                
+                                cell.accessibilityHint = (cell.informations.distance ?? "")
+                            }
+                        } else {
+                            var text = ""
+                            if cell.type == .location {
+                                text = "my_position".localized() + " "
+                            }
+                            cell.accessibilityLabel = text + (cell.informations.name ?? "")
+                        }
+                        cell.typeimageView.image = UIImage(named: "ic_work", in: NavitiaSDKUI.shared.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
+                    }
+                }
+                else {
+                    cell.type = displayedSections[safe: indexPath.section-sectionCount]?.places[safe: indexPath.row]?.type
+                    cell.informations = (name: displayedSections[safe: indexPath.section-sectionCount]?.places[safe: indexPath.row]?.name,
+                                         distance: displayedSections[safe: indexPath.section-sectionCount]?.places[safe: indexPath.section-sectionCount]?.distance)
                     
-                    cell.accessibilityHint = (cell.informations.distance ?? "")
+                    if displayedSections[safe: indexPath.section-sectionCount]?.name == "history".localized().uppercased() {
+                        
+                        if let type = cell.type {
+                            var accessibilityText = ""
+                            switch type {
+                            case .stopArea :
+                                accessibilityText = "stop".localized()
+                            case .address :
+                                accessibilityText = "addresse".localized()
+                            case .poi :
+                                accessibilityText = "point_of_interest".localized()
+                            case .location :
+                                accessibilityText = "my_position".localized()
+                            }
+                            
+                            if let cellName = cell.informations.name {
+                                cell.accessibilityLabel = String(format: "%@ %@", accessibilityText, cellName)
+                            } else {
+                                cell.accessibilityLabel = accessibilityText
+                            }
+                            
+                            cell.accessibilityHint = (cell.informations.distance ?? "")
+                        }
+                    } else {
+                        var text = ""
+                        if cell.type == .location {
+                            text = "my_position".localized() + " "
+                        }
+                        cell.accessibilityLabel = text + (cell.informations.name ?? "")
+                    }
                 }
-            } else {
-                var text = ""
-                if cell.type == .location {
-                    text = "my_position".localized() + " "
-                }
-                cell.accessibilityLabel = text + (cell.informations.name ?? "")
             }
             
             return cell
@@ -317,109 +617,266 @@ extension ListPlacesViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard let name = displayedSections[safe: indexPath.section]?.places[safe: indexPath.row]?.name,
-            let id = displayedSections[safe: indexPath.section]?.places[safe: indexPath.row]?.id,
-            let type = displayedSections[safe: indexPath.section]?.places[safe: indexPath.row]?.type else {
-                return
-        }
-        if type != .location {
-            interactor?.savePlace(request: ListPlaces.SavePlace.Request(place: (name: name, id: id, type: type.rawValue)))
-        }
-
-        if interactor?.info == "from" {
-            let request = ListPlaces.DisplaySearch.Request(from: (label: displayedSections[safe: indexPath.section]?.places[safe: indexPath.row]?.label,
-                                                                  name: name,
-                                                                  id: id),
-                                                           to: nil)
-            interactor?.displaySearch(request:request)
-
-            
-            searchView.focusFromField(false)
-            if searchView.toTextField.text == "" {
-                interactor?.info = "to"
-                searchView.focusToField()
-                clearTableView()
-                locationManager.stopUpdatingLocation()
-                
-                fetchPlaces(q: "")
-            } else {
-                dismissAutocompletion()
-            }
-        } else {
-            interactor?.displaySearch(request: ListPlaces.DisplaySearch.Request(from: nil,
-                                                                                to: (label: displayedSections[safe: indexPath.section]?.places[safe: indexPath.row]?.label,
-                                                                                     name: name,
-                                                                                     id: id)))
-
-            searchView.focusToField(false)
-            if searchView.fromTextField.text == "" {
-                interactor?.info  = "from"
-                searchView.focusFromField()
-                clearTableView()
-                locationManager.startUpdatingLocation()
-                fetchPlaces(q: "")
-            } else {
-                dismissAutocompletion()
-            }
-        }
-    }
-    public func assignHomeWorkAddress(home:Place?, work:Place?) {
-        if let hName = home?.name, let hID = home?.id, let hType = home?.embeddedType?.rawValue, let homeType = ListPlaces.FetchPlaces.ViewModel.ModelType(rawValue: hType) {
-            
-            let hm = ListPlaces.FetchPlaces.ViewModel.Place(label: nil, name: hName, id: hID, distance: nil, type: homeType)
-            
-            
-            if hm.type != .location {
-                interactor?.savePlace(request: ListPlaces.SavePlace.Request(place: (name: hm.name, id: hm.id, type: hm.type.rawValue)))
-            }
-            
-            let request = ListPlaces.DisplaySearch.Request(from: (label: hm.label,
-                                                                  name: hm.name,
-                                                                  id: hm.id),
-                                                           to: nil)
-            interactor?.displaySearch(request:request)
-            
-            
-            searchView.focusFromField(false)
-            if searchView.toTextField.text == "" {
-                interactor?.info = "to"
-                searchView.focusToField()
-                clearTableView()
-                locationManager.stopUpdatingLocation()
-                
-                fetchPlaces(q: "")
-            } else {
-                dismissAutocompletion()
-            }
-        }
         
-        if let wName = work?.name, let wID = work?.id, let wType = work?.embeddedType?.rawValue, let workType = ListPlaces.FetchPlaces.ViewModel.ModelType(rawValue: wType) {
-            
-            let wk = ListPlaces.FetchPlaces.ViewModel.Place(label: nil, name: wName, id: wID, distance: nil, type: workType)
-            
-            if wk.type != .location {
-                interactor?.savePlace(request: ListPlaces.SavePlace.Request(place: (name: wk.name, id: wk.id, type: wk.type.rawValue)))
+        if sectionCount == 0 {
+            guard let name = displayedSections[safe: indexPath.section-sectionCount]?.places[safe: indexPath.row]?.name,
+                let id = displayedSections[safe: indexPath.section-sectionCount]?.places[safe: indexPath.row]?.id,
+                let type = displayedSections[safe: indexPath.section-sectionCount]?.places[safe: indexPath.row]?.type else {
+                    return
+            }
+            if type != .location {
+                interactor?.savePlace(request: ListPlaces.SavePlace.Request(place: (name: name, id: id, type: type.rawValue)))
             }
             
-            interactor?.displaySearch(request: ListPlaces.DisplaySearch.Request(from: nil,
-                                                                                to: (label: wk.label,
-                                                                                     name: wk.name,
-                                                                                     id: wk.id)))
-            
-            searchView.focusToField(false)
-            if searchView.fromTextField.text == "" {
-                interactor?.info  = "from"
-                searchView.focusFromField()
-                clearTableView()
-                locationManager.startUpdatingLocation()
-                fetchPlaces(q: "")
+            if interactor?.info == "from" {
+                let request = ListPlaces.DisplaySearch.Request(from: (label: displayedSections[safe: indexPath.section-sectionCount]?.places[safe: indexPath.row]?.label,
+                                                                      name: name,
+                                                                      id: id),
+                                                               to: nil)
+                interactor?.displaySearch(request:request)
+                
+                
+                searchView.focusFromField(false)
+                if searchView.toTextField.text == "" {
+                    interactor?.info = "to"
+                    searchView.focusToField()
+                    clearTableView()
+                    locationManager.stopUpdatingLocation()
+                    
+                    fetchPlaces(q: "")
+                } else {
+                    dismissAutocompletion()
+                }
             } else {
-                dismissAutocompletion()
+                interactor?.displaySearch(request: ListPlaces.DisplaySearch.Request(from: nil,
+                                                                                    to: (label: displayedSections[safe: indexPath.section-sectionCount]?.places[safe: indexPath.row]?.label,
+                                                                                         name: name,
+                                                                                         id: id)))
+                
+                searchView.focusToField(false)
+                if searchView.fromTextField.text == "" {
+                    interactor?.info  = "from"
+                    searchView.focusFromField()
+                    clearTableView()
+                    locationManager.startUpdatingLocation()
+                    fetchPlaces(q: "")
+                } else {
+                    dismissAutocompletion()
+                }
             }
         }
-
-        delegate?.searchView(from: interactor?.from ?? (label: "", name: "", id:""), to: interactor?.to ?? (label: "", name: "", id:""))
-        backButtonPressed()
+        else if sectionCount == 1 {
+            if indexPath.section == 0 {
+                if home != nil {
+                    if let hName = home?.name, let hID = home?.id, let hType = home?.embeddedType?.rawValue, let homeType = ListPlaces.FetchPlaces.ViewModel.ModelType(rawValue: hType) {
+                        
+                        let hm = ListPlaces.FetchPlaces.ViewModel.Place(label: nil, name: hName, id: hID, distance: nil, type: homeType)
+                        
+                        
+                        if hm.type != .location {
+                            interactor?.savePlace(request: ListPlaces.SavePlace.Request(place: (name: hm.name, id: hm.id, type: hm.type.rawValue)))
+                        }
+                        
+                        let request = ListPlaces.DisplaySearch.Request(from: (label: hm.label,
+                                                                              name: hm.name,
+                                                                              id: hm.id),
+                                                                       to: nil)
+                        interactor?.displaySearch(request:request)
+                        
+                        
+                        searchView.focusFromField(false)
+                        if searchView.toTextField.text == "" {
+                            interactor?.info = "to"
+                            searchView.focusToField()
+                            clearTableView()
+                            locationManager.stopUpdatingLocation()
+                            
+                            fetchPlaces(q: "")
+                        } else {
+                            dismissAutocompletion()
+                        }
+                    }
+                }
+                else {
+                    if let wName = work?.name, let wID = work?.id, let wType = work?.embeddedType?.rawValue, let workType = ListPlaces.FetchPlaces.ViewModel.ModelType(rawValue: wType) {
+                        
+                        let wk = ListPlaces.FetchPlaces.ViewModel.Place(label: nil, name: wName, id: wID, distance: nil, type: workType)
+                        
+                        if wk.type != .location {
+                            interactor?.savePlace(request: ListPlaces.SavePlace.Request(place: (name: wk.name, id: wk.id, type: wk.type.rawValue)))
+                        }
+                        
+                        interactor?.displaySearch(request: ListPlaces.DisplaySearch.Request(from: nil,
+                                                                                            to: (label: wk.label,
+                                                                                                 name: wk.name,
+                                                                                                 id: wk.id)))
+                        
+                        searchView.focusToField(false)
+                        if searchView.fromTextField.text == "" {
+                            interactor?.info  = "from"
+                            searchView.focusFromField()
+                            clearTableView()
+                            locationManager.startUpdatingLocation()
+                            fetchPlaces(q: "")
+                        } else {
+                            dismissAutocompletion()
+                        }
+                    }
+                }
+            }
+            else {
+                guard let name = displayedSections[safe: indexPath.section-sectionCount]?.places[safe: indexPath.row]?.name,
+                    let id = displayedSections[safe: indexPath.section-sectionCount]?.places[safe: indexPath.row]?.id,
+                    let type = displayedSections[safe: indexPath.section-sectionCount]?.places[safe: indexPath.row]?.type else {
+                        return
+                }
+                if type != .location {
+                    interactor?.savePlace(request: ListPlaces.SavePlace.Request(place: (name: name, id: id, type: type.rawValue)))
+                }
+                
+                if interactor?.info == "from" {
+                    let request = ListPlaces.DisplaySearch.Request(from: (label: displayedSections[safe: indexPath.section-sectionCount]?.places[safe: indexPath.row]?.label,
+                                                                          name: name,
+                                                                          id: id),
+                                                                   to: nil)
+                    interactor?.displaySearch(request:request)
+                    
+                    
+                    searchView.focusFromField(false)
+                    if searchView.toTextField.text == "" {
+                        interactor?.info = "to"
+                        searchView.focusToField()
+                        clearTableView()
+                        locationManager.stopUpdatingLocation()
+                        
+                        fetchPlaces(q: "")
+                    } else {
+                        dismissAutocompletion()
+                    }
+                } else {
+                    interactor?.displaySearch(request: ListPlaces.DisplaySearch.Request(from: nil,
+                                                                                        to: (label: displayedSections[safe: indexPath.section-sectionCount]?.places[safe: indexPath.row]?.label,
+                                                                                             name: name,
+                                                                                             id: id)))
+                    
+                    searchView.focusToField(false)
+                    if searchView.fromTextField.text == "" {
+                        interactor?.info  = "from"
+                        searchView.focusFromField()
+                        clearTableView()
+                        locationManager.startUpdatingLocation()
+                        fetchPlaces(q: "")
+                    } else {
+                        dismissAutocompletion()
+                    }
+                }
+            }
+        }
+        else {
+            if indexPath.section == 0 {
+                if let hName = home?.name, let hID = home?.id, let hType = home?.embeddedType?.rawValue, let homeType = ListPlaces.FetchPlaces.ViewModel.ModelType(rawValue: hType) {
+                    
+                    let hm = ListPlaces.FetchPlaces.ViewModel.Place(label: nil, name: hName, id: hID, distance: nil, type: homeType)
+                    
+                    
+                    if hm.type != .location {
+                        interactor?.savePlace(request: ListPlaces.SavePlace.Request(place: (name: hm.name, id: hm.id, type: hm.type.rawValue)))
+                    }
+                    
+                    let request = ListPlaces.DisplaySearch.Request(from: (label: hm.label,
+                                                                          name: hm.name,
+                                                                          id: hm.id),
+                                                                   to: nil)
+                    interactor?.displaySearch(request:request)
+                    
+                    
+                    searchView.focusFromField(false)
+                    if searchView.toTextField.text == "" {
+                        interactor?.info = "to"
+                        searchView.focusToField()
+                        clearTableView()
+                        locationManager.stopUpdatingLocation()
+                        
+                        fetchPlaces(q: "")
+                    } else {
+                        dismissAutocompletion()
+                    }
+                }
+            }
+            else if indexPath.section == 1 {
+                if let wName = work?.name, let wID = work?.id, let wType = work?.embeddedType?.rawValue, let workType = ListPlaces.FetchPlaces.ViewModel.ModelType(rawValue: wType) {
+                    
+                    let wk = ListPlaces.FetchPlaces.ViewModel.Place(label: nil, name: wName, id: wID, distance: nil, type: workType)
+                    
+                    if wk.type != .location {
+                        interactor?.savePlace(request: ListPlaces.SavePlace.Request(place: (name: wk.name, id: wk.id, type: wk.type.rawValue)))
+                    }
+                    
+                    interactor?.displaySearch(request: ListPlaces.DisplaySearch.Request(from: nil,
+                                                                                        to: (label: wk.label,
+                                                                                             name: wk.name,
+                                                                                             id: wk.id)))
+                    
+                    searchView.focusToField(false)
+                    if searchView.fromTextField.text == "" {
+                        interactor?.info  = "from"
+                        searchView.focusFromField()
+                        clearTableView()
+                        locationManager.startUpdatingLocation()
+                        fetchPlaces(q: "")
+                    } else {
+                        dismissAutocompletion()
+                    }
+                }
+            }
+            else {
+                guard let name = displayedSections[safe: indexPath.section-sectionCount]?.places[safe: indexPath.row]?.name,
+                    let id = displayedSections[safe: indexPath.section-sectionCount]?.places[safe: indexPath.row]?.id,
+                    let type = displayedSections[safe: indexPath.section-sectionCount]?.places[safe: indexPath.row]?.type else {
+                        return
+                }
+                if type != .location {
+                    interactor?.savePlace(request: ListPlaces.SavePlace.Request(place: (name: name, id: id, type: type.rawValue)))
+                }
+                
+                if interactor?.info == "from" {
+                    let request = ListPlaces.DisplaySearch.Request(from: (label: displayedSections[safe: indexPath.section-sectionCount]?.places[safe: indexPath.row]?.label,
+                                                                          name: name,
+                                                                          id: id),
+                                                                   to: nil)
+                    interactor?.displaySearch(request:request)
+                    
+                    
+                    searchView.focusFromField(false)
+                    if searchView.toTextField.text == "" {
+                        interactor?.info = "to"
+                        searchView.focusToField()
+                        clearTableView()
+                        locationManager.stopUpdatingLocation()
+                        
+                        fetchPlaces(q: "")
+                    } else {
+                        dismissAutocompletion()
+                    }
+                } else {
+                    interactor?.displaySearch(request: ListPlaces.DisplaySearch.Request(from: nil,
+                                                                                        to: (label: displayedSections[safe: indexPath.section-sectionCount]?.places[safe: indexPath.row]?.label,
+                                                                                             name: name,
+                                                                                             id: id)))
+                    
+                    searchView.focusToField(false)
+                    if searchView.fromTextField.text == "" {
+                        interactor?.info  = "from"
+                        searchView.focusFromField()
+                        clearTableView()
+                        locationManager.startUpdatingLocation()
+                        fetchPlaces(q: "")
+                    } else {
+                        dismissAutocompletion()
+                    }
+                }
+            }
+        }
     }
 
     private func clearTableView() {
