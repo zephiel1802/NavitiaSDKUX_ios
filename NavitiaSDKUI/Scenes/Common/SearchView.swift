@@ -14,6 +14,8 @@ import UIKit
     @objc optional func toFieldClicked(q: String?)
     @objc optional func fromFieldDidChange(q: String?)
     @objc optional func toFieldDidChange(q: String?)
+    @objc optional func fromFieldClear(q: String?)
+    @objc optional func toFieldClear(q: String?)
 }
 
 class SearchView: UIView, UITextFieldDelegate {
@@ -352,13 +354,15 @@ class SearchView: UIView, UITextFieldDelegate {
     @IBAction func fromClearButtonClicked(_ sender: Any) {
         fromTextField.text!.removeAll()
         fromTextFieldClear = true
-        fromClearButton.becomeFirstResponder()
+        fromTextField.becomeFirstResponder()
+        delegate?.fromFieldClear?(q: fromTextField.text)
     }
     
     @IBAction func toClearButtonClicked(_ sender: Any) {
         toTextField.text!.removeAll()
         toTextFieldClear = true
         toTextField.becomeFirstResponder()
+        delegate?.toFieldClear?(q: fromTextField.text)
     }
 
     // MARK: Textfield delegate

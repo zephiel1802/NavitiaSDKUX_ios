@@ -932,7 +932,7 @@ extension ListPlacesViewController: UITableViewDataSource, UITableViewDelegate {
                         clearTableView()
                         locationManager.stopUpdatingLocation()
                         
-                        fetchPlaces(q: "")
+//                        fetchPlaces(q: "")
                     } else {
                         dismissAutocompletion()
                     }
@@ -948,7 +948,7 @@ extension ListPlacesViewController: UITableViewDataSource, UITableViewDelegate {
                         searchView.focusFromField()
                         clearTableView()
                         locationManager.startUpdatingLocation()
-                        fetchPlaces(q: "")
+//                        fetchPlaces(q: "")
                     } else {
                         dismissAutocompletion()
                     }
@@ -1014,7 +1014,7 @@ extension ListPlacesViewController: SearchViewDelegate {
 
         searchView.fromView.backgroundColor = Configuration.Color.white.withAlphaComponent(0.9)
         searchView.toView.backgroundColor = Configuration.Color.white
-        interactor?.displaySearch(request: ListPlaces.DisplaySearch.Request())
+//        interactor?.displaySearch(request: ListPlaces.DisplaySearch.Request())
         fetchPlaces(q: "")
     }
     
@@ -1023,7 +1023,7 @@ extension ListPlacesViewController: SearchViewDelegate {
 
         searchView.fromView.backgroundColor = Configuration.Color.white
         searchView.toView.backgroundColor = Configuration.Color.white.withAlphaComponent(0.9)
-        interactor?.displaySearch(request: ListPlaces.DisplaySearch.Request())
+//        interactor?.displaySearch(request: ListPlaces.DisplaySearch.Request())
         fetchPlaces(q: "")
     }
     
@@ -1033,5 +1033,13 @@ extension ListPlacesViewController: SearchViewDelegate {
     
     func toFieldDidChange(q: String?) {
         fetchDeboucedSearch(q: q)
+    }
+    
+    func fromFieldClear(q: String?) {
+        interactor?.from = nil
+    }
+    
+    func toFieldClear(q: String?) {
+        interactor?.to = nil
     }
 }
