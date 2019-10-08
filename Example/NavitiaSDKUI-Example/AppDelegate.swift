@@ -17,8 +17,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         
-        UserDefaults.standard.setStruct(Place(JSON: ["name":"Luxford Rd At Hawaii Av","id":"stop_area:OEY:Navitia:2770370","embedded_type":"stop_area"]), forKey: "home_address")
-        UserDefaults.standard.setStruct(Place(JSON: ["name":"Anzac Pde Near Long Bay Correctional Centre","id":"stop_area:OEY:Navitia:2036113","embedded_type":"stop_area"]), forKey: "work_address")
+//        UserDefaults.standard.setStruct(Place(JSON: ["name":"Luxford Rd At Hawaii Av","id":"stop_area:OEY:Navitia:2770370","embedded_type":"stop_area"]), forKey: "home_address")
+//        UserDefaults.standard.setStruct(Place(JSON: ["name":"Anzac Pde Near Long Bay Correctional Centre","id":"stop_area:OEY:Navitia:2036113","embedded_type":"stop_area"]), forKey: "work_address")
         
         
         NavitiaSDKUI.shared.initialize(token: token)

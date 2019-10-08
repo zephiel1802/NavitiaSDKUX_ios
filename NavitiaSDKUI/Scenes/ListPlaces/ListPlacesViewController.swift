@@ -677,23 +677,41 @@ extension ListPlacesViewController: UITableViewDataSource, UITableViewDelegate {
                             interactor?.savePlace(request: ListPlaces.SavePlace.Request(place: (name: hm.name, id: hm.id, type: hm.type.rawValue)))
                         }
                         
-                        let request = ListPlaces.DisplaySearch.Request(from: (label: hm.label,
-                                                                              name: hm.name,
-                                                                              id: hm.id),
-                                                                       to: nil)
-                        interactor?.displaySearch(request:request)
-                        
-                        
-                        searchView.focusFromField(false)
-                        if searchView.toTextField.text == "" {
-                            interactor?.info = "to"
-                            searchView.focusToField()
-                            clearTableView()
-                            locationManager.stopUpdatingLocation()
+                        if interactor?.info == "from" {
+                            let request = ListPlaces.DisplaySearch.Request(from: (label: hm.label,
+                                                                                  name: hName,
+                                                                                  id: hID),
+                                                                           to: nil)
+                            interactor?.displaySearch(request:request)
                             
-                            fetchPlaces(q: "")
+                            
+                            searchView.focusFromField(false)
+                            if searchView.toTextField.text == "" {
+                                interactor?.info = "to"
+                                searchView.focusToField()
+                                clearTableView()
+                                locationManager.stopUpdatingLocation()
+                                
+                                fetchPlaces(q: "")
+                            } else {
+                                dismissAutocompletion()
+                            }
                         } else {
-                            dismissAutocompletion()
+                            interactor?.displaySearch(request: ListPlaces.DisplaySearch.Request(from: nil,
+                                                                                                to: (label: hm.label,
+                                                                                                     name: hName,
+                                                                                                     id: hID)))
+                            
+                            searchView.focusToField(false)
+                            if searchView.fromTextField.text == "" {
+                                interactor?.info  = "from"
+                                searchView.focusFromField()
+                                clearTableView()
+                                locationManager.startUpdatingLocation()
+                                fetchPlaces(q: "")
+                            } else {
+                                dismissAutocompletion()
+                            }
                         }
                     }
                 }
@@ -706,20 +724,41 @@ extension ListPlacesViewController: UITableViewDataSource, UITableViewDelegate {
                             interactor?.savePlace(request: ListPlaces.SavePlace.Request(place: (name: wk.name, id: wk.id, type: wk.type.rawValue)))
                         }
                         
-                        interactor?.displaySearch(request: ListPlaces.DisplaySearch.Request(from: nil,
-                                                                                            to: (label: wk.label,
-                                                                                                 name: wk.name,
-                                                                                                 id: wk.id)))
-                        
-                        searchView.focusToField(false)
-                        if searchView.fromTextField.text == "" {
-                            interactor?.info  = "from"
-                            searchView.focusFromField()
-                            clearTableView()
-                            locationManager.startUpdatingLocation()
-                            fetchPlaces(q: "")
+                        if interactor?.info == "from" {
+                            let request = ListPlaces.DisplaySearch.Request(from: (label: wk.label,
+                                                                                  name:wName,
+                                                                                  id: wID),
+                                                                           to: nil)
+                            interactor?.displaySearch(request:request)
+                            
+                            
+                            searchView.focusFromField(false)
+                            if searchView.toTextField.text == "" {
+                                interactor?.info = "to"
+                                searchView.focusToField()
+                                clearTableView()
+                                locationManager.stopUpdatingLocation()
+                                
+                                fetchPlaces(q: "")
+                            } else {
+                                dismissAutocompletion()
+                            }
                         } else {
-                            dismissAutocompletion()
+                            interactor?.displaySearch(request: ListPlaces.DisplaySearch.Request(from: nil,
+                                                                                                to: (label: wk.label,
+                                                                                                     name: wName,
+                                                                                                     id: wID)))
+                            
+                            searchView.focusToField(false)
+                            if searchView.fromTextField.text == "" {
+                                interactor?.info  = "from"
+                                searchView.focusFromField()
+                                clearTableView()
+                                locationManager.startUpdatingLocation()
+                                fetchPlaces(q: "")
+                            } else {
+                                dismissAutocompletion()
+                            }
                         }
                     }
                 }
@@ -783,23 +822,41 @@ extension ListPlacesViewController: UITableViewDataSource, UITableViewDelegate {
                         interactor?.savePlace(request: ListPlaces.SavePlace.Request(place: (name: hm.name, id: hm.id, type: hm.type.rawValue)))
                     }
                     
-                    let request = ListPlaces.DisplaySearch.Request(from: (label: hm.label,
-                                                                          name: hm.name,
-                                                                          id: hm.id),
-                                                                   to: nil)
-                    interactor?.displaySearch(request:request)
-                    
-                    
-                    searchView.focusFromField(false)
-                    if searchView.toTextField.text == "" {
-                        interactor?.info = "to"
-                        searchView.focusToField()
-                        clearTableView()
-                        locationManager.stopUpdatingLocation()
+                    if interactor?.info == "from" {
+                        let request = ListPlaces.DisplaySearch.Request(from: (label: hm.label,
+                                                                              name: hName,
+                                                                              id: hID),
+                                                                       to: nil)
+                        interactor?.displaySearch(request:request)
                         
-                        fetchPlaces(q: "")
+                        
+                        searchView.focusFromField(false)
+                        if searchView.toTextField.text == "" {
+                            interactor?.info = "to"
+                            searchView.focusToField()
+                            clearTableView()
+                            locationManager.stopUpdatingLocation()
+                            
+                            fetchPlaces(q: "")
+                        } else {
+                            dismissAutocompletion()
+                        }
                     } else {
-                        dismissAutocompletion()
+                        interactor?.displaySearch(request: ListPlaces.DisplaySearch.Request(from: nil,
+                                                                                            to: (label: hm.label,
+                                                                                                 name: hName,
+                                                                                                 id: hID)))
+                        
+                        searchView.focusToField(false)
+                        if searchView.fromTextField.text == "" {
+                            interactor?.info  = "from"
+                            searchView.focusFromField()
+                            clearTableView()
+                            locationManager.startUpdatingLocation()
+                            fetchPlaces(q: "")
+                        } else {
+                            dismissAutocompletion()
+                        }
                     }
                 }
             }
@@ -812,20 +869,41 @@ extension ListPlacesViewController: UITableViewDataSource, UITableViewDelegate {
                         interactor?.savePlace(request: ListPlaces.SavePlace.Request(place: (name: wk.name, id: wk.id, type: wk.type.rawValue)))
                     }
                     
-                    interactor?.displaySearch(request: ListPlaces.DisplaySearch.Request(from: nil,
-                                                                                        to: (label: wk.label,
-                                                                                             name: wk.name,
-                                                                                             id: wk.id)))
-                    
-                    searchView.focusToField(false)
-                    if searchView.fromTextField.text == "" {
-                        interactor?.info  = "from"
-                        searchView.focusFromField()
-                        clearTableView()
-                        locationManager.startUpdatingLocation()
-                        fetchPlaces(q: "")
+                    if interactor?.info == "from" {
+                        let request = ListPlaces.DisplaySearch.Request(from: (label: wk.label,
+                                                                              name:wName,
+                                                                              id: wID),
+                                                                       to: nil)
+                        interactor?.displaySearch(request:request)
+                        
+                        
+                        searchView.focusFromField(false)
+                        if searchView.toTextField.text == "" {
+                            interactor?.info = "to"
+                            searchView.focusToField()
+                            clearTableView()
+                            locationManager.stopUpdatingLocation()
+                            
+                            fetchPlaces(q: "")
+                        } else {
+                            dismissAutocompletion()
+                        }
                     } else {
-                        dismissAutocompletion()
+                        interactor?.displaySearch(request: ListPlaces.DisplaySearch.Request(from: nil,
+                                                                                            to: (label: wk.label,
+                                                                                                 name: wName,
+                                                                                                 id: wID)))
+                        
+                        searchView.focusToField(false)
+                        if searchView.fromTextField.text == "" {
+                            interactor?.info  = "from"
+                            searchView.focusFromField()
+                            clearTableView()
+                            locationManager.startUpdatingLocation()
+                            fetchPlaces(q: "")
+                        } else {
+                            dismissAutocompletion()
+                        }
                     }
                 }
             }
