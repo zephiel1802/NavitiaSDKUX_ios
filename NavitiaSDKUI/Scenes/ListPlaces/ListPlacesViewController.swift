@@ -151,6 +151,7 @@ public class ListPlacesViewController: UIViewController, ListPlacesDisplayLogic 
     private func initTableView() {
         registerTableView()
         tableView.tableFooterView = UIView(frame: CGRect(x: 0, y: 0, width: tableView.frame.size.width, height: 1))
+        tableView.keyboardDismissMode = .onDrag
         home = UserDefaults.standard.structData(Place.self, forKey: "home_address")
         work = UserDefaults.standard.structData(Place.self, forKey: "work_address")
         sectionCount = 0
@@ -932,7 +933,7 @@ extension ListPlacesViewController: UITableViewDataSource, UITableViewDelegate {
                         clearTableView()
                         locationManager.stopUpdatingLocation()
                         
-//                        fetchPlaces(q: "")
+                        fetchPlaces(q: "")
                     } else {
                         dismissAutocompletion()
                     }
@@ -948,7 +949,7 @@ extension ListPlacesViewController: UITableViewDataSource, UITableViewDelegate {
                         searchView.focusFromField()
                         clearTableView()
                         locationManager.startUpdatingLocation()
-//                        fetchPlaces(q: "")
+                        fetchPlaces(q: "")
                     } else {
                         dismissAutocompletion()
                     }
