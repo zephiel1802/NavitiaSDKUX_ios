@@ -16,7 +16,7 @@
             <rect key="frame" x="0.0" y="0.0" width="56" height="25"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="€ 0,00" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="6" translatesAutoresizingMaskIntoConstraints="NO" id="aLc-2o-WGq">
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="6" translatesAutoresizingMaskIntoConstraints="NO" id="aLc-2o-WGq">
                     <rect key="frame" x="8" y="2" width="40" height="21"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="21" id="JjO-Gz-RI9"/>
@@ -25,7 +25,7 @@
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ticket_not_available" translatesAutoresizingMaskIntoConstraints="NO" id="Mad-a4-ML9">
+                <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Mad-a4-ML9">
                     <rect key="frame" x="0.0" y="0.0" width="56" height="25"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 </imageView>
@@ -59,7 +59,4 @@
             <point key="canvasLocation" x="140.625" y="124.11971830985915"/>
         </view>
     </objects>
-    <resources>
-        <image name="ticket_not_available" width="69" height="35"/>
-    </resources>
 </document>
