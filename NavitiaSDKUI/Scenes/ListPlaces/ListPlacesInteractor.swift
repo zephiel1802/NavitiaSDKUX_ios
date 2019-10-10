@@ -30,6 +30,7 @@ public protocol ListPlacesDataStore {
 
 @objc public enum SearchFieldType: Int {
     
+    case single
     case from
     case to
 }

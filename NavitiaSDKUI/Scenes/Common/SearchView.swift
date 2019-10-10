@@ -23,11 +23,6 @@ import UIKit
 }
 
 class SearchView: UIView, UITextFieldDelegate {
-    // MARK: enum
-    enum Focus: String {
-        case from = "from"
-        case to = "to"
-    }
     
     // MARK: IBOutlet
     @IBOutlet weak var toClearButton: UIButton!
@@ -73,7 +68,6 @@ class SearchView: UIView, UITextFieldDelegate {
     internal var lockSwitch = false
     internal var isPreferencesShown = false
     internal var isDateShown = false
-    internal var focus: Focus?
     internal weak var delegate: SearchViewDelegate? {
         didSet {
             searchButtonView.delegate = delegate as? SearchButtonViewDelegate
@@ -291,21 +285,24 @@ class SearchView: UIView, UITextFieldDelegate {
         }
     }
     
-    internal func focusFromField(_ value: Bool = true) {
-        if value {
+    internal func focusField(_ value: SearchFieldType? = .from) {
+        switch value {
+        case .from?:
             fromTextField.becomeFirstResponder()
             fromView.backgroundColor = Configuration.Color.white.withAlphaComponent(0.9)
-        } else {
-            fromView.backgroundColor = Configuration.Color.white
-        }
-    }
-    
-    internal func focusToField(_ value: Bool = true) {
-        if value {
+        case .to?:
             toTextField.becomeFirstResponder()
             toView.backgroundColor = Configuration.Color.white.withAlphaComponent(0.9)
-        } else {
+        case .single?:
+            singleSearchTextField.becomeFirstResponder()
+            singleSearchView.backgroundColor = Configuration.Color.white.withAlphaComponent(0.9)
+        case nil:
+            fromView.backgroundColor = Configuration.Color.white
             toView.backgroundColor = Configuration.Color.white
+            singleSearchView.backgroundColor = Configuration.Color.white
+            fromTextField.resignFirstResponder()
+            toTextField.resignFirstResponder()
+            singleSearchTextField.resignFirstResponder()
         }
     }
     

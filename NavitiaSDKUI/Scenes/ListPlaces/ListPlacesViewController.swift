@@ -76,7 +76,10 @@ public class ListPlacesViewController: UIViewController {
         initTableView()
         addUserLocationCellItem()
         
-        interactor?.searchFieldType == .from ? searchView.focusFromField() : searchView.focusToField()
+        if singleFieldConfiguration {
+            interactor?.searchFieldType = .single
+        }
+        searchView.focusField(interactor?.searchFieldType ?? .to)
     }
     
     override open func viewWillAppear(_ animated: Bool) {
@@ -351,42 +354,62 @@ extension ListPlacesViewController: UITableViewDataSource, UITableViewDelegate {
         if type != .locationFound {
             interactor?.saveHistoryItem(request: ListPlaces.SavePlace.Request(place: (name: name, id: id, type: type.rawValue)))
         }
-
-        if interactor?.searchFieldType == .from {
+        
+        switch interactor?.searchFieldType {
+        case .from?:
             let request = ListPlaces.UpdateSearchViewFields.Request(from: (label: displayedSections[safe: indexPath.section]?.places[safe: indexPath.row]?.label,
-                                                                  name: name,
-                                                                  id: id),
-                                                           to: nil)
+                                                                           name: name,
+                                                                           id: id),
+                                                                    to: nil)
             interactor?.updateSearchViewFields(request:request)
-            searchView.focusFromField(false)
+            searchView.focusField(nil)
             
             if searchView.toTextField.text == "" && !singleFieldConfiguration {
                 interactor?.searchFieldType = .to
-                searchView.focusToField()
+                searchView.focusField(.to)
                 
                 clearTableView()
                 fetchHistoryItems()
             } else {
                 dismissAutocompletion()
             }
-        } else {
+        case .to?:
             let request = ListPlaces.UpdateSearchViewFields.Request(from: nil,
                                                                     to: (label: displayedSections[safe: indexPath.section]?.places[safe: indexPath.row]?.label,
                                                                          name: name,
                                                                          id: id))
             interactor?.updateSearchViewFields(request: request)
-            searchView.focusToField(false)
+            searchView.focusField(nil)
             
             if searchView.fromTextField.text == "" {
                 interactor?.searchFieldType = .from
-                searchView.focusFromField()
+                searchView.focusField(.from)
                 
                 clearTableView()
                 fetchHistoryItems()
             } else {
                 dismissAutocompletion()
             }
+        case .single?:
+            let request = ListPlaces
+                .UpdateSearchViewFields
+                .Request(from: (label: displayedSections[safe: indexPath.section]?.places[safe: indexPath.row]?.label, name: name,id: id),to: nil)
+            interactor?.updateSearchViewFields(request:request)
+            searchView.focusField(nil)
+            
+            if singleFieldConfiguration {
+                interactor?.searchFieldType = .single
+                searchView.focusField(.single)
+                
+                clearTableView()
+                fetchHistoryItems()
+            } else {
+                dismissAutocompletion()
+            }
+        default:
+            break
         }
+
     }
     
     private func updateUserLocationCellItem(withType type: ListPlaces.FetchPlaces.ViewModel.ModelType) {
