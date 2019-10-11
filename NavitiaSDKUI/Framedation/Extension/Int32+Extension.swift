@@ -14,7 +14,7 @@ extension Int32 {
         let hours = (self / 3600)
         
         if hours > 0 {
-            return String(format: "%1dh%02d", hours, minutes)
+            return String(format: "%1d%@%02d", hours, "units_h".localized(), minutes)
         }
         
         return String(format: "%1d %@", minutes, "units_minutes_short".localized())
@@ -26,7 +26,7 @@ extension Int32 {
         
         if hours > 0 {
             return NSMutableAttributedString()
-                .bold(String(format: "%1dh%02d", hours, minutes), color: Configuration.Color.secondary)
+                .bold(String(format: "%1d%@%02d", hours, "units_h".localized(), minutes), color: Configuration.Color.secondary)
         }
         
         return NSMutableAttributedString()

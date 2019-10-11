@@ -426,7 +426,7 @@ class PublicTransportStepView: UIView {
     private var stopDatesCount: Int = 0 {
         didSet {
             publicTransportStationsLabel.attributedText = NSMutableAttributedString()
-                .normal(String(format: "%@ %@", String(stopDatesCount + 1), "Arrêts"), color: Configuration.Color.darkerGray, size: 13)
+                .normal(String(format: "stops".localized(), stopDatesCount + 1), color: Configuration.Color.darkerGray, size: 13)
         }
     }
     
