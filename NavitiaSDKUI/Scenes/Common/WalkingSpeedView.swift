@@ -82,6 +82,10 @@ class WalkingSpeedView: UIView {
         setupShadow(view: slowItemView)
         setupShadow(view: normalItemView)
         setupShadow(view: fastItemView)
+        
+        slowLabel.text = "slow".localized()
+        normalLabel.text = "normal".localized()
+        fastLabel.text = "fast".localized()
     }
     
     private func colorSetup() {
