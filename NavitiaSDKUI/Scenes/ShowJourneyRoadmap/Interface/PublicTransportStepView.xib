@@ -17,7 +17,7 @@
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="qh1-Nv-EMR">
-                    <rect key="frame" x="0.0" y="10" width="384" height="310"/>
+                    <rect key="frame" x="0.0" y="0.0" width="384" height="310"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4fw-wa-InW">
                             <rect key="frame" x="0.0" y="0.0" width="384" height="44"/>
@@ -472,7 +472,7 @@
             </accessibility>
             <constraints>
                 <constraint firstItem="qh1-Nv-EMR" firstAttribute="leading" secondItem="3Wu-LT-tSW" secondAttribute="leading" id="D17-if-6Sv"/>
-                <constraint firstItem="qh1-Nv-EMR" firstAttribute="top" secondItem="3Wu-LT-tSW" secondAttribute="top" constant="10" id="OnF-Zh-VlJ"/>
+                <constraint firstItem="qh1-Nv-EMR" firstAttribute="top" secondItem="3Wu-LT-tSW" secondAttribute="top" id="OnF-Zh-VlJ"/>
                 <constraint firstItem="3Wu-LT-tSW" firstAttribute="trailing" secondItem="qh1-Nv-EMR" secondAttribute="trailing" id="s50-H1-gCg"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
@@ -530,7 +530,7 @@
         <image name="blocking_disruption" width="44" height="44"/>
         <image name="bus" width="32" height="32"/>
         <image name="non_blocking_disruption" width="44" height="44"/>
-        <image name="ticket" width="60" height="34"/>
+        <image name="ticket" width="181" height="318"/>
         <image name="ticket_not_available" width="69" height="35"/>
         <image name="waiting" width="32" height="32"/>
     </resources>
