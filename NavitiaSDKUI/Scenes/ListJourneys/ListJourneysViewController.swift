@@ -310,7 +310,9 @@ public class ListJourneysViewController: UIViewController, ListJourneysDisplayLo
     // MARK: - Fetch journeys
     
     internal func fetchJourneys() {
-        guard let journeysRequest = interactor?.journeysRequest else {
+        guard let journeysRequest = interactor?.journeysRequest,
+            journeysRequest.originId != nil,
+            journeysRequest.destinationId != nil else {
             return
         }
         
