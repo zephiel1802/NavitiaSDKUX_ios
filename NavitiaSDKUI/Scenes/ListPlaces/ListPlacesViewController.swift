@@ -67,8 +67,6 @@ public class ListPlacesViewController: UIViewController {
             self.setTitle(title: "journeys".localized())
         }
 
-        hideKeyboardWhenTappedAround()
-        
         initLocation()
         initNavigationBar()
         initDebouncer()
@@ -409,7 +407,6 @@ extension ListPlacesViewController: UITableViewDataSource, UITableViewDelegate {
         default:
             break
         }
-
     }
     
     private func updateUserLocationCellItem(withType type: ListPlaces.FetchPlaces.ViewModel.ModelType) {
