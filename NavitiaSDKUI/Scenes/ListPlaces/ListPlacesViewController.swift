@@ -138,7 +138,6 @@ public class ListPlacesViewController: UIViewController {
     
     private func initHeader() {
         searchView.delegate = self
-        searchView.hideKeyboardWhenTappedAround()
         searchView.detailsViewIsHidden = true
         searchView.searchFieldsContainer.backgroundColor = .clear
         searchView.singleSearchFieldsContainer.backgroundColor = .clear
@@ -277,8 +276,7 @@ extension ListPlacesViewController: UITableViewDataSource, UITableViewDelegate {
         
         let view = PlacesHeaderView.instanceFromNib()
         view.title = name
-        view.hideKeyboardWhenTappedAround()
-        
+
         if section == 0 {
             view.lineView.isHidden = true
         }
@@ -324,7 +322,7 @@ extension ListPlacesViewController: UITableViewDataSource, UITableViewDelegate {
                 if cell.type == .locationDisabled || cell.type == .locationLoading || cell.type == .locationFound || cell.type == .locationNotFound {
                     text = "my_position".localized()
                 }
-                cell.contentView.hideKeyboardWhenTappedAround()
+                
                 cell.accessibilityLabel = text + (cell.informations.name ?? "")
             }
             

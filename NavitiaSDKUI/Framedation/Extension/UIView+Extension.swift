@@ -27,14 +27,4 @@ extension UIView {
         layer.shadowOpacity = 0
         layer.shadowRadius = 0
     }
-    
-    func hideKeyboardWhenTappedAround() {
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(UIViewController.dismissKeyboard))
-        tapGesture.cancelsTouchesInView = false
-        addGestureRecognizer(tapGesture)
-    }
-    
-    @objc func dismissKeyboard() {
-        endEditing(true)
-    }
 }
