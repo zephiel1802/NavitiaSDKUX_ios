@@ -49,7 +49,8 @@ class PublicTransportStepView: UIView {
     
     @IBOutlet weak var showTicketView: UIView!
     @IBOutlet weak var viewTicketContainer: UIView!
-    @IBOutlet weak var viewTicketButton: UIButton!
+    @IBOutlet weak var viewTicketLabel: UILabel!
+    @IBOutlet weak var viewTicketImageView: UIImageView!
     @IBOutlet weak var noTicketAvailableContainer: UIView!
     @IBOutlet weak var noTicketAvailableImage: UIImageView!
     @IBOutlet weak var noTicketAvailableLabel: UILabel!
@@ -63,13 +64,10 @@ class PublicTransportStepView: UIView {
         didSet {
             if let ticketViewConfig = ticketViewConfig {
                 if ticketViewConfig.maasProductId != nil {
-                    let ticketImage = "ticket".getIcon()
-                    viewTicketButton.setImage(ticketImage, for: .normal)
-                    viewTicketButton.tintColor = Configuration.Color.secondary.contrastColor()
-                    viewTicketButton.imageView?.contentMode = .scaleAspectFit
-                    viewTicketButton.imageEdgeInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
-                    viewTicketButton.setTitle(ticketViewConfig.viewTicketLocalized, for: .normal)
-                    viewTicketButton.setTitleColor(Configuration.Color.secondary.contrastColor(), for: .normal)
+                    viewTicketImageView.image = "ticket".getIcon()
+                    viewTicketImageView.tintColor = Configuration.Color.secondary.contrastColor()
+                    viewTicketLabel.text = ticketViewConfig.viewTicketLocalized
+                    viewTicketLabel.textColor = Configuration.Color.secondary.contrastColor()
                     
                     viewTicketContainer.backgroundColor = Configuration.Color.secondary
                     viewTicketContainer.isHidden = false
