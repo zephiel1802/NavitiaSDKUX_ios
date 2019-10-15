@@ -87,9 +87,9 @@ struct TicketData: Codable {
 
 struct DriverInfo: Codable {
     
-    let driverId: String
-    let name: String
-    let phone: String
+    let driverId: String?
+    let name: String?
+    let phone: String?
     
     enum CodingKeys: String, CodingKey {
         case driverId = "id"
@@ -107,8 +107,8 @@ struct DriverInfo: Codable {
 
 struct TransportInfo: Codable {
     
-    let transportId: String
-    let model: String
+    let transportId: String?
+    let model: String?
     let description: String?
     
     enum CodingKeys: String, CodingKey {
