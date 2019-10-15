@@ -38,6 +38,7 @@ public class ListJourneysViewController: UIViewController, ListJourneysDisplayLo
     private var walkingSpeedSubtitleView: SubtitleView!
     private var walkingSpeedView: WalkingSpeedView!
     private var searchButtonView: SearchButtonView!
+    private var journeyTimeStamp: TimeInterval = Date().timeIntervalSince1970
     
     let activityView = UIActivityIndicatorView(style: .gray)
     
@@ -317,8 +318,9 @@ public class ListJourneysViewController: UIViewController, ListJourneysDisplayLo
         }
         
         activityView.startAnimating()
-        let request = ListJourneys.FetchJourneys.Request(journeysRequest: journeysRequest)
+        journeyTimeStamp = Date().timeIntervalSince1970
         
+        let request = ListJourneys.FetchJourneys.Request(journeysRequest: journeysRequest)
         interactor?.fetchJourneys(request: request)
     }
     
@@ -437,6 +439,7 @@ extension ListJourneysViewController: UICollectionViewDataSource, UICollectionVi
                 cell.walkingDescription = viewModel.walkingInformation
                 cell.accessibility = viewModel.accessibility
                 cell.friezeSections = viewModel.friezeSections
+                cell.journeyTimeStamp = journeyTimeStamp
                 
                 if journeyPriceDelegate != nil {
                     cell.indexPath = indexPath
@@ -469,6 +472,7 @@ extension ListJourneysViewController: UICollectionViewDataSource, UICollectionVi
                 cell.walkingDescription = viewModel.walkingInformation
                 cell.accessibility = viewModel.accessibility
                 cell.friezeSections = viewModel.friezeSections
+                cell.journeyTimeStamp = journeyTimeStamp
                 
                 return cell
             }
@@ -721,7 +725,7 @@ extension ListJourneysViewController: SearchButtonViewDelegate {
                 interactor?.updateDate(request: FormJourney.UpdateDate.Request(date: date,
                                                                                dateTimeRepresents: searchView.dateFormView.departureArrivalSegmentedControl.selectedSegmentIndex == 0 ? .departure : .arrival))
             }
-            print("Changement de date")
+            
             searchView.hideDate()
             fetchJourneys()
         }
@@ -730,12 +734,12 @@ extension ListJourneysViewController: SearchButtonViewDelegate {
 
 extension ListJourneysViewController: JourneySolutionCollectionViewCellDelegate {
     
-    func getPrice(ticketsInputList: [TicketInput], indexPath: IndexPath?) {
+    func getPrice(ticketsInputList: [TicketInput], indexPath: IndexPath?, journeyTimeStamp: TimeInterval) {
         do {
             let jsonData = try JSONEncoder().encode(ticketsInputList)
             journeyPriceDelegate?.requestPrice(ticketInputData: jsonData, callback: { (ticketPriceDictionary) in
                 do {
-                    guard let index = indexPath, let priceModel = self.viewModel?.displayedJourneys[safe: index.row]?.priceModel else {
+                    guard journeyTimeStamp == self.journeyTimeStamp, let index = indexPath, let priceModel = self.viewModel?.displayedJourneys[safe: index.row]?.priceModel else {
                         return
                     }
                     

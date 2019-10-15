@@ -9,7 +9,7 @@ import UIKit
 
 protocol JourneySolutionCollectionViewCellDelegate {
     
-    func getPrice(ticketsInputList: [TicketInput], indexPath: IndexPath?)
+    func getPrice(ticketsInputList: [TicketInput], indexPath: IndexPath?, journeyTimeStamp: TimeInterval)
 }
 
 class JourneySolutionCollectionViewCell: UICollectionViewCell {
@@ -74,6 +74,7 @@ class JourneySolutionCollectionViewCell: UICollectionViewCell {
             friezeView.addSection(friezeSections: friezeSections)
         }
     }
+    internal var journeyTimeStamp: TimeInterval = Date().timeIntervalSince1970
 
     internal func configurePrice(priceModel: PricesModel?) {
         // Reset UI before any action due to reusable cell
@@ -89,7 +90,7 @@ class JourneySolutionCollectionViewCell: UICollectionViewCell {
             priceView.updatePrice(state: priceModel.state, price: priceModel.totalPrice)
         } else if let ticketInputList = priceModel.ticketsInput, ticketInputList.count > 0 {
             load(true)
-            journeySolutionDelegate?.getPrice(ticketsInputList: ticketInputList, indexPath: indexPath)
+            journeySolutionDelegate?.getPrice(ticketsInputList: ticketInputList, indexPath: indexPath, journeyTimeStamp: journeyTimeStamp)
         }
         
         

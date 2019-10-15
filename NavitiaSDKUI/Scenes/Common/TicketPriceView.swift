@@ -72,6 +72,8 @@ class TicketPriceView: UIView {
         case .unbookable?:
             isHidden = false
             priceLabel.isHidden = true
+            unavailableImageView.image = "ticket_not_available".getIcon()
+            unavailableImageView.tintColor = .black
             unavailableImageView.isHidden = false
         }
     }
