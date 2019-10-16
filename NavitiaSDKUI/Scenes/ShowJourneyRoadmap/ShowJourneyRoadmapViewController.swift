@@ -833,7 +833,10 @@ extension ShowJourneyRoadmapViewController: PublicTransportStepViewDelegate {
     }
     
     public func showError() {
-        // TODO: show popin error
+        let alert = UIAlertController(title: nil,
+                                      message: "an_error_occurred".localized(),
+                                      preferredStyle: .alert)
+        present(alert, animated: true, completion: nil)
     }
 }
 
