@@ -71,6 +71,9 @@ internal class ListJourneysInteractor: ListJourneysBusinessLogic, ListJourneysDa
     func updateDate(request: FormJourney.UpdateDate.Request) {
         journeysRequest?.datetime = request.date
         journeysRequest?.datetimeRepresents = CoverageRegionJourneysRequestBuilder.DatetimeRepresents(rawValue: request.dateTimeRepresents.rawValue)
+        
+        let response = FormJourney.UpdateDate.Response(date: request.date, dateTimeRepresents: request.dateTimeRepresents)
+        presenter?.updateSearchviewDatetime(response: response)
     }
     
     // MARK: - Fetch Physical Modes

@@ -13,6 +13,7 @@ protocol ListJourneysPresentationLogic {
     func presentFetchedPhysicalModes(response: ListJourneys.FetchPhysicalModes.Response)
     func presentFetchedSearchInformation(journeysRequest: JourneysRequest)
     func presentFetchedJourneys(response: ListJourneys.FetchJourneys.Response)
+    func updateSearchviewDatetime(response: FormJourney.UpdateDate.Response)
 }
 
 class ListJourneysPresenter: ListJourneysPresentationLogic {
@@ -419,5 +420,14 @@ class ListJourneysPresenter: ListJourneysPresentationLogic {
         }
         
         return false
+    }
+    
+    func updateSearchviewDatetime(response: FormJourney.UpdateDate.Response) {
+        guard let updatedDatetime = getDisplayedHeaderInformationsDateTime(dateTime: response.date, datetimeRepresents: CoverageRegionJourneysRequestBuilder.DatetimeRepresents(rawValue: response.dateTimeRepresents.rawValue)) else {
+            return
+        }
+        
+        let viewModel = FormJourney.UpdateDate.ViewModel(updatedDatetime: updatedDatetime)
+        viewController?.updateSearchviewDatetime(viewModel: viewModel)
     }
 }

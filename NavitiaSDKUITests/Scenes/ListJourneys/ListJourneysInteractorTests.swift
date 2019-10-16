@@ -33,10 +33,12 @@ class ListJourneysInteractorTests: XCTestCase {
     // MARK: - Test doubles
     
     class ListJourneysPresentationLogicSpy: ListJourneysPresentationLogic {
+        
         var presentFetchedSearchInformationCalled = false
         var presentFetchedJourneysCalled = false
         var presentDisplayedSearchCalled = false
         var presentFetchedPhysicalModesCalled = false
+        var updateSearchviewDatetime = false
         
         func presentFetchedSearchInformation(journeysRequest: JourneysRequest) {
             presentFetchedSearchInformationCalled = true
@@ -47,11 +49,15 @@ class ListJourneysInteractorTests: XCTestCase {
         }
         
         func presentDisplayedSearch(response: ListJourneys.DisplaySearch.Response) {
-            presentDisplayedSearchCalled = false
+            presentDisplayedSearchCalled = true
         }
         
         func presentFetchedPhysicalModes(response: ListJourneys.FetchPhysicalModes.Response) {
-            presentFetchedPhysicalModesCalled = false
+            presentFetchedPhysicalModesCalled = true
+        }
+        
+        func updateSearchviewDatetime(response: FormJourney.UpdateDate.Response) {
+            updateSearchviewDatetime = true
         }
     }
     

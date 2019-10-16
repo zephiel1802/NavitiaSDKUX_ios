@@ -36,8 +36,11 @@ enum FormJourney {
             var dateTimeRepresents: DatetimeRepresents
         }
         struct Response {
+            var date: Date
+            var dateTimeRepresents: FormJourney.UpdateDate.Request.DatetimeRepresents
         }
         struct ViewModel {
+            var updatedDatetime: String
         }
     }
 }

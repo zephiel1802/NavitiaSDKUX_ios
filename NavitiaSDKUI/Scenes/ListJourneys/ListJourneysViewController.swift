@@ -12,6 +12,7 @@ protocol ListJourneysDisplayLogic: class {
     func displaySearch(viewModel: ListJourneys.DisplaySearch.ViewModel)
     func callbackFetchedPhysicalModes(viewModel: ListJourneys.FetchPhysicalModes.ViewModel)
     func displayFetchedJourneys(viewModel: ListJourneys.FetchJourneys.ViewModel)
+    func updateSearchviewDatetime(viewModel: FormJourney.UpdateDate.ViewModel)
 }
 
 public protocol JourneyPriceDelegate: class {
@@ -343,6 +344,10 @@ public class ListJourneysViewController: UIViewController, ListJourneysDisplayLo
         
         journeysCollectionView.reloadData()
         reloadCollectionViewLayout()
+    }
+    
+    func updateSearchviewDatetime(viewModel: FormJourney.UpdateDate.ViewModel) {
+        searchView.dateTime = viewModel.updatedDatetime
     }
     
     private func reloadCollectionViewLayout() {
