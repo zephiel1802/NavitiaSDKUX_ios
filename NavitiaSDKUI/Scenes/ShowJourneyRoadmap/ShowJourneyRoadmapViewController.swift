@@ -291,7 +291,7 @@ public class ShowJourneyRoadmapViewController: UIViewController, JourneyRootView
         informationView.frame = view.bounds
         informationView.status = status
         
-        slidingScrollView.stackScrollView.addSubview(informationView, margin: UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0))
+        slidingScrollView.stackScrollView.addSubview(informationView, margin: UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10))
     }
     
     private func displayDepartureArrivalStep(viewModel: ShowJourneyRoadmap.GetRoadmap.ViewModel.DepartureArrival) {

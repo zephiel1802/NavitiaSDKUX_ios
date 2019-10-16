@@ -18,9 +18,6 @@
             <subviews>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="6" translatesAutoresizingMaskIntoConstraints="NO" id="aLc-2o-WGq">
                     <rect key="frame" x="8" y="2" width="40" height="21"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="21" id="JjO-Gz-RI9"/>
-                    </constraints>
                     <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="12"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
