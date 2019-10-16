@@ -614,6 +614,7 @@ class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
         let from = getFrom(section: section)
         let to = getTo(section: section)
         let poi = getPoi(section: section)
+        let duration = getDuration(section: section)
         let sectionModel = ShowJourneyRoadmap
             .GetRoadmap
             .ViewModel
@@ -625,7 +626,7 @@ class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
                           startTime: getDepartureDateTime(section: section),
                           endTime: getArrivalDateTime(section: section),
                           actionDescription: actionDescription,
-                          duration: getDuration(section: section),
+                          duration: duration,
                           path: getPaths(section: section),
                           stopDate: getStopDate(section: section),
                           displayInformations: getDisplayInformations(displayInformations:section.displayInformations),
@@ -634,11 +635,12 @@ class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
                           notes: getNotesOnDemandTransport(section: section, notes: notes),
                           poi: poi,
                           icon: Modes().getMode(section: section, roadmap: true),
-                          informationsAttributedString: getInformationsStepView(section: section,
+                          informationsAttributedString: getInformationsStepView(type: type,
                                                                                 actionDescription: actionDescription,
                                                                                 poi: poi,
                                                                                 from: from,
-                                                                                to: to),
+                                                                                to: to,
+                                                                                duration: duration),
                           realTime: getRealTime(section: section),
                           background: getBackground(section: section),
                           section: section,
@@ -1274,20 +1276,21 @@ extension ShowJourneyRoadmapPresenter {
         }
     }
     
-    private func getInformationsStepView(section: Section,
+    private func getInformationsStepView(type: ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionModel.ModelType?,
                                          actionDescription: String?,
                                          poi: ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionModel.Poi?,
                                          from: String,
-                                         to: String) -> NSAttributedString {
+                                         to: String,
+                                         duration: String?) -> NSAttributedString {
         let informations = NSMutableAttributedString()
         
         if let actionDescription = actionDescription {
-            if section.type == .ridesharing {
+            if type == .ridesharing {
                 informations.append(NSMutableAttributedString().normal(String(format: "%@ ", actionDescription), color: Configuration.Color.black, size: 15))
                 informations.append(NSMutableAttributedString().bold(String(format: "%@ ", from), color: Configuration.Color.black, size: 15))
                 informations.append(NSMutableAttributedString().normal(String(format: "%@ ", "to".localized()), color: Configuration.Color.black, size: 15))
                 informations.append(NSMutableAttributedString().bold(String(format: "%@", to), color: Configuration.Color.black, size: 15))
-            } else if section.type == .bssPutBack || section.type == .bssRent || section.type == .park {
+            } else if type == .bssPutBack || type == .bssRent || type == .park {
                 if let name = poi?.name {
                     informations.append(NSMutableAttributedString().normal(String(format: "%@ ", actionDescription), color: Configuration.Color.black, size: 15))
                     informations.append(NSMutableAttributedString().bold(String(format: "%@", name), color: Configuration.Color.black, size: 15))
@@ -1302,7 +1305,7 @@ extension ShowJourneyRoadmapPresenter {
             informations.append(NSMutableAttributedString().bold(String(format: "\n%@", addressName), color: Configuration.Color.black, size: 13))
         }
         
-        if let duration = section.duration {
+        if let duration = duration {
             informations.append(NSMutableAttributedString().normal(String(format: "\n%@", duration), color: Configuration.Color.black, size: 15))
         }
         
