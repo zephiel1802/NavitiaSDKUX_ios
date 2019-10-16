@@ -40,7 +40,6 @@ class ListJourneysInteractorTests: XCTestCase {
         var presentFetchedPhysicalModesCalled = false
         var updateSearchviewDatetime = false
         
-        
         func presentFetchedSearchInformation(journeysRequest: JourneysRequest) {
             presentFetchedSearchInformationCalled = true
         }
