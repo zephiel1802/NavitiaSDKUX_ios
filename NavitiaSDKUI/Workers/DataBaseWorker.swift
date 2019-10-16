@@ -16,20 +16,14 @@ class DataBaseWorker {
     func connection() {
         let fileURL = try! FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false)
             .appendingPathComponent("JourneysDatabase.sqlite")
-
-        print("SQLITE : ", fileURL.absoluteString)
         
         if sqlite3_open(fileURL.path, &db) != SQLITE_OK {
             print("SQLITE : error opening database")
-        } else {
-            print("SQLITE : OK OK data")
         }
         
         if sqlite3_exec(db, "CREATE TABLE IF NOT EXISTS autocompletion (id INTEGER PRIMARY KEY AUTOINCREMENT, coverage TEXT, name TEXT, idNavitia TEXT UNIQUE, type INTEGER)", nil, nil, nil) != SQLITE_OK {
             let errmsg = String(cString: sqlite3_errmsg(db)!)
             print("SQLITE : error creating table: \(errmsg)")
-        } else {
-            print("SQLITE : OK OK Table")
         }
     }
     
@@ -53,32 +47,32 @@ class DataBaseWorker {
         let queryString = "INSERT INTO autocompletion (coverage, name, idNavitia, type) VALUES (?, ?, ?, ?);"
         
         // Preparing the query
-        if sqlite3_prepare(db, queryString, -1, &stmt, nil) != SQLITE_OK{
+        if sqlite3_prepare(db, queryString, -1, &stmt, nil) != SQLITE_OK {
             let errmsg = String(cString: sqlite3_errmsg(db)!)
             print("SQLITE : error preparing insert: \(errmsg)")
             return
         }
         
         // Binding the parameters
-        if sqlite3_bind_text(stmt, 1, coverage.utf8String, -1, nil) != SQLITE_OK{
+        if sqlite3_bind_text(stmt, 1, coverage.utf8String, -1, nil) != SQLITE_OK {
             let errmsg = String(cString: sqlite3_errmsg(db)!)
             print("SQLITE : failure binding name: \(errmsg)")
             return
         }
         
-        if sqlite3_bind_text(stmt, 2, name.utf8String, -1, nil) != SQLITE_OK{
+        if sqlite3_bind_text(stmt, 2, name.utf8String, -1, nil) != SQLITE_OK {
             let errmsg = String(cString: sqlite3_errmsg(db)!)
             print("SQLITE : failure binding name: \(errmsg)")
             return
         }
         
-        if sqlite3_bind_text(stmt, 3, idNavitia.utf8String, -1, nil) != SQLITE_OK{
+        if sqlite3_bind_text(stmt, 3, idNavitia.utf8String, -1, nil) != SQLITE_OK {
             let errmsg = String(cString: sqlite3_errmsg(db)!)
             print("SQLITE : failure binding name: \(errmsg)")
             return
         }
         
-        if sqlite3_bind_text(stmt, 4, type.utf8String, -1, nil) != SQLITE_OK{
+        if sqlite3_bind_text(stmt, 4, type.utf8String, -1, nil) != SQLITE_OK {
             let errmsg = String(cString: sqlite3_errmsg(db)!)
             print("SQLITE : failure binding name: \(errmsg)")
             return
@@ -90,10 +84,6 @@ class DataBaseWorker {
             print("SQLITE : failure inserting hero: \(errmsg)")
             return
         }
-        
-        
-        // Displaying a success message
-        print("SQLITE : Journeys saved successfully")
     }
     
     func remove() -> Bool {
@@ -131,7 +121,7 @@ class DataBaseWorker {
         var stmt:OpaquePointer?
         
         // Preparing the query
-        if sqlite3_prepare(db, queryString, -1, &stmt, nil) != SQLITE_OK{
+        if sqlite3_prepare(db, queryString, -1, &stmt, nil) != SQLITE_OK {
             let errmsg = String(cString: sqlite3_errmsg(db)!)
             print("error preparing insert: \(errmsg)")
             return nil

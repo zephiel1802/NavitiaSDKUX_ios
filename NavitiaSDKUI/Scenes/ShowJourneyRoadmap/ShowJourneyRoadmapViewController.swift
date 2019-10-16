@@ -291,7 +291,7 @@ public class ShowJourneyRoadmapViewController: UIViewController, JourneyRootView
         informationView.frame = view.bounds
         informationView.status = status
         
-        slidingScrollView.stackScrollView.addSubview(informationView, margin: UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0))
+        slidingScrollView.stackScrollView.addSubview(informationView, margin: UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10))
     }
     
     private func displayDepartureArrivalStep(viewModel: ShowJourneyRoadmap.GetRoadmap.ViewModel.DepartureArrival) {
@@ -359,38 +359,6 @@ public class ShowJourneyRoadmapViewController: UIViewController, JourneyRootView
         return cancelJourneyView
     }
     
-    // TODO : Add in presenter
-    private func getInformationsStepView(section: ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionModel) -> NSAttributedString {
-        let informations = NSMutableAttributedString()
-        
-        if let actionDescription = section.actionDescription {
-            if section.type == .ridesharing {
-                informations.append(NSMutableAttributedString().normal(String(format: "%@ ", actionDescription), color: Configuration.Color.black, size: 15))
-                informations.append(NSMutableAttributedString().bold(String(format: "%@ ", section.from), color: Configuration.Color.black, size: 15))
-                informations.append(NSMutableAttributedString().normal(String(format: "%@ ", "to".localized()), color: Configuration.Color.black, size: 15))
-                informations.append(NSMutableAttributedString().bold(String(format: "%@", section.to), color: Configuration.Color.black, size: 15))
-            } else if section.type == .bssPutBack || section.type == .bssRent || section.type == .park {
-                if let name = section.poi?.name {
-                    informations.append(NSMutableAttributedString().normal(String(format: "%@ ", actionDescription), color: Configuration.Color.black, size: 15))
-                    informations.append(NSMutableAttributedString().bold(String(format: "%@", name), color: Configuration.Color.black, size: 15))
-                }
-            } else {
-                informations.append(NSMutableAttributedString().normal(String(format: "%@ ", actionDescription), color: Configuration.Color.black, size: 15))
-                informations.append(NSMutableAttributedString().bold(String(format: "%@", section.to), color: Configuration.Color.black, size: 15))
-            }
-        }
-        
-        if let addressName = section.poi?.addressName {
-            informations.append(NSMutableAttributedString().bold(String(format: "\n%@", addressName), color: Configuration.Color.black, size: 13))
-        }
-        
-        if let duration = section.duration {
-            informations.append(NSMutableAttributedString().normal(String(format: "\n%@", duration), color: Configuration.Color.black, size: 15))
-        }
-        
-        return informations
-    }
-    
     private func getRealTime(section: ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionModel, view: StepView) {
         if section.poi?.stands != nil && section.realTime {
             switch section.type {
@@ -411,7 +379,7 @@ public class ShowJourneyRoadmapViewController: UIViewController, JourneyRootView
         stepView.frame = view.bounds
         stepView.enableBackground = section.background
         stepView.iconInformations = section.icon
-        stepView.informationsAttributedString = getInformationsStepView(section: section)
+        stepView.informationsAttributedString = section.informationsAttributedString
         stepView.stands = section.poi?.stands
         stepView.paths = section.path
 
@@ -833,7 +801,10 @@ extension ShowJourneyRoadmapViewController: PublicTransportStepViewDelegate {
     }
     
     public func showError() {
-        // TODO: show popin error
+        let alert = UIAlertController(title: nil,
+                                      message: "an_error_occurred".localized(),
+                                      preferredStyle: .alert)
+        present(alert, animated: true, completion: nil)
     }
 }
 

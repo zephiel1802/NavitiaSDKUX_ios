@@ -158,6 +158,7 @@ enum ShowJourneyRoadmap {
                 var notes: [Note]
                 var poi: Poi?
                 var icon: String
+                var informationsAttributedString: NSAttributedString?
                 var realTime: Bool
                 var background: Bool
                 var section: Section

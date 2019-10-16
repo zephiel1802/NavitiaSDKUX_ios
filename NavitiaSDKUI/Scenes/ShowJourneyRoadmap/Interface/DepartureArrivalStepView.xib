@@ -31,7 +31,7 @@
                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="location_pin" translatesAutoresizingMaskIntoConstraints="NO" id="vil-Qa-r2X">
+                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="journey_departure_pin" translatesAutoresizingMaskIntoConstraints="NO" id="vil-Qa-r2X">
                             <rect key="frame" x="50" y="6.5" width="25" height="25"/>
                             <constraints>
                                 <constraint firstAttribute="width" secondItem="vil-Qa-r2X" secondAttribute="height" multiplier="1:1" id="Y9c-Z2-wg4"/>
@@ -135,6 +135,6 @@
     </objects>
     <resources>
         <image name="calorie" width="42" height="42"/>
-        <image name="location_pin" width="32" height="32"/>
+        <image name="journey_departure_pin" width="32" height="32"/>
     </resources>
 </document>

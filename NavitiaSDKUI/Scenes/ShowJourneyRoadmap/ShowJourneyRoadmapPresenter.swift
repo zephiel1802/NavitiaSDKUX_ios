@@ -610,30 +610,44 @@ class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
         }
         
         let maasTicketInfo = getAvailableMaasTicket(section: section, maasTickets: maasTickets)
-        let sectionModel = ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionModel(type: type,
-                                                                                mode: getMode(section: section),
-                                                                                from: getFrom(section: section),
-                                                                                to: getTo(section: section),
-                                                                                timeintervalInMinutes: getDepartureTimeIntervalInMinutes(section: section),
-                                                                                startTime: getDepartureDateTime(section: section),
-                                                                                endTime: getArrivalDateTime(section: section),
-                                                                                actionDescription: getActionDescription(section: section),
-                                                                                duration: getDuration(section: section),
-                                                                                path: getPaths(section: section),
-                                                                                stopDate: getStopDate(section: section),
-                                                                                displayInformations: getDisplayInformations(displayInformations: section.displayInformations),
-                                                                                waiting: getWaiting(sectionBefore: sectionBefore, section: section),
-                                                                                disruptions: getDisruptionModel(section: section, disruptions: disruptions),
-                                                                                notes: getNotesOnDemandTransport(section: section, notes: notes),
-                                                                                poi: getPoi(section: section),
-                                                                                icon: Modes().getMode(section: section, roadmap: true),
-                                                                                realTime: getRealTime(section: section),
-                                                                                background: getBackground(section: section),
-                                                                                section: section,
-                                                                                maasProductId: maasTicketInfo.maasProductId,
-                                                                                maasTicketId: maasTicketInfo.maasTicketId,
-                                                                                maasOrderJson: maasOrderJson,
-                                                                                ticketPrice: (state: priceState, price: ticketPrice))
+        let actionDescription = getActionDescription(section: section)
+        let from = getFrom(section: section)
+        let to = getTo(section: section)
+        let poi = getPoi(section: section)
+        let duration = getDuration(section: section)
+        let sectionModel = ShowJourneyRoadmap
+            .GetRoadmap
+            .ViewModel
+            .SectionModel(type: type,
+                          mode: getMode(section: section),
+                          from: from,
+                          to: to,
+                          timeintervalInMinutes: getDepartureTimeIntervalInMinutes(section: section),
+                          startTime: getDepartureDateTime(section: section),
+                          endTime: getArrivalDateTime(section: section),
+                          actionDescription: actionDescription,
+                          duration: duration,
+                          path: getPaths(section: section),
+                          stopDate: getStopDate(section: section),
+                          displayInformations: getDisplayInformations(displayInformations:section.displayInformations),
+                          waiting: getWaiting(sectionBefore: sectionBefore, section: section),
+                          disruptions: getDisruptionModel(section: section, disruptions: disruptions),
+                          notes: getNotesOnDemandTransport(section: section, notes: notes),
+                          poi: poi,
+                          icon: Modes().getMode(section: section, roadmap: true),
+                          informationsAttributedString: getInformationsStepView(type: type,
+                                                                                actionDescription: actionDescription,
+                                                                                poi: poi,
+                                                                                from: from,
+                                                                                to: to,
+                                                                                duration: duration),
+                          realTime: getRealTime(section: section),
+                          background: getBackground(section: section),
+                          section: section,
+                          maasProductId: maasTicketInfo.maasProductId,
+                          maasTicketId: maasTicketInfo.maasTicketId,
+                          maasOrderJson: maasOrderJson,
+                          ticketPrice: (state: priceState, price: ticketPrice))
         
         return sectionModel
     }
@@ -1260,5 +1274,41 @@ extension ShowJourneyRoadmapPresenter {
         default:
             return nil
         }
+    }
+    
+    private func getInformationsStepView(type: ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionModel.ModelType?,
+                                         actionDescription: String?,
+                                         poi: ShowJourneyRoadmap.GetRoadmap.ViewModel.SectionModel.Poi?,
+                                         from: String,
+                                         to: String,
+                                         duration: String?) -> NSAttributedString {
+        let informations = NSMutableAttributedString()
+        
+        if let actionDescription = actionDescription {
+            if type == .ridesharing {
+                informations.append(NSMutableAttributedString().normal(String(format: "%@ ", actionDescription), color: Configuration.Color.black, size: 15))
+                informations.append(NSMutableAttributedString().bold(String(format: "%@ ", from), color: Configuration.Color.black, size: 15))
+                informations.append(NSMutableAttributedString().normal(String(format: "%@ ", "to".localized()), color: Configuration.Color.black, size: 15))
+                informations.append(NSMutableAttributedString().bold(String(format: "%@", to), color: Configuration.Color.black, size: 15))
+            } else if type == .bssPutBack || type == .bssRent || type == .park {
+                if let name = poi?.name {
+                    informations.append(NSMutableAttributedString().normal(String(format: "%@ ", actionDescription), color: Configuration.Color.black, size: 15))
+                    informations.append(NSMutableAttributedString().bold(String(format: "%@", name), color: Configuration.Color.black, size: 15))
+                }
+            } else {
+                informations.append(NSMutableAttributedString().normal(String(format: "%@ ", actionDescription), color: Configuration.Color.black, size: 15))
+                informations.append(NSMutableAttributedString().bold(String(format: "%@", to), color: Configuration.Color.black, size: 15))
+            }
+        }
+        
+        if let addressName = poi?.addressName {
+            informations.append(NSMutableAttributedString().bold(String(format: "\n%@", addressName), color: Configuration.Color.black, size: 13))
+        }
+        
+        if let duration = duration {
+            informations.append(NSMutableAttributedString().normal(String(format: "\n%@", duration), color: Configuration.Color.black, size: 15))
+        }
+        
+        return informations
     }
 }
