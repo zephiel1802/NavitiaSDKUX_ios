@@ -22,7 +22,7 @@
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4fw-wa-InW">
                             <rect key="frame" x="0.0" y="0.0" width="384" height="44"/>
                             <subviews>
-                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bus" translatesAutoresizingMaskIntoConstraints="NO" id="vd7-1j-br7">
+                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="journey_mode_bus" translatesAutoresizingMaskIntoConstraints="NO" id="vd7-1j-br7">
                                     <rect key="frame" x="12" y="12" width="20" height="20"/>
                                     <constraints>
                                         <constraint firstAttribute="width" secondItem="vd7-1j-br7" secondAttribute="height" multiplier="1:1" id="SHW-a1-g6k"/>
@@ -569,7 +569,7 @@
     <resources>
         <image name="arrow_down" width="32" height="32"/>
         <image name="blocking_disruption" width="44" height="44"/>
-        <image name="bus" width="32" height="32"/>
+        <image name="journey_mode_bus" width="32" height="32"/>
         <image name="non_blocking_disruption" width="44" height="44"/>
         <image name="waiting" width="32" height="32"/>
     </resources>

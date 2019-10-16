@@ -37,7 +37,7 @@
                                     </attributedString>
                                     <nil key="highlightedColor"/>
                                 </label>
-                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bus" translatesAutoresizingMaskIntoConstraints="NO" id="Lz2-1J-W8N">
+                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="journey_mode_bus" translatesAutoresizingMaskIntoConstraints="NO" id="Lz2-1J-W8N">
                                     <rect key="frame" x="15" y="2" width="20" height="20"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="20" id="DnS-LF-4eE"/>
@@ -106,7 +106,7 @@
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
                                 </label>
-                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="park" translatesAutoresizingMaskIntoConstraints="NO" id="5kN-mg-MG2">
+                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="journey_mode_bss" translatesAutoresizingMaskIntoConstraints="NO" id="5kN-mg-MG2">
                                     <rect key="frame" x="15" y="4.5" width="20" height="20"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="20" id="Jhg-Zy-AB2"/>
@@ -207,9 +207,9 @@
     </objects>
     <resources>
         <image name="arrow_down" width="32" height="32"/>
-        <image name="bus" width="32" height="32"/>
         <image name="disruption_information" width="32" height="32"/>
-        <image name="park" width="32" height="32"/>
+        <image name="journey_mode_bss" width="32" height="32"/>
+        <image name="journey_mode_bus" width="32" height="32"/>
         <image name="real_time" width="42" height="42"/>
     </resources>
 </document>
