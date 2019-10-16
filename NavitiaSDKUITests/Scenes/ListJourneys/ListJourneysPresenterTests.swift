@@ -38,28 +38,35 @@ class ListJourneysPresenterTests: XCTestCase {
     // MARK: - Test doubles
     
     class ListJourneysDisplayLogicSpy: ListJourneysDisplayLogic {
+        
         var callbackFetchedPhysicalModesJourneysCalled = false
         var displaySearchJourneysCalled = false
         var displayFetchedJourneysCalled = false
+        var updateSearchviewDatetimeCalled = false
+        var updateSearchviewDatetimeViewModel: FormJourney.UpdateDate.ViewModel!
         var fetchPhysicalModesViewModel: ListJourneys.FetchPhysicalModes.ViewModel!
         var displaySearchViewModel: ListJourneys.DisplaySearch.ViewModel!
         var fetchJourneysViewModel: ListJourneys.FetchJourneys.ViewModel!
         
         func callbackFetchedPhysicalModes(viewModel: ListJourneys.FetchPhysicalModes.ViewModel) {
             callbackFetchedPhysicalModesJourneysCalled = true
-            self.fetchPhysicalModesViewModel = viewModel
+            fetchPhysicalModesViewModel = viewModel
         }
         
         func displaySearch(viewModel: ListJourneys.DisplaySearch.ViewModel) {
             displaySearchJourneysCalled = true
-            self.displaySearchViewModel = viewModel
+            displaySearchViewModel = viewModel
         }
         
         func displayFetchedJourneys(viewModel: ListJourneys.FetchJourneys.ViewModel) {
             displayFetchedJourneysCalled = true
-            self.fetchJourneysViewModel = viewModel
+            fetchJourneysViewModel = viewModel
         }
         
+        func updateSearchviewDatetime(viewModel: FormJourney.UpdateDate.ViewModel) {
+            updateSearchviewDatetimeCalled = true
+            updateSearchviewDatetimeViewModel = viewModel
+        }
     }
     
     // MARK: - Tests
