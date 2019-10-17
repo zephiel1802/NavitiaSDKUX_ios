@@ -6,6 +6,8 @@
 //
 
 import UIKit
+import Network
+import SystemConfiguration
 
 protocol ListJourneysDisplayLogic: class {
     
@@ -432,6 +434,39 @@ extension ListJourneysViewController: UICollectionViewDataSource, UICollectionVi
             // No journey
             if viewModel.displayedJourneys.count == 0 {
                 if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: JourneyEmptySolutionCollectionViewCell.identifier, for: indexPath) as? JourneyEmptySolutionCollectionViewCell {
+                    
+                    if #available(iOS 12.0, *) {
+                        let queue = DispatchQueue(label: "InternetConnectionMonitor")
+                        let monitor = NWPathMonitor()
+                        monitor.pathUpdateHandler = { pathUpdateHandler in
+                            if pathUpdateHandler.status == .satisfied {
+                                cell.descriptionText = "no_journey_found".localized()
+                            } else {
+                                cell.descriptionText = "no_network".localized()
+                            }
+                        }
+                        monitor.start(queue: queue)
+                    } else {
+                        var zeroAddress = sockaddr_in()
+                        zeroAddress.sin_len = UInt8(MemoryLayout.size(ofValue: zeroAddress))
+                        zeroAddress.sin_family = sa_family_t(AF_INET)
+                        
+                        let defaultRouteReachability = withUnsafePointer(to: &zeroAddress) {
+                            $0.withMemoryRebound(to: sockaddr.self, capacity: 1) {zeroSockAddress in
+                                SCNetworkReachabilityCreateWithAddress(nil, zeroSockAddress)
+                            }
+                        }
+                        
+                        var flags = SCNetworkReachabilityFlags()
+                        if !SCNetworkReachabilityGetFlags(defaultRouteReachability!, &flags),
+                            (flags.rawValue & UInt32(kSCNetworkFlagsReachable)) == 0,
+                            (flags.rawValue & UInt32(kSCNetworkFlagsConnectionRequired)) != 0 {
+                            cell.descriptionText = "no_network".localized()
+                        } else {
+                            cell.descriptionText = "no_journey_found".localized()
+                        }
+                    }
+                    
                     return cell
                 }
             }
