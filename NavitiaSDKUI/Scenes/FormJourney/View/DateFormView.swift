@@ -29,6 +29,7 @@ class DateFormView: UIView {
     private var datePicker: UIDatePicker?
     private var contraintHegiht: NSLayoutConstraint?
     private var backback: UIView?
+    private var isNow = true
     
     internal weak var delegate: DateFormViewDelegate?
     internal var dateTimeRepresentsSegmentedControl: String? {
@@ -46,12 +47,16 @@ class DateFormView: UIView {
     }
     internal var date: Date? {
         get {
-            return datePicker?.date
+            return isNow ? Date() : datePicker?.date
         }
         set {
-            guard let newValue = newValue,
+            guard var newValue = newValue,
                 let datePicker = datePicker else {
                 return
+            }
+            
+            if newValue < Date() {
+                newValue = Date()
             }
             
             let dateFormmatter = DateFormatter()
@@ -173,10 +178,12 @@ class DateFormView: UIView {
     }
     
     @objc func dateChanged(datePicker: UIDatePicker) {
+        isNow = false
         date = datePicker.date
     }
     
     @objc func nowDatePicker() {
+        isNow = true
         date = Date()
     }
     

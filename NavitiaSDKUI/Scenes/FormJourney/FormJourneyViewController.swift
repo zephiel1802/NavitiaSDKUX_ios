@@ -90,6 +90,7 @@ class FormJourneyViewController: UIViewController, FormJourneyDisplayLogic, Jour
         super.viewDidAppear(animated)
         searchView.fromTextField.resignFirstResponder()
         searchView.toTextField.resignFirstResponder()
+        
     }
     
     private func initArchitecture() {
