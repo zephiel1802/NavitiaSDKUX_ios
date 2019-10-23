@@ -26,10 +26,10 @@ class BuyTicketButtonView: UIView {
                 
                 let text = String(format: "buy_tickets_with_price".localized(), price).uppercased()
                 let attributedString = NSMutableAttributedString(string: text, attributes: [
-                    .font: UIFont.systemFont(ofSize: 14.0, weight: .regular),
+                    .font: UIFont.systemFont(ofSize: 14.0, weight: .bold),
                     .foregroundColor: UIColor(white: 1.0, alpha: 1.0)
                     ])
-                attributedString.addAttribute(.font, value: UIFont.systemFont(ofSize: 14.0, weight: .bold), range: NSRange(location: 0, length: 12))
+                attributedString.addAttribute(.font, value: UIFont.systemFont(ofSize: 17.0, weight: .heavy), range: NSRange(location: 0, length: 12))
                 textLabel.attributedText = attributedString
             } else {
                 buttonView.backgroundColor = Configuration.Color.shadow
