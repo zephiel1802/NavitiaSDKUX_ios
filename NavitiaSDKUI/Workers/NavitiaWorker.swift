@@ -17,6 +17,10 @@ protocol NavitiaWorkerProtocol {
 class NavitiaWorker: NavitiaWorkerProtocol {
     
     func fetchJourneys(journeysRequest: JourneysRequest, completionHandler: @escaping NavitiaFetchJourneysCompletionHandler) {
+        // If traveler_type is wheelchair, we need to prevent requesting bike mode
+        var journeysRequest = journeysRequest
+        preventRequestingBikeForWheelChairTravelerType(journeysRequest: &journeysRequest)
+        
         if NavitiaSDKUI.shared.navitiaSDK != nil {
             let journeyRequestBuilder = NavitiaSDKUI.shared.navitiaSDK.journeysApi.newCoverageRegionJourneysRequestBuilder()
                 .withRegion(journeysRequest.coverage)
@@ -48,6 +52,20 @@ class NavitiaWorker: NavitiaWorkerProtocol {
                 }
             }
         }
+    }
+    
+    private func preventRequestingBikeForWheelChairTravelerType(journeysRequest: inout JourneysRequest) {
+        guard journeysRequest.travelerType == JourneysRequest.TravelerType.wheelchair else {
+            return
+        }
+        
+        // Remove bike mode from first and last section modes
+        journeysRequest.firstSectionModes?.removeAll(where: { (sectionMode) -> Bool in
+            return sectionMode == .bike
+        })
+        journeysRequest.lastSectionModes?.removeAll(where: { (sectionMode) -> Bool in
+            return sectionMode == .bike
+        })
     }
 
     internal func parseJourneyResponse(result: Journeys) -> (journeys: [Journey]?, Ridesharing: [Journey]?, disruptions: [Disruption]?, notes: [Note]?, context: Context?, tickets: [Ticket]?) {
