@@ -62,7 +62,7 @@ internal class ListJourneysInteractor: ListJourneysBusinessLogic, ListJourneysDa
         if let journeysRequest = journeysRequest {
             let response = ListJourneys.DisplaySearch.Response(journeysRequest: journeysRequest)
             
-            self.presenter?.presentDisplayedSearch(response: response)
+            presenter?.presentDisplayedSearch(response: response)
         }
     }
     
