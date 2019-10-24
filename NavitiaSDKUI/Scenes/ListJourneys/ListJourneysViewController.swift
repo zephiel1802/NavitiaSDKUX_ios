@@ -314,6 +314,7 @@ public class ListJourneysViewController: UIViewController, ListJourneysDisplayLo
     // MARK: - Fetch journeys
     
     internal func fetchJourneys() {
+        updateJourneyRequestInfos()
         guard let journeysRequest = interactor?.journeysRequest,
             journeysRequest.originId != nil,
             journeysRequest.destinationId != nil else {
@@ -641,6 +642,66 @@ extension ListJourneysViewController: ListJourneysCollectionViewLayoutDelegate {
         
         return height + friezeView.frame.size.height
     }
+    
+    private func updateJourneyRequestInfos() {
+        if let physicalModes = transportModeView?.getPhysicalModes() {
+            interactor?.journeysRequest?.allowedPhysicalModes = physicalModes
+        }
+        
+        if let firstSectionModes = transportModeView?.getFirstSectionMode() {
+            var modes = [CoverageRegionJourneysRequestBuilder.FirstSectionMode]()
+            for mode in firstSectionModes {
+                if let sectionMode = CoverageRegionJourneysRequestBuilder.FirstSectionMode(rawValue:mode) {
+                    modes.append(sectionMode)
+                }
+            }
+            
+            interactor?.journeysRequest?.firstSectionModes = modes
+        }
+        
+        if let lastSectionModes = transportModeView?.getLastSectionMode() {
+            var modes = [CoverageRegionJourneysRequestBuilder.LastSectionMode]()
+            for mode in lastSectionModes {
+                if let sectionMode = CoverageRegionJourneysRequestBuilder.LastSectionMode(rawValue:mode) {
+                    modes.append(sectionMode)
+                }
+            }
+            
+            interactor?.journeysRequest?.lastSectionModes = modes
+        }
+        
+        if let realTimeModes = transportModeView?.getRealTimeModes() {
+            interactor?.journeysRequest?.addPoiInfos = []
+            
+            for mode in realTimeModes {
+                if mode == "bss" {
+                    interactor?.journeysRequest?.addPoiInfos?.append(.bssStands)
+                } else if mode == "car" {
+                    interactor?.journeysRequest?.addPoiInfos?.append(.carPark)
+                }
+            }
+        }
+        
+        if wheelchairTypeView.isOn {
+            interactor?.journeysRequest?.travelerType = .wheelchair
+        } else if luggageTypeView.isOn {
+            interactor?.journeysRequest?.travelerType = .luggage
+        } else {
+            switch walkingSpeedView.speed {
+            case .slow:
+                interactor?.journeysRequest?.travelerType = .slow_walker
+            case .medium:
+                interactor?.journeysRequest?.travelerType = .standard
+            case .fast:
+                interactor?.journeysRequest?.travelerType = .fast_walker
+            }
+        }
+        
+        if let date = searchView.dateFormView.date {
+            interactor?.updateDate(request: FormJourney.UpdateDate.Request(date: date,
+                                                                           dateTimeRepresents: searchView.dateFormView.departureArrivalSegmentedControl.selectedSegmentIndex == 0 ? .departure : .arrival))
+        }
+    }
 }
 
 extension ListJourneysViewController: SearchViewDelegate {
@@ -704,68 +765,11 @@ extension ListJourneysViewController: SearchButtonViewDelegate {
     
     func search() {
         if searchView.isPreferencesShown {
-            if let physicalModes = transportModeView?.getPhysicalModes() {
-                interactor?.journeysRequest?.allowedPhysicalModes = physicalModes
-            }
-            
-            if let firstSectionModes = transportModeView?.getFirstSectionMode() {
-                var modes = [CoverageRegionJourneysRequestBuilder.FirstSectionMode]()
-                for mode in firstSectionModes {
-                    if let sectionMode = CoverageRegionJourneysRequestBuilder.FirstSectionMode(rawValue:mode) {
-                        modes.append(sectionMode)
-                    }
-                }
-                
-                interactor?.journeysRequest?.firstSectionModes = modes
-            }
-            
-            if let lastSectionModes = transportModeView?.getLastSectionMode() {
-                var modes = [CoverageRegionJourneysRequestBuilder.LastSectionMode]()
-                for mode in lastSectionModes {
-                    if let sectionMode = CoverageRegionJourneysRequestBuilder.LastSectionMode(rawValue:mode) {
-                        modes.append(sectionMode)
-                    }
-                }
-                
-                interactor?.journeysRequest?.lastSectionModes = modes
-            }
-            
-            if let realTimeModes = transportModeView?.getRealTimeModes() {
-                interactor?.journeysRequest?.addPoiInfos = []
-                
-                for mode in realTimeModes {
-                    if mode == "bss" {
-                        interactor?.journeysRequest?.addPoiInfos?.append(.bssStands)
-                    } else if mode == "car" {
-                        interactor?.journeysRequest?.addPoiInfos?.append(.carPark)
-                    }
-                }
-            }
-            
-            if wheelchairTypeView.isOn {
-                interactor?.journeysRequest?.travelerType = .wheelchair
-            } else if luggageTypeView.isOn {
-                interactor?.journeysRequest?.travelerType = .luggage
-            } else {
-                switch walkingSpeedView.speed {
-                case .slow:
-                    interactor?.journeysRequest?.travelerType = .slow_walker
-                case .medium:
-                    interactor?.journeysRequest?.travelerType = .standard
-                case .fast:
-                    interactor?.journeysRequest?.travelerType = .fast_walker
-                }
-            }
-            
+            updateJourneyRequestInfos()
             togglePreferences()
-            fetchPhysicalMode()
             searchView.setPreferencesButton()
+            fetchPhysicalMode()
         } else if searchView.isDateShown {
-            if let date = searchView.dateFormView.date {
-                interactor?.updateDate(request: FormJourney.UpdateDate.Request(date: date,
-                                                                               dateTimeRepresents: searchView.dateFormView.departureArrivalSegmentedControl.selectedSegmentIndex == 0 ? .departure : .arrival))
-            }
-            
             searchView.hideDate()
             fetchJourneys()
         }
