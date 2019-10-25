@@ -25,8 +25,12 @@ class ListJourneysPresenter: ListJourneysPresentationLogic {
             return
         }
         
-        let fromName = response.journeysRequest.originLabel ?? response.journeysRequest.originName ?? response.journeysRequest.originId
-        let toName = response.journeysRequest.destinationLabel ?? response.journeysRequest.destinationName ?? response.journeysRequest.destinationId
+        var fromName = getFormattedAdressString(label: response.journeysRequest.originLabel,
+                                                name: response.journeysRequest.originName,
+                                                id: response.journeysRequest.originId)
+        let toName = getFormattedAdressString(label: response.journeysRequest.destinationLabel,
+                                              name: response.journeysRequest.destinationName,
+                                              id: response.journeysRequest.destinationId)
         let accessibilityHeader = getHeaderAccessibility(origin: response.journeysRequest.originLabel ?? "",
                                                          destination: response.journeysRequest.destinationLabel ?? "",
                                                          dateTime: response.journeysRequest.datetime ?? Date())
@@ -46,6 +50,18 @@ class ListJourneysPresenter: ListJourneysPresentationLogic {
         let viewModel = ListJourneys.FetchPhysicalModes.ViewModel(physicalModes: listPhysicalModes)
         
         viewController?.callbackFetchedPhysicalModes(viewModel: viewModel)
+    }
+    
+    private func getFormattedAdressString(label: String?, name: String?, id: String?) -> String {
+        if let label = label {
+            return label
+        } else if let name = name {
+            return name
+        } else if id != nil {
+            return "my_position".localized()
+        } else {
+            return ""
+        }
     }
     
     private func getListPhysicalModes(physicalModes: [PhysicalMode]?) -> [String] {

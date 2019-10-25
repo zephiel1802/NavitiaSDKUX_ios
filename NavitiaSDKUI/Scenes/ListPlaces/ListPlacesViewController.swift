@@ -90,7 +90,7 @@ public class ListPlacesViewController: UIViewController {
     override open func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        self.searchView.unstickTextFields(superview: view)
+        searchView.unstickTextFields(superview: view)
         locationManager.startUpdatingLocation()
     }
     
@@ -123,7 +123,9 @@ public class ListPlacesViewController: UIViewController {
         navigationController?.navigationBar.isTranslucent = false
         
         if !singleFieldConfiguration {
-            navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action:  #selector(backButtonPressed))
+            navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel,
+                                                                target: self,
+                                                                action:  #selector(backButtonPressed))
             navigationItem.rightBarButtonItem?.tintColor = Configuration.Color.main.contrastColor()
         }
         
@@ -168,7 +170,8 @@ public class ListPlacesViewController: UIViewController {
     }
     
     private func registerTableView() {
-        tableView.register(UINib(nibName: PlacesTableViewCell.identifier, bundle: self.nibBundle), forCellReuseIdentifier: PlacesTableViewCell.identifier)
+        tableView.register(UINib(nibName: PlacesTableViewCell.identifier, bundle: self.nibBundle),
+                           forCellReuseIdentifier: PlacesTableViewCell.identifier)
     }
     
     private func initLocation() {
