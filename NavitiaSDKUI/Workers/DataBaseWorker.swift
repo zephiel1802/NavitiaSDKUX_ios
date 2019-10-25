@@ -11,7 +11,6 @@ import SQLite3
 class DataBaseWorker {
 
     var db: OpaquePointer?
-    var journeysList = [AutocompletionHistory]()
     
     func connection() {
         let fileURL = try! FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false)
@@ -111,11 +110,8 @@ class DataBaseWorker {
     }
     
     func readValues(coverage: String) -> [AutocompletionHistory]? {
-        // First empty the list of heroes
-        journeysList.removeAll()
-        
         // This is our select query
-        let queryString = String(format: "SELECT * FROM autocompletion WHERE coverage = '%@'", coverage)
+        let queryString = String(format: "SELECT * FROM autocompletion WHERE coverage = '%@' ORDER BY id DESC", coverage)
         
         // Statement pointer
         var stmt:OpaquePointer?
@@ -127,6 +123,7 @@ class DataBaseWorker {
             return nil
         }
         
+        var journeysList = [AutocompletionHistory]()
         while(sqlite3_step(stmt) == SQLITE_ROW) {
             let id = String(cString: sqlite3_column_text(stmt, 0))
             let coverage = String(cString: sqlite3_column_text(stmt, 1))
