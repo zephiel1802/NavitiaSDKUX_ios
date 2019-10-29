@@ -382,11 +382,18 @@ class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
         
         if duration >= 60 {
             keyword = "a_time_"
-            durationString = String(format: "%@ %@", duration.minuteToString(), "units_minute".localized())
             
-            if section.type == .waiting, let durationString = durationString {
-                return String(format: "%@ %@", "wait".localized(), durationString)
+            if section.type == .waiting {
+                durationString = String(format: "%@ %@",
+                                        duration.minuteToString(),
+                                        duration == 60 ? "units_minute".localized() : "units_minutes".localized())
+                
+                if let durationString = durationString {
+                    return String(format: "%@ %@", "wait".localized(), durationString)
+                }
             }
+            
+            durationString = String(format: "%@ %@", duration.minuteToString(), "units_minute".localized())
         } else {
             keyword = "less_than_a_minute_"
         }
