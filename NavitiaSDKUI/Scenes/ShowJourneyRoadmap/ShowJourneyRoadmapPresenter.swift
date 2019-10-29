@@ -382,7 +382,7 @@ class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
         
         if duration >= 60 {
             keyword = "a_time_"
-            durationString = String(format: "%@ %@", duration.minuteToString(), duration == 60 ? "units_minute".localized() : "units_minutes".localized())
+            durationString = String(format: "%@ %@", duration.minuteToString(), "units_minute".localized())
             
             if section.type == .waiting, let durationString = durationString {
                 return String(format: "%@ %@", "wait".localized(), durationString)
