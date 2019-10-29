@@ -393,7 +393,9 @@ class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
                 }
             }
             
-            durationString = String(format: "%@ %@", duration.minuteToString(), "units_minute".localized())
+            durationString = String(format: "%@ %@",
+                                        duration.minuteToString(),
+                                        duration == 60 ? "units_minute".localized() : "units_minutes_exceptions".localized())
         } else {
             keyword = "less_than_a_minute_"
         }
