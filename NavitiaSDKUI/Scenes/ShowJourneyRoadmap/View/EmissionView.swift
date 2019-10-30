@@ -15,7 +15,7 @@ class EmissionView: UIView {
     @IBOutlet weak var journeyLabelCenterVerticallyConstraint: NSLayoutConstraint!
     @IBOutlet weak var journeyLabelBottomConstraint: NSLayoutConstraint!
     
-    internal var journeyCarbon: (value: Double, unit: String)? {
+    internal var journeyCarbon: (value: Float, unit: String)? {
         didSet {
             if let journeyCarbon = journeyCarbon {
                 journeyCarbonAutoFilledLabel.autofillLeftText = "carbon_journey".localized()
@@ -27,7 +27,7 @@ class EmissionView: UIView {
         }
     }
     
-    internal var carCarbon: (value: Double, unit: String)? {
+    internal var carCarbon: (value: Float, unit: String)? {
         didSet {
             if let journeyCarbon = journeyCarbon, let carCarbon = carCarbon, carCarbon.value != journeyCarbon.value {
                 carCarbonAutoFilledLabel.autofillLeftText = "carbon_car".localized()

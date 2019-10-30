@@ -738,7 +738,7 @@ class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
         return emissionViewModel
     }
     
-    private func getFormattedEmission(emissionValue: Double?) -> (value: Double, unit: String)? {
+    private func getFormattedEmission(emissionValue: Float?) -> (value: Float, unit: String)? {
         guard var emissionValue = emissionValue else {
             return nil
         }
@@ -753,7 +753,7 @@ class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
         return (value: emissionValue, unit: carbonUnit)
     }
     
-    private func getValueEmissionAccessibility(value: Double, unit: String) -> String {
+    private func getValueEmissionAccessibility(value: Float, unit: String) -> String {
         if unit == "g CO2" {
             return String(format: "%.1f %@ %@. ", value, "gram".localized(), "of_carbon_dioxide".localized())
         } else if unit == "Kg CO2" {
@@ -1147,7 +1147,7 @@ extension ShowJourneyRoadmapPresenter {
         }
 
         if let coordinates = journey.sections?.first?.geojson?.coordinates?.first {
-            return CLLocationCoordinate2DMake(coordinates[1], coordinates[0])
+            return CLLocationCoordinate2DMake(Double(coordinates[1]), Double(coordinates[0]))
         }
         
         return nil
@@ -1164,7 +1164,7 @@ extension ShowJourneyRoadmapPresenter {
         }
         
         if let coordinates = lastSection?.geojson?.coordinates?.last {
-            return CLLocationCoordinate2DMake(coordinates[1], coordinates[0])
+            return CLLocationCoordinate2DMake(Double(coordinates[1]), Double(coordinates[0]))
         }
         
         return nil
@@ -1180,11 +1180,11 @@ extension ShowJourneyRoadmapPresenter {
         for section in sections {
             if section.type == .ridesharing {
                 if let coordinates = section.geojson?.coordinates?.first {
-                    ridesharingAnnotations.append(CLLocationCoordinate2DMake(coordinates[1], coordinates[0]))
+                    ridesharingAnnotations.append(CLLocationCoordinate2DMake(Double(coordinates[1]), Double(coordinates[0])))
                 }
                 
                 if let coordinates = section.geojson?.coordinates?.last {
-                    ridesharingAnnotations.append(CLLocationCoordinate2DMake(coordinates[1], coordinates[0]))
+                    ridesharingAnnotations.append(CLLocationCoordinate2DMake(Double(coordinates[1]), Double(coordinates[0])))
                 }
             }
         }

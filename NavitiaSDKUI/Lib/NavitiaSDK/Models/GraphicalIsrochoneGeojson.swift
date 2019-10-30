@@ -10,22 +10,29 @@ import Foundation
 
 open class GraphicalIsrochoneGeojson: JSONEncodable, Mappable, Codable {
 
-    public var coordinates: [[[[Float]]]]?
-
-    public init() {}
-    required public init?(map: Map) {
-
+/** Coding keys for Codable protocol */
+    enum CodingKeys: CodingKey {
+        case coordinates, unknown
     }
 
+    public var coordinates: [[[[Float]]]]?
 
-    enum CodingKeys: String, CodingKey {
-        case coordinates = "coordinates"
+    
+    required public init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        coordinates = try container.decode([[[[Float]]]].self, forKey: .coordinates)
     }
 
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(coordinates, forKey: .coordinates)
     }
+
+    public init() {}
+    required public init?(map: Map) {
+
+    }
+
 
     public func mapping(map: Map) {
         coordinates <- map["coordinates"]

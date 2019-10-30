@@ -10,6 +10,11 @@ import Foundation
 
 open class StopDateTime: JSONEncodable, Mappable, Codable {
 
+/** Coding keys for Codable protocol */
+    enum CodingKeys: CodingKey {
+        case stopPoint, links, arrivalDateTime, additionalInformations, departureDateTime, baseArrivalDateTime, baseDepartureDateTime, dataFreshness, unknown
+    }
+
     public enum AdditionalInformations: String, Codable { 
         case pickUpOnly = "pick_up_only"
         case dropOffOnly = "drop_off_only"
@@ -30,21 +35,17 @@ open class StopDateTime: JSONEncodable, Mappable, Codable {
     public var baseDepartureDateTime: String?
     public var dataFreshness: DataFreshness?
 
-    public init() {}
-    required public init?(map: Map) {
-
-    }
-
-
-    enum CodingKeys: String, CodingKey {
-        case stopPoint = "stop_point"
-        case links = "links"
-        case arrivalDateTime = "arrival_date_time"
-        case additionalInformations = "additional_informations"
-        case departureDateTime = "departure_date_time"
-        case baseArrivalDateTime = "base_arrival_date_time"
-        case baseDepartureDateTime = "base_departure_date_time"
-        case dataFreshness = "data_freshness"
+    
+    required public init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        stopPoint = try container.decode(StopPoint.self, forKey: .stopPoint)
+        links = try container.decode([LinkSchema].self, forKey: .links)
+        arrivalDateTime = try container.decode(String.self, forKey: .arrivalDateTime)
+        additionalInformations = try container.decode([AdditionalInformations].self, forKey: .additionalInformations)
+        departureDateTime = try container.decode(String.self, forKey: .departureDateTime)
+        baseArrivalDateTime = try container.decode(String.self, forKey: .baseArrivalDateTime)
+        baseDepartureDateTime = try container.decode(String.self, forKey: .baseDepartureDateTime)
+        dataFreshness = try container.decode(DataFreshness.self, forKey: .dataFreshness)
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -58,6 +59,12 @@ open class StopDateTime: JSONEncodable, Mappable, Codable {
         try container.encode(baseDepartureDateTime, forKey: .baseDepartureDateTime)
         try container.encode(dataFreshness, forKey: .dataFreshness)
     }
+
+    public init() {}
+    required public init?(map: Map) {
+
+    }
+
 
     public func mapping(map: Map) {
         stopPoint <- map["stop_point"]

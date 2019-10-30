@@ -7,6 +7,7 @@
 
 import Foundation
 
+
 open class CoverageLonLatPoisRequestBuilder: NSObject {
     let currentApi: PoisApi
 
@@ -18,6 +19,14 @@ open class CoverageLonLatPoisRequestBuilder: NSObject {
         case all = "all"
         case zonal = "zonal"
         case withStops = "with_stops"
+    }
+    /**
+    * enum for parameter dataFreshness
+    */
+    public enum DataFreshness: String { 
+        case baseSchedule = "base_schedule"
+        case adaptedSchedule = "adapted_schedule"
+        case realtime = "realtime"
     }
     /**
     * enum for parameter addPoiInfos
@@ -39,6 +48,7 @@ open class CoverageLonLatPoisRequestBuilder: NSObject {
     var headsign:String? = nil
     var showCodes:Bool? = nil
     var odtLevel: OdtLevel? = nil
+    var dataFreshness: DataFreshness? = nil
     var distance:Int32? = nil
     var since:Date? = nil
     var until:Date? = nil
@@ -107,6 +117,11 @@ open class CoverageLonLatPoisRequestBuilder: NSObject {
     }
     open func withOdtLevel(_ odtLevel: OdtLevel?) -> CoverageLonLatPoisRequestBuilder {
         self.odtLevel = odtLevel
+
+        return self
+    }
+    open func withDataFreshness(_ dataFreshness: DataFreshness?) -> CoverageLonLatPoisRequestBuilder {
+        self.dataFreshness = dataFreshness
 
         return self
     }
@@ -204,6 +219,7 @@ open class CoverageLonLatPoisRequestBuilder: NSObject {
             "headsign": self.headsign, 
             "show_codes": self.showCodes, 
             "odt_level": self.odtLevel?.rawValue, 
+            "data_freshness": self.dataFreshness?.rawValue, 
             "distance": self.distance?.encodeToJSON(), 
             "since": self.since?.encodeToJSON(), 
             "until": self.until?.encodeToJSON(), 
@@ -277,6 +293,14 @@ open class CoverageLonLatPoisIdRequestBuilder: NSObject {
         case withStops = "with_stops"
     }
     /**
+    * enum for parameter dataFreshness
+    */
+    public enum DataFreshness: String { 
+        case baseSchedule = "base_schedule"
+        case adaptedSchedule = "adapted_schedule"
+        case realtime = "realtime"
+    }
+    /**
     * enum for parameter addPoiInfos
     */
     public enum AddPoiInfos: String { 
@@ -297,6 +321,7 @@ open class CoverageLonLatPoisIdRequestBuilder: NSObject {
     var headsign:String? = nil
     var showCodes:Bool? = nil
     var odtLevel: OdtLevel? = nil
+    var dataFreshness: DataFreshness? = nil
     var distance:Int32? = nil
     var since:Date? = nil
     var until:Date? = nil
@@ -369,6 +394,11 @@ open class CoverageLonLatPoisIdRequestBuilder: NSObject {
     }
     open func withOdtLevel(_ odtLevel: OdtLevel?) -> CoverageLonLatPoisIdRequestBuilder {
         self.odtLevel = odtLevel
+
+        return self
+    }
+    open func withDataFreshness(_ dataFreshness: DataFreshness?) -> CoverageLonLatPoisIdRequestBuilder {
+        self.dataFreshness = dataFreshness
 
         return self
     }
@@ -467,6 +497,7 @@ open class CoverageLonLatPoisIdRequestBuilder: NSObject {
             "headsign": self.headsign, 
             "show_codes": self.showCodes, 
             "odt_level": self.odtLevel?.rawValue, 
+            "data_freshness": self.dataFreshness?.rawValue, 
             "distance": self.distance?.encodeToJSON(), 
             "since": self.since?.encodeToJSON(), 
             "until": self.until?.encodeToJSON(), 
@@ -545,6 +576,14 @@ open class CoverageLonLatUriPoisRequestBuilder: NSObject {
         case withStops = "with_stops"
     }
     /**
+    * enum for parameter dataFreshness
+    */
+    public enum DataFreshness: String { 
+        case baseSchedule = "base_schedule"
+        case adaptedSchedule = "adapted_schedule"
+        case realtime = "realtime"
+    }
+    /**
     * enum for parameter addPoiInfos
     */
     public enum AddPoiInfos: String { 
@@ -565,6 +604,7 @@ open class CoverageLonLatUriPoisRequestBuilder: NSObject {
     var headsign:String? = nil
     var showCodes:Bool? = nil
     var odtLevel: OdtLevel? = nil
+    var dataFreshness: DataFreshness? = nil
     var distance:Int32? = nil
     var since:Date? = nil
     var until:Date? = nil
@@ -638,6 +678,11 @@ open class CoverageLonLatUriPoisRequestBuilder: NSObject {
     }
     open func withOdtLevel(_ odtLevel: OdtLevel?) -> CoverageLonLatUriPoisRequestBuilder {
         self.odtLevel = odtLevel
+
+        return self
+    }
+    open func withDataFreshness(_ dataFreshness: DataFreshness?) -> CoverageLonLatUriPoisRequestBuilder {
+        self.dataFreshness = dataFreshness
 
         return self
     }
@@ -741,6 +786,7 @@ open class CoverageLonLatUriPoisRequestBuilder: NSObject {
             "headsign": self.headsign, 
             "show_codes": self.showCodes, 
             "odt_level": self.odtLevel?.rawValue, 
+            "data_freshness": self.dataFreshness?.rawValue, 
             "distance": self.distance?.encodeToJSON(), 
             "since": self.since?.encodeToJSON(), 
             "until": self.until?.encodeToJSON(), 
@@ -820,6 +866,14 @@ open class CoverageLonLatUriPoisIdRequestBuilder: NSObject {
         case withStops = "with_stops"
     }
     /**
+    * enum for parameter dataFreshness
+    */
+    public enum DataFreshness: String { 
+        case baseSchedule = "base_schedule"
+        case adaptedSchedule = "adapted_schedule"
+        case realtime = "realtime"
+    }
+    /**
     * enum for parameter addPoiInfos
     */
     public enum AddPoiInfos: String { 
@@ -841,6 +895,7 @@ open class CoverageLonLatUriPoisIdRequestBuilder: NSObject {
     var headsign:String? = nil
     var showCodes:Bool? = nil
     var odtLevel: OdtLevel? = nil
+    var dataFreshness: DataFreshness? = nil
     var distance:Int32? = nil
     var since:Date? = nil
     var until:Date? = nil
@@ -918,6 +973,11 @@ open class CoverageLonLatUriPoisIdRequestBuilder: NSObject {
     }
     open func withOdtLevel(_ odtLevel: OdtLevel?) -> CoverageLonLatUriPoisIdRequestBuilder {
         self.odtLevel = odtLevel
+
+        return self
+    }
+    open func withDataFreshness(_ dataFreshness: DataFreshness?) -> CoverageLonLatUriPoisIdRequestBuilder {
+        self.dataFreshness = dataFreshness
 
         return self
     }
@@ -1022,6 +1082,7 @@ open class CoverageLonLatUriPoisIdRequestBuilder: NSObject {
             "headsign": self.headsign, 
             "show_codes": self.showCodes, 
             "odt_level": self.odtLevel?.rawValue, 
+            "data_freshness": self.dataFreshness?.rawValue, 
             "distance": self.distance?.encodeToJSON(), 
             "since": self.since?.encodeToJSON(), 
             "until": self.until?.encodeToJSON(), 
@@ -1106,6 +1167,14 @@ open class CoverageRegionPoisRequestBuilder: NSObject {
         case withStops = "with_stops"
     }
     /**
+    * enum for parameter dataFreshness
+    */
+    public enum DataFreshness: String { 
+        case baseSchedule = "base_schedule"
+        case adaptedSchedule = "adapted_schedule"
+        case realtime = "realtime"
+    }
+    /**
     * enum for parameter addPoiInfos
     */
     public enum AddPoiInfos: String { 
@@ -1124,6 +1193,7 @@ open class CoverageRegionPoisRequestBuilder: NSObject {
     var headsign:String? = nil
     var showCodes:Bool? = nil
     var odtLevel: OdtLevel? = nil
+    var dataFreshness: DataFreshness? = nil
     var distance:Int32? = nil
     var since:Date? = nil
     var until:Date? = nil
@@ -1187,6 +1257,11 @@ open class CoverageRegionPoisRequestBuilder: NSObject {
     }
     open func withOdtLevel(_ odtLevel: OdtLevel?) -> CoverageRegionPoisRequestBuilder {
         self.odtLevel = odtLevel
+
+        return self
+    }
+    open func withDataFreshness(_ dataFreshness: DataFreshness?) -> CoverageRegionPoisRequestBuilder {
+        self.dataFreshness = dataFreshness
 
         return self
     }
@@ -1278,6 +1353,7 @@ open class CoverageRegionPoisRequestBuilder: NSObject {
             "headsign": self.headsign, 
             "show_codes": self.showCodes, 
             "odt_level": self.odtLevel?.rawValue, 
+            "data_freshness": self.dataFreshness?.rawValue, 
             "distance": self.distance?.encodeToJSON(), 
             "since": self.since?.encodeToJSON(), 
             "until": self.until?.encodeToJSON(), 
@@ -1345,6 +1421,14 @@ open class CoverageRegionPoisIdRequestBuilder: NSObject {
         case withStops = "with_stops"
     }
     /**
+    * enum for parameter dataFreshness
+    */
+    public enum DataFreshness: String { 
+        case baseSchedule = "base_schedule"
+        case adaptedSchedule = "adapted_schedule"
+        case realtime = "realtime"
+    }
+    /**
     * enum for parameter addPoiInfos
     */
     public enum AddPoiInfos: String { 
@@ -1364,6 +1448,7 @@ open class CoverageRegionPoisIdRequestBuilder: NSObject {
     var headsign:String? = nil
     var showCodes:Bool? = nil
     var odtLevel: OdtLevel? = nil
+    var dataFreshness: DataFreshness? = nil
     var distance:Int32? = nil
     var since:Date? = nil
     var until:Date? = nil
@@ -1431,6 +1516,11 @@ open class CoverageRegionPoisIdRequestBuilder: NSObject {
     }
     open func withOdtLevel(_ odtLevel: OdtLevel?) -> CoverageRegionPoisIdRequestBuilder {
         self.odtLevel = odtLevel
+
+        return self
+    }
+    open func withDataFreshness(_ dataFreshness: DataFreshness?) -> CoverageRegionPoisIdRequestBuilder {
+        self.dataFreshness = dataFreshness
 
         return self
     }
@@ -1523,6 +1613,7 @@ open class CoverageRegionPoisIdRequestBuilder: NSObject {
             "headsign": self.headsign, 
             "show_codes": self.showCodes, 
             "odt_level": self.odtLevel?.rawValue, 
+            "data_freshness": self.dataFreshness?.rawValue, 
             "distance": self.distance?.encodeToJSON(), 
             "since": self.since?.encodeToJSON(), 
             "until": self.until?.encodeToJSON(), 
@@ -1595,6 +1686,14 @@ open class CoverageRegionUriPoisRequestBuilder: NSObject {
         case withStops = "with_stops"
     }
     /**
+    * enum for parameter dataFreshness
+    */
+    public enum DataFreshness: String { 
+        case baseSchedule = "base_schedule"
+        case adaptedSchedule = "adapted_schedule"
+        case realtime = "realtime"
+    }
+    /**
     * enum for parameter addPoiInfos
     */
     public enum AddPoiInfos: String { 
@@ -1614,6 +1713,7 @@ open class CoverageRegionUriPoisRequestBuilder: NSObject {
     var headsign:String? = nil
     var showCodes:Bool? = nil
     var odtLevel: OdtLevel? = nil
+    var dataFreshness: DataFreshness? = nil
     var distance:Int32? = nil
     var since:Date? = nil
     var until:Date? = nil
@@ -1682,6 +1782,11 @@ open class CoverageRegionUriPoisRequestBuilder: NSObject {
     }
     open func withOdtLevel(_ odtLevel: OdtLevel?) -> CoverageRegionUriPoisRequestBuilder {
         self.odtLevel = odtLevel
+
+        return self
+    }
+    open func withDataFreshness(_ dataFreshness: DataFreshness?) -> CoverageRegionUriPoisRequestBuilder {
+        self.dataFreshness = dataFreshness
 
         return self
     }
@@ -1779,6 +1884,7 @@ open class CoverageRegionUriPoisRequestBuilder: NSObject {
             "headsign": self.headsign, 
             "show_codes": self.showCodes, 
             "odt_level": self.odtLevel?.rawValue, 
+            "data_freshness": self.dataFreshness?.rawValue, 
             "distance": self.distance?.encodeToJSON(), 
             "since": self.since?.encodeToJSON(), 
             "until": self.until?.encodeToJSON(), 
@@ -1852,6 +1958,14 @@ open class CoverageRegionUriPoisIdRequestBuilder: NSObject {
         case withStops = "with_stops"
     }
     /**
+    * enum for parameter dataFreshness
+    */
+    public enum DataFreshness: String { 
+        case baseSchedule = "base_schedule"
+        case adaptedSchedule = "adapted_schedule"
+        case realtime = "realtime"
+    }
+    /**
     * enum for parameter addPoiInfos
     */
     public enum AddPoiInfos: String { 
@@ -1872,6 +1986,7 @@ open class CoverageRegionUriPoisIdRequestBuilder: NSObject {
     var headsign:String? = nil
     var showCodes:Bool? = nil
     var odtLevel: OdtLevel? = nil
+    var dataFreshness: DataFreshness? = nil
     var distance:Int32? = nil
     var since:Date? = nil
     var until:Date? = nil
@@ -1944,6 +2059,11 @@ open class CoverageRegionUriPoisIdRequestBuilder: NSObject {
     }
     open func withOdtLevel(_ odtLevel: OdtLevel?) -> CoverageRegionUriPoisIdRequestBuilder {
         self.odtLevel = odtLevel
+
+        return self
+    }
+    open func withDataFreshness(_ dataFreshness: DataFreshness?) -> CoverageRegionUriPoisIdRequestBuilder {
+        self.dataFreshness = dataFreshness
 
         return self
     }
@@ -2042,6 +2162,7 @@ open class CoverageRegionUriPoisIdRequestBuilder: NSObject {
             "headsign": self.headsign, 
             "show_codes": self.showCodes, 
             "odt_level": self.odtLevel?.rawValue, 
+            "data_freshness": self.dataFreshness?.rawValue, 
             "distance": self.distance?.encodeToJSON(), 
             "since": self.since?.encodeToJSON(), 
             "until": self.until?.encodeToJSON(), 

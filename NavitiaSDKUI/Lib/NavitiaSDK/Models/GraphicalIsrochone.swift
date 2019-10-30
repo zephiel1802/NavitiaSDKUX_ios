@@ -10,6 +10,11 @@ import Foundation
 
 open class GraphicalIsrochone: JSONEncodable, Mappable, Codable {
 
+/** Coding keys for Codable protocol */
+    enum CodingKeys: CodingKey {
+        case maxDuration, from, geojson, minDuration, minDateTime, to, requestedDateTime, maxDateTime, unknown
+    }
+
     public var maxDuration: Int32?
     public var from: Place?
     public var geojson: GraphicalIsrochoneGeojson?
@@ -19,21 +24,17 @@ open class GraphicalIsrochone: JSONEncodable, Mappable, Codable {
     public var requestedDateTime: String?
     public var maxDateTime: String?
 
-    public init() {}
-    required public init?(map: Map) {
-
-    }
-
-
-    enum CodingKeys: String, CodingKey {
-        case maxDuration = "max_duration"
-        case from = "from"
-        case geojson = "geojson"
-        case minDuration = "min_duration"
-        case minDateTime = "min_date_time"
-        case to = "to"
-        case requestedDateTime = "requested_date_time"
-        case maxDateTime = "max_date_time"
+    
+    required public init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        maxDuration = try container.decode(Int32.self, forKey: .maxDuration)
+        from = try container.decode(Place.self, forKey: .from)
+        geojson = try container.decode(GraphicalIsrochoneGeojson.self, forKey: .geojson)
+        minDuration = try container.decode(Int32.self, forKey: .minDuration)
+        minDateTime = try container.decode(String.self, forKey: .minDateTime)
+        to = try container.decode(Place.self, forKey: .to)
+        requestedDateTime = try container.decode(String.self, forKey: .requestedDateTime)
+        maxDateTime = try container.decode(String.self, forKey: .maxDateTime)
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -47,6 +48,12 @@ open class GraphicalIsrochone: JSONEncodable, Mappable, Codable {
         try container.encode(requestedDateTime, forKey: .requestedDateTime)
         try container.encode(maxDateTime, forKey: .maxDateTime)
     }
+
+    public init() {}
+    required public init?(map: Map) {
+
+    }
+
 
     public func mapping(map: Map) {
         maxDuration <- map["max_duration"]

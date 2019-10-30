@@ -14,7 +14,7 @@ public enum ErrorResponse : Error {
     case Error(Int, Data?, Error?)
 }
 
-open class Response<T> {
+public class Response<T> {
     public let statusCode: Int
     public let header: [String: String]
     public let body: T?
@@ -197,7 +197,7 @@ class Decoders {
             let sourceDictionary = source as! [AnyHashable: Any]
             let result = instance == nil ? Amount() : instance as! Amount
             
-            result.value = Decoders.decodeOptional(clazz: Double.self, source: sourceDictionary["value"] as AnyObject?)
+            result.value = Decoders.decodeOptional(clazz: Float.self, source: sourceDictionary["value"] as AnyObject?)
             result.unit = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["unit"] as AnyObject?)
             return result
         }
@@ -1570,6 +1570,7 @@ class Decoders {
             let result = instance == nil ? LinkSchema() : instance as! LinkSchema
             
             result.category = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["category"] as AnyObject?)
+            result.commentType = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["comment_type"] as AnyObject?)
             result.title = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["title"] as AnyObject?)
             result._internal = Decoders.decodeOptional(clazz: Bool.self, source: sourceDictionary["internal"] as AnyObject?)
             result.value = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["value"] as AnyObject?)
@@ -1679,8 +1680,9 @@ class Decoders {
             }
             
             result.type = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["type"] as AnyObject?)
-            result.id = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["id"] as AnyObject?)
             result.value = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["value"] as AnyObject?)
+            result.commentType = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["comment_type"] as AnyObject?)
+            result.id = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["id"] as AnyObject?)
             return result
         }
 
@@ -2188,42 +2190,43 @@ class Decoders {
             let sourceDictionary = source as! [AnyHashable: Any]
             let result = instance == nil ? Section() : instance as! Section
             
-            result.displayInformations = Decoders.decodeOptional(clazz: VJDisplayInformation.self, source: sourceDictionary["display_informations"] as AnyObject?)
-            result.from = Decoders.decodeOptional(clazz: Place.self, source: sourceDictionary["from"] as AnyObject?)
             result.links = Decoders.decodeOptional(clazz: Array.self, source: sourceDictionary["links"] as AnyObject?)
-            if let transferType = sourceDictionary["transfer_type"] as? String { 
-                result.transferType = Section.TransferType(rawValue: (transferType))
-            }
-            
+            result.departureDateTime = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["departure_date_time"] as AnyObject?)
+            result.baseDepartureDateTime = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["base_departure_date_time"] as AnyObject?)
+            result.duration = Decoders.decodeOptional(clazz: Int32.self, source: sourceDictionary["duration"] as AnyObject?)
+            result.id = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["id"] as AnyObject?)
+            result.from = Decoders.decodeOptional(clazz: Place.self, source: sourceDictionary["from"] as AnyObject?)
             result.arrivalDateTime = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["arrival_date_time"] as AnyObject?)
             if let additionalInformations = sourceDictionary["additional_informations"] as? [String] { 
                 result.additionalInformations  = additionalInformations.map ({ Section.AdditionalInformations(rawValue: $0)! })
             }
             
-            result.departureDateTime = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["departure_date_time"] as AnyObject?)
+            result.geojson = Decoders.decodeOptional(clazz: SectionGeoJsonSchema.self, source: sourceDictionary["geojson"] as AnyObject?)
             result.ridesharingInformations = Decoders.decodeOptional(clazz: RidesharingInformation.self, source: sourceDictionary["ridesharing_informations"] as AnyObject?)
             result.to = Decoders.decodeOptional(clazz: Place.self, source: sourceDictionary["to"] as AnyObject?)
             result.baseArrivalDateTime = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["base_arrival_date_time"] as AnyObject?)
-            result.baseDepartureDateTime = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["base_departure_date_time"] as AnyObject?)
-            result.co2Emission = Decoders.decodeOptional(clazz: Amount.self, source: sourceDictionary["co2_emission"] as AnyObject?)
-            result.ridesharingJourneys = Decoders.decodeOptional(clazz: Array.self, source: sourceDictionary["ridesharing_journeys"] as AnyObject?)
-            result.geojson = Decoders.decodeOptional(clazz: SectionGeoJsonSchema.self, source: sourceDictionary["geojson"] as AnyObject?)
-            result.duration = Decoders.decodeOptional(clazz: Int32.self, source: sourceDictionary["duration"] as AnyObject?)
-            result.path = Decoders.decodeOptional(clazz: Array.self, source: sourceDictionary["path"] as AnyObject?)
-            result.stopDateTimes = Decoders.decodeOptional(clazz: Array.self, source: sourceDictionary["stop_date_times"] as AnyObject?)
+            if let transferType = sourceDictionary["transfer_type"] as? String { 
+                result.transferType = Section.TransferType(rawValue: (transferType))
+            }
+            
             if let type = sourceDictionary["type"] as? String { 
                 result.type = Section.ModelType(rawValue: (type))
             }
             
-            result.id = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["id"] as AnyObject?)
             if let dataFreshness = sourceDictionary["data_freshness"] as? String { 
                 result.dataFreshness = Section.DataFreshness(rawValue: (dataFreshness))
             }
             
+            result.co2Emission = Decoders.decodeOptional(clazz: Amount.self, source: sourceDictionary["co2_emission"] as AnyObject?)
+            result.path = Decoders.decodeOptional(clazz: Array.self, source: sourceDictionary["path"] as AnyObject?)
+            result.cycleLaneLength = Decoders.decodeOptional(clazz: Int32.self, source: sourceDictionary["cycle_lane_length"] as AnyObject?)
+            result.displayInformations = Decoders.decodeOptional(clazz: VJDisplayInformation.self, source: sourceDictionary["display_informations"] as AnyObject?)
             if let mode = sourceDictionary["mode"] as? String { 
                 result.mode = Section.Mode(rawValue: (mode))
             }
             
+            result.ridesharingJourneys = Decoders.decodeOptional(clazz: Array.self, source: sourceDictionary["ridesharing_journeys"] as AnyObject?)
+            result.stopDateTimes = Decoders.decodeOptional(clazz: Array.self, source: sourceDictionary["stop_date_times"] as AnyObject?)
             return result
         }
 
@@ -2498,6 +2501,8 @@ class Decoders {
             result.headsign = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["headsign"] as AnyObject?)
             result.arrivalTime = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["arrival_time"] as AnyObject?)
             result.journeyPatternPoint = Decoders.decodeOptional(clazz: JourneyPatternPoint.self, source: sourceDictionary["journey_pattern_point"] as AnyObject?)
+            result.dropOffAllowed = Decoders.decodeOptional(clazz: Bool.self, source: sourceDictionary["drop_off_allowed"] as AnyObject?)
+            result.pickupAllowed = Decoders.decodeOptional(clazz: Bool.self, source: sourceDictionary["pickup_allowed"] as AnyObject?)
             result.departureTime = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["departure_time"] as AnyObject?)
             return result
         }
@@ -2671,12 +2676,15 @@ class Decoders {
             result.name = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["name"] as AnyObject?)
             result.journeyPattern = Decoders.decodeOptional(clazz: JourneyPattern.self, source: sourceDictionary["journey_pattern"] as AnyObject?)
             result.disruptions = Decoders.decodeOptional(clazz: Array.self, source: sourceDictionary["disruptions"] as AnyObject?)
-            result.calendars = Decoders.decodeOptional(clazz: Array.self, source: sourceDictionary["calendars"] as AnyObject?)
+            result.startTime = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["start_time"] as AnyObject?)
+            result.headwaySecs = Decoders.decodeOptional(clazz: Int32.self, source: sourceDictionary["headway_secs"] as AnyObject?)
             result.stopTimes = Decoders.decodeOptional(clazz: Array.self, source: sourceDictionary["stop_times"] as AnyObject?)
             result.comments = Decoders.decodeOptional(clazz: Array.self, source: sourceDictionary["comments"] as AnyObject?)
             result.validityPattern = Decoders.decodeOptional(clazz: ValidityPattern.self, source: sourceDictionary["validity_pattern"] as AnyObject?)
+            result.endTime = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["end_time"] as AnyObject?)
             result.id = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["id"] as AnyObject?)
             result.trip = Decoders.decodeOptional(clazz: Trip.self, source: sourceDictionary["trip"] as AnyObject?)
+            result.calendars = Decoders.decodeOptional(clazz: Array.self, source: sourceDictionary["calendars"] as AnyObject?)
             return result
         }
 

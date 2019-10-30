@@ -10,16 +10,21 @@ import Foundation
 
 open class Section: JSONEncodable, Mappable, Codable {
 
-    public enum TransferType: String, Codable { 
-        case walking = "walking"
-        case stayIn = "stay_in"
+/** Coding keys for Codable protocol */
+    enum CodingKeys: CodingKey {
+        case links, departureDateTime, baseDepartureDateTime, duration, id, from, arrivalDateTime, additionalInformations, geojson, ridesharingInformations, to, baseArrivalDateTime, transferType, type, dataFreshness, co2Emission, path, cycleLaneLength, displayInformations, mode, ridesharingJourneys, stopDateTimes, unknown
     }
+
     public enum AdditionalInformations: String, Codable { 
         case odtWithZone = "odt_with_zone"
         case odtWithStopPoint = "odt_with_stop_point"
         case odtWithStopTime = "odt_with_stop_time"
         case hasDatetimeEstimated = "has_datetime_estimated"
         case regular = "regular"
+        case stayIn = "stay_in"
+    }
+    public enum TransferType: String, Codable { 
+        case walking = "walking"
         case stayIn = "stay_in"
     }
     public enum ModelType: String, Codable { 
@@ -52,33 +57,87 @@ open class Section: JSONEncodable, Mappable, Codable {
         case carnopark = "carnopark"
         case taxi = "taxi"
     }
-    public var displayInformations: VJDisplayInformation?
-    public var from: Place?
     public var links: [LinkSchema]?
-    public var transferType: TransferType?
+    /** Departure date and time of the section */
+    public var departureDateTime: String?
+    /** Base-schedule departure date and time of the section */
+    public var baseDepartureDateTime: String?
+    /** Duration of the section (seconds) */
+    public var duration: Int32?
+    public var id: String?
+    public var from: Place?
     /** Arrival date and time of the section */
     public var arrivalDateTime: String?
     public var additionalInformations: [AdditionalInformations]?
-    /** Departure date and time of the section */
-    public var departureDateTime: String?
+    /** GeoJSON of the shape of the section */
+    public var geojson: SectionGeoJsonSchema?
     public var ridesharingInformations: RidesharingInformation?
     public var to: Place?
     /** Base-schedule arrival date and time of the section */
     public var baseArrivalDateTime: String?
-    /** Base-schedule departure date and time of the section */
-    public var baseDepartureDateTime: String?
-    public var co2Emission: Amount?
-    public var ridesharingJourneys: [Journey]?
-    /** GeoJSON of the shape of the section */
-    public var geojson: SectionGeoJsonSchema?
-    /** Duration of the section (seconds) */
-    public var duration: Int32?
-    public var path: [Path]?
-    public var stopDateTimes: [StopDateTime]?
+    public var transferType: TransferType?
     public var type: ModelType?
-    public var id: String?
     public var dataFreshness: DataFreshness?
+    public var co2Emission: Amount?
+    public var path: [Path]?
+    public var cycleLaneLength: Int32?
+    public var displayInformations: VJDisplayInformation?
     public var mode: Mode?
+    public var ridesharingJourneys: [Journey]?
+    public var stopDateTimes: [StopDateTime]?
+
+    
+    required public init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        links = try container.decode([LinkSchema].self, forKey: .links)
+        departureDateTime = try container.decode(String.self, forKey: .departureDateTime)
+        baseDepartureDateTime = try container.decode(String.self, forKey: .baseDepartureDateTime)
+        duration = try container.decode(Int32.self, forKey: .duration)
+        id = try container.decode(String.self, forKey: .id)
+        from = try container.decode(Place.self, forKey: .from)
+        arrivalDateTime = try container.decode(String.self, forKey: .arrivalDateTime)
+        additionalInformations = try container.decode([AdditionalInformations].self, forKey: .additionalInformations)
+        geojson = try container.decode(SectionGeoJsonSchema.self, forKey: .geojson)
+        ridesharingInformations = try container.decode(RidesharingInformation.self, forKey: .ridesharingInformations)
+        to = try container.decode(Place.self, forKey: .to)
+        baseArrivalDateTime = try container.decode(String.self, forKey: .baseArrivalDateTime)
+        transferType = try container.decode(TransferType.self, forKey: .transferType)
+        type = try container.decode(ModelType.self, forKey: .type)
+        dataFreshness = try container.decode(DataFreshness.self, forKey: .dataFreshness)
+        co2Emission = try container.decode(Amount.self, forKey: .co2Emission)
+        path = try container.decode([Path].self, forKey: .path)
+        cycleLaneLength = try container.decode(Int32.self, forKey: .cycleLaneLength)
+        displayInformations = try container.decode(VJDisplayInformation.self, forKey: .displayInformations)
+        mode = try container.decode(Mode.self, forKey: .mode)
+        ridesharingJourneys = try container.decode([Journey].self, forKey: .ridesharingJourneys)
+        stopDateTimes = try container.decode([StopDateTime].self, forKey: .stopDateTimes)
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(links, forKey: .links)
+        try container.encode(departureDateTime, forKey: .departureDateTime)
+        try container.encode(baseDepartureDateTime, forKey: .baseDepartureDateTime)
+        try container.encode(duration, forKey: .duration)
+        try container.encode(id, forKey: .id)
+        try container.encode(from, forKey: .from)
+        try container.encode(arrivalDateTime, forKey: .arrivalDateTime)
+        try container.encode(additionalInformations, forKey: .additionalInformations)
+        try container.encode(geojson, forKey: .geojson)
+        try container.encode(ridesharingInformations, forKey: .ridesharingInformations)
+        try container.encode(to, forKey: .to)
+        try container.encode(baseArrivalDateTime, forKey: .baseArrivalDateTime)
+        try container.encode(transferType, forKey: .transferType)
+        try container.encode(type, forKey: .type)
+        try container.encode(dataFreshness, forKey: .dataFreshness)
+        try container.encode(co2Emission, forKey: .co2Emission)
+        try container.encode(path, forKey: .path)
+        try container.encode(cycleLaneLength, forKey: .cycleLaneLength)
+        try container.encode(displayInformations, forKey: .displayInformations)
+        try container.encode(mode, forKey: .mode)
+        try container.encode(ridesharingJourneys, forKey: .ridesharingJourneys)
+        try container.encode(stopDateTimes, forKey: .stopDateTimes)
+    }
 
     public init() {}
     required public init?(map: Map) {
@@ -86,103 +145,56 @@ open class Section: JSONEncodable, Mappable, Codable {
     }
 
 
-    enum CodingKeys: String, CodingKey {
-        case displayInformations = "display_informations"
-        case from = "from"
-        case links = "links"
-        case transferType = "transfer_type"
-        case arrivalDateTime = "arrival_date_time"
-        case additionalInformations = "additional_informations"
-        case departureDateTime = "departure_date_time"
-        case ridesharingInformations = "ridesharing_informations"
-        case to = "to"
-        case baseArrivalDateTime = "base_arrival_date_time"
-        case baseDepartureDateTime = "base_departure_date_time"
-        case co2Emission = "co2_emission"
-        case ridesharingJourneys = "ridesharing_journeys"
-        case geojson = "geojson"
-        case duration = "duration"
-        case path = "path"
-        case stopDateTimes = "stop_date_times"
-        case type = "type"
-        case id = "id"
-        case dataFreshness = "data_freshness"
-        case mode = "mode"
-    }
-
-    public func encode(to encoder: Encoder) throws {
-        var container = encoder.container(keyedBy: CodingKeys.self)
-        try container.encode(displayInformations, forKey: .displayInformations)
-        try container.encode(from, forKey: .from)
-        try container.encode(links, forKey: .links)
-        try container.encode(transferType, forKey: .transferType)
-        try container.encode(arrivalDateTime, forKey: .arrivalDateTime)
-        try container.encode(additionalInformations, forKey: .additionalInformations)
-        try container.encode(departureDateTime, forKey: .departureDateTime)
-        try container.encode(ridesharingInformations, forKey: .ridesharingInformations)
-        try container.encode(to, forKey: .to)
-        try container.encode(baseArrivalDateTime, forKey: .baseArrivalDateTime)
-        try container.encode(baseDepartureDateTime, forKey: .baseDepartureDateTime)
-        try container.encode(co2Emission, forKey: .co2Emission)
-        try container.encode(ridesharingJourneys, forKey: .ridesharingJourneys)
-        try container.encode(geojson, forKey: .geojson)
-        try container.encode(duration, forKey: .duration)
-        try container.encode(path, forKey: .path)
-        try container.encode(stopDateTimes, forKey: .stopDateTimes)
-        try container.encode(type, forKey: .type)
-        try container.encode(id, forKey: .id)
-        try container.encode(dataFreshness, forKey: .dataFreshness)
-        try container.encode(mode, forKey: .mode)
-    }
-
     public func mapping(map: Map) {
-        displayInformations <- map["display_informations"]
-        from <- map["from"]
         links <- map["links"]
-        transferType <- map["transfer_type"]
+        departureDateTime <- map["departure_date_time"]
+        baseDepartureDateTime <- map["base_departure_date_time"]
+        duration <- map["duration"]
+        id <- map["id"]
+        from <- map["from"]
         arrivalDateTime <- map["arrival_date_time"]
         additionalInformations <- map["additional_informations"]
-        departureDateTime <- map["departure_date_time"]
+        geojson <- map["geojson"]
         ridesharingInformations <- map["ridesharing_informations"]
         to <- map["to"]
         baseArrivalDateTime <- map["base_arrival_date_time"]
-        baseDepartureDateTime <- map["base_departure_date_time"]
-        co2Emission <- map["co2_emission"]
-        ridesharingJourneys <- map["ridesharing_journeys"]
-        geojson <- map["geojson"]
-        duration <- map["duration"]
-        path <- map["path"]
-        stopDateTimes <- map["stop_date_times"]
+        transferType <- map["transfer_type"]
         type <- map["type"]
-        id <- map["id"]
         dataFreshness <- map["data_freshness"]
+        co2Emission <- map["co2_emission"]
+        path <- map["path"]
+        cycleLaneLength <- map["cycle_lane_length"]
+        displayInformations <- map["display_informations"]
         mode <- map["mode"]
+        ridesharingJourneys <- map["ridesharing_journeys"]
+        stopDateTimes <- map["stop_date_times"]
     }
 
     // MARK: JSONEncodable
     open func encodeToJSON() -> Any {
         var nillableDictionary = [String:Any?]()
-        nillableDictionary["display_informations"] = self.displayInformations?.encodeToJSON()
-        nillableDictionary["from"] = self.from?.encodeToJSON()
         nillableDictionary["links"] = self.links?.encodeToJSON()
-        nillableDictionary["transfer_type"] = self.transferType?.rawValue
+        nillableDictionary["departure_date_time"] = self.departureDateTime
+        nillableDictionary["base_departure_date_time"] = self.baseDepartureDateTime
+        nillableDictionary["duration"] = self.duration?.encodeToJSON()
+        nillableDictionary["id"] = self.id
+        nillableDictionary["from"] = self.from?.encodeToJSON()
         nillableDictionary["arrival_date_time"] = self.arrivalDateTime
         nillableDictionary["additional_informations"] = self.additionalInformations?.map({$0.rawValue}).encodeToJSON()
-        nillableDictionary["departure_date_time"] = self.departureDateTime
+        nillableDictionary["geojson"] = self.geojson?.encodeToJSON()
         nillableDictionary["ridesharing_informations"] = self.ridesharingInformations?.encodeToJSON()
         nillableDictionary["to"] = self.to?.encodeToJSON()
         nillableDictionary["base_arrival_date_time"] = self.baseArrivalDateTime
-        nillableDictionary["base_departure_date_time"] = self.baseDepartureDateTime
-        nillableDictionary["co2_emission"] = self.co2Emission?.encodeToJSON()
-        nillableDictionary["ridesharing_journeys"] = self.ridesharingJourneys?.encodeToJSON()
-        nillableDictionary["geojson"] = self.geojson?.encodeToJSON()
-        nillableDictionary["duration"] = self.duration?.encodeToJSON()
-        nillableDictionary["path"] = self.path?.encodeToJSON()
-        nillableDictionary["stop_date_times"] = self.stopDateTimes?.encodeToJSON()
+        nillableDictionary["transfer_type"] = self.transferType?.rawValue
         nillableDictionary["type"] = self.type?.rawValue
-        nillableDictionary["id"] = self.id
         nillableDictionary["data_freshness"] = self.dataFreshness?.rawValue
+        nillableDictionary["co2_emission"] = self.co2Emission?.encodeToJSON()
+        nillableDictionary["path"] = self.path?.encodeToJSON()
+        nillableDictionary["cycle_lane_length"] = self.cycleLaneLength?.encodeToJSON()
+        nillableDictionary["display_informations"] = self.displayInformations?.encodeToJSON()
         nillableDictionary["mode"] = self.mode?.rawValue
+        nillableDictionary["ridesharing_journeys"] = self.ridesharingJourneys?.encodeToJSON()
+        nillableDictionary["stop_date_times"] = self.stopDateTimes?.encodeToJSON()
 
         let dictionary: [String:Any] = APIHelper.rejectNil(nillableDictionary) ?? [:]
         return dictionary

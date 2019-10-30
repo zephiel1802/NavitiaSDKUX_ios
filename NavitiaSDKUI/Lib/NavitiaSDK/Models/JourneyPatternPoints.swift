@@ -10,6 +10,11 @@ import Foundation
 
 open class JourneyPatternPoints: JSONEncodable, Mappable, Codable {
 
+/** Coding keys for Codable protocol */
+    enum CodingKeys: CodingKey {
+        case pagination, journeyPatternPoints, links, disruptions, notes, feedPublishers, context, error, unknown
+    }
+
     public var pagination: Pagination?
     public var journeyPatternPoints: [JourneyPatternPoint]?
     public var links: [LinkSchema]?
@@ -19,21 +24,17 @@ open class JourneyPatternPoints: JSONEncodable, Mappable, Codable {
     public var context: Context?
     public var error: ModelError?
 
-    public init() {}
-    required public init?(map: Map) {
-
-    }
-
-
-    enum CodingKeys: String, CodingKey {
-        case pagination = "pagination"
-        case journeyPatternPoints = "journey_pattern_points"
-        case links = "links"
-        case disruptions = "disruptions"
-        case notes = "notes"
-        case feedPublishers = "feed_publishers"
-        case context = "context"
-        case error = "error"
+    
+    required public init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        pagination = try container.decode(Pagination.self, forKey: .pagination)
+        journeyPatternPoints = try container.decode([JourneyPatternPoint].self, forKey: .journeyPatternPoints)
+        links = try container.decode([LinkSchema].self, forKey: .links)
+        disruptions = try container.decode([Disruption].self, forKey: .disruptions)
+        notes = try container.decode([Note].self, forKey: .notes)
+        feedPublishers = try container.decode([FeedPublisher].self, forKey: .feedPublishers)
+        context = try container.decode(Context.self, forKey: .context)
+        error = try container.decode(ModelError.self, forKey: .error)
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -47,6 +48,12 @@ open class JourneyPatternPoints: JSONEncodable, Mappable, Codable {
         try container.encode(context, forKey: .context)
         try container.encode(error, forKey: .error)
     }
+
+    public init() {}
+    required public init?(map: Map) {
+
+    }
+
 
     public func mapping(map: Map) {
         pagination <- map["pagination"]

@@ -10,6 +10,11 @@ import Foundation
 
 open class StopPoints: JSONEncodable, Mappable, Codable {
 
+/** Coding keys for Codable protocol */
+    enum CodingKeys: CodingKey {
+        case pagination, links, disruptions, notes, feedPublishers, context, error, stopPoints, unknown
+    }
+
     public var pagination: Pagination?
     public var links: [LinkSchema]?
     public var disruptions: [Disruption]?
@@ -19,21 +24,17 @@ open class StopPoints: JSONEncodable, Mappable, Codable {
     public var error: ModelError?
     public var stopPoints: [StopPoint]?
 
-    public init() {}
-    required public init?(map: Map) {
-
-    }
-
-
-    enum CodingKeys: String, CodingKey {
-        case pagination = "pagination"
-        case links = "links"
-        case disruptions = "disruptions"
-        case notes = "notes"
-        case feedPublishers = "feed_publishers"
-        case context = "context"
-        case error = "error"
-        case stopPoints = "stop_points"
+    
+    required public init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        pagination = try container.decode(Pagination.self, forKey: .pagination)
+        links = try container.decode([LinkSchema].self, forKey: .links)
+        disruptions = try container.decode([Disruption].self, forKey: .disruptions)
+        notes = try container.decode([Note].self, forKey: .notes)
+        feedPublishers = try container.decode([FeedPublisher].self, forKey: .feedPublishers)
+        context = try container.decode(Context.self, forKey: .context)
+        error = try container.decode(ModelError.self, forKey: .error)
+        stopPoints = try container.decode([StopPoint].self, forKey: .stopPoints)
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -47,6 +48,12 @@ open class StopPoints: JSONEncodable, Mappable, Codable {
         try container.encode(error, forKey: .error)
         try container.encode(stopPoints, forKey: .stopPoints)
     }
+
+    public init() {}
+    required public init?(map: Map) {
+
+    }
+
 
     public func mapping(map: Map) {
         pagination <- map["pagination"]

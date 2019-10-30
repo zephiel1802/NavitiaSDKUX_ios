@@ -10,6 +10,11 @@ import Foundation
 
 open class Dataset: JSONEncodable, Mappable, Codable {
 
+/** Coding keys for Codable protocol */
+    enum CodingKeys: CodingKey {
+        case realtimeLevel, description, system, startValidationDate, endValidationDate, contributor, id, unknown
+    }
+
     public var realtimeLevel: String?
     public var description: String?
     /** Type of dataset provided (GTFS, Chouette, ...) */
@@ -23,20 +28,16 @@ open class Dataset: JSONEncodable, Mappable, Codable {
     /** Identifier of the object */
     public var id: String?
 
-    public init() {}
-    required public init?(map: Map) {
-
-    }
-
-
-    enum CodingKeys: String, CodingKey {
-        case realtimeLevel = "realtime_level"
-        case description = "description"
-        case system = "system"
-        case startValidationDate = "start_validation_date"
-        case endValidationDate = "end_validation_date"
-        case contributor = "contributor"
-        case id = "id"
+    
+    required public init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        realtimeLevel = try container.decode(String.self, forKey: .realtimeLevel)
+        description = try container.decode(String.self, forKey: .description)
+        system = try container.decode(String.self, forKey: .system)
+        startValidationDate = try container.decode(String.self, forKey: .startValidationDate)
+        endValidationDate = try container.decode(String.self, forKey: .endValidationDate)
+        contributor = try container.decode(Contributor.self, forKey: .contributor)
+        id = try container.decode(String.self, forKey: .id)
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -49,6 +50,12 @@ open class Dataset: JSONEncodable, Mappable, Codable {
         try container.encode(contributor, forKey: .contributor)
         try container.encode(id, forKey: .id)
     }
+
+    public init() {}
+    required public init?(map: Map) {
+
+    }
+
 
     public func mapping(map: Map) {
         realtimeLevel <- map["realtime_level"]

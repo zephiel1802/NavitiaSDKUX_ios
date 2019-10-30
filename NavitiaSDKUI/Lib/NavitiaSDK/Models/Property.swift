@@ -10,18 +10,19 @@ import Foundation
 
 open class Property: JSONEncodable, Mappable, Codable {
 
+/** Coding keys for Codable protocol */
+    enum CodingKeys: CodingKey {
+        case name, value, unknown
+    }
+
     public var name: String?
     public var value: String?
 
-    public init() {}
-    required public init?(map: Map) {
-
-    }
-
-
-    enum CodingKeys: String, CodingKey {
-        case name = "name"
-        case value = "value"
+    
+    required public init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        name = try container.decode(String.self, forKey: .name)
+        value = try container.decode(String.self, forKey: .value)
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -29,6 +30,12 @@ open class Property: JSONEncodable, Mappable, Codable {
         try container.encode(name, forKey: .name)
         try container.encode(value, forKey: .value)
     }
+
+    public init() {}
+    required public init?(map: Map) {
+
+    }
+
 
     public func mapping(map: Map) {
         name <- map["name"]

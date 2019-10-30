@@ -10,6 +10,11 @@ import Foundation
 
 open class StopPoint: JSONEncodable, Mappable, Codable {
 
+/** Coding keys for Codable protocol */
+    enum CodingKeys: CodingKey {
+        case comment, commercialModes, stopArea, links, administrativeRegions, physicalModes, comments, label, equipments, codes, coord, equipmentDetails, address, fareZone, id, name, unknown
+    }
+
     public enum Equipments: String, Codable { 
         case wheelchairAccessibility = "has_wheelchair_accessibility"
         case bikeAccepted = "has_bike_accepted"
@@ -44,29 +49,25 @@ open class StopPoint: JSONEncodable, Mappable, Codable {
     /** Name of the object */
     public var name: String?
 
-    public init() {}
-    required public init?(map: Map) {
-
-    }
-
-
-    enum CodingKeys: String, CodingKey {
-        case comment = "comment"
-        case commercialModes = "commercial_modes"
-        case stopArea = "stop_area"
-        case links = "links"
-        case administrativeRegions = "administrative_regions"
-        case physicalModes = "physical_modes"
-        case comments = "comments"
-        case label = "label"
-        case equipments = "equipments"
-        case codes = "codes"
-        case coord = "coord"
-        case equipmentDetails = "equipment_details"
-        case address = "address"
-        case fareZone = "fare_zone"
-        case id = "id"
-        case name = "name"
+    
+    required public init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        comment = try container.decode(String.self, forKey: .comment)
+        commercialModes = try container.decode([CommercialMode].self, forKey: .commercialModes)
+        stopArea = try container.decode(StopArea.self, forKey: .stopArea)
+        links = try container.decode([LinkSchema].self, forKey: .links)
+        administrativeRegions = try container.decode([Admin].self, forKey: .administrativeRegions)
+        physicalModes = try container.decode([PhysicalMode].self, forKey: .physicalModes)
+        comments = try container.decode([Comment].self, forKey: .comments)
+        label = try container.decode(String.self, forKey: .label)
+        equipments = try container.decode([Equipments].self, forKey: .equipments)
+        codes = try container.decode([Code].self, forKey: .codes)
+        coord = try container.decode(Coord.self, forKey: .coord)
+        equipmentDetails = try container.decode([EquipmentDetails].self, forKey: .equipmentDetails)
+        address = try container.decode(Address.self, forKey: .address)
+        fareZone = try container.decode(FareZone.self, forKey: .fareZone)
+        id = try container.decode(String.self, forKey: .id)
+        name = try container.decode(String.self, forKey: .name)
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -88,6 +89,12 @@ open class StopPoint: JSONEncodable, Mappable, Codable {
         try container.encode(id, forKey: .id)
         try container.encode(name, forKey: .name)
     }
+
+    public init() {}
+    required public init?(map: Map) {
+
+    }
+
 
     public func mapping(map: Map) {
         comment <- map["comment"]

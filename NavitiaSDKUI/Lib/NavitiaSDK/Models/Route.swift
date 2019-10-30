@@ -10,6 +10,11 @@ import Foundation
 
 open class Route: JSONEncodable, Mappable, Codable {
 
+/** Coding keys for Codable protocol */
+    enum CodingKeys: CodingKey {
+        case direction, codes, name, links, physicalModes, isFrequence, comments, directionType, geojson, stopPoints, line, id, unknown
+    }
+
     public enum IsFrequence: String, Codable { 
         case _false = "False"
     }
@@ -28,25 +33,21 @@ open class Route: JSONEncodable, Mappable, Codable {
     /** Identifier of the object */
     public var id: String?
 
-    public init() {}
-    required public init?(map: Map) {
-
-    }
-
-
-    enum CodingKeys: String, CodingKey {
-        case direction = "direction"
-        case codes = "codes"
-        case name = "name"
-        case links = "links"
-        case physicalModes = "physical_modes"
-        case isFrequence = "is_frequence"
-        case comments = "comments"
-        case directionType = "direction_type"
-        case geojson = "geojson"
-        case stopPoints = "stop_points"
-        case line = "line"
-        case id = "id"
+    
+    required public init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        direction = try container.decode(Place.self, forKey: .direction)
+        codes = try container.decode([Code].self, forKey: .codes)
+        name = try container.decode(String.self, forKey: .name)
+        links = try container.decode([LinkSchema].self, forKey: .links)
+        physicalModes = try container.decode([PhysicalMode].self, forKey: .physicalModes)
+        isFrequence = try container.decode(IsFrequence.self, forKey: .isFrequence)
+        comments = try container.decode([Comment].self, forKey: .comments)
+        directionType = try container.decode(String.self, forKey: .directionType)
+        geojson = try container.decode(MultiLineStringSchema.self, forKey: .geojson)
+        stopPoints = try container.decode([StopPoint].self, forKey: .stopPoints)
+        line = try container.decode(Line.self, forKey: .line)
+        id = try container.decode(String.self, forKey: .id)
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -64,6 +65,12 @@ open class Route: JSONEncodable, Mappable, Codable {
         try container.encode(line, forKey: .line)
         try container.encode(id, forKey: .id)
     }
+
+    public init() {}
+    required public init?(map: Map) {
+
+    }
+
 
     public func mapping(map: Map) {
         direction <- map["direction"]
