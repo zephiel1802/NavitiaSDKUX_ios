@@ -54,6 +54,7 @@ import Foundation
     public var allowedPhysicalModes: [String]?
     public var debugURL: String?
     public var travelerType: TravelerType?
+    public var directPathMode: [CoverageRegionJourneysRequestBuilder.DirectPathMode]?
     
     public init(coverage: String) {
         self.coverage = coverage
