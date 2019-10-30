@@ -176,8 +176,8 @@ enum ShowJourneyRoadmap {
             }
             
             struct Emission {
-                var journey: (value: Double, unit: String)
-                var car: (value: Double, unit: String)?
+                var journey: (value: Float, unit: String)
+                var car: (value: Float, unit: String)?
                 var accessibility: String
             }
             

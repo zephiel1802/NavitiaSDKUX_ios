@@ -10,6 +10,11 @@ import Foundation
 
 open class PtObjects: JSONEncodable, Mappable, Codable {
 
+/** Coding keys for Codable protocol */
+    enum CodingKeys: CodingKey {
+        case links, disruptions, feedPublishers, context, error, ptObjects, unknown
+    }
+
     public var links: [LinkSchema]?
     public var disruptions: [Disruption]?
     public var feedPublishers: [FeedPublisher]?
@@ -17,19 +22,15 @@ open class PtObjects: JSONEncodable, Mappable, Codable {
     public var error: ModelError?
     public var ptObjects: [PtObject]?
 
-    public init() {}
-    required public init?(map: Map) {
-
-    }
-
-
-    enum CodingKeys: String, CodingKey {
-        case links = "links"
-        case disruptions = "disruptions"
-        case feedPublishers = "feed_publishers"
-        case context = "context"
-        case error = "error"
-        case ptObjects = "pt_objects"
+    
+    required public init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        links = try container.decode([LinkSchema].self, forKey: .links)
+        disruptions = try container.decode([Disruption].self, forKey: .disruptions)
+        feedPublishers = try container.decode([FeedPublisher].self, forKey: .feedPublishers)
+        context = try container.decode(Context.self, forKey: .context)
+        error = try container.decode(ModelError.self, forKey: .error)
+        ptObjects = try container.decode([PtObject].self, forKey: .ptObjects)
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -41,6 +42,12 @@ open class PtObjects: JSONEncodable, Mappable, Codable {
         try container.encode(error, forKey: .error)
         try container.encode(ptObjects, forKey: .ptObjects)
     }
+
+    public init() {}
+    required public init?(map: Map) {
+
+    }
+
 
     public func mapping(map: Map) {
         links <- map["links"]

@@ -143,7 +143,7 @@ class ShowJourneyRoadmapPresenterTests: XCTestCase {
     func testEmissionStep() {
         let emissionViewModel = viewModelRoadmap.emission
         
-        XCTAssertEqual(emissionViewModel.car?.value, 2.5682)
+        XCTAssertEqual(emissionViewModel.car?.value, 2.5681999)
         XCTAssertEqual(emissionViewModel.car?.unit, "Kg CO2")
         XCTAssertEqual(emissionViewModel.journey.value, 0)
         XCTAssertEqual(emissionViewModel.journey.unit, "g CO2")

@@ -10,6 +10,11 @@ import Foundation
 
 open class LineGroup: JSONEncodable, Mappable, Codable {
 
+/** Coding keys for Codable protocol */
+    enum CodingKeys: CodingKey {
+        case name, lines, mainLine, comments, id, unknown
+    }
+
     /** Name of the object */
     public var name: String?
     public var lines: [Line]?
@@ -18,18 +23,14 @@ open class LineGroup: JSONEncodable, Mappable, Codable {
     /** Identifier of the object */
     public var id: String?
 
-    public init() {}
-    required public init?(map: Map) {
-
-    }
-
-
-    enum CodingKeys: String, CodingKey {
-        case name = "name"
-        case lines = "lines"
-        case mainLine = "main_line"
-        case comments = "comments"
-        case id = "id"
+    
+    required public init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        name = try container.decode(String.self, forKey: .name)
+        lines = try container.decode([Line].self, forKey: .lines)
+        mainLine = try container.decode(Line.self, forKey: .mainLine)
+        comments = try container.decode([Comment].self, forKey: .comments)
+        id = try container.decode(String.self, forKey: .id)
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -40,6 +41,12 @@ open class LineGroup: JSONEncodable, Mappable, Codable {
         try container.encode(comments, forKey: .comments)
         try container.encode(id, forKey: .id)
     }
+
+    public init() {}
+    required public init?(map: Map) {
+
+    }
+
 
     public func mapping(map: Map) {
         name <- map["name"]

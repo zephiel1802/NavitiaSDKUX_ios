@@ -40,8 +40,8 @@ class NavitiaWorker: NavitiaWorkerProtocol {
                 .withDirectPath(journeysRequest.directPath)
                 .withDebugURL(journeysRequest.debugURL)
                 .withDataFreshness(journeysRequest.dataFreshness)
-                .withTravelerType(CoverageRegionJourneysRequestBuilder
-                    .TravelerType(rawValue: (journeysRequest.travelerType ?? .standard).rawValue))
+                .withTravelerType(CoverageRegionJourneysRequestBuilder.TravelerType(rawValue: (journeysRequest.travelerType ?? .standard).rawValue))
+                .withDirectPathMode(journeysRequest.directPathMode)
             
             journeyRequestBuilder.get { (result, error) in
                 if let result = result {
