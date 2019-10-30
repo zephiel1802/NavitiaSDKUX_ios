@@ -15,7 +15,6 @@ public protocol JourneySolutionViewDelegate: class {
 class JourneySolutionView: UIView {
     @IBOutlet weak var aboutLabel: UILabel!
     @IBOutlet weak var durationLabel: UILabel!
-    @IBOutlet weak var durationCenterContraint: NSLayoutConstraint!
     @IBOutlet weak var priceLabel: UILabel!
     
     private let paddingFriezeView = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 70)
@@ -81,7 +80,7 @@ class JourneySolutionView: UIView {
         }
         
         friezeView.frame.size = CGSize(width: frame.size.width - paddingFriezeView.right - paddingFriezeView.left,
-                                       height: 27)
+                                       height: 35)
         friezeView.updatePositionFriezeSectionView()
 
         frame.size.height = friezeView.frame.size.height + paddingFriezeView.top + paddingFriezeView.bottom
@@ -97,7 +96,6 @@ class JourneySolutionView: UIView {
     
     internal func setData(duration: Int32, friezeSection: [FriezePresenter.FriezeSection], price: String) {
         aboutLabel.isHidden = true
-        durationCenterContraint.constant = 0
         
         priceLabel.text = price
         formattedDuration(duration)
@@ -107,7 +105,6 @@ class JourneySolutionView: UIView {
     
     internal func setRidesharingData(duration: Int32, friezeSection: [FriezePresenter.FriezeSection]) {
         aboutLabel.isHidden = false
-        durationCenterContraint.constant = 7
         
         aboutLabel.attributedText = NSMutableAttributedString()
             .semiBold("about".localized(), color: Configuration.Color.secondary)

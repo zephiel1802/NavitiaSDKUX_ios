@@ -162,7 +162,7 @@ class FriezePresenter: NSObject {
             } else {
                 return ""
             }
-        case .unavailable_price:
+        case .unavailable_price, .unbookable:
             return "price_unavailable".localized()
         default:
             return ""
