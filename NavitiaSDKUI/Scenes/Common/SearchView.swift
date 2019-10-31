@@ -460,5 +460,10 @@ class SearchView: UIView, UITextFieldDelegate {
         fromClearButton.isHidden = true
         toClearButton.isHidden = true
         singleSearchClearButton.isHidden = true
-    }    
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
 }
