@@ -10,6 +10,11 @@ import Foundation
 
 open class StopSchedule: JSONEncodable, Mappable, Codable {
 
+/** Coding keys for Codable protocol */
+    enum CodingKeys: CodingKey {
+        case stopPoint, links, dateTimes, route, additionalInformations, displayInformations, lastDatetime, firstDatetime, unknown
+    }
+
     public var stopPoint: StopPoint?
     public var links: [LinkSchema]?
     public var dateTimes: [DateTimeType]?
@@ -19,21 +24,17 @@ open class StopSchedule: JSONEncodable, Mappable, Codable {
     public var lastDatetime: DateTimeType?
     public var firstDatetime: DateTimeType?
 
-    public init() {}
-    required public init?(map: Map) {
-
-    }
-
-
-    enum CodingKeys: String, CodingKey {
-        case stopPoint = "stop_point"
-        case links = "links"
-        case dateTimes = "date_times"
-        case route = "route"
-        case additionalInformations = "additional_informations"
-        case displayInformations = "display_informations"
-        case lastDatetime = "last_datetime"
-        case firstDatetime = "first_datetime"
+    
+    required public init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        stopPoint = try container.decode(StopPoint.self, forKey: .stopPoint)
+        links = try container.decode([LinkSchema].self, forKey: .links)
+        dateTimes = try container.decode([DateTimeType].self, forKey: .dateTimes)
+        route = try container.decode(Route.self, forKey: .route)
+        additionalInformations = try container.decode(String.self, forKey: .additionalInformations)
+        displayInformations = try container.decode(RouteDisplayInformation.self, forKey: .displayInformations)
+        lastDatetime = try container.decode(DateTimeType.self, forKey: .lastDatetime)
+        firstDatetime = try container.decode(DateTimeType.self, forKey: .firstDatetime)
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -47,6 +48,12 @@ open class StopSchedule: JSONEncodable, Mappable, Codable {
         try container.encode(lastDatetime, forKey: .lastDatetime)
         try container.encode(firstDatetime, forKey: .firstDatetime)
     }
+
+    public init() {}
+    required public init?(map: Map) {
+
+    }
+
 
     public func mapping(map: Map) {
         stopPoint <- map["stop_point"]

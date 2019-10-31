@@ -10,20 +10,21 @@ import Foundation
 
 open class Header: JSONEncodable, Mappable, Codable {
 
+/** Coding keys for Codable protocol */
+    enum CodingKeys: CodingKey {
+        case displayInformations, additionalInformations, links, unknown
+    }
+
     public var displayInformations: VJDisplayInformation?
     public var additionalInformations: [String]?
     public var links: [LinkSchema]?
 
-    public init() {}
-    required public init?(map: Map) {
-
-    }
-
-
-    enum CodingKeys: String, CodingKey {
-        case displayInformations = "display_informations"
-        case additionalInformations = "additional_informations"
-        case links = "links"
+    
+    required public init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        displayInformations = try container.decode(VJDisplayInformation.self, forKey: .displayInformations)
+        additionalInformations = try container.decode([String].self, forKey: .additionalInformations)
+        links = try container.decode([LinkSchema].self, forKey: .links)
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -32,6 +33,12 @@ open class Header: JSONEncodable, Mappable, Codable {
         try container.encode(additionalInformations, forKey: .additionalInformations)
         try container.encode(links, forKey: .links)
     }
+
+    public init() {}
+    required public init?(map: Map) {
+
+    }
+
 
     public func mapping(map: Map) {
         displayInformations <- map["display_informations"]

@@ -10,20 +10,21 @@ import Foundation
 
 open class Fare: JSONEncodable, Mappable, Codable {
 
+/** Coding keys for Codable protocol */
+    enum CodingKeys: CodingKey {
+        case found, total, links, unknown
+    }
+
     public var found: Bool?
     public var total: Cost?
     public var links: [LinkSchema]?
 
-    public init() {}
-    required public init?(map: Map) {
-
-    }
-
-
-    enum CodingKeys: String, CodingKey {
-        case found = "found"
-        case total = "total"
-        case links = "links"
+    
+    required public init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        found = try container.decode(Bool.self, forKey: .found)
+        total = try container.decode(Cost.self, forKey: .total)
+        links = try container.decode([LinkSchema].self, forKey: .links)
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -32,6 +33,12 @@ open class Fare: JSONEncodable, Mappable, Codable {
         try container.encode(total, forKey: .total)
         try container.encode(links, forKey: .links)
     }
+
+    public init() {}
+    required public init?(map: Map) {
+
+    }
+
 
     public func mapping(map: Map) {
         found <- map["found"]

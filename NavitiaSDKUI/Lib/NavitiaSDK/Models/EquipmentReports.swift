@@ -10,6 +10,11 @@ import Foundation
 
 open class EquipmentReports: JSONEncodable, Mappable, Codable {
 
+/** Coding keys for Codable protocol */
+    enum CodingKeys: CodingKey {
+        case pagination, links, warnings, equipmentReports, notes, error, feedPublishers, context, disruptions, unknown
+    }
+
     public var pagination: Pagination?
     public var links: [LinkSchema]?
     public var warnings: [BetaEndpoints]?
@@ -20,22 +25,18 @@ open class EquipmentReports: JSONEncodable, Mappable, Codable {
     public var context: Context?
     public var disruptions: [Disruption]?
 
-    public init() {}
-    required public init?(map: Map) {
-
-    }
-
-
-    enum CodingKeys: String, CodingKey {
-        case pagination = "pagination"
-        case links = "links"
-        case warnings = "warnings"
-        case equipmentReports = "equipment_reports"
-        case notes = "notes"
-        case error = "error"
-        case feedPublishers = "feed_publishers"
-        case context = "context"
-        case disruptions = "disruptions"
+    
+    required public init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        pagination = try container.decode(Pagination.self, forKey: .pagination)
+        links = try container.decode([LinkSchema].self, forKey: .links)
+        warnings = try container.decode([BetaEndpoints].self, forKey: .warnings)
+        equipmentReports = try container.decode([EquipmentReport].self, forKey: .equipmentReports)
+        notes = try container.decode([Note].self, forKey: .notes)
+        error = try container.decode(ModelError.self, forKey: .error)
+        feedPublishers = try container.decode([FeedPublisher].self, forKey: .feedPublishers)
+        context = try container.decode(Context.self, forKey: .context)
+        disruptions = try container.decode([Disruption].self, forKey: .disruptions)
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -50,6 +51,12 @@ open class EquipmentReports: JSONEncodable, Mappable, Codable {
         try container.encode(context, forKey: .context)
         try container.encode(disruptions, forKey: .disruptions)
     }
+
+    public init() {}
+    required public init?(map: Map) {
+
+    }
+
 
     public func mapping(map: Map) {
         pagination <- map["pagination"]

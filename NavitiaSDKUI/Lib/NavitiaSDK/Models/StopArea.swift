@@ -10,6 +10,11 @@ import Foundation
 
 open class StopArea: JSONEncodable, Mappable, Codable {
 
+/** Coding keys for Codable protocol */
+    enum CodingKeys: CodingKey {
+        case comment, codes, name, links, physicalModes, comments, label, commercialModes, coord, administrativeRegions, timezone, stopPoints, id, unknown
+    }
+
     public var comment: String?
     public var codes: [Code]?
     /** Name of the object */
@@ -27,26 +32,22 @@ open class StopArea: JSONEncodable, Mappable, Codable {
     /** Identifier of the object */
     public var id: String?
 
-    public init() {}
-    required public init?(map: Map) {
-
-    }
-
-
-    enum CodingKeys: String, CodingKey {
-        case comment = "comment"
-        case codes = "codes"
-        case name = "name"
-        case links = "links"
-        case physicalModes = "physical_modes"
-        case comments = "comments"
-        case label = "label"
-        case commercialModes = "commercial_modes"
-        case coord = "coord"
-        case administrativeRegions = "administrative_regions"
-        case timezone = "timezone"
-        case stopPoints = "stop_points"
-        case id = "id"
+    
+    required public init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        comment = try container.decode(String.self, forKey: .comment)
+        codes = try container.decode([Code].self, forKey: .codes)
+        name = try container.decode(String.self, forKey: .name)
+        links = try container.decode([LinkSchema].self, forKey: .links)
+        physicalModes = try container.decode([PhysicalMode].self, forKey: .physicalModes)
+        comments = try container.decode([Comment].self, forKey: .comments)
+        label = try container.decode(String.self, forKey: .label)
+        commercialModes = try container.decode([CommercialMode].self, forKey: .commercialModes)
+        coord = try container.decode(Coord.self, forKey: .coord)
+        administrativeRegions = try container.decode([Admin].self, forKey: .administrativeRegions)
+        timezone = try container.decode(String.self, forKey: .timezone)
+        stopPoints = try container.decode([StopPoint].self, forKey: .stopPoints)
+        id = try container.decode(String.self, forKey: .id)
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -65,6 +66,12 @@ open class StopArea: JSONEncodable, Mappable, Codable {
         try container.encode(stopPoints, forKey: .stopPoints)
         try container.encode(id, forKey: .id)
     }
+
+    public init() {}
+    required public init?(map: Map) {
+
+    }
+
 
     public func mapping(map: Map) {
         comment <- map["comment"]

@@ -10,6 +10,11 @@ import Foundation
 
 open class Durations: JSONEncodable, Mappable, Codable {
 
+/** Coding keys for Codable protocol */
+    enum CodingKeys: CodingKey {
+        case taxi, walking, car, ridesharing, bike, total, unknown
+    }
+
     /** Total duration by taxi of the journey (seconds) */
     public var taxi: Int32?
     /** Total walking duration of the journey (seconds) */
@@ -23,19 +28,15 @@ open class Durations: JSONEncodable, Mappable, Codable {
     /** Total duration of the journey (seconds) */
     public var total: Int32?
 
-    public init() {}
-    required public init?(map: Map) {
-
-    }
-
-
-    enum CodingKeys: String, CodingKey {
-        case taxi = "taxi"
-        case walking = "walking"
-        case car = "car"
-        case ridesharing = "ridesharing"
-        case bike = "bike"
-        case total = "total"
+    
+    required public init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        taxi = try container.decode(Int32.self, forKey: .taxi)
+        walking = try container.decode(Int32.self, forKey: .walking)
+        car = try container.decode(Int32.self, forKey: .car)
+        ridesharing = try container.decode(Int32.self, forKey: .ridesharing)
+        bike = try container.decode(Int32.self, forKey: .bike)
+        total = try container.decode(Int32.self, forKey: .total)
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -47,6 +48,12 @@ open class Durations: JSONEncodable, Mappable, Codable {
         try container.encode(bike, forKey: .bike)
         try container.encode(total, forKey: .total)
     }
+
+    public init() {}
+    required public init?(map: Map) {
+
+    }
+
 
     public func mapping(map: Map) {
         taxi <- map["taxi"]
