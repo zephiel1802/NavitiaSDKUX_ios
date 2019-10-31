@@ -10,24 +10,25 @@ import Foundation
 
 open class RouteSchedule: JSONEncodable, Mappable, Codable {
 
+/** Coding keys for Codable protocol */
+    enum CodingKeys: CodingKey {
+        case displayInformations, table, additionalInformations, geojson, links, unknown
+    }
+
     public var displayInformations: RouteDisplayInformation?
     public var table: Table?
     public var additionalInformations: String?
     public var geojson: MultiLineStringSchema?
     public var links: [LinkSchema]?
 
-    public init() {}
-    required public init?(map: Map) {
-
-    }
-
-
-    enum CodingKeys: String, CodingKey {
-        case displayInformations = "display_informations"
-        case table = "table"
-        case additionalInformations = "additional_informations"
-        case geojson = "geojson"
-        case links = "links"
+    
+    required public init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        displayInformations = try container.decode(RouteDisplayInformation.self, forKey: .displayInformations)
+        table = try container.decode(Table.self, forKey: .table)
+        additionalInformations = try container.decode(String.self, forKey: .additionalInformations)
+        geojson = try container.decode(MultiLineStringSchema.self, forKey: .geojson)
+        links = try container.decode([LinkSchema].self, forKey: .links)
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -38,6 +39,12 @@ open class RouteSchedule: JSONEncodable, Mappable, Codable {
         try container.encode(geojson, forKey: .geojson)
         try container.encode(links, forKey: .links)
     }
+
+    public init() {}
+    required public init?(map: Map) {
+
+    }
+
 
     public func mapping(map: Map) {
         displayInformations <- map["display_informations"]

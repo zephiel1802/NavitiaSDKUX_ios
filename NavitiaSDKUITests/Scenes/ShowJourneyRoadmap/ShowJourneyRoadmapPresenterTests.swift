@@ -143,7 +143,7 @@ class ShowJourneyRoadmapPresenterTests: XCTestCase {
     func testEmissionStep() {
         let emissionViewModel = viewModelRoadmap.emission
         
-        XCTAssertEqual(emissionViewModel.car?.value, 2.5682)
+        XCTAssertEqual(emissionViewModel.car?.value, 2.5681999)
         XCTAssertEqual(emissionViewModel.car?.unit, "Kg CO2")
         XCTAssertEqual(emissionViewModel.journey.value, 0)
         XCTAssertEqual(emissionViewModel.journey.unit, "g CO2")
@@ -224,7 +224,7 @@ class ShowJourneyRoadmapPresenterTests: XCTestCase {
         XCTAssertEqual(walkingViewModel.icon, "walking")
         XCTAssertEqual(walkingViewModel.realTime, false)
         XCTAssertEqual(walkingViewModel.background, false)
-        XCTAssertEqual(walkingViewModel.duration, "A 8 minutes walk")
+        XCTAssertEqual(walkingViewModel.duration, "A 8 minute walk")
         XCTAssertEqual(walkingTwoViewModel.duration, "A 1 minute walk")
         XCTAssertEqual(walkingThreeViewModel.duration, "Less than a minute walk")
         XCTAssertNil(walkingViewModel.waiting)
@@ -257,7 +257,7 @@ class ShowJourneyRoadmapPresenterTests: XCTestCase {
         XCTAssertEqual(bikeViewModel.icon, "bike")
         XCTAssertEqual(bikeViewModel.realTime, false)
         XCTAssertEqual(bikeViewModel.background, false)
-        XCTAssertEqual(bikeViewModel.duration, "A 2 minutes ride")
+        XCTAssertEqual(bikeViewModel.duration, "A 2 minute ride")
         XCTAssertEqual(bikeTwoViewModel.duration, "A 1 minute ride")
         XCTAssertEqual(bikeThreeViewModel.duration, "Less than a minute ride")
         XCTAssertNil(bikeViewModel.waiting)
@@ -290,7 +290,7 @@ class ShowJourneyRoadmapPresenterTests: XCTestCase {
         XCTAssertEqual(carViewModel.icon, "car")
         XCTAssertEqual(carViewModel.realTime, false)
         XCTAssertEqual(carViewModel.background, false)
-        XCTAssertEqual(carViewModel.duration, "A 3 minutes drive")
+        XCTAssertEqual(carViewModel.duration, "A 3 minute drive")
         XCTAssertEqual(carTwoViewModel.duration, "A 1 minute drive")
         XCTAssertEqual(carThreeViewModel.duration, "Less than a minute drive")
         XCTAssertNil(carViewModel.waiting)
@@ -386,7 +386,7 @@ class ShowJourneyRoadmapPresenterTests: XCTestCase {
         XCTAssertEqual(transferViewModel.icon, "walking")
         XCTAssertEqual(transferViewModel.realTime, false)
         XCTAssertEqual(transferViewModel.background, false)
-        XCTAssertEqual(transferViewModel.duration, "A 4 minutes walk")
+        XCTAssertEqual(transferViewModel.duration, "A 4 minute walk")
         XCTAssertNil(transferViewModel.mode)
         XCTAssertNil(transferViewModel.waiting)
         

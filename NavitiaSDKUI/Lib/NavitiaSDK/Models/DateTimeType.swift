@@ -10,24 +10,25 @@ import Foundation
 
 open class DateTimeType: JSONEncodable, Mappable, Codable {
 
+/** Coding keys for Codable protocol */
+    enum CodingKeys: CodingKey {
+        case dateTime, additionalInformations, baseDateTime, dataFreshness, links, unknown
+    }
+
     public var dateTime: String?
     public var additionalInformations: [String]?
     public var baseDateTime: String?
     public var dataFreshness: String?
     public var links: [LinkSchema]?
 
-    public init() {}
-    required public init?(map: Map) {
-
-    }
-
-
-    enum CodingKeys: String, CodingKey {
-        case dateTime = "date_time"
-        case additionalInformations = "additional_informations"
-        case baseDateTime = "base_date_time"
-        case dataFreshness = "data_freshness"
-        case links = "links"
+    
+    required public init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        dateTime = try container.decode(String.self, forKey: .dateTime)
+        additionalInformations = try container.decode([String].self, forKey: .additionalInformations)
+        baseDateTime = try container.decode(String.self, forKey: .baseDateTime)
+        dataFreshness = try container.decode(String.self, forKey: .dataFreshness)
+        links = try container.decode([LinkSchema].self, forKey: .links)
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -38,6 +39,12 @@ open class DateTimeType: JSONEncodable, Mappable, Codable {
         try container.encode(dataFreshness, forKey: .dataFreshness)
         try container.encode(links, forKey: .links)
     }
+
+    public init() {}
+    required public init?(map: Map) {
+
+    }
+
 
     public func mapping(map: Map) {
         dateTime <- map["date_time"]

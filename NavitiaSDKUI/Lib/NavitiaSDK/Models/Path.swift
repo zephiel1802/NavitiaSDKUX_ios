@@ -10,22 +10,23 @@ import Foundation
 
 open class Path: JSONEncodable, Mappable, Codable {
 
+/** Coding keys for Codable protocol */
+    enum CodingKeys: CodingKey {
+        case duration, direction, length, name, unknown
+    }
+
     public var duration: Int32?
     public var direction: Int32?
     public var length: Int32?
     public var name: String?
 
-    public init() {}
-    required public init?(map: Map) {
-
-    }
-
-
-    enum CodingKeys: String, CodingKey {
-        case duration = "duration"
-        case direction = "direction"
-        case length = "length"
-        case name = "name"
+    
+    required public init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        duration = try container.decode(Int32.self, forKey: .duration)
+        direction = try container.decode(Int32.self, forKey: .direction)
+        length = try container.decode(Int32.self, forKey: .length)
+        name = try container.decode(String.self, forKey: .name)
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -35,6 +36,12 @@ open class Path: JSONEncodable, Mappable, Codable {
         try container.encode(length, forKey: .length)
         try container.encode(name, forKey: .name)
     }
+
+    public init() {}
+    required public init?(map: Map) {
+
+    }
+
 
     public func mapping(map: Map) {
         duration <- map["duration"]

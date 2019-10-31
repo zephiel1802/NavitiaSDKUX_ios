@@ -10,6 +10,11 @@ import Foundation
 
 open class Companies: JSONEncodable, Mappable, Codable {
 
+/** Coding keys for Codable protocol */
+    enum CodingKeys: CodingKey {
+        case pagination, links, disruptions, notes, companies, feedPublishers, context, error, unknown
+    }
+
     public var pagination: Pagination?
     public var links: [LinkSchema]?
     public var disruptions: [Disruption]?
@@ -19,21 +24,17 @@ open class Companies: JSONEncodable, Mappable, Codable {
     public var context: Context?
     public var error: ModelError?
 
-    public init() {}
-    required public init?(map: Map) {
-
-    }
-
-
-    enum CodingKeys: String, CodingKey {
-        case pagination = "pagination"
-        case links = "links"
-        case disruptions = "disruptions"
-        case notes = "notes"
-        case companies = "companies"
-        case feedPublishers = "feed_publishers"
-        case context = "context"
-        case error = "error"
+    
+    required public init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        pagination = try container.decode(Pagination.self, forKey: .pagination)
+        links = try container.decode([LinkSchema].self, forKey: .links)
+        disruptions = try container.decode([Disruption].self, forKey: .disruptions)
+        notes = try container.decode([Note].self, forKey: .notes)
+        companies = try container.decode([Companie].self, forKey: .companies)
+        feedPublishers = try container.decode([FeedPublisher].self, forKey: .feedPublishers)
+        context = try container.decode(Context.self, forKey: .context)
+        error = try container.decode(ModelError.self, forKey: .error)
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -47,6 +48,12 @@ open class Companies: JSONEncodable, Mappable, Codable {
         try container.encode(context, forKey: .context)
         try container.encode(error, forKey: .error)
     }
+
+    public init() {}
+    required public init?(map: Map) {
+
+    }
+
 
     public func mapping(map: Map) {
         pagination <- map["pagination"]

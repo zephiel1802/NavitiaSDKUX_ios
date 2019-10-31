@@ -10,18 +10,19 @@ import Foundation
 
 open class SeatsDescription: JSONEncodable, Mappable, Codable {
 
+/** Coding keys for Codable protocol */
+    enum CodingKeys: CodingKey {
+        case available, total, unknown
+    }
+
     public var available: Int32?
     public var total: Int32?
 
-    public init() {}
-    required public init?(map: Map) {
-
-    }
-
-
-    enum CodingKeys: String, CodingKey {
-        case available = "available"
-        case total = "total"
+    
+    required public init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        available = try container.decode(Int32.self, forKey: .available)
+        total = try container.decode(Int32.self, forKey: .total)
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -29,6 +30,12 @@ open class SeatsDescription: JSONEncodable, Mappable, Codable {
         try container.encode(available, forKey: .available)
         try container.encode(total, forKey: .total)
     }
+
+    public init() {}
+    required public init?(map: Map) {
+
+    }
+
 
     public func mapping(map: Map) {
         available <- map["available"]

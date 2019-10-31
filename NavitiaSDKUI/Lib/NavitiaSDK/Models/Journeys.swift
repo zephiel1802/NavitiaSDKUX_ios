@@ -10,6 +10,11 @@ import Foundation
 
 open class Journeys: JSONEncodable, Mappable, Codable {
 
+/** Coding keys for Codable protocol */
+    enum CodingKeys: CodingKey {
+        case tickets, links, journeys, disruptions, notes, feedPublishers, context, error, exceptions, unknown
+    }
+
     public var tickets: [Ticket]?
     public var links: [LinkSchema]?
     public var journeys: [Journey]?
@@ -20,22 +25,18 @@ open class Journeys: JSONEncodable, Mappable, Codable {
     public var error: ModelError?
     public var exceptions: [Exception]?
 
-    public init() {}
-    required public init?(map: Map) {
-
-    }
-
-
-    enum CodingKeys: String, CodingKey {
-        case tickets = "tickets"
-        case links = "links"
-        case journeys = "journeys"
-        case disruptions = "disruptions"
-        case notes = "notes"
-        case feedPublishers = "feed_publishers"
-        case context = "context"
-        case error = "error"
-        case exceptions = "exceptions"
+    
+    required public init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        tickets = try container.decode([Ticket].self, forKey: .tickets)
+        links = try container.decode([LinkSchema].self, forKey: .links)
+        journeys = try container.decode([Journey].self, forKey: .journeys)
+        disruptions = try container.decode([Disruption].self, forKey: .disruptions)
+        notes = try container.decode([Note].self, forKey: .notes)
+        feedPublishers = try container.decode([FeedPublisher].self, forKey: .feedPublishers)
+        context = try container.decode(Context.self, forKey: .context)
+        error = try container.decode(ModelError.self, forKey: .error)
+        exceptions = try container.decode([Exception].self, forKey: .exceptions)
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -50,6 +51,12 @@ open class Journeys: JSONEncodable, Mappable, Codable {
         try container.encode(error, forKey: .error)
         try container.encode(exceptions, forKey: .exceptions)
     }
+
+    public init() {}
+    required public init?(map: Map) {
+
+    }
+
 
     public func mapping(map: Map) {
         tickets <- map["tickets"]

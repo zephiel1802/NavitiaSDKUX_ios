@@ -10,6 +10,11 @@ import Foundation
 
 open class Poi: JSONEncodable, Mappable, Codable {
 
+/** Coding keys for Codable protocol */
+    enum CodingKeys: CodingKey {
+        case poiType, name, carPark, coord, label, administrativeRegions, address, id, properties, stands, unknown
+    }
+
     public var poiType: PoiType?
     /** Name of the object */
     public var name: String?
@@ -23,23 +28,19 @@ open class Poi: JSONEncodable, Mappable, Codable {
     public var properties: [String:String]?
     public var stands: Stands?
 
-    public init() {}
-    required public init?(map: Map) {
-
-    }
-
-
-    enum CodingKeys: String, CodingKey {
-        case poiType = "poi_type"
-        case name = "name"
-        case carPark = "car_park"
-        case coord = "coord"
-        case label = "label"
-        case administrativeRegions = "administrative_regions"
-        case address = "address"
-        case id = "id"
-        case properties = "properties"
-        case stands = "stands"
+    
+    required public init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        poiType = try container.decode(PoiType.self, forKey: .poiType)
+        name = try container.decode(String.self, forKey: .name)
+        carPark = try container.decode(CarPark.self, forKey: .carPark)
+        coord = try container.decode(Coord.self, forKey: .coord)
+        label = try container.decode(String.self, forKey: .label)
+        administrativeRegions = try container.decode([Admin].self, forKey: .administrativeRegions)
+        address = try container.decode(Address.self, forKey: .address)
+        id = try container.decode(String.self, forKey: .id)
+        properties = try container.decode([String:String].self, forKey: .properties)
+        stands = try container.decode(Stands.self, forKey: .stands)
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -55,6 +56,12 @@ open class Poi: JSONEncodable, Mappable, Codable {
         try container.encode(properties, forKey: .properties)
         try container.encode(stands, forKey: .stands)
     }
+
+    public init() {}
+    required public init?(map: Map) {
+
+    }
+
 
     public func mapping(map: Map) {
         poiType <- map["poi_type"]

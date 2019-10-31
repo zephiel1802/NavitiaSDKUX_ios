@@ -745,9 +745,9 @@
 			children = (
 				84AAB3112237BB0B00CC8C19 /* CoordApi.swift */,
 				84AAB30F2237BB0B00CC8C19 /* CoverageApi.swift */,
+				841A0F95215A29B800F46143 /* JourneysApi.swift */,
 				84AAB3102237BB0B00CC8C19 /* PhysicalModesApi.swift */,
 				84C82F7522083FEE00FE3F1D /* PlacesAPI.swift */,
-				841A0F95215A29B800F46143 /* JourneysApi.swift */,
 				841A0F7B215A29B800F46143 /* PoisApi.swift */,
 			);
 			path = Apis;

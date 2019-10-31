@@ -10,6 +10,11 @@ import Foundation
 
 open class CurrentAvailability: JSONEncodable, Mappable, Codable {
 
+/** Coding keys for Codable protocol */
+    enum CodingKeys: CodingKey {
+        case status, effect, cause, periods, updatedAt, unknown
+    }
+
     public enum Status: String, Codable { 
         case unknown = "unknown"
         case available = "available"
@@ -21,18 +26,14 @@ open class CurrentAvailability: JSONEncodable, Mappable, Codable {
     public var periods: [Period]?
     public var updatedAt: String?
 
-    public init() {}
-    required public init?(map: Map) {
-
-    }
-
-
-    enum CodingKeys: String, CodingKey {
-        case status = "status"
-        case effect = "effect"
-        case cause = "cause"
-        case periods = "periods"
-        case updatedAt = "updated_at"
+    
+    required public init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        status = try container.decode(Status.self, forKey: .status)
+        effect = try container.decode(Effect.self, forKey: .effect)
+        cause = try container.decode(Cause.self, forKey: .cause)
+        periods = try container.decode([Period].self, forKey: .periods)
+        updatedAt = try container.decode(String.self, forKey: .updatedAt)
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -43,6 +44,12 @@ open class CurrentAvailability: JSONEncodable, Mappable, Codable {
         try container.encode(periods, forKey: .periods)
         try container.encode(updatedAt, forKey: .updatedAt)
     }
+
+    public init() {}
+    required public init?(map: Map) {
+
+    }
+
 
     public func mapping(map: Map) {
         status <- map["status"]

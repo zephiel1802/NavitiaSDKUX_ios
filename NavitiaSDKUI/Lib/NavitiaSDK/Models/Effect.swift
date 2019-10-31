@@ -10,22 +10,29 @@ import Foundation
 
 open class Effect: JSONEncodable, Mappable, Codable {
 
-    public var label: String?
-
-    public init() {}
-    required public init?(map: Map) {
-
+/** Coding keys for Codable protocol */
+    enum CodingKeys: CodingKey {
+        case label, unknown
     }
 
+    public var label: String?
 
-    enum CodingKeys: String, CodingKey {
-        case label = "label"
+    
+    required public init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        label = try container.decode(String.self, forKey: .label)
     }
 
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(label, forKey: .label)
     }
+
+    public init() {}
+    required public init?(map: Map) {
+
+    }
+
 
     public func mapping(map: Map) {
         label <- map["label"]

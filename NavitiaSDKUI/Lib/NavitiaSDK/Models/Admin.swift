@@ -10,6 +10,11 @@ import Foundation
 
 open class Admin: JSONEncodable, Mappable, Codable {
 
+/** Coding keys for Codable protocol */
+    enum CodingKeys: CodingKey {
+        case insee, name, level, coord, label, id, zipCode, unknown
+    }
+
     public var insee: String?
     /** Name of the object */
     public var name: String?
@@ -20,20 +25,16 @@ open class Admin: JSONEncodable, Mappable, Codable {
     public var id: String?
     public var zipCode: String?
 
-    public init() {}
-    required public init?(map: Map) {
-
-    }
-
-
-    enum CodingKeys: String, CodingKey {
-        case insee = "insee"
-        case name = "name"
-        case level = "level"
-        case coord = "coord"
-        case label = "label"
-        case id = "id"
-        case zipCode = "zip_code"
+    
+    required public init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        insee = try container.decode(String.self, forKey: .insee)
+        name = try container.decode(String.self, forKey: .name)
+        level = try container.decode(Int32.self, forKey: .level)
+        coord = try container.decode(Coord.self, forKey: .coord)
+        label = try container.decode(String.self, forKey: .label)
+        id = try container.decode(String.self, forKey: .id)
+        zipCode = try container.decode(String.self, forKey: .zipCode)
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -46,6 +47,12 @@ open class Admin: JSONEncodable, Mappable, Codable {
         try container.encode(id, forKey: .id)
         try container.encode(zipCode, forKey: .zipCode)
     }
+
+    public init() {}
+    required public init?(map: Map) {
+
+    }
+
 
     public func mapping(map: Map) {
         insee <- map["insee"]

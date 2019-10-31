@@ -10,7 +10,13 @@ import Foundation
 
 open class LinkSchema: JSONEncodable, Mappable, Codable {
 
+/** Coding keys for Codable protocol */
+    enum CodingKeys: CodingKey {
+        case category, commentType, title, _internal, value, href, rel, templated, type, id, unknown
+    }
+
     public var category: String?
+    public var commentType: String?
     public var title: String?
     public var _internal: Bool?
     public var value: String?
@@ -20,27 +26,25 @@ open class LinkSchema: JSONEncodable, Mappable, Codable {
     public var type: String?
     public var id: String?
 
-    public init() {}
-    required public init?(map: Map) {
-
-    }
-
-
-    enum CodingKeys: String, CodingKey {
-        case category = "category"
-        case title = "title"
-        case _internal = "internal"
-        case value = "value"
-        case href = "href"
-        case rel = "rel"
-        case templated = "templated"
-        case type = "type"
-        case id = "id"
+    
+    required public init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        category = try container.decode(String.self, forKey: .category)
+        commentType = try container.decode(String.self, forKey: .commentType)
+        title = try container.decode(String.self, forKey: .title)
+        _internal = try container.decode(Bool.self, forKey: ._internal)
+        value = try container.decode(String.self, forKey: .value)
+        href = try container.decode(String.self, forKey: .href)
+        rel = try container.decode(String.self, forKey: .rel)
+        templated = try container.decode(Bool.self, forKey: .templated)
+        type = try container.decode(String.self, forKey: .type)
+        id = try container.decode(String.self, forKey: .id)
     }
 
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(category, forKey: .category)
+        try container.encode(commentType, forKey: .commentType)
         try container.encode(title, forKey: .title)
         try container.encode(_internal, forKey: ._internal)
         try container.encode(value, forKey: .value)
@@ -51,8 +55,15 @@ open class LinkSchema: JSONEncodable, Mappable, Codable {
         try container.encode(id, forKey: .id)
     }
 
+    public init() {}
+    required public init?(map: Map) {
+
+    }
+
+
     public func mapping(map: Map) {
         category <- map["category"]
+        commentType <- map["comment_type"]
         title <- map["title"]
         _internal <- map["internal"]
         value <- map["value"]
@@ -67,6 +78,7 @@ open class LinkSchema: JSONEncodable, Mappable, Codable {
     open func encodeToJSON() -> Any {
         var nillableDictionary = [String:Any?]()
         nillableDictionary["category"] = self.category
+        nillableDictionary["comment_type"] = self.commentType
         nillableDictionary["title"] = self.title
         nillableDictionary["internal"] = self._internal
         nillableDictionary["value"] = self.value
