@@ -85,14 +85,22 @@ class JourneySolutionCollectionViewCell: UICollectionViewCell {
             return
         }
         
+        // Hermaas call finished
         if priceModel.hermaasPricedTickets != nil {
             load(false)
             priceView.updatePrice(state: priceModel.state, price: priceModel.totalPrice)
+            
+            // Need to call Hermaas
         } else if let ticketInputList = priceModel.ticketsInput, ticketInputList.count > 0 {
             load(true)
             journeySolutionDelegate?.getPrice(ticketsInputList: ticketInputList, indexPath: indexPath, journeyTimeStamp: journeyTimeStamp)
+            
+            // No need to call Hermaas
+        } else {
+            load(false)
+            let state = priceModel.state == .unbookable ? .unavailable_price : priceModel.state
+            priceView.updatePrice(state: state, price: priceModel.totalPrice)
         }
-        
         
         updateJourneySummaryView(priceModel: priceModel)
     }
