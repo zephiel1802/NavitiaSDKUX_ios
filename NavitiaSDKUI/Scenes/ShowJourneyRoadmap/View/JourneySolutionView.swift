@@ -98,8 +98,8 @@ class JourneySolutionView: UIView {
     
     internal func setData(duration: Int32, friezeSection: [FriezePresenter.FriezeSection], price: String) {
         aboutLabel.isHidden = true
-        durationToAboutConstraint.priority = .defaultLow
-        durationToTopConstraint.priority = .defaultHigh
+        durationToTopConstraint.isActive = true
+        durationToAboutConstraint.isActive = false
         
         priceLabel.text = price
         formattedDuration(duration)
@@ -109,8 +109,8 @@ class JourneySolutionView: UIView {
     
     internal func setRidesharingData(duration: Int32, friezeSection: [FriezePresenter.FriezeSection]) {
         aboutLabel.isHidden = false
-        durationToAboutConstraint.priority = .defaultHigh
-        durationToTopConstraint.priority = .defaultLow
+        durationToAboutConstraint.isActive = true
+        durationToTopConstraint.isActive = false
         
         aboutLabel.attributedText = NSMutableAttributedString()
             .semiBold("about".localized(), color: Configuration.Color.secondary)
