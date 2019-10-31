@@ -10,22 +10,23 @@ import Foundation
 
 open class TrafficReport: JSONEncodable, Mappable, Codable {
 
+/** Coding keys for Codable protocol */
+    enum CodingKeys: CodingKey {
+        case vehicleJourneys, lines, network, stopAreas, unknown
+    }
+
     public var vehicleJourneys: [VehicleJourney]?
     public var lines: [Line]?
     public var network: Network?
     public var stopAreas: [StopArea]?
 
-    public init() {}
-    required public init?(map: Map) {
-
-    }
-
-
-    enum CodingKeys: String, CodingKey {
-        case vehicleJourneys = "vehicle_journeys"
-        case lines = "lines"
-        case network = "network"
-        case stopAreas = "stop_areas"
+    
+    required public init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        vehicleJourneys = try container.decode([VehicleJourney].self, forKey: .vehicleJourneys)
+        lines = try container.decode([Line].self, forKey: .lines)
+        network = try container.decode(Network.self, forKey: .network)
+        stopAreas = try container.decode([StopArea].self, forKey: .stopAreas)
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -35,6 +36,12 @@ open class TrafficReport: JSONEncodable, Mappable, Codable {
         try container.encode(network, forKey: .network)
         try container.encode(stopAreas, forKey: .stopAreas)
     }
+
+    public init() {}
+    required public init?(map: Map) {
+
+    }
+
 
     public func mapping(map: Map) {
         vehicleJourneys <- map["vehicle_journeys"]

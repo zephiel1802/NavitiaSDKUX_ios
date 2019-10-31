@@ -10,6 +10,11 @@ import Foundation
 
 open class HeatMap1: JSONEncodable, Mappable, Codable {
 
+/** Coding keys for Codable protocol */
+    enum CodingKeys: CodingKey {
+        case links, warnings, heatMaps, feedPublishers, context, error, unknown
+    }
+
     public var links: [LinkSchema]?
     public var warnings: [BetaEndpoints]?
     public var heatMaps: [HeatMap]?
@@ -17,19 +22,15 @@ open class HeatMap1: JSONEncodable, Mappable, Codable {
     public var context: Context?
     public var error: ModelError?
 
-    public init() {}
-    required public init?(map: Map) {
-
-    }
-
-
-    enum CodingKeys: String, CodingKey {
-        case links = "links"
-        case warnings = "warnings"
-        case heatMaps = "heat_maps"
-        case feedPublishers = "feed_publishers"
-        case context = "context"
-        case error = "error"
+    
+    required public init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        links = try container.decode([LinkSchema].self, forKey: .links)
+        warnings = try container.decode([BetaEndpoints].self, forKey: .warnings)
+        heatMaps = try container.decode([HeatMap].self, forKey: .heatMaps)
+        feedPublishers = try container.decode([FeedPublisher].self, forKey: .feedPublishers)
+        context = try container.decode(Context.self, forKey: .context)
+        error = try container.decode(ModelError.self, forKey: .error)
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -41,6 +42,12 @@ open class HeatMap1: JSONEncodable, Mappable, Codable {
         try container.encode(context, forKey: .context)
         try container.encode(error, forKey: .error)
     }
+
+    public init() {}
+    required public init?(map: Map) {
+
+    }
+
 
     public func mapping(map: Map) {
         links <- map["links"]

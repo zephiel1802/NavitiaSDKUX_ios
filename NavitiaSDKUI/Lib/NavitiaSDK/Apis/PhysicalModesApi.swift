@@ -7,17 +7,26 @@
 
 import Foundation
 
+
 open class CoverageLonLatPhysicalModesRequestBuilder: NSObject {
     let currentApi: PhysicalModesApi
-    
+
     /**
-     * enum for parameter odtLevel
-     */
-    public enum OdtLevel: String {
+    * enum for parameter odtLevel
+    */
+    public enum OdtLevel: String { 
         case scheduled = "scheduled"
         case all = "all"
         case zonal = "zonal"
         case withStops = "with_stops"
+    }
+    /**
+    * enum for parameter dataFreshness
+    */
+    public enum DataFreshness: String { 
+        case baseSchedule = "base_schedule"
+        case adaptedSchedule = "adapted_schedule"
+        case realtime = "realtime"
     }
     var lat:Double? = nil
     var lon:Double? = nil
@@ -30,6 +39,7 @@ open class CoverageLonLatPhysicalModesRequestBuilder: NSObject {
     var headsign:String? = nil
     var showCodes:Bool? = nil
     var odtLevel: OdtLevel? = nil
+    var dataFreshness: DataFreshness? = nil
     var distance:Int32? = nil
     var since:Date? = nil
     var until:Date? = nil
@@ -38,11 +48,11 @@ open class CoverageLonLatPhysicalModesRequestBuilder: NSObject {
     var filter:String? = nil
     var tags:[String]? = nil
     var debugURL: String? = nil
-    
+
     public init(currentApi: PhysicalModesApi) {
         self.currentApi = currentApi
     }
-    
+
     open func withLat(_ lat: Double?) -> CoverageLonLatPhysicalModesRequestBuilder {
         self.lat = lat
         
@@ -95,7 +105,12 @@ open class CoverageLonLatPhysicalModesRequestBuilder: NSObject {
     }
     open func withOdtLevel(_ odtLevel: OdtLevel?) -> CoverageLonLatPhysicalModesRequestBuilder {
         self.odtLevel = odtLevel
-        
+
+        return self
+    }
+    open func withDataFreshness(_ dataFreshness: DataFreshness?) -> CoverageLonLatPhysicalModesRequestBuilder {
+        self.dataFreshness = dataFreshness
+
         return self
     }
     open func withDistance(_ distance: Int32?) -> CoverageLonLatPhysicalModesRequestBuilder {
@@ -133,56 +148,57 @@ open class CoverageLonLatPhysicalModesRequestBuilder: NSObject {
         
         return self
     }
-    
-    
-    
+
+
+
     open func withDebugURL(_ debugURL: String?) -> CoverageLonLatPhysicalModesRequestBuilder {
         self.debugURL = debugURL
         return self
     }
-    
+
     open func makeUrl() -> String {
         var path = "/coverage/{lon};{lat}/physical_modes"
-        
+
         if let lat = lat {
             let latPreEscape: String = "\(lat)"
             let latPostEscape: String = latPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
             path = path.replacingOccurrences(of: "{lat}", with: latPostEscape, options: .literal, range: nil)
         }
-        
+
         if let lon = lon {
             let lonPreEscape: String = "\(lon)"
             let lonPostEscape: String = lonPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
             path = path.replacingOccurrences(of: "{lon}", with: lonPostEscape, options: .literal, range: nil)
         }
-        
+
         let URLString = String(format: "%@%@", NavitiaSDKAPI.basePath, path)
         let url = NSURLComponents(string: URLString)
-        
+
         let paramValues: [String: Any?] = [
-            "start_page": self.startPage?.encodeToJSON(),
-            "count": self.count?.encodeToJSON(),
-            "depth": self.depth?.encodeToJSON(),
-            "forbidden_id[]": self.forbiddenId,
-            "forbidden_uris[]": self.forbiddenUris,
-            "external_code": self.externalCode,
-            "headsign": self.headsign,
-            "show_codes": self.showCodes,
-            "odt_level": self.odtLevel?.rawValue,
-            "distance": self.distance?.encodeToJSON(),
-            "since": self.since?.encodeToJSON(),
-            "until": self.until?.encodeToJSON(),
-            "disable_geojson": self.disableGeojson,
-            "disable_disruption": self.disableDisruption,
-            "filter": self.filter,
+            "start_page": self.startPage?.encodeToJSON(), 
+            "count": self.count?.encodeToJSON(), 
+            "depth": self.depth?.encodeToJSON(), 
+            "forbidden_id[]": self.forbiddenId, 
+            "forbidden_uris[]": self.forbiddenUris, 
+            "external_code": self.externalCode, 
+            "headsign": self.headsign, 
+            "show_codes": self.showCodes, 
+            "odt_level": self.odtLevel?.rawValue, 
+            "data_freshness": self.dataFreshness?.rawValue, 
+            "distance": self.distance?.encodeToJSON(), 
+            "since": self.since?.encodeToJSON(), 
+            "until": self.until?.encodeToJSON(), 
+            "disable_geojson": self.disableGeojson, 
+            "disable_disruption": self.disableDisruption, 
+            "filter": self.filter, 
             "tags[]": self.tags
         ]
         url?.queryItems = APIHelper.mapValuesToQueryItems(values: paramValues)
         url?.percentEncodedQuery = url?.percentEncodedQuery?.replacingOccurrences(of: "+", with: "%2B")
-        
+
         return (debugURL ?? url?.string ?? URLString)
     }
-    
+
     open func get(completion: @escaping ((_ data: PhysicalModes?,_ error: Error?) -> Void)) {
         if (self.lat == nil) {
             completion(nil, ErrorResponse.Error(500, nil, NSError(domain: "localhost", code: 500, userInfo: ["reason": "Missing mandatory argument : lat"])))
@@ -190,7 +206,7 @@ open class CoverageLonLatPhysicalModesRequestBuilder: NSObject {
         if (self.lon == nil) {
             completion(nil, ErrorResponse.Error(500, nil, NSError(domain: "localhost", code: 500, userInfo: ["reason": "Missing mandatory argument : lon"])))
         }
-        
+
         request(self.makeUrl())
             .authenticate(user: currentApi.token, password: "")
             .validate()
@@ -201,42 +217,50 @@ open class CoverageLonLatPhysicalModesRequestBuilder: NSObject {
                 case .failure(let error):
                     completion(nil, error)
                 }
-        }
+            }
     }
-    
+
     open func rawGet(completion: @escaping ((_ data: String?,_ error: Error?) -> Void)) {
-        if (self.lat == nil) {
-            completion(nil, ErrorResponse.Error(500, nil, NSError(domain: "localhost", code: 500, userInfo: ["reason": "Missing mandatory argument : lat"])))
-        }
-        if (self.lon == nil) {
-            completion(nil, ErrorResponse.Error(500, nil, NSError(domain: "localhost", code: 500, userInfo: ["reason": "Missing mandatory argument : lon"])))
-        }
-        
-        request(self.makeUrl())
-            .authenticate(user: currentApi.token, password: "")
-            .validate()
-            .responseString{ (response: (DataResponse<String>)) in
-                switch response.result {
-                case .success:
-                    completion(response.result.value, nil)
-                case .failure(let error):
-                    completion(nil, error)
-                }
+    if (self.lat == nil) {
+        completion(nil, ErrorResponse.Error(500, nil, NSError(domain: "localhost", code: 500, userInfo: ["reason": "Missing mandatory argument : lat"])))
+    }
+    if (self.lon == nil) {
+        completion(nil, ErrorResponse.Error(500, nil, NSError(domain: "localhost", code: 500, userInfo: ["reason": "Missing mandatory argument : lon"])))
+    }
+
+    request(self.makeUrl())
+        .authenticate(user: currentApi.token, password: "")
+        .validate()
+        .responseString{ (response: (DataResponse<String>)) in
+            switch response.result {
+            case .success:
+                completion(response.result.value, nil)
+            case .failure(let error):
+                completion(nil, error)
+            }
         }
     }
 }
 
 open class CoverageLonLatPhysicalModesIdRequestBuilder: NSObject {
     let currentApi: PhysicalModesApi
-    
+
     /**
-     * enum for parameter odtLevel
-     */
-    public enum OdtLevel: String {
+    * enum for parameter odtLevel
+    */
+    public enum OdtLevel: String { 
         case scheduled = "scheduled"
         case all = "all"
         case zonal = "zonal"
         case withStops = "with_stops"
+    }
+    /**
+    * enum for parameter dataFreshness
+    */
+    public enum DataFreshness: String { 
+        case baseSchedule = "base_schedule"
+        case adaptedSchedule = "adapted_schedule"
+        case realtime = "realtime"
     }
     var lat:Double? = nil
     var lon:Double? = nil
@@ -250,6 +274,7 @@ open class CoverageLonLatPhysicalModesIdRequestBuilder: NSObject {
     var headsign:String? = nil
     var showCodes:Bool? = nil
     var odtLevel: OdtLevel? = nil
+    var dataFreshness: DataFreshness? = nil
     var distance:Int32? = nil
     var since:Date? = nil
     var until:Date? = nil
@@ -257,11 +282,11 @@ open class CoverageLonLatPhysicalModesIdRequestBuilder: NSObject {
     var disableDisruption:Bool? = nil
     var tags:[String]? = nil
     var debugURL: String? = nil
-    
+
     public init(currentApi: PhysicalModesApi) {
         self.currentApi = currentApi
     }
-    
+
     open func withLat(_ lat: Double?) -> CoverageLonLatPhysicalModesIdRequestBuilder {
         self.lat = lat
         
@@ -319,7 +344,12 @@ open class CoverageLonLatPhysicalModesIdRequestBuilder: NSObject {
     }
     open func withOdtLevel(_ odtLevel: OdtLevel?) -> CoverageLonLatPhysicalModesIdRequestBuilder {
         self.odtLevel = odtLevel
-        
+
+        return self
+    }
+    open func withDataFreshness(_ dataFreshness: DataFreshness?) -> CoverageLonLatPhysicalModesIdRequestBuilder {
+        self.dataFreshness = dataFreshness
+
         return self
     }
     open func withDistance(_ distance: Int32?) -> CoverageLonLatPhysicalModesIdRequestBuilder {
@@ -352,61 +382,62 @@ open class CoverageLonLatPhysicalModesIdRequestBuilder: NSObject {
         
         return self
     }
-    
-    
-    
+
+
+
     open func withDebugURL(_ debugURL: String?) -> CoverageLonLatPhysicalModesIdRequestBuilder {
         self.debugURL = debugURL
         return self
     }
-    
+
     open func makeUrl() -> String {
         var path = "/coverage/{lon};{lat}/physical_modes/{id}"
-        
+
         if let lat = lat {
             let latPreEscape: String = "\(lat)"
             let latPostEscape: String = latPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
             path = path.replacingOccurrences(of: "{lat}", with: latPostEscape, options: .literal, range: nil)
         }
-        
+
         if let lon = lon {
             let lonPreEscape: String = "\(lon)"
             let lonPostEscape: String = lonPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
             path = path.replacingOccurrences(of: "{lon}", with: lonPostEscape, options: .literal, range: nil)
         }
-        
+
         if let id = id {
             let idPreEscape: String = "\(id)"
             let idPostEscape: String = idPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
             path = path.replacingOccurrences(of: "{id}", with: idPostEscape, options: .literal, range: nil)
         }
-        
+
         let URLString = String(format: "%@%@", NavitiaSDKAPI.basePath, path)
         let url = NSURLComponents(string: URLString)
-        
+
         let paramValues: [String: Any?] = [
-            "start_page": self.startPage?.encodeToJSON(),
-            "count": self.count?.encodeToJSON(),
-            "depth": self.depth?.encodeToJSON(),
-            "forbidden_id[]": self.forbiddenId,
-            "forbidden_uris[]": self.forbiddenUris,
-            "external_code": self.externalCode,
-            "headsign": self.headsign,
-            "show_codes": self.showCodes,
-            "odt_level": self.odtLevel?.rawValue,
-            "distance": self.distance?.encodeToJSON(),
-            "since": self.since?.encodeToJSON(),
-            "until": self.until?.encodeToJSON(),
-            "disable_geojson": self.disableGeojson,
-            "disable_disruption": self.disableDisruption,
+            "start_page": self.startPage?.encodeToJSON(), 
+            "count": self.count?.encodeToJSON(), 
+            "depth": self.depth?.encodeToJSON(), 
+            "forbidden_id[]": self.forbiddenId, 
+            "forbidden_uris[]": self.forbiddenUris, 
+            "external_code": self.externalCode, 
+            "headsign": self.headsign, 
+            "show_codes": self.showCodes, 
+            "odt_level": self.odtLevel?.rawValue, 
+            "data_freshness": self.dataFreshness?.rawValue, 
+            "distance": self.distance?.encodeToJSON(), 
+            "since": self.since?.encodeToJSON(), 
+            "until": self.until?.encodeToJSON(), 
+            "disable_geojson": self.disableGeojson, 
+            "disable_disruption": self.disableDisruption, 
             "tags[]": self.tags
         ]
         url?.queryItems = APIHelper.mapValuesToQueryItems(values: paramValues)
         url?.percentEncodedQuery = url?.percentEncodedQuery?.replacingOccurrences(of: "+", with: "%2B")
-        
+
         return (debugURL ?? url?.string ?? URLString)
     }
-    
+
     open func get(completion: @escaping ((_ data: PhysicalModes?,_ error: Error?) -> Void)) {
         if (self.lat == nil) {
             completion(nil, ErrorResponse.Error(500, nil, NSError(domain: "localhost", code: 500, userInfo: ["reason": "Missing mandatory argument : lat"])))
@@ -417,7 +448,7 @@ open class CoverageLonLatPhysicalModesIdRequestBuilder: NSObject {
         if (self.id == nil) {
             completion(nil, ErrorResponse.Error(500, nil, NSError(domain: "localhost", code: 500, userInfo: ["reason": "Missing mandatory argument : id"])))
         }
-        
+
         request(self.makeUrl())
             .authenticate(user: currentApi.token, password: "")
             .validate()
@@ -428,45 +459,53 @@ open class CoverageLonLatPhysicalModesIdRequestBuilder: NSObject {
                 case .failure(let error):
                     completion(nil, error)
                 }
-        }
+            }
     }
-    
+
     open func rawGet(completion: @escaping ((_ data: String?,_ error: Error?) -> Void)) {
-        if (self.lat == nil) {
-            completion(nil, ErrorResponse.Error(500, nil, NSError(domain: "localhost", code: 500, userInfo: ["reason": "Missing mandatory argument : lat"])))
-        }
-        if (self.lon == nil) {
-            completion(nil, ErrorResponse.Error(500, nil, NSError(domain: "localhost", code: 500, userInfo: ["reason": "Missing mandatory argument : lon"])))
-        }
-        if (self.id == nil) {
-            completion(nil, ErrorResponse.Error(500, nil, NSError(domain: "localhost", code: 500, userInfo: ["reason": "Missing mandatory argument : id"])))
-        }
-        
-        request(self.makeUrl())
-            .authenticate(user: currentApi.token, password: "")
-            .validate()
-            .responseString{ (response: (DataResponse<String>)) in
-                switch response.result {
-                case .success:
-                    completion(response.result.value, nil)
-                case .failure(let error):
-                    completion(nil, error)
-                }
+    if (self.lat == nil) {
+        completion(nil, ErrorResponse.Error(500, nil, NSError(domain: "localhost", code: 500, userInfo: ["reason": "Missing mandatory argument : lat"])))
+    }
+    if (self.lon == nil) {
+        completion(nil, ErrorResponse.Error(500, nil, NSError(domain: "localhost", code: 500, userInfo: ["reason": "Missing mandatory argument : lon"])))
+    }
+    if (self.id == nil) {
+        completion(nil, ErrorResponse.Error(500, nil, NSError(domain: "localhost", code: 500, userInfo: ["reason": "Missing mandatory argument : id"])))
+    }
+
+    request(self.makeUrl())
+        .authenticate(user: currentApi.token, password: "")
+        .validate()
+        .responseString{ (response: (DataResponse<String>)) in
+            switch response.result {
+            case .success:
+                completion(response.result.value, nil)
+            case .failure(let error):
+                completion(nil, error)
+            }
         }
     }
 }
 
 open class CoverageLonLatUriPhysicalModesRequestBuilder: NSObject {
     let currentApi: PhysicalModesApi
-    
+
     /**
-     * enum for parameter odtLevel
-     */
-    public enum OdtLevel: String {
+    * enum for parameter odtLevel
+    */
+    public enum OdtLevel: String { 
         case scheduled = "scheduled"
         case all = "all"
         case zonal = "zonal"
         case withStops = "with_stops"
+    }
+    /**
+    * enum for parameter dataFreshness
+    */
+    public enum DataFreshness: String { 
+        case baseSchedule = "base_schedule"
+        case adaptedSchedule = "adapted_schedule"
+        case realtime = "realtime"
     }
     var lat:Double? = nil
     var lon:Double? = nil
@@ -480,6 +519,7 @@ open class CoverageLonLatUriPhysicalModesRequestBuilder: NSObject {
     var headsign:String? = nil
     var showCodes:Bool? = nil
     var odtLevel: OdtLevel? = nil
+    var dataFreshness: DataFreshness? = nil
     var distance:Int32? = nil
     var since:Date? = nil
     var until:Date? = nil
@@ -488,11 +528,11 @@ open class CoverageLonLatUriPhysicalModesRequestBuilder: NSObject {
     var filter:String? = nil
     var tags:[String]? = nil
     var debugURL: String? = nil
-    
+
     public init(currentApi: PhysicalModesApi) {
         self.currentApi = currentApi
     }
-    
+
     open func withLat(_ lat: Double?) -> CoverageLonLatUriPhysicalModesRequestBuilder {
         self.lat = lat
         
@@ -550,7 +590,12 @@ open class CoverageLonLatUriPhysicalModesRequestBuilder: NSObject {
     }
     open func withOdtLevel(_ odtLevel: OdtLevel?) -> CoverageLonLatUriPhysicalModesRequestBuilder {
         self.odtLevel = odtLevel
-        
+
+        return self
+    }
+    open func withDataFreshness(_ dataFreshness: DataFreshness?) -> CoverageLonLatUriPhysicalModesRequestBuilder {
+        self.dataFreshness = dataFreshness
+
         return self
     }
     open func withDistance(_ distance: Int32?) -> CoverageLonLatUriPhysicalModesRequestBuilder {
@@ -588,62 +633,63 @@ open class CoverageLonLatUriPhysicalModesRequestBuilder: NSObject {
         
         return self
     }
-    
-    
-    
+
+
+
     open func withDebugURL(_ debugURL: String?) -> CoverageLonLatUriPhysicalModesRequestBuilder {
         self.debugURL = debugURL
         return self
     }
-    
+
     open func makeUrl() -> String {
         var path = "/coverage/{lon};{lat}/{uri}/physical_modes"
-        
+
         if let lat = lat {
             let latPreEscape: String = "\(lat)"
             let latPostEscape: String = latPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
             path = path.replacingOccurrences(of: "{lat}", with: latPostEscape, options: .literal, range: nil)
         }
-        
+
         if let lon = lon {
             let lonPreEscape: String = "\(lon)"
             let lonPostEscape: String = lonPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
             path = path.replacingOccurrences(of: "{lon}", with: lonPostEscape, options: .literal, range: nil)
         }
-        
+
         if let uri = uri {
             let uriPreEscape: String = "\(uri)"
             let uriPostEscape: String = uriPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
             path = path.replacingOccurrences(of: "{uri}", with: uriPostEscape, options: .literal, range: nil)
         }
-        
+
         let URLString = String(format: "%@%@", NavitiaSDKAPI.basePath, path)
         let url = NSURLComponents(string: URLString)
-        
+
         let paramValues: [String: Any?] = [
-            "start_page": self.startPage?.encodeToJSON(),
-            "count": self.count?.encodeToJSON(),
-            "depth": self.depth?.encodeToJSON(),
-            "forbidden_id[]": self.forbiddenId,
-            "forbidden_uris[]": self.forbiddenUris,
-            "external_code": self.externalCode,
-            "headsign": self.headsign,
-            "show_codes": self.showCodes,
-            "odt_level": self.odtLevel?.rawValue,
-            "distance": self.distance?.encodeToJSON(),
-            "since": self.since?.encodeToJSON(),
-            "until": self.until?.encodeToJSON(),
-            "disable_geojson": self.disableGeojson,
-            "disable_disruption": self.disableDisruption,
-            "filter": self.filter,
+            "start_page": self.startPage?.encodeToJSON(), 
+            "count": self.count?.encodeToJSON(), 
+            "depth": self.depth?.encodeToJSON(), 
+            "forbidden_id[]": self.forbiddenId, 
+            "forbidden_uris[]": self.forbiddenUris, 
+            "external_code": self.externalCode, 
+            "headsign": self.headsign, 
+            "show_codes": self.showCodes, 
+            "odt_level": self.odtLevel?.rawValue, 
+            "data_freshness": self.dataFreshness?.rawValue, 
+            "distance": self.distance?.encodeToJSON(), 
+            "since": self.since?.encodeToJSON(), 
+            "until": self.until?.encodeToJSON(), 
+            "disable_geojson": self.disableGeojson, 
+            "disable_disruption": self.disableDisruption, 
+            "filter": self.filter, 
             "tags[]": self.tags
         ]
         url?.queryItems = APIHelper.mapValuesToQueryItems(values: paramValues)
         url?.percentEncodedQuery = url?.percentEncodedQuery?.replacingOccurrences(of: "+", with: "%2B")
-        
+
         return (debugURL ?? url?.string ?? URLString)
     }
-    
+
     open func get(completion: @escaping ((_ data: PhysicalModes?,_ error: Error?) -> Void)) {
         if (self.lat == nil) {
             completion(nil, ErrorResponse.Error(500, nil, NSError(domain: "localhost", code: 500, userInfo: ["reason": "Missing mandatory argument : lat"])))
@@ -654,7 +700,7 @@ open class CoverageLonLatUriPhysicalModesRequestBuilder: NSObject {
         if (self.uri == nil) {
             completion(nil, ErrorResponse.Error(500, nil, NSError(domain: "localhost", code: 500, userInfo: ["reason": "Missing mandatory argument : uri"])))
         }
-        
+
         request(self.makeUrl())
             .authenticate(user: currentApi.token, password: "")
             .validate()
@@ -665,45 +711,53 @@ open class CoverageLonLatUriPhysicalModesRequestBuilder: NSObject {
                 case .failure(let error):
                     completion(nil, error)
                 }
-        }
+            }
     }
-    
+
     open func rawGet(completion: @escaping ((_ data: String?,_ error: Error?) -> Void)) {
-        if (self.lat == nil) {
-            completion(nil, ErrorResponse.Error(500, nil, NSError(domain: "localhost", code: 500, userInfo: ["reason": "Missing mandatory argument : lat"])))
-        }
-        if (self.lon == nil) {
-            completion(nil, ErrorResponse.Error(500, nil, NSError(domain: "localhost", code: 500, userInfo: ["reason": "Missing mandatory argument : lon"])))
-        }
-        if (self.uri == nil) {
-            completion(nil, ErrorResponse.Error(500, nil, NSError(domain: "localhost", code: 500, userInfo: ["reason": "Missing mandatory argument : uri"])))
-        }
-        
-        request(self.makeUrl())
-            .authenticate(user: currentApi.token, password: "")
-            .validate()
-            .responseString{ (response: (DataResponse<String>)) in
-                switch response.result {
-                case .success:
-                    completion(response.result.value, nil)
-                case .failure(let error):
-                    completion(nil, error)
-                }
+    if (self.lat == nil) {
+        completion(nil, ErrorResponse.Error(500, nil, NSError(domain: "localhost", code: 500, userInfo: ["reason": "Missing mandatory argument : lat"])))
+    }
+    if (self.lon == nil) {
+        completion(nil, ErrorResponse.Error(500, nil, NSError(domain: "localhost", code: 500, userInfo: ["reason": "Missing mandatory argument : lon"])))
+    }
+    if (self.uri == nil) {
+        completion(nil, ErrorResponse.Error(500, nil, NSError(domain: "localhost", code: 500, userInfo: ["reason": "Missing mandatory argument : uri"])))
+    }
+
+    request(self.makeUrl())
+        .authenticate(user: currentApi.token, password: "")
+        .validate()
+        .responseString{ (response: (DataResponse<String>)) in
+            switch response.result {
+            case .success:
+                completion(response.result.value, nil)
+            case .failure(let error):
+                completion(nil, error)
+            }
         }
     }
 }
 
 open class CoverageLonLatUriPhysicalModesIdRequestBuilder: NSObject {
     let currentApi: PhysicalModesApi
-    
+
     /**
-     * enum for parameter odtLevel
-     */
-    public enum OdtLevel: String {
+    * enum for parameter odtLevel
+    */
+    public enum OdtLevel: String { 
         case scheduled = "scheduled"
         case all = "all"
         case zonal = "zonal"
         case withStops = "with_stops"
+    }
+    /**
+    * enum for parameter dataFreshness
+    */
+    public enum DataFreshness: String { 
+        case baseSchedule = "base_schedule"
+        case adaptedSchedule = "adapted_schedule"
+        case realtime = "realtime"
     }
     var lat:Double? = nil
     var lon:Double? = nil
@@ -718,6 +772,7 @@ open class CoverageLonLatUriPhysicalModesIdRequestBuilder: NSObject {
     var headsign:String? = nil
     var showCodes:Bool? = nil
     var odtLevel: OdtLevel? = nil
+    var dataFreshness: DataFreshness? = nil
     var distance:Int32? = nil
     var since:Date? = nil
     var until:Date? = nil
@@ -725,11 +780,11 @@ open class CoverageLonLatUriPhysicalModesIdRequestBuilder: NSObject {
     var disableDisruption:Bool? = nil
     var tags:[String]? = nil
     var debugURL: String? = nil
-    
+
     public init(currentApi: PhysicalModesApi) {
         self.currentApi = currentApi
     }
-    
+
     open func withLat(_ lat: Double?) -> CoverageLonLatUriPhysicalModesIdRequestBuilder {
         self.lat = lat
         
@@ -792,7 +847,12 @@ open class CoverageLonLatUriPhysicalModesIdRequestBuilder: NSObject {
     }
     open func withOdtLevel(_ odtLevel: OdtLevel?) -> CoverageLonLatUriPhysicalModesIdRequestBuilder {
         self.odtLevel = odtLevel
-        
+
+        return self
+    }
+    open func withDataFreshness(_ dataFreshness: DataFreshness?) -> CoverageLonLatUriPhysicalModesIdRequestBuilder {
+        self.dataFreshness = dataFreshness
+
         return self
     }
     open func withDistance(_ distance: Int32?) -> CoverageLonLatUriPhysicalModesIdRequestBuilder {
@@ -825,67 +885,68 @@ open class CoverageLonLatUriPhysicalModesIdRequestBuilder: NSObject {
         
         return self
     }
-    
-    
-    
+
+
+
     open func withDebugURL(_ debugURL: String?) -> CoverageLonLatUriPhysicalModesIdRequestBuilder {
         self.debugURL = debugURL
         return self
     }
-    
+
     open func makeUrl() -> String {
         var path = "/coverage/{lon};{lat}/{uri}/physical_modes/{id}"
-        
+
         if let lat = lat {
             let latPreEscape: String = "\(lat)"
             let latPostEscape: String = latPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
             path = path.replacingOccurrences(of: "{lat}", with: latPostEscape, options: .literal, range: nil)
         }
-        
+
         if let lon = lon {
             let lonPreEscape: String = "\(lon)"
             let lonPostEscape: String = lonPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
             path = path.replacingOccurrences(of: "{lon}", with: lonPostEscape, options: .literal, range: nil)
         }
-        
+
         if let uri = uri {
             let uriPreEscape: String = "\(uri)"
             let uriPostEscape: String = uriPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
             path = path.replacingOccurrences(of: "{uri}", with: uriPostEscape, options: .literal, range: nil)
         }
-        
+
         if let id = id {
             let idPreEscape: String = "\(id)"
             let idPostEscape: String = idPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
             path = path.replacingOccurrences(of: "{id}", with: idPostEscape, options: .literal, range: nil)
         }
-        
+
         let URLString = String(format: "%@%@", NavitiaSDKAPI.basePath, path)
         let url = NSURLComponents(string: URLString)
-        
+
         let paramValues: [String: Any?] = [
-            "start_page": self.startPage?.encodeToJSON(),
-            "count": self.count?.encodeToJSON(),
-            "depth": self.depth?.encodeToJSON(),
-            "forbidden_id[]": self.forbiddenId,
-            "forbidden_uris[]": self.forbiddenUris,
-            "external_code": self.externalCode,
-            "headsign": self.headsign,
-            "show_codes": self.showCodes,
-            "odt_level": self.odtLevel?.rawValue,
-            "distance": self.distance?.encodeToJSON(),
-            "since": self.since?.encodeToJSON(),
-            "until": self.until?.encodeToJSON(),
-            "disable_geojson": self.disableGeojson,
-            "disable_disruption": self.disableDisruption,
+            "start_page": self.startPage?.encodeToJSON(), 
+            "count": self.count?.encodeToJSON(), 
+            "depth": self.depth?.encodeToJSON(), 
+            "forbidden_id[]": self.forbiddenId, 
+            "forbidden_uris[]": self.forbiddenUris, 
+            "external_code": self.externalCode, 
+            "headsign": self.headsign, 
+            "show_codes": self.showCodes, 
+            "odt_level": self.odtLevel?.rawValue, 
+            "data_freshness": self.dataFreshness?.rawValue, 
+            "distance": self.distance?.encodeToJSON(), 
+            "since": self.since?.encodeToJSON(), 
+            "until": self.until?.encodeToJSON(), 
+            "disable_geojson": self.disableGeojson, 
+            "disable_disruption": self.disableDisruption, 
             "tags[]": self.tags
         ]
         url?.queryItems = APIHelper.mapValuesToQueryItems(values: paramValues)
         url?.percentEncodedQuery = url?.percentEncodedQuery?.replacingOccurrences(of: "+", with: "%2B")
-        
+
         return (debugURL ?? url?.string ?? URLString)
     }
-    
+
     open func get(completion: @escaping ((_ data: PhysicalModes?,_ error: Error?) -> Void)) {
         if (self.lat == nil) {
             completion(nil, ErrorResponse.Error(500, nil, NSError(domain: "localhost", code: 500, userInfo: ["reason": "Missing mandatory argument : lat"])))
@@ -899,7 +960,7 @@ open class CoverageLonLatUriPhysicalModesIdRequestBuilder: NSObject {
         if (self.id == nil) {
             completion(nil, ErrorResponse.Error(500, nil, NSError(domain: "localhost", code: 500, userInfo: ["reason": "Missing mandatory argument : id"])))
         }
-        
+
         request(self.makeUrl())
             .authenticate(user: currentApi.token, password: "")
             .validate()
@@ -910,48 +971,56 @@ open class CoverageLonLatUriPhysicalModesIdRequestBuilder: NSObject {
                 case .failure(let error):
                     completion(nil, error)
                 }
-        }
+            }
     }
-    
+
     open func rawGet(completion: @escaping ((_ data: String?,_ error: Error?) -> Void)) {
-        if (self.lat == nil) {
-            completion(nil, ErrorResponse.Error(500, nil, NSError(domain: "localhost", code: 500, userInfo: ["reason": "Missing mandatory argument : lat"])))
-        }
-        if (self.lon == nil) {
-            completion(nil, ErrorResponse.Error(500, nil, NSError(domain: "localhost", code: 500, userInfo: ["reason": "Missing mandatory argument : lon"])))
-        }
-        if (self.uri == nil) {
-            completion(nil, ErrorResponse.Error(500, nil, NSError(domain: "localhost", code: 500, userInfo: ["reason": "Missing mandatory argument : uri"])))
-        }
-        if (self.id == nil) {
-            completion(nil, ErrorResponse.Error(500, nil, NSError(domain: "localhost", code: 500, userInfo: ["reason": "Missing mandatory argument : id"])))
-        }
-        
-        request(self.makeUrl())
-            .authenticate(user: currentApi.token, password: "")
-            .validate()
-            .responseString{ (response: (DataResponse<String>)) in
-                switch response.result {
-                case .success:
-                    completion(response.result.value, nil)
-                case .failure(let error):
-                    completion(nil, error)
-                }
+    if (self.lat == nil) {
+        completion(nil, ErrorResponse.Error(500, nil, NSError(domain: "localhost", code: 500, userInfo: ["reason": "Missing mandatory argument : lat"])))
+    }
+    if (self.lon == nil) {
+        completion(nil, ErrorResponse.Error(500, nil, NSError(domain: "localhost", code: 500, userInfo: ["reason": "Missing mandatory argument : lon"])))
+    }
+    if (self.uri == nil) {
+        completion(nil, ErrorResponse.Error(500, nil, NSError(domain: "localhost", code: 500, userInfo: ["reason": "Missing mandatory argument : uri"])))
+    }
+    if (self.id == nil) {
+        completion(nil, ErrorResponse.Error(500, nil, NSError(domain: "localhost", code: 500, userInfo: ["reason": "Missing mandatory argument : id"])))
+    }
+
+    request(self.makeUrl())
+        .authenticate(user: currentApi.token, password: "")
+        .validate()
+        .responseString{ (response: (DataResponse<String>)) in
+            switch response.result {
+            case .success:
+                completion(response.result.value, nil)
+            case .failure(let error):
+                completion(nil, error)
+            }
         }
     }
 }
 
 open class CoverageRegionPhysicalModesRequestBuilder: NSObject {
     let currentApi: PhysicalModesApi
-    
+
     /**
-     * enum for parameter odtLevel
-     */
-    public enum OdtLevel: String {
+    * enum for parameter odtLevel
+    */
+    public enum OdtLevel: String { 
         case scheduled = "scheduled"
         case all = "all"
         case zonal = "zonal"
         case withStops = "with_stops"
+    }
+    /**
+    * enum for parameter dataFreshness
+    */
+    public enum DataFreshness: String { 
+        case baseSchedule = "base_schedule"
+        case adaptedSchedule = "adapted_schedule"
+        case realtime = "realtime"
     }
     var region:String? = nil
     var startPage:Int32? = nil
@@ -963,6 +1032,7 @@ open class CoverageRegionPhysicalModesRequestBuilder: NSObject {
     var headsign:String? = nil
     var showCodes:Bool? = nil
     var odtLevel: OdtLevel? = nil
+    var dataFreshness: DataFreshness? = nil
     var distance:Int32? = nil
     var since:Date? = nil
     var until:Date? = nil
@@ -971,11 +1041,11 @@ open class CoverageRegionPhysicalModesRequestBuilder: NSObject {
     var filter:String? = nil
     var tags:[String]? = nil
     var debugURL: String? = nil
-    
+
     public init(currentApi: PhysicalModesApi) {
         self.currentApi = currentApi
     }
-    
+
     open func withRegion(_ region: String?) -> CoverageRegionPhysicalModesRequestBuilder {
         self.region = region
         
@@ -1023,7 +1093,12 @@ open class CoverageRegionPhysicalModesRequestBuilder: NSObject {
     }
     open func withOdtLevel(_ odtLevel: OdtLevel?) -> CoverageRegionPhysicalModesRequestBuilder {
         self.odtLevel = odtLevel
-        
+
+        return self
+    }
+    open func withDataFreshness(_ dataFreshness: DataFreshness?) -> CoverageRegionPhysicalModesRequestBuilder {
+        self.dataFreshness = dataFreshness
+
         return self
     }
     open func withDistance(_ distance: Int32?) -> CoverageRegionPhysicalModesRequestBuilder {
@@ -1061,55 +1136,56 @@ open class CoverageRegionPhysicalModesRequestBuilder: NSObject {
         
         return self
     }
-    
-    
-    
+
+
+
     open func withDebugURL(_ debugURL: String?) -> CoverageRegionPhysicalModesRequestBuilder {
         self.debugURL = debugURL
         return self
     }
-    
+
     open func makeUrl() -> String {
         var path = "/coverage/{region}/physical_modes"
-        
+
         if let region = region {
             let regionPreEscape: String = "\(region)"
             let regionPostEscape: String = regionPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
             path = path.replacingOccurrences(of: "{region}", with: regionPostEscape, options: .literal, range: nil)
         }
-        
+
         let URLString = String(format: "%@%@", NavitiaSDKAPI.basePath, path)
         let url = NSURLComponents(string: URLString)
-        
+
         let paramValues: [String: Any?] = [
-            "start_page": self.startPage?.encodeToJSON(),
-            "count": self.count?.encodeToJSON(),
-            "depth": self.depth?.encodeToJSON(),
-            "forbidden_id[]": self.forbiddenId,
-            "forbidden_uris[]": self.forbiddenUris,
-            "external_code": self.externalCode,
-            "headsign": self.headsign,
-            "show_codes": self.showCodes,
-            "odt_level": self.odtLevel?.rawValue,
-            "distance": self.distance?.encodeToJSON(),
-            "since": self.since?.encodeToJSON(),
-            "until": self.until?.encodeToJSON(),
-            "disable_geojson": self.disableGeojson,
-            "disable_disruption": self.disableDisruption,
-            "filter": self.filter,
+            "start_page": self.startPage?.encodeToJSON(), 
+            "count": self.count?.encodeToJSON(), 
+            "depth": self.depth?.encodeToJSON(), 
+            "forbidden_id[]": self.forbiddenId, 
+            "forbidden_uris[]": self.forbiddenUris, 
+            "external_code": self.externalCode, 
+            "headsign": self.headsign, 
+            "show_codes": self.showCodes, 
+            "odt_level": self.odtLevel?.rawValue, 
+            "data_freshness": self.dataFreshness?.rawValue, 
+            "distance": self.distance?.encodeToJSON(), 
+            "since": self.since?.encodeToJSON(), 
+            "until": self.until?.encodeToJSON(), 
+            "disable_geojson": self.disableGeojson, 
+            "disable_disruption": self.disableDisruption, 
+            "filter": self.filter, 
             "tags[]": self.tags
         ]
         url?.queryItems = APIHelper.mapValuesToQueryItems(values: paramValues)
         url?.percentEncodedQuery = url?.percentEncodedQuery?.replacingOccurrences(of: "+", with: "%2B")
-        
+
         return (debugURL ?? url?.string ?? URLString)
     }
-    
+
     open func get(completion: @escaping ((_ data: PhysicalModes?,_ error: Error?) -> Void)) {
         if (self.region == nil) {
             completion(nil, ErrorResponse.Error(500, nil, NSError(domain: "localhost", code: 500, userInfo: ["reason": "Missing mandatory argument : region"])))
         }
-        
+
         request(self.makeUrl())
             .authenticate(user: currentApi.token, password: "")
             .validate()
@@ -1120,39 +1196,47 @@ open class CoverageRegionPhysicalModesRequestBuilder: NSObject {
                 case .failure(let error):
                     completion(nil, error)
                 }
-        }
+            }
     }
-    
+
     open func rawGet(completion: @escaping ((_ data: String?,_ error: Error?) -> Void)) {
-        if (self.region == nil) {
-            completion(nil, ErrorResponse.Error(500, nil, NSError(domain: "localhost", code: 500, userInfo: ["reason": "Missing mandatory argument : region"])))
-        }
-        
-        request(self.makeUrl())
-            .authenticate(user: currentApi.token, password: "")
-            .validate()
-            .responseString{ (response: (DataResponse<String>)) in
-                switch response.result {
-                case .success:
-                    completion(response.result.value, nil)
-                case .failure(let error):
-                    completion(nil, error)
-                }
+    if (self.region == nil) {
+        completion(nil, ErrorResponse.Error(500, nil, NSError(domain: "localhost", code: 500, userInfo: ["reason": "Missing mandatory argument : region"])))
+    }
+
+    request(self.makeUrl())
+        .authenticate(user: currentApi.token, password: "")
+        .validate()
+        .responseString{ (response: (DataResponse<String>)) in
+            switch response.result {
+            case .success:
+                completion(response.result.value, nil)
+            case .failure(let error):
+                completion(nil, error)
+            }
         }
     }
 }
 
 open class CoverageRegionPhysicalModesIdRequestBuilder: NSObject {
     let currentApi: PhysicalModesApi
-    
+
     /**
-     * enum for parameter odtLevel
-     */
-    public enum OdtLevel: String {
+    * enum for parameter odtLevel
+    */
+    public enum OdtLevel: String { 
         case scheduled = "scheduled"
         case all = "all"
         case zonal = "zonal"
         case withStops = "with_stops"
+    }
+    /**
+    * enum for parameter dataFreshness
+    */
+    public enum DataFreshness: String { 
+        case baseSchedule = "base_schedule"
+        case adaptedSchedule = "adapted_schedule"
+        case realtime = "realtime"
     }
     var region:String? = nil
     var id:String? = nil
@@ -1165,6 +1249,7 @@ open class CoverageRegionPhysicalModesIdRequestBuilder: NSObject {
     var headsign:String? = nil
     var showCodes:Bool? = nil
     var odtLevel: OdtLevel? = nil
+    var dataFreshness: DataFreshness? = nil
     var distance:Int32? = nil
     var since:Date? = nil
     var until:Date? = nil
@@ -1172,11 +1257,11 @@ open class CoverageRegionPhysicalModesIdRequestBuilder: NSObject {
     var disableDisruption:Bool? = nil
     var tags:[String]? = nil
     var debugURL: String? = nil
-    
+
     public init(currentApi: PhysicalModesApi) {
         self.currentApi = currentApi
     }
-    
+
     open func withRegion(_ region: String?) -> CoverageRegionPhysicalModesIdRequestBuilder {
         self.region = region
         
@@ -1229,7 +1314,12 @@ open class CoverageRegionPhysicalModesIdRequestBuilder: NSObject {
     }
     open func withOdtLevel(_ odtLevel: OdtLevel?) -> CoverageRegionPhysicalModesIdRequestBuilder {
         self.odtLevel = odtLevel
-        
+
+        return self
+    }
+    open func withDataFreshness(_ dataFreshness: DataFreshness?) -> CoverageRegionPhysicalModesIdRequestBuilder {
+        self.dataFreshness = dataFreshness
+
         return self
     }
     open func withDistance(_ distance: Int32?) -> CoverageRegionPhysicalModesIdRequestBuilder {
@@ -1262,55 +1352,56 @@ open class CoverageRegionPhysicalModesIdRequestBuilder: NSObject {
         
         return self
     }
-    
-    
-    
+
+
+
     open func withDebugURL(_ debugURL: String?) -> CoverageRegionPhysicalModesIdRequestBuilder {
         self.debugURL = debugURL
         return self
     }
-    
+
     open func makeUrl() -> String {
         var path = "/coverage/{region}/physical_modes/{id}"
-        
+
         if let region = region {
             let regionPreEscape: String = "\(region)"
             let regionPostEscape: String = regionPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
             path = path.replacingOccurrences(of: "{region}", with: regionPostEscape, options: .literal, range: nil)
         }
-        
+
         if let id = id {
             let idPreEscape: String = "\(id)"
             let idPostEscape: String = idPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
             path = path.replacingOccurrences(of: "{id}", with: idPostEscape, options: .literal, range: nil)
         }
-        
+
         let URLString = String(format: "%@%@", NavitiaSDKAPI.basePath, path)
         let url = NSURLComponents(string: URLString)
-        
+
         let paramValues: [String: Any?] = [
-            "start_page": self.startPage?.encodeToJSON(),
-            "count": self.count?.encodeToJSON(),
-            "depth": self.depth?.encodeToJSON(),
-            "forbidden_id[]": self.forbiddenId,
-            "forbidden_uris[]": self.forbiddenUris,
-            "external_code": self.externalCode,
-            "headsign": self.headsign,
-            "show_codes": self.showCodes,
-            "odt_level": self.odtLevel?.rawValue,
-            "distance": self.distance?.encodeToJSON(),
-            "since": self.since?.encodeToJSON(),
-            "until": self.until?.encodeToJSON(),
-            "disable_geojson": self.disableGeojson,
-            "disable_disruption": self.disableDisruption,
+            "start_page": self.startPage?.encodeToJSON(), 
+            "count": self.count?.encodeToJSON(), 
+            "depth": self.depth?.encodeToJSON(), 
+            "forbidden_id[]": self.forbiddenId, 
+            "forbidden_uris[]": self.forbiddenUris, 
+            "external_code": self.externalCode, 
+            "headsign": self.headsign, 
+            "show_codes": self.showCodes, 
+            "odt_level": self.odtLevel?.rawValue, 
+            "data_freshness": self.dataFreshness?.rawValue, 
+            "distance": self.distance?.encodeToJSON(), 
+            "since": self.since?.encodeToJSON(), 
+            "until": self.until?.encodeToJSON(), 
+            "disable_geojson": self.disableGeojson, 
+            "disable_disruption": self.disableDisruption, 
             "tags[]": self.tags
         ]
         url?.queryItems = APIHelper.mapValuesToQueryItems(values: paramValues)
         url?.percentEncodedQuery = url?.percentEncodedQuery?.replacingOccurrences(of: "+", with: "%2B")
-        
+
         return (debugURL ?? url?.string ?? URLString)
     }
-    
+
     open func get(completion: @escaping ((_ data: PhysicalModes?,_ error: Error?) -> Void)) {
         if (self.region == nil) {
             completion(nil, ErrorResponse.Error(500, nil, NSError(domain: "localhost", code: 500, userInfo: ["reason": "Missing mandatory argument : region"])))
@@ -1318,7 +1409,7 @@ open class CoverageRegionPhysicalModesIdRequestBuilder: NSObject {
         if (self.id == nil) {
             completion(nil, ErrorResponse.Error(500, nil, NSError(domain: "localhost", code: 500, userInfo: ["reason": "Missing mandatory argument : id"])))
         }
-        
+
         request(self.makeUrl())
             .authenticate(user: currentApi.token, password: "")
             .validate()
@@ -1329,42 +1420,50 @@ open class CoverageRegionPhysicalModesIdRequestBuilder: NSObject {
                 case .failure(let error):
                     completion(nil, error)
                 }
-        }
+            }
     }
-    
+
     open func rawGet(completion: @escaping ((_ data: String?,_ error: Error?) -> Void)) {
-        if (self.region == nil) {
-            completion(nil, ErrorResponse.Error(500, nil, NSError(domain: "localhost", code: 500, userInfo: ["reason": "Missing mandatory argument : region"])))
-        }
-        if (self.id == nil) {
-            completion(nil, ErrorResponse.Error(500, nil, NSError(domain: "localhost", code: 500, userInfo: ["reason": "Missing mandatory argument : id"])))
-        }
-        
-        request(self.makeUrl())
-            .authenticate(user: currentApi.token, password: "")
-            .validate()
-            .responseString{ (response: (DataResponse<String>)) in
-                switch response.result {
-                case .success:
-                    completion(response.result.value, nil)
-                case .failure(let error):
-                    completion(nil, error)
-                }
+    if (self.region == nil) {
+        completion(nil, ErrorResponse.Error(500, nil, NSError(domain: "localhost", code: 500, userInfo: ["reason": "Missing mandatory argument : region"])))
+    }
+    if (self.id == nil) {
+        completion(nil, ErrorResponse.Error(500, nil, NSError(domain: "localhost", code: 500, userInfo: ["reason": "Missing mandatory argument : id"])))
+    }
+
+    request(self.makeUrl())
+        .authenticate(user: currentApi.token, password: "")
+        .validate()
+        .responseString{ (response: (DataResponse<String>)) in
+            switch response.result {
+            case .success:
+                completion(response.result.value, nil)
+            case .failure(let error):
+                completion(nil, error)
+            }
         }
     }
 }
 
 open class CoverageRegionUriPhysicalModesRequestBuilder: NSObject {
     let currentApi: PhysicalModesApi
-    
+
     /**
-     * enum for parameter odtLevel
-     */
-    public enum OdtLevel: String {
+    * enum for parameter odtLevel
+    */
+    public enum OdtLevel: String { 
         case scheduled = "scheduled"
         case all = "all"
         case zonal = "zonal"
         case withStops = "with_stops"
+    }
+    /**
+    * enum for parameter dataFreshness
+    */
+    public enum DataFreshness: String { 
+        case baseSchedule = "base_schedule"
+        case adaptedSchedule = "adapted_schedule"
+        case realtime = "realtime"
     }
     var region:String? = nil
     var uri:String? = nil
@@ -1377,6 +1476,7 @@ open class CoverageRegionUriPhysicalModesRequestBuilder: NSObject {
     var headsign:String? = nil
     var showCodes:Bool? = nil
     var odtLevel: OdtLevel? = nil
+    var dataFreshness: DataFreshness? = nil
     var distance:Int32? = nil
     var since:Date? = nil
     var until:Date? = nil
@@ -1385,11 +1485,11 @@ open class CoverageRegionUriPhysicalModesRequestBuilder: NSObject {
     var filter:String? = nil
     var tags:[String]? = nil
     var debugURL: String? = nil
-    
+
     public init(currentApi: PhysicalModesApi) {
         self.currentApi = currentApi
     }
-    
+
     open func withRegion(_ region: String?) -> CoverageRegionUriPhysicalModesRequestBuilder {
         self.region = region
         
@@ -1442,7 +1542,12 @@ open class CoverageRegionUriPhysicalModesRequestBuilder: NSObject {
     }
     open func withOdtLevel(_ odtLevel: OdtLevel?) -> CoverageRegionUriPhysicalModesRequestBuilder {
         self.odtLevel = odtLevel
-        
+
+        return self
+    }
+    open func withDataFreshness(_ dataFreshness: DataFreshness?) -> CoverageRegionUriPhysicalModesRequestBuilder {
+        self.dataFreshness = dataFreshness
+
         return self
     }
     open func withDistance(_ distance: Int32?) -> CoverageRegionUriPhysicalModesRequestBuilder {
@@ -1480,56 +1585,57 @@ open class CoverageRegionUriPhysicalModesRequestBuilder: NSObject {
         
         return self
     }
-    
-    
-    
+
+
+
     open func withDebugURL(_ debugURL: String?) -> CoverageRegionUriPhysicalModesRequestBuilder {
         self.debugURL = debugURL
         return self
     }
-    
+
     open func makeUrl() -> String {
         var path = "/coverage/{region}/{uri}/physical_modes"
-        
+
         if let region = region {
             let regionPreEscape: String = "\(region)"
             let regionPostEscape: String = regionPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
             path = path.replacingOccurrences(of: "{region}", with: regionPostEscape, options: .literal, range: nil)
         }
-        
+
         if let uri = uri {
             let uriPreEscape: String = "\(uri)"
             let uriPostEscape: String = uriPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
             path = path.replacingOccurrences(of: "{uri}", with: uriPostEscape, options: .literal, range: nil)
         }
-        
+
         let URLString = String(format: "%@%@", NavitiaSDKAPI.basePath, path)
         let url = NSURLComponents(string: URLString)
-        
+
         let paramValues: [String: Any?] = [
-            "start_page": self.startPage?.encodeToJSON(),
-            "count": self.count?.encodeToJSON(),
-            "depth": self.depth?.encodeToJSON(),
-            "forbidden_id[]": self.forbiddenId,
-            "forbidden_uris[]": self.forbiddenUris,
-            "external_code": self.externalCode,
-            "headsign": self.headsign,
-            "show_codes": self.showCodes,
-            "odt_level": self.odtLevel?.rawValue,
-            "distance": self.distance?.encodeToJSON(),
-            "since": self.since?.encodeToJSON(),
-            "until": self.until?.encodeToJSON(),
-            "disable_geojson": self.disableGeojson,
-            "disable_disruption": self.disableDisruption,
-            "filter": self.filter,
+            "start_page": self.startPage?.encodeToJSON(), 
+            "count": self.count?.encodeToJSON(), 
+            "depth": self.depth?.encodeToJSON(), 
+            "forbidden_id[]": self.forbiddenId, 
+            "forbidden_uris[]": self.forbiddenUris, 
+            "external_code": self.externalCode, 
+            "headsign": self.headsign, 
+            "show_codes": self.showCodes, 
+            "odt_level": self.odtLevel?.rawValue, 
+            "data_freshness": self.dataFreshness?.rawValue, 
+            "distance": self.distance?.encodeToJSON(), 
+            "since": self.since?.encodeToJSON(), 
+            "until": self.until?.encodeToJSON(), 
+            "disable_geojson": self.disableGeojson, 
+            "disable_disruption": self.disableDisruption, 
+            "filter": self.filter, 
             "tags[]": self.tags
         ]
         url?.queryItems = APIHelper.mapValuesToQueryItems(values: paramValues)
         url?.percentEncodedQuery = url?.percentEncodedQuery?.replacingOccurrences(of: "+", with: "%2B")
-        
+
         return (debugURL ?? url?.string ?? URLString)
     }
-    
+
     open func get(completion: @escaping ((_ data: PhysicalModes?,_ error: Error?) -> Void)) {
         if (self.region == nil) {
             completion(nil, ErrorResponse.Error(500, nil, NSError(domain: "localhost", code: 500, userInfo: ["reason": "Missing mandatory argument : region"])))
@@ -1537,7 +1643,7 @@ open class CoverageRegionUriPhysicalModesRequestBuilder: NSObject {
         if (self.uri == nil) {
             completion(nil, ErrorResponse.Error(500, nil, NSError(domain: "localhost", code: 500, userInfo: ["reason": "Missing mandatory argument : uri"])))
         }
-        
+
         request(self.makeUrl())
             .authenticate(user: currentApi.token, password: "")
             .validate()
@@ -1548,42 +1654,50 @@ open class CoverageRegionUriPhysicalModesRequestBuilder: NSObject {
                 case .failure(let error):
                     completion(nil, error)
                 }
-        }
+            }
     }
-    
+
     open func rawGet(completion: @escaping ((_ data: String?,_ error: Error?) -> Void)) {
-        if (self.region == nil) {
-            completion(nil, ErrorResponse.Error(500, nil, NSError(domain: "localhost", code: 500, userInfo: ["reason": "Missing mandatory argument : region"])))
-        }
-        if (self.uri == nil) {
-            completion(nil, ErrorResponse.Error(500, nil, NSError(domain: "localhost", code: 500, userInfo: ["reason": "Missing mandatory argument : uri"])))
-        }
-        
-        request(self.makeUrl())
-            .authenticate(user: currentApi.token, password: "")
-            .validate()
-            .responseString{ (response: (DataResponse<String>)) in
-                switch response.result {
-                case .success:
-                    completion(response.result.value, nil)
-                case .failure(let error):
-                    completion(nil, error)
-                }
+    if (self.region == nil) {
+        completion(nil, ErrorResponse.Error(500, nil, NSError(domain: "localhost", code: 500, userInfo: ["reason": "Missing mandatory argument : region"])))
+    }
+    if (self.uri == nil) {
+        completion(nil, ErrorResponse.Error(500, nil, NSError(domain: "localhost", code: 500, userInfo: ["reason": "Missing mandatory argument : uri"])))
+    }
+
+    request(self.makeUrl())
+        .authenticate(user: currentApi.token, password: "")
+        .validate()
+        .responseString{ (response: (DataResponse<String>)) in
+            switch response.result {
+            case .success:
+                completion(response.result.value, nil)
+            case .failure(let error):
+                completion(nil, error)
+            }
         }
     }
 }
 
 open class CoverageRegionUriPhysicalModesIdRequestBuilder: NSObject {
     let currentApi: PhysicalModesApi
-    
+
     /**
-     * enum for parameter odtLevel
-     */
-    public enum OdtLevel: String {
+    * enum for parameter odtLevel
+    */
+    public enum OdtLevel: String { 
         case scheduled = "scheduled"
         case all = "all"
         case zonal = "zonal"
         case withStops = "with_stops"
+    }
+    /**
+    * enum for parameter dataFreshness
+    */
+    public enum DataFreshness: String { 
+        case baseSchedule = "base_schedule"
+        case adaptedSchedule = "adapted_schedule"
+        case realtime = "realtime"
     }
     var region:String? = nil
     var uri:String? = nil
@@ -1597,6 +1711,7 @@ open class CoverageRegionUriPhysicalModesIdRequestBuilder: NSObject {
     var headsign:String? = nil
     var showCodes:Bool? = nil
     var odtLevel: OdtLevel? = nil
+    var dataFreshness: DataFreshness? = nil
     var distance:Int32? = nil
     var since:Date? = nil
     var until:Date? = nil
@@ -1604,11 +1719,11 @@ open class CoverageRegionUriPhysicalModesIdRequestBuilder: NSObject {
     var disableDisruption:Bool? = nil
     var tags:[String]? = nil
     var debugURL: String? = nil
-    
+
     public init(currentApi: PhysicalModesApi) {
         self.currentApi = currentApi
     }
-    
+
     open func withRegion(_ region: String?) -> CoverageRegionUriPhysicalModesIdRequestBuilder {
         self.region = region
         
@@ -1666,7 +1781,12 @@ open class CoverageRegionUriPhysicalModesIdRequestBuilder: NSObject {
     }
     open func withOdtLevel(_ odtLevel: OdtLevel?) -> CoverageRegionUriPhysicalModesIdRequestBuilder {
         self.odtLevel = odtLevel
-        
+
+        return self
+    }
+    open func withDataFreshness(_ dataFreshness: DataFreshness?) -> CoverageRegionUriPhysicalModesIdRequestBuilder {
+        self.dataFreshness = dataFreshness
+
         return self
     }
     open func withDistance(_ distance: Int32?) -> CoverageRegionUriPhysicalModesIdRequestBuilder {
@@ -1699,61 +1819,62 @@ open class CoverageRegionUriPhysicalModesIdRequestBuilder: NSObject {
         
         return self
     }
-    
-    
-    
+
+
+
     open func withDebugURL(_ debugURL: String?) -> CoverageRegionUriPhysicalModesIdRequestBuilder {
         self.debugURL = debugURL
         return self
     }
-    
+
     open func makeUrl() -> String {
         var path = "/coverage/{region}/{uri}/physical_modes/{id}"
-        
+
         if let region = region {
             let regionPreEscape: String = "\(region)"
             let regionPostEscape: String = regionPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
             path = path.replacingOccurrences(of: "{region}", with: regionPostEscape, options: .literal, range: nil)
         }
-        
+
         if let uri = uri {
             let uriPreEscape: String = "\(uri)"
             let uriPostEscape: String = uriPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
             path = path.replacingOccurrences(of: "{uri}", with: uriPostEscape, options: .literal, range: nil)
         }
-        
+
         if let id = id {
             let idPreEscape: String = "\(id)"
             let idPostEscape: String = idPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
             path = path.replacingOccurrences(of: "{id}", with: idPostEscape, options: .literal, range: nil)
         }
-        
+
         let URLString = String(format: "%@%@", NavitiaSDKAPI.basePath, path)
         let url = NSURLComponents(string: URLString)
-        
+
         let paramValues: [String: Any?] = [
-            "start_page": self.startPage?.encodeToJSON(),
-            "count": self.count?.encodeToJSON(),
-            "depth": self.depth?.encodeToJSON(),
-            "forbidden_id[]": self.forbiddenId,
-            "forbidden_uris[]": self.forbiddenUris,
-            "external_code": self.externalCode,
-            "headsign": self.headsign,
-            "show_codes": self.showCodes,
-            "odt_level": self.odtLevel?.rawValue,
-            "distance": self.distance?.encodeToJSON(),
-            "since": self.since?.encodeToJSON(),
-            "until": self.until?.encodeToJSON(),
-            "disable_geojson": self.disableGeojson,
-            "disable_disruption": self.disableDisruption,
+            "start_page": self.startPage?.encodeToJSON(), 
+            "count": self.count?.encodeToJSON(), 
+            "depth": self.depth?.encodeToJSON(), 
+            "forbidden_id[]": self.forbiddenId, 
+            "forbidden_uris[]": self.forbiddenUris, 
+            "external_code": self.externalCode, 
+            "headsign": self.headsign, 
+            "show_codes": self.showCodes, 
+            "odt_level": self.odtLevel?.rawValue, 
+            "data_freshness": self.dataFreshness?.rawValue, 
+            "distance": self.distance?.encodeToJSON(), 
+            "since": self.since?.encodeToJSON(), 
+            "until": self.until?.encodeToJSON(), 
+            "disable_geojson": self.disableGeojson, 
+            "disable_disruption": self.disableDisruption, 
             "tags[]": self.tags
         ]
         url?.queryItems = APIHelper.mapValuesToQueryItems(values: paramValues)
         url?.percentEncodedQuery = url?.percentEncodedQuery?.replacingOccurrences(of: "+", with: "%2B")
-        
+
         return (debugURL ?? url?.string ?? URLString)
     }
-    
+
     open func get(completion: @escaping ((_ data: PhysicalModes?,_ error: Error?) -> Void)) {
         if (self.region == nil) {
             completion(nil, ErrorResponse.Error(500, nil, NSError(domain: "localhost", code: 500, userInfo: ["reason": "Missing mandatory argument : region"])))
@@ -1764,7 +1885,7 @@ open class CoverageRegionUriPhysicalModesIdRequestBuilder: NSObject {
         if (self.id == nil) {
             completion(nil, ErrorResponse.Error(500, nil, NSError(domain: "localhost", code: 500, userInfo: ["reason": "Missing mandatory argument : id"])))
         }
-        
+
         request(self.makeUrl())
             .authenticate(user: currentApi.token, password: "")
             .validate()
@@ -1775,30 +1896,30 @@ open class CoverageRegionUriPhysicalModesIdRequestBuilder: NSObject {
                 case .failure(let error):
                     completion(nil, error)
                 }
-        }
+            }
     }
-    
+
     open func rawGet(completion: @escaping ((_ data: String?,_ error: Error?) -> Void)) {
-        if (self.region == nil) {
-            completion(nil, ErrorResponse.Error(500, nil, NSError(domain: "localhost", code: 500, userInfo: ["reason": "Missing mandatory argument : region"])))
-        }
-        if (self.uri == nil) {
-            completion(nil, ErrorResponse.Error(500, nil, NSError(domain: "localhost", code: 500, userInfo: ["reason": "Missing mandatory argument : uri"])))
-        }
-        if (self.id == nil) {
-            completion(nil, ErrorResponse.Error(500, nil, NSError(domain: "localhost", code: 500, userInfo: ["reason": "Missing mandatory argument : id"])))
-        }
-        
-        request(self.makeUrl())
-            .authenticate(user: currentApi.token, password: "")
-            .validate()
-            .responseString{ (response: (DataResponse<String>)) in
-                switch response.result {
-                case .success:
-                    completion(response.result.value, nil)
-                case .failure(let error):
-                    completion(nil, error)
-                }
+    if (self.region == nil) {
+        completion(nil, ErrorResponse.Error(500, nil, NSError(domain: "localhost", code: 500, userInfo: ["reason": "Missing mandatory argument : region"])))
+    }
+    if (self.uri == nil) {
+        completion(nil, ErrorResponse.Error(500, nil, NSError(domain: "localhost", code: 500, userInfo: ["reason": "Missing mandatory argument : uri"])))
+    }
+    if (self.id == nil) {
+        completion(nil, ErrorResponse.Error(500, nil, NSError(domain: "localhost", code: 500, userInfo: ["reason": "Missing mandatory argument : id"])))
+    }
+
+    request(self.makeUrl())
+        .authenticate(user: currentApi.token, password: "")
+        .validate()
+        .responseString{ (response: (DataResponse<String>)) in
+            switch response.result {
+            case .success:
+                completion(response.result.value, nil)
+            case .failure(let error):
+                completion(nil, error)
+            }
         }
     }
 }
@@ -1807,11 +1928,11 @@ open class CoverageRegionUriPhysicalModesIdRequestBuilder: NSObject {
 
 open class PhysicalModesApi: APIBase {
     let token: String
-    
+
     public init(token: String) {
         self.token = token
     }
-    
+
     public func newCoverageLonLatPhysicalModesRequestBuilder() -> CoverageLonLatPhysicalModesRequestBuilder {
         return CoverageLonLatPhysicalModesRequestBuilder(currentApi: self)
     }

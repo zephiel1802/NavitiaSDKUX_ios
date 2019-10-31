@@ -7,6 +7,7 @@
 
 import Foundation
 
+
 open class CoverageLonLatJourneysRequestBuilder: NSObject {
     let currentApi: JourneysApi
 
@@ -21,21 +22,23 @@ open class CoverageLonLatJourneysRequestBuilder: NSObject {
     * enum for parameter firstSectionMode
     */
     public enum FirstSectionMode: String { 
+        case taxi = "taxi"
         case walking = "walking"
         case car = "car"
-        case bike = "bike"
-        case bss = "bss"
         case ridesharing = "ridesharing"
+        case bss = "bss"
+        case bike = "bike"
     }
     /**
     * enum for parameter lastSectionMode
     */
     public enum LastSectionMode: String { 
+        case taxi = "taxi"
         case walking = "walking"
         case car = "car"
-        case bike = "bike"
-        case bss = "bss"
         case ridesharing = "ridesharing"
+        case bss = "bss"
+        case bike = "bike"
     }
     /**
     * enum for parameter dataFreshness
@@ -64,6 +67,17 @@ open class CoverageLonLatJourneysRequestBuilder: NSObject {
         case indifferent = "indifferent"
         case only = "only"
         case _none = "none"
+    }
+    /**
+    * enum for parameter directPathMode
+    */
+    public enum DirectPathMode: String { 
+        case taxi = "taxi"
+        case walking = "walking"
+        case car = "car"
+        case ridesharing = "ridesharing"
+        case bss = "bss"
+        case bike = "bike"
     }
     /**
     * enum for parameter addPoiInfos
@@ -95,6 +109,7 @@ open class CoverageLonLatJourneysRequestBuilder: NSObject {
     var bssSpeed:Float? = nil
     var carSpeed:Float? = nil
     var ridesharingSpeed:Float? = nil
+    var taxiSpeed:Float? = nil
     var forbiddenUris:[String]? = nil
     var allowedId:[String]? = nil
     var disruptionActive:Bool? = nil
@@ -105,6 +120,7 @@ open class CoverageLonLatJourneysRequestBuilder: NSObject {
     var directPath: DirectPath? = nil
     var freeRadiusFrom:Int32? = nil
     var freeRadiusTo:Int32? = nil
+    var directPathMode: [String]? = nil
     var count:Int32? = nil
     var isJourneySchedules:Bool? = nil
     var minNbJourneys:Int32? = nil
@@ -112,6 +128,14 @@ open class CoverageLonLatJourneysRequestBuilder: NSObject {
     var bssStands:Bool? = nil
     var addPoiInfos: [String]? = nil
     var timeframeDuration:Int32? = nil
+    var equipmentDetails:Bool? = nil
+    var maxTaxiDirectPathDuration:Int32? = nil
+    var maxWalkingDirectPathDuration:Int32? = nil
+    var maxCarDirectPathDuration:Int32? = nil
+    var maxRidesharingDirectPathDuration:Int32? = nil
+    var maxBssDirectPathDuration:Int32? = nil
+    var maxBikeDirectPathDuration:Int32? = nil
+    var depth:Int32? = nil
     var debugURL: String? = nil
 
     public init(currentApi: JourneysApi) {
@@ -239,6 +263,11 @@ open class CoverageLonLatJourneysRequestBuilder: NSObject {
         
         return self
     }
+    open func withTaxiSpeed(_ taxiSpeed: Float?) -> CoverageLonLatJourneysRequestBuilder {
+        self.taxiSpeed = taxiSpeed
+        
+        return self
+    }
     open func withForbiddenUris(_ forbiddenUris: [String]?) -> CoverageLonLatJourneysRequestBuilder {
         self.forbiddenUris = forbiddenUris
         
@@ -289,6 +318,19 @@ open class CoverageLonLatJourneysRequestBuilder: NSObject {
         
         return self
     }
+    open func withDirectPathMode(_ directPathMode: [DirectPathMode]?) -> CoverageLonLatJourneysRequestBuilder {
+        guard let directPathMode = directPathMode else {
+            return self
+        }
+        
+        var items = [String]()
+        for item in directPathMode {
+            items.append(item.rawValue)
+        }
+        self.directPathMode = items
+
+        return self
+    }
     open func withCount(_ count: Int32?) -> CoverageLonLatJourneysRequestBuilder {
         self.count = count
         
@@ -329,6 +371,46 @@ open class CoverageLonLatJourneysRequestBuilder: NSObject {
     }
     open func withTimeframeDuration(_ timeframeDuration: Int32?) -> CoverageLonLatJourneysRequestBuilder {
         self.timeframeDuration = timeframeDuration
+        
+        return self
+    }
+    open func withEquipmentDetails(_ equipmentDetails: Bool?) -> CoverageLonLatJourneysRequestBuilder {
+        self.equipmentDetails = equipmentDetails
+        
+        return self
+    }
+    open func withMaxTaxiDirectPathDuration(_ maxTaxiDirectPathDuration: Int32?) -> CoverageLonLatJourneysRequestBuilder {
+        self.maxTaxiDirectPathDuration = maxTaxiDirectPathDuration
+        
+        return self
+    }
+    open func withMaxWalkingDirectPathDuration(_ maxWalkingDirectPathDuration: Int32?) -> CoverageLonLatJourneysRequestBuilder {
+        self.maxWalkingDirectPathDuration = maxWalkingDirectPathDuration
+        
+        return self
+    }
+    open func withMaxCarDirectPathDuration(_ maxCarDirectPathDuration: Int32?) -> CoverageLonLatJourneysRequestBuilder {
+        self.maxCarDirectPathDuration = maxCarDirectPathDuration
+        
+        return self
+    }
+    open func withMaxRidesharingDirectPathDuration(_ maxRidesharingDirectPathDuration: Int32?) -> CoverageLonLatJourneysRequestBuilder {
+        self.maxRidesharingDirectPathDuration = maxRidesharingDirectPathDuration
+        
+        return self
+    }
+    open func withMaxBssDirectPathDuration(_ maxBssDirectPathDuration: Int32?) -> CoverageLonLatJourneysRequestBuilder {
+        self.maxBssDirectPathDuration = maxBssDirectPathDuration
+        
+        return self
+    }
+    open func withMaxBikeDirectPathDuration(_ maxBikeDirectPathDuration: Int32?) -> CoverageLonLatJourneysRequestBuilder {
+        self.maxBikeDirectPathDuration = maxBikeDirectPathDuration
+        
+        return self
+    }
+    open func withDepth(_ depth: Int32?) -> CoverageLonLatJourneysRequestBuilder {
+        self.depth = depth
         
         return self
     }
@@ -378,6 +460,7 @@ open class CoverageLonLatJourneysRequestBuilder: NSObject {
             "bss_speed": self.bssSpeed, 
             "car_speed": self.carSpeed, 
             "ridesharing_speed": self.ridesharingSpeed, 
+            "taxi_speed": self.taxiSpeed, 
             "forbidden_uris[]": self.forbiddenUris, 
             "allowed_id[]": self.allowedId, 
             "disruption_active": self.disruptionActive, 
@@ -388,13 +471,22 @@ open class CoverageLonLatJourneysRequestBuilder: NSObject {
             "direct_path": self.directPath?.rawValue, 
             "free_radius_from": self.freeRadiusFrom?.encodeToJSON(), 
             "free_radius_to": self.freeRadiusTo?.encodeToJSON(), 
+            "direct_path_mode[]": self.directPathMode, 
             "count": self.count?.encodeToJSON(), 
             "is_journey_schedules": self.isJourneySchedules, 
             "min_nb_journeys": self.minNbJourneys?.encodeToJSON(), 
             "max_nb_journeys": self.maxNbJourneys?.encodeToJSON(), 
             "bss_stands": self.bssStands, 
             "add_poi_infos[]": self.addPoiInfos, 
-            "timeframe_duration": self.timeframeDuration?.encodeToJSON()
+            "timeframe_duration": self.timeframeDuration?.encodeToJSON(), 
+            "equipment_details": self.equipmentDetails, 
+            "max_taxi_direct_path_duration": self.maxTaxiDirectPathDuration?.encodeToJSON(), 
+            "max_walking_direct_path_duration": self.maxWalkingDirectPathDuration?.encodeToJSON(), 
+            "max_car_direct_path_duration": self.maxCarDirectPathDuration?.encodeToJSON(), 
+            "max_ridesharing_direct_path_duration": self.maxRidesharingDirectPathDuration?.encodeToJSON(), 
+            "max_bss_direct_path_duration": self.maxBssDirectPathDuration?.encodeToJSON(), 
+            "max_bike_direct_path_duration": self.maxBikeDirectPathDuration?.encodeToJSON(), 
+            "depth": self.depth?.encodeToJSON()
         ]
         url?.queryItems = APIHelper.mapValuesToQueryItems(values: paramValues)
         url?.percentEncodedQuery = url?.percentEncodedQuery?.replacingOccurrences(of: "+", with: "%2B")
@@ -459,22 +551,23 @@ open class CoverageRegionJourneysRequestBuilder: NSObject {
     * enum for parameter firstSectionMode
     */
     public enum FirstSectionMode: String { 
+        case taxi = "taxi"
         case walking = "walking"
         case car = "car"
-        case bike = "bike"
-        case bss = "bss"
         case ridesharing = "ridesharing"
+        case bss = "bss"
+        case bike = "bike"
     }
     /**
     * enum for parameter lastSectionMode
     */
     public enum LastSectionMode: String { 
+        case taxi = "taxi"
         case walking = "walking"
         case car = "car"
-        case bike = "bike"
-        case bss = "bss"
         case ridesharing = "ridesharing"
-        case taxi = "taxi"
+        case bss = "bss"
+        case bike = "bike"
     }
     /**
     * enum for parameter dataFreshness
@@ -505,6 +598,17 @@ open class CoverageRegionJourneysRequestBuilder: NSObject {
         case _none = "none"
     }
     /**
+    * enum for parameter directPathMode
+    */
+    public enum DirectPathMode: String { 
+        case taxi = "taxi"
+        case walking = "walking"
+        case car = "car"
+        case ridesharing = "ridesharing"
+        case bss = "bss"
+        case bike = "bike"
+    }
+    /**
     * enum for parameter addPoiInfos
     */
     public enum AddPoiInfos: String { 
@@ -533,6 +637,7 @@ open class CoverageRegionJourneysRequestBuilder: NSObject {
     var bssSpeed:Float? = nil
     var carSpeed:Float? = nil
     var ridesharingSpeed:Float? = nil
+    var taxiSpeed:Float? = nil
     var forbiddenUris:[String]? = nil
     var allowedId:[String]? = nil
     var disruptionActive:Bool? = nil
@@ -543,6 +648,7 @@ open class CoverageRegionJourneysRequestBuilder: NSObject {
     var directPath: DirectPath? = nil
     var freeRadiusFrom:Int32? = nil
     var freeRadiusTo:Int32? = nil
+    var directPathMode: [String]? = nil
     var count:Int32? = nil
     var isJourneySchedules:Bool? = nil
     var minNbJourneys:Int32? = nil
@@ -550,6 +656,14 @@ open class CoverageRegionJourneysRequestBuilder: NSObject {
     var bssStands:Bool? = nil
     var addPoiInfos: [String]? = nil
     var timeframeDuration:Int32? = nil
+    var equipmentDetails:Bool? = nil
+    var maxTaxiDirectPathDuration:Int32? = nil
+    var maxWalkingDirectPathDuration:Int32? = nil
+    var maxCarDirectPathDuration:Int32? = nil
+    var maxRidesharingDirectPathDuration:Int32? = nil
+    var maxBssDirectPathDuration:Int32? = nil
+    var maxBikeDirectPathDuration:Int32? = nil
+    var depth:Int32? = nil
     var debugURL: String? = nil
 
     public init(currentApi: JourneysApi) {
@@ -672,6 +786,11 @@ open class CoverageRegionJourneysRequestBuilder: NSObject {
         
         return self
     }
+    open func withTaxiSpeed(_ taxiSpeed: Float?) -> CoverageRegionJourneysRequestBuilder {
+        self.taxiSpeed = taxiSpeed
+        
+        return self
+    }
     open func withForbiddenUris(_ forbiddenUris: [String]?) -> CoverageRegionJourneysRequestBuilder {
         self.forbiddenUris = forbiddenUris
         
@@ -722,6 +841,19 @@ open class CoverageRegionJourneysRequestBuilder: NSObject {
         
         return self
     }
+    open func withDirectPathMode(_ directPathMode: [DirectPathMode]?) -> CoverageRegionJourneysRequestBuilder {
+        guard let directPathMode = directPathMode else {
+            return self
+        }
+        
+        var items = [String]()
+        for item in directPathMode {
+            items.append(item.rawValue)
+        }
+        self.directPathMode = items
+
+        return self
+    }
     open func withCount(_ count: Int32?) -> CoverageRegionJourneysRequestBuilder {
         self.count = count
         
@@ -765,6 +897,46 @@ open class CoverageRegionJourneysRequestBuilder: NSObject {
         
         return self
     }
+    open func withEquipmentDetails(_ equipmentDetails: Bool?) -> CoverageRegionJourneysRequestBuilder {
+        self.equipmentDetails = equipmentDetails
+        
+        return self
+    }
+    open func withMaxTaxiDirectPathDuration(_ maxTaxiDirectPathDuration: Int32?) -> CoverageRegionJourneysRequestBuilder {
+        self.maxTaxiDirectPathDuration = maxTaxiDirectPathDuration
+        
+        return self
+    }
+    open func withMaxWalkingDirectPathDuration(_ maxWalkingDirectPathDuration: Int32?) -> CoverageRegionJourneysRequestBuilder {
+        self.maxWalkingDirectPathDuration = maxWalkingDirectPathDuration
+        
+        return self
+    }
+    open func withMaxCarDirectPathDuration(_ maxCarDirectPathDuration: Int32?) -> CoverageRegionJourneysRequestBuilder {
+        self.maxCarDirectPathDuration = maxCarDirectPathDuration
+        
+        return self
+    }
+    open func withMaxRidesharingDirectPathDuration(_ maxRidesharingDirectPathDuration: Int32?) -> CoverageRegionJourneysRequestBuilder {
+        self.maxRidesharingDirectPathDuration = maxRidesharingDirectPathDuration
+        
+        return self
+    }
+    open func withMaxBssDirectPathDuration(_ maxBssDirectPathDuration: Int32?) -> CoverageRegionJourneysRequestBuilder {
+        self.maxBssDirectPathDuration = maxBssDirectPathDuration
+        
+        return self
+    }
+    open func withMaxBikeDirectPathDuration(_ maxBikeDirectPathDuration: Int32?) -> CoverageRegionJourneysRequestBuilder {
+        self.maxBikeDirectPathDuration = maxBikeDirectPathDuration
+        
+        return self
+    }
+    open func withDepth(_ depth: Int32?) -> CoverageRegionJourneysRequestBuilder {
+        self.depth = depth
+        
+        return self
+    }
 
 
 
@@ -805,6 +977,7 @@ open class CoverageRegionJourneysRequestBuilder: NSObject {
             "bss_speed": self.bssSpeed, 
             "car_speed": self.carSpeed, 
             "ridesharing_speed": self.ridesharingSpeed, 
+            "taxi_speed": self.taxiSpeed, 
             "forbidden_uris[]": self.forbiddenUris, 
             "allowed_id[]": self.allowedId, 
             "disruption_active": self.disruptionActive, 
@@ -815,13 +988,22 @@ open class CoverageRegionJourneysRequestBuilder: NSObject {
             "direct_path": self.directPath?.rawValue, 
             "free_radius_from": self.freeRadiusFrom?.encodeToJSON(), 
             "free_radius_to": self.freeRadiusTo?.encodeToJSON(), 
+            "direct_path_mode[]": self.directPathMode, 
             "count": self.count?.encodeToJSON(), 
             "is_journey_schedules": self.isJourneySchedules, 
             "min_nb_journeys": self.minNbJourneys?.encodeToJSON(), 
             "max_nb_journeys": self.maxNbJourneys?.encodeToJSON(), 
             "bss_stands": self.bssStands, 
             "add_poi_infos[]": self.addPoiInfos, 
-            "timeframe_duration": self.timeframeDuration?.encodeToJSON()
+            "timeframe_duration": self.timeframeDuration?.encodeToJSON(), 
+            "equipment_details": self.equipmentDetails, 
+            "max_taxi_direct_path_duration": self.maxTaxiDirectPathDuration?.encodeToJSON(), 
+            "max_walking_direct_path_duration": self.maxWalkingDirectPathDuration?.encodeToJSON(), 
+            "max_car_direct_path_duration": self.maxCarDirectPathDuration?.encodeToJSON(), 
+            "max_ridesharing_direct_path_duration": self.maxRidesharingDirectPathDuration?.encodeToJSON(), 
+            "max_bss_direct_path_duration": self.maxBssDirectPathDuration?.encodeToJSON(), 
+            "max_bike_direct_path_duration": self.maxBikeDirectPathDuration?.encodeToJSON(), 
+            "depth": self.depth?.encodeToJSON()
         ]
         url?.queryItems = APIHelper.mapValuesToQueryItems(values: paramValues)
         url?.percentEncodedQuery = url?.percentEncodedQuery?.replacingOccurrences(of: "+", with: "%2B")
@@ -880,21 +1062,23 @@ open class JourneysRequestBuilder: NSObject {
     * enum for parameter firstSectionMode
     */
     public enum FirstSectionMode: String { 
+        case taxi = "taxi"
         case walking = "walking"
         case car = "car"
-        case bike = "bike"
-        case bss = "bss"
         case ridesharing = "ridesharing"
+        case bss = "bss"
+        case bike = "bike"
     }
     /**
     * enum for parameter lastSectionMode
     */
     public enum LastSectionMode: String { 
+        case taxi = "taxi"
         case walking = "walking"
         case car = "car"
-        case bike = "bike"
-        case bss = "bss"
         case ridesharing = "ridesharing"
+        case bss = "bss"
+        case bike = "bike"
     }
     /**
     * enum for parameter dataFreshness
@@ -925,6 +1109,17 @@ open class JourneysRequestBuilder: NSObject {
         case _none = "none"
     }
     /**
+    * enum for parameter directPathMode
+    */
+    public enum DirectPathMode: String { 
+        case taxi = "taxi"
+        case walking = "walking"
+        case car = "car"
+        case ridesharing = "ridesharing"
+        case bss = "bss"
+        case bike = "bike"
+    }
+    /**
     * enum for parameter addPoiInfos
     */
     public enum AddPoiInfos: String { 
@@ -952,6 +1147,7 @@ open class JourneysRequestBuilder: NSObject {
     var bssSpeed:Float? = nil
     var carSpeed:Float? = nil
     var ridesharingSpeed:Float? = nil
+    var taxiSpeed:Float? = nil
     var forbiddenUris:[String]? = nil
     var allowedId:[String]? = nil
     var disruptionActive:Bool? = nil
@@ -962,6 +1158,7 @@ open class JourneysRequestBuilder: NSObject {
     var directPath: DirectPath? = nil
     var freeRadiusFrom:Int32? = nil
     var freeRadiusTo:Int32? = nil
+    var directPathMode: [String]? = nil
     var count:Int32? = nil
     var isJourneySchedules:Bool? = nil
     var minNbJourneys:Int32? = nil
@@ -969,6 +1166,14 @@ open class JourneysRequestBuilder: NSObject {
     var bssStands:Bool? = nil
     var addPoiInfos: [String]? = nil
     var timeframeDuration:Int32? = nil
+    var equipmentDetails:Bool? = nil
+    var maxTaxiDirectPathDuration:Int32? = nil
+    var maxWalkingDirectPathDuration:Int32? = nil
+    var maxCarDirectPathDuration:Int32? = nil
+    var maxRidesharingDirectPathDuration:Int32? = nil
+    var maxBssDirectPathDuration:Int32? = nil
+    var maxBikeDirectPathDuration:Int32? = nil
+    var depth:Int32? = nil
     var debugURL: String? = nil
 
     public init(currentApi: JourneysApi) {
@@ -1086,6 +1291,11 @@ open class JourneysRequestBuilder: NSObject {
         
         return self
     }
+    open func withTaxiSpeed(_ taxiSpeed: Float?) -> JourneysRequestBuilder {
+        self.taxiSpeed = taxiSpeed
+        
+        return self
+    }
     open func withForbiddenUris(_ forbiddenUris: [String]?) -> JourneysRequestBuilder {
         self.forbiddenUris = forbiddenUris
         
@@ -1136,6 +1346,19 @@ open class JourneysRequestBuilder: NSObject {
         
         return self
     }
+    open func withDirectPathMode(_ directPathMode: [DirectPathMode]?) -> JourneysRequestBuilder {
+        guard let directPathMode = directPathMode else {
+            return self
+        }
+        
+        var items = [String]()
+        for item in directPathMode {
+            items.append(item.rawValue)
+        }
+        self.directPathMode = items
+
+        return self
+    }
     open func withCount(_ count: Int32?) -> JourneysRequestBuilder {
         self.count = count
         
@@ -1179,6 +1402,46 @@ open class JourneysRequestBuilder: NSObject {
         
         return self
     }
+    open func withEquipmentDetails(_ equipmentDetails: Bool?) -> JourneysRequestBuilder {
+        self.equipmentDetails = equipmentDetails
+        
+        return self
+    }
+    open func withMaxTaxiDirectPathDuration(_ maxTaxiDirectPathDuration: Int32?) -> JourneysRequestBuilder {
+        self.maxTaxiDirectPathDuration = maxTaxiDirectPathDuration
+        
+        return self
+    }
+    open func withMaxWalkingDirectPathDuration(_ maxWalkingDirectPathDuration: Int32?) -> JourneysRequestBuilder {
+        self.maxWalkingDirectPathDuration = maxWalkingDirectPathDuration
+        
+        return self
+    }
+    open func withMaxCarDirectPathDuration(_ maxCarDirectPathDuration: Int32?) -> JourneysRequestBuilder {
+        self.maxCarDirectPathDuration = maxCarDirectPathDuration
+        
+        return self
+    }
+    open func withMaxRidesharingDirectPathDuration(_ maxRidesharingDirectPathDuration: Int32?) -> JourneysRequestBuilder {
+        self.maxRidesharingDirectPathDuration = maxRidesharingDirectPathDuration
+        
+        return self
+    }
+    open func withMaxBssDirectPathDuration(_ maxBssDirectPathDuration: Int32?) -> JourneysRequestBuilder {
+        self.maxBssDirectPathDuration = maxBssDirectPathDuration
+        
+        return self
+    }
+    open func withMaxBikeDirectPathDuration(_ maxBikeDirectPathDuration: Int32?) -> JourneysRequestBuilder {
+        self.maxBikeDirectPathDuration = maxBikeDirectPathDuration
+        
+        return self
+    }
+    open func withDepth(_ depth: Int32?) -> JourneysRequestBuilder {
+        self.depth = depth
+        
+        return self
+    }
 
 
 
@@ -1196,8 +1459,8 @@ open class JourneysRequestBuilder: NSObject {
         let paramValues: [String: Any?] = [
             "from": self.from, 
             "to": self.to, 
-            "datetime": self.datetime?.reformatDate(),
-            "datetime_represents": self.datetimeRepresents?.rawValue,
+            "datetime": self.datetime?.encodeToJSON(), 
+            "datetime_represents": self.datetimeRepresents?.rawValue, 
             "max_nb_transfers": self.maxNbTransfers?.encodeToJSON(), 
             "min_nb_transfers": self.minNbTransfers?.encodeToJSON(), 
             "first_section_mode[]": self.firstSectionMode, 
@@ -1213,6 +1476,7 @@ open class JourneysRequestBuilder: NSObject {
             "bss_speed": self.bssSpeed, 
             "car_speed": self.carSpeed, 
             "ridesharing_speed": self.ridesharingSpeed, 
+            "taxi_speed": self.taxiSpeed, 
             "forbidden_uris[]": self.forbiddenUris, 
             "allowed_id[]": self.allowedId, 
             "disruption_active": self.disruptionActive, 
@@ -1223,13 +1487,22 @@ open class JourneysRequestBuilder: NSObject {
             "direct_path": self.directPath?.rawValue, 
             "free_radius_from": self.freeRadiusFrom?.encodeToJSON(), 
             "free_radius_to": self.freeRadiusTo?.encodeToJSON(), 
+            "direct_path_mode[]": self.directPathMode, 
             "count": self.count?.encodeToJSON(), 
             "is_journey_schedules": self.isJourneySchedules, 
             "min_nb_journeys": self.minNbJourneys?.encodeToJSON(), 
             "max_nb_journeys": self.maxNbJourneys?.encodeToJSON(), 
             "bss_stands": self.bssStands, 
             "add_poi_infos[]": self.addPoiInfos, 
-            "timeframe_duration": self.timeframeDuration?.encodeToJSON()
+            "timeframe_duration": self.timeframeDuration?.encodeToJSON(), 
+            "equipment_details": self.equipmentDetails, 
+            "max_taxi_direct_path_duration": self.maxTaxiDirectPathDuration?.encodeToJSON(), 
+            "max_walking_direct_path_duration": self.maxWalkingDirectPathDuration?.encodeToJSON(), 
+            "max_car_direct_path_duration": self.maxCarDirectPathDuration?.encodeToJSON(), 
+            "max_ridesharing_direct_path_duration": self.maxRidesharingDirectPathDuration?.encodeToJSON(), 
+            "max_bss_direct_path_duration": self.maxBssDirectPathDuration?.encodeToJSON(), 
+            "max_bike_direct_path_duration": self.maxBikeDirectPathDuration?.encodeToJSON(), 
+            "depth": self.depth?.encodeToJSON()
         ]
         url?.queryItems = APIHelper.mapValuesToQueryItems(values: paramValues)
         url?.percentEncodedQuery = url?.percentEncodedQuery?.replacingOccurrences(of: "+", with: "%2B")
