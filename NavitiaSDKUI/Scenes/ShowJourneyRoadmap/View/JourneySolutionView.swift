@@ -16,6 +16,8 @@ class JourneySolutionView: UIView {
     @IBOutlet weak var aboutLabel: UILabel!
     @IBOutlet weak var durationLabel: UILabel!
     @IBOutlet weak var priceLabel: UILabel!
+    @IBOutlet weak var durationToAboutConstraint: NSLayoutConstraint!
+    @IBOutlet weak var durationToTopConstraint: NSLayoutConstraint!
     
     private let paddingFriezeView = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 70)
     private var friezeView = FriezeView()
@@ -96,6 +98,8 @@ class JourneySolutionView: UIView {
     
     internal func setData(duration: Int32, friezeSection: [FriezePresenter.FriezeSection], price: String) {
         aboutLabel.isHidden = true
+        durationToAboutConstraint.priority = .defaultLow
+        durationToTopConstraint.priority = .defaultHigh
         
         priceLabel.text = price
         formattedDuration(duration)
@@ -105,6 +109,8 @@ class JourneySolutionView: UIView {
     
     internal func setRidesharingData(duration: Int32, friezeSection: [FriezePresenter.FriezeSection]) {
         aboutLabel.isHidden = false
+        durationToAboutConstraint.priority = .defaultHigh
+        durationToTopConstraint.priority = .defaultLow
         
         aboutLabel.attributedText = NSMutableAttributedString()
             .semiBold("about".localized(), color: Configuration.Color.secondary)

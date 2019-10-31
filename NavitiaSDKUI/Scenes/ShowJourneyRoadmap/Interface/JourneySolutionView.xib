@@ -16,53 +16,70 @@
             <rect key="frame" x="0.0" y="0.0" width="411" height="97"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="RBu-US-SzD">
-                    <rect key="frame" x="347" y="29" width="54" height="24"/>
-                    <string key="text">Price
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="F0V-NZ-VhL">
+                    <rect key="frame" x="347" y="22" width="54" height="53"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="55m-Az-mud">
+                            <rect key="frame" x="0.0" y="12" width="54" height="17"/>
+                            <accessibility key="accessibilityConfiguration">
+                                <bool key="isElement" value="NO"/>
+                            </accessibility>
+                            <attributedString key="attributedText">
+                                <fragment content="30 min">
+                                    <attributes>
+                                        <font key="NSFont" size="14" name=".AppleSystemUIFont"/>
+                                        <paragraphStyle key="NSParagraphStyle" alignment="right" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                    </attributes>
+                                </fragment>
+                            </attributedString>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="RBu-US-SzD">
+                            <rect key="frame" x="0.0" y="29" width="54" height="24"/>
+                            <string key="text">Price
 unavailable</string>
-                    <fontDescription key="fontDescription" type="system" pointSize="10"/>
-                    <nil key="textColor"/>
-                    <nil key="highlightedColor"/>
-                </label>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="55m-Az-mud">
-                    <rect key="frame" x="356.5" y="12" width="44.5" height="17"/>
-                    <accessibility key="accessibilityConfiguration">
-                        <bool key="isElement" value="NO"/>
-                    </accessibility>
-                    <attributedString key="attributedText">
-                        <fragment content="30 min">
-                            <attributes>
-                                <font key="NSFont" size="14" name=".AppleSystemUIFont"/>
-                                <paragraphStyle key="NSParagraphStyle" alignment="right" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
-                            </attributes>
-                        </fragment>
-                    </attributedString>
-                    <nil key="highlightedColor"/>
-                </label>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="748" text="Environ" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ytc-Wb-FnP">
-                    <rect key="frame" x="363" y="0.0" width="38" height="12"/>
-                    <accessibility key="accessibilityConfiguration">
-                        <bool key="isElement" value="NO"/>
-                    </accessibility>
-                    <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="10"/>
-                    <nil key="textColor"/>
-                    <nil key="highlightedColor"/>
-                </label>
+                            <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="748" text="Environ" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ytc-Wb-FnP">
+                            <rect key="frame" x="0.0" y="0.0" width="54" height="12"/>
+                            <accessibility key="accessibilityConfiguration">
+                                <bool key="isElement" value="NO"/>
+                            </accessibility>
+                            <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="10"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstItem="Ytc-Wb-FnP" firstAttribute="top" secondItem="F0V-NZ-VhL" secondAttribute="top" id="7ry-Ud-FBS"/>
+                        <constraint firstAttribute="trailing" secondItem="RBu-US-SzD" secondAttribute="trailing" id="Bar-8m-4TO"/>
+                        <constraint firstItem="55m-Az-mud" firstAttribute="top" secondItem="Ytc-Wb-FnP" secondAttribute="bottom" id="EzB-0x-Q4V"/>
+                        <constraint firstAttribute="bottom" secondItem="RBu-US-SzD" secondAttribute="bottom" id="QpM-LT-wpr"/>
+                        <constraint firstItem="Ytc-Wb-FnP" firstAttribute="leading" secondItem="F0V-NZ-VhL" secondAttribute="leading" id="VBf-BA-jU7"/>
+                        <constraint firstItem="RBu-US-SzD" firstAttribute="leading" secondItem="F0V-NZ-VhL" secondAttribute="leading" id="Zg4-QX-j5G"/>
+                        <constraint firstItem="55m-Az-mud" firstAttribute="top" secondItem="F0V-NZ-VhL" secondAttribute="top" priority="250" id="duk-pf-rto"/>
+                        <constraint firstItem="RBu-US-SzD" firstAttribute="top" secondItem="55m-Az-mud" secondAttribute="bottom" id="ezc-Be-SEo"/>
+                        <constraint firstItem="55m-Az-mud" firstAttribute="leading" secondItem="F0V-NZ-VhL" secondAttribute="leading" id="kW0-Yc-sf8"/>
+                        <constraint firstAttribute="trailing" secondItem="Ytc-Wb-FnP" secondAttribute="trailing" id="nrM-6e-14K"/>
+                        <constraint firstAttribute="trailing" secondItem="55m-Az-mud" secondAttribute="trailing" id="yIA-ci-sMM"/>
+                    </constraints>
+                </view>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
-                <constraint firstItem="Ytc-Wb-FnP" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="aC6-E1-lWn"/>
-                <constraint firstItem="RBu-US-SzD" firstAttribute="top" secondItem="55m-Az-mud" secondAttribute="bottom" id="dZM-zR-W6p"/>
-                <constraint firstItem="Ytc-Wb-FnP" firstAttribute="trailing" secondItem="RBu-US-SzD" secondAttribute="trailing" id="edA-gO-JkJ"/>
-                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="Ytc-Wb-FnP" secondAttribute="trailing" constant="10" id="gQr-0V-3sd"/>
-                <constraint firstItem="55m-Az-mud" firstAttribute="top" secondItem="Ytc-Wb-FnP" secondAttribute="bottom" id="jTD-Zj-bbE"/>
-                <constraint firstItem="55m-Az-mud" firstAttribute="trailing" secondItem="RBu-US-SzD" secondAttribute="trailing" id="rlf-hL-93K"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="F0V-NZ-VhL" secondAttribute="trailing" constant="10" id="9Sm-Tj-Sh4"/>
+                <constraint firstItem="F0V-NZ-VhL" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="JNd-M4-Te2"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <connections>
                 <outlet property="aboutLabel" destination="Ytc-Wb-FnP" id="0se-gh-12H"/>
                 <outlet property="durationLabel" destination="55m-Az-mud" id="hJB-KR-RAp"/>
+                <outlet property="durationToAboutConstraint" destination="EzB-0x-Q4V" id="sFr-gq-uck"/>
+                <outlet property="durationToTopConstraint" destination="duk-pf-rto" id="ath-XS-Fko"/>
                 <outlet property="priceLabel" destination="RBu-US-SzD" id="4NU-yV-bma"/>
             </connections>
             <point key="canvasLocation" x="72.799999999999997" y="-248.72563718140933"/>

@@ -42,12 +42,9 @@ class ShowJourneyRoadmapPresenter: ShowJourneyRoadmapPresentationLogic {
             price = String(format: "%@ %.2f", currency == "EUR" ? "€" : "", value)
         }
         
-        let ticket = ShowJourneyRoadmap
-            .GetRoadmap
-            .ViewModel
-            .Ticket(shouldShowTicket: response.maasTickets != nil,
-                    viewTicketLocalized: "view_ticket".localized(),
-                    ticketNotAvailableLocalized: "please_buy_ticket_separately".localized())
+        let ticket = ShowJourneyRoadmap.GetRoadmap.ViewModel.Ticket(shouldShowTicket: response.maasTickets != nil,
+                                                                    viewTicketLocalized: "view_ticket".localized(),
+                                                                    ticketNotAvailableLocalized: "please_buy_ticket_separately".localized())
         let viewModel = ShowJourneyRoadmap.GetRoadmap.ViewModel(ridesharing: getRidesharing(journeyRidesharing: response.journeyRidesharing),
                                                                 departure: departure,
                                                                 sections: sectionsClean,
