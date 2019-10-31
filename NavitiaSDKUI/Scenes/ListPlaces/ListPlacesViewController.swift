@@ -148,8 +148,6 @@ public class ListPlacesViewController: UIViewController {
         searchView.singleFieldConfiguration = self.singleFieldConfiguration
         searchView.singleFieldCustomPlaceholder = singleFieldCustomPlaceholder
         searchView.singleFieldCustomIcon = singleFieldCustomIcon
-        searchView.fromTextField.delegate = self
-        searchView.toTextField.delegate = self
     }
     
     private func initTableView() {
@@ -546,12 +544,5 @@ extension ListPlacesViewController: SearchViewDelegate {
         interactor?.to = nil
         interactor?.updateSearchViewFields(request: ListPlaces.UpdateSearchViewFields.Request())
         fetchHistoryItems()
-    }
-}
-
-extension ListPlacesViewController: UITextFieldDelegate {
-    public func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        textField.resignFirstResponder()
-        return true
     }
 }

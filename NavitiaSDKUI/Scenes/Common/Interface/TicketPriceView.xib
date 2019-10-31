@@ -17,7 +17,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="6" translatesAutoresizingMaskIntoConstraints="NO" id="aLc-2o-WGq">
-                    <rect key="frame" x="8" y="2" width="40" height="21"/>
+                    <rect key="frame" x="3" y="2" width="50" height="21"/>
                     <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="12"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
@@ -35,8 +35,8 @@
                 <constraint firstItem="Mad-a4-ML9" firstAttribute="leading" secondItem="pr5-Tr-sUU" secondAttribute="leading" constant="15.5" id="1zN-uM-319"/>
                 <constraint firstItem="pr5-Tr-sUU" firstAttribute="bottom" secondItem="Mad-a4-ML9" secondAttribute="bottom" id="D3h-ih-lSW"/>
                 <constraint firstItem="aLc-2o-WGq" firstAttribute="top" secondItem="pr5-Tr-sUU" secondAttribute="top" constant="2" id="WKF-Xt-9n7"/>
-                <constraint firstItem="aLc-2o-WGq" firstAttribute="leading" secondItem="pr5-Tr-sUU" secondAttribute="leading" constant="8" id="k8X-t8-SOZ"/>
-                <constraint firstItem="pr5-Tr-sUU" firstAttribute="trailing" secondItem="aLc-2o-WGq" secondAttribute="trailing" constant="8" id="vzm-sD-7tV"/>
+                <constraint firstItem="aLc-2o-WGq" firstAttribute="leading" secondItem="pr5-Tr-sUU" secondAttribute="leading" constant="3" id="k8X-t8-SOZ"/>
+                <constraint firstItem="pr5-Tr-sUU" firstAttribute="trailing" secondItem="aLc-2o-WGq" secondAttribute="trailing" constant="3" id="vzm-sD-7tV"/>
                 <constraint firstItem="pr5-Tr-sUU" firstAttribute="bottom" secondItem="aLc-2o-WGq" secondAttribute="bottom" constant="2" id="xn2-gk-AGr"/>
                 <constraint firstItem="Mad-a4-ML9" firstAttribute="top" secondItem="pr5-Tr-sUU" secondAttribute="top" id="yPd-ph-fJ2"/>
                 <constraint firstItem="Mad-a4-ML9" firstAttribute="centerX" secondItem="pr5-Tr-sUU" secondAttribute="centerX" id="yix-EG-Whj"/>
