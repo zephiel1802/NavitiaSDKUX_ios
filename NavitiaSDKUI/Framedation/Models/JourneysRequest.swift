@@ -54,10 +54,43 @@ import Foundation
     public var allowedPhysicalModes: [String]?
     public var debugURL: String?
     public var travelerType: TravelerType?
-    public var directPathMode: [CoverageRegionJourneysRequestBuilder.DirectPathMode]?
+    public var directPathMode: [CoverageRegionJourneysRequestBuilder.DirectPathMode]? {
+        get {
+            return getDirectPathMode()
+        }
+    }
     
     public init(coverage: String) {
         self.coverage = coverage
+    }
+    
+    private func getDirectPathMode() -> [CoverageRegionJourneysRequestBuilder.DirectPathMode] {
+        var directPathModeList:[CoverageRegionJourneysRequestBuilder.DirectPathMode] = [.walking]
+        let physicalModeList = allowedPhysicalModes ?? []
+        let firstSectionModeList = firstSectionModes ?? []
+        let lastSectionModeList = lastSectionModes ?? []
+        
+        let taxiValue = CoverageLonLatJourneysRequestBuilder.DirectPathMode.taxi.rawValue
+        if physicalModeList.contains(where: { item -> Bool in
+            return item.lowercased().contains(taxiValue)
+        }) || firstSectionModeList.contains(where: { item -> Bool in
+            return item.rawValue == taxiValue
+        }) || lastSectionModeList.contains(where: { item -> Bool in
+            return item.rawValue == taxiValue
+        }) {
+            directPathModeList.append(.taxi)
+        }
+        
+        let bikeValue = CoverageLonLatJourneysRequestBuilder.DirectPathMode.bike.rawValue
+        if firstSectionModeList.contains(where: { item -> Bool in
+            return item.rawValue == bikeValue
+        }) || lastSectionModeList.contains(where: { item -> Bool in
+            return item.rawValue == bikeValue
+        }) {
+            directPathModeList.append(.bike)
+        }
+        
+        return directPathModeList
     }
 }
 
