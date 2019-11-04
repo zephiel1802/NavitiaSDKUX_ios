@@ -29,7 +29,12 @@ public class Modes {
         case .crowFly:
             return "crow_fly"
         case .onDemandTransport:
-            return "bus-tad"
+            let physicalMode = getPhysicalMode(section: section).lowercased()
+            if physicalMode == "bus" || physicalMode == "taxi" {
+                return String(format: "%@-tad", physicalMode)
+            } else {
+                return physicalMode
+            }
         case .park:
             return "car"
         case .ridesharing:
