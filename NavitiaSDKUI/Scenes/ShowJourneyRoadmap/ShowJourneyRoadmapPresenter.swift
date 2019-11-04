@@ -1157,6 +1157,11 @@ extension ShowJourneyRoadmapPresenter {
                                                           lon: journey.sections?.first?.from?.stopArea?.coord?.lon) {
             return coordinates
         }
+        
+        if let coordinates = stringToLocationCoordinate2D(lat: journey.sections?.first?.from?.address?.coord?.lat,
+                                                          lon: journey.sections?.first?.from?.address?.coord?.lon) {
+            return coordinates
+        }
 
         if let coordinates = journey.sections?.first?.geojson?.coordinates?.first {
             return CLLocationCoordinate2DMake(Double(coordinates[1]), Double(coordinates[0]))
@@ -1172,6 +1177,11 @@ extension ShowJourneyRoadmapPresenter {
         
         if let coordinates = stringToLocationCoordinate2D(lat: lastSection?.to?.stopArea?.coord?.lat,
                                                           lon: lastSection?.to?.stopArea?.coord?.lon) {
+            return coordinates
+        }
+        
+        if let coordinates = stringToLocationCoordinate2D(lat: lastSection?.to?.address?.coord?.lat,
+                                                          lon: lastSection?.to?.address?.coord?.lon) {
             return coordinates
         }
         
@@ -1223,11 +1233,9 @@ extension ShowJourneyRoadmapPresenter {
         }
         
         var sectionPolylines = [ShowJourneyRoadmap.GetMap.ViewModel.sectionPolyline]()
-        
         for section in sections {
             if !getRidesharingSection(section: section) {
                 var sectionPolylineCoordinates = [CLLocationCoordinate2D]()
-                
                 if section.type == .crowFly {
                     if let departureCrowflyCoords = getCoordinates(targetPlace: section.from), let latitude = departureCrowflyCoords.lat, let lat = Double(latitude), let longitude = departureCrowflyCoords.lon, let lon = Double(longitude) {
                         sectionPolylineCoordinates.append(CLLocationCoordinate2DMake(lat, lon))
@@ -1249,10 +1257,8 @@ extension ShowJourneyRoadmapPresenter {
                                                                                           section: section,
                                                                                           annotation: nil)
                 sectionPolylines.append(sectionPolyline)
-            } else {
-                if let ridesharing = ridesharing, let sectionPoly = getSectionPolylines(journey: ridesharing) {
-                    sectionPolylines += sectionPoly
-                }
+            } else if let ridesharing = ridesharing, let sectionPoly = getSectionPolylines(journey: ridesharing) {
+                sectionPolylines += sectionPoly
             }
         }
         

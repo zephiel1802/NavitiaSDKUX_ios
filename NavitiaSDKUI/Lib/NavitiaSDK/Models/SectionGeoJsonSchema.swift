@@ -17,14 +17,14 @@ open class SectionGeoJsonSchema: JSONEncodable, Mappable, Codable {
 
     public var type: String?
     public var properties: [SectionGeoJsonSchemaProperties]?
-    public var coordinates: [[Float]]?
+    public var coordinates: [[Double]]?
 
     
     required public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         type = try container.decode(String.self, forKey: .type)
         properties = try container.decode([SectionGeoJsonSchemaProperties].self, forKey: .properties)
-        coordinates = try container.decode([[Float]].self, forKey: .coordinates)
+        coordinates = try container.decode([[Double]].self, forKey: .coordinates)
     }
 
     public func encode(to encoder: Encoder) throws {

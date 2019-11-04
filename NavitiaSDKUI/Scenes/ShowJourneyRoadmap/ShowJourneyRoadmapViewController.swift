@@ -686,7 +686,7 @@ extension ShowJourneyRoadmapViewController {
         sectionPolyline.sectionLineWidth = 4
         
         switch mode {
-        case .walking?:
+        case .walking?, .car?:
             sectionPolyline.sectionLineDashPattern = [0.01, NSNumber(value: Float(2 * sectionPolyline.sectionLineWidth))]
             sectionPolyline.sectionLineCap = CGLineCap.round
         default:
