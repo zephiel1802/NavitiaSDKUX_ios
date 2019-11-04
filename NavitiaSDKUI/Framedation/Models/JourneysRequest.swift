@@ -79,10 +79,6 @@ import Foundation
             return item.rawValue == taxiValue
         }) {
             directPathModeList.append(.taxi)
-        } else {
-            directPathModeList.removeAll(where: { item -> Bool in
-                return item == .taxi
-            })
         }
         
         let bikeValue = CoverageLonLatJourneysRequestBuilder.DirectPathMode.bike.rawValue
@@ -92,10 +88,6 @@ import Foundation
             return item.rawValue == bikeValue
         }) {
             directPathModeList.append(.bike)
-        } else {
-            directPathModeList.removeAll(where: { item -> Bool in
-                return item == .bike
-            })
         }
         
         return directPathModeList
