@@ -10,29 +10,23 @@ import Foundation
 
 open class LineHeadersSchema: JSONEncodable, Mappable, Codable {
 
-/** Coding keys for Codable protocol */
-    enum CodingKeys: CodingKey {
-        case cellLat, unknown
-    }
-
     public var cellLat: CellLatSchema?
 
-    
-    required public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        cellLat = try container.decode(CellLatSchema.self, forKey: .cellLat)
-    }
-
-    public func encode(to encoder: Encoder) throws {
-        var container = encoder.container(keyedBy: CodingKeys.self)
-        try container.encode(cellLat, forKey: .cellLat)
-    }
 
     public init() {}
     required public init?(map: Map) {
 
     }
 
+
+    enum CodingKeys: String, CodingKey {
+        case cellLat = "cell_lat"
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(cellLat, forKey: .cellLat)
+    }
 
     public func mapping(map: Map) {
         cellLat <- map["cell_lat"]

@@ -10,11 +10,6 @@ import Foundation
 
 open class PtObject: JSONEncodable, Mappable, Codable {
 
-/** Coding keys for Codable protocol */
-    enum CodingKeys: CodingKey {
-        case embeddedType, stopPoint, name, route, stopArea, commercialMode, id, line, quality, trip, network, unknown
-    }
-
     public enum EmbeddedType: String, Codable { 
         case line = "line"
         case journeyPattern = "journey_pattern"
@@ -53,20 +48,25 @@ open class PtObject: JSONEncodable, Mappable, Codable {
     public var trip: Trip?
     public var network: Network?
 
-    
-    required public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        embeddedType = try container.decode(EmbeddedType.self, forKey: .embeddedType)
-        stopPoint = try container.decode(StopPoint.self, forKey: .stopPoint)
-        name = try container.decode(String.self, forKey: .name)
-        route = try container.decode(Route.self, forKey: .route)
-        stopArea = try container.decode(StopArea.self, forKey: .stopArea)
-        commercialMode = try container.decode(CommercialMode.self, forKey: .commercialMode)
-        id = try container.decode(String.self, forKey: .id)
-        line = try container.decode(Line.self, forKey: .line)
-        quality = try container.decode(Int32.self, forKey: .quality)
-        trip = try container.decode(Trip.self, forKey: .trip)
-        network = try container.decode(Network.self, forKey: .network)
+
+    public init() {}
+    required public init?(map: Map) {
+
+    }
+
+
+    enum CodingKeys: String, CodingKey {
+        case embeddedType = "embedded_type"
+        case stopPoint = "stop_point"
+        case name = "name"
+        case route = "route"
+        case stopArea = "stop_area"
+        case commercialMode = "commercial_mode"
+        case id = "id"
+        case line = "line"
+        case quality = "quality"
+        case trip = "trip"
+        case network = "network"
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -83,12 +83,6 @@ open class PtObject: JSONEncodable, Mappable, Codable {
         try container.encode(trip, forKey: .trip)
         try container.encode(network, forKey: .network)
     }
-
-    public init() {}
-    required public init?(map: Map) {
-
-    }
-
 
     public func mapping(map: Map) {
         embeddedType <- map["embedded_type"]

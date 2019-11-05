@@ -10,19 +10,19 @@ import Foundation
 
 open class Coord: JSONEncodable, Mappable, Codable {
 
-/** Coding keys for Codable protocol */
-    enum CodingKeys: CodingKey {
-        case lat, lon, unknown
-    }
-
     public var lat: String?
     public var lon: String?
 
-    
-    required public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        lat = try container.decode(String.self, forKey: .lat)
-        lon = try container.decode(String.self, forKey: .lon)
+
+    public init() {}
+    required public init?(map: Map) {
+
+    }
+
+
+    enum CodingKeys: String, CodingKey {
+        case lat = "lat"
+        case lon = "lon"
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -30,12 +30,6 @@ open class Coord: JSONEncodable, Mappable, Codable {
         try container.encode(lat, forKey: .lat)
         try container.encode(lon, forKey: .lon)
     }
-
-    public init() {}
-    required public init?(map: Map) {
-
-    }
-
 
     public func mapping(map: Map) {
         lat <- map["lat"]

@@ -71,7 +71,7 @@ class FormJourneyRouter: NSObject, FormJourneyRoutingLogic, FormJourneyDataPassi
         let navigationController = UINavigationController(rootViewController: destination)
         
         navigationController.modalTransitionStyle = .crossDissolve
-        navigationController.modalPresentationStyle = .overCurrentContext
+        navigationController.modalPresentationStyle = .overFullScreen
         
         source.present(navigationController, animated: false, completion: nil)
     }

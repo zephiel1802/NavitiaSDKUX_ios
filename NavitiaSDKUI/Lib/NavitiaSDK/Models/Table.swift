@@ -10,19 +10,19 @@ import Foundation
 
 open class Table: JSONEncodable, Mappable, Codable {
 
-/** Coding keys for Codable protocol */
-    enum CodingKeys: CodingKey {
-        case headers, rows, unknown
-    }
-
     public var headers: [Header]?
     public var rows: [Row]?
 
-    
-    required public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        headers = try container.decode([Header].self, forKey: .headers)
-        rows = try container.decode([Row].self, forKey: .rows)
+
+    public init() {}
+    required public init?(map: Map) {
+
+    }
+
+
+    enum CodingKeys: String, CodingKey {
+        case headers = "headers"
+        case rows = "rows"
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -30,12 +30,6 @@ open class Table: JSONEncodable, Mappable, Codable {
         try container.encode(headers, forKey: .headers)
         try container.encode(rows, forKey: .rows)
     }
-
-    public init() {}
-    required public init?(map: Map) {
-
-    }
-
 
     public func mapping(map: Map) {
         headers <- map["headers"]

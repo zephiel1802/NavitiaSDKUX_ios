@@ -10,19 +10,19 @@ import Foundation
 
 open class LineReport: JSONEncodable, Mappable, Codable {
 
-/** Coding keys for Codable protocol */
-    enum CodingKeys: CodingKey {
-        case line, ptObjects, unknown
-    }
-
     public var line: Line?
     public var ptObjects: [PtObject]?
 
-    
-    required public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        line = try container.decode(Line.self, forKey: .line)
-        ptObjects = try container.decode([PtObject].self, forKey: .ptObjects)
+
+    public init() {}
+    required public init?(map: Map) {
+
+    }
+
+
+    enum CodingKeys: String, CodingKey {
+        case line = "line"
+        case ptObjects = "pt_objects"
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -30,12 +30,6 @@ open class LineReport: JSONEncodable, Mappable, Codable {
         try container.encode(line, forKey: .line)
         try container.encode(ptObjects, forKey: .ptObjects)
     }
-
-    public init() {}
-    required public init?(map: Map) {
-
-    }
-
 
     public func mapping(map: Map) {
         line <- map["line"]

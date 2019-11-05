@@ -10,11 +10,6 @@ import Foundation
 
 open class VJDisplayInformation: JSONEncodable, Mappable, Codable {
 
-/** Coding keys for Codable protocol */
-    enum CodingKeys: CodingKey {
-        case direction, code, network, links, color, name, physicalMode, headsign, label, equipments, textColor, headsigns, commercialMode, description, unknown
-    }
-
     public enum Equipments: String, Codable { 
         case wheelchairAccessibility = "has_wheelchair_accessibility"
         case bikeAccepted = "has_bike_accepted"
@@ -45,23 +40,28 @@ open class VJDisplayInformation: JSONEncodable, Mappable, Codable {
     public var commercialMode: String?
     public var description: String?
 
-    
-    required public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        direction = try container.decode(String.self, forKey: .direction)
-        code = try container.decode(String.self, forKey: .code)
-        network = try container.decode(String.self, forKey: .network)
-        links = try container.decode([LinkSchema].self, forKey: .links)
-        color = try container.decode(String.self, forKey: .color)
-        name = try container.decode(String.self, forKey: .name)
-        physicalMode = try container.decode(String.self, forKey: .physicalMode)
-        headsign = try container.decode(String.self, forKey: .headsign)
-        label = try container.decode(String.self, forKey: .label)
-        equipments = try container.decode([Equipments].self, forKey: .equipments)
-        textColor = try container.decode(String.self, forKey: .textColor)
-        headsigns = try container.decode([String].self, forKey: .headsigns)
-        commercialMode = try container.decode(String.self, forKey: .commercialMode)
-        description = try container.decode(String.self, forKey: .description)
+
+    public init() {}
+    required public init?(map: Map) {
+
+    }
+
+
+    enum CodingKeys: String, CodingKey {
+        case direction = "direction"
+        case code = "code"
+        case network = "network"
+        case links = "links"
+        case color = "color"
+        case name = "name"
+        case physicalMode = "physical_mode"
+        case headsign = "headsign"
+        case label = "label"
+        case equipments = "equipments"
+        case textColor = "text_color"
+        case headsigns = "headsigns"
+        case commercialMode = "commercial_mode"
+        case description = "description"
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -81,12 +81,6 @@ open class VJDisplayInformation: JSONEncodable, Mappable, Codable {
         try container.encode(commercialMode, forKey: .commercialMode)
         try container.encode(description, forKey: .description)
     }
-
-    public init() {}
-    required public init?(map: Map) {
-
-    }
-
 
     public func mapping(map: Map) {
         direction <- map["direction"]

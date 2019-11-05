@@ -10,11 +10,6 @@ import Foundation
 
 open class PlaceNearby: JSONEncodable, Mappable, Codable {
 
-/** Coding keys for Codable protocol */
-    enum CodingKeys: CodingKey {
-        case embeddedType, stopPoint, administrativeRegion, name, distance, poi, address, quality, id, stopArea, unknown
-    }
-
     public enum EmbeddedType: String, Codable { 
         case line = "line"
         case journeyPattern = "journey_pattern"
@@ -53,19 +48,24 @@ open class PlaceNearby: JSONEncodable, Mappable, Codable {
     public var id: String?
     public var stopArea: StopArea?
 
-    
-    required public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        embeddedType = try container.decode(EmbeddedType.self, forKey: .embeddedType)
-        stopPoint = try container.decode(StopPoint.self, forKey: .stopPoint)
-        administrativeRegion = try container.decode(Admin.self, forKey: .administrativeRegion)
-        name = try container.decode(String.self, forKey: .name)
-        distance = try container.decode(String.self, forKey: .distance)
-        poi = try container.decode(Poi.self, forKey: .poi)
-        address = try container.decode(Address.self, forKey: .address)
-        quality = try container.decode(Int32.self, forKey: .quality)
-        id = try container.decode(String.self, forKey: .id)
-        stopArea = try container.decode(StopArea.self, forKey: .stopArea)
+
+    public init() {}
+    required public init?(map: Map) {
+
+    }
+
+
+    enum CodingKeys: String, CodingKey {
+        case embeddedType = "embedded_type"
+        case stopPoint = "stop_point"
+        case administrativeRegion = "administrative_region"
+        case name = "name"
+        case distance = "distance"
+        case poi = "poi"
+        case address = "address"
+        case quality = "quality"
+        case id = "id"
+        case stopArea = "stop_area"
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -81,12 +81,6 @@ open class PlaceNearby: JSONEncodable, Mappable, Codable {
         try container.encode(id, forKey: .id)
         try container.encode(stopArea, forKey: .stopArea)
     }
-
-    public init() {}
-    required public init?(map: Map) {
-
-    }
-
 
     public func mapping(map: Map) {
         embeddedType <- map["embedded_type"]

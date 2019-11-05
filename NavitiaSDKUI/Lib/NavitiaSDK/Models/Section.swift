@@ -10,11 +10,6 @@ import Foundation
 
 open class Section: JSONEncodable, Mappable, Codable {
 
-/** Coding keys for Codable protocol */
-    enum CodingKeys: CodingKey {
-        case links, departureDateTime, baseDepartureDateTime, duration, id, from, arrivalDateTime, additionalInformations, geojson, ridesharingInformations, to, baseArrivalDateTime, transferType, type, dataFreshness, co2Emission, path, cycleLaneLength, displayInformations, mode, ridesharingJourneys, stopDateTimes, unknown
-    }
-
     public enum AdditionalInformations: String, Codable { 
         case odtWithZone = "odt_with_zone"
         case odtWithStopPoint = "odt_with_stop_point"
@@ -86,31 +81,36 @@ open class Section: JSONEncodable, Mappable, Codable {
     public var ridesharingJourneys: [Journey]?
     public var stopDateTimes: [StopDateTime]?
 
-    
-    required public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        links = try container.decode([LinkSchema].self, forKey: .links)
-        departureDateTime = try container.decode(String.self, forKey: .departureDateTime)
-        baseDepartureDateTime = try container.decode(String.self, forKey: .baseDepartureDateTime)
-        duration = try container.decode(Int32.self, forKey: .duration)
-        id = try container.decode(String.self, forKey: .id)
-        from = try container.decode(Place.self, forKey: .from)
-        arrivalDateTime = try container.decode(String.self, forKey: .arrivalDateTime)
-        additionalInformations = try container.decode([AdditionalInformations].self, forKey: .additionalInformations)
-        geojson = try container.decode(SectionGeoJsonSchema.self, forKey: .geojson)
-        ridesharingInformations = try container.decode(RidesharingInformation.self, forKey: .ridesharingInformations)
-        to = try container.decode(Place.self, forKey: .to)
-        baseArrivalDateTime = try container.decode(String.self, forKey: .baseArrivalDateTime)
-        transferType = try container.decode(TransferType.self, forKey: .transferType)
-        type = try container.decode(ModelType.self, forKey: .type)
-        dataFreshness = try container.decode(DataFreshness.self, forKey: .dataFreshness)
-        co2Emission = try container.decode(Amount.self, forKey: .co2Emission)
-        path = try container.decode([Path].self, forKey: .path)
-        cycleLaneLength = try container.decode(Int32.self, forKey: .cycleLaneLength)
-        displayInformations = try container.decode(VJDisplayInformation.self, forKey: .displayInformations)
-        mode = try container.decode(Mode.self, forKey: .mode)
-        ridesharingJourneys = try container.decode([Journey].self, forKey: .ridesharingJourneys)
-        stopDateTimes = try container.decode([StopDateTime].self, forKey: .stopDateTimes)
+
+    public init() {}
+    required public init?(map: Map) {
+
+    }
+
+
+    enum CodingKeys: String, CodingKey {
+        case links = "links"
+        case departureDateTime = "departure_date_time"
+        case baseDepartureDateTime = "base_departure_date_time"
+        case duration = "duration"
+        case id = "id"
+        case from = "from"
+        case arrivalDateTime = "arrival_date_time"
+        case additionalInformations = "additional_informations"
+        case geojson = "geojson"
+        case ridesharingInformations = "ridesharing_informations"
+        case to = "to"
+        case baseArrivalDateTime = "base_arrival_date_time"
+        case transferType = "transfer_type"
+        case type = "type"
+        case dataFreshness = "data_freshness"
+        case co2Emission = "co2_emission"
+        case path = "path"
+        case cycleLaneLength = "cycle_lane_length"
+        case displayInformations = "display_informations"
+        case mode = "mode"
+        case ridesharingJourneys = "ridesharing_journeys"
+        case stopDateTimes = "stop_date_times"
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -138,12 +138,6 @@ open class Section: JSONEncodable, Mappable, Codable {
         try container.encode(ridesharingJourneys, forKey: .ridesharingJourneys)
         try container.encode(stopDateTimes, forKey: .stopDateTimes)
     }
-
-    public init() {}
-    required public init?(map: Map) {
-
-    }
-
 
     public func mapping(map: Map) {
         links <- map["links"]

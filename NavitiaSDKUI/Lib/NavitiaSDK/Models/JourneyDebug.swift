@@ -10,11 +10,6 @@ import Foundation
 
 open class JourneyDebug: JSONEncodable, Mappable, Codable {
 
-/** Coding keys for Codable protocol */
-    enum CodingKeys: CodingKey {
-        case nbVjExtentions, nbSections, internalId, streetnetworkDuration, transferDuration, minWaitingDuration, unknown
-    }
-
     /** Number of stay-in */
     public var nbVjExtentions: Int32?
     /** Number of sections */
@@ -27,15 +22,20 @@ open class JourneyDebug: JSONEncodable, Mappable, Codable {
     /** Minimum on all waiting durations (seconds) */
     public var minWaitingDuration: Int32?
 
-    
-    required public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        nbVjExtentions = try container.decode(Int32.self, forKey: .nbVjExtentions)
-        nbSections = try container.decode(Int32.self, forKey: .nbSections)
-        internalId = try container.decode(String.self, forKey: .internalId)
-        streetnetworkDuration = try container.decode(Int32.self, forKey: .streetnetworkDuration)
-        transferDuration = try container.decode(Int32.self, forKey: .transferDuration)
-        minWaitingDuration = try container.decode(Int32.self, forKey: .minWaitingDuration)
+
+    public init() {}
+    required public init?(map: Map) {
+
+    }
+
+
+    enum CodingKeys: String, CodingKey {
+        case nbVjExtentions = "nb_vj_extentions"
+        case nbSections = "nb_sections"
+        case internalId = "internal_id"
+        case streetnetworkDuration = "streetnetwork_duration"
+        case transferDuration = "transfer_duration"
+        case minWaitingDuration = "min_waiting_duration"
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -47,12 +47,6 @@ open class JourneyDebug: JSONEncodable, Mappable, Codable {
         try container.encode(transferDuration, forKey: .transferDuration)
         try container.encode(minWaitingDuration, forKey: .minWaitingDuration)
     }
-
-    public init() {}
-    required public init?(map: Map) {
-
-    }
-
 
     public func mapping(map: Map) {
         nbVjExtentions <- map["nb_vj_extentions"]

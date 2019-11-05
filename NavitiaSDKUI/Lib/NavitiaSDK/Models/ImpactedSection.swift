@@ -10,21 +10,21 @@ import Foundation
 
 open class ImpactedSection: JSONEncodable, Mappable, Codable {
 
-/** Coding keys for Codable protocol */
-    enum CodingKeys: CodingKey {
-        case routes, to, from, unknown
-    }
-
     public var routes: [Route]?
     public var to: PtObject?
     public var from: PtObject?
 
-    
-    required public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        routes = try container.decode([Route].self, forKey: .routes)
-        to = try container.decode(PtObject.self, forKey: .to)
-        from = try container.decode(PtObject.self, forKey: .from)
+
+    public init() {}
+    required public init?(map: Map) {
+
+    }
+
+
+    enum CodingKeys: String, CodingKey {
+        case routes = "routes"
+        case to = "to"
+        case from = "from"
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -33,12 +33,6 @@ open class ImpactedSection: JSONEncodable, Mappable, Codable {
         try container.encode(to, forKey: .to)
         try container.encode(from, forKey: .from)
     }
-
-    public init() {}
-    required public init?(map: Map) {
-
-    }
-
 
     public func mapping(map: Map) {
         routes <- map["routes"]

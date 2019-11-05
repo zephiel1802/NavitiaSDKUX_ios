@@ -10,19 +10,19 @@ import Foundation
 
 open class Row: JSONEncodable, Mappable, Codable {
 
-/** Coding keys for Codable protocol */
-    enum CodingKeys: CodingKey {
-        case stopPoint, dateTimes, unknown
-    }
-
     public var stopPoint: StopPoint?
     public var dateTimes: [DateTimeType]?
 
-    
-    required public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        stopPoint = try container.decode(StopPoint.self, forKey: .stopPoint)
-        dateTimes = try container.decode([DateTimeType].self, forKey: .dateTimes)
+
+    public init() {}
+    required public init?(map: Map) {
+
+    }
+
+
+    enum CodingKeys: String, CodingKey {
+        case stopPoint = "stop_point"
+        case dateTimes = "date_times"
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -30,12 +30,6 @@ open class Row: JSONEncodable, Mappable, Codable {
         try container.encode(stopPoint, forKey: .stopPoint)
         try container.encode(dateTimes, forKey: .dateTimes)
     }
-
-    public init() {}
-    required public init?(map: Map) {
-
-    }
-
 
     public func mapping(map: Map) {
         stopPoint <- map["stop_point"]

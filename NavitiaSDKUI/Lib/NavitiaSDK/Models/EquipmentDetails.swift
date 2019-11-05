@@ -10,11 +10,6 @@ import Foundation
 
 open class EquipmentDetails: JSONEncodable, Mappable, Codable {
 
-/** Coding keys for Codable protocol */
-    enum CodingKeys: CodingKey {
-        case embeddedType, id, name, currentAvailability, unknown
-    }
-
     public enum EmbeddedType: String, Codable { 
         case escalator = "escalator"
         case elevator = "elevator"
@@ -24,13 +19,18 @@ open class EquipmentDetails: JSONEncodable, Mappable, Codable {
     public var name: String?
     public var currentAvailability: CurrentAvailability?
 
-    
-    required public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        embeddedType = try container.decode(EmbeddedType.self, forKey: .embeddedType)
-        id = try container.decode(String.self, forKey: .id)
-        name = try container.decode(String.self, forKey: .name)
-        currentAvailability = try container.decode(CurrentAvailability.self, forKey: .currentAvailability)
+
+    public init() {}
+    required public init?(map: Map) {
+
+    }
+
+
+    enum CodingKeys: String, CodingKey {
+        case embeddedType = "embedded_type"
+        case id = "id"
+        case name = "name"
+        case currentAvailability = "current_availability"
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -40,12 +40,6 @@ open class EquipmentDetails: JSONEncodable, Mappable, Codable {
         try container.encode(name, forKey: .name)
         try container.encode(currentAvailability, forKey: .currentAvailability)
     }
-
-    public init() {}
-    required public init?(map: Map) {
-
-    }
-
 
     public func mapping(map: Map) {
         embeddedType <- map["embedded_type"]

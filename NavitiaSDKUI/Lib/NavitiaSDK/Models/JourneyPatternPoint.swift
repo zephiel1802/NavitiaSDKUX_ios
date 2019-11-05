@@ -10,19 +10,19 @@ import Foundation
 
 open class JourneyPatternPoint: JSONEncodable, Mappable, Codable {
 
-/** Coding keys for Codable protocol */
-    enum CodingKeys: CodingKey {
-        case stopPoint, id, unknown
-    }
-
     public var stopPoint: StopPoint?
     public var id: String?
 
-    
-    required public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        stopPoint = try container.decode(StopPoint.self, forKey: .stopPoint)
-        id = try container.decode(String.self, forKey: .id)
+
+    public init() {}
+    required public init?(map: Map) {
+
+    }
+
+
+    enum CodingKeys: String, CodingKey {
+        case stopPoint = "stop_point"
+        case id = "id"
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -30,12 +30,6 @@ open class JourneyPatternPoint: JSONEncodable, Mappable, Codable {
         try container.encode(stopPoint, forKey: .stopPoint)
         try container.encode(id, forKey: .id)
     }
-
-    public init() {}
-    required public init?(map: Map) {
-
-    }
-
 
     public func mapping(map: Map) {
         stopPoint <- map["stop_point"]

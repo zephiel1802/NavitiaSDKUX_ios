@@ -10,25 +10,25 @@ import Foundation
 
 open class CarPark: JSONEncodable, Mappable, Codable {
 
-/** Coding keys for Codable protocol */
-    enum CodingKeys: CodingKey {
-        case available, totalPlaces, occupiedPRM, occupied, availablePRM, unknown
-    }
-
     public var available: Int32?
     public var totalPlaces: Int32?
     public var occupiedPRM: Int32?
     public var occupied: Int32?
     public var availablePRM: Int32?
 
-    
-    required public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        available = try container.decode(Int32.self, forKey: .available)
-        totalPlaces = try container.decode(Int32.self, forKey: .totalPlaces)
-        occupiedPRM = try container.decode(Int32.self, forKey: .occupiedPRM)
-        occupied = try container.decode(Int32.self, forKey: .occupied)
-        availablePRM = try container.decode(Int32.self, forKey: .availablePRM)
+
+    public init() {}
+    required public init?(map: Map) {
+
+    }
+
+
+    enum CodingKeys: String, CodingKey {
+        case available = "available"
+        case totalPlaces = "total_places"
+        case occupiedPRM = "occupied_PRM"
+        case occupied = "occupied"
+        case availablePRM = "available_PRM"
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -39,12 +39,6 @@ open class CarPark: JSONEncodable, Mappable, Codable {
         try container.encode(occupied, forKey: .occupied)
         try container.encode(availablePRM, forKey: .availablePRM)
     }
-
-    public init() {}
-    required public init?(map: Map) {
-
-    }
-
 
     public func mapping(map: Map) {
         available <- map["available"]

@@ -1153,13 +1153,7 @@ extension ShowJourneyRoadmapPresenter {
     }
     
     private func getDepartureCoord(journey: Journey) -> CLLocationCoordinate2D? {
-        if let coordinates = stringToLocationCoordinate2D(lat: journey.sections?.first?.from?.stopArea?.coord?.lat,
-                                                          lon: journey.sections?.first?.from?.stopArea?.coord?.lon) {
-            return coordinates
-        }
-        
-        if let coordinates = stringToLocationCoordinate2D(lat: journey.sections?.first?.from?.address?.coord?.lat,
-                                                          lon: journey.sections?.first?.from?.address?.coord?.lon) {
+        if let placeCoordinates = getCoordinates(targetPlace: journey.sections?.first?.from), let coordinates = stringToLocationCoordinate2D(lat: placeCoordinates.lat, lon: placeCoordinates.lon) {
             return coordinates
         }
 
@@ -1171,21 +1165,11 @@ extension ShowJourneyRoadmapPresenter {
     }
     
     private func getArrivalCoord(journey: Journey) -> CLLocationCoordinate2D? {
-        let lastSection = journey.sections?.last(where: { (section) -> Bool in
-            return section.geojson != nil || section.to?.stopArea?.coord != nil
-        })
-        
-        if let coordinates = stringToLocationCoordinate2D(lat: lastSection?.to?.stopArea?.coord?.lat,
-                                                          lon: lastSection?.to?.stopArea?.coord?.lon) {
+        if let placeCoordinates = getCoordinates(targetPlace: journey.sections?.last?.to), let coordinates = stringToLocationCoordinate2D(lat: placeCoordinates.lat, lon: placeCoordinates.lon) {
             return coordinates
         }
         
-        if let coordinates = stringToLocationCoordinate2D(lat: lastSection?.to?.address?.coord?.lat,
-                                                          lon: lastSection?.to?.address?.coord?.lon) {
-            return coordinates
-        }
-        
-        if let coordinates = lastSection?.geojson?.coordinates?.last {
+        if let coordinates = journey.sections?.last?.geojson?.coordinates?.first {
             return CLLocationCoordinate2DMake(Double(coordinates[1]), Double(coordinates[0]))
         }
         
@@ -1223,7 +1207,6 @@ extension ShowJourneyRoadmapPresenter {
         }
         
         let locationCoordinate2D = CLLocationCoordinate2D(latitude: doubleLat, longitude: doubleLon)
-        
         return locationCoordinate2D
     }
     

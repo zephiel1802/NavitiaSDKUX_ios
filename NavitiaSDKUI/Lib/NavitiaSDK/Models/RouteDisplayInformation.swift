@@ -10,11 +10,6 @@ import Foundation
 
 open class RouteDisplayInformation: JSONEncodable, Mappable, Codable {
 
-/** Coding keys for Codable protocol */
-    enum CodingKeys: CodingKey {
-        case direction, code, network, links, color, label, commercialMode, textColor, name, unknown
-    }
-
     public var direction: String?
     public var code: String?
     public var network: String?
@@ -25,18 +20,23 @@ open class RouteDisplayInformation: JSONEncodable, Mappable, Codable {
     public var textColor: String?
     public var name: String?
 
-    
-    required public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        direction = try container.decode(String.self, forKey: .direction)
-        code = try container.decode(String.self, forKey: .code)
-        network = try container.decode(String.self, forKey: .network)
-        links = try container.decode([LinkSchema].self, forKey: .links)
-        color = try container.decode(String.self, forKey: .color)
-        label = try container.decode(String.self, forKey: .label)
-        commercialMode = try container.decode(String.self, forKey: .commercialMode)
-        textColor = try container.decode(String.self, forKey: .textColor)
-        name = try container.decode(String.self, forKey: .name)
+
+    public init() {}
+    required public init?(map: Map) {
+
+    }
+
+
+    enum CodingKeys: String, CodingKey {
+        case direction = "direction"
+        case code = "code"
+        case network = "network"
+        case links = "links"
+        case color = "color"
+        case label = "label"
+        case commercialMode = "commercial_mode"
+        case textColor = "text_color"
+        case name = "name"
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -51,12 +51,6 @@ open class RouteDisplayInformation: JSONEncodable, Mappable, Codable {
         try container.encode(textColor, forKey: .textColor)
         try container.encode(name, forKey: .name)
     }
-
-    public init() {}
-    required public init?(map: Map) {
-
-    }
-
 
     public func mapping(map: Map) {
         direction <- map["direction"]

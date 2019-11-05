@@ -10,25 +10,25 @@ import Foundation
 
 open class Passage: JSONEncodable, Mappable, Codable {
 
-/** Coding keys for Codable protocol */
-    enum CodingKeys: CodingKey {
-        case displayInformations, stopPoint, route, links, stopDateTime, unknown
-    }
-
     public var displayInformations: VJDisplayInformation?
     public var stopPoint: StopPoint?
     public var route: Route?
     public var links: [LinkSchema]?
     public var stopDateTime: StopDateTime?
 
-    
-    required public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        displayInformations = try container.decode(VJDisplayInformation.self, forKey: .displayInformations)
-        stopPoint = try container.decode(StopPoint.self, forKey: .stopPoint)
-        route = try container.decode(Route.self, forKey: .route)
-        links = try container.decode([LinkSchema].self, forKey: .links)
-        stopDateTime = try container.decode(StopDateTime.self, forKey: .stopDateTime)
+
+    public init() {}
+    required public init?(map: Map) {
+
+    }
+
+
+    enum CodingKeys: String, CodingKey {
+        case displayInformations = "display_informations"
+        case stopPoint = "stop_point"
+        case route = "route"
+        case links = "links"
+        case stopDateTime = "stop_date_time"
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -39,12 +39,6 @@ open class Passage: JSONEncodable, Mappable, Codable {
         try container.encode(links, forKey: .links)
         try container.encode(stopDateTime, forKey: .stopDateTime)
     }
-
-    public init() {}
-    required public init?(map: Map) {
-
-    }
-
 
     public func mapping(map: Map) {
         displayInformations <- map["display_informations"]

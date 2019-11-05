@@ -10,21 +10,21 @@ import Foundation
 
 open class CommercialMode: JSONEncodable, Mappable, Codable {
 
-/** Coding keys for Codable protocol */
-    enum CodingKeys: CodingKey {
-        case id, name, unknown
-    }
-
     /** Identifier of the object */
     public var id: String?
     /** Name of the object */
     public var name: String?
 
-    
-    required public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        id = try container.decode(String.self, forKey: .id)
-        name = try container.decode(String.self, forKey: .name)
+
+    public init() {}
+    required public init?(map: Map) {
+
+    }
+
+
+    enum CodingKeys: String, CodingKey {
+        case id = "id"
+        case name = "name"
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -32,12 +32,6 @@ open class CommercialMode: JSONEncodable, Mappable, Codable {
         try container.encode(id, forKey: .id)
         try container.encode(name, forKey: .name)
     }
-
-    public init() {}
-    required public init?(map: Map) {
-
-    }
-
 
     public func mapping(map: Map) {
         id <- map["id"]

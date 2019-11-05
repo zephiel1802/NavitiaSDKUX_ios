@@ -10,23 +10,23 @@ import Foundation
 
 open class HeatMap: JSONEncodable, Mappable, Codable {
 
-/** Coding keys for Codable protocol */
-    enum CodingKeys: CodingKey {
-        case to, requestedDateTime, from, heatMatrix, unknown
-    }
-
     public var to: Place?
     public var requestedDateTime: String?
     public var from: Place?
     public var heatMatrix: HeatMatrixSchema?
 
-    
-    required public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        to = try container.decode(Place.self, forKey: .to)
-        requestedDateTime = try container.decode(String.self, forKey: .requestedDateTime)
-        from = try container.decode(Place.self, forKey: .from)
-        heatMatrix = try container.decode(HeatMatrixSchema.self, forKey: .heatMatrix)
+
+    public init() {}
+    required public init?(map: Map) {
+
+    }
+
+
+    enum CodingKeys: String, CodingKey {
+        case to = "to"
+        case requestedDateTime = "requested_date_time"
+        case from = "from"
+        case heatMatrix = "heat_matrix"
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -36,12 +36,6 @@ open class HeatMap: JSONEncodable, Mappable, Codable {
         try container.encode(from, forKey: .from)
         try container.encode(heatMatrix, forKey: .heatMatrix)
     }
-
-    public init() {}
-    required public init?(map: Map) {
-
-    }
-
 
     public func mapping(map: Map) {
         to <- map["to"]

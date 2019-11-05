@@ -10,23 +10,23 @@ import Foundation
 
 open class IndividualRating: JSONEncodable, Mappable, Codable {
 
-/** Coding keys for Codable protocol */
-    enum CodingKeys: CodingKey {
-        case count, scaleMin, scaleMax, value, unknown
-    }
-
     public var count: Int32?
     public var scaleMin: Float?
     public var scaleMax: Float?
     public var value: Float?
 
-    
-    required public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        count = try container.decode(Int32.self, forKey: .count)
-        scaleMin = try container.decode(Float.self, forKey: .scaleMin)
-        scaleMax = try container.decode(Float.self, forKey: .scaleMax)
-        value = try container.decode(Float.self, forKey: .value)
+
+    public init() {}
+    required public init?(map: Map) {
+
+    }
+
+
+    enum CodingKeys: String, CodingKey {
+        case count = "count"
+        case scaleMin = "scale_min"
+        case scaleMax = "scale_max"
+        case value = "value"
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -36,12 +36,6 @@ open class IndividualRating: JSONEncodable, Mappable, Codable {
         try container.encode(scaleMax, forKey: .scaleMax)
         try container.encode(value, forKey: .value)
     }
-
-    public init() {}
-    required public init?(map: Map) {
-
-    }
-
 
     public func mapping(map: Map) {
         count <- map["count"]

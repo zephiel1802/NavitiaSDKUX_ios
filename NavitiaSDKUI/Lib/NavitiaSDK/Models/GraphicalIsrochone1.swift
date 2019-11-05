@@ -10,11 +10,6 @@ import Foundation
 
 open class GraphicalIsrochone1: JSONEncodable, Mappable, Codable {
 
-/** Coding keys for Codable protocol */
-    enum CodingKeys: CodingKey {
-        case links, warnings, feedPublishers, isochrones, context, error, unknown
-    }
-
     public var links: [LinkSchema]?
     public var warnings: [BetaEndpoints]?
     public var feedPublishers: [FeedPublisher]?
@@ -22,15 +17,20 @@ open class GraphicalIsrochone1: JSONEncodable, Mappable, Codable {
     public var context: Context?
     public var error: ModelError?
 
-    
-    required public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        links = try container.decode([LinkSchema].self, forKey: .links)
-        warnings = try container.decode([BetaEndpoints].self, forKey: .warnings)
-        feedPublishers = try container.decode([FeedPublisher].self, forKey: .feedPublishers)
-        isochrones = try container.decode([GraphicalIsrochone].self, forKey: .isochrones)
-        context = try container.decode(Context.self, forKey: .context)
-        error = try container.decode(ModelError.self, forKey: .error)
+
+    public init() {}
+    required public init?(map: Map) {
+
+    }
+
+
+    enum CodingKeys: String, CodingKey {
+        case links = "links"
+        case warnings = "warnings"
+        case feedPublishers = "feed_publishers"
+        case isochrones = "isochrones"
+        case context = "context"
+        case error = "error"
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -42,12 +42,6 @@ open class GraphicalIsrochone1: JSONEncodable, Mappable, Codable {
         try container.encode(context, forKey: .context)
         try container.encode(error, forKey: .error)
     }
-
-    public init() {}
-    required public init?(map: Map) {
-
-    }
-
 
     public func mapping(map: Map) {
         links <- map["links"]

@@ -10,11 +10,6 @@ import Foundation
 
 open class Line: JSONEncodable, Mappable, Codable {
 
-/** Coding keys for Codable protocol */
-    enum CodingKeys: CodingKey {
-        case comment, properties, code, network, links, color, routes, geojson, textColor, physicalModes, codes, comments, closingTime, openingTime, commercialMode, id, lineGroups, name, unknown
-    }
-
     public var comment: String?
     public var properties: [Property]?
     public var code: String?
@@ -36,27 +31,32 @@ open class Line: JSONEncodable, Mappable, Codable {
     /** Name of the object */
     public var name: String?
 
-    
-    required public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        comment = try container.decode(String.self, forKey: .comment)
-        properties = try container.decode([Property].self, forKey: .properties)
-        code = try container.decode(String.self, forKey: .code)
-        network = try container.decode(Network.self, forKey: .network)
-        links = try container.decode([LinkSchema].self, forKey: .links)
-        color = try container.decode(String.self, forKey: .color)
-        routes = try container.decode([Route].self, forKey: .routes)
-        geojson = try container.decode(MultiLineStringSchema.self, forKey: .geojson)
-        textColor = try container.decode(String.self, forKey: .textColor)
-        physicalModes = try container.decode([PhysicalMode].self, forKey: .physicalModes)
-        codes = try container.decode([Code].self, forKey: .codes)
-        comments = try container.decode([Comment].self, forKey: .comments)
-        closingTime = try container.decode(String.self, forKey: .closingTime)
-        openingTime = try container.decode(String.self, forKey: .openingTime)
-        commercialMode = try container.decode(CommercialMode.self, forKey: .commercialMode)
-        id = try container.decode(String.self, forKey: .id)
-        lineGroups = try container.decode([LineGroup].self, forKey: .lineGroups)
-        name = try container.decode(String.self, forKey: .name)
+
+    public init() {}
+    required public init?(map: Map) {
+
+    }
+
+
+    enum CodingKeys: String, CodingKey {
+        case comment = "comment"
+        case properties = "properties"
+        case code = "code"
+        case network = "network"
+        case links = "links"
+        case color = "color"
+        case routes = "routes"
+        case geojson = "geojson"
+        case textColor = "text_color"
+        case physicalModes = "physical_modes"
+        case codes = "codes"
+        case comments = "comments"
+        case closingTime = "closing_time"
+        case openingTime = "opening_time"
+        case commercialMode = "commercial_mode"
+        case id = "id"
+        case lineGroups = "line_groups"
+        case name = "name"
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -80,12 +80,6 @@ open class Line: JSONEncodable, Mappable, Codable {
         try container.encode(lineGroups, forKey: .lineGroups)
         try container.encode(name, forKey: .name)
     }
-
-    public init() {}
-    required public init?(map: Map) {
-
-    }
-
 
     public func mapping(map: Map) {
         comment <- map["comment"]

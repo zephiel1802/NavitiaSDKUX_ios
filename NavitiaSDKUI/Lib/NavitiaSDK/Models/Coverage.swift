@@ -10,11 +10,6 @@ import Foundation
 
 open class Coverage: JSONEncodable, Mappable, Codable {
 
-/** Coding keys for Codable protocol */
-    enum CodingKeys: CodingKey {
-        case status, datasetCreatedAt, name, startProductionDate, shape, endProductionDate, error, lastLoadAt, id, unknown
-    }
-
     public var status: String?
     /** Creation date of the dataset */
     public var datasetCreatedAt: String?
@@ -32,18 +27,23 @@ open class Coverage: JSONEncodable, Mappable, Codable {
     /** Identifier of the coverage */
     public var id: String?
 
-    
-    required public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        status = try container.decode(String.self, forKey: .status)
-        datasetCreatedAt = try container.decode(String.self, forKey: .datasetCreatedAt)
-        name = try container.decode(String.self, forKey: .name)
-        startProductionDate = try container.decode(String.self, forKey: .startProductionDate)
-        shape = try container.decode(String.self, forKey: .shape)
-        endProductionDate = try container.decode(String.self, forKey: .endProductionDate)
-        error = try container.decode(CoverageError.self, forKey: .error)
-        lastLoadAt = try container.decode(String.self, forKey: .lastLoadAt)
-        id = try container.decode(String.self, forKey: .id)
+
+    public init() {}
+    required public init?(map: Map) {
+
+    }
+
+
+    enum CodingKeys: String, CodingKey {
+        case status = "status"
+        case datasetCreatedAt = "dataset_created_at"
+        case name = "name"
+        case startProductionDate = "start_production_date"
+        case shape = "shape"
+        case endProductionDate = "end_production_date"
+        case error = "error"
+        case lastLoadAt = "last_load_at"
+        case id = "id"
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -58,12 +58,6 @@ open class Coverage: JSONEncodable, Mappable, Codable {
         try container.encode(lastLoadAt, forKey: .lastLoadAt)
         try container.encode(id, forKey: .id)
     }
-
-    public init() {}
-    required public init?(map: Map) {
-
-    }
-
 
     public func mapping(map: Map) {
         status <- map["status"]

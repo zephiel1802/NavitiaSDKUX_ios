@@ -10,29 +10,23 @@ import Foundation
 
 open class Cause: JSONEncodable, Mappable, Codable {
 
-/** Coding keys for Codable protocol */
-    enum CodingKeys: CodingKey {
-        case label, unknown
-    }
-
     public var label: String?
 
-    
-    required public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        label = try container.decode(String.self, forKey: .label)
-    }
-
-    public func encode(to encoder: Encoder) throws {
-        var container = encoder.container(keyedBy: CodingKeys.self)
-        try container.encode(label, forKey: .label)
-    }
 
     public init() {}
     required public init?(map: Map) {
 
     }
 
+
+    enum CodingKeys: String, CodingKey {
+        case label = "label"
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(label, forKey: .label)
+    }
 
     public func mapping(map: Map) {
         label <- map["label"]

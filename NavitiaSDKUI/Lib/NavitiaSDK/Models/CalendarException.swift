@@ -10,19 +10,19 @@ import Foundation
 
 open class CalendarException: JSONEncodable, Mappable, Codable {
 
-/** Coding keys for Codable protocol */
-    enum CodingKeys: CodingKey {
-        case type, datetime, unknown
-    }
-
     public var type: String?
     public var datetime: String?
 
-    
-    required public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        type = try container.decode(String.self, forKey: .type)
-        datetime = try container.decode(String.self, forKey: .datetime)
+
+    public init() {}
+    required public init?(map: Map) {
+
+    }
+
+
+    enum CodingKeys: String, CodingKey {
+        case type = "type"
+        case datetime = "datetime"
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -30,12 +30,6 @@ open class CalendarException: JSONEncodable, Mappable, Codable {
         try container.encode(type, forKey: .type)
         try container.encode(datetime, forKey: .datetime)
     }
-
-    public init() {}
-    required public init?(map: Map) {
-
-    }
-
 
     public func mapping(map: Map) {
         type <- map["type"]

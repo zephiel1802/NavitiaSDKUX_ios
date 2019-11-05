@@ -10,19 +10,19 @@ import Foundation
 
 open class MultiLineStringSchema: JSONEncodable, Mappable, Codable {
 
-/** Coding keys for Codable protocol */
-    enum CodingKeys: CodingKey {
-        case type, coordinates, unknown
-    }
-
     public var type: String?
     public var coordinates: [[[Float]]]?
 
-    
-    required public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        type = try container.decode(String.self, forKey: .type)
-        coordinates = try container.decode([[[Float]]].self, forKey: .coordinates)
+
+    public init() {}
+    required public init?(map: Map) {
+
+    }
+
+
+    enum CodingKeys: String, CodingKey {
+        case type = "type"
+        case coordinates = "coordinates"
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -30,12 +30,6 @@ open class MultiLineStringSchema: JSONEncodable, Mappable, Codable {
         try container.encode(type, forKey: .type)
         try container.encode(coordinates, forKey: .coordinates)
     }
-
-    public init() {}
-    required public init?(map: Map) {
-
-    }
-
 
     public func mapping(map: Map) {
         type <- map["type"]

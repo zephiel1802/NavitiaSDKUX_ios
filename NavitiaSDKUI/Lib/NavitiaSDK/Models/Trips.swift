@@ -10,11 +10,6 @@ import Foundation
 
 open class Trips: JSONEncodable, Mappable, Codable {
 
-/** Coding keys for Codable protocol */
-    enum CodingKeys: CodingKey {
-        case pagination, links, disruptions, notes, feedPublishers, context, error, trips, unknown
-    }
-
     public var pagination: Pagination?
     public var links: [LinkSchema]?
     public var disruptions: [Disruption]?
@@ -24,17 +19,22 @@ open class Trips: JSONEncodable, Mappable, Codable {
     public var error: ModelError?
     public var trips: [Trip]?
 
-    
-    required public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        pagination = try container.decode(Pagination.self, forKey: .pagination)
-        links = try container.decode([LinkSchema].self, forKey: .links)
-        disruptions = try container.decode([Disruption].self, forKey: .disruptions)
-        notes = try container.decode([Note].self, forKey: .notes)
-        feedPublishers = try container.decode([FeedPublisher].self, forKey: .feedPublishers)
-        context = try container.decode(Context.self, forKey: .context)
-        error = try container.decode(ModelError.self, forKey: .error)
-        trips = try container.decode([Trip].self, forKey: .trips)
+
+    public init() {}
+    required public init?(map: Map) {
+
+    }
+
+
+    enum CodingKeys: String, CodingKey {
+        case pagination = "pagination"
+        case links = "links"
+        case disruptions = "disruptions"
+        case notes = "notes"
+        case feedPublishers = "feed_publishers"
+        case context = "context"
+        case error = "error"
+        case trips = "trips"
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -48,12 +48,6 @@ open class Trips: JSONEncodable, Mappable, Codable {
         try container.encode(error, forKey: .error)
         try container.encode(trips, forKey: .trips)
     }
-
-    public init() {}
-    required public init?(map: Map) {
-
-    }
-
 
     public func mapping(map: Map) {
         pagination <- map["pagination"]
