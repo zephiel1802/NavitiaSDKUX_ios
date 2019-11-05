@@ -10,11 +10,6 @@ import Foundation
 
 open class JourneyPattern: JSONEncodable, Mappable, Codable {
 
-/** Coding keys for Codable protocol */
-    enum CodingKeys: CodingKey {
-        case route, journeyPatternPoints, name, id, unknown
-    }
-
     public var route: Route?
     public var journeyPatternPoints: [JourneyPatternPoint]?
     /** Name of the object */
@@ -22,13 +17,18 @@ open class JourneyPattern: JSONEncodable, Mappable, Codable {
     /** Identifier of the object */
     public var id: String?
 
-    
-    required public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        route = try container.decode(Route.self, forKey: .route)
-        journeyPatternPoints = try container.decode([JourneyPatternPoint].self, forKey: .journeyPatternPoints)
-        name = try container.decode(String.self, forKey: .name)
-        id = try container.decode(String.self, forKey: .id)
+
+    public init() {}
+    required public init?(map: Map) {
+
+    }
+
+
+    enum CodingKeys: String, CodingKey {
+        case route = "route"
+        case journeyPatternPoints = "journey_pattern_points"
+        case name = "name"
+        case id = "id"
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -38,12 +38,6 @@ open class JourneyPattern: JSONEncodable, Mappable, Codable {
         try container.encode(name, forKey: .name)
         try container.encode(id, forKey: .id)
     }
-
-    public init() {}
-    required public init?(map: Map) {
-
-    }
-
 
     public func mapping(map: Map) {
         route <- map["route"]

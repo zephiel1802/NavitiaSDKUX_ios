@@ -10,11 +10,6 @@ import Foundation
 
 open class GeoStatus: JSONEncodable, Mappable, Codable {
 
-/** Coding keys for Codable protocol */
-    enum CodingKeys: CodingKey {
-        case nbAdminsFromCities, streetNetworkSources, poiSources, nbAddresses, nbAdmins, nbPois, nbWays, unknown
-    }
-
     public var nbAdminsFromCities: Int32?
     public var streetNetworkSources: [String]?
     public var poiSources: [String]?
@@ -23,16 +18,21 @@ open class GeoStatus: JSONEncodable, Mappable, Codable {
     public var nbPois: Int32?
     public var nbWays: Int32?
 
-    
-    required public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        nbAdminsFromCities = try container.decode(Int32.self, forKey: .nbAdminsFromCities)
-        streetNetworkSources = try container.decode([String].self, forKey: .streetNetworkSources)
-        poiSources = try container.decode([String].self, forKey: .poiSources)
-        nbAddresses = try container.decode(Int32.self, forKey: .nbAddresses)
-        nbAdmins = try container.decode(Int32.self, forKey: .nbAdmins)
-        nbPois = try container.decode(Int32.self, forKey: .nbPois)
-        nbWays = try container.decode(Int32.self, forKey: .nbWays)
+
+    public init() {}
+    required public init?(map: Map) {
+
+    }
+
+
+    enum CodingKeys: String, CodingKey {
+        case nbAdminsFromCities = "nb_admins_from_cities"
+        case streetNetworkSources = "street_network_sources"
+        case poiSources = "poi_sources"
+        case nbAddresses = "nb_addresses"
+        case nbAdmins = "nb_admins"
+        case nbPois = "nb_pois"
+        case nbWays = "nb_ways"
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -45,12 +45,6 @@ open class GeoStatus: JSONEncodable, Mappable, Codable {
         try container.encode(nbPois, forKey: .nbPois)
         try container.encode(nbWays, forKey: .nbWays)
     }
-
-    public init() {}
-    required public init?(map: Map) {
-
-    }
-
 
     public func mapping(map: Map) {
         nbAdminsFromCities <- map["nb_admins_from_cities"]

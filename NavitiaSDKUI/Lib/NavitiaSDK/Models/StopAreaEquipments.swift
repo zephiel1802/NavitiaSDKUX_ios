@@ -10,19 +10,19 @@ import Foundation
 
 open class StopAreaEquipments: JSONEncodable, Mappable, Codable {
 
-/** Coding keys for Codable protocol */
-    enum CodingKeys: CodingKey {
-        case stopArea, equipmentDetails, unknown
-    }
-
     public var stopArea: StopArea?
     public var equipmentDetails: [EquipmentDetails]?
 
-    
-    required public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        stopArea = try container.decode(StopArea.self, forKey: .stopArea)
-        equipmentDetails = try container.decode([EquipmentDetails].self, forKey: .equipmentDetails)
+
+    public init() {}
+    required public init?(map: Map) {
+
+    }
+
+
+    enum CodingKeys: String, CodingKey {
+        case stopArea = "stop_area"
+        case equipmentDetails = "equipment_details"
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -30,12 +30,6 @@ open class StopAreaEquipments: JSONEncodable, Mappable, Codable {
         try container.encode(stopArea, forKey: .stopArea)
         try container.encode(equipmentDetails, forKey: .equipmentDetails)
     }
-
-    public init() {}
-    required public init?(map: Map) {
-
-    }
-
 
     public func mapping(map: Map) {
         stopArea <- map["stop_area"]

@@ -10,11 +10,6 @@ import Foundation
 
 open class LinkSchema: JSONEncodable, Mappable, Codable {
 
-/** Coding keys for Codable protocol */
-    enum CodingKeys: CodingKey {
-        case category, commentType, title, _internal, value, href, rel, templated, type, id, unknown
-    }
-
     public var category: String?
     public var commentType: String?
     public var title: String?
@@ -26,19 +21,24 @@ open class LinkSchema: JSONEncodable, Mappable, Codable {
     public var type: String?
     public var id: String?
 
-    
-    required public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        category = try container.decode(String.self, forKey: .category)
-        commentType = try container.decode(String.self, forKey: .commentType)
-        title = try container.decode(String.self, forKey: .title)
-        _internal = try container.decode(Bool.self, forKey: ._internal)
-        value = try container.decode(String.self, forKey: .value)
-        href = try container.decode(String.self, forKey: .href)
-        rel = try container.decode(String.self, forKey: .rel)
-        templated = try container.decode(Bool.self, forKey: .templated)
-        type = try container.decode(String.self, forKey: .type)
-        id = try container.decode(String.self, forKey: .id)
+
+    public init() {}
+    required public init?(map: Map) {
+
+    }
+
+
+    enum CodingKeys: String, CodingKey {
+        case category = "category"
+        case commentType = "comment_type"
+        case title = "title"
+        case _internal = "internal"
+        case value = "value"
+        case href = "href"
+        case rel = "rel"
+        case templated = "templated"
+        case type = "type"
+        case id = "id"
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -54,12 +54,6 @@ open class LinkSchema: JSONEncodable, Mappable, Codable {
         try container.encode(type, forKey: .type)
         try container.encode(id, forKey: .id)
     }
-
-    public init() {}
-    required public init?(map: Map) {
-
-    }
-
 
     public func mapping(map: Map) {
         category <- map["category"]

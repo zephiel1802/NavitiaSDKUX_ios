@@ -10,11 +10,6 @@ import Foundation
 
 open class Note: JSONEncodable, Mappable, Codable {
 
-/** Coding keys for Codable protocol */
-    enum CodingKeys: CodingKey {
-        case category, type, value, commentType, id, unknown
-    }
-
     public enum Category: String, Codable { 
         case comment = "comment"
         case terminus = "terminus"
@@ -25,14 +20,19 @@ open class Note: JSONEncodable, Mappable, Codable {
     public var commentType: String?
     public var id: String?
 
-    
-    required public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        category = try container.decode(Category.self, forKey: .category)
-        type = try container.decode(String.self, forKey: .type)
-        value = try container.decode(String.self, forKey: .value)
-        commentType = try container.decode(String.self, forKey: .commentType)
-        id = try container.decode(String.self, forKey: .id)
+
+    public init() {}
+    required public init?(map: Map) {
+
+    }
+
+
+    enum CodingKeys: String, CodingKey {
+        case category = "category"
+        case type = "type"
+        case value = "value"
+        case commentType = "comment_type"
+        case id = "id"
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -43,12 +43,6 @@ open class Note: JSONEncodable, Mappable, Codable {
         try container.encode(commentType, forKey: .commentType)
         try container.encode(id, forKey: .id)
     }
-
-    public init() {}
-    required public init?(map: Map) {
-
-    }
-
 
     public func mapping(map: Map) {
         category <- map["category"]

@@ -10,21 +10,21 @@ import Foundation
 
 open class CellLatSchema: JSONEncodable, Mappable, Codable {
 
-/** Coding keys for Codable protocol */
-    enum CodingKeys: CodingKey {
-        case minLat, maxLat, centerLat, unknown
-    }
-
     public var minLat: Float?
     public var maxLat: Float?
     public var centerLat: Float?
 
-    
-    required public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        minLat = try container.decode(Float.self, forKey: .minLat)
-        maxLat = try container.decode(Float.self, forKey: .maxLat)
-        centerLat = try container.decode(Float.self, forKey: .centerLat)
+
+    public init() {}
+    required public init?(map: Map) {
+
+    }
+
+
+    enum CodingKeys: String, CodingKey {
+        case minLat = "min_lat"
+        case maxLat = "max_lat"
+        case centerLat = "center_lat"
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -33,12 +33,6 @@ open class CellLatSchema: JSONEncodable, Mappable, Codable {
         try container.encode(maxLat, forKey: .maxLat)
         try container.encode(centerLat, forKey: .centerLat)
     }
-
-    public init() {}
-    required public init?(map: Map) {
-
-    }
-
 
     public func mapping(map: Map) {
         minLat <- map["min_lat"]

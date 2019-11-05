@@ -17,7 +17,7 @@
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="qh1-Nv-EMR">
-                    <rect key="frame" x="0.0" y="0.0" width="384" height="370"/>
+                    <rect key="frame" x="0.0" y="0.0" width="384" height="310"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4fw-wa-InW">
                             <rect key="frame" x="0.0" y="0.0" width="384" height="44"/>
@@ -382,8 +382,8 @@
                                 <constraint firstItem="dGe-KY-Yt1" firstAttribute="top" secondItem="gcp-h2-p5y" secondAttribute="bottom" priority="900" constant="20" id="wMK-U7-48W"/>
                             </constraints>
                         </view>
-                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ERo-Vs-6Hz" userLabel="ShowTicketView">
-                            <rect key="frame" x="0.0" y="320" width="384" height="50"/>
+                        <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ERo-Vs-6Hz" userLabel="ShowTicketView">
+                            <rect key="frame" x="0.0" y="310" width="384" height="50"/>
                             <subviews>
                                 <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fzs-gs-BcW" userLabel="ViewTicketContainer">
                                     <rect key="frame" x="10" y="0.0" width="364" height="40"/>

@@ -10,19 +10,19 @@ import Foundation
 
 open class Period: JSONEncodable, Mappable, Codable {
 
-/** Coding keys for Codable protocol */
-    enum CodingKeys: CodingKey {
-        case begin, end, unknown
-    }
-
     public var begin: String?
     public var end: String?
 
-    
-    required public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        begin = try container.decode(String.self, forKey: .begin)
-        end = try container.decode(String.self, forKey: .end)
+
+    public init() {}
+    required public init?(map: Map) {
+
+    }
+
+
+    enum CodingKeys: String, CodingKey {
+        case begin = "begin"
+        case end = "end"
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -30,12 +30,6 @@ open class Period: JSONEncodable, Mappable, Codable {
         try container.encode(begin, forKey: .begin)
         try container.encode(end, forKey: .end)
     }
-
-    public init() {}
-    required public init?(map: Map) {
-
-    }
-
 
     public func mapping(map: Map) {
         begin <- map["begin"]

@@ -10,21 +10,21 @@ import Foundation
 
 open class CellLonSchema: JSONEncodable, Mappable, Codable {
 
-/** Coding keys for Codable protocol */
-    enum CodingKeys: CodingKey {
-        case minLon, centerLon, maxLon, unknown
-    }
-
     public var minLon: Float?
     public var centerLon: Float?
     public var maxLon: Float?
 
-    
-    required public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        minLon = try container.decode(Float.self, forKey: .minLon)
-        centerLon = try container.decode(Float.self, forKey: .centerLon)
-        maxLon = try container.decode(Float.self, forKey: .maxLon)
+
+    public init() {}
+    required public init?(map: Map) {
+
+    }
+
+
+    enum CodingKeys: String, CodingKey {
+        case minLon = "min_lon"
+        case centerLon = "center_lon"
+        case maxLon = "max_lon"
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -33,12 +33,6 @@ open class CellLonSchema: JSONEncodable, Mappable, Codable {
         try container.encode(centerLon, forKey: .centerLon)
         try container.encode(maxLon, forKey: .maxLon)
     }
-
-    public init() {}
-    required public init?(map: Map) {
-
-    }
-
 
     public func mapping(map: Map) {
         minLon <- map["min_lon"]

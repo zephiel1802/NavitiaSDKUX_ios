@@ -10,11 +10,6 @@ import Foundation
 
 open class StopTime: JSONEncodable, Mappable, Codable {
 
-/** Coding keys for Codable protocol */
-    enum CodingKeys: CodingKey {
-        case stopPoint, utcArrivalTime, utcDepartureTime, headsign, arrivalTime, journeyPatternPoint, dropOffAllowed, pickupAllowed, departureTime, unknown
-    }
-
     public var stopPoint: StopPoint?
     public var utcArrivalTime: String?
     public var utcDepartureTime: String?
@@ -25,18 +20,23 @@ open class StopTime: JSONEncodable, Mappable, Codable {
     public var pickupAllowed: Bool?
     public var departureTime: String?
 
-    
-    required public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        stopPoint = try container.decode(StopPoint.self, forKey: .stopPoint)
-        utcArrivalTime = try container.decode(String.self, forKey: .utcArrivalTime)
-        utcDepartureTime = try container.decode(String.self, forKey: .utcDepartureTime)
-        headsign = try container.decode(String.self, forKey: .headsign)
-        arrivalTime = try container.decode(String.self, forKey: .arrivalTime)
-        journeyPatternPoint = try container.decode(JourneyPatternPoint.self, forKey: .journeyPatternPoint)
-        dropOffAllowed = try container.decode(Bool.self, forKey: .dropOffAllowed)
-        pickupAllowed = try container.decode(Bool.self, forKey: .pickupAllowed)
-        departureTime = try container.decode(String.self, forKey: .departureTime)
+
+    public init() {}
+    required public init?(map: Map) {
+
+    }
+
+
+    enum CodingKeys: String, CodingKey {
+        case stopPoint = "stop_point"
+        case utcArrivalTime = "utc_arrival_time"
+        case utcDepartureTime = "utc_departure_time"
+        case headsign = "headsign"
+        case arrivalTime = "arrival_time"
+        case journeyPatternPoint = "journey_pattern_point"
+        case dropOffAllowed = "drop_off_allowed"
+        case pickupAllowed = "pickup_allowed"
+        case departureTime = "departure_time"
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -51,12 +51,6 @@ open class StopTime: JSONEncodable, Mappable, Codable {
         try container.encode(pickupAllowed, forKey: .pickupAllowed)
         try container.encode(departureTime, forKey: .departureTime)
     }
-
-    public init() {}
-    required public init?(map: Map) {
-
-    }
-
 
     public func mapping(map: Map) {
         stopPoint <- map["stop_point"]

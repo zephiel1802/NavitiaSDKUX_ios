@@ -10,19 +10,19 @@ import Foundation
 
 open class GeoStatus1: JSONEncodable, Mappable, Codable {
 
-/** Coding keys for Codable protocol */
-    enum CodingKeys: CodingKey {
-        case geoStatus, context, unknown
-    }
-
     public var geoStatus: GeoStatus?
     public var context: Context?
 
-    
-    required public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        geoStatus = try container.decode(GeoStatus.self, forKey: .geoStatus)
-        context = try container.decode(Context.self, forKey: .context)
+
+    public init() {}
+    required public init?(map: Map) {
+
+    }
+
+
+    enum CodingKeys: String, CodingKey {
+        case geoStatus = "geo_status"
+        case context = "context"
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -30,12 +30,6 @@ open class GeoStatus1: JSONEncodable, Mappable, Codable {
         try container.encode(geoStatus, forKey: .geoStatus)
         try container.encode(context, forKey: .context)
     }
-
-    public init() {}
-    required public init?(map: Map) {
-
-    }
-
 
     public func mapping(map: Map) {
         geoStatus <- map["geo_status"]

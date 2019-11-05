@@ -10,21 +10,21 @@ import Foundation
 
 open class DisruptionProperty: JSONEncodable, Mappable, Codable {
 
-/** Coding keys for Codable protocol */
-    enum CodingKeys: CodingKey {
-        case type, key, value, unknown
-    }
-
     public var type: String?
     public var key: String?
     public var value: String?
 
-    
-    required public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        type = try container.decode(String.self, forKey: .type)
-        key = try container.decode(String.self, forKey: .key)
-        value = try container.decode(String.self, forKey: .value)
+
+    public init() {}
+    required public init?(map: Map) {
+
+    }
+
+
+    enum CodingKeys: String, CodingKey {
+        case type = "type"
+        case key = "key"
+        case value = "value"
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -33,12 +33,6 @@ open class DisruptionProperty: JSONEncodable, Mappable, Codable {
         try container.encode(key, forKey: .key)
         try container.encode(value, forKey: .value)
     }
-
-    public init() {}
-    required public init?(map: Map) {
-
-    }
-
 
     public func mapping(map: Map) {
         type <- map["type"]

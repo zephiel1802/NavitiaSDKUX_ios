@@ -10,11 +10,6 @@ import Foundation
 
 open class StopSchedules: JSONEncodable, Mappable, Codable {
 
-/** Coding keys for Codable protocol */
-    enum CodingKeys: CodingKey {
-        case stopSchedules, pagination, links, disruptions, notes, feedPublishers, context, error, exceptions, unknown
-    }
-
     public var stopSchedules: [StopSchedule]?
     public var pagination: Pagination?
     public var links: [LinkSchema]?
@@ -25,18 +20,23 @@ open class StopSchedules: JSONEncodable, Mappable, Codable {
     public var error: ModelError?
     public var exceptions: [Exception]?
 
-    
-    required public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        stopSchedules = try container.decode([StopSchedule].self, forKey: .stopSchedules)
-        pagination = try container.decode(Pagination.self, forKey: .pagination)
-        links = try container.decode([LinkSchema].self, forKey: .links)
-        disruptions = try container.decode([Disruption].self, forKey: .disruptions)
-        notes = try container.decode([Note].self, forKey: .notes)
-        feedPublishers = try container.decode([FeedPublisher].self, forKey: .feedPublishers)
-        context = try container.decode(Context.self, forKey: .context)
-        error = try container.decode(ModelError.self, forKey: .error)
-        exceptions = try container.decode([Exception].self, forKey: .exceptions)
+
+    public init() {}
+    required public init?(map: Map) {
+
+    }
+
+
+    enum CodingKeys: String, CodingKey {
+        case stopSchedules = "stop_schedules"
+        case pagination = "pagination"
+        case links = "links"
+        case disruptions = "disruptions"
+        case notes = "notes"
+        case feedPublishers = "feed_publishers"
+        case context = "context"
+        case error = "error"
+        case exceptions = "exceptions"
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -51,12 +51,6 @@ open class StopSchedules: JSONEncodable, Mappable, Codable {
         try container.encode(error, forKey: .error)
         try container.encode(exceptions, forKey: .exceptions)
     }
-
-    public init() {}
-    required public init?(map: Map) {
-
-    }
-
 
     public func mapping(map: Map) {
         stopSchedules <- map["stop_schedules"]

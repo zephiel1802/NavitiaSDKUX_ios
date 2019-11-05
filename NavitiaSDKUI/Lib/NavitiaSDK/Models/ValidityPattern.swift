@@ -10,19 +10,19 @@ import Foundation
 
 open class ValidityPattern: JSONEncodable, Mappable, Codable {
 
-/** Coding keys for Codable protocol */
-    enum CodingKeys: CodingKey {
-        case beginningDate, days, unknown
-    }
-
     public var beginningDate: String?
     public var days: String?
 
-    
-    required public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        beginningDate = try container.decode(String.self, forKey: .beginningDate)
-        days = try container.decode(String.self, forKey: .days)
+
+    public init() {}
+    required public init?(map: Map) {
+
+    }
+
+
+    enum CodingKeys: String, CodingKey {
+        case beginningDate = "beginning_date"
+        case days = "days"
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -30,12 +30,6 @@ open class ValidityPattern: JSONEncodable, Mappable, Codable {
         try container.encode(beginningDate, forKey: .beginningDate)
         try container.encode(days, forKey: .days)
     }
-
-    public init() {}
-    required public init?(map: Map) {
-
-    }
-
 
     public func mapping(map: Map) {
         beginningDate <- map["beginning_date"]

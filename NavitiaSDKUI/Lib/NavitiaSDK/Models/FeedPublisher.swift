@@ -10,23 +10,23 @@ import Foundation
 
 open class FeedPublisher: JSONEncodable, Mappable, Codable {
 
-/** Coding keys for Codable protocol */
-    enum CodingKeys: CodingKey {
-        case url, id, license, name, unknown
-    }
-
     public var url: String?
     public var id: String?
     public var license: String?
     public var name: String?
 
-    
-    required public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        url = try container.decode(String.self, forKey: .url)
-        id = try container.decode(String.self, forKey: .id)
-        license = try container.decode(String.self, forKey: .license)
-        name = try container.decode(String.self, forKey: .name)
+
+    public init() {}
+    required public init?(map: Map) {
+
+    }
+
+
+    enum CodingKeys: String, CodingKey {
+        case url = "url"
+        case id = "id"
+        case license = "license"
+        case name = "name"
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -36,12 +36,6 @@ open class FeedPublisher: JSONEncodable, Mappable, Codable {
         try container.encode(license, forKey: .license)
         try container.encode(name, forKey: .name)
     }
-
-    public init() {}
-    required public init?(map: Map) {
-
-    }
-
 
     public func mapping(map: Map) {
         url <- map["url"]

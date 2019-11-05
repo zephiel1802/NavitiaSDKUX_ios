@@ -10,19 +10,19 @@ import Foundation
 
 open class CoverageError: JSONEncodable, Mappable, Codable {
 
-/** Coding keys for Codable protocol */
-    enum CodingKeys: CodingKey {
-        case code, value, unknown
-    }
-
     public var code: String?
     public var value: String?
 
-    
-    required public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        code = try container.decode(String.self, forKey: .code)
-        value = try container.decode(String.self, forKey: .value)
+
+    public init() {}
+    required public init?(map: Map) {
+
+    }
+
+
+    enum CodingKeys: String, CodingKey {
+        case code = "code"
+        case value = "value"
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -30,12 +30,6 @@ open class CoverageError: JSONEncodable, Mappable, Codable {
         try container.encode(code, forKey: .code)
         try container.encode(value, forKey: .value)
     }
-
-    public init() {}
-    required public init?(map: Map) {
-
-    }
-
 
     public func mapping(map: Map) {
         code <- map["code"]
