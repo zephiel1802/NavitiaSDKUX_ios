@@ -329,7 +329,7 @@ extension FormJourneyViewController: TravelerTypeDelegate {
             luggageTypeView.isOn = false
         } else if travelerTypeView == luggageTypeView && luggageTypeView.isOn {
             walkingSpeedView.isActive = false
-            walkingSpeedView.speed = .medium
+            walkingSpeedView.speed = .slow
             wheelchairTypeView.isOn = false
         } else {
             walkingSpeedView.isActive = true
