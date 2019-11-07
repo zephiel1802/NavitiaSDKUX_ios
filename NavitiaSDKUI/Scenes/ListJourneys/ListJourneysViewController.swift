@@ -651,7 +651,8 @@ extension ListJourneysViewController: ListJourneysCollectionViewLayoutDelegate {
         if let firstSectionModes = transportModeView?.getFirstSectionMode() {
             var modes = [CoverageRegionJourneysRequestBuilder.FirstSectionMode]()
             for mode in firstSectionModes {
-                if let sectionMode = CoverageRegionJourneysRequestBuilder.FirstSectionMode(rawValue:mode) {
+                if let sectionMode = CoverageRegionJourneysRequestBuilder.FirstSectionMode(rawValue:mode),
+                    sectionMode != .bike || !wheelchairTypeView.isOn && !luggageTypeView.isOn {
                     modes.append(sectionMode)
                 }
             }
@@ -662,7 +663,8 @@ extension ListJourneysViewController: ListJourneysCollectionViewLayoutDelegate {
         if let lastSectionModes = transportModeView?.getLastSectionMode() {
             var modes = [CoverageRegionJourneysRequestBuilder.LastSectionMode]()
             for mode in lastSectionModes {
-                if let sectionMode = CoverageRegionJourneysRequestBuilder.LastSectionMode(rawValue:mode) {
+                if let sectionMode = CoverageRegionJourneysRequestBuilder.LastSectionMode(rawValue:mode),
+                    sectionMode != .bike || !wheelchairTypeView.isOn && !luggageTypeView.isOn {
                     modes.append(sectionMode)
                 }
             }
