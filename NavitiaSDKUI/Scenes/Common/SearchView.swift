@@ -429,6 +429,7 @@ class SearchView: UIView, UITextFieldDelegate {
                     fromClearButton.isHidden = false
                 } else {
                     fromClearButton.isHidden = true
+                    fromClearButtonClicked(textField)
                 }
             } else if textField == toTextField {
                 delegate?.toFieldDidChange?(query: updatedText)
@@ -436,6 +437,7 @@ class SearchView: UIView, UITextFieldDelegate {
                     toClearButton.isHidden = false
                 } else {
                     toClearButton.isHidden = true
+                    toClearButtonClicked(textField)
                 }
             } else if textField == singleSearchTextField {
                 delegate?.singleSearchFieldChange?(query: updatedText)
@@ -443,6 +445,7 @@ class SearchView: UIView, UITextFieldDelegate {
                     singleSearchClearButton.isHidden = false
                 } else {
                     singleSearchClearButton.isHidden = true
+                    singleSearchClearButtonClicked(textField)
                 }
             } else {
                 
