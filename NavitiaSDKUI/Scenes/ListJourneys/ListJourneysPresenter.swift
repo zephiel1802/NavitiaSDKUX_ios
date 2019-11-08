@@ -218,67 +218,52 @@ class ListJourneysPresenter: ListJourneysPresentationLogic {
         
         for section in sectionsList {
             if section.type != .onDemandTransport, let sourceIds = NavitiaSDKUI.shared.sourceIds {
-                if section.type == .streetNetwork,
-                    section.mode == .taxi,
-                    let taxiProductId = sourceIds["taxi"] {
-                    // *************** TAXI ********************
-                    // Taxi's ticket will be returned by hermaas
-                    //******************************************
-                    
+                
+                // TAXI
+                if section.type == .streetNetwork,section.mode == .taxi, let taxiProductId = sourceIds["taxi"] {
                     ticketInputList.append(getTicketInput(section: section,
                                                           productId: taxiProductId,
                                                           ticketId: ""))
+                    // OTHER PUBLIC TRANSPORTS
                 } else if let ticketId = section.links?.first(where: { $0.type == "ticket" })?.id, section.type == .publicTransport {
-                    // *************** PUBLIC TRANSPORT ***********
-                    // Public transport's ticket will be return by hermaas only if price is equal to 0
-                    // ********************************************
+                    
+                    // If we support the provider
                     if let targetNavitiaTicket = navitiaTickets?.first(where: { $0.id == ticketId }),
                         let navitiaSourceId = targetNavitiaTicket.sourceId,
                         let productId = getProductId(requestedSourceId: navitiaSourceId, sourceIds: sourceIds) {
-                        if let cost = targetNavitiaTicket.cost,
-                            cost.currency == "centime",
-                            let costValue = cost.value,
-                            let price = Double(costValue),
-                            price > 0.0 {
-                            // This is a bookable Navitia Ticket with valid price
+                        
+                        // If price exist, save it for the futur
+                        if let cost = targetNavitiaTicket.cost,cost.currency == "centime", let costValue = cost.value,
+                            let price = Double(costValue), price > 0.0 {
                             let randomMaasGeoInfoCoord = MaasGeoInfoCoord(lat: "", lon: "")
                             let maasGeoInfoPlace = MaasGeoInfoPlace(name: "", coord: randomMaasGeoInfoCoord, label: nil, gtfsStopCode: nil)
                             let maasGeoInfo = MaasGeoInfo(departure: maasGeoInfoPlace, arrival: maasGeoInfoPlace)
-                            let pricedNavitiaTicket = PricedTicket(productId: productId,
-                                                                   name: "",
-                                                                   shortDescription: "",
-                                                                   price: 0,
-                                                                   priceWithTax: price / 100,
-                                                                   taxRate: 0,
-                                                                   defaultCategoryId: -1,
-                                                                   active: false,
-                                                                   customType: nil,
-                                                                   currency: "Eur",
-                                                                   maxQuantity: 0,
-                                                                   imageUrl: "",
-                                                                   displayOrder: 0,
-                                                                   legalTerm: "",
-                                                                   geoInfo: maasGeoInfo,
-                                                                   links: nil,
-                                                                   ticketId: ticketId)
+                            let pricedNavitiaTicket = PricedTicket(productId: productId, name: "",shortDescription: "",
+                                                                   price: 0,priceWithTax: price / 100,taxRate: 0,
+                                                                   defaultCategoryId: -1, active: false, customType: nil,
+                                                                   currency: "Eur", maxQuantity: 0, imageUrl: "",
+                                                                   displayOrder: 0,legalTerm: "",geoInfo: maasGeoInfo,
+                                                                   links: nil, ticketId: ticketId)
                             pricedTicketList.append(pricedNavitiaTicket)
-                            ticketInputList.append(getTicketInput(section: section,
-                                                                  productId: productId,
-                                                                  ticketId: ticketId))
-                        } else {
-                            // We should call Hermaas to get the price for this ticket since we don't have an available price
-                            ticketInputList.append(getTicketInput(section: section,
-                                                                  productId: productId,
-                                                                  ticketId: ticketId))
                         }
+                        
+                        ticketInputList.append(getTicketInput(section: section,
+                                                              productId: productId,
+                                                              ticketId: ticketId))
+    
+                        // If we don't support the provider
                     } else if let sectionId = section.id {
-                        // The source ID or the ticket ID is not found, so the ticket is unbookable
                         unbookableSectionIdList.append(sectionId)
                     }
+                    
+                    // If we don't support the provider
+                } else if let sectionId = section.id, (section.type == .publicTransport || section.type == .onDemandTransport) {
+                    unbookableSectionIdList.append(sectionId)
                 }
-            } else if section.type == .publicTransport || section.type == .onDemandTransport, let sectionId = section.id {
-                // If there is no ticket, than the provider is not supported yet
-                unbookableSectionIdList.append(sectionId)
+                
+                 // NOT SUPPORTED PROVIDER
+            } else if section.id != nil && (section.type == .publicTransport || section.type == .onDemandTransport) {
+                unbookableSectionIdList.append(section.id!)
             }
         }
         
